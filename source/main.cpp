@@ -2,7 +2,7 @@
  * libwiigui Template
  * Tantric 2009
  *
- * demo.cpp
+ * main.cpp
  * Basic template/demonstration of libwiigui capabilities. For a
  * full-featured app using many more extensions, check out Snes9x GX.
  ***************************************************************************/
@@ -14,7 +14,6 @@
 #include <ogcsys.h>
 #include <unistd.h>
 #include <wiiuse/wpad.h>
-#include <fat.h>
 
 #include "FreeTypeGX.h"
 #include "video.h"
@@ -22,7 +21,8 @@
 #include "menu.h"
 #include "input.h"
 #include "filelist.h"
-#include "demo.h"
+#include "main.h"
+#include "fatmounter.h"
 
 FreeTypeGX *fontSystem;
 struct SSettings Settings;
@@ -54,7 +54,8 @@ main(int argc, char *argv[])
 	WPAD_Init();
 	InitVideo(); // Initialise video
 	InitAudio(); // Initialize audio
-	fatInitDefault(); // Initialize file system
+	SDCard_Init(); // Initialize file system
+	USBDevice_Init(); // Initialize file system
 
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
