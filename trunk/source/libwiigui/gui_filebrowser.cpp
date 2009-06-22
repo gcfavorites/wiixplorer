@@ -21,7 +21,7 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	selectedItem = 0;
 	selectable = true;
 	listChanged = true; // trigger an initial list update
-	focus = 0; // allow focus
+	focus = 1; // allow focus
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -100,6 +100,12 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
 		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListText[i]->SetPosition(5,0);
+		fileListText[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+20), GuiText::DOTTED);
+
+		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
+		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+		fileListTextOver[i]->SetPosition(5,0);
+		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+20), GuiText::SCROLL);
 
 		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
 		fileListFolder[i] = new GuiImage(fileFolder);
@@ -107,9 +113,11 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 		fileList[i] = new GuiButton(512,30);
 		fileList[i]->SetParent(this);
 		fileList[i]->SetLabel(fileListText[i]);
+		fileList[i]->SetLabelOver(fileListTextOver[i]);
 		fileList[i]->SetImageOver(fileListBg[i]);
 		fileList[i]->SetPosition(2,30*i+3);
 		fileList[i]->SetTrigger(trigA);
+		fileList[i]->SetRumble(false);
 		fileList[i]->SetSoundClick(btnSoundClick);
 	}
 }
@@ -151,6 +159,7 @@ GuiFileBrowser::~GuiFileBrowser()
 	for(int i=0; i<PAGESIZE; i++)
 	{
 		delete fileListText[i];
+		delete fileListTextOver[i];
 		delete fileList[i];
 		delete fileListBg[i];
 		delete fileListFolder[i];
@@ -335,16 +344,19 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 				fileList[i]->SetVisible(true);
 
 				fileListText[i]->SetText(browserList[browser.pageIndex+i].displayname);
+				fileListTextOver[i]->SetText(browserList[browser.pageIndex+i].displayname);
 
 				if(browserList[browser.pageIndex+i].isdir) // directory
 				{
 					fileList[i]->SetIcon(fileListFolder[i]);
 					fileListText[i]->SetPosition(30,0);
+					fileListTextOver[i]->SetPosition(30,0);
 				}
 				else
 				{
 					fileList[i]->SetIcon(NULL);
 					fileListText[i]->SetPosition(10,0);
+					fileListTextOver[i]->SetPosition(10,0);
 				}
 			}
 			else

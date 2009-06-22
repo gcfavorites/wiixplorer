@@ -593,40 +593,64 @@ class GuiText : public GuiElement
 		//!Sets the text of the GuiText element
 		//!\param t Text
 		void SetText(const char * t);
+		void SetTextf(const char *format, ...) __attribute__((format(printf,2,3)));
 		//!Sets up preset values to be used by GuiText(t)
 		//!Useful when printing multiple text elements, all with the same attributes set
 		//!\param sz Font size
 		//!\param c Font color
 		//!\param w Maximum width of texture image (for text wrapping)
-		//!\param s Font size
+		//!\param wrap Wrapmode when w>0
+		//!\param s Font style
 		//!\param h Text alignment (horizontal)
 		//!\param v Text alignment (vertical)
-		void SetPresets(int sz, GXColor c, int w, u16 s, int h, int v);
+		static void SetPresets(int sz, GXColor c, int w, int wrap, u16 s, int h, int v);
 		//!Sets the font size
 		//!\param s Font size
 		void SetFontSize(int s);
 		//!Sets the maximum width of the drawn texture image
 		//!If the text exceeds this, it is wrapped to the next line
 		//!\param w Maximum width
-		void SetMaxWidth(int w);
+		//!\param m WrapMode
+		enum {
+			WRAP,
+			DOTTED,
+			SCROLL,
+			MARQUEE
+		};
+		void SetMaxWidth(int w, short m=GuiText::WRAP);
 		//!Sets the font color
 		//!\param c Font color
 		void SetColor(GXColor c);
 		//!Sets the FreeTypeGX style attributes
 		//!\param s Style attributes
-		void SetStyle(u16 s);
+		//!\param m Style-Mask attributes
+		void SetStyle(u16 s, u16 m=0xffff);
 		//!Sets the text alignment
 		//!\param hor Horizontal alignment (ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTRE)
 		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
 		void SetAlignment(int hor, int vert);
+		//!Sets the font
+		//!\param f Font
+		void SetFont(FreeTypeGX *f);
+		//!Get the Horizontal Size of Text
+		int GetTextWidth();
+		// not NULL set horizontal scale to 0.75 //added
+		void SetWidescreen(bool w);
 		//!Constantly called to draw the text
 		void Draw();
 	protected:
 		wchar_t* text; //!< Unicode text value
 		int size; //!< Font size
 		int maxWidth; //!< Maximum width of the generated text object (for text wrapping)
+		short wrapMode;
+		short scrollPos1;
+		short scrollPos2;
+		short scrollOffset;
+		u32 scrollDelay;
 		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
+		FreeTypeGX *font;
+		short widescreen; //added
 };
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
@@ -831,6 +855,7 @@ class GuiFileBrowser : public GuiElement
 		bool listChanged;
 
 		GuiText * fileListText[PAGESIZE];
+		GuiText * fileListTextOver[PAGESIZE];
 		GuiImage * fileListBg[PAGESIZE];
 		GuiImage * fileListFolder[PAGESIZE];
 
