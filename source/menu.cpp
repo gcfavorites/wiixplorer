@@ -24,6 +24,7 @@
 #define THREAD_SLEEP 100
 
 static GuiImageData * pointer[4];
+static GuiImageData * background = NULL;
 static GuiImage * bgImg = NULL;
 static GuiSound * bgMusic = NULL;
 static GuiWindow * mainWindow = NULL;
@@ -331,7 +332,7 @@ static int MenuBrowseDevice()
 
 	sprintf(title, "Browse Files");
 
-	GuiText titleTxt(title, 28, (GXColor){255, 255, 255, 255});
+	GuiText titleTxt(title, 28, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(100,50);
 
@@ -758,8 +759,8 @@ void MainMenu(int menu)
 
 	mainWindow = new GuiWindow(screenwidth, screenheight);
 
-	bgImg = new GuiImage(screenwidth, screenheight, (GXColor){50, 50, 50, 255});
-	bgImg->ColorStripe(30);
+    background = new GuiImageData(background_png);
+	bgImg = new GuiImage(background);
 	mainWindow->Append(bgImg);
 
 	GuiTrigger trigA;
@@ -769,6 +770,7 @@ void MainMenu(int menu)
 
 	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
 	bgMusic->SetVolume(50);
+	bgMusic->SetLoop(1);
 	bgMusic->Play(); // startup music
 
 	while(currentMenu != MENU_EXIT)

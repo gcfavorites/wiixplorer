@@ -25,6 +25,7 @@ static unsigned char gp_fifo[DEFAULT_FIFO_SIZE] ATTRIBUTE_ALIGN (32);
 static Mtx GXmodelView2D;
 int screenheight;
 int screenwidth;
+u32 frameCount = 0;
 
 /****************************************************************************
  * UpdatePadsCB
@@ -34,6 +35,7 @@ int screenwidth;
 static void
 UpdatePadsCB ()
 {
+	frameCount++;
 	#ifdef HW_RVL
 	WPAD_ScanPads();
 	#endif

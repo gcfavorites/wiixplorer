@@ -16,12 +16,6 @@ void __Wpad_PowerCallback(s32 chan)
 	shutdown = 1;
 }
 
-void WPad_SetIdleTime(u32 seconds)
-{
-	/*Set idle time for wiimote*/
-	 WPAD_SetIdleTimeout(seconds);
-}
-
 s32 Wpad_Init(void)
 {
 	s32 ret;

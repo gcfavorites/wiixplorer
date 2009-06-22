@@ -20,7 +20,40 @@
  * along with FreeTypeGX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <sys/stat.h>
 #include "FreeTypeGX.h"
+
+
+/*! \struct ftgxCharData_
+ *
+ * Font face character glyph relevant data structure.
+ */
+typedef struct ftgxCharData_ {
+	int16_t renderOffsetX;		/**< Texture X axis bearing offset. */
+	uint16_t glyphAdvanceX;		/**< Character glyph X coordinate advance in pixels. */
+	uint16_t glyphIndex;		/**< Charachter glyph index in the font face. */
+
+	uint16_t textureWidth;		/**< Texture width in pixels/bytes. */
+	uint16_t textureHeight;		/**< Texture glyph height in pixels/bytes. */
+
+	int16_t renderOffsetY;		/**< Texture Y axis bearing offset. */
+	int16_t renderOffsetMax;	/**< Texture Y axis bearing maximum value. */
+	int16_t renderOffsetMin;	/**< Texture Y axis bearing minimum value. */
+
+	uint32_t* glyphDataTexture;	/**< Glyph texture bitmap data buffer. */
+} ftgxCharData;
+
+/*! \struct ftgxDataOffset_
+ *
+ * Offset structure which hold both a maximum and minimum value.
+ */
+typedef struct ftgxDataOffset_ {
+	int16_t ascender;	/**< Maximum data offset. */
+	int16_t descender;	/**< Minimum data offset. */
+	int16_t max;	/**< Maximum data offset. */
+	int16_t min;	/**< Minimum data offset. */
+} ftgxDataOffset;
+
 
 /**
  * Default constructor for the FreeTypeGX class.
@@ -40,6 +73,7 @@ FreeTypeGX::FreeTypeGX(uint8_t textureFormat, uint8_t vertexIndex) {
  * Default destructor for the FreeTypeGX class.
  */
 FreeTypeGX::~FreeTypeGX() {
+	FT_Done_FreeType(this->ftLibrary);
 	this->unloadFont();
 }
 
@@ -53,14 +87,22 @@ FreeTypeGX::~FreeTypeGX() {
  * @return Wide character representation of supplied character string.
  */
 wchar_t* FreeTypeGX::charToWideChar(char* strChar) {
-      wchar_t *strWChar;
-      strWChar = new wchar_t[strlen(strChar) + 1];
+	wchar_t *strWChar;
+	strWChar = new wchar_t[strlen(strChar) + 1];
 
-      char *tempSrc = strChar;
-      wchar_t *tempDest = strWChar;
-      while((*tempDest++ = *tempSrc++));
+	// UTF-8
+	int	bt;
+	bt = mbstowcs(strWChar, strChar, strlen(strChar));
+	if(bt > 0) {
+		strWChar[bt] = (wchar_t)'\0';
+		return strWChar;
+	}
 
-      return strWChar;
+	char *tempSrc = strChar;
+	wchar_t *tempDest = strWChar;
+	while((*tempDest++ = *tempSrc++));
+
+	return strWChar;
 }
 
 /**
@@ -154,15 +196,30 @@ void FreeTypeGX::setDefaultMode() {
  *
  * This routine takes a precompiled true type font buffer and loads the necessary processed data into memory. This routine should be called before drawText will succeed.
  *
+ * @param fontPath		filename with path to load font from file in memory.
  * @param fontBuffer	A pointer in memory to a precompiled true type font buffer.
  * @param bufferSize	Size of the true type font buffer in bytes.
  * @param pointSize	The desired point size this wrapper's configured font face.
  * @param cacheAll	Optional flag to specify if all font characters should be cached when the class object is created. If specified as false the characters only become cached the first time they are used. If not specified default value is false.
  */
-uint16_t FreeTypeGX::loadFont(uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll) {
+uint16_t FreeTypeGX::loadFont(char* fontPath, uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll) {
 	this->unloadFont();
 	this->ftPointSize = pointSize;
+	struct stat st;
 
+	if(fontPath && (stat(fontPath, &st)==0)) {
+		FILE *fontfile = fopen(fontPath, "rb");
+		if (fontfile) {
+			fseek(fontfile, 0, SEEK_END);
+			bufferSize = ftell(fontfile);
+			fseek(fontfile, 0, SEEK_SET);
+			fontBuffer = (uint8_t*)malloc(bufferSize);
+			if (fontBuffer != NULL) {
+				fread(fontBuffer, 1, bufferSize, fontfile);
+			}
+			fclose(fontfile);
+		}
+	}
 	FT_New_Memory_Face(this->ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &this->ftFace);
 
 	if(this->ftPointSize > 0)
@@ -182,8 +239,8 @@ uint16_t FreeTypeGX::loadFont(uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt p
  *
  * \overload
  */
-uint16_t FreeTypeGX::loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll) {
-	return this->loadFont((uint8_t *)fontBuffer, bufferSize, pointSize, cacheAll);
+uint16_t FreeTypeGX::loadFont(const char* fontPath, const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll) {
+	return this->loadFont((char*)fontPath, (uint8_t *)fontBuffer, bufferSize, pointSize, cacheAll);
 }
 
 /**
@@ -205,10 +262,10 @@ void FreeTypeGX::unloadFont() {
 	this->fontData.clear();
 }
 
-void FreeTypeGX::changeSize(FT_UInt pointSize) {
+void FreeTypeGX::changeSize(FT_UInt vPointSize, FT_UInt hPointSize/*=0*/) {
 	this->unloadFont();
-	this->ftPointSize = pointSize;
-	FT_Set_Pixel_Sizes(this->ftFace, 0, this->ftPointSize);
+	this->ftPointSize = vPointSize;
+	FT_Set_Pixel_Sizes(this->ftFace, hPointSize, this->ftPointSize);
 }
 
 /**
@@ -297,13 +354,14 @@ ftgxCharData *FreeTypeGX::cacheGlyphData(wchar_t charCode) {
 			textureHeight = adjustTextureHeight(glyphBitmap->rows, this->textureFormat);
 
 			this->fontData[charCode] = (ftgxCharData){
+				this->ftSlot->bitmap_left,
 				this->ftSlot->advance.x >> 6,
 				gIndex,
 				textureWidth,
 				textureHeight,
 				this->ftSlot->bitmap_top,
 				this->ftSlot->bitmap_top,
-				textureHeight - this->ftSlot->bitmap_top,
+				glyphBitmap->rows - this->ftSlot->bitmap_top,
 				NULL
 			};
 			this->loadGlyphData(glyphBitmap, &this->fontData[charCode]);
@@ -394,16 +452,19 @@ void FreeTypeGX::loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData) {
  * @param width	Current pixel width of the string.
  * @param format	Positional format of the string.
  */
-uint16_t FreeTypeGX::getStyleOffsetWidth(uint16_t width, uint16_t format) {
+int16_t FreeTypeGX::getStyleOffsetWidth(uint16_t width, uint16_t format) {
 
-	if (format & FTGX_JUSTIFY_LEFT ) {
-		return 0;
-	}
-	else if (format & FTGX_JUSTIFY_CENTER ) {
-		return width >> 1;
-	}
-	else if (format & FTGX_JUSTIFY_RIGHT ) {
-		return width;
+	switch(format & FTGX_JUSTIFY_MASK)
+	{
+		case FTGX_JUSTIFY_LEFT:
+			return 0;
+
+		default:
+		case FTGX_JUSTIFY_CENTER:
+			return -(width >> 1);
+
+		case FTGX_JUSTIFY_RIGHT:
+			return -width;
 	}
 
 	return 0;
@@ -417,15 +478,31 @@ uint16_t FreeTypeGX::getStyleOffsetWidth(uint16_t width, uint16_t format) {
  * @param offset	Current pixel offset data of the string.
  * @param format	Positional format of the string.
  */
-uint16_t FreeTypeGX::getStyleOffsetHeight(ftgxDataOffset offset, uint16_t format) {
-	if (format & FTGX_ALIGN_TOP ) {
-		return -offset.max;
-	}
-	else if (format & FTGX_ALIGN_MIDDLE ) {
-		return -offset.max;
-	}
-	else if (format & FTGX_ALIGN_BOTTOM ) {
-		return offset.min;
+int16_t FreeTypeGX::getStyleOffsetHeight(ftgxDataOffset *offset, uint16_t format)
+{
+	switch(format & FTGX_ALIGN_MASK)
+	{
+		case FTGX_ALIGN_TOP:
+			return offset->ascender;
+
+		default:
+		case FTGX_ALIGN_MIDDLE:
+			return  (offset->ascender + offset->descender + 1) >> 1;
+
+		case FTGX_ALIGN_BOTTOM:
+			return offset->descender;
+
+		case FTGX_ALIGN_BASELINE:
+			return 0;
+
+		case FTGX_ALIGN_GLYPH_TOP:
+			return offset->max;
+
+		case FTGX_ALIGN_GLYPH_MIDDLE:
+			return (offset->max + offset->min + 1) >> 1;
+
+		case FTGX_ALIGN_GLYPH_BOTTOM:
+			return offset->min;
 	}
 
 	return 0;
@@ -450,12 +527,13 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 	uint16_t x_offset = 0, y_offset = 0;
 	GXTexObj glyphTexture;
 	FT_Vector pairDelta;
+	ftgxDataOffset offset;
 
-	if(textStyle & 0x000F) {
+	if(textStyle & FTGX_JUSTIFY_MASK) {
 		x_offset = this->getStyleOffsetWidth(this->getWidth(text), textStyle);
 	}
-	if(textStyle & 0x00F0) {
-		y_offset = this->getStyleOffsetHeight(this->getOffset(text), textStyle);
+	if(textStyle & FTGX_ALIGN_MASK) {
+		y_offset = this->getStyleOffsetHeight(this->getOffset(text, &offset), textStyle);
 	}
 
 	for (uint16_t i = 0; i < strLength; i++) {
@@ -476,15 +554,15 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 			}
 
 			GX_InitTexObj(&glyphTexture, glyphData->glyphDataTexture, glyphData->textureWidth, glyphData->textureHeight, this->textureFormat, GX_CLAMP, GX_CLAMP, GX_FALSE);
-			this->copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos - x_offset, y - glyphData->renderOffsetY - y_offset, color);
+			this->copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos + glyphData->renderOffsetX + x_offset, y - glyphData->renderOffsetY + y_offset, color);
 
 			x_pos += glyphData->glyphAdvanceX;
 			printed++;
 		}
 	}
 
-	if(textStyle & 0x0F00) {
-		this->drawTextFeature(x - x_offset, y, this->getWidth(text), this->getOffset(text), textStyle, color);
+	if(textStyle & FTGX_STYLE_MASK) {
+		this->drawTextFeature(x + x_offset, y + y_offset, this->getWidth(text), this->getOffset(text, &offset), textStyle, color);
 	}
 
 	return printed;
@@ -497,20 +575,22 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t const *text, GXColor
 	return this->drawText(x, y, (wchar_t *)text, color, textStyle);
 }
 
-void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset offsetData, uint16_t format, GXColor color) {
+void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color) {
 	uint16_t featureHeight = this->ftPointSize >> 4 > 0 ? this->ftPointSize >> 4 : 1;
 
 	if (format & FTGX_STYLE_UNDERLINE ) {
-		switch(format & 0x00F0) {
+		switch(format & FTGX_ALIGN_MASK) {
+/*
 			case FTGX_ALIGN_TOP:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y + offsetData.max + 1, color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y + offsetData->max + 1, color);
 				break;
 			case FTGX_ALIGN_MIDDLE:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y + ((offsetData.max - offsetData.min) >> 1) + 1, color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y + ((offsetData->max - offsetData->min + 1) >> 1), color);
 				break;
 			case FTGX_ALIGN_BOTTOM:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y - offsetData.min, color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y - offsetData->min, color);
 				break;
+*/
 			default:
 				this->copyFeatureToFramebuffer(width, featureHeight, x, y + 1, color);
 				break;
@@ -518,18 +598,21 @@ void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataO
 	}
 
 	if (format & FTGX_STYLE_STRIKE ) {
-		switch(format & 0x00F0) {
+		switch(format & FTGX_ALIGN_MASK) {
+/*
 			case FTGX_ALIGN_TOP:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y + ((offsetData.max + offsetData.min) >> 1), color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y + ((offsetData->max - offsetData->min + 1) >> 1), color);
 				break;
 			case FTGX_ALIGN_MIDDLE:
 				this->copyFeatureToFramebuffer(width, featureHeight, x, y, color);
 				break;
 			case FTGX_ALIGN_BOTTOM:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData.max + offsetData.min) >> 1), color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData->max + offsetData->min) >> 1), color);
 				break;
+*/
 			default:
-				this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData.max - offsetData.min) >> 1), color);
+//				this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData->max - offsetData->min) >> 1), color);
+				this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData->max) >> 1), color);
 				break;
 		}
 	}
@@ -590,9 +673,10 @@ uint16_t FreeTypeGX::getWidth(wchar_t const *text) {
  * @return The height of the text string in pixels.
  */
 uint16_t FreeTypeGX::getHeight(wchar_t *text) {
-	ftgxDataOffset offset = this->getOffset(text);
+	ftgxDataOffset offset;
+	this->getOffset(text, &offset);
 
-	return offset.max + offset.min;
+	return offset.max - offset.min;
 }
 
 /**
@@ -610,11 +694,12 @@ uint16_t FreeTypeGX::getHeight(wchar_t const *text) {
  * pixel height below the font origin line and returns the values in an addressible structure.
  *
  * @param text	NULL terminated string to calculate.
- * @return The max and min values above and below the font origin line.
+ * @param offset returns the max and min values above and below the font origin line
+ *
  */
-ftgxDataOffset FreeTypeGX::getOffset(wchar_t *text) {
+ftgxDataOffset* FreeTypeGX::getOffset(wchar_t *text, ftgxDataOffset* offset) {
 	uint16_t strLength = wcslen(text);
-	uint16_t strMax = 0, strMin = 0;
+	int16_t strMax = 0, strMin = 9999;
 
 	for (uint16_t i = 0; i < strLength; i++) {
 
@@ -628,19 +713,22 @@ ftgxDataOffset FreeTypeGX::getOffset(wchar_t *text) {
 
 		if(glyphData != NULL) {
 			strMax = glyphData->renderOffsetMax > strMax ? glyphData->renderOffsetMax : strMax;
-			strMin = glyphData->renderOffsetMin > strMin ? glyphData->renderOffsetMin : strMin;
+			strMin = glyphData->renderOffsetMin < strMin ? glyphData->renderOffsetMin : strMin;
 		}
 	}
-
-	return (ftgxDataOffset){strMax, strMin};
+	offset->ascender = this->ftFace->size->metrics.ascender>>6;
+	offset->descender = this->ftFace->size->metrics.descender>>6;
+	offset->max = strMax;
+	offset->min = strMin;
+	return offset;
 }
 
 /**
  *
  * \overload
  */
-ftgxDataOffset FreeTypeGX::getOffset(wchar_t const *text) {
-	return this->getOffset(text);
+ftgxDataOffset* FreeTypeGX::getOffset(wchar_t const *text, ftgxDataOffset* offset) {
+	return this->getOffset(text, offset);
 }
 
 /**

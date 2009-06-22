@@ -147,8 +147,8 @@ sec_t GetFATPartition(const DISC_INTERFACE* disc)
 int USBDevice_Init()
 {
 	//closing all open Files write back the cache and then shutdown em!
-	fatUnmount("USB:/");
-    if (fatMount("USB", &__io_usbstorage, GetFATPartition(&__io_usbstorage), CACHE, SECTORS)) {
+	fatUnmount("usb:/");
+    if (fatMount("usb", &__io_usbstorage, GetFATPartition(&__io_usbstorage), CACHE, SECTORS)) {
 		//try now mount with libogc
 		return 1;
 	}
@@ -158,7 +158,7 @@ int USBDevice_Init()
 void USBDevice_deInit()
 {
 	//closing all open Files write back the cache and then shutdown em!
-	fatUnmount("USB:/");
+	fatUnmount("usb:/");
 }
 
 int isSdInserted()
@@ -169,7 +169,7 @@ int isSdInserted()
 DISC_INTERFACE **_FAT_partition_getPartitionFromPath (const char* path);
 int isInserted(const char *path)
 {
-	if(!strncmp(path, "USB:", 4))
+	if(!strncmp(path, "usb:", 4))
 		return 1;
 //	if(!strncmp(path, "SD:", 3))
 		return __io_wiisd.isInserted();
@@ -178,9 +178,9 @@ int isInserted(const char *path)
 int SDCard_Init()
 {
 	//closing all open Files write back the cache and then shutdown em!
-	fatUnmount("SD:/");
+	fatUnmount("sd:/");
 	//right now mounts first FAT-partition
-	if (fatMount("SD", &__io_wiisd, GetFATPartition(&__io_wiisd), CACHE, SECTORS))
+	if (fatMount("sd", &__io_wiisd, GetFATPartition(&__io_wiisd), CACHE, SECTORS))
 		return 1;
 	return -1;
 }
@@ -188,5 +188,5 @@ int SDCard_Init()
 void SDCard_deInit()
 {
 	//closing all open Files write back the cache and then shutdown em!
-	fatUnmount("SD:/");
+	fatUnmount("sd:/");
 }

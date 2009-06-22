@@ -13,7 +13,6 @@
 #include <string.h>
 #include <ogcsys.h>
 #include <unistd.h>
-#include <wiiuse/wpad.h>
 
 #include "FreeTypeGX.h"
 #include "video.h"
@@ -23,6 +22,9 @@
 #include "filelist.h"
 #include "main.h"
 #include "fatmounter.h"
+#include "network/networkops.h"
+#include "sys.h"
+#include "wpad.h"
 
 FreeTypeGX *fontSystem;
 struct SSettings Settings;
@@ -51,7 +53,8 @@ int
 main(int argc, char *argv[])
 {
 	PAD_Init();
-	WPAD_Init();
+	Wpad_Init();
+	Sys_Init();
 	InitVideo(); // Initialise video
 	InitAudio(); // Initialize audio
 	SDCard_Init(); // Initialize file system
@@ -63,10 +66,12 @@ main(int argc, char *argv[])
 
 	// Initialize font system
 	fontSystem = new FreeTypeGX();
-	fontSystem->loadFont(font_ttf, font_ttf_size, 0);
+	fontSystem->loadFont("sd:/font/", font_ttf, font_ttf_size, 0);
 	fontSystem->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
 
 	InitGUIThreads();
 	DefaultSettings();
+    InitNetworkThread();
+    ResumeNetworkThread();
 	MainMenu(MENU_SETTINGS);
 }

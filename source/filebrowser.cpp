@@ -175,7 +175,7 @@ ParseDirectory()
 
 			if(strcmp(filename,"..") == 0)
 			{
-				sprintf(browserList[entryNum].displayname, "Up One Level");
+				sprintf(browserList[entryNum].displayname, "..");
 			}
 			else
 			{
@@ -221,7 +221,7 @@ int BrowserChangeFolder()
 int BrowseDevice()
 {
 	sprintf(browser.dir, "/");
-	sprintf(rootdir, "sd:/");
+	sprintf(rootdir, "smb:");
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;
 }
