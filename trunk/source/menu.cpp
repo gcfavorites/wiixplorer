@@ -16,7 +16,7 @@
 
 #include "libwiigui/gui.h"
 #include "menu.h"
-#include "demo.h"
+#include "main.h"
 #include "input.h"
 #include "filelist.h"
 #include "filebrowser.h"
