@@ -5,7 +5,10 @@
 #include <sys/dir.h>
 #include <dirent.h>
 
-#define FILENAMELENGHT	70
+#include "fileops.h"
+
+#define BLOCKSIZE               1048576      //1MB
+#define FILENAMELENGHT	        70
 
 char alldirfiles[300][FILENAMELENGHT];
 char filenames[FILENAMELENGHT];
@@ -43,6 +46,66 @@ bool checkfile(char * path)
     fclose(f);
     return false;
 }
+
+
+int CopyFile(const char * src, const char * dest) {
+
+	u32 blksize;
+	size_t read = 1;
+
+	FILE * source = fopen(src, "rb");
+
+	if(!source){
+		return -2;
+	}
+
+    fseek(source, 0, SEEK_END);
+    u32 sizesrc = ftell(source);
+    rewind(source);
+
+    if(sizesrc < BLOCKSIZE)
+        blksize = sizesrc;
+    else
+        blksize = BLOCKSIZE;
+
+	unsigned char * buffer = (unsigned char*) malloc(blksize);
+
+	if(buffer == NULL){
+	    //no memory
+        fclose(source);
+		return -1;
+	}
+
+	FILE * destination = fopen(dest, "wb");
+
+    if(destination == NULL) {
+        free(buffer);
+        fclose(source);
+        return -3;
+    }
+
+    while (read > 0) {
+        read = fread(buffer, 1, blksize, source);
+        fwrite(buffer, 1, read, destination);
+    }
+
+    free(buffer);
+    fclose(source);
+    fclose(destination);
+
+    //get size of written file
+    destination = fopen(dest, "rb");
+    fseek(destination , 0 , SEEK_END);
+    u32 sizedest = ftell(destination);
+    fclose(destination);
+
+    if(sizesrc != sizedest) {
+        return -4;
+    }
+
+	return 1;
+}
+
 
 bool subfoldercreate(char * fullpath) {
         //check forsubfolders

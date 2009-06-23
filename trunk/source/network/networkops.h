@@ -4,6 +4,8 @@
 void Initialize_Network(void);
 bool IsNetworkInit(void);
 bool IsNetworkInitiating(void);
+bool ConnectSMBShare();
+void CloseSMBShare();
 char * GetNetworkIP(void);
 bool ShutdownWC24();
 s32 network_request(const char * request);
