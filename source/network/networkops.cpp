@@ -31,7 +31,6 @@ void CloseSMBShare()
 	if(SMB_Mounted)
 		smbClose("smb");
 	SMB_Mounted = false;
-	networkinit = false; // trigger a network reinit
 }
 
 /****************************************************************************
@@ -50,7 +49,7 @@ bool ConnectSMBShare()
 	{
 		if(!SMB_Mounted)
 		{
-			if(smbInit("Dima", "test", "d", "192.168.178.3"))
+			if(smbInitDevice("smb", "Dima", "test", "d", "192.168.178.3"))
 			{
 				SMB_Mounted = true;
 			}

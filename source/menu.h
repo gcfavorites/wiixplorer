@@ -11,6 +11,8 @@
 
 #include <ogcsys.h>
 
+#define THREAD_SLEEP 100
+
 void InitGUIThreads();
 void MainMenu (int menuitem);
 
