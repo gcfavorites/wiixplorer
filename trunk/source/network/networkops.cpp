@@ -1,8 +1,9 @@
 /****************************************************************************
- * Updater for Wiixplorer
+ * Networkhandle for Wiixplorer
+ * by dimok
  *
  * HTTP operations
- * Written by dhewg/bushing modified by dimok
+ * Written by dhewg/bushing
  ****************************************************************************/
 
 #include <stdio.h>
@@ -25,6 +26,9 @@ static char IP[16];
 static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
 
+/****************************************************************************
+ * Close SMB Share
+ ****************************************************************************/
 
 void CloseSMBShare()
 {
@@ -230,6 +234,10 @@ s32 download_request(const char * url) {
 
     return filesize;
 }
+
+/****************************************************************************
+ * Close Network Connection
+ ****************************************************************************/
 
 void CloseConnection() {
 

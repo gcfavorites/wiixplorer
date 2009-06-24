@@ -11,25 +11,13 @@
 #include "FreeTypeGX.h"
 
 enum {
-	METHOD_AUTO,
 	METHOD_SD,
 	METHOD_USB,
-	METHOD_DVD,
-	METHOD_SMB,
-	METHOD_MC_SLOTA,
-	METHOD_MC_SLOTB,
-	METHOD_SD_SLOTA,
-	METHOD_SD_SLOTB
+	METHOD_SMB
 };
 
 struct SSettings {
-    int		AutoLoad;
-    int		AutoSave;
-    int		LoadMethod;
-	int		SaveMethod;
-	char	Folder1[256]; // Path to files
-	char	Folder2[256]; // Path to files
-	char	Folder3[256]; // Path to files
+	int		MountMethod;
 };
 extern struct SSettings Settings;
 

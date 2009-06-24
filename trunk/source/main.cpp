@@ -40,13 +40,7 @@ void ExitApp()
 void
 DefaultSettings()
 {
-	Settings.LoadMethod = METHOD_AUTO;
-	Settings.SaveMethod = METHOD_AUTO;
-	sprintf (Settings.Folder1,"libwiigui/first folder");
-	sprintf (Settings.Folder2,"libwiigui/second folder");
-	sprintf (Settings.Folder3,"libwiigui/third folder");
-	Settings.AutoLoad = 1;
-	Settings.AutoSave = 1;
+	Settings.MountMethod = METHOD_SD;
 }
 
 int
@@ -66,7 +60,7 @@ main(int argc, char *argv[])
 
 	// Initialize font system
 	fontSystem = new FreeTypeGX();
-	fontSystem->loadFont("sd:/font/", font_ttf, font_ttf_size, 0);
+	fontSystem->loadFont(NULL, font_ttf, font_ttf_size, 0);
 	fontSystem->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
 
 	InitGUIThreads();

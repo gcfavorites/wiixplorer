@@ -16,9 +16,17 @@
 #define MAXJOLIET 255
 #define MAXDISPLAY MAXPATHLEN
 
+
+enum {
+    SD,
+    USB,
+    SMB
+};
+
 typedef struct
 {
 	char dir[MAXPATHLEN]; // directory path of browserList
+	char rootdir[10]; // directory path of browserList
 	int numEntries; // # of entries in browserList
 	int selIndex; // currently selected index of browserList
 	int pageIndex; // starting index of browserList page display
@@ -33,14 +41,21 @@ typedef struct
 	char displayname[MAXDISPLAY + 1]; // name for browser display
 } BROWSERENTRY;
 
+typedef struct
+{
+	char filepath[MAXPATHLEN];
+	char filename[MAXJOLIET + 1];
+	u32  filesize;
+	bool isdir;
+} CLIPBOARD;
+
 extern BROWSERINFO browser;
 extern BROWSERENTRY * browserList;
-extern char rootdir[10];
 
 int UpdateDirName(int method);
 int FileSortCallback(const void *f1, const void *f2);
 void ResetBrowser();
 int BrowserChangeFolder();
-int BrowseDevice();
+int BrowseDevice(int device);
 
 #endif
