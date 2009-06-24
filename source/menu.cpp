@@ -32,6 +32,7 @@ static GuiImageData * background = NULL;
 static GuiImage * bgImg = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
+static CLIPBOARD Clipboard;
 
 /****************************************************************************
  * ResumeGui
@@ -129,15 +130,14 @@ void InitGUIThreads()
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-	int i;
+	int i, choice;
 
 	ShutoffRumble();
 
 	// populate initial directory listing
-	if(BrowseDevice() <= 0)
+	if(BrowseDevice(Settings.MountMethod) <= 0)
 	{
-		int choice = WindowPrompt(
-		"Error",
+		int choice = WindowPrompt("Error",
 		"Unable to display files on selected load device.",
 		"Retry",
 		"Check Settings",0,0);
@@ -177,15 +177,26 @@ static int MenuBrowseDevice()
 	GuiImage copyBtnImg(&btnOutline);
 	GuiButton copyBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	copyBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	copyBtn.SetPosition(400, -35);
+	copyBtn.SetPosition(230, -35);
 	copyBtn.SetLabel(&copyBtnTxt);
 	copyBtn.SetImage(&copyBtnImg);
 	copyBtn.SetTrigger(&trigA);
 	copyBtn.SetEffectGrow();
 
+	GuiText pasteBtnTxt("Paste", 24, (GXColor){0, 0, 0, 255});
+	GuiImage pasteBtnImg(&btnOutline);
+	GuiButton pasteBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	pasteBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	pasteBtn.SetPosition(430, -35);
+	pasteBtn.SetLabel(&pasteBtnTxt);
+	pasteBtn.SetImage(&pasteBtnImg);
+	pasteBtn.SetTrigger(&trigA);
+	pasteBtn.SetEffectGrow();
+
 	GuiWindow buttonWindow(screenwidth, screenheight);
 	buttonWindow.Append(&backBtn);
 	buttonWindow.Append(&copyBtn);
+	buttonWindow.Append(&pasteBtn);
 
 	HaltGui();
 	mainWindow->Append(&titleTxt);
@@ -232,11 +243,45 @@ static int MenuBrowseDevice()
 			menu = MENU_SETTINGS;
 
 		if(copyBtn.GetState() == STATE_CLICKED) {
-            int result = CopyFile("usb:/usbloadergx/music/Sido - Schlechtes Vorbild.ogg", "sd:/kecks.ogg");
-            char res[30];
-            sprintf(res, "%i", result);
-            if(result < 0) WindowPrompt("ERROR", res, "OK", 0,0,0);
+		    if(browserList[browser.selIndex].isdir)
+                choice = WindowPrompt("Copy directory?", 0, "Yes", "Cancel",0,0);
+            else
+		        choice = WindowPrompt("Copy file?", 0, "Yes", "Cancel",0,0);
+            if(choice == 1) {
+                sprintf(Clipboard.filepath, "%s%s", browser.rootdir, browser.dir);
+                sprintf(Clipboard.filename, "%s", browserList[browser.selIndex].filename);
+                if(browserList[browser.selIndex].isdir)
+                    Clipboard.isdir = true;
+                else
+                    Clipboard.isdir = false;
+            }
 			copyBtn.ResetState();
+		}
+		if(pasteBtn.GetState() == STATE_CLICKED) {
+		    if(Settings.MountMethod != SMB) {
+		    choice = WindowPrompt("Paste into current directory?", 0, "Yes", "Cancel",0,0);
+		    if(choice == 1) {
+		        char srcpath[MAXPATHLEN];
+		        char destdir[MAXPATHLEN];
+                if(Clipboard.isdir == true) {
+                    snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
+                    snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
+                    CopyDirectory(srcpath, destdir);
+                } else {
+                snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
+		        int ret = checkfile(srcpath);
+		        if(ret == false)
+                    WindowPrompt("File does not exist anymore!", 0, "OK", 0, 0, 0);
+                else {
+                    snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
+                    CopyFile(srcpath, destdir);
+                }
+                }
+            menu = MENU_BROWSE_DEVICE;
+		    }
+		    } else
+                WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK", 0, 0, 0);
+		    pasteBtn.ResetState();
 		}
 	}
 	HaltGui();
@@ -449,16 +494,10 @@ static int MenuSettingsFile()
 	int ret;
 	int i = 0;
 	OptionList options;
-	sprintf(options.name[i++], "Load Device");
-	sprintf(options.name[i++], "Save Device");
-	sprintf(options.name[i++], "Folder 1");
-	sprintf(options.name[i++], "Folder 2");
-	sprintf(options.name[i++], "Folder 3");
-	sprintf(options.name[i++], "Auto Load");
-	sprintf(options.name[i++], "Auto Save");
+	sprintf(options.name[i++], "Mount Method");
 	options.length = i;
 
-	GuiText titleTxt("Settings - Saving & Loading", 28, (GXColor){255, 255, 255, 255});
+	GuiText titleTxt("Settings", 28, (GXColor){255, 255, 255, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50,50);
 
@@ -499,71 +538,19 @@ static int MenuSettingsFile()
 	{
 		usleep(THREAD_SLEEP);
 
-		// correct load/save methods out of bounds
-		if(Settings.LoadMethod > 4)
-			Settings.LoadMethod = 0;
-		if(Settings.SaveMethod > 6)
-			Settings.SaveMethod = 0;
+		if(Settings.MountMethod > 2)
+			Settings.MountMethod = 0;
 
-		if (Settings.LoadMethod == METHOD_AUTO) sprintf (options.value[0],"Auto Detect");
-		else if (Settings.LoadMethod == METHOD_SD) sprintf (options.value[0],"SD");
-		else if (Settings.LoadMethod == METHOD_USB) sprintf (options.value[0],"USB");
-		else if (Settings.LoadMethod == METHOD_DVD) sprintf (options.value[0],"DVD");
-		else if (Settings.LoadMethod == METHOD_SMB) sprintf (options.value[0],"Network");
-
-		if (Settings.SaveMethod == METHOD_AUTO) sprintf (options.value[1],"Auto Detect");
-		else if (Settings.SaveMethod == METHOD_SD) sprintf (options.value[1],"SD");
-		else if (Settings.SaveMethod == METHOD_USB) sprintf (options.value[1],"USB");
-		else if (Settings.SaveMethod == METHOD_SMB) sprintf (options.value[1],"Network");
-		else if (Settings.SaveMethod == METHOD_MC_SLOTA) sprintf (options.value[1],"MC Slot A");
-		else if (Settings.SaveMethod == METHOD_MC_SLOTB) sprintf (options.value[1],"MC Slot B");
-
-		snprintf (options.value[2], 256, "%s", Settings.Folder1);
-		snprintf (options.value[3], 256, "%s", Settings.Folder2);
-		snprintf (options.value[4], 256, "%s", Settings.Folder3);
-
-		if (Settings.AutoLoad == 0) sprintf (options.value[5],"Off");
-		else if (Settings.AutoLoad == 1) sprintf (options.value[5],"Some");
-		else if (Settings.AutoLoad == 2) sprintf (options.value[5],"All");
-
-		if (Settings.AutoSave == 0) sprintf (options.value[5],"Off");
-		else if (Settings.AutoSave == 1) sprintf (options.value[6],"Some");
-		else if (Settings.AutoSave == 2) sprintf (options.value[6],"All");
+		if (Settings.MountMethod == METHOD_SD) sprintf (options.value[0],"SD");
+		else if (Settings.MountMethod == METHOD_USB) sprintf (options.value[0],"USB");
+		else if (Settings.MountMethod == METHOD_SMB) sprintf (options.value[0],"Network");
 
 		ret = optionBrowser.GetClickedOption();
 
 		switch (ret)
 		{
 			case 0:
-				Settings.LoadMethod++;
-				break;
-
-			case 1:
-				Settings.SaveMethod++;
-				break;
-
-			case 2:
-				OnScreenKeyboard(Settings.Folder1, 256);
-				break;
-
-			case 3:
-				OnScreenKeyboard(Settings.Folder2, 256);
-				break;
-
-			case 4:
-				OnScreenKeyboard(Settings.Folder3, 256);
-				break;
-
-			case 5:
-				Settings.AutoLoad++;
-				if (Settings.AutoLoad > 2)
-					Settings.AutoLoad = 0;
-				break;
-
-			case 6:
-				Settings.AutoSave++;
-				if (Settings.AutoSave > 3)
-					Settings.AutoSave = 0;
+				Settings.MountMethod++;
 				break;
 		}
 
@@ -572,6 +559,7 @@ static int MenuSettingsFile()
 			menu = MENU_SETTINGS;
 		}
 	}
+
 	HaltGui();
 	mainWindow->Remove(&optionBrowser);
 	mainWindow->Remove(&w);

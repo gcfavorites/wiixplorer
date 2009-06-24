@@ -21,8 +21,6 @@
 BROWSERINFO browser;
 BROWSERENTRY * browserList = NULL; // list of files/folders in browser
 
-char rootdir[10];
-
 /****************************************************************************
  * ResetBrowser()
  * Clears the file browser memory, and allocates one initial entry
@@ -136,14 +134,14 @@ ParseDirectory()
 	ResetBrowser();
 
 	// open the directory
-	sprintf(fulldir, "%s%s", rootdir, browser.dir); // add currentDevice to path
+	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add currentDevice to path
 	dir = diropen(fulldir);
 
 	// if we can't open the dir, try opening the root dir
 	if (dir == NULL)
 	{
 		sprintf(browser.dir,"/");
-		dir = diropen(rootdir);
+		dir = diropen(browser.rootdir);
 		if (dir == NULL)
 		{
 			return -1;
@@ -179,7 +177,7 @@ ParseDirectory()
 			}
 			else
 			{
-				strncpy(browserList[entryNum].displayname, filename, MAXDISPLAY);	// crop name for display
+				strcpy(browserList[entryNum].displayname, filename);	// crop name for display
 			}
 
 			browserList[entryNum].length = filestat.st_size;
@@ -218,10 +216,21 @@ int BrowserChangeFolder()
  * BrowseDevice
  * Displays a list of files on the selected device
  ***************************************************************************/
-int BrowseDevice()
+int BrowseDevice(int device)
 {
 	sprintf(browser.dir, "/");
-	sprintf(rootdir, "smb:");
+	switch(device)
+	{
+	    case SD:
+            sprintf(browser.rootdir, "sd:");
+            break;
+	    case USB:
+            sprintf(browser.rootdir, "usb:");
+            break;
+	    case SMB:
+            sprintf(browser.rootdir, "smb:");
+            break;
+	}
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;
 }

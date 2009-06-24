@@ -1,3 +1,11 @@
+/****************************************************************************
+ * fileops.cpp
+ * by dimok
+ *
+ * File operations for the Wiixplorer
+ * Handling copying and deleteing/removing files/directories
+ ***************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,12 +14,10 @@
 #include <dirent.h>
 
 #include "fileops.h"
+#include "filebrowser.h"
+#include "PromptWindows.h"
 
-#define BLOCKSIZE               1048576      //1MB
-#define FILENAMELENGHT	        70
-
-char alldirfiles[300][FILENAMELENGHT];
-char filenames[FILENAMELENGHT];
+#define BLOCKSIZE               3*1048576      //3MB
 
 bool findfile(const char * filename, const char * path)
 {
@@ -47,11 +53,10 @@ bool checkfile(char * path)
     return false;
 }
 
-
 int CopyFile(const char * src, const char * dest) {
 
 	u32 blksize;
-	size_t read = 1;
+	u32 read = 1;
 
 	FILE * source = fopen(src, "rb");
 
@@ -60,7 +65,7 @@ int CopyFile(const char * src, const char * dest) {
 	}
 
     fseek(source, 0, SEEK_END);
-    u32 sizesrc = ftell(source);
+    u64 sizesrc = ftell(source);
     rewind(source);
 
     if(sizesrc < BLOCKSIZE)
@@ -68,7 +73,7 @@ int CopyFile(const char * src, const char * dest) {
     else
         blksize = BLOCKSIZE;
 
-	unsigned char * buffer = (unsigned char*) malloc(blksize);
+	void * buffer = malloc(blksize);
 
 	if(buffer == NULL){
 	    //no memory
@@ -89,15 +94,13 @@ int CopyFile(const char * src, const char * dest) {
         fwrite(buffer, 1, read, destination);
     }
 
-    free(buffer);
+    //get size of written file
+    fseek(destination , 0 , SEEK_END);
+    u64 sizedest = ftell(destination);
+
     fclose(source);
     fclose(destination);
-
-    //get size of written file
-    destination = fopen(dest, "rb");
-    fseek(destination , 0 , SEEK_END);
-    u32 sizedest = ftell(destination);
-    fclose(destination);
+    free(buffer);
 
     if(sizesrc != sizedest) {
         return -4;
@@ -106,6 +109,41 @@ int CopyFile(const char * src, const char * dest) {
 	return 1;
 }
 
+int CopyDirectory(char * src, char * dest)
+{
+    struct stat st;
+    DIR_ITER *dir = NULL;
+    char filename[MAXPATHLEN];
+
+    dir = diropen(src);
+    if(dir == NULL) {
+        return -1;
+    }
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if((st.st_mode & S_IFDIR) != 0) {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
+            char currentname[MAXPATHLEN];
+            char destname[MAXPATHLEN];
+            snprintf(currentname, sizeof(currentname), "%s%s/", src, filename);
+            snprintf(destname, sizeof(destname), "%s%s/", dest, filename);
+            CopyDirectory(currentname, destname);
+            }
+        }
+        else if((st.st_mode & S_IFDIR) == 0) {
+            char currentname[MAXPATHLEN];
+            char destname[MAXPATHLEN];
+            subfoldercreate(dest);
+            snprintf(currentname, sizeof(currentname), "%s%s", src, filename);
+            snprintf(destname, sizeof(destname), "%s%s", dest, filename);
+            CopyFile(currentname, destname);
+        }
+	}
+	dirclose(dir);
+
+    return 1;
+}
 
 bool subfoldercreate(char * fullpath) {
         //check forsubfolders
@@ -129,32 +167,4 @@ bool subfoldercreate(char * fullpath) {
     }
 
     return true;
-}
-
-int filenamescmp(const void *a, const void *b)
-{
-	return stricmp((char *) a, (char *) b);
-}
-
-int GetAllDirFiles(char * filespath)
-{
-	int countfiles = 0;
-
-	struct stat st;
-	DIR_ITER* dir;
-	dir = diropen (filespath);
-
-	if (dir == NULL) //If empty
-       return 0;
-	while (dirnext(dir,filenames,&st) == 0)
-	{
-		if ((st.st_mode & S_IFDIR) == 0)
-		{
-			snprintf(alldirfiles[countfiles], FILENAMELENGHT, "%s", filenames);
-			countfiles++;
-		}
-	}
-	dirclose(dir);
-	qsort(alldirfiles, countfiles, sizeof(char[FILENAMELENGHT]), filenamescmp);
-	return countfiles;
 }
