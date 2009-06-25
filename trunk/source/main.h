@@ -20,9 +20,6 @@ struct SSettings {
 	int		MountMethod;
 };
 extern struct SSettings Settings;
-
-void ExitApp();
-extern int ExitRequested;
 extern FreeTypeGX *fontSystem;
 
 #endif

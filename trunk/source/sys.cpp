@@ -3,6 +3,7 @@
 #include <gccore.h>
 #include <stdlib.h>
 
+#include "network/networkops.h"
 #include "video.h"
 #include "audio.h"
 #include "menu.h"
@@ -42,12 +43,13 @@ void Sys_Init(void)
 	SYS_SetPowerCallback(__Sys_PowerCallback);
 }
 
-static void _ExitApp()
+void ExitApp()
 {
-	//ExitGUIThreads();
+	ExitGUIThreads();
 	StopGX();
 	ShutdownAudio();
 
+	CloseSMBShare();
     SDCard_deInit();
 	USBDevice_deInit();
 }
@@ -56,7 +58,7 @@ static void _ExitApp()
 void Sys_Reboot(void)
 {
 	/* Restart console */
-	_ExitApp();
+	ExitApp();
 	STM_RebootSystem();
 }
 
@@ -66,7 +68,7 @@ void Sys_Reboot(void)
 
 static void _Sys_Shutdown(int SHUTDOWN_MODE)
 {
-	_ExitApp();
+	ExitApp();
 	WPAD_Flush(0);
 	WPAD_Disconnect(0);
 	WPAD_Shutdown();
@@ -102,7 +104,7 @@ void Sys_ShutdownToStandby(void)
 
 void Sys_LoadMenu(void)
 {
-	_ExitApp();
+	ExitApp();
 	/* Return to the Wii system menu */
 	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
@@ -111,7 +113,7 @@ void Sys_BackToLoader(void)
 {
 	if (*((u32*) 0x80001800))
 	{
-		_ExitApp();
+		ExitApp();
 		exit(0);
 	}
 	// Channel Version

@@ -23,6 +23,7 @@
 #include "fileops.h"
 #include "PromptWindows.h"
 #include "network/networkops.h"
+#include "sys.h"
 
 GuiWindow * mainWindow = NULL;
 
@@ -33,6 +34,7 @@ static GuiImage * bgImg = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
 static CLIPBOARD Clipboard;
+static int ExitRequested = 0;
 
 /****************************************************************************
  * ResumeGui
@@ -108,7 +110,8 @@ UpdateGUI (void *arg)
 					Menu_DrawRectangle(0,0,screenwidth,screenheight,(GXColor){0, 0, 0, i},1);
 					Menu_Render();
 				}
-				ExitApp();
+                ExitRequested = 2;
+                return NULL;
 			}
 		}
 	}
@@ -125,6 +128,17 @@ void InitGUIThreads()
 	LWP_CreateThread (&guithread, UpdateGUI, NULL, NULL, 0, 70);
 }
 
+/****************************************************************************
+ * ExitGUIThread
+ *
+ * Shutdown GUI threads
+ ***************************************************************************/
+void ExitGUIThreads()
+{
+	ExitRequested = 1;
+	LWP_JoinThread(guithread, NULL);
+	guithread = LWP_THREAD_NULL;
+}
 /****************************************************************************
  * MenuBrowseDevice
  ***************************************************************************/
@@ -278,7 +292,11 @@ static int MenuBrowseDevice()
                 if(Clipboard.isdir == true) {
                     snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
                     snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
-                    CopyDirectory(srcpath, destdir);
+                    int res = ProgressWindow("Copying files:", srcpath, destdir, COPYDIR);
+                    if(res < 0)
+                        WindowPrompt("An error accured.", "Failed copying files.", "OK",0,0,0);
+                    else
+                        WindowPrompt("Directory successfully copied.", 0, "OK",0,0,0);
                 } else {
                 snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
 		        int ret = CheckFile(srcpath);
@@ -286,7 +304,11 @@ static int MenuBrowseDevice()
                     WindowPrompt("File does not exist anymore!", 0, "OK", 0, 0, 0);
                 else {
                     snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
-                    CopyFile(srcpath, destdir);
+                    int res = ProgressWindow("Copying file:", srcpath, destdir, COPYFILE);
+                    if(res < 0)
+                        WindowPrompt("ERROR", "Failed copying file.", "OK",0,0,0);
+                    else
+                        WindowPrompt("File successfully copied.", 0, "OK",0,0,0);
                 }
                 }
                 ParseDirectory();
@@ -303,9 +325,11 @@ static int MenuBrowseDevice()
                 snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
                 choice = WindowPrompt(browserList[browser.selIndex].filename, "Delete directory and its content?", "Yes", "Cancel",0,0);
                 if(choice == 1) {
-                    if(RemoveDirectory(currentpath) == false) {
+                    int res = ProgressWindow("Deleting files:", currentpath, NULL, DELETEDIR, THROBBER);
+                    if(res < 0)
                         WindowPrompt("Error", "Directory couldn't be deleted.", "OK",0,0,0);
-                    }
+                    else
+                        WindowPrompt("Directory successfully deleted.", 0, "OK",0,0,0);
                     ParseDirectory();
                     fileBrowser.TriggerUpdate();
                 }
@@ -657,21 +681,19 @@ void MainMenu(int menu)
 	}
 
 	ResumeGui();
-	ExitRequested = 1;
-	while(1) usleep(THREAD_SLEEP);
+	ExitGUIThreads();
 
-	HaltGui();
+	while(ExitRequested != 2) usleep(THREAD_SLEEP);
 
 	bgMusic->Stop();
-	CloseSMBShare();
 	delete bgMusic;
 	delete bgImg;
 	delete mainWindow;
-
 	delete pointer[0];
 	delete pointer[1];
 	delete pointer[2];
 	delete pointer[3];
 
-	mainWindow = NULL;
+    //last point in programm to make sure the allocated memory is freed
+	Sys_BackToLoader();
 }

@@ -9,12 +9,23 @@
 
 #include "libwiigui/gui.h"
 #include "network/networkops.h"
+#include "PromptWindows.h"
 #include "fatmounter.h"
 #include "fileops.h"
 #include "menu.h"
 #include "filelist.h"
 #include "sys.h"
 #include "wpad.h"
+
+/*** Variables used only in this file ***/
+static GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiText speedTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiText sizeTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiText msgTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiImageData progressbar(progressbar_png);
+static GuiImage progressbarImg(&progressbar);
+static GuiImageData throbber(throbber_png);
+static GuiImage throbberImg(&throbber);
 
 /*** Extern variables ***/
 extern GuiWindow * mainWindow;
@@ -137,10 +148,12 @@ const char *btn4Label)
     GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
+    titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+
     GuiText msgTxt(msg, 22, (GXColor){0, 0, 0, 255});
     msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     msgTxt.SetPosition(0,-40);
-    msgTxt.SetMaxWidth(430);
+    msgTxt.SetMaxWidth(430, GuiText::DOTTED);
 
     GuiText btn1Txt(btn1Label, 22, (GXColor){0, 0, 0, 255});
     GuiImage btn1Img(&btnOutline);
@@ -294,4 +307,156 @@ const char *btn4Label)
     mainWindow->SetState(STATE_DEFAULT);
     ResumeGui();
     return choice;
+}
+
+/****************************************************************************
+ * ShowProgress
+ *
+ * Updates the variables used by the progress window for drawing a progress
+ * bar.
+ ***************************************************************************/
+void ShowProgress(u32 done, u32 total, char * filename, int progressmode)
+{
+    if(progressmode == PROGRESSBAR) {
+
+ 	static time_t start;
+	//first time
+	if (!done) {
+		start    = time(0);
+	}
+
+	//Elapsed time
+	u32 elapsed = time(0) - start;
+	if(elapsed < 1) {
+        usleep(THREAD_SLEEP);
+        elapsed = 1;
+	}
+	//Calculate speed in KB/s
+	u32 speed = 0;
+    if(done)
+        speed = done/(elapsed * KBSIZE);
+
+    //Calculate percentage/size
+	f32 percent = (done * 100.0) / total;
+
+    prTxt.SetTextf("%0.2f", percent);
+
+    speedTxt.SetTextf("%s %dKB/s","Speed:", speed);
+
+	sizeTxt.SetTextf("%0.2fMB/%0.2fMB", done/MBSIZE, total/MBSIZE);
+
+    msgTxt.SetText(filename);
+
+	progressbarImg.SetTile(percent);
+
+    } else {
+        usleep(THREAD_SLEEP);
+        static u32 angle;
+        angle += 10;
+        if(angle > 360)
+            angle = 0;
+
+        throbberImg.SetAngle(angle);
+        msgTxt.SetText(filename);
+    }
+}
+
+/****************************************************************************
+ * ProgressWindow
+ *
+ * Opens a window, which displays progress to the user. Can either display a
+ * progress bar showing % completion, or a throbber that only shows that an
+ * action is in progress.
+ ***************************************************************************/
+int
+ProgressWindow(const char *title, char * source, char *dest, int process, int mode)
+{
+	int ret = -1;
+
+	GuiWindow promptWindow(472,320);
+	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	promptWindow.SetPosition(0, -10);
+
+	GuiImageData btnOutline(button_png);
+	GuiImageData dialogBox(dialogue_box_png);
+	GuiImage dialogBoxImg(&dialogBox);
+
+	GuiTrigger trigA;
+	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
+	GuiImageData progressbarOutline(progressbar_outline_png);
+	GuiImage progressbarOutlineImg(&progressbarOutline);
+	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	progressbarOutlineImg.SetPosition(25, 40);
+
+	GuiImageData progressbarEmpty(progressbar_empty_png);
+	GuiImage progressbarEmptyImg(&progressbarEmpty);
+	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	progressbarEmptyImg.SetPosition(25, 40);
+	progressbarEmptyImg.SetTile(100);
+
+    progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	progressbarImg.SetPosition(25, 40);
+
+	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	throbberImg.SetPosition(0, 40);
+
+	GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	titleTxt.SetPosition(0,60);
+	titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+
+	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	msgTxt.SetPosition(0,120);
+	msgTxt.SetMaxWidth(430, GuiText::DOTTED);
+
+	GuiText prsTxt("%", 26, (GXColor){0, 0, 0, 255});
+	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
+	prsTxt.SetPosition(-188,40);
+
+    speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	speedTxt.SetPosition(275,-50);
+
+    sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	sizeTxt.SetPosition(50, -50);
+
+	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	prTxt.SetPosition(200, 40);
+
+	promptWindow.Append(&dialogBoxImg);
+	promptWindow.Append(&titleTxt);
+	promptWindow.Append(&msgTxt);
+    if(mode == PROGRESSBAR) {
+        promptWindow.Append(&progressbarEmptyImg);
+        promptWindow.Append(&progressbarImg);
+        promptWindow.Append(&progressbarOutlineImg);
+        promptWindow.Append(&prTxt);
+        promptWindow.Append(&prsTxt);
+        promptWindow.Append(&speedTxt);
+        promptWindow.Append(&sizeTxt);
+	} else {
+	    promptWindow.Append(&throbberImg);
+	}
+
+	HaltGui();
+	mainWindow->SetState(STATE_DISABLED);
+	mainWindow->Append(&promptWindow);
+	mainWindow->ChangeFocus(&promptWindow);
+	ResumeGui();
+
+    if(process == COPYDIR)
+        ret = CopyDirectory(source, dest);
+    else if(process == COPYFILE)
+        ret = CopyFile(source, dest);
+    else if(process == DELETEDIR)
+        ret =RemoveDirectory(source);
+    else if(process == DELETEFILE)
+        ret = RemoveFile(source);
+
+	HaltGui();
+	mainWindow->Remove(&promptWindow);
+	mainWindow->SetState(STATE_DEFAULT);
+	ResumeGui();
+
+    return ret;
 }

@@ -35,7 +35,7 @@ typedef struct
 typedef struct
 {
 	u64 offset; // DVD offset
-	u32 length; // file length
+	u64 length; // file length 64 bytes for sizes higher than 4GB
 	char isdir; // 0 - file, 1 - directory
 	char filename[MAXJOLIET + 1]; // full filename
 	char displayname[MAXDISPLAY + 1]; // name for browser display
@@ -45,7 +45,7 @@ typedef struct
 {
 	char filepath[MAXPATHLEN];
 	char filename[MAXJOLIET + 1];
-	u32  filesize;
+	u64  filesize;
 	bool isdir;
 } CLIPBOARD;
 

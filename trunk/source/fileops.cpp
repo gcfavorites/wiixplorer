@@ -14,10 +14,10 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include "fileops.h"
 #include "PromptWindows.h"
+#include "fileops.h"
 
-#define BLOCKSIZE               3*1048576      //3MB
+#define BLOCKSIZE               400*1024      //400KB
 
 /****************************************************************************
  * FindFile
@@ -49,7 +49,7 @@ bool FindFile(const char * filename, const char * path)
  *
  * Check if file is existing
  ***************************************************************************/
-bool CheckFile(char * filepath)
+bool CheckFile(const char * filepath)
 {
     FILE * f;
     f = fopen(filepath,"rb");
@@ -71,6 +71,10 @@ int CopyFile(const char * src, const char * dest) {
 	u32 blksize;
 	u32 read = 1;
 
+	char temp[MAXPATHLEN];
+	sprintf(temp, "%s", src);
+	char * filename = strrchr(temp-2, '/')+1;
+
 	FILE * source = fopen(src, "rb");
 
 	if(!source){
@@ -78,7 +82,7 @@ int CopyFile(const char * src, const char * dest) {
 	}
 
     fseek(source, 0, SEEK_END);
-    u64 sizesrc = ftell(source);
+    u32 sizesrc = ftell(source);
     rewind(source);
 
     if(sizesrc < BLOCKSIZE)
@@ -102,16 +106,19 @@ int CopyFile(const char * src, const char * dest) {
         return -3;
     }
 
+    u32 done = 0;
     while (read > 0) {
+        //Display progress
+        ShowProgress(done, sizesrc, filename);
         read = fread(buffer, 1, blksize, source);
         fwrite(buffer, 1, read, destination);
+        done += read;
     }
 
-    //get size of written file
-    fseek(destination , 0 , SEEK_END);
-    u64 sizedest = ftell(destination);
-
     fclose(source);
+    //get size of written file
+    u32 sizedest = ftell(destination);
+
     fclose(destination);
     free(buffer);
 
@@ -127,7 +134,7 @@ int CopyFile(const char * src, const char * dest) {
  *
  * Copy recursive a complete source path to destination path
  ***************************************************************************/
-int CopyDirectory(char * src, char * dest) {
+int CopyDirectory(const char * src, const char * dest) {
 
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -168,7 +175,7 @@ int CopyDirectory(char * src, char * dest) {
  *
  * Create recursive all subfolders to the given path
  ***************************************************************************/
-bool CreateSubfolder(char * fullpath) {
+bool CreateSubfolder(const char * fullpath) {
 
     //check/create subfolders
     struct stat st;
@@ -192,12 +199,13 @@ bool CreateSubfolder(char * fullpath) {
 
     return true;
 }
+
 /****************************************************************************
  * RemoveDirectory
  *
  * Remove a directory and its content recursively
  ***************************************************************************/
-bool RemoveDirectory(char * dirpath) {
+int RemoveDirectory(char * dirpath) {
 
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -221,6 +229,8 @@ bool RemoveDirectory(char * dirpath) {
             char currentname[MAXPATHLEN];
             snprintf(currentname, sizeof(currentname), "%s%s", dirpath, filename);
             RemoveFile(currentname);
+            //Display Throbber rotating
+            ShowProgress(0, 0, filename, THROBBER);
         }
 	}
 
@@ -230,9 +240,9 @@ bool RemoveDirectory(char * dirpath) {
 	dirpath[pos] = '\0';
 
     if(remove(dirpath) != 0)
-        return false;
+        return -1;
 
-    return true;
+    return 1;
 }
 
 /****************************************************************************
