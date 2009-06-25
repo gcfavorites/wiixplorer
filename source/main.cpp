@@ -28,14 +28,6 @@
 
 FreeTypeGX *fontSystem;
 struct SSettings Settings;
-int ExitRequested = 0;
-
-void ExitApp()
-{
-	ShutoffRumble();
-	StopGX();
-	exit(0);
-}
 
 void
 DefaultSettings()

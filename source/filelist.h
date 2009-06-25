@@ -56,6 +56,18 @@ extern const u32	bg_file_selection_png_size;
 extern const u8		bg_file_selection_entry_png[];
 extern const u32	bg_file_selection_entry_png_size;
 
+extern const u8		progressbar_png[];
+extern const u32	progressbar_png_size;
+
+extern const u8		progressbar_empty_png[];
+extern const u32	progressbar_empty_png_size;
+
+extern const u8		progressbar_outline_png[];
+extern const u32	progressbar_outline_png_size;
+
+extern const u8		throbber_png[];
+extern const u32	throbber_png_size;
+
 extern const u8		scrollbar_png[];
 extern const u32	scrollbar_png_size;
 

@@ -19,7 +19,7 @@
 static s32 connection;
 static bool SMB_Mounted = false;
 static bool networkinit = false;
-static bool auto_netinit = true;
+static bool auto_init_once = false;
 static bool network_initiating = false;
 static char IP[16];
 
@@ -68,7 +68,8 @@ bool ConnectSMBShare()
  ***************************************************************************/
 void Initialize_Network(void) {
 
-    if(networkinit) return;
+    if(networkinit)
+        return;
 
 	s32 result;
 	network_initiating = true;
@@ -77,13 +78,13 @@ void Initialize_Network(void) {
 
    if(result < 0) {
         networkinit = false;
-        auto_netinit = false;
+        auto_init_once = true;
         network_initiating = false;
 		return;
 	}
 
     networkinit = true;
-    auto_netinit = false;
+    auto_init_once = true;
     network_initiating = false;
     return;
 }
@@ -271,7 +272,11 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-	ConnectSMBShare();
+    if(!auto_init_once)
+        ConnectSMBShare();
+    else
+        ShutdownNetworkThread();
+
 	return NULL;
 }
 
