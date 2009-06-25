@@ -193,10 +193,21 @@ static int MenuBrowseDevice()
 	pasteBtn.SetTrigger(&trigA);
 	pasteBtn.SetEffectGrow();
 
+	GuiText removeBtnTxt("Remove", 24, (GXColor){0, 0, 0, 255});
+	GuiImage removeBtnImg(&btnOutline);
+	GuiButton removeBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	removeBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	removeBtn.SetPosition(230, 35);
+	removeBtn.SetLabel(&removeBtnTxt);
+	removeBtn.SetImage(&removeBtnImg);
+	removeBtn.SetTrigger(&trigA);
+	removeBtn.SetEffectGrow();
+
 	GuiWindow buttonWindow(screenwidth, screenheight);
 	buttonWindow.Append(&backBtn);
 	buttonWindow.Append(&copyBtn);
 	buttonWindow.Append(&pasteBtn);
+	buttonWindow.Append(&removeBtn);
 
 	HaltGui();
 	mainWindow->Append(&titleTxt);
@@ -242,7 +253,7 @@ static int MenuBrowseDevice()
 		if(backBtn.GetState() == STATE_CLICKED)
 			menu = MENU_SETTINGS;
 
-		if(copyBtn.GetState() == STATE_CLICKED) {
+		else if(copyBtn.GetState() == STATE_CLICKED) {
 		    if(browserList[browser.selIndex].isdir)
                 choice = WindowPrompt("Copy directory?", 0, "Yes", "Cancel",0,0);
             else
@@ -257,7 +268,8 @@ static int MenuBrowseDevice()
             }
 			copyBtn.ResetState();
 		}
-		if(pasteBtn.GetState() == STATE_CLICKED) {
+
+		else if(pasteBtn.GetState() == STATE_CLICKED) {
 		    if(Settings.MountMethod != SMB) {
 		    choice = WindowPrompt("Paste into current directory?", 0, "Yes", "Cancel",0,0);
 		    if(choice == 1) {
@@ -269,7 +281,7 @@ static int MenuBrowseDevice()
                     CopyDirectory(srcpath, destdir);
                 } else {
                 snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
-		        int ret = checkfile(srcpath);
+		        int ret = CheckFile(srcpath);
 		        if(ret == false)
                     WindowPrompt("File does not exist anymore!", 0, "OK", 0, 0, 0);
                 else {
@@ -277,11 +289,39 @@ static int MenuBrowseDevice()
                     CopyFile(srcpath, destdir);
                 }
                 }
-            menu = MENU_BROWSE_DEVICE;
+                ParseDirectory();
+                fileBrowser.TriggerUpdate();
 		    }
 		    } else
                 WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK", 0, 0, 0);
 		    pasteBtn.ResetState();
+		}
+
+		else if(removeBtn.GetState() == STATE_CLICKED) {
+            if(browserList[browser.selIndex].isdir) {
+                char currentpath[MAXPATHLEN];
+                snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+                choice = WindowPrompt(browserList[browser.selIndex].filename, "Delete directory and its content?", "Yes", "Cancel",0,0);
+                if(choice == 1) {
+                    if(RemoveDirectory(currentpath) == false) {
+                        WindowPrompt("Error", "Directory couldn't be deleted.", "OK",0,0,0);
+                    }
+                    ParseDirectory();
+                    fileBrowser.TriggerUpdate();
+                }
+            } else {
+                char currentpath[MAXPATHLEN];
+                snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+                choice = WindowPrompt(browserList[browser.selIndex].filename, "Delete this file?", "Yes", "Cancel",0,0);
+                if(choice == 1) {
+                    if(RemoveFile(currentpath) == false) {
+                        WindowPrompt("Error", "File couldn't be deleted.", "OK",0,0,0);
+                    }
+                    ParseDirectory();
+                    fileBrowser.TriggerUpdate();
+                }
+            }
+		    removeBtn.ResetState();
 		}
 	}
 	HaltGui();

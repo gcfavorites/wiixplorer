@@ -2,8 +2,8 @@
  * fileops.cpp
  * by dimok
  *
- * File operations for the Wiixplorer
- * Handling copying and deleteing/removing files/directories
+ * File operations for the WiiXplorer
+ * Handling all the needed file operations
  ***************************************************************************/
 
 #include <stdio.h>
@@ -12,14 +12,19 @@
 #include <gccore.h>
 #include <sys/dir.h>
 #include <dirent.h>
+#include <unistd.h>
 
 #include "fileops.h"
-#include "filebrowser.h"
 #include "PromptWindows.h"
 
 #define BLOCKSIZE               3*1048576      //3MB
 
-bool findfile(const char * filename, const char * path)
+/****************************************************************************
+ * FindFile
+ *
+ * Check if file is available in the given directory
+ ***************************************************************************/
+bool FindFile(const char * filename, const char * path)
 {
     DIR *dir;
     struct dirent *file;
@@ -30,21 +35,24 @@ bool findfile(const char * filename, const char * path)
     while ((file = readdir(dir)))
     {
         snprintf(temp,sizeof(temp),"%s",file->d_name);
-        if (!strncmpi(temp,filename,11))
-            {
-            //WindowPrompt(path, filename,"go" ,0);
+        if (!strncmpi(temp,filename,11)) {
             closedir(dir);
-            return true;
-            }
+        return true;
         }
-      closedir(dir);
-      return false;
+    }
+    closedir(dir);
+    return false;
 }
 
-bool checkfile(char * path)
+/****************************************************************************
+ * CheckFile
+ *
+ * Check if file is existing
+ ***************************************************************************/
+bool CheckFile(char * filepath)
 {
     FILE * f;
-    f = fopen(path,"rb");
+    f = fopen(filepath,"rb");
     if(f) {
     fclose(f);
     return true;
@@ -53,6 +61,11 @@ bool checkfile(char * path)
     return false;
 }
 
+/****************************************************************************
+ * CopyFile
+ *
+ * Copy the file from source filepath to destination filepath
+ ***************************************************************************/
 int CopyFile(const char * src, const char * dest) {
 
 	u32 blksize;
@@ -109,8 +122,13 @@ int CopyFile(const char * src, const char * dest) {
 	return 1;
 }
 
-int CopyDirectory(char * src, char * dest)
-{
+/****************************************************************************
+ * CopyDirectory
+ *
+ * Copy recursive a complete source path to destination path
+ ***************************************************************************/
+int CopyDirectory(char * src, char * dest) {
+
     struct stat st;
     DIR_ITER *dir = NULL;
     char filename[MAXPATHLEN];
@@ -134,7 +152,7 @@ int CopyDirectory(char * src, char * dest)
         else if((st.st_mode & S_IFDIR) == 0) {
             char currentname[MAXPATHLEN];
             char destname[MAXPATHLEN];
-            subfoldercreate(dest);
+            CreateSubfolder(dest);
             snprintf(currentname, sizeof(currentname), "%s%s", src, filename);
             snprintf(destname, sizeof(destname), "%s%s", dest, filename);
             CopyFile(currentname, destname);
@@ -145,26 +163,87 @@ int CopyDirectory(char * src, char * dest)
     return 1;
 }
 
-bool subfoldercreate(char * fullpath) {
-        //check forsubfolders
-    char dircheck[300];
-    char dirnoslash[300];
-    char * pch = NULL;
-    u32 cnt = 0;
+/****************************************************************************
+ * CreateSubfolder
+ *
+ * Create recursive all subfolders to the given path
+ ***************************************************************************/
+bool CreateSubfolder(char * fullpath) {
+
+    //check/create subfolders
     struct stat st;
 
+    char dirnoslash[MAXPATHLEN];
     snprintf(dirnoslash, strlen(fullpath), "%s", fullpath);
 
     if(stat(fullpath, &st) != 0) {
+        char dircheck[MAXPATHLEN];
+        char * pch = NULL;
+        u32 cnt = 0;
         pch = strrchr(dirnoslash, '/');
         cnt = pch-dirnoslash;
         snprintf(dircheck, cnt+2, "%s", dirnoslash);
-        subfoldercreate(dircheck);
+        CreateSubfolder(dircheck);
     };
 
     if (mkdir(dirnoslash, 0777) == -1) {
         return false;
     }
+
+    return true;
+}
+/****************************************************************************
+ * RemoveDirectory
+ *
+ * Remove a directory and its content recursively
+ ***************************************************************************/
+bool RemoveDirectory(char * dirpath) {
+
+    struct stat st;
+    DIR_ITER *dir = NULL;
+    char filename[MAXPATHLEN];
+
+    dir = diropen(dirpath);
+    if(dir == NULL) {
+        return -1;
+    }
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if((st.st_mode & S_IFDIR) != 0) {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
+            char currentname[MAXPATHLEN];
+            snprintf(currentname, sizeof(currentname), "%s%s/", dirpath, filename);
+            RemoveDirectory(currentname);
+            }
+        }
+        else if((st.st_mode & S_IFDIR) == 0) {
+            char currentname[MAXPATHLEN];
+            snprintf(currentname, sizeof(currentname), "%s%s", dirpath, filename);
+            RemoveFile(currentname);
+        }
+	}
+
+	dirclose(dir);
+
+	int pos = strlen(dirpath)-1;
+	dirpath[pos] = '\0';
+
+    if(remove(dirpath) != 0)
+        return false;
+
+    return true;
+}
+
+/****************************************************************************
+ * RemoveFile
+ *
+ * Delete the file from a given filepath
+ ***************************************************************************/
+bool RemoveFile(char * filepath) {
+
+    if(remove(filepath) != 0)
+        return false;
 
     return true;
 }

@@ -52,9 +52,10 @@ typedef struct
 extern BROWSERINFO browser;
 extern BROWSERENTRY * browserList;
 
-int UpdateDirName(int method);
+int UpdateDirName();
 int FileSortCallback(const void *f1, const void *f2);
 void ResetBrowser();
+int ParseDirectory();
 int BrowserChangeFolder();
 int BrowseDevice(int device);
 
