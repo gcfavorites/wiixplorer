@@ -9,7 +9,7 @@
 #include <sdcard/wiisd_io.h>
 
 //these are the only stable and speed is good
-#define CACHE 8
+#define CACHE 4
 #define SECTORS 64
 
 enum BPB {
