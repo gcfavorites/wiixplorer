@@ -200,6 +200,56 @@ bool CreateSubfolder(const char * fullpath) {
     return true;
 }
 
+
+/****************************************************************************
+ * MoveDirectory
+ *
+ * Move recursive a complete source path to destination path
+ ***************************************************************************/
+int MoveDirectory(char * src, const char * dest) {
+
+    struct stat st;
+    DIR_ITER *dir = NULL;
+    char filename[MAXPATHLEN];
+
+    dir = diropen(src);
+    if(dir == NULL) {
+        return -1;
+    }
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if((st.st_mode & S_IFDIR) != 0) {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
+            char currentname[MAXPATHLEN];
+            char destname[MAXPATHLEN];
+            snprintf(currentname, sizeof(currentname), "%s%s/", src, filename);
+            snprintf(destname, sizeof(destname), "%s%s/", dest, filename);
+            MoveDirectory(currentname, destname);
+            }
+        }
+        else if((st.st_mode & S_IFDIR) == 0) {
+            char currentname[MAXPATHLEN];
+            char destname[MAXPATHLEN];
+            CreateSubfolder(dest);
+            snprintf(currentname, sizeof(currentname), "%s%s", src, filename);
+            snprintf(destname, sizeof(destname), "%s%s", dest, filename);
+            CopyFile(currentname, destname);
+            RemoveFile(currentname);
+        }
+	}
+	dirclose(dir);
+
+	int pos = strlen(src)-1;
+	src[pos] = '\0';
+
+    if(remove(src) != 0)
+        return -1;
+
+    return 1;
+}
+
+
 /****************************************************************************
  * RemoveDirectory
  *

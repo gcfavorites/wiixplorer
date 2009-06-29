@@ -13,6 +13,7 @@ enum
 {
     COPYFILE,
     COPYDIR,
+    MOVEDIR,
     DELETEFILE,
     DELETEDIR
 };
@@ -25,7 +26,8 @@ enum
 
 void ShowProgress(u32 done, u32 total, char * filename, int progressmode = PROGRESSBAR);
 int ProgressWindow(const char *title, char * source, char *dest, int process, int mode = PROGRESSBAR);
-void OnScreenKeyboard(char * var, u16 maxlen);
+int OnScreenKeyboard(char * var, u16 maxlen);
 int WindowPrompt(const char *title, const char *msg, const char *btn1Label, const char *btn2Label, const char *btn3Label, const char *btn4Label);
+int RightClickMenu(int x, int y);
 
 #endif

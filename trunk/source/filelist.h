@@ -41,6 +41,9 @@ extern const u32	button_large_over_png_size;
 extern const u8		dialogue_box_png[];
 extern const u32	dialogue_box_png_size;
 
+extern const u8		clickmenu_png[];
+extern const u32	clickmenu_png_size;
+
 extern const u8		bg_options_png[];
 extern const u32	bg_options_png_size;
 
@@ -121,17 +124,5 @@ extern const u32	player3_point_png_size;
 
 extern const u8		player4_point_png[];
 extern const u32	player4_point_png_size;
-
-extern const u8		player1_grab_png[];
-extern const u32	player1_grab_png_size;
-
-extern const u8		player2_grab_png[];
-extern const u32	player2_grab_png_size;
-
-extern const u8		player3_grab_png[];
-extern const u32	player3_grab_png_size;
-
-extern const u8		player4_grab_png[];
-extern const u32	player4_grab_png_size;
 
 #endif

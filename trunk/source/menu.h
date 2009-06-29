@@ -25,8 +25,17 @@ enum
 	MENU_EXIT = -1,
 	MENU_NONE,
 	MENU_SETTINGS,
-	MENU_SETTINGS_FILE,
 	MENU_BROWSE_DEVICE
+};
+
+enum
+{
+    CUT,
+    COPY,
+    PASTE,
+    RENAME,
+    DELETE,
+    PROPERTIES
 };
 
 #endif

@@ -43,7 +43,7 @@ extern void HaltGui();
  * Opens an on-screen keyboard window, with the data entered being stored
  * into the specified variable.
  ***************************************************************************/
-void OnScreenKeyboard(char * var, u16 maxlen)
+int OnScreenKeyboard(char * var, u16 maxlen)
 {
 	int save = -1;
 
@@ -111,7 +111,9 @@ void OnScreenKeyboard(char * var, u16 maxlen)
 	mainWindow->Remove(&keyboard);
 	mainWindow->SetState(STATE_DEFAULT);
 	ResumeGui();
+	return save;
 }
+
 /****************************************************************************
 * WindowPrompt
 *
@@ -274,9 +276,9 @@ const char *btn4Label)
     {
         VIDEO_WaitVSync();
 
-        if(shutdown == 1) {
+        if(shutdown == 1)
             Sys_Shutdown();
-        }
+
         if(reset == 1)
             Sys_Reboot();
 
@@ -306,6 +308,174 @@ const char *btn4Label)
     mainWindow->Remove(&promptWindow);
     mainWindow->SetState(STATE_DEFAULT);
     ResumeGui();
+    return choice;
+}
+
+/****************************************************************************
+* RightClickMenu
+***************************************************************************/
+int RightClickMenu(int x, int y)
+{
+    int choice = -1;
+    int numItems = 7;
+    int buttonY = 0;
+
+    GuiImageData dialogBox(clickmenu_png);
+    GuiImage dialogBoxImg(&dialogBox);
+    dialogBoxImg.SetPosition(-8, -dialogBox.GetHeight()/numItems/2);
+
+    GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
+    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    promptWindow.SetPosition(x, y);
+
+    GuiTrigger trigA;
+    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    GuiTrigger trigB;
+    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+
+    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+
+    GuiText cutTxt("Cut", 26, (GXColor){0, 0, 0, 255});
+    GuiText cutTxtOver("Cut", 26, (GXColor){28, 32, 190, 255});
+    GuiButton btnCut(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    btnCut.SetLabel(&cutTxt);
+    btnCut.SetLabelOver(&cutTxtOver);
+    cutTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    cutTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    btnCut.SetSoundClick(&btnClick);
+    btnCut.SetTrigger(&trigA);
+    btnCut.SetPosition(0,buttonY);
+    btnCut.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiText copyTxt("Copy", 26, (GXColor){0, 0, 0, 255});
+    GuiText copyTxtOver("Copy", 26, (GXColor){28, 32, 190, 255});
+    GuiButton Copybtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    Copybtn.SetLabel(&copyTxt);
+    Copybtn.SetLabelOver(&copyTxtOver);
+    copyTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    copyTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Copybtn.SetSoundClick(&btnClick);
+    Copybtn.SetTrigger(&trigA);
+    Copybtn.SetPosition(0,buttonY);
+    Copybtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiText pasteTxt("Paste", 26, (GXColor){0, 0, 0, 255});
+    GuiText PasteTxtOver("Paste", 26, (GXColor){28, 32, 190, 255});
+    GuiButton Pastebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    Pastebtn.SetLabel(&pasteTxt);
+    Pastebtn.SetLabelOver(&PasteTxtOver);
+    pasteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    PasteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Pastebtn.SetSoundClick(&btnClick);
+    Pastebtn.SetTrigger(&trigA);
+    Pastebtn.SetPosition(0,buttonY);
+    Pastebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiText RenameTxt("Rename", 26, (GXColor){0, 0, 0, 255});
+    GuiText RenameTxtOver("Rename", 26, (GXColor){28, 32, 190, 255});
+    GuiButton Renamebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    Renamebtn.SetLabel(&RenameTxt);
+    Renamebtn.SetLabelOver(&RenameTxtOver);
+    RenameTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    RenameTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Renamebtn.SetSoundClick(&btnClick);
+    Renamebtn.SetTrigger(&trigA);
+    Renamebtn.SetPosition(0,buttonY);
+    Renamebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiText DeleteTxt("Delete", 26, (GXColor){0, 0, 0, 255});
+    GuiText DeleteTxtOver("Delete", 26, (GXColor){28, 32, 190, 255});
+    GuiButton Deletebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    Deletebtn.SetLabel(&DeleteTxt);
+    Deletebtn.SetLabelOver(&DeleteTxtOver);
+    DeleteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    DeleteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Deletebtn.SetSoundClick(&btnClick);
+    Deletebtn.SetTrigger(&trigA);
+    Deletebtn.SetPosition(0,buttonY);
+    Deletebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiText PropertiesTxt("Properties", 26, (GXColor){0, 0, 0, 255});
+    GuiText PropertiesTxtOver("Properties", 26, (GXColor){28, 32, 190, 255});
+    GuiButton Propertiesbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    Propertiesbtn.SetLabel(&PropertiesTxt);
+    Propertiesbtn.SetLabelOver(&PropertiesTxtOver);
+    PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    PropertiesTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Propertiesbtn.SetSoundClick(&btnClick);
+    Propertiesbtn.SetTrigger(&trigA);
+    Propertiesbtn.SetPosition(0,buttonY);
+    Propertiesbtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
+    GuiButton NoBtn(screenwidth, screenheight);
+    NoBtn.SetPosition(-x, -y);
+    NoBtn.SetTrigger(&trigA);
+    NoBtn.SetTrigger(&trigB);
+
+    promptWindow.Append(&dialogBoxImg);
+    promptWindow.Append(&NoBtn);
+    promptWindow.Append(&btnCut);
+    promptWindow.Append(&Copybtn);
+    promptWindow.Append(&Pastebtn);
+    promptWindow.Append(&Renamebtn);
+    promptWindow.Append(&Deletebtn);
+    promptWindow.Append(&Propertiesbtn);
+
+    HaltGui();
+    mainWindow->Append(&promptWindow);
+    mainWindow->ChangeFocus(&promptWindow);
+    ResumeGui();
+
+    while(choice == -1)
+    {
+        usleep(THREAD_SLEEP);
+
+        if(shutdown == 1) {
+            Sys_Shutdown();
+        }
+        else if(reset == 1)
+            Sys_Reboot();
+
+        else if(btnCut.GetState() == STATE_CLICKED) {
+            choice = CUT;
+            break;
+        }
+        else if(Copybtn.GetState() == STATE_CLICKED) {
+            choice = COPY;
+            break;
+        }
+        else if(Pastebtn.GetState() == STATE_CLICKED) {
+            choice = PASTE;
+            break;
+        }
+        else if(Renamebtn.GetState() == STATE_CLICKED) {
+            choice = RENAME;
+            break;
+        }
+        else if(Deletebtn.GetState() == STATE_CLICKED) {
+            choice = DELETE;
+            break;
+        }
+        else if(Propertiesbtn.GetState() == STATE_CLICKED) {
+            choice = PROPERTIES;
+            break;
+        }
+        else if(NoBtn.GetState() == STATE_CLICKED){
+            choice = -2;
+            break;
+        }
+    }
+
+    HaltGui();
+    mainWindow->Remove(&promptWindow);
+    ResumeGui();
+
     return choice;
 }
 
@@ -351,11 +521,10 @@ void ShowProgress(u32 done, u32 total, char * filename, int progressmode)
 
     } else {
         usleep(THREAD_SLEEP);
-        static u32 angle;
+        static u16 angle;
         angle += 10;
         if(angle > 360)
-            angle = 0;
-
+            angle = 0 + (angle - 360);
         throbberImg.SetAngle(angle);
         msgTxt.SetText(filename);
     }
@@ -448,6 +617,8 @@ ProgressWindow(const char *title, char * source, char *dest, int process, int mo
         ret = CopyDirectory(source, dest);
     else if(process == COPYFILE)
         ret = CopyFile(source, dest);
+    else if(process == MOVEDIR)
+        ret = MoveDirectory(source, dest);
     else if(process == DELETEDIR)
         ret =RemoveDirectory(source);
     else if(process == DELETEFILE)

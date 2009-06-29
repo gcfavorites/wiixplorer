@@ -47,6 +47,7 @@ typedef struct
 	char filename[MAXJOLIET + 1];
 	u64  filesize;
 	bool isdir;
+	bool cutted;
 } CLIPBOARD;
 
 extern BROWSERINFO browser;
