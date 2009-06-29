@@ -783,6 +783,7 @@ class GuiKeyboard : public GuiWindow
 		GuiSound * keySoundOver;
 		GuiSound * keySoundClick;
 		GuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 typedef struct _optionlist {
@@ -844,6 +845,7 @@ class GuiFileBrowser : public GuiElement
 	public:
 		GuiFileBrowser(int w, int h);
 		~GuiFileBrowser();
+		void DisableTriggerUpdate(bool set);
 		void ResetState();
 		void SetFocus(int f);
 		void Draw();
@@ -853,6 +855,7 @@ class GuiFileBrowser : public GuiElement
 	protected:
 		int selectedItem;
 		bool listChanged;
+		bool triggerdisabled;
 
 		GuiText * fileListText[PAGESIZE];
 		GuiText * fileListTextOver[PAGESIZE];

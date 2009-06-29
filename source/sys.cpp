@@ -25,20 +25,17 @@ u8 reset = 0;
 
 void __Sys_ResetCallback(void)
 {
-	/* Reboot console */
 	reset = 1;
 }
 
 void __Sys_PowerCallback(void)
 {
-	/* Poweroff console */
 	shutdown = 1;
 }
 
 
 void Sys_Init(void)
 {
-	/* Set RESET/POWER button callback */
 	SYS_SetResetCallback(__Sys_ResetCallback);
 	SYS_SetPowerCallback(__Sys_PowerCallback);
 }
@@ -57,7 +54,6 @@ void ExitApp()
 
 void Sys_Reboot(void)
 {
-	/* Restart console */
 	ExitApp();
 	STM_RebootSystem();
 }
@@ -73,30 +69,29 @@ static void _Sys_Shutdown(int SHUTDOWN_MODE)
 	WPAD_Disconnect(0);
 	WPAD_Shutdown();
 
-	/* Poweroff console */
 	if((CONF_GetShutdownMode() == CONF_SHUTDOWN_IDLE &&  SHUTDOWN_MODE != ShutdownToStandby) || SHUTDOWN_MODE == ShutdownToIdle) {
 		s32 ret;
 
-		/* Set LED mode */
 		ret = CONF_GetIdleLedMode();
 		if(ret >= 0 && ret <= 2)
 			STM_SetLedMode(ret);
 
-		/* Shutdown to idle */
 		STM_ShutdownToIdle();
 	} else {
-		/* Shutdown to standby */
 		STM_ShutdownToStandby();
 	}
 }
+
 void Sys_Shutdown(void)
 {
 	_Sys_Shutdown(ShutdownToDefault);
 }
+
 void Sys_ShutdownToIdel(void)
 {
 	_Sys_Shutdown(ShutdownToIdle);
 }
+
 void Sys_ShutdownToStandby(void)
 {
 	_Sys_Shutdown(ShutdownToStandby);

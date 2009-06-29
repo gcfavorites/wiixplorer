@@ -21,6 +21,7 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	selectedItem = 0;
 	selectable = true;
 	listChanged = true; // trigger an initial list update
+	triggerdisabled = false; // trigger disable
 	focus = 1; // allow focus
 
 	trigA = new GuiTrigger;
@@ -177,6 +178,11 @@ void GuiFileBrowser::SetFocus(int f)
 		fileList[selectedItem]->SetState(STATE_SELECTED);
 }
 
+void GuiFileBrowser::DisableTriggerUpdate(bool set)
+{
+	triggerdisabled = set;
+}
+
 void GuiFileBrowser::ResetState()
 {
 	state = STATE_DEFAULT;
@@ -219,7 +225,7 @@ void GuiFileBrowser::Draw()
 
 void GuiFileBrowser::Update(GuiTrigger * t)
 {
-	if(state == STATE_DISABLED || !t)
+	if(state == STATE_DISABLED || !t || triggerdisabled)
 		return;
 
 	int position = 0;

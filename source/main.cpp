@@ -29,8 +29,7 @@
 FreeTypeGX *fontSystem;
 struct SSettings Settings;
 
-void
-DefaultSettings()
+void DefaultSettings()
 {
 	Settings.MountMethod = METHOD_SD;
 }
@@ -59,5 +58,5 @@ main(int argc, char *argv[])
 	DefaultSettings();
     InitNetworkThread();
     ResumeNetworkThread();
-	MainMenu(MENU_SETTINGS);
+	MainMenu(MENU_BROWSE_DEVICE);
 }

@@ -14,6 +14,7 @@ bool CreateSubfolder(const char * fullpath);
 bool CheckFile(const char * filepath);
 int CopyFile(const char * src, const char * dest);
 int CopyDirectory(const char * src, const char * dest);
+int MoveDirectory(char * src, const char * dest);
 int RemoveDirectory(char * dirpath);
 bool RemoveFile(char * filepath);
 
