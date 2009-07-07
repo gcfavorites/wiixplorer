@@ -15,11 +15,11 @@
 #include "libwiigui/gui.h"
 #include "http.h"
 #include "networkops.h"
+#include "main.h"
 
 static s32 connection;
 static bool SMB_Mounted = false;
 static bool networkinit = false;
-static bool auto_init_once = false;
 static bool network_initiating = false;
 static char IP[16];
 
@@ -53,13 +53,19 @@ bool ConnectSMBShare()
 	{
 		if(!SMB_Mounted)
 		{
-			if(smbInitDevice("smb", "Dima", "test", "d", "192.168.178.3"))
+			if(smbInitDevice("smb",
+                Settings.SMBUser[Settings.CurrentUser].User,
+                Settings.SMBUser[Settings.CurrentUser].Password,
+                Settings.SMBUser[Settings.CurrentUser].SMBName,
+                Settings.SMBUser[Settings.CurrentUser].Host))
 			{
 				SMB_Mounted = true;
+			} else {
+			    SMB_Mounted = false;
 			}
 		}
 	}
-
+	networkHalt = true;
 	return SMB_Mounted;
 }
 
@@ -78,13 +84,11 @@ void Initialize_Network(void) {
 
    if(result < 0) {
         networkinit = false;
-        auto_init_once = true;
         network_initiating = false;
 		return;
 	}
 
     networkinit = true;
-    auto_init_once = true;
     network_initiating = false;
     return;
 }
@@ -111,129 +115,6 @@ bool IsNetworkInitiating(void)
 char * GetNetworkIP(void)
 {
     return IP;
-}
-
-/****************************************************************************
- * Get network IP
- ***************************************************************************/
-bool ShutdownWC24()
-{
-    bool onlinefix = IsNetworkInit();
-	if(onlinefix) {
-		s32 kd_fd, ret;
-		STACK_ALIGN(u8, kd_buf, 0x20, 32);
-
-		kd_fd = IOS_Open("/dev/net/kd/request", 0);
-		if (kd_fd >= 0) {
-			ret = IOS_Ioctl(kd_fd, 7, NULL, 0, kd_buf, 0x20);
-			if(ret >= 0)
-				onlinefix = false; // fixed no IOS reload needed
-			IOS_Close(kd_fd);
-		}
-	}
-	return onlinefix;
-}
-
-s32 network_request(const char * request)
-{
-	char buf[1024];
-	char *ptr = NULL;
-
-	u32 cnt, size;
-	s32 ret;
-
-	/* Send request */
-	ret = net_send(connection, request, strlen(request), 0);
-	if (ret < 0)
-		return ret;
-
-	/* Clear buffer */
-	memset(buf, 0, sizeof(buf));
-
-	/* Read HTTP header */
-	for (cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
-		if (net_recv(connection, buf + cnt, 1, 0) <= 0)
-			return -1;
-
-	/* HTTP request OK? */
-	if (!strstr(buf, "HTTP/1.1 200 OK"))
-		return -1;
-	/* Retrieve content size */
-	ptr = strstr(buf, "Content-Length:");
-	if (!ptr)
-		return -1;
-
-	sscanf(ptr, "Content-Length: %u", &size);
-	return size;
-}
-
-s32 network_read(u8 * buf, u32 len)
-{
-	u32 read = 0;
-	s32 ret = -1;
-
-	/* Data to be read */
-	while (read < len) {
-		/* Read network data */
-		ret = net_read(connection, buf + read, len - read);
-		if (ret < 0)
-			return ret;
-
-		/* Read finished */
-		if (!ret)
-			break;
-
-		/* Increment read variable */
-		read += ret;
-	}
-
-	return read;
-}
-
-/****************************************************************************
- * Download request
- ***************************************************************************/
-s32 download_request(const char * url) {
-
-    //Check if the url starts with "http://", if not it is not considered a valid url
-	if(strncmp(url, "http://", strlen("http://")) != 0)
-	{
-		return -1;
-	}
-
-	//Locate the path part of the url by searching for '/' past "http://"
-	char *path = strchr(url + strlen("http://"), '/');
-
-	//At the very least the url has to end with '/', ending with just a domain is invalid
-	if(path == NULL)
-	{
-		return -1;
-	}
-
-	//Extract the domain part out of the url
-	int domainlength = path - url - strlen("http://");
-
-	if(domainlength == 0)
-	{
-		return -1;
-	}
-
-	char domain[domainlength + 1];
-	strncpy(domain, url + strlen("http://"), domainlength);
-	domain[domainlength] = '\0';
-
-	connection = GetConnection(domain);
-    if(connection < 0) {
-        return -1;
-    }
-
-    //Form a nice request header to send to the webserver
-	char header[strlen(path)+strlen(domain)+100];
-	sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, domain);
-
-	s32 filesize = network_request(header);
-
-    return filesize;
 }
 
 /****************************************************************************
@@ -272,11 +153,14 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-    if(!auto_init_once)
-        ConnectSMBShare();
-    else
-        ShutdownNetworkThread();
+    while(1) {
+        if(networkHalt)
+            LWP_SuspendThread(networkthread);
 
+        ConnectSMBShare();
+
+        usleep(100);
+    }
 	return NULL;
 }
 

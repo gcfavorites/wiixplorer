@@ -44,6 +44,9 @@ extern const u32	dialogue_box_png_size;
 extern const u8		clickmenu_png[];
 extern const u32	clickmenu_png_size;
 
+extern const u8		bg_properties_png[];
+extern const u32	bg_properties_png_size;
+
 extern const u8		bg_options_png[];
 extern const u32	bg_options_png_size;
 
@@ -52,6 +55,9 @@ extern const u32	bg_options_entry_png_size;
 
 extern const u8		folder_png[];
 extern const u32	folder_png_size;
+
+extern const u8		menu_selection_png[];
+extern const u32	menu_selection_png_size;
 
 extern const u8		bg_file_selection_png[];
 extern const u32	bg_file_selection_png_size;
