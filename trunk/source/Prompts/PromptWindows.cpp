@@ -9,9 +9,10 @@
 
 #include "libwiigui/gui.h"
 #include "network/networkops.h"
-#include "PromptWindows.h"
+#include "Prompts/PromptWindows.h"
 #include "fatmounter.h"
 #include "fileops.h"
+#include "foldersize.h"
 #include "menu.h"
 #include "filelist.h"
 #include "sys.h"
@@ -324,6 +325,14 @@ int RightClickMenu(int x, int y)
     GuiImage dialogBoxImg(&dialogBox);
     dialogBoxImg.SetPosition(-8, -dialogBox.GetHeight()/numItems/2);
 
+    GuiImageData menu_select(menu_selection_png);
+
+    if(screenwidth < x + dialogBox.GetWidth() + 10)
+        x = screenwidth - dialogBox.GetWidth() - 10;
+
+    if(screenheight < y + dialogBox.GetHeight() + 10)
+        y = screenheight - dialogBox.GetHeight() - 10;
+
     GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
     promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     promptWindow.SetPosition(x, y);
@@ -337,12 +346,14 @@ int RightClickMenu(int x, int y)
 
     GuiText cutTxt("Cut", 26, (GXColor){0, 0, 0, 255});
     GuiText cutTxtOver("Cut", 26, (GXColor){28, 32, 190, 255});
+    cutTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    cutTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton btnCut(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     btnCut.SetLabel(&cutTxt);
     btnCut.SetLabelOver(&cutTxtOver);
-    cutTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    cutTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     btnCut.SetSoundClick(&btnClick);
+    GuiImage btnCutMenuSelect(&menu_select);
+    btnCut.SetImageOver(&btnCutMenuSelect);
     btnCut.SetTrigger(&trigA);
     btnCut.SetPosition(0,buttonY);
     btnCut.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -350,11 +361,13 @@ int RightClickMenu(int x, int y)
 
     GuiText copyTxt("Copy", 26, (GXColor){0, 0, 0, 255});
     GuiText copyTxtOver("Copy", 26, (GXColor){28, 32, 190, 255});
+    copyTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    copyTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Copybtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     Copybtn.SetLabel(&copyTxt);
     Copybtn.SetLabelOver(&copyTxtOver);
-    copyTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    copyTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiImage CopybtnMenuSelect(&menu_select);
+    Copybtn.SetImageOver(&CopybtnMenuSelect);
     Copybtn.SetSoundClick(&btnClick);
     Copybtn.SetTrigger(&trigA);
     Copybtn.SetPosition(0,buttonY);
@@ -363,11 +376,13 @@ int RightClickMenu(int x, int y)
 
     GuiText pasteTxt("Paste", 26, (GXColor){0, 0, 0, 255});
     GuiText PasteTxtOver("Paste", 26, (GXColor){28, 32, 190, 255});
+    pasteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    PasteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Pastebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     Pastebtn.SetLabel(&pasteTxt);
     Pastebtn.SetLabelOver(&PasteTxtOver);
-    pasteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    PasteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiImage PastebtnMenuSelect(&menu_select);
+    Pastebtn.SetImageOver(&PastebtnMenuSelect);
     Pastebtn.SetSoundClick(&btnClick);
     Pastebtn.SetTrigger(&trigA);
     Pastebtn.SetPosition(0,buttonY);
@@ -376,11 +391,13 @@ int RightClickMenu(int x, int y)
 
     GuiText RenameTxt("Rename", 26, (GXColor){0, 0, 0, 255});
     GuiText RenameTxtOver("Rename", 26, (GXColor){28, 32, 190, 255});
+    RenameTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    RenameTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Renamebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     Renamebtn.SetLabel(&RenameTxt);
     Renamebtn.SetLabelOver(&RenameTxtOver);
-    RenameTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    RenameTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiImage RenamebtnMenuSelect(&menu_select);
+    Renamebtn.SetImageOver(&RenamebtnMenuSelect);
     Renamebtn.SetSoundClick(&btnClick);
     Renamebtn.SetTrigger(&trigA);
     Renamebtn.SetPosition(0,buttonY);
@@ -389,11 +406,13 @@ int RightClickMenu(int x, int y)
 
     GuiText DeleteTxt("Delete", 26, (GXColor){0, 0, 0, 255});
     GuiText DeleteTxtOver("Delete", 26, (GXColor){28, 32, 190, 255});
+    DeleteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    DeleteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Deletebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     Deletebtn.SetLabel(&DeleteTxt);
     Deletebtn.SetLabelOver(&DeleteTxtOver);
-    DeleteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    DeleteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiImage DeletebtnMenuSelect(&menu_select);
+    Deletebtn.SetImageOver(&DeletebtnMenuSelect);
     Deletebtn.SetSoundClick(&btnClick);
     Deletebtn.SetTrigger(&trigA);
     Deletebtn.SetPosition(0,buttonY);
@@ -402,11 +421,13 @@ int RightClickMenu(int x, int y)
 
     GuiText PropertiesTxt("Properties", 26, (GXColor){0, 0, 0, 255});
     GuiText PropertiesTxtOver("Properties", 26, (GXColor){28, 32, 190, 255});
+    PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    PropertiesTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Propertiesbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
     Propertiesbtn.SetLabel(&PropertiesTxt);
     Propertiesbtn.SetLabelOver(&PropertiesTxtOver);
-    PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    PropertiesTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiImage PropertiesbtnMenuSelect(&menu_select);
+    Propertiesbtn.SetImageOver(&PropertiesbtnMenuSelect);
     Propertiesbtn.SetSoundClick(&btnClick);
     Propertiesbtn.SetTrigger(&trigA);
     Propertiesbtn.SetPosition(0,buttonY);
@@ -480,13 +501,227 @@ int RightClickMenu(int x, int y)
 }
 
 /****************************************************************************
+* Properties
+***************************************************************************/
+int Properties(const char * filename, const char * filepath, int folder, float filesize)
+{
+    int choice = -1, stats = -1;
+    u64 oldfoldersize = 0.0;
+    char temp[MAXPATHLEN];
+    struct stat filestat;
+    snprintf(temp, sizeof(temp), "%s%s", filepath, filename);
+    stats = stat(temp, &filestat);
+
+    if(folder) {
+        snprintf(temp, sizeof(temp), "%s%s/", filepath, filename);
+        StartGetFolderSizeThread(temp);
+    }
+
+    GuiImageData dialogBox(bg_properties_png);
+    GuiImage dialogBoxImg(&dialogBox);
+
+    GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
+    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    promptWindow.SetPosition(100, 100);
+
+    GuiTrigger trigA;
+    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    GuiTrigger trigB;
+    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+
+    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+
+    GuiImageData btnOutline(button_png);
+
+    GuiText TitleTxt(filename, 28, (GXColor){0, 0, 0, 255});
+    TitleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+    TitleTxt.SetPosition(0, 30);
+    TitleTxt.SetMaxWidth(dialogBox.GetWidth()-20, GuiText::DOTTED);
+
+    GuiImageData titleData(folder_png);
+    GuiImage TitleImg(&titleData);
+    TitleImg.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+    TitleImg.SetPosition(-(TitleTxt.GetTextWidth()/2+titleData.GetWidth())+10, 30);
+
+    sprintf(temp, "Filepath:  %s", filepath);
+    GuiText filepathTxt(temp, 22, (GXColor){0, 0, 0, 255});
+    filepathTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filepathTxt.SetPosition(20, 80);
+    filepathTxt.SetMaxWidth(dialogBox.GetWidth()-30, GuiText::DOTTED);
+
+    GuiText filecountTxt("Files:", 22, (GXColor){0, 0, 0, 255});
+    filecountTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filecountTxt.SetPosition(20, 110);
+
+    GuiText filecountTxtVal("1", 22, (GXColor){0, 0, 0, 255});
+    filecountTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filecountTxtVal.SetPosition(200, 110);
+
+    if(filesize > KBSIZE && filesize < MBSIZE)
+        sprintf(temp, "%0.2fKB", filesize/KBSIZE);
+    else if(filesize > MBSIZE && filesize < GBSIZE)
+        sprintf(temp, "%0.2fMB", filesize/MBSIZE);
+    else if(filesize > GBSIZE)
+        sprintf(temp, "%0.2fGB", filesize/GBSIZE);
+    else
+        sprintf(temp, "%0.2fB", filesize);
+
+    GuiText filesizeTxt("Size:", 22, (GXColor){0, 0, 0, 255});
+    filesizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filesizeTxt.SetPosition(20, 140);
+
+    GuiText filesizeTxtVal(temp, 22, (GXColor){0, 0, 0, 255});
+    filesizeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filesizeTxtVal.SetPosition(200, 140);
+
+    char temp2[30];
+    char * pch;
+    if(folder) {
+        snprintf(temp2, sizeof(temp2), "Folder");
+        TitleTxt.SetMaxWidth(dialogBox.GetWidth()-55, GuiText::DOTTED);
+    } else {
+        snprintf(temp, sizeof(temp), "%s", filename);
+        pch = strrchr(temp, '.')+1;
+        snprintf(temp2, sizeof(temp2), "%s", pch);
+    }
+
+    GuiText filetypeTxt("Filetype:", 22, (GXColor){0, 0, 0, 255});
+    filetypeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filetypeTxt.SetPosition(20, 170);
+
+    GuiText filetypeTxtVal(temp2, 22, (GXColor){0, 0, 0, 255});
+    filetypeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filetypeTxtVal.SetPosition(200, 170);
+
+    GuiText last_accessTxt("Last access:", 20, (GXColor){0, 0, 0, 255});
+    last_accessTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_accessTxt.SetPosition(20, 200);
+
+    strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_atime));
+    GuiText last_accessTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
+    last_accessTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_accessTxtVal.SetPosition(200, 200);
+
+    GuiText last_modifTxt("Last modified:", 20, (GXColor){0, 0, 0, 255});
+    last_modifTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_modifTxt.SetPosition(20, 230);
+
+    strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_mtime));
+    GuiText last_modifTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
+    last_modifTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_modifTxtVal.SetPosition(200, 230);
+
+    GuiText last_changeTxt("Last status change:", 20, (GXColor){0, 0, 0, 255});
+    last_changeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_changeTxt.SetPosition(20, 260);
+
+    strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_ctime));
+    GuiText last_changeTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
+    last_changeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    last_changeTxtVal.SetPosition(200, 260);
+
+    GuiImage BackbtnImg(&btnOutline);
+    BackbtnImg.SetScale(0.9);
+    GuiText BackTxt("Back", 24, (GXColor){0, 0, 0, 255});
+    BackTxt.SetPosition(0, btnOutline.GetHeight()*0.1 - 1);
+    GuiButton Backbtn(btnOutline.GetWidth()*0.9, btnOutline.GetHeight()*0.9);
+    Backbtn.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+    Backbtn.SetLabel(&BackTxt);
+    Backbtn.SetSoundClick(&btnClick);
+    Backbtn.SetImage(&BackbtnImg);
+    Backbtn.SetPosition(0, 280);
+    Backbtn.SetEffectGrow();
+    Backbtn.SetTrigger(&trigA);
+    Backbtn.SetTrigger(&trigB);
+
+    promptWindow.Append(&dialogBoxImg);
+    promptWindow.Append(&TitleTxt);
+    if(folder)
+        promptWindow.Append(&TitleImg);
+    promptWindow.Append(&filepathTxt);
+    promptWindow.Append(&filecountTxt);
+    promptWindow.Append(&filecountTxtVal);
+    promptWindow.Append(&filesizeTxt);
+    promptWindow.Append(&filesizeTxtVal);
+    promptWindow.Append(&filetypeTxt);
+    promptWindow.Append(&filetypeTxtVal);
+    promptWindow.Append(&last_accessTxt);
+    promptWindow.Append(&last_accessTxtVal);
+    promptWindow.Append(&last_modifTxt);
+    promptWindow.Append(&last_modifTxtVal);
+    promptWindow.Append(&last_changeTxt);
+    promptWindow.Append(&last_changeTxtVal);
+    promptWindow.Append(&Backbtn);
+
+    HaltGui();
+    mainWindow->SetState(STATE_DISABLED);
+    mainWindow->Append(&promptWindow);
+    mainWindow->ChangeFocus(&promptWindow);
+    ResumeGui();
+
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    while(choice == -1)
+    {
+        usleep(THREAD_SLEEP);
+
+        if(shutdown == 1) {
+            Sys_Shutdown();
+        }
+        else if(reset == 1)
+            Sys_Reboot();
+
+        else if(Backbtn.GetState() == STATE_CLICKED) {
+            choice = -3;
+            break;
+        }
+
+        if(folder) {
+            u64 foldersize = GetCurrentFolderSize();
+            u32 filecount = GetFilecount();
+            if(foldersize != oldfoldersize) {
+				char sizetext[10];
+				char filecounttext[20];
+                if(foldersize > KBSIZE && foldersize < MBSIZE)
+                    snprintf(sizetext, sizeof(sizetext), "%0.2fKB", foldersize/KBSIZE);
+                else if(foldersize > MBSIZE && foldersize < GBSIZE)
+                    snprintf(sizetext, sizeof(sizetext), "%0.2fMB", foldersize/MBSIZE);
+                else if(foldersize > GBSIZE)
+                    snprintf(sizetext, sizeof(sizetext), "%0.2fGB", foldersize/GBSIZE);
+                else
+                    snprintf(sizetext, sizeof(sizetext), "%LiB", foldersize);
+                filesizeTxtVal.SetText(sizetext);
+                snprintf(filecounttext, sizeof(filecounttext), "%i", filecount);
+                filecountTxtVal.SetText(filecounttext);
+            }
+            oldfoldersize = foldersize;
+        }
+    }
+
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    HaltGui();
+    mainWindow->Remove(&promptWindow);
+    mainWindow->SetState(STATE_DEFAULT);
+    ResumeGui();
+
+    return choice;
+}
+
+/****************************************************************************
  * ShowProgress
  *
  * Updates the variables used by the progress window for drawing a progress
  * bar.
  ***************************************************************************/
-void ShowProgress(u32 done, u32 total, char * filename, int progressmode)
+void ShowProgress(u64 done, u64 total, char * filename, int progressmode)
 {
+    msgTxt.SetText(filename);
+
     if(progressmode == PROGRESSBAR) {
 
  	static time_t start;
@@ -510,14 +745,18 @@ void ShowProgress(u32 done, u32 total, char * filename, int progressmode)
 	f32 percent = (done * 100.0) / total;
 
     prTxt.SetTextf("%0.2f", percent);
+	progressbarImg.SetTile(percent);
 
     speedTxt.SetTextf("%s %dKB/s","Speed:", speed);
 
-	sizeTxt.SetTextf("%0.2fMB/%0.2fMB", done/MBSIZE, total/MBSIZE);
-
-    msgTxt.SetText(filename);
-
-	progressbarImg.SetTile(percent);
+	if(total > KBSIZE && total < MBSIZE)
+        sizeTxt.SetTextf("%0.2fKB/%0.2fKB", done/KBSIZE, total/KBSIZE);
+    else if(total > MBSIZE && total < GBSIZE)
+        sizeTxt.SetTextf("%0.2fMB/%0.2fMB", done/MBSIZE, total/MBSIZE);
+    else if(total > GBSIZE)
+        sizeTxt.SetTextf("%0.2fGB/%0.2fGB", done/GBSIZE, total/GBSIZE);
+    else
+        sizeTxt.SetTextf("%LiB/%LiB", done, total);
 
     } else {
         usleep(THREAD_SLEEP);
@@ -526,7 +765,6 @@ void ShowProgress(u32 done, u32 total, char * filename, int progressmode)
         if(angle > 360)
             angle = 0 + (angle - 360);
         throbberImg.SetAngle(angle);
-        msgTxt.SetText(filename);
     }
 }
 
@@ -542,13 +780,14 @@ ProgressWindow(const char *title, char * source, char *dest, int process, int mo
 {
 	int ret = -1;
 
-	GuiWindow promptWindow(472,320);
-	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	promptWindow.SetPosition(0, -10);
-
-	GuiImageData btnOutline(button_png);
 	GuiImageData dialogBox(dialogue_box_png);
 	GuiImage dialogBoxImg(&dialogBox);
+
+	GuiWindow promptWindow(dialogBox.GetWidth(),dialogBox.GetHeight());
+	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	promptWindow.SetPosition(0, 0);
+
+	GuiImageData btnOutline(button_png);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -584,7 +823,7 @@ ProgressWindow(const char *title, char * source, char *dest, int process, int mo
 	prsTxt.SetPosition(-188,40);
 
     speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	speedTxt.SetPosition(275,-50);
+	speedTxt.SetPosition(265,-50);
 
     sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	sizeTxt.SetPosition(50, -50);
@@ -608,10 +847,13 @@ ProgressWindow(const char *title, char * source, char *dest, int process, int mo
 	}
 
 	HaltGui();
+	promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 	mainWindow->SetState(STATE_DISABLED);
 	mainWindow->Append(&promptWindow);
 	mainWindow->ChangeFocus(&promptWindow);
 	ResumeGui();
+
+	while(promptWindow.GetEffect() > 0) usleep(100);
 
     if(process == COPYDIR)
         ret = CopyDirectory(source, dest);
@@ -623,6 +865,9 @@ ProgressWindow(const char *title, char * source, char *dest, int process, int mo
         ret =RemoveDirectory(source);
     else if(process == DELETEFILE)
         ret = RemoveFile(source);
+
+	promptWindow.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+	while(promptWindow.GetEffect() > 0) usleep(100);
 
 	HaltGui();
 	mainWindow->Remove(&promptWindow);

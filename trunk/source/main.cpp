@@ -22,7 +22,6 @@
 #include "filelist.h"
 #include "main.h"
 #include "fatmounter.h"
-#include "network/networkops.h"
 #include "sys.h"
 #include "wpad.h"
 
@@ -32,6 +31,23 @@ struct SSettings Settings;
 void DefaultSettings()
 {
 	Settings.MountMethod = METHOD_SD;
+	Settings.CurrentUser = 0;
+	sprintf(Settings.SMBUser[0].Host, "192.168.178.3");
+    sprintf(Settings.SMBUser[0].User, "Test");
+    sprintf(Settings.SMBUser[0].Password, "Test");
+    sprintf(Settings.SMBUser[0].SMBName, "d");
+
+	sprintf(Settings.SMBUser[1].Host, "192.168.2.11");
+    sprintf(Settings.SMBUser[1].User, "Test");
+    sprintf(Settings.SMBUser[1].Password, "Test");
+    sprintf(Settings.SMBUser[1].SMBName, "L");
+
+	for(int i = 2; i < 4; i++) {
+        sprintf(Settings.SMBUser[i].Host, "None");
+        sprintf(Settings.SMBUser[i].User, "None");
+        sprintf(Settings.SMBUser[i].Password, "None");
+        sprintf(Settings.SMBUser[i].SMBName, "None");
+	}
 }
 
 int
@@ -56,7 +72,5 @@ main(int argc, char *argv[])
 
 	InitGUIThreads();
 	DefaultSettings();
-    InitNetworkThread();
-    ResumeNetworkThread();
 	MainMenu(MENU_BROWSE_DEVICE);
 }

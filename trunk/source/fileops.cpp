@@ -14,10 +14,11 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include "PromptWindows.h"
+#include "Prompts/PromptWindows.h"
 #include "fileops.h"
+#include "filebrowser.h"
 
-#define BLOCKSIZE               400*1024      //400KB
+#define BLOCKSIZE               50*1024      //50KB
 
 /****************************************************************************
  * FindFile
@@ -62,14 +63,31 @@ bool CheckFile(const char * filepath)
 }
 
 /****************************************************************************
+ * FileSize
+ *
+ * Get filesize in bytes. u64 for files bigger than 4GB
+ ***************************************************************************/
+u64 FileSize(const char * filepath)
+{
+  struct stat filestat;
+
+  if (stat(filepath, &filestat) != 0)
+    return 0;
+
+  return filestat.st_size;
+}
+
+/****************************************************************************
  * CopyFile
  *
  * Copy the file from source filepath to destination filepath
  ***************************************************************************/
-int CopyFile(const char * src, const char * dest) {
+int CopyFile(const char * src, const char * dest)
+{
 
 	u32 blksize;
 	u32 read = 1;
+    u64 sizesrc = FileSize(src);
 
 	char temp[MAXPATHLEN];
 	sprintf(temp, "%s", src);
@@ -81,16 +99,12 @@ int CopyFile(const char * src, const char * dest) {
 		return -2;
 	}
 
-    fseek(source, 0, SEEK_END);
-    u32 sizesrc = ftell(source);
-    rewind(source);
-
     if(sizesrc < BLOCKSIZE)
         blksize = sizesrc;
     else
         blksize = BLOCKSIZE;
 
-	void * buffer = malloc(blksize);
+	u8 * buffer = new unsigned char[blksize];
 
 	if(buffer == NULL){
 	    //no memory
@@ -101,26 +115,26 @@ int CopyFile(const char * src, const char * dest) {
 	FILE * destination = fopen(dest, "wb");
 
     if(destination == NULL) {
-        free(buffer);
+        delete buffer;
         fclose(source);
         return -3;
     }
 
-    u32 done = 0;
-    while (read > 0) {
+    u64 done = 0;
+    do {
         //Display progress
         ShowProgress(done, sizesrc, filename);
         read = fread(buffer, 1, blksize, source);
         fwrite(buffer, 1, read, destination);
         done += read;
-    }
+    } while (read > 0);
 
     fclose(source);
-    //get size of written file
-    u32 sizedest = ftell(destination);
-
     fclose(destination);
-    free(buffer);
+    delete buffer;
+
+    //get size of written file
+    u64 sizedest = FileSize(dest);
 
     if(sizesrc != sizedest) {
         return -4;
@@ -134,7 +148,8 @@ int CopyFile(const char * src, const char * dest) {
  *
  * Copy recursive a complete source path to destination path
  ***************************************************************************/
-int CopyDirectory(const char * src, const char * dest) {
+int CopyDirectory(const char * src, const char * dest)
+{
 
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -155,8 +170,7 @@ int CopyDirectory(const char * src, const char * dest) {
             snprintf(destname, sizeof(destname), "%s%s/", dest, filename);
             CopyDirectory(currentname, destname);
             }
-        }
-        else if((st.st_mode & S_IFDIR) == 0) {
+        } else {
             char currentname[MAXPATHLEN];
             char destname[MAXPATHLEN];
             CreateSubfolder(dest);
@@ -175,7 +189,8 @@ int CopyDirectory(const char * src, const char * dest) {
  *
  * Create recursive all subfolders to the given path
  ***************************************************************************/
-bool CreateSubfolder(const char * fullpath) {
+bool CreateSubfolder(const char * fullpath)
+{
 
     //check/create subfolders
     struct stat st;
@@ -206,7 +221,8 @@ bool CreateSubfolder(const char * fullpath) {
  *
  * Move recursive a complete source path to destination path
  ***************************************************************************/
-int MoveDirectory(char * src, const char * dest) {
+int MoveDirectory(char * src, const char * dest)
+{
 
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -227,8 +243,7 @@ int MoveDirectory(char * src, const char * dest) {
             snprintf(destname, sizeof(destname), "%s%s/", dest, filename);
             MoveDirectory(currentname, destname);
             }
-        }
-        else if((st.st_mode & S_IFDIR) == 0) {
+        } else {
             char currentname[MAXPATHLEN];
             char destname[MAXPATHLEN];
             CreateSubfolder(dest);
@@ -255,7 +270,8 @@ int MoveDirectory(char * src, const char * dest) {
  *
  * Remove a directory and its content recursively
  ***************************************************************************/
-int RemoveDirectory(char * dirpath) {
+int RemoveDirectory(char * dirpath)
+{
 
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -274,13 +290,12 @@ int RemoveDirectory(char * dirpath) {
             snprintf(currentname, sizeof(currentname), "%s%s/", dirpath, filename);
             RemoveDirectory(currentname);
             }
-        }
-        else if((st.st_mode & S_IFDIR) == 0) {
+        } else {
             char currentname[MAXPATHLEN];
             snprintf(currentname, sizeof(currentname), "%s%s", dirpath, filename);
             RemoveFile(currentname);
             //Display Throbber rotating
-            ShowProgress(0, 0, filename, THROBBER);
+            ShowProgress(0, 1, filename, THROBBER);
         }
 	}
 
@@ -300,10 +315,43 @@ int RemoveDirectory(char * dirpath) {
  *
  * Delete the file from a given filepath
  ***************************************************************************/
-bool RemoveFile(char * filepath) {
+bool RemoveFile(char * filepath)
+{
 
     if(remove(filepath) != 0)
         return false;
 
     return true;
+}
+
+/****************************************************************************
+ * GetFolderSize
+ *
+ * Get recursivly complete foldersize
+ ***************************************************************************/
+void GetFolderSize(const char * folderpath, u64 * foldersize, u32 * filecount)
+{
+    struct stat st;
+    DIR_ITER *dir = NULL;
+    char filename[MAXPATHLEN];
+
+    dir = diropen(folderpath);
+    if(dir == NULL) {
+        return;
+    }
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if((st.st_mode & S_IFDIR) != 0) {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
+                char currentname[MAXPATHLEN];
+                snprintf(currentname, sizeof(currentname), "%s%s/", folderpath, filename);
+                GetFolderSize(currentname, foldersize, filecount);
+            }
+        } else {
+            *filecount = *filecount + 1;
+            *foldersize = *foldersize + st.st_size;
+        }
+	}
+	dirclose(dir);
 }
