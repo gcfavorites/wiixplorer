@@ -47,23 +47,20 @@ extern const u32	clickmenu_png_size;
 extern const u8		bg_properties_png[];
 extern const u32	bg_properties_png_size;
 
-extern const u8		bg_options_png[];
-extern const u32	bg_options_png_size;
+extern const u8		bg_browser_png[];
+extern const u32	bg_browser_png_size;
 
-extern const u8		bg_options_entry_png[];
-extern const u32	bg_options_entry_png_size;
+extern const u8		bg_browser_selection_png[];
+extern const u32	bg_browser_selection_png_size;
+
+extern const u8		addressbar_textbox_png[];
+extern const u32	addressbar_textbox_png_size;
 
 extern const u8		folder_png[];
 extern const u32	folder_png_size;
 
 extern const u8		menu_selection_png[];
 extern const u32	menu_selection_png_size;
-
-extern const u8		bg_file_selection_png[];
-extern const u32	bg_file_selection_png_size;
-
-extern const u8		bg_file_selection_entry_png[];
-extern const u32	bg_file_selection_entry_png_size;
 
 extern const u8		progressbar_png[];
 extern const u32	progressbar_png_size;

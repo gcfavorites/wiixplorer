@@ -184,17 +184,8 @@ int GuiText::GetTextWidth()
 {
 	if(!text)
 		return 0;
-	
-	int newSize = size*this->GetScale();
 
-	if(newSize != currentSize || currentWidescreen != widescreen)
-	{
-		//fontSystem->changeSize(newSize);
-		(font ? font : fontSystem)->changeSize(newSize, widescreen ? newSize*0.8 : 0);
-		currentSize = newSize;
-		currentWidescreen = widescreen;
-	}
-	return (font ? font : fontSystem)->getWidth(text);
+	return fontSystem->getWidth(text);
 }
 
 void GuiText::SetWidescreen(bool w)
@@ -217,10 +208,10 @@ void GuiText::Draw()
 
 	int newSize = size*this->GetScale();
 
-	if(newSize != currentSize || currentWidescreen != widescreen)
+	if(newSize != currentSize)
 	{
 		//fontSystem->changeSize(newSize);
-		(font ? font : fontSystem)->changeSize(newSize, widescreen ? newSize*0.8 : 0);
+		(font ? font : fontSystem)->changeSize(newSize, 0);
 		currentSize = newSize;
 		currentWidescreen = widescreen;
 	}
@@ -319,7 +310,7 @@ void GuiText::Draw()
 		else if(wrapMode == GuiText::SCROLL) // text scroller
 		{
 			wchar_t save;
-		
+
 			if(scrollPos2 == 0 || frameCount > scrollDelay+5)
 			{
 				scrollPos1 = 0;
@@ -337,14 +328,14 @@ void GuiText::Draw()
 			}
 			else if(scrollPos2 > 0 && frameCount >= scrollDelay)
 			{
-				
+
 				if(--scrollOffset < 0)
 				{
 					wchar_t tmp[] = { text[scrollPos1], text[scrollPos1+1], 0 };
 					scrollOffset += (font ? font : fontSystem)->getWidth(tmp) - (font ? font : fontSystem)->getWidth(tmp+1);
 					scrollPos1++;
 				}
-				
+
 				int strlen = wcslen(text);
 				for(; scrollPos2 < strlen; scrollPos2++)
 				{
@@ -366,7 +357,7 @@ void GuiText::Draw()
 			else if(frameCount >= scrollDelay)
 			{
 				scrollPos2 = -scrollPos2;
-				
+
 				scrollOffset++;
 				wchar_t tmp[] = { text[scrollPos1-1], text[scrollPos1], 0 };
 				int tmpOffset = (font ? font : fontSystem)->getWidth(tmp) - (font ? font : fontSystem)->getWidth(tmp+1);
@@ -395,10 +386,10 @@ void GuiText::Draw()
 
 				scrollPos2 = -scrollPos2;
 			}
-			
+
 			uint16_t drawStyle = style;
 			uint16_t drawX = this->GetLeft() + scrollOffset;
-			
+
 			if((drawStyle & FTGX_JUSTIFY_MASK) == FTGX_JUSTIFY_CENTER)
 			{
 				drawStyle = (drawStyle & ~FTGX_JUSTIFY_MASK) | FTGX_JUSTIFY_LEFT;
@@ -409,7 +400,7 @@ void GuiText::Draw()
 				drawStyle = (drawStyle & ~FTGX_JUSTIFY_MASK) | FTGX_JUSTIFY_LEFT;
 				drawX -= maxWidth;
 			}
-			
+
 			save = text[abs(scrollPos2)]; // save Pos2
 			text[abs(scrollPos2)] = 0;
 			(font ? font : fontSystem)->drawText(drawX, this->GetTop()+voffset, &text[scrollPos1], c, drawStyle);

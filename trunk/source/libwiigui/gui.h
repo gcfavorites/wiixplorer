@@ -53,7 +53,6 @@ extern FreeTypeGX *fontSystem;
 #define SCROLL_INITIAL_DELAY 	20
 #define SCROLL_LOOP_DELAY 		3
 #define PAGESIZE	 			8
-#define MAX_OPTIONS 			30
 
 typedef void (*UpdateCallback)(void * e);
 
@@ -784,59 +783,6 @@ class GuiKeyboard : public GuiWindow
 		GuiSound * keySoundClick;
 		GuiTrigger * trigA;
 		GuiTrigger * trigB;
-};
-
-typedef struct _optionlist {
-	int length;
-	char name[MAX_OPTIONS][150];
-	char value[MAX_OPTIONS][150];
-} OptionList;
-
-//!Display a list of menu options
-class GuiOptionBrowser : public GuiElement
-{
-	public:
-		GuiOptionBrowser(int w, int h, OptionList * l);
-		~GuiOptionBrowser();
-		void SetCol2Position(int x);
-		int FindMenuItem(int c, int d);
-		int GetClickedOption();
-		void ResetState();
-		void SetFocus(int f);
-		void Draw();
-		void Update(GuiTrigger * t);
-		GuiText * optionVal[PAGESIZE];
-	protected:
-		int selectedItem;
-		int listOffset;
-
-		OptionList * options;
-		int optionIndex[PAGESIZE];
-		GuiButton * optionBtn[PAGESIZE];
-		GuiText * optionTxt[PAGESIZE];
-		GuiImage * optionBg[PAGESIZE];
-
-		GuiButton * arrowUpBtn;
-		GuiButton * arrowDownBtn;
-
-		GuiImage * bgOptionsImg;
-		GuiImage * scrollbarImg;
-		GuiImage * arrowDownImg;
-		GuiImage * arrowDownOverImg;
-		GuiImage * arrowUpImg;
-		GuiImage * arrowUpOverImg;
-
-		GuiImageData * bgOptions;
-		GuiImageData * bgOptionsEntry;
-		GuiImageData * scrollbar;
-		GuiImageData * arrowDown;
-		GuiImageData * arrowDownOver;
-		GuiImageData * arrowUp;
-		GuiImageData * arrowUpOver;
-
-		GuiSound * btnSoundOver;
-		GuiSound * btnSoundClick;
-		GuiTrigger * trigA;
 };
 
 //!Display a list of files

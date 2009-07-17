@@ -16,7 +16,7 @@ static lwp_t foldersizethread = LWP_THREAD_NULL;
 static char folderpath[1024];
 static u64 foldersize = 0;
 static u32 filecount = 0;
-static bool running = false;
+bool sizegainrunning = false;
 
 /****************************************************************************
  * GetCurrentFolderSize
@@ -38,12 +38,12 @@ u32 GetFilecount()
  ***************************************************************************/
 static void GetSize()
 {
-    if(!running)
+    if(!sizegainrunning)
         return;
 
-    GetFolderSize(folderpath, &foldersize, &filecount);
+    GetFolderSize(folderpath, foldersize, filecount);
 
-    running = false;
+    sizegainrunning = false;
 }
 
 /****************************************************************************
@@ -54,7 +54,7 @@ static void * FolderSizeThread(void *arg)
 {
 	while(1)
 	{
-		if(!running)
+		if(!sizegainrunning)
 			LWP_SuspendThread(foldersizethread);
 
         GetSize();
@@ -66,15 +66,22 @@ static void * FolderSizeThread(void *arg)
 /****************************************************************************
  * StartGetFolderSizeThread
  *
- * Callbackfunction for updating the size value
+ * Update the size value
  ***************************************************************************/
 void StartGetFolderSizeThread(const char * path)
 {
     strncpy(folderpath, path, sizeof(folderpath));
     foldersize = 0;
     filecount = 0;
-    running = true;
+    sizegainrunning = true;
     LWP_ResumeThread(foldersizethread);
+}
+/****************************************************************************
+ * StopSizeGain
+ ***************************************************************************/
+void StopSizeGain()
+{
+    sizegainrunning = false;
 }
 
 /****************************************************************************

@@ -33,12 +33,12 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-	bgFileSelection = new GuiImageData(bg_file_selection_png);
+	bgFileSelection = new GuiImageData(bg_browser_png);
 	bgFileSelectionImg = new GuiImage(bgFileSelection);
 	bgFileSelectionImg->SetParent(this);
 	bgFileSelectionImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
-	bgFileSelectionEntry = new GuiImageData(bg_file_selection_entry_png);
+	bgFileSelectionEntry = new GuiImageData(bg_browser_selection_png);
 	fileFolder = new GuiImageData(folder_png);
 
 	scrollbar = new GuiImageData(scrollbar_png);

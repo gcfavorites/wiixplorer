@@ -18,6 +18,6 @@ int CopyDirectory(const char * src, const char * dest);
 int MoveDirectory(char * src, const char * dest);
 int RemoveDirectory(char * dirpath);
 bool RemoveFile(char * filepath);
-void GetFolderSize(const char * folderpath, u64 * foldersize, u32 * filenumber);
+void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filenumber);
 
 #endif

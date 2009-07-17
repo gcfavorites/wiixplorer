@@ -1,9 +1,6 @@
 /****************************************************************************
  * Networkhandle for Wiixplorer
  * by dimok
- *
- * HTTP operations
- * Written by dhewg/bushing
  ****************************************************************************/
 
 #include <stdio.h>
@@ -12,12 +9,10 @@
 #include <smb.h>
 #include <ogc/machine/processor.h>
 
-#include "libwiigui/gui.h"
 #include "http.h"
 #include "networkops.h"
 #include "main.h"
 
-static s32 connection;
 static bool SMB_Mounted = false;
 static bool networkinit = false;
 static bool network_initiating = false;
@@ -34,7 +29,31 @@ void CloseSMBShare()
 {
 	if(SMB_Mounted)
 		smbClose("smb");
+
 	SMB_Mounted = false;
+	networkinit = false;
+}
+
+/****************************************************************************
+ * Reconnect SMB Connection
+ ****************************************************************************/
+
+void SMB_Reconnect()
+{
+	if(SMB_Mounted)
+		CheckSMBConnection("smb");
+    else {
+        if(smbInitDevice("smb",
+            Settings.SMBUser[Settings.CurrentUser].User,
+            Settings.SMBUser[Settings.CurrentUser].Password,
+            Settings.SMBUser[Settings.CurrentUser].SMBName,
+            Settings.SMBUser[Settings.CurrentUser].Host))
+        {
+            SMB_Mounted = true;
+        } else {
+            SMB_Mounted = false;
+        }
+    }
 }
 
 /****************************************************************************
@@ -115,16 +134,6 @@ bool IsNetworkInitiating(void)
 char * GetNetworkIP(void)
 {
     return IP;
-}
-
-/****************************************************************************
- * Close Network Connection
- ****************************************************************************/
-
-void CloseConnection() {
-
-    net_close(connection);
-
 }
 
 /****************************************************************************
