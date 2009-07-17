@@ -2,6 +2,7 @@
 #include <ogcsys.h>
 #include <gccore.h>
 #include <stdlib.h>
+#include <wiiuse/wpad.h>
 
 #include "network/networkops.h"
 #include "video.h"
@@ -9,7 +10,6 @@
 #include "menu.h"
 #include "fatmounter.h"
 #include "sys.h"
-#include "wpad.h"
 
 
 //Wiilight stuff

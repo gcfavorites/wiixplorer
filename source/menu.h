@@ -16,7 +16,7 @@
 #define MBSIZE          1048576.0
 #define GBSIZE          1073741824.0
 
-void InitGUIThreads();
+void InitThreads();
 void ExitGUIThreads();
 void MainMenu (int menuitem);
 

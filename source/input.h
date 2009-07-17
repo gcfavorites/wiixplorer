@@ -19,5 +19,6 @@ extern int rumbleRequest[4];
 
 void ShutoffRumble();
 void DoRumble(int i);
+int Wpad_Init(void);
 
 #endif

@@ -16,13 +16,12 @@
 #include "menu.h"
 #include "filelist.h"
 #include "sys.h"
-#include "wpad.h"
 
 /*** Variables used only in this file ***/
 static GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
-static GuiText speedTxt(NULL, 26, (GXColor){0, 0, 0, 255});
-static GuiText sizeTxt(NULL, 26, (GXColor){0, 0, 0, 255});
-static GuiText msgTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiText speedTxt(NULL, 22, (GXColor){0, 0, 0, 255});
+static GuiText sizeTxt(NULL, 22, (GXColor){0, 0, 0, 255});
+static GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 static GuiImageData progressbar(progressbar_png);
 static GuiImage progressbarImg(&progressbar);
 static GuiImageData throbber(throbber_png);
@@ -95,7 +94,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	while(save == -1)
 	{
-		usleep(THREAD_SLEEP);
+		VIDEO_WaitVSync();
 
 		if(okBtn.GetState() == STATE_CLICKED)
 			save = 1;
@@ -455,7 +454,7 @@ int RightClickMenu(int x, int y)
 
     while(choice == -1)
     {
-        usleep(THREAD_SLEEP);
+        VIDEO_WaitVSync();
 
         if(shutdown == 1) {
             Sys_Shutdown();
@@ -665,7 +664,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
 
     while(choice == -1)
     {
-        usleep(THREAD_SLEEP);
+        VIDEO_WaitVSync();
 
         if(shutdown == 1) {
             Sys_Shutdown();
@@ -674,6 +673,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
             Sys_Reboot();
 
         else if(Backbtn.GetState() == STATE_CLICKED) {
+            StopSizeGain();
             choice = -3;
             break;
         }
@@ -720,7 +720,9 @@ int Properties(const char * filename, const char * filepath, int folder, float f
  ***************************************************************************/
 void ShowProgress(u64 done, u64 total, char * filename, int progressmode)
 {
-    msgTxt.SetText(filename);
+    VIDEO_WaitVSync();
+    
+	msgTxt.SetText(filename);
 
     if(progressmode == PROGRESSBAR) {
 
@@ -733,7 +735,6 @@ void ShowProgress(u64 done, u64 total, char * filename, int progressmode)
 	//Elapsed time
 	u32 elapsed = time(0) - start;
 	if(elapsed < 1) {
-        usleep(THREAD_SLEEP);
         elapsed = 1;
 	}
 	//Calculate speed in KB/s
@@ -759,7 +760,6 @@ void ShowProgress(u64 done, u64 total, char * filename, int progressmode)
         sizeTxt.SetTextf("%LiB/%LiB", done, total);
 
     } else {
-        usleep(THREAD_SLEEP);
         static u16 angle;
         angle += 10;
         if(angle > 360)

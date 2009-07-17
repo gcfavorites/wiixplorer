@@ -20,6 +20,8 @@
 
 #define BLOCKSIZE               50*1024      //50KB
 
+extern bool sizegainrunning;
+
 /****************************************************************************
  * FindFile
  *
@@ -329,7 +331,7 @@ bool RemoveFile(char * filepath)
  *
  * Get recursivly complete foldersize
  ***************************************************************************/
-void GetFolderSize(const char * folderpath, u64 * foldersize, u32 * filecount)
+void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 {
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -342,6 +344,9 @@ void GetFolderSize(const char * folderpath, u64 * foldersize, u32 * filecount)
 
     while (dirnext(dir,filename,&st) == 0)
 	{
+        if(!sizegainrunning)
+            return;
+
         if((st.st_mode & S_IFDIR) != 0) {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
                 char currentname[MAXPATHLEN];
@@ -349,8 +354,8 @@ void GetFolderSize(const char * folderpath, u64 * foldersize, u32 * filecount)
                 GetFolderSize(currentname, foldersize, filecount);
             }
         } else {
-            *filecount = *filecount + 1;
-            *foldersize = *foldersize + st.st_size;
+            filecount = filecount + 1;
+            foldersize = foldersize + st.st_size;
         }
 	}
 	dirclose(dir);

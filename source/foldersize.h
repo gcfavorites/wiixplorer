@@ -14,5 +14,6 @@ void ExitGetSizeThread();
 u64 GetCurrentFolderSize();
 u32 GetFilecount();
 void StartGetFolderSizeThread(const char * path);
+void StopSizeGain();
 
 #endif

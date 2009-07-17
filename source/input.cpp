@@ -24,10 +24,11 @@ int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
 static int rumbleCount[4] = {0,0,0,0};
 
+extern u8 shutdown;
+
 /****************************************************************************
  * ShutoffRumble
  ***************************************************************************/
-
 void ShutoffRumble()
 {
 	for(int i=0;i<4;i++)
@@ -40,7 +41,6 @@ void ShutoffRumble()
 /****************************************************************************
  * DoRumble
  ***************************************************************************/
-
 void DoRumble(int i)
 {
 	if(rumbleRequest[i] && rumbleCount[i] < 3)
@@ -66,7 +66,6 @@ void DoRumble(int i)
  *
  * Get X/Y value from Wii Joystick (classic, nunchuk) input
  ***************************************************************************/
-
 s8 WPAD_Stick(u8 chan, u8 right, int axis)
 {
 	float mag = 0.0;
@@ -112,4 +111,25 @@ s8 WPAD_Stick(u8 chan, u8 right, int axis)
 		val = mag * cos((PI * ang)/180.0f);
 
 	return (s8)(val * 128.0f);
+}
+
+/****************************************************************************
+ * Initialize Stuff
+ ***************************************************************************/
+void __Wpad_PowerCallback(s32 chan)
+{
+	shutdown = 1;
+}
+
+int Wpad_Init(void)
+{
+	int ret;
+
+	ret = WPAD_Init();
+	if (ret < 0)
+		return ret;
+
+	WPAD_SetPowerButtonCallback(__Wpad_PowerCallback);
+
+	return ret;
 }

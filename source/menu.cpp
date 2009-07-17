@@ -12,9 +12,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <wiiuse/wpad.h>
 
 #include "libwiigui/gui.h"
+#include "libwiigui/gui_optionbrowser.h"
 #include "menu.h"
 #include "main.h"
 #include "input.h"
@@ -30,7 +30,6 @@ GuiWindow * mainWindow = NULL;
 
 static GuiSound * bgMusic = NULL;
 static GuiImageData * pointer[4];
-static GuiImageData * background = NULL;
 static GuiImage * bgImg = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
@@ -123,16 +122,25 @@ UpdateGUI (void *arg)
 }
 
 /****************************************************************************
- * InitGUIThread
+ * InitThread
  *
- * Startup GUI threads
+ * Startup threads
  ***************************************************************************/
-void InitGUIThreads()
+void InitThreads()
 {
+    //!Initialize main GUI handling thread
 	LWP_CreateThread (&guithread, UpdateGUI, NULL, NULL, 0, 70);
+
+    //!Initialize network thread if selected
     InitNetworkThread();
-    ResumeNetworkThread();
+    if(Settings.AutoConnect == on)
+        ResumeNetworkThread();
+    else
+        HaltNetworkThread();
+
+    //!Initialize GetSizeThread for Properties
     InitGetSizeThread();
+    StopSizeGain();
 }
 
 /****************************************************************************
@@ -153,6 +161,7 @@ void ExitGUIThreads()
 static int MenuBrowseDevice()
 {
 	int i, choice = -1;
+	char currentdir[50];
 
 	// populate initial directory listing
 	if(BrowseDevice(Settings.MountMethod) <= 0)
@@ -171,9 +180,9 @@ static int MenuBrowseDevice()
 
 	int menu = MENU_NONE;
 
-	GuiText titleTxt("Browse Files", 28, (GXColor){0, 0, 0, 255});
+	GuiText titleTxt("Browse Files", 28, (GXColor){0, 0, 0, 230});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(100,50);
+	titleTxt.SetPosition(70,20);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -191,7 +200,7 @@ static int MenuBrowseDevice()
 	GuiImage SettingsBtnImg(&btnOutline);
 	GuiButton SettingsBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	SettingsBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	SettingsBtn.SetPosition(300, -35);
+	SettingsBtn.SetPosition(370, -35);
 	SettingsBtn.SetLabel(&SettingsBtnTxt);
 	SettingsBtn.SetImage(&SettingsBtnImg);
 	SettingsBtn.SetTrigger(&trigA);
@@ -201,29 +210,42 @@ static int MenuBrowseDevice()
 	GuiImage ExitBtnImg(&btnOutline);
 	GuiButton ExitBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	ExitBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	ExitBtn.SetPosition(30, -35);
+	ExitBtn.SetPosition(100, -35);
 	ExitBtn.SetLabel(&ExitBtnTxt);
 	ExitBtn.SetImage(&ExitBtnImg);
 	ExitBtn.SetTrigger(&trigA);
 	ExitBtn.SetEffectGrow();
 
+	GuiImageData Address(addressbar_textbox_png);
+    snprintf(currentdir, sizeof(currentdir), "%s%s", browser.rootdir, browser.dir);
+	GuiText AdressText(currentdir, 20, (GXColor) {0, 0, 0, 255});
+	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	AdressText.SetPosition(20, 0);
+	AdressText.SetMaxWidth(Address.GetWidth()-40, GuiText::SCROLL);
+	GuiImage AdressbarImg(&Address);
+	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
+	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Adressbar.SetPosition(60, fileBrowser.GetTop()-45);
+	Adressbar.SetImage(&AdressbarImg);
+	Adressbar.SetLabel(&AdressText);
+
 	GuiButton clickmenuBtn(screenwidth, screenheight);
 	clickmenuBtn.SetTrigger(&trigPlus);
 
-	GuiWindow buttonWindow(screenwidth, screenheight);
-	buttonWindow.Append(&clickmenuBtn);
-	buttonWindow.Append(&SettingsBtn);
-	buttonWindow.Append(&ExitBtn);
-
 	HaltGui();
-	mainWindow->Append(&titleTxt);
-	mainWindow->Append(&fileBrowser);
-	mainWindow->Append(&buttonWindow);
+	GuiWindow w(screenwidth, screenheight);
+	w.Append(&clickmenuBtn);
+	w.Append(&SettingsBtn);
+	w.Append(&ExitBtn);
+	w.Append(&titleTxt);
+	w.Append(&fileBrowser);
+	w.Append(&Adressbar);
+	mainWindow->Append(&w);
 	ResumeGui();
 
 	while(menu == MENU_NONE)
 	{
-		usleep(THREAD_SLEEP);
+		VIDEO_WaitVSync();
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -244,6 +266,7 @@ static int MenuBrowseDevice()
 						fileBrowser.ResetState();
 						fileBrowser.fileList[0]->SetState(STATE_SELECTED);
 						fileBrowser.TriggerUpdate();
+                        AdressText.SetTextf("%s%s", browser.rootdir, browser.dir);
 					} else {
 						menu = MENU_BROWSE_DEVICE;
 						break;
@@ -419,9 +442,9 @@ static int MenuBrowseDevice()
         }
 	}
 	HaltGui();
-	mainWindow->Remove(&titleTxt);
-	mainWindow->Remove(&buttonWindow);
-	mainWindow->Remove(&fileBrowser);
+	mainWindow->Remove(&w);
+	ResumeGui();
+
 	return menu;
 }
 
@@ -436,18 +459,20 @@ static int MenuSMBSettings()
 	int i = 0;
     char entered[43];
 
-	OptionList options;
-	sprintf(options.name[i++], "User:");
-	sprintf(options.name[i++], "Host:");
-	sprintf(options.name[i++], "Username:");
-	sprintf(options.name[i++], "Password:");
-	sprintf(options.name[i++], "SMB Name:");
-	sprintf(options.name[i++], "Reconnect SMB");
-	options.length = i;
+	OptionList options(6);
+	options.SetName(i++, "User:");
+	options.SetName(i++, "Host:");
+	options.SetName(i++, "Username:");
+	options.SetName(i++, "Password:");
+	options.SetName(i++, "SMB Name:");
+	if(Settings.AutoConnect == on)
+        options.SetName(i++, "Reconnect SMB");
+    else
+        options.SetName(i++, "Connect SMB");
 
 	GuiText titleTxt("SMB Settings", 28, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(50,50);
+	titleTxt.SetPosition(70,50);
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
@@ -472,22 +497,21 @@ static int MenuSMBSettings()
 	GuiOptionBrowser optionBrowser(552, 248, &options);
 	optionBrowser.SetPosition(0, 108);
 	optionBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	optionBrowser.SetCol2Position(185);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
-	mainWindow->Append(&optionBrowser);
+	w.Append(&titleTxt);
+	w.Append(&optionBrowser);
 	mainWindow->Append(&w);
-	mainWindow->Append(&titleTxt);
 	ResumeGui();
 
 	while(menu == MENU_NONE)
 	{
-		usleep(THREAD_SLEEP);
+		VIDEO_WaitVSync();
 
-		if(Settings.MountMethod > 2)
-			Settings.MountMethod = 0;
+        if(Settings.CurrentUser > MAXSMBUSERS-1)
+            Settings.CurrentUser = 0;
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -495,12 +519,12 @@ static int MenuSMBSettings()
         if(reset == 1)
             Sys_Reboot();
 
-		sprintf (options.value[0], "User %i", Settings.CurrentUser);
-		sprintf (options.value[1], "%s", Settings.SMBUser[Settings.CurrentUser].Host);
-		sprintf (options.value[2], "%s", Settings.SMBUser[Settings.CurrentUser].User);
-		sprintf (options.value[3], "%s", Settings.SMBUser[Settings.CurrentUser].Password);
-		sprintf (options.value[4], "%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
-		sprintf (options.value[5], " ");
+		options.SetValue(0, "User %i", Settings.CurrentUser+1);
+		options.SetValue(1, "%s", Settings.SMBUser[Settings.CurrentUser].Host);
+		options.SetValue(2,"%s", Settings.SMBUser[Settings.CurrentUser].User);
+		options.SetValue(3,"%s", Settings.SMBUser[Settings.CurrentUser].Password);
+		options.SetValue(4,"%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
+		options.SetValue(5," ");
 
 		ret = optionBrowser.GetClickedOption();
 
@@ -508,8 +532,6 @@ static int MenuSMBSettings()
 		{
 			case 0:
 				Settings.CurrentUser++;
-				if(Settings.CurrentUser > 3)
-                    Settings.CurrentUser = 0;
 				break;
             case 1:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Host);
@@ -542,8 +564,7 @@ static int MenuSMBSettings()
             case 5:
                 result = WindowPrompt("Do you want to reconnect the SMB?",0,"OK","Cancel");
                 if(result) {
-                    CloseSMBShare();
-                    ConnectSMBShare();
+                    SMB_Reconnect();
                 }
                 break;
 		}
@@ -555,9 +576,9 @@ static int MenuSMBSettings()
 	}
 
 	HaltGui();
-	mainWindow->Remove(&optionBrowser);
 	mainWindow->Remove(&w);
-	mainWindow->Remove(&titleTxt);
+	ResumeGui();
+
 	return menu;
 }
 /****************************************************************************
@@ -569,14 +590,15 @@ static int MenuSettings()
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
-	OptionList options;
-	sprintf(options.name[i++], "Mount Method");
-	sprintf(options.name[i++], "SMB Settings");
-	options.length = i;
+
+	OptionList options(3);
+	options.SetName(i++, "Mount Method");
+	options.SetName(i++, "Auto Connect");
+	options.SetName(i++, "SMB Settings");
 
 	GuiText titleTxt("Settings", 28, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(50,50);
+	titleTxt.SetPosition(70,50);
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
@@ -601,22 +623,18 @@ static int MenuSettings()
 	GuiOptionBrowser optionBrowser(552, 248, &options);
 	optionBrowser.SetPosition(0, 108);
 	optionBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	optionBrowser.SetCol2Position(185);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
-	mainWindow->Append(&optionBrowser);
+	w.Append(&titleTxt);
 	mainWindow->Append(&w);
-	mainWindow->Append(&titleTxt);
+	mainWindow->Append(&optionBrowser);
 	ResumeGui();
 
 	while(menu == MENU_NONE)
 	{
-		usleep(THREAD_SLEEP);
-
-		if(Settings.MountMethod > 2)
-			Settings.MountMethod = 0;
+        VIDEO_WaitVSync();
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -624,11 +642,14 @@ static int MenuSettings()
         if(reset == 1)
             Sys_Reboot();
 
-		if (Settings.MountMethod == METHOD_SD) sprintf (options.value[0],"SD");
-		else if (Settings.MountMethod == METHOD_USB) sprintf (options.value[0],"USB");
-		else if (Settings.MountMethod == METHOD_SMB) sprintf (options.value[0],"Network");
+		if (Settings.MountMethod == METHOD_SD) options.SetValue(0,"SD");
+		else if (Settings.MountMethod == METHOD_USB) options.SetValue(0,"USB");
+		else if (Settings.MountMethod == METHOD_SMB) options.SetValue(0,"Network");
 
-        sprintf(options.value[1], " ");
+		if (Settings.AutoConnect == on) options.SetValue(1,"ON");
+		else if (Settings.AutoConnect == off) options.SetValue(1,"OFF");
+
+        options.SetValue(2, " ");
 
 		ret = optionBrowser.GetClickedOption();
 
@@ -636,14 +657,22 @@ static int MenuSettings()
 		{
 			case 0:
 				Settings.MountMethod++;
+				if(Settings.MountMethod > 2)
+                    Settings.MountMethod = 0;
 				break;
             case 1:
+				Settings.AutoConnect++;
+				if(Settings.AutoConnect >= on_off_max)
+                    Settings.AutoConnect = off;
+				break;
+            case 2:
                 menu = MENU_SMB_SETTINGS;
                 break;
 		}
 
 		if(backBtn.GetState() == STATE_CLICKED)
 		{
+		    Settings.Save();
 			menu = MENU_BROWSE_DEVICE;
 		}
 	}
@@ -651,7 +680,8 @@ static int MenuSettings()
 	HaltGui();
 	mainWindow->Remove(&optionBrowser);
 	mainWindow->Remove(&w);
-	mainWindow->Remove(&titleTxt);
+	ResumeGui();
+
 	return menu;
 }
 
@@ -671,8 +701,8 @@ void MainMenu(int menu)
 
 	mainWindow = new GuiWindow(screenwidth, screenheight);
 
-    background = new GuiImageData(background_png);
-	bgImg = new GuiImage(background);
+    bgImg = new GuiImage(screenwidth, screenheight, (GXColor){150, 150, 150, 255});
+	bgImg->ColorStripe(10);
 	mainWindow->Append(bgImg);
 
 	GuiTrigger trigA;
@@ -681,7 +711,7 @@ void MainMenu(int menu)
 	ResumeGui();
 
 	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(50);
+	bgMusic->SetVolume(80);
 	bgMusic->SetLoop(1);
 	bgMusic->Play(); // startup music
 
