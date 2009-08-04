@@ -64,7 +64,7 @@ void CloseSMBShare()
 void SMB_Reconnect()
 {
 	if(SMB_Mounted)
-		CheckSMBConnection("smb");
+		smbCheckConnection("smb");
     else {
         if(smbInitDevice("smb",
             Settings.SMBUser[Settings.CurrentUser].User,
