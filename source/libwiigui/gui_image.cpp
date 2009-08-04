@@ -94,6 +94,7 @@ u8 * GuiImage::GetImage()
 
 void GuiImage::SetImage(GuiImageData * img)
 {
+    LOCK(this);
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -108,6 +109,7 @@ void GuiImage::SetImage(GuiImageData * img)
 
 void GuiImage::SetImage(u8 * img, int w, int h)
 {
+    LOCK(this);
 	image = img;
 	width = w;
 	height = h;
@@ -116,11 +118,13 @@ void GuiImage::SetImage(u8 * img, int w, int h)
 
 void GuiImage::SetAngle(float a)
 {
+    LOCK(this);
 	imageangle = a;
 }
 
 void GuiImage::SetTile(int t)
 {
+    LOCK(this);
 	tile = t;
 }
 
@@ -140,6 +144,7 @@ GXColor GuiImage::GetPixel(int x, int y)
 
 void GuiImage::SetPixel(int x, int y, GXColor color)
 {
+    LOCK(this);
 	if(!image || this->GetWidth() <= 0 || x < 0 || y < 0)
 		return;
 
@@ -152,6 +157,7 @@ void GuiImage::SetPixel(int x, int y, GXColor color)
 
 void GuiImage::SetStripe(int s)
 {
+    LOCK(this);
 	stripe = s;
 }
 
@@ -216,6 +222,8 @@ void GuiImage::Draw()
 {
 	if(!image || !this->IsVisible() || tile == 0)
 		return;
+
+    LOCK(this);
 
 	float currScale = this->GetScale();
 	int currLeft = this->GetLeft();

@@ -1,3 +1,31 @@
+/***************************************************************************
+ * Copyright (C) 2009
+ * by Dimok
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * PromptWindows.cpp
+ *
+ * All promptwindows
+ * for Wii-FileXplorer 2009
+ ***************************************************************************/
 #include <gccore.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -38,7 +66,7 @@ extern void ResumeGui();
 extern void HaltGui();
 
 /****************************************************************************
- * OnScreenKeyboard
+ * OnScreenKeyboard by Tantric 2009
  *
  * Opens an on-screen keyboard window, with the data entered being stored
  * into the specified variable.
@@ -710,169 +738,4 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     ResumeGui();
 
     return choice;
-}
-
-/****************************************************************************
- * ShowProgress
- *
- * Updates the variables used by the progress window for drawing a progress
- * bar.
- ***************************************************************************/
-void ShowProgress(u64 done, u64 total, char * filename, int progressmode)
-{
-    VIDEO_WaitVSync();
-    
-	msgTxt.SetText(filename);
-
-    if(progressmode == PROGRESSBAR) {
-
- 	static time_t start;
-	//first time
-	if (!done) {
-		start    = time(0);
-	}
-
-	//Elapsed time
-	u32 elapsed = time(0) - start;
-	if(elapsed < 1) {
-        elapsed = 1;
-	}
-	//Calculate speed in KB/s
-	u32 speed = 0;
-    if(done)
-        speed = done/(elapsed * KBSIZE);
-
-    //Calculate percentage/size
-	f32 percent = (done * 100.0) / total;
-
-    prTxt.SetTextf("%0.2f", percent);
-	progressbarImg.SetTile(percent);
-
-    speedTxt.SetTextf("%s %dKB/s","Speed:", speed);
-
-	if(total > KBSIZE && total < MBSIZE)
-        sizeTxt.SetTextf("%0.2fKB/%0.2fKB", done/KBSIZE, total/KBSIZE);
-    else if(total > MBSIZE && total < GBSIZE)
-        sizeTxt.SetTextf("%0.2fMB/%0.2fMB", done/MBSIZE, total/MBSIZE);
-    else if(total > GBSIZE)
-        sizeTxt.SetTextf("%0.2fGB/%0.2fGB", done/GBSIZE, total/GBSIZE);
-    else
-        sizeTxt.SetTextf("%LiB/%LiB", done, total);
-
-    } else {
-        static u16 angle;
-        angle += 10;
-        if(angle > 360)
-            angle = 0 + (angle - 360);
-        throbberImg.SetAngle(angle);
-    }
-}
-
-/****************************************************************************
- * ProgressWindow
- *
- * Opens a window, which displays progress to the user. Can either display a
- * progress bar showing % completion, or a throbber that only shows that an
- * action is in progress.
- ***************************************************************************/
-int
-ProgressWindow(const char *title, char * source, char *dest, int process, int mode)
-{
-	int ret = -1;
-
-	GuiImageData dialogBox(dialogue_box_png);
-	GuiImage dialogBoxImg(&dialogBox);
-
-	GuiWindow promptWindow(dialogBox.GetWidth(),dialogBox.GetHeight());
-	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	promptWindow.SetPosition(0, 0);
-
-	GuiImageData btnOutline(button_png);
-
-	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-
-	GuiImageData progressbarOutline(progressbar_outline_png);
-	GuiImage progressbarOutlineImg(&progressbarOutline);
-	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarOutlineImg.SetPosition(25, 40);
-
-	GuiImageData progressbarEmpty(progressbar_empty_png);
-	GuiImage progressbarEmptyImg(&progressbarEmpty);
-	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarEmptyImg.SetPosition(25, 40);
-	progressbarEmptyImg.SetTile(100);
-
-    progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarImg.SetPosition(25, 40);
-
-	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	throbberImg.SetPosition(0, 40);
-
-	GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
-	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	titleTxt.SetPosition(0,60);
-	titleTxt.SetMaxWidth(430, GuiText::DOTTED);
-
-	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	msgTxt.SetPosition(0,120);
-	msgTxt.SetMaxWidth(430, GuiText::DOTTED);
-
-	GuiText prsTxt("%", 26, (GXColor){0, 0, 0, 255});
-	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	prsTxt.SetPosition(-188,40);
-
-    speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	speedTxt.SetPosition(265,-50);
-
-    sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	sizeTxt.SetPosition(50, -50);
-
-	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	prTxt.SetPosition(200, 40);
-
-	promptWindow.Append(&dialogBoxImg);
-	promptWindow.Append(&titleTxt);
-	promptWindow.Append(&msgTxt);
-    if(mode == PROGRESSBAR) {
-        promptWindow.Append(&progressbarEmptyImg);
-        promptWindow.Append(&progressbarImg);
-        promptWindow.Append(&progressbarOutlineImg);
-        promptWindow.Append(&prTxt);
-        promptWindow.Append(&prsTxt);
-        promptWindow.Append(&speedTxt);
-        promptWindow.Append(&sizeTxt);
-	} else {
-	    promptWindow.Append(&throbberImg);
-	}
-
-	HaltGui();
-	promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&promptWindow);
-	mainWindow->ChangeFocus(&promptWindow);
-	ResumeGui();
-
-	while(promptWindow.GetEffect() > 0) usleep(100);
-
-    if(process == COPYDIR)
-        ret = CopyDirectory(source, dest);
-    else if(process == COPYFILE)
-        ret = CopyFile(source, dest);
-    else if(process == MOVEDIR)
-        ret = MoveDirectory(source, dest);
-    else if(process == DELETEDIR)
-        ret =RemoveDirectory(source);
-    else if(process == DELETEFILE)
-        ret = RemoveFile(source);
-
-	promptWindow.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-	while(promptWindow.GetEffect() > 0) usleep(100);
-
-	HaltGui();
-	mainWindow->Remove(&promptWindow);
-	mainWindow->SetState(STATE_DEFAULT);
-	ResumeGui();
-
-    return ret;
 }

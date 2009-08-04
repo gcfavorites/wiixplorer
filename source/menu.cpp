@@ -1,11 +1,33 @@
-/****************************************************************************
- * libwiigui Template
+ /****************************************************************************
+ * Copyright (C) 2009
+ * by Dimok
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * Origenal Template of LibWiiGui
  * Tantric 2009
  *
  * menu.cpp
  * Menu flow routines - handles all menu logic
+ * for Wii-FileXplorer 2009
  ***************************************************************************/
-
 #include <gccore.h>
 #include <ogcsys.h>
 #include <stdio.h>
@@ -23,6 +45,7 @@
 #include "fileops.h"
 #include "foldersize.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
 #include "sys.h"
 
@@ -131,6 +154,10 @@ void InitThreads()
     //!Initialize main GUI handling thread
 	LWP_CreateThread (&guithread, UpdateGUI, NULL, NULL, 0, 70);
 
+	//!Initalize the progress thread
+	InitProgressThread();
+	StopProgress();
+
     //!Initialize network thread if selected
     InitNetworkThread();
     if(Settings.AutoConnect == on)
@@ -191,6 +218,9 @@ static int MenuBrowseDevice()
     GuiTrigger trigMinus;
 	trigMinus.SetButtonOnlyTrigger(-1, WPAD_BUTTON_MINUS | WPAD_CLASSIC_BUTTON_MINUS, 0);
 
+	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+
 	GuiFileBrowser fileBrowser(552, 248);
 	fileBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	fileBrowser.SetPosition(0, 100);
@@ -203,6 +233,8 @@ static int MenuBrowseDevice()
 	SettingsBtn.SetPosition(370, -35);
 	SettingsBtn.SetLabel(&SettingsBtnTxt);
 	SettingsBtn.SetImage(&SettingsBtnImg);
+	SettingsBtn.SetSoundClick(&btnSoundClick);
+	SettingsBtn.SetSoundOver(&btnSoundOver);
 	SettingsBtn.SetTrigger(&trigA);
 	SettingsBtn.SetEffectGrow();
 
@@ -213,8 +245,29 @@ static int MenuBrowseDevice()
 	ExitBtn.SetPosition(100, -35);
 	ExitBtn.SetLabel(&ExitBtnTxt);
 	ExitBtn.SetImage(&ExitBtnImg);
+	ExitBtn.SetSoundClick(&btnSoundClick);
+	ExitBtn.SetSoundOver(&btnSoundOver);
 	ExitBtn.SetTrigger(&trigA);
 	ExitBtn.SetEffectGrow();
+
+	GuiImageData sdstorage(sdstorage_png);
+	GuiImageData usbstorage(usbstorage_png);
+	GuiImageData networkstorage(networkstorage_png);
+	GuiImage deviceImg(&sdstorage);
+
+	if(Settings.MountMethod == 1)
+        deviceImg.SetImage(&usbstorage);
+    else if(Settings.MountMethod == 2)
+        deviceImg.SetImage(&networkstorage);
+
+	GuiButton deviceSwitchBtn(deviceImg.GetWidth(), deviceImg.GetHeight());
+	deviceSwitchBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	deviceSwitchBtn.SetPosition(60, fileBrowser.GetTop()-45);
+	deviceSwitchBtn.SetImage(&deviceImg);
+	deviceSwitchBtn.SetSoundClick(&btnSoundClick);
+	deviceSwitchBtn.SetSoundOver(&btnSoundOver);
+	deviceSwitchBtn.SetTrigger(&trigA);
+	deviceSwitchBtn.SetEffectGrow();
 
 	GuiImageData Address(addressbar_textbox_png);
     snprintf(currentdir, sizeof(currentdir), "%s%s", browser.rootdir, browser.dir);
@@ -225,7 +278,7 @@ static int MenuBrowseDevice()
 	GuiImage AdressbarImg(&Address);
 	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
 	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	Adressbar.SetPosition(60, fileBrowser.GetTop()-45);
+	Adressbar.SetPosition(120, fileBrowser.GetTop()-45);
 	Adressbar.SetImage(&AdressbarImg);
 	Adressbar.SetLabel(&AdressText);
 
@@ -240,6 +293,7 @@ static int MenuBrowseDevice()
 	w.Append(&titleTxt);
 	w.Append(&fileBrowser);
 	w.Append(&Adressbar);
+	w.Append(&deviceSwitchBtn);
 	mainWindow->Append(&w);
 	ResumeGui();
 
@@ -272,8 +326,7 @@ static int MenuBrowseDevice()
 						break;
 					}
 				} else {
-					mainWindow->SetState(STATE_DISABLED);
-					mainWindow->SetState(STATE_DEFAULT);
+					//TODO
 				}
 			}
 		}
@@ -281,8 +334,14 @@ static int MenuBrowseDevice()
         if(SettingsBtn.GetState() == STATE_CLICKED)
 			menu = MENU_SETTINGS;
 
-        if(ExitBtn.GetState() == STATE_CLICKED)
+        else if(ExitBtn.GetState() == STATE_CLICKED)
 			menu = MENU_EXIT;
+
+        else if(deviceSwitchBtn.GetState() == STATE_CLICKED) {
+            Settings.MountMethod = (Settings.MountMethod+1) % 3;
+            menu = MENU_BROWSE_DEVICE;
+            deviceSwitchBtn.ResetState();
+        }
 
 		else if(clickmenuBtn.GetState() == STATE_CLICKED) {
 
@@ -292,12 +351,70 @@ static int MenuBrowseDevice()
                 y = userInput[clickmenuBtn.GetStateChan()].wpad.ir.y;
             }
 
-            if(strcmp(browserList[browser.selIndex].filename,".") != 0
-                && strcmp(browserList[browser.selIndex].filename,"..") != 0
-                && fileBrowser.IsInside(x, y)) {
-
             fileBrowser.DisableTriggerUpdate(true);
             choice = RightClickMenu(x, y);
+
+            if(choice == PASTE) {
+                if(Settings.MountMethod != SMB) {
+                choice = WindowPrompt(Clipboard.filename, "Paste into current directory?", "Yes", "Cancel");
+                if(choice == 1) {
+                    char srcpath[MAXPATHLEN];
+                    char destdir[MAXPATHLEN];
+                    if(Clipboard.isdir == true) {
+                        snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
+                        snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
+                        int res = 0;
+                        if(Clipboard.cutted == false) {
+                            StartProgress("Copying files:");
+                            res = CopyDirectory(srcpath, destdir);
+                            StopProgress();
+                        } else {
+                            StartProgress("Moving files:");
+                            res = MoveDirectory(srcpath, destdir);
+                            StopProgress();
+                        }
+                        if(res < 0)
+                            WindowPrompt("An error accured.", "Failed copying files.", "OK");
+                        else {
+                            if(Clipboard.cutted == false)
+                                WindowPrompt("Directory successfully copied.", 0, "OK");
+                            else {
+                                WindowPrompt("Directory successfully moved.", 0, "OK");
+                            }
+                        }
+                    } else {
+                        snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
+                        int ret = CheckFile(srcpath);
+                        if(ret == false)
+                            WindowPrompt("File does not exist anymore!", 0, "OK");
+                        else {
+                            snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
+                            StartProgress("Copying file:");
+                            int res = CopyFile(srcpath, destdir);
+                            StopProgress();
+                            if(res < 0)
+                                WindowPrompt("ERROR", "Failed copying file.", "OK");
+                            else {
+                                if(Clipboard.cutted == false)
+                                    WindowPrompt("File successfully copied.", 0, "OK");
+                                else {
+                                    if(RemoveFile(srcpath) == false)
+                                        WindowPrompt("Error", "File couldn't be deleted.", "OK");
+                                    else
+                                        WindowPrompt("File successfully moved.", 0, "OK");
+                                }
+                            }
+                        }
+                    }
+                    ParseDirectory();
+                }
+                    fileBrowser.TriggerUpdate();
+                } else
+                    WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK");
+            }
+
+            if(strcmp(browserList[browser.selIndex].filename,"..") != 0
+                && fileBrowser.IsInside(x, y)) {
 
             if(choice == CUT) {
                 if(browserList[browser.selIndex].isdir)
@@ -331,58 +448,6 @@ static int MenuBrowseDevice()
                 }
             }
 
-            else if(choice == PASTE) {
-                if(Settings.MountMethod != SMB) {
-                choice = WindowPrompt(Clipboard.filename, "Paste into current directory?", "Yes", "Cancel");
-                if(choice == 1) {
-                    char srcpath[MAXPATHLEN];
-                    char destdir[MAXPATHLEN];
-                    if(Clipboard.isdir == true) {
-                        snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
-                        snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
-                        int res = 0;
-                        if(Clipboard.cutted == false)
-                            res = ProgressWindow("Copying files:", srcpath, destdir, COPYDIR);
-                        else
-                            res = ProgressWindow("Moving files:", srcpath, destdir, MOVEDIR);
-                        if(res < 0)
-                            WindowPrompt("An error accured.", "Failed copying files.", "OK");
-                        else {
-                            if(Clipboard.cutted == false)
-                                WindowPrompt("Directory successfully copied.", 0, "OK");
-                            else {
-                                WindowPrompt("Directory successfully moved.", 0, "OK");
-                            }
-                        }
-                    } else {
-                    snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
-                    int ret = CheckFile(srcpath);
-                    if(ret == false)
-                        WindowPrompt("File does not exist anymore!", 0, "OK");
-                    else {
-                        snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
-                        int res = ProgressWindow("Copying file:", srcpath, destdir, COPYFILE);
-                        if(res < 0)
-                            WindowPrompt("ERROR", "Failed copying file.", "OK");
-                        else {
-                            if(Clipboard.cutted == false)
-                                WindowPrompt("File successfully copied.", 0, "OK");
-                            else {
-                                if(RemoveFile(srcpath) == false) {
-                                    WindowPrompt("Error", "File couldn't be deleted.", "OK");
-                                } else
-                                    WindowPrompt("File successfully moved.", 0, "OK");
-                            }
-                        }
-                    }
-                    }
-                    ParseDirectory();
-                    fileBrowser.TriggerUpdate();
-                }
-                } else
-                    WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK");
-            }
-
             else if(choice == RENAME) {
                 char srcpath[MAXPATHLEN];
                 char destdir[MAXPATHLEN];
@@ -406,7 +471,9 @@ static int MenuBrowseDevice()
                     snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
                     choice = WindowPrompt(browserList[browser.selIndex].filename, "Delete directory and its content?", "Yes", "Cancel");
                     if(choice == 1) {
-                        int res = ProgressWindow("Deleting files:", currentpath, NULL, DELETEDIR, THROBBER);
+                        StartProgress("Deleting files:", THROBBER);
+                        int res = RemoveDirectory(currentpath);
+                        StopProgress();
                         if(res < 0)
                             WindowPrompt("Error", "Directory couldn't be deleted.", "OK");
                         else
@@ -434,8 +501,11 @@ static int MenuBrowseDevice()
                 Properties(browserList[browser.selIndex].filename, currentitem, browserList[browser.selIndex].isdir, (float) browserList[browser.selIndex].length);
             }
 
+            } else
+                WindowPrompt("You cant use this operation on:", "Directory ..", "OK");
+
             fileBrowser.DisableTriggerUpdate(false);
-        }
+
             clickmenuBtn.ResetState();
         } else {
             clickmenuBtn.ResetState();
