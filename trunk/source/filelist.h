@@ -74,6 +74,15 @@ extern const u32	progressbar_outline_png_size;
 extern const u8		throbber_png[];
 extern const u32	throbber_png_size;
 
+extern const u8		networkstorage_png[];
+extern const u32	networkstorage_png_size;
+
+extern const u8		usbstorage_png[];
+extern const u32	usbstorage_png_size;
+
+extern const u8		sdstorage_png[];
+extern const u32	sdstorage_png_size;
+
 extern const u8		scrollbar_png[];
 extern const u32	scrollbar_png_size;
 

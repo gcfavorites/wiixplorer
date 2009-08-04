@@ -84,6 +84,7 @@ GuiText::~GuiText()
 
 void GuiText::SetText(const char * t)
 {
+    LOCK(this);
 	if(text)
 		delete [] text;
 	text = NULL;
@@ -95,6 +96,7 @@ void GuiText::SetText(const char * t)
 }
 void GuiText::SetTextf(const char *format, ...)
 {
+    LOCK(this);
 	char *tmp=0;
 	va_list va;
 	va_start(va, format);
@@ -119,29 +121,34 @@ void GuiText::SetPresets(int sz, GXColor c, int w, int wrap, u16 s, int h, int v
 
 void GuiText::SetFontSize(int s)
 {
+    LOCK(this);
 	size = s;
 }
 
 void GuiText::SetMaxWidth(int w, short m/*=GuiText::WRAP*/)
 {
+    LOCK(this);
 	maxWidth = w;
 	wrapMode = m;
 }
 
 void GuiText::SetColor(GXColor c)
 {
+    LOCK(this);
 	color = c;
 	alpha = c.a;
 }
 
 void GuiText::SetStyle(u16 s, u16 m/*=0xffff*/)
 {
+    LOCK(this);
 	style &= ~m;
 	style |= s & m;
 }
 
 void GuiText::SetAlignment(int hor, int vert)
 {
+    LOCK(this);
 	style = FTGX_NULL;
 
 	switch(hor)
@@ -177,6 +184,7 @@ void GuiText::SetAlignment(int hor, int vert)
  */
 void GuiText::SetFont(FreeTypeGX *f)
 {
+    LOCK(this);
 	font = f;
 }
 
@@ -188,10 +196,6 @@ int GuiText::GetTextWidth()
 	return fontSystem->getWidth(text);
 }
 
-void GuiText::SetWidescreen(bool w)
-{
-	widescreen = w;
-}
 /**
  * Draw the text on screen
  */
@@ -202,6 +206,8 @@ void GuiText::Draw()
 
 	if(!this->IsVisible())
 		return;
+
+    LOCK(this);
 
 	GXColor c = color;
 	c.a = this->GetAlpha();
@@ -217,9 +223,6 @@ void GuiText::Draw()
 	}
 
 	int voffset = 0;
-
-//	if(alignmentVert == ALIGN_MIDDLE)
-//		voffset = -newSize/2 + 2;
 
 	if(maxWidth > 0 && (font ? font : fontSystem)->getWidth(text) > maxWidth)
 	{

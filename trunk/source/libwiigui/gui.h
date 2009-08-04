@@ -376,6 +376,11 @@ class GuiElement
 		//!Called constantly to redraw the element
 		virtual void Draw();
 	protected:
+		void Lock();
+		void Unlock();
+		static mutex_t mutex;
+		friend class SimpleLock;
+
 		bool visible; //!< Visibility of the element. If false, Draw() is skipped
 		int focus; //!< Element focus (-1 = focus disabled, 0 = not focused, 1 = focused)
 		int width; //!< Element width
@@ -410,6 +415,16 @@ class GuiElement
 		GuiElement * parentElement; //!< Parent element
 		UpdateCallback updateCB; //!< Callback function to call when this element is updated
 };
+
+class SimpleLock
+{
+public:
+	SimpleLock(GuiElement *e);
+	~SimpleLock();
+private:
+	GuiElement *element;
+};
+#define LOCK(e) SimpleLock LOCK(e)
 
 //!Allows GuiElements to be grouped together into a "window"
 class GuiWindow : public GuiElement

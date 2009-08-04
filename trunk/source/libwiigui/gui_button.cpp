@@ -51,74 +51,89 @@ GuiButton::~GuiButton()
 
 void GuiButton::SetImage(GuiImage* img)
 {
+    LOCK(this);
 	image = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetImageOver(GuiImage* img)
 {
+    LOCK(this);
 	imageOver = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetImageHold(GuiImage* img)
 {
+    LOCK(this);
 	imageHold = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetImageClick(GuiImage* img)
 {
+    LOCK(this);
 	imageClick = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetIcon(GuiImage* img)
 {
+    LOCK(this);
 	icon = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetIconOver(GuiImage* img)
 {
+    LOCK(this);
 	iconOver = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetIconHold(GuiImage* img)
 {
+    LOCK(this);
 	iconHold = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetIconClick(GuiImage* img)
 {
+    LOCK(this);
 	iconClick = img;
 	if(img) img->SetParent(this);
 }
 void GuiButton::SetLabel(GuiText* txt, int n)
 {
+    LOCK(this);
 	label[n] = txt;
 	if(txt) txt->SetParent(this);
 }
 void GuiButton::SetLabelOver(GuiText* txt, int n)
 {
+    LOCK(this);
 	labelOver[n] = txt;
 	if(txt) txt->SetParent(this);
 }
 void GuiButton::SetLabelHold(GuiText* txt, int n)
 {
+    LOCK(this);
 	labelHold[n] = txt;
 	if(txt) txt->SetParent(this);
 }
 void GuiButton::SetLabelClick(GuiText* txt, int n)
 {
+    LOCK(this);
 	labelClick[n] = txt;
 	if(txt) txt->SetParent(this);
 }
 void GuiButton::SetSoundOver(GuiSound * snd)
 {
+    LOCK(this);
 	soundOver = snd;
 }
 void GuiButton::SetSoundHold(GuiSound * snd)
 {
+    LOCK(this);
 	soundHold = snd;
 }
 void GuiButton::SetSoundClick(GuiSound * snd)
 {
+    LOCK(this);
 	soundClick = snd;
 }
 
@@ -158,6 +173,8 @@ void GuiButton::Update(GuiTrigger * t)
 		return;
 	else if(parentElement && parentElement->GetState() == STATE_DISABLED)
 		return;
+
+    LOCK(this);
 
 	#ifdef HW_RVL
 	// cursor
