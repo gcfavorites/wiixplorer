@@ -21,7 +21,7 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * Origenal Template of LibWiiGui
+ * Original Template of LibWiiGui
  * Tantric 2009
  *
  * menu.cpp
@@ -44,9 +44,12 @@
 #include "filebrowser.h"
 #include "fileops.h"
 #include "foldersize.h"
+#include "fatmounter.h"
+#include "FileStartUp.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
+#include "BootHomebrew/BootHomebrew.h"
 #include "sys.h"
 
 GuiWindow * mainWindow = NULL;
@@ -58,6 +61,7 @@ static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
 static CLIPBOARD Clipboard;
 static int ExitRequested = 0;
+static bool boothomebrew = false;
 
 extern u8 shutdown;
 extern u8 reset;
@@ -326,7 +330,16 @@ static int MenuBrowseDevice()
 						break;
 					}
 				} else {
-					//TODO
+				    char filepath[MAXPATHLEN];
+					snprintf(filepath, sizeof(filepath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+                    int result = FileStartUp(filepath);
+
+                    if(result == BOOTHOMEBREW) {
+                        choice = WindowPrompt("Do you want to boot:", browserList[browser.selIndex].filename, "Yes", "No");
+                        menu = MENU_EXIT;
+                        strncpy(Clipboard.filepath, filepath, sizeof(Clipboard.filepath));
+                        boothomebrew = true;
+                    }
 				}
 			}
 		}
@@ -353,65 +366,6 @@ static int MenuBrowseDevice()
 
             fileBrowser.DisableTriggerUpdate(true);
             choice = RightClickMenu(x, y);
-
-            if(choice == PASTE) {
-                if(Settings.MountMethod != SMB) {
-                choice = WindowPrompt(Clipboard.filename, "Paste into current directory?", "Yes", "Cancel");
-                if(choice == 1) {
-                    char srcpath[MAXPATHLEN];
-                    char destdir[MAXPATHLEN];
-                    if(Clipboard.isdir == true) {
-                        snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
-                        snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
-                        int res = 0;
-                        if(Clipboard.cutted == false) {
-                            StartProgress("Copying files:");
-                            res = CopyDirectory(srcpath, destdir);
-                            StopProgress();
-                        } else {
-                            StartProgress("Moving files:");
-                            res = MoveDirectory(srcpath, destdir);
-                            StopProgress();
-                        }
-                        if(res < 0)
-                            WindowPrompt("An error accured.", "Failed copying files.", "OK");
-                        else {
-                            if(Clipboard.cutted == false)
-                                WindowPrompt("Directory successfully copied.", 0, "OK");
-                            else {
-                                WindowPrompt("Directory successfully moved.", 0, "OK");
-                            }
-                        }
-                    } else {
-                        snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
-                        int ret = CheckFile(srcpath);
-                        if(ret == false)
-                            WindowPrompt("File does not exist anymore!", 0, "OK");
-                        else {
-                            snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
-                            StartProgress("Copying file:");
-                            int res = CopyFile(srcpath, destdir);
-                            StopProgress();
-                            if(res < 0)
-                                WindowPrompt("ERROR", "Failed copying file.", "OK");
-                            else {
-                                if(Clipboard.cutted == false)
-                                    WindowPrompt("File successfully copied.", 0, "OK");
-                                else {
-                                    if(RemoveFile(srcpath) == false)
-                                        WindowPrompt("Error", "File couldn't be deleted.", "OK");
-                                    else
-                                        WindowPrompt("File successfully moved.", 0, "OK");
-                                }
-                            }
-                        }
-                    }
-                    ParseDirectory();
-                }
-                    fileBrowser.TriggerUpdate();
-                } else
-                    WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK");
-            }
 
             if(strcmp(browserList[browser.selIndex].filename,"..") != 0
                 && fileBrowser.IsInside(x, y)) {
@@ -503,6 +457,65 @@ static int MenuBrowseDevice()
 
             } else
                 WindowPrompt("You cant use this operation on:", "Directory ..", "OK");
+
+            if(choice == PASTE) {
+                //if(Settings.MountMethod != SMB) {
+                choice = WindowPrompt(Clipboard.filename, "Paste into current directory?", "Yes", "Cancel");
+                if(choice == 1) {
+                    char srcpath[MAXPATHLEN];
+                    char destdir[MAXPATHLEN];
+                    if(Clipboard.isdir == true) {
+                        snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
+                        snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
+                        int res = 0;
+                        if(Clipboard.cutted == false) {
+                            StartProgress("Copying files:");
+                            res = CopyDirectory(srcpath, destdir);
+                            StopProgress();
+                        } else {
+                            StartProgress("Moving files:");
+                            res = MoveDirectory(srcpath, destdir);
+                            StopProgress();
+                        }
+                        if(res < 0)
+                            WindowPrompt("An error accured.", "Failed copying files.", "OK");
+                        else {
+                            if(Clipboard.cutted == false)
+                                WindowPrompt("Directory successfully copied.", 0, "OK");
+                            else {
+                                WindowPrompt("Directory successfully moved.", 0, "OK");
+                            }
+                        }
+                    } else {
+                        snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
+                        int ret = CheckFile(srcpath);
+                        if(ret == false)
+                            WindowPrompt("File does not exist anymore!", 0, "OK");
+                        else {
+                            snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
+                            StartProgress("Copying file:");
+                            int res = CopyFile(srcpath, destdir);
+                            StopProgress();
+                            if(res < 0)
+                                WindowPrompt("ERROR", "Failed copying file.", "OK");
+                            else {
+                                if(Clipboard.cutted == false)
+                                    WindowPrompt("File successfully copied.", 0, "OK");
+                                else {
+                                    if(RemoveFile(srcpath) == false)
+                                        WindowPrompt("Error", "File couldn't be deleted.", "OK");
+                                    else
+                                        WindowPrompt("File successfully moved.", 0, "OK");
+                                }
+                            }
+                        }
+                    }
+                    ParseDirectory();
+                }
+                    fileBrowser.TriggerUpdate();
+                //} else
+                   // WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK");
+            }
 
             fileBrowser.DisableTriggerUpdate(false);
 
@@ -805,7 +818,7 @@ void MainMenu(int menu)
 	}
 
 	ResumeGui();
-	ExitGUIThreads();
+	ExitApp();
 
 	while(ExitRequested != 2) usleep(THREAD_SLEEP);
 
@@ -817,6 +830,13 @@ void MainMenu(int menu)
 	delete pointer[1];
 	delete pointer[2];
 	delete pointer[3];
+
+    if(boothomebrew)
+        BootHomebrew(Clipboard.filepath);
+
+	CloseSMBShare();
+    SDCard_deInit();
+    USBDevice_deInit();
 
     //last point in programm to make sure the allocated memory is freed
 	Sys_BackToLoader();

@@ -53,6 +53,7 @@ extern FreeTypeGX *fontSystem;
 #define SCROLL_INITIAL_DELAY 	20
 #define SCROLL_LOOP_DELAY 		3
 #define PAGESIZE	 			8
+#define MAX_KEYBOARD_DISPLAY	32
 
 typedef void (*UpdateCallback)(void * e);
 
