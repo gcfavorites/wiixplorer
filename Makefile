@@ -17,7 +17,8 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	boot
 BUILD		:=	build
-SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts
+SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
+				source/BootHomebrew
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
@@ -26,8 +27,7 @@ INCLUDES	:=	source
 
 CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
-LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
-
+LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80FF0000
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------

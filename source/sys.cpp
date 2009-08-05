@@ -45,10 +45,6 @@ void ExitApp()
 	ExitGUIThreads();
 	StopGX();
 	ShutdownAudio();
-
-	CloseSMBShare();
-    SDCard_deInit();
-	USBDevice_deInit();
 }
 
 

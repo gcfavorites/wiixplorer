@@ -77,8 +77,8 @@ bool CheckFile(const char * filepath)
     FILE * f;
     f = fopen(filepath,"rb");
     if(f) {
-    fclose(f);
-    return true;
+        fclose(f);
+        return true;
     }
     fclose(f);
     return false;
@@ -294,7 +294,6 @@ int MoveDirectory(char * src, const char * dest)
  ***************************************************************************/
 int RemoveDirectory(char * dirpath)
 {
-
     struct stat st;
     DIR_ITER *dir = NULL;
     char filename[MAXPATHLEN];
