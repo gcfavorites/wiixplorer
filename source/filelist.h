@@ -83,6 +83,24 @@ extern const u32	usbstorage_png_size;
 extern const u8		sdstorage_png[];
 extern const u32	sdstorage_png_size;
 
+extern const u8		settingsbtn_png[];
+extern const u32	settingsbtn_png_size;
+
+extern const u8		settingsbtn_over_png[];
+extern const u32	settingsbtn_over_png_size;
+
+extern const u8		power_png[];
+extern const u32	power_png_size;
+
+extern const u8		power_over_png[];
+extern const u32	power_over_png_size;
+
+extern const u8		searchbtn_png[];
+extern const u32	searchbtn_png_size;
+
+extern const u8		searchbtn_over_png[];
+extern const u32	searchbtn_over_png_size;
+
 extern const u8		scrollbar_png[];
 extern const u32	scrollbar_png_size;
 
