@@ -1,0 +1,13 @@
+ok digga,
+
+also die bilder werden doch gestreckt, denn runde sachen werden nicht rund angezeigt bei 16:9.
+deswegen haut es wohl nicht ganz mit den maßen hin, hab die mal nen neues conept bild gemach zur orientierung. 
+das bild ist mit den original bilder aus der source gemacht.
+
+was jetzt erstmal gemacht werden muss ist das ausrichten der liste (alles mittig) und achte bitte drauf das die 
+scrollbar so augerichtet ist wie im screen (dazu muss die liste wohl schmaler werden) das macht nehmlich erst den effect aus ;-)
+und die taskleiste wär super damit ich weiss wie ich weiter verfahren kann, wie gesagt dr rest soll auf den main aufbauen ;-)
+
+hab den main gekürzt, bg geändert, icons geaddet (von oxygen mit gpl license) 
+
+NeoRame
