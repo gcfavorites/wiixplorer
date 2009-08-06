@@ -57,6 +57,7 @@ GuiWindow * mainWindow = NULL;
 static GuiSound * bgMusic = NULL;
 static GuiImageData * pointer[4];
 static GuiImage * bgImg = NULL;
+static GuiImageData * bgImgData = NULL;
 static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
 static CLIPBOARD Clipboard;
@@ -211,10 +212,6 @@ static int MenuBrowseDevice()
 
 	int menu = MENU_NONE;
 
-	GuiText titleTxt("Browse Files", 28, (GXColor){0, 0, 0, 230});
-	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(70,20);
-
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	GuiTrigger trigPlus;
@@ -225,30 +222,34 @@ static int MenuBrowseDevice()
 	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 
-	GuiFileBrowser fileBrowser(552, 248);
-	fileBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	fileBrowser.SetPosition(0, 100);
+	GuiFileBrowser fileBrowser(584, 248);
+	fileBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	fileBrowser.SetPosition(30, 100);
 
-	GuiImageData btnOutline(button_png);
-	GuiText SettingsBtnTxt("Settings", 24, (GXColor){0, 0, 0, 255});
-	GuiImage SettingsBtnImg(&btnOutline);
-	GuiButton SettingsBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImageData settingsImgData(settingsbtn_png);
+	GuiImage settingsImg(&settingsImgData);
+	GuiImageData settingsImgOverData(settingsbtn_over_png);
+	GuiImage settingsImgOver(&settingsImgOverData);
+
+	GuiButton SettingsBtn(settingsImg.GetWidth(), settingsImg.GetHeight());
 	SettingsBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	SettingsBtn.SetPosition(370, -35);
-	SettingsBtn.SetLabel(&SettingsBtnTxt);
-	SettingsBtn.SetImage(&SettingsBtnImg);
+	SettingsBtn.SetPosition(370, -25);
+	SettingsBtn.SetImage(&settingsImg);
+	SettingsBtn.SetImageOver(&settingsImgOver);
 	SettingsBtn.SetSoundClick(&btnSoundClick);
 	SettingsBtn.SetSoundOver(&btnSoundOver);
 	SettingsBtn.SetTrigger(&trigA);
 	SettingsBtn.SetEffectGrow();
 
-	GuiText ExitBtnTxt("Exit", 24, (GXColor){0, 0, 0, 255});
-	GuiImage ExitBtnImg(&btnOutline);
-	GuiButton ExitBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+    GuiImageData ExitBtnImgData(power_png);
+	GuiImage ExitBtnImg(&ExitBtnImgData);
+    GuiImageData ExitBtnImgOverData(power_over_png);
+	GuiImage ExitBtnImgOver(&ExitBtnImgOverData);
+	GuiButton ExitBtn(ExitBtnImg.GetWidth(), ExitBtnImg.GetHeight());
 	ExitBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	ExitBtn.SetPosition(100, -35);
-	ExitBtn.SetLabel(&ExitBtnTxt);
+	ExitBtn.SetPosition(100, -25);
 	ExitBtn.SetImage(&ExitBtnImg);
+	ExitBtn.SetImageOver(&ExitBtnImgOver);
 	ExitBtn.SetSoundClick(&btnSoundClick);
 	ExitBtn.SetSoundOver(&btnSoundOver);
 	ExitBtn.SetTrigger(&trigA);
@@ -266,7 +267,7 @@ static int MenuBrowseDevice()
 
 	GuiButton deviceSwitchBtn(deviceImg.GetWidth(), deviceImg.GetHeight());
 	deviceSwitchBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceSwitchBtn.SetPosition(60, fileBrowser.GetTop()-45);
+	deviceSwitchBtn.SetPosition(50, fileBrowser.GetTop()-38);
 	deviceSwitchBtn.SetImage(&deviceImg);
 	deviceSwitchBtn.SetSoundClick(&btnSoundClick);
 	deviceSwitchBtn.SetSoundOver(&btnSoundOver);
@@ -282,7 +283,7 @@ static int MenuBrowseDevice()
 	GuiImage AdressbarImg(&Address);
 	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
 	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	Adressbar.SetPosition(120, fileBrowser.GetTop()-45);
+	Adressbar.SetPosition(110, fileBrowser.GetTop()-38);
 	Adressbar.SetImage(&AdressbarImg);
 	Adressbar.SetLabel(&AdressText);
 
@@ -294,7 +295,6 @@ static int MenuBrowseDevice()
 	w.Append(&clickmenuBtn);
 	w.Append(&SettingsBtn);
 	w.Append(&ExitBtn);
-	w.Append(&titleTxt);
 	w.Append(&fileBrowser);
 	w.Append(&Adressbar);
 	w.Append(&deviceSwitchBtn);
@@ -553,10 +553,6 @@ static int MenuSMBSettings()
     else
         options.SetName(i++, "Connect SMB");
 
-	GuiText titleTxt("SMB Settings", 28, (GXColor){0, 0, 0, 255});
-	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(70,50);
-
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
 	GuiImageData btnOutlineOver(button_over_png);
@@ -577,15 +573,19 @@ static int MenuSMBSettings()
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
 
-	GuiOptionBrowser optionBrowser(552, 248, &options);
-	optionBrowser.SetPosition(0, 108);
-	optionBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+
+	GuiText titleTxt("SMB Settings", 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
-	w.Append(&titleTxt);
 	w.Append(&optionBrowser);
+	w.Append(&titleTxt);
 	mainWindow->Append(&w);
 	ResumeGui();
 
@@ -679,10 +679,6 @@ static int MenuSettings()
 	options.SetName(i++, "Auto Connect");
 	options.SetName(i++, "SMB Settings");
 
-	GuiText titleTxt("Settings", 28, (GXColor){0, 0, 0, 255});
-	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(70,50);
-
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
 	GuiImageData btnOutlineOver(button_over_png);
@@ -703,16 +699,21 @@ static int MenuSettings()
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
 
-	GuiOptionBrowser optionBrowser(552, 248, &options);
-	optionBrowser.SetPosition(0, 108);
-	optionBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+
+	GuiImageData settingsimgData(settingsbtn_over_png);
+	GuiImage settingsimg(&settingsimgData);
+	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
-	w.Append(&titleTxt);
+	w.Append(&optionBrowser);
+	w.Append(&settingsimg);
 	mainWindow->Append(&w);
-	mainWindow->Append(&optionBrowser);
 	ResumeGui();
 
 	while(menu == MENU_NONE)
@@ -761,7 +762,6 @@ static int MenuSettings()
 	}
 
 	HaltGui();
-	mainWindow->Remove(&optionBrowser);
 	mainWindow->Remove(&w);
 	ResumeGui();
 
@@ -784,8 +784,9 @@ void MainMenu(int menu)
 
 	mainWindow = new GuiWindow(screenwidth, screenheight);
 
-    bgImg = new GuiImage(screenwidth, screenheight, (GXColor){150, 150, 150, 255});
-	bgImg->ColorStripe(10);
+    bgImgData = new GuiImageData(background_png);
+
+    bgImg = new GuiImage(bgImgData);
 	mainWindow->Append(bgImg);
 
 	GuiTrigger trigA;
@@ -825,6 +826,7 @@ void MainMenu(int menu)
 	bgMusic->Stop();
 	delete bgMusic;
 	delete bgImg;
+	delete bgImgData;
 	delete mainWindow;
 	delete pointer[0];
 	delete pointer[1];

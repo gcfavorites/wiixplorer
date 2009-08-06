@@ -45,7 +45,7 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	scrollbarImg = new GuiImage(scrollbar);
 	scrollbarImg->SetParent(this);
 	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarImg->SetPosition(0, 30);
+	scrollbarImg->SetPosition(0, 20);
 
 	arrowDown = new GuiImageData(scrollbar_arrowdown_png);
 	arrowDownImg = new GuiImage(arrowDown);
@@ -100,23 +100,23 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	{
 		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
 		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-		fileListText[i]->SetPosition(5,0);
+		fileListText[i]->SetPosition(10,0);
 		fileListText[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+20), GuiText::DOTTED);
 
 		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
 		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-		fileListTextOver[i]->SetPosition(5,0);
+		fileListTextOver[i]->SetPosition(10,0);
 		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+20), GuiText::SCROLL);
 
 		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
 		fileListFolder[i] = new GuiImage(fileFolder);
 
-		fileList[i] = new GuiButton(512,30);
+		fileList[i] = new GuiButton(507,30);
 		fileList[i]->SetParent(this);
 		fileList[i]->SetLabel(fileListText[i]);
 		fileList[i]->SetLabelOver(fileListTextOver[i]);
 		fileList[i]->SetImageOver(fileListBg[i]);
-		fileList[i]->SetPosition(2,30*i+3);
+		fileList[i]->SetPosition(7,30*i+3);
 		fileList[i]->SetTrigger(trigA);
 		fileList[i]->SetRumble(false);
 		fileList[i]->SetSoundClick(btnSoundClick);
