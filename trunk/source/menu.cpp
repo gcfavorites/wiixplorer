@@ -204,6 +204,8 @@ static int MenuBrowseDevice()
 		"Change Settings");
 
 		if(choice) {
+            SDCard_Init();
+            USBDevice_Init();
 			return MENU_BROWSE_DEVICE;
 		}
 		else
@@ -336,9 +338,11 @@ static int MenuBrowseDevice()
 
                     if(result == BOOTHOMEBREW) {
                         choice = WindowPrompt("Do you want to boot:", browserList[browser.selIndex].filename, "Yes", "No");
-                        menu = MENU_EXIT;
-                        strncpy(Clipboard.filepath, filepath, sizeof(Clipboard.filepath));
-                        boothomebrew = true;
+                        if(choice == 1) {
+                            menu = MENU_EXIT;
+                            strncpy(Clipboard.filepath, filepath, sizeof(Clipboard.filepath));
+                            boothomebrew = true;
+                        }
                     }
 				}
 			}
@@ -428,7 +432,9 @@ static int MenuBrowseDevice()
                         StartProgress("Deleting files:", THROBBER);
                         int res = RemoveDirectory(currentpath);
                         StopProgress();
-                        if(res < 0)
+                        if(res == -10)
+                            WindowPrompt("Deleting files:", "Action cancelled.", "OK");
+                        else if(res < 0)
                             WindowPrompt("Error", "Directory couldn't be deleted.", "OK");
                         else
                             WindowPrompt("Directory successfully deleted.", 0, "OK");
@@ -455,11 +461,10 @@ static int MenuBrowseDevice()
                 Properties(browserList[browser.selIndex].filename, currentitem, browserList[browser.selIndex].isdir, (float) browserList[browser.selIndex].length);
             }
 
-            } else
+            } else if(choice >= 0 && choice != PASTE)
                 WindowPrompt("You cant use this operation on:", "Directory ..", "OK");
 
             if(choice == PASTE) {
-                //if(Settings.MountMethod != SMB) {
                 choice = WindowPrompt(Clipboard.filename, "Paste into current directory?", "Yes", "Cancel");
                 if(choice == 1) {
                     char srcpath[MAXPATHLEN];
@@ -477,7 +482,10 @@ static int MenuBrowseDevice()
                             res = MoveDirectory(srcpath, destdir);
                             StopProgress();
                         }
-                        if(res < 0)
+
+                        if(res == -10)
+                            WindowPrompt("Action cancelled.", 0, "OK");
+                        else if(res < 0)
                             WindowPrompt("An error accured.", "Failed copying files.", "OK");
                         else {
                             if(Clipboard.cutted == false)
@@ -513,8 +521,6 @@ static int MenuBrowseDevice()
                     ParseDirectory();
                 }
                     fileBrowser.TriggerUpdate();
-                //} else
-                   // WindowPrompt("Error:", "Writting to SMB doesnt work currently", "OK");
             }
 
             fileBrowser.DisableTriggerUpdate(false);
@@ -562,13 +568,11 @@ static int MenuSMBSettings()
 
 	GuiText backBtnTxt("Go Back", 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
-	GuiImage backBtnImgOver(&btnOutlineOver);
 	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	backBtn.SetPosition(100, -35);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
-	backBtn.SetImageOver(&backBtnImgOver);
 	backBtn.SetSoundOver(&btnSoundOver);
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
@@ -602,8 +606,8 @@ static int MenuSMBSettings()
         if(reset == 1)
             Sys_Reboot();
 
-		options.SetValue(0, "User %i", Settings.CurrentUser+1);
-		options.SetValue(1, "%s", Settings.SMBUser[Settings.CurrentUser].Host);
+		options.SetValue(0,"User %i", Settings.CurrentUser+1);
+		options.SetValue(1,"%s", Settings.SMBUser[Settings.CurrentUser].Host);
 		options.SetValue(2,"%s", Settings.SMBUser[Settings.CurrentUser].User);
 		options.SetValue(3,"%s", Settings.SMBUser[Settings.CurrentUser].Password);
 		options.SetValue(4,"%s", Settings.SMBUser[Settings.CurrentUser].SMBName);

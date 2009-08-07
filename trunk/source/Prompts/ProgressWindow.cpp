@@ -51,6 +51,9 @@ static u64      progressDone = 0;
 static u64      progressTotal = 0;
 static time_t   start = 0;
 
+/*** Variables used outside of this file ***/
+bool            actioncanceled = false;
+
 /*** Extern variables ***/
 extern GuiWindow *mainWindow;
 extern u8 reset;
@@ -106,7 +109,6 @@ void ProgressWindow()
 	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	promptWindow.SetPosition(0, -10);
 
-	GuiImageData btnOutline(button_png);
 	GuiImageData dialogBox(dialogue_box_png);
 	GuiImage dialogBoxImg(&dialogBox);
 
@@ -116,53 +118,65 @@ void ProgressWindow()
 	GuiImageData progressbarOutline(progressbar_outline_png);
 	GuiImage progressbarOutlineImg(&progressbarOutline);
 	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarOutlineImg.SetPosition(25, 40);
+	progressbarOutlineImg.SetPosition(25, 5);
 
 	GuiImageData progressbarEmpty(progressbar_empty_png);
 	GuiImage progressbarEmptyImg(&progressbarEmpty);
 	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarEmptyImg.SetPosition(25, 40);
+	progressbarEmptyImg.SetPosition(25, 5);
 	progressbarEmptyImg.SetTile(100);
 
     GuiImageData progressbar(progressbar_png);
     GuiImage progressbarImg(&progressbar);
     progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarImg.SetPosition(25, 40);
+	progressbarImg.SetPosition(25, 5);
 
     GuiImageData throbber(throbber_png);
     GuiImage throbberImg(&throbber);
 	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	throbberImg.SetPosition(0, 40);
+	throbberImg.SetPosition(0, 30);
 
 	GuiText titleTxt(progressTitle, 26, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	titleTxt.SetPosition(0,60);
+	titleTxt.SetPosition(0,50);
 	titleTxt.SetMaxWidth(430, GuiText::DOTTED);
 
     GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	msgTxt.SetPosition(0,120);
+	msgTxt.SetPosition(0,105);
 	msgTxt.SetMaxWidth(430, GuiText::DOTTED);
 
     GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	prTxt.SetPosition(200, 40);
+	prTxt.SetPosition(200, 5);
 
 	GuiText prsTxt("%", 26, (GXColor){0, 0, 0, 255});
 	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	prsTxt.SetPosition(-188,40);
+	prsTxt.SetPosition(-188, 5);
 
     GuiText speedTxt(NULL, 24, (GXColor){0, 0, 0, 255});
-    speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	speedTxt.SetPosition(350,-50);
+    speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	speedTxt.SetPosition(350, 195);
 
     GuiText sizeTxt(NULL, 24, (GXColor){0, 0, 0, 255});
-    sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	sizeTxt.SetPosition(50, -50);
+    sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	sizeTxt.SetPosition(50, 195);
+
+	GuiImageData btnOutline(button_png);
+	GuiImage buttonImg(&btnOutline);
+    GuiText AbortTxt("Cancel", 22, (GXColor){0, 0, 0, 255});
+	GuiButton AbortBtn(buttonImg.GetWidth(), buttonImg.GetHeight());
+	AbortBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	AbortBtn.SetPosition(0, -50);
+	AbortBtn.SetLabel(&AbortTxt);
+	AbortBtn.SetImage(&buttonImg);
+	AbortBtn.SetTrigger(&trigA);
+	AbortBtn.SetEffectGrow();
 
 	promptWindow.Append(&dialogBoxImg);
 	promptWindow.Append(&titleTxt);
 	promptWindow.Append(&msgTxt);
+    promptWindow.Append(&AbortBtn);
     if(showProgress == PROGRESSBAR) {
         promptWindow.Append(&progressbarEmptyImg);
         promptWindow.Append(&progressbarImg);
@@ -210,6 +224,11 @@ void ProgressWindow()
             Sys_Shutdown();
         else if(reset == 1)
             Sys_Reboot();
+
+        else if(AbortBtn.GetState() == STATE_CLICKED) {
+            actioncanceled = true;
+            AbortBtn.ResetState();
+        }
 	}
 
 	promptWindow.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
@@ -219,6 +238,8 @@ void ProgressWindow()
 	mainWindow->Remove(&promptWindow);
 	mainWindow->SetState(STATE_DEFAULT);
 	ResumeGui();
+
+	actioncanceled = false;
 }
 /****************************************************************************
  * ProgressThread
