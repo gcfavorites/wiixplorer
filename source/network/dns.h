@@ -1,12 +1,12 @@
 #ifndef _DNS_H_
 #define _DNS_H_
 
-#include <network.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include <unistd.h> //usleep
+
+#include "network.h"
 
 #ifdef __cplusplus
 extern "C"

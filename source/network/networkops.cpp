@@ -29,8 +29,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ogcsys.h>
-#include <smb.h>
 #include <ogc/machine/processor.h>
+#include <smb.h>
 
 #include "http.h"
 #include "networkops.h"

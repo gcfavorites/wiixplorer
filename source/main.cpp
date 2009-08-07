@@ -30,6 +30,8 @@ Settings Settings;
 int
 main(int argc, char *argv[])
 {
+    IOS_ReloadIOS(202);
+
 	PAD_Init();
 	Wpad_Init();
 	Sys_Init();
