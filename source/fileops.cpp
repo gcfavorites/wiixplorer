@@ -108,6 +108,111 @@ u64 FileSize(const char * filepath)
 }
 
 /****************************************************************************
+ * LoadFileToMem
+ *
+ * Load up the file into a block of memory
+ ***************************************************************************/
+int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
+{
+    int ret;
+	char temp[MAXPATHLEN];
+	sprintf(temp, "%s", filepath);
+	char * filename = strrchr(temp-2, '/')+1;
+
+    FILE *file = fopen(filepath, "rb");
+
+    if (file == NULL) {
+        return -1;
+    }
+
+    u64 filesize = FileSize(filepath);
+
+    u8 *tempbuffer = (u8 *) malloc(BLOCKSIZE);
+    if (tempbuffer == NULL) {
+        fclose(file);
+        return -2;
+    }
+
+    u64 done = 0;
+
+    u8 *readbuffer = (u8 *) malloc(BLOCKSIZE);
+    if(!readbuffer) {
+            free(tempbuffer);
+            fclose(file);
+            return -2;
+    }
+
+    do {
+        if(actioncanceled) {
+            usleep(20000);
+            free(readbuffer);
+            free(tempbuffer);
+            fclose(file);
+            return -10;
+        }
+
+        ShowProgress(done, filesize, filename);
+        ret = fread(tempbuffer, 1, BLOCKSIZE, file);
+        done += ret;
+
+        readbuffer = (u8 *) realloc(readbuffer, done);
+        if(!readbuffer) {
+            free(readbuffer);
+            free(tempbuffer);
+            fclose(file);
+            return -2;
+        }
+
+        memcpy(readbuffer+(done-ret), tempbuffer, ret);
+
+    } while(done < filesize);
+
+    free(tempbuffer);
+    fclose(file);
+
+    if (done != filesize) {
+        free(readbuffer);
+        return -3;
+    }
+
+    *inbuffer = readbuffer;
+    *size = filesize;
+
+    return 1;
+}
+
+/****************************************************************************
+ * CreateSubfolder
+ *
+ * Create recursive all subfolders to the given path
+ ***************************************************************************/
+bool CreateSubfolder(const char * fullpath)
+{
+
+    //check/create subfolders
+    struct stat st;
+
+    char dirnoslash[MAXPATHLEN];
+    snprintf(dirnoslash, strlen(fullpath), "%s", fullpath);
+
+    if(stat(fullpath, &st) != 0) {
+        char dircheck[MAXPATHLEN];
+        char * pch = NULL;
+        u32 cnt = 0;
+        pch = strrchr(dirnoslash, '/');
+        cnt = pch-dirnoslash;
+        snprintf(dircheck, cnt+2, "%s", dirnoslash);
+        CreateSubfolder(dircheck);
+    };
+
+    if (mkdir(dirnoslash, 0777) == -1) {
+        return false;
+    }
+
+    return true;
+}
+
+/****************************************************************************
  * CopyFile
  *
  * Copy the file from source filepath to destination filepath
@@ -309,38 +414,6 @@ int CopyDirectory(const char * src, const char * dest)
 
     return 1;
 }
-
-/****************************************************************************
- * CreateSubfolder
- *
- * Create recursive all subfolders to the given path
- ***************************************************************************/
-bool CreateSubfolder(const char * fullpath)
-{
-
-    //check/create subfolders
-    struct stat st;
-
-    char dirnoslash[MAXPATHLEN];
-    snprintf(dirnoslash, strlen(fullpath), "%s", fullpath);
-
-    if(stat(fullpath, &st) != 0) {
-        char dircheck[MAXPATHLEN];
-        char * pch = NULL;
-        u32 cnt = 0;
-        pch = strrchr(dirnoslash, '/');
-        cnt = pch-dirnoslash;
-        snprintf(dircheck, cnt+2, "%s", dirnoslash);
-        CreateSubfolder(dircheck);
-    };
-
-    if (mkdir(dirnoslash, 0777) == -1) {
-        return false;
-    }
-
-    return true;
-}
-
 
 /****************************************************************************
  * MoveDirectory

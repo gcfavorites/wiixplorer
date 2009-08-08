@@ -1,7 +1,11 @@
 #include <gctypes.h>
 #include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 
+#include "Prompts/PromptWindows.h"
 #include "FileStartUp.h"
+#include "TextViewer.h"
 
 int FileStartUp(const char *filepath)
 {
@@ -26,7 +30,10 @@ int FileStartUp(const char *filepath)
         //TODO
     }
     else {
-        //TODO
+        char *filename = strrchr(filepath, '/')+1;
+        int choice = WindowPrompt(filename, "Do you want to open this file in TextViewer?", "Yes", "No");
+        if(choice)
+            TextViewer(filepath);
     }
 
     return 0;

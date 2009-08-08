@@ -196,7 +196,6 @@ const char *btn4Label)
     btn1.SetState(STATE_SELECTED);
     btn1.SetEffectGrow();
 
-
     GuiText btn2Txt(btn2Label, 22, (GXColor){0, 0, 0, 255});
     GuiImage btn2Img(&btnOutline);
     GuiButton btn2(btnOutline.GetWidth(), btnOutline.GetHeight());
@@ -205,7 +204,7 @@ const char *btn4Label)
     btn2.SetSoundOver(&btnSoundOver);
     btn2.SetSoundClick(&btnClick);
     if(!btn3Label && !btn4Label)
-    btn2.SetTrigger(&trigB);
+        btn2.SetTrigger(&trigB);
     btn2.SetTrigger(&trigA);
     btn2.SetEffectGrow();
 
@@ -217,7 +216,7 @@ const char *btn4Label)
     btn3.SetSoundOver(&btnSoundOver);
     btn3.SetSoundClick(&btnClick);
     if(!btn4Label)
-    btn3.SetTrigger(&trigB);
+        btn3.SetTrigger(&trigB);
     btn3.SetTrigger(&trigA);
     btn3.SetEffectGrow();
 
@@ -229,55 +228,55 @@ const char *btn4Label)
     btn4.SetSoundOver(&btnSoundOver);
     btn4.SetSoundClick(&btnClick);
     if(btn4Label)
-    btn4.SetTrigger(&trigB);
+        btn4.SetTrigger(&trigB);
     btn4.SetTrigger(&trigA);
     btn4.SetEffectGrow();
 
     if(btn2Label && !btn3Label && !btn4Label) {
-    btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn1.SetPosition(40, -45);
-    btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn2.SetPosition(-40, -45);
-    btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn3.SetPosition(50, -65);
-    btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn4.SetPosition(-50, -65);
+        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn1.SetPosition(40, -50);
+        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn2.SetPosition(-40, -50);
+        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn3.SetPosition(50, -65);
+        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn4.SetPosition(-50, -65);
     } else if(btn2Label && btn3Label && !btn4Label) {
-    btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn1.SetPosition(50, -120);
-    btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn2.SetPosition(-50, -120);
-    btn3.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    btn3.SetPosition(0, -65);
-    btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn4.SetPosition(-50, -65);
+        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn1.SetPosition(50, -120);
+        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn2.SetPosition(-50, -120);
+        btn3.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        btn3.SetPosition(0, -65);
+        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn4.SetPosition(-50, -65);
     } else if(btn2Label && btn3Label && btn4Label) {
-    btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn1.SetPosition(50, -120);
-    btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn2.SetPosition(-50, -120);
-    btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn3.SetPosition(50, -65);
-    btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn4.SetPosition(-50, -65);
+        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn1.SetPosition(50, -120);
+        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn2.SetPosition(-50, -120);
+        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn3.SetPosition(50, -65);
+        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn4.SetPosition(-50, -65);
     } else if(!btn2Label && btn3Label && btn4Label) {
-    btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    btn1.SetPosition(0, -120);
-    btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn2.SetPosition(-50, -120);
-    btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn3.SetPosition(50, -65);
-    btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn4.SetPosition(-50, -65);
+        btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        btn1.SetPosition(0, -120);
+        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn2.SetPosition(-50, -120);
+        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn3.SetPosition(50, -65);
+        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn4.SetPosition(-50, -65);
     } else {
-    btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    btn1.SetPosition(0, -45);
-    btn2.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn2.SetPosition(50, -120);
-    btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    btn3.SetPosition(50, -65);
-    btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-    btn4.SetPosition(-50, -65);
+        btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        btn1.SetPosition(0, -50);
+        btn2.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn2.SetPosition(50, -120);
+        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        btn3.SetPosition(50, -65);
+        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        btn4.SetPosition(-50, -65);
     }
 
     promptWindow.Append(&dialogBoxImg);
@@ -285,13 +284,13 @@ const char *btn4Label)
     promptWindow.Append(&msgTxt);
 
     if(btn1Label)
-    promptWindow.Append(&btn1);
+        promptWindow.Append(&btn1);
     if(btn2Label)
-    promptWindow.Append(&btn2);
+        promptWindow.Append(&btn2);
     if(btn3Label)
-    promptWindow.Append(&btn3);
+        promptWindow.Append(&btn3);
     if(btn4Label)
-    promptWindow.Append(&btn4);
+        promptWindow.Append(&btn4);
 
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
     HaltGui();
@@ -314,16 +313,16 @@ const char *btn4Label)
             choice = 1;
         }
         else if(btn2.GetState() == STATE_CLICKED) {
-        if(!btn3Label)
-            choice = 0;
-        else
-            choice = 2;
-        }
+            if(!btn3Label)
+                choice = 0;
+            else
+                choice = 2;
+            }
         else if(btn3.GetState() == STATE_CLICKED) {
-        if(!btn4Label)
-            choice = 0;
-        else
-            choice = 3;
+            if(!btn4Label)
+                choice = 0;
+            else
+                choice = 3;
         }
         else if(btn4.GetState() == STATE_CLICKED) {
             choice = 0;
@@ -345,7 +344,7 @@ const char *btn4Label)
 int RightClickMenu(int x, int y)
 {
     int choice = -1;
-    int numItems = 7;
+    int numItems = 8;
     int buttonY = 0;
 
     GuiImageData dialogBox(clickmenu_png);
@@ -446,6 +445,21 @@ int RightClickMenu(int x, int y)
     Deletebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
+    GuiText NewFolderTxt("New Folder", 26, (GXColor){0, 0, 0, 255});
+    GuiText NewFolderTxtOver("New Folder", 26, (GXColor){28, 32, 190, 255});
+    NewFolderTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    NewFolderTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    GuiButton NewFolderbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
+    NewFolderbtn.SetLabel(&NewFolderTxt);
+    NewFolderbtn.SetLabelOver(&NewFolderTxtOver);
+    GuiImage NewFolderbtnMenuSelect(&menu_select);
+    NewFolderbtn.SetImageOver(&NewFolderbtnMenuSelect);
+    NewFolderbtn.SetSoundClick(&btnClick);
+    NewFolderbtn.SetTrigger(&trigA);
+    NewFolderbtn.SetPosition(0,buttonY);
+    NewFolderbtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    buttonY += promptWindow.GetHeight()/numItems;
+
     GuiText PropertiesTxt("Properties", 26, (GXColor){0, 0, 0, 255});
     GuiText PropertiesTxtOver("Properties", 26, (GXColor){28, 32, 190, 255});
     PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -473,6 +487,7 @@ int RightClickMenu(int x, int y)
     promptWindow.Append(&Pastebtn);
     promptWindow.Append(&Renamebtn);
     promptWindow.Append(&Deletebtn);
+    promptWindow.Append(&NewFolderbtn);
     promptWindow.Append(&Propertiesbtn);
 
     HaltGui();
@@ -508,6 +523,10 @@ int RightClickMenu(int x, int y)
         }
         else if(Deletebtn.GetState() == STATE_CLICKED) {
             choice = DELETE;
+            break;
+        }
+        else if(NewFolderbtn.GetState() == STATE_CLICKED) {
+            choice = NEWFOLDER;
             break;
         }
         else if(Propertiesbtn.GetState() == STATE_CLICKED) {
@@ -558,11 +577,9 @@ int Properties(const char * filename, const char * filepath, int folder, float f
 
     GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-    GuiImageData btnOutline(button_png);
-
-    GuiText TitleTxt(filename, 28, (GXColor){0, 0, 0, 255});
+    GuiText TitleTxt(filename, 24, (GXColor){0, 0, 0, 255});
     TitleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    TitleTxt.SetPosition(0, 30);
+    TitleTxt.SetPosition(0, 50);
     TitleTxt.SetMaxWidth(dialogBox.GetWidth()-20, GuiText::DOTTED);
 
     GuiImageData titleData(folder_png);
@@ -573,16 +590,16 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     sprintf(temp, "Filepath:  %s", filepath);
     GuiText filepathTxt(temp, 22, (GXColor){0, 0, 0, 255});
     filepathTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filepathTxt.SetPosition(20, 80);
+    filepathTxt.SetPosition(20, 100);
     filepathTxt.SetMaxWidth(dialogBox.GetWidth()-30, GuiText::DOTTED);
 
     GuiText filecountTxt("Files:", 22, (GXColor){0, 0, 0, 255});
     filecountTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filecountTxt.SetPosition(20, 110);
+    filecountTxt.SetPosition(20, 130);
 
     GuiText filecountTxtVal("1", 22, (GXColor){0, 0, 0, 255});
     filecountTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filecountTxtVal.SetPosition(200, 110);
+    filecountTxtVal.SetPosition(200, 130);
 
     if(filesize > KBSIZE && filesize < MBSIZE)
         sprintf(temp, "%0.2fKB", filesize/KBSIZE);
@@ -595,11 +612,11 @@ int Properties(const char * filename, const char * filepath, int folder, float f
 
     GuiText filesizeTxt("Size:", 22, (GXColor){0, 0, 0, 255});
     filesizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filesizeTxt.SetPosition(20, 140);
+    filesizeTxt.SetPosition(20, 170);
 
     GuiText filesizeTxtVal(temp, 22, (GXColor){0, 0, 0, 255});
     filesizeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filesizeTxtVal.SetPosition(200, 140);
+    filesizeTxtVal.SetPosition(200, 170);
 
     char temp2[30];
     char * pch;
@@ -614,49 +631,51 @@ int Properties(const char * filename, const char * filepath, int folder, float f
 
     GuiText filetypeTxt("Filetype:", 22, (GXColor){0, 0, 0, 255});
     filetypeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filetypeTxt.SetPosition(20, 170);
+    filetypeTxt.SetPosition(20, 200);
 
     GuiText filetypeTxtVal(temp2, 22, (GXColor){0, 0, 0, 255});
     filetypeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    filetypeTxtVal.SetPosition(200, 170);
+    filetypeTxtVal.SetPosition(200, 200);
 
     GuiText last_accessTxt("Last access:", 20, (GXColor){0, 0, 0, 255});
     last_accessTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_accessTxt.SetPosition(20, 200);
+    last_accessTxt.SetPosition(20, 230);
 
     strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_atime));
     GuiText last_accessTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
     last_accessTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_accessTxtVal.SetPosition(200, 200);
+    last_accessTxtVal.SetPosition(200, 230);
 
     GuiText last_modifTxt("Last modified:", 20, (GXColor){0, 0, 0, 255});
     last_modifTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_modifTxt.SetPosition(20, 230);
+    last_modifTxt.SetPosition(20, 260);
 
     strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_mtime));
     GuiText last_modifTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
     last_modifTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_modifTxtVal.SetPosition(200, 230);
+    last_modifTxtVal.SetPosition(200, 260);
 
     GuiText last_changeTxt("Last status change:", 20, (GXColor){0, 0, 0, 255});
     last_changeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_changeTxt.SetPosition(20, 260);
+    last_changeTxt.SetPosition(20, 290);
 
     strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_ctime));
     GuiText last_changeTxtVal(temp, 20, (GXColor){0, 0, 0, 255});
     last_changeTxtVal.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    last_changeTxtVal.SetPosition(200, 260);
+    last_changeTxtVal.SetPosition(200, 290);
 
-    GuiImage BackbtnImg(&btnOutline);
-    BackbtnImg.SetScale(0.9);
-    GuiText BackTxt("Back", 24, (GXColor){0, 0, 0, 255});
-    BackTxt.SetPosition(0, btnOutline.GetHeight()*0.1 - 1);
-    GuiButton Backbtn(btnOutline.GetWidth()*0.9, btnOutline.GetHeight()*0.9);
-    Backbtn.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    Backbtn.SetLabel(&BackTxt);
+    GuiImageData arrowUp(scrollbar_arrowup_png);
+    GuiImageData arrowUpOver(scrollbar_arrowup_over_png);
+    GuiImage arrowUpImg(&arrowUp);
+    arrowUpImg.SetAngle(45);
+    GuiImage arrowUpImgOver(&arrowUpOver);
+    arrowUpImgOver.SetAngle(45);
+    GuiButton Backbtn(arrowUpImg.GetWidth(), arrowUpImg.GetHeight());
+    Backbtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
     Backbtn.SetSoundClick(&btnClick);
-    Backbtn.SetImage(&BackbtnImg);
-    Backbtn.SetPosition(0, 280);
+    Backbtn.SetImage(&arrowUpImg);
+    Backbtn.SetImageOver(&arrowUpImgOver);
+    Backbtn.SetPosition(-20, 20);
     Backbtn.SetEffectGrow();
     Backbtn.SetTrigger(&trigA);
     Backbtn.SetTrigger(&trigB);
@@ -684,9 +703,8 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     mainWindow->SetState(STATE_DISABLED);
     mainWindow->Append(&promptWindow);
     mainWindow->ChangeFocus(&promptWindow);
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
-
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
@@ -694,14 +712,12 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     {
         VIDEO_WaitVSync();
 
-        if(shutdown == 1) {
+        if(shutdown == 1)
             Sys_Shutdown();
-        }
         else if(reset == 1)
             Sys_Reboot();
 
         else if(Backbtn.GetState() == STATE_CLICKED) {
-            StopSizeGain();
             choice = -3;
             break;
         }
@@ -728,7 +744,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
         }
     }
 
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
 
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
@@ -736,6 +752,9 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     mainWindow->Remove(&promptWindow);
     mainWindow->SetState(STATE_DEFAULT);
     ResumeGui();
+
+    if(folder)
+        StopSizeGain();
 
     return choice;
 }

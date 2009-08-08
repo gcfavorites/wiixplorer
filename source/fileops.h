@@ -13,6 +13,7 @@ bool CreateSubfolder(const char * fullpath);
 bool FindFile(const char * filename, const char * path);
 bool CheckFile(const char * filepath);
 u64 FileSize(const char * filepath);
+int LoadFileToMem(const char * filepath, u8 **buffer, u64 *size);
 int CopyFile(const char * src, const char * dest);
 int CopyDirectory(const char * src, const char * dest);
 int MoveDirectory(char * src, const char * dest);

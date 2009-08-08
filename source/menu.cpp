@@ -226,7 +226,7 @@ static int MenuBrowseDevice()
 
 	GuiFileBrowser fileBrowser(584, 248);
 	fileBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	fileBrowser.SetPosition(30, 100);
+	fileBrowser.SetPosition(28, 100);
 
 	GuiImageData settingsImgData(settingsbtn_png);
 	GuiImage settingsImg(&settingsImgData);
@@ -269,7 +269,7 @@ static int MenuBrowseDevice()
 
 	GuiButton deviceSwitchBtn(deviceImg.GetWidth(), deviceImg.GetHeight());
 	deviceSwitchBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceSwitchBtn.SetPosition(50, fileBrowser.GetTop()-38);
+	deviceSwitchBtn.SetPosition(48, fileBrowser.GetTop()-38);
 	deviceSwitchBtn.SetImage(&deviceImg);
 	deviceSwitchBtn.SetSoundClick(&btnSoundClick);
 	deviceSwitchBtn.SetSoundOver(&btnSoundOver);
@@ -280,7 +280,7 @@ static int MenuBrowseDevice()
     snprintf(currentdir, sizeof(currentdir), "%s%s", browser.rootdir, browser.dir);
 	GuiText AdressText(currentdir, 20, (GXColor) {0, 0, 0, 255});
 	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	AdressText.SetPosition(20, 0);
+	AdressText.SetPosition(18, 0);
 	AdressText.SetMaxWidth(Address.GetWidth()-40, GuiText::SCROLL);
 	GuiImage AdressbarImg(&Address);
 	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
@@ -368,11 +368,12 @@ static int MenuBrowseDevice()
                 y = userInput[clickmenuBtn.GetStateChan()].wpad.ir.y;
             }
 
+            if(fileBrowser.IsInside(x, y)) {
+
             fileBrowser.DisableTriggerUpdate(true);
             choice = RightClickMenu(x, y);
 
-            if(strcmp(browserList[browser.selIndex].filename,"..") != 0
-                && fileBrowser.IsInside(x, y)) {
+            if(strcmp(browserList[browser.selIndex].filename,"..") != 0) {
 
             if(choice == CUT) {
                 if(browserList[browser.selIndex].isdir)
@@ -461,7 +462,7 @@ static int MenuBrowseDevice()
                 Properties(browserList[browser.selIndex].filename, currentitem, browserList[browser.selIndex].isdir, (float) browserList[browser.selIndex].length);
             }
 
-            } else if(choice >= 0 && choice != PASTE)
+            } else if(choice >= 0 && choice != PASTE && choice != NEWFOLDER)
                 WindowPrompt("You cant use this operation on:", "Directory ..", "OK");
 
             if(choice == PASTE) {
@@ -484,7 +485,7 @@ static int MenuBrowseDevice()
                         }
 
                         if(res == -10)
-                            WindowPrompt("Action cancelled.", 0, "OK");
+                            WindowPrompt("Transfering files:", "Action cancelled.", "OK");
                         else if(res < 0)
                             WindowPrompt("An error accured.", "Failed copying files.", "OK");
                         else {
@@ -523,8 +524,23 @@ static int MenuBrowseDevice()
                     fileBrowser.TriggerUpdate();
             }
 
-            fileBrowser.DisableTriggerUpdate(false);
+            else if(choice == NEWFOLDER) {
+                char entered[43];
+                snprintf(entered, sizeof(entered), "New Folder");
+                int result = OnScreenKeyboard(entered, 42);
+                if(result == 1) {
+                    char currentpath[MAXPATHLEN];
+                    snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, entered);
+                    bool ret = CreateSubfolder(currentpath);
+                    if(ret == false)
+                        WindowPrompt("Error:", "Unable to create folder.", "OK");
+                    ParseDirectory();
+                    fileBrowser.TriggerUpdate();
+                }
+            }
 
+            fileBrowser.DisableTriggerUpdate(false);
+		}
             clickmenuBtn.ResetState();
         } else {
             clickmenuBtn.ResetState();
@@ -760,7 +776,8 @@ static int MenuSettings()
 
 		if(backBtn.GetState() == STATE_CLICKED)
 		{
-		    Settings.Save();
+		    if(SDCard_Inserted())
+                Settings.Save();
 			menu = MENU_BROWSE_DEVICE;
 		}
 	}

@@ -8,4 +8,4 @@ enum
 
 int FileStartUp(const char * filepath);
 
-#endif /* SVNREV_H */
+#endif
