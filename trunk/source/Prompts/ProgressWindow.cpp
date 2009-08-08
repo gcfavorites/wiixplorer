@@ -48,7 +48,7 @@ static char     progressSizeLeft[80];
 static u32      progressSpeed = 0;
 static short    showProgress = 0;
 static u64      progressDone = 0;
-static u64      progressTotal = 0;
+static u64      progressTotal = 100;
 static time_t   start = 0;
 
 /*** Variables used outside of this file ***/
@@ -118,23 +118,23 @@ void ProgressWindow()
 	GuiImageData progressbarOutline(progressbar_outline_png);
 	GuiImage progressbarOutlineImg(&progressbarOutline);
 	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarOutlineImg.SetPosition(25, 5);
+	progressbarOutlineImg.SetPosition(25, 15);
 
 	GuiImageData progressbarEmpty(progressbar_empty_png);
 	GuiImage progressbarEmptyImg(&progressbarEmpty);
 	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarEmptyImg.SetPosition(25, 5);
+	progressbarEmptyImg.SetPosition(25, 15);
 	progressbarEmptyImg.SetTile(100);
 
     GuiImageData progressbar(progressbar_png);
     GuiImage progressbarImg(&progressbar);
     progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarImg.SetPosition(25, 5);
+	progressbarImg.SetPosition(25, 15);
 
     GuiImageData throbber(throbber_png);
     GuiImage throbberImg(&throbber);
 	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	throbberImg.SetPosition(0, 30);
+	throbberImg.SetPosition(0, 25);
 
 	GuiText titleTxt(progressTitle, 26, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
@@ -143,31 +143,31 @@ void ProgressWindow()
 
     GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	msgTxt.SetPosition(0,105);
+	msgTxt.SetPosition(0,110);
 	msgTxt.SetMaxWidth(430, GuiText::DOTTED);
 
     GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	prTxt.SetPosition(200, 5);
+	prTxt.SetPosition(200, 15);
 
 	GuiText prsTxt("%", 26, (GXColor){0, 0, 0, 255});
 	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	prsTxt.SetPosition(-188, 5);
+	prsTxt.SetPosition(-188, 15);
 
     GuiText speedTxt(NULL, 24, (GXColor){0, 0, 0, 255});
     speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	speedTxt.SetPosition(350, 195);
+	speedTxt.SetPosition(350, 205);
 
     GuiText sizeTxt(NULL, 24, (GXColor){0, 0, 0, 255});
     sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	sizeTxt.SetPosition(50, 195);
+	sizeTxt.SetPosition(50, 205);
 
-	GuiImageData btnOutline(button_png);
+    GuiImageData btnOutline(small_button_png);
 	GuiImage buttonImg(&btnOutline);
     GuiText AbortTxt("Cancel", 22, (GXColor){0, 0, 0, 255});
 	GuiButton AbortBtn(buttonImg.GetWidth(), buttonImg.GetHeight());
 	AbortBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	AbortBtn.SetPosition(0, -50);
+	AbortBtn.SetPosition(0, -48);
 	AbortBtn.SetLabel(&AbortTxt);
 	AbortBtn.SetImage(&buttonImg);
 	AbortBtn.SetTrigger(&trigA);
@@ -220,10 +220,16 @@ void ProgressWindow()
             throbberImg.SetAngle(angle);
         }
 
-        if(shutdown == 1)
+        if(shutdown == 1) {
+            actioncanceled = true;
+            sleep(1);
             Sys_Shutdown();
-        else if(reset == 1)
+        }
+        else if(reset == 1) {
+            actioncanceled = true;
+            sleep(1);
             Sys_Reboot();
+        }
 
         else if(AbortBtn.GetState() == STATE_CLICKED) {
             actioncanceled = true;

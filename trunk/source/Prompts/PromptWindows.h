@@ -9,6 +9,17 @@
 #ifndef _PROMPTWINDOWS_H_
 #define _PROMPTWINDOWS_H_
 
+enum
+{
+    CUT,
+    COPY,
+    PASTE,
+    RENAME,
+    DELETE,
+    NEWFOLDER,
+    PROPERTIES
+};
+
 int OnScreenKeyboard(char * var, u16 maxlen);
 int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Label = NULL,
                     const char *btn2Label = NULL, const char *btn3Label = NULL,

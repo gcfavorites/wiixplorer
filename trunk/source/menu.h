@@ -29,14 +29,4 @@ enum
 	MENU_SMB_SETTINGS
 };
 
-enum
-{
-    CUT,
-    COPY,
-    PASTE,
-    RENAME,
-    DELETE,
-    PROPERTIES
-};
-
 #endif

@@ -622,6 +622,14 @@ class GuiText : public GuiElement
 		//!Sets the font size
 		//!\param s Font size
 		void SetFontSize(int s);
+		//!Sets the first line to draw (default = 0)
+		//!\param line
+		void SetFirstLine(int line);
+		//!Sets max lines to draw
+		//!\param lines
+		void SetLinesToDraw(int lines);
+		//!Gets the total line number
+		int GetTotalLines();
 		//!Sets the maximum width of the drawn texture image
 		//!If the text exceeds this, it is wrapped to the next line
 		//!\param w Maximum width
@@ -630,7 +638,8 @@ class GuiText : public GuiElement
 			WRAP,
 			DOTTED,
 			SCROLL,
-			MARQUEE
+			MARQUEE,
+			LONGTEXT
 		};
 		void SetMaxWidth(int w, short m=GuiText::WRAP);
 		//!Sets the font color
@@ -666,6 +675,11 @@ class GuiText : public GuiElement
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
 		short widescreen; //added
+		int firstLine;
+		int linestodraw;
+		int totalLines;
+		bool textchanged;
+
 };
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)

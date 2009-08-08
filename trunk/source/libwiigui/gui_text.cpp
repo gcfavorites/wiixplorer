@@ -36,7 +36,11 @@ GuiText::GuiText(const char * t, int s, GXColor c)
 	scrollPos2 = 0;
 	scrollDelay = 0;
 	font = NULL;
+	firstLine = 0;
+	linestodraw = 9;
+	totalLines = 0;
 	widescreen = 0; //added
+	textchanged = true;
 
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
@@ -61,7 +65,11 @@ GuiText::GuiText(const char * t)
 	scrollPos2 = 0;
 	scrollDelay = 0;
 	font = NULL;
+	firstLine = 0;
+	linestodraw = 9;
+	totalLines = 0;
 	widescreen = 0; //added
+	textchanged = true;
 
 	alignmentHor = presetAlignmentHor;
 	alignmentVert = presetAlignmentVert;
@@ -197,6 +205,28 @@ int GuiText::GetTextWidth()
 }
 
 /**
+ * Set the lines to draw
+ */
+void GuiText::SetFirstLine(int line)
+{
+    LOCK(this);
+	firstLine = line;
+	textchanged = true;
+}
+
+void GuiText::SetLinesToDraw(int line)
+{
+    LOCK(this);
+	linestodraw = line;
+	textchanged = true;
+}
+
+int GuiText::GetTotalLines()
+{
+    return totalLines;
+}
+
+/**
  * Draw the text on screen
  */
 void GuiText::Draw()
@@ -216,17 +246,16 @@ void GuiText::Draw()
 
 	if(newSize != currentSize)
 	{
-		//fontSystem->changeSize(newSize);
-		(font ? font : fontSystem)->changeSize(newSize, 0);
+		fontSystem->changeSize(newSize, 0);
 		currentSize = newSize;
 		currentWidescreen = widescreen;
 	}
 
 	int voffset = 0;
 
-	if(maxWidth > 0 && (font ? font : fontSystem)->getWidth(text) > maxWidth)
+	if(maxWidth > 0 && fontSystem->getWidth(text) > maxWidth)
 	{
-		if(wrapMode == GuiText::WRAP) // text wrapping
+        if(wrapMode == GuiText::WRAP) // text wrapping
 		{
 			int lineheight = newSize + 6;
 			int strlen = wcslen(text);
@@ -282,6 +311,68 @@ void GuiText::Draw()
 				(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+voffset+i*lineheight, tmptext[i], c, style);
 				delete tmptext[i];
 			}
+		}
+		else if(wrapMode == GuiText::LONGTEXT) // text wrapping
+		{
+            //if(textchanged) {
+                int lineheight = newSize + 6;
+                int strlen = wcslen(text);
+                int i = 0;
+                int ch = 0;
+                int linenum = 0;
+                int lineindex = 0;
+                int lastSpace = -1;
+                int lastSpaceIndex = -1;
+
+                wchar_t *tmptext = new wchar_t[maxWidth];
+
+                while(ch < strlen)
+                {
+                    tmptext[i] = text[ch];
+                    tmptext[i+1] = 0;
+
+                    if(text[ch] == ' ' || ch == strlen-1)
+                    {
+                        if(fontSystem->getWidth(tmptext) >= maxWidth)
+                        {
+                            if(lastSpace >= 0)
+                            {
+                                tmptext[lastSpaceIndex] = 0; // discard space, and everything after
+                                ch = lastSpace; // go backwards to the last space
+                                lastSpace = -1; // we have used this space
+                                lastSpaceIndex = -1;
+                            }
+                            linenum++;
+                            i = -1;
+                        }
+                        else if(ch == strlen)
+                        {
+                            linenum++;
+                            i = -1;
+                        }
+                    }
+                    if(text[ch] == ' ' && i >= 0)
+                    {
+                        lastSpace = ch;
+                        lastSpaceIndex = i;
+                    }
+                    if(text[ch] == '\n')
+                    {
+                        linenum++;
+                        i = -1;
+                    }
+                    ch++;
+                    i++;
+
+                    if((i == 0) && ((linenum-1) >= firstLine) && ((linenum-1) < (firstLine+linestodraw))) {
+                        fontSystem->drawText(this->GetLeft(), this->GetTop()+lineindex*lineheight, tmptext, c, style);
+                        lineindex++;
+                    }
+                }
+                delete tmptext;
+                totalLines = linenum;
+            //    textchanged = false;
+            //}
 		}
 		else if(wrapMode == GuiText::DOTTED) // text dotted
 		{
@@ -412,7 +503,7 @@ void GuiText::Draw()
 	}
 	else
 	{
-		(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
+		fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
 	}
-	this->UpdateEffects();
+	//this->UpdateEffects();
 }

@@ -29,6 +29,9 @@ extern const u32	background_png_size;
 extern const u8		button_png[];
 extern const u32	button_png_size;
 
+extern const u8		small_button_png[];
+extern const u32	small_button_png_size;
+
 extern const u8		button_over_png[];
 extern const u32	button_over_png_size;
 
