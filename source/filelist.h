@@ -62,6 +62,9 @@ extern const u32	addressbar_textbox_png_size;
 extern const u8		folder_png[];
 extern const u32	folder_png_size;
 
+extern const u8		taskbar_png[];
+extern const u32	taskbar_png_size;
+
 extern const u8		menu_selection_png[];
 extern const u32	menu_selection_png_size;
 

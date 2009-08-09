@@ -505,5 +505,5 @@ void GuiText::Draw()
 	{
 		fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
 	}
-	//this->UpdateEffects();
+	this->UpdateEffects();
 }
