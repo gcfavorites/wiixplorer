@@ -34,6 +34,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
@@ -192,8 +193,10 @@ void ExitGUIThreads()
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-	int i, choice = -1;
+	int i, choice = -1, counter = 0;
 	char currentdir[50];
+    time_t currenttime = time(0);
+    struct tm * timeinfo = localtime(&currenttime);
 
 	// populate initial directory listing
 	if(BrowseDevice(Settings.MountMethod) <= 0)
@@ -234,8 +237,8 @@ static int MenuBrowseDevice()
 	GuiImage settingsImgOver(&settingsImgOverData);
 
 	GuiButton SettingsBtn(settingsImg.GetWidth(), settingsImg.GetHeight());
-	SettingsBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	SettingsBtn.SetPosition(370, -25);
+	SettingsBtn.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	SettingsBtn.SetPosition(87, 0);
 	SettingsBtn.SetImage(&settingsImg);
 	SettingsBtn.SetImageOver(&settingsImgOver);
 	SettingsBtn.SetSoundClick(&btnSoundClick);
@@ -248,8 +251,8 @@ static int MenuBrowseDevice()
     GuiImageData ExitBtnImgOverData(power_over_png);
 	GuiImage ExitBtnImgOver(&ExitBtnImgOverData);
 	GuiButton ExitBtn(ExitBtnImg.GetWidth(), ExitBtnImg.GetHeight());
-	ExitBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	ExitBtn.SetPosition(100, -25);
+	ExitBtn.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	ExitBtn.SetPosition(490, 0);
 	ExitBtn.SetImage(&ExitBtnImg);
 	ExitBtn.SetImageOver(&ExitBtnImgOver);
 	ExitBtn.SetSoundClick(&btnSoundClick);
@@ -289,17 +292,33 @@ static int MenuBrowseDevice()
 	Adressbar.SetImage(&AdressbarImg);
 	Adressbar.SetLabel(&AdressText);
 
+	char timetxt[20];
+	strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
+
+	GuiText TimeTxt(timetxt, 20, (GXColor) {40, 40, 40, 255});
+	TimeTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
+	TimeTxt.SetPosition(-26, 0);
+
+	GuiImageData taskbarImgData(taskbar_png);
+	GuiImage taskbarImg(&taskbarImgData);
+	GuiWindow TaskBar(taskbarImg.GetWidth(), taskbarImg.GetHeight());
+	TaskBar.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	TaskBar.SetPosition(4, -5);
+
 	GuiButton clickmenuBtn(screenwidth, screenheight);
 	clickmenuBtn.SetTrigger(&trigPlus);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
+	TaskBar.Append(&taskbarImg);
+	TaskBar.Append(&SettingsBtn);
+	TaskBar.Append(&ExitBtn);
+	TaskBar.Append(&TimeTxt);
 	w.Append(&clickmenuBtn);
-	w.Append(&SettingsBtn);
-	w.Append(&ExitBtn);
 	w.Append(&fileBrowser);
 	w.Append(&Adressbar);
 	w.Append(&deviceSwitchBtn);
+	w.Append(&TaskBar);
 	mainWindow->Append(&w);
 	ResumeGui();
 
@@ -312,6 +331,16 @@ static int MenuBrowseDevice()
 
         if(reset == 1)
             Sys_Reboot();
+
+        counter++;
+
+        if(counter > 50) {
+            currenttime = time(0);
+            timeinfo = localtime(&currenttime);
+            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
+            TimeTxt.SetText(timetxt);
+            counter = 0;
+        }
 
 		for(i=0; i<PAGESIZE; i++)
 		{

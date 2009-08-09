@@ -20,6 +20,7 @@ GuiImage::GuiImage()
 	imageangle = 0;
 	tile = -1;
 	stripe = 0;
+	widescreen = false;
 	imgType = IMAGE_DATA;
 }
 
@@ -28,6 +29,7 @@ GuiImage::GuiImage(GuiImageData * img)
 	image = NULL;
 	width = 0;
 	height = 0;
+	widescreen = false;
 	if(img)
 	{
 		image = img->GetImage();
@@ -48,6 +50,7 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 	imageangle = 0;
 	tile = -1;
 	stripe = 0;
+	widescreen = false;
 	imgType = IMAGE_TEXTURE;
 }
 
@@ -60,6 +63,7 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 	tile = -1;
 	stripe = 0;
 	imgType = IMAGE_COLOR;
+	widescreen = false;
 
 	if(!image)
 		return;
@@ -161,6 +165,12 @@ void GuiImage::SetStripe(int s)
 	stripe = s;
 }
 
+void GuiImage::SetWidescreen(bool w)
+{
+    LOCK(this);
+    widescreen = w;
+}
+
 void GuiImage::ColorStripe(int shift)
 {
 	int x, y;
@@ -239,7 +249,7 @@ void GuiImage::Draw()
 		if(scale != 1)
 			currLeft = currLeft - width/2 + (width*scale)/2;
 
-		Menu_DrawImg(currLeft, this->GetTop(), width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+		Menu_DrawImg(currLeft, this->GetTop(), width, height, image, imageangle, ((widescreen) ? (currScale*0.8) : currScale), currScale, this->GetAlpha());
 	}
 
 	if(stripe > 0)

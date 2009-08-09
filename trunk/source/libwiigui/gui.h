@@ -582,12 +582,15 @@ class GuiImage : public GuiElement
 		//!Does not alter the image data
 		//!\param s Alpha amount to draw over the image
 		void SetStripe(int s);
+		//!Set widescreenfix
+		void SetWidescreen(bool w);
 	protected:
 		int imgType; //!< Type of image data (IMAGE_TEXTURE, IMAGE_COLOR, IMAGE_DATA)
 		u8 * image; //!< Poiner to image data. May be shared with GuiImageData data
 		f32 imageangle; //!< Angle to draw the image
 		int tile; //!< Number of times to draw (tile) the image horizontally
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
+		bool widescreen;
 };
 
 //!Display, manage, and manipulate text in the GUI
@@ -674,7 +677,7 @@ class GuiText : public GuiElement
 		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
-		short widescreen; //added
+		bool widescreen; //added
 		int firstLine;
 		int linestodraw;
 		int totalLines;
