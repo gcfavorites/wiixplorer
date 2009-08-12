@@ -504,8 +504,13 @@ class GuiImageData
 	public:
 		//!Constructor
 		//!Converts the image data to RGBA8 - expects PNG format
-		//!\param i Image data
-		GuiImageData(const u8 * i);
+		//!\param img Image data
+		GuiImageData(const u8 * img);
+		//!Constructor
+		//!Converts the image data to RGBA8 - expects PNG format
+		//!\param img Image data
+		//!\param imgSize The image size
+		GuiImageData(const u8 * img, int imgSize);
 		//!Destructor
 		~GuiImageData();
 		//!Gets a pointer to the image data
@@ -518,6 +523,10 @@ class GuiImageData
 		//!\return image height
 		int GetHeight();
 	protected:
+		static void RawTo4x4RGBA(const unsigned char *src, void *dst, const unsigned int width, const unsigned int height);
+		void LoadPNG(const u8 *img);
+		void LoadJpeg(const u8 *img, int imgSize);
+
 		u8 * data; //!< Image data
 		int height; //!< Height of image
 		int width; //!< Width of image

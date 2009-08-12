@@ -182,6 +182,32 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 }
 
 /****************************************************************************
+ * LoadFileToMemWithProgress
+ *
+ * Load up the file into a block of memory, while showing a progress dialog
+ ***************************************************************************/
+int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8 **inbuffer, u64 *size)
+{
+    StartProgress(progressText);
+    int ret = LoadFileToMem(filepath, inbuffer, size);
+    StopProgress();
+
+    if(ret == -1) {
+        WindowPrompt("Error", "Can not open the file", "OK");
+    }
+    else if(ret == -2) {
+        WindowPrompt("Error", "Not enough memory.", "OK");
+    }
+    else if(ret == -3) {
+        WindowPrompt("Error", "Can not open the file", "OK");
+    }
+    else if(ret == -10) {
+        WindowPrompt("Loading file:", "Action cancelled.", "OK");
+    }
+	return ret;
+}
+
+/****************************************************************************
  * CreateSubfolder
  *
  * Create recursive all subfolders to the given path
