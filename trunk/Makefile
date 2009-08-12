@@ -31,7 +31,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80FF0
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-lpngu -lpng -lmetaphrasis -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype -ltinysmb
+LIBS :=	-ljpeg -lpngu -lpng -lmetaphrasis -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype -ltinysmb
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -140,7 +140,7 @@ $(OUTPUT).elf: $(OFILES)
 %.pcm.o : %.pcm
 	@echo $(notdir $<)
 	$(bin2o)
-
+	
 -include $(DEPENDS)
 
 #---------------------------------------------------------------------------------
