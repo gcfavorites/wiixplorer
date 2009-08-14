@@ -369,6 +369,10 @@ void GuiElement::SetTrigger(GuiTrigger * t)
 		trigger[0] = t;
 	else if(!trigger[1])
 		trigger[1] = t;
+	else if(!trigger[2])
+		trigger[2] = t;
+	else if(!trigger[3])
+		trigger[3] = t;
 	else // both were assigned, so we'll just overwrite the first one
 		trigger[0] = t;
 }

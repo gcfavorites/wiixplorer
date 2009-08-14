@@ -106,6 +106,10 @@ void TextViewer(const char *filepath)
     trigUp.SetButtonOnlyTrigger(-1, WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP, PAD_BUTTON_UP);
     GuiTrigger trigDown;
     trigDown.SetButtonOnlyTrigger(-1, WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN, PAD_BUTTON_DOWN);
+    GuiTrigger trigLeft;
+    trigLeft.SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, PAD_BUTTON_LEFT);
+    GuiTrigger trigRight;
+    trigRight.SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, PAD_BUTTON_RIGHT);
 
     GuiImageData dialogBox(dialogue_box_png);
     GuiImage dialogBoxImg(&dialogBox);
@@ -157,6 +161,12 @@ void TextViewer(const char *filepath)
 	arrowDownBtn.SetSoundOver(&btnSoundOver);
 	arrowDownBtn.SetSoundClick(&btnClick);
 
+	GuiButton arrowLeft(1, 1);
+	arrowLeft.SetTrigger(&trigLeft);
+
+	GuiButton arrowRight(1, 1);
+	arrowRight.SetTrigger(&trigRight);
+
     GuiImage btn1Img(&arrowUp);
     btn1Img.SetAngle(45);
     GuiImage btn1ImgOver(&arrowUpOver);
@@ -176,6 +186,8 @@ void TextViewer(const char *filepath)
     promptWindow.Append(&MainFileTxt);
     promptWindow.Append(&arrowUpBtn);
     promptWindow.Append(&arrowDownBtn);
+    promptWindow.Append(&arrowLeft);
+    promptWindow.Append(&arrowRight);
     promptWindow.Append(&btn1);
 
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
@@ -205,7 +217,10 @@ void TextViewer(const char *filepath)
             if(currentLine < 0)
                 currentLine = 0;
             MainFileTxt.SetFirstLine(currentLine);
-            arrowUpBtn.ResetState();
+            usleep(20000);
+            int chan = arrowUpBtn.GetStateChan();
+            if(!userInput[chan].wpad.btns_h)
+                    arrowUpBtn.ResetState();
         }
         else if(arrowDownBtn.GetState() == STATE_CLICKED) {
 
@@ -217,7 +232,31 @@ void TextViewer(const char *filepath)
                 currentLine = 0;
 
             MainFileTxt.SetFirstLine(currentLine);
-            arrowDownBtn.ResetState();
+            usleep(20000);
+            int chan = arrowDownBtn.GetStateChan();
+            if(!userInput[chan].wpad.btns_h)
+                arrowDownBtn.ResetState();
+        }
+        else if(arrowRight.GetState() == STATE_CLICKED) {
+
+            int totalLines = MainFileTxt.GetTotalLines();
+            currentLine += 8;
+            if(currentLine+linestoshow > totalLines)
+                currentLine = totalLines-linestoshow;
+            if(currentLine < 0)
+                currentLine = 0;
+
+            MainFileTxt.SetFirstLine(currentLine);
+            arrowRight.ResetState();
+        }
+        else if(arrowLeft.GetState() == STATE_CLICKED) {
+
+            currentLine -= 8;
+            if(currentLine < 0)
+                currentLine = 0;
+
+            MainFileTxt.SetFirstLine(currentLine);
+            arrowLeft.ResetState();
         }
     }
 

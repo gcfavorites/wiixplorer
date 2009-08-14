@@ -14,6 +14,22 @@ typedef struct SMBData {
 	char	SMBName[50];
 };
 
+enum {
+    APP_DEFAULT = 0,
+    CONSOLE_DEFAULT,
+    JAPANESE,
+    ENGLISH,
+    GERMAN,
+    FRENCH,
+    SPANISH,
+    ITALIAN,
+    DUTCH,
+    S_CHINESE,
+    T_CHINESE,
+    KOREAN,
+    MAX_LANGUAGE
+};
+
 class Settings
 {
     public:
@@ -33,6 +49,9 @@ class Settings
 		//!\param name Settingname
 		//!\param value Settingvalue
         bool SetSetting(char * name, char * value);
+		//!Load a languagefile
+		//!\param language
+        bool LoadLanguage(int language);
 
         //!Settings variables:
         //!Current selected device to browse
@@ -41,6 +60,8 @@ class Settings
         short	CurrentUser;
         //!Auto initialize network and connect to SMB on startup
         short	AutoConnect;
+        //!Language Selected language.
+        short	Language;
         //!SMB users informations
         struct  SMBData SMBUser[MAXSMBUSERS];
 

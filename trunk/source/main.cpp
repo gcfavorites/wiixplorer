@@ -41,6 +41,7 @@ main(int argc, char *argv[])
 	USBDevice_Init(); // Initialize file system
 
 	Settings.Load();
+	Settings.LoadLanguage(Settings.Language);
 
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);

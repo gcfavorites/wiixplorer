@@ -412,7 +412,7 @@ class GuiElement
 		bool selectable; //!< Whether or not this element selectable (can change to SELECTED state)
 		bool clickable; //!< Whether or not this element is clickable (can change to CLICKED state)
 		bool holdable; //!< Whether or not this element is holdable (can change to HELD state)
-		GuiTrigger * trigger[2]; //!< GuiTriggers (input actions) that this element responds to
+		GuiTrigger * trigger[4]; //!< GuiTriggers (input actions) that this element responds to
 		GuiElement * parentElement; //!< Parent element
 		UpdateCallback updateCB; //!< Callback function to call when this element is updated
 };
@@ -670,6 +670,8 @@ class GuiText : public GuiElement
 		void SetFont(FreeTypeGX *f);
 		//!Get the Horizontal Size of Text
 		int GetTextWidth();
+		//!Get the offset of a linebreak
+		u32 GetLineBreakOffset(int line);
 		// not NULL set horizontal scale to 0.75 //added
 		void SetWidescreen(bool w);
 		//!Constantly called to draw the text
@@ -690,7 +692,8 @@ class GuiText : public GuiElement
 		int firstLine;
 		int linestodraw;
 		int totalLines;
-		bool textchanged;
+		int textWidth;
+		u32 *LineBreak;
 
 };
 
