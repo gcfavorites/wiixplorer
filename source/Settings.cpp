@@ -9,9 +9,11 @@
 
 #include "Settings.h"
 #include "fileops.h"
+#include "gettext.h"
 
-#define CONFIGPATH      "sd:/config/"
+#define CONFIGPATH      "sd:/config/WiiXplorer/"
 #define CONFIGNAME      "WiiXplorer.cfg"
+#define LANGPATH      	"sd:/config/WiiXplorer/Languages/"
 
 Settings::Settings()
 {
@@ -27,6 +29,7 @@ void Settings::SetDefault()
     MountMethod = 0;
     CurrentUser = 0;
     AutoConnect = off;
+    Language = 0;
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -55,6 +58,7 @@ bool Settings::Save()
 	fprintf(file, "MountMethod = %d\n", MountMethod);
 	fprintf(file, "CurrentUser = %d\n", CurrentUser);
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
+	fprintf(file, "Language = %d\n", Language);
 
 	fprintf(file, "\n#SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -91,6 +95,54 @@ bool Settings::Load()
 
 }
 
+bool Settings::LoadLanguage(int language)
+{
+    if(Language < 0)
+        return false;  //!No language detected or app default selected
+
+    char filepath[300];
+
+    if(language == APP_DEFAULT) {
+        gettextCleanUp();
+        return true;
+    }
+    else if(language == CONSOLE_DEFAULT) {
+        return this->LoadLanguage(CONF_GetLanguage()+2);
+    }
+    else if(language == JAPANESE) {
+        snprintf(filepath, sizeof(filepath), "%s/japanese.lang", LANGPATH);
+    }
+    else if(language == ENGLISH) {
+        snprintf(filepath, sizeof(filepath), "%s/english.lang", LANGPATH);
+    }
+    else if(language == GERMAN) {
+        snprintf(filepath, sizeof(filepath), "%s/german.lang", LANGPATH);
+    }
+    else if(language == FRENCH) {
+        snprintf(filepath, sizeof(filepath), "%s/french.lang", LANGPATH);
+    }
+    else if(language == SPANISH) {
+        snprintf(filepath, sizeof(filepath), "%s/spanish.lang", LANGPATH);
+    }
+    else if(language == ITALIAN) {
+        snprintf(filepath, sizeof(filepath), "%s/italian.lang", LANGPATH);
+    }
+    else if(language == DUTCH) {
+        snprintf(filepath, sizeof(filepath), "%s/dutch.lang", LANGPATH);
+    }
+    else if(language == S_CHINESE) {
+        snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", LANGPATH);
+    }
+    else if(language == T_CHINESE) {
+        snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", LANGPATH);
+    }
+    else if(language == KOREAN) {
+        snprintf(filepath, sizeof(filepath), "%s/korean.lang", LANGPATH);
+    }
+
+    return gettextLoadLanguage(filepath);
+}
+
 bool Settings::Reset()
 {
     this->SetDefault();
@@ -120,6 +172,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "AutoConnect") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			AutoConnect = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "Language") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			Language = i;
 		}
 		return true;
 	}

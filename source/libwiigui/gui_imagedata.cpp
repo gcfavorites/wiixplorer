@@ -15,13 +15,13 @@
 #ifdef __cplusplus
 extern "C"
 {
-#endif 
+#endif
 
 #include <jpeglib.h>
 
 #ifdef __cplusplus
 }
-#endif 
+#endif
 
 #define new_width 640
 #define new_height 480
@@ -34,7 +34,7 @@ GuiImageData::GuiImageData(const u8 * img)
 	data = NULL;
 	width = 0;
 	height = 0;
-	
+
 	if (img)
 	{
 		LoadPNG(img);
@@ -147,14 +147,14 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 	struct jpeg_error_mgr jerr;
 
 	int n = imgSize;
-	
+
 	while (n > 1) {
 		if (img[n - 1] == 0xff && img[n] == 0xd9) {
 			break;
 		}
 		n--;
 	}
-	
+
 	jpeg_create_decompress(&cinfo);
     cinfo.err = jpeg_std_error(&jerr);
     cinfo.progress = NULL;
@@ -171,7 +171,7 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 		cinfo.do_block_smoothing = false;
 		cinfo.dct_method = JDCT_IFAST;
 	}
-	
+
     jpeg_start_decompress(&cinfo);
 
 	int rowsize = cinfo.output_width * cinfo.num_components;
@@ -187,19 +187,19 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 		location += rowsize;
     }
 
-	int len = cinfo.output_width * cinfo.output_height * 4;
+	int len = ((cinfo.output_width+3)>>2)*((cinfo.output_height+3)>>2)*32*2;
     data = (u8 *) memalign(32, len);
-	
+
 	RawTo4x4RGBA(tempBuffer, data, cinfo.output_width, cinfo.output_height);
 	DCFlushRange(data, len);
-	
+
 	width = cinfo.output_width;
 	height = cinfo.output_height;
 
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
     free(row_pointer[0]);
-	free(tempBuffer);	
+	free(tempBuffer);
 }
 
 /**
@@ -210,7 +210,7 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
  * @param width
  * @param height
 */
-void GuiImageData::RawTo4x4RGBA(const unsigned char *src, void *dst, const unsigned int width, const unsigned int height) 
+void GuiImageData::RawTo4x4RGBA(const unsigned char *src, void *dst, const unsigned int width, const unsigned int height)
 {
     unsigned int block;
     unsigned int i;

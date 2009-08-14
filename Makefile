@@ -45,16 +45,17 @@ LIBDIRS	:= $(CURDIR)
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
 
-export OUTPUT	:=	$(CURDIR)/$(TARGETDIR)/$(TARGET)
-export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
-export DEPSDIR	:=	$(CURDIR)/$(BUILD)
+export PROJECTDIR 	:= $(CURDIR)
+export OUTPUT		:=	$(CURDIR)/$(TARGETDIR)/$(TARGET)
+export VPATH		:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
+export DEPSDIR		:=	$(CURDIR)/$(BUILD)
 
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
 SVNREV		:=	$(shell sh ./svnrev.sh)
-CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
-CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+export CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+export CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 TTFFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.ttf)))
@@ -119,8 +120,10 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).dol: $(OUTPUT).elf
+$(OUTPUT).dol: $(OUTPUT).elf language
 $(OUTPUT).elf: $(OFILES)
+
+language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 
 #---------------------------------------------------------------------------------
 # This rule links in binary data with .ttf, .png, and .mp3 extensions
@@ -140,6 +143,19 @@ $(OUTPUT).elf: $(OFILES)
 %.pcm.o : %.pcm
 	@echo $(notdir $<)
 	$(bin2o)
+	
+export PATH		:=	$(PROJECTDIR)/gettext-bin:$(PATH)
+
+%.pot: $(CFILES) $(CPPFILES)
+ 	
+	@echo Updating Languagefiles ...
+	
+ 	@xgettext -C -cTRANSLATORS --from-code=utf-8 --sort-output --no-wrap --no-location -k -ktr -ktrNOOP -o $@ $^
+	
+%.lang: $(PROJECTDIR)/Languages/$(TARGET).pot
+	
+	@msgmerge -U -N --no-wrap --no-location --backup=none -q $@ $<
+	@touch $@
 	
 -include $(DEPENDS)
 

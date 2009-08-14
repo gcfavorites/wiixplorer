@@ -1,0 +1,237 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-13 18:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Action cancelled."
+msgstr ""
+
+msgid "An error accured."
+msgstr ""
+
+msgid "App Default"
+msgstr ""
+
+msgid "Auto Connect"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Change Settings"
+msgstr ""
+
+msgid "Connect SMB"
+msgstr ""
+
+msgid "Console Default"
+msgstr ""
+
+msgid "Copy directory?"
+msgstr ""
+
+msgid "Copy file?"
+msgstr ""
+
+msgid "Copying file:"
+msgstr ""
+
+msgid "Copying files:"
+msgstr ""
+
+msgid "Cut directory?"
+msgstr ""
+
+msgid "Cut file?"
+msgstr ""
+
+msgid "Delete directory and its content?"
+msgstr ""
+
+msgid "Delete this file?"
+msgstr ""
+
+msgid "Deleting files:"
+msgstr ""
+
+msgid "Directory .."
+msgstr ""
+
+msgid "Directory couldn't be deleted."
+msgstr ""
+
+msgid "Directory successfully copied."
+msgstr ""
+
+msgid "Directory successfully deleted."
+msgstr ""
+
+msgid "Directory successfully moved."
+msgstr ""
+
+msgid "Do you want to boot:"
+msgstr ""
+
+msgid "Do you want to reconnect the SMB?"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "ERROR"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Error:"
+msgstr ""
+
+msgid "Failed copying file."
+msgstr ""
+
+msgid "Failed copying files."
+msgstr ""
+
+msgid "Failed renaming file"
+msgstr ""
+
+msgid "Failed to load this language"
+msgstr ""
+
+msgid "File couldn't be deleted."
+msgstr ""
+
+msgid "File does not exist anymore!"
+msgstr ""
+
+msgid "File successfully copied."
+msgstr ""
+
+msgid "File successfully moved."
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Go Back"
+msgstr ""
+
+msgid "Host:"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Japanese"
+msgstr ""
+
+msgid "Korean"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Mount Method"
+msgstr ""
+
+msgid "Moving files:"
+msgstr ""
+
+msgid "Name already exists."
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
+msgid "New Folder"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "OFF"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "ON"
+msgstr ""
+
+msgid "Password:"
+msgstr ""
+
+msgid "Paste into current directory?"
+msgstr ""
+
+msgid "Reconnect SMB"
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "S.Chinese"
+msgstr ""
+
+msgid "SD"
+msgstr ""
+
+msgid "SMB Name:"
+msgstr ""
+
+msgid "SMB Settings"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "T.Chinese"
+msgstr ""
+
+msgid "Transfering files:"
+msgstr ""
+
+msgid "USB"
+msgstr ""
+
+msgid "Unable to create folder."
+msgstr ""
+
+msgid "Unable to load device."
+msgstr ""
+
+#, c-format
+msgid "User %i"
+msgstr ""
+
+msgid "User:"
+msgstr ""
+
+msgid "Username:"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You cant use this operation on:"
+msgstr ""

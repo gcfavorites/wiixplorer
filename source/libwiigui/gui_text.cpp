@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "gui.h"
+#include "Prompts/PromptWindows.h"
 
 static int currentSize = 0;
 static int currentWidescreen = 0;
@@ -40,13 +41,15 @@ GuiText::GuiText(const char * t, int s, GXColor c)
 	linestodraw = 9;
 	totalLines = 0;
 	widescreen = 0; //added
-	textchanged = true;
+	LineBreak = NULL;
 
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
 
-	if(t)
+	if(t) {
 		text = FreeTypeGX::charToWideChar((char *)t);
+        textWidth = fontSystem->getWidth(text);
+	}
 }
 
 /**
@@ -69,13 +72,15 @@ GuiText::GuiText(const char * t)
 	linestodraw = 9;
 	totalLines = 0;
 	widescreen = 0; //added
-	textchanged = true;
+	LineBreak = NULL;
 
 	alignmentHor = presetAlignmentHor;
 	alignmentVert = presetAlignmentVert;
 
-	if(t)
+	if(t) {
 		text = FreeTypeGX::charToWideChar((char *)t);
+        textWidth = fontSystem->getWidth(text);
+    }
 }
 
 /**
@@ -88,6 +93,11 @@ GuiText::~GuiText()
 		delete [] text;
 		text = NULL;
 	}
+
+	if(LineBreak) {
+        free(LineBreak);
+        LineBreak = NULL;
+	}
 }
 
 void GuiText::SetText(const char * t)
@@ -97,8 +107,11 @@ void GuiText::SetText(const char * t)
 		delete [] text;
 	text = NULL;
 
-	if(t)
+	if(t) {
 		text = FreeTypeGX::charToWideChar((char *)t);
+        textWidth = fontSystem->getWidth(text);
+	}
+
 	scrollPos2 = 0;
 	scrollDelay = 0;
 }
@@ -138,6 +151,77 @@ void GuiText::SetMaxWidth(int w, short m/*=GuiText::WRAP*/)
     LOCK(this);
 	maxWidth = w;
 	wrapMode = m;
+
+	if(m == GuiText::LONGTEXT) {
+
+        int strlen = wcslen(text);
+        int i = 0;
+        int ch = 0;
+        int linenum = 0;
+        int lastSpace = -1;
+        int lastSpaceIndex = -1;
+
+        wchar_t *tmptext = new wchar_t[maxWidth];
+
+        LineBreak = (u32 *) malloc(sizeof(u32));
+        memset(&(LineBreak[linenum]), 0, sizeof(u32));
+
+        LineBreak[linenum] = 0;
+        linenum++;
+
+        while(ch < strlen)
+        {
+            tmptext[i] = text[ch];
+            tmptext[i+1] = 0;
+
+            if(text[ch] == ' ' || ch == strlen-1 || fontSystem->getWidth(tmptext) >= maxWidth)
+            {
+                if(fontSystem->getWidth(tmptext) >= maxWidth)
+                {
+                    if(lastSpace >= 0)
+                    {
+                        tmptext[lastSpaceIndex] = 0; // discard space, and everything after
+                        ch = lastSpace; // go backwards to the last space
+                        lastSpace = -1; // we have used this space
+                        lastSpaceIndex = -1;
+                    }
+                    LineBreak = (u32 *) realloc(LineBreak, (linenum+1)* sizeof(u32));
+                    memset(&(LineBreak[linenum]), 0, sizeof(u32));
+                    LineBreak[linenum] = ch;
+                    linenum++;
+                    i = -1;
+                }
+            }
+            if(text[ch] == ' ' && i >= 0)
+            {
+                lastSpace = ch+1;
+                lastSpaceIndex = i;
+            }
+            if(text[ch] == '\n')
+            {
+                LineBreak = (u32 *) realloc(LineBreak, (linenum+1)* sizeof(u32));
+                memset(&(LineBreak[linenum]), 0, sizeof(u32));
+                LineBreak[linenum] = ch+1;
+                linenum++;
+                i = -1;
+                lastSpace = -1;
+                lastSpaceIndex = -1;
+            }
+            ch++;
+            i++;
+
+            if(ch == strlen)
+            {
+                LineBreak = (u32 *) realloc(LineBreak, (linenum+1)* sizeof(u32));
+                memset(&(LineBreak[linenum]), 0, sizeof(u32));
+                LineBreak[linenum] = ch;
+                linenum++;
+                break;
+            }
+        }
+        delete tmptext;
+        totalLines = linenum;
+	}
 }
 
 void GuiText::SetColor(GXColor c)
@@ -147,11 +231,18 @@ void GuiText::SetColor(GXColor c)
 	alpha = c.a;
 }
 
-void GuiText::SetStyle(u16 s, u16 m/*=0xffff*/)
+void GuiText::SetStyle(u16 s, u16 m)
 {
     LOCK(this);
 	style &= ~m;
 	style |= s & m;
+}
+
+u32 GuiText::GetLineBreakOffset(int n)
+{
+	if(n < 0) return 0;
+
+    return LineBreak[(int) n];
 }
 
 void GuiText::SetAlignment(int hor, int vert)
@@ -211,19 +302,17 @@ void GuiText::SetFirstLine(int line)
 {
     LOCK(this);
 	firstLine = line;
-	textchanged = true;
 }
 
 void GuiText::SetLinesToDraw(int line)
 {
     LOCK(this);
 	linestodraw = line;
-	textchanged = true;
 }
 
 int GuiText::GetTotalLines()
 {
-    return totalLines;
+    return totalLines-1;
 }
 
 /**
@@ -253,7 +342,7 @@ void GuiText::Draw()
 
 	int voffset = 0;
 
-	if(maxWidth > 0 && fontSystem->getWidth(text) > maxWidth)
+	if(maxWidth > 0 && textWidth > maxWidth)
 	{
         if(wrapMode == GuiText::WRAP) // text wrapping
 		{
@@ -277,7 +366,6 @@ void GuiText::Draw()
 				if(text[ch] == ' ' || ch == strlen-1)
 				{
 					if((font ? font : fontSystem)->getWidth(tmptext[linenum]) >= maxWidth)
-					//if(fontSystem->getWidth(tmptext[linenum]) >= maxWidth)
 					{
 						if(lastSpace >= 0)
 						{
@@ -314,65 +402,37 @@ void GuiText::Draw()
 		}
 		else if(wrapMode == GuiText::LONGTEXT) // text wrapping
 		{
-            //if(textchanged) {
                 int lineheight = newSize + 6;
-                int strlen = wcslen(text);
-                int i = 0;
-                int ch = 0;
-                int linenum = 0;
-                int lineindex = 0;
-                int lastSpace = -1;
-                int lastSpaceIndex = -1;
+                int index = 0;
+                u32 strlen = (u32) wcslen(text);
+                int linenum = firstLine;
+                int lineIndex = 0;
+                u32 ch = LineBreak[linenum];
+
+                u32 lastch = LineBreak[linenum+linestodraw]+1;
 
                 wchar_t *tmptext = new wchar_t[maxWidth];
 
-                while(ch < strlen)
+                tmptext[0] = 0;
+
+                while((ch < lastch) && (ch < strlen+1))
                 {
-                    tmptext[i] = text[ch];
-                    tmptext[i+1] = 0;
-
-                    if(text[ch] == ' ' || ch == strlen-1)
+                    if(ch == LineBreak[linenum+1])
                     {
-                        if(fontSystem->getWidth(tmptext) >= maxWidth)
-                        {
-                            if(lastSpace >= 0)
-                            {
-                                tmptext[lastSpaceIndex] = 0; // discard space, and everything after
-                                ch = lastSpace; // go backwards to the last space
-                                lastSpace = -1; // we have used this space
-                                lastSpaceIndex = -1;
-                            }
-                            linenum++;
-                            i = -1;
-                        }
-                        else if(ch == strlen)
-                        {
-                            linenum++;
-                            i = -1;
-                        }
-                    }
-                    if(text[ch] == ' ' && i >= 0)
-                    {
-                        lastSpace = ch;
-                        lastSpaceIndex = i;
-                    }
-                    if(text[ch] == '\n')
-                    {
+                        fontSystem->drawText(this->GetLeft(), this->GetTop()+lineIndex*lineheight, tmptext, c, style);
                         linenum++;
-                        i = -1;
+                        lineIndex++;
+                        index = 0;
                     }
-                    ch++;
-                    i++;
 
-                    if((i == 0) && ((linenum-1) >= firstLine) && ((linenum-1) < (firstLine+linestodraw))) {
-                        fontSystem->drawText(this->GetLeft(), this->GetTop()+lineindex*lineheight, tmptext, c, style);
-                        lineindex++;
-                    }
+                    tmptext[index] = text[ch];
+                    tmptext[index+1] = 0;
+
+                    index++;
+                    ch++;
                 }
                 delete tmptext;
-                totalLines = linenum;
-            //    textchanged = false;
-            //}
+                tmptext = NULL;
 		}
 		else if(wrapMode == GuiText::DOTTED) // text dotted
 		{
