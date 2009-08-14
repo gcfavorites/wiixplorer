@@ -15,6 +15,12 @@ typedef struct SMBData {
 };
 
 enum {
+    off,
+    on,
+    on_off_max
+};
+
+enum {
     APP_DEFAULT = 0,
     CONSOLE_DEFAULT,
     JAPANESE,
@@ -69,12 +75,6 @@ class Settings
         void ParseLine(char *line);
         void TrimLine(char *dest, char *src, int size);
         FILE * file;
-};
-
-enum {
-    off,
-    on,
-    on_off_max
 };
 
 #endif
