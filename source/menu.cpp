@@ -509,9 +509,14 @@ static int MenuBrowseDevice()
                             res = CopyDirectory(srcpath, destdir);
                             StopProgress();
                         } else {
-                            StartProgress(tr("Moving files:"));
-                            res = MoveDirectory(srcpath, destdir);
-                            StopProgress();
+                            if(strcmp(srcpath, destdir) != 0) {
+                                StartProgress(tr("Moving files:"));
+                                res = MoveDirectory(srcpath, destdir);
+                                StopProgress();
+                            } else {
+                                WindowPrompt(tr("Error:"), tr("You can not cut into the directory itself.") , tr("OK"));
+                                res =  -1;
+                            }
                         }
 
                         if(res == -10)
@@ -532,20 +537,24 @@ static int MenuBrowseDevice()
                             WindowPrompt(tr("File does not exist anymore!"), 0, tr("OK"));
                         else {
                             snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
-                            StartProgress(tr("Copying file:"));
-                            int res = CopyFile(srcpath, destdir);
-                            StopProgress();
-                            if(res < 0)
-                                WindowPrompt(tr("ERROR"), tr("Failed copying file."), tr("OK"));
-                            else {
-                                if(Clipboard.cutted == false)
-                                    WindowPrompt(tr("File successfully copied."), 0, tr("OK"));
+                            if(strcmp(srcpath, destdir) != 0) {
+                                StartProgress(tr("Copying file:"));
+                                int res = CopyFile(srcpath, destdir);
+                                StopProgress();
+                                if(res < 0)
+                                    WindowPrompt(tr("ERROR"), tr("Failed copying file."), tr("OK"));
                                 else {
-                                    if(RemoveFile(srcpath) == false)
-                                        WindowPrompt(tr("Error"), tr("File couldn't be deleted."), tr("OK"));
-                                    else
-                                        WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
+                                    if(Clipboard.cutted == false)
+                                        WindowPrompt(tr("File successfully copied."), 0, tr("OK"));
+                                    else {
+                                        if(RemoveFile(srcpath) == false)
+                                            WindowPrompt(tr("Error"), tr("File couldn't be deleted."), tr("OK"));
+                                        else
+                                            WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
+                                    }
                                 }
+                            } else {
+                                WindowPrompt(tr("Error:"), tr("You cannot read/write from/to the same file."), tr("OK"));
                             }
                         }
                     }
@@ -784,6 +793,19 @@ static int MenuSettings()
 		else if (Settings.MountMethod == METHOD_USB) options.SetValue(i++,tr("USB"));
 		else if (Settings.MountMethod == METHOD_SMB) options.SetValue(i++,tr("Network"));
 
+		if (Settings.Language == APP_DEFAULT) options.SetValue(i++,tr("App Default"));
+		else if (Settings.Language == CONSOLE_DEFAULT) options.SetValue(i++,tr("Console Default"));
+		else if (Settings.Language == JAPANESE) options.SetValue(i++,tr("Japanese"));
+		else if (Settings.Language == ENGLISH) options.SetValue(i++,tr("English"));
+		else if (Settings.Language == GERMAN) options.SetValue(i++,tr("German"));
+		else if (Settings.Language == FRENCH) options.SetValue(i++,tr("French"));
+		else if (Settings.Language == SPANISH) options.SetValue(i++,tr("Spanish"));
+		else if (Settings.Language == ITALIAN) options.SetValue(i++,tr("Italian"));
+		else if (Settings.Language == DUTCH) options.SetValue(i++,tr("Dutch"));
+		else if (Settings.Language == S_CHINESE) options.SetValue(i++,tr("S. Chinese"));
+		else if (Settings.Language == T_CHINESE) options.SetValue(i++,tr("T. Chinese"));
+		else if (Settings.Language == KOREAN) options.SetValue(i++,tr("Korean"));
+
 
 		if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
 		else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
@@ -798,6 +820,12 @@ static int MenuSettings()
 				Settings.MountMethod++;
 				if(Settings.MountMethod > 2)
                     Settings.MountMethod = 0;
+				break;
+			case 1:
+				Settings.Language++;
+				if(Settings.Language >= MAX_LANGUAGE)
+                    Settings.Language = 0;
+                Settings.LoadLanguage(Settings.Language);
 				break;
             case 2:
 				Settings.AutoConnect++;
