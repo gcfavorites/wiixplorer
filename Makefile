@@ -44,7 +44,6 @@ LIBDIRS	:= $(CURDIR)
 #---------------------------------------------------------------------------------
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
-
 export PROJECTDIR 	:= $(CURDIR)
 export OUTPUT		:=	$(CURDIR)/$(TARGETDIR)/$(TARGET)
 export VPATH		:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
@@ -122,7 +121,6 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 $(OUTPUT).dol: $(OUTPUT).elf language
 $(OUTPUT).elf: $(OFILES)
-
 language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 
 #---------------------------------------------------------------------------------
@@ -143,20 +141,20 @@ language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 %.pcm.o : %.pcm
 	@echo $(notdir $<)
 	$(bin2o)
-	
+
+
 export PATH		:=	$(PROJECTDIR)/gettext-bin:$(PATH)
 
 %.pot: $(CFILES) $(CPPFILES)
- 	
 	@echo Updating Languagefiles ...
-	
- 	@xgettext -C -cTRANSLATORS --from-code=utf-8 --sort-output --no-wrap --no-location -k -ktr -ktrNOOP -o $@ $^
-	
+	@xgettext -C -cTRANSLATORS --from-code=utf-8 --sort-output --no-wrap --no-location -k -ktr -ktrNOOP -o $@ $^
+
 %.lang: $(PROJECTDIR)/Languages/$(TARGET).pot
-	
 	@msgmerge -U -N --no-wrap --no-location --backup=none -q $@ $<
 	@touch $@
-	
+
+
+
 -include $(DEPENDS)
 
 #---------------------------------------------------------------------------------
