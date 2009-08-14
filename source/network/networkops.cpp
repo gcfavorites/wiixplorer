@@ -24,7 +24,7 @@
  * networkops.cpp
  *
  * Network operations
- * for Wii-FileXplorer 2009
+ * for Wii-Xplorer 2009
  ***************************************************************************/
 #include <stdio.h>
 #include <string.h>
@@ -36,7 +36,7 @@
 #include "networkops.h"
 #include "main.h"
 
-static bool SMB_Mounted = false;
+static bool SMB_Mounted[5] = {0, 0, 0, 0, 0};
 static bool networkinit = false;
 static bool network_initiating = false;
 static char IP[16];
@@ -50,11 +50,17 @@ static bool networkHalt = true;
 
 void CloseSMBShare()
 {
-	if(SMB_Mounted)
-		smbClose("smb");
+    for(int i = 0; i < 4; i++) {
 
-	SMB_Mounted = false;
-	networkinit = false;
+        char mountname[10];
+        sprintf(mountname, "smb%i", i+1);
+
+        if(SMB_Mounted[i])
+            smbClose(mountname);
+
+        SMB_Mounted[i] = false;
+    }
+    networkinit = false;
 }
 
 /****************************************************************************
@@ -63,18 +69,23 @@ void CloseSMBShare()
 
 void SMB_Reconnect()
 {
-	if(SMB_Mounted)
-		smbCheckConnection("smb");
-    else {
-        if(smbInitDevice("smb",
-            Settings.SMBUser[Settings.CurrentUser].User,
-            Settings.SMBUser[Settings.CurrentUser].Password,
-            Settings.SMBUser[Settings.CurrentUser].SMBName,
-            Settings.SMBUser[Settings.CurrentUser].Host))
-        {
-            SMB_Mounted = true;
-        } else {
-            SMB_Mounted = false;
+    for(int i = 0; i < 4; i++) {
+        char mountname[10];
+        sprintf(mountname, "smb%i", i+1);
+
+        if(SMB_Mounted[i])
+            smbCheckConnection(mountname);
+        else {
+            if(smbInitDevice(mountname,
+                Settings.SMBUser[Settings.CurrentUser].User,
+                Settings.SMBUser[Settings.CurrentUser].Password,
+                Settings.SMBUser[Settings.CurrentUser].SMBName,
+                Settings.SMBUser[Settings.CurrentUser].Host))
+            {
+                SMB_Mounted[i] = true;
+            } else {
+                SMB_Mounted[i] = false;
+            }
         }
     }
 }
@@ -85,30 +96,51 @@ void SMB_Reconnect()
 
 bool ConnectSMBShare()
 {
-	if(SMB_Mounted)
-		return false;
+    bool result = false;
 
-	if(!networkinit)
-		Initialize_Network();
+    if(!networkinit)
+        Initialize_Network();
 
-	if(networkinit)
-	{
-		if(!SMB_Mounted)
-		{
-			if(smbInitDevice("smb",
-                Settings.SMBUser[Settings.CurrentUser].User,
-                Settings.SMBUser[Settings.CurrentUser].Password,
-                Settings.SMBUser[Settings.CurrentUser].SMBName,
-                Settings.SMBUser[Settings.CurrentUser].Host))
-			{
-				SMB_Mounted = true;
-			} else {
-			    SMB_Mounted = false;
-			}
-		}
-	}
+    if(networkinit)
+    {
+        for(int i = 0; i < 4; i++) {
+
+            char mountname[10];
+            sprintf(mountname, "smb%i", i+1);
+            SMB_Mounted[i] = false;
+
+            if(!SMB_Mounted[i])
+            {
+                if(strcmp(Settings.SMBUser[i].Host, "")) {
+                    if(smbInitDevice(mountname,
+                        Settings.SMBUser[i].User,
+                        Settings.SMBUser[i].Password,
+                        Settings.SMBUser[i].SMBName,
+                        Settings.SMBUser[i].Host))
+                    {
+                        SMB_Mounted[i] = true;
+                        result = true;
+                    } else {
+                        SMB_Mounted[i] = false;
+                    }
+                } else
+                    SMB_Mounted[i] = false;
+            }
+        }
+    }
 	networkHalt = true;
-	return SMB_Mounted;
+	return result;
+}
+
+/****************************************************************************
+ * IsSMB_Mounted
+ ***************************************************************************/
+bool IsSMB_Mounted(int smb)
+{
+    if(smb < 0 || smb > 3)
+        return false;
+
+    return SMB_Mounted[smb];
 }
 
 /****************************************************************************

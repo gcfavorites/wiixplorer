@@ -20,7 +20,11 @@
 enum {
     SD,
     USB,
-    SMB
+    SMB1,
+    SMB2,
+    SMB3,
+    SMB4,
+    MAXDEVICES
 };
 
 typedef struct

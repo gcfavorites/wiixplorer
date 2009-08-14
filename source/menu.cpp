@@ -65,6 +65,7 @@ static bool guiHalt = true;
 static CLIPBOARD Clipboard;
 static int ExitRequested = 0;
 static bool boothomebrew = false;
+static bool firsttimestart = true;
 
 extern u8 shutdown;
 extern u8 reset;
@@ -198,6 +199,14 @@ static int MenuBrowseDevice()
 	char currentdir[50];
     time_t currenttime = time(0);
     struct tm * timeinfo = localtime(&currenttime);
+
+    if(firsttimestart && Settings.MountMethod > USB &&
+        Settings.AutoConnect == on && !IsNetworkInit()) {
+
+        WaitSMBConnect();
+        firsttimestart = false;
+        sleep(2);
+    }
 
 	// populate initial directory listing
 	if(BrowseDevice(Settings.MountMethod) <= 0)
@@ -385,7 +394,21 @@ static int MenuBrowseDevice()
 			menu = MENU_EXIT;
 
         else if(deviceSwitchBtn.GetState() == STATE_CLICKED) {
-            Settings.MountMethod = (Settings.MountMethod+1) % 3;
+
+            Settings.MountMethod++;
+            //Skip device if not connected
+            if(Settings.MountMethod == USB && !USBDevice_Inserted())
+                Settings.MountMethod++;
+            while(Settings.MountMethod > USB && !IsSMB_Mounted(Settings.MountMethod-2)
+                    && Settings.MountMethod < MAXDEVICES)
+                Settings.MountMethod++;
+
+            if(Settings.MountMethod >= MAXDEVICES)
+                Settings.MountMethod = 0;
+
+            if(Settings.MountMethod == SD && !SDCard_Inserted())
+                Settings.MountMethod++;
+
             menu = MENU_BROWSE_DEVICE;
             deviceSwitchBtn.ResetState();
         }
@@ -707,7 +730,9 @@ static int MenuSMBSettings()
             case 5:
                 result = WindowPrompt(tr("Do you want to reconnect the SMB?"),0,tr("OK"),tr("Cancel"));
                 if(result) {
-                    SMB_Reconnect();
+                    CloseSMBShare();
+                    sleep(1);
+                    ConnectSMBShare();
                 }
                 break;
 		}
@@ -789,9 +814,12 @@ static int MenuSettings()
 
         i = 0;
 
-		if (Settings.MountMethod == METHOD_SD) options.SetValue(i++,tr("SD"));
-		else if (Settings.MountMethod == METHOD_USB) options.SetValue(i++,tr("USB"));
-		else if (Settings.MountMethod == METHOD_SMB) options.SetValue(i++,tr("Network"));
+		if (Settings.MountMethod == SD) options.SetValue(i++,tr("SD"));
+		else if (Settings.MountMethod == USB) options.SetValue(i++,tr("USB"));
+		else if (Settings.MountMethod == SMB1) options.SetValue(i++, tr("SMB1"));
+		else if (Settings.MountMethod == SMB2) options.SetValue(i++, tr("SMB2"));
+		else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
+		else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
 
 		if (Settings.Language == APP_DEFAULT) options.SetValue(i++,tr("App Default"));
 		else if (Settings.Language == CONSOLE_DEFAULT) options.SetValue(i++,tr("Console Default"));
@@ -818,7 +846,9 @@ static int MenuSettings()
 		{
 			case 0:
 				Settings.MountMethod++;
-				if(Settings.MountMethod > 2)
+				if(Settings.MountMethod >= MAXDEVICES)
+                    Settings.MountMethod = 0;
+                else if(Settings.MountMethod < SD)
                     Settings.MountMethod = 0;
 				break;
 			case 1:

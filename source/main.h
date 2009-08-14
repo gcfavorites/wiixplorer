@@ -11,12 +11,6 @@
 #include "FreeTypeGX.h"
 #include "Settings.h"
 
-enum {
-	METHOD_SD,
-	METHOD_USB,
-	METHOD_SMB
-};
-
 extern Settings Settings;
 extern FreeTypeGX *fontSystem;
 
