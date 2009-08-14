@@ -227,8 +227,17 @@ int BrowseDevice(int device)
 	    case USB:
             sprintf(browser.rootdir, "usb:");
             break;
-	    case SMB:
-            sprintf(browser.rootdir, "smb:");
+	    case SMB1:
+            sprintf(browser.rootdir, "smb1:");
+            break;
+	    case SMB2:
+            sprintf(browser.rootdir, "smb2:");
+            break;
+	    case SMB3:
+            sprintf(browser.rootdir, "smb3:");
+            break;
+	    case SMB4:
+            sprintf(browser.rootdir, "smb4:");
             break;
 	}
 	ParseDirectory(); // Parse root directory

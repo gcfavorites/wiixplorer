@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-14 21:31+0200\n"
+"POT-Creation-Date: 2009-08-14 23:33+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -153,7 +153,7 @@ msgstr ""
 msgid "Name already exists."
 msgstr ""
 
-msgid "Network"
+msgid "Network initialising..."
 msgstr ""
 
 msgid "New Folder"
@@ -177,6 +177,9 @@ msgstr ""
 msgid "Paste into current directory?"
 msgstr ""
 
+msgid "Please wait:"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr ""
 
@@ -193,6 +196,21 @@ msgid "SMB Name:"
 msgstr ""
 
 msgid "SMB Settings"
+msgstr ""
+
+msgid "SMB is connecting..."
+msgstr ""
+
+msgid "SMB1"
+msgstr ""
+
+msgid "SMB2"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid "SMB4"
 msgstr ""
 
 msgid "Spanish"

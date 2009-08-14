@@ -4,6 +4,7 @@
 bool ConnectSMBShare();
 void SMB_Reconnect();
 void CloseSMBShare();
+bool IsSMB_Mounted(int smb);
 void Initialize_Network(void);
 bool IsNetworkInit(void);
 bool IsNetworkInitiating(void);

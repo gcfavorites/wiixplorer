@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-14 21:31+0200\n"
+"POT-Creation-Date: 2009-08-14 23:33+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -153,8 +153,8 @@ msgstr "Déplacement des fichiers:"
 msgid "Name already exists."
 msgstr ""
 
-msgid "Network"
-msgstr "Réseau"
+msgid "Network initialising..."
+msgstr ""
 
 msgid "New Folder"
 msgstr "Nouveau"
@@ -177,6 +177,9 @@ msgstr "Mot de passe:"
 msgid "Paste into current directory?"
 msgstr "Coller dans le dossier actuel?"
 
+msgid "Please wait:"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
 
@@ -194,6 +197,21 @@ msgstr "Nom du SMB:"
 
 msgid "SMB Settings"
 msgstr "Paramètres SMB"
+
+msgid "SMB is connecting..."
+msgstr ""
+
+msgid "SMB1"
+msgstr ""
+
+msgid "SMB2"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid "SMB4"
+msgstr ""
 
 msgid "Spanish"
 msgstr ""
@@ -234,6 +252,9 @@ msgstr ""
 
 msgid "You cant use this operation on:"
 msgstr "Vous pouvez utiliser cette fonction sur:"
+
+#~ msgid "Network"
+#~ msgstr "Réseau"
 
 #~ msgid "An error occured."
 #~ msgstr "Une erreur s'est produite."
