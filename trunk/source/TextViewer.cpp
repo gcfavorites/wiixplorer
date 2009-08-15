@@ -35,6 +35,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
 #include "fileops.h"
+#include "gettext.h"
 #include "sys.h"
 
 /*** Extern variables ***/
@@ -59,31 +60,31 @@ void TextViewer(const char *filepath)
     u8 *file = NULL;
     u64 filesize = 0;
 
-    StartProgress("Loading file:");
+    StartProgress(tr("Loading file:"));
     int ret = LoadFileToMem(filepath, &file, &filesize);
     StopProgress();
 
     if(ret == -1) {
-        WindowPrompt("Error", "Can not open the file", "OK");
+        WindowPrompt(tr("Error"), tr("Can not open the file"), tr("OK"));
         return;
     }
     else if(ret == -2) {
-        WindowPrompt("Error", "Not enough memory.", "OK");
+        WindowPrompt(tr("Error"), tr("Not enough memory."), tr("OK"));
         return;
     }
     else if(ret == -3) {
-        WindowPrompt("Error", "Can not open the file", "OK");
+        WindowPrompt(tr("Error"), tr("Can not open the file"), tr("OK"));
         return;
     }
     else if(ret == -10) {
-        WindowPrompt("Loading file:", "Action cancelled.", "OK");
+        WindowPrompt(tr("Loading file:"), tr("Action cancelled."), tr("OK"));
         return;
     }
 
     //To check if enough memory available for strcpy in GuiText
     char *filetext = new char[filesize];
     if(!filetext) {
-        WindowPrompt("Error", "Not enough memory.", "OK");
+        WindowPrompt(tr("Error"), tr("Not enough memory."), tr("OK"));
         return;
     }
 

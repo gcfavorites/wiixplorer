@@ -79,7 +79,8 @@ enum
 enum
 {
 	SOUND_PCM,
-	SOUND_OGG
+	SOUND_OGG,
+	SOUND_MP3
 };
 
 enum

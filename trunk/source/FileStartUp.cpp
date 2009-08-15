@@ -7,6 +7,8 @@
 #include "FileStartUp.h"
 #include "TextViewer.h"
 #include "ImageViewer.h"
+#include "MusicLoader.h"
+#include "gettext.h"
 
 int FileStartUp(const char *filepath)
 {
@@ -18,15 +20,14 @@ int FileStartUp(const char *filepath)
     }
     else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0) {
  // || strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0) {
-		int choice = WindowPrompt(filename, "Do you want to open this file with ImageViewer?", "Yes", "No");
+		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
 			ImageViewer(filepath);
     }
-    else if(strcasecmp(fileext, ".mp3") == 0) {
-        //TODO
-    }
-    else if(strcasecmp(fileext, ".ogg") == 0) {
-        //TODO
+    else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0) {
+        int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));
+        if(choice)
+            LoadMusic(filepath);
     }
     else if(strcasecmp(fileext, ".zip") == 0) {
         //TODO
@@ -35,7 +36,7 @@ int FileStartUp(const char *filepath)
         //TODO
     }
     else {
-        int choice = WindowPrompt(filename, "Do you want to open this file in TextViewer?", "Yes", "No");
+        int choice = WindowPrompt(filename, tr("Do you want to open this file in TextViewer?"), tr("Yes"), tr("No"));
         if(choice)
             TextViewer(filepath);
     }

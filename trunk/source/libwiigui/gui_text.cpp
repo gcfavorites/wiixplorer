@@ -146,7 +146,7 @@ void GuiText::SetFontSize(int s)
 	size = s;
 }
 
-void GuiText::SetMaxWidth(int w, short m/*=GuiText::WRAP*/)
+void GuiText::SetMaxWidth(int w, short m)
 {
     LOCK(this);
 	maxWidth = w;
@@ -342,7 +342,7 @@ void GuiText::Draw()
 
 	int voffset = 0;
 
-	if(maxWidth > 0 && textWidth > maxWidth)
+	if(maxWidth > 0 && textWidth >= maxWidth)
 	{
         if(wrapMode == GuiText::WRAP) // text wrapping
 		{
@@ -365,7 +365,7 @@ void GuiText::Draw()
 
 				if(text[ch] == ' ' || ch == strlen-1)
 				{
-					if((font ? font : fontSystem)->getWidth(tmptext[linenum]) >= maxWidth)
+					if(fontSystem->getWidth(tmptext[linenum]) >= maxWidth)
 					{
 						if(lastSpace >= 0)
 						{
@@ -448,9 +448,9 @@ void GuiText::Draw()
 					save[i] = text[dotPos+i];
 					text[dotPos+i] = (i != 3 ? _TEXT('.') : 0);
 				}
-				if(((font ? font : fontSystem)->getWidth(text)) <= maxWidth)
+				if(fontSystem->getWidth(text) <= maxWidth)
 				{
-					(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
+					fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
 					drawed = true;
 				}
 
@@ -459,7 +459,7 @@ void GuiText::Draw()
 				dotPos--;
 			}
 			if(!drawed)
-				(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
+				fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
 		}
 		else if(wrapMode == GuiText::SCROLL) // text scroller
 		{
@@ -473,9 +473,9 @@ void GuiText::Draw()
 				{
 					save = text[scrollPos2]; // save Pos2
 					text[scrollPos2] = 0;
-					int textWidth = (font ? font : fontSystem)->getWidth(text);
+					int textWidth2 = fontSystem->getWidth(text);
 					text[scrollPos2] = save; // restore Pos2
-					if(textWidth <= maxWidth)
+					if(textWidth2 <= maxWidth)
 						break;
 				}
 				scrollDelay = frameCount+50; // wait 50 Frames before beginning with scrolling
@@ -486,7 +486,7 @@ void GuiText::Draw()
 				if(--scrollOffset < 0)
 				{
 					wchar_t tmp[] = { text[scrollPos1], text[scrollPos1+1], 0 };
-					scrollOffset += (font ? font : fontSystem)->getWidth(tmp) - (font ? font : fontSystem)->getWidth(tmp+1);
+					scrollOffset += fontSystem->getWidth(tmp) - fontSystem->getWidth(tmp+1);
 					scrollPos1++;
 				}
 
@@ -495,9 +495,9 @@ void GuiText::Draw()
 				{
 					save = text[scrollPos2+1]; // save Pos2
 					text[scrollPos2+1] = 0;
-					int textWidth = (font ? font : fontSystem)->getWidth(&text[scrollPos1]);
+					int textWidth2 = fontSystem->getWidth(&text[scrollPos1]);
 					text[scrollPos2+1] = save; // restore Pos2
-					if(textWidth+scrollOffset > maxWidth)
+					if(textWidth2+scrollOffset > maxWidth)
 						break;
 				}
 				if(scrollPos2 == strlen)
@@ -514,7 +514,7 @@ void GuiText::Draw()
 
 				scrollOffset++;
 				wchar_t tmp[] = { text[scrollPos1-1], text[scrollPos1], 0 };
-				int tmpOffset = (font ? font : fontSystem)->getWidth(tmp) - (font ? font : fontSystem)->getWidth(tmp+1);
+				int tmpOffset = fontSystem->getWidth(tmp) - fontSystem->getWidth(tmp+1);
 				if(scrollOffset >= tmpOffset)
 				{
 					scrollOffset -= tmpOffset;
@@ -525,9 +525,9 @@ void GuiText::Draw()
 				{
 					save = text[scrollPos2]; // save Pos2
 					text[scrollPos2] = 0;
-					int textWidth = (font ? font : fontSystem)->getWidth(&text[scrollPos1]);
+					int textWidth2 = fontSystem->getWidth(&text[scrollPos1]);
 					text[scrollPos2] = save; // restore Pos2
-					if(textWidth+scrollOffset <= maxWidth)
+					if(textWidth2+scrollOffset <= maxWidth)
 						break;
 				}
 				if(scrollPos1 == 0)
@@ -557,7 +557,7 @@ void GuiText::Draw()
 
 			save = text[abs(scrollPos2)]; // save Pos2
 			text[abs(scrollPos2)] = 0;
-			(font ? font : fontSystem)->drawText(drawX, this->GetTop()+voffset, &text[scrollPos1], c, drawStyle);
+			fontSystem->drawText(drawX, this->GetTop()+voffset, &text[scrollPos1], c, drawStyle);
 			text[abs(scrollPos2)] = save; // restore Pos2
 		}
 	}

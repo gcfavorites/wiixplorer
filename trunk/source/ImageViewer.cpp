@@ -33,6 +33,7 @@
 #include "libwiigui/gui.h"
 #include "Prompts/PromptWindows.h"
 #include "fileops.h"
+#include "gettext.h"
 #include "sys.h"
 
 /*** Extern variables ***/
@@ -51,7 +52,7 @@ void ImageViewer(const char *filepath)
     u8 *file = NULL;
     u64 filesize = 0;
 
-	int ret = LoadFileToMemWithProgress("Loading file:", filepath, &file, &filesize);
+	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
 	if (!ret)
 		return;
 		
@@ -66,7 +67,7 @@ void ImageViewer(const char *filepath)
 
 	if (!imageData.GetImage())
 	{
-		WindowPrompt("Image", "Cannot open the image file.", "OK");
+		WindowPrompt(tr("Image"), tr("Cannot open the image file."), tr("OK"));
 		return;
 	}
 		

@@ -66,6 +66,8 @@ class Settings
         short	CurrentUser;
         //!Auto initialize network and connect to SMB on startup
         short	AutoConnect;
+        //!Music Volume.
+        short	MusicVolume;
         //!Language Selected language.
         short	Language;
         //!SMB users informations
