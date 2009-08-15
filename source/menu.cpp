@@ -55,8 +55,8 @@
 #include "sys.h"
 
 GuiWindow * mainWindow = NULL;
+GuiSound * bgMusic = NULL;
 
-static GuiSound * bgMusic = NULL;
 static GuiImageData * pointer[4];
 static GuiImage * bgImg = NULL;
 static GuiImageData * bgImgData = NULL;
@@ -115,6 +115,15 @@ UpdateGUI (void *arg)
 	{
 		if(guiHalt)
 		{
+		    #ifdef HW_RVL
+		    for(i = 0; i < 4; i++) {
+		        if(pointer[i]) {
+                    delete pointer[i];
+                    pointer[i] = NULL;
+		        }
+                pointer[i] = new GuiImageData(player1_point_png);
+		    }
+            #endif
 			LWP_SuspendThread(guithread);
 		}
 		else
@@ -545,7 +554,7 @@ static int MenuBrowseDevice()
                         if(res == -10)
                             WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
                         else if(res < 0)
-                            WindowPrompt(tr("An error accured."), tr("Failed copying files."), tr("OK"));
+                            WindowPrompt(tr("An error occured."), tr("Failed copying files."), tr("OK"));
                         else {
                             if(Clipboard.cutted == false)
                                 WindowPrompt(tr("Directory successfully copied."), 0, tr("OK"));
@@ -759,10 +768,11 @@ static int MenuSettings()
 	int ret;
 	int i = 0;
 
-	OptionList options(3);
+	OptionList options(5);
 	options.SetName(i++, tr("Mount Method"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Auto Connect"));
+	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("SMB Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
@@ -834,9 +844,11 @@ static int MenuSettings()
 		else if (Settings.Language == T_CHINESE) options.SetValue(i++,tr("T. Chinese"));
 		else if (Settings.Language == KOREAN) options.SetValue(i++,tr("Korean"));
 
-
 		if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
 		else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
+
+		if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
+		else options.SetValue(i++, tr("OFF"));
 
         options.SetValue(i++, " ");
 
@@ -856,6 +868,7 @@ static int MenuSettings()
 				if(Settings.Language >= MAX_LANGUAGE)
                     Settings.Language = 0;
                 Settings.LoadLanguage(Settings.Language);
+                menu = MENU_SETTINGS;   //reload window so the translations take effect
 				break;
             case 2:
 				Settings.AutoConnect++;
@@ -863,6 +876,12 @@ static int MenuSettings()
                     Settings.AutoConnect = off;
 				break;
             case 3:
+				Settings.MusicVolume += 10;
+				if(Settings.MusicVolume > 100)
+                    Settings.MusicVolume = 0;
+                bgMusic->SetVolume(Settings.MusicVolume);
+				break;
+            case 4:
                 menu = MENU_SMB_SETTINGS;
                 break;
 		}
@@ -909,7 +928,7 @@ void MainMenu(int menu)
 	ResumeGui();
 
 	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(80);
+	bgMusic->SetVolume(Settings.MusicVolume);
 	bgMusic->SetLoop(1);
 	bgMusic->Play(); // startup music
 
@@ -933,12 +952,13 @@ void MainMenu(int menu)
 	}
 
 	ResumeGui();
+
+	bgMusic->Stop();
+	delete bgMusic;
 	ExitApp();
 
 	while(ExitRequested != 2) usleep(THREAD_SLEEP);
 
-	bgMusic->Stop();
-	delete bgMusic;
 	delete bgImg;
 	delete bgImgData;
 	delete mainWindow;

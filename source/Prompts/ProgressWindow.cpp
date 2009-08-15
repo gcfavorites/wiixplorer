@@ -38,6 +38,7 @@
 #include "filebrowser.h"
 #include "menu.h"
 #include "fileops.h"
+#include "gettext.h"
 #include "sys.h"
 
 /*** Variables used only in this file ***/
@@ -164,7 +165,7 @@ void ProgressWindow()
 
     GuiImageData btnOutline(small_button_png);
 	GuiImage buttonImg(&btnOutline);
-    GuiText AbortTxt("Cancel", 22, (GXColor){0, 0, 0, 255});
+    GuiText AbortTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	GuiButton AbortBtn(buttonImg.GetWidth(), buttonImg.GetHeight());
 	AbortBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	AbortBtn.SetPosition(0, -48);
@@ -202,7 +203,7 @@ void ProgressWindow()
 
 	while(showProgress)
 	{
-	    VIDEO_WaitVSync ();
+	    VIDEO_WaitVSync();
 
 	    UpdateProgressValues();
 
@@ -210,7 +211,7 @@ void ProgressWindow()
 
         if(showProgress == PROGRESSBAR) {
             progressbarImg.SetTile(100*progressDone/progressTotal);
-            prTxt.SetTextf("%.2f", 100.0*progressDone/progressTotal);
+            prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
             speedTxt.SetTextf("%iKB/s", progressSpeed);
             sizeTxt.SetTextf("%s", progressSizeLeft);
         } else {
@@ -307,7 +308,9 @@ void ShowProgress(u64 done, u64 total, const char *msg)
         start = time(0);
         //set new filename
         if(msg)
-        strncpy(progressMsg, msg, sizeof(progressMsg));
+            strncpy(progressMsg, msg, sizeof(progressMsg));
+        else
+            sprintf(progressMsg, " ");  //this shouldn't happen but in case it clears msg
     }
 
     progressDone = done;
@@ -320,7 +323,7 @@ void ShowProgress(u64 done, u64 total, const char *msg)
  * Startup Progressthread in idle prio
  ***************************************************************************/
 void InitProgressThread() {
-	LWP_CreateThread(&progressthread, ProgressThread, NULL, NULL, 0, 60);
+	LWP_CreateThread(&progressthread, ProgressThread, NULL, NULL, 0, 70);
 }
 
 /****************************************************************************

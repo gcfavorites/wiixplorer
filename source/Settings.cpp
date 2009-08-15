@@ -83,6 +83,7 @@ bool Settings::Save()
 	fprintf(file, "CurrentUser = %d\n", CurrentUser);
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "Language = %d\n", Language);
+	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 
 	fprintf(file, "\n#SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -202,6 +203,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "Language") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			Language = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "MusicVolume") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			MusicVolume = i;
 		}
 		return true;
 	}
