@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-15 10:15+0200\n"
+"POT-Creation-Date: 2009-08-15 18:53+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -232,6 +232,9 @@ msgstr "OK"
 msgid "ON"
 msgstr "Actif"
 
+msgid "Out of memory: too many files!"
+msgstr ""
+
 msgid "Password:"
 msgstr "Mot de passe:"
 
@@ -292,7 +295,7 @@ msgstr "Espagnol"
 msgid "T. Chinese"
 msgstr "Chinois Traditionnel"
 
-msgid "This is no OGG file"
+msgid "This is no OGG/MP3 file"
 msgstr ""
 
 msgid "Transfering files:"

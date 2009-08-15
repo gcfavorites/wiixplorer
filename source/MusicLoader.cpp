@@ -58,30 +58,43 @@ void LoadMusic(const char *filepath)
     char *fileext = strrchr(filepath, '.');
 
     if(strcasecmp(fileext, ".ogg") == 0) {
+
+        ///Stop and remove old music
         if(bgMusic) {
             delete bgMusic;
             bgMusic = NULL;
         }
+
         bgMusic = new GuiSound(file, filesize, SOUND_OGG);
         bgMusic->SetVolume(Settings.MusicVolume);
         bgMusic->SetLoop(1);
-        bgMusic->Play(); // startup music
+        bgMusic->Play(); /// startup music
+
+        ///filebuffer is freed/deleted by the memclose of oggplayer.c
+
     } else if(strcasecmp(fileext, ".mp3") == 0) {
+
+        ///Stop and remove old music
         if(bgMusic) {
             delete bgMusic;
             bgMusic = NULL;
         }
+
         bgMusic = new GuiSound(file, filesize, SOUND_MP3);
         bgMusic->SetVolume(Settings.MusicVolume);
         bgMusic->SetLoop(1);
-        bgMusic->Play(); // startup music
+        bgMusic->Play(); /// startup music
+
+        ///free the filebuffer
         if(file) {
             free(file);
             file = NULL;
         }
+
     } else {
+        //!This should never occur but oh well
         free(file);
         file = NULL;
-        WindowPrompt(tr("This is no OGG file"), 0, tr("OK"));
+        WindowPrompt(tr("This is no OGG/MP3 file"), 0, tr("OK"));
     }
 }

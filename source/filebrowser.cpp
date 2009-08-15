@@ -16,10 +16,17 @@
 #include <malloc.h>
 
 #include "filebrowser.h"
+#include "Prompts/PromptWindows.h"
+#include "gettext.h"
 #include "menu.h"
 
 BROWSERINFO browser;
 BROWSERENTRY * browserList = NULL; // list of files/folders in browser
+
+// folder parsing thread
+static lwp_t parsethread = LWP_THREAD_NULL;
+static DIR_ITER *dirIter = NULL;
+static bool parseHalt = true;
 
 /****************************************************************************
  * ResetBrowser()
@@ -119,82 +126,141 @@ int FileSortCallback(const void *f1, const void *f2)
 	return stricmp(((BROWSERENTRY *)f1)->filename, ((BROWSERENTRY *)f2)->filename);
 }
 
-/***************************************************************************
- * Browse subdirectories
- **************************************************************************/
-int
-ParseDirectory()
+/****************************************************************************
+ * ParseDirEntries
+ *
+ * Update current directory and set new entry list and entrynum
+ ***************************************************************************/
+static bool ParseDirEntries()
 {
-	DIR_ITER *dir = NULL;
-	char fulldir[MAXPATHLEN];
+	if(!dirIter)
+		return false;
+
 	char filename[MAXPATHLEN];
 	struct stat filestat;
 
+	int i, res;
+
+	for(i=0; i < 20; i++)
+	{
+		res = dirnext(dirIter,filename,&filestat);
+
+		if(res != 0)
+			break;
+
+		if(strcmp(filename,".") == 0)
+		{
+			i--;
+			continue;
+		}
+
+		BROWSERENTRY * newBrowserList = (BROWSERENTRY *)realloc(browserList, (browser.numEntries+i+1) * sizeof(BROWSERENTRY));
+
+		if(!newBrowserList) // failed to allocate required memory
+		{
+			ResetBrowser();
+			WindowPrompt(tr("Out of memory: too many files!"), 0 , tr("OK"));
+			break;
+		}
+		else
+		{
+			browserList = newBrowserList;
+		}
+
+		memset(&(browserList[browser.numEntries+i]), 0, sizeof(BROWSERENTRY)); // clear the new entry
+
+		strncpy(browserList[browser.numEntries+i].filename, filename, MAXJOLIET);
+		browserList[browser.numEntries+i].length = filestat.st_size;
+		browserList[browser.numEntries+i].isdir = (filestat.st_mode & _IFDIR) == 0 ? 0 : 1; // flag this as a dir
+
+		if(browserList[browser.numEntries+i].isdir)
+		{
+			if(strcmp(filename, "..") == 0)
+				sprintf(browserList[browser.numEntries+i].displayname, "..");
+			else
+				strncpy(browserList[browser.numEntries+i].displayname, browserList[browser.numEntries+i].filename, MAXJOLIET);
+		}
+		else
+		{
+		    strncpy(browserList[browser.numEntries+i].displayname, browserList[browser.numEntries+i].filename, MAXJOLIET);
+        }
+	}
+
+	// Sort the file list
+	if(i >= 0)
+	{
+		browser.numEntries += i;
+		qsort(browserList, browser.numEntries, sizeof(BROWSERENTRY), FileSortCallback);
+	}
+
+	if(res != 0 || parseHalt)
+	{
+		dirclose(dirIter); // close directory
+		dirIter = NULL;
+		return false; // no more entries
+	}
+	return true; // more entries
+}
+
+/***************************************************************************
+ * Browse subdirectories
+ **************************************************************************/
+int ParseDirectory()
+{
+	char fulldir[MAXPATHLEN];
+
+	// halt parsing
+	parseHalt = true;
+
+	while(!LWP_ThreadIsSuspended(parsethread))
+		usleep(THREAD_SLEEP);
+
 	// reset browser
+	dirIter = NULL;
 	ResetBrowser();
 
 	// open the directory
-	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add currentDevice to path
-	dir = diropen(fulldir);
-
-	// if we can't open the dir, try opening the root dir
-	if (dir == NULL)
+	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add device to path
+	dirIter = diropen(fulldir);
+	if(dirIter == NULL)
 	{
-		sprintf(browser.dir,"/");
-		dir = diropen(browser.rootdir);
-		if (dir == NULL)
-		{
-			return -1;
-		}
+	    // if we can't open the dir, try opening the root dir
+        sprintf(browser.dir,"/");
+        sprintf(fulldir, "%s%s", browser.rootdir, browser.dir);
+        dirIter = diropen(fulldir);
+
+        if(dirIter == NULL)
+            return -1;
 	}
 
-	// index files/folders
-	int entryNum = 0;
+	parseHalt = false;
+	ParseDirEntries(); // index first 20 entries
+	LWP_ResumeThread(parsethread); // index remaining entries
 
-	while(dirnext(dir,filename,&filestat) == 0)
+	return browser.numEntries;
+}
+
+/****************************************************************************
+ * ParseThread callback function
+ ***************************************************************************/
+static void *parsecallback (void *arg)
+{
+	while(1)
 	{
-		if(strcmp(filename,".") != 0)
-		{
-			BROWSERENTRY * newBrowserList = (BROWSERENTRY *)realloc(browserList, (entryNum+1) * sizeof(BROWSERENTRY));
+		while(ParseDirEntries())
+			usleep(THREAD_SLEEP);
 
-			if(!newBrowserList) // failed to allocate required memory
-			{
-				ResetBrowser();
-				entryNum = -1;
-				break;
-			}
-			else
-			{
-				browserList = newBrowserList;
-			}
-			memset(&(browserList[entryNum]), 0, sizeof(BROWSERENTRY)); // clear the new entry
-
-			strncpy(browserList[entryNum].filename, filename, MAXJOLIET);
-
-			if(strcmp(filename,"..") == 0)
-			{
-				sprintf(browserList[entryNum].displayname, "..");
-			}
-			else
-			{
-				strcpy(browserList[entryNum].displayname, filename);	// crop name for display
-			}
-
-			browserList[entryNum].length = filestat.st_size;
-			browserList[entryNum].isdir = (filestat.st_mode & _IFDIR) == 0 ? 0 : 1; // flag this as a dir
-
-			entryNum++;
-		}
+		LWP_SuspendThread(parsethread);
 	}
+	return NULL;
+}
 
-	// close directory
-	dirclose(dir);
-
-	// Sort the file list
-	qsort(browserList, entryNum, sizeof(BROWSERENTRY), FileSortCallback);
-
-	browser.numEntries = entryNum;
-	return entryNum;
+/****************************************************************************
+ * InitParseThread
+ ***************************************************************************/
+void InitParseThread()
+{
+	LWP_CreateThread(&parsethread, parsecallback, NULL, NULL, 0, 60);
 }
 
 /****************************************************************************

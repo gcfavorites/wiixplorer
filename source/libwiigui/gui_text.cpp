@@ -436,30 +436,30 @@ void GuiText::Draw()
 		}
 		else if(wrapMode == GuiText::DOTTED) // text dotted
 		{
-			wchar_t save[4];
 			int strlen = wcslen(text);
-			int dotPos=strlen-3;
-			int i;
-			bool drawed = false;
-			while(dotPos > 0 && drawed == false)
+			int i = 0;
+			bool draw = false;
+            wchar_t *tmptext = new wchar_t[maxWidth];
+
+			while(!draw || i < strlen)
 			{
-				for(i=0; i<4; i++) // save Text for "..."
+				tmptext[i] = text[i];
+				tmptext[i+1] = 0;
+
+				if(fontSystem->getWidth(tmptext) >= maxWidth)
 				{
-					save[i] = text[dotPos+i];
-					text[dotPos+i] = (i != 3 ? _TEXT('.') : 0);
-				}
-				if(fontSystem->getWidth(text) <= maxWidth)
-				{
-					fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
-					drawed = true;
+				    tmptext[i-3] = '.';
+				    tmptext[i-2] = '.';
+				    tmptext[i-1] = '.';
+				    tmptext[i] = 0;
+					draw = true;
 				}
 
-				for(i=0; i<4; i++) // write saved Text back
-					text[dotPos+i] = save[i];
-				dotPos--;
+				i++;
 			}
-			if(!drawed)
-				fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, text, c, style);
+            fontSystem->drawText(this->GetLeft(), this->GetTop()+voffset, tmptext, c, style);
+            delete tmptext;
+            tmptext = NULL;
 		}
 		else if(wrapMode == GuiText::SCROLL) // text scroller
 		{
