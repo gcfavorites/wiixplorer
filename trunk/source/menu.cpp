@@ -185,6 +185,9 @@ void InitThreads()
     //!Initialize GetSizeThread for Properties
     InitGetSizeThread();
     StopSizeGain();
+
+    //!Initialize Parsethread for browser
+    InitParseThread();
 }
 
 /****************************************************************************
@@ -953,7 +956,6 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
-	bgMusic->Stop();
 	delete bgMusic;
 	ExitApp();
 

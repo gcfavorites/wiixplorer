@@ -846,6 +846,7 @@ class GuiFileBrowser : public GuiElement
 		GuiButton * fileList[PAGESIZE];
 	protected:
 		int selectedItem;
+		int numEntries;
 		bool listChanged;
 		bool triggerdisabled;
 

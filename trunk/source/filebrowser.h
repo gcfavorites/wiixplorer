@@ -63,5 +63,6 @@ void ResetBrowser();
 int ParseDirectory();
 int BrowserChangeFolder();
 int BrowseDevice(int device);
+void InitParseThread();
 
 #endif

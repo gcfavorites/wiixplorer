@@ -179,7 +179,7 @@ const char *btn4Label)
     GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
-    titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+    titleTxt.SetMaxWidth(400, GuiText::DOTTED);
 
     GuiText msgTxt(msg, 22, (GXColor){0, 0, 0, 255});
     msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);

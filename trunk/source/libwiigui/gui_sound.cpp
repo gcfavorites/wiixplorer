@@ -76,6 +76,7 @@ void GuiSound::Play()
 		break;
 
 		case SOUND_MP3:
+		voice = 0;
 		MP3Player_PlayBuffer(sound, length, NULL);
 		MP3Player_Volume(255*(volume/100.0));
 		LWP_MutexLock(mp3mutex);
