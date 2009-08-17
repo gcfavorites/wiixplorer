@@ -1,5 +1,5 @@
 # WiiXplorer language source file.
-# French r30
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
@@ -25,7 +25,7 @@ msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
 msgid "Auto Connect"
-msgstr "Conection auto"
+msgstr "Connection auto"
 
 msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
@@ -49,7 +49,7 @@ msgid "Copy"
 msgstr "Copier"
 
 msgid "Copy directory?"
-msgstr "Copier le dosier ?"
+msgstr "Copier le dossier ?"
 
 msgid "Copy file?"
 msgstr "Copier le fichier ?"
@@ -88,13 +88,13 @@ msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
 
 msgid "Directory successfully copied."
-msgstr "Copie du dossier effectuée."
+msgstr "Copie du dossier éffectuée."
 
 msgid "Directory successfully deleted."
-msgstr "Suppression du dossier effectuée."
+msgstr "Suppression du dossier éffectuée."
 
 msgid "Directory successfully moved."
-msgstr "Déplacement du dossier effectué."
+msgstr "Déplacement du dossier éffectué."
 
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
@@ -106,7 +106,7 @@ msgid "Do you want to open this file with ImageViewer?"
 msgstr "Voulez-vous voir cette image ?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Voulez-vous écouter ce son ?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
@@ -130,7 +130,7 @@ msgid "Failed copying file."
 msgstr "La copie a échouée."
 
 msgid "Failed copying files."
-msgstr "La copie  a échouée."
+msgstr "La copie a échouée."
 
 msgid "Failed renaming file"
 msgstr "Le renommage a échoué"
@@ -206,7 +206,7 @@ msgid "Moving files:"
 msgstr "Déplacement de:"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "Volume"
 
 msgid "Name already exists."
 msgstr "Ce nom existe déjà."
@@ -233,7 +233,7 @@ msgid "ON"
 msgstr "Actif"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Mémoire insuffisante: trop de fichiers!"
 
 msgid "Password:"
 msgstr "Mot de passe:"
@@ -296,7 +296,7 @@ msgid "T. Chinese"
 msgstr "Chinois Traditionnel"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Ce n'est pas un fichier OGG/MP3"
 
 msgid "Transfering files:"
 msgstr "Transfert des fichiers:"

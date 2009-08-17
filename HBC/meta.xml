@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win</coder>
-  <version>r32</version>
-  <release_date>20090816030000</release_date>
+  <version>r33</version>
+  <release_date>200908160000</release_date>
   <short_description>Wii File Browser</short_description> 
   <long_description>A multi device file explorer for the Wii by dimok and r-win.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
@@ -27,6 +27,7 @@ Coming soon (Wishlist):
 Credits:
   Coding: Dimok, r-win
   Artworks: Neorame
+  Languages: Dj_skual
 
   Libwiigui: Tantric
   Libogc/Devkit: Shagkur and Wintermute
@@ -41,7 +42,10 @@ Links:
   Libwiigui Website
     http://wiibrew.org/wiki/Libwiigui/
   FreeTypeGX Project Page
-    http://code.google.com/p/freetypegx/.
+    http://code.google.com/p/freetypegx/
+  Gettexr Official Page
+    http://www.gnu.org/software/gettext/
+    gettext.html.
   </long_description> 
 </app>
 

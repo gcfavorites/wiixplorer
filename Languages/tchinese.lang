@@ -4,16 +4,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-15 18:35+0200\n"
+"POT-Creation-Date: 2009-08-15 10:15+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: \n"
+"Last-Translator: kyogc\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "Action cancelled."
 msgstr "動做取消"
@@ -28,13 +28,13 @@ msgid "Auto Connect"
 msgstr "自動連線"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "無法開啟檔案"
 
 msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "無法開啟圖形檔案"
 
 msgid "Change Settings"
 msgstr "變更設定"
@@ -46,7 +46,7 @@ msgid "Console Default"
 msgstr "主機預設值"
 
 msgid "Copy"
-msgstr ""
+msgstr "複製"
 
 msgid "Copy directory?"
 msgstr "複製目錄?"
@@ -61,16 +61,16 @@ msgid "Copying files:"
 msgstr "正在複製檔案:"
 
 msgid "Cut"
-msgstr ""
+msgstr "剪下"
 
 msgid "Cut directory?"
-msgstr "刪除目錄?"
+msgstr "剪下目錄?"
 
 msgid "Cut file?"
-msgstr "刪除檔案?"
+msgstr "剪下檔案?"
 
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 msgid "Delete directory and its content?"
 msgstr "刪除目錄與內容?"
@@ -100,13 +100,13 @@ msgid "Do you want to boot:"
 msgstr "是否啟動:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "是否在TextViewer開啟此檔案?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "是否在ImageViewer中開啟此檔案?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "是否撥放此檔案?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "是否重新連接區域網路"
@@ -149,16 +149,16 @@ msgstr "檔案已移動"
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "檔案路徑:  %s"
 
 msgid "Files:"
-msgstr ""
+msgstr "檔案:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "檔案類型:"
 
 msgid "Folder"
-msgstr ""
+msgstr "資料夾"
 
 msgid "French"
 msgstr "法文"
@@ -173,7 +173,7 @@ msgid "Host:"
 msgstr "主機:"
 
 msgid "Image"
-msgstr ""
+msgstr "圖形"
 
 msgid "Italian"
 msgstr "義大利文"
@@ -188,16 +188,16 @@ msgid "Language"
 msgstr "語言"
 
 msgid "Last access:"
-msgstr ""
+msgstr "最近存取:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "最近修改:"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "最近狀態變更:"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "正在載入檔案:"
 
 msgid "Mount Method"
 msgstr "掛載方式"
@@ -206,7 +206,7 @@ msgid "Moving files:"
 msgstr "正在移動檔案:"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "音樂音量"
 
 msgid "Name already exists."
 msgstr "名稱已存在"
@@ -221,7 +221,7 @@ msgid "No"
 msgstr "否"
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "記憶體空間不足"
 
 msgid "OFF"
 msgstr "關"
@@ -233,13 +233,13 @@ msgid "ON"
 msgstr "開"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "記憶體不足: 太多檔案!"
 
 msgid "Password:"
 msgstr "密碼:"
 
 msgid "Paste"
-msgstr ""
+msgstr "貼上"
 
 msgid "Paste into current directory?"
 msgstr "貼上至目前目錄位置?"
@@ -248,13 +248,13 @@ msgid "Please wait:"
 msgstr "請稍候"
 
 msgid "Properties"
-msgstr ""
+msgstr "內容"
 
 msgid "Reconnect SMB"
 msgstr "重新連接區域網路"
 
 msgid "Rename"
-msgstr ""
+msgstr "重新命名"
 
 msgid "Retry"
 msgstr "重試"
@@ -287,7 +287,7 @@ msgid "SMB4"
 msgstr "區域網路4"
 
 msgid "Size:"
-msgstr ""
+msgstr "檔案大小:"
 
 msgid "Spanish"
 msgstr "西班牙文"
@@ -296,7 +296,7 @@ msgid "T. Chinese"
 msgstr "繁體中文"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "非OGG/MP3檔案"
 
 msgid "Transfering files:"
 msgstr "正在傳輸檔案:"
