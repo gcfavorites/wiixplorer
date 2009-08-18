@@ -18,8 +18,8 @@ int FileStartUp(const char *filepath)
     if(strcasecmp(fileext, ".dol") == 0 || strcasecmp(fileext, ".elf") == 0) {
         return BOOTHOMEBREW;
     }
-    else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0) {
- // || strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0) {
+    else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
+			/*|| strcasecmp(fileext, ".bmp") == 0*/ || strcasecmp(fileext, ".gif") == 0) {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
 			ImageViewer(filepath);
