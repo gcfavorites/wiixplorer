@@ -12,6 +12,8 @@
 
 #include "Prompts/PromptWindows.h"
 
+#include "libgif/gif_lib.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -68,6 +70,7 @@ GuiImageData::GuiImageData(const u8 * img, int imgSize)
 			return; // IMAGE_BMP;
 		}
 		else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F') {
+			LoadGIF(img, imgSize);
 			return; // IMAGE_GIF;
 		}
 		else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G') {
@@ -187,6 +190,7 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 		location += rowsize;
     }
 
+//	int len = cinfo.output_width * cinfo.output_height * 4;
 	int len = ((cinfo.output_width+3)>>2)*((cinfo.output_height+3)>>2)*32*2;
     data = (u8 *) memalign(32, len);
 
@@ -200,6 +204,35 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
     jpeg_destroy_decompress(&cinfo);
     free(row_pointer[0]);
 	free(tempBuffer);
+}
+
+void GuiImageData::LoadGIF(const u8 *img, int imgSize)
+{
+	GifFileType *gifFile = DGifOpenMem(img, imgSize);
+	if (gifFile == NULL) 
+	{
+		return;
+	}
+	
+	short transparentColor;
+
+	GifRowType *rows = (GifRowType *) DGifDecompress(gifFile, &transparentColor);
+	if (rows == NULL)
+	{
+		return;
+	}
+	
+	width = gifFile->Image.Width;
+	height = gifFile->Image.Height;
+	
+//	int len = width * height * 4;
+	int len = ((width+3)>>2)*((height+3)>>2)*32*2;
+    data = (u8 *) memalign(32, len);
+
+	DGifDecodeTo4x4RGB8(gifFile, rows, data, transparentColor);
+
+	DGifCloseMem(gifFile);
+	gifFile = NULL;
 }
 
 /**
