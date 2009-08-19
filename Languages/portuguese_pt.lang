@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-#
+# r35
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-17 11:39\n"
-"PO-Revision-Date: 2009-08-17 11:39\n"
+"PO-Revision-Date: 2009-08-19 12:10\n"
 "Last-Translator: Sky8000\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -167,10 +167,10 @@ msgid "German"
 msgstr "Alemão"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Voltar"
 
 msgid "Host:"
-msgstr "Voltar"
+msgstr "Servidor:"
 
 msgid "Image"
 msgstr "Imagem"
@@ -324,7 +324,7 @@ msgid "Yes"
 msgstr "Sim"
 
 msgid "You can not cut into the directory itself."
-msgstr "Não é possível cortar uma pasta para dentro dela mesmo."
+msgstr "Não é possível cortar uma pasta para dentro dela própria."
 
 msgid "You cannot read/write from/to the same file."
 msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."

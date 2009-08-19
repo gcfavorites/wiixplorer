@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-17 23:45+0200\n"
+"POT-Creation-Date: 2009-08-18 09:37+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer\n"
 "Language-Team: \n"
@@ -155,7 +155,7 @@ msgid "Files:"
 msgstr "Dateien:"
 
 msgid "Filetype:"
-msgstr "Dateityp"
+msgstr "Dateityp:"
 
 msgid "Folder"
 msgstr "Verzeichniss"
@@ -194,7 +194,7 @@ msgid "Last modified:"
 msgstr "Zuletzt geändert:"
 
 msgid "Last status change:"
-msgstr "Letzte Status änderung:"
+msgstr "Letzte Statusänderung:"
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
@@ -308,7 +308,7 @@ msgid "Unable to create folder."
 msgstr "Verzeichniss konnte nicht erstellt werden."
 
 msgid "Unable to load device."
-msgstr "Gerkonnte nicht gestartet werden."
+msgstr "Gerät konnte nicht gestartet werden."
 
 #, c-format
 msgid "User %i"
