@@ -1,5 +1,6 @@
 # WiiXplorer language source file.
 #
+# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
@@ -31,7 +32,7 @@ msgid "Can not open the file"
 msgstr ""
 
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr ""
 
 msgid "Cannot open the image file."
 msgstr ""
@@ -43,7 +44,7 @@ msgid "Connect SMB"
 msgstr ""
 
 msgid "Console Default"
-msgstr "Puvodní nastavení konzole"
+msgstr ""
 
 msgid "Copy"
 msgstr ""
@@ -70,7 +71,7 @@ msgid "Cut file?"
 msgstr ""
 
 msgid "Delete"
-msgstr "Smazat"
+msgstr ""
 
 msgid "Delete directory and its content?"
 msgstr ""
@@ -112,19 +113,19 @@ msgid "Do you want to reconnect the SMB?"
 msgstr ""
 
 msgid "Dutch"
-msgstr "Dánsky"
+msgstr ""
 
 msgid "ERROR"
-msgstr "CHYBA"
+msgstr ""
 
 msgid "English"
-msgstr "Anglicky"
+msgstr ""
 
 msgid "Error"
-msgstr "Chyba"
+msgstr ""
 
 msgid "Error:"
-msgstr "Chyba:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr ""
@@ -161,10 +162,10 @@ msgid "Folder"
 msgstr ""
 
 msgid "French"
-msgstr "Francouzky"
+msgstr ""
 
 msgid "German"
-msgstr "Nemecky"
+msgstr ""
 
 msgid "Go Back"
 msgstr ""
@@ -176,13 +177,13 @@ msgid "Image"
 msgstr ""
 
 msgid "Italian"
-msgstr "Italsky"
+msgstr ""
 
 msgid "Japanese"
-msgstr "Japonsky"
+msgstr ""
 
 msgid "Korean"
-msgstr "Korejsky"
+msgstr ""
 
 msgid "Language"
 msgstr ""
@@ -206,7 +207,7 @@ msgid "Moving files:"
 msgstr ""
 
 msgid "Music Volume"
-msgstr "Hlasitost hudby"
+msgstr ""
 
 msgid "Name already exists."
 msgstr ""
@@ -218,19 +219,19 @@ msgid "New Folder"
 msgstr ""
 
 msgid "No"
-msgstr "Ne"
+msgstr ""
 
 msgid "Not enough memory."
 msgstr ""
 
 msgid "OFF"
-msgstr "Vypnuto"
+msgstr ""
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr "Zapnuto"
+msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr ""
@@ -290,7 +291,7 @@ msgid "Size:"
 msgstr ""
 
 msgid "Spanish"
-msgstr "Španelsky"
+msgstr ""
 
 msgid "T. Chinese"
 msgstr ""
@@ -321,7 +322,7 @@ msgid "Username:"
 msgstr ""
 
 msgid "Yes"
-msgstr "Ano"
+msgstr ""
 
 msgid "You can not cut into the directory itself."
 msgstr ""

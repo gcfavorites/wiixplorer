@@ -1,11 +1,12 @@
 # WiiXplorer language source file.
-#
+# 
+# don't remove this line (é)
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-18 00:17+0200\n"
-"PO-Revision-Date: 2009-07-18 15:18+0200\n"
+"POT-Creation-Date: 2009-08-15 15:55+0200\n"
+"PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,322 +14,321 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "Actie geannuleerd"
 
 msgid "An error occured."
-msgstr ""
+msgstr "Er is een fout opgetreden"
 
 msgid "App Default"
-msgstr ""
+msgstr "Standaard"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "Automatisch verbinden"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "Kan bestand niet openen"
 
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Annuleren"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "Kan afbeelding niet openen."
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Opties wijzigen"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "SMB verbinden"
 
 msgid "Console Default"
-msgstr "Puvodní nastavení konzole"
+msgstr "Console Standaard"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopieren"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "Locatie kopieren?"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "Bestand kopieren?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "Bestand kopieren:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "Bestanden kopieren:"
 
 msgid "Cut"
-msgstr ""
+msgstr "Knippen"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "Locatie knippen?"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "Bestand knippen?"
 
 msgid "Delete"
-msgstr "Smazat"
+msgstr "Verwijder"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "Wil je de map met alle inhoud verwijderen?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "Bestand verwijderen?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "Bestanden verwijderen:"
 
 msgid "Directory .."
-msgstr ""
+msgstr "Locatie .."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "Locatie kon niet worden verwijderd."
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "Locatie gekopieerd."
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "Locatie verwijderd."
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "Locatie verplaatst."
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "Wil je starten:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "Wil je dit bestand in een tekstverwerker openen?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "Wil je dit bestand als afbeelding openen?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Wil je dit bestand afspelen?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "Wil je terug met de SMB verbinden?"
 
 msgid "Dutch"
-msgstr "Dánsky"
+msgstr "Nederlands"
 
 msgid "ERROR"
-msgstr "CHYBA"
+msgstr "FOUT"
 
 msgid "English"
-msgstr "Anglicky"
+msgstr "Engels"
 
 msgid "Error"
-msgstr "Chyba"
+msgstr "Fout"
 
 msgid "Error:"
-msgstr "Chyba:"
+msgstr "Fout:"
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "Bestand kopieren mislukt."
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "Bestanden kopieren mislukt."
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "Bestand hernoemen mislukt"
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "Bestand kon niet worden verwijderd"
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "Dit bestand bestaat niet meer!"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "Bestand gekopieerd"
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "Bestand verplaatst."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Locatie: %s"
 
 msgid "Files:"
-msgstr ""
+msgstr "Bestanden:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "Type:"
 
 msgid "Folder"
-msgstr ""
+msgstr "Map"
 
 msgid "French"
-msgstr "Francouzky"
+msgstr "Frans"
 
 msgid "German"
-msgstr "Nemecky"
+msgstr "Duits"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Terug"
 
 msgid "Host:"
-msgstr ""
+msgstr "Gastheer:"
 
 msgid "Image"
-msgstr ""
+msgstr "Afbeelding"
 
 msgid "Italian"
-msgstr "Italsky"
+msgstr "Italiaans"
 
 msgid "Japanese"
-msgstr "Japonsky"
+msgstr "Japans"
 
 msgid "Korean"
-msgstr "Korejsky"
+msgstr "Koreaans"
 
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 msgid "Last access:"
-msgstr ""
+msgstr "Laatste gebruik:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "Laatst gewijzigd:"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "Laatste statuswijziging:"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "Bestand laden:"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "Aansluitingsmethode"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "Bestanden verplaatsen:"
 
 msgid "Music Volume"
-msgstr "Hlasitost hudby"
+msgstr "Muziekvolume"
 
 msgid "Name already exists."
-msgstr ""
+msgstr "Naam bestaat al."
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "Netwerk Initialiseren..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "Nieuwe map"
 
 msgid "No"
-msgstr "Ne"
+msgstr "Nee"
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "Niet genoeg vrij geheugen."
 
 msgid "OFF"
-msgstr "Vypnuto"
+msgstr "UIT"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid "ON"
-msgstr "Zapnuto"
+msgstr "AAN"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Te wijnig geheugen: te veel bestanden!"
 
 msgid "Password:"
-msgstr ""
+msgstr "Wachtwoord:"
 
 msgid "Paste"
-msgstr ""
+msgstr "Plakken"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "Plakken op deze locatie?"
 
 msgid "Please wait:"
-msgstr ""
+msgstr "Even geduld:"
 
 msgid "Properties"
-msgstr ""
+msgstr "Eigenschappen"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "SMB Herverbinden"
 
 msgid "Rename"
-msgstr ""
+msgstr "Hernoemen"
 
 msgid "Retry"
-msgstr ""
+msgstr "Opnieuw prob."
 
 msgid "S. Chinese"
-msgstr ""
+msgstr "S. Chinees"
 
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "SMB naam:"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "SMB opties"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "Verbinden SMB..."
 
 msgid "SMB1"
-msgstr ""
+msgstr "SMB1"
 
 msgid "SMB2"
-msgstr ""
+msgstr "SMB2"
 
 msgid "SMB3"
-msgstr ""
+msgstr "SMB3"
 
 msgid "SMB4"
-msgstr ""
+msgstr "SMB4"
 
 msgid "Size:"
-msgstr ""
+msgstr "Grootte:"
 
 msgid "Spanish"
-msgstr "Španelsky"
+msgstr "Spaans"
 
 msgid "T. Chinese"
-msgstr ""
+msgstr "T. Chinees"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Dit is geen OGG/MP3 bestand"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "Bestanden Overplaatsen:"
 
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "Kan map niet aanmaken."
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "Kan apparaat niet laden."
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Gebruiker: %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Gebruiker:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Gebruikersnaam:"
 
 msgid "Yes"
-msgstr "Ano"
+msgstr "Ja"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "Je kan niet knippen in de locatie zelf."
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "Je kan niet lezen/schrijven van/naar hetzelfde bestand."
 
 msgid "You cant use this operation on:"
-msgstr ""
-
+msgstr "Je kan deze handeling niet uitvoeren op:"

@@ -4,331 +4,332 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-18 00:17+0200\n"
-"PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2009-08-18 15:25+0200\n"
+"PO-Revision-Date: 2009-08-18 11:18+0200\n"
+"Last-Translator: Cambo \n"
+"Language-Team: Cambo \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "Operazione annullata."
 
 msgid "An error occured."
-msgstr ""
+msgstr "E' avvenuto un errore."
 
 msgid "App Default"
-msgstr ""
+msgstr "Predefinito Appl."
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "Connessione Automatica"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "Il file non si può aprire"
 
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "Annulla"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "Il file immagine non si può aprire"
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Modifica Impostazioni"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "Connetti SMB"
 
 msgid "Console Default"
-msgstr "Puvodní nastavení konzole"
+msgstr "Predefinito Console"
 
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "Copio la cartella?"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "Copio il file?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "Sto copiando il file:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "Sto copiando i file:"
 
 msgid "Cut"
-msgstr ""
+msgstr "Taglio"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "Taglio la cartella?"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "taglio il file?"
 
 msgid "Delete"
-msgstr "Smazat"
+msgstr "Elimina"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "Elimino la cartella ed il suo contenuto?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "Elimino questo file?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "Sto eliminando i file:"
 
 msgid "Directory .."
-msgstr ""
+msgstr "Cartella ..."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "La cartella non si può eliminare."
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "La cartella è stata copiata con successo."
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "La cartella è stata eliminata."
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "La cartella è stata spostata."
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "Vuoi caricare:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "Vuoi aprire questo file con TextViewer?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "Vuoi aprire questo file con ImageViewer?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Vuoi riutilizzare questo file?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "Vuoi riconnettere la SMB?"
 
 msgid "Dutch"
-msgstr "Dánsky"
+msgstr "Olandese"
 
 msgid "ERROR"
-msgstr "CHYBA"
+msgstr "ERRORE"
 
 msgid "English"
-msgstr "Anglicky"
+msgstr "Inglese"
 
 msgid "Error"
-msgstr "Chyba"
+msgstr "Errore"
 
 msgid "Error:"
-msgstr "Chyba:"
+msgstr "Errore:"
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "Errore nella copia del file."
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "Errore nella copia dei file."
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "Errore nella ridenominazione del file"
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "Non è stato possibile eliminare il file."
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "Il file non esiste più!"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "Il file è stato copiato con successo."
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "Il file è stato spostato con successo."
 
 #, c-format
 msgid "Filepath:  %s"
 msgstr ""
 
 msgid "Files:"
-msgstr ""
+msgstr "File:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "Tipo file:"
 
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 msgid "French"
-msgstr "Francouzky"
+msgstr "Francese"
 
 msgid "German"
-msgstr "Nemecky"
+msgstr "Tedesco"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Indietro"
 
 msgid "Host:"
 msgstr ""
 
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 msgid "Italian"
-msgstr "Italsky"
+msgstr "Italiano"
 
 msgid "Japanese"
-msgstr "Japonsky"
+msgstr "Giapponese"
 
 msgid "Korean"
-msgstr "Korejsky"
+msgstr "Coreano"
 
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 msgid "Last access:"
-msgstr ""
+msgstr "Ultimo accesso:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "Ultima modifica:"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "Ultima modifica stato:"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "Sto caricando il file:"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "Tipologia Mount"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "Sto spostando i file:"
 
 msgid "Music Volume"
-msgstr "Hlasitost hudby"
+msgstr "Volume Musica"
 
 msgid "Name already exists."
-msgstr ""
+msgstr "Nome già utilizzato."
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "Inizializzazione rete..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "Nuova cartella"
 
 msgid "No"
-msgstr "Ne"
+msgstr "No"
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "Memoria insufficiente."
 
 msgid "OFF"
-msgstr "Vypnuto"
+msgstr "Spento"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid "ON"
-msgstr "Zapnuto"
+msgstr "Acceso"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "memoria insufficiente: troppi file!"
 
 msgid "Password:"
-msgstr ""
+msgstr "Password:"
 
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "Incollare nella cartella corrente?"
 
 msgid "Please wait:"
-msgstr ""
+msgstr "Attendere prego:"
 
 msgid "Properties"
-msgstr ""
+msgstr "Proprietà"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "Riconnetti SMB"
 
 msgid "Rename"
-msgstr ""
+msgstr "Rinomina"
 
 msgid "Retry"
-msgstr ""
+msgstr "Riprova"
 
 msgid "S. Chinese"
-msgstr ""
+msgstr "Cinese Semplificato"
 
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "Nome SMB:"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "Impostazioni SMB:"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "SMB in connessione..."
 
 msgid "SMB1"
-msgstr ""
+msgstr "SMB1"
 
 msgid "SMB2"
-msgstr ""
+msgstr "SMB2"
 
 msgid "SMB3"
-msgstr ""
+msgstr "SMB3"
 
 msgid "SMB4"
-msgstr ""
+msgstr "SMB4"
 
 msgid "Size:"
-msgstr ""
+msgstr "Dimensione:"
 
 msgid "Spanish"
-msgstr "Španelsky"
+msgstr "Spagnolo"
 
 msgid "T. Chinese"
-msgstr ""
+msgstr "Cinese Tradizionale"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Questo non è un file OGG/MP3"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "Sto spostando i file:"
 
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "Non è stato possibile creare la cartella."
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "Non è stato possibile accedere alla periferica."
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Utente %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Utente:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Nome utente:"
 
 msgid "Yes"
-msgstr "Ano"
+msgstr "Si"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "Non puoi tagliare nella stessa cartella."
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "Non puoi leggere/scrivere da/a lo stesso file."
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "Non puoi eseguire questa operazione su:"
+
 
