@@ -34,7 +34,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Cannot open the image file."
-msgstr "Bilddatei konnte nicht geöffet werden."
+msgstr "Bilddatei konnte nicht geöffnet werden."
 
 msgid "Change Settings"
 msgstr "Einstellungen ändern"
@@ -49,7 +49,7 @@ msgid "Copy"
 msgstr "Kopieren"
 
 msgid "Copy directory?"
-msgstr "Verzeichniss kopieren?"
+msgstr "Verzeichnis kopieren?"
 
 msgid "Copy file?"
 msgstr "Datei kopieren?"
@@ -64,16 +64,16 @@ msgid "Cut"
 msgstr "Ausschneiden"
 
 msgid "Cut directory?"
-msgstr "Verzeichniss ausschneiden?"
+msgstr "Verzeichnis ausschneiden?"
 
 msgid "Cut file?"
-msgstr "Datei aussschneiden?"
+msgstr "Datei ausschneiden?"
 
 msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete directory and its content?"
-msgstr "Verzeichniss und Inhalt löschen?"
+msgstr "Verzeichnis und Inhalt löschen?"
 
 msgid "Delete this file?"
 msgstr "Datei löschen?"
@@ -82,25 +82,25 @@ msgid "Deleting files:"
 msgstr "Lösche Dateien:"
 
 msgid "Directory .."
-msgstr "Verzeichniss .."
+msgstr "Verzeichnis .."
 
 msgid "Directory couldn't be deleted."
-msgstr "Verzeichniss konnte nicht gelöscht werden."
+msgstr "Verzeichnis konnte nicht gelöscht werden."
 
 msgid "Directory successfully copied."
-msgstr "Verzeichniss erfolgreich kopiert."
+msgstr "Verzeichnis erfolgreich kopiert."
 
 msgid "Directory successfully deleted."
-msgstr "Verzeichniss erfolgreich gelöscht."
+msgstr "Verzeichnis erfolgreich gelöscht."
 
 msgid "Directory successfully moved."
-msgstr "Verzeichniss erfolgreich verschoben."
+msgstr "Verzeichnis erfolgreich verschoben."
 
 msgid "Do you want to boot:"
 msgstr "Möchten Sie folgendes starten:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "Möchten Sie diese Datei im TextViewer öffnen:"
+msgstr "Möchten Sie diese Datei im TextViewer öffnen?"
 
 msgid "Do you want to open this file with ImageViewer?"
 msgstr "Möchten Sie diese Datei mit dem ImageViewer öffnen?"
@@ -158,7 +158,7 @@ msgid "Filetype:"
 msgstr "Dateityp:"
 
 msgid "Folder"
-msgstr "Verzeichniss"
+msgstr "Verzeichnis"
 
 msgid "French"
 msgstr "Französisch"
@@ -215,7 +215,7 @@ msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
 
 msgid "New Folder"
-msgstr "Neues Verzeichniss"
+msgstr "Neues Verzeichnis"
 
 msgid "No"
 msgstr "Nein"
@@ -233,7 +233,7 @@ msgid "ON"
 msgstr "AN"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Speicher voll: Zu viele Dateien!"
 
 msgid "Password:"
 msgstr "Kennwort:"
@@ -242,7 +242,7 @@ msgid "Paste"
 msgstr "Einfügen"
 
 msgid "Paste into current directory?"
-msgstr "In aktuelles Verzeichniss einfügen?"
+msgstr "In aktuelles Verzeichnis einfügen?"
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
@@ -296,16 +296,16 @@ msgid "T. Chinese"
 msgstr "T. Chinesisch"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Dies ist keine OGG/MP3 Datei"
 
 msgid "Transfering files:"
-msgstr "Kopiere Dateien:"
+msgstr "Übertrage Dateien:"
 
 msgid "USB"
 msgstr "USB"
 
 msgid "Unable to create folder."
-msgstr "Verzeichniss konnte nicht erstellt werden."
+msgstr "Verzeichnis konnte nicht erstellt werden."
 
 msgid "Unable to load device."
 msgstr "Gerät konnte nicht gestartet werden."
@@ -324,10 +324,10 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "You can not cut into the directory itself."
-msgstr "Ausschneiden/Einfügen in das gleiche Verzeichniss nicht möglich."
+msgstr "Ausschneiden/Einfügen in das gleiche Verzeichnis nicht möglich."
 
 msgid "You cannot read/write from/to the same file."
-msgstr "Lesen/schreiben aus/in die selbe Datei nicht möglich."
+msgstr "Lesen/schreiben aus/in dieselbe Datei nicht möglich."
 
 msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"

@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win</coder>
-  <version>r36</version>
-  <release_date>200908200000</release_date>
+  <version>r37</version>
+  <release_date>200908260000</release_date>
   <short_description>Wii File Browser</short_description> 
   <long_description>A multi device file explorer for the Wii by dimok and r-win.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
@@ -17,7 +17,8 @@ Features:
  * Addressbar with path
  * Multilanguage support
  * Boot .dol/.elf files
- * Open TXT/XML/PNG/JPEG/MP3/OGG/GIF files
+ * Open TXT/XML/PNG/JPEG/MP3/OGG/GIF
+   files
 
 Coming soon (Wishlist):
  * Multiple Windows (Minimize/Maximize
@@ -27,7 +28,7 @@ Coming soon (Wishlist):
 Credits:
   Coding: Dimok, r-win
   Artworks: Neorame
-  Languages: Dj_skual
+  Languages: Dj Skual
 
   Libwiigui: Tantric
   Libogc/Devkit: Shagkur and Wintermute
@@ -47,8 +48,7 @@ Links:
     http://www.gnu.org/software/gettext/
     gettext.html
   Languages Page:
-    http://gbatemp.net/
-    index.php?showtopic=174053&st=0.
+    please find this page on gbatemp.
   </long_description> 
 </app>
 

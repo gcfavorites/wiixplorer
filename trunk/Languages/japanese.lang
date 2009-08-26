@@ -1,6 +1,5 @@
 # WiiXplorer language source file.
 #
-# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
@@ -14,322 +13,322 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "ｷｬﾝｾﾙしました"
 
 msgid "An error occured."
-msgstr ""
+msgstr "ｴﾗｰが発生しました"
 
 msgid "App Default"
-msgstr ""
+msgstr "ﾃﾞﾌｫﾙﾄ"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "自動接続"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "ﾌｧｲﾙを開けません"
 
 msgid "Cancel"
-msgstr ""
+msgstr "ｷｬﾝｾﾙ"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "画像を開けません"
 
 msgid "Change Settings"
-msgstr ""
+msgstr "設定を変更"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "SMBと接続"
 
 msgid "Console Default"
-msgstr ""
+msgstr "ｼｽﾃﾑﾃﾞﾌｫﾙﾄ"
 
 msgid "Copy"
-msgstr ""
+msgstr "ｺﾋﾟｰ"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞをｺﾋﾟｰしますか?"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "ﾌｧｲﾙをｺﾋﾟｰしますか?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "ｺﾋﾟｰしています:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "ｺﾋﾟｰしています:"
 
 msgid "Cut"
-msgstr ""
+msgstr "切り取り"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞを切り取りますか?"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "ﾌｧｲﾙを切り取りますか?"
 
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞと中身を削除しますか?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "このﾌｧｲﾙを削除しますか?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "削除しています:"
 
 msgid "Directory .."
-msgstr ""
+msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞを削除できませんでした"
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞのｺﾋﾟｰに成功しました"
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞの削除に成功しました"
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞの移動に成功しました"
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "起動しますか:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "ﾃｷｽﾄﾋﾞｭｰﾜで開きますか?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "画像を閲覧しますか?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "元通りにしますか?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "SMBと再接続しますか?"
 
 msgid "Dutch"
-msgstr ""
+msgstr "ｵﾗﾝﾀﾞ語"
 
 msgid "ERROR"
-msgstr ""
+msgstr "ｴﾗｰ"
 
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 msgid "Error"
-msgstr ""
+msgstr "ｴﾗｰ"
 
 msgid "Error:"
-msgstr ""
+msgstr "ｴﾗｰ"
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "ｺﾋﾟｰを失敗しました"
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "ｺﾋﾟｰを失敗しました"
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "ﾘﾈｰﾑを失敗しました"
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "ﾌｧｲﾙを削除できませんでした"
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "それはもう存在しません"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "ｺﾋﾟｰに成功しました"
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "移動に成功しました"
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "ﾌｧｲﾙﾊﾟｽ:  %s"
 
 msgid "Files:"
-msgstr ""
+msgstr "ﾌｧｲﾙ"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "ﾌｧｲﾙﾀｲﾌﾟ"
 
 msgid "Folder"
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞ"
 
 msgid "French"
-msgstr ""
+msgstr "ﾌﾗﾝｽ語"
 
 msgid "German"
-msgstr ""
+msgstr "ﾄﾞｲﾂ語"
 
 msgid "Go Back"
-msgstr ""
+msgstr "戻る"
 
 msgid "Host:"
-msgstr ""
+msgstr "ﾎｽﾄ"
 
 msgid "Image"
-msgstr ""
+msgstr "画像"
 
 msgid "Italian"
-msgstr ""
+msgstr "ｲﾀﾘｱ語"
 
 msgid "Japanese"
-msgstr ""
+msgstr "日本語"
 
 msgid "Korean"
-msgstr ""
+msgstr "韓国語"
 
 msgid "Language"
-msgstr ""
+msgstr "言語"
 
 msgid "Last access:"
-msgstr ""
+msgstr "最後のｱｸｾｽ"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "最後の更新"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "最後の変更"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "読み込んでいます"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "ﾏｳﾝﾄ方法"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "移動しています"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "音量"
 
 msgid "Name already exists."
-msgstr ""
+msgstr "同じ名前がすでにあります"
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "接続中..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "新しいﾌｫﾙﾀﾞ"
 
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "ﾒﾓﾘ不足です"
 
 msgid "OFF"
-msgstr ""
+msgstr "ｵﾌ"
 
 msgid "OK"
-msgstr ""
+msgstr "はい"
 
 msgid "ON"
-msgstr ""
+msgstr "ｵﾝ"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "ﾌｧｲﾙ多すぎでﾒﾓﾘ不足です"
 
 msgid "Password:"
-msgstr ""
+msgstr "ﾊﾟｽﾜｰﾄﾞ"
 
 msgid "Paste"
-msgstr ""
+msgstr "貼り付け"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "このﾌｫﾙﾀﾞに貼り付けますか?"
 
 msgid "Please wait:"
-msgstr ""
+msgstr "お待ちください"
 
 msgid "Properties"
-msgstr ""
+msgstr "ﾌﾟﾛﾊﾟﾃｨ"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "SMBと再接続"
 
 msgid "Rename"
-msgstr ""
+msgstr "ﾘﾈｰﾑ"
 
 msgid "Retry"
-msgstr ""
+msgstr "再試行"
 
 msgid "S. Chinese"
-msgstr ""
+msgstr "簡体中国語"
 
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "SMBの名"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "SMBの設定"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "SMBに接続中"
 
 msgid "SMB1"
-msgstr ""
+msgstr "SMB1"
 
 msgid "SMB2"
-msgstr ""
+msgstr "SMB2"
 
 msgid "SMB3"
-msgstr ""
+msgstr "SMB3"
 
 msgid "SMB4"
-msgstr ""
+msgstr "SMB4"
 
 msgid "Size:"
-msgstr ""
+msgstr "ｻｲｽﾞ"
 
 msgid "Spanish"
-msgstr ""
+msgstr "ｽﾍﾟｲﾝ語"
 
 msgid "T. Chinese"
-msgstr ""
+msgstr "繁体中国語"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "これはOGG/MP3ﾌｧｲﾙではありません"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "転送中です:"
 
 msgid "USB"
-msgstr ""
+msgstr "USB"
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "ﾌｫﾙﾀﾞを作成できませんでした"
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "ﾃﾞﾊﾞｲｽをﾛｰﾄﾞできません"
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "ﾕｰｻﾞｰ %i"
 
 msgid "User:"
-msgstr ""
+msgstr "ﾕｰｻﾞｰ"
 
 msgid "Username:"
-msgstr ""
+msgstr "ﾕｰｻﾞｰﾈｰﾑ"
 
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "同じ所に読み書きはできません"
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "この操作は実行できません"
 

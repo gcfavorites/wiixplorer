@@ -1,13 +1,12 @@
 # WiiXplorer language source file.
 #
-# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-18 00:17+0200\n"
-"PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2009-08-22 11:30+0100\n"
+"Last-Translator: Katsurou\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,263 +16,263 @@ msgid "1"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "Händelse avbryten."
 
 msgid "An error occured."
-msgstr ""
+msgstr "Ett fel har uppståt."
 
 msgid "App Default"
-msgstr ""
+msgstr "App Standard"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "Auto anslut"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "Kan inte öppna filen"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "Kunde inte öppna image filen."
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Ändra inställningar"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "Anslut SMB"
 
 msgid "Console Default"
-msgstr ""
+msgstr "Konsol Standard"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiera"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "Kopiera katalog?"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "Kopiera fil?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "Kopierar fil:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "Kopierar filer:"
 
 msgid "Cut"
-msgstr ""
+msgstr "Klipp ut"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "Klipp ut katalog?"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "Klipp ut fil?"
 
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "Radera katalog och dess innehåll?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "Radera denna fil?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "Raderar filer:"
 
 msgid "Directory .."
-msgstr ""
+msgstr "Katalog .."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "Katalog kunde inte raderas."
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "Kopiering av katalog lyckades."
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "Katalog raderad."
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "Katalog flyttad."
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "Vill du starta:"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "Vill du öppna denna filen i textvisaren?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "Vill du öppna denna filen med bildvisaren?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Vill du spela upp denna filen?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "Vill du koppla upp till SMB igen?"
 
 msgid "Dutch"
-msgstr ""
+msgstr "Holändska"
 
 msgid "ERROR"
-msgstr ""
+msgstr "FEL"
 
 msgid "English"
-msgstr ""
+msgstr "Engelska"
 
 msgid "Error"
-msgstr ""
+msgstr "Fel"
 
 msgid "Error:"
-msgstr ""
+msgstr "Fel:"
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "Misslyckades att kopiera fil."
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "Misslyckades att kopiera filer."
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "Namnbyte på fil misslyckades."
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "Fil kunde inte raderas."
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "Filen existerar inte längre!"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "Lyckadess kopiera fil."
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "Lyckadess flytta fil."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Fil sökväg: %s"
 
 msgid "Files:"
-msgstr ""
+msgstr "Filer:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "Filtyp:"
 
 msgid "Folder"
-msgstr ""
+msgstr "Mapp"
 
 msgid "French"
-msgstr ""
+msgstr "Franska"
 
 msgid "German"
-msgstr ""
+msgstr "Tyska"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Gå tillbaks"
 
 msgid "Host:"
 msgstr ""
 
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 msgid "Italian"
-msgstr ""
+msgstr "Italienska"
 
 msgid "Japanese"
-msgstr ""
+msgstr "Japanska"
 
 msgid "Korean"
-msgstr ""
+msgstr "Koreanska"
 
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 msgid "Last access:"
-msgstr ""
+msgstr "Senaste tillträde:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "Senast modifierad:"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "Senast status ändring:"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "Laddar fil:"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "Monterings metod"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "Flyttar filer:"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "Musik volym"
 
 msgid "Name already exists."
-msgstr ""
+msgstr "Namn existerar redan."
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "Nätverk initieras..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "Ny mapp"
 
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "Inte tillräkligt minne."
 
 msgid "OFF"
-msgstr ""
+msgstr "Av"
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr ""
+msgstr "På"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Slut på minne: för många filer!"
 
 msgid "Password:"
-msgstr ""
+msgstr "Lösenord:"
 
 msgid "Paste"
-msgstr ""
+msgstr "Klistra in"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "Klistra in i nuvarande katalog?"
 
 msgid "Please wait:"
-msgstr ""
+msgstr "Vänligen vänta:"
 
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaper"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "Återanslut SMB"
 
 msgid "Rename"
-msgstr ""
+msgstr "Byt namn"
 
 msgid "Retry"
-msgstr ""
+msgstr "Försök igen"
 
 msgid "S. Chinese"
-msgstr ""
+msgstr "S.Kinesiska"
 
 msgid "SD"
 msgstr ""
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "SMB namn:"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "SMB Inställningar"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "SMB ansluter..."
 
 msgid "SMB1"
 msgstr ""
@@ -288,48 +287,48 @@ msgid "SMB4"
 msgstr ""
 
 msgid "Size:"
-msgstr ""
+msgstr "Storlek:"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Spanska"
 
 msgid "T. Chinese"
-msgstr ""
+msgstr "T. Kinesiska"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Detta är inte en OGG/MP3 fil"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "Överför filer:"
 
 msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "Kunde inte skapa mapp."
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "Kunde inte ladda enhet"
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Användare %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Användare:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Användarnamn:"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "Du kan inte klippa in till sjävla katalagon"
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "Du kan inte läsa/skriva från/till samma fil."
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "Du kan inte använda denna funktion på:"
 
