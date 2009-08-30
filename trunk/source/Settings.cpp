@@ -123,7 +123,7 @@ bool Settings::Load()
 bool Settings::LoadLanguage(int language)
 {
     if(Language < 0)
-        return false;  //!No language detected or app default selected
+        return false;
 
     char filepath[300];
 

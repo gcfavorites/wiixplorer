@@ -24,7 +24,6 @@
 #include "fatmounter.h"
 #include "sys.h"
 
-FreeTypeGX *fontSystem;
 Settings Settings;
 
 int
@@ -47,10 +46,9 @@ main(int argc, char *argv[])
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
 
+
 	// Initialize font system
-	fontSystem = new FreeTypeGX();
-	fontSystem->loadFont(NULL, font_ttf, font_ttf_size, 0);
-	fontSystem->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
+	InitFreeType((u8*)font_ttf, font_ttf_size);
 
 	InitThreads();
 	MainMenu(MENU_BROWSE_DEVICE);

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-18 09:37+0200\n"
+"POT-Creation-Date: 2009-08-30 16:51+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer\n"
 "Language-Team: \n"
@@ -39,6 +39,9 @@ msgstr "Bilddatei konnte nicht geöffnet werden."
 msgid "Change Settings"
 msgstr "Einstellungen ändern"
 
+msgid "Coders:"
+msgstr ""
+
 msgid "Connect SMB"
 msgstr "SMB verbinden"
 
@@ -60,6 +63,9 @@ msgstr "Kopiere Datei:"
 msgid "Copying files:"
 msgstr "Kopiere Dateien"
 
+msgid "Credits"
+msgstr ""
+
 msgid "Cut"
 msgstr "Ausschneiden"
 
@@ -80,6 +86,12 @@ msgstr "Datei löschen?"
 
 msgid "Deleting files:"
 msgstr "Lösche Dateien:"
+
+msgid "Designer:"
+msgstr ""
+
+msgid "Dimok"
+msgstr ""
 
 msgid "Directory .."
 msgstr "Verzeichnis .."
@@ -211,6 +223,9 @@ msgstr "Lautstärke"
 msgid "Name already exists."
 msgstr "Name existiert bereits."
 
+msgid "NeoRame"
+msgstr ""
+
 msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
 
@@ -292,8 +307,17 @@ msgstr "Größe:"
 msgid "Spanish"
 msgstr "Spanisch"
 
+msgid "Special thanks to:"
+msgstr ""
+
 msgid "T. Chinese"
 msgstr "T. Chinesisch"
+
+msgid "Tantric for his great tool libwiigui."
+msgstr ""
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr ""
 
 msgid "This is no OGG/MP3 file"
 msgstr "Dies ist keine OGG/MP3 Datei"
@@ -332,3 +356,5 @@ msgstr "Lesen/schreiben aus/in dieselbe Datei nicht möglich."
 msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
+msgid "r-win"
+msgstr ""

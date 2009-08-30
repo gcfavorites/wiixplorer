@@ -140,12 +140,12 @@ void ProgressWindow()
 	GuiText titleTxt(progressTitle, 26, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	titleTxt.SetPosition(0,50);
-	titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+	titleTxt.SetMaxWidth(430, DOTTED);
 
     GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	msgTxt.SetPosition(0,110);
-	msgTxt.SetMaxWidth(430, GuiText::DOTTED);
+	msgTxt.SetMaxWidth(430, DOTTED);
 
     GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);

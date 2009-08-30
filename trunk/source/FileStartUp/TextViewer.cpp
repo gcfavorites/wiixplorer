@@ -120,12 +120,12 @@ void TextViewer(const char *filepath)
     GuiText titleTxt(filename, 22, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,40);
-    titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+    titleTxt.SetMaxWidth(430, DOTTED);
 
     GuiText MainFileTxt(filetext, 18, (GXColor){0, 0, 0, 255});
     MainFileTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     MainFileTxt.SetPosition(30, 70);
-    MainFileTxt.SetMaxWidth(400, GuiText::LONGTEXT);
+    MainFileTxt.SetMaxWidth(400, LONGTEXT);
     MainFileTxt.SetFirstLine(0);
     MainFileTxt.SetLinesToDraw(linestoshow);
 

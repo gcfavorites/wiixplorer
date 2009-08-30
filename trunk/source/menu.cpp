@@ -46,7 +46,7 @@
 #include "fileops.h"
 #include "foldersize.h"
 #include "fatmounter.h"
-#include "FileStartUp.h"
+#include "FileStartUp/FileStartUp.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
@@ -115,6 +115,7 @@ UpdateGUI (void *arg)
 	{
 		if(guiHalt)
 		{
+		    /*
 		    #ifdef HW_RVL
 		    for(i = 0; i < 4; i++) {
 		        if(pointer[i]) {
@@ -124,6 +125,7 @@ UpdateGUI (void *arg)
                 pointer[i] = new GuiImageData(player1_point_png);
 		    }
             #endif
+            */
 			LWP_SuspendThread(guithread);
 		}
 		else
@@ -207,7 +209,7 @@ void ExitGUIThreads()
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-	int i, choice = -1, counter = 0;
+	int i, choice = -1;
 	char currentdir[50];
     time_t currenttime = time(0);
     struct tm * timeinfo = localtime(&currenttime);
@@ -268,6 +270,17 @@ static int MenuBrowseDevice()
 	SettingsBtn.SetTrigger(&trigA);
 	SettingsBtn.SetEffectGrow();
 
+    GuiImageData creditsImgData(WiiXplorer_png);
+    GuiImage creditsImg(&creditsImgData);
+	GuiButton CreditsBtn(creditsImgData.GetWidth(), creditsImgData.GetHeight());
+	CreditsBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	CreditsBtn.SetPosition(fileBrowser.GetLeft()+235, fileBrowser.GetTop()+262);
+	CreditsBtn.SetImage(&creditsImg);
+	CreditsBtn.SetSoundClick(&btnSoundClick);
+	CreditsBtn.SetSoundOver(&btnSoundOver);
+	CreditsBtn.SetTrigger(&trigA);
+	CreditsBtn.SetEffectGrow();
+
     GuiImageData ExitBtnImgData(power_png);
 	GuiImage ExitBtnImg(&ExitBtnImgData);
     GuiImageData ExitBtnImgOverData(power_over_png);
@@ -306,7 +319,7 @@ static int MenuBrowseDevice()
 	GuiText AdressText(currentdir, 20, (GXColor) {0, 0, 0, 255});
 	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText.SetPosition(18, 0);
-	AdressText.SetMaxWidth(Address.GetWidth()-40, GuiText::SCROLL);
+	AdressText.SetMaxWidth(Address.GetWidth()-40, SCROLL_HORIZONTAL);
 	GuiImage AdressbarImg(&Address);
 	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
 	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -325,7 +338,7 @@ static int MenuBrowseDevice()
 	GuiImage taskbarImg(&taskbarImgData);
 	GuiWindow TaskBar(taskbarImg.GetWidth(), taskbarImg.GetHeight());
 	TaskBar.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	TaskBar.SetPosition(4, -5);
+	TaskBar.SetPosition(4, -15);
 
 	GuiButton clickmenuBtn(screenwidth, screenheight);
 	clickmenuBtn.SetTrigger(&trigPlus);
@@ -338,6 +351,7 @@ static int MenuBrowseDevice()
 	TaskBar.Append(&TimeTxt);
 	w.Append(&clickmenuBtn);
 	w.Append(&fileBrowser);
+	w.Append(&CreditsBtn);
 	w.Append(&Adressbar);
 	w.Append(&deviceSwitchBtn);
 	w.Append(&TaskBar);
@@ -346,23 +360,7 @@ static int MenuBrowseDevice()
 
 	while(menu == MENU_NONE)
 	{
-		VIDEO_WaitVSync();
-
-        if(shutdown == 1)
-            Sys_Shutdown();
-
-        if(reset == 1)
-            Sys_Reboot();
-
-        counter++;
-
-        if(counter > 50) {
-            currenttime = time(0);
-            timeinfo = localtime(&currenttime);
-            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
-            TimeTxt.SetText(timetxt);
-            counter = 0;
-        }
+	    VIDEO_WaitVSync();
 
 		for(i=0; i<PAGESIZE; i++)
 		{
@@ -399,7 +397,26 @@ static int MenuBrowseDevice()
 			}
 		}
 
-        if(SettingsBtn.GetState() == STATE_CLICKED)
+        if(frameCount % 60 == 0) //! Update time value every sec
+        {
+            currenttime = time(0);
+            timeinfo = localtime(&currenttime);
+            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
+            TimeTxt.SetText(timetxt);
+        }
+
+        if(shutdown == 1)
+            Sys_Shutdown();
+
+        else if(reset == 1)
+            Sys_Reboot();
+
+        else if(CreditsBtn.GetState() == STATE_CLICKED) {
+            CreditsWindow();
+            CreditsBtn.ResetState();
+        }
+
+        else if(SettingsBtn.GetState() == STATE_CLICKED)
 			menu = MENU_SETTINGS;
 
         else if(ExitBtn.GetState() == STATE_CLICKED)
@@ -614,10 +631,7 @@ static int MenuBrowseDevice()
             }
 
             fileBrowser.DisableTriggerUpdate(false);
-            fileBrowser.SetFocus(1);
 		}
-            clickmenuBtn.ResetState();
-        } else {
             clickmenuBtn.ResetState();
         }
 	}
@@ -638,6 +652,7 @@ static int MenuSMBSettings()
 	int ret, result = 0;
 	int i = 0;
     char entered[43];
+    bool firstRun = true;
 
 	OptionList options(6);
 	options.SetName(i++, tr("User:"));
@@ -686,23 +701,18 @@ static int MenuSMBSettings()
 
 	while(menu == MENU_NONE)
 	{
-		VIDEO_WaitVSync();
-
-        if(Settings.CurrentUser > MAXSMBUSERS-1)
-            Settings.CurrentUser = 0;
+	    VIDEO_WaitVSync();
 
         if(shutdown == 1)
             Sys_Shutdown();
 
-        if(reset == 1)
+        else if(reset == 1)
             Sys_Reboot();
 
-		options.SetValue(0,tr("User %i"), Settings.CurrentUser+1);
-		options.SetValue(1,"%s", Settings.SMBUser[Settings.CurrentUser].Host);
-		options.SetValue(2,"%s", Settings.SMBUser[Settings.CurrentUser].User);
-		options.SetValue(3,"%s", Settings.SMBUser[Settings.CurrentUser].Password);
-		options.SetValue(4,"%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
-		options.SetValue(5," ");
+		else if(backBtn.GetState() == STATE_CLICKED)
+		{
+			menu = MENU_SETTINGS;
+		}
 
 		ret = optionBrowser.GetClickedOption();
 
@@ -710,6 +720,8 @@ static int MenuSMBSettings()
 		{
 			case 0:
 				Settings.CurrentUser++;
+                if(Settings.CurrentUser > MAXSMBUSERS-1)
+                    Settings.CurrentUser = 0;
 				break;
             case 1:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Host);
@@ -749,10 +761,18 @@ static int MenuSMBSettings()
                 break;
 		}
 
-		if(backBtn.GetState() == STATE_CLICKED)
-		{
-			menu = MENU_SETTINGS;
-		}
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            options.SetValue(i++,tr("User %i"), Settings.CurrentUser+1);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].Host);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].User);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].Password);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
+            options.SetValue(i++," ");
+        }
 	}
 
 	HaltGui();
@@ -770,6 +790,7 @@ static int MenuSettings()
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
+	bool firstRun = true;
 
 	OptionList options(5);
 	options.SetName(i++, tr("Mount Method"));
@@ -787,13 +808,11 @@ static int MenuSettings()
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
-	GuiImage backBtnImgOver(&btnOutlineOver);
 	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	backBtn.SetPosition(100, -35);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
-	backBtn.SetImageOver(&backBtnImgOver);
 	backBtn.SetSoundOver(&btnSoundOver);
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
@@ -817,43 +836,20 @@ static int MenuSettings()
 
 	while(menu == MENU_NONE)
 	{
-        VIDEO_WaitVSync();
+	    usleep(THREAD_SLEEP);
 
         if(shutdown == 1)
             Sys_Shutdown();
 
-        if(reset == 1)
+        else if(reset == 1)
             Sys_Reboot();
 
-        i = 0;
-
-		if (Settings.MountMethod == SD) options.SetValue(i++,tr("SD"));
-		else if (Settings.MountMethod == USB) options.SetValue(i++,tr("USB"));
-		else if (Settings.MountMethod == SMB1) options.SetValue(i++, tr("SMB1"));
-		else if (Settings.MountMethod == SMB2) options.SetValue(i++, tr("SMB2"));
-		else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
-		else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
-
-		if (Settings.Language == APP_DEFAULT) options.SetValue(i++,tr("App Default"));
-		else if (Settings.Language == CONSOLE_DEFAULT) options.SetValue(i++,tr("Console Default"));
-		else if (Settings.Language == JAPANESE) options.SetValue(i++,tr("Japanese"));
-		else if (Settings.Language == ENGLISH) options.SetValue(i++,tr("English"));
-		else if (Settings.Language == GERMAN) options.SetValue(i++,tr("German"));
-		else if (Settings.Language == FRENCH) options.SetValue(i++,tr("French"));
-		else if (Settings.Language == SPANISH) options.SetValue(i++,tr("Spanish"));
-		else if (Settings.Language == ITALIAN) options.SetValue(i++,tr("Italian"));
-		else if (Settings.Language == DUTCH) options.SetValue(i++,tr("Dutch"));
-		else if (Settings.Language == S_CHINESE) options.SetValue(i++,tr("S. Chinese"));
-		else if (Settings.Language == T_CHINESE) options.SetValue(i++,tr("T. Chinese"));
-		else if (Settings.Language == KOREAN) options.SetValue(i++,tr("Korean"));
-
-		if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
-		else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
-
-		if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
-		else options.SetValue(i++, tr("OFF"));
-
-        options.SetValue(i++, " ");
+		else if(backBtn.GetState() == STATE_CLICKED)
+		{
+		    if(SDCard_Inserted())
+                Settings.Save();
+			menu = MENU_BROWSE_DEVICE;
+		}
 
 		ret = optionBrowser.GetClickedOption();
 
@@ -870,8 +866,8 @@ static int MenuSettings()
 				Settings.Language++;
 				if(Settings.Language >= MAX_LANGUAGE)
                     Settings.Language = 0;
-                Settings.LoadLanguage(Settings.Language);
-                menu = MENU_SETTINGS;   //reload window so the translations take effect
+                if(Settings.LoadLanguage(Settings.Language) == true)
+                    menu = MENU_SETTINGS;   //reload window so the translations take effect
 				break;
             case 2:
 				Settings.AutoConnect++;
@@ -889,12 +885,40 @@ static int MenuSettings()
                 break;
 		}
 
-		if(backBtn.GetState() == STATE_CLICKED)
-		{
-		    if(SDCard_Inserted())
-                Settings.Save();
-			menu = MENU_BROWSE_DEVICE;
-		}
+
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            if (Settings.MountMethod == SD) options.SetValue(i++,tr("SD"));
+            else if (Settings.MountMethod == USB) options.SetValue(i++,tr("USB"));
+            else if (Settings.MountMethod == SMB1) options.SetValue(i++, tr("SMB1"));
+            else if (Settings.MountMethod == SMB2) options.SetValue(i++, tr("SMB2"));
+            else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
+            else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
+
+            if (Settings.Language == APP_DEFAULT) options.SetValue(i++,tr("App Default"));
+            else if (Settings.Language == CONSOLE_DEFAULT) options.SetValue(i++,tr("Console Default"));
+            else if (Settings.Language == JAPANESE) options.SetValue(i++,tr("Japanese"));
+            else if (Settings.Language == ENGLISH) options.SetValue(i++,tr("English"));
+            else if (Settings.Language == GERMAN) options.SetValue(i++,tr("German"));
+            else if (Settings.Language == FRENCH) options.SetValue(i++,tr("French"));
+            else if (Settings.Language == SPANISH) options.SetValue(i++,tr("Spanish"));
+            else if (Settings.Language == ITALIAN) options.SetValue(i++,tr("Italian"));
+            else if (Settings.Language == DUTCH) options.SetValue(i++,tr("Dutch"));
+            else if (Settings.Language == S_CHINESE) options.SetValue(i++,tr("S. Chinese"));
+            else if (Settings.Language == T_CHINESE) options.SetValue(i++,tr("T. Chinese"));
+            else if (Settings.Language == KOREAN) options.SetValue(i++,tr("Korean"));
+
+            if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
+            else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
+
+            if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
+            else options.SetValue(i++, tr("OFF"));
+
+            options.SetValue(i++, " ");
+        }
 	}
 
 	HaltGui();

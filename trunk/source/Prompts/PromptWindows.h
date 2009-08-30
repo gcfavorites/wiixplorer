@@ -27,5 +27,6 @@ int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Labe
 int RightClickMenu(int x, int y);
 int Properties(const char * filename, const char * filepath, int folder, float filesize = 0.0);
 int WaitSMBConnect(void);
+void CreditsWindow(void);
 
 #endif

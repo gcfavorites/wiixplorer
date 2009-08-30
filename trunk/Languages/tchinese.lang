@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-15 10:15+0200\n"
+"POT-Creation-Date: 2009-08-30 16:51+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -39,6 +39,9 @@ msgstr "無法開啟圖形檔案"
 msgid "Change Settings"
 msgstr "變更設定"
 
+msgid "Coders:"
+msgstr ""
+
 msgid "Connect SMB"
 msgstr "連接區域網路"
 
@@ -60,6 +63,9 @@ msgstr "正在複製檔案:"
 msgid "Copying files:"
 msgstr "正在複製檔案:"
 
+msgid "Credits"
+msgstr ""
+
 msgid "Cut"
 msgstr "剪下"
 
@@ -80,6 +86,12 @@ msgstr "刪除此檔案?"
 
 msgid "Deleting files:"
 msgstr "正在刪除檔案:"
+
+msgid "Designer:"
+msgstr ""
+
+msgid "Dimok"
+msgstr ""
 
 msgid "Directory .."
 msgstr "目錄.."
@@ -211,6 +223,9 @@ msgstr "音樂音量"
 msgid "Name already exists."
 msgstr "名稱已存在"
 
+msgid "NeoRame"
+msgstr ""
+
 msgid "Network initialising..."
 msgstr "正在啟動網路"
 
@@ -292,8 +307,17 @@ msgstr "檔案大小:"
 msgid "Spanish"
 msgstr "西班牙文"
 
+msgid "Special thanks to:"
+msgstr ""
+
 msgid "T. Chinese"
 msgstr "繁體中文"
+
+msgid "Tantric for his great tool libwiigui."
+msgstr ""
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr ""
 
 msgid "This is no OGG/MP3 file"
 msgstr "非OGG/MP3檔案"
@@ -331,3 +355,6 @@ msgstr "無法讀/寫相同檔案"
 
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在:"
+
+msgid "r-win"
+msgstr ""

@@ -23,6 +23,9 @@ extern const u32	button_over_pcm_size;
 extern const u8		button_click_pcm[];
 extern const u32	button_click_pcm_size;
 
+extern const u8		WiiXplorer_png[];
+extern const u32	WiiXplorer_png_size;
+
 extern const u8		background_png[];
 extern const u32	background_png_size;
 

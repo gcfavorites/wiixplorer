@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
-				source/BootHomebrew source/sevenzip source/libmad source/libgif
+				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x8090a
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-ljpeg -lpngu -lpng -lmetaphrasis -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype -ltinysmb
+LIBS :=	-ljpeg -lpng -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype -ltinysmb
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <io.h>
+#include <malloc.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -123,7 +123,7 @@ DGifOpenFileHandle(int FileHandle) {
     /* The GIF Version number is ignored at this time. Maybe we should do
      * something more useful with it.  */
     Buf[GIF_STAMP_LEN] = 0;
-    if (strncmp(GIF_STAMP, Buf, GIF_VERSION_POS) != 0) {
+    if (strncmp(GIF_STAMP, (void *) Buf, GIF_VERSION_POS) != 0) {
         _GifError = D_GIF_ERR_NOT_GIF_FILE;
         fclose(f);
         free((char *)Private);
@@ -190,7 +190,7 @@ DGifOpen(void *userData,
     /* The GIF Version number is ignored at this time. Maybe we should do
      * something more useful with it. */
     Buf[GIF_STAMP_LEN] = 0;
-    if (strncmp(GIF_STAMP, Buf, GIF_VERSION_POS) != 0) {
+    if (strncmp(GIF_STAMP, (void *) Buf, GIF_VERSION_POS) != 0) {
         _GifError = D_GIF_ERR_NOT_GIF_FILE;
         free((char *)Private);
         free((char *)GifFile);

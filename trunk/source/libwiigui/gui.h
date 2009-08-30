@@ -41,14 +41,14 @@
 #include <math.h>
 #include <asndlib.h>
 #include <wiiuse/wpad.h>
-#include "pngu/pngu.h"
+#include "libpngu/pngu.h"
 #include "FreeTypeGX.h"
 #include "video.h"
 #include "filelist.h"
 #include "input.h"
 #include "oggplayer.h"
 
-extern FreeTypeGX *fontSystem;
+extern FreeTypeGX *fontSystem[];
 
 #define SCROLL_INITIAL_DELAY 	20
 #define SCROLL_LOOP_DELAY 		3
@@ -97,6 +97,16 @@ enum
 	TRIGGER_BUTTON_ONLY,
 	TRIGGER_BUTTON_ONLY_IN_FOCUS
 };
+
+enum
+{
+	WRAP,
+	LONGTEXT,
+	DOTTED,
+	SCROLL_HORIZONTAL,
+	SCROLL_NONE
+};
+
 
 typedef struct _paddata {
 	u16 btns_d;
@@ -632,7 +642,7 @@ class GuiText : public GuiElement
 		//!\param s Font style
 		//!\param h Text alignment (horizontal)
 		//!\param v Text alignment (vertical)
-		static void SetPresets(int sz, GXColor c, int w, int wrap, u16 s, int h, int v);
+		void SetPresets(int sz, GXColor c, int w, u16 s, int h, int v);
 		//!Sets the font size
 		//!\param s Font size
 		void SetFontSize(int s);
@@ -648,21 +658,14 @@ class GuiText : public GuiElement
 		//!If the text exceeds this, it is wrapped to the next line
 		//!\param w Maximum width
 		//!\param m WrapMode
-		enum {
-			WRAP,
-			DOTTED,
-			SCROLL,
-			MARQUEE,
-			LONGTEXT
-		};
-		void SetMaxWidth(int w, short m=GuiText::WRAP);
+		void SetMaxWidth(int w = 0, int m = WRAP);
 		//!Sets the font color
 		//!\param c Font color
 		void SetColor(GXColor c);
 		//!Sets the FreeTypeGX style attributes
 		//!\param s Style attributes
 		//!\param m Style-Mask attributes
-		void SetStyle(u16 s, u16 m=0xffff);
+		void SetStyle(u16 s);
 		//!Sets the text alignment
 		//!\param hor Horizontal alignment (ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTRE)
 		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
@@ -680,13 +683,14 @@ class GuiText : public GuiElement
 		void Draw();
 	protected:
 		wchar_t* text; //!< Unicode text value
+		char * origText; //!< Original text data
+		int wrapMode; //!< Wrapping toggle
+		wchar_t* textDyn; //!< Wrapped text value
+		int textScrollPos; //!< Current starting index of text string for scrolling
+		int textScrollInitialDelay; //!< Delay to wait before starting to scroll
+		int textScrollDelay; //!< Scrolling speed
 		int size; //!< Font size
 		int maxWidth; //!< Maximum width of the generated text object (for text wrapping)
-		short wrapMode;
-		short scrollPos1;
-		short scrollPos2;
-		short scrollOffset;
-		u32 scrollDelay;
 		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
@@ -696,7 +700,6 @@ class GuiText : public GuiElement
 		int totalLines;
 		int textWidth;
 		u32 *LineBreak;
-
 };
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)
