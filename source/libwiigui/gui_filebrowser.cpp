@@ -102,15 +102,15 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
-		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
+		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
 		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListText[i]->SetPosition(10,0);
-		fileListText[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+30), GuiText::DOTTED);
+		fileListText[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+30), DOTTED);
 
-		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 0xff});
+		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
 		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListTextOver[i]->SetPosition(10,0);
-		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+30), GuiText::SCROLL);
+		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+35), SCROLL_HORIZONTAL);
 
 		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
 		fileListFolder[i] = new GuiImage(fileFolder);
@@ -282,11 +282,11 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	}
 
 	// pad/joystick navigation
-	if(!focus)
-	{
-		goto endNavigation; // skip navigation
-		listChanged = false;
-	}
+	//if(!focus)
+	//{
+		//goto endNavigation; // skip navigation
+	//	listChanged = false;
+	//}
 
 	if(t->Right())
 	{
@@ -340,11 +340,15 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 		}
 	}
 
-	endNavigation:
+	//endNavigation:
+	if(numEntries != browser.numEntries) {
+	    numEntries = browser.numEntries;
+        listChanged = true;
+	}
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
-		if(listChanged || numEntries != browser.numEntries)
+		if(listChanged)
 		{
 			if(browser.pageIndex+i < browser.numEntries)
 			{

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h> //usleep
 
-#include "network.h"
+#include <network.h>
 
 #ifdef __cplusplus
 extern "C"

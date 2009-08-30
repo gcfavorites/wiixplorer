@@ -4,10 +4,10 @@
 #include <stdio.h>
 
 #include "Prompts/PromptWindows.h"
-#include "FileStartUp.h"
-#include "TextViewer.h"
-#include "ImageViewer.h"
-#include "MusicLoader.h"
+#include "FileStartUp/FileStartUp.h"
+#include "FileStartUp/TextViewer.h"
+#include "FileStartUp/ImageViewer.h"
+#include "FileStartUp/MusicLoader.h"
 #include "gettext.h"
 
 int FileStartUp(const char *filepath)

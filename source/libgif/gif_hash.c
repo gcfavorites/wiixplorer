@@ -15,7 +15,7 @@
 * History:								     *
 * 14 Jun 89 - Version 1.0 by Gershon Elber.				     *
 *****************************************************************************/
-
+#include <malloc.h>
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

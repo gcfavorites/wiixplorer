@@ -179,12 +179,12 @@ const char *btn4Label)
     GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
-    titleTxt.SetMaxWidth(400, GuiText::DOTTED);
+    titleTxt.SetMaxWidth(400, DOTTED);
 
     GuiText msgTxt(msg, 22, (GXColor){0, 0, 0, 255});
     msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     msgTxt.SetPosition(0,-40);
-    msgTxt.SetMaxWidth(430, GuiText::DOTTED);
+    msgTxt.SetMaxWidth(430, DOTTED);
 
     GuiText btn1Txt(btn1Label, 22, (GXColor){0, 0, 0, 255});
     GuiImage btn1Img(&btnOutline);
@@ -362,12 +362,12 @@ int WaitSMBConnect(void)
     GuiText titleTxt(tr("Please wait:"), 26, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
-    titleTxt.SetMaxWidth(430, GuiText::DOTTED);
+    titleTxt.SetMaxWidth(430, DOTTED);
 
     GuiText msgTxt(tr("Network initialising..."), 22, (GXColor){0, 0, 0, 255});
     msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     msgTxt.SetPosition(0,-40);
-    msgTxt.SetMaxWidth(430, GuiText::DOTTED);
+    msgTxt.SetMaxWidth(430, DOTTED);
 
     GuiText btn1Txt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
     GuiImage btn1Img(&btnOutline);
@@ -663,7 +663,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     GuiText TitleTxt(filename, 24, (GXColor){0, 0, 0, 255});
     TitleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     TitleTxt.SetPosition(0, 50);
-    TitleTxt.SetMaxWidth(dialogBox.GetWidth()-20, GuiText::DOTTED);
+    TitleTxt.SetMaxWidth(dialogBox.GetWidth()-20, DOTTED);
 
     GuiImageData titleData(folder_png);
     GuiImage TitleImg(&titleData);
@@ -674,7 +674,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     GuiText filepathTxt(temp, 22, (GXColor){0, 0, 0, 255});
     filepathTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filepathTxt.SetPosition(20, 100);
-    filepathTxt.SetMaxWidth(dialogBox.GetWidth()-30, GuiText::DOTTED);
+    filepathTxt.SetMaxWidth(dialogBox.GetWidth()-30, DOTTED);
 
     GuiText filecountTxt(tr("Files:"), 22, (GXColor){0, 0, 0, 255});
     filecountTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -705,7 +705,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     char * pch;
     if(folder) {
         snprintf(temp2, sizeof(temp2), tr("Folder"));
-        TitleTxt.SetMaxWidth(dialogBox.GetWidth()-55, GuiText::DOTTED);
+        TitleTxt.SetMaxWidth(dialogBox.GetWidth()-55, DOTTED);
     } else {
         snprintf(temp, sizeof(temp), "%s", filename);
         pch = strrchr(temp, '.')+1;
@@ -840,4 +840,139 @@ int Properties(const char * filename, const char * filepath, int folder, float f
         StopSizeGain();
 
     return choice;
+}
+
+/****************************************************************************
+* CreditsWindow
+***************************************************************************/
+void CreditsWindow(void)
+{
+    GuiImageData dialogBox(bg_properties_png);
+    GuiImage dialogBoxImg(&dialogBox);
+
+    GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
+    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    promptWindow.SetPosition(100, 100);
+
+    GuiTrigger trigA;
+    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    GuiTrigger trigB;
+    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+
+    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+
+    int numEntries = 9;
+    int i = 0;
+    int y = 30;
+
+    GuiText * txt[numEntries];
+
+    txt[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+    txt[i]->SetPosition(0, y);
+    i++;
+    y += 60;
+
+    txt[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20, y);
+    i++;
+
+    txt[i] = new GuiText(tr("Dimok"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(170, y);
+    i++;
+    y += 32;
+
+    txt[i] = new GuiText(tr("r-win"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(170, y);
+    i++;
+    y += 40;
+
+    txt[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20, y);
+    i++;
+
+    txt[i] = new GuiText(tr("NeoRame"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(170, y);
+    i++;
+    y += 60;
+
+    txt[i] = new GuiText(tr("Special thanks to:"), 24, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20,y);
+    i++;
+    y += 30;
+
+    txt[i] = new GuiText(tr("Tantric for his great tool libwiigui."), 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20,y);
+    i++;
+    y += 30;
+
+    txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20,y);
+
+    GuiImageData arrowUp(scrollbar_arrowup_png);
+    GuiImageData arrowUpOver(scrollbar_arrowup_over_png);
+    GuiImage arrowUpImg(&arrowUp);
+    arrowUpImg.SetAngle(45);
+    GuiImage arrowUpImgOver(&arrowUpOver);
+    arrowUpImgOver.SetAngle(45);
+    GuiButton Backbtn(arrowUpImg.GetWidth(), arrowUpImg.GetHeight());
+    Backbtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+    Backbtn.SetSoundClick(&btnClick);
+    Backbtn.SetImage(&arrowUpImg);
+    Backbtn.SetImageOver(&arrowUpImgOver);
+    Backbtn.SetPosition(-20, 20);
+    Backbtn.SetEffectGrow();
+    Backbtn.SetTrigger(&trigA);
+    Backbtn.SetTrigger(&trigB);
+
+    promptWindow.Append(&dialogBoxImg);
+    for(int i = 0; i < numEntries; i++)
+        promptWindow.Append(txt[i]);
+    promptWindow.Append(&Backbtn);
+
+    HaltGui();
+    mainWindow->SetState(STATE_DISABLED);
+    mainWindow->Append(&promptWindow);
+    mainWindow->ChangeFocus(&promptWindow);
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
+    ResumeGui();
+
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    while(1)
+    {
+        VIDEO_WaitVSync();
+
+        if(shutdown == 1)
+            Sys_Shutdown();
+        else if(reset == 1)
+            Sys_Reboot();
+
+        else if(Backbtn.GetState() == STATE_CLICKED) {
+            break;
+        }
+    }
+
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
+
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    HaltGui();
+    mainWindow->Remove(&promptWindow);
+
+    for(int i = 0; i < numEntries; i++) {
+        delete txt[i];
+        txt[i] = NULL;
+    }
+
+    mainWindow->SetState(STATE_DEFAULT);
+    ResumeGui();
 }
