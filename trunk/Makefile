@@ -18,7 +18,8 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
-				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp
+				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
+				source/unzip source/Language
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------

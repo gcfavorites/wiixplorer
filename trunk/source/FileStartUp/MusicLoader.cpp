@@ -36,7 +36,7 @@
 #include "menu.h"
 #include "main.h"
 #include "fileops.h"
-#include "gettext.h"
+#include "Language/gettext.h"
 #include "sys.h"
 
 /*** Extern variables ***/

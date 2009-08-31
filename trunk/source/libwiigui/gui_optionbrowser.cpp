@@ -87,6 +87,9 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
+	trigHeldA = new GuiTrigger;
+	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
 	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
@@ -101,7 +104,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	scrollbarImg = new GuiImage(scrollbar);
 	scrollbarImg->SetParent(this);
 	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarImg->SetPosition(0, 30);
+	scrollbarImg->SetPosition(-10, 30);
 
 	arrowDown = new GuiImageData(scrollbar_arrowdown_png);
 	arrowDownImg = new GuiImage(arrowDown);
@@ -117,6 +120,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	arrowUpBtn->SetImage(arrowUpImg);
 	arrowUpBtn->SetImageOver(arrowUpOverImg);
 	arrowUpBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	arrowUpBtn->SetPosition(-10, 0);
 	arrowUpBtn->SetSelectable(false);
 	arrowUpBtn->SetTrigger(trigA);
 	arrowUpBtn->SetSoundOver(btnSoundOver);
@@ -127,10 +131,29 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	arrowDownBtn->SetImage(arrowDownImg);
 	arrowDownBtn->SetImageOver(arrowDownOverImg);
 	arrowDownBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	arrowDownBtn->SetPosition(-10, 0);
 	arrowDownBtn->SetSelectable(false);
 	arrowDownBtn->SetTrigger(trigA);
 	arrowDownBtn->SetSoundOver(btnSoundOver);
 	arrowDownBtn->SetSoundClick(btnSoundClick);
+
+	scrollbarBox = new GuiImageData(scrollbar_box_png);
+	scrollbarBoxImg = new GuiImage(scrollbarBox);
+	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png);
+	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
+
+	scrollbarBoxBtn = new GuiButton(scrollbarBoxImg->GetWidth(), scrollbarBoxImg->GetHeight());
+	scrollbarBoxBtn->SetParent(this);
+	scrollbarBoxBtn->SetImage(scrollbarBoxImg);
+	scrollbarBoxBtn->SetImageOver(scrollbarBoxOverImg);
+	scrollbarBoxBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbarBoxBtn->SetPosition(-10, 0);
+	scrollbarBoxBtn->SetMinY(0);
+	scrollbarBoxBtn->SetMaxY(136);
+	scrollbarBoxBtn->SetSelectable(false);
+	scrollbarBoxBtn->SetClickable(false);
+	scrollbarBoxBtn->SetHoldable(true);
+	scrollbarBoxBtn->SetTrigger(trigHeldA);
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
@@ -141,6 +164,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 		optionVal[i] = new GuiText(NULL, 20, (GXColor){0, 0, 0, 0xff});
 		optionVal[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		optionVal[i]->SetPosition(250,0);
+		optionVal[i]->SetMaxWidth(width-optionTxt[i]->GetLeft()-50,DOTTED);
 
 		optionBg[i] = new GuiImage(bgOptionsEntry);
 
@@ -162,6 +186,7 @@ GuiOptionBrowser::~GuiOptionBrowser()
 {
 	delete arrowUpBtn;
 	delete arrowDownBtn;
+	delete scrollbarBoxBtn;
 
 	delete bgOptionsImg;
 	delete scrollbarImg;
@@ -169,6 +194,8 @@ GuiOptionBrowser::~GuiOptionBrowser()
 	delete arrowDownOverImg;
 	delete arrowUpImg;
 	delete arrowUpOverImg;
+	delete scrollbarBoxImg;
+	delete scrollbarBoxOverImg;
 
 	delete bgOptions;
 	delete bgOptionsEntry;
@@ -177,8 +204,11 @@ GuiOptionBrowser::~GuiOptionBrowser()
 	delete arrowDownOver;
 	delete arrowUp;
 	delete arrowUpOver;
+	delete scrollbarBox;
+	delete scrollbarBoxOver;
 
 	delete trigA;
+	delete trigHeldA;
 	delete btnSoundOver;
 	delete btnSoundClick;
 
@@ -279,9 +309,12 @@ void GuiOptionBrowser::Draw()
 			break;
 	}
 
-	scrollbarImg->Draw();
-	arrowUpBtn->Draw();
-	arrowDownBtn->Draw();
+	if(options->GetLength() > PAGESIZE) {
+        scrollbarImg->Draw();
+        arrowUpBtn->Draw();
+        arrowDownBtn->Draw();
+        scrollbarBoxBtn->Draw();
+	}
 
 	this->UpdateEffects();
 }
@@ -297,9 +330,56 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 		return;
 
 	int next, prev;
+	int position = 0;
+	int positionWiimote = 0;
+	int optionslength = options->GetLength();
 
-	arrowUpBtn->Update(t);
-	arrowDownBtn->Update(t);
+    if(optionslength > PAGESIZE) {
+        arrowUpBtn->Update(t);
+        arrowDownBtn->Update(t);
+        scrollbarBoxBtn->Update(t);
+    }
+
+    // move the file listing to respond to wiimote cursor movement
+	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
+		scrollbarBoxBtn->GetStateChan() == t->chan &&
+		t->wpad.ir.valid &&
+		optionslength > PAGESIZE)
+	{
+		scrollbarBoxBtn->SetPosition(-10,0);
+		positionWiimote = t->wpad.ir.y - 60 - scrollbarBoxBtn->GetTop();
+
+		if(positionWiimote < scrollbarBoxBtn->GetMinY())
+			positionWiimote = scrollbarBoxBtn->GetMinY();
+		else if(positionWiimote > scrollbarBoxBtn->GetMaxY())
+			positionWiimote = scrollbarBoxBtn->GetMaxY();
+
+		listOffset = (positionWiimote * optionslength)/136.0 - selectedItem;
+
+		if(listOffset <= 0)
+		{
+			listOffset = 0;
+		}
+		else if(listOffset+PAGESIZE >= optionslength)
+		{
+			listOffset= optionslength-PAGESIZE;
+		}
+		listChanged = true;
+		focus = false;
+	}
+
+	if(arrowDownBtn->GetState() == STATE_HELD && arrowDownBtn->GetStateChan() == t->chan)
+	{
+		t->wpad.btns_h |= WPAD_BUTTON_DOWN;
+		if(!this->IsFocused())
+			((GuiWindow *)this->GetParent())->ChangeFocus(this);
+	}
+	else if(arrowUpBtn->GetState() == STATE_HELD && arrowUpBtn->GetStateChan() == t->chan)
+	{
+		t->wpad.btns_h |= WPAD_BUTTON_UP;
+		if(!this->IsFocused())
+			((GuiWindow *)this->GetParent())->ChangeFocus(this);
+	}
 
 	next = listOffset;
 
@@ -340,8 +420,10 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			}
 		}
 
-		for(int i = 0; i < PAGESIZE; i++)
+		for(int i = 0; i < PAGESIZE; i++) {
             optionVal[i]->SetPosition(coL2,0);
+            optionVal[i]->SetMaxWidth(width-coL2-50,DOTTED);
+		}
 	}
 
 	for(int i=0; i<PAGESIZE; i++)
@@ -409,6 +491,23 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 		}
 		arrowUpBtn->ResetState();
 	}
+
+	// update the location of the scroll box based on the position in the file list
+	if(positionWiimote > 0)
+	{
+		position = positionWiimote; // follow wiimote cursor
+	}
+	else
+	{
+		position = 136*(listOffset + PAGESIZE/2.0) / (optionslength*1.0);
+
+		if(listOffset/(PAGESIZE/2.0) < 1)
+			position = 0;
+		else if((listOffset+PAGESIZE)/(PAGESIZE*1.0) >= (optionslength)/(PAGESIZE*1.0))
+			position = 136;
+	}
+
+	scrollbarBoxBtn->SetPosition(-10,position+36);
 
 	if(updateCB)
 		updateCB(this);

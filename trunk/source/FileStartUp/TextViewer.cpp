@@ -35,7 +35,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
 #include "fileops.h"
-#include "gettext.h"
+#include "Language/gettext.h"
 #include "sys.h"
 
 /*** Extern variables ***/
