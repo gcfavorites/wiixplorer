@@ -65,9 +65,10 @@ int LanguageBrowser()
 
 	int filecount = FileList.GetFilecount();
 
-	if(!filecount)
+	if(!filecount) {
         WindowPrompt(tr("No language files found."), 0, tr("OK"));
-
+        return MENU_SETTINGS;
+	}
 	OptionList options(filecount-1);
 
 	for(i = 0; i < filecount; i++)
@@ -136,7 +137,10 @@ int LanguageBrowser()
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
 	mainWindow->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	while(menu == MENU_NONE)
 	{
@@ -195,6 +199,9 @@ int LanguageBrowser()
             }
 		}
 	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
 	mainWindow->Remove(&w);

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 13:12+0200\n"
+"POT-Creation-Date: 2009-08-31 15:25+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -114,13 +114,13 @@ msgstr "Katalog flyttad."
 msgid "Do you want to boot:"
 msgstr "Vill du starta:"
 
-msgid "Do you want to load app default language."
+msgid "Do you want to load app default language ?"
 msgstr ""
 
 msgid "Do you want to load console default language."
 msgstr ""
 
-msgid "Do you want to load this language."
+msgid "Do you want to load this language ?"
 msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
@@ -177,6 +177,9 @@ msgstr "Lyckadess flytta fil."
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Fil sökväg: %s"
+
+msgid "Files successfully extracted."
+msgstr ""
 
 msgid "Files:"
 msgstr "Filer:"
@@ -265,6 +268,9 @@ msgstr "Klistra in"
 msgid "Paste into current directory?"
 msgstr "Klistra in i nuvarande katalog?"
 
+msgid "Please copy this file to SD/USB first"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
 
@@ -276,6 +282,9 @@ msgstr "Återanslut SMB"
 
 msgid "Rename"
 msgstr "Byt namn"
+
+msgid "Restart the app to load the new font."
+msgstr ""
 
 msgid "Retry"
 msgstr "Försök igen"
@@ -353,7 +362,7 @@ msgstr "Du kan inte läsa/skriva från/till samma fil."
 msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"
 
-msgid "You need to restart the app for it to take effect."
+msgid "Zipfiles on SMB don't work for now"
 msgstr ""
 
 msgid "r-win"
