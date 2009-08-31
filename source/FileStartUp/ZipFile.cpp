@@ -73,6 +73,10 @@ bool ZipFile::ExtractAll(const char *dest)
     char filename[MAXPATHLEN];
     memset(filename, 0, sizeof(filename));
 
+    int ret = unzGoToFirstFile(File);
+    if(ret != UNZ_OK)
+        Stop = true;
+
     StartProgress(tr("Extracting files..."));
 
     while(!Stop)
@@ -87,7 +91,7 @@ bool ZipFile::ExtractAll(const char *dest)
             u64 done = 0;
             char *pointer = NULL;
 
-            int ret = unzOpenCurrentFile(File);
+            ret = unzOpenCurrentFile(File);
 
             snprintf(writepath, sizeof(writepath), "%s/%s", dest, filename);
 

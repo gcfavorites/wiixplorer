@@ -4,6 +4,7 @@
 enum
 {
     BOOTHOMEBREW = 1,
+    TRIGGERUPDATE
 };
 
 int FileStartUp(const char * filepath);

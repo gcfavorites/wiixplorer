@@ -48,16 +48,21 @@ extern u8 reset;
 extern void ResumeGui();
 extern void HaltGui();
 
-void ZipBrowse(const char *filepath, const char *dest)
+bool ZipBrowse(const char *filepath, const char *dest)
 {
     bool exitwindow = false;
+    bool result = false;
 
     ZipFile zipFile(filepath);
 
-    if(zipFile.ExtractAll(dest) != true)
-        WindowPrompt(tr("Error"), tr("Failed to extract files."), tr("OK"));
+    result = zipFile.ExtractAll(dest);
 
-    return;     //!The rest is comming next
+    if(result != true)
+        WindowPrompt(tr("Error"), tr("Failed to extract files."), tr("OK"));
+    else
+        WindowPrompt(tr("Files successfully extracted."), 0, tr("OK"));
+
+    return result;     //!The rest is comming next
 
     GuiImageData dialogBox(bg_properties_png);
     GuiImage dialogBoxImg(&dialogBox);

@@ -346,7 +346,12 @@ static int MenuBrowseDevice()
 	w.Append(&deviceSwitchBtn);
 	w.Append(&TaskBar);
 	mainWindow->Append(&w);
+
+    w.SetEffect(EFFECT_FADE, 50);
+
 	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	while(menu == MENU_NONE)
 	{
@@ -382,6 +387,10 @@ static int MenuBrowseDevice()
                             strncpy(Clipboard.filepath, filepath, sizeof(Clipboard.filepath));
                             boothomebrew = true;
                         }
+                    }
+                    else if(result == TRIGGERUPDATE) {
+                        ParseDirectory();
+                        fileBrowser.TriggerUpdate();
                     }
 				}
 			}
@@ -619,12 +628,15 @@ static int MenuBrowseDevice()
                     fileBrowser.TriggerUpdate();
                 }
             }
-
             fileBrowser.DisableTriggerUpdate(false);
 		}
             clickmenuBtn.ResetState();
         }
 	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
 	HaltGui();
 	mainWindow->Remove(&w);
 	ResumeGui();
@@ -687,7 +699,10 @@ static int MenuSMBSettings()
 	w.Append(&optionBrowser);
 	w.Append(&titleTxt);
 	mainWindow->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	while(menu == MENU_NONE)
 	{
@@ -765,6 +780,9 @@ static int MenuSMBSettings()
         }
 	}
 
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
 	HaltGui();
 	mainWindow->Remove(&w);
 	ResumeGui();
@@ -823,7 +841,10 @@ static int MenuSettings()
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
 	mainWindow->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	while(menu == MENU_NONE)
 	{
@@ -912,6 +933,9 @@ static int MenuSettings()
             options.SetValue(i++, " ");
         }
 	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
 	mainWindow->Remove(&w);
