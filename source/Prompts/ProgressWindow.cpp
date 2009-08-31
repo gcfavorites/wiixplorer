@@ -38,7 +38,7 @@
 #include "filebrowser.h"
 #include "menu.h"
 #include "fileops.h"
-#include "gettext.h"
+#include "Language/gettext.h"
 #include "sys.h"
 
 /*** Variables used only in this file ***/
@@ -51,6 +51,7 @@ static short    showProgress = 0;
 static u64      progressDone = 0;
 static u64      progressTotal = 100;
 static time_t   start = 0;
+static bool     changed = false;
 
 /*** Variables used outside of this file ***/
 bool            actioncanceled = false;
@@ -137,7 +138,7 @@ void ProgressWindow()
 	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	throbberImg.SetPosition(0, 25);
 
-	GuiText titleTxt(progressTitle, 26, (GXColor){0, 0, 0, 255});
+	GuiText titleTxt(progressTitle, 24, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	titleTxt.SetPosition(0,50);
 	titleTxt.SetMaxWidth(430, DOTTED);
@@ -147,11 +148,11 @@ void ProgressWindow()
 	msgTxt.SetPosition(0,110);
 	msgTxt.SetMaxWidth(430, DOTTED);
 
-    GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+    GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	prTxt.SetPosition(200, 15);
 
-	GuiText prsTxt("%", 26, (GXColor){0, 0, 0, 255});
+	GuiText prsTxt("%", 24, (GXColor){0, 0, 0, 255});
 	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
 	prsTxt.SetPosition(-188, 15);
 
@@ -205,21 +206,25 @@ void ProgressWindow()
 	{
 	    VIDEO_WaitVSync();
 
-	    UpdateProgressValues();
+	    if(changed) {
 
-        msgTxt.SetText(progressMsg);
+            UpdateProgressValues();
 
-        if(showProgress == PROGRESSBAR) {
-            progressbarImg.SetTile(100*progressDone/progressTotal);
-            prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
-            speedTxt.SetTextf("%iKB/s", progressSpeed);
-            sizeTxt.SetTextf("%s", progressSizeLeft);
-        } else {
-            angle += 5;
-            if(angle > 360)
-                angle = 0 + (angle - 360);
-            throbberImg.SetAngle(angle);
-        }
+            msgTxt.SetText(progressMsg);
+
+            if(showProgress == PROGRESSBAR) {
+                progressbarImg.SetTile(100*progressDone/progressTotal);
+                prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
+                speedTxt.SetTextf("%iKB/s", progressSpeed);
+                sizeTxt.SetTextf("%s", progressSizeLeft);
+            } else {
+                angle += 5;
+                if(angle > 360)
+                    angle = 0 + (angle - 360);
+                throbberImg.SetAngle(angle);
+            }
+            changed = false;
+	    }
 
         if(shutdown == 1) {
             actioncanceled = true;
@@ -315,6 +320,8 @@ void ShowProgress(u64 done, u64 total, const char *msg)
 
     progressDone = done;
     progressTotal = total;
+
+    changed = true;
 }
 
 /****************************************************************************

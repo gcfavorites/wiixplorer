@@ -28,10 +28,35 @@ static FT_GlyphSlot ftSlot;		/**< FreeType reusable FT_GlyphSlot glyph container
 
 FreeTypeGX *fontSystem[MAX_FONT_SIZE+1];
 
-void InitFreeType(uint8_t* fontBuffer, FT_Long bufferSize)
+void InitFreeType(const char *path, uint8_t* fontBuffer, FT_Long bufferSize)
 {
+    FILE *pfile = fopen(path, "rb");
+    size_t filesize = 0;
+    void *buffer = NULL;
+
+    bool use_standard = false;
+
+    if(!pfile)
+        use_standard = true;
+    else {
+        fseek(pfile, 0, SEEK_END);
+        filesize = ftell(pfile);
+        rewind(pfile);
+
+        buffer = malloc(filesize);
+        if(!buffer) {
+            use_standard = true;
+        } else {
+            fread(buffer, 1, filesize, pfile);
+        }
+        fclose(pfile);
+    }
+
 	FT_Init_FreeType(&ftLibrary);
-	FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &ftFace);
+	if(use_standard || !buffer)
+        FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &ftFace);
+    else
+        FT_New_Memory_Face(ftLibrary, (FT_Byte *)buffer, filesize, 0, &ftFace);
 	ftSlot = ftFace->glyph;
 
 	for(int i=0; i<50; i++)

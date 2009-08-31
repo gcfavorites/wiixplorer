@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-30 16:51+0200\n"
+"POT-Creation-Date: 2009-08-31 13:12+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -66,6 +66,9 @@ msgstr "Copiando Arquivos:"
 msgid "Credits"
 msgstr ""
 
+msgid "Customfont Path"
+msgstr ""
+
 msgid "Cut"
 msgstr "Cortar"
 
@@ -111,6 +114,15 @@ msgstr "Diretório movido com sucesso."
 msgid "Do you want to boot:"
 msgstr "Você deseja iniciar:"
 
+msgid "Do you want to load app default language."
+msgstr ""
+
+msgid "Do you want to load console default language."
+msgstr ""
+
+msgid "Do you want to load this language."
+msgstr ""
+
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Você deseja abrir esse arquivo no TextViewer?"
 
@@ -123,19 +135,19 @@ msgstr "Você deseja tocar esse arquivo?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Você deseja reconectar ao SMB?"
 
-msgid "Dutch"
-msgstr "Holandês"
-
 msgid "ERROR"
 msgstr ""
 
-msgid "English"
-msgstr "Inglês"
+msgid "Enter a directory where to extract the files to."
+msgstr ""
 
 msgid "Error"
 msgstr ""
 
 msgid "Error:"
+msgstr ""
+
+msgid "Extracting files..."
 msgstr ""
 
 msgid "Failed copying file."
@@ -146,6 +158,9 @@ msgstr "Falha ao copiar arquivos."
 
 msgid "Failed renaming file"
 msgstr "Falha ao renomear aquivo"
+
+msgid "Failed to extract files."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Arquivo não foi apagado."
@@ -172,11 +187,8 @@ msgstr "Tipo do Arquivo:"
 msgid "Folder"
 msgstr "Pasta"
 
-msgid "French"
-msgstr "Francãs"
-
-msgid "German"
-msgstr "Alemão"
+msgid "Fontpath changed"
+msgstr ""
 
 msgid "Go Back"
 msgstr "Voltar"
@@ -186,15 +198,6 @@ msgstr ""
 
 msgid "Image"
 msgstr "Imagem"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "Japanese"
-msgstr "Japonês"
-
-msgid "Korean"
-msgstr "Coreano"
 
 msgid "Language"
 msgstr "Língua"
@@ -235,6 +238,9 @@ msgstr "Nova Pasta"
 msgid "No"
 msgstr "Não"
 
+msgid "No language files found."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Sem memória suficiente"
 
@@ -274,9 +280,6 @@ msgstr "Renomear"
 msgid "Retry"
 msgstr "Tentar Novamente"
 
-msgid "S. Chinese"
-msgstr "Chinês Simples"
-
 msgid "SD"
 msgstr ""
 
@@ -304,14 +307,8 @@ msgstr ""
 msgid "Size:"
 msgstr "Tamanho:"
 
-msgid "Spanish"
-msgstr "Espanhol"
-
 msgid "Special thanks to:"
 msgstr ""
-
-msgid "T. Chinese"
-msgstr "Chinês Tradicional"
 
 msgid "Tantric for his great tool libwiigui."
 msgstr ""
@@ -356,5 +353,38 @@ msgstr "Você não pode ler/escrever de/para o mesmo arquivo."
 msgid "You cant use this operation on:"
 msgstr "Você não pode usar essa opção em:"
 
+msgid "You need to restart the app for it to take effect."
+msgstr ""
+
 msgid "r-win"
 msgstr ""
+
+#~ msgid "Dutch"
+#~ msgstr "Holandês"
+
+#~ msgid "English"
+#~ msgstr "Inglês"
+
+#~ msgid "French"
+#~ msgstr "Francãs"
+
+#~ msgid "German"
+#~ msgstr "Alemão"
+
+#~ msgid "Italian"
+#~ msgstr "Italiano"
+
+#~ msgid "Japanese"
+#~ msgstr "Japonês"
+
+#~ msgid "Korean"
+#~ msgstr "Coreano"
+
+#~ msgid "S. Chinese"
+#~ msgstr "Chinês Simples"
+
+#~ msgid "Spanish"
+#~ msgstr "Espanhol"
+
+#~ msgid "T. Chinese"
+#~ msgstr "Chinês Tradicional"

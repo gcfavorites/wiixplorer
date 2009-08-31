@@ -57,7 +57,7 @@ class Settings
         bool SetSetting(char * name, char * value);
 		//!Load a languagefile
 		//!\param language
-        bool LoadLanguage(int language);
+        bool LoadLanguage(const char *path, int language = -1);
 
         //!Settings variables:
         //!Current selected device to browse
@@ -68,8 +68,10 @@ class Settings
         short	AutoConnect;
         //!Music Volume.
         short	MusicVolume;
-        //!Language Selected language.
-        short	Language;
+        //!Languagefile path
+        char	LanguagePath[150];
+        //!Path to the customfont file.
+        char	CustomFontPath[150];
         //!SMB users informations
         struct  SMBData SMBUser[MAXSMBUSERS];
 

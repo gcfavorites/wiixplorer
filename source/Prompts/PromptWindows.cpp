@@ -43,11 +43,11 @@
 #include "foldersize.h"
 #include "menu.h"
 #include "filelist.h"
-#include "gettext.h"
+#include "Language/gettext.h"
 #include "sys.h"
 
 /*** Variables used only in this file ***/
-static GuiText prTxt(NULL, 26, (GXColor){0, 0, 0, 255});
+static GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
 static GuiText speedTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 static GuiText sizeTxt(NULL, 22, (GXColor){0, 0, 0, 255});
 static GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
@@ -176,7 +176,7 @@ const char *btn4Label)
     GuiImageData dialogBox(dialogue_box_png);
     GuiImage dialogBoxImg(&dialogBox);
 
-    GuiText titleTxt(title, 26, (GXColor){0, 0, 0, 255});
+    GuiText titleTxt(title, 24, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
     titleTxt.SetMaxWidth(400, DOTTED);
@@ -359,7 +359,7 @@ int WaitSMBConnect(void)
     GuiImageData dialogBox(dialogue_box_png);
     GuiImage dialogBoxImg(&dialogBox);
 
-    GuiText titleTxt(tr("Please wait:"), 26, (GXColor){0, 0, 0, 255});
+    GuiText titleTxt(tr("Please wait:"), 24, (GXColor){0, 0, 0, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(0,55);
     titleTxt.SetMaxWidth(430, DOTTED);
@@ -453,8 +453,8 @@ int RightClickMenu(int x, int y)
 
     GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-    GuiText cutTxt(tr("Cut"), 26, (GXColor){0, 0, 0, 255});
-    GuiText cutTxtOver(tr("Cut"), 26, (GXColor){28, 32, 190, 255});
+    GuiText cutTxt(tr("Cut"), 24, (GXColor){0, 0, 0, 255});
+    GuiText cutTxtOver(tr("Cut"), 24, (GXColor){28, 32, 190, 255});
     cutTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     cutTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton btnCut(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -468,8 +468,8 @@ int RightClickMenu(int x, int y)
     btnCut.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText copyTxt(tr("Copy"), 26, (GXColor){0, 0, 0, 255});
-    GuiText copyTxtOver(tr("Copy"), 26, (GXColor){28, 32, 190, 255});
+    GuiText copyTxt(tr("Copy"), 24, (GXColor){0, 0, 0, 255});
+    GuiText copyTxtOver(tr("Copy"), 24, (GXColor){28, 32, 190, 255});
     copyTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     copyTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Copybtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -483,8 +483,8 @@ int RightClickMenu(int x, int y)
     Copybtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText pasteTxt(tr("Paste"), 26, (GXColor){0, 0, 0, 255});
-    GuiText PasteTxtOver(tr("Paste"), 26, (GXColor){28, 32, 190, 255});
+    GuiText pasteTxt(tr("Paste"), 24, (GXColor){0, 0, 0, 255});
+    GuiText PasteTxtOver(tr("Paste"), 24, (GXColor){28, 32, 190, 255});
     pasteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     PasteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Pastebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -498,8 +498,8 @@ int RightClickMenu(int x, int y)
     Pastebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText RenameTxt(tr("Rename"), 26, (GXColor){0, 0, 0, 255});
-    GuiText RenameTxtOver(tr("Rename"), 26, (GXColor){28, 32, 190, 255});
+    GuiText RenameTxt(tr("Rename"), 24, (GXColor){0, 0, 0, 255});
+    GuiText RenameTxtOver(tr("Rename"), 24, (GXColor){28, 32, 190, 255});
     RenameTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     RenameTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Renamebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -513,8 +513,8 @@ int RightClickMenu(int x, int y)
     Renamebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText DeleteTxt(tr("Delete"), 26, (GXColor){0, 0, 0, 255});
-    GuiText DeleteTxtOver(tr("Delete"), 26, (GXColor){28, 32, 190, 255});
+    GuiText DeleteTxt(tr("Delete"), 24, (GXColor){0, 0, 0, 255});
+    GuiText DeleteTxtOver(tr("Delete"), 24, (GXColor){28, 32, 190, 255});
     DeleteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     DeleteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Deletebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -528,8 +528,8 @@ int RightClickMenu(int x, int y)
     Deletebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText NewFolderTxt(tr("New Folder"), 26, (GXColor){0, 0, 0, 255});
-    GuiText NewFolderTxtOver(tr("New Folder"), 26, (GXColor){28, 32, 190, 255});
+    GuiText NewFolderTxt(tr("New Folder"), 24, (GXColor){0, 0, 0, 255});
+    GuiText NewFolderTxtOver(tr("New Folder"), 24, (GXColor){28, 32, 190, 255});
     NewFolderTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     NewFolderTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton NewFolderbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
@@ -543,8 +543,8 @@ int RightClickMenu(int x, int y)
     NewFolderbtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     buttonY += promptWindow.GetHeight()/numItems;
 
-    GuiText PropertiesTxt(tr("Properties"), 26, (GXColor){0, 0, 0, 255});
-    GuiText PropertiesTxtOver(tr("Properties"), 26, (GXColor){28, 32, 190, 255});
+    GuiText PropertiesTxt(tr("Properties"), 24, (GXColor){0, 0, 0, 255});
+    GuiText PropertiesTxtOver(tr("Properties"), 24, (GXColor){28, 32, 190, 255});
     PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     PropertiesTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     GuiButton Propertiesbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);

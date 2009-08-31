@@ -40,7 +40,7 @@ main(int argc, char *argv[])
 	USBDevice_Init(); // Initialize file system
 
 	Settings.Load();
-	Settings.LoadLanguage(Settings.Language);
+	Settings.LoadLanguage(Settings.LanguagePath);
 
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
@@ -48,7 +48,7 @@ main(int argc, char *argv[])
 
 
 	// Initialize font system
-	InitFreeType((u8*)font_ttf, font_ttf_size);
+	InitFreeType(Settings.CustomFontPath, (u8*)font_ttf, font_ttf_size);
 
 	InitThreads();
 	MainMenu(MENU_BROWSE_DEVICE);

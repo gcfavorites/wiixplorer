@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-30 16:51+0200\n"
+"POT-Creation-Date: 2009-08-31 13:12+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -67,6 +67,9 @@ msgstr "Bestanden kopieren:"
 msgid "Credits"
 msgstr ""
 
+msgid "Customfont Path"
+msgstr ""
+
 msgid "Cut"
 msgstr "Knippen"
 
@@ -112,6 +115,15 @@ msgstr "Locatie verplaatst."
 msgid "Do you want to boot:"
 msgstr "Wil je starten:"
 
+msgid "Do you want to load app default language."
+msgstr ""
+
+msgid "Do you want to load console default language."
+msgstr ""
+
+msgid "Do you want to load this language."
+msgstr ""
+
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Wil je dit bestand in een tekstverwerker openen?"
 
@@ -124,20 +136,20 @@ msgstr "Wil je dit bestand afspelen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Wil je terug met de SMB verbinden?"
 
-msgid "Dutch"
-msgstr "Nederlands"
-
 msgid "ERROR"
 msgstr "FOUT"
 
-msgid "English"
-msgstr "Engels"
+msgid "Enter a directory where to extract the files to."
+msgstr ""
 
 msgid "Error"
 msgstr "Fout"
 
 msgid "Error:"
 msgstr "Fout:"
+
+msgid "Extracting files..."
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Bestand kopieren mislukt."
@@ -147,6 +159,9 @@ msgstr "Bestanden kopieren mislukt."
 
 msgid "Failed renaming file"
 msgstr "Bestand hernoemen mislukt"
+
+msgid "Failed to extract files."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Bestand kon niet worden verwijderd"
@@ -173,11 +188,8 @@ msgstr "Type:"
 msgid "Folder"
 msgstr "Map"
 
-msgid "French"
-msgstr "Frans"
-
-msgid "German"
-msgstr "Duits"
+msgid "Fontpath changed"
+msgstr ""
 
 msgid "Go Back"
 msgstr "Terug"
@@ -187,15 +199,6 @@ msgstr "Gastheer:"
 
 msgid "Image"
 msgstr "Afbeelding"
-
-msgid "Italian"
-msgstr "Italiaans"
-
-msgid "Japanese"
-msgstr "Japans"
-
-msgid "Korean"
-msgstr "Koreaans"
 
 msgid "Language"
 msgstr "Taal"
@@ -236,6 +239,9 @@ msgstr "Nieuwe map"
 msgid "No"
 msgstr "Nee"
 
+msgid "No language files found."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Niet genoeg vrij geheugen."
 
@@ -275,9 +281,6 @@ msgstr "Hernoemen"
 msgid "Retry"
 msgstr "Opnieuw prob."
 
-msgid "S. Chinese"
-msgstr "S. Chinees"
-
 msgid "SD"
 msgstr "SD"
 
@@ -305,14 +308,8 @@ msgstr "SMB4"
 msgid "Size:"
 msgstr "Grootte:"
 
-msgid "Spanish"
-msgstr "Spaans"
-
 msgid "Special thanks to:"
 msgstr ""
-
-msgid "T. Chinese"
-msgstr "T. Chinees"
 
 msgid "Tantric for his great tool libwiigui."
 msgstr ""
@@ -357,5 +354,38 @@ msgstr "Je kan niet lezen/schrijven van/naar hetzelfde bestand."
 msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
+msgid "You need to restart the app for it to take effect."
+msgstr ""
+
 msgid "r-win"
 msgstr ""
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
+
+#~ msgid "English"
+#~ msgstr "Engels"
+
+#~ msgid "French"
+#~ msgstr "Frans"
+
+#~ msgid "German"
+#~ msgstr "Duits"
+
+#~ msgid "Italian"
+#~ msgstr "Italiaans"
+
+#~ msgid "Japanese"
+#~ msgstr "Japans"
+
+#~ msgid "Korean"
+#~ msgstr "Koreaans"
+
+#~ msgid "S. Chinese"
+#~ msgstr "S. Chinees"
+
+#~ msgid "Spanish"
+#~ msgstr "Spaans"
+
+#~ msgid "T. Chinese"
+#~ msgstr "T. Chinees"

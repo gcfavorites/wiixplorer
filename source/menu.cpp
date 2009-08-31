@@ -51,7 +51,8 @@
 #include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
 #include "BootHomebrew/BootHomebrew.h"
-#include "gettext.h"
+#include "Language/gettext.h"
+#include "Language/LanguageBrowser.h"
 #include "sys.h"
 
 GuiWindow * mainWindow = NULL;
@@ -115,17 +116,6 @@ UpdateGUI (void *arg)
 	{
 		if(guiHalt)
 		{
-		    /*
-		    #ifdef HW_RVL
-		    for(i = 0; i < 4; i++) {
-		        if(pointer[i]) {
-                    delete pointer[i];
-                    pointer[i] = NULL;
-		        }
-                pointer[i] = new GuiImageData(player1_point_png);
-		    }
-            #endif
-            */
 			LWP_SuspendThread(guithread);
 		}
 		else
@@ -331,8 +321,8 @@ static int MenuBrowseDevice()
 	strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
 
 	GuiText TimeTxt(timetxt, 20, (GXColor) {40, 40, 40, 255});
-	TimeTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	TimeTxt.SetPosition(-26, 0);
+	TimeTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	TimeTxt.SetPosition(540, 0);
 
 	GuiImageData taskbarImgData(taskbar_png);
 	GuiImage taskbarImg(&taskbarImgData);
@@ -792,11 +782,12 @@ static int MenuSettings()
 	int i = 0;
 	bool firstRun = true;
 
-	OptionList options(5);
+	OptionList options(6);
 	options.SetName(i++, tr("Mount Method"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Music Volume"));
+	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("SMB Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
@@ -863,11 +854,7 @@ static int MenuSettings()
                     Settings.MountMethod = 0;
 				break;
 			case 1:
-				Settings.Language++;
-				if(Settings.Language >= MAX_LANGUAGE)
-                    Settings.Language = 0;
-                if(Settings.LoadLanguage(Settings.Language) == true)
-                    menu = MENU_SETTINGS;   //reload window so the translations take effect
+				menu = MENU_LANGUAGE_BROWSE;
 				break;
             case 2:
 				Settings.AutoConnect++;
@@ -881,6 +868,16 @@ static int MenuSettings()
                 bgMusic->SetVolume(Settings.MusicVolume);
 				break;
             case 4:
+                char entered[150];
+                snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
+                if(OnScreenKeyboard(entered, 149)) {
+                    snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
+                    WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
+                }
+				break;
+            case 5:
+				if(SDCard_Inserted())
+					Settings.Save();
                 menu = MENU_SMB_SETTINGS;
                 break;
 		}
@@ -898,24 +895,19 @@ static int MenuSettings()
             else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
             else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
 
-            if (Settings.Language == APP_DEFAULT) options.SetValue(i++,tr("App Default"));
-            else if (Settings.Language == CONSOLE_DEFAULT) options.SetValue(i++,tr("Console Default"));
-            else if (Settings.Language == JAPANESE) options.SetValue(i++,tr("Japanese"));
-            else if (Settings.Language == ENGLISH) options.SetValue(i++,tr("English"));
-            else if (Settings.Language == GERMAN) options.SetValue(i++,tr("German"));
-            else if (Settings.Language == FRENCH) options.SetValue(i++,tr("French"));
-            else if (Settings.Language == SPANISH) options.SetValue(i++,tr("Spanish"));
-            else if (Settings.Language == ITALIAN) options.SetValue(i++,tr("Italian"));
-            else if (Settings.Language == DUTCH) options.SetValue(i++,tr("Dutch"));
-            else if (Settings.Language == S_CHINESE) options.SetValue(i++,tr("S. Chinese"));
-            else if (Settings.Language == T_CHINESE) options.SetValue(i++,tr("T. Chinese"));
-            else if (Settings.Language == KOREAN) options.SetValue(i++,tr("Korean"));
+            if(strcmp(Settings.LanguagePath, "") != 0) {
+                char *language = strrchr(Settings.LanguagePath, '/')+1;
+                options.SetValue(i++, "%s", language);
+            } else
+                options.SetValue(i++, tr("App Default"));
 
             if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
             else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
 
             if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
             else options.SetValue(i++, tr("OFF"));
+
+            options.SetValue(i++, "%s", Settings.CustomFontPath);
 
             options.SetValue(i++, " ");
         }
@@ -971,6 +963,9 @@ void MainMenu(int menu)
 				break;
 			case MENU_BROWSE_DEVICE:
 				currentMenu = MenuBrowseDevice();
+				break;
+			case MENU_LANGUAGE_BROWSE:
+				currentMenu = LanguageBrowser();
 				break;
 			default: // unrecognized menu
 				currentMenu = MenuBrowseDevice();

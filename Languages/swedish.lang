@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-30 16:51+0200\n"
+"POT-Creation-Date: 2009-08-31 13:12+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -66,6 +66,9 @@ msgstr "Kopierar filer:"
 msgid "Credits"
 msgstr ""
 
+msgid "Customfont Path"
+msgstr ""
+
 msgid "Cut"
 msgstr "Klipp ut"
 
@@ -111,6 +114,15 @@ msgstr "Katalog flyttad."
 msgid "Do you want to boot:"
 msgstr "Vill du starta:"
 
+msgid "Do you want to load app default language."
+msgstr ""
+
+msgid "Do you want to load console default language."
+msgstr ""
+
+msgid "Do you want to load this language."
+msgstr ""
+
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Vill du öppna denna filen i textvisaren?"
 
@@ -123,20 +135,20 @@ msgstr "Vill du spela upp denna filen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Vill du koppla upp till SMB igen?"
 
-msgid "Dutch"
-msgstr "Holändska"
-
 msgid "ERROR"
 msgstr "FEL"
 
-msgid "English"
-msgstr "Engelska"
+msgid "Enter a directory where to extract the files to."
+msgstr ""
 
 msgid "Error"
 msgstr "Fel"
 
 msgid "Error:"
 msgstr "Fel:"
+
+msgid "Extracting files..."
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Misslyckades att kopiera fil."
@@ -146,6 +158,9 @@ msgstr "Misslyckades att kopiera filer."
 
 msgid "Failed renaming file"
 msgstr "Namnbyte på fil misslyckades."
+
+msgid "Failed to extract files."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Fil kunde inte raderas."
@@ -172,11 +187,8 @@ msgstr "Filtyp:"
 msgid "Folder"
 msgstr "Mapp"
 
-msgid "French"
-msgstr "Franska"
-
-msgid "German"
-msgstr "Tyska"
+msgid "Fontpath changed"
+msgstr ""
 
 msgid "Go Back"
 msgstr "Gå tillbaks"
@@ -186,15 +198,6 @@ msgstr ""
 
 msgid "Image"
 msgstr "Bild"
-
-msgid "Italian"
-msgstr "Italienska"
-
-msgid "Japanese"
-msgstr "Japanska"
-
-msgid "Korean"
-msgstr "Koreanska"
 
 msgid "Language"
 msgstr "Språk"
@@ -235,6 +238,9 @@ msgstr "Ny mapp"
 msgid "No"
 msgstr "Nej"
 
+msgid "No language files found."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Inte tillräkligt minne."
 
@@ -274,9 +280,6 @@ msgstr "Byt namn"
 msgid "Retry"
 msgstr "Försök igen"
 
-msgid "S. Chinese"
-msgstr "S.Kinesiska"
-
 msgid "SD"
 msgstr ""
 
@@ -304,14 +307,8 @@ msgstr ""
 msgid "Size:"
 msgstr "Storlek:"
 
-msgid "Spanish"
-msgstr "Spanska"
-
 msgid "Special thanks to:"
 msgstr ""
-
-msgid "T. Chinese"
-msgstr "T. Kinesiska"
 
 msgid "Tantric for his great tool libwiigui."
 msgstr ""
@@ -356,5 +353,38 @@ msgstr "Du kan inte läsa/skriva från/till samma fil."
 msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"
 
+msgid "You need to restart the app for it to take effect."
+msgstr ""
+
 msgid "r-win"
 msgstr ""
+
+#~ msgid "Dutch"
+#~ msgstr "Holändska"
+
+#~ msgid "English"
+#~ msgstr "Engelska"
+
+#~ msgid "French"
+#~ msgstr "Franska"
+
+#~ msgid "German"
+#~ msgstr "Tyska"
+
+#~ msgid "Italian"
+#~ msgstr "Italienska"
+
+#~ msgid "Japanese"
+#~ msgstr "Japanska"
+
+#~ msgid "Korean"
+#~ msgstr "Koreanska"
+
+#~ msgid "S. Chinese"
+#~ msgstr "S.Kinesiska"
+
+#~ msgid "Spanish"
+#~ msgstr "Spanska"
+
+#~ msgid "T. Chinese"
+#~ msgstr "T. Kinesiska"

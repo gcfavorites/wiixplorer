@@ -59,6 +59,7 @@ class GuiOptionBrowser : public GuiElement
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
+		GuiButton * scrollbarBoxBtn;
 
 		GuiImage * bgOptionsImg;
 		GuiImage * scrollbarImg;
@@ -66,6 +67,8 @@ class GuiOptionBrowser : public GuiElement
 		GuiImage * arrowDownOverImg;
 		GuiImage * arrowUpImg;
 		GuiImage * arrowUpOverImg;
+		GuiImage * scrollbarBoxImg;
+		GuiImage * scrollbarBoxOverImg;
 
 		GuiImageData * bgOptions;
 		GuiImageData * bgOptionsEntry;
@@ -74,8 +77,11 @@ class GuiOptionBrowser : public GuiElement
 		GuiImageData * arrowDownOver;
 		GuiImageData * arrowUp;
 		GuiImageData * arrowUpOver;
+		GuiImageData * scrollbarBox;
+		GuiImageData * scrollbarBoxOver;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 		GuiTrigger * trigA;
+		GuiTrigger * trigHeldA;
 };
