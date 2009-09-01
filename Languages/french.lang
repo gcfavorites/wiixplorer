@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "Action annulée"
@@ -40,7 +40,7 @@ msgid "Change Settings"
 msgstr "Paramètres"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Développeurs:"
 
 msgid "Connect SMB"
 msgstr "Connecter SMB"
@@ -64,10 +64,10 @@ msgid "Copying files:"
 msgstr "Copie des fichiers"
 
 msgid "Credits"
-msgstr ""
+msgstr "Crédits"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Dossier police"
 
 msgid "Cut"
 msgstr "Couper"
@@ -91,10 +91,7 @@ msgid "Deleting files:"
 msgstr "Suppression des fichiers:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
-msgstr ""
+msgstr "Graphiste:"
 
 msgid "Directory .."
 msgstr "Dossier .."
@@ -103,28 +100,28 @@ msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
 
 msgid "Directory successfully copied."
-msgstr "Copie du dossier éffectuée."
+msgstr "Copie du dossier effectuée."
 
 msgid "Directory successfully deleted."
-msgstr "Suppression du dossier éffectuée."
+msgstr "Suppression du dossier effectuée."
 
 msgid "Directory successfully moved."
-msgstr "Déplacement du dossier éffectué."
+msgstr "Déplacement du dossier effectué."
 
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Voulez-vous charger le language de WiiWplorer par défaut ?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Voulez-vous charger le language de la Wii par défaut ?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Voulez-vous charger ce language ?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "Voulez-vous voir ce fichier texte ?"
+msgstr "Voulez-vous ouvrir ce fichier texte ?"
 
 msgid "Do you want to open this file with ImageViewer?"
 msgstr "Voulez-vous voir cette image ?"
@@ -139,7 +136,7 @@ msgid "ERROR"
 msgstr "ERREUR"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Entrer un dossier vers lequel extraire les fichiers."
 
 msgid "Error"
 msgstr "Erreur"
@@ -148,7 +145,7 @@ msgid "Error:"
 msgstr "Erreur:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Extraction des fichiers..."
 
 msgid "Failed copying file."
 msgstr "La copie a échouée."
@@ -160,7 +157,7 @@ msgid "Failed renaming file"
 msgstr "Le renommage a échoué"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "L'extraction a échouée."
 
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
@@ -179,7 +176,7 @@ msgid "Filepath:  %s"
 msgstr "Chemin:  %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Extraction effectuée."
 
 msgid "Files:"
 msgstr "Fichiers:"
@@ -191,7 +188,7 @@ msgid "Folder"
 msgstr "Dossier"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Dossier police modifié."
 
 msgid "Go Back"
 msgstr "Retour"
@@ -229,9 +226,6 @@ msgstr "Volume"
 msgid "Name already exists."
 msgstr "Ce nom existe déjà."
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "Initialisation du réseau..."
 
@@ -242,7 +236,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No language files found."
-msgstr ""
+msgstr "Aucun fichier langue trouvé."
 
 msgid "Not enough memory."
 msgstr "Mémoire insuffisante."
@@ -269,7 +263,7 @@ msgid "Paste into current directory?"
 msgstr "Coller dans le dossier actuel?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "SVP, copier d'abord ce fichier vers SD/USB"
 
 msgid "Please wait:"
 msgstr "Patientez:"
@@ -284,13 +278,13 @@ msgid "Rename"
 msgstr "Renommer"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 
 msgid "Retry"
 msgstr "Réessayer"
 
 msgid "SD"
-msgstr "SD"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Nom du SMB:"
@@ -302,28 +296,28 @@ msgid "SMB is connecting..."
 msgstr "Connection du SMB..."
 
 msgid "SMB1"
-msgstr "SMB1"
+msgstr ""
 
 msgid "SMB2"
-msgstr "SMB2"
+msgstr ""
 
 msgid "SMB3"
-msgstr "SMB3"
+msgstr ""
 
 msgid "SMB4"
-msgstr "SMB4"
+msgstr ""
 
 msgid "Size:"
 msgstr "Taille:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Remerciements:"
 
 msgid "Tantric for his great tool libwiigui."
-msgstr ""
+msgstr "Tantric pour libwiigui."
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "L'équipe DevkitPro & libogc."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Ce n'est pas un fichier OGG/MP3"
@@ -332,7 +326,7 @@ msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
 
 msgid "USB"
-msgstr "USB"
+msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Impossible de créer le dossier."
@@ -363,37 +357,4 @@ msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
-
-msgid "r-win"
-msgstr ""
-
-#~ msgid "Dutch"
-#~ msgstr "Néerlandais"
-
-#~ msgid "English"
-#~ msgstr "Anglais"
-
-#~ msgid "French"
-#~ msgstr "Français"
-
-#~ msgid "German"
-#~ msgstr "Allemand"
-
-#~ msgid "Italian"
-#~ msgstr "Italien"
-
-#~ msgid "Japanese"
-#~ msgstr "Japonais"
-
-#~ msgid "Korean"
-#~ msgstr "Coréen"
-
-#~ msgid "S. Chinese"
-#~ msgstr "Chinois Simplifié"
-
-#~ msgid "Spanish"
-#~ msgstr "Espagnol"
-
-#~ msgid "T. Chinese"
-#~ msgstr "Chinois Traditionnel"
+msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."

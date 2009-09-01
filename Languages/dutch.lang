@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -92,9 +92,6 @@ msgid "Deleting files:"
 msgstr "Bestanden verwijderen:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
 msgstr ""
 
 msgid "Directory .."
@@ -230,9 +227,6 @@ msgstr "Muziekvolume"
 msgid "Name already exists."
 msgstr "Naam bestaat al."
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "Netwerk Initialiseren..."
 
@@ -364,9 +358,6 @@ msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
-
-msgid "r-win"
 msgstr ""
 
 #~ msgid "Dutch"

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
-"PO-Revision-Date: 2009-08-18 11:18+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
+"PO-Revision-Date: 2009-09-01 11:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid "Change Settings"
 msgstr "Modifica Impostazioni"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Sviluppatori:"
 
 msgid "Connect SMB"
 msgstr "Connetti SMB"
@@ -64,10 +64,10 @@ msgid "Copying files:"
 msgstr "Sto copiando i file:"
 
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Percorso Font"
 
 msgid "Cut"
 msgstr "Taglio"
@@ -76,7 +76,7 @@ msgid "Cut directory?"
 msgstr "Taglio la cartella?"
 
 msgid "Cut file?"
-msgstr "taglio il file?"
+msgstr "Taglio il file?"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -91,10 +91,7 @@ msgid "Deleting files:"
 msgstr "Sto eliminando i file:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
-msgstr ""
+msgstr "Grafica:"
 
 msgid "Directory .."
 msgstr "Cartella ..."
@@ -115,13 +112,13 @@ msgid "Do you want to boot:"
 msgstr "Vuoi caricare:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Vuoi caricare la lingua predefinita della console ?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Vuoi caricare questa lingua ?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Vuoi aprire questo file con TextViewer?"
@@ -139,7 +136,7 @@ msgid "ERROR"
 msgstr "ERRORE"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Digita il nome della cartella nella quale estrarre i file."
 
 msgid "Error"
 msgstr "Errore"
@@ -148,7 +145,7 @@ msgid "Error:"
 msgstr "Errore:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Sto estraendo i file..."
 
 msgid "Failed copying file."
 msgstr "Errore nella copia del file."
@@ -160,7 +157,7 @@ msgid "Failed renaming file"
 msgstr "Errore nella ridenominazione del file"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Errore nella estrazione dei file."
 
 msgid "File couldn't be deleted."
 msgstr "Non è stato possibile eliminare il file."
@@ -179,7 +176,7 @@ msgid "Filepath:  %s"
 msgstr ""
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "I file sono stati estratti con successo."
 
 msgid "Files:"
 msgstr "File:"
@@ -191,13 +188,13 @@ msgid "Folder"
 msgstr "Cartella"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Percorso font modificato"
 
 msgid "Go Back"
 msgstr "Indietro"
 
 msgid "Host:"
-msgstr ""
+msgstr "Host:"
 
 msgid "Image"
 msgstr "Immagine"
@@ -229,9 +226,6 @@ msgstr "Volume Musica"
 msgid "Name already exists."
 msgstr "Nome già utilizzato."
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "Inizializzazione rete..."
 
@@ -242,22 +236,22 @@ msgid "No"
 msgstr "No"
 
 msgid "No language files found."
-msgstr ""
+msgstr "Nessuna lingua trovata."
 
 msgid "Not enough memory."
 msgstr "Memoria insufficiente."
 
 msgid "OFF"
-msgstr "Spento"
+msgstr "Disattivato"
 
 msgid "OK"
 msgstr "OK"
 
 msgid "ON"
-msgstr "Acceso"
+msgstr "Attivato"
 
 msgid "Out of memory: too many files!"
-msgstr "memoria insufficiente: troppi file!"
+msgstr "Memoria insufficiente: troppi file!"
 
 msgid "Password:"
 msgstr "Password:"
@@ -269,7 +263,7 @@ msgid "Paste into current directory?"
 msgstr "Incollare nella cartella corrente?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Copiare preliminarmente questo file nella SD/USB"
 
 msgid "Please wait:"
 msgstr "Attendere prego:"
@@ -284,7 +278,7 @@ msgid "Rename"
 msgstr "Rinomina"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Riavviare l'applicazione per utilizzare il nuovo font."
 
 msgid "Retry"
 msgstr "Riprova"
@@ -317,13 +311,13 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Grazie mille a:"
 
 msgid "Tantric for his great tool libwiigui."
-msgstr ""
+msgstr "Tantric per la sua fantastica libreria libwiigui."
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Tutto lo staff di DevkitPro & libogc."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Questo non è un file OGG/MP3"
@@ -363,10 +357,19 @@ msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Al momento i file zip non funzionano su SMB"
 
-msgid "r-win"
-msgstr ""
+#~ msgid "Dimok"
+#~ msgstr "Dimok"
+
+#~ msgid "NeoRame"
+#~ msgstr "NeoRame"
+
+#~ msgid "r-win"
+#~ msgstr "r-win"
+
+#~ msgid "Filepath: %s"
+#~ msgstr "Percorso file: %s"
 
 #~ msgid "Dutch"
 #~ msgstr "Olandese"

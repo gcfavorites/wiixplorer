@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgid "Change Settings"
 msgstr "變更設定"
 
 msgid "Coders:"
-msgstr ""
+msgstr "程式設計師:"
 
 msgid "Connect SMB"
 msgstr "連接區域網路"
@@ -64,10 +64,10 @@ msgid "Copying files:"
 msgstr "正在複製檔案:"
 
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "字型路徑"
 
 msgid "Cut"
 msgstr "剪下"
@@ -91,10 +91,7 @@ msgid "Deleting files:"
 msgstr "正在刪除檔案:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
-msgstr ""
+msgstr "設計者:"
 
 msgid "Directory .."
 msgstr "目錄.."
@@ -115,13 +112,13 @@ msgid "Do you want to boot:"
 msgstr "是否啟動:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "是否載入程式預設語言 ?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "是否載入控制台預設語言 ?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "是否載入此語言 ?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "是否在TextViewer開啟此檔案?"
@@ -139,7 +136,7 @@ msgid "ERROR"
 msgstr "錯誤"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "輸入檔案輸出後的存放目錄"
 
 msgid "Error"
 msgstr "錯誤"
@@ -148,7 +145,7 @@ msgid "Error:"
 msgstr "錯誤:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "正在輸出檔案..."
 
 msgid "Failed copying file."
 msgstr "檔案複製失敗"
@@ -160,7 +157,7 @@ msgid "Failed renaming file"
 msgstr "檔案更名失敗"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "輸出檔案失敗"
 
 msgid "File couldn't be deleted."
 msgstr "無法刪除該檔案"
@@ -179,7 +176,7 @@ msgid "Filepath:  %s"
 msgstr "檔案路徑:  %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "檔案已輸出"
 
 msgid "Files:"
 msgstr "檔案:"
@@ -191,7 +188,7 @@ msgid "Folder"
 msgstr "資料夾"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "字型路徑已變更"
 
 msgid "Go Back"
 msgstr "返回"
@@ -229,9 +226,6 @@ msgstr "音樂音量"
 msgid "Name already exists."
 msgstr "名稱已存在"
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "正在啟動網路"
 
@@ -242,7 +236,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No language files found."
-msgstr ""
+msgstr "找不到語言檔案"
 
 msgid "Not enough memory."
 msgstr "記憶體空間不足"
@@ -269,7 +263,7 @@ msgid "Paste into current directory?"
 msgstr "貼上至目前目錄位置?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "清先將檔案複製到SD/USB"
 
 msgid "Please wait:"
 msgstr "請稍候"
@@ -284,7 +278,7 @@ msgid "Rename"
 msgstr "重新命名"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "重新啟動程式以載入新字型"
 
 msgid "Retry"
 msgstr "重試"
@@ -317,13 +311,13 @@ msgid "Size:"
 msgstr "檔案大小:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "特別感謝:"
 
 msgid "Tantric for his great tool libwiigui."
-msgstr ""
+msgstr "Tantric偉大的工具libwiigui"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "完整的DevkitPro & libogc staff"
 
 msgid "This is no OGG/MP3 file"
 msgstr "非OGG/MP3檔案"
@@ -363,10 +357,16 @@ msgid "You cant use this operation on:"
 msgstr "無法使用此功能在:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "壓縮檔在目前無法在SMB功能中使用"
 
-msgid "r-win"
-msgstr ""
+#~ msgid "Dimok"
+#~ msgstr "Dimok"
+
+#~ msgid "NeoRame"
+#~ msgstr "NeoRame"
+
+#~ msgid "r-win"
+#~ msgstr "r-win"
 
 #~ msgid "Dutch"
 #~ msgstr "荷文"
