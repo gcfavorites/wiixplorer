@@ -1,11 +1,10 @@
 # WiiXplorer language source file.
 #
-# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,52 +16,52 @@ msgid "1"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "动作取消"
 
 msgid "An error occured."
-msgstr ""
+msgstr "发生错误"
 
 msgid "App Default"
-msgstr ""
+msgstr "程序缺省"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "自动连接"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "不能打开文件"
 
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "无法打开图形文件"
 
 msgid "Change Settings"
-msgstr ""
+msgstr "更改设置"
 
 msgid "Coders:"
 msgstr ""
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "连接共享网络"
 
 msgid "Console Default"
-msgstr ""
+msgstr "主机缺省"
 
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "复制目录"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "复制文件？"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "复制文件"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "复制文件："
 
 msgid "Credits"
 msgstr ""
@@ -71,49 +70,46 @@ msgid "Customfont Path"
 msgstr ""
 
 msgid "Cut"
-msgstr ""
+msgstr "剪切"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "剪切目录"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "剪切文件"
 
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "删除目录及其内容"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "确定删除此文件吗？"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "文件删除中..."
 
 msgid "Designer:"
 msgstr ""
 
-msgid "Dimok"
-msgstr ""
-
 msgid "Directory .."
-msgstr ""
+msgstr "目录.."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "不能删除目录"
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "目录成功复制"
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "目录成功删除"
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "目录成功移动"
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "你想要重新启动吗？"
 
 msgid "Do you want to load app default language ?"
 msgstr ""
@@ -125,197 +121,194 @@ msgid "Do you want to load this language ?"
 msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "是否用文本查看器打开此文件吗？"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "是否用图片查看器打开此文件吗？"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "是否播放此文件？"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "再次连接到网络共享？"
 
 msgid "ERROR"
-msgstr ""
+msgstr "错误"
 
 msgid "Enter a directory where to extract the files to."
 msgstr ""
 
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 msgid "Error:"
-msgstr ""
+msgstr "错误"
 
 msgid "Extracting files..."
 msgstr ""
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "复制失败"
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "复制失败"
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "更名失败"
 
 msgid "Failed to extract files."
 msgstr ""
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "文件不能删除"
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "此文件不存在"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "文件复制成功"
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "文件移动成功"
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "文件路径"
 
 msgid "Files successfully extracted."
 msgstr ""
 
 msgid "Files:"
-msgstr ""
+msgstr "文件"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "文件类型"
 
 msgid "Folder"
-msgstr ""
+msgstr "文件夹"
 
 msgid "Fontpath changed"
 msgstr ""
 
 msgid "Go Back"
-msgstr ""
+msgstr "返回"
 
 msgid "Host:"
-msgstr ""
+msgstr "主机"
 
 msgid "Image"
-msgstr ""
+msgstr "图片"
 
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 msgid "Last access:"
-msgstr ""
+msgstr "最近读取"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "最近修改"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "最近状态改变"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "正在读取文件:"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "挂载方式"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "正在移动文件"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "音乐音量"
 
 msgid "Name already exists."
-msgstr ""
-
-msgid "NeoRame"
-msgstr ""
+msgstr "文件名已经存在"
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "网络正在初始化"
 
 msgid "New Folder"
-msgstr ""
+msgstr "新文件夹"
 
 msgid "No"
-msgstr ""
+msgstr "否"
 
 msgid "No language files found."
 msgstr ""
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "内存不足"
 
 msgid "OFF"
-msgstr ""
+msgstr "关闭"
 
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 msgid "ON"
-msgstr ""
+msgstr "打开"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "内存不足：文件过多"
 
 msgid "Password:"
-msgstr ""
+msgstr "密码"
 
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "是否粘贴到当前目录？"
 
 msgid "Please copy this file to SD/USB first"
 msgstr ""
 
 msgid "Please wait:"
-msgstr ""
+msgstr "请等待："
 
 msgid "Properties"
-msgstr ""
+msgstr "属性"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "重新连接网络共享"
 
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 msgid "Restart the app to load the new font."
 msgstr ""
 
 msgid "Retry"
-msgstr ""
+msgstr "重试"
 
 msgid "SD"
-msgstr ""
+msgstr "SD卡"
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "网络共享名"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "网络共享设置"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "正在连接网络共享"
 
 msgid "SMB1"
-msgstr ""
+msgstr "共享一"
 
 msgid "SMB2"
-msgstr ""
+msgstr "共享二"
 
 msgid "SMB3"
-msgstr ""
+msgstr "共享三"
 
 msgid "SMB4"
-msgstr ""
+msgstr "共享四"
 
 msgid "Size:"
-msgstr ""
+msgstr "尺寸"
 
 msgid "Special thanks to:"
 msgstr ""
@@ -327,44 +320,71 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr ""
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "此文件不是OGG或MP3文件"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "文件传输中："
 
 msgid "USB"
-msgstr ""
+msgstr "USB设置"
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "不能建立文件夹"
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "设备不能读取"
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "用户 %i"
 
 msgid "User:"
-msgstr ""
+msgstr "用户："
 
 msgid "Username:"
-msgstr ""
+msgstr "用户名"
 
 msgid "Yes"
-msgstr ""
+msgstr "确定"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "无法在此目录中删除自己"
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "无法读取相当文件。"
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "无法使用此功能在："
 
 msgid "Zipfiles on SMB don't work for now"
 msgstr ""
 
-msgid "r-win"
-msgstr ""
+#~ msgid "Dutch"
+#~ msgstr "荷兰"
+
+#~ msgid "English"
+#~ msgstr "英文"
+
+#~ msgid "French"
+#~ msgstr "法语"
+
+#~ msgid "German"
+#~ msgstr "德语"
+
+#~ msgid "Italian"
+#~ msgstr "意大利语"
+
+#~ msgid "Japanese"
+#~ msgstr "日语"
+
+#~ msgid "Korean"
+#~ msgstr "韩语"
+
+#~ msgid "S. Chinese"
+#~ msgstr "简体中文"
+
+#~ msgid "Spanish"
+#~ msgstr "西班牙语"
+
+#~ msgid "T. Chinese"
+#~ msgstr "繁体中文"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgid "Change Settings"
 msgstr "設定を変更"
 
 msgid "Coders:"
-msgstr ""
+msgstr "制作"
 
 msgid "Connect SMB"
 msgstr "SMBと接続"
@@ -64,10 +64,10 @@ msgid "Copying files:"
 msgstr "ｺﾋﾟｰしています:"
 
 msgid "Credits"
-msgstr ""
+msgstr "ｸﾚｼﾞｯﾄ"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "ﾌｫﾝﾄのﾊﾟｽ"
 
 msgid "Cut"
 msgstr "切り取り"
@@ -91,10 +91,7 @@ msgid "Deleting files:"
 msgstr "削除しています:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
-msgstr ""
+msgstr "ﾃﾞｻﾞｲﾅｰ"
 
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
@@ -115,13 +112,13 @@ msgid "Do you want to boot:"
 msgstr "起動しますか:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "日本語でｱﾌﾟﾘを読み込みますか?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "日本語でｱﾌﾟﾘを読み込みますか?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "この言語をﾛｰﾄﾞしますか?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "ﾃｷｽﾄﾋﾞｭｰﾜで開きますか?"
@@ -139,7 +136,7 @@ msgid "ERROR"
 msgstr "ｴﾗｰ"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "どこにﾌｧｲﾙを解凍するか決定してください"
 
 msgid "Error"
 msgstr "ｴﾗｰ"
@@ -148,7 +145,7 @@ msgid "Error:"
 msgstr "ｴﾗｰ"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "解凍中..."
 
 msgid "Failed copying file."
 msgstr "ｺﾋﾟｰを失敗しました"
@@ -160,7 +157,7 @@ msgid "Failed renaming file"
 msgstr "ﾘﾈｰﾑを失敗しました"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "File couldn't be deleted."
 msgstr "ﾌｧｲﾙを削除できませんでした"
@@ -179,7 +176,7 @@ msgid "Filepath:  %s"
 msgstr "ﾌｧｲﾙﾊﾟｽ:  %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "解凍しました"
 
 msgid "Files:"
 msgstr "ﾌｧｲﾙ"
@@ -191,7 +188,7 @@ msgid "Folder"
 msgstr "ﾌｫﾙﾀﾞ"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "ﾌｫﾝﾄのﾊﾟｽ変更"
 
 msgid "Go Back"
 msgstr "戻る"
@@ -209,10 +206,10 @@ msgid "Last access:"
 msgstr "最後のｱｸｾｽ"
 
 msgid "Last modified:"
-msgstr "最後の更新"
+msgstr "更新日時"
 
 msgid "Last status change:"
-msgstr "最後の変更"
+msgstr "変更日時"
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
@@ -229,20 +226,17 @@ msgstr "音量"
 msgid "Name already exists."
 msgstr "同じ名前がすでにあります"
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "接続中..."
 
 msgid "New Folder"
-msgstr "新しいﾌｫﾙﾀﾞ"
+msgstr "新規ﾌｫﾙﾀﾞ"
 
 msgid "No"
 msgstr "いいえ"
 
 msgid "No language files found."
-msgstr ""
+msgstr "言語が見つかりませんでした"
 
 msgid "Not enough memory."
 msgstr "ﾒﾓﾘ不足です"
@@ -269,7 +263,7 @@ msgid "Paste into current directory?"
 msgstr "このﾌｫﾙﾀﾞに貼り付けますか?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "このﾌｧｲﾙを最初にSD/USBにｺﾋﾟｰしてください"
 
 msgid "Please wait:"
 msgstr "お待ちください"
@@ -284,7 +278,7 @@ msgid "Rename"
 msgstr "ﾘﾈｰﾑ"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "ﾌｫﾝﾄを読み込むため再起動します"
 
 msgid "Retry"
 msgstr "再試行"
@@ -317,13 +311,13 @@ msgid "Size:"
 msgstr "ｻｲｽﾞ"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "ｽﾍﾟｼｬﾙｻﾝｸｽ"
 
 msgid "Tantric for his great tool libwiigui."
-msgstr ""
+msgstr "Tantric…libwiiguiの制作者様"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "DevkitPro&libogcの制作者のみなさん"
 
 msgid "This is no OGG/MP3 file"
 msgstr "これはOGG/MP3ﾌｧｲﾙではありません"
@@ -363,10 +357,7 @@ msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
-
-msgid "r-win"
-msgstr ""
+msgstr "SMB上でZipは解凍できません"
 
 #~ msgid "Dutch"
 #~ msgstr "ｵﾗﾝﾀﾞ語"

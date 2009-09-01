@@ -878,13 +878,13 @@ void CreditsWindow(void)
     txt[i]->SetPosition(20, y);
     i++;
 
-    txt[i] = new GuiText(tr("Dimok"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(170, y);
     i++;
     y += 32;
 
-    txt[i] = new GuiText(tr("r-win"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(170, y);
     i++;
@@ -895,7 +895,7 @@ void CreditsWindow(void)
     txt[i]->SetPosition(20, y);
     i++;
 
-    txt[i] = new GuiText(tr("NeoRame"), 22, (GXColor) {0, 0, 0, 255});
+    txt[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(170, y);
     i++;

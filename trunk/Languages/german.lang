@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 15:25+0200\n"
+"POT-Creation-Date: 2009-09-02 00:29+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer\n"
 "Language-Team: \n"
@@ -22,7 +22,7 @@ msgid "An error occured."
 msgstr "Ein Fehler ist aufgetreten."
 
 msgid "App Default"
-msgstr "Standard Programmeinstellung"
+msgstr "ard Programmeinstellung"
 
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
@@ -40,7 +40,7 @@ msgid "Change Settings"
 msgstr "Einstellungen ändern"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programmierer:"
 
 msgid "Connect SMB"
 msgstr "SMB verbinden"
@@ -64,10 +64,10 @@ msgid "Copying files:"
 msgstr "Kopiere Dateien"
 
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Pfad zu nutzerdefnierten Schriften"
 
 msgid "Cut"
 msgstr "Ausschneiden"
@@ -91,10 +91,7 @@ msgid "Deleting files:"
 msgstr "Lösche Dateien:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Dimok"
-msgstr ""
+msgstr "Designer:"
 
 msgid "Directory .."
 msgstr "Verzeichnis .."
@@ -115,13 +112,13 @@ msgid "Do you want to boot:"
 msgstr "Möchten Sie folgendes starten:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Standard Sprache des Programms laden?"
 
 msgid "Do you want to load console default language."
 msgstr ""
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Diese Sprache laden?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Möchten Sie diese Datei im TextViewer öffnen?"
@@ -139,7 +136,7 @@ msgid "ERROR"
 msgstr "FEHLER"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Verzeichniss zum entpacken angeben."
 
 msgid "Error"
 msgstr "Fehler"
@@ -148,7 +145,7 @@ msgid "Error:"
 msgstr "Fehler:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Entpacke Dateien..."
 
 msgid "Failed copying file."
 msgstr "Datei konnte nicht kopiert werden."
@@ -179,7 +176,7 @@ msgid "Filepath:  %s"
 msgstr "Pfad: %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Datie erfolgreich entpackt."
 
 msgid "Files:"
 msgstr "Dateien:"
@@ -191,7 +188,7 @@ msgid "Folder"
 msgstr "Verzeichnis"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Schriftenverzeichniss gewechselt"
 
 msgid "Go Back"
 msgstr "Zurück"
@@ -229,9 +226,6 @@ msgstr "Lautstärke"
 msgid "Name already exists."
 msgstr "Name existiert bereits."
 
-msgid "NeoRame"
-msgstr ""
-
 msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
 
@@ -242,7 +236,7 @@ msgid "No"
 msgstr "Nein"
 
 msgid "No language files found."
-msgstr ""
+msgstr "Keine Sprachdateien gefunden."
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
@@ -269,7 +263,7 @@ msgid "Paste into current directory?"
 msgstr "In aktuelles Verzeichnis einfügen?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Bitte Dateien erst auf SD/USB kopieren"
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
@@ -284,7 +278,7 @@ msgid "Rename"
 msgstr "Umbenennen"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Anwendung neustarten um Schrift zu laden."
 
 msgid "Retry"
 msgstr "Noch einmal versuchen"
@@ -317,13 +311,13 @@ msgid "Size:"
 msgstr "Größe:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Speziellen Dank an:"
 
 msgid "Tantric for his great tool libwiigui."
-msgstr ""
+msgstr "Tantric, für seine großartige libwiigui."
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Das ganze DevkitPor & libogc Team."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Dies ist keine OGG/MP3 Datei"
@@ -363,10 +357,19 @@ msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Zip-Dateien auf Netzlaufwerken noch nicht unterstützt."
 
-msgid "r-win"
-msgstr ""
+#~ msgid "Dimok"
+#~ msgstr "Dimok"
+
+#~ msgid "NeoRame"
+#~ msgstr "NeoRame"
+
+#~ msgid "r-win"
+#~ msgstr "RWin"
+
+#~ msgid "Do you want to load console default language?"
+#~ msgstr "Standard Sprache der Konsole laden?"
 
 #~ msgid "Dutch"
 #~ msgstr "Niederländisch"
