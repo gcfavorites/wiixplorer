@@ -28,3 +28,15 @@ and the buttons in the imageviewer folder cant we slide in it like the left and 
 
 NeoRame
 
+
+************************************            EDIT          ********************************************************
+
+
+ok i have add the disabled min and max button and change the progressbar:
+
+
+my wishes :-)   :
+
+can you move the Power button up by 1 or 2 Pixel (its not the middle)
+the same for the adress bar it must not be middle but 1 or 2 Pixel more to top...
+and PLEASE center the progress bar,here at my widescreen tv its not centered
