@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 00:29+0200\n"
+"POT-Creation-Date: 2009-09-02 20:59+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -313,9 +313,6 @@ msgstr "Taille:"
 msgid "Special thanks to:"
 msgstr "Remerciements:"
 
-msgid "Tantric for his great tool libwiigui."
-msgstr "Tantric pour libwiigui."
-
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
 
@@ -358,3 +355,9 @@ msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "Zipfiles on SMB don't work for now"
 msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
+
+msgid "for his great tool"
+msgstr ""
+
+#~ msgid "Tantric for his great tool libwiigui."
+#~ msgstr "Tantric pour libwiigui."

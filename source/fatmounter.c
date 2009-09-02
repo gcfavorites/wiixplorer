@@ -1,8 +1,9 @@
 #include <fat.h>
 #include <ogc/mutex.h>
 #include <ogc/system.h>
-#include <ogc/usbstorage.h>
 #include <sdcard/wiisd_io.h>
+
+#include "usbstorage/usbstorage.h"
 
 //these are the only stable and speed is good
 #define CACHE 8
@@ -13,7 +14,9 @@ int USBDevice_Init()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
 
-    if (fatMount("usb", &__io_usbstorage, 0, CACHE, SECTORS)) {
+    if (fatMount("usb", &__io_usb2storage, 0, CACHE, SECTORS)) {
+		return 1;
+	} else if (fatMount("usb", &__io_usb1storage, 0, CACHE, SECTORS)) {
 		return 1;
 	}
 	return -1;
@@ -27,7 +30,11 @@ void USBDevice_deInit()
 
 int USBDevice_Inserted()
 {
-	return __io_usbstorage.isInserted();
+    int ret = __io_usb2storage.isInserted();
+	if(ret >= 0)
+        return ret;
+    else
+        return __io_usb1storage.isInserted();
 }
 
 int SDCard_Inserted()

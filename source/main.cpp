@@ -23,6 +23,8 @@
 #include "Settings.h"
 #include "fatmounter.h"
 #include "sys.h"
+#include "mload/mload.h"
+#include "mload/ehcmodule_elf.h"
 
 Settings Settings;
 
@@ -30,6 +32,11 @@ int
 main(int argc, char *argv[])
 {
     IOS_ReloadIOS(202);
+    if (mload_init() >= 0) {
+        data_elf my_data_elf;
+        mload_elf((void *) ehcmodule_elf, &my_data_elf);
+        mload_run_thread(my_data_elf.start, my_data_elf.stack, my_data_elf.size_stack, 0x47);
+    }
 
 	PAD_Init();
 	Wpad_Init();

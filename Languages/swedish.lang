@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 00:29+0200\n"
+"POT-Creation-Date: 2009-09-02 20:59+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -313,9 +313,6 @@ msgstr "Storlek:"
 msgid "Special thanks to:"
 msgstr ""
 
-msgid "Tantric for his great tool libwiigui."
-msgstr ""
-
 msgid "The whole DevkitPro & libogc staff."
 msgstr ""
 
@@ -357,6 +354,9 @@ msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"
 
 msgid "Zipfiles on SMB don't work for now"
+msgstr ""
+
+msgid "for his great tool"
 msgstr ""
 
 #~ msgid "Dutch"

@@ -907,7 +907,9 @@ void CreditsWindow(void)
     i++;
     y += 30;
 
-    txt[i] = new GuiText(tr("Tantric for his great tool libwiigui."), 22, (GXColor) {0, 0, 0, 255});
+    char text[80];
+    snprintf(text, sizeof(text), "Tantric %s LibWiiGui.", tr("for his great tool"));
+    txt[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(20,y);
     i++;
