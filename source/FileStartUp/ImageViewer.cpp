@@ -55,8 +55,8 @@ bool LoadImage(int index, GuiImageData **imageData)
 	if (filename == NULL || filedir == NULL)
 	{
 		char buffer[30];
-		sprintf((char *) &buffer, "No image found at index %d.", index);
-		WindowPrompt("ImageViewer", (char *) &buffer, "OK");
+		sprintf((char *) &buffer, tr("No image found at index %d."), index);
+		WindowPrompt(tr("ImageViewer"), (char *) &buffer, tr("OK"));
 		return false;
 	}
 	u64 filesize;
@@ -72,7 +72,7 @@ bool LoadImage(int index, GuiImageData **imageData)
 	GuiImageData *newImage = new GuiImageData(file, filesize);
 	if (!newImage->GetImage())
 	{
-		WindowPrompt("ImageViewer", "Cannot open image", "OK");
+		WindowPrompt(tr("ImageViewer"), tr("Cannot open image"), tr("OK"));
 		return false;
 	}
 	if (*imageData != NULL)

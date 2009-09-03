@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Impossible d'ouvrir le fichier."
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Cannot open image"
+msgstr "Impossible d'ouvrir l'image."
 
 msgid "Cannot open the image file."
 msgstr "Impossible d'ouvrir l'image."
@@ -77,6 +80,9 @@ msgstr "Couper le dossier ?"
 
 msgid "Cut file?"
 msgstr "Couper le fichier ?"
+
+msgid "Decompress failed"
+msgstr "Echec de la décompression"
 
 msgid "Delete"
 msgstr "Supprimer"
@@ -199,6 +205,13 @@ msgstr "Hébergeur:"
 msgid "Image"
 msgstr "Image"
 
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr "Image chargée: %d x %d"
+
+msgid "ImageViewer"
+msgstr "Aperçu"
+
 msgid "Language"
 msgstr "Langue"
 
@@ -210,6 +223,9 @@ msgstr "Modifié le:"
 
 msgid "Last status change:"
 msgstr "Status changé le:"
+
+msgid "LoadBMP"
+msgstr "Chargement BMP"
 
 msgid "Loading file:"
 msgstr "Chargement de:"
@@ -235,6 +251,10 @@ msgstr "Nouveau"
 msgid "No"
 msgstr "Non"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr "Pas d'image pour l'index %d"
+
 msgid "No language files found."
 msgstr "Aucun fichier langue trouvé."
 
@@ -245,10 +265,13 @@ msgid "OFF"
 msgstr "Inactif"
 
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 msgid "ON"
 msgstr "Actif"
+
+msgid "OpenMem failed"
+msgstr "Echec lors de l'accés mémoire"
 
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
@@ -356,8 +379,5 @@ msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 msgid "Zipfiles on SMB don't work for now"
 msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
 
-msgid "for his great tool"
-msgstr ""
-
-#~ msgid "Tantric for his great tool libwiigui."
-#~ msgstr "Tantric pour libwiigui."
+msgid "for his great tool LibWiiGui."
+msgstr "pour LibWiiGui."

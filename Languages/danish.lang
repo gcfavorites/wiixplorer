@@ -1,13 +1,12 @@
 # WiiXplorer language source file.
 #
-# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: \n"
+"Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,284 +16,307 @@ msgid "1"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "Handling afbrudt."
 
 msgid "An error occured."
-msgstr ""
+msgstr "Der skete en fejl."
 
 msgid "App Default"
-msgstr ""
+msgstr "Programstandard"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "Auto-forbind"
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "Kan ikke åbne filen"
 
 msgid "Cancel"
+msgstr "Afbryd"
+
+msgid "Cannot open image"
 msgstr ""
 
 msgid "Cannot open the image file."
-msgstr ""
+msgstr "Kan ikke åbne billedfilen."
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Skift indstillinger"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programmører:"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "Forbind til SMB"
 
 msgid "Console Default"
-msgstr ""
+msgstr "Konsolstandard"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopiér"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "Kopiér katalog?"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "Kopiér fil?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "Kopierer fil:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "Kopierer filer:"
 
 msgid "Credits"
 msgstr ""
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Sti til custom-fonte"
 
 msgid "Cut"
-msgstr ""
+msgstr "Klip"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "Klip katalog?"
 
 msgid "Cut file?"
+msgstr "Klip fil?"
+
+msgid "Decompress failed"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "Slet katalog med indhold?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "Slet filen?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "Sletter filer:"
 
 msgid "Designer:"
 msgstr ""
 
 msgid "Directory .."
-msgstr ""
+msgstr "Katalog .."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "Kataloget kunne ikke slettes."
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "Kataloget blev kopieret."
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "Kataloget blev slettet."
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "Kataloget blev flyttet."
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "Vil du boote:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Vil du indlæse programmets standardsprog?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Vil du indlæse konsollens standardsprog?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Vil du indlæse dette sprog?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "Vil du åbne filen i TextViewer?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "Vil du åbne filen i ImageViewer?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Vil du afspille filen?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "Vil du forbinde til SMB?"
 
 msgid "ERROR"
-msgstr ""
+msgstr "FEJL"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Angiv et katalog, som filerne skal pakkes ud til."
 
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
 
 msgid "Error:"
-msgstr ""
+msgstr "Fejl:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Udpakker filer..."
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "Kunne ikke kopiere fil."
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "Kunne ikke kopiere filer."
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "Kunne ikke omdøbe fil."
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Kunne ikke udpakke filer."
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "Filen kunne ikke slettes."
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "Filen eksisterer ikke mere!"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "Filen blev kopieret."
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "Filen blev flyttet."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Sti til filer: %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Filer blev udpakket."
 
 msgid "Files:"
-msgstr ""
+msgstr "Filer:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "Filtype:"
 
 msgid "Folder"
-msgstr ""
+msgstr "Mappe"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Sti til fonte ændret"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Tilbage"
 
 msgid "Host:"
-msgstr ""
+msgstr "Vært:"
 
 msgid "Image"
+msgstr "Billede"
+
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
 msgstr ""
 
 msgid "Language"
-msgstr ""
+msgstr "Sprog"
 
 msgid "Last access:"
-msgstr ""
+msgstr "Sidst tilgået:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "Sidst ændret:"
 
 msgid "Last status change:"
+msgstr "Sidste statusændring:"
+
+msgid "LoadBMP"
 msgstr ""
 
 msgid "Loading file:"
-msgstr ""
+msgstr "Indlæser fil:"
 
 msgid "Mount Method"
-msgstr ""
+msgstr "Mount-metode"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "Flytter filer:"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "Musiklydstyrke"
 
 msgid "Name already exists."
-msgstr ""
+msgstr "Navnet eksisterer allerede."
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "Initialiserer netforbindelse..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "Ny mappe"
 
 msgid "No"
+msgstr "Nej"
+
+#, c-format
+msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
-msgstr ""
+msgstr "Fandt ingen sprogfiler."
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "Ikke nok hukommelse."
 
 msgid "OFF"
-msgstr ""
+msgstr "Fra"
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
+msgstr "Til"
+
+msgid "OpenMem failed"
 msgstr ""
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Ikke nok hukommelse: For mange filer!"
 
 msgid "Password:"
-msgstr ""
+msgstr "Kodeord:"
 
 msgid "Paste"
-msgstr ""
+msgstr "Sæt ind"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "Sæt ind i nuværende katalog?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Kopiér filen til SD/USB først."
 
 msgid "Please wait:"
-msgstr ""
+msgstr "Vent venligst:"
 
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaber"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "Forbind til SMB"
 
 msgid "Rename"
-msgstr ""
+msgstr "Omdøb"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Genstart programmet for at indlæse den ny font."
 
 msgid "Retry"
-msgstr ""
+msgstr "Forsøg igen"
 
 msgid "SD"
 msgstr ""
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "SMB-navn:"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "SMB-indstillinger"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "SMB forbinder..."
 
 msgid "SMB1"
 msgstr ""
@@ -309,53 +331,53 @@ msgid "SMB4"
 msgstr ""
 
 msgid "Size:"
-msgstr ""
+msgstr "Størrelse:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Især tak til:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Hele DevkitPro- & libogc-staben."
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Dette er ikke en OGG/MP3-fil"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "Overfører filer:"
 
 msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "Kan ikke oprette katalog."
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "Kan ikke indlæse enhed."
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Bruger %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Bruger:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Brugernavn:"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "Du kan ikke sætte ind i samme katalog."
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "Du kan ikke læse/skrive til/fra samme fil."
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "Du kan ikke udføre denne handling på:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Kan endnu ikke åbne zip-filer på SMB"
 
-msgid "for his great tool"
-msgstr ""
+msgid "for his great tool LibWiiGui."
+msgstr "for hans fantastiske LibWiiGui."

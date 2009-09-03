@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-08-19 12:10\n"
 "Last-Translator: Sky8000\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Não foi possível abrir o ficheiro"
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Cannot open image"
+msgstr ""
 
 msgid "Cannot open the image file."
 msgstr "Não foi possível abrir o ficheiro de imagem."
@@ -77,6 +80,9 @@ msgstr "Cortar pasta?"
 
 msgid "Cut file?"
 msgstr "Cortar ficheiro?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -199,6 +205,13 @@ msgstr "Servidor:"
 msgid "Image"
 msgstr "Imagem"
 
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Language"
 msgstr "Idioma"
 
@@ -210,6 +223,9 @@ msgstr "Última modificação:"
 
 msgid "Last status change:"
 msgstr "Última alteração de estado:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
@@ -235,6 +251,10 @@ msgstr "Nova Pasta"
 msgid "No"
 msgstr "Não"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
 msgid "No language files found."
 msgstr ""
 
@@ -249,6 +269,9 @@ msgstr "OK"
 
 msgid "ON"
 msgstr "Ligado"
+
+msgid "OpenMem failed"
+msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Memória insuficiente: demasiados ficheiros!"
@@ -356,7 +379,7 @@ msgstr "Não pode usar esta operação em:"
 msgid "Zipfiles on SMB don't work for now"
 msgstr ""
 
-msgid "for his great tool"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
 #~ msgid "Dutch"
