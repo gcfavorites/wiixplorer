@@ -1011,6 +1011,7 @@ void MainMenu(int menu)
 	delete pointer[1];
 	delete pointer[2];
 	delete pointer[3];
+	ClearFontData();
 
     if(boothomebrew)
         BootHomebrew(Clipboard.filepath);

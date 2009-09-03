@@ -82,7 +82,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
     if (dir == NULL) {
         return false;
     }
-	
+
 	size_t size = strlen(filter);
 	filterCopy = (char *) malloc(size + 1);
 	memset(filterCopy, 0, size + 1);
@@ -98,14 +98,14 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
                 if(fileext && ((st.st_mode & S_IFDIR) == 0)) {
 
 					filterTok = strtok(filterCopy, ",");
-					
+
 					while (filterTok != NULL)
 					{
 						if ((strcasecmp(fileext, filterTok) == 0 || strcasecmp(fileext, filterTok) == 0))
 						{
-							FileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
+							FileInfos *TempFileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
 
-							if (!FileInfo)
+							if (!TempFileInfo)
 							{
 								for(int i = 0; i < filecount; i++)
 								{
@@ -120,12 +120,16 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
 								}
 								free(FileInfo);
 								FileInfo = NULL;
+								free(TempFileInfo);
+								TempFileInfo = NULL;
 								filecount = 0;
 								dirclose(dir);
-								
+
 								free(filterCopy);
 								return false;
-							}
+
+							} else
+                                FileInfo = TempFileInfo;
 
 							memset(&(FileInfo[filecount]), 0, sizeof(FileInfo));
 
@@ -149,7 +153,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
 								FileInfo = NULL;
 								filecount = 0;
 								dirclose(dir);
-								
+
 								free(filterCopy);
 								return false;
 							}
@@ -161,15 +165,15 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
 							FileInfo[filecount].isDir = false;
 							filecount++;
 						}
-						
+
 						filterTok = strtok(NULL, ",");
 					}
                 }
             } else {
 
-                FileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
+                FileInfos *TempFileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
 
-                if (!FileInfo)
+                if (!TempFileInfo)
                 {
                     for(int i = 0; i < filecount; i++)
                     {
@@ -184,11 +188,15 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
                     }
                     free(FileInfo);
                     FileInfo = NULL;
+                    free(TempFileInfo);
+                    TempFileInfo = NULL;
                     filecount = 0;
                     dirclose(dir);
 					free(filterCopy);
                     return false;
-                }
+
+                } else
+                    FileInfo = TempFileInfo;
 
                 memset(&(FileInfo[filecount]), 0, sizeof(FileInfo));
 

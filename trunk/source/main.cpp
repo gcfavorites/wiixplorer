@@ -56,6 +56,7 @@ main(int argc, char *argv[])
 
 	// Initialize font system
 	InitFreeType(Settings.CustomFontPath, (u8*)font_ttf, font_ttf_size);
+	ClearFontData();
 
 	InitThreads();
 	MainMenu(MENU_BROWSE_DEVICE);
