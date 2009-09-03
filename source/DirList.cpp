@@ -33,6 +33,8 @@
 
 #include "DirList.h"
 
+#include "Prompts/PromptWindows.h"
+
 DirList::DirList(const char * path, const char *filter)
 {
     filecount = 0;
@@ -74,11 +76,17 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
     struct stat st;
     DIR_ITER *dir = NULL;
     char filename[1024];
+	char *filterCopy, *filterTok;
 
     dir = diropen(folderpath);
     if (dir == NULL) {
         return false;
     }
+	
+	size_t size = strlen(filter);
+	filterCopy = (char *) malloc(size + 1);
+	memset(filterCopy, 0, size + 1);
+	strncpy(filterCopy, filter, size);
 
     while (dirnext(dir,filename,&st) == 0)
     {
@@ -87,66 +95,75 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
             if(filter) {
 
                 char *fileext = strrchr(filename, '.');
-
                 if(fileext && ((st.st_mode & S_IFDIR) == 0)) {
 
-                    if ((strcasecmp(fileext, filter) == 0 || strcasecmp(fileext, filter) == 0))
-                    {
+					filterTok = strtok(filterCopy, ",");
+					
+					while (filterTok != NULL)
+					{
+						if ((strcasecmp(fileext, filterTok) == 0 || strcasecmp(fileext, filterTok) == 0))
+						{
+							FileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
 
-                        FileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
+							if (!FileInfo)
+							{
+								for(int i = 0; i < filecount; i++)
+								{
+									if(FileInfo[i].FilePath) {
+										free(FileInfo[i].FilePath);
+										FileInfo[i].FilePath = NULL;
+									}
+									if(FileInfo[i].FileName) {
+										free(FileInfo[i].FileName);
+										FileInfo[i].FileName = NULL;
+									}
+								}
+								free(FileInfo);
+								FileInfo = NULL;
+								filecount = 0;
+								dirclose(dir);
+								
+								free(filterCopy);
+								return false;
+							}
 
-                        if (!FileInfo)
-                        {
-                            for(int i = 0; i < filecount; i++)
-                            {
-                                if(FileInfo[i].FilePath) {
-                                    free(FileInfo[i].FilePath);
-                                    FileInfo[i].FilePath = NULL;
-                                }
-                                if(FileInfo[i].FileName) {
-                                    free(FileInfo[i].FileName);
-                                    FileInfo[i].FileName = NULL;
-                                }
-                            }
-                            free(FileInfo);
-                            FileInfo = NULL;
-                            filecount = 0;
-                            dirclose(dir);
-                            return false;
-                        }
+							memset(&(FileInfo[filecount]), 0, sizeof(FileInfo));
 
-                        memset(&(FileInfo[filecount]), 0, sizeof(FileInfo));
+							FileInfo[filecount].FilePath = (char *) malloc(strlen(folderpath)+2);
+							FileInfo[filecount].FileName = (char *) malloc(strlen(filename)+2);
 
-                        FileInfo[filecount].FilePath = (char *) malloc(strlen(folderpath)+2);
-                        FileInfo[filecount].FileName = (char *) malloc(strlen(filename)+2);
+							if (!FileInfo[filecount].FilePath || !FileInfo[filecount].FileName)
+							{
+								for(int i = 0; i < filecount; i++)
+								{
+									if(FileInfo[i].FilePath) {
+										free(FileInfo[i].FilePath);
+										FileInfo[i].FilePath = NULL;
+									}
+									if(FileInfo[i].FileName) {
+										free(FileInfo[i].FileName);
+										FileInfo[i].FileName = NULL;
+									}
+								}
+								free(FileInfo);
+								FileInfo = NULL;
+								filecount = 0;
+								dirclose(dir);
+								
+								free(filterCopy);
+								return false;
+							}
 
-                        if (!FileInfo[filecount].FilePath || !FileInfo[filecount].FileName)
-                        {
-                            for(int i = 0; i < filecount; i++)
-                            {
-                                if(FileInfo[i].FilePath) {
-                                    free(FileInfo[i].FilePath);
-                                    FileInfo[i].FilePath = NULL;
-                                }
-                                if(FileInfo[i].FileName) {
-                                    free(FileInfo[i].FileName);
-                                    FileInfo[i].FileName = NULL;
-                                }
-                            }
-                            free(FileInfo);
-                            FileInfo = NULL;
-                            filecount = 0;
-                            dirclose(dir);
-                            return false;
-                        }
-
-                        //!Set the values
-                        snprintf(FileInfo[filecount].FilePath, strlen(folderpath)+1, "%s", folderpath);
-                        snprintf(FileInfo[filecount].FileName, strlen(filename)+1, "%s", filename);
-                        FileInfo[filecount].FileSize = st.st_size;
-                        FileInfo[filecount].isDir = false;
-                        filecount++;
-                    }
+							//!Set the values
+							snprintf(FileInfo[filecount].FilePath, strlen(folderpath)+1, "%s", folderpath);
+							snprintf(FileInfo[filecount].FileName, strlen(filename)+1, "%s", filename);
+							FileInfo[filecount].FileSize = st.st_size;
+							FileInfo[filecount].isDir = false;
+							filecount++;
+						}
+						
+						filterTok = strtok(NULL, ",");
+					}
                 }
             } else {
 
@@ -169,6 +186,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
                     FileInfo = NULL;
                     filecount = 0;
                     dirclose(dir);
+					free(filterCopy);
                     return false;
                 }
 
@@ -194,6 +212,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
                     FileInfo = NULL;
                     filecount = 0;
                     dirclose(dir);
+					free(filterCopy);
                     return false;
                 }
 
@@ -212,6 +231,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
         }
     }
     dirclose(dir);
+	free(filterCopy);
 
     return true;
 }
@@ -259,4 +279,16 @@ static int ListCompare(const void *a, const void *b)
 void DirList::SortList()
 {
     qsort(FileInfo, filecount, sizeof(FileInfos), ListCompare);
+}
+
+int DirList::GetFileIndex(const char *filename)
+{
+	for (int i = 0; i < filecount; i++)
+	{
+		if (strcmp(FileInfo[i].FileName, filename) == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
 }

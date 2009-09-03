@@ -40,6 +40,8 @@ class DirList {
         int GetFilecount() { return filecount; };
         //! Sort list by filepath
         void SortList();
+		//! Get the index of the specified filename
+		int GetFileIndex(const char *filename);
     protected:
         int filecount;
         FileInfos *FileInfo;

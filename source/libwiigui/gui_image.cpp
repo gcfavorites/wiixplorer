@@ -120,6 +120,11 @@ void GuiImage::SetImage(u8 * img, int w, int h)
 	imgType = IMAGE_TEXTURE;
 }
 
+float GuiImage::GetAngle()
+{
+	return imageangle;
+}
+
 void GuiImage::SetAngle(float a)
 {
     LOCK(this);

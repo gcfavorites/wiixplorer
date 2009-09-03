@@ -9,6 +9,8 @@
 #ifndef _PROMPTWINDOWS_H_
 #define _PROMPTWINDOWS_H_
 
+#include <gctypes.h>
+
 enum
 {
     CUT,
