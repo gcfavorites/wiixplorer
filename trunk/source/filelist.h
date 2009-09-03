@@ -164,4 +164,46 @@ extern const u32	player3_point_png_size;
 extern const u8		player4_point_png[];
 extern const u32	player4_point_png_size;
 
+extern const u8		back_png[];
+extern const u32	back_png_size;
+
+extern const u8		back_over_png[];
+extern const u32	back_over_png_size;
+
+extern const u8		zoomin_png[];
+extern const u32	zoomin_png_size;
+
+extern const u8		zoomin_over_png[];
+extern const u32	zoomin_over_png_size;
+
+extern const u8		zoomout_png[];
+extern const u32	zoomout_png_size;
+
+extern const u8		zoomout_over_png[];
+extern const u32	zoomout_over_png_size;
+
+extern const u8		rotateR_png[];
+extern const u32	rotateR_png_size;
+
+extern const u8		rotateR_over_png[];
+extern const u32	rotateR_over_png_size;
+
+extern const u8		rotateL_png[];
+extern const u32	rotateL_png_size;
+
+extern const u8		rotateL_over_png[];
+extern const u32	rotateL_over_png_size;
+
+extern const u8		next_png[];
+extern const u32	next_png_size;
+
+extern const u8		next_over_png[];
+extern const u32	next_over_png_size;
+
+extern const u8		prev_png[];
+extern const u32	prev_png_size;
+
+extern const u8		prev_over_png[];
+extern const u32	prev_over_png_size;
+
 #endif
