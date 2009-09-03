@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "Kan inte öppna filen"
 
 msgid "Cancel"
 msgstr "Avbryt"
+
+msgid "Cannot open image"
+msgstr ""
 
 msgid "Cannot open the image file."
 msgstr "Kunde inte öppna image filen."
@@ -77,6 +80,9 @@ msgstr "Klipp ut katalog?"
 
 msgid "Cut file?"
 msgstr "Klipp ut fil?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "Radera"
@@ -199,6 +205,13 @@ msgstr ""
 msgid "Image"
 msgstr "Bild"
 
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Language"
 msgstr "Språk"
 
@@ -210,6 +223,9 @@ msgstr "Senast modifierad:"
 
 msgid "Last status change:"
 msgstr "Senast status ändring:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Laddar fil:"
@@ -235,6 +251,10 @@ msgstr "Ny mapp"
 msgid "No"
 msgstr "Nej"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
 msgid "No language files found."
 msgstr ""
 
@@ -249,6 +269,9 @@ msgstr ""
 
 msgid "ON"
 msgstr "På"
+
+msgid "OpenMem failed"
+msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Slut på minne: för många filer!"
@@ -356,7 +379,7 @@ msgstr "Du kan inte använda denna funktion på:"
 msgid "Zipfiles on SMB don't work for now"
 msgstr ""
 
-msgid "for his great tool"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
 #~ msgid "Dutch"

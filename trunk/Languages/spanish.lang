@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -33,6 +33,9 @@ msgstr "No se puede abrir el archivo"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Cannot open image"
+msgstr ""
+
 msgid "Cannot open the image file."
 msgstr "No se puede abrir el archivo de imagen."
 
@@ -40,13 +43,13 @@ msgid "Change Settings"
 msgstr "Cambiar configuración"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programadores:"
 
 msgid "Connect SMB"
 msgstr "Conectar SMB"
 
 msgid "Console Default"
-msgstr "Predeterminado  de la Consola"
+msgstr "Pred. de la Consola"
 
 msgid "Copy"
 msgstr "Copiar"
@@ -64,10 +67,10 @@ msgid "Copying files:"
 msgstr "Copiando archivos:"
 
 msgid "Credits"
-msgstr ""
+msgstr "Creditos"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Ruta fuente personalizada"
 
 msgid "Cut"
 msgstr "Cortar"
@@ -77,6 +80,9 @@ msgstr "¿Cortar directorio?"
 
 msgid "Cut file?"
 msgstr "¿Cortar archivo?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -91,10 +97,10 @@ msgid "Deleting files:"
 msgstr "Eliminando archivo:"
 
 msgid "Designer:"
-msgstr ""
+msgstr "Diseñador:"
 
 msgid "Directory .."
-msgstr "Directorio.."
+msgstr "Directorio .."
 
 msgid "Directory couldn't be deleted."
 msgstr "Directorio no puede ser eliminado."
@@ -112,31 +118,31 @@ msgid "Do you want to boot:"
 msgstr "Desea arrancar:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "¿Quieres cargar el lenguaje por defecto segun la aplicación?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "¿Quieres cargar el lenguaje por defecto segun la consola?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "¿Quieres cargar este lenguaje?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "¿Desea abrir este archivo en TextViewer?"
+msgstr "¿Quieres abrir este archivo en el Visor de Texto?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr "¿Desea abrir este archivo en ImageViewer?"
+msgstr "¿Quieres abrir este archivo en el Visor de Imágenes?"
 
 msgid "Do you want to playback this file?"
-msgstr "¿Desea reproducir este archivo?"
+msgstr "¿Quieres reproducir este archivo?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr "¿Desea reconectar el SMB?"
+msgstr "¿Quieres reconectar a SMB?"
 
 msgid "ERROR"
 msgstr "ERROR"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Ingresa un directorio a donde extraer los archivos."
 
 msgid "Error"
 msgstr "Error"
@@ -145,19 +151,19 @@ msgid "Error:"
 msgstr "Error:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Extrayendo archivos..."
 
 msgid "Failed copying file."
-msgstr "Error al copiar los archivos."
+msgstr "Fallo al copiar archivo."
 
 msgid "Failed copying files."
-msgstr "Error al copiar los archivos."
+msgstr "Fallo al copiar archivos."
 
 msgid "Failed renaming file"
-msgstr "Error al renombrar el archivo"
+msgstr "Fallo al renombrar archivo."
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Fallo al extraer archivo."
 
 msgid "File couldn't be deleted."
 msgstr "El archivo no puede ser eliminado."
@@ -173,10 +179,10 @@ msgstr "Archivo movido correctamente."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Ruta de archivo: %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Archivos extraidos correctamente."
 
 msgid "Files:"
 msgstr "Archivos:"
@@ -188,28 +194,38 @@ msgid "Folder"
 msgstr "Carpeta"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Fuente de ruta cambiada"
 
 msgid "Go Back"
 msgstr "Atrás"
 
 msgid "Host:"
-msgstr ""
+msgstr "Host:"
 
 msgid "Image"
 msgstr "Imagen"
+
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
 
 msgid "Language"
 msgstr "Idioma"
 
 msgid "Last access:"
-msgstr "Ultimo acceso:"
+msgstr "Último acceso:"
 
 msgid "Last modified:"
-msgstr "Ultima modificación:"
+msgstr "Última modificación:"
 
 msgid "Last status change:"
 msgstr "Último cambio de estado:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Cargando archivo:"
@@ -221,13 +237,13 @@ msgid "Moving files:"
 msgstr "Moviendo archivos:"
 
 msgid "Music Volume"
-msgstr "Volumen de la música"
+msgstr "Volumen de música"
 
 msgid "Name already exists."
 msgstr "Nombre ya existe."
 
 msgid "Network initialising..."
-msgstr "inicializando la red..."
+msgstr "Inicializando la red..."
 
 msgid "New Folder"
 msgstr "Nueva carpeta"
@@ -235,23 +251,30 @@ msgstr "Nueva carpeta"
 msgid "No"
 msgstr "No"
 
-msgid "No language files found."
+#, c-format
+msgid "No image found at index %d."
 msgstr ""
+
+msgid "No language files found."
+msgstr "No se encontró archivo de lenguaje."
 
 msgid "Not enough memory."
 msgstr "No hay suficiente memoria."
 
 msgid "OFF"
-msgstr "Suspender"
+msgstr "OFF"
 
 msgid "OK"
 msgstr "OK"
 
 msgid "ON"
-msgstr "Iniciar"
+msgstr "ON"
+
+msgid "OpenMem failed"
+msgstr ""
 
 msgid "Out of memory: too many files!"
-msgstr "¡Fuera de memoria: demasiados archivos!"
+msgstr "Fuera de memoria: ¡demasiados archivos!"
 
 msgid "Password:"
 msgstr "Contraseña:"
@@ -260,25 +283,25 @@ msgid "Paste"
 msgstr "Pegar"
 
 msgid "Paste into current directory?"
-msgstr "¿Pegar en el directorio actual?"
+msgstr "¿Pegar en directorio actual?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Por favor copia este archivo al USB/SD primero"
 
 msgid "Please wait:"
-msgstr "Por favor, espera:"
+msgstr "Espera Por favor:"
 
 msgid "Properties"
-msgstr "propiedades"
+msgstr "Propiedades"
 
 msgid "Reconnect SMB"
-msgstr "reconectar SMB"
+msgstr "Reconectar SMB"
 
 msgid "Rename"
 msgstr "Renombrar"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Reinicia la aplic. para cargar la nueva fuente."
 
 msgid "Retry"
 msgstr "Reintentar"
@@ -290,10 +313,10 @@ msgid "SMB Name:"
 msgstr "Nombre del SMB:"
 
 msgid "SMB Settings"
-msgstr "Configuración del SMB"
+msgstr "Configuración de SMB"
 
 msgid "SMB is connecting..."
-msgstr "SMB está conectado..."
+msgstr "SMB está conectando..."
 
 msgid "SMB1"
 msgstr "SMB1"
@@ -311,16 +334,16 @@ msgid "Size:"
 msgstr "Tamaño:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Agradecimientos especiales a:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Todo el staff de Devkitpro & liboc."
 
 msgid "This is no OGG/MP3 file"
-msgstr "Este no es archivo de OGG/MP3"
+msgstr "Esto no es un archivo OGG/MP3"
 
 msgid "Transfering files:"
-msgstr "Transferencia de archivos:"
+msgstr "Transfiriendo archivos:"
 
 msgid "USB"
 msgstr "USB"
@@ -333,10 +356,10 @@ msgstr "No se puede cargar el dispositivo."
 
 #, c-format
 msgid "User %i"
-msgstr "Usario %i"
+msgstr "Usuario %i"
 
 msgid "User:"
-msgstr "usuario:"
+msgstr "Usuario:"
 
 msgid "Username:"
 msgstr "Nombre de usuario:"
@@ -345,46 +368,16 @@ msgid "Yes"
 msgstr "Sí"
 
 msgid "You can not cut into the directory itself."
-msgstr "No se puede cortar dentro del directorio en sí mismo."
+msgstr "No puedes cortar dentro del directorio en sí mismo."
 
 msgid "You cannot read/write from/to the same file."
-msgstr "No se puede leer/escribir desde/para el mismo archivo."
+msgstr "No puedes leer/escribir desde/hacia el mismo archivo."
 
 msgid "You cant use this operation on:"
-msgstr "No se puede usar esta operación en:"
+msgstr "No puedes usar esta operación en:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Archivos zip en SMB no funcionan por ahora"
 
-msgid "for his great tool"
-msgstr ""
-
-#~ msgid "Dutch"
-#~ msgstr "Neerlandés"
-
-#~ msgid "English"
-#~ msgstr "Inglés"
-
-#~ msgid "French"
-#~ msgstr "Francés"
-
-#~ msgid "German"
-#~ msgstr "Alemán"
-
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgid "Japanese"
-#~ msgstr "Japonés"
-
-#~ msgid "Korean"
-#~ msgstr "Coreano"
-
-#~ msgid "S. Chinese"
-#~ msgstr "Chino Simplificado"
-
-#~ msgid "Spanish"
-#~ msgstr "Español"
-
-#~ msgid "T. Chinese"
-#~ msgstr "Chino Tradicional"
+msgid "for his great tool LibWiiGui."
+msgstr "por su gran utilidad LibWiiGui."

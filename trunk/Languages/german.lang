@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: Screemer\n"
+"Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -22,22 +22,25 @@ msgid "An error occured."
 msgstr "Ein Fehler ist aufgetreten."
 
 msgid "App Default"
-msgstr "ard Programmeinstellung"
+msgstr "Standardeinstellung"
 
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
 msgid "Can not open the file"
-msgstr "Datei konnte nicht geöffnet werden"
+msgstr "Datei kann nicht geöffnet werden"
 
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Cannot open image"
+msgstr ""
+
 msgid "Cannot open the image file."
-msgstr "Bilddatei konnte nicht geöffnet werden."
+msgstr "Bilddatei kann nicht geöffnet werden."
 
 msgid "Change Settings"
-msgstr "Einstellungen ändern"
+msgstr "Einstellungen"
 
 msgid "Coders:"
 msgstr "Programmierer:"
@@ -46,7 +49,7 @@ msgid "Connect SMB"
 msgstr "SMB verbinden"
 
 msgid "Console Default"
-msgstr "Standard Konsoleneinstellung"
+msgstr "Konsolenstandard"
 
 msgid "Copy"
 msgstr "Kopieren"
@@ -61,13 +64,13 @@ msgid "Copying file:"
 msgstr "Kopiere Datei:"
 
 msgid "Copying files:"
-msgstr "Kopiere Dateien"
+msgstr "Kopiere Dateien:"
 
 msgid "Credits"
 msgstr "Credits"
 
 msgid "Customfont Path"
-msgstr "Pfad zu nutzerdefnierten Schriften"
+msgstr "Pfad zu Schriftarten"
 
 msgid "Cut"
 msgstr "Ausschneiden"
@@ -77,6 +80,9 @@ msgstr "Verzeichnis ausschneiden?"
 
 msgid "Cut file?"
 msgstr "Datei ausschneiden?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "Löschen"
@@ -115,19 +121,19 @@ msgid "Do you want to load app default language ?"
 msgstr "Standard Sprache des Programms laden?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Standard Sprache der Konsole laden?"
 
 msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "Möchten Sie diese Datei im TextViewer öffnen?"
+msgstr "Diese Datei im TextViewer öffnen?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr "Möchten Sie diese Datei mit dem ImageViewer öffnen?"
+msgstr "Diese Datei mit dem ImageViewer öffnen?"
 
 msgid "Do you want to playback this file?"
-msgstr "Möchten Sie diese Datei abspielen?"
+msgstr "Diese Datei abspielen?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "SMB neu verbinden?"
@@ -136,7 +142,7 @@ msgid "ERROR"
 msgstr "FEHLER"
 
 msgid "Enter a directory where to extract the files to."
-msgstr "Verzeichniss zum entpacken angeben."
+msgstr "Verzeichnis zum entpacken angeben."
 
 msgid "Error"
 msgstr "Fehler"
@@ -157,7 +163,7 @@ msgid "Failed renaming file"
 msgstr "Datei konnte nicht umbenannt werden"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Dateien konnten nicht entpackt werden."
 
 msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
@@ -176,7 +182,7 @@ msgid "Filepath:  %s"
 msgstr "Pfad: %s"
 
 msgid "Files successfully extracted."
-msgstr "Datie erfolgreich entpackt."
+msgstr "Datei erfolgreich entpackt."
 
 msgid "Files:"
 msgstr "Dateien:"
@@ -188,7 +194,7 @@ msgid "Folder"
 msgstr "Verzeichnis"
 
 msgid "Fontpath changed"
-msgstr "Schriftenverzeichniss gewechselt"
+msgstr "Schriftartenverzeichnis gewechselt"
 
 msgid "Go Back"
 msgstr "Zurück"
@@ -198,6 +204,13 @@ msgstr "Host:"
 
 msgid "Image"
 msgstr "Bild"
+
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
 
 msgid "Language"
 msgstr "Sprache"
@@ -210,6 +223,9 @@ msgstr "Zuletzt geändert:"
 
 msgid "Last status change:"
 msgstr "Letzte Statusänderung:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
@@ -235,6 +251,10 @@ msgstr "Neues Verzeichnis"
 msgid "No"
 msgstr "Nein"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
 msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
 
@@ -250,6 +270,9 @@ msgstr "OK"
 msgid "ON"
 msgstr "AN"
 
+msgid "OpenMem failed"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
 
@@ -263,7 +286,7 @@ msgid "Paste into current directory?"
 msgstr "In aktuelles Verzeichnis einfügen?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr "Bitte Dateien erst auf SD/USB kopieren"
+msgstr "Bitte Datei erst auf SD/USB kopieren"
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
@@ -281,7 +304,7 @@ msgid "Restart the app to load the new font."
 msgstr "Anwendung neustarten um Schrift zu laden."
 
 msgid "Retry"
-msgstr "Noch einmal versuchen"
+msgstr "Wiederholen"
 
 msgid "SD"
 msgstr "SD"
@@ -314,7 +337,7 @@ msgid "Special thanks to:"
 msgstr "Speziellen Dank an:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr "Das ganze DevkitPor & libogc Team."
+msgstr "Das ganze DevkitPro & libogc Team."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Dies ist keine OGG/MP3 Datei"
@@ -345,7 +368,7 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "You can not cut into the directory itself."
-msgstr "Ausschneiden/Einfügen in das gleiche Verzeichnis nicht möglich."
+msgstr "Ausschneiden/Einfügen in dasselbe Verzeichnis nicht möglich."
 
 msgid "You cannot read/write from/to the same file."
 msgstr "Lesen/schreiben aus/in dieselbe Datei nicht möglich."
@@ -354,9 +377,9 @@ msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr "Zip-Dateien auf Netzlaufwerken noch nicht unterstützt."
+msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
 
-msgid "for his great tool"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
 #~ msgid "Tantric for his great tool libwiigui."
@@ -371,7 +394,7 @@ msgstr ""
 #~ msgid "r-win"
 #~ msgstr "RWin"
 
-#~ msgid "Do you want to load console default language?"
+#~ msgid "Do you want to load console default language ?"
 #~ msgstr "Standard Sprache der Konsole laden?"
 
 #~ msgid "Dutch"

@@ -11,6 +11,7 @@
 #include "gui.h"
 
 #include "Prompts/PromptWindows.h"
+#include "Language/gettext.h"
 
 #include "libgif/gif_lib.h"
 #include "libbmp/bmp.h"
@@ -209,18 +210,18 @@ void GuiImageData::LoadBMP(const u8 *img, int imgSize)
 	BmpFile *bmpFile = BmpOpenMem(img, imgSize);
 	if (bmpFile == NULL) 
 	{
-		WindowPrompt("LoadBMP", "OpenMem failed", "OK");
+		WindowPrompt(tr("LoadBMP"), tr("OpenMem failed"), "OK");
 		return;
 	}
 	
 	char buf[255];
-	sprintf((char *) &buf, "Image loaded: %d x %d", bmpFile->info_header.width, bmpFile->info_header.height);
-	WindowPrompt("LoadBmp", (char *) &buf, "OK");
+	sprintf((char *) &buf, tr("Image loaded: %d x %d"), bmpFile->info_header.width, bmpFile->info_header.height);
+	WindowPrompt(tr("LoadBMP"), (char *) &buf, tr("OK"));
 	
 	BmpData *rows = (BmpData *) BmpDecompress(bmpFile);
 	if (rows == NULL)
 	{
-		WindowPrompt("LoadBMP", "Decompress failed", "OK");
+		WindowPrompt(tr("LoadBMP"), tr("Decompress failed"), tr("OK"));
 		return;
 	}
 	

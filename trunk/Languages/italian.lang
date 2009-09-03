@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
-"PO-Revision-Date: 2009-09-01 11:18+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
+"PO-Revision-Date: 2009-09-02 11:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Il file non si può aprire"
 
 msgid "Cancel"
 msgstr "Annulla"
+
+msgid "Cannot open image"
+msgstr ""
 
 msgid "Cannot open the image file."
 msgstr "Il file immagine non si può aprire"
@@ -77,6 +80,9 @@ msgstr "Taglio la cartella?"
 
 msgid "Cut file?"
 msgstr "Taglio il file?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "Elimina"
@@ -199,6 +205,13 @@ msgstr "Host:"
 msgid "Image"
 msgstr "Immagine"
 
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Language"
 msgstr "Lingua"
 
@@ -210,6 +223,9 @@ msgstr "Ultima modifica:"
 
 msgid "Last status change:"
 msgstr "Ultima modifica stato:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Sto caricando il file:"
@@ -235,6 +251,10 @@ msgstr "Nuova cartella"
 msgid "No"
 msgstr "No"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
 msgid "No language files found."
 msgstr "Nessuna lingua trovata."
 
@@ -249,6 +269,9 @@ msgstr "OK"
 
 msgid "ON"
 msgstr "Attivato"
+
+msgid "OpenMem failed"
+msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Memoria insufficiente: troppi file!"
@@ -356,11 +379,14 @@ msgstr "Non puoi eseguire questa operazione su:"
 msgid "Zipfiles on SMB don't work for now"
 msgstr "Al momento i file zip non funzionano su SMB"
 
-msgid "for his great tool"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
 #~ msgid "Tantric for his great tool libwiigui."
 #~ msgstr "Tantric per la sua fantastica libreria libwiigui."
+
+#~ msgid "Filepath: %s"
+#~ msgstr "Perc. file: %s"
 
 #~ msgid "Dimok"
 #~ msgstr "Dimok"
@@ -370,9 +396,6 @@ msgstr ""
 
 #~ msgid "r-win"
 #~ msgstr "r-win"
-
-#~ msgid "Filepath: %s"
-#~ msgstr "Percorso file: %s"
 
 #~ msgid "Dutch"
 #~ msgstr "Olandese"

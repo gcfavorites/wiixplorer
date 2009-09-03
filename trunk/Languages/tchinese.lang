@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-02 20:59+0200\n"
+"POT-Creation-Date: 2009-09-03 18:32+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -32,6 +32,9 @@ msgstr "無法開啟檔案"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Cannot open image"
+msgstr ""
 
 msgid "Cannot open the image file."
 msgstr "無法開啟圖形檔案"
@@ -77,6 +80,9 @@ msgstr "剪下目錄?"
 
 msgid "Cut file?"
 msgstr "剪下檔案?"
+
+msgid "Decompress failed"
+msgstr ""
 
 msgid "Delete"
 msgstr "刪除"
@@ -199,6 +205,13 @@ msgstr "主機:"
 msgid "Image"
 msgstr "圖形"
 
+#, c-format
+msgid "Image loaded: %d x %d"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Language"
 msgstr "語言"
 
@@ -210,6 +223,9 @@ msgstr "最近修改:"
 
 msgid "Last status change:"
 msgstr "最近狀態變更:"
+
+msgid "LoadBMP"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "正在載入檔案:"
@@ -235,6 +251,10 @@ msgstr "新資料夾"
 msgid "No"
 msgstr "否"
 
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
 msgid "No language files found."
 msgstr "找不到語言檔案"
 
@@ -249,6 +269,9 @@ msgstr "確定"
 
 msgid "ON"
 msgstr "開"
+
+msgid "OpenMem failed"
+msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足: 太多檔案!"
@@ -356,7 +379,7 @@ msgstr "無法使用此功能在:"
 msgid "Zipfiles on SMB don't work for now"
 msgstr "壓縮檔在目前無法在SMB功能中使用"
 
-msgid "for his great tool"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
 #~ msgid "Tantric for his great tool libwiigui."
