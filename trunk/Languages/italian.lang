@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
-"PO-Revision-Date: 2009-09-02 11:18+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
+"PO-Revision-Date: 2009-09-03 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "L'immagine non si può aprire"
 
 msgid "Change Settings"
 msgstr "Modifica Impostazioni"
@@ -173,7 +173,7 @@ msgstr "Il file è stato spostato con successo."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Perc. file: %s"
 
 msgid "Files successfully extracted."
 msgstr "I file sono stati estratti con successo."
@@ -197,7 +197,7 @@ msgid "Host:"
 msgstr "Host:"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Mostra Immagine"
 
 msgid "Language"
 msgstr "Lingua"
@@ -237,7 +237,7 @@ msgstr "No"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "Nessuna immagine trovata in %d."
 
 msgid "No language files found."
 msgstr "Nessuna lingua trovata."
@@ -314,6 +314,9 @@ msgstr "SMB4"
 msgid "Size:"
 msgstr "Dimensione:"
 
+msgid "Slideshow not yet implemented."
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Grazie mille a:"
 
@@ -361,55 +364,4 @@ msgid "Zipfiles on SMB don't work for now"
 msgstr "Al momento i file zip non funzionano su SMB"
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Il file immagine non si può aprire"
-
-#~ msgid "Image"
-#~ msgstr "Immagine"
-
-#~ msgid "Tantric for his great tool libwiigui."
-#~ msgstr "Tantric per la sua fantastica libreria libwiigui."
-
-#~ msgid "Filepath: %s"
-#~ msgstr "Perc. file: %s"
-
-#~ msgid "Dimok"
-#~ msgstr "Dimok"
-
-#~ msgid "NeoRame"
-#~ msgstr "NeoRame"
-
-#~ msgid "r-win"
-#~ msgstr "r-win"
-
-#~ msgid "Dutch"
-#~ msgstr "Olandese"
-
-#~ msgid "English"
-#~ msgstr "Inglese"
-
-#~ msgid "French"
-#~ msgstr "Francese"
-
-#~ msgid "German"
-#~ msgstr "Tedesco"
-
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgid "Japanese"
-#~ msgstr "Giapponese"
-
-#~ msgid "Korean"
-#~ msgstr "Coreano"
-
-#~ msgid "S. Chinese"
-#~ msgstr "Cinese Semplificato"
-
-#~ msgid "Spanish"
-#~ msgstr "Spagnolo"
-
-#~ msgid "T. Chinese"
-#~ msgstr "Cinese Tradizionale"
+msgstr "per la sua fantastica libreria LibWiiGui."

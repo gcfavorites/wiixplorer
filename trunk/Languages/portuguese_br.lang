@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -314,6 +314,9 @@ msgstr ""
 msgid "Size:"
 msgstr "Tamanho:"
 
+msgid "Slideshow not yet implemented."
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr ""
 
@@ -362,39 +365,3 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Impossível abrir a imagem"
-
-#~ msgid "Image"
-#~ msgstr "Imagem"
-
-#~ msgid "Dutch"
-#~ msgstr "Holandês"
-
-#~ msgid "English"
-#~ msgstr "Inglês"
-
-#~ msgid "French"
-#~ msgstr "Francãs"
-
-#~ msgid "German"
-#~ msgstr "Alemão"
-
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-
-#~ msgid "Japanese"
-#~ msgstr "Japonês"
-
-#~ msgid "Korean"
-#~ msgstr "Coreano"
-
-#~ msgid "S. Chinese"
-#~ msgstr "Chinês Simples"
-
-#~ msgid "Spanish"
-#~ msgstr "Espanhol"
-
-#~ msgid "T. Chinese"
-#~ msgstr "Chinês Tradicional"

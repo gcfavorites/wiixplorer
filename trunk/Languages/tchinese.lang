@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -314,6 +314,9 @@ msgstr "區域網路4"
 msgid "Size:"
 msgstr "檔案大小:"
 
+msgid "Slideshow not yet implemented."
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "特別感謝:"
 
@@ -361,52 +364,4 @@ msgid "Zipfiles on SMB don't work for now"
 msgstr "壓縮檔在目前無法在SMB功能中使用"
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "無法開啟圖形檔案"
-
-#~ msgid "Image"
-#~ msgstr "圖形"
-
-#~ msgid "Tantric for his great tool libwiigui."
-#~ msgstr "Tantric偉大的工具libwiigui"
-
-#~ msgid "Dimok"
-#~ msgstr "Dimok"
-
-#~ msgid "NeoRame"
-#~ msgstr "NeoRame"
-
-#~ msgid "r-win"
-#~ msgstr "r-win"
-
-#~ msgid "Dutch"
-#~ msgstr "荷文"
-
-#~ msgid "English"
-#~ msgstr "英文"
-
-#~ msgid "French"
-#~ msgstr "法文"
-
-#~ msgid "German"
-#~ msgstr "德文"
-
-#~ msgid "Italian"
-#~ msgstr "義大利文"
-
-#~ msgid "Japanese"
-#~ msgstr "日文"
-
-#~ msgid "Korean"
-#~ msgstr "韓文"
-
-#~ msgid "S. Chinese"
-#~ msgstr "減體中文"
-
-#~ msgid "Spanish"
-#~ msgstr "西班牙文"
-
-#~ msgid "T. Chinese"
-#~ msgstr "繁體中文"
+msgstr "偉大的工具LibWiiGui"

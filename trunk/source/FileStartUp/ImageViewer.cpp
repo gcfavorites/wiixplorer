@@ -288,7 +288,7 @@ void ImageViewer(const char *filepath)
 		}
 		else if (slideshowButton.GetState() == STATE_CLICKED) {
 			//start a slideshow
-			WindowPrompt("ImageViewer", "Slideshow not yet implemented.", "OK");
+			WindowPrompt(tr("ImageViewer"), tr("Slideshow not yet implemented."), tr("OK"));
 			
 			slideshowButton.ResetState();
 		}
