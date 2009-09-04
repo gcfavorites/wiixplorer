@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -34,9 +34,6 @@ msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Cannot open image"
-msgstr "Impossible d'ouvrir l'image."
-
-msgid "Cannot open the image file."
 msgstr "Impossible d'ouvrir l'image."
 
 msgid "Change Settings"
@@ -80,9 +77,6 @@ msgstr "Couper le dossier ?"
 
 msgid "Cut file?"
 msgstr "Couper le fichier ?"
-
-msgid "Decompress failed"
-msgstr "Echec de la décompression"
 
 msgid "Delete"
 msgstr "Supprimer"
@@ -202,13 +196,6 @@ msgstr "Retour"
 msgid "Host:"
 msgstr "Hébergeur:"
 
-msgid "Image"
-msgstr "Image"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr "Image chargée: %d x %d"
-
 msgid "ImageViewer"
 msgstr "Aperçu"
 
@@ -223,9 +210,6 @@ msgstr "Modifié le:"
 
 msgid "Last status change:"
 msgstr "Status changé le:"
-
-msgid "LoadBMP"
-msgstr "Chargement BMP"
 
 msgid "Loading file:"
 msgstr "Chargement de:"
@@ -269,9 +253,6 @@ msgstr ""
 
 msgid "ON"
 msgstr "Actif"
-
-msgid "OpenMem failed"
-msgstr "Echec lors de l'accés mémoire"
 
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
@@ -381,3 +362,21 @@ msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "Impossible d'ouvrir l'image."
+
+#~ msgid "Image"
+#~ msgstr "Image"
+
+#~ msgid "Decompress failed"
+#~ msgstr "Echec de la décompression"
+
+#~ msgid "Image loaded: %d x %d"
+#~ msgstr "Image chargée: %d x %d"
+
+#~ msgid "LoadBMP"
+#~ msgstr "Chargement BMP"
+
+#~ msgid "OpenMem failed"
+#~ msgstr "Echec lors de l'accés mémoire"

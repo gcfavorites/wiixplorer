@@ -14,7 +14,7 @@
 #include "Language/gettext.h"
 
 #include "libgif/gif_lib.h"
-#include "libbmp/bmp.h"
+#include "libbmp/EasyBMP.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -188,7 +188,6 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 		location += rowsize;
     }
 
-//	int len = cinfo.output_width * cinfo.output_height * 4;
 	int len = ((cinfo.output_width+3)>>2)*((cinfo.output_height+3)>>2)*32*2;
 
     data = (u8 *) memalign(32, len);
@@ -207,38 +206,21 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 
 void GuiImageData::LoadBMP(const u8 *img, int imgSize)
 {
-	BmpFile *bmpFile = BmpOpenMem(img, imgSize);
-	if (bmpFile == NULL) 
+	BMP bmpFile;
+	if (!bmpFile.ReadFromMem(img, imgSize))
 	{
-		WindowPrompt(tr("LoadBMP"), tr("OpenMem failed"), "OK");
 		return;
 	}
 	
-	char buf[255];
-	sprintf((char *) &buf, tr("Image loaded: %d x %d"), bmpFile->info_header.width, bmpFile->info_header.height);
-	WindowPrompt(tr("LoadBMP"), (char *) &buf, tr("OK"));
+	width = bmpFile.TellWidth();
+	height = bmpFile.TellHeight();
 	
-	BmpData *rows = (BmpData *) BmpDecompress(bmpFile);
-	if (rows == NULL)
-	{
-		WindowPrompt(tr("LoadBMP"), tr("Decompress failed"), tr("OK"));
-		return;
-	}
-	
-	width = bmpFile->info_header.width;
-	height = bmpFile->info_header.height;
-	
-//	int len = width * height * 4;
 	int len = ((width+3)>>2)*((height+3)>>2)*32*2;	
     data = (u8 *) memalign(32, len);
 
-	BmpDecodeTo4x4RGB8(bmpFile, rows, data);
-	BmpFreeData(bmpFile, rows);
-	
-	BmpCloseMem(bmpFile);
-	bmpFile = NULL;
+	bmpFile.DecodeTo4x4RGB8(data);
+	DCFlushRange(data, len);	
 }
-
 
 void GuiImageData::LoadGIF(const u8 *img, int imgSize)
 {

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgstr "ｷｬﾝｾﾙ"
 
 msgid "Cannot open image"
 msgstr ""
-
-msgid "Cannot open the image file."
-msgstr "画像を開けません"
 
 msgid "Change Settings"
 msgstr "設定を変更"
@@ -80,9 +77,6 @@ msgstr "ﾌｫﾙﾀﾞを切り取りますか?"
 
 msgid "Cut file?"
 msgstr "ﾌｧｲﾙを切り取りますか?"
-
-msgid "Decompress failed"
-msgstr ""
 
 msgid "Delete"
 msgstr "削除"
@@ -202,13 +196,6 @@ msgstr "戻る"
 msgid "Host:"
 msgstr "ﾎｽﾄ"
 
-msgid "Image"
-msgstr "画像"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -223,9 +210,6 @@ msgstr "更新日時"
 
 msgid "Last status change:"
 msgstr "変更日時"
-
-msgid "LoadBMP"
-msgstr ""
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
@@ -269,9 +253,6 @@ msgstr "はい"
 
 msgid "ON"
 msgstr "ｵﾝ"
-
-msgid "OpenMem failed"
-msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "ﾌｧｲﾙが多いためﾒﾓﾘ不足です"
@@ -381,3 +362,9 @@ msgstr "SMB上でZipは解凍できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "画像を開けません"
+
+#~ msgid "Image"
+#~ msgstr "画像"

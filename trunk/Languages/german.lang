@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgstr "Abbrechen"
 
 msgid "Cannot open image"
 msgstr ""
-
-msgid "Cannot open the image file."
-msgstr "Bilddatei kann nicht geöffnet werden."
 
 msgid "Change Settings"
 msgstr "Einstellungen"
@@ -80,9 +77,6 @@ msgstr "Verzeichnis ausschneiden?"
 
 msgid "Cut file?"
 msgstr "Datei ausschneiden?"
-
-msgid "Decompress failed"
-msgstr ""
 
 msgid "Delete"
 msgstr "Löschen"
@@ -202,13 +196,6 @@ msgstr "Zurück"
 msgid "Host:"
 msgstr "Host:"
 
-msgid "Image"
-msgstr "Bild"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -223,9 +210,6 @@ msgstr "Zuletzt geändert:"
 
 msgid "Last status change:"
 msgstr "Letzte Statusänderung:"
-
-msgid "LoadBMP"
-msgstr ""
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
@@ -269,9 +253,6 @@ msgstr "OK"
 
 msgid "ON"
 msgstr "AN"
-
-msgid "OpenMem failed"
-msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
@@ -381,6 +362,12 @@ msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "Bilddatei kann nicht geöffnet werden."
+
+#~ msgid "Image"
+#~ msgstr "Bild"
 
 #~ msgid "Tantric for his great tool libwiigui."
 #~ msgstr "Tantric, für seine großartige libwiigui."

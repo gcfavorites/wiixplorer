@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgstr "取消"
 
 msgid "Cannot open image"
 msgstr ""
-
-msgid "Cannot open the image file."
-msgstr "無法開啟圖形檔案"
 
 msgid "Change Settings"
 msgstr "變更設定"
@@ -80,9 +77,6 @@ msgstr "剪下目錄?"
 
 msgid "Cut file?"
 msgstr "剪下檔案?"
-
-msgid "Decompress failed"
-msgstr ""
 
 msgid "Delete"
 msgstr "刪除"
@@ -202,13 +196,6 @@ msgstr "返回"
 msgid "Host:"
 msgstr "主機:"
 
-msgid "Image"
-msgstr "圖形"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -223,9 +210,6 @@ msgstr "最近修改:"
 
 msgid "Last status change:"
 msgstr "最近狀態變更:"
-
-msgid "LoadBMP"
-msgstr ""
 
 msgid "Loading file:"
 msgstr "正在載入檔案:"
@@ -269,9 +253,6 @@ msgstr "確定"
 
 msgid "ON"
 msgstr "開"
-
-msgid "OpenMem failed"
-msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足: 太多檔案!"
@@ -381,6 +362,12 @@ msgstr "壓縮檔在目前無法在SMB功能中使用"
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "無法開啟圖形檔案"
+
+#~ msgid "Image"
+#~ msgstr "圖形"
 
 #~ msgid "Tantric for his great tool libwiigui."
 #~ msgstr "Tantric偉大的工具libwiigui"
