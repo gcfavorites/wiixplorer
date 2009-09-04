@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -34,7 +34,7 @@ msgid "Cancel"
 msgstr "Afbryd"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "Kan ikke åbne billede"
 
 msgid "Change Settings"
 msgstr "Skift indstillinger"
@@ -237,7 +237,7 @@ msgstr "Nej"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "Intet billede fundet på indeks %d."
 
 msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
@@ -314,6 +314,9 @@ msgstr ""
 msgid "Size:"
 msgstr "Størrelse:"
 
+msgid "Slideshow not yet implemented."
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Især tak til:"
 
@@ -362,9 +365,3 @@ msgstr "Kan endnu ikke åbne zip-filer på SMB"
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Kan ikke åbne billedfilen."
-
-#~ msgid "Image"
-#~ msgstr "Billede"

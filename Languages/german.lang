@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -34,7 +34,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "Bild konnte nicht geöffnet werden"
 
 msgid "Change Settings"
 msgstr "Einstellungen"
@@ -197,7 +197,7 @@ msgid "Host:"
 msgstr "Host:"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Bildbetrachter"
 
 msgid "Language"
 msgstr "Sprache"
@@ -314,6 +314,9 @@ msgstr "SMB4"
 msgid "Size:"
 msgstr "Größe:"
 
+msgid "Slideshow not yet implemented."
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Speziellen Dank an:"
 
@@ -361,55 +364,4 @@ msgid "Zipfiles on SMB don't work for now"
 msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Bilddatei kann nicht geöffnet werden."
-
-#~ msgid "Image"
-#~ msgstr "Bild"
-
-#~ msgid "Tantric for his great tool libwiigui."
-#~ msgstr "Tantric, für seine großartige libwiigui."
-
-#~ msgid "Dimok"
-#~ msgstr "Dimok"
-
-#~ msgid "NeoRame"
-#~ msgstr "NeoRame"
-
-#~ msgid "r-win"
-#~ msgstr "RWin"
-
-#~ msgid "Do you want to load console default language ?"
-#~ msgstr "Standard Sprache der Konsole laden?"
-
-#~ msgid "Dutch"
-#~ msgstr "Niederländisch"
-
-#~ msgid "English"
-#~ msgstr "Englisch"
-
-#~ msgid "French"
-#~ msgstr "Französisch"
-
-#~ msgid "German"
-#~ msgstr "Deutsch"
-
-#~ msgid "Italian"
-#~ msgstr "Italienisch"
-
-#~ msgid "Japanese"
-#~ msgstr "Japanisch"
-
-#~ msgid "Korean"
-#~ msgstr "Koreanisch"
-
-#~ msgid "S. Chinese"
-#~ msgstr "S. Chinesisch"
-
-#~ msgid "Spanish"
-#~ msgstr "Spanisch"
-
-#~ msgid "T. Chinese"
-#~ msgstr "T. Chinesisch"
+msgstr "für seine großartige LibWiiGui."

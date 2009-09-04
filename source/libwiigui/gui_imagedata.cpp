@@ -11,7 +11,6 @@
 #include "gui.h"
 
 #include "Prompts/PromptWindows.h"
-#include "Language/gettext.h"
 
 #include "libgif/gif_lib.h"
 #include "libbmp/EasyBMP.h"

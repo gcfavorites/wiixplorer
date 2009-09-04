@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -314,6 +314,9 @@ msgstr ""
 msgid "Size:"
 msgstr "Taille:"
 
+msgid "Slideshow not yet implemented."
+msgstr "Diaporama non fonctionnel."
+
 msgid "Special thanks to:"
 msgstr "Remerciements:"
 
@@ -362,21 +365,3 @@ msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Impossible d'ouvrir l'image."
-
-#~ msgid "Image"
-#~ msgstr "Image"
-
-#~ msgid "Decompress failed"
-#~ msgstr "Echec de la décompression"
-
-#~ msgid "Image loaded: %d x %d"
-#~ msgstr "Image chargée: %d x %d"
-
-#~ msgid "LoadBMP"
-#~ msgstr "Chargement BMP"
-
-#~ msgid "OpenMem failed"
-#~ msgstr "Echec lors de l'accés mémoire"

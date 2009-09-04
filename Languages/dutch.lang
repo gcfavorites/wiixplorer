@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 19:39+0200\n"
+"POT-Creation-Date: 2009-09-04 23:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,13 +35,13 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "Kan afbeelding niet openen"
 
 msgid "Change Settings"
 msgstr "Opties wijzigen"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Codering:"
 
 msgid "Connect SMB"
 msgstr "SMB verbinden"
@@ -65,10 +65,10 @@ msgid "Copying files:"
 msgstr "Bestanden kopieren:"
 
 msgid "Credits"
-msgstr ""
+msgstr "Aftiteling"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Locatie Lettertype"
 
 msgid "Cut"
 msgstr "Knippen"
@@ -92,7 +92,7 @@ msgid "Deleting files:"
 msgstr "Bestanden verwijderen:"
 
 msgid "Designer:"
-msgstr ""
+msgstr "Ontwerp:"
 
 msgid "Directory .."
 msgstr "Locatie .."
@@ -113,13 +113,13 @@ msgid "Do you want to boot:"
 msgstr "Wil je starten:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Wil je de toepassings standaardtaal laden?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Wil je de console standaadtaal laden?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Wil je deze taal laden?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Wil je dit bestand in een tekstverwerker openen?"
@@ -137,7 +137,7 @@ msgid "ERROR"
 msgstr "FOUT"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Kies Waar je de bestanden wilt uitpakken."
 
 msgid "Error"
 msgstr "Fout"
@@ -146,7 +146,7 @@ msgid "Error:"
 msgstr "Fout:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Bezig met uitpakken..."
 
 msgid "Failed copying file."
 msgstr "Bestand kopieren mislukt."
@@ -158,7 +158,7 @@ msgid "Failed renaming file"
 msgstr "Bestand hernoemen mislukt"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Uitpakken gefaald."
 
 msgid "File couldn't be deleted."
 msgstr "Bestand kon niet worden verwijderd"
@@ -177,7 +177,7 @@ msgid "Filepath:  %s"
 msgstr "Locatie: %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Uitpakken voltooid!"
 
 msgid "Files:"
 msgstr "Bestanden:"
@@ -189,7 +189,7 @@ msgid "Folder"
 msgstr "Map"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Locatie lettertype gewijzigd"
 
 msgid "Go Back"
 msgstr "Terug"
@@ -198,7 +198,7 @@ msgid "Host:"
 msgstr "Gastheer:"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "ImageViewer"
 
 msgid "Language"
 msgstr "Taal"
@@ -238,10 +238,10 @@ msgstr "Nee"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "Geen afb. gevonden bij index %d."
 
 msgid "No language files found."
-msgstr ""
+msgstr "Geen taalbestanden gevonden."
 
 msgid "Not enough memory."
 msgstr "Niet genoeg vrij geheugen."
@@ -268,7 +268,7 @@ msgid "Paste into current directory?"
 msgstr "Plakken op deze locatie?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Kopieer dit bestand eerst naar SD/USB"
 
 msgid "Please wait:"
 msgstr "Even geduld:"
@@ -283,7 +283,7 @@ msgid "Rename"
 msgstr "Hernoemen"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Herstart dit programma om het lettertype te wijzigen."
 
 msgid "Retry"
 msgstr "Opnieuw prob."
@@ -315,11 +315,14 @@ msgstr "SMB4"
 msgid "Size:"
 msgstr "Grootte:"
 
-msgid "Special thanks to:"
+msgid "Slideshow not yet implemented."
 msgstr ""
 
+msgid "Special thanks to:"
+msgstr "Speciale dank aan:"
+
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Het hele Devkitpro en libogc team."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Dit is geen OGG/MP3 bestand"
@@ -359,43 +362,7 @@ msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Zip bestanden op SMB werken nog niet"
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
-
-#~ msgid "Cannot open the image file."
-#~ msgstr "Kan afbeelding niet openen."
-
-#~ msgid "Image"
-#~ msgstr "Afbeelding"
-
-#~ msgid "Dutch"
-#~ msgstr "Nederlands"
-
-#~ msgid "English"
-#~ msgstr "Engels"
-
-#~ msgid "French"
-#~ msgstr "Frans"
-
-#~ msgid "German"
-#~ msgstr "Duits"
-
-#~ msgid "Italian"
-#~ msgstr "Italiaans"
-
-#~ msgid "Japanese"
-#~ msgstr "Japans"
-
-#~ msgid "Korean"
-#~ msgstr "Koreaans"
-
-#~ msgid "S. Chinese"
-#~ msgstr "S. Chinees"
-
-#~ msgid "Spanish"
-#~ msgstr "Spaans"
-
-#~ msgid "T. Chinese"
-#~ msgstr "T. Chinees"
+msgstr "voor de LibWiiGui"
