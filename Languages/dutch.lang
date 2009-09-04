@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,9 +36,6 @@ msgstr "Annuleren"
 
 msgid "Cannot open image"
 msgstr ""
-
-msgid "Cannot open the image file."
-msgstr "Kan afbeelding niet openen."
 
 msgid "Change Settings"
 msgstr "Opties wijzigen"
@@ -81,9 +78,6 @@ msgstr "Locatie knippen?"
 
 msgid "Cut file?"
 msgstr "Bestand knippen?"
-
-msgid "Decompress failed"
-msgstr ""
 
 msgid "Delete"
 msgstr "Verwijder"
@@ -203,13 +197,6 @@ msgstr "Terug"
 msgid "Host:"
 msgstr "Gastheer:"
 
-msgid "Image"
-msgstr "Afbeelding"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -224,9 +211,6 @@ msgstr "Laatst gewijzigd:"
 
 msgid "Last status change:"
 msgstr "Laatste statuswijziging:"
-
-msgid "LoadBMP"
-msgstr ""
 
 msgid "Loading file:"
 msgstr "Bestand laden:"
@@ -270,9 +254,6 @@ msgstr "OK"
 
 msgid "ON"
 msgstr "AAN"
-
-msgid "OpenMem failed"
-msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Te wijnig geheugen: te veel bestanden!"
@@ -382,6 +363,12 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "Kan afbeelding niet openen."
+
+#~ msgid "Image"
+#~ msgstr "Afbeelding"
 
 #~ msgid "Dutch"
 #~ msgstr "Nederlands"

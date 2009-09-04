@@ -89,6 +89,14 @@ bool LoadImage(int index, GuiImageData **imageData)
 	return true;
 }
 
+void UpdateImage(GuiImage *image, GuiImageData *imageData)
+{
+	image->SetAngle(0);
+	image->SetImage(imageData);
+	
+	image->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+}
+
 int NextImage(int currentImage, GuiImageData **imageData)
 {
 	return LoadImage(++currentImage, imageData) ? currentImage : -1;
@@ -104,33 +112,12 @@ void ImageViewer(const char *filepath)
     bool exitwindow = false;
 	int currentImage = -1;
 
-    u8 *file = NULL;
-    u64 filesize = 0;
-
-	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
-	if (!ret)
-		return;
-
-	GuiImageData *imageData = new GuiImageData(file, filesize);
-
-	if (file)
-	{
-		free(file);
-		file = NULL;
-	}
-
-	if (!imageData->GetImage())
-	{
-		WindowPrompt(tr("Image"), tr("Cannot open the image file."), tr("OK"));
-		return;
-	}
-
 	char path[255];
 	char *ptr = strrchr(filepath, '/');
 	if (ptr != NULL)
 	{
 		strncpy(path, filepath, ptr - filepath);
-		imageDir = new DirList(path, ".jpg,.gif,.png");
+		imageDir = new DirList(path, ".jpg,.bmp,.gif,.png");
 
 		char *filename = ptr + 1;
 		currentImage = imageDir->GetFileIndex(filename);
@@ -138,8 +125,12 @@ void ImageViewer(const char *filepath)
 		{
 			delete imageDir;
 			imageDir = NULL;
+			return;
 		}
 	}
+	
+	GuiImageData *imageData = NULL;
+	LoadImage(currentImage, &imageData);
 
 	GuiImage image(imageData);
 
@@ -148,12 +139,12 @@ void ImageViewer(const char *filepath)
 
 	GuiWindow window(mainWindow->GetWidth(), mainWindow->GetHeight());
 
-	GuiImage backGround(mainWindow->GetWidth(), mainWindow->GetHeight(), (GXColor){0, 0, 0, 255});
+	GuiImage backGround(mainWindow->GetWidth(), mainWindow->GetHeight(), (GXColor){0, 0, 0, 0x70});
 
 	float factor = (image.GetWidth() > image.GetHeight()) ? (1.0 * backGround.GetWidth()) / image.GetWidth() : (1.0 * backGround.GetHeight()) / image.GetHeight();
 	image.SetScale(factor);
-
-	image.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	
+//	image.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
 	window.Append(&backGround);
 
@@ -168,10 +159,24 @@ void ImageViewer(const char *filepath)
 	backButton.SetImage(&backButtonImage);
 	backButton.SetImageOver(&backButtonOverImage);
 	backButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backButton.SetPosition(32, -16);
+	backButton.SetPosition(24, -16);
 	backButton.SetTrigger(&trigger);
 
 	window.Append(&backButton);
+
+	GuiImageData slideshowButtonData(slideshow_png);
+	GuiImage slideshowButtonImage(&slideshowButtonData);
+	GuiImageData slideshowButtonOverData(slideshow_over_png);
+	GuiImage slideshowButtonOverImage(&slideshowButtonOverData);
+
+	GuiButton slideshowButton(slideshowButtonImage.GetWidth(), slideshowButtonImage.GetHeight());
+	slideshowButton.SetImage(&slideshowButtonImage);
+	slideshowButton.SetImageOver(&slideshowButtonOverImage);
+	slideshowButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	slideshowButton.SetPosition(128, -16);
+	slideshowButton.SetTrigger(&trigger);
+
+	window.Append(&slideshowButton);
 
 	GuiImageData zoominButtonData(zoomin_png);
 	GuiImage zoominButtonImage(&zoominButtonData);
@@ -182,7 +187,7 @@ void ImageViewer(const char *filepath)
 	zoominButton.SetImage(&zoominButtonImage);
 	zoominButton.SetImageOver(&zoominButtonOverImage);
 	zoominButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	zoominButton.SetPosition(152, -16);
+	zoominButton.SetPosition(224, -16);
 	zoominButton.SetTrigger(&trigger);
 
 	window.Append(&zoominButton);
@@ -196,7 +201,7 @@ void ImageViewer(const char *filepath)
 	zoomoutButton.SetImage(&zoomoutButtonImage);
 	zoomoutButton.SetImageOver(&zoomoutButtonOverImage);
 	zoomoutButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	zoomoutButton.SetPosition(264, -16);
+	zoomoutButton.SetPosition(320, -16);
 	zoomoutButton.SetTrigger(&trigger);
 	zoomoutButton.SetState(STATE_DISABLED);
 
@@ -211,7 +216,7 @@ void ImageViewer(const char *filepath)
 	rotateRButton.SetImage(&rotateRButtonImage);
 	rotateRButton.SetImageOver(&rotateRButtonOverImage);
 	rotateRButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	rotateRButton.SetPosition(376, -16);
+	rotateRButton.SetPosition(416, -16);
 	rotateRButton.SetTrigger(&trigger);
 
 	window.Append(&rotateRButton);
@@ -225,7 +230,7 @@ void ImageViewer(const char *filepath)
 	rotateLButton.SetImage(&rotateLButtonImage);
 	rotateLButton.SetImageOver(&rotateLButtonOverImage);
 	rotateLButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	rotateLButton.SetPosition(488, -16);
+	rotateLButton.SetPosition(512, -16);
 	rotateLButton.SetTrigger(&trigger);
 
 	window.Append(&rotateLButton);
@@ -281,6 +286,12 @@ void ImageViewer(const char *filepath)
 			exitwindow = true;
 			backButton.ResetState();
 		}
+		else if (slideshowButton.GetState() == STATE_CLICKED) {
+			//start a slideshow
+			WindowPrompt("ImageViewer", "Slideshow not yet implemented.", "OK");
+			
+			slideshowButton.ResetState();
+		}
 		else if (zoominButton.GetState() == STATE_CLICKED) {
 			image.SetScale(image.GetScale() + 1);
 			zoominButton.ResetState();
@@ -309,8 +320,7 @@ void ImageViewer(const char *filepath)
 			nextButton.SetVisible(currentImage != -1 && currentImage < imageDir->GetFilecount() - 1);
 			prevButton.SetVisible(currentImage > 0);
 
-			image.SetAngle(0);
-			image.SetImage(imageData);
+			UpdateImage(&image, imageData);
 		}
 		else if (prevButton.GetState() == STATE_CLICKED) {
 			currentImage = PreviousImage(currentImage, &imageData);
@@ -318,8 +328,7 @@ void ImageViewer(const char *filepath)
 			nextButton.SetVisible(currentImage != -1 && currentImage < imageDir->GetFilecount() - 1);
 			prevButton.SetVisible(currentImage > 0);
 
-			image.SetAngle(0);
-			image.SetImage(imageData);
+			UpdateImage(&image, imageData);
 		}
 	}
 

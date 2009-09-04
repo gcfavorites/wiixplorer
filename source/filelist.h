@@ -170,6 +170,12 @@ extern const u32	back_png_size;
 extern const u8		back_over_png[];
 extern const u32	back_over_png_size;
 
+extern const u8		slideshow_png[];
+extern const u32	slideshow_png_size;
+
+extern const u8		slideshow_over_png[];
+extern const u32	slideshow_over_png_size;
+
 extern const u8		zoomin_png[];
 extern const u32	zoomin_png_size;
 

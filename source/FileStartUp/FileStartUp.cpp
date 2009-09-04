@@ -23,7 +23,7 @@ int FileStartUp(const char *filepath)
         return BOOTHOMEBREW;
     }
     else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
-			/* || strcasecmp(fileext, ".bmp") == 0 */ || strcasecmp(fileext, ".gif") == 0) {
+			|| strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0) {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
 			ImageViewer(filepath);

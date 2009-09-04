@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -35,9 +35,6 @@ msgstr "Cancelar"
 
 msgid "Cannot open image"
 msgstr ""
-
-msgid "Cannot open the image file."
-msgstr "No se puede abrir el archivo de imagen."
 
 msgid "Change Settings"
 msgstr "Cambiar configuración"
@@ -80,9 +77,6 @@ msgstr "¿Cortar directorio?"
 
 msgid "Cut file?"
 msgstr "¿Cortar archivo?"
-
-msgid "Decompress failed"
-msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -202,13 +196,6 @@ msgstr "Atrás"
 msgid "Host:"
 msgstr "Host:"
 
-msgid "Image"
-msgstr "Imagen"
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -223,9 +210,6 @@ msgstr "Última modificación:"
 
 msgid "Last status change:"
 msgstr "Último cambio de estado:"
-
-msgid "LoadBMP"
-msgstr ""
 
 msgid "Loading file:"
 msgstr "Cargando archivo:"
@@ -269,9 +253,6 @@ msgstr "OK"
 
 msgid "ON"
 msgstr "ON"
-
-msgid "OpenMem failed"
-msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Fuera de memoria: ¡demasiados archivos!"
@@ -381,3 +362,9 @@ msgstr "Archivos zip en SMB no funcionan por ahora"
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
+
+#~ msgid "Cannot open the image file."
+#~ msgstr "No se puede abrir el archivo de imagen."
+
+#~ msgid "Image"
+#~ msgstr "Imagen"

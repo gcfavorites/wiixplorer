@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-03 23:47+0200\n"
+"POT-Creation-Date: 2009-09-04 19:39+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgid "Cancel"
 msgstr ""
 
 msgid "Cannot open image"
-msgstr ""
-
-msgid "Cannot open the image file."
 msgstr ""
 
 msgid "Change Settings"
@@ -80,9 +77,6 @@ msgid "Cut directory?"
 msgstr ""
 
 msgid "Cut file?"
-msgstr ""
-
-msgid "Decompress failed"
 msgstr ""
 
 msgid "Delete"
@@ -203,13 +197,6 @@ msgstr ""
 msgid "Host:"
 msgstr ""
 
-msgid "Image"
-msgstr ""
-
-#, c-format
-msgid "Image loaded: %d x %d"
-msgstr ""
-
 msgid "ImageViewer"
 msgstr ""
 
@@ -223,9 +210,6 @@ msgid "Last modified:"
 msgstr ""
 
 msgid "Last status change:"
-msgstr ""
-
-msgid "LoadBMP"
 msgstr ""
 
 msgid "Loading file:"
@@ -269,9 +253,6 @@ msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr ""
-
-msgid "OpenMem failed"
 msgstr ""
 
 msgid "Out of memory: too many files!"
