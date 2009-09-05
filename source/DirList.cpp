@@ -33,8 +33,6 @@
 
 #include "DirList.h"
 
-#include "Prompts/PromptWindows.h"
-
 DirList::DirList(const char * path, const char *filter)
 {
     filecount = 0;
@@ -95,7 +93,6 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
 
                 char *fileext = strrchr(filename, '.');
                 if(fileext && ((st.st_mode & S_IFDIR) == 0)) {
-
 					strncpy(filterCopy, filter, size);
 					filterTok = strtok(filterCopy, ",");
 

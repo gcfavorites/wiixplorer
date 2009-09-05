@@ -211,27 +211,28 @@ void ImageViewer(const char *filepath)
 	currentImage = -1;
 
 	char path[255];
+	memset((void *) &path, 0, 255);
+	
 	char *ptr = strrchr(filepath, '/');
 	if (ptr != NULL)
 	{
 		strncpy(path, filepath, ptr - filepath);
 		imageDir = new DirList(path, ".jpg,.bmp,.gif,.png");
 
-		char buf[255];
-		sprintf((char *) &buf, "Images: %d", imageDir->GetFilecount());
-		WindowPrompt("ImageViewer", (char *) &buf, "OK");
+//		char buf[255];
+//		sprintf((char *) &buf, "Images: %d", imageDir->GetFilecount());
+//		WindowPrompt("ImageViewer", (char *) &buf, "OK");
 
 		char *filename = ptr + 1;
 
-		sprintf((char *) &buf, "Filename: %s", filename);
-		WindowPrompt("ImageViewer", (char *) &buf, "OK");
+//		sprintf((char *) &buf, "Filename: %s", filename);
+//		WindowPrompt("ImageViewer", (char *) &buf, "OK");
 
 		currentImage = imageDir->GetFileIndex(filename);
 		if (currentImage == -1)
 		{
 			delete imageDir;
 			imageDir = NULL;
-			WindowPrompt("ImageViewer", "Cannot open file.", "OK");
 			return;
 		}
 	}
