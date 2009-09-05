@@ -51,6 +51,7 @@ Settings::~Settings()
 void Settings::SetDefault()
 {
     MountMethod = 0;
+    MountNTFS = off;
     CurrentUser = 0;
     AutoConnect = off;
     sprintf(CustomFontPath, "%sfont.ttf", CONFIGPATH);
@@ -85,6 +86,7 @@ bool Settings::Save()
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "LanguagePath = %s\n", LanguagePath);
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
+	fprintf(file, "MountNTFS = %d\n", MountNTFS);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
@@ -225,6 +227,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "MusicVolume") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			MusicVolume = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "MountNTFS") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			MountNTFS = i;
 		}
 		return true;
 	}

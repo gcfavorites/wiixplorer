@@ -6,6 +6,7 @@ void SMB_Reconnect();
 void CloseSMBShare();
 bool IsSMB_Mounted(int smb);
 void Initialize_Network(void);
+void DeInit_Network(void);
 bool IsNetworkInit(void);
 bool IsNetworkInitiating(void);
 char * GetNetworkIP(void);

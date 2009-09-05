@@ -8,7 +8,7 @@
 #include "video.h"
 #include "audio.h"
 #include "menu.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "sys.h"
 
 

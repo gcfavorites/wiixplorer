@@ -7,7 +7,7 @@
 #include <wiiuse/wpad.h>
 
 #include "network/networkops.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "dolloader.h"
 #include "elfloader.h"
 
@@ -67,6 +67,7 @@ int BootHomebrew(char * path) {
     SDCard_deInit();
     USBDevice_deInit();
 	CloseSMBShare();
+	DeInit_Network();
 
     WPAD_Flush(0);
     WPAD_Disconnect(0);

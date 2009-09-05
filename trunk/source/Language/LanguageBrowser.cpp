@@ -35,7 +35,7 @@
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
 #include "Prompts/PromptWindows.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "Language/gettext.h"
 #include "DirList.h"
 #include "main.h"

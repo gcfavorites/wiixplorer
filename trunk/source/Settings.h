@@ -68,6 +68,8 @@ class Settings
         short	AutoConnect;
         //!Music Volume.
         short	MusicVolume;
+        //!Option to mount or not mount the NTFS volumes
+        short	MountNTFS;
         //!Languagefile path
         char	LanguagePath[150];
         //!Path to the customfont file.

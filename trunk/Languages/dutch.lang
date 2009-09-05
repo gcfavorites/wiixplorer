@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 23:09+0200\n"
+"POT-Creation-Date: 2009-09-05 15:42+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,6 +28,12 @@ msgstr "Standaard"
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
+msgid "Back"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
 msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
 
@@ -36,6 +42,9 @@ msgstr "Annuleren"
 
 msgid "Cannot open image"
 msgstr "Kan afbeelding niet openen"
+
+msgid "Caps"
+msgstr ""
 
 msgid "Change Settings"
 msgstr "Opties wijzigen"
@@ -215,8 +224,8 @@ msgstr "Laatste statuswijziging:"
 msgid "Loading file:"
 msgstr "Bestand laden:"
 
-msgid "Mount Method"
-msgstr "Aansluitingsmethode"
+msgid "Mount NTFS"
+msgstr ""
 
 msgid "Moving files:"
 msgstr "Bestanden verplaatsen:"
@@ -312,11 +321,11 @@ msgstr "SMB3"
 msgid "SMB4"
 msgstr "SMB4"
 
+msgid "Shift"
+msgstr ""
+
 msgid "Size:"
 msgstr "Grootte:"
-
-msgid "Slideshow not yet implemented."
-msgstr ""
 
 msgid "Special thanks to:"
 msgstr "Speciale dank aan:"
@@ -366,3 +375,6 @@ msgstr "Zip bestanden op SMB werken nog niet"
 
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+#~ msgid "Mount Method"
+#~ msgstr "Aansluitingsmethode"

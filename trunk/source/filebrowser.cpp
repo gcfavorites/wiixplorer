@@ -279,6 +279,35 @@ int BrowserChangeFolder()
 }
 
 /****************************************************************************
+ * BrowsePath
+ * Displays a list of files on the selected path
+ ***************************************************************************/
+int BrowsePath(const char *path)
+{
+	int length = strlen(path)+1;
+
+	char *device = strchr(path, ':');
+	int position = device-path+1;
+
+
+	if(!device || position < 0)
+        return -1;
+
+	snprintf(browser.rootdir, position+1, "%s", path);
+
+    int n = 0;
+	for(int i = position; i < length; i++)
+	{
+	    browser.dir[n] = path[i];
+	    browser.dir[n+1] = '\0';
+	    n++;
+	}
+
+	ParseDirectory(); // Parse root directory
+	return browser.numEntries;
+}
+
+/****************************************************************************
  * BrowseDevice
  * Displays a list of files on the selected device
  ***************************************************************************/
@@ -292,6 +321,21 @@ int BrowseDevice(int device)
             break;
 	    case USB:
             sprintf(browser.rootdir, "usb:");
+            break;
+	    case NTFS0:
+            sprintf(browser.rootdir, "ntfs0:");
+            break;
+	    case NTFS1:
+            sprintf(browser.rootdir, "ntfs1:");
+            break;
+	    case NTFS2:
+            sprintf(browser.rootdir, "ntfs2:");
+            break;
+	    case NTFS3:
+            sprintf(browser.rootdir, "ntfs3:");
+            break;
+	    case NTFS4:
+            sprintf(browser.rootdir, "ntfs4:");
             break;
 	    case SMB1:
             sprintf(browser.rootdir, "smb1:");

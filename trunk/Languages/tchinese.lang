@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 23:09+0200\n"
+"POT-Creation-Date: 2009-09-05 15:42+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -27,6 +27,12 @@ msgstr "程式預設值"
 msgid "Auto Connect"
 msgstr "自動連線"
 
+msgid "Back"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
 msgid "Can not open the file"
 msgstr "無法開啟檔案"
 
@@ -34,6 +40,9 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot open image"
+msgstr ""
+
+msgid "Caps"
 msgstr ""
 
 msgid "Change Settings"
@@ -214,8 +223,8 @@ msgstr "最近狀態變更:"
 msgid "Loading file:"
 msgstr "正在載入檔案:"
 
-msgid "Mount Method"
-msgstr "掛載方式"
+msgid "Mount NTFS"
+msgstr ""
 
 msgid "Moving files:"
 msgstr "正在移動檔案:"
@@ -311,11 +320,11 @@ msgstr "區域網路3"
 msgid "SMB4"
 msgstr "區域網路4"
 
+msgid "Shift"
+msgstr ""
+
 msgid "Size:"
 msgstr "檔案大小:"
-
-msgid "Slideshow not yet implemented."
-msgstr ""
 
 msgid "Special thanks to:"
 msgstr "特別感謝:"
@@ -365,3 +374,6 @@ msgstr "壓縮檔在目前無法在SMB功能中使用"
 
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
+
+#~ msgid "Mount Method"
+#~ msgstr "掛載方式"

@@ -1,11 +1,15 @@
-#ifndef _FATMOUNTER_H_
-#define _FATMOUNTER_H_
+#ifndef _DEVICEMOUNTER_H_
+#define _DEVICEMOUNTER_H_
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+int NTFS_Mount();
+void NTFS_UnMount();
+int NTFS_GetMountCount();
+const char *NTFS_GetMountName(int mountIndex);
 int USBDevice_Init();
 void USBDevice_deInit();
 int USBDevice_Inserted();

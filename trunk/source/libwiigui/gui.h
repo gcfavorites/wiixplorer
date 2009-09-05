@@ -53,7 +53,7 @@ extern FreeTypeGX *fontSystem[];
 #define SCROLL_INITIAL_DELAY 	20
 #define SCROLL_LOOP_DELAY 		3
 #define PAGESIZE	 			8
-#define MAX_KEYBOARD_DISPLAY	32
+#define MAX_KEYBOARD_DISPLAY	40
 
 typedef void (*UpdateCallback)(void * e);
 
@@ -802,7 +802,7 @@ class GuiKeyboard : public GuiWindow
 		char kbtextstr[256];
 	protected:
 		u32 kbtextmaxlen;
-		Key keys[4][11];
+		Key keys[4][13];
 		int shift;
 		int caps;
 		GuiText * kbText;
@@ -822,10 +822,10 @@ class GuiKeyboard : public GuiWindow
 		GuiImage * keySpaceImg;
 		GuiImage * keySpaceOverImg;
 		GuiButton * keySpace;
-		GuiButton * keyBtn[4][11];
-		GuiImage * keyImg[4][11];
-		GuiImage * keyImgOver[4][11];
-		GuiText * keyTxt[4][11];
+		GuiButton * keyBtn[4][13];
+		GuiImage * keyImg[4][13];
+		GuiImage * keyImgOver[4][13];
+		GuiText * keyTxt[4][13];
 		GuiImageData * keyTextbox;
 		GuiImageData * key;
 		GuiImageData * keyOver;
@@ -862,6 +862,14 @@ class GuiFileBrowser : public GuiElement
 		GuiText * fileListTextOver[PAGESIZE];
 		GuiImage * fileListBg[PAGESIZE];
 		GuiImage * fileListFolder[PAGESIZE];
+		GuiImage * fileListGIF[PAGESIZE];
+		GuiImage * fileListMP3[PAGESIZE];
+		GuiImage * fileListOGG[PAGESIZE];
+		GuiImage * fileListJPG[PAGESIZE];
+		GuiImage * fileListPNG[PAGESIZE];
+		GuiImage * fileListTXT[PAGESIZE];
+		GuiImage * fileListXML[PAGESIZE];
+		GuiImage * fileListZIP[PAGESIZE];
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
@@ -879,6 +887,14 @@ class GuiFileBrowser : public GuiElement
 		GuiImageData * bgFileSelection;
 		GuiImageData * bgFileSelectionEntry;
 		GuiImageData * fileFolder;
+		GuiImageData * filePNG;
+        GuiImageData * fileGIF;
+        GuiImageData * fileJPG;
+        GuiImageData * fileMP3;
+        GuiImageData * fileOGG;
+        GuiImageData * fileTXT;
+        GuiImageData * fileXML;
+        GuiImageData * fileZIP;
 		GuiImageData * scrollbar;
 		GuiImageData * arrowDown;
 		GuiImageData * arrowDownOver;

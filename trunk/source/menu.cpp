@@ -45,7 +45,7 @@
 #include "filebrowser.h"
 #include "fileops.h"
 #include "foldersize.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
@@ -65,6 +65,7 @@ static lwp_t guithread = LWP_THREAD_NULL;
 static bool guiHalt = true;
 static CLIPBOARD Clipboard;
 static int ExitRequested = 0;
+static int currentDevice = 0;
 static bool boothomebrew = false;
 static bool firsttimestart = true;
 
@@ -204,7 +205,7 @@ static int MenuBrowseDevice()
     time_t currenttime = time(0);
     struct tm * timeinfo = localtime(&currenttime);
 
-    if(firsttimestart && Settings.MountMethod > USB &&
+    if(firsttimestart && Settings.MountMethod > NTFS4 &&
         Settings.AutoConnect == on && !IsNetworkInit()) {
 
         WaitSMBConnect();
@@ -213,7 +214,7 @@ static int MenuBrowseDevice()
     }
 
 	// populate initial directory listing
-	if(BrowseDevice(Settings.MountMethod) <= 0)
+	if(BrowseDevice(currentDevice) <= 0)
 	{
 		int choice = WindowPrompt(tr("Error"),
 		tr("Unable to load device."),
@@ -290,9 +291,9 @@ static int MenuBrowseDevice()
 	GuiImageData networkstorage(networkstorage_png);
 	GuiImage deviceImg(&sdstorage);
 
-	if(Settings.MountMethod == 1)
+	if(currentDevice > SD && currentDevice < SMB1)
         deviceImg.SetImage(&usbstorage);
-    else if(Settings.MountMethod == 2)
+    else if(currentDevice >= SMB1)
         deviceImg.SetImage(&networkstorage);
 
 	GuiButton deviceSwitchBtn(deviceImg.GetWidth(), deviceImg.GetHeight());
@@ -423,21 +424,18 @@ static int MenuBrowseDevice()
 
         else if(deviceSwitchBtn.GetState() == STATE_CLICKED) {
 
-            Settings.MountMethod++;
-            //Skip device if not connected
-            if(Settings.MountMethod == USB && !USBDevice_Inserted())
-                Settings.MountMethod++;
-            while(Settings.MountMethod > USB && !IsSMB_Mounted(Settings.MountMethod-2)
-                    && Settings.MountMethod < MAXDEVICES)
-                Settings.MountMethod++;
+            fileBrowser.DisableTriggerUpdate(true);
 
-            if(Settings.MountMethod >= MAXDEVICES)
-                Settings.MountMethod = 0;
+            int result = DeviceMenu();
 
-            if(Settings.MountMethod == SD && !SDCard_Inserted())
-                Settings.MountMethod++;
+            if(result >= 0)
+            {
+                currentDevice = result;
+                menu = MENU_BROWSE_DEVICE;
+            }
 
-            menu = MENU_BROWSE_DEVICE;
+            fileBrowser.DisableTriggerUpdate(false);
+
             deviceSwitchBtn.ResetState();
         }
 
@@ -492,9 +490,9 @@ static int MenuBrowseDevice()
                 char srcpath[MAXPATHLEN];
                 char destdir[MAXPATHLEN];
                 snprintf(srcpath, sizeof(srcpath), "%s/%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                char entered[43];
+                char entered[151];
                 snprintf(entered, sizeof(entered), "%s", browserList[browser.selIndex].filename);
-                int result = OnScreenKeyboard(entered, 43);
+                int result = OnScreenKeyboard(entered, 150);
                 if(result == 1) {
                     snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, entered);
                     int ret = rename(srcpath, destdir);
@@ -615,9 +613,9 @@ static int MenuBrowseDevice()
             }
 
             else if(choice == NEWFOLDER) {
-                char entered[43];
+                char entered[151];
                 snprintf(entered, sizeof(entered), tr("New Folder"));
-                int result = OnScreenKeyboard(entered, 42);
+                int result = OnScreenKeyboard(entered, 150);
                 if(result == 1) {
                     char currentpath[MAXPATHLEN];
                     snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, entered);
@@ -653,7 +651,7 @@ static int MenuSMBSettings()
 	int menu = MENU_NONE;
 	int ret, result = 0;
 	int i = 0;
-    char entered[43];
+    char entered[150];
     bool firstRun = true;
 
 	OptionList options(6);
@@ -730,28 +728,28 @@ static int MenuSMBSettings()
 				break;
             case 1:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Host);
-                result = OnScreenKeyboard(entered, 42);
+                result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.SMBUser[Settings.CurrentUser].Host, sizeof(Settings.SMBUser[Settings.CurrentUser].Host), "%s", entered);
                 }
                 break;
             case 2:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].User);
-                result = OnScreenKeyboard(entered, 42);
+                result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.SMBUser[Settings.CurrentUser].User, sizeof(Settings.SMBUser[Settings.CurrentUser].User), "%s", entered);
                 }
                 break;
             case 3:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Password);
-                result = OnScreenKeyboard(entered, 42);
+                result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.SMBUser[Settings.CurrentUser].Password, sizeof(Settings.SMBUser[Settings.CurrentUser].Password), "%s", entered);
                 }
                 break;
             case 4:
                 snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
-                result = OnScreenKeyboard(entered, 42);
+                result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.SMBUser[Settings.CurrentUser].SMBName, sizeof(Settings.SMBUser[Settings.CurrentUser].SMBName), "%s", entered);
                 }
@@ -801,10 +799,11 @@ static int MenuSettings()
 	bool firstRun = true;
 
 	OptionList options(6);
-	options.SetName(i++, tr("Mount Method"));
+	options.SetName(i++, tr("Bootup Mount"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Music Volume"));
+	options.SetName(i++, tr("Mount NTFS"));
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("SMB Settings"));
 
@@ -889,6 +888,11 @@ static int MenuSettings()
                 bgMusic->SetVolume(Settings.MusicVolume);
 				break;
             case 4:
+				Settings.MountNTFS++;
+				if(Settings.MountNTFS >= on_off_max)
+                    Settings.MountNTFS = off;
+				break;
+            case 5:
                 char entered[150];
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149)) {
@@ -896,7 +900,7 @@ static int MenuSettings()
                     WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
                 }
 				break;
-            case 5:
+            case 6:
 				if(SDCard_Inserted())
 					Settings.Save();
                 menu = MENU_SMB_SETTINGS;
@@ -928,6 +932,9 @@ static int MenuSettings()
             if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
             else options.SetValue(i++, tr("OFF"));
 
+            if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
+            else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
+
             options.SetValue(i++, "%s", Settings.CustomFontPath);
 
             options.SetValue(i++, " ");
@@ -950,6 +957,7 @@ static int MenuSettings()
 void MainMenu(int menu)
 {
 	int currentMenu = menu;
+	currentDevice = Settings.MountMethod;
 
 	#ifdef HW_RVL
 	pointer[0] = new GuiImageData(player1_point_png);
@@ -1017,8 +1025,10 @@ void MainMenu(int menu)
         BootHomebrew(Clipboard.filepath);
 
 	CloseSMBShare();
+    NTFS_UnMount();
     SDCard_deInit();
     USBDevice_deInit();
+	DeInit_Network();
 
     //last point in programm to make sure the allocated memory is freed
 	Sys_BackToLoader();

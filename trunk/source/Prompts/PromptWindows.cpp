@@ -38,13 +38,15 @@
 #include "libwiigui/gui.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "fileops.h"
+#include "filebrowser.h"
 #include "foldersize.h"
 #include "menu.h"
 #include "filelist.h"
 #include "Language/gettext.h"
 #include "sys.h"
+#include "svnrev.h"
 
 /*** Variables used only in this file ***/
 static GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
@@ -665,7 +667,7 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     TitleTxt.SetPosition(0, 50);
     TitleTxt.SetMaxWidth(dialogBox.GetWidth()-20, DOTTED);
 
-    GuiImageData titleData(folder_png);
+    GuiImageData titleData(icon_folder_png);
     GuiImage TitleImg(&titleData);
     TitleImg.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     TitleImg.SetPosition(-(TitleTxt.GetTextWidth()/2+titleData.GetWidth())+10, 30);
@@ -935,7 +937,15 @@ void CreditsWindow(void)
     Backbtn.SetTrigger(&trigA);
     Backbtn.SetTrigger(&trigB);
 
+    char Rev[50];
+    sprintf(Rev, "Rev. %i", atoi(SvnRev()));
+
+    GuiText RevNum(Rev, 22, (GXColor) {0, 0, 0, 255});
+    RevNum.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    RevNum.SetPosition(20, 20);
+
     promptWindow.Append(&dialogBoxImg);
+    promptWindow.Append(&RevNum);
     for(int i = 0; i < numEntries; i++)
         promptWindow.Append(txt[i]);
     promptWindow.Append(&Backbtn);
@@ -977,4 +987,245 @@ void CreditsWindow(void)
 
     mainWindow->SetState(STATE_DEFAULT);
     ResumeGui();
+}
+
+/****************************************************************************
+* DeviceMenu
+***************************************************************************/
+int DeviceMenu(void)
+{
+    int choice = -1, cnt = 0, deviceCount = 0;
+
+    //! Menu images
+    GuiImageData device_choose_right_Data(device_choose_right_png);
+    GuiImage rightImg(&device_choose_right_Data);
+    GuiImageData device_choose_left_Data(device_choose_left_png);
+    GuiImage leftImg(&device_choose_left_Data);
+    GuiImageData device_choose_center_Data(device_choose_center_png);
+    GuiImage centerImg(&device_choose_center_Data);
+
+    //! Device images
+    GuiImageData sd_ImgData(sdstorage_png);
+    GuiImageData usb_ImgData(usbstorage_png);
+    GuiImageData smb_ImgData(networkstorage_png);
+
+    GuiImageData menu_select(menu_selection_png);
+
+    GuiTrigger trigA;
+    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    GuiTrigger trigB;
+    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+
+    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+
+    GuiButton *deviceBtn[MAXDEVICES];
+    GuiImage *deviceImgs[MAXDEVICES];
+    GuiImage *deviceImgOver[MAXDEVICES];
+    GuiText *deviceText[MAXDEVICES];
+
+    int deviceSelection[MAXDEVICES];
+
+    for(int i = 0; i < MAXDEVICES; i++)
+    {
+        deviceBtn[i] = NULL;
+        deviceImgs[i] = NULL;
+        deviceImgOver[i] = NULL;
+        deviceText[i] = NULL;
+        deviceSelection[i] = -1;
+    }
+
+    int PositionX = 0;
+    int FontSize = 17;
+
+    if(SDCard_Inserted())
+    {
+        deviceText[deviceCount] = new GuiText("sd", FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(&sd_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(&trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+        deviceSelection[deviceCount] = SD;
+
+        deviceCount++;
+    }
+
+    if(USBDevice_Inserted())
+    {
+        deviceText[deviceCount] = new GuiText("usb", FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(&usb_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(&trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+        deviceSelection[deviceCount] = USB;
+
+        deviceCount++;
+    }
+
+    for(int i = 0; i < NTFS_GetMountCount(); i++)
+    {
+        char text[50];
+        sprintf(text, "%s", NTFS_GetMountName(i));
+        deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(&usb_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(&trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+        deviceSelection[deviceCount] = NTFS0+i;
+
+        deviceCount++;
+    }
+
+    for(int i = 0; i < 4; i++)
+    {
+        if(IsSMB_Mounted(i))
+        {
+            char text[50];
+            sprintf(text, "smb%i", i+1);
+            deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+            deviceText[deviceCount]->SetPosition(0, 2);
+            deviceImgs[deviceCount] = new GuiImage(&smb_ImgData);
+            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+            deviceImgOver[deviceCount] = new GuiImage(&menu_select);
+            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+            deviceBtn[deviceCount]->SetSoundClick(&btnClick);
+            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+            deviceBtn[deviceCount]->SetTrigger(&trigA);
+            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+            deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+            deviceSelection[deviceCount] = SMB1+i;
+
+            deviceCount++;
+        }
+    }
+
+    if(!deviceCount)
+        return -5;
+
+    //! Set image position and tile
+    int tile = PositionX/centerImg.GetWidth();
+
+    leftImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    leftImg.SetPosition(0, 0);
+
+    centerImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    centerImg.SetPosition(leftImg.GetLeft()+leftImg.GetWidth(), 0);
+    centerImg.SetTile(tile);
+
+    rightImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    rightImg.SetPosition(leftImg.GetWidth() + tile * centerImg.GetWidth(), 0);
+
+    int width = leftImg.GetWidth() + tile * centerImg.GetWidth() + rightImg.GetWidth();
+
+    GuiWindow promptWindow(width, leftImg.GetHeight());
+    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    promptWindow.SetPosition(45, 110);
+
+    GuiButton NoBtn(screenwidth, screenheight);
+    NoBtn.SetPosition(-promptWindow.GetLeft(), -promptWindow.GetTop());
+    NoBtn.SetTrigger(&trigA);
+    NoBtn.SetTrigger(&trigB);
+
+    promptWindow.Append(&NoBtn);
+    promptWindow.Append(&leftImg);
+    promptWindow.Append(&centerImg);
+    promptWindow.Append(&rightImg);
+    for(int i = 0; i < deviceCount; i++)
+        promptWindow.Append(deviceBtn[i]);
+
+    HaltGui();
+    mainWindow->Append(&promptWindow);
+    mainWindow->ChangeFocus(&promptWindow);
+    promptWindow.SetEffect(EFFECT_FADE, 25);
+    ResumeGui();
+
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    while(choice == -1)
+    {
+        VIDEO_WaitVSync();
+
+        if(NoBtn.GetState() == STATE_CLICKED){
+            choice = -2;
+            NoBtn.ResetState();
+        }
+
+        for(cnt = 0; cnt < deviceCount; cnt++)
+        {
+            if(deviceBtn[cnt]->GetState() == STATE_CLICKED)
+            {
+                choice = deviceSelection[cnt];
+                deviceBtn[cnt]->ResetState();
+            }
+        }
+    }
+
+    promptWindow.SetEffect(EFFECT_FADE, -35);
+    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+    HaltGui();
+    mainWindow->Remove(&promptWindow);
+    for(int i = 0; i < MAXDEVICES; i++)
+    {
+        if(deviceBtn[i]) {
+            delete deviceBtn[i];
+            deviceBtn[i] = NULL;
+        }
+        if(deviceImgs[i]) {
+            delete deviceImgs[i];
+            deviceImgs[i] = NULL;
+        }
+        if(deviceImgOver[i]) {
+            delete deviceImgOver[i];
+            deviceImgOver[i] = NULL;
+        }
+        if(deviceText[i]) {
+            delete deviceText[i];
+            deviceText[i] = NULL;
+        }
+    }
+    ResumeGui();
+
+    return choice;
 }
