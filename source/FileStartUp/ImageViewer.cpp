@@ -69,17 +69,17 @@ void *SlideShowCallback(void *arg)
 		bool fileLoaded = false;
 		startloading = time(NULL);
 		GuiImageData *newImage;
-		
+
 		while (!fileLoaded && !stopSlideShow) {
 			// Load the next image...
 			int index = currentImage + 1;
-			
+
 			if (index == imageDir->GetFilecount())
 			{
 				index = 0;
 				currentImage = -1;
 			}
-			
+
 			char *filename = imageDir->GetFilename(index);
 			char *filedir = imageDir->GetFilepath(index);
 			if (filename == NULL || filedir == NULL) {
@@ -110,14 +110,14 @@ void *SlideShowCallback(void *arg)
 				currentImage++;
 				continue;
 			}
-			
+
 			fileLoaded = true;
 			stoploading = time(NULL);
 		}
 		if (stopSlideShow) {
 			return NULL;
 		}
-	
+
 		int seconds_to_wait = TIME_BETWEEN_IMAGES - difftime(stoploading, startloading);
 		int amount_of_sleep = seconds_to_wait * 1000000 / THREAD_SLEEP;
 
@@ -131,7 +131,7 @@ void *SlideShowCallback(void *arg)
 		if (stopSlideShow) {
 			return NULL;
 		}
-		
+
 		// Load the next image...
 		if (imageData != NULL)
 		{
@@ -191,7 +191,7 @@ void UpdateImage(GuiImage *image, GuiImageData *imageData)
 {
 	image->SetAngle(0);
 	image->SetImage(imageData);
-	
+
 	image->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 }
 
@@ -235,14 +235,15 @@ void ImageViewer(const char *filepath)
 			return;
 		}
 	}
-	
+
 	imageData = NULL;
 	LoadImage(currentImage, &imageData);
 
 	GuiImage image(imageData);
 
-	GuiTrigger trigger, trigNext, trigPrev;
+	GuiTrigger trigger, trigNext, trigPrev, trigB;
 	trigger.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
 	trigPrev.SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, 0);
 	trigNext.SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, 0);
 
@@ -252,7 +253,7 @@ void ImageViewer(const char *filepath)
 
 	float factor = (image.GetWidth() > image.GetHeight()) ? (1.0 * backGround.GetWidth()) / image.GetWidth() : (1.0 * backGround.GetHeight()) / image.GetHeight();
 	image.SetScale(factor);
-	
+
 	image.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
 	window.Append(&backGround);
@@ -270,6 +271,7 @@ void ImageViewer(const char *filepath)
 	backButton.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	backButton.SetPosition(24, -16);
 	backButton.SetTrigger(&trigger);
+	backButton.SetTrigger(&trigB);
 
 	window.Append(&backButton);
 
@@ -379,7 +381,7 @@ void ImageViewer(const char *filepath)
 	if (imageDir != NULL) {
 		window.Append(&prevButton);
 	}
-	
+
 	GuiButton stopSlideshowButton(mainWindow->GetWidth(), mainWindow->GetHeight());
 	stopSlideshowButton.SetTrigger(&trigger);
 
@@ -402,7 +404,7 @@ void ImageViewer(const char *filepath)
 			backButton.ResetState();
 		}
 		else if (slideshowButton.GetState() == STATE_CLICKED) {
-			//start a slideshow			
+			//start a slideshow
 			backButton.SetVisible(false);
 			slideshowButton.SetVisible(false);
 			zoominButton.SetVisible(false);
@@ -411,10 +413,10 @@ void ImageViewer(const char *filepath)
 			rotateRButton.SetVisible(false);
 			prevButton.SetVisible(false);
 			nextButton.SetVisible(false);
-			
+
 			window.Append(&stopSlideshowButton);
 			slideshowButton.ResetState();
-			
+
 			// Launch the slideshow thread
 			stopSlideShow = false;
 			LWP_CreateThread(&slideShowThread, SlideShowCallback, &image, NULL, 0, 60);
@@ -422,7 +424,7 @@ void ImageViewer(const char *filepath)
 		else if (stopSlideshowButton.GetState() == STATE_CLICKED) {
 			// stop the slideshow thread
 			stopSlideShow = true;
-		
+
 			backButton.SetVisible(true);
 			slideshowButton.SetVisible(true);
 			zoominButton.SetVisible(true);
@@ -431,11 +433,11 @@ void ImageViewer(const char *filepath)
 			rotateRButton.SetVisible(true);
 			prevButton.SetVisible(true);
 			nextButton.SetVisible(true);
-			
+
 			// Wait for the thread to stop
 			LWP_JoinThread(slideShowThread, NULL);
 			slideShowThread = LWP_THREAD_NULL;
-			
+
 			stopSlideshowButton.ResetState();
 			window.Remove(&stopSlideshowButton);
 		}

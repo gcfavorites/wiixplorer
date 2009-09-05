@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 23:09+0200\n"
+"POT-Creation-Date: 2009-09-05 15:42+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -27,6 +27,12 @@ msgstr "程序缺省"
 msgid "Auto Connect"
 msgstr "自动连接"
 
+msgid "Back"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
 msgid "Can not open the file"
 msgstr "不能打开文件"
 
@@ -35,6 +41,9 @@ msgstr "取消"
 
 msgid "Cannot open image"
 msgstr "无法打开图片程序"
+
+msgid "Caps"
+msgstr ""
 
 msgid "Change Settings"
 msgstr "更改设置"
@@ -214,8 +223,8 @@ msgstr "最近状态改变"
 msgid "Loading file:"
 msgstr "正在读取文件:"
 
-msgid "Mount Method"
-msgstr "挂载方式"
+msgid "Mount NTFS"
+msgstr ""
 
 msgid "Moving files:"
 msgstr "正在移动文件"
@@ -311,11 +320,11 @@ msgstr "共享三"
 msgid "SMB4"
 msgstr "共享四"
 
+msgid "Shift"
+msgstr ""
+
 msgid "Size:"
 msgstr "尺寸"
-
-msgid "Slideshow not yet implemented."
-msgstr ""
 
 msgid "Special thanks to:"
 msgstr "特别感谢："
@@ -365,3 +374,6 @@ msgstr "网络共享不支持zip功能"
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "Mount Method"
+#~ msgstr "挂载方式"

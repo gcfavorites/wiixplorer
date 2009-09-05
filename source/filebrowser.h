@@ -18,8 +18,13 @@
 
 
 enum {
-    SD,
+    SD = 0,
     USB,
+    NTFS0,
+    NTFS1,
+    NTFS2,
+    NTFS3,
+    NTFS4,
     SMB1,
     SMB2,
     SMB3,
@@ -63,6 +68,7 @@ void ResetBrowser();
 int ParseDirectory();
 int BrowserChangeFolder();
 int BrowseDevice(int device);
+int BrowsePath(const char *path);
 void InitParseThread();
 
 #endif

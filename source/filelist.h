@@ -62,8 +62,44 @@ extern const u32	bg_browser_selection_png_size;
 extern const u8		addressbar_textbox_png[];
 extern const u32	addressbar_textbox_png_size;
 
-extern const u8		folder_png[];
-extern const u32	folder_png_size;
+extern const u8		device_choose_right_png[];
+extern const u32	device_choose_right_png_size;
+
+extern const u8		device_choose_left_png[];
+extern const u32	device_choose_left_png_size;
+
+extern const u8		device_choose_center_png[];
+extern const u32	device_choose_center_png_size;
+
+extern const u8		icon_folder_png[];
+extern const u32	icon_folder_png_size;
+
+extern const u8		icon_mp3_png[];
+extern const u32	icon_mp3_png_size;
+
+extern const u8		icon_ogg_png[];
+extern const u32	icon_ogg_png_size;
+
+extern const u8		icon_gif_png[];
+extern const u32	icon_gif_png_size;
+
+extern const u8		icon_jpg_png[];
+extern const u32	icon_jpg_png_size;
+
+extern const u8		icon_gif_png[];
+extern const u32	icon_gif_png_size;
+
+extern const u8		icon_png_png[];
+extern const u32	icon_png_png_size;
+
+extern const u8		icon_txt_png[];
+extern const u32	icon_txt_png_size;
+
+extern const u8		icon_xml_png[];
+extern const u32	icon_xml_png_size;
+
+extern const u8		icon_zip_png[];
+extern const u32	icon_zip_png_size;
 
 extern const u8		taskbar_png[];
 extern const u32	taskbar_png_size;

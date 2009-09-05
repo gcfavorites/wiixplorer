@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 23:09+0200\n"
+"POT-Creation-Date: 2009-09-05 15:42+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -27,6 +27,12 @@ msgstr "WiiXplorer Défaut"
 msgid "Auto Connect"
 msgstr "Connection auto"
 
+msgid "Back"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
 msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
 
@@ -35,6 +41,9 @@ msgstr "Annuler"
 
 msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
+
+msgid "Caps"
+msgstr ""
 
 msgid "Change Settings"
 msgstr "Paramètres"
@@ -214,8 +223,8 @@ msgstr "Status changé le:"
 msgid "Loading file:"
 msgstr "Chargement de:"
 
-msgid "Mount Method"
-msgstr "Périphérique"
+msgid "Mount NTFS"
+msgstr ""
 
 msgid "Moving files:"
 msgstr "Déplacement de:"
@@ -311,11 +320,11 @@ msgstr ""
 msgid "SMB4"
 msgstr ""
 
+msgid "Shift"
+msgstr ""
+
 msgid "Size:"
 msgstr "Taille:"
-
-msgid "Slideshow not yet implemented."
-msgstr "Diaporama non fonctionnel."
 
 msgid "Special thanks to:"
 msgstr "Remerciements:"
@@ -365,3 +374,9 @@ msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
+
+#~ msgid "Slideshow not yet implemented."
+#~ msgstr "Diaporama non fonctionnel."
+
+#~ msgid "Mount Method"
+#~ msgstr "Périphérique"

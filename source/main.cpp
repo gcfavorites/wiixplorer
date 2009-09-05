@@ -21,7 +21,7 @@
 #include "input.h"
 #include "filelist.h"
 #include "Settings.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 #include "sys.h"
 #include "mload/mload.h"
 #include "mload/ehcmodule_elf.h"
@@ -48,6 +48,11 @@ main(int argc, char *argv[])
 
 	Settings.Load();
 	Settings.LoadLanguage(Settings.LanguagePath);
+
+	if(Settings.MountNTFS)
+	{
+        NTFS_Mount();
+	}
 
 	// read wiimote accelerometer and IR data
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);

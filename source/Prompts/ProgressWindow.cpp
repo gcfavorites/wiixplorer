@@ -120,18 +120,18 @@ void ProgressWindow()
 	GuiImageData progressbarOutline(progressbar_outline_png);
 	GuiImage progressbarOutlineImg(&progressbarOutline);
 	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarOutlineImg.SetPosition(25, 15);
+	progressbarOutlineImg.SetPosition(35, 15);
 
 	GuiImageData progressbarEmpty(progressbar_empty_png);
 	GuiImage progressbarEmptyImg(&progressbarEmpty);
 	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarEmptyImg.SetPosition(25, 15);
+	progressbarEmptyImg.SetPosition(35, 15);
 	progressbarEmptyImg.SetTile(100);
 
     GuiImageData progressbar(progressbar_png);
     GuiImage progressbarImg(&progressbar);
     progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	progressbarImg.SetPosition(25, 15);
+	progressbarImg.SetPosition(35, 15);
 
     GuiImageData throbber(throbber_png);
     GuiImage throbberImg(&throbber);
@@ -150,11 +150,11 @@ void ProgressWindow()
 
     GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	prTxt.SetPosition(200, 15);
+	prTxt.SetPosition(210, 15);
 
 	GuiText prsTxt("%", 24, (GXColor){0, 0, 0, 255});
 	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	prsTxt.SetPosition(-188, 15);
+	prsTxt.SetPosition(-178, 15);
 
     GuiText speedTxt(NULL, 24, (GXColor){0, 0, 0, 255});
     speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);

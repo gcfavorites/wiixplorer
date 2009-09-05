@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "gui.h"
+#include "Language/gettext.h"
 
 static char tmptxt[MAX_KEYBOARD_DISPLAY];
 
@@ -22,9 +23,15 @@ static char * GetDisplayText(char * t)
 	if(len < MAX_KEYBOARD_DISPLAY)
 		return t;
 
-	strncpy(tmptxt, &t[len-MAX_KEYBOARD_DISPLAY], MAX_KEYBOARD_DISPLAY);
-	tmptxt[MAX_KEYBOARD_DISPLAY-1] = 0;
-	return &tmptxt[0];
+    int n = 0;
+    for(int i = len-MAX_KEYBOARD_DISPLAY+1; i < len; i++)
+    {
+        tmptxt[n] = t[i];
+        tmptxt[n+1] = '\0';
+        n++;
+    }
+
+	return tmptxt;
 }
 
 /**
@@ -45,8 +52,9 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	kbtextstr[max] = 0;
 	kbtextmaxlen = max;
 
-	Key thekeys[4][11] = {
+	Key thekeys[4][13] = {
 	{
+        {'`','~'},
 		{'1','!'},
 		{'2','@'},
 		{'3','#'},
@@ -57,7 +65,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 		{'8','*'},
 		{'9','('},
 		{'0',')'},
-		{'\0','\0'}
+		{'-','_'}
 	},
 	{
 		{'q','Q'},
@@ -70,7 +78,9 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 		{'i','I'},
 		{'o','O'},
 		{'p','P'},
-		{'-','_'}
+		{'[','{'},
+		{']','}'},
+		{0x5C,'|'}
 	},
 	{
 		{'a','A'},
@@ -82,8 +92,9 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 		{'j','J'},
 		{'k','K'},
 		{'l','L'},
-		{':',';'},
-		{'\'','"'}
+		{';',':'},
+		{'\'','"'},
+		{'=','+'}
 	},
 
 	{
@@ -102,6 +113,8 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	};
 	memcpy(keys, thekeys, sizeof(thekeys));
 
+	int KeyboardPosition = -25;
+
 	keyTextbox = new GuiImageData(keyboard_textbox_png);
 	keyTextboxImg = new GuiImage(keyTextbox);
 	keyTextboxImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
@@ -110,7 +123,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 
 	kbText = new GuiText(GetDisplayText(kbtextstr), 20, (GXColor){0, 0, 0, 0xff});
 	kbText->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	kbText->SetPosition(0, 13);
+	kbText->SetPosition(0, 11);
 	this->Append(kbText);
 
 	key = new GuiImageData(keyboard_key_png);
@@ -131,7 +144,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 
 	keyBackImg = new GuiImage(keyMedium);
 	keyBackOverImg = new GuiImage(keyMediumOver);
-	keyBackText = new GuiText("Back", 20, (GXColor){0, 0, 0, 0xff});
+	keyBackText = new GuiText(tr("Back"), 20, (GXColor){0, 0, 0, 0xff});
 	keyBack = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
 	keyBack->SetImage(keyBackImg);
 	keyBack->SetImageOver(keyBackOverImg);
@@ -140,13 +153,13 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	keyBack->SetSoundClick(keySoundClick);
 	keyBack->SetTrigger(trigA);
 	keyBack->SetTrigger(trigB);
-	keyBack->SetPosition(10*42+40, 0*42+80);
+	keyBack->SetPosition(11*42+40+KeyboardPosition, 0*42+80);
 	keyBack->SetEffectGrow();
 	this->Append(keyBack);
 
 	keyCapsImg = new GuiImage(keyMedium);
 	keyCapsOverImg = new GuiImage(keyMediumOver);
-	keyCapsText = new GuiText("Caps", 20, (GXColor){0, 0, 0, 0xff});
+	keyCapsText = new GuiText(tr("Caps"), 20, (GXColor){0, 0, 0, 0xff});
 	keyCaps = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
 	keyCaps->SetImage(keyCapsImg);
 	keyCaps->SetImageOver(keyCapsOverImg);
@@ -154,13 +167,13 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	keyCaps->SetSoundOver(keySoundOver);
 	keyCaps->SetSoundClick(keySoundClick);
 	keyCaps->SetTrigger(trigA);
-	keyCaps->SetPosition(0, 2*42+80);
+	keyCaps->SetPosition(0+KeyboardPosition, 2*42+80);
 	keyCaps->SetEffectGrow();
 	this->Append(keyCaps);
 
 	keyShiftImg = new GuiImage(keyMedium);
 	keyShiftOverImg = new GuiImage(keyMediumOver);
-	keyShiftText = new GuiText("Shift", 20, (GXColor){0, 0, 0, 0xff});
+	keyShiftText = new GuiText(tr("Shift"), 20, (GXColor){0, 0, 0, 0xff});
 	keyShift = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
 	keyShift->SetImage(keyShiftImg);
 	keyShift->SetImageOver(keyShiftOverImg);
@@ -168,7 +181,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	keyShift->SetSoundOver(keySoundOver);
 	keyShift->SetSoundClick(keySoundClick);
 	keyShift->SetTrigger(trigA);
-	keyShift->SetPosition(21, 3*42+80);
+	keyShift->SetPosition(0+KeyboardPosition, 3*42+80);
 	keyShift->SetEffectGrow();
 	this->Append(keyShift);
 
@@ -187,9 +200,11 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 
 	char txt[2] = { 0, 0 };
 
+	int Pos = 0;
+
 	for(int i=0; i<4; i++)
 	{
-		for(int j=0; j<11; j++)
+		for(int j=0; j<13; j++)
 		{
 			if(keys[i][j].ch != '\0')
 			{
@@ -206,7 +221,11 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 				keyBtn[i][j]->SetSoundClick(keySoundClick);
 				keyBtn[i][j]->SetTrigger(trigA);
 				keyBtn[i][j]->SetLabel(keyTxt[i][j]);
-				keyBtn[i][j]->SetPosition(j*42+21*i+40, i*42+80);
+				if(i == 1)
+                    Pos = i*20;
+				else if(i > 0)
+                    Pos = (i+2)*20;
+                keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
 				keyBtn[i][j]->SetEffectGrow();
 				this->Append(keyBtn[i][j]);
 			}
@@ -249,7 +268,7 @@ GuiKeyboard::~GuiKeyboard()
 
 	for(int i=0; i<4; i++)
 	{
-		for(int j=0; j<11; j++)
+		for(int j=0; j<13; j++)
 		{
 			if(keys[i][j].ch != '\0')
 			{
@@ -309,7 +328,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 
 	for(int i=0; i<4; i++)
 	{
-		for(int j=0; j<11; j++)
+		for(int j=0; j<13; j++)
 		{
 			if(keys[i][j].ch != '\0')
 			{
