@@ -536,9 +536,10 @@ class GuiImageData
 	protected:
 		static void RawTo4x4RGBA(const unsigned char *src, void *dst, const unsigned int width, const unsigned int height);
 		void LoadPNG(const u8 *img);
-		void LoadJpeg(const u8 *img, int imgSize);
 		void LoadBMP(const u8 *img, int imgSize);
+		void LoadJpeg(const u8 *img, int imgSize);
 		void LoadGIF(const u8 *img, int imgSize);
+		void LoadTGA(const u8 *img, int imgSize);
 
 		u8 * data; //!< Image data
 		int height; //!< Height of image

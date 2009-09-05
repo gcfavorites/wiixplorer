@@ -37,6 +37,9 @@
 #include "sys.h"
 #include "DirList.h"
 
+#define TIME_BETWEEN_IMAGES		5
+#define THREAD_SLEEP    		100
+
 /*** Extern variables ***/
 extern GuiWindow * mainWindow;
 extern u8 shutdown;
@@ -47,6 +50,100 @@ extern void ResumeGui();
 extern void HaltGui();
 
 DirList *imageDir = NULL;
+lwp_t slideShowThread = LWP_THREAD_NULL;
+int currentImage = -1;
+GuiImageData *imageData = NULL;
+bool stopSlideShow = false;
+
+void *SlideShowCallback(void *arg)
+{
+	// We should sleep for a total of TIME_BETWEEN_IMAGES
+	// but substract the loading time first (maybe it's longer then that!)
+	// The remainder of the time should be divided by THREAD_SLEEP
+	// to remain responsive.
+
+	GuiImage *image = (GuiImage *) arg;
+	time_t startloading, stoploading;
+	while (!stopSlideShow)
+	{
+		bool fileLoaded = false;
+		startloading = time(NULL);
+		GuiImageData *newImage;
+		
+		while (!fileLoaded && !stopSlideShow) {
+			// Load the next image...
+			int index = currentImage + 1;
+			
+			if (index == imageDir->GetFilecount())
+			{
+				index = 0;
+				currentImage = -1;
+			}
+			
+			char *filename = imageDir->GetFilename(index);
+			char *filedir = imageDir->GetFilepath(index);
+			if (filename == NULL || filedir == NULL) {
+				currentImage++;
+				continue;
+			}
+			u64 filesize;
+			u8 *file = NULL;
+
+			char filepath[255];
+			sprintf((char *) &filepath, "%s/%s", filedir, filename);
+			if (!LoadFileToMem(filepath, &file, &filesize)) {
+				currentImage++;
+				continue;
+			}
+
+			newImage = new GuiImageData(file, filesize);
+
+			if(file) {
+				free(file);
+				file = NULL;
+			}
+
+			if (!newImage->GetImage())
+			{
+				delete newImage;
+				newImage = NULL;
+				currentImage++;
+				continue;
+			}
+			
+			fileLoaded = true;
+			stoploading = time(NULL);
+		}
+		if (stopSlideShow) {
+			return NULL;
+		}
+	
+		int seconds_to_wait = TIME_BETWEEN_IMAGES - difftime(stoploading, startloading);
+		int amount_of_sleep = seconds_to_wait * 1000000 / THREAD_SLEEP;
+
+//		char buf[255];
+//		sprintf((char *) &buf, "Sec2wait: %d, cycles: %d", seconds_to_wait, amount_of_sleep);
+//		WindowPrompt("Slide", (char *) &buf, "OK");
+
+		for (int i = 0; i < amount_of_sleep && !stopSlideShow; i++) {
+			usleep(THREAD_SLEEP);
+		}
+		if (stopSlideShow) {
+			return NULL;
+		}
+		
+		// Load the next image...
+		if (imageData != NULL)
+		{
+			delete imageData;
+		}
+		imageData = newImage;
+		image->SetImage(imageData);
+
+		currentImage++;
+	}
+	return NULL;
+}
 
 bool LoadImage(int index, GuiImageData **imageData)
 {
@@ -79,6 +176,7 @@ bool LoadImage(int index, GuiImageData **imageData)
 	if (!newImage->GetImage())
 	{
 		WindowPrompt(tr("ImageViewer"), tr("Cannot open image"), tr("OK"));
+		delete newImage;
 		return false;
 	}
 	if (*imageData != NULL)
@@ -97,20 +195,20 @@ void UpdateImage(GuiImage *image, GuiImageData *imageData)
 	image->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 }
 
-int NextImage(int currentImage, GuiImageData **imageData)
+int NextImage(int index, GuiImageData **imageData)
 {
-	return LoadImage(++currentImage, imageData) ? currentImage : -1;
+	return LoadImage(++index, imageData) ? index : -1;
 }
 
-int PreviousImage(int currentImage, GuiImageData **imageData)
+int PreviousImage(int index, GuiImageData **imageData)
 {
-	return LoadImage(--currentImage, imageData) ? currentImage : -1;
+	return LoadImage(--index, imageData) ? index : -1;
 }
 
 void ImageViewer(const char *filepath)
 {
     bool exitwindow = false;
-	int currentImage = -1;
+	currentImage = -1;
 
 	char path[255];
 	char *ptr = strrchr(filepath, '/');
@@ -119,32 +217,43 @@ void ImageViewer(const char *filepath)
 		strncpy(path, filepath, ptr - filepath);
 		imageDir = new DirList(path, ".jpg,.bmp,.gif,.png");
 
+		char buf[255];
+		sprintf((char *) &buf, "Images: %d", imageDir->GetFilecount());
+		WindowPrompt("ImageViewer", (char *) &buf, "OK");
+
 		char *filename = ptr + 1;
+
+		sprintf((char *) &buf, "Filename: %s", filename);
+		WindowPrompt("ImageViewer", (char *) &buf, "OK");
+
 		currentImage = imageDir->GetFileIndex(filename);
 		if (currentImage == -1)
 		{
 			delete imageDir;
 			imageDir = NULL;
+			WindowPrompt("ImageViewer", "Cannot open file.", "OK");
 			return;
 		}
 	}
 	
-	GuiImageData *imageData = NULL;
+	imageData = NULL;
 	LoadImage(currentImage, &imageData);
 
 	GuiImage image(imageData);
 
-	GuiTrigger trigger;
+	GuiTrigger trigger, trigNext, trigPrev;
 	trigger.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigPrev.SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, 0);
+	trigNext.SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, 0);
 
 	GuiWindow window(mainWindow->GetWidth(), mainWindow->GetHeight());
 
-	GuiImage backGround(mainWindow->GetWidth(), mainWindow->GetHeight(), (GXColor){0, 0, 0, 0x70});
+	GuiImage backGround(mainWindow->GetWidth(), mainWindow->GetHeight(), (GXColor){0, 0, 0, 0x50});
 
 	float factor = (image.GetWidth() > image.GetHeight()) ? (1.0 * backGround.GetWidth()) / image.GetWidth() : (1.0 * backGround.GetHeight()) / image.GetHeight();
 	image.SetScale(factor);
 	
-//	image.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	image.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
 	window.Append(&backGround);
 
@@ -247,6 +356,7 @@ void ImageViewer(const char *filepath)
 	nextButton.SetPosition(-16, 198);
 	nextButton.SetVisible(imageDir != NULL && currentImage != -1 && currentImage < imageDir->GetFilecount() - 1);
 	nextButton.SetTrigger(&trigger);
+	nextButton.SetTrigger(&trigNext);
 
 	if (imageDir != NULL) {
 		window.Append(&nextButton);
@@ -264,12 +374,17 @@ void ImageViewer(const char *filepath)
 	prevButton.SetPosition(16, 198);
 	prevButton.SetVisible(imageDir != NULL && currentImage > 0);
 	prevButton.SetTrigger(&trigger);
+	prevButton.SetTrigger(&trigPrev);
 
 	if (imageDir != NULL) {
 		window.Append(&prevButton);
 	}
+	
+	GuiButton stopSlideshowButton(mainWindow->GetWidth(), mainWindow->GetHeight());
+	stopSlideshowButton.SetTrigger(&trigger);
 
 	HaltGui();
+	mainWindow->SetState(STATE_DISABLED);
 	mainWindow->Append(&window);
 	ResumeGui();
 
@@ -287,10 +402,42 @@ void ImageViewer(const char *filepath)
 			backButton.ResetState();
 		}
 		else if (slideshowButton.GetState() == STATE_CLICKED) {
-			//start a slideshow
-			WindowPrompt(tr("ImageViewer"), tr("Slideshow not yet implemented."), tr("OK"));
+			//start a slideshow			
+			backButton.SetVisible(false);
+			slideshowButton.SetVisible(false);
+			zoominButton.SetVisible(false);
+			zoomoutButton.SetVisible(false);
+			rotateLButton.SetVisible(false);
+			rotateRButton.SetVisible(false);
+			prevButton.SetVisible(false);
+			nextButton.SetVisible(false);
 			
+			window.Append(&stopSlideshowButton);
 			slideshowButton.ResetState();
+			
+			// Launch the slideshow thread
+			stopSlideShow = false;
+			LWP_CreateThread(&slideShowThread, SlideShowCallback, &image, NULL, 0, 60);
+		}
+		else if (stopSlideshowButton.GetState() == STATE_CLICKED) {
+			// stop the slideshow thread
+			stopSlideShow = true;
+		
+			backButton.SetVisible(true);
+			slideshowButton.SetVisible(true);
+			zoominButton.SetVisible(true);
+			zoomoutButton.SetVisible(true);
+			rotateLButton.SetVisible(true);
+			rotateRButton.SetVisible(true);
+			prevButton.SetVisible(true);
+			nextButton.SetVisible(true);
+			
+			// Wait for the thread to stop
+			LWP_JoinThread(slideShowThread, NULL);
+			slideShowThread = LWP_THREAD_NULL;
+			
+			stopSlideshowButton.ResetState();
+			window.Remove(&stopSlideshowButton);
 		}
 		else if (zoominButton.GetState() == STATE_CLICKED) {
 			image.SetScale(image.GetScale() + 1);

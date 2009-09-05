@@ -86,7 +86,6 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
 	size_t size = strlen(filter);
 	filterCopy = (char *) malloc(size + 1);
 	memset(filterCopy, 0, size + 1);
-	strncpy(filterCopy, filter, size);
 
     while (dirnext(dir,filename,&st) == 0)
     {
@@ -97,6 +96,7 @@ bool DirList::LoadPath(const char * folderpath, const char *filter)
                 char *fileext = strrchr(filename, '.');
                 if(fileext && ((st.st_mode & S_IFDIR) == 0)) {
 
+					strncpy(filterCopy, filter, size);
 					filterTok = strtok(filterCopy, ",");
 
 					while (filterTok != NULL)
