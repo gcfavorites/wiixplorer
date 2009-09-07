@@ -7,6 +7,10 @@
  *****************************************************************************
  * History:                                     
  * 17 Jun 89 - Version 1.0 by Gershon Elber.                     
+ *
+ * Some small changes were made by r-win, for the use of this library
+ * with WiiXplorer
+ *
  ****************************************************************************/
 
 #ifdef HAVE_CONFIG_H

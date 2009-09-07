@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <malloc.h>
 
 #include "Prompts/PromptWindows.h"
 #include "BootHomebrew/BootHomebrew.h"
@@ -25,20 +26,25 @@ int FileStartUp(const char *filepath)
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
         {
-            u8 *buffer = NULL;
-            u64 filesize = 0;
-            int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
-            if(ret < 0)
-                return 0;
-            else if(CopyHomebrewMemory(buffer, 0, filesize) >= 0)
-                return BOOTHOMEBREW;
+             u8 *buffer = NULL;
+             u64 filesize = 0;
+             int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
+             if(ret < 0)
+                 return 0;
+             ret = CopyHomebrewMemory(buffer, 0, filesize);
+             if(buffer) {
+                 free(buffer);
+                 buffer = NULL;
+             }
+             if(ret >= 0)
+                 return BOOTHOMEBREW;
         }
 
         return 0;
     }
     else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
 			|| strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0
-			/* || strcasecmp(fileext, ".tga") == 0 */) {
+			|| strcasecmp(fileext, ".tga") == 0) {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
 			ImageViewer(filepath);

@@ -54,6 +54,7 @@
 #include "Language/gettext.h"
 #include "Language/LanguageBrowser.h"
 #include "sys.h"
+// #include "filesystems/filesystems.h"
 
 GuiWindow * mainWindow = NULL;
 GuiSound * bgMusic = NULL;
@@ -289,6 +290,7 @@ static int MenuBrowseDevice()
 	GuiImageData sdstorage(sdstorage_png);
 	GuiImageData usbstorage(usbstorage_png);
 	GuiImageData networkstorage(networkstorage_png);
+//	GuiImageData isfsstorage(isfsstorage_png);
 	GuiImage deviceImg(&sdstorage);
 
 	if(currentDevice > SD && currentDevice < SMB1)
@@ -915,7 +917,14 @@ static int MenuSettings()
             else if (Settings.MountMethod == SMB2) options.SetValue(i++, tr("SMB2"));
             else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
             else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
-
+            else if (Settings.MountMethod == NTFS0) options.SetValue(i++, tr("NTFS0"));
+            else if (Settings.MountMethod == NTFS1) options.SetValue(i++, tr("NTFS1"));
+            else if (Settings.MountMethod == NTFS2) options.SetValue(i++, tr("NTFS2"));
+            else if (Settings.MountMethod == NTFS3) options.SetValue(i++, tr("NTFS3"));
+            else if (Settings.MountMethod == NTFS4) options.SetValue(i++, tr("NTFS4"));
+//            else if (Settings.MountMethod == ISFS) options.SetValue(i++, tr("ISFS"));
+//            else if (Settings.MountMethod == NAND) options.SetValue(i++, tr("NAND"));
+			
             if(strcmp(Settings.LanguagePath, "") != 0) {
                 char *language = strrchr(Settings.LanguagePath, '/')+1;
                 options.SetValue(i++, "%s", language);
@@ -1016,6 +1025,8 @@ void MainMenu(int menu)
 	delete pointer[2];
 	delete pointer[3];
 	ClearFontData();
+
+//	UnloadFilesystems();
 
 	CloseSMBShare();
     NTFS_UnMount();

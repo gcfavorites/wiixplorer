@@ -1008,6 +1008,8 @@ int DeviceMenu(void)
     GuiImageData sd_ImgData(sdstorage_png);
     GuiImageData usb_ImgData(usbstorage_png);
     GuiImageData smb_ImgData(networkstorage_png);
+//	GuiImageData isfs_ImgData(isfsstorage_png);
+//	GuiImageData nand_ImgData(isfsstorage_png);
 
     GuiImageData menu_select(menu_selection_png);
 
@@ -1085,9 +1087,9 @@ int DeviceMenu(void)
         deviceCount++;
     }
 
+	char text[50];
     for(int i = 0; i < NTFS_GetMountCount(); i++)
     {
-        char text[50];
         sprintf(text, "%s", NTFS_GetMountName(i));
         deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -1115,7 +1117,6 @@ int DeviceMenu(void)
     {
         if(IsSMB_Mounted(i))
         {
-            char text[50];
             sprintf(text, "smb%i", i+1);
             deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
             deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -1139,7 +1140,26 @@ int DeviceMenu(void)
             deviceCount++;
         }
     }
-
+/*	
+	deviceText[deviceCount] = new GuiText("nand", FontSize, (GXColor){0, 0, 0, 255});
+	deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	deviceText[deviceCount]->SetPosition(0, 2);
+	deviceImgs[deviceCount] = new GuiImage(&nand_ImgData);
+	deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	deviceImgOver[deviceCount] = new GuiImage(&menu_select);
+	deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+	deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+	deviceBtn[deviceCount]->SetSoundClick(&btnClick);
+	deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+	deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+	deviceBtn[deviceCount]->SetTrigger(&trigA);
+	deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+	PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	deviceSelection[deviceCount] = NAND;
+	deviceCount++;
+*/
     if(!deviceCount)
         return -5;
 

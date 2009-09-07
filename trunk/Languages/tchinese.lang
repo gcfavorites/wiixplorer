@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 19:08+0200\n"
+"POT-Creation-Date: 2009-09-07 23:05+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -231,6 +231,21 @@ msgstr "正在移動檔案:"
 
 msgid "Music Volume"
 msgstr "音樂音量"
+
+msgid "NTFS0"
+msgstr ""
+
+msgid "NTFS1"
+msgstr ""
+
+msgid "NTFS2"
+msgstr ""
+
+msgid "NTFS3"
+msgstr ""
+
+msgid "NTFS4"
+msgstr ""
 
 msgid "Name already exists."
 msgstr "名稱已存在"

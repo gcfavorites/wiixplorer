@@ -14,6 +14,10 @@
 ******************************************************************************
 * History:								     *
 * 14 Jun 89 - Version 1.0 by Gershon Elber.				     *
+*
+* Some small changes were made by r-win, for the use of this library
+* with WiiXplorer
+*
 *****************************************************************************/
 #include <malloc.h>
 #ifdef HAVE_CONFIG_H

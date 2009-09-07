@@ -8,6 +8,10 @@
  * History:
  * 16 Jun 89 - Version 1.0 by Gershon Elber.
  *  3 Sep 90 - Version 1.1 by Gershon Elber (Support for Gif89, Unique names).
+ *
+ * Some small changes were made by r-win, for the use of this library
+ * with WiiXplorer
+ *
  *****************************************************************************/
 
 #include <stdlib.h>

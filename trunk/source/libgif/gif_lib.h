@@ -11,6 +11,10 @@
  * 15 Sep 90 - Version 2.0 by Eric S. Raymond (Changes to suoport GIF slurp)   
  * 26 Jun 96 - Version 3.0 by Eric S. Raymond (Full GIF89 support)
  * 17 Dec 98 - Version 4.0 by Toshio Kuratomi (Fix extension writing code)     
+ *
+ * Some small changes were made by r-win, for the use of this library
+ * with WiiXplorer
+ *
  *****************************************************************************/
 
 #ifndef _GIF_LIB_H_
