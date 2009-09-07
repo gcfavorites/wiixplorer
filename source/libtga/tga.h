@@ -17,6 +17,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ *  Some small changes were made by r-win, for the use of this library
+ *  with WiiXplorer
+ *
  */
  
 #ifndef __TGA_H
@@ -136,7 +140,7 @@ struct _TGAData {
 struct _TGA {
 	FILE*		fd;		/* file stream */
 	const unsigned char *imgData;  /* raw image data */
-	int imgSize;			/* size of raw image data */
+	tlong imgSize;			/* size of raw image data */
 	tlong		off;		/* current offset in file*/
 	int		last;		/* last error code */
 	TGAHeader	hdr;		/* image header */

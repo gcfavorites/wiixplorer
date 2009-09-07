@@ -40,6 +40,8 @@
 #define TIME_BETWEEN_IMAGES		5
 #define THREAD_SLEEP    		100
 
+#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga"
+
 /*** Extern variables ***/
 extern GuiWindow * mainWindow;
 extern u8 shutdown;
@@ -217,7 +219,7 @@ void ImageViewer(const char *filepath)
 	if (ptr != NULL)
 	{
 		strncpy(path, filepath, ptr - filepath);
-		imageDir = new DirList(path, ".jpg,.bmp,.gif,.png");
+		imageDir = new DirList(path, FILETYPESFILTER);
 
 //		char buf[255];
 //		sprintf((char *) &buf, "Images: %d", imageDir->GetFilecount());

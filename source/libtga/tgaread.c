@@ -17,6 +17,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ *  Some small changes were made by r-win, for the use of this library
+ *  with WiiXplorer
+ *
  */
  
 #include <stdio.h>
@@ -35,7 +39,7 @@ TGARead(TGA    *tga,
 		tga->off = ftell(tga->fd);
 		return read;
 	} else {
-		int amount = size * n;
+		tlong amount = size * n;
 		
 		if (amount + tga->off > tga->imgSize) {
 			amount = tga->imgSize - tga->off;
@@ -247,7 +251,7 @@ int
 TGAReadRLE(TGA   *tga, 
 	   tbyte *buf)
 {
-	int head;
+	unsigned char head;
 	char sample[4];
 	tbyte k, repeat = 0, direct = 0, bytes = tga->hdr.depth / 8;
 	tshort x;

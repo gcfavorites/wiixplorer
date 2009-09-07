@@ -8,6 +8,10 @@
  *****************************************************************************
  * History:                                     
  * 15 Sep 92 - Version 1.0 by Eric Raymond.                     
+ *
+ * Some small changes were made by r-win, for the use of this library
+ * with WiiXplorer
+ *
  ****************************************************************************/
 
 #ifdef HAVE_CONFIG_H

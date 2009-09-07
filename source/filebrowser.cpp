@@ -349,6 +349,12 @@ int BrowseDevice(int device)
 	    case SMB4:
             sprintf(browser.rootdir, "smb4:");
             break;
+//		case ISFS:
+//			sprintf(browser.rootdir, "isfs:");
+//			break;
+//		case NAND:
+//			sprintf(browser.rootdir, "nand:");
+//			break;
 	}
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;

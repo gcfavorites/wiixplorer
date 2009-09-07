@@ -10,8 +10,6 @@
 
 #include "gui.h"
 
-#include "Prompts/PromptWindows.h"
-
 #include "libgif/gif_lib.h"
 #include "libbmp/EasyBMP.h"
 #include "libtga/tga.h"
@@ -317,11 +315,11 @@ void GuiImageData::LoadTGA(const u8 *img, int imgSize)
 	width = tga->hdr.width;
 	height = tga->hdr.height;
 	
-//	int len = width * height * 4;
 	int len = ((width+3)>>2)*((height+3)>>2)*32*2;
     data = (u8 *) memalign(32, len);
 
 	TGADecodeTo4x4RGB8(tga, &tgaData, data);
 
+	delete tga;
 	tga = NULL;
 }

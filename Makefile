@@ -20,7 +20,7 @@ BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
 				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
-				source/libtinysmb
+				source/libtinysmb source/filesystems
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
@@ -64,7 +64,8 @@ PNGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.png)))
 OGGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.ogg)))
 PCMFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.pcm)))
 ELFFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.elf)))
-	
+BINFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.bin)))
+
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
@@ -74,11 +75,12 @@ else
 	export LD	:=	$(CXX)
 endif
 
-export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
+export OFILES	:=	$(BINFILES:.bin=.bin.o) \
+					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o) \
 					$(TTFFILES:.ttf=.ttf.o) $(PNGFILES:.png=.png.o) \
 					$(OGGFILES:.ogg=.ogg.o) $(PCMFILES:.pcm=.pcm.o) \
-					$(addsuffix .o,$(ELFFILES)) 
+					$(addsuffix .o,$(ELFFILES))
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
@@ -150,6 +152,9 @@ language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 	@echo $(notdir $<)
 	$(bin2o)
 
+%.bin.o	:	%.bin
+	@echo $(notdir $<)
+	$(bin2o)
 
 export PATH		:=	$(PROJECTDIR)/gettext-bin:$(PATH)
 

@@ -17,6 +17,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ *  Some small changes were made by r-win, for the use of this library
+ *  with WiiXplorer
+ *
  */
  
 #include <stdio.h>
@@ -189,6 +193,10 @@ int TGADecodeTo4x4RGB8(TGA *tga, TGAData *tgaData, unsigned char *dst)
 		case 8: colorSize = 1; break;
 	}
 
+	int bgr = (tgaData->flags & TGA_BGR);
+	int lastByte = width * height * colorSize;
+	int rowWidth = width * colorSize;
+
 	// If the image width is not 4 by 4 exactly, 
 	// add the amount of extra cells in transparent color
 	for (vert = 0; vert < height + (height & 3); vert += 4) // height & 3 == height % 4, but a lot faster!
@@ -213,26 +221,22 @@ int TGADecodeTo4x4RGB8(TGA *tga, TGAData *tgaData, unsigned char *dst)
 						// Get the color of this pixel, which is at 
 						// Line = vert + row, Col = hor + col
 						
-						int pixel = (vert + row) * (hor + col) * colorSize;
-//						int pixel = (((vert + row) * width) + hor + col) * colorSize;
+						int pixel = (hor + col) * colorSize;
+						pixel += ((tgaData->flags & TGA_TOP) == 0) ? lastByte - ((vert + row + 1) * rowWidth) : (((vert + row) * width) * colorSize);
 						unsigned char *srcData = tgaData->img_data + pixel;
 
 						*p++ = 255;
 						switch(tga->hdr.depth) {
-							case 32:
-								*p++ = *srcData;
-								*gb++ = *(srcData + 1);
-								*gb++ = *(srcData + 2);
-								break;
 							case 8:
 								*p++ = *srcData > 0 ? 255 : 0;
 								*gb++ = *srcData > 0 ? 255 : 0;
 								*gb++ = *srcData > 0 ? 255 : 0;
 								break;
 							default:
-								*p++ = *srcData * 255 / 31;
-								*gb++ = *(srcData + 1) * 255 / 31;
-								*gb++ = *(srcData + 2) * 255 / 31;
+								*p++ = bgr != 0 ? *(srcData + 2) : *srcData;
+								*gb++ = bgr != 0 ? *(srcData + 1) : *(srcData + 1);
+								*gb++ = bgr != 0 ? *srcData : *(srcData + 2);
+								break;
 						}
 					}
 				}

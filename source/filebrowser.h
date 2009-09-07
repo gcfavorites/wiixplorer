@@ -29,6 +29,8 @@ enum {
     SMB2,
     SMB3,
     SMB4,
+//	ISFS,
+//	NAND,
     MAXDEVICES
 };
 
