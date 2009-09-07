@@ -163,7 +163,7 @@ bool LoadImage(int index, GuiImageData **imageData)
 	sprintf((char *) &filepath, "%s/%s", filedir, filename);
 
 	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
-	if (!ret)
+	if (ret < 0)
 		return false;
 
 	GuiImageData *newImage = new GuiImageData(file, filesize);
@@ -212,7 +212,7 @@ void ImageViewer(const char *filepath)
 
 	char path[255];
 	memset((void *) &path, 0, 255);
-	
+
 	char *ptr = strrchr(filepath, '/');
 	if (ptr != NULL)
 	{

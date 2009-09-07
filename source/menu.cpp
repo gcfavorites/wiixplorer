@@ -382,12 +382,8 @@ static int MenuBrowseDevice()
                     int result = FileStartUp(filepath);
 
                     if(result == BOOTHOMEBREW) {
-                        choice = WindowPrompt(tr("Do you want to boot:"), browserList[browser.selIndex].filename, tr("Yes"), tr("No"));
-                        if(choice == 1) {
-                            menu = MENU_EXIT;
-                            strncpy(Clipboard.filepath, filepath, sizeof(Clipboard.filepath));
-                            boothomebrew = true;
-                        }
+                        menu = MENU_EXIT;
+                        boothomebrew = true;
                     }
                     else if(result == TRIGGERUPDATE) {
                         ParseDirectory();
@@ -1021,14 +1017,18 @@ void MainMenu(int menu)
 	delete pointer[3];
 	ClearFontData();
 
-    if(boothomebrew)
-        BootHomebrew(Clipboard.filepath);
-
 	CloseSMBShare();
     NTFS_UnMount();
     SDCard_deInit();
     USBDevice_deInit();
 	DeInit_Network();
+
+	WPAD_Flush(0);
+    WPAD_Disconnect(0);
+    WPAD_Shutdown();
+
+    if(boothomebrew)
+        BootHomebrew(Clipboard.filepath);
 
     //last point in programm to make sure the allocated memory is freed
 	Sys_BackToLoader();

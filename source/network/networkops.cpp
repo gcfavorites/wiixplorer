@@ -30,7 +30,7 @@
 #include <string.h>
 #include <ogcsys.h>
 #include <ogc/machine/processor.h>
-#include <smb.h>
+#include "libtinysmb/smb.h"
 
 #include "http.h"
 #include "networkops.h"

@@ -4,12 +4,14 @@
 #include <stdio.h>
 
 #include "Prompts/PromptWindows.h"
+#include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "FileStartUp/TextViewer.h"
 #include "FileStartUp/ImageViewer.h"
 #include "FileStartUp/MusicLoader.h"
 #include "FileStartUp/ZipBrowser.h"
 #include "Language/gettext.h"
+#include "fileops.h"
 
 int FileStartUp(const char *filepath)
 {
@@ -20,7 +22,19 @@ int FileStartUp(const char *filepath)
         goto loadtext;      //!to avoid crash with strcasecmp & fileext == NULL
 
     if(strcasecmp(fileext, ".dol") == 0 || strcasecmp(fileext, ".elf") == 0) {
-        return BOOTHOMEBREW;
+        int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
+        if(choice)
+        {
+            u8 *buffer = NULL;
+            u64 filesize = 0;
+            int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
+            if(ret < 0)
+                return 0;
+            else if(CopyHomebrewMemory(buffer, 0, filesize) >= 0)
+                return BOOTHOMEBREW;
+        }
+
+        return 0;
     }
     else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
 			|| strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0

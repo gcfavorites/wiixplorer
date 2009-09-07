@@ -86,7 +86,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	GuiText okBtnTxt("OK", 22, (GXColor){0, 0, 0, 255});
+	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage okBtnImg(&btnOutline);
 	GuiImage okBtnImgOver(&btnOutlineOver);
 	GuiButton okBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
@@ -101,7 +101,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	okBtn.SetTrigger(&trigA);
 	okBtn.SetEffectGrow();
 
-	GuiText cancelBtnTxt("Cancel", 22, (GXColor){0, 0, 0, 255});
+	GuiText cancelBtnTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage cancelBtnImg(&btnOutline);
 	GuiImage cancelBtnImgOver(&btnOutlineOver);
 	GuiButton cancelBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
