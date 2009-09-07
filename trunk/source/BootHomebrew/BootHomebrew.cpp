@@ -11,31 +11,54 @@
 #include "dolloader.h"
 #include "elfloader.h"
 
-int BootHomebrew(char * path) {
+static u8 *homebrewbuffer = (u8 *)0x92000000;
+static u32 homebrewsize = 0;
 
-    void *buffer = (void *)0x92000000;
-    u32 filesize = 0;
+
+int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
+{
+    if(homebrewbuffer == (u8 *)0x92000000)
+    {
+        homebrewbuffer = (u8 *) malloc(len);
+        homebrewsize = len;
+    }
+    else
+    {
+        homebrewsize += len;
+        u8 *tempbuffer = (u8 *) realloc(homebrewbuffer, homebrewsize);
+        if(!tempbuffer)
+        {
+            if(homebrewbuffer) {
+                free(homebrewbuffer);
+                homebrewbuffer = (u8 *)0x92000000;
+            }
+            homebrewsize = 0;
+            return -1;
+        } else {
+            homebrewbuffer = tempbuffer;
+        }
+    }
+
+    memcpy((homebrewbuffer)+pos, temp, len);
+
+    return 1;
+}
+
+void FreeHomebrewBuffer()
+{
+    if(homebrewbuffer)
+    {
+        free(homebrewbuffer);
+        homebrewbuffer = (u8 *)0x92000000;
+    }
+}
+
+int BootHomebrew(const char *path) {
+
     entrypoint entry;
     u32 cpu_isr;
 
-    FILE * file = fopen(path, "rb");
-    if (!file) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-
-    fseek (file, 0, SEEK_END);
-    filesize = ftell(file);
-    rewind(file);
-
-    buffer = malloc(filesize);
-
-    if (fread (buffer, 1, filesize, file) != filesize) {
-        fclose (file);
-        free(buffer);
-        SDCard_deInit();
-        USBDevice_deInit();
-        CloseSMBShare();
-        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-    }
-    fclose (file);
+    if (homebrewbuffer == (u8 *)0x92000000 || homebrewsize == 0) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 
     struct __argv args;
     bzero(&args, sizeof(args));
@@ -49,29 +72,16 @@ int BootHomebrew(char * path) {
     args.argv = &args.commandLine;
     args.endARGV = args.argv + 1;
 
-    int ret = valid_elf_image(buffer);
+    int ret = valid_elf_image(homebrewbuffer);
     if (ret == 1)
-        entry = (entrypoint) load_elf_image(buffer);
+        entry = (entrypoint) load_elf_image(homebrewbuffer);
     else
-        entry = (entrypoint) load_dol(buffer, &args);
+        entry = (entrypoint) load_dol(homebrewbuffer, &args);
 
-    free(buffer);
+    FreeHomebrewBuffer();
 
-    if (!entry) {
-        SDCard_deInit();
-        USBDevice_deInit();
-        CloseSMBShare();
+    if (!entry)
         SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-    }
-
-    SDCard_deInit();
-    USBDevice_deInit();
-	CloseSMBShare();
-	DeInit_Network();
-
-    WPAD_Flush(0);
-    WPAD_Disconnect(0);
-    WPAD_Shutdown();
 
     SYS_ResetSystem(SYS_SHUTDOWN, 0, 0);
     _CPU_ISR_Disable (cpu_isr);

@@ -80,9 +80,6 @@ extern const u32	icon_mp3_png_size;
 extern const u8		icon_ogg_png[];
 extern const u32	icon_ogg_png_size;
 
-extern const u8		icon_gif_png[];
-extern const u32	icon_gif_png_size;
-
 extern const u8		icon_jpg_png[];
 extern const u32	icon_jpg_png_size;
 
