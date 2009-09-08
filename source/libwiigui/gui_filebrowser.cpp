@@ -40,15 +40,14 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	bgFileSelectionImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
 	bgFileSelectionEntry = new GuiImageData(bg_browser_selection_png);
+	fileArchives = new GuiImageData(icon_archives_png);
+	fileDefault = new GuiImageData(icon_default_png);
 	fileFolder = new GuiImageData(icon_folder_png);
-	fileGIF = new GuiImageData(icon_gif_png);
-	fileJPG = new GuiImageData(icon_jpg_png);
-	fileMP3 = new GuiImageData(icon_mp3_png);
-	fileOGG = new GuiImageData(icon_ogg_png);
-	filePNG = new GuiImageData(icon_png_png);
+	fileGFX = new GuiImageData(icon_gfx_png);
+	filePLS = new GuiImageData(icon_pls_png);
+	fileSFX = new GuiImageData(icon_sfx_png);
 	fileTXT = new GuiImageData(icon_txt_png);
 	fileXML = new GuiImageData(icon_xml_png);
-	fileZIP = new GuiImageData(icon_zip_png);
 
 	scrollbar = new GuiImageData(scrollbar_png);
 	scrollbarImg = new GuiImage(scrollbar);
@@ -121,15 +120,14 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+50), SCROLL_HORIZONTAL);
 
 		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
+		fileListArchives[i] = new GuiImage(fileArchives);
+		fileListDefault[i] = new GuiImage(fileDefault);
 		fileListFolder[i] = new GuiImage(fileFolder);
-		fileListGIF[i] = new GuiImage(fileGIF);
-		fileListMP3[i] = new GuiImage(fileMP3);
-		fileListOGG[i] = new GuiImage(fileOGG);
-		fileListJPG[i] = new GuiImage(fileJPG);
-		fileListPNG[i] = new GuiImage(filePNG);
+		fileListGFX[i] = new GuiImage(fileGFX);
+		fileListPLS[i] = new GuiImage(filePLS);
+		fileListSFX[i] = new GuiImage(fileSFX);
 		fileListTXT[i] = new GuiImage(fileTXT);
 		fileListXML[i] = new GuiImage(fileXML);
-		fileListZIP[i] = new GuiImage(fileZIP);
 
 		fileList[i] = new GuiButton(507,30);
 		fileList[i]->SetParent(this);
@@ -163,15 +161,14 @@ GuiFileBrowser::~GuiFileBrowser()
 
 	delete bgFileSelection;
 	delete bgFileSelectionEntry;
+	delete fileArchives;
+	delete fileDefault;
 	delete fileFolder;
-	delete filePNG;
-	delete fileGIF;
-	delete fileJPG;
-	delete fileMP3;
-	delete fileOGG;
+	delete fileGFX;
+	delete filePLS;
+	delete fileSFX;
 	delete fileTXT;
 	delete fileXML;
-	delete fileZIP;
 	delete scrollbar;
 	delete arrowDown;
 	delete arrowDownOver;
@@ -191,15 +188,14 @@ GuiFileBrowser::~GuiFileBrowser()
 		delete fileListTextOver[i];
 		delete fileList[i];
 		delete fileListBg[i];
+		delete fileListArchives[i];
+		delete fileListDefault[i];
 		delete fileListFolder[i];
-		delete fileListGIF[i];
-		delete fileListMP3[i];
-		delete fileListOGG[i];
-		delete fileListJPG[i];
-		delete fileListPNG[i];
+		delete fileListGFX[i];
+		delete fileListPLS[i];
+		delete fileListSFX[i];
 		delete fileListTXT[i];
 		delete fileListXML[i];
-		delete fileListZIP[i];
 	}
 }
 
@@ -401,49 +397,28 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 				else
 				{
 				    char *fileext = strrchr(browserList[browser.pageIndex+i].displayname, '.');
+					fileListText[i]->SetPosition(32,0);
+					fileListTextOver[i]->SetPosition(32,0);
 				    if(fileext)
 				    {
-                        if(strcasecmp(fileext, ".png") == 0) {
-                            fileList[i]->SetIcon(fileListPNG[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
-                        } else if(strcasecmp(fileext, ".jpg") == 0) {
-                            fileList[i]->SetIcon(fileListJPG[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
-                        } else if(strcasecmp(fileext, ".gif") == 0) {
-                            fileList[i]->SetIcon(fileListGIF[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
-                        } else if(strcasecmp(fileext, ".mp3") == 0) {
-                            fileList[i]->SetIcon(fileListMP3[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
-                        } else if(strcasecmp(fileext, ".ogg") == 0) {
-                            fileList[i]->SetIcon(fileListOGG[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
+                        if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0 || strcasecmp(fileext, ".gif") == 0 ||
+						   strcasecmp(fileext, ".tga") == 0 || strcasecmp(fileext, ".tpl") == 0 || strcasecmp(fileext, ".bmp") == 0) {
+                            fileList[i]->SetIcon(fileListGFX[i]);
+                        } else if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".wav") == 0) {
+                            fileList[i]->SetIcon(fileListSFX[i]);
+                        } else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0) {
+                            fileList[i]->SetIcon(fileListPLS[i]);
                         } else if(strcasecmp(fileext, ".txt") == 0) {
                             fileList[i]->SetIcon(fileListTXT[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
                         } else if(strcasecmp(fileext, ".xml") == 0) {
                             fileList[i]->SetIcon(fileListXML[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
-                        } else if(strcasecmp(fileext, ".zip") == 0) {
-                            fileList[i]->SetIcon(fileListZIP[i]);
-                            fileListText[i]->SetPosition(32,0);
-                            fileListTextOver[i]->SetPosition(32,0);
+                        } else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0) {
+                            fileList[i]->SetIcon(fileListArchives[i]);
                         } else {
-                            fileList[i]->SetIcon(NULL);
-                            fileListText[i]->SetPosition(10,0);
-                            fileListTextOver[i]->SetPosition(10,0);
+                            fileList[i]->SetIcon(fileListDefault[i]);
                         }
 				    } else {
-                        fileList[i]->SetIcon(NULL);
-                        fileListText[i]->SetPosition(10,0);
-                        fileListTextOver[i]->SetPosition(10,0);
+                        fileList[i]->SetIcon(fileListDefault[i]);
 				    }
 				}
 			}

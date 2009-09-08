@@ -71,32 +71,29 @@ extern const u32	device_choose_left_png_size;
 extern const u8		device_choose_center_png[];
 extern const u32	device_choose_center_png_size;
 
+extern const u8		icon_archives_png[];
+extern const u32	icon_archives_png_size;
+
+extern const u8		icon_default_png[];
+extern const u32	icon_default_png_size;
+
 extern const u8		icon_folder_png[];
 extern const u32	icon_folder_png_size;
 
-extern const u8		icon_mp3_png[];
-extern const u32	icon_mp3_png_size;
+extern const u8		icon_gfx_png[];
+extern const u32	icon_gfx_png_size;
 
-extern const u8		icon_ogg_png[];
-extern const u32	icon_ogg_png_size;
+extern const u8		icon_pls_png[];
+extern const u32	icon_pls_png_size;
 
-extern const u8		icon_jpg_png[];
-extern const u32	icon_jpg_png_size;
-
-extern const u8		icon_gif_png[];
-extern const u32	icon_gif_png_size;
-
-extern const u8		icon_png_png[];
-extern const u32	icon_png_png_size;
+extern const u8		icon_sfx_png[];
+extern const u32	icon_sfx_png_size;
 
 extern const u8		icon_txt_png[];
 extern const u32	icon_txt_png_size;
 
 extern const u8		icon_xml_png[];
 extern const u32	icon_xml_png_size;
-
-extern const u8		icon_zip_png[];
-extern const u32	icon_zip_png_size;
 
 extern const u8		taskbar_png[];
 extern const u32	taskbar_png_size;
@@ -118,6 +115,9 @@ extern const u32	throbber_png_size;
 
 extern const u8		networkstorage_png[];
 extern const u32	networkstorage_png_size;
+
+extern const u8		nandstorage_png[];
+extern const u32	nandstorage_png_size;
 
 extern const u8		usbstorage_png[];
 extern const u32	usbstorage_png_size;

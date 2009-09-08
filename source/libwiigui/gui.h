@@ -861,15 +861,14 @@ class GuiFileBrowser : public GuiElement
 		GuiText * fileListText[PAGESIZE];
 		GuiText * fileListTextOver[PAGESIZE];
 		GuiImage * fileListBg[PAGESIZE];
+		GuiImage * fileListArchives[PAGESIZE];
+		GuiImage * fileListDefault[PAGESIZE];
 		GuiImage * fileListFolder[PAGESIZE];
-		GuiImage * fileListGIF[PAGESIZE];
-		GuiImage * fileListMP3[PAGESIZE];
-		GuiImage * fileListOGG[PAGESIZE];
-		GuiImage * fileListJPG[PAGESIZE];
-		GuiImage * fileListPNG[PAGESIZE];
+		GuiImage * fileListGFX[PAGESIZE];
+		GuiImage * fileListPLS[PAGESIZE];
+		GuiImage * fileListSFX[PAGESIZE];
 		GuiImage * fileListTXT[PAGESIZE];
 		GuiImage * fileListXML[PAGESIZE];
-		GuiImage * fileListZIP[PAGESIZE];
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
@@ -886,15 +885,14 @@ class GuiFileBrowser : public GuiElement
 
 		GuiImageData * bgFileSelection;
 		GuiImageData * bgFileSelectionEntry;
+        GuiImageData * fileArchives;
+		GuiImageData * fileDefault;
 		GuiImageData * fileFolder;
-		GuiImageData * filePNG;
-        GuiImageData * fileGIF;
-        GuiImageData * fileJPG;
-        GuiImageData * fileMP3;
-        GuiImageData * fileOGG;
+        GuiImageData * fileGFX;
+		GuiImageData * filePLS;
+		GuiImageData * fileSFX;
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
-        GuiImageData * fileZIP;
 		GuiImageData * scrollbar;
 		GuiImageData * arrowDown;
 		GuiImageData * arrowDownOver;
