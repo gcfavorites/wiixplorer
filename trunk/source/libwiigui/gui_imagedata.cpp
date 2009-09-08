@@ -306,7 +306,8 @@ void GuiImageData::LoadTGA(const u8 *img, int imgSize)
 	}
 	TGAData tgaData;
 	
-	if (TGAReadImage(tga, &tgaData) != TGA_OK)
+	TGAReadImage(tga, &tgaData);
+	if (tga->last != TGA_OK)
 	{
 		delete tga;
 		return;
