@@ -54,6 +54,7 @@ extern FreeTypeGX *fontSystem[];
 #define SCROLL_LOOP_DELAY 		3
 #define PAGESIZE	 			8
 #define MAX_KEYBOARD_DISPLAY	40
+#define MAX_LINES_TO_DRAW	    12
 
 typedef void (*UpdateCallback)(void * e);
 
@@ -681,15 +682,18 @@ class GuiText : public GuiElement
 		int GetTextWidth();
 		//!Get the offset of a linebreak
 		u32 GetLineBreakOffset(int line);
-		// not NULL set horizontal scale to 0.75 //added
-		void SetWidescreen(bool w);
+		//!Change the font
+		//!\param font bufferblock
+		//!\param font filesize
+		bool SetFont(const u8 *font, const u32 filesize);
 		//!Constantly called to draw the text
 		void Draw();
 	protected:
-		wchar_t* text; //!< Unicode text value
-		char * origText; //!< Original text data
+        wchar_t *text;
+		wchar_t *textDyn; //!< Wrapped text value
+		wchar_t *textDynRow[MAX_LINES_TO_DRAW]; //!< Wrapped lines text values
+		char *origText; //!< Original text data
 		int wrapMode; //!< Wrapping toggle
-		wchar_t* textDyn; //!< Wrapped text value
 		int textScrollPos; //!< Current starting index of text string for scrolling
 		int textScrollInitialDelay; //!< Delay to wait before starting to scroll
 		int textScrollDelay; //!< Scrolling speed
@@ -703,6 +707,7 @@ class GuiText : public GuiElement
 		int linestodraw;
 		int totalLines;
 		int textWidth;
+		int currentSize;
 		u32 *LineBreak;
 };
 

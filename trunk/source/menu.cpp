@@ -326,6 +326,7 @@ static int MenuBrowseDevice()
 	GuiText TimeTxt(timetxt, 20, (GXColor) {40, 40, 40, 255});
 	TimeTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	TimeTxt.SetPosition(540, 0);
+	TimeTxt.SetFont(clock_ttf, clock_ttf_size);
 
 	GuiImageData taskbarImgData(taskbar_png);
 	GuiImage taskbarImg(&taskbarImgData);
@@ -924,7 +925,7 @@ static int MenuSettings()
             else if (Settings.MountMethod == NTFS4) options.SetValue(i++, tr("NTFS4"));
 //            else if (Settings.MountMethod == ISFS) options.SetValue(i++, tr("ISFS"));
 //            else if (Settings.MountMethod == NAND) options.SetValue(i++, tr("NAND"));
-			
+
             if(strcmp(Settings.LanguagePath, "") != 0) {
                 char *language = strrchr(Settings.LanguagePath, '/')+1;
                 options.SetValue(i++, "%s", language);

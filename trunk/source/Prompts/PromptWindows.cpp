@@ -1036,7 +1036,8 @@ int DeviceMenu(void)
         deviceSelection[i] = -1;
     }
 
-    int PositionX = 0;
+    int PositionX = leftImg.GetWidth();
+    int PositionY = 19;
     int FontSize = 17;
 
     if(SDCard_Inserted())
@@ -1055,7 +1056,7 @@ int DeviceMenu(void)
         deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
         deviceBtn[deviceCount]->SetTrigger(&trigA);
         deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
         PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
         deviceSelection[deviceCount] = SD;
@@ -1079,7 +1080,7 @@ int DeviceMenu(void)
         deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
         deviceBtn[deviceCount]->SetTrigger(&trigA);
         deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
         PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
         deviceSelection[deviceCount] = USB;
@@ -1105,7 +1106,7 @@ int DeviceMenu(void)
         deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
         deviceBtn[deviceCount]->SetTrigger(&trigA);
         deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
         PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
         deviceSelection[deviceCount] = NTFS0+i;
@@ -1132,7 +1133,7 @@ int DeviceMenu(void)
             deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
             deviceBtn[deviceCount]->SetTrigger(&trigA);
             deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
             PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
             deviceSelection[deviceCount] = SMB1+i;
@@ -1140,7 +1141,7 @@ int DeviceMenu(void)
             deviceCount++;
         }
     }
-/*	
+/*
 	deviceText[deviceCount] = new GuiText("nand", FontSize, (GXColor){0, 0, 0, 255});
 	deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	deviceText[deviceCount]->SetPosition(0, 2);
@@ -1155,7 +1156,7 @@ int DeviceMenu(void)
 	deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
 	deviceBtn[deviceCount]->SetTrigger(&trigA);
 	deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceBtn[deviceCount]->SetPosition(PositionX+leftImg.GetWidth(), 9);
+	deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
 	PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 	deviceSelection[deviceCount] = NAND;
 	deviceCount++;
@@ -1164,7 +1165,7 @@ int DeviceMenu(void)
         return -5;
 
     //! Set image position and tile
-    int tile = PositionX/centerImg.GetWidth();
+    int tile = (PositionX-leftImg.GetWidth())/centerImg.GetWidth();
 
     leftImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     leftImg.SetPosition(0, 0);
@@ -1180,7 +1181,7 @@ int DeviceMenu(void)
 
     GuiWindow promptWindow(width, leftImg.GetHeight());
     promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    promptWindow.SetPosition(45, 110);
+    promptWindow.SetPosition(43, 97);
 
     GuiButton NoBtn(screenwidth, screenheight);
     NoBtn.SetPosition(-promptWindow.GetLeft(), -promptWindow.GetTop());
@@ -1221,7 +1222,7 @@ int DeviceMenu(void)
         }
     }
 
-    promptWindow.SetEffect(EFFECT_FADE, -35);
+    promptWindow.SetEffect(EFFECT_FADE, -30);
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();

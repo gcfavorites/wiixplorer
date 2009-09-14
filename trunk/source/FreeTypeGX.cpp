@@ -22,50 +22,36 @@
 
 #include "FreeTypeGX.h"
 
-static FT_Library ftLibrary;	/**< FreeType FT_Library instance. */
-static FT_Face ftFace;			/**< FreeType reusable FT_Face typographic object. */
-static FT_GlyphSlot ftSlot;		/**< FreeType reusable FT_GlyphSlot glyph container object. */
-
 FreeTypeGX *fontSystem[MAX_FONT_SIZE+1];
 
-void InitFreeType(const char *path, uint8_t* fontBuffer, FT_Long bufferSize)
+static FT_Byte *customfontbuffer = NULL;
+static u32 cstfontfilesize = 0;
+
+bool LoadCustomFont(const char *path)
 {
     FILE *pfile = fopen(path, "rb");
-    size_t filesize = 0;
-    void *buffer = NULL;
 
-    bool use_standard = false;
-
-    if(!pfile)
-        use_standard = true;
-    else {
+    if(pfile)
+    {
         fseek(pfile, 0, SEEK_END);
-        filesize = ftell(pfile);
+        cstfontfilesize = ftell(pfile);
         rewind(pfile);
 
-        buffer = malloc(filesize);
-        if(!buffer) {
-            use_standard = true;
-        } else {
-            fread(buffer, 1, filesize, pfile);
+        customfontbuffer = new FT_Byte[cstfontfilesize];
+        if(!customfontbuffer)
+        {
+            cstfontfilesize = 0;
+            fclose(pfile);
+            return false;
         }
+
+        fread(customfontbuffer, 1, cstfontfilesize, pfile);
         fclose(pfile);
+
+        return true;
     }
 
-	FT_Init_FreeType(&ftLibrary);
-	if(use_standard || !buffer)
-        FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &ftFace);
-    else
-        FT_New_Memory_Face(ftLibrary, (FT_Byte *)buffer, filesize, 0, &ftFace);
-	ftSlot = ftFace->glyph;
-
-	for(int i=0; i<50; i++)
-		fontSystem[i] = NULL;
-}
-
-void ChangeFontSize(FT_UInt pixelSize)
-{
-	FT_Set_Pixel_Sizes(ftFace, 0, pixelSize);
+    return false;
 }
 
 void ClearFontData()
@@ -76,6 +62,12 @@ void ClearFontData()
 			delete fontSystem[i];
 		fontSystem[i] = NULL;
 	}
+	if(customfontbuffer)
+    {
+        delete customfontbuffer;
+        customfontbuffer = NULL;
+        cstfontfilesize = 0;
+    }
 }
 
 /**
@@ -124,11 +116,48 @@ FreeTypeGX::FreeTypeGX(FT_UInt pixelSize, uint8_t textureFormat, uint8_t vertexI
 }
 
 /**
+ * Overload for WiiXplorer
+ */
+FreeTypeGX::FreeTypeGX(FT_UInt pixelSize, bool loadcustomfont, uint8_t* fontBuffer, FT_Long bufferSize, uint8_t textureFormat, uint8_t vertexIndex)
+{
+    this->InitFreeType(fontBuffer, bufferSize, loadcustomfont);
+	this->textureFormat = textureFormat;
+	this->setVertexFormat(vertexIndex);
+	this->setCompatibilityMode(FTGX_COMPATIBILITY_DEFAULT_TEVOP_GX_PASSCLR | FTGX_COMPATIBILITY_DEFAULT_VTXDESC_GX_NONE);
+	this->ftPointSize = pixelSize;
+	this->ftKerningEnabled = FT_HAS_KERNING(ftFace);
+	this->ChangeFontSize(pixelSize);
+}
+
+/**
  * Default destructor for the FreeTypeGX class.
  */
 FreeTypeGX::~FreeTypeGX()
 {
+	FT_Done_FreeType(ftLibrary);
+	FT_Done_Face(ftFace);
 	this->unloadFont();
+}
+
+
+void FreeTypeGX::InitFreeType(uint8_t* fontBuffer, FT_Long bufferSize, bool loadcustomfont)
+{
+	FT_Init_FreeType(&ftLibrary);
+	if(customfontbuffer && cstfontfilesize > 0 && loadcustomfont)
+        FT_New_Memory_Face(ftLibrary, customfontbuffer, cstfontfilesize, 0,&ftFace);
+    else
+        FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &ftFace);
+	ftSlot = ftFace->glyph;
+}
+
+void FreeTypeGX::ChangeFontSize(FT_UInt pixelSize)
+{
+	FT_Set_Pixel_Sizes(ftFace, 0, pixelSize);
+}
+
+uint8_t FreeTypeGX::GetMaxCharWidth()
+{
+	return ftFace->size->metrics.max_advance >> 6;
 }
 
 /**
@@ -477,6 +506,9 @@ int16_t FreeTypeGX::getStyleOffsetHeight(ftgxDataOffset *offset, uint16_t format
  */
 uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color, uint16_t textStyle)
 {
+    if(!text)
+        return 0;
+
 	uint16_t strLength = wcslen(text);
 	uint16_t x_pos = x, printed = 0;
 	uint16_t x_offset = 0, y_offset = 0;
@@ -561,6 +593,9 @@ void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataO
  */
 uint16_t FreeTypeGX::getWidth(wchar_t *text)
 {
+    if(!text)
+        return 0;
+
 	uint16_t strLength = wcslen(text);
 	uint16_t strWidth = 0;
 	FT_Vector pairDelta;
