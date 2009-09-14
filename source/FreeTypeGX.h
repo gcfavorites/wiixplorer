@@ -156,6 +156,7 @@
 #include FT_FREETYPE_H
 #include FT_BITMAP_H
 #include "Metaphrasis.h"
+#include "filelist.h"
 
 #include <malloc.h>
 #include <string.h>
@@ -235,9 +236,8 @@ typedef struct ftgxDataOffset_ ftgxDataOffset;
 
 const GXColor ftgxWhite = (GXColor){0xff, 0xff, 0xff, 0xff}; /**< Constant color value used only to sanitize Doxygen documentation. */
 
-void InitFreeType(const char *path, uint8_t* fontBuffer, FT_Long bufferSize);
-void ChangeFontSize(FT_UInt pixelSize);
 wchar_t* charToWideChar(const char* p);
+bool LoadCustomFont(const char *path);
 void ClearFontData();
 
 /*! \class FreeTypeGX
@@ -252,6 +252,9 @@ void ClearFontData();
 class FreeTypeGX {
 
 	private:
+        FT_Library ftLibrary;   /**< FreeType FT_Library instance. */
+        FT_Face ftFace;         /**< FreeType reusable FT_Face typographic object. */
+        FT_GlyphSlot ftSlot;    /**< FreeType reusable FT_GlyphSlot glyph container object. */
 		FT_UInt ftPointSize;	/**< Requested size of the rendered font. */
 		bool ftKerningEnabled;	/**< Flag indicating the availability of font kerning data. */
 
@@ -278,8 +281,13 @@ class FreeTypeGX {
 		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY,  GXColor color);
 
 	public:
-		FreeTypeGX(FT_UInt pixelSize, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
+		FreeTypeGX(FT_UInt pixelSize, uint8_t textureFormat, uint8_t vertexIndex);
+		FreeTypeGX(FT_UInt pixelSize, bool loadcustomfont = true, uint8_t* fontBuffer = (u8*)font_ttf, FT_Long bufferSize = font_ttf_size, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
 		~FreeTypeGX();
+
+		void InitFreeType(uint8_t* fontBuffer, FT_Long bufferSize, bool loadcustomfont);
+        void ChangeFontSize(FT_UInt pixelSize);
+        uint8_t GetMaxCharWidth();
 
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);

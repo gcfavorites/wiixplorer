@@ -18,6 +18,7 @@
 #include "video.h"
 #include "audio.h"
 #include "menu.h"
+#include "libwiigui/gui.h"
 #include "input.h"
 #include "filelist.h"
 #include "Settings.h"
@@ -48,6 +49,7 @@ main(int argc, char *argv[])
 
 	Settings.Load();
 	Settings.LoadLanguage(Settings.LanguagePath);
+	LoadCustomFont(Settings.CustomFontPath);
 
 	if(Settings.MountNTFS)
 	{
@@ -58,10 +60,11 @@ main(int argc, char *argv[])
 	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
 
-
-	// Initialize font system
-	InitFreeType(Settings.CustomFontPath, (u8*)font_ttf, font_ttf_size);
-	ClearFontData();
+	for(int i = 0; i < MAX_FONT_SIZE+1; i++)
+	{
+        // Initialize font system
+        fontSystem[i] = NULL;
+	}
 
 	InitThreads();
 	MainMenu(MENU_BROWSE_DEVICE);

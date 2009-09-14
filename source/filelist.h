@@ -14,6 +14,9 @@
 extern const u8		font_ttf[];
 extern const u32	font_ttf_size;
 
+extern const u8		clock_ttf[];
+extern const u32	clock_ttf_size;
+
 extern const u8		bg_music_ogg[];
 extern const u32	bg_music_ogg_size;
 
@@ -97,6 +100,21 @@ extern const u32	icon_xml_png_size;
 
 extern const u8		taskbar_png[];
 extern const u32	taskbar_png_size;
+
+extern const u8		textreader_box_png[];
+extern const u32	textreader_box_png_size;
+
+extern const u8		close_png[];
+extern const u32	close_png_size;
+
+extern const u8		close_over_png[];
+extern const u32	close_over_png_size;
+
+extern const u8		minimize_dis_png[];
+extern const u32	minimize_dis_png_size;
+
+extern const u8		maximize_dis_png[];
+extern const u32	maximize_dis_png_size;
 
 extern const u8		menu_selection_png[];
 extern const u32	menu_selection_png_size;
