@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-08 02:23+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
+"Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,221 +17,221 @@ msgid "1"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr ""
+msgstr "Akce zrušena"
 
 msgid "An error occured."
-msgstr ""
+msgstr "Došlo k chybě."
 
 msgid "App Default"
-msgstr ""
+msgstr "Původní nastavení"
 
 msgid "Auto Connect"
-msgstr ""
+msgstr "Automatické připojení"
 
 msgid "Back"
-msgstr ""
+msgstr "Zpět"
 
 msgid "Bootup Mount"
 msgstr ""
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "Nelze otevřít soubor"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Zpět"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "Nelze otevřít obrázek"
 
 msgid "Caps"
-msgstr ""
+msgstr "Velká písmena"
 
 msgid "Change Settings"
-msgstr ""
+msgstr "Změna nastavení"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programátoři"
 
 msgid "Connect SMB"
-msgstr ""
+msgstr "Připojení SMSB"
 
 msgid "Console Default"
-msgstr ""
+msgstr "Původní nastavení konzole"
 
 msgid "Copy"
-msgstr ""
+msgstr "Kopie"
 
 msgid "Copy directory?"
-msgstr ""
+msgstr "Kopírovat adresář"
 
 msgid "Copy file?"
-msgstr ""
+msgstr "Kopírovat soubor?"
 
 msgid "Copying file:"
-msgstr ""
+msgstr "Kopíruji soubor:"
 
 msgid "Copying files:"
-msgstr ""
+msgstr "Kopíruji soubory:"
 
 msgid "Credits"
-msgstr ""
+msgstr "Zásluhy"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Cesta pro vlatní font"
 
 msgid "Cut"
-msgstr ""
+msgstr "Vyjmout"
 
 msgid "Cut directory?"
-msgstr ""
+msgstr "Vyjmout adresář?"
 
 msgid "Cut file?"
-msgstr ""
+msgstr "Vyjmout soubor?"
 
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 msgid "Delete directory and its content?"
-msgstr ""
+msgstr "Smazat adresář a jeho obsah?"
 
 msgid "Delete this file?"
-msgstr ""
+msgstr "Smazat tento soubor?"
 
 msgid "Deleting files:"
-msgstr ""
+msgstr "Mazání souborů:"
 
 msgid "Designer:"
 msgstr ""
 
 msgid "Directory .."
-msgstr ""
+msgstr "Adresář .."
 
 msgid "Directory couldn't be deleted."
-msgstr ""
+msgstr "Adresář nemůže být smazán."
 
 msgid "Directory successfully copied."
-msgstr ""
+msgstr "Adresář úspěšně zkopírován."
 
 msgid "Directory successfully deleted."
-msgstr ""
+msgstr "Adresář úspěšně smazán."
 
 msgid "Directory successfully moved."
-msgstr ""
+msgstr "Adresář úspěšně přesunut."
 
 msgid "Do you want to boot:"
-msgstr ""
+msgstr "Přejete si nabootovat:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Přejete si spustit aplikaci v původním jazyce?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Přejete si spustit aplikaci v jazyce konzole?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Přejete si spustit tento jazyk?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
+msgstr "Přejete si otevřít tento soubor v TextViewer"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr ""
+msgstr "Přejete si otevřít tento soubor v ImageViewer?"
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Přejete si přehrát tento soubor?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr ""
+msgstr "Přejete si znovu připojit SMB"
 
 msgid "ERROR"
-msgstr ""
+msgstr "CHYBA"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "zadejte adresář, kam chcete rozbalit soubory."
 
 msgid "Error"
-msgstr ""
+msgstr "Chyba"
 
 msgid "Error:"
-msgstr ""
+msgstr "Chyba:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Rozbaluji soubory ..."
 
 msgid "Failed copying file."
-msgstr ""
+msgstr "Nepodařilo se zkopírovat soubor."
 
 msgid "Failed copying files."
-msgstr ""
+msgstr "Nepodařilo se zkopírovat soubory."
 
 msgid "Failed renaming file"
-msgstr ""
+msgstr "Nepodařilo se přejmenovat soubor."
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Nepodařilo se rozbalit soubory."
 
 msgid "File couldn't be deleted."
-msgstr ""
+msgstr "Soubor nemůže být smazán."
 
 msgid "File does not exist anymore!"
-msgstr ""
+msgstr "Soubor již neexistuje"
 
 msgid "File successfully copied."
-msgstr ""
+msgstr "Soubor úspěšně zkopírován."
 
 msgid "File successfully moved."
-msgstr ""
+msgstr "Soubor úspěšně přesunut."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Cesta:  %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Soubory úspěšně rozbaleny."
 
 msgid "Files:"
-msgstr ""
+msgstr "Soubory:"
 
 msgid "Filetype:"
-msgstr ""
+msgstr "Typ:"
 
 msgid "Folder"
-msgstr ""
+msgstr "Adresář"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Cesta k fontu změněna"
 
 msgid "Go Back"
-msgstr ""
+msgstr "Jdi Zpět"
 
 msgid "Host:"
-msgstr ""
+msgstr "Hostitel:"
 
 msgid "ImageViewer"
 msgstr ""
 
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 msgid "Last access:"
-msgstr ""
+msgstr "Poslední přístup:"
 
 msgid "Last modified:"
-msgstr ""
+msgstr "Poslední změna:"
 
 msgid "Last status change:"
-msgstr ""
+msgstr "Poslední změna stavu:"
 
 msgid "Loading file:"
-msgstr ""
+msgstr "nahrávám soubor:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "Připojení NTFS"
 
 msgid "Moving files:"
-msgstr ""
+msgstr "Přesouvám soubory:"
 
 msgid "Music Volume"
-msgstr ""
+msgstr "Hlasitost hudby"
 
 msgid "NTFS0"
 msgstr ""
@@ -249,80 +249,80 @@ msgid "NTFS4"
 msgstr ""
 
 msgid "Name already exists."
-msgstr ""
+msgstr "Jméno již existuje."
 
 msgid "Network initialising..."
-msgstr ""
+msgstr "Inicializace sítě ..."
 
 msgid "New Folder"
-msgstr ""
+msgstr "Nový adresář"
 
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "Nebyl nalezen obrázek na indexu %d."
 
 msgid "No language files found."
-msgstr ""
+msgstr "Nebyly nalezeny jazykové soubory."
 
 msgid "Not enough memory."
-msgstr ""
+msgstr "Nedostatek paměti."
 
 msgid "OFF"
-msgstr ""
+msgstr "Vypnuto"
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr ""
+msgstr "Zapnuto"
 
 msgid "Out of memory: too many files!"
-msgstr ""
+msgstr "Mimo paměť: příliš mnoho souborů"
 
 msgid "Password:"
-msgstr ""
+msgstr "Heslo:"
 
 msgid "Paste"
-msgstr ""
+msgstr "Vložit"
 
 msgid "Paste into current directory?"
-msgstr ""
+msgstr "Vložit do aktuálního adresáře?"
 
 msgid "Please copy this file to SD/USB first"
-msgstr ""
+msgstr "Zkopírujte prosím tento soubor nejdříve na SD/USB"
 
 msgid "Please wait:"
-msgstr ""
+msgstr "Čekejte prosím:"
 
 msgid "Properties"
-msgstr ""
+msgstr "Vlastnosti"
 
 msgid "Reconnect SMB"
-msgstr ""
+msgstr "Znovu připojit SMB"
 
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Spustit znovu aplikaci pro načtení nového fontu."
 
 msgid "Retry"
-msgstr ""
+msgstr "Opakovat"
 
 msgid "SD"
 msgstr ""
 
 msgid "SMB Name:"
-msgstr ""
+msgstr "SMB Název:"
 
 msgid "SMB Settings"
-msgstr ""
+msgstr "SMB nastavení"
 
 msgid "SMB is connecting..."
-msgstr ""
+msgstr "SMB se připojuje ..."
 
 msgid "SMB1"
 msgstr ""
@@ -340,53 +340,53 @@ msgid "Shift"
 msgstr ""
 
 msgid "Size:"
-msgstr ""
+msgstr "Velikost:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Speciální poděkování pro:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Celý tým DevkitPro & libogc"
 
 msgid "This is no OGG/MP3 file"
-msgstr ""
+msgstr "Toto není OGG/MP3 soubor"
 
 msgid "Transfering files:"
-msgstr ""
+msgstr "Přenáším soubory:"
 
 msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
-msgstr ""
+msgstr "Nelze vytvořit adresář."
 
 msgid "Unable to load device."
-msgstr ""
+msgstr "Nelze připojit zařízení."
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Uživatel %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Uživatel:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Jméno uživatele:"
 
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 msgid "You can not cut into the directory itself."
-msgstr ""
+msgstr "Nelze vložit adresář sám do sebe."
 
 msgid "You cannot read/write from/to the same file."
-msgstr ""
+msgstr "Nelze číst/psát z/do samého souboru."
 
 msgid "You cant use this operation on:"
-msgstr ""
+msgstr "Nelze použít tuto operaci na:"
 
 msgid "Zipfiles on SMB don't work for now"
-msgstr ""
+msgstr "Soubory ZIP na SMB nyní nefungují"
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
+msgstr "za jeho výborný nástroj LibWiiGui"

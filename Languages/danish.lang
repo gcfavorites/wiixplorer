@@ -28,7 +28,7 @@ msgid "Auto Connect"
 msgstr "Auto-forbind"
 
 msgid "Back"
-msgstr ""
+msgstr "Tilbage"
 
 msgid "Bootup Mount"
 msgstr ""
@@ -43,7 +43,7 @@ msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
 
 msgid "Caps"
-msgstr ""
+msgstr "Store bogstaver"
 
 msgid "Change Settings"
 msgstr "Skift indstillinger"
@@ -185,7 +185,7 @@ msgid "Filepath:  %s"
 msgstr "Sti til filer: %s"
 
 msgid "Files successfully extracted."
-msgstr "Filer blev udpakket."
+msgstr "Filerne blev udpakket."
 
 msgid "Files:"
 msgstr "Filer:"
@@ -348,7 +348,7 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
 
 msgid "This is no OGG/MP3 file"
-msgstr "Dette er ikke en OGG/MP3-fil"
+msgstr "Dette er ikke en OGG-/MP3-fil"
 
 msgid "Transfering files:"
 msgstr "Overfører filer:"
@@ -389,6 +389,3 @@ msgstr "Kan endnu ikke åbne zip-filer på SMB"
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
-
-#~ msgid "Mount Method"
-#~ msgstr "Mount-metode"
