@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win</coder>
-  <version>r52</version>
-  <release_date>200909040000</release_date>
+  <version>r62</version>
+  <release_date>200909190000</release_date>
   <short_description>Wii File Browser</short_description> 
   <long_description>A multi device file explorer for the Wii by dimok and r-win.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
@@ -12,6 +12,7 @@ Features:
  * USB2 support with cIOS202 installed
  * SMB/USB/SD recursive copy/move/delete
    of files/directories with all files in it
+ * USB FAT and NTFS files systems support
  * Rename files
  * Properties of files/directories
  * Browse through SD/USB/SMB
@@ -19,13 +20,14 @@ Features:
  * Multilanguage with custom font support
  * Boot .dol/.elf files
  * Open TXT/XML/MP3/OGG/PNG/JPEG/GIF
-   /BMP files
+   /BMP/TGA files
  * ZIP/RAR/7zip support
 
 Credits:
   Coding: Dimok, r-win
+  Forwarder: Dimok
   Artworks: Neorame
-  Languages: Dj Skual
+  Languages: Dj Skual and Translaters
 
   Libwiigui: Tantric
   Libogc/Devkit: Shagkur and Wintermute

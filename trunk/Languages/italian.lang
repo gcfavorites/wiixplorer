@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-15 21:32+0200\n"
 "PO-Revision-Date: 2009-09-03 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "Operazione annullata."
@@ -28,10 +28,10 @@ msgid "Auto Connect"
 msgstr "Connessione Automatica"
 
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Mount all'avvio"
 
 msgid "Can not open the file"
 msgstr "Il file non si può aprire"
@@ -43,7 +43,7 @@ msgid "Cannot open image"
 msgstr "L'immagine non si può aprire"
 
 msgid "Caps"
-msgstr ""
+msgstr "Blocco Maiuscole"
 
 msgid "Change Settings"
 msgstr "Modifica Impostazioni"
@@ -182,7 +182,7 @@ msgstr "Il file è stato spostato con successo."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "Perc. file: %s"
+msgstr ""
 
 msgid "Files successfully extracted."
 msgstr "I file sono stati estratti con successo."
@@ -224,7 +224,7 @@ msgid "Loading file:"
 msgstr "Sto caricando il file:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "Attiva NTFS"
 
 msgid "Moving files:"
 msgstr "Sto spostando i file:"
@@ -257,7 +257,7 @@ msgid "New Folder"
 msgstr "Nuova cartella"
 
 msgid "No"
-msgstr "No"
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
@@ -273,7 +273,7 @@ msgid "OFF"
 msgstr "Disattivato"
 
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 msgid "ON"
 msgstr "Attivato"
@@ -282,7 +282,7 @@ msgid "Out of memory: too many files!"
 msgstr "Memoria insufficiente: troppi file!"
 
 msgid "Password:"
-msgstr "Password:"
+msgstr ""
 
 msgid "Paste"
 msgstr "Incolla"
@@ -312,7 +312,7 @@ msgid "Retry"
 msgstr "Riprova"
 
 msgid "SD"
-msgstr "SD"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Nome SMB:"
@@ -324,19 +324,19 @@ msgid "SMB is connecting..."
 msgstr "SMB in connessione..."
 
 msgid "SMB1"
-msgstr "SMB1"
+msgstr ""
 
 msgid "SMB2"
-msgstr "SMB2"
+msgstr ""
 
 msgid "SMB3"
-msgstr "SMB3"
+msgstr ""
 
 msgid "SMB4"
-msgstr "SMB4"
+msgstr ""
 
 msgid "Shift"
-msgstr ""
+msgstr "Maiuscole"
 
 msgid "Size:"
 msgstr "Dimensione:"
@@ -354,7 +354,7 @@ msgid "Transfering files:"
 msgstr "Sto spostando i file:"
 
 msgid "USB"
-msgstr "USB"
+msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Non è stato possibile creare la cartella."
@@ -390,5 +390,5 @@ msgstr "Al momento i file zip non funzionano su SMB"
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
 
-#~ msgid "Mount Method"
-#~ msgstr "Tipologia Mount"
+#~ msgid "Filepath: %s"
+#~ msgstr "Perc. file: %s"

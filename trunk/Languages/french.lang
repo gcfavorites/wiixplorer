@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-08 02:23+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Périphérique"
 
 msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
@@ -224,7 +224,7 @@ msgid "Loading file:"
 msgstr "Chargement de:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "NTFS"
 
 msgid "Moving files:"
 msgstr "Déplacement de:"
@@ -321,7 +321,7 @@ msgid "SMB Settings"
 msgstr "Paramètres SMB"
 
 msgid "SMB is connecting..."
-msgstr "Connection du SMB..."
+msgstr "Connection SMB..."
 
 msgid "SMB1"
 msgstr ""
@@ -389,9 +389,3 @@ msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
-
-#~ msgid "Slideshow not yet implemented."
-#~ msgstr "Diaporama non fonctionnel."
-
-#~ msgid "Mount Method"
-#~ msgstr "Périphérique"

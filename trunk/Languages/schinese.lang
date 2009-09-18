@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-08 02:23+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "动作取消"
@@ -28,10 +28,10 @@ msgid "Auto Connect"
 msgstr "自动连接"
 
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "开始挂载"
 
 msgid "Can not open the file"
 msgstr "不能打开文件"
@@ -43,7 +43,7 @@ msgid "Cannot open image"
 msgstr "无法打开图片程序"
 
 msgid "Caps"
-msgstr ""
+msgstr "大写"
 
 msgid "Change Settings"
 msgstr "更改设置"
@@ -224,7 +224,7 @@ msgid "Loading file:"
 msgstr "正在读取文件:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "挂载NTFS分区"
 
 msgid "Moving files:"
 msgstr "正在移动文件"
@@ -345,7 +345,7 @@ msgid "Special thanks to:"
 msgstr "特别感谢："
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "基于Devkitpro和libogc开发"
 
 msgid "This is no OGG/MP3 file"
 msgstr "此文件不是OGG或MP3文件"
