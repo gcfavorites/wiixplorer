@@ -46,7 +46,7 @@ GuiSound::~GuiSound()
         LWP_MutexDestroy(mp3mutex);
         mp3mutex = LWP_MUTEX_NULL;
         if(sound) {
-            delete sound;
+            delete [] sound;
             sound = NULL;
         }
     }

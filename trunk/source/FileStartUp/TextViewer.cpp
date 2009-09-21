@@ -98,7 +98,7 @@ void TextViewer(const char *filepath)
     Editor.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     Editor.SetPosition(0, 0);
 
-    delete filetext;
+    delete [] filetext;
     filetext = NULL;
 
     HaltGui();

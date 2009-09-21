@@ -280,19 +280,21 @@ int CopyFile(const char * src, const char * dest)
 
 	FILE * destination = fopen(dest, "wb");
 
-    if(destination == NULL) {
-        delete buffer;
+    if(destination == NULL)
+    {
+        delete [] buffer;
         fclose(source);
         return -3;
     }
 
     u64 done = 0;
     do {
-        if(actioncanceled) {
+        if(actioncanceled)
+        {
             usleep(20000);
             fclose(source);
             fclose(destination);
-            delete buffer;
+            delete [] buffer;
             RemoveFile((char *) dest);
             return -10;
         }
@@ -306,14 +308,13 @@ int CopyFile(const char * src, const char * dest)
 
     fclose(source);
     fclose(destination);
-    delete buffer;
+    delete [] buffer;
 
     //get size of written file
     u64 sizedest = FileSize(dest);
 
-    if(sizesrc != sizedest) {
+    if(sizesrc != sizedest)
         return -4;
-    }
 
 	return 1;
 }

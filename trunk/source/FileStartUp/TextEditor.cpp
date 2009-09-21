@@ -25,7 +25,6 @@
  * for Wii-FileXplorer 2009
  ***************************************************************************/
 
-#include "libwiigui/gui.h"
 #include "TextEditor.h"
 
 /**
