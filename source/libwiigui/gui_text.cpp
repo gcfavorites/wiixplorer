@@ -122,9 +122,9 @@ GuiText::~GuiText()
 	if(origText)
 		free(origText);
 	if(text)
-		delete text;
+		delete [] text;
 	if(textDyn)
-		delete textDyn;
+		delete [] textDyn;
 
     if(LineBreak) {
         free(LineBreak);
@@ -139,7 +139,7 @@ GuiText::~GuiText()
 	{
 	    if(textDynRow[i])
 	    {
-            delete textDynRow[i];
+            delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -156,14 +156,14 @@ void GuiText::SetText(const char * t)
 	if(origText)
 		free(origText);
 	if(text)
-		delete text;
+		delete [] text;
 	if(textDyn)
-		delete textDyn;
+		delete [] textDyn;
 	for(int i = 0; i < MAX_LINES_TO_DRAW; i++)
 	{
 	    if(textDynRow[i])
 	    {
-           delete textDynRow[i];
+           delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -290,7 +290,7 @@ void GuiText::SetMaxWidth(int width, int w)
                 break;
             }
         }
-        delete tmptext;
+        delete [] tmptext;
         totalLines = linenum;
 	}
 
@@ -303,7 +303,7 @@ void GuiText::SetMaxWidth(int width, int w)
 
     if(textDyn)
     {
-        delete(textDyn);
+        delete [] textDyn;
         textDyn = NULL;
     }
 
@@ -311,7 +311,7 @@ void GuiText::SetMaxWidth(int width, int w)
 	{
 	    if(textDynRow[i])
 	    {
-            delete textDynRow[i];
+            delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -384,7 +384,7 @@ void GuiText::SetFirstLine(int line)
 	{
 	    if(textDynRow[i])
 	    {
-            delete textDynRow[i];
+            delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -402,7 +402,7 @@ void GuiText::SetLinesToDraw(int line)
 	{
 	    if(textDynRow[i])
 	    {
-            delete textDynRow[i];
+            delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -579,7 +579,7 @@ void GuiText::Draw()
 					int ch = textScrollPos;
 
 					if(textDyn) {
-                        delete textDyn;
+                        delete [] textDyn;
                         textDyn = NULL;
 					}
                     textDyn = new wchar_t[maxWidth];

@@ -54,21 +54,18 @@ int FileStartUp(const char *filepath)
         if(choice)
             LoadMusic(filepath);
     }
-    else if(strcasecmp(fileext, ".zip") == 0) {
-        if(filepath[0] == 's' && filepath[1] == 'm' && filepath[2] == 'b')
-            WindowPrompt(tr("Zipfiles on SMB don't work for now"), tr("Please copy this file to SD/USB first"), tr("OK"));
-        else {
-            int choice = WindowPrompt(filename, tr("Enter a directory where to extract the files to."), tr("OK"), tr("Cancel"));
-            if(choice) {
-                char entered[151];
-                bool result = false;
-                int position = fileext-filepath;
-                snprintf(entered, position+1, "%s", filepath);
-                if(OnScreenKeyboard(entered, 150))
-                    result = ZipBrowse(filepath, entered);
+    else if(strcasecmp(fileext, ".zip") == 0)
+    {
+        int choice = WindowPrompt(filename, tr("Enter a directory where to extract the files to."), tr("OK"), tr("Cancel"));
+        if(choice) {
+            char entered[151];
+            bool result = false;
+            int position = fileext-filepath;
+            snprintf(entered, position+1, "%s", filepath);
+            if(OnScreenKeyboard(entered, 150))
+                result = ZipBrowse(filepath, entered);
 
-                return TRIGGERUPDATE;
-            }
+            return TRIGGERUPDATE;
         }
     }
     else if(strcasecmp(fileext, ".rar") == 0) {
