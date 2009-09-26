@@ -558,7 +558,10 @@ static int MenuBrowseDevice()
                             StopProgress();
                         } else {
                             if(strcmp(srcpath, destdir) != 0) {
-                                StartProgress(tr("Moving files:"));
+                                if(CompareDevices(srcpath, destdir))
+                                    StartProgress(tr("Moving files:"), THROBBER);
+                                else
+                                    StartProgress(tr("Moving files:"));
                                 res = MoveDirectory(srcpath, destdir);
                                 StopProgress();
                             } else {
@@ -566,7 +569,6 @@ static int MenuBrowseDevice()
                                 res =  -1;
                             }
                         }
-
                         if(res == -10)
                             WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
                         else if(res < 0)
@@ -587,7 +589,11 @@ static int MenuBrowseDevice()
                             snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
                             if(strcmp(srcpath, destdir) != 0) {
                                 StartProgress(tr("Copying file:"));
-                                int res = CopyFile(srcpath, destdir);
+                                int res = 0;
+                                if(Clipboard.cutted == false)
+                                    res = CopyFile(srcpath, destdir);
+                                else
+                                    res = MoveFile(srcpath, destdir);
                                 StopProgress();
                                 if(res < 0)
                                     WindowPrompt(tr("ERROR"), tr("Failed copying file."), tr("OK"));
@@ -595,10 +601,7 @@ static int MenuBrowseDevice()
                                     if(Clipboard.cutted == false)
                                         WindowPrompt(tr("File successfully copied."), 0, tr("OK"));
                                     else {
-                                        if(RemoveFile(srcpath) == false)
-                                            WindowPrompt(tr("Error"), tr("File couldn't be deleted."), tr("OK"));
-                                        else
-                                            WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
+                                        WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
                                     }
                                 }
                             } else {

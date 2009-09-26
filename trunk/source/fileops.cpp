@@ -569,6 +569,8 @@ int CopyDirectory(const char * src, const char * dest)
  ***************************************************************************/
 int MoveDirectory(char * src, const char * dest)
 {
+    bool samedevices = CompareDevices(src, dest);
+
     struct stat st;
     DIR_ITER *dir = NULL;
 
@@ -762,14 +764,18 @@ int MoveDirectory(char * src, const char * dest)
     free(filename);
     filename = NULL;
 
-    for(u32 i = 0; i < filecount; i++) {
+    for(u32 i = 0; i < filecount; i++)
+    {
         char currentname[strlen(src)+strlen(filelist[i].name)+2];
         char destname[strlen(dest)+strlen(filelist[i].name)+2];
         CreateSubfolder(dest);
         snprintf(currentname, sizeof(currentname), "%s%s", src, filelist[i].name);
         snprintf(destname, sizeof(destname), "%s%s", dest, filelist[i].name);
-        if(CopyFile(currentname, destname) > 0)
-            RemoveFile(currentname);
+        MoveFile(currentname, destname);
+
+        if(samedevices)
+            ShowProgress(0, 1, filelist[i].name);
+
         if(filelist[i].name) {
             free(filelist[i].name);
             filelist[i].name = NULL;
@@ -810,6 +816,30 @@ int MoveDirectory(char * src, const char * dest)
     return 1;
 }
 
+/****************************************************************************
+ * MoveFile
+ *
+ * Move a file from srcpath to destdir
+ ***************************************************************************/
+int MoveFile(const char *srcpath, char *destdir)
+{
+    if(CompareDevices(srcpath, destdir))
+    {
+        if(rename(srcpath, destdir) == 0)
+            return 1;
+        else
+            return -1;
+    }
+
+    int res = CopyFile(srcpath, destdir);
+    if(res < 0)
+        return -1;
+
+    if(RemoveFile(srcpath))
+        return 1;
+
+    return -1;
+}
 
 /****************************************************************************
  * RemoveDirectory
@@ -1051,7 +1081,7 @@ int RemoveDirectory(char * dirpath)
  *
  * Delete the file from a given filepath
  ***************************************************************************/
-bool RemoveFile(char * filepath)
+bool RemoveFile(const char * filepath)
 {
     if(remove(filepath) != 0)
         return false;
@@ -1178,4 +1208,36 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 
 	free(dirlist);
     dirlist = NULL;
+}
+
+/****************************************************************************
+ * CompareDevices
+ *
+ * Compare if its the devices are equal
+ ***************************************************************************/
+#include "Prompts/PromptWindows.h"
+bool CompareDevices(const char *src, const char *dest)
+{
+    if(!src || !dest)
+        return false;
+
+    char *device1 = strchr(src, ':');
+    char *device2 = strchr(dest, ':');
+
+	if(!device1 || !device2)
+        return false;
+
+	int position1 = device1-src+1;
+	int position2 = device2-dest+1;
+
+	char temp1[50];
+	char temp2[50];
+
+	snprintf(temp1, position1, "%s", src);
+	snprintf(temp2, position2, "%s", dest);
+
+    if(strcasecmp(temp1, temp2) == 0)
+        return true;
+
+    return false;
 }

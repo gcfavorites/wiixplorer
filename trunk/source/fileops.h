@@ -18,8 +18,10 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filePath, u8
 int CopyFile(const char * src, const char * dest);
 int CopyDirectory(const char * src, const char * dest);
 int MoveDirectory(char * src, const char * dest);
+int MoveFile(const char *srcpath, char *destdir);
 int RemoveDirectory(char * dirpath);
-bool RemoveFile(char * filepath);
+bool RemoveFile(const char * filepath);
 void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filenumber);
+bool CompareDevices(const char *src, const char *dest);
 
 #endif
