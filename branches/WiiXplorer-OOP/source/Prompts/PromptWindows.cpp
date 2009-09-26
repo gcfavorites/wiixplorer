@@ -45,6 +45,7 @@
 #include "menu.h"
 #include "filelist.h"
 #include "Language/gettext.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 #include "svnrev.h"
 
@@ -59,7 +60,6 @@ static GuiImageData throbber(throbber_png);
 static GuiImage throbberImg(&throbber);
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern GuiSound * bgMusic;
 extern u8 shutdown;
 extern u8 reset;
@@ -118,9 +118,9 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	keyboard.Append(&cancelBtn);
 
 	HaltGui();
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&keyboard);
-	mainWindow->ChangeFocus(&keyboard);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->Append(&keyboard);
+	MainWindow::Instance()->ChangeFocus(&keyboard);
 	ResumeGui();
 
 	while(save == -1)
@@ -139,8 +139,8 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	}
 
 	HaltGui();
-	mainWindow->Remove(&keyboard);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&keyboard);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	ResumeGui();
 	return save;
 }
@@ -297,9 +297,9 @@ const char *btn4Label)
 
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     ResumeGui();
 
     while(choice == -1)
@@ -335,8 +335,8 @@ const char *btn4Label)
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
     while(promptWindow.GetEffect() > 0) usleep(50);
     HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->Remove(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
     return choice;
 }
@@ -391,9 +391,9 @@ int WaitSMBConnect(void)
 
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     ResumeGui();
 
     while(choice == -1)
@@ -417,8 +417,8 @@ int WaitSMBConnect(void)
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
     while(promptWindow.GetEffect() > 0) usleep(50);
     HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->Remove(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
     return choice;
 }
@@ -576,8 +576,8 @@ int RightClickMenu(int x, int y)
     promptWindow.Append(&Propertiesbtn);
 
     HaltGui();
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     ResumeGui();
 
     while(choice == -1)
@@ -625,7 +625,7 @@ int RightClickMenu(int x, int y)
     }
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
+    MainWindow::Instance()->Remove(&promptWindow);
     ResumeGui();
 
     return choice;
@@ -785,9 +785,9 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     promptWindow.Append(&Backbtn);
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
 
@@ -834,8 +834,8 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->Remove(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
 
     if(folder)
@@ -951,9 +951,9 @@ void CreditsWindow(void)
     promptWindow.Append(&Backbtn);
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
 
@@ -978,14 +978,14 @@ void CreditsWindow(void)
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
+    MainWindow::Instance()->Remove(&promptWindow);
 
     for(int i = 0; i < numEntries; i++) {
         delete txt[i];
         txt[i] = NULL;
     }
 
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
 }
 
@@ -1196,8 +1196,8 @@ int DeviceMenu(void)
         promptWindow.Append(deviceBtn[i]);
 
     HaltGui();
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_FADE, 25);
     ResumeGui();
 
@@ -1226,7 +1226,7 @@ int DeviceMenu(void)
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
+    MainWindow::Instance()->Remove(&promptWindow);
     for(int i = 0; i < MAXDEVICES; i++)
     {
         if(deviceBtn[i]) {

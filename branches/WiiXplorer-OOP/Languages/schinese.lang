@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-08 02:23+0200\n"
+"POT-Creation-Date: 2009-09-26 10:08+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -290,9 +290,6 @@ msgstr "粘贴"
 msgid "Paste into current directory?"
 msgstr "是否粘贴到当前目录？"
 
-msgid "Please copy this file to SD/USB first"
-msgstr "先将文件复制到SD或者USB设备上"
-
 msgid "Please wait:"
 msgstr "请等待："
 
@@ -384,11 +381,14 @@ msgstr "无法读取相当文件。"
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "网络共享不支持zip功能"
-
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "先将文件复制到SD或者USB设备上"
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "网络共享不支持zip功能"
 
 #~ msgid "Mount Method"
 #~ msgstr "挂载方式"

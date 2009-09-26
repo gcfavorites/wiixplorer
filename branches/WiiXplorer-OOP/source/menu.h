@@ -18,7 +18,7 @@
 
 void InitThreads();
 void ExitGUIThreads();
-void MainMenu (int menuitem);
+void MainMenu();
 
 enum
 {

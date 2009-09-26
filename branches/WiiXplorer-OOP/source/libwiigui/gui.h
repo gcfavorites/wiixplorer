@@ -220,6 +220,12 @@ class GuiTrigger
 		PADData pad; //!< GameCube controller trigger data
 };
 
+class SimpleGuiTrigger : public GuiTrigger
+{
+	public:
+		SimpleGuiTrigger(s32 ch, u32 wiibtns, u16 gcbtns);
+};
+
 extern GuiTrigger userInput[4];
 
 //!Primary GUI class. Most other classes inherit from this class.

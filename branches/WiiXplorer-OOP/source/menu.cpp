@@ -53,19 +53,13 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "Language/gettext.h"
 #include "Language/LanguageBrowser.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 // #include "filesystems/filesystems.h"
 
-GuiWindow * mainWindow = NULL;
 GuiSound * bgMusic = NULL;
 
-static GuiImageData * pointer[4];
-static GuiImage * bgImg = NULL;
-static GuiImageData * bgImgData = NULL;
-static lwp_t guithread = LWP_THREAD_NULL;
-static bool guiHalt = true;
 static CLIPBOARD Clipboard;
-static int ExitRequested = 0;
 static int currentDevice = 0;
 static bool boothomebrew = false;
 static bool firsttimestart = true;
@@ -82,8 +76,7 @@ extern u8 reset;
  ***************************************************************************/
 void ResumeGui()
 {
-	guiHalt = false;
-	LWP_ResumeThread (guithread);
+	MainWindow::Instance()->ResumeGui();
 }
 
 /****************************************************************************
@@ -96,104 +89,7 @@ void ResumeGui()
  ***************************************************************************/
 void HaltGui()
 {
-	guiHalt = true;
-
-	// wait for thread to finish
-	while(!LWP_ThreadIsSuspended(guithread))
-		usleep(THREAD_SLEEP);
-}
-
-/****************************************************************************
- * UpdateGUI
- *
- * Primary thread to allow GUI to respond to state changes, and draws GUI
- ***************************************************************************/
-
-static void *
-UpdateGUI (void *arg)
-{
-	int i;
-
-	while(1)
-	{
-		if(guiHalt)
-		{
-			LWP_SuspendThread(guithread);
-		}
-		else
-		{
-			mainWindow->Draw();
-
-			#ifdef HW_RVL
-			for(i=3; i >= 0; i--) // so that player 1's cursor appears on top!
-			{
-				if(userInput[i].wpad.ir.valid)
-					Menu_DrawImg(userInput[i].wpad.ir.x-48, userInput[i].wpad.ir.y-48,
-						96, 96, pointer[i]->GetImage(), userInput[i].wpad.ir.angle, 1, 1, 255);
-				//DoRumble(i);
-			}
-			#endif
-
-			Menu_Render();
-
-			for(i=0; i < 4; i++)
-				mainWindow->Update(&userInput[i]);
-
-			if(ExitRequested)
-			{
-				for(i = 0; i < 255; i += 15)
-				{
-					mainWindow->Draw();
-					Menu_DrawRectangle(0,0,screenwidth,screenheight,(GXColor){0, 0, 0, i},1);
-					Menu_Render();
-				}
-                ExitRequested = 2;
-                return NULL;
-			}
-		}
-	}
-	return NULL;
-}
-
-/****************************************************************************
- * InitThread
- *
- * Startup threads
- ***************************************************************************/
-void InitThreads()
-{
-    //!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, NULL, NULL, 0, 70);
-
-	//!Initalize the progress thread
-	InitProgressThread();
-	StopProgress();
-
-    //!Initialize network thread if selected
-    InitNetworkThread();
-    if(Settings.AutoConnect == on)
-        ResumeNetworkThread();
-    else
-        HaltNetworkThread();
-
-    //!Initialize GetSizeThread for Properties
-    InitGetSizeThread();
-    StopSizeGain();
-
-    //!Initialize Parsethread for browser
-    InitParseThread();
-}
-
-/****************************************************************************
- * ExitGUIThread
- *
- * Shutdown GUI threads
- ***************************************************************************/
-void ExitGUIThreads()
-{
-	ExitRequested = 1;
-	LWP_JoinThread(guithread, NULL);
-	guithread = LWP_THREAD_NULL;
+	MainWindow::Instance()->HaltGui();
 }
 
 /****************************************************************************
@@ -203,8 +99,6 @@ static int MenuBrowseDevice()
 {
 	int i, choice = -1;
 	char currentdir[50];
-    time_t currenttime = time(0);
-    struct tm * timeinfo = localtime(&currenttime);
 
     if(firsttimestart && Settings.MountMethod > NTFS4 &&
         Settings.AutoConnect == on && !IsNetworkInit()) {
@@ -320,36 +214,17 @@ static int MenuBrowseDevice()
 	Adressbar.SetImage(&AdressbarImg);
 	Adressbar.SetLabel(&AdressText);
 
-	char timetxt[20];
-	strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
-
-	GuiText TimeTxt(timetxt, 20, (GXColor) {40, 40, 40, 255});
-	TimeTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	TimeTxt.SetPosition(540, 0);
-	TimeTxt.SetFont(clock_ttf, clock_ttf_size);
-
-	GuiImageData taskbarImgData(taskbar_png);
-	GuiImage taskbarImg(&taskbarImgData);
-	GuiWindow TaskBar(taskbarImg.GetWidth(), taskbarImg.GetHeight());
-	TaskBar.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	TaskBar.SetPosition(4, -15);
-
 	GuiButton clickmenuBtn(screenwidth, screenheight);
 	clickmenuBtn.SetTrigger(&trigPlus);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
-	TaskBar.Append(&taskbarImg);
-	TaskBar.Append(&SettingsBtn);
-	TaskBar.Append(&ExitBtn);
-	TaskBar.Append(&TimeTxt);
 	w.Append(&clickmenuBtn);
 	w.Append(&fileBrowser);
 	w.Append(&CreditsBtn);
 	w.Append(&Adressbar);
 	w.Append(&deviceSwitchBtn);
-	w.Append(&TaskBar);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
 
     w.SetEffect(EFFECT_FADE, 50);
 
@@ -395,14 +270,6 @@ static int MenuBrowseDevice()
 				}
 			}
 		}
-
-        if(frameCount % 60 == 0) //! Update time value every sec
-        {
-            currenttime = time(0);
-            timeinfo = localtime(&currenttime);
-            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
-            TimeTxt.SetText(timetxt);
-        }
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -635,7 +502,7 @@ static int MenuBrowseDevice()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;
@@ -695,7 +562,7 @@ static int MenuSMBSettings()
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&titleTxt);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
@@ -781,7 +648,7 @@ static int MenuSMBSettings()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;
@@ -838,7 +705,7 @@ static int MenuSettings()
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
@@ -951,7 +818,7 @@ static int MenuSettings()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;
@@ -960,34 +827,10 @@ static int MenuSettings()
 /****************************************************************************
  * MainMenu
  ***************************************************************************/
-void MainMenu(int menu)
+void MainMenu()
 {
-	int currentMenu = menu;
+	int currentMenu = MENU_BROWSE_DEVICE;
 	currentDevice = Settings.MountMethod;
-
-	#ifdef HW_RVL
-	pointer[0] = new GuiImageData(player1_point_png);
-	pointer[1] = new GuiImageData(player2_point_png);
-	pointer[2] = new GuiImageData(player3_point_png);
-	pointer[3] = new GuiImageData(player4_point_png);
-	#endif
-
-	mainWindow = new GuiWindow(screenwidth, screenheight);
-
-    bgImgData = new GuiImageData(background_png);
-
-    bgImg = new GuiImage(bgImgData);
-	mainWindow->Append(bgImg);
-
-	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-
-	ResumeGui();
-
-	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(Settings.MusicVolume);
-	bgMusic->SetLoop(1);
-	bgMusic->Play(); // startup music
 
 	while(currentMenu != MENU_EXIT)
 	{
@@ -1011,20 +854,11 @@ void MainMenu(int menu)
 		}
 	}
 
-	ResumeGui();
-
-	delete bgMusic;
+    if(bgMusic)
+        delete bgMusic;
 	ExitApp();
 
-	while(ExitRequested != 2) usleep(THREAD_SLEEP);
 
-	delete bgImg;
-	delete bgImgData;
-	delete mainWindow;
-	delete pointer[0];
-	delete pointer[1];
-	delete pointer[2];
-	delete pointer[3];
 	ClearFontData();
 
 //	UnloadFilesystems();

@@ -36,11 +36,11 @@
 #include "menu.h"
 #include "fileops.h"
 #include "Language/gettext.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 #include "TextEditor.h"
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -102,9 +102,9 @@ void TextViewer(const char *filepath)
     filetext = NULL;
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&Editor);
-    mainWindow->ChangeFocus(&Editor);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&Editor);
+    MainWindow::Instance()->ChangeFocus(&Editor);
     ResumeGui();
 
     while(!exitwindow)
@@ -121,7 +121,7 @@ void TextViewer(const char *filepath)
     }
 
     HaltGui();
-    mainWindow->Remove(&Editor);
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->Remove(&Editor);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
 }

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-26 10:08+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -290,9 +290,6 @@ msgstr "Klistra in"
 msgid "Paste into current directory?"
 msgstr "Klistra in i nuvarande katalog?"
 
-msgid "Please copy this file to SD/USB first"
-msgstr ""
-
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
 
@@ -383,9 +380,6 @@ msgstr "Du kan inte läsa/skriva från/till samma fil."
 
 msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"
-
-msgid "Zipfiles on SMB don't work for now"
-msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr ""

@@ -26,6 +26,7 @@
 #include "sys.h"
 #include "mload/mload.h"
 #include "mload/ehcmodule_elf.h"
+#include "Controls/MainWindow.h"
 
 Settings Settings;
 
@@ -66,6 +67,5 @@ main(int argc, char *argv[])
         fontSystem[i] = NULL;
 	}
 
-	InitThreads();
-	MainMenu(MENU_BROWSE_DEVICE);
+	MainWindow::Instance()->Show();
 }

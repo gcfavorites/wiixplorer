@@ -20,7 +20,7 @@ BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
 				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
-				source/libtinysmb source/filesystems
+				source/libtinysmb source/Controls
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------

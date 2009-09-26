@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-26 10:08+0200\n"
 "PO-Revision-Date: 2009-08-19 12:10\n"
 "Last-Translator: Sky8000\n"
 "Language-Team: \n"
@@ -290,9 +290,6 @@ msgstr "Colar"
 msgid "Paste into current directory?"
 msgstr "Colar dentro da pasta actual?"
 
-msgid "Please copy this file to SD/USB first"
-msgstr ""
-
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
 
@@ -383,9 +380,6 @@ msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."
 
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
-
-msgid "Zipfiles on SMB don't work for now"
-msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr ""

@@ -9,6 +9,7 @@
 #include "audio.h"
 #include "menu.h"
 #include "devicemounter.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 
 
@@ -42,7 +43,7 @@ void Sys_Init(void)
 
 void ExitApp()
 {
-	ExitGUIThreads();
+	MainWindow::DestroyInstance();
 	StopGX();
 	ShutdownAudio();
 }

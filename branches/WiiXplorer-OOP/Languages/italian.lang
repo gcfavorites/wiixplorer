@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-15 21:32+0200\n"
+"POT-Creation-Date: 2009-09-26 10:08+0200\n"
 "PO-Revision-Date: 2009-09-03 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -290,9 +290,6 @@ msgstr "Incolla"
 msgid "Paste into current directory?"
 msgstr "Incollare nella cartella corrente?"
 
-msgid "Please copy this file to SD/USB first"
-msgstr "Copiare preliminarmente questo file nella SD/USB"
-
 msgid "Please wait:"
 msgstr "Attendere prego:"
 
@@ -384,11 +381,14 @@ msgstr "Non puoi leggere/scrivere da/a lo stesso file."
 msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "Al momento i file zip non funzionano su SMB"
-
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "Copiare preliminarmente questo file nella SD/USB"
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "Al momento i file zip non funzionano su SMB"
 
 #~ msgid "Filepath: %s"
 #~ msgstr "Perc. file: %s"

@@ -39,6 +39,7 @@
 #include "menu.h"
 #include "fileops.h"
 #include "Language/gettext.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 
 /*** Variables used only in this file ***/
@@ -57,7 +58,6 @@ static bool     changed = false;
 bool            actioncanceled = false;
 
 /*** Extern variables ***/
-extern GuiWindow *mainWindow;
 extern u8 reset;
 extern u8 shutdown;
 
@@ -193,9 +193,9 @@ void ProgressWindow()
 
 	HaltGui();
 	promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&promptWindow);
-	mainWindow->ChangeFocus(&promptWindow);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->Append(&promptWindow);
+	MainWindow::Instance()->ChangeFocus(&promptWindow);
 	ResumeGui();
 
     while(promptWindow.GetEffect() > 0) usleep(100);
@@ -247,8 +247,8 @@ void ProgressWindow()
 	while(promptWindow.GetEffect() > 0) usleep(100);
 
 	HaltGui();
-	mainWindow->Remove(&promptWindow);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&promptWindow);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	ResumeGui();
 
 	actioncanceled = false;
