@@ -122,6 +122,7 @@ int CheckForUpdate()
                         if(DownloadLink)
                             free(DownloadLink);
                         DownloadLink = NULL;
+                        revnumber = 0;
                     }
                 }
             }
