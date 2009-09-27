@@ -35,9 +35,10 @@
 #include "fileops.h"
 #include "Language/gettext.h"
 
-#define CONFIGPATH      "sd:/config/WiiXplorer/"
-#define CONFIGNAME      "WiiXplorer.cfg"
-#define LANGPATH      	"sd:/config/WiiXplorer/Languages/"
+#define DEFAULT_APP_PATH    "sd:/apps/WiiExplorer/"
+#define CONFIGPATH          "sd:/config/WiiXplorer/"
+#define CONFIGNAME          "WiiXplorer.cfg"
+#define LANGPATH      	    "sd:/config/WiiXplorer/Languages/"
 
 Settings::Settings()
 {
@@ -56,6 +57,7 @@ void Settings::SetDefault()
     AutoConnect = off;
     sprintf(CustomFontPath, "%sfont.ttf", CONFIGPATH);
     strcpy(LanguagePath, "");
+    strcpy(UpdatePath, DEFAULT_APP_PATH);
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -88,6 +90,7 @@ bool Settings::Save()
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 	fprintf(file, "MountNTFS = %d\n", MountNTFS);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
+	fprintf(file, "UpdatePath = %s\n", UpdatePath);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -238,6 +241,10 @@ bool Settings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "CustomFontPath") == 0) {
         strncpy(CustomFontPath, value, sizeof(CustomFontPath));
+		return true;
+	}
+	else if (strcmp(name, "UpdatePath") == 0) {
+        strncpy(UpdatePath, value, sizeof(UpdatePath));
 		return true;
 	}
 	else {

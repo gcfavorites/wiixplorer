@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-27 16:20+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -36,10 +36,16 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Kan inte öppna filen"
 
+msgid "Can't load any device"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Avbryt"
 
 msgid "Cannot open image"
+msgstr ""
+
+msgid "Cannot write to destination."
 msgstr ""
 
 msgid "Caps"
@@ -71,6 +77,9 @@ msgstr "Kopierar fil:"
 
 msgid "Copying files:"
 msgstr "Kopierar filer:"
+
+msgid "Could not connect to the server."
+msgstr ""
 
 msgid "Credits"
 msgstr ""
@@ -141,6 +150,12 @@ msgstr "Vill du spela upp denna filen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Vill du koppla upp till SMB igen?"
 
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
 msgid "ERROR"
 msgstr "FEL"
 
@@ -190,6 +205,9 @@ msgstr ""
 msgid "Files:"
 msgstr "Filer:"
 
+msgid "Filesize is empty."
+msgstr ""
+
 msgid "Filetype:"
 msgstr "Filtyp:"
 
@@ -206,6 +224,9 @@ msgid "Host:"
 msgstr ""
 
 msgid "ImageViewer"
+msgstr ""
+
+msgid "It is recommended to restart app now."
 msgstr ""
 
 msgid "Language"
@@ -256,6 +277,9 @@ msgstr "Nätverk initieras..."
 msgid "New Folder"
 msgstr "Ny mapp"
 
+msgid "Next device"
+msgstr ""
+
 msgid "No"
 msgstr "Nej"
 
@@ -264,6 +288,21 @@ msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
+msgstr ""
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
 msgstr ""
 
 msgid "Not enough memory."
@@ -289,9 +328,6 @@ msgstr "Klistra in"
 
 msgid "Paste into current directory?"
 msgstr "Klistra in i nuvarande katalog?"
-
-msgid "Please copy this file to SD/USB first"
-msgstr ""
 
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
@@ -350,8 +386,17 @@ msgstr ""
 msgid "This is no OGG/MP3 file"
 msgstr "Detta är inte en OGG/MP3 fil"
 
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
 msgid "Transfering files:"
 msgstr "Överför filer:"
+
+msgid "URL is empty."
+msgstr ""
 
 msgid "USB"
 msgstr ""
@@ -361,6 +406,22 @@ msgstr "Kunde inte skapa mapp."
 
 msgid "Unable to load device."
 msgstr "Kunde inte ladda enhet"
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -384,10 +445,10 @@ msgstr "Du kan inte läsa/skriva från/till samma fil."
 msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"
 
-msgid "Zipfiles on SMB don't work for now"
+msgid "for his great tool LibWiiGui."
 msgstr ""
 
-msgid "for his great tool LibWiiGui."
+msgid "ok"
 msgstr ""
 
 #~ msgid "Mount Method"

@@ -31,23 +31,270 @@
 #include <ogcsys.h>
 #include <ogc/machine/processor.h>
 #include "libtinysmb/smb.h"
+#include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
+#include "Language/gettext.h"
 
 #include "http.h"
 #include "networkops.h"
+#include "update.h"
 #include "main.h"
 
 static bool SMB_Mounted[5] = {0, 0, 0, 0, 0};
 static bool networkinit = false;
 static bool network_initiating = false;
 static char IP[16];
+static bool autoupdated = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
 
+extern bool actioncanceled;
+
+/****************************************************************************
+ * Download a file from a given url with a Progressbar
+ ****************************************************************************/
+int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
+{
+    if(strncmp(url, "http://", strlen("http://")) != 0)
+    {
+        WindowPrompt(tr("ERROR"), tr("Not a valid URL"), tr("OK"));
+		return -1;
+    }
+	char *path = strchr(url + strlen("http://"), '/');
+
+	if(!path)
+	{
+        WindowPrompt(tr("ERROR"), tr("Not a valid URL path"), tr("OK"));
+        return -2;
+	}
+
+	int domainlength = path - url - strlen("http://");
+
+	if(domainlength == 0)
+	{
+        WindowPrompt(tr("ERROR"), tr("Not a valid domain"), tr("OK"));
+		return -3;
+	}
+
+	char domain[domainlength + 1];
+	strncpy(domain, url + strlen("http://"), domainlength);
+	domain[domainlength] = '\0';
+
+	int connection = GetConnection(domain);
+
+    if(connection < 0)
+    {
+        WindowPrompt(tr("ERROR"), tr("Could not connect to the server."), tr("OK"));
+        return -4;
+    }
+
+    char header[strlen(path)+strlen(domain)+100];
+    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, domain);
+
+    u32 filesize = network_request(connection, header);
+
+    if(!filesize)
+    {
+        net_close(connection);
+        WindowPrompt(tr("ERROR"), tr("Filesize is empty."), tr("OK"));
+        return -5;
+    }
+
+    u32 blocksize = 5*1024;
+
+    u8 *buffer = (u8 *) malloc(blocksize);
+    if(!buffer)
+    {
+        net_close(connection);
+        WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
+        return -6;
+    }
+
+    u32 done = 0;
+
+    char *filename = strrchr(url, '/')+1;
+
+    StartProgress(tr("Downloading file..."));
+
+    while(done < filesize)
+    {
+        if(actioncanceled)
+        {
+            usleep(20000);
+            free(buffer);
+            StopProgress();
+            net_close(connection);
+            WindowPrompt(tr("ERROR"), tr("Transfer cancelled."), tr("OK"));
+            return -10;
+        }
+
+        ShowProgress(done, filesize, filename);
+
+        if(blocksize > filesize - done)
+            blocksize = filesize - done;
+
+        u8 *tmpbuffer = (u8 *) realloc(buffer, done+blocksize);
+        if(!tmpbuffer)
+        {
+            free(tmpbuffer);
+            free(buffer);
+            StopProgress();
+            net_close(connection);
+            WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
+            return -7;
+        }
+        else
+            buffer = tmpbuffer;
+
+
+        s32 read = network_read(connection, buffer, blocksize);
+
+        if(read < 0)
+        {
+            free(buffer);
+            StopProgress();
+            net_close(connection);
+            WindowPrompt(tr("ERROR"), tr("Transfer failed"), tr("OK"));
+            return -8;
+        }
+        else if(!read)
+            break;
+
+        done += read;
+    }
+
+    StopProgress();
+    net_close(connection);
+
+    *inbuffer = buffer;
+    *size = filesize;
+
+    return 1;
+}
+
+/****************************************************************************
+ * Download a file from a given url to a given path with a Progressbar
+ ****************************************************************************/
+int DownloadFileToPath(const char *url, const char *dest)
+{
+    if(strncmp(url, "http://", strlen("http://")) != 0)
+    {
+        WindowPrompt(tr("ERROR"), tr("Not a valid URL"), tr("OK"));
+		return -1;
+    }
+	char *path = strchr(url + strlen("http://"), '/');
+
+	if(!path)
+	{
+        WindowPrompt(tr("ERROR"), tr("Not a valid URL path"), tr("OK"));
+        return -2;
+	}
+
+	int domainlength = path - url - strlen("http://");
+
+	if(domainlength == 0)
+	{
+        WindowPrompt(tr("ERROR"), tr("Not a valid domain"), tr("OK"));
+		return -3;
+	}
+
+	char domain[domainlength + 1];
+	strncpy(domain, url + strlen("http://"), domainlength);
+	domain[domainlength] = '\0';
+
+	int connection = GetConnection(domain);
+
+    if(connection < 0)
+    {
+        WindowPrompt(tr("ERROR"), tr("Could not connect to the server."), tr("OK"));
+        return -4;
+    }
+
+    char header[strlen(path)+strlen(domain)+100];
+    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, domain);
+
+    u32 filesize = network_request(connection, header);
+
+    if(!filesize)
+    {
+        net_close(connection);
+        WindowPrompt(tr("ERROR"), tr("Filesize is empty."), tr("OK"));
+        return -5;
+    }
+
+    u32 blocksize = 5*1024;
+
+    u8 *buffer = (u8 *) malloc(blocksize);
+    if(!buffer)
+    {
+        net_close(connection);
+        WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
+        return -6;
+    }
+
+    FILE *file = fopen(dest, "wb");
+    if(!file)
+    {
+        net_close(connection);
+        free(buffer);
+        WindowPrompt(tr("ERROR"), tr("Cannot write to destination."), tr("OK"));
+        return -7;
+    }
+
+    u32 done = 0;
+
+    char *filename = strrchr(url, '/')+1;
+
+    StartProgress(tr("Downloading file..."));
+
+    while(done < filesize)
+    {
+        if(actioncanceled)
+        {
+            usleep(20000);
+            free(buffer);
+            StopProgress();
+            net_close(connection);
+            fclose(file);
+            WindowPrompt(tr("ERROR"), tr("Transfer cancelled."), tr("OK"));
+            return -10;
+        }
+
+        ShowProgress(done, filesize, filename);
+
+        if(blocksize > filesize - done)
+            blocksize = filesize - done;
+
+        s32 read = network_read(connection, buffer, blocksize);
+
+        if(read < 0)
+        {
+            free(buffer);
+            StopProgress();
+            net_close(connection);
+            fclose(file);
+            WindowPrompt(tr("ERROR"), tr("Transfer failed"), tr("OK"));
+            return -8;
+        }
+        else if(!read)
+            break;
+
+        fwrite(buffer, 1, read, file);
+
+        done += read;
+    }
+
+    StopProgress();
+    net_close(connection);
+    fclose(file);
+
+    return 1;
+}
+
 /****************************************************************************
  * Close SMB Share
  ****************************************************************************/
-
 void CloseSMBShare()
 {
     for(int i = 0; i < 4; i++) {
@@ -229,6 +476,12 @@ static void * networkinitcallback(void *arg)
             LWP_SuspendThread(networkthread);
 
         ConnectSMBShare();
+
+        if(!autoupdated)
+        {
+            CheckForUpdate();
+            autoupdated = true;
+        }
 
         usleep(100);
     }

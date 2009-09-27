@@ -1215,7 +1215,6 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
  *
  * Compare if its the devices are equal
  ***************************************************************************/
-#include "Prompts/PromptWindows.h"
 bool CompareDevices(const char *src, const char *dest)
 {
     if(!src || !dest)

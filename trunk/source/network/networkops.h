@@ -1,6 +1,8 @@
 #ifndef _NETWORKOPS_H_
 #define _NETWORKOPS_H_
 
+int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
+int DownloadFileToPath(const char *url, const char *dest);
 bool ConnectSMBShare();
 void SMB_Reconnect();
 void CloseSMBShare();

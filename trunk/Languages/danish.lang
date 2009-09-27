@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-27 16:20+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -36,11 +36,17 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Kan ikke åbne filen"
 
+msgid "Can't load any device"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Afbryd"
 
 msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
+
+msgid "Cannot write to destination."
+msgstr ""
 
 msgid "Caps"
 msgstr "Store bogstaver"
@@ -71,6 +77,9 @@ msgstr "Kopierer fil:"
 
 msgid "Copying files:"
 msgstr "Kopierer filer:"
+
+msgid "Could not connect to the server."
+msgstr ""
 
 msgid "Credits"
 msgstr ""
@@ -141,6 +150,12 @@ msgstr "Vil du afspille filen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Vil du forbinde til SMB?"
 
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
 msgid "ERROR"
 msgstr "FEJL"
 
@@ -190,6 +205,9 @@ msgstr "Filerne blev udpakket."
 msgid "Files:"
 msgstr "Filer:"
 
+msgid "Filesize is empty."
+msgstr ""
+
 msgid "Filetype:"
 msgstr "Filtype:"
 
@@ -206,6 +224,9 @@ msgid "Host:"
 msgstr "Vært:"
 
 msgid "ImageViewer"
+msgstr ""
+
+msgid "It is recommended to restart app now."
 msgstr ""
 
 msgid "Language"
@@ -256,6 +277,9 @@ msgstr "Initialiserer netforbindelse..."
 msgid "New Folder"
 msgstr "Ny mappe"
 
+msgid "Next device"
+msgstr ""
+
 msgid "No"
 msgstr "Nej"
 
@@ -265,6 +289,21 @@ msgstr "Intet billede fundet på indeks %d."
 
 msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
+msgstr ""
 
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
@@ -289,9 +328,6 @@ msgstr "Sæt ind"
 
 msgid "Paste into current directory?"
 msgstr "Sæt ind i nuværende katalog?"
-
-msgid "Please copy this file to SD/USB first"
-msgstr "Kopiér filen til SD/USB først."
 
 msgid "Please wait:"
 msgstr "Vent venligst:"
@@ -350,8 +386,17 @@ msgstr "Hele DevkitPro- & libogc-staben."
 msgid "This is no OGG/MP3 file"
 msgstr "Dette er ikke en OGG-/MP3-fil"
 
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
 msgid "Transfering files:"
 msgstr "Overfører filer:"
+
+msgid "URL is empty."
+msgstr ""
 
 msgid "USB"
 msgstr ""
@@ -361,6 +406,22 @@ msgstr "Kan ikke oprette katalog."
 
 msgid "Unable to load device."
 msgstr "Kan ikke indlæse enhed."
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -384,8 +445,14 @@ msgstr "Du kan ikke læse/skrive til/fra samme fil."
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "Kan endnu ikke åbne zip-filer på SMB"
-
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
+
+msgid "ok"
+msgstr ""
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "Kopiér filen til SD/USB først."
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "Kan endnu ikke åbne zip-filer på SMB"

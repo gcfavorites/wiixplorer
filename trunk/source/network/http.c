@@ -233,13 +233,64 @@ struct block downloadfile(const char *url)
 	return file;
 }
 
-s32 GetConnection(char * domain) {
+s32 GetConnection(char * domain)
+{
+    if(!domain)
+        return -1;
 
     u32 ipaddress = getipbynamecached(domain);
-    if(ipaddress == 0) {
+    if(ipaddress == 0)
         return -1;
-    }
     s32 connection = server_connect(ipaddress, 80);
     return connection;
 
+}
+
+int network_request(int connection, const char * request)
+{
+    char buf[1024];
+    char *ptr = NULL;
+
+    u32 cnt, size;
+    s32 ret;
+
+    ret = net_send(connection, request, strlen(request), 0);
+    if (ret < 0)
+        return ret;
+
+    memset(buf, 0, sizeof(buf));
+
+    for (cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
+        if (net_recv(connection, buf + cnt, 1, 0) <= 0)
+            return -1;
+
+    if (!strstr(buf, "HTTP/1.1 200 OK"))
+        return -1;
+
+    ptr = strstr(buf, "Content-Length:");
+    if (!ptr)
+        return -1;
+
+    sscanf(ptr, "Content-Length: %u", &size);
+    return size;
+}
+
+int network_read(int connection, u8 *buf, u32 len)
+{
+    u32 read = 0;
+    s32 ret = -1;
+
+    while (read < len)
+    {
+        ret = net_read(connection, buf + read, len - read);
+        if (ret < 0)
+            return ret;
+
+        if (!ret)
+            break;
+
+        read += ret;
+    }
+
+    return read;
 }

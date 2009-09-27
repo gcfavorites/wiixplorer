@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-08 02:23+0200\n"
+"POT-Creation-Date: 2009-09-27 16:20+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -37,11 +37,17 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Nelze otevřít soubor"
 
+msgid "Can't load any device"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Zpět"
 
 msgid "Cannot open image"
 msgstr "Nelze otevřít obrázek"
+
+msgid "Cannot write to destination."
+msgstr ""
 
 msgid "Caps"
 msgstr "Velká písmena"
@@ -72,6 +78,9 @@ msgstr "Kopíruji soubor:"
 
 msgid "Copying files:"
 msgstr "Kopíruji soubory:"
+
+msgid "Could not connect to the server."
+msgstr ""
 
 msgid "Credits"
 msgstr "Zásluhy"
@@ -142,6 +151,12 @@ msgstr "Přejete si přehrát tento soubor?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Přejete si znovu připojit SMB"
 
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
 msgid "ERROR"
 msgstr "CHYBA"
 
@@ -191,6 +206,9 @@ msgstr "Soubory úspěšně rozbaleny."
 msgid "Files:"
 msgstr "Soubory:"
 
+msgid "Filesize is empty."
+msgstr ""
+
 msgid "Filetype:"
 msgstr "Typ:"
 
@@ -207,6 +225,9 @@ msgid "Host:"
 msgstr "Hostitel:"
 
 msgid "ImageViewer"
+msgstr ""
+
+msgid "It is recommended to restart app now."
 msgstr ""
 
 msgid "Language"
@@ -257,6 +278,9 @@ msgstr "Inicializace sítě ..."
 msgid "New Folder"
 msgstr "Nový adresář"
 
+msgid "Next device"
+msgstr ""
+
 msgid "No"
 msgstr "Ne"
 
@@ -266,6 +290,21 @@ msgstr "Nebyl nalezen obrázek na indexu %d."
 
 msgid "No language files found."
 msgstr "Nebyly nalezeny jazykové soubory."
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
+msgstr ""
 
 msgid "Not enough memory."
 msgstr "Nedostatek paměti."
@@ -290,9 +329,6 @@ msgstr "Vložit"
 
 msgid "Paste into current directory?"
 msgstr "Vložit do aktuálního adresáře?"
-
-msgid "Please copy this file to SD/USB first"
-msgstr "Zkopírujte prosím tento soubor nejdříve na SD/USB"
 
 msgid "Please wait:"
 msgstr "Čekejte prosím:"
@@ -351,8 +387,17 @@ msgstr "Celý tým DevkitPro & libogc"
 msgid "This is no OGG/MP3 file"
 msgstr "Toto není OGG/MP3 soubor"
 
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
 msgid "Transfering files:"
 msgstr "Přenáším soubory:"
+
+msgid "URL is empty."
+msgstr ""
 
 msgid "USB"
 msgstr ""
@@ -362,6 +407,22 @@ msgstr "Nelze vytvořit adresář."
 
 msgid "Unable to load device."
 msgstr "Nelze připojit zařízení."
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -385,8 +446,14 @@ msgstr "Nelze číst/psát z/do samého souboru."
 msgid "You cant use this operation on:"
 msgstr "Nelze použít tuto operaci na:"
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "Soubory ZIP na SMB nyní nefungují"
-
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
+
+msgid "ok"
+msgstr ""
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "Zkopírujte prosím tento soubor nejdříve na SD/USB"
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "Soubory ZIP na SMB nyní nefungují"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-27 16:20+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,11 +37,17 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
 
+msgid "Can't load any device"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Annuleren"
 
 msgid "Cannot open image"
 msgstr "Kan afbeelding niet openen"
+
+msgid "Cannot write to destination."
+msgstr ""
 
 msgid "Caps"
 msgstr ""
@@ -72,6 +78,9 @@ msgstr "Bestand kopieren:"
 
 msgid "Copying files:"
 msgstr "Bestanden kopieren:"
+
+msgid "Could not connect to the server."
+msgstr ""
 
 msgid "Credits"
 msgstr "Aftiteling"
@@ -142,6 +151,12 @@ msgstr "Wil je dit bestand afspelen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Wil je terug met de SMB verbinden?"
 
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
 msgid "ERROR"
 msgstr "FOUT"
 
@@ -191,6 +206,9 @@ msgstr "Uitpakken voltooid!"
 msgid "Files:"
 msgstr "Bestanden:"
 
+msgid "Filesize is empty."
+msgstr ""
+
 msgid "Filetype:"
 msgstr "Type:"
 
@@ -208,6 +226,9 @@ msgstr "Gastheer:"
 
 msgid "ImageViewer"
 msgstr "ImageViewer"
+
+msgid "It is recommended to restart app now."
+msgstr ""
 
 msgid "Language"
 msgstr "Taal"
@@ -257,6 +278,9 @@ msgstr "Netwerk Initialiseren..."
 msgid "New Folder"
 msgstr "Nieuwe map"
 
+msgid "Next device"
+msgstr ""
+
 msgid "No"
 msgstr "Nee"
 
@@ -266,6 +290,21 @@ msgstr "Geen afb. gevonden bij index %d."
 
 msgid "No language files found."
 msgstr "Geen taalbestanden gevonden."
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
+msgstr ""
 
 msgid "Not enough memory."
 msgstr "Niet genoeg vrij geheugen."
@@ -290,9 +329,6 @@ msgstr "Plakken"
 
 msgid "Paste into current directory?"
 msgstr "Plakken op deze locatie?"
-
-msgid "Please copy this file to SD/USB first"
-msgstr "Kopieer dit bestand eerst naar SD/USB"
 
 msgid "Please wait:"
 msgstr "Even geduld:"
@@ -351,8 +387,17 @@ msgstr "Het hele Devkitpro en libogc team."
 msgid "This is no OGG/MP3 file"
 msgstr "Dit is geen OGG/MP3 bestand"
 
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
 msgid "Transfering files:"
 msgstr "Bestanden Overplaatsen:"
+
+msgid "URL is empty."
+msgstr ""
 
 msgid "USB"
 msgstr "USB"
@@ -362,6 +407,22 @@ msgstr "Kan map niet aanmaken."
 
 msgid "Unable to load device."
 msgstr "Kan apparaat niet laden."
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -385,11 +446,17 @@ msgstr "Je kan niet lezen/schrijven van/naar hetzelfde bestand."
 msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "Zip bestanden op SMB werken nog niet"
-
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+msgid "ok"
+msgstr ""
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "Kopieer dit bestand eerst naar SD/USB"
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "Zip bestanden op SMB werken nog niet"
 
 #~ msgid "Mount Method"
 #~ msgstr "Aansluitingsmethode"
