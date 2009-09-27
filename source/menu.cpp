@@ -53,6 +53,7 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "Language/gettext.h"
 #include "Language/LanguageBrowser.h"
+#include "network/update.h"
 #include "sys.h"
 // #include "filesystems/filesystems.h"
 
@@ -220,12 +221,33 @@ static int MenuBrowseDevice()
 		int choice = WindowPrompt(tr("Error"),
 		tr("Unable to load device."),
 		tr("Retry"),
+		tr("Next device"),
 		tr("Change Settings"));
 
-		if(choice) {
+		if(choice == 1)
+		{
             SDCard_Init();
             USBDevice_Init();
 			return MENU_BROWSE_DEVICE;
+		}
+		else if(choice == 2)
+		{
+		    int retries = 2;
+		    while(BrowseDevice(currentDevice) <= 0)
+            {
+                currentDevice++;
+                if(currentDevice >= MAXDEVICES)
+                {
+                    currentDevice = 0;
+
+                    if(retries == 0)
+                    {
+                        WindowPrompt(tr("ERROR"), tr("Can't load any device"), tr("OK"));
+                        return MENU_BROWSE_DEVICE;
+                    }
+                    retries--;
+                }
+            }
 		}
 		else
 			return MENU_SETTINGS;
@@ -800,13 +822,14 @@ static int MenuSettings()
 	int i = 0;
 	bool firstRun = true;
 
-	OptionList options(6);
+	OptionList options(7);
 	options.SetName(i++, tr("Bootup Mount"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Mount NTFS"));
 	options.SetName(i++, tr("Customfont Path"));
+	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("SMB Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
@@ -827,6 +850,17 @@ static int MenuSettings()
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
 
+	GuiText updateBtnTxt(tr("Update App"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage updateBtnImg(&btnOutline);
+	GuiButton updateBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	updateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	updateBtn.SetPosition(-100, -35);
+	updateBtn.SetLabel(&updateBtnTxt);
+	updateBtn.SetImage(&updateBtnImg);
+	updateBtn.SetSoundOver(&btnSoundOver);
+	updateBtn.SetTrigger(&trigA);
+	updateBtn.SetEffectGrow();
+
 	GuiOptionBrowser optionBrowser(584, 248, &options);
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -838,6 +872,7 @@ static int MenuSettings()
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
+	w.Append(&updateBtn);
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
@@ -862,6 +897,14 @@ static int MenuSettings()
 		    if(SDCard_Inserted())
                 Settings.Save();
 			menu = MENU_BROWSE_DEVICE;
+		}
+
+        else if(updateBtn.GetState() == STATE_CLICKED)
+		{
+            int res = CheckForUpdate();
+            if(res == 0)
+                WindowPrompt(tr("No new updates available"), 0, tr("OK"));
+		    updateBtn.ResetState();
 		}
 
 		ret = optionBrowser.GetClickedOption();
@@ -903,6 +946,13 @@ static int MenuSettings()
                 }
 				break;
             case 6:
+                snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
+                if(OnScreenKeyboard(entered, 149)) {
+                    snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
+                    WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
+                }
+				break;
+            case 7:
 				if(SDCard_Inserted())
 					Settings.Save();
                 menu = MENU_SMB_SETTINGS;
@@ -945,6 +995,8 @@ static int MenuSettings()
             else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
 
             options.SetValue(i++, "%s", Settings.CustomFontPath);
+
+            options.SetValue(i++, "%s", Settings.UpdatePath);
 
             options.SetValue(i++, " ");
         }

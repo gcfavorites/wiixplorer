@@ -26,6 +26,8 @@ extern const struct block emptyblock;
 
 struct block downloadfile(const char *url);
 s32 GetConnection(char * domain);
+int network_request(int connection, const char * request);
+int network_read(int connection, u8 *buf, u32 len);
 
 #ifdef __cplusplus
 }

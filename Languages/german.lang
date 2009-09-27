@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-07 23:05+0200\n"
+"POT-Creation-Date: 2009-09-27 16:20+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -36,11 +36,17 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Datei kann nicht geöffnet werden"
 
+msgid "Can't load any device"
+msgstr ""
+
 msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Cannot open image"
 msgstr "Bild konnte nicht geöffnet werden"
+
+msgid "Cannot write to destination."
+msgstr ""
 
 msgid "Caps"
 msgstr ""
@@ -71,6 +77,9 @@ msgstr "Kopiere Datei:"
 
 msgid "Copying files:"
 msgstr "Kopiere Dateien:"
+
+msgid "Could not connect to the server."
+msgstr ""
 
 msgid "Credits"
 msgstr "Credits"
@@ -141,6 +150,12 @@ msgstr "Diese Datei abspielen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "SMB neu verbinden?"
 
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
 msgid "ERROR"
 msgstr "FEHLER"
 
@@ -190,6 +205,9 @@ msgstr "Datei erfolgreich entpackt."
 msgid "Files:"
 msgstr "Dateien:"
 
+msgid "Filesize is empty."
+msgstr ""
+
 msgid "Filetype:"
 msgstr "Dateityp:"
 
@@ -207,6 +225,9 @@ msgstr "Host:"
 
 msgid "ImageViewer"
 msgstr "Bildbetrachter"
+
+msgid "It is recommended to restart app now."
+msgstr ""
 
 msgid "Language"
 msgstr "Sprache"
@@ -256,6 +277,9 @@ msgstr "Netzwerk wird initialisiert..."
 msgid "New Folder"
 msgstr "Neues Verzeichnis"
 
+msgid "Next device"
+msgstr ""
+
 msgid "No"
 msgstr "Nein"
 
@@ -265,6 +289,21 @@ msgstr ""
 
 msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
+msgstr ""
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
@@ -289,9 +328,6 @@ msgstr "Einfügen"
 
 msgid "Paste into current directory?"
 msgstr "In aktuelles Verzeichnis einfügen?"
-
-msgid "Please copy this file to SD/USB first"
-msgstr "Bitte Datei erst auf SD/USB kopieren"
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
@@ -350,8 +386,17 @@ msgstr "Das ganze DevkitPro & libogc Team."
 msgid "This is no OGG/MP3 file"
 msgstr "Dies ist keine OGG/MP3 Datei"
 
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
+
+msgid "URL is empty."
+msgstr ""
 
 msgid "USB"
 msgstr "USB"
@@ -361,6 +406,22 @@ msgstr "Verzeichnis konnte nicht erstellt werden."
 
 msgid "Unable to load device."
 msgstr "Gerät konnte nicht gestartet werden."
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -384,11 +445,17 @@ msgstr "Lesen/schreiben aus/in dieselbe Datei nicht möglich."
 msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
-msgid "Zipfiles on SMB don't work for now"
-msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
-
 msgid "for his great tool LibWiiGui."
 msgstr "für seine großartige LibWiiGui."
+
+msgid "ok"
+msgstr ""
+
+#~ msgid "Please copy this file to SD/USB first"
+#~ msgstr "Bitte Datei erst auf SD/USB kopieren"
+
+#~ msgid "Zipfiles on SMB don't work for now"
+#~ msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
 
 #~ msgid "Mount Method"
 #~ msgstr "Verbindungsart"

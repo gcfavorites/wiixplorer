@@ -74,6 +74,9 @@ class Settings
         char	LanguagePath[150];
         //!Path to the customfont file.
         char	CustomFontPath[150];
+        //!Path to where the app is located
+        //!Default is sd:/apps/WiiXplorer/
+        char	UpdatePath[150];
         //!SMB users informations
         struct  SMBData SMBUser[MAXSMBUSERS];
 
