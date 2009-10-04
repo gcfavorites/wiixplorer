@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-#
+# italian.lang - v7 - r68
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
-"PO-Revision-Date: 2009-09-03 23:18+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
+"PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgid "Can not open the file"
 msgstr "Il file non si può aprire"
 
 msgid "Can't load any device"
-msgstr ""
+msgstr "Impossibile caricare le periferiche"
 
 msgid "Cancel"
 msgstr "Annulla"
@@ -46,7 +46,7 @@ msgid "Cannot open image"
 msgstr "L'immagine non si può aprire"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "Impossibile scrivere nella destinazione."
 
 msgid "Caps"
 msgstr "Blocco Maiuscole"
@@ -79,7 +79,7 @@ msgid "Copying files:"
 msgstr "Sto copiando i file:"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "Impossibile connettersi al server."
 
 msgid "Credits"
 msgstr "Credits"
@@ -151,10 +151,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Vuoi riconnettere la SMB?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "Vuoi eseguire l'aggiornamento ?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Sto scaricando il file..."
 
 msgid "ERROR"
 msgstr "ERRORE"
@@ -206,7 +206,7 @@ msgid "Files:"
 msgstr "File:"
 
 msgid "Filesize is empty."
-msgstr ""
+msgstr "Il file ha dimensione nulla."
 
 msgid "Filetype:"
 msgstr "Tipo file:"
@@ -227,7 +227,7 @@ msgid "ImageViewer"
 msgstr "Mostra Immagine"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "Si raccomanda di riavviare l'applicazione."
 
 msgid "Language"
 msgstr "Lingua"
@@ -278,7 +278,7 @@ msgid "New Folder"
 msgstr "Nuova cartella"
 
 msgid "Next device"
-msgstr ""
+msgstr "Periferica successiva"
 
 msgid "No"
 msgstr ""
@@ -291,19 +291,19 @@ msgid "No language files found."
 msgstr "Nessuna lingua trovata."
 
 msgid "No network connection"
-msgstr ""
+msgstr "Nessuna conenssione di rete"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Nessun aggiornamento disponibile"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "Non è un URL valido"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "Non è un indirizzo valido"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "Non è un dominio valido"
 
 msgid "Not enough memory."
 msgstr "Memoria insufficiente."
@@ -387,16 +387,16 @@ msgid "This is no OGG/MP3 file"
 msgstr "Questo non è un file OGG/MP3"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Trasferimento annullato."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Trasferimento fallito"
 
 msgid "Transfering files:"
 msgstr "Sto spostando i file:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "L'URL è vuoto"
 
 msgid "USB"
 msgstr ""
@@ -408,20 +408,20 @@ msgid "Unable to load device."
 msgstr "Non è stato possibile accedere alla periferica."
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Percorso Aggiornamento Applic."
 
 msgid "Update App"
-msgstr ""
+msgstr "Aggiorna Applic."
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "Percorso Aggiornamento modificato."
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Aggiornamento concluso con successo"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Disponibile aggiornamento alla Rev%i"
 
 #, c-format
 msgid "User %i"
@@ -447,15 +447,3 @@ msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "Copiare preliminarmente questo file nella SD/USB"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "Al momento i file zip non funzionano su SMB"
-
-#~ msgid "Filepath: %s"
-#~ msgstr "Perc. file: %s"

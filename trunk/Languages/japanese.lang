@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,7 +37,7 @@ msgid "Can not open the file"
 msgstr "ﾌｧｲﾙを開けません"
 
 msgid "Can't load any device"
-msgstr ""
+msgstr "どのデバイスも開けません"
 
 msgid "Cancel"
 msgstr "ｷｬﾝｾﾙ"
@@ -46,7 +46,7 @@ msgid "Cannot open image"
 msgstr "画像を開けません"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "書き込めません"
 
 msgid "Caps"
 msgstr ""
@@ -79,10 +79,10 @@ msgid "Copying files:"
 msgstr "ｺﾋﾟｰしています:"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "サーバーに接続できませんでした"
 
 msgid "Credits"
-msgstr "ｸﾚｼﾞｯﾄ"
+msgstr "提供･協力"
 
 msgid "Customfont Path"
 msgstr "ﾌｫﾝﾄのﾊﾟｽ"
@@ -151,10 +151,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再接続しますか?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "更新しますか?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "ダウンロード中…"
 
 msgid "ERROR"
 msgstr "ｴﾗｰ"
@@ -206,7 +206,7 @@ msgid "Files:"
 msgstr "ﾌｧｲﾙ"
 
 msgid "Filesize is empty."
-msgstr ""
+msgstr "空のﾌｧｲﾙです"
 
 msgid "Filetype:"
 msgstr "ﾌｧｲﾙﾀｲﾌﾟ"
@@ -227,7 +227,7 @@ msgid "ImageViewer"
 msgstr "ｲﾒｰｼﾞﾋﾞｭｰﾜ"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "WiiXplorerを再起動してください"
 
 msgid "Language"
 msgstr "言語"
@@ -278,7 +278,7 @@ msgid "New Folder"
 msgstr "新規ﾌｫﾙﾀﾞ"
 
 msgid "Next device"
-msgstr ""
+msgstr "次のﾃﾞﾊﾞｲｽ"
 
 msgid "No"
 msgstr "いいえ"
@@ -291,19 +291,19 @@ msgid "No language files found."
 msgstr "言語が見つかりませんでした"
 
 msgid "No network connection"
-msgstr ""
+msgstr "接続していません"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "更新はありません"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "URLが正しくありません"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "URLのパスが正しくありません"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "ドメインが正しくありません"
 
 msgid "Not enough memory."
 msgstr "ﾒﾓﾘ不足です"
@@ -387,16 +387,16 @@ msgid "This is no OGG/MP3 file"
 msgstr "これはOGG/MP3ﾌｧｲﾙではありません"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "転送を中止しました"
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "転送に失敗しました"
 
 msgid "Transfering files:"
 msgstr "転送中です:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URLが空です"
 
 msgid "USB"
 msgstr ""
@@ -408,20 +408,20 @@ msgid "Unable to load device."
 msgstr "ﾃﾞﾊﾞｲｽをﾛｰﾄﾞできません"
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "WiiXplorerのパス"
 
 msgid "Update App"
-msgstr ""
+msgstr "更新"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "WiiXplorerのパスを変更しました"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "更新が完了しました"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "更新があります:Rev%i"
 
 #, c-format
 msgid "User %i"
@@ -447,15 +447,3 @@ msgstr "この操作は実行できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "このﾌｧｲﾙを最初にSD/USBにｺﾋﾟｰしてください"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "SMB上でZipは解凍できません"
-
-#~ msgid "Mount Method"
-#~ msgstr "ﾏｳﾝﾄ方法"

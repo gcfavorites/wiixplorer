@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -37,7 +37,7 @@ msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
 
 msgid "Can't load any device"
-msgstr ""
+msgstr "Pas de périphérique"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -46,7 +46,7 @@ msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "Ecriture impossible."
 
 msgid "Caps"
 msgstr ""
@@ -79,7 +79,7 @@ msgid "Copying files:"
 msgstr "Copie des fichiers"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "Connection au serveur impossible."
 
 msgid "Credits"
 msgstr "Crédits"
@@ -151,10 +151,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "Voulez-vous mettre à jour maintenant ?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Téléchargement..."
 
 msgid "ERROR"
 msgstr "ERREUR"
@@ -206,7 +206,7 @@ msgid "Files:"
 msgstr "Fichiers:"
 
 msgid "Filesize is empty."
-msgstr ""
+msgstr "Fichier vide."
 
 msgid "Filetype:"
 msgstr "Type:"
@@ -227,7 +227,7 @@ msgid "ImageViewer"
 msgstr "Aperçu"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "Redémarrage recommendé."
 
 msgid "Language"
 msgstr "Langue"
@@ -278,7 +278,7 @@ msgid "New Folder"
 msgstr "Nouveau"
 
 msgid "Next device"
-msgstr ""
+msgstr "Périphérique"
 
 msgid "No"
 msgstr "Non"
@@ -291,19 +291,19 @@ msgid "No language files found."
 msgstr "Aucun fichier langue trouvé."
 
 msgid "No network connection"
-msgstr ""
+msgstr "Pas de connection réseau"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Pas de nouvelle mise à jour disponible"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "URL invalide"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "localisation URL invalide"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "Domaine invalide"
 
 msgid "Not enough memory."
 msgstr "Mémoire insuffisante."
@@ -387,16 +387,16 @@ msgid "This is no OGG/MP3 file"
 msgstr "Ce n'est pas un fichier OGG/MP3"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Transfert annulé."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Le transfert a échoué"
 
 msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URL vide."
 
 msgid "USB"
 msgstr ""
@@ -408,20 +408,20 @@ msgid "Unable to load device."
 msgstr "Impossible de charger le périphérique."
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Dossier MàJ (App)"
 
 msgid "Update App"
-msgstr ""
+msgstr "Mise à jour App"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "Dossier Mise à jour modifié."
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Mise à jour réussie"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Révision %i disponible"
 
 #, c-format
 msgid "User %i"
@@ -447,12 +447,3 @@ msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "SVP, copier d'abord ce fichier vers SD/USB"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "Les fichiers Zip par SMB ne fonctionnent pas encore."

@@ -68,7 +68,7 @@ int UpdateApp(const char *url)
         snprintf(realdest, sizeof(realdest), "%sboot.dol", Settings.UpdatePath);
         RemoveFile(realdest);
         rename(dest, realdest);
-        WindowPrompt(tr("Update successfully finished"), tr("It is recommended to restart app now."), tr("ok"));
+        WindowPrompt(tr("Update successfully finished"), tr("It is recommended to restart app now."), tr("OK"));
     }
 
     return 1;

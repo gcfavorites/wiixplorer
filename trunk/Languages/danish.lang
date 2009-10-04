@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -447,12 +447,3 @@ msgstr "Du kan ikke udføre denne handling på:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "Kopiér filen til SD/USB først."
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "Kan endnu ikke åbne zip-filer på SMB"
