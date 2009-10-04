@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -37,7 +37,7 @@ msgid "Can not open the file"
 msgstr "不能打开文件"
 
 msgid "Can't load any device"
-msgstr ""
+msgstr "设备无法读取"
 
 msgid "Cancel"
 msgstr "取消"
@@ -46,7 +46,7 @@ msgid "Cannot open image"
 msgstr "无法打开图片程序"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "目的地址无法写入"
 
 msgid "Caps"
 msgstr "大写"
@@ -79,7 +79,7 @@ msgid "Copying files:"
 msgstr "复制文件："
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "无法连接到服务器"
 
 msgid "Credits"
 msgstr "感谢"
@@ -151,10 +151,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再次连接到网络共享？"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "是否现在更新？"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "正在下载文件"
 
 msgid "ERROR"
 msgstr "错误"
@@ -206,7 +206,7 @@ msgid "Files:"
 msgstr "文件"
 
 msgid "Filesize is empty."
-msgstr ""
+msgstr "文件大小是空"
 
 msgid "Filetype:"
 msgstr "文件类型"
@@ -227,7 +227,7 @@ msgid "ImageViewer"
 msgstr "图片查看器"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "建议现在重新启动程序"
 
 msgid "Language"
 msgstr "语言"
@@ -254,19 +254,19 @@ msgid "Music Volume"
 msgstr "音乐音量"
 
 msgid "NTFS0"
-msgstr ""
+msgstr "NTFS零分区"
 
 msgid "NTFS1"
-msgstr ""
+msgstr "NTFS一分区"
 
 msgid "NTFS2"
-msgstr ""
+msgstr "NTFS二分区"
 
 msgid "NTFS3"
-msgstr ""
+msgstr "NTFS三分区"
 
 msgid "NTFS4"
-msgstr ""
+msgstr "NTFS四分区"
 
 msgid "Name already exists."
 msgstr "文件名已经存在"
@@ -278,7 +278,7 @@ msgid "New Folder"
 msgstr "新文件夹"
 
 msgid "Next device"
-msgstr ""
+msgstr "下一个设备"
 
 msgid "No"
 msgstr "否"
@@ -291,19 +291,19 @@ msgid "No language files found."
 msgstr "没有发现语言文件"
 
 msgid "No network connection"
-msgstr ""
+msgstr "没有网络连接"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "没有新的可用更新"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "无效的URL"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "无线电URL路径"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "无效的域名"
 
 msgid "Not enough memory."
 msgstr "内存不足"
@@ -387,16 +387,16 @@ msgid "This is no OGG/MP3 file"
 msgstr "此文件不是OGG或MP3文件"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "传输取消"
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "传输失败"
 
 msgid "Transfering files:"
 msgstr "文件传输中："
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URL是空"
 
 msgid "USB"
 msgstr "USB设置"
@@ -408,20 +408,20 @@ msgid "Unable to load device."
 msgstr "设备不能读取"
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "更新程序路径"
 
 msgid "Update App"
-msgstr ""
+msgstr "更新程序"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "更新路径已更改"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "更新成功！"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "更新到版本Rev%i"
 
 #, c-format
 msgid "User %i"
@@ -447,15 +447,3 @@ msgstr "无法使用此功能在："
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "先将文件复制到SD或者USB设备上"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "网络共享不支持zip功能"
-
-#~ msgid "Mount Method"
-#~ msgstr "挂载方式"

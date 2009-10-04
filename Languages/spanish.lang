@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -447,15 +447,3 @@ msgstr "No puedes usar esta operación en:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "Por favor copia este archivo al USB/SD primero"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "Archivos zip en SMB no funcionan por ahora"
-
-#~ msgid "Mount Method"
-#~ msgstr "Método de montaje"

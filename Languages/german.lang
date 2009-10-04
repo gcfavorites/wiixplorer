@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -447,15 +447,3 @@ msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "für seine großartige LibWiiGui."
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "Bitte Datei erst auf SD/USB kopieren"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "Zip-Dateien auf SMB noch nicht unterstützt."
-
-#~ msgid "Mount Method"
-#~ msgstr "Verbindungsart"

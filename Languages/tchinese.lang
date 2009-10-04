@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "動做取消"
@@ -28,10 +28,10 @@ msgid "Auto Connect"
 msgstr "自動連線"
 
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "啟動掛載"
 
 msgid "Can not open the file"
 msgstr "無法開啟檔案"
@@ -43,13 +43,13 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "圖片無法開啟"
 
 msgid "Cannot write to destination."
 msgstr ""
 
 msgid "Caps"
-msgstr ""
+msgstr "Caps鍵"
 
 msgid "Change Settings"
 msgstr "變更設定"
@@ -82,7 +82,7 @@ msgid "Could not connect to the server."
 msgstr ""
 
 msgid "Credits"
-msgstr "Credits"
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "字型路徑"
@@ -224,7 +224,7 @@ msgid "Host:"
 msgstr "主機:"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "圖片瀏覽"
 
 msgid "It is recommended to restart app now."
 msgstr ""
@@ -245,7 +245,7 @@ msgid "Loading file:"
 msgstr "正在載入檔案:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "掛載NTFS"
 
 msgid "Moving files:"
 msgstr "正在移動檔案:"
@@ -266,7 +266,7 @@ msgid "NTFS3"
 msgstr ""
 
 msgid "NTFS4"
-msgstr ""
+msgstr "NTFS4"
 
 msgid "Name already exists."
 msgstr "名稱已存在"
@@ -285,7 +285,7 @@ msgstr "否"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "index %d 中無圖片"
 
 msgid "No language files found."
 msgstr "找不到語言檔案"
@@ -348,7 +348,7 @@ msgid "Retry"
 msgstr "重試"
 
 msgid "SD"
-msgstr "SD"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "區域網路名稱:"
@@ -372,7 +372,7 @@ msgid "SMB4"
 msgstr "區域網路4"
 
 msgid "Shift"
-msgstr ""
+msgstr "Shift鍵"
 
 msgid "Size:"
 msgstr "檔案大小:"
@@ -399,7 +399,7 @@ msgid "URL is empty."
 msgstr ""
 
 msgid "USB"
-msgstr "USB"
+msgstr ""
 
 msgid "Unable to create folder."
 msgstr "無法建立資料夾"
@@ -447,15 +447,3 @@ msgstr "無法使用此功能在:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Please copy this file to SD/USB first"
-#~ msgstr "清先將檔案複製到SD/USB"
-
-#~ msgid "Zipfiles on SMB don't work for now"
-#~ msgstr "壓縮檔在目前無法在SMB功能中使用"
-
-#~ msgid "Mount Method"
-#~ msgstr "掛載方式"

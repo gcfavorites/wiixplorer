@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-27 16:20+0200\n"
+"POT-Creation-Date: 2009-10-04 23:16+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -447,9 +447,3 @@ msgstr "Du kan inte använda denna funktion på:"
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
-
-msgid "ok"
-msgstr ""
-
-#~ msgid "Mount Method"
-#~ msgstr "Monterings metod"
