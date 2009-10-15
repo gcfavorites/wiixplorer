@@ -4,13 +4,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-04 23:16+0200\n"
+"POT-Creation-Date: 2009-10-15 22:48+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "& translaters for language files."
+msgstr "et tous les traducteurs."
 
 msgid "1"
 msgstr ""
@@ -25,7 +28,7 @@ msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
 msgid "Auto Connect"
-msgstr "Connection auto"
+msgstr "Connexion auto"
 
 msgid "Back"
 msgstr ""
@@ -79,7 +82,7 @@ msgid "Copying files:"
 msgstr "Copie des fichiers"
 
 msgid "Could not connect to the server."
-msgstr "Connection au serveur impossible."
+msgstr "Connexion au serveur impossible."
 
 msgid "Credits"
 msgstr "Crédits"
@@ -227,7 +230,7 @@ msgid "ImageViewer"
 msgstr "Aperçu"
 
 msgid "It is recommended to restart app now."
-msgstr "Redémarrage recommendé."
+msgstr "Redémarrage recommandé."
 
 msgid "Language"
 msgstr "Langue"
@@ -291,7 +294,7 @@ msgid "No language files found."
 msgstr "Aucun fichier langue trouvé."
 
 msgid "No network connection"
-msgstr "Pas de connection réseau"
+msgstr "Pas de connexion réseau"
 
 msgid "No new updates available"
 msgstr "Pas de nouvelle mise à jour disponible"
@@ -357,7 +360,7 @@ msgid "SMB Settings"
 msgstr "Paramètres SMB"
 
 msgid "SMB is connecting..."
-msgstr "Connection SMB..."
+msgstr "Connexion SMB..."
 
 msgid "SMB1"
 msgstr ""

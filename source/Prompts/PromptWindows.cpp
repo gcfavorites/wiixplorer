@@ -863,7 +863,7 @@ void CreditsWindow(void)
 
     GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-    int numEntries = 9;
+    int numEntries = 10;
     int i = 0;
     int y = 30;
 
@@ -916,11 +916,18 @@ void CreditsWindow(void)
     txt[i]->SetPosition(20,y);
     i++;
     y += 30;
-
-    txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
+	
+	txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(20,y);
-
+	i++;
+    y += 30;
+	
+	snprintf(text, sizeof(text), "Dj Skual %s ", tr("& translaters for language files."));
+    txt[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
+    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    txt[i]->SetPosition(20,y);
+    
     GuiImageData arrowUp(scrollbar_arrowup_png);
     GuiImageData arrowUpOver(scrollbar_arrowup_over_png);
     GuiImage arrowUpImg(&arrowUp);

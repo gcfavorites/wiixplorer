@@ -1,16 +1,19 @@
 # WiiXplorer language source file.
-#
+# for r69
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-04 23:16+0200\n"
-"PO-Revision-Date: 2009-08-19 12:10\n"
+"POT-Creation-Date: 2009-10-15 22:48+0200\n"
+"PO-Revision-Date: 2009-10-12 18:38\n"
 "Last-Translator: Sky8000\n"
-"Language-Team: \n"
+"Language-Team: Sky8000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "& translaters for language files."
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -28,34 +31,34 @@ msgid "Auto Connect"
 msgstr "Ligação automática"
 
 msgid "Back"
-msgstr ""
+msgstr "Voltar"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Montar no arranque"
 
 msgid "Can not open the file"
 msgstr "Não foi possível abrir o ficheiro"
 
 msgid "Can't load any device"
-msgstr ""
+msgstr "Não foi possível carregar nenhum dispositivo"
 
 msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Cannot open image"
-msgstr ""
+msgstr "Não foi possível abrir a imagem"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "Impossível escrever para o destino."
 
 msgid "Caps"
-msgstr ""
+msgstr "Maiúsculas"
 
 msgid "Change Settings"
 msgstr "Alterar Configuração"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programadores:"
 
 msgid "Connect SMB"
 msgstr "Ligar SMB"
@@ -79,13 +82,13 @@ msgid "Copying files:"
 msgstr "Copiando ficheiros"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "Não foi possível ligar ao servidor."
 
 msgid "Credits"
-msgstr ""
+msgstr "Créditos"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Pasta Fontes Person."
 
 msgid "Cut"
 msgstr "Cortar"
@@ -109,7 +112,7 @@ msgid "Deleting files:"
 msgstr "Eliminando ficheiros:"
 
 msgid "Designer:"
-msgstr ""
+msgstr "Designer:"
 
 msgid "Directory .."
 msgstr "Pasta .."
@@ -130,13 +133,13 @@ msgid "Do you want to boot:"
 msgstr "Pretende executar:"
 
 msgid "Do you want to load app default language ?"
-msgstr ""
+msgstr "Deseja activar o idioma predefinido do aplicativo ?"
 
 msgid "Do you want to load console default language."
-msgstr ""
+msgstr "Deseja activar o idioma predefinido da consola ?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "Deseja activar este idioma ?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Pretende abrir este ficheiro no TextViewer?"
@@ -151,10 +154,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Pretende voltar a ligar-se ao SMB?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "Deseja actualizar agora ?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Descarregando ficheiro..."
 
 msgid "ERROR"
 msgstr "ERRO"
@@ -169,7 +172,7 @@ msgid "Error:"
 msgstr "Erro:"
 
 msgid "Extracting files..."
-msgstr ""
+msgstr "Extraindo ficheiros..."
 
 msgid "Failed copying file."
 msgstr "Falha ao copiar ficheiro."
@@ -206,7 +209,7 @@ msgid "Files:"
 msgstr "Ficheiros"
 
 msgid "Filesize is empty."
-msgstr ""
+msgstr "Tamango de ficheiro vazio."
 
 msgid "Filetype:"
 msgstr "Tipo de ficheiro:"
@@ -215,7 +218,7 @@ msgid "Folder"
 msgstr "Pasta"
 
 msgid "Fontpath changed"
-msgstr ""
+msgstr "Pasta de fonte alterada"
 
 msgid "Go Back"
 msgstr "Voltar"
@@ -224,10 +227,10 @@ msgid "Host:"
 msgstr "Servidor:"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Visualizador de Imagens"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "Deve reiniciar o aplicativo agora."
 
 msgid "Language"
 msgstr "Idioma"
@@ -245,7 +248,7 @@ msgid "Loading file:"
 msgstr "Carregando ficheiro:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "Montar NTFS"
 
 msgid "Moving files:"
 msgstr "Movendo ficheiros:"
@@ -285,25 +288,25 @@ msgstr "Não"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr ""
+msgstr "Imagem com o número %d não encontrada."
 
 msgid "No language files found."
-msgstr ""
+msgstr "Ficheiros de idioma inexistentes."
 
 msgid "No network connection"
-msgstr ""
+msgstr "Ligação de rede indisponível"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Não existem novas actualizações"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "URL inválido"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "Caminho URL inválido"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "Domínio inválido"
 
 msgid "Not enough memory."
 msgstr "Memória insuficiente"
@@ -342,7 +345,7 @@ msgid "Rename"
 msgstr "Renomear"
 
 msgid "Restart the app to load the new font."
-msgstr ""
+msgstr "Reinicie o aplicativo para activar a nova fonte."
 
 msgid "Retry"
 msgstr "Tentar novamente"
@@ -378,25 +381,25 @@ msgid "Size:"
 msgstr "Tamanho:"
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Agradecimentos especiais a:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
+msgstr "Toda a equipda do DevkitPro e do libogc."
 
 msgid "This is no OGG/MP3 file"
 msgstr "Não é um ficheiro OGG/MP3"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Transferência cancelada."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Falha na transferência"
 
 msgid "Transfering files:"
 msgstr "Transferindo ficheiros:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URL vazio"
 
 msgid "USB"
 msgstr ""
@@ -408,20 +411,20 @@ msgid "Unable to load device."
 msgstr "Não é possível ler o dispositivo."
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Pasta de Act. do Aplicativo"
 
 msgid "Update App"
-msgstr ""
+msgstr "Actualizar Aplicativo"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "Pasta de Act. do Aplicativo alterada."
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Actualização terminada com sucesso"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Nova Rev%i disponível"
 
 #, c-format
 msgid "User %i"
@@ -446,4 +449,4 @@ msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
+msgstr "pela sua excelente ferramenta LibWiiGui."
