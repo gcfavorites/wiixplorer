@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-15 22:48+0200\n"
+"POT-Creation-Date: 2009-10-16 01:20+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -63,6 +63,9 @@ msgstr "Codering:"
 
 msgid "Connect SMB"
 msgstr "SMB verbinden"
+
+msgid "Connecting..."
+msgstr ""
 
 msgid "Console Default"
 msgstr "Console Standaard"
@@ -132,6 +135,9 @@ msgstr "Locatie verplaatst."
 
 msgid "Do you want to boot:"
 msgstr "Wil je starten:"
+
+msgid "Do you want to connect?"
+msgstr ""
 
 msgid "Do you want to load app default language ?"
 msgstr "Wil je de toepassings standaardtaal laden?"

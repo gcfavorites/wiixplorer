@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# italian.lang - v7 - r68
+# italian.lang - v8 - r70
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-15 22:48+0200\n"
+"POT-Creation-Date: 2009-10-16 22:12+0200\n"
 "PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "& translaters for language files."
-msgstr ""
+msgstr "& i traduttori per i file delle lingue"
 
 msgid "1"
 msgstr ""
@@ -62,6 +62,9 @@ msgstr "Sviluppatori:"
 
 msgid "Connect SMB"
 msgstr "Connetti SMB"
+
+msgid "Connecting..."
+msgstr ""
 
 msgid "Console Default"
 msgstr "Predefinito Console"
@@ -131,6 +134,9 @@ msgstr "La cartella è stata spostata."
 
 msgid "Do you want to boot:"
 msgstr "Vuoi caricare:"
+
+msgid "Do you want to connect?"
+msgstr ""
 
 msgid "Do you want to load app default language ?"
 msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
@@ -384,7 +390,7 @@ msgid "Special thanks to:"
 msgstr "Grazie mille a:"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr "Tutto lo staff di DevkitPro & libogc."
+msgstr "Tutto lo staff di DevkitPro & libogc"
 
 msgid "This is no OGG/MP3 file"
 msgstr "Questo non è un file OGG/MP3"
@@ -449,4 +455,7 @@ msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
-msgstr "per la sua fantastica libreria LibWiiGui."
+msgstr "per la fantastica libreria LibWiiGui."
+
+#~ msgid "Filepath: %s"
+#~ msgstr "Percorso file: %s"

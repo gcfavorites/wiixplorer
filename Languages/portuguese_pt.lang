@@ -1,19 +1,19 @@
 # WiiXplorer language source file.
-# for r69
+# for r70
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-15 22:48+0200\n"
-"PO-Revision-Date: 2009-10-12 18:38\n"
-"Last-Translator: Sky8000\n"
+"POT-Creation-Date: 2009-10-16 22:12+0200\n"
+"PO-Revision-Date: 2009-10-16 11:10-0000\n"
+"Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "& translaters for language files."
-msgstr ""
+msgstr "& tradutores pelos ficheiros de idioma."
 
 msgid "1"
 msgstr ""
@@ -62,6 +62,9 @@ msgstr "Programadores:"
 
 msgid "Connect SMB"
 msgstr "Ligar SMB"
+
+msgid "Connecting..."
+msgstr ""
 
 msgid "Console Default"
 msgstr "Predefinição da consola"
@@ -132,6 +135,9 @@ msgstr "Pasta movida com sucesso."
 msgid "Do you want to boot:"
 msgstr "Pretende executar:"
 
+msgid "Do you want to connect?"
+msgstr ""
+
 msgid "Do you want to load app default language ?"
 msgstr "Deseja activar o idioma predefinido do aplicativo ?"
 
@@ -163,7 +169,7 @@ msgid "ERROR"
 msgstr "ERRO"
 
 msgid "Enter a directory where to extract the files to."
-msgstr ""
+msgstr "Seleccione a pasta destino para extrair os ficheiros."
 
 msgid "Error"
 msgstr "Erro"
@@ -184,7 +190,7 @@ msgid "Failed renaming file"
 msgstr "Falha ao renomear ficheiro"
 
 msgid "Failed to extract files."
-msgstr ""
+msgstr "Erro ao extrair ficheiros."
 
 msgid "File couldn't be deleted."
 msgstr "O ficheiro não pode ser eliminado."
@@ -203,7 +209,7 @@ msgid "Filepath:  %s"
 msgstr "Pasta:  %s"
 
 msgid "Files successfully extracted."
-msgstr ""
+msgstr "Ficheiros extraídos com sucesso."
 
 msgid "Files:"
 msgstr "Ficheiros"
@@ -281,7 +287,7 @@ msgid "New Folder"
 msgstr "Nova Pasta"
 
 msgid "Next device"
-msgstr ""
+msgstr "Próximo dispositivo"
 
 msgid "No"
 msgstr "Não"
