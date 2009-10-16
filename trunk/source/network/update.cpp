@@ -32,6 +32,7 @@
 
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "http.h"
 #include "networkops.h"
 #include "svnrev.h"
@@ -77,13 +78,24 @@ int UpdateApp(const char *url)
 /****************************************************************************
  * Checking if an Update is available
  ***************************************************************************/
+int choice = 0;
+
 int CheckForUpdate()
 {
-    if (!IsNetworkInit())
-    {
-        WindowPrompt(tr("No network connection"), 0, tr("OK"));
-        return -1;
-    }
+	if(!IsNetworkInit()) {
+		choice = WindowPrompt(tr("No network connection"),tr("Do you want to connect?"),tr("Yes"),tr("Cancel"));
+		if(choice == 1) {
+			StartProgress(tr("Connecting..."), THROBBER);
+			Initialize_Network();
+			StopProgress();
+			if (!IsNetworkInit()){
+				WindowPrompt(tr("No network connection"), 0, tr("OK"));
+			}
+		}
+		if (!IsNetworkInit()){
+			return -1;
+		}
+	}
 
     int revnumber = 0;
     int currentrev = atoi(SvnRev());

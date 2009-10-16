@@ -901,7 +901,7 @@ static int MenuSettings()
 
         else if(updateBtn.GetState() == STATE_CLICKED)
 		{
-            int res = CheckForUpdate();
+			int res = CheckForUpdate();
             if(res == 0)
                 WindowPrompt(tr("No new updates available"), 0, tr("OK"));
 		    updateBtn.ResetState();
@@ -941,14 +941,17 @@ static int MenuSettings()
                 char entered[150];
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149)) {
-                    snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
+					snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
                     WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
                 }
 				break;
             case 6:
                 snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
                 if(OnScreenKeyboard(entered, 149)) {
-                    snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
+					int len = (strlen(entered)-1);
+					if(entered[len] !='/')
+					strncat (entered, "/", 1);
+					snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
                     WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
                 }
 				break;

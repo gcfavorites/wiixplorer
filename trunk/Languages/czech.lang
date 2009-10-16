@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-15 22:48+0200\n"
+"POT-Creation-Date: 2009-10-16 01:20+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -63,6 +63,9 @@ msgstr "Programátoři"
 
 msgid "Connect SMB"
 msgstr "Připojení SMSB"
+
+msgid "Connecting..."
+msgstr ""
 
 msgid "Console Default"
 msgstr "Původní nastavení konzole"
@@ -132,6 +135,9 @@ msgstr "Adresář úspěšně přesunut."
 
 msgid "Do you want to boot:"
 msgstr "Přejete si nabootovat:"
+
+msgid "Do you want to connect?"
+msgstr ""
 
 msgid "Do you want to load app default language ?"
 msgstr "Přejete si spustit aplikaci v původním jazyce?"
