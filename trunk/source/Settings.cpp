@@ -35,7 +35,7 @@
 #include "fileops.h"
 #include "Language/gettext.h"
 
-#define DEFAULT_APP_PATH    "sd:/apps/WiiXplorer/"
+#define DEFAULT_APP_PATH    "sd:/apps/WiiExplorer/"
 #define CONFIGPATH          "sd:/config/WiiXplorer/"
 #define CONFIGNAME          "WiiXplorer.cfg"
 #define LANGPATH      	    "sd:/config/WiiXplorer/Languages/"
