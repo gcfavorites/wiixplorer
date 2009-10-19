@@ -5,13 +5,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-16 01:20+0200\n"
+"POT-Creation-Date: 2009-10-19 22:12+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d files"
+msgstr ""
 
 msgid "& translaters for language files."
 msgstr ""
@@ -20,6 +24,9 @@ msgid "1"
 msgstr ""
 
 msgid "Action cancelled."
+msgstr ""
+
+msgid "All Language files updated."
 msgstr ""
 
 msgid "An error occured."
@@ -64,9 +71,6 @@ msgstr ""
 msgid "Connect SMB"
 msgstr ""
 
-msgid "Connecting..."
-msgstr ""
-
 msgid "Console Default"
 msgstr ""
 
@@ -86,6 +90,9 @@ msgid "Copying files:"
 msgstr ""
 
 msgid "Could not connect to the server."
+msgstr ""
+
+msgid "Could not initialize network!"
 msgstr ""
 
 msgid "Credits"
@@ -163,6 +170,9 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr ""
 
+msgid "Do you wish to update/download all language files?"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr ""
 
@@ -234,6 +244,9 @@ msgid "Host:"
 msgstr ""
 
 msgid "ImageViewer"
+msgstr ""
+
+msgid "Initializing Network"
 msgstr ""
 
 msgid "It is recommended to restart app now."
@@ -426,11 +439,17 @@ msgstr ""
 msgid "Update Path changed."
 msgstr ""
 
+msgid "Update all Language Files"
+msgstr ""
+
 msgid "Update successfully finished"
 msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
+msgstr ""
+
+msgid "Updating Language Files:"
 msgstr ""
 
 #, c-format

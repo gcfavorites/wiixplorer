@@ -4,13 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-16 01:20+0200\n"
+"POT-Creation-Date: 2009-10-19 22:12+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d files"
+msgstr "%d fichiers"
 
 msgid "& translaters for language files."
 msgstr "et tous les traducteurs."
@@ -20,6 +24,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Action annulée"
+
+msgid "All Language files updated."
+msgstr "Fichiers langues mis à jour."
 
 msgid "An error occured."
 msgstr "Une erreur est survenue."
@@ -63,9 +70,6 @@ msgstr "Développeurs:"
 msgid "Connect SMB"
 msgstr "Connecter SMB"
 
-msgid "Connecting..."
-msgstr "Connexion..."
-
 msgid "Console Default"
 msgstr "Wii Défaut"
 
@@ -86,6 +90,9 @@ msgstr "Copie des fichiers"
 
 msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
+
+msgid "Could not initialize network!"
+msgstr "Initialisation réseau impossible!"
 
 msgid "Credits"
 msgstr "Crédits"
@@ -162,6 +169,9 @@ msgstr "Voulez-vous reconnecter le SMB ?"
 msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant ?"
 
+msgid "Do you wish to update/download all language files?"
+msgstr "Voulez-vous télécharger les fichiers langues ?"
+
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
@@ -234,6 +244,9 @@ msgstr "Hébergeur:"
 
 msgid "ImageViewer"
 msgstr "Aperçu"
+
+msgid "Initializing Network"
+msgstr "Initialisation réseaux"
 
 msgid "It is recommended to restart app now."
 msgstr "Redémarrage nécéssaire."
@@ -425,12 +438,18 @@ msgstr "Mise à jour App"
 msgid "Update Path changed."
 msgstr "Dossier Mise à jour modifié."
 
+msgid "Update all Language Files"
+msgstr "Mettre à jours tous les fichiers Langue"
+
 msgid "Update successfully finished"
 msgstr "Mise à jour réussie"
 
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Révision %i disponible"
+
+msgid "Updating Language Files:"
+msgstr "Mise à jour fichiers langues"
 
 #, c-format
 msgid "User %i"

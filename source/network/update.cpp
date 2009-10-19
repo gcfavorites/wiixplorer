@@ -83,18 +83,7 @@ int choice = 0;
 int CheckForUpdate()
 {
 	if(!IsNetworkInit()) {
-		choice = WindowPrompt(tr("No network connection"),tr("Do you want to connect?"),tr("Yes"),tr("Cancel"));
-		if(choice == 1) {
-			StartProgress(tr("Connecting..."), THROBBER);
-			Initialize_Network();
-			StopProgress();
-			if (!IsNetworkInit()){
-				WindowPrompt(tr("No network connection"), 0, tr("OK"));
-			}
-		}
-		if (!IsNetworkInit()){
-			return -1;
-		}
+		NetworkInitPrompt();
 	}
 
     int revnumber = 0;

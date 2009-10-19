@@ -38,6 +38,7 @@
 #include "libwiigui/gui.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "devicemounter.h"
 #include "fileops.h"
 #include "filebrowser.h"
@@ -1256,4 +1257,27 @@ int DeviceMenu(void)
     ResumeGui();
 
     return choice;
+}
+
+/****************************************************************************
+ * NetworkInitPrompt
+ ***************************************************************************/
+int NetworkInitPrompt() {
+    
+    if (!IsNetworkInit()) {
+        int choice = WindowPrompt(tr("No network connection"),tr("Do you want to connect?"),tr("Yes"),tr("Cancel"));
+		if(choice == 1) {
+			StartProgress(tr("Initializing Network"), CONNECT);
+			ShowProgress(0, 1, 0);
+			Initialize_Network();
+			StopProgress();
+			if (!IsNetworkInit()){
+				WindowPrompt(tr("Could not initialize network!"), 0, tr("OK"));
+			}
+		}
+	}
+	if (IsNetworkInit()) {
+		return 1;
+	}
+	return 0;
 }

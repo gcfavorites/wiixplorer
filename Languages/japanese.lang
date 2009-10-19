@@ -4,13 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-16 11:31+0200\n"
+"POT-Creation-Date: 2009-10-19 22:12+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d files"
+msgstr ""
 
 msgid "& translaters for language files."
 msgstr "翻訳者様(日本語:K-M)"
@@ -20,6 +24,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
+
+msgid "All Language files updated."
+msgstr ""
 
 msgid "An error occured."
 msgstr "ｴﾗｰが発生しました"
@@ -63,9 +70,6 @@ msgstr "制作:"
 msgid "Connect SMB"
 msgstr "SMBと接続"
 
-msgid "Connecting..."
-msgstr ""
-
 msgid "Console Default"
 msgstr "日本語"
 
@@ -86,6 +90,9 @@ msgstr "ｺﾋﾟｰしています:"
 
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
+
+msgid "Could not initialize network!"
+msgstr ""
 
 msgid "Credits"
 msgstr "提供･協力"
@@ -162,6 +169,9 @@ msgstr "再接続しますか?"
 msgid "Do you want to update now ?"
 msgstr "更新しますか?"
 
+msgid "Do you wish to update/download all language files?"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
@@ -234,6 +244,9 @@ msgstr "ホスト"
 
 msgid "ImageViewer"
 msgstr "ｲﾒｰｼﾞﾋﾞｭｰﾜ"
+
+msgid "Initializing Network"
+msgstr ""
 
 msgid "It is recommended to restart app now."
 msgstr "WiiXplorerを再起動してください"
@@ -425,12 +438,18 @@ msgstr "更新"
 msgid "Update Path changed."
 msgstr "WiiXplorerのパスを変更しました"
 
+msgid "Update all Language Files"
+msgstr ""
+
 msgid "Update successfully finished"
 msgstr "更新が完了しました"
 
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新があります:Rev%i"
+
+msgid "Updating Language Files:"
+msgstr ""
 
 #, c-format
 msgid "User %i"

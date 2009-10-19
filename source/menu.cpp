@@ -902,7 +902,7 @@ static int MenuSettings()
         else if(updateBtn.GetState() == STATE_CLICKED)
 		{
 			int res = CheckForUpdate();
-            if(res == 0)
+            if(res == 0 && IsNetworkInit())
                 WindowPrompt(tr("No new updates available"), 0, tr("OK"));
 		    updateBtn.ResetState();
 		}
