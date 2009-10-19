@@ -263,4 +263,10 @@ extern const u32	prev_png_size;
 extern const u8		prev_over_png[];
 extern const u32	prev_over_png_size;
 
+extern const u8		updatebtn_png[];
+extern const u32	updatebtn_png_size;
+
+extern const u8		updatebtn_over_png[];
+extern const u32	updatebtn_over_png_size;
+
 #endif

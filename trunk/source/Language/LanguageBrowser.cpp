@@ -37,6 +37,7 @@
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
 #include "Language/gettext.h"
+#include "Language/UpdateLanguage.h"
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"
@@ -57,8 +58,8 @@ extern void HaltGui();
  ***************************************************************************/
 int LanguageBrowser()
 {
-	int menu = MENU_NONE;
-	int ret;
+	int menu = MENU_LANGUAGE_BROWSE;
+	int ret, choice;
 	int i = 0, n = 0;
 
 	DirList FileList("sd:/config/WiiXplorer/Languages/", ".lang");
@@ -66,8 +67,15 @@ int LanguageBrowser()
 	int filecount = FileList.GetFilecount();
 
 	if(!filecount) {
-        WindowPrompt(tr("No language files found."), 0, tr("OK"));
-        return MENU_SETTINGS;
+		choice = WindowPrompt(tr("No language files found."),tr("Do you wish to update/download all language files?"),tr("Yes"), tr("Cancel"));
+		if (choice == 1) {
+			int update = updateAllLanguageFiles();
+			if (update == 0) {
+				return MENU_SETTINGS;
+			}
+			return MENU_LANGUAGE_BROWSE;
+		}
+		return MENU_SETTINGS;
 	}
 	OptionList options(filecount-1);
 
@@ -128,6 +136,20 @@ int LanguageBrowser()
 	GuiImage settingsimg(&settingsimgData);
 	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
+	
+	GuiImageData updateImgData(updatebtn_png);
+	GuiImage updateImg(&updateImgData);
+	GuiImageData updateImgOverData(updatebtn_over_png);
+	GuiImage updateImgOver(&updateImgOverData);
+
+	GuiButton UpdateBtn(updateImg.GetWidth(), updateImg.GetHeight());
+	UpdateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	UpdateBtn.SetPosition(-50, optionBrowser.GetTop()-35);
+	UpdateBtn.SetImage(&updateImg);
+	UpdateBtn.SetImageOver(&updateImgOver);
+	UpdateBtn.SetSoundOver(&btnSoundOver);
+	UpdateBtn.SetTrigger(&trigA);
+	UpdateBtn.SetEffectGrow();
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
@@ -136,13 +158,14 @@ int LanguageBrowser()
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
+	w.Append(&UpdateBtn);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
-	while(menu == MENU_NONE)
+	while(menu == MENU_LANGUAGE_BROWSE)
 	{
 	    usleep(THREAD_SLEEP);
 
@@ -161,7 +184,7 @@ int LanguageBrowser()
 
 		else if(ConsoleDefaultBtn.GetState() == STATE_CLICKED)
 		{
-		    int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
+		    choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
             if(choice) {
 		    if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT)) {
                 if(SDCard_Inserted())
@@ -173,7 +196,7 @@ int LanguageBrowser()
 
 		else if(AppDefaultBtn.GetState() == STATE_CLICKED)
 		{
-		    int choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
+		    choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
             if(choice) {
 		    if(Settings.LoadLanguage(NULL, APP_DEFAULT)) {
                 if(SDCard_Inserted())
@@ -182,9 +205,18 @@ int LanguageBrowser()
             menu = MENU_SETTINGS;
             }
 		}
+		
+		else if(UpdateBtn.GetState() == STATE_CLICKED)
+		{
+			choice = WindowPrompt(tr("Update all Language Files"),tr("Do you wish to update/download all language files?"),tr("Yes"), tr("Cancel"));
+		    if (choice == 1) {
+				updateAllLanguageFiles();
+			}
+			UpdateBtn.ResetState();
+		}
 
 		ret = optionBrowser.GetClickedOption();
-
+		
 		if(ret >= 0)
 		{
 		    int choice = WindowPrompt(FileList.GetFilename(ret), tr("Do you want to load this language ?"), tr("Yes"), tr("Cancel"));

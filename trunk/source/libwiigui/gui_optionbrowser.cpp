@@ -97,7 +97,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	bgOptionsImg = new GuiImage(bgOptions);
 	bgOptionsImg->SetParent(this);
 	bgOptionsImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-
+	
 	bgOptionsEntry = new GuiImageData(bg_browser_selection_png);
 
 	scrollbar = new GuiImageData(scrollbar_png);

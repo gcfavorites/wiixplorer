@@ -31,5 +31,6 @@ int Properties(const char * filename, const char * filepath, int folder, float f
 int WaitSMBConnect(void);
 void CreditsWindow(void);
 int DeviceMenu(void);
+int NetworkInitPrompt();
 
 #endif

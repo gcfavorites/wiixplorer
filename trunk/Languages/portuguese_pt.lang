@@ -4,13 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-16 22:12+0200\n"
+"POT-Creation-Date: 2009-10-19 22:12+0200\n"
 "PO-Revision-Date: 2009-10-16 11:10-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d files"
+msgstr ""
 
 msgid "& translaters for language files."
 msgstr "& tradutores pelos ficheiros de idioma."
@@ -20,6 +24,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Operação cancelada"
+
+msgid "All Language files updated."
+msgstr ""
 
 msgid "An error occured."
 msgstr "Ocorreu um erro."
@@ -63,9 +70,6 @@ msgstr "Programadores:"
 msgid "Connect SMB"
 msgstr "Ligar SMB"
 
-msgid "Connecting..."
-msgstr ""
-
 msgid "Console Default"
 msgstr "Predefinição da consola"
 
@@ -86,6 +90,9 @@ msgstr "Copiando ficheiros"
 
 msgid "Could not connect to the server."
 msgstr "Não foi possível ligar ao servidor."
+
+msgid "Could not initialize network!"
+msgstr ""
 
 msgid "Credits"
 msgstr "Créditos"
@@ -162,6 +169,9 @@ msgstr "Pretende voltar a ligar-se ao SMB?"
 msgid "Do you want to update now ?"
 msgstr "Deseja actualizar agora ?"
 
+msgid "Do you wish to update/download all language files?"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
 
@@ -234,6 +244,9 @@ msgstr "Servidor:"
 
 msgid "ImageViewer"
 msgstr "Visualizador de Imagens"
+
+msgid "Initializing Network"
+msgstr ""
 
 msgid "It is recommended to restart app now."
 msgstr "Deve reiniciar o aplicativo agora."
@@ -425,12 +438,18 @@ msgstr "Actualizar Aplicativo"
 msgid "Update Path changed."
 msgstr "Pasta de Act. do Aplicativo alterada."
 
+msgid "Update all Language Files"
+msgstr ""
+
 msgid "Update successfully finished"
 msgstr "Actualização terminada com sucesso"
 
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Nova Rev%i disponível"
+
+msgid "Updating Language Files:"
+msgstr ""
 
 #, c-format
 msgid "User %i"
