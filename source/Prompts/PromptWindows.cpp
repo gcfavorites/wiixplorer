@@ -64,6 +64,7 @@ extern GuiWindow * mainWindow;
 extern GuiSound * bgMusic;
 extern u8 shutdown;
 extern u8 reset;
+extern bool actioncanceled;
 
 /*** Extern functions ***/
 extern void ResumeGui();
@@ -1270,6 +1271,14 @@ int NetworkInitPrompt() {
 			StartProgress(tr("Initializing Network"), CONNECT);
 			ShowProgress(0, 1, 0);
 			Initialize_Network();
+			if(actioncanceled)
+			{
+				usleep(20000);
+				StopProgress();
+				DeInit_Network();
+				WindowPrompt(tr("ERROR"), tr("Action cancelled."), tr("OK"));
+				return 0;
+			}
 			StopProgress();
 			if (!IsNetworkInit()){
 				WindowPrompt(tr("Could not initialize network!"), 0, tr("OK"));

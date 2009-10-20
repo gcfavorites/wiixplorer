@@ -58,6 +58,7 @@ void Settings::SetDefault()
     sprintf(CustomFontPath, "%sfont.ttf", CONFIGPATH);
     strcpy(LanguagePath, "");
     strcpy(UpdatePath, DEFAULT_APP_PATH);
+	strcpy(LangPath, LANGPATH);
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -86,6 +87,7 @@ bool Settings::Save()
 	fprintf(file, "MountMethod = %d\n", MountMethod);
 	fprintf(file, "CurrentUser = %d\n", CurrentUser);
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
+	fprintf(file, "LangPath = %s\n", LangPath);
 	fprintf(file, "LanguagePath = %s\n", LanguagePath);
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 	fprintf(file, "MountNTFS = %d\n", MountNTFS);
@@ -147,34 +149,34 @@ bool Settings::LoadLanguage(const char *path, int language)
             return this->LoadLanguage(NULL, CONF_GetLanguage()+2);
         }
         else if(language == JAPANESE) {
-            snprintf(filepath, sizeof(filepath), "%s/japanese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/japanese.lang", LangPath);
         }
         else if(language == ENGLISH) {
-            snprintf(filepath, sizeof(filepath), "%s/english.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/english.lang", LangPath);
         }
         else if(language == GERMAN) {
-            snprintf(filepath, sizeof(filepath), "%s/german.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/german.lang", LangPath);
         }
         else if(language == FRENCH) {
-            snprintf(filepath, sizeof(filepath), "%s/french.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/french.lang", LangPath);
         }
         else if(language == SPANISH) {
-            snprintf(filepath, sizeof(filepath), "%s/spanish.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/spanish.lang", LangPath);
         }
         else if(language == ITALIAN) {
-            snprintf(filepath, sizeof(filepath), "%s/italian.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/italian.lang", LangPath);
         }
         else if(language == DUTCH) {
-            snprintf(filepath, sizeof(filepath), "%s/dutch.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/dutch.lang", LangPath);
         }
         else if(language == S_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", LangPath);
         }
         else if(language == T_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", LangPath);
         }
         else if(language == KOREAN) {
-            snprintf(filepath, sizeof(filepath), "%s/korean.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s/korean.lang", LangPath);
         }
 
         ret = gettextLoadLanguage(filepath);
@@ -221,6 +223,10 @@ bool Settings::SetSetting(char *name, char *value)
 		if (sscanf(value, "%d", &i) == 1) {
 			AutoConnect = i;
 		}
+		return true;
+	}
+	else if (strcmp(name, "LangPath") == 0) {
+        strncpy(LangPath, value, sizeof(LangPath));
 		return true;
 	}
 	else if (strcmp(name, "LanguagePath") == 0) {

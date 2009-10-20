@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-19 22:12+0200\n"
+"POT-Creation-Date: 2009-10-20 03:53+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "%d files"
+msgid "%d files available"
 msgstr ""
 
 msgid "& translaters for language files."
@@ -254,6 +254,9 @@ msgstr "建议现在重新启动程序"
 msgid "Language"
 msgstr "语言"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "最近读取"
 
@@ -308,9 +311,6 @@ msgstr "否"
 #, c-format
 msgid "No image found at index %d."
 msgstr "索引%d 中没有发现图片。"
-
-msgid "No language files found."
-msgstr "没有发现语言文件。"
 
 msgid "No network connection"
 msgstr "没有网络连接"
@@ -475,3 +475,6 @@ msgstr "无法使用此功能在："
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "No language files found."
+#~ msgstr "没有发现语言文件。"

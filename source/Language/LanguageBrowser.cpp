@@ -61,22 +61,12 @@ int LanguageBrowser()
 	int menu = MENU_LANGUAGE_BROWSE;
 	int ret, choice;
 	int i = 0, n = 0;
+	char LangPathtitle[50];
 
-	DirList FileList("sd:/config/WiiXplorer/Languages/", ".lang");
+	DirList FileList(Settings.LangPath, ".lang");
 
 	int filecount = FileList.GetFilecount();
 
-	if(!filecount) {
-		choice = WindowPrompt(tr("No language files found."),tr("Do you wish to update/download all language files?"),tr("Yes"), tr("Cancel"));
-		if (choice == 1) {
-			int update = updateAllLanguageFiles();
-			if (update == 0) {
-				return MENU_SETTINGS;
-			}
-			return MENU_LANGUAGE_BROWSE;
-		}
-		return MENU_SETTINGS;
-	}
 	OptionList options(filecount-1);
 
 	for(i = 0; i < filecount; i++)
@@ -132,10 +122,23 @@ int LanguageBrowser()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData settingsimgData(settingsbtn_over_png);
-	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
+	GuiImageData Address(addressbar_textbox_png);
+	GuiImageData AddressOver(addressbar_textbox_over_png);
+    snprintf(LangPathtitle, sizeof(LangPathtitle), Settings.LangPath);
+	GuiText AdressText(LangPathtitle, 20, (GXColor) {0, 0, 0, 255});
+	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	AdressText.SetPosition(18, 0);
+	AdressText.SetMaxWidth(Address.GetWidth()-40, SCROLL_HORIZONTAL);
+	GuiImage AdressbarImg(&Address);
+	GuiImage AdressbarImgOver(&AddressOver);
+	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
+	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Adressbar.SetPosition(optionBrowser.GetLeft()+25, optionBrowser.GetTop()-38);
+	Adressbar.SetImage(&AdressbarImg);
+	Adressbar.SetImageOver(&AdressbarImgOver);
+	Adressbar.SetLabel(&AdressText);
+	Adressbar.SetSoundOver(&btnSoundOver);
+	Adressbar.SetTrigger(&trigA);
 	
 	GuiImageData updateImgData(updatebtn_png);
 	GuiImage updateImg(&updateImgData);
@@ -144,7 +147,7 @@ int LanguageBrowser()
 
 	GuiButton UpdateBtn(updateImg.GetWidth(), updateImg.GetHeight());
 	UpdateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	UpdateBtn.SetPosition(-50, optionBrowser.GetTop()-35);
+	UpdateBtn.SetPosition(-45, optionBrowser.GetTop()-35);
 	UpdateBtn.SetImage(&updateImg);
 	UpdateBtn.SetImageOver(&updateImgOver);
 	UpdateBtn.SetSoundOver(&btnSoundOver);
@@ -157,7 +160,7 @@ int LanguageBrowser()
 	w.Append(&ConsoleDefaultBtn);
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
-	w.Append(&settingsimg);
+	w.Append(&Adressbar);
 	w.Append(&UpdateBtn);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
@@ -211,8 +214,28 @@ int LanguageBrowser()
 			choice = WindowPrompt(tr("Update all Language Files"),tr("Do you wish to update/download all language files?"),tr("Yes"), tr("Cancel"));
 		    if (choice == 1) {
 				updateAllLanguageFiles();
+				
+			menu = MENU_LANGUAGE_BROWSE;
 			}
 			UpdateBtn.ResetState();
+			break;
+		}
+		
+		else if (Adressbar.GetState() == STATE_CLICKED)
+		{
+			char entered[150];
+			snprintf(entered, sizeof(entered), "%s", Settings.LangPath);
+            if(OnScreenKeyboard(entered, 149)) {
+				int len = (strlen(entered)-1);
+				if(entered[len] !='/')
+				strncat (entered, "/", 1);
+				snprintf(Settings.LangPath, sizeof(Settings.LangPath), "%s", entered);
+                WindowPrompt(tr("Language Path changed."), 0, tr("OK"));
+				if(SDCard_Inserted())
+					Settings.Save();
+				menu = MENU_LANGUAGE_BROWSE;
+            }
+			break;
 		}
 
 		ret = optionBrowser.GetClickedOption();
