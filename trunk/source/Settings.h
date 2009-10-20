@@ -70,6 +70,8 @@ class Settings
         short	MusicVolume;
         //!Option to mount or not mount the NTFS volumes
         short	MountNTFS;
+		//!CustumLanguagefile path
+        char	LangPath[150];
         //!Languagefile path
         char	LanguagePath[150];
         //!Path to the customfont file.

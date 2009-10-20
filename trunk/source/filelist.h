@@ -65,6 +65,9 @@ extern const u32	bg_browser_selection_png_size;
 extern const u8		addressbar_textbox_png[];
 extern const u32	addressbar_textbox_png_size;
 
+extern const u8		addressbar_textbox_over_png[];
+extern const u32	addressbar_textbox_over_png_size;
+
 extern const u8		device_choose_right_png[];
 extern const u32	device_choose_right_png_size;
 

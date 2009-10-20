@@ -12,6 +12,7 @@
 
 #include "Language/gettext.h"
 #include "menu.h"
+#include "main.h"
 #include "Settings.h"
 #include "network/networkops.h"
 #include "network/http.h"
@@ -20,9 +21,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "fileops.h"
 
-#define LANGPATH      	    "sd:/config/WiiXplorer/Languages/"
-
-
+extern bool actioncanceled;
 
 /****************************************************************************
  * LanguageUpdater
@@ -45,13 +44,21 @@ int updateAllLanguageFiles() {
         URL_List LinkList(URL);
         int listsize = LinkList.GetURLCount();
 
-		CreateSubfolder(LANGPATH);
+		CreateSubfolder(Settings.LangPath);
+		
+		StartProgress(tr("Updating Language Files:"), LANGUAGE);
 
         for (int i = 0; i < listsize; i++) {
 			
-            StartProgress(tr("Updating Language Files:"), LANGUAGE);
+            if(actioncanceled)
+			{
+				usleep(20000);
+				StopProgress();
+				WindowPrompt(tr("ERROR"), tr("Action cancelled."), tr("OK"));
+				return 0;
+			}
 
-			snprintf(filenumber, sizeof(filenumber), tr("%d files"), listsize-3);
+			snprintf(filenumber, sizeof(filenumber), tr("%d files available"), listsize-3);
 			ShowProgress(i, listsize-1, filenumber);
 
             if (strcasecmp(".lang", strrchr(LinkList.GetURL(i), '.')) == 0) {
@@ -63,7 +70,7 @@ int updateAllLanguageFiles() {
                 if (file.data && file.size) {
                     char filepath[300];
 
-                    snprintf(filepath, sizeof(filepath), "%s%s", LANGPATH, LinkList.GetURL(i));
+                    snprintf(filepath, sizeof(filepath), "%s%s", Settings.LangPath, LinkList.GetURL(i));
                     pfile = fopen(filepath, "wb");
                     fwrite(file.data, 1, file.size, pfile);
                     fclose(pfile);

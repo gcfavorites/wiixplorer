@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-19 22:12+0200\n"
+"POT-Creation-Date: 2009-10-20 03:53+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "%d files"
+msgid "%d files available"
 msgstr ""
 
 msgid "& translaters for language files."
@@ -254,6 +254,9 @@ msgstr "WiiXplorerを再起動してください"
 msgid "Language"
 msgstr "言語"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "最後のアクセス"
 
@@ -308,9 +311,6 @@ msgstr "いいえ"
 #, c-format
 msgid "No image found at index %d."
 msgstr "%dの階層に画像が見つかりませんでした"
-
-msgid "No language files found."
-msgstr "言語が見つかりませんでした"
 
 msgid "No network connection"
 msgstr "接続していません"
@@ -475,3 +475,6 @@ msgstr "この操作は実行できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
+
+#~ msgid "No language files found."
+#~ msgstr "言語が見つかりませんでした"

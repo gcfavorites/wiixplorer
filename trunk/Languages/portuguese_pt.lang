@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-19 22:12+0200\n"
+"POT-Creation-Date: 2009-10-20 03:53+0200\n"
 "PO-Revision-Date: 2009-10-16 11:10-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "%d files"
+msgid "%d files available"
 msgstr ""
 
 msgid "& translaters for language files."
@@ -254,6 +254,9 @@ msgstr "Deve reiniciar o aplicativo agora."
 msgid "Language"
 msgstr "Idioma"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Último acesso:"
 
@@ -308,9 +311,6 @@ msgstr "Não"
 #, c-format
 msgid "No image found at index %d."
 msgstr "Imagem com o número %d não encontrada."
-
-msgid "No language files found."
-msgstr "Ficheiros de idioma inexistentes."
 
 msgid "No network connection"
 msgstr "Ligação de rede indisponível"
@@ -475,3 +475,6 @@ msgstr "Não pode usar esta operação em:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
+
+#~ msgid "No language files found."
+#~ msgstr "Ficheiros de idioma inexistentes."

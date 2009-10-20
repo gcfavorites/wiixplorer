@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-19 22:12+0200\n"
+"POT-Creation-Date: 2009-10-20 03:41+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -13,8 +13,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "%d files"
-msgstr "%d fichiers"
+msgid "%d files available"
+msgstr "%d fichiers disponibles"
 
 msgid "& translaters for language files."
 msgstr "et tous les traducteurs."
@@ -254,6 +254,9 @@ msgstr "Redémarrage nécéssaire."
 msgid "Language"
 msgstr "Langue"
 
+msgid "Language Path changed."
+msgstr "Dossier Language modifié."
+
 msgid "Last access:"
 msgstr "Dernier acces:"
 
@@ -309,9 +312,6 @@ msgstr "Non"
 msgid "No image found at index %d."
 msgstr "Pas d'image pour l'index %d"
 
-msgid "No language files found."
-msgstr "Aucun fichier langue trouvé."
-
 msgid "No network connection"
 msgstr "Pas de connexion réseau"
 
@@ -364,7 +364,7 @@ msgid "Rename"
 msgstr "Renommer"
 
 msgid "Restart the app to load the new font."
-msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
+msgstr "Redémarrage nécéssaire de WiiXplorer."
 
 msgid "Retry"
 msgstr "Réessayer"
@@ -449,7 +449,7 @@ msgid "Update to Rev%i available"
 msgstr "Révision %i disponible"
 
 msgid "Updating Language Files:"
-msgstr "Mise à jour fichiers langues"
+msgstr "Mise à jour des fichiers langues:"
 
 #, c-format
 msgid "User %i"
