@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# italian.lang - v8 - r70
+# italian.lang - v10 - r74
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 03:53+0200\n"
+"POT-Creation-Date: 2009-10-21 08:38+0200\n"
 "PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -14,7 +14,7 @@ msgstr ""
 
 #, c-format
 msgid "%d files available"
-msgstr ""
+msgstr "%d file disponibili"
 
 msgid "& translaters for language files."
 msgstr "& i traduttori per i file delle lingue"
@@ -26,7 +26,7 @@ msgid "Action cancelled."
 msgstr "Operazione annullata."
 
 msgid "All Language files updated."
-msgstr ""
+msgstr "File delle lingue aggiornati."
 
 msgid "An error occured."
 msgstr "E' avvenuto un errore."
@@ -34,11 +34,17 @@ msgstr "E' avvenuto un errore."
 msgid "App Default"
 msgstr "Predefinito Appl."
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Connessione Automatica"
 
 msgid "Back"
 msgstr "Indietro"
+
+msgid "Back to Loader"
+msgstr ""
 
 msgid "Bootup Mount"
 msgstr "Mount all'avvio"
@@ -63,6 +69,9 @@ msgstr "Blocco Maiuscole"
 
 msgid "Change Settings"
 msgstr "Modifica Impostazioni"
+
+msgid "Close"
+msgstr ""
 
 msgid "Coders:"
 msgstr "Sviluppatori:"
@@ -92,7 +101,7 @@ msgid "Could not connect to the server."
 msgstr "Impossibile connettersi al server."
 
 msgid "Could not initialize network!"
-msgstr ""
+msgstr "Impossibile inizializzare la rete!"
 
 msgid "Credits"
 msgstr "Credits"
@@ -143,7 +152,7 @@ msgid "Do you want to boot:"
 msgstr "Vuoi caricare:"
 
 msgid "Do you want to connect?"
-msgstr ""
+msgstr "Vuoi connetterti in rete?"
 
 msgid "Do you want to load app default language ?"
 msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
@@ -170,7 +179,7 @@ msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento ?"
 
 msgid "Do you wish to update/download all language files?"
-msgstr ""
+msgstr "Vuoi aggiornare/scaricare tutti i file delle lingue?"
 
 msgid "Downloading file..."
 msgstr "Sto scaricando il file..."
@@ -186,6 +195,9 @@ msgstr "Errore"
 
 msgid "Error:"
 msgstr "Errore:"
+
+msgid "Exit WiiXplorer?"
+msgstr ""
 
 msgid "Extracting files..."
 msgstr "Sto estraendo i file..."
@@ -239,6 +251,12 @@ msgstr "Percorso font modificato"
 msgid "Go Back"
 msgstr "Indietro"
 
+msgid "HOME Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
+msgstr ""
+
 msgid "Host:"
 msgstr "Host:"
 
@@ -246,7 +264,7 @@ msgid "ImageViewer"
 msgstr "Mostra Immagine"
 
 msgid "Initializing Network"
-msgstr ""
+msgstr "Sto inizializzando la rete"
 
 msgid "It is recommended to restart app now."
 msgstr "Si raccomanda di riavviare l'applicazione."
@@ -255,7 +273,7 @@ msgid "Language"
 msgstr "Lingua"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "Percorso Lingua modificato."
 
 msgid "Last access:"
 msgstr "Ultimo accesso:"
@@ -439,7 +457,7 @@ msgid "Update Path changed."
 msgstr "Percorso Aggiornamento modificato."
 
 msgid "Update all Language Files"
-msgstr ""
+msgstr "Aggiorna tutti i file delle lingue"
 
 msgid "Update successfully finished"
 msgstr "Aggiornamento concluso con successo"
@@ -449,7 +467,7 @@ msgid "Update to Rev%i available"
 msgstr "Disponibile aggiornamento alla Rev%i"
 
 msgid "Updating Language Files:"
-msgstr ""
+msgstr "Aggiornamento File Lingue:"
 
 #, c-format
 msgid "User %i"
@@ -460,6 +478,9 @@ msgstr "Utente:"
 
 msgid "Username:"
 msgstr "Nome utente:"
+
+msgid "Wii Menu"
+msgstr ""
 
 msgid "Yes"
 msgstr "Si"
@@ -474,10 +495,7 @@ msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
-msgstr "per la fantastica libreria LibWiiGui."
-
-#~ msgid "No language files found."
-#~ msgstr "Nessuna lingua trovata."
+msgstr "per la fantastica libreria LibWiiGui"
 
 #~ msgid "Filepath: %s"
-#~ msgstr "Percorso file: %s"
+#~ msgstr "Percorso: %s"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 03:53+0200\n"
+"POT-Creation-Date: 2009-10-20 15:36+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,10 +35,16 @@ msgstr ""
 msgid "App Default"
 msgstr ""
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Back to Loader"
 msgstr ""
 
 msgid "Bootup Mount"
@@ -63,6 +69,9 @@ msgid "Caps"
 msgstr ""
 
 msgid "Change Settings"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Coders:"
@@ -188,6 +197,9 @@ msgstr ""
 msgid "Error:"
 msgstr ""
 
+msgid "Exit WiiXplorer?"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr ""
 
@@ -238,6 +250,12 @@ msgid "Fontpath changed"
 msgstr ""
 
 msgid "Go Back"
+msgstr ""
+
+msgid "HOME Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
 msgstr ""
 
 msgid "Host:"
@@ -460,6 +478,9 @@ msgid "User:"
 msgstr ""
 
 msgid "Username:"
+msgstr ""
+
+msgid "Wii Menu"
 msgstr ""
 
 msgid "Yes"
