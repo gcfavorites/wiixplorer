@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 03:53+0200\n"
+"POT-Creation-Date: 2009-10-20 15:36+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -34,11 +34,17 @@ msgstr "發生錯誤"
 msgid "App Default"
 msgstr "程式預設值"
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "自動連線"
 
 msgid "Back"
 msgstr "返回"
+
+msgid "Back to Loader"
+msgstr ""
 
 msgid "Bootup Mount"
 msgstr "啟動掛載"
@@ -63,6 +69,9 @@ msgstr "Caps鍵"
 
 msgid "Change Settings"
 msgstr "變更設定"
+
+msgid "Close"
+msgstr ""
 
 msgid "Coders:"
 msgstr "程式設計師:"
@@ -187,6 +196,9 @@ msgstr "錯誤"
 msgid "Error:"
 msgstr "錯誤:"
 
+msgid "Exit WiiXplorer?"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "正在輸出檔案..."
 
@@ -238,6 +250,12 @@ msgstr "字型路徑已變更"
 
 msgid "Go Back"
 msgstr "返回"
+
+msgid "HOME Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Host:"
 msgstr "主機:"
@@ -460,6 +478,9 @@ msgstr "使用者:"
 
 msgid "Username:"
 msgstr "使用者名稱:"
+
+msgid "Wii Menu"
+msgstr ""
 
 msgid "Yes"
 msgstr "是"

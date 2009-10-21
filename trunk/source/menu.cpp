@@ -55,6 +55,7 @@
 #include "Language/LanguageBrowser.h"
 #include "network/update.h"
 #include "sys.h"
+#include "Prompts/HomeMenu.h"
 // #include "filesystems/filesystems.h"
 
 GuiWindow * mainWindow = NULL;
@@ -261,6 +262,8 @@ static int MenuBrowseDevice()
 	trigPlus.SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
     GuiTrigger trigMinus;
 	trigMinus.SetButtonOnlyTrigger(-1, WPAD_BUTTON_MINUS | WPAD_CLASSIC_BUTTON_MINUS, 0);
+	GuiTrigger trigHome;
+    trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
 	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
@@ -358,6 +361,9 @@ static int MenuBrowseDevice()
 
 	GuiButton clickmenuBtn(screenwidth, screenheight);
 	clickmenuBtn.SetTrigger(&trigPlus);
+	
+	GuiButton home(1,1);
+    home.SetTrigger(&trigHome);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
@@ -371,6 +377,7 @@ static int MenuBrowseDevice()
 	w.Append(&Adressbar);
 	w.Append(&deviceSwitchBtn);
 	w.Append(&TaskBar);
+	w.Append(&home);
 	mainWindow->Append(&w);
 
     w.SetEffect(EFFECT_FADE, 50);
@@ -429,6 +436,22 @@ static int MenuBrowseDevice()
         if(shutdown == 1)
             Sys_Shutdown();
 
+		if (home.GetState() == STATE_CLICKED) {
+            s32 thetimeofbg = bgMusic->GetPlayTime();
+            bgMusic->Stop();
+            choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
+			bgMusic->Play();
+            bgMusic->SetPlayTime(thetimeofbg);
+            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
+
+            if (choice == 3) {
+                Sys_LoadMenu(); // Back to System Menu
+            } else if (choice == 2) {
+                Sys_BackToLoader();
+            } else {
+                home.ResetState();
+            }
+        }
         else if(reset == 1)
             Sys_Reboot();
 
@@ -695,6 +718,8 @@ static int MenuSMBSettings()
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	GuiTrigger trigHome;
+    trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
@@ -715,11 +740,15 @@ static int MenuSMBSettings()
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
 
+	GuiButton home(1,1);
+    home.SetTrigger(&trigHome);
+
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&titleTxt);
+	w.Append(&home);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
@@ -732,6 +761,23 @@ static int MenuSMBSettings()
 
         if(shutdown == 1)
             Sys_Shutdown();
+
+		if (home.GetState() == STATE_CLICKED) {
+            s32 thetimeofbg = bgMusic->GetPlayTime();
+            bgMusic->Stop();
+            int choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
+			bgMusic->Play();
+            bgMusic->SetPlayTime(thetimeofbg);
+            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
+
+            if (choice == 3) {
+                Sys_LoadMenu(); // Back to System Menu
+            } else if (choice == 2) {
+                Sys_BackToLoader();
+            } else {
+                home.ResetState();
+            }
+        }
 
         else if(reset == 1)
             Sys_Reboot();
@@ -838,6 +884,8 @@ static int MenuSettings()
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	GuiTrigger trigHome;
+    trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
@@ -870,12 +918,16 @@ static int MenuSettings()
 	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
 
+	GuiButton home(1,1);
+    home.SetTrigger(&trigHome);
+
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&updateBtn);
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
+	w.Append(&home);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
@@ -888,6 +940,23 @@ static int MenuSettings()
 
         if(shutdown == 1)
             Sys_Shutdown();
+
+		if (home.GetState() == STATE_CLICKED) {
+            s32 thetimeofbg = bgMusic->GetPlayTime();
+            bgMusic->Stop();
+            int choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
+			bgMusic->Play();
+            bgMusic->SetPlayTime(thetimeofbg);
+            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
+
+            if (choice == 3) {
+                Sys_LoadMenu(); // Back to System Menu
+            } else if (choice == 2) {
+                Sys_BackToLoader();
+            } else {
+                home.ResetState();
+            }
+        }
 
         else if(reset == 1)
             Sys_Reboot();

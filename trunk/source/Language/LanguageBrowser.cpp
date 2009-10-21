@@ -41,17 +41,22 @@
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"
+#include "audio.h"
 #include "filelist.h"
 #include "sys.h"
+#include "Prompts/HomeMenu.h"
 
 /*** Extern variables ***/
 extern GuiWindow * mainWindow;
+extern GuiSound * bgMusic;
 extern u8 shutdown;
 extern u8 reset;
 
 /*** Extern functions ***/
 extern void ResumeGui();
 extern void HaltGui();
+
+bool adressBarIsSelected;
 
 /****************************************************************************
  * LanguageBrowser
@@ -78,12 +83,16 @@ int LanguageBrowser()
 	    }
 	}
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM, Settings.MusicVolume);
+    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM, Settings.MusicVolume);
+
 	GuiImageData btnOutline(button_png);
 	GuiImageData btnOutlineOver(button_over_png);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	GuiTrigger trigHome;
+    trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
@@ -153,6 +162,9 @@ int LanguageBrowser()
 	UpdateBtn.SetSoundOver(&btnSoundOver);
 	UpdateBtn.SetTrigger(&trigA);
 	UpdateBtn.SetEffectGrow();
+	
+	GuiButton home(1,1);
+    home.SetTrigger(&trigHome);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
@@ -162,11 +174,14 @@ int LanguageBrowser()
 	w.Append(&optionBrowser);
 	w.Append(&Adressbar);
 	w.Append(&UpdateBtn);
+	w.Append(&home);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+	
+	adressBarIsSelected = false;
 
 	while(menu == MENU_LANGUAGE_BROWSE)
 	{
@@ -174,6 +189,23 @@ int LanguageBrowser()
 
         if(shutdown == 1)
             Sys_Shutdown();
+		
+		if (home.GetState() == STATE_CLICKED) {
+            s32 thetimeofbg = bgMusic->GetPlayTime();
+            bgMusic->Stop();
+            choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
+			bgMusic->Play();
+            bgMusic->SetPlayTime(thetimeofbg);
+            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
+
+            if (choice == 3) {
+                Sys_LoadMenu(); // Back to System Menu
+            } else if (choice == 2) {
+                Sys_BackToLoader();
+            } else {
+                home.ResetState();
+            }
+        }
 
         else if(reset == 1)
             Sys_Reboot();
@@ -221,6 +253,15 @@ int LanguageBrowser()
 			break;
 		}
 		
+		else if (Adressbar.GetState() == STATE_SELECTED || UpdateBtn.GetState() == STATE_SELECTED)
+		{
+			adressBarIsSelected = true;
+		}
+		else if (Adressbar.GetState() == STATE_DEFAULT || UpdateBtn.GetState() == STATE_DEFAULT)
+		{
+			adressBarIsSelected = false;
+		}
+		
 		else if (Adressbar.GetState() == STATE_CLICKED)
 		{
 			char entered[150];
@@ -237,7 +278,7 @@ int LanguageBrowser()
             }
 			break;
 		}
-
+		
 		ret = optionBrowser.GetClickedOption();
 		
 		if(ret >= 0)

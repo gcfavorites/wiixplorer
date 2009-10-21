@@ -33,6 +33,16 @@ GuiSound::GuiSound(const u8 * snd, s32 len, int t)
 	loop = false;
 }
 
+GuiSound::GuiSound(const u8 * snd, s32 len, int t, int v)
+{
+	sound = snd;
+	length = len;
+	type = t;
+	voice = -1;
+	volume = v;
+	loop = false;
+}
+
 /**
  * Destructor for the GuiSound class.
  */
@@ -194,4 +204,13 @@ void GuiSound::SetLoop(bool l)
         LWP_MutexLock(mp3mutex);
 
 	loop = l;
+}
+s32 GuiSound::GetPlayTime()
+{
+	return GetTimeOgg();
+}
+
+void GuiSound::SetPlayTime(s32 time_pos)
+{
+	SetTimeOgg(time_pos);
 }

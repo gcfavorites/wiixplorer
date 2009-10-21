@@ -20,6 +20,12 @@ extern const u32	clock_ttf_size;
 extern const u8		bg_music_ogg[];
 extern const u32	bg_music_ogg_size;
 
+extern const u8		menuin_ogg[];
+extern const u32	menuin_ogg_size;
+
+extern const u8		menuout_ogg[];
+extern const u32	menuout_ogg_size;
+
 extern const u8		button_over_pcm[];
 extern const u32	button_over_pcm_size;
 
@@ -271,5 +277,38 @@ extern const u32	updatebtn_png_size;
 
 extern const u8		updatebtn_over_png[];
 extern const u32	updatebtn_over_png_size;
+
+extern const u8		exit_top_png[];
+extern const u32	exit_top_png_size;
+
+extern const u8		exit_top_over_png[];
+extern const u32	exit_top_over_png_size;
+
+extern const u8		exit_bottom_png[];
+extern const u32	exit_bottom_png_size;
+
+extern const u8		exit_bottom_over_png[];
+extern const u32	exit_bottom_over_png_size;
+
+extern const u8		exit_button_png[];
+extern const u32	exit_button_png_size;
+
+extern const u8		wiimote_png[];
+extern const u32	wiimote_png_size;
+
+extern const u8		closebutton_png[];
+extern const u32	closebutton_png_size;
+
+extern const u8		battery_white_png[];
+extern const u32	battery_white_size;
+
+extern const u8		battery_bar_white_png[];
+extern const u32	battery_bar_white_png_size;
+
+extern const u8		battery_red_png[];
+extern const u32	battery_red_png_size;
+
+extern const u8		battery_bar_red_png[];
+extern const u32	battery_bar_red_png_size;
 
 #endif

@@ -10,9 +10,11 @@
 
 #include "gui.h"
 #include "gui_optionbrowser.h"
+#include "Language/LanguageBrowser.h"
 
 #define BROWSERSIZE        8
 
+extern bool adressBarIsSelected;
 
 OptionList::OptionList(int size)
 {
@@ -299,9 +301,17 @@ void GuiOptionBrowser::Draw()
 	int next = listOffset;
 
 	for(int i=0; i<PAGESIZE; i++)
-	{
+	{	
 		if(next >= 0)
-		{
+		{	
+			if (adressBarIsSelected)
+			{
+				optionBg[i]->SetVisible(false);
+			}
+			else
+			{
+				optionBg[i]->SetVisible(true);
+			}
 			optionBtn[i]->Draw();
 			next = this->FindMenuItem(next, 1);
 		}

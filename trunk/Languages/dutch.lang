@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 03:53+0200\n"
+"POT-Creation-Date: 2009-10-20 15:36+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,10 +35,16 @@ msgstr "Er is een fout opgetreden"
 msgid "App Default"
 msgstr "Standaard"
 
+msgid "Are you sure?"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
 msgid "Back"
+msgstr ""
+
+msgid "Back to Loader"
 msgstr ""
 
 msgid "Bootup Mount"
@@ -64,6 +70,9 @@ msgstr ""
 
 msgid "Change Settings"
 msgstr "Opties wijzigen"
+
+msgid "Close"
+msgstr ""
 
 msgid "Coders:"
 msgstr "Codering:"
@@ -188,6 +197,9 @@ msgstr "Fout"
 msgid "Error:"
 msgstr "Fout:"
 
+msgid "Exit WiiXplorer?"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "Bezig met uitpakken..."
 
@@ -239,6 +251,12 @@ msgstr "Locatie lettertype gewijzigd"
 
 msgid "Go Back"
 msgstr "Terug"
+
+msgid "HOME Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Host:"
 msgstr "Gastheer:"
@@ -461,6 +479,9 @@ msgstr "Gebruiker:"
 
 msgid "Username:"
 msgstr "Gebruikersnaam:"
+
+msgid "Wii Menu"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"

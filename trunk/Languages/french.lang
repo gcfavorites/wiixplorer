@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 03:41+0200\n"
+"POT-Creation-Date: 2009-10-20 15:36+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -34,11 +34,17 @@ msgstr "Une erreur est survenue."
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr ?"
+
 msgid "Auto Connect"
 msgstr "Connexion auto"
 
 msgid "Back"
 msgstr ""
+
+msgid "Back to Loader"
+msgstr "Chaîne Homebrew"
 
 msgid "Bootup Mount"
 msgstr "Périphérique"
@@ -63,6 +69,9 @@ msgstr ""
 
 msgid "Change Settings"
 msgstr "Paramètres"
+
+msgid "Close"
+msgstr "Fermer"
 
 msgid "Coders:"
 msgstr "Développeurs:"
@@ -187,6 +196,9 @@ msgstr "Erreur"
 msgid "Error:"
 msgstr "Erreur:"
 
+msgid "Exit WiiXplorer?"
+msgstr "Quitter WiiXplorer ?"
+
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
 
@@ -239,6 +251,12 @@ msgstr "Dossier police modifié."
 msgid "Go Back"
 msgstr "Retour"
 
+msgid "HOME Menu"
+msgstr "Menu HOME"
+
+msgid "Homebrew Channel"
+msgstr "Chaîne Homebrew"
+
 msgid "Host:"
 msgstr "Hébergeur:"
 
@@ -246,7 +264,7 @@ msgid "ImageViewer"
 msgstr "Aperçu"
 
 msgid "Initializing Network"
-msgstr "Initialisation réseaux"
+msgstr "Initialisation réseau"
 
 msgid "It is recommended to restart app now."
 msgstr "Redémarrage nécéssaire."
@@ -439,7 +457,7 @@ msgid "Update Path changed."
 msgstr "Dossier Mise à jour modifié."
 
 msgid "Update all Language Files"
-msgstr "Mettre à jours tous les fichiers Langue"
+msgstr "Mettre à jour tous les fichiers Langues"
 
 msgid "Update successfully finished"
 msgstr "Mise à jour réussie"
@@ -460,6 +478,9 @@ msgstr "Utilisateur:"
 
 msgid "Username:"
 msgstr "Nom d'utilisateur:"
+
+msgid "Wii Menu"
+msgstr "Menu Wii"
 
 msgid "Yes"
 msgstr "Oui"
