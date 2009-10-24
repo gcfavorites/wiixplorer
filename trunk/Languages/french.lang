@@ -4,17 +4,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "%d files available"
-msgstr "%d fichiers disponibles"
 
 msgid "& translaters for language files."
 msgstr "et tous les traducteurs."
@@ -25,26 +21,17 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Action annulée"
 
-msgid "All Language files updated."
-msgstr "Fichiers langues mis à jour."
-
 msgid "An error occured."
 msgstr "Une erreur est survenue."
 
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
-msgid "Are you sure?"
-msgstr "Êtes-vous sûr ?"
-
 msgid "Auto Connect"
 msgstr "Connexion auto"
 
 msgid "Back"
 msgstr ""
-
-msgid "Back to Loader"
-msgstr "Chaîne Homebrew"
 
 msgid "Bootup Mount"
 msgstr "Périphérique"
@@ -69,9 +56,6 @@ msgstr ""
 
 msgid "Change Settings"
 msgstr "Paramètres"
-
-msgid "Close"
-msgstr "Fermer"
 
 msgid "Coders:"
 msgstr "Développeurs:"
@@ -100,8 +84,8 @@ msgstr "Copie des fichiers"
 msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
-msgid "Could not initialize network!"
-msgstr "Initialisation réseau impossible!"
+msgid "Could not download file."
+msgstr ""
 
 msgid "Credits"
 msgstr "Crédits"
@@ -151,9 +135,6 @@ msgstr "Déplacement du dossier effectué."
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
-msgid "Do you want to connect?"
-msgstr "Voulez-vous vous connecter?"
-
 msgid "Do you want to load app default language ?"
 msgstr "Voulez-vous charger le language de WiiWplorer par défaut ?"
 
@@ -178,9 +159,6 @@ msgstr "Voulez-vous reconnecter le SMB ?"
 msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant ?"
 
-msgid "Do you wish to update/download all language files?"
-msgstr "Voulez-vous télécharger les fichiers langues ?"
-
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
@@ -195,9 +173,6 @@ msgstr "Erreur"
 
 msgid "Error:"
 msgstr "Erreur:"
-
-msgid "Exit WiiXplorer?"
-msgstr "Quitter WiiXplorer ?"
 
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
@@ -251,29 +226,17 @@ msgstr "Dossier police modifié."
 msgid "Go Back"
 msgstr "Retour"
 
-msgid "HOME Menu"
-msgstr "Menu HOME"
-
-msgid "Homebrew Channel"
-msgstr "Chaîne Homebrew"
-
 msgid "Host:"
 msgstr "Hébergeur:"
 
 msgid "ImageViewer"
 msgstr "Aperçu"
 
-msgid "Initializing Network"
-msgstr "Initialisation réseau"
-
 msgid "It is recommended to restart app now."
-msgstr "Redémarrage nécéssaire."
+msgstr "Redémarrage recommandé."
 
 msgid "Language"
 msgstr "Langue"
-
-msgid "Language Path changed."
-msgstr "Dossier Language modifié."
 
 msgid "Last access:"
 msgstr "Dernier acces:"
@@ -330,6 +293,9 @@ msgstr "Non"
 msgid "No image found at index %d."
 msgstr "Pas d'image pour l'index %d"
 
+msgid "No language files found."
+msgstr "Aucun fichier langue trouvé."
+
 msgid "No network connection"
 msgstr "Pas de connexion réseau"
 
@@ -382,7 +348,7 @@ msgid "Rename"
 msgstr "Renommer"
 
 msgid "Restart the app to load the new font."
-msgstr "Redémarrage nécéssaire de WiiXplorer."
+msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 
 msgid "Retry"
 msgstr "Réessayer"
@@ -456,8 +422,8 @@ msgstr "Mise à jour App"
 msgid "Update Path changed."
 msgstr "Dossier Mise à jour modifié."
 
-msgid "Update all Language Files"
-msgstr "Mettre à jour tous les fichiers Langues"
+msgid "Update failed"
+msgstr ""
 
 msgid "Update successfully finished"
 msgstr "Mise à jour réussie"
@@ -465,9 +431,6 @@ msgstr "Mise à jour réussie"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Révision %i disponible"
-
-msgid "Updating Language Files:"
-msgstr "Mise à jour des fichiers langues:"
 
 #, c-format
 msgid "User %i"
@@ -478,9 +441,6 @@ msgstr "Utilisateur:"
 
 msgid "Username:"
 msgstr "Nom d'utilisateur:"
-
-msgid "Wii Menu"
-msgstr "Menu Wii"
 
 msgid "Yes"
 msgstr "Oui"

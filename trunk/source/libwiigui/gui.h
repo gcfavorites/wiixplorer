@@ -140,7 +140,6 @@ class GuiSound
 		//!\param l Length of sound data
 		//!\param t Sound format type (SOUND_PCM or SOUND_OGG)
 		GuiSound(const u8 * s, int l, int t);
-		GuiSound(const u8 * s, int l, int t, int v);
 		//!Destructor
 		~GuiSound();
 		//!Start sound playback
@@ -160,11 +159,6 @@ class GuiSound
 		//!Set the sound to loop playback (only applies to OGG)
 		//!\param l Loop (true to loop)
 		void SetLoop(bool l);
-		//!Get the playing time in ms for that moment (only applies to OGG)
-		s32 GetPlayTime();
-		//!Set the starting point or playtime for skipping (only applies to OGG)
-		//!\param time in ms
-		void SetPlayTime(s32 time);
 	protected:
 		const u8 * sound; //!< Pointer to the sound data
 		int type; //!< Sound format type (SOUND_PCM or SOUND_OGG)
@@ -725,17 +719,6 @@ class GuiButton : public GuiElement
 		//!\param w Width
 		//!\param h Height
 		GuiButton(int w, int h);
-		//!\param img is the button GuiImage.  it uses the height & width of this image for the button
-		//!\param imgOver is the button's over GuiImage
-		//!\param hor is horizontal alingment of the button
-		//!\param vert is verticle alignment of the button
-		//!\param x is xposition of the button
-		//!\param y is yposition of the button
-		//!\param trig is a GuiTrigger to assign to this button
-		//!\param sndOver is a GuiSound used for soundOnOver for this button
-		//!\param sndClick is a GuiSound used for clickSound of this button
-		//!\param grow sets effect grow for this button.  1 for yes ;0 for no
-		GuiButton(GuiImage* img, GuiImage* imgOver, int hor, int vert, int x, int y, GuiTrigger* trig, GuiSound* sndOver, GuiSound* sndClick, u8 grow);
 		//!Destructor
 		~GuiButton();
 		//!Sets the button's image

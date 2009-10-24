@@ -5,17 +5,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "%d files available"
-msgstr ""
 
 msgid "& translaters for language files."
 msgstr ""
@@ -26,26 +22,17 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Akce zrušena"
 
-msgid "All Language files updated."
-msgstr ""
-
 msgid "An error occured."
 msgstr "Došlo k chybě."
 
 msgid "App Default"
 msgstr "Původní nastavení"
 
-msgid "Are you sure?"
-msgstr ""
-
 msgid "Auto Connect"
 msgstr "Automatické připojení"
 
 msgid "Back"
 msgstr "Zpět"
-
-msgid "Back to Loader"
-msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
@@ -70,9 +57,6 @@ msgstr "Velká písmena"
 
 msgid "Change Settings"
 msgstr "Změna nastavení"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr "Programátoři"
@@ -101,7 +85,7 @@ msgstr "Kopíruji soubory:"
 msgid "Could not connect to the server."
 msgstr ""
 
-msgid "Could not initialize network!"
+msgid "Could not download file."
 msgstr ""
 
 msgid "Credits"
@@ -152,9 +136,6 @@ msgstr "Adresář úspěšně přesunut."
 msgid "Do you want to boot:"
 msgstr "Přejete si nabootovat:"
 
-msgid "Do you want to connect?"
-msgstr ""
-
 msgid "Do you want to load app default language ?"
 msgstr "Přejete si spustit aplikaci v původním jazyce?"
 
@@ -179,9 +160,6 @@ msgstr "Přejete si znovu připojit SMB"
 msgid "Do you want to update now ?"
 msgstr ""
 
-msgid "Do you wish to update/download all language files?"
-msgstr ""
-
 msgid "Downloading file..."
 msgstr ""
 
@@ -196,9 +174,6 @@ msgstr "Chyba"
 
 msgid "Error:"
 msgstr "Chyba:"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr "Rozbaluji soubory ..."
@@ -252,19 +227,10 @@ msgstr "Cesta k fontu změněna"
 msgid "Go Back"
 msgstr "Jdi Zpět"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr "Hostitel:"
 
 msgid "ImageViewer"
-msgstr ""
-
-msgid "Initializing Network"
 msgstr ""
 
 msgid "It is recommended to restart app now."
@@ -272,9 +238,6 @@ msgstr ""
 
 msgid "Language"
 msgstr "Jazyk"
-
-msgid "Language Path changed."
-msgstr ""
 
 msgid "Last access:"
 msgstr "Poslední přístup:"
@@ -330,6 +293,9 @@ msgstr "Ne"
 #, c-format
 msgid "No image found at index %d."
 msgstr "Nebyl nalezen obrázek na indexu %d."
+
+msgid "No language files found."
+msgstr "Nebyly nalezeny jazykové soubory."
 
 msgid "No network connection"
 msgstr ""
@@ -457,7 +423,7 @@ msgstr ""
 msgid "Update Path changed."
 msgstr ""
 
-msgid "Update all Language Files"
+msgid "Update failed"
 msgstr ""
 
 msgid "Update successfully finished"
@@ -465,9 +431,6 @@ msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
-
-msgid "Updating Language Files:"
 msgstr ""
 
 #, c-format
@@ -479,9 +442,6 @@ msgstr "Uživatel:"
 
 msgid "Username:"
 msgstr "Jméno uživatele:"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "Ano"
@@ -497,6 +457,3 @@ msgstr "Nelze použít tuto operaci na:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
-
-#~ msgid "No language files found."
-#~ msgstr "Nebyly nalezeny jazykové soubory."

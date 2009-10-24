@@ -4,17 +4,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "%d files available"
-msgstr ""
 
 msgid "& translaters for language files."
 msgstr ""
@@ -25,26 +21,17 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
-msgid "All Language files updated."
-msgstr ""
-
 msgid "An error occured."
 msgstr "Der skete en fejl."
 
 msgid "App Default"
 msgstr "Programstandard"
 
-msgid "Are you sure?"
-msgstr ""
-
 msgid "Auto Connect"
 msgstr "Auto-forbind"
 
 msgid "Back"
 msgstr "Tilbage"
-
-msgid "Back to Loader"
-msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
@@ -69,9 +56,6 @@ msgstr "Store bogstaver"
 
 msgid "Change Settings"
 msgstr "Skift indstillinger"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr "Programmører:"
@@ -100,7 +84,7 @@ msgstr "Kopierer filer:"
 msgid "Could not connect to the server."
 msgstr "Kunne ikke forbinde til serveren."
 
-msgid "Could not initialize network!"
+msgid "Could not download file."
 msgstr ""
 
 msgid "Credits"
@@ -151,9 +135,6 @@ msgstr "Mappen blev flyttet."
 msgid "Do you want to boot:"
 msgstr "Vil du boote:"
 
-msgid "Do you want to connect?"
-msgstr ""
-
 msgid "Do you want to load app default language ?"
 msgstr "Vil du indlæse programmets standardsprog?"
 
@@ -178,9 +159,6 @@ msgstr "Vil du forbinde til SMB?"
 msgid "Do you want to update now ?"
 msgstr "Vil du opdatere nu?"
 
-msgid "Do you wish to update/download all language files?"
-msgstr ""
-
 msgid "Downloading file..."
 msgstr "Downloader fil..."
 
@@ -195,9 +173,6 @@ msgstr "Fejl"
 
 msgid "Error:"
 msgstr "Fejl:"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr "Udpakker filer..."
@@ -251,19 +226,10 @@ msgstr "Sti til fonte ændret"
 msgid "Go Back"
 msgstr "Tilbage"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr "Vært:"
 
 msgid "ImageViewer"
-msgstr ""
-
-msgid "Initializing Network"
 msgstr ""
 
 msgid "It is recommended to restart app now."
@@ -271,9 +237,6 @@ msgstr "Det anbefales at genstarte programmet nu."
 
 msgid "Language"
 msgstr "Sprog"
-
-msgid "Language Path changed."
-msgstr ""
 
 msgid "Last access:"
 msgstr "Sidst tilgået:"
@@ -329,6 +292,9 @@ msgstr "Nej"
 #, c-format
 msgid "No image found at index %d."
 msgstr "Intet billede fundet på indeks %d."
+
+msgid "No language files found."
+msgstr "Fandt ingen sprogfiler."
 
 msgid "No network connection"
 msgstr "Ingen netforbindelse"
@@ -456,7 +422,7 @@ msgstr "Opdatér programmet"
 msgid "Update Path changed."
 msgstr "Opdateringsstien ændret."
 
-msgid "Update all Language Files"
+msgid "Update failed"
 msgstr ""
 
 msgid "Update successfully finished"
@@ -465,9 +431,6 @@ msgstr "Opdateringen gennemført"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
-
-msgid "Updating Language Files:"
-msgstr ""
 
 #, c-format
 msgid "User %i"
@@ -478,9 +441,6 @@ msgstr "Bruger:"
 
 msgid "Username:"
 msgstr "Brugernavn:"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -496,6 +456,3 @@ msgstr "Du kan ikke udføre denne handling på:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
-
-#~ msgid "No language files found."
-#~ msgstr "Fandt ingen sprogfiler."

@@ -1,0 +1,501 @@
+# WiiXplorer language source file.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WiiXplorer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"PO-Revision-Date: 2009-07-18 15:18+0200\n"
+"Last-Translator: dorf[dk]\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d files available"
+msgstr ""
+
+msgid "& translaters for language files."
+msgstr ""
+
+msgid "1"
+msgstr ""
+
+msgid "Action cancelled."
+msgstr "Handling afbrudt."
+
+msgid "All Language files updated."
+msgstr ""
+
+msgid "An error occured."
+msgstr "Der skete en fejl."
+
+msgid "App Default"
+msgstr "Programstandard"
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "Auto Connect"
+msgstr "Auto-forbind"
+
+msgid "Back"
+msgstr "Tilbage"
+
+msgid "Back to Loader"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
+msgid "Can not open the file"
+msgstr "Kan ikke åbne filen"
+
+msgid "Can't load any device"
+msgstr "Kan ikke indlæse nogle enheder"
+
+msgid "Cancel"
+msgstr "Afbryd"
+
+msgid "Cannot open image"
+msgstr "Kan ikke åbne billede"
+
+msgid "Cannot write to destination."
+msgstr "Kan ikke skrive til destinationen."
+
+msgid "Caps"
+msgstr "Store bogstaver"
+
+msgid "Change Settings"
+msgstr "Skift indstillinger"
+
+msgid "Close"
+msgstr ""
+
+msgid "Coders:"
+msgstr "Programmører:"
+
+msgid "Connect SMB"
+msgstr "Forbind til SMB"
+
+msgid "Console Default"
+msgstr "Konsolstandard"
+
+msgid "Copy"
+msgstr "Kopiér"
+
+msgid "Copy directory?"
+msgstr "Kopiér mappe?"
+
+msgid "Copy file?"
+msgstr "Kopiér fil?"
+
+msgid "Copying file:"
+msgstr "Kopierer fil:"
+
+msgid "Copying files:"
+msgstr "Kopierer filer:"
+
+msgid "Could not connect to the server."
+msgstr "Kunne ikke forbinde til serveren."
+
+msgid "Could not initialize network!"
+msgstr ""
+
+msgid "Credits"
+msgstr ""
+
+msgid "Customfont Path"
+msgstr "Sti til custom-fonte"
+
+msgid "Cut"
+msgstr "Klip"
+
+msgid "Cut directory?"
+msgstr "Klip mappe?"
+
+msgid "Cut file?"
+msgstr "Klip fil?"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Delete directory and its content?"
+msgstr "Slet mappe med indhold?"
+
+msgid "Delete this file?"
+msgstr "Slet filen?"
+
+msgid "Deleting files:"
+msgstr "Sletter filer:"
+
+msgid "Designer:"
+msgstr ""
+
+msgid "Directory .."
+msgstr "Mappe .."
+
+msgid "Directory couldn't be deleted."
+msgstr "Mappen kunne ikke slettes."
+
+msgid "Directory successfully copied."
+msgstr "Mappen blev kopieret."
+
+msgid "Directory successfully deleted."
+msgstr "Mappen blev slettet."
+
+msgid "Directory successfully moved."
+msgstr "Mappen blev flyttet."
+
+msgid "Do you want to boot:"
+msgstr "Vil du boote:"
+
+msgid "Do you want to connect?"
+msgstr ""
+
+msgid "Do you want to load app default language ?"
+msgstr "Vil du indlæse programmets standardsprog?"
+
+msgid "Do you want to load console default language."
+msgstr "Vil du indlæse konsollens standardsprog?"
+
+msgid "Do you want to load this language ?"
+msgstr "Vil du indlæse dette sprog?"
+
+msgid "Do you want to open this file in TextViewer?"
+msgstr "Vil du åbne filen i TextViewer?"
+
+msgid "Do you want to open this file with ImageViewer?"
+msgstr "Vil du åbne filen i ImageViewer?"
+
+msgid "Do you want to playback this file?"
+msgstr "Vil du afspille filen?"
+
+msgid "Do you want to reconnect the SMB?"
+msgstr "Vil du forbinde til SMB?"
+
+msgid "Do you want to update now ?"
+msgstr "Vil du opdatere nu?"
+
+msgid "Do you wish to update/download all language files?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr "Downloader fil..."
+
+msgid "ERROR"
+msgstr "FEJL"
+
+msgid "Enter a directory where to extract the files to."
+msgstr "Angiv en mappe, som filerne skal pakkes ud til."
+
+msgid "Error"
+msgstr "Fejl"
+
+msgid "Error:"
+msgstr "Fejl:"
+
+msgid "Exit WiiXplorer?"
+msgstr ""
+
+msgid "Extracting files..."
+msgstr "Udpakker filer..."
+
+msgid "Failed copying file."
+msgstr "Kunne ikke kopiere fil."
+
+msgid "Failed copying files."
+msgstr "Kunne ikke kopiere filer."
+
+msgid "Failed renaming file"
+msgstr "Kunne ikke omdøbe fil."
+
+msgid "Failed to extract files."
+msgstr "Kunne ikke udpakke filer."
+
+msgid "File couldn't be deleted."
+msgstr "Filen kunne ikke slettes."
+
+msgid "File does not exist anymore!"
+msgstr "Filen eksisterer ikke mere!"
+
+msgid "File successfully copied."
+msgstr "Filen blev kopieret."
+
+msgid "File successfully moved."
+msgstr "Filen blev flyttet."
+
+#, c-format
+msgid "Filepath:  %s"
+msgstr "Sti til filer: %s"
+
+msgid "Files successfully extracted."
+msgstr "Filerne blev udpakket."
+
+msgid "Files:"
+msgstr "Filer:"
+
+msgid "Filesize is empty."
+msgstr "Filstørrelsen er 0."
+
+msgid "Filetype:"
+msgstr "Filtype:"
+
+msgid "Folder"
+msgstr "Mappe"
+
+msgid "Fontpath changed"
+msgstr "Sti til fonte ændret"
+
+msgid "Go Back"
+msgstr "Tilbage"
+
+msgid "HOME Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
+msgstr ""
+
+msgid "Host:"
+msgstr "Vært:"
+
+msgid "ImageViewer"
+msgstr ""
+
+msgid "Initializing Network"
+msgstr ""
+
+msgid "It is recommended to restart app now."
+msgstr "Det anbefales at genstarte programmet nu."
+
+msgid "Language"
+msgstr "Sprog"
+
+msgid "Language Path changed."
+msgstr ""
+
+msgid "Last access:"
+msgstr "Sidst tilgået:"
+
+msgid "Last modified:"
+msgstr "Sidst ændret:"
+
+msgid "Last status change:"
+msgstr "Sidste statusændring:"
+
+msgid "Loading file:"
+msgstr "Indlæser fil:"
+
+msgid "Mount NTFS"
+msgstr ""
+
+msgid "Moving files:"
+msgstr "Flytter filer:"
+
+msgid "Music Volume"
+msgstr "Musiklydstyrke"
+
+msgid "NTFS0"
+msgstr ""
+
+msgid "NTFS1"
+msgstr ""
+
+msgid "NTFS2"
+msgstr ""
+
+msgid "NTFS3"
+msgstr ""
+
+msgid "NTFS4"
+msgstr ""
+
+msgid "Name already exists."
+msgstr "Navnet eksisterer allerede."
+
+msgid "Network initialising..."
+msgstr "Initialiserer netforbindelse..."
+
+msgid "New Folder"
+msgstr "Ny mappe"
+
+msgid "Next device"
+msgstr "Næste enhed"
+
+msgid "No"
+msgstr "Nej"
+
+#, c-format
+msgid "No image found at index %d."
+msgstr "Intet billede fundet på indeks %d."
+
+msgid "No network connection"
+msgstr "Ingen netforbindelse"
+
+msgid "No new updates available"
+msgstr "Der er ingen ny opdateringer"
+
+msgid "Not a valid URL"
+msgstr "Ikke en gyldig URL"
+
+msgid "Not a valid URL path"
+msgstr "Ikke en gyldig URL sti"
+
+msgid "Not a valid domain"
+msgstr "Ikke et gyldigt domæne"
+
+msgid "Not enough memory."
+msgstr "Ikke nok hukommelse."
+
+msgid "OFF"
+msgstr "Fra"
+
+msgid "OK"
+msgstr ""
+
+msgid "ON"
+msgstr "Til"
+
+msgid "Out of memory: too many files!"
+msgstr "Ikke nok hukommelse: For mange filer!"
+
+msgid "Password:"
+msgstr "Kodeord:"
+
+msgid "Paste"
+msgstr "Sæt ind"
+
+msgid "Paste into current directory?"
+msgstr "Sæt ind i nuværende mappe?"
+
+msgid "Please wait:"
+msgstr "Vent venligst:"
+
+msgid "Properties"
+msgstr "Egenskaber"
+
+msgid "Reconnect SMB"
+msgstr "Forbind til SMB"
+
+msgid "Rename"
+msgstr "Omdøb"
+
+msgid "Restart the app to load the new font."
+msgstr "Genstart programmet for at indlæse den ny font."
+
+msgid "Retry"
+msgstr "Forsøg igen"
+
+msgid "SD"
+msgstr ""
+
+msgid "SMB Name:"
+msgstr "SMB-navn:"
+
+msgid "SMB Settings"
+msgstr "SMB-indstillinger"
+
+msgid "SMB is connecting..."
+msgstr "SMB forbinder..."
+
+msgid "SMB1"
+msgstr ""
+
+msgid "SMB2"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid "SMB4"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+msgid "Size:"
+msgstr "Størrelse:"
+
+msgid "Special thanks to:"
+msgstr "Især tak til:"
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr "Hele DevkitPro- & libogc-staben."
+
+msgid "This is no OGG/MP3 file"
+msgstr "Dette er ikke en OGG-/MP3-fil"
+
+msgid "Transfer cancelled."
+msgstr "Overførsel afbrudt."
+
+msgid "Transfer failed"
+msgstr "Overførslen mislykkedes"
+
+msgid "Transfering files:"
+msgstr "Overfører filer:"
+
+msgid "URL is empty."
+msgstr "URL'en er tom."
+
+msgid "USB"
+msgstr ""
+
+msgid "Unable to create folder."
+msgstr "Kan ikke oprette mappe."
+
+msgid "Unable to load device."
+msgstr "Kan ikke indlæse enhed."
+
+msgid "Update (App) Path"
+msgstr "Opdateringssti til programmet"
+
+msgid "Update App"
+msgstr "Opdatér programmet"
+
+msgid "Update Path changed."
+msgstr "Opdateringsstien ændret."
+
+msgid "Update all Language Files"
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr "Opdateringen gennemført"
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr "Der findes en opdatering til ver.%i"
+
+msgid "Updating Language Files:"
+msgstr ""
+
+#, c-format
+msgid "User %i"
+msgstr "Bruger %i"
+
+msgid "User:"
+msgstr "Bruger:"
+
+msgid "Username:"
+msgstr "Brugernavn:"
+
+msgid "Wii Menu"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "You can not cut into the directory itself."
+msgstr "Du kan ikke sætte ind i samme mappe."
+
+msgid "You cannot read/write from/to the same file."
+msgstr "Du kan ikke læse/skrive til/fra samme fil."
+
+msgid "You cant use this operation on:"
+msgstr "Du kan ikke udføre denne handling på:"
+
+msgid "for his great tool LibWiiGui."
+msgstr "for hans fantastiske LibWiiGui."
+
+#~ msgid "No language files found."
+#~ msgstr "Fandt ingen sprogfiler."

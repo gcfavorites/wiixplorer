@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 17:02+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -12,12 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "%d files available"
-msgstr "%d 文件可用"
-
 msgid "& translaters for language files."
-msgstr "和所有的语言包翻译人"
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -25,26 +21,17 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "动作取消。"
 
-msgid "All Language files updated."
-msgstr "所有语言文件已更新。"
-
 msgid "An error occured."
 msgstr "发生错误。"
 
 msgid "App Default"
 msgstr "程序缺省"
 
-msgid "Are you sure?"
-msgstr ""
-
 msgid "Auto Connect"
 msgstr "自动连接"
 
 msgid "Back"
 msgstr "返回"
-
-msgid "Back to Loader"
-msgstr ""
 
 msgid "Bootup Mount"
 msgstr "开始挂载"
@@ -69,9 +56,6 @@ msgstr "大写"
 
 msgid "Change Settings"
 msgstr "更改设置"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr "作者"
@@ -100,8 +84,8 @@ msgstr "复制文件中："
 msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
 
-msgid "Could not initialize network!"
-msgstr "不能初始化网络！"
+msgid "Could not download file."
+msgstr ""
 
 msgid "Credits"
 msgstr "感谢"
@@ -151,9 +135,6 @@ msgstr "目录成功移动。"
 msgid "Do you want to boot:"
 msgstr "你想要重新启动:"
 
-msgid "Do you want to connect?"
-msgstr "是否想要连接？"
-
 msgid "Do you want to load app default language ?"
 msgstr "是否读取程序缺省语言模式吗？"
 
@@ -178,9 +159,6 @@ msgstr "再次连接到网络共享？"
 msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
 
-msgid "Do you wish to update/download all language files?"
-msgstr "是否更新或下载所有语言文件？"
-
 msgid "Downloading file..."
 msgstr "正在下载文件"
 
@@ -195,9 +173,6 @@ msgstr "错误"
 
 msgid "Error:"
 msgstr "错误"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr "提取文件中"
@@ -251,29 +226,17 @@ msgstr "字体路径已改变"
 msgid "Go Back"
 msgstr "返回"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr "主机："
 
 msgid "ImageViewer"
 msgstr "图片查看器"
 
-msgid "Initializing Network"
-msgstr "初始化网络"
-
 msgid "It is recommended to restart app now."
 msgstr "建议现在重新启动程序"
 
 msgid "Language"
 msgstr "语言"
-
-msgid "Language Path changed."
-msgstr "语言路径已更改。"
 
 msgid "Last access:"
 msgstr "最近读取"
@@ -329,6 +292,9 @@ msgstr "否"
 #, c-format
 msgid "No image found at index %d."
 msgstr "索引%d 中没有发现图片。"
+
+msgid "No language files found."
+msgstr "没有发现语言文件。"
 
 msgid "No network connection"
 msgstr "没有网络连接"
@@ -456,8 +422,8 @@ msgstr "更新程序"
 msgid "Update Path changed."
 msgstr "更新路径已更改"
 
-msgid "Update all Language Files"
-msgstr "更新所有语言文件"
+msgid "Update failed"
+msgstr ""
 
 msgid "Update successfully finished"
 msgstr "更新成功！"
@@ -465,9 +431,6 @@ msgstr "更新成功！"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
-
-msgid "Updating Language Files:"
-msgstr "正在更新语言文件："
 
 #, c-format
 msgid "User %i"
@@ -478,9 +441,6 @@ msgstr "用户："
 
 msgid "Username:"
 msgstr "用户名"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "确定"

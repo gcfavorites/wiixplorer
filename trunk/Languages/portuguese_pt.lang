@@ -1,23 +1,19 @@
 # WiiXplorer language source file.
-# for r74
+# for r69
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-21 08:38+0200\n"
-"PO-Revision-Date: 2009-10-20 17:08-0000\n"
-"Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
+"PO-Revision-Date: 2009-10-12 18:38\n"
+"Last-Translator: Sky8000\n"
 "Language-Team: Sky8000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "%d files available"
-msgstr "%d ficheiros disponíveis"
-
 msgid "& translaters for language files."
-msgstr "& tradutores pelos ficheiros de idioma."
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -25,26 +21,17 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Operação cancelada"
 
-msgid "All Language files updated."
-msgstr "Ficheiros de Idioma actualizados."
-
 msgid "An error occured."
 msgstr "Ocorreu um erro."
 
 msgid "App Default"
 msgstr "Predefinição do programa"
 
-msgid "Are you sure?"
-msgstr ""
-
 msgid "Auto Connect"
 msgstr "Ligação automática"
 
 msgid "Back"
 msgstr "Voltar"
-
-msgid "Back to Loader"
-msgstr ""
 
 msgid "Bootup Mount"
 msgstr "Montar no arranque"
@@ -69,9 +56,6 @@ msgstr "Maiúsculas"
 
 msgid "Change Settings"
 msgstr "Alterar Configuração"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr "Programadores:"
@@ -100,8 +84,8 @@ msgstr "Copiando ficheiros"
 msgid "Could not connect to the server."
 msgstr "Não foi possível ligar ao servidor."
 
-msgid "Could not initialize network!"
-msgstr "Não foi possível inicializar a ligação de rede!"
+msgid "Could not download file."
+msgstr ""
 
 msgid "Credits"
 msgstr "Créditos"
@@ -151,9 +135,6 @@ msgstr "Pasta movida com sucesso."
 msgid "Do you want to boot:"
 msgstr "Pretende executar:"
 
-msgid "Do you want to connect?"
-msgstr "Pretende avançar com a ligação?"
-
 msgid "Do you want to load app default language ?"
 msgstr "Deseja activar o idioma predefinido do aplicativo ?"
 
@@ -178,9 +159,6 @@ msgstr "Pretende voltar a ligar-se ao SMB?"
 msgid "Do you want to update now ?"
 msgstr "Deseja actualizar agora ?"
 
-msgid "Do you wish to update/download all language files?"
-msgstr "Deseja descarregar/actualizar todos os ficheiros de idioma?"
-
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
 
@@ -188,16 +166,13 @@ msgid "ERROR"
 msgstr "ERRO"
 
 msgid "Enter a directory where to extract the files to."
-msgstr "Seleccione a pasta destino para extrair os ficheiros."
+msgstr ""
 
 msgid "Error"
 msgstr "Erro"
 
 msgid "Error:"
 msgstr "Erro:"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr "Extraindo ficheiros..."
@@ -212,7 +187,7 @@ msgid "Failed renaming file"
 msgstr "Falha ao renomear ficheiro"
 
 msgid "Failed to extract files."
-msgstr "Erro ao extrair ficheiros."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "O ficheiro não pode ser eliminado."
@@ -231,7 +206,7 @@ msgid "Filepath:  %s"
 msgstr "Pasta:  %s"
 
 msgid "Files successfully extracted."
-msgstr "Ficheiros extraídos com sucesso."
+msgstr ""
 
 msgid "Files:"
 msgstr "Ficheiros"
@@ -251,29 +226,17 @@ msgstr "Pasta de fonte alterada"
 msgid "Go Back"
 msgstr "Voltar"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr "Servidor:"
 
 msgid "ImageViewer"
 msgstr "Visualizador de Imagens"
 
-msgid "Initializing Network"
-msgstr "Inicializando Ligação Rede"
-
 msgid "It is recommended to restart app now."
 msgstr "Deve reiniciar o aplicativo agora."
 
 msgid "Language"
 msgstr "Idioma"
-
-msgid "Language Path changed."
-msgstr "Pasta dos ficheiros de Idioma alterada."
 
 msgid "Last access:"
 msgstr "Último acesso:"
@@ -321,7 +284,7 @@ msgid "New Folder"
 msgstr "Nova Pasta"
 
 msgid "Next device"
-msgstr "Próximo dispositivo"
+msgstr ""
 
 msgid "No"
 msgstr "Não"
@@ -329,6 +292,9 @@ msgstr "Não"
 #, c-format
 msgid "No image found at index %d."
 msgstr "Imagem com o número %d não encontrada."
+
+msgid "No language files found."
+msgstr "Ficheiros de idioma inexistentes."
 
 msgid "No network connection"
 msgstr "Ligação de rede indisponível"
@@ -456,8 +422,8 @@ msgstr "Actualizar Aplicativo"
 msgid "Update Path changed."
 msgstr "Pasta de Act. do Aplicativo alterada."
 
-msgid "Update all Language Files"
-msgstr "Actualizar todos os Ficheiros de Idioma"
+msgid "Update failed"
+msgstr ""
 
 msgid "Update successfully finished"
 msgstr "Actualização terminada com sucesso"
@@ -465,9 +431,6 @@ msgstr "Actualização terminada com sucesso"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Nova Rev%i disponível"
-
-msgid "Updating Language Files:"
-msgstr "Actualizando Ficheiros de Idioma:"
 
 #, c-format
 msgid "User %i"
@@ -478,9 +441,6 @@ msgstr "Utilizador:"
 
 msgid "Username:"
 msgstr "Nome de utilizador:"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "Sim"

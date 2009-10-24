@@ -42,49 +42,6 @@ GuiButton::GuiButton(int w, int h)
 	clickable = true;
 }
 
-GuiButton::GuiButton(GuiImage* img, GuiImage* imgOver, int hor, int vert, int x, int y, GuiTrigger* trig, GuiSound* sndOver, GuiSound* sndClick, u8 grow)
-{
-	width = img->GetWidth();
-	height = img->GetHeight();
-	image = img;
-	image->SetParent(this);
-	imageOver = imgOver;
-	if(imageOver) imageOver->SetParent(this);
-	imageHold = NULL;
-	imageClick = NULL;
-	icon = NULL;
-	iconOver = NULL;
-	iconHold = NULL;
-	iconClick = NULL;
-	alignmentHor = hor;
-	alignmentVert = vert;
-	xoffset = x;
-	yoffset = y;
-	trigger[0] = trig;
-
-	for(int i=0; i < 3; i++)
-	{
-		label[i] = NULL;
-		labelOver[i] = NULL;
-		labelHold[i] = NULL;
-		labelClick[i] = NULL;
-	}
-
-	soundOver = sndOver;
-	soundHold = NULL;
-	soundClick = sndClick;
-	selectable = true;
-	holdable = false;
-	clickable = true;
-
-	if (grow==1){
-	effectsOver |= EFFECT_SCALE;
-	effectAmountOver = 4;
-	effectTargetOver = 110;
-	}
-	//time1 = time2 = 0;
-}
-
 /**
  * Destructor for the GuiButton class.
  */

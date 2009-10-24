@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win</coder>
-  <version>r75</version>
-  <release_date>200910220000</release_date>
+  <version>r70</version>
+  <release_date>200910150000</release_date>
   <short_description>Wii File Browser</short_description> 
   <long_description>A multi device file explorer for the Wii by dimok and r-win.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
@@ -17,8 +17,7 @@ Features:
  * Properties of files/directories
  * Browse through SD/USB/SMB
  * Addressbar with path
- * Multilanguage with custom font and update
-   support
+ * Multilanguage with custom font support
  * Boot .dol/.elf files
  * Open TXT/XML/MP3/OGG/PNG/JPEG/GIF
    /BMP/TGA files
@@ -50,7 +49,7 @@ Links:
     gettext.html
   Languages Page:
     http://gbatemp.net/
-    index.php?showtopic=174053
+	index.php?showtopic=174053
   </long_description> 
 </app>
 

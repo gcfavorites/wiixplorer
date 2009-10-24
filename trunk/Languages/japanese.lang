@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,12 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format
-msgid "%d files available"
-msgstr ""
-
 msgid "& translaters for language files."
-msgstr "…翻訳者様(日本語:K-M)"
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -25,17 +21,11 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "キャンセルしました"
 
-msgid "All Language files updated."
-msgstr "言語ファイルを更新しました"
-
 msgid "An error occured."
-msgstr "エラーが発生しました"
+msgstr "ｴﾗｰが発生しました"
 
 msgid "App Default"
 msgstr "英語"
-
-msgid "Are you sure?"
-msgstr ""
 
 msgid "Auto Connect"
 msgstr "自動接続"
@@ -43,14 +33,11 @@ msgstr "自動接続"
 msgid "Back"
 msgstr ""
 
-msgid "Back to Loader"
-msgstr ""
-
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
 msgid "Can not open the file"
-msgstr "ファイルを開けません"
+msgstr "ﾌｧｲﾙを開けません"
 
 msgid "Can't load any device"
 msgstr "どのデバイスも開けません"
@@ -69,9 +56,6 @@ msgstr ""
 
 msgid "Change Settings"
 msgstr "設定を変更"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr "制作:"
@@ -100,8 +84,8 @@ msgstr "ｺﾋﾟｰしています:"
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
-msgid "Could not initialize network!"
-msgstr "接続できませんでした"
+msgid "Could not download file."
+msgstr ""
 
 msgid "Credits"
 msgstr "提供･協力"
@@ -151,9 +135,6 @@ msgstr "ﾌｫﾙﾀﾞの移動に成功しました"
 msgid "Do you want to boot:"
 msgstr "起動しますか?"
 
-msgid "Do you want to connect?"
-msgstr "接続しますか?"
-
 msgid "Do you want to load app default language ?"
 msgstr "英語に変更しますか?"
 
@@ -178,9 +159,6 @@ msgstr "再接続しますか?"
 msgid "Do you want to update now ?"
 msgstr "更新しますか?"
 
-msgid "Do you wish to update/download all language files?"
-msgstr "言語ファイルをすべて更新しますか?"
-
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
@@ -195,9 +173,6 @@ msgstr "エラー"
 
 msgid "Error:"
 msgstr "エラー"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr "解凍中..."
@@ -251,29 +226,17 @@ msgstr "フォントのパスを変更しました"
 msgid "Go Back"
 msgstr "戻る"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr "ホスト"
 
 msgid "ImageViewer"
 msgstr "ｲﾒｰｼﾞﾋﾞｭｰﾜ"
 
-msgid "Initializing Network"
-msgstr "接続しています"
-
 msgid "It is recommended to restart app now."
 msgstr "WiiXplorerを再起動してください"
 
 msgid "Language"
 msgstr "言語"
-
-msgid "Language Path changed."
-msgstr ""
 
 msgid "Last access:"
 msgstr "最後のアクセス"
@@ -329,6 +292,9 @@ msgstr "いいえ"
 #, c-format
 msgid "No image found at index %d."
 msgstr "%dの階層に画像が見つかりませんでした"
+
+msgid "No language files found."
+msgstr "言語が見つかりませんでした"
 
 msgid "No network connection"
 msgstr "接続していません"
@@ -456,8 +422,8 @@ msgstr "更新"
 msgid "Update Path changed."
 msgstr "WiiXplorerのパスを変更しました"
 
-msgid "Update all Language Files"
-msgstr "言語ファイルをすべて更新"
+msgid "Update failed"
+msgstr ""
 
 msgid "Update successfully finished"
 msgstr "更新が完了しました"
@@ -465,9 +431,6 @@ msgstr "更新が完了しました"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新があります:Rev%i"
-
-msgid "Updating Language Files:"
-msgstr "言語ファイルを更新中"
 
 #, c-format
 msgid "User %i"
@@ -478,9 +441,6 @@ msgstr "ﾕｰｻﾞｰ"
 
 msgid "Username:"
 msgstr "ﾕｰｻﾞｰﾈｰﾑ"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "はい"
@@ -496,9 +456,3 @@ msgstr "この操作は実行できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
-
-#~ msgid "%d files"
-#~ msgstr "%dのﾌｧｲﾙ"
-
-#~ msgid "No language files found."
-#~ msgstr "言語が見つかりませんでした"

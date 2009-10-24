@@ -37,18 +37,14 @@
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
 #include "Language/gettext.h"
-#include "Language/UpdateLanguage.h"
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"
-#include "audio.h"
 #include "filelist.h"
 #include "sys.h"
-#include "Prompts/HomeMenu.h"
 
 /*** Extern variables ***/
 extern GuiWindow * mainWindow;
-extern GuiSound * bgMusic;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -56,22 +52,23 @@ extern u8 reset;
 extern void ResumeGui();
 extern void HaltGui();
 
-bool adressBarIsSelected;
-
 /****************************************************************************
  * LanguageBrowser
  ***************************************************************************/
 int LanguageBrowser()
 {
-	int menu = MENU_LANGUAGE_BROWSE;
-	int ret, choice;
+	int menu = MENU_NONE;
+	int ret;
 	int i = 0, n = 0;
-	char LangPathtitle[50];
 
-	DirList FileList(Settings.LangPath, ".lang");
+	DirList FileList("sd:/config/WiiXplorer/Languages/", ".lang");
 
 	int filecount = FileList.GetFilecount();
 
+	if(!filecount) {
+        WindowPrompt(tr("No language files found."), 0, tr("OK"));
+        return MENU_SETTINGS;
+	}
 	OptionList options(filecount-1);
 
 	for(i = 0; i < filecount; i++)
@@ -83,16 +80,12 @@ int LanguageBrowser()
 	    }
 	}
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM, Settings.MusicVolume);
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM, Settings.MusicVolume);
-
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
 	GuiImageData btnOutlineOver(button_over_png);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-	GuiTrigger trigHome;
-    trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(&btnOutline);
@@ -131,40 +124,10 @@ int LanguageBrowser()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData Address(addressbar_textbox_png);
-	GuiImageData AddressOver(addressbar_textbox_over_png);
-    snprintf(LangPathtitle, sizeof(LangPathtitle), Settings.LangPath);
-	GuiText AdressText(LangPathtitle, 20, (GXColor) {0, 0, 0, 255});
-	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	AdressText.SetPosition(18, 0);
-	AdressText.SetMaxWidth(Address.GetWidth()-40, SCROLL_HORIZONTAL);
-	GuiImage AdressbarImg(&Address);
-	GuiImage AdressbarImgOver(&AddressOver);
-	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
-	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	Adressbar.SetPosition(optionBrowser.GetLeft()+25, optionBrowser.GetTop()-38);
-	Adressbar.SetImage(&AdressbarImg);
-	Adressbar.SetImageOver(&AdressbarImgOver);
-	Adressbar.SetLabel(&AdressText);
-	Adressbar.SetSoundOver(&btnSoundOver);
-	Adressbar.SetTrigger(&trigA);
-	
-	GuiImageData updateImgData(updatebtn_png);
-	GuiImage updateImg(&updateImgData);
-	GuiImageData updateImgOverData(updatebtn_over_png);
-	GuiImage updateImgOver(&updateImgOverData);
-
-	GuiButton UpdateBtn(updateImg.GetWidth(), updateImg.GetHeight());
-	UpdateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	UpdateBtn.SetPosition(-45, optionBrowser.GetTop()-35);
-	UpdateBtn.SetImage(&updateImg);
-	UpdateBtn.SetImageOver(&updateImgOver);
-	UpdateBtn.SetSoundOver(&btnSoundOver);
-	UpdateBtn.SetTrigger(&trigA);
-	UpdateBtn.SetEffectGrow();
-	
-	GuiButton home(1,1);
-    home.SetTrigger(&trigHome);
+	GuiImageData settingsimgData(settingsbtn_over_png);
+	GuiImage settingsimg(&settingsimgData);
+	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
@@ -172,40 +135,19 @@ int LanguageBrowser()
 	w.Append(&ConsoleDefaultBtn);
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
-	w.Append(&Adressbar);
-	w.Append(&UpdateBtn);
-	w.Append(&home);
+	w.Append(&settingsimg);
 	mainWindow->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
-	
-	adressBarIsSelected = false;
 
-	while(menu == MENU_LANGUAGE_BROWSE)
+	while(menu == MENU_NONE)
 	{
 	    usleep(THREAD_SLEEP);
 
         if(shutdown == 1)
             Sys_Shutdown();
-		
-		if (home.GetState() == STATE_CLICKED) {
-            s32 thetimeofbg = bgMusic->GetPlayTime();
-            bgMusic->Stop();
-            choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
-			bgMusic->Play();
-            bgMusic->SetPlayTime(thetimeofbg);
-            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
-
-            if (choice == 3) {
-                Sys_LoadMenu(); // Back to System Menu
-            } else if (choice == 2) {
-                Sys_BackToLoader();
-            } else {
-                home.ResetState();
-            }
-        }
 
         else if(reset == 1)
             Sys_Reboot();
@@ -219,7 +161,7 @@ int LanguageBrowser()
 
 		else if(ConsoleDefaultBtn.GetState() == STATE_CLICKED)
 		{
-		    choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
+		    int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
             if(choice) {
 		    if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT)) {
                 if(SDCard_Inserted())
@@ -231,7 +173,7 @@ int LanguageBrowser()
 
 		else if(AppDefaultBtn.GetState() == STATE_CLICKED)
 		{
-		    choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
+		    int choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
             if(choice) {
 		    if(Settings.LoadLanguage(NULL, APP_DEFAULT)) {
                 if(SDCard_Inserted())
@@ -240,47 +182,9 @@ int LanguageBrowser()
             menu = MENU_SETTINGS;
             }
 		}
-		
-		else if(UpdateBtn.GetState() == STATE_CLICKED)
-		{
-			choice = WindowPrompt(tr("Update all Language Files"),tr("Do you wish to update/download all language files?"),tr("Yes"), tr("Cancel"));
-		    if (choice == 1) {
-				updateAllLanguageFiles();
-				
-			menu = MENU_LANGUAGE_BROWSE;
-			}
-			UpdateBtn.ResetState();
-			break;
-		}
-		
-		else if (Adressbar.GetState() == STATE_SELECTED || UpdateBtn.GetState() == STATE_SELECTED)
-		{
-			adressBarIsSelected = true;
-		}
-		else if (Adressbar.GetState() == STATE_DEFAULT || UpdateBtn.GetState() == STATE_DEFAULT)
-		{
-			adressBarIsSelected = false;
-		}
-		
-		else if (Adressbar.GetState() == STATE_CLICKED)
-		{
-			char entered[150];
-			snprintf(entered, sizeof(entered), "%s", Settings.LangPath);
-            if(OnScreenKeyboard(entered, 149)) {
-				int len = (strlen(entered)-1);
-				if(entered[len] !='/')
-				strncat (entered, "/", 1);
-				snprintf(Settings.LangPath, sizeof(Settings.LangPath), "%s", entered);
-                WindowPrompt(tr("Language Path changed."), 0, tr("OK"));
-				if(SDCard_Inserted())
-					Settings.Save();
-				menu = MENU_LANGUAGE_BROWSE;
-            }
-			break;
-		}
-		
+
 		ret = optionBrowser.GetClickedOption();
-		
+
 		if(ret >= 0)
 		{
 		    int choice = WindowPrompt(FileList.GetFilename(ret), tr("Do you want to load this language ?"), tr("Yes"), tr("Cancel"));
