@@ -21,9 +21,7 @@ enum
 enum
 {
     PROGRESSBAR = 1,
-    THROBBER = 2,
-	LANGUAGE = 3,
-	CONNECT = 4
+    THROBBER = 2
 };
 
 void InitProgressThread();

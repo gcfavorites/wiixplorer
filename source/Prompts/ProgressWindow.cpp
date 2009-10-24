@@ -72,15 +72,15 @@ extern void     HaltGui();
  ***************************************************************************/
 void UpdateProgressValues()
 {
-	if(showProgress != PROGRESSBAR)
+    if(showProgress != PROGRESSBAR)
         return;
 
     //Elapsed time
     u32 elapsed = time(0) - start;
     if(elapsed < 1)
         elapsed = 1;
-	
-	//Calculate speed in KB/s
+
+    //Calculate speed in KB/s
     progressSpeed = 0;
     if(progressDone)
         progressSpeed = progressDone/(elapsed * KBSIZE);
@@ -136,9 +136,7 @@ void ProgressWindow()
     GuiImageData throbber(throbber_png);
     GuiImage throbberImg(&throbber);
 	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	if(showProgress != CONNECT)  {
-		throbberImg.SetPosition(0, 25);
-	}
+	throbberImg.SetPosition(0, 25);
 
 	GuiText titleTxt(progressTitle, 24, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
@@ -181,16 +179,14 @@ void ProgressWindow()
 	promptWindow.Append(&titleTxt);
 	promptWindow.Append(&msgTxt);
     promptWindow.Append(&AbortBtn);
-    if(showProgress == PROGRESSBAR || showProgress == LANGUAGE) {
+    if(showProgress == PROGRESSBAR) {
         promptWindow.Append(&progressbarEmptyImg);
         promptWindow.Append(&progressbarImg);
         promptWindow.Append(&progressbarOutlineImg);
         promptWindow.Append(&prTxt);
         promptWindow.Append(&prsTxt);
-        if (showProgress == PROGRESSBAR) {
-			promptWindow.Append(&speedTxt);
-			promptWindow.Append(&sizeTxt);
-		}
+        promptWindow.Append(&speedTxt);
+        promptWindow.Append(&sizeTxt);
 	} else {
 	    promptWindow.Append(&throbberImg);
 	}
@@ -209,28 +205,19 @@ void ProgressWindow()
 	while(showProgress)
 	{
 	    VIDEO_WaitVSync();
-		
-		if(showProgress == CONNECT)  {
-                angle += 5;
-                if(angle > 360)
-                    angle = 0 + (angle - 360);
-                throbberImg.SetAngle(angle);
-		}
 
-	    else if(changed) {
+	    if(changed) {
 
             UpdateProgressValues();
 
             msgTxt.SetText(progressMsg);
 
-            if(showProgress == PROGRESSBAR ||showProgress == LANGUAGE) {
+            if(showProgress == PROGRESSBAR) {
                 progressbarImg.SetTile(100*progressDone/progressTotal);
                 prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
-                if(showProgress == PROGRESSBAR) {
-					speedTxt.SetTextf("%iKB/s", progressSpeed);
-					sizeTxt.SetTextf("%s", progressSizeLeft);
-				}
-            } else  {
+                speedTxt.SetTextf("%iKB/s", progressSpeed);
+                sizeTxt.SetTextf("%s", progressSizeLeft);
+            } else {
                 angle += 5;
                 if(angle > 360)
                     angle = 0 + (angle - 360);
@@ -239,7 +226,7 @@ void ProgressWindow()
             changed = false;
 	    }
 
-        else if(shutdown == 1) {
+        if(shutdown == 1) {
             actioncanceled = true;
             sleep(1);
             Sys_Shutdown();
@@ -315,7 +302,6 @@ void StartProgress(const char *title, int progressmode)
  ***************************************************************************/
 void ShowProgress(u64 done, u64 total, const char *msg)
 {
-		
     if(total <= 0)
 		return;
 

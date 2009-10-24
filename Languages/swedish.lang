@@ -4,17 +4,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 15:36+0200\n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "%d files available"
-msgstr ""
 
 msgid "& translaters for language files."
 msgstr ""
@@ -25,25 +21,16 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Händelse avbryten."
 
-msgid "All Language files updated."
-msgstr ""
-
 msgid "An error occured."
 msgstr "Ett fel har uppståt."
 
 msgid "App Default"
 msgstr "App Standard"
 
-msgid "Are you sure?"
-msgstr ""
-
 msgid "Auto Connect"
 msgstr "Auto anslut"
 
 msgid "Back"
-msgstr ""
-
-msgid "Back to Loader"
 msgstr ""
 
 msgid "Bootup Mount"
@@ -69,9 +56,6 @@ msgstr ""
 
 msgid "Change Settings"
 msgstr "Ändra inställningar"
-
-msgid "Close"
-msgstr ""
 
 msgid "Coders:"
 msgstr ""
@@ -100,7 +84,7 @@ msgstr "Kopierar filer:"
 msgid "Could not connect to the server."
 msgstr ""
 
-msgid "Could not initialize network!"
+msgid "Could not download file."
 msgstr ""
 
 msgid "Credits"
@@ -151,9 +135,6 @@ msgstr "Katalog flyttad."
 msgid "Do you want to boot:"
 msgstr "Vill du starta:"
 
-msgid "Do you want to connect?"
-msgstr ""
-
 msgid "Do you want to load app default language ?"
 msgstr ""
 
@@ -178,9 +159,6 @@ msgstr "Vill du koppla upp till SMB igen?"
 msgid "Do you want to update now ?"
 msgstr ""
 
-msgid "Do you wish to update/download all language files?"
-msgstr ""
-
 msgid "Downloading file..."
 msgstr ""
 
@@ -195,9 +173,6 @@ msgstr "Fel"
 
 msgid "Error:"
 msgstr "Fel:"
-
-msgid "Exit WiiXplorer?"
-msgstr ""
 
 msgid "Extracting files..."
 msgstr ""
@@ -251,19 +226,10 @@ msgstr ""
 msgid "Go Back"
 msgstr "Gå tillbaks"
 
-msgid "HOME Menu"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
-
 msgid "Host:"
 msgstr ""
 
 msgid "ImageViewer"
-msgstr ""
-
-msgid "Initializing Network"
 msgstr ""
 
 msgid "It is recommended to restart app now."
@@ -271,9 +237,6 @@ msgstr ""
 
 msgid "Language"
 msgstr "Språk"
-
-msgid "Language Path changed."
-msgstr ""
 
 msgid "Last access:"
 msgstr "Senaste tillträde:"
@@ -328,6 +291,9 @@ msgstr "Nej"
 
 #, c-format
 msgid "No image found at index %d."
+msgstr ""
+
+msgid "No language files found."
 msgstr ""
 
 msgid "No network connection"
@@ -456,7 +422,7 @@ msgstr ""
 msgid "Update Path changed."
 msgstr ""
 
-msgid "Update all Language Files"
+msgid "Update failed"
 msgstr ""
 
 msgid "Update successfully finished"
@@ -464,9 +430,6 @@ msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
-
-msgid "Updating Language Files:"
 msgstr ""
 
 #, c-format
@@ -478,9 +441,6 @@ msgstr "Användare:"
 
 msgid "Username:"
 msgstr "Användarnamn:"
-
-msgid "Wii Menu"
-msgstr ""
 
 msgid "Yes"
 msgstr "Ja"

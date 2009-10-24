@@ -289,7 +289,7 @@ int DownloadFileToPath(const char *url, const char *dest)
     net_close(connection);
     fclose(file);
 
-    return 1;
+    return done;
 }
 
 /****************************************************************************
@@ -308,6 +308,21 @@ void CloseSMBShare()
         SMB_Mounted[i] = false;
     }
     networkinit = false;
+}
+
+void copyhtmlsting(const char *from, char *outtext, const char *stopat, u32 &cnt)
+{
+    u32 cnt2 = 0;
+
+    u32 stringlength = strlen(from);
+
+    while ((htmlstringcompare(from, stopat, cnt+strlen(stopat)) != 0) && (cnt2 < 1024) && (cnt < stringlength))
+    {
+        outtext[cnt2] = from[cnt];
+        cnt2++;
+        cnt++;
+    }
+    outtext[cnt2] = '\0';
 }
 
 /****************************************************************************
