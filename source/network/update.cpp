@@ -118,6 +118,8 @@ int CheckForUpdate()
         if(choice)
             UpdateApp("http://wiixplorer.googlecode.com/files/boot.dol");
     }
+    else
+        return 0;
 
     return revnumber;
 }
