@@ -85,8 +85,8 @@ int CheckForUpdate()
 		NetworkInitPrompt();
 	}
 
-    const char url[80] = ("http://pagesperso-orange.fr/skual/WiiXplorer/UpdateDol/rev.txt");
-    const char URL[70] = ("http://pagesperso-orange.fr/skual/WiiXplorer/UpdateDol/");
+    const char url[80] = ("http://pagesperso-orange.fr/skual/WiiXplorer/Update/rev.txt");
+    const char URL[70] = ("http://pagesperso-orange.fr/skual/WiiXplorer/Update/");
 	char dol[80];
 	char rev[strlen(Settings.UpdatePath)+10];
 	
