@@ -290,14 +290,23 @@ extern const u32	exit_bottom_png_size;
 extern const u8		exit_bottom_over_png[];
 extern const u32	exit_bottom_over_png_size;
 
+extern const u8		exit_power_bottom_png[];
+extern const u32	exit_power_bottom_png_size;
+
+extern const u8		exit_power_bottom_over_png[];
+extern const u32	exit_power_bottom_over_png_size;
+
 extern const u8		exit_button_png[];
 extern const u32	exit_button_png_size;
 
 extern const u8		wiimote_png[];
 extern const u32	wiimote_png_size;
 
-extern const u8		closebutton_png[];
-extern const u32	closebutton_png_size;
+extern const u8		closehomebutton_png[];
+extern const u32	closehomebutton_png_size;
+
+extern const u8		closepowerbutton_png[];
+extern const u32	closepowerbutton_png_size;
 
 extern const u8		battery_white_png[];
 extern const u32	battery_white_size;

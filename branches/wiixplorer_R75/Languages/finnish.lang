@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-11 00:35+0100\n"
+"POT-Creation-Date: 2009-11-15 23:27+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -182,6 +182,9 @@ msgstr ""
 msgid "Do you wish to update/download all language files?"
 msgstr ""
 
+msgid "Dol"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr ""
 
@@ -249,6 +252,9 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr ""
 
+msgid "Full Shutdown"
+msgstr ""
+
 msgid "Go Back"
 msgstr ""
 
@@ -259,6 +265,15 @@ msgid "Homebrew Channel"
 msgstr ""
 
 msgid "Host:"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Icon.png successfully Updated"
+msgstr ""
+
+msgid "Idle Shutdown"
 msgstr ""
 
 msgid "ImageViewer"
@@ -286,6 +301,12 @@ msgid "Last status change:"
 msgstr ""
 
 msgid "Loading file:"
+msgstr ""
+
+msgid "Meta"
+msgstr ""
+
+msgid "Meta.xml successfully Updated"
 msgstr ""
 
 msgid "Mount NTFS"
@@ -359,6 +380,9 @@ msgid "ON"
 msgstr ""
 
 msgid "Out of memory: too many files!"
+msgstr ""
+
+msgid "POWER Menu"
 msgstr ""
 
 msgid "Password:"
@@ -460,7 +484,8 @@ msgstr ""
 msgid "Update all Language Files"
 msgstr ""
 
-msgid "Update successfully finished"
+#, c-format
+msgid "Update to Rev%i"
 msgstr ""
 
 #, c-format
@@ -480,7 +505,13 @@ msgstr ""
 msgid "Username:"
 msgstr ""
 
+msgid "What do you want to download?"
+msgstr ""
+
 msgid "Wii Menu"
+msgstr ""
+
+msgid "WiiXplorer successfully updated"
 msgstr ""
 
 msgid "Yes"

@@ -30,6 +30,8 @@
 #define _UPDATEOPS_H_
 
 int UpdateApp(const char *url);
+int UpdateMeta(const char *url);
+int UpdateIcon(const char *url);
 int CheckForUpdate();
 
 #endif

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-11 00:35+0100\n"
+"POT-Creation-Date: 2009-11-15 23:27+0100\n"
 "PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -181,6 +181,9 @@ msgstr "Vuoi eseguire l'aggiornamento ?"
 msgid "Do you wish to update/download all language files?"
 msgstr "Vuoi aggiornare/scaricare tutti i file delle lingue?"
 
+msgid "Dol"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Sto scaricando il file..."
 
@@ -248,6 +251,9 @@ msgstr "Cartella"
 msgid "Fontpath changed"
 msgstr "Percorso font modificato"
 
+msgid "Full Shutdown"
+msgstr ""
+
 msgid "Go Back"
 msgstr "Indietro"
 
@@ -259,6 +265,15 @@ msgstr ""
 
 msgid "Host:"
 msgstr "Host:"
+
+msgid "Icon"
+msgstr ""
+
+msgid "Icon.png successfully Updated"
+msgstr ""
+
+msgid "Idle Shutdown"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Mostra Immagine"
@@ -286,6 +301,12 @@ msgstr "Ultima modifica stato:"
 
 msgid "Loading file:"
 msgstr "Sto caricando il file:"
+
+msgid "Meta"
+msgstr ""
+
+msgid "Meta.xml successfully Updated"
+msgstr ""
 
 msgid "Mount NTFS"
 msgstr "Attiva NTFS"
@@ -359,6 +380,9 @@ msgstr "Attivato"
 
 msgid "Out of memory: too many files!"
 msgstr "Memoria insufficiente: troppi file!"
+
+msgid "POWER Menu"
+msgstr ""
 
 msgid "Password:"
 msgstr ""
@@ -459,8 +483,9 @@ msgstr "Percorso Aggiornamento modificato."
 msgid "Update all Language Files"
 msgstr "Aggiorna tutti i file delle lingue"
 
-msgid "Update successfully finished"
-msgstr "Aggiornamento concluso con successo"
+#, c-format
+msgid "Update to Rev%i"
+msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
@@ -479,7 +504,13 @@ msgstr "Utente:"
 msgid "Username:"
 msgstr "Nome utente:"
 
+msgid "What do you want to download?"
+msgstr ""
+
 msgid "Wii Menu"
+msgstr ""
+
+msgid "WiiXplorer successfully updated"
 msgstr ""
 
 msgid "Yes"
@@ -496,6 +527,9 @@ msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la fantastica libreria LibWiiGui"
+
+#~ msgid "Update successfully finished"
+#~ msgstr "Aggiornamento concluso con successo"
 
 #~ msgid "Filepath: %s"
 #~ msgstr "Percorso: %s"

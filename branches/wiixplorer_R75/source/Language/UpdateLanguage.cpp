@@ -57,15 +57,15 @@ int updateAllLanguageFiles() {
 		}
 		else
 		{
-			TXT l;
-			int open = l.openLangTxtfile(dest);
+			TXT t;
+			int open = t.openLangTxtfile(dest);
 			if (open == 0) {
 				WindowPrompt(tr("ERROR"), 0, tr("OK"));
 				RemoveFile(dest);
 				return 0;
 			}
 			else {
-				int cntlang = l.getCnt();
+				int cntlang = t.getCnt();
 				StartProgress(tr("Updating Language Files:"), LANGUAGE);
 				snprintf(filenumber, sizeof(filenumber), tr("%d files available"), cntlang);
 
@@ -81,14 +81,14 @@ int updateAllLanguageFiles() {
 
 					ShowProgress(i, cntlang, filenumber);
 					
-					snprintf(fullURL, sizeof(fullURL), "%s%s", URL, l.getLang(i));
+					snprintf(fullURL, sizeof(fullURL), "%s%s", URL, t.getLang(i));
 					
 					struct block file = downloadfile(fullURL);
 
 					if (file.data && file.size) {
 						char filepath[300];
 
-						snprintf(filepath, sizeof(filepath), "%s%s", Settings.LangPath, l.getLang(i));
+						snprintf(filepath, sizeof(filepath), "%s%s", Settings.LangPath, t.getLang(i));
 						pfile = fopen(filepath, "wb");
 						fwrite(file.data, 1, file.size, pfile);
 						fclose(pfile);

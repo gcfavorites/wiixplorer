@@ -1,5 +1,5 @@
 /****************************************************************************
- * Home Menu
+ * Power Menu
  *
  * Displays a prompt window to user, with information, an error message, or
  * presenting a user with a choice of up to 4 Buttons.
@@ -18,13 +18,11 @@
 
 #include "language/gettext.h"
 #include "libwiigui/gui.h"
-#include "network/networkops.h"
 #include "prompts/PromptWindows.h"
-#include "Prompts/HomeMenu.h"
+#include "Prompts/PowerMenu.h"
 #include "devicemounter.h"
 #include "menu.h"
 #include "main.h"
-#include "title.h"
 #include "audio.h"
 #include "filelist.h"
 #include "sys.h"
@@ -40,26 +38,25 @@ extern void ResumeGui();
 extern void HaltGui();
 
 /***************************************************************************
- * WindowExitPrompt
+ * WindowPowerPrompt
  ***************************************************************************/
 
-int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
+int WindowPowerPrompt(const char *title, const char *msg, const char *btn1Label,
 					 const char *btn2Label, const char *btn3Label,
 					 const char *btn4Label) {
 	
-    GuiSound * homein = NULL;
-    homein = new GuiSound(menuin_ogg, menuin_ogg_size, SOUND_OGG, Settings.MusicVolume);
-    homein->SetVolume(Settings.MusicVolume);
-    homein->SetLoop(0);
-    homein->Play();
+    GuiSound * powerin = NULL;
+    powerin = new GuiSound(menuin_ogg, menuin_ogg_size, SOUND_OGG, Settings.MusicVolume);
+    powerin->SetVolume(Settings.MusicVolume);
+    powerin->SetLoop(0);
+    powerin->Play();
 
-    GuiSound * homeout = NULL;
-    homeout = new GuiSound(menuout_ogg, menuout_ogg_size, SOUND_OGG, Settings.MusicVolume);
-    homeout->SetVolume(Settings.MusicVolume);
-    homeout->SetLoop(0);
+    GuiSound * powerout = NULL;
+    powerout = new GuiSound(menuout_ogg, menuout_ogg_size, SOUND_OGG, Settings.MusicVolume);
+    powerout->SetVolume(Settings.MusicVolume);
+    powerout->SetLoop(0);
 
     int choice = 0;
-    u8 HBC=0;
     GuiWindow promptWindow(640,480);
     promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     promptWindow.SetPosition(0, 0);
@@ -68,11 +65,10 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
 
     GuiImageData top(exit_top_png);
     GuiImageData topOver(exit_top_over_png);
-    GuiImageData bottom(exit_bottom_png);
-    GuiImageData bottomOver(exit_bottom_over_png);
+    GuiImageData bottom(exit_power_bottom_png);
+    GuiImageData bottomOver(exit_power_bottom_over_png);
     GuiImageData button(exit_button_png);
-    GuiImageData wiimote(wiimote_png);
-    GuiImageData close(closehomebutton_png);
+    GuiImageData close(closepowerbutton_png);
 
     GuiImageData battery(battery_white_png);
     GuiImageData batteryBar(battery_bar_white_png);
@@ -115,23 +111,10 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
         batteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
     }
 
-    batteryBtn[0]->SetPosition(180,150);
-    batteryBtn[1]->SetPosition(284, 150);
-    batteryBtn[2]->SetPosition(388, 150);
-    batteryBtn[3]->SetPosition(494, 150);
-
-
-    char * sig = (char *)0x80001804;
-    if (
-        sig[0] == 'S' &&
-        sig[1] == 'T' &&
-        sig[2] == 'U' &&
-        sig[3] == 'B' &&
-        sig[4] == 'H' &&
-        sig[5] == 'A' &&
-        sig[6] == 'X' &&
-        sig[7] == 'X')
-        HBC=1; // Exit to HBC
+    batteryBtn[0]->SetPosition(120,150);
+    batteryBtn[1]->SetPosition(226, 150);
+    batteryBtn[2]->SetPosition(332, 150);
+    batteryBtn[3]->SetPosition(440, 150);
 #endif
 
     GuiTrigger trigA;
@@ -141,7 +124,7 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
     GuiTrigger trigHome;
     trigHome.SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, 0);
 
-    GuiText titleTxt(tr("HOME Menu"), 36, (GXColor) {255, 255, 255, 255});
+    GuiText titleTxt(tr("POWER Menu"), 36, (GXColor) {255, 255, 255, 255});
     titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt.SetPosition(-180,40);
     titleTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
@@ -162,15 +145,12 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
     GuiButton btn1(&btn1Img,&btn1OverImg, 0, 3, 0, 0, &trigA, &btnSoundOver, &btnClick,0);
 	btn1.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
-    GuiText btn2Txt((HBC!=1?tr("Homebrew Channel"):btn1Label), 28, (GXColor) {0, 0, 0, 255});
+    GuiText btn2Txt(btn1Label, 28, (GXColor) {0, 0, 0, 255});
     GuiImage btn2Img(&button);
     GuiButton btn2(&btn2Img,&btn2Img, 2, 5, -150, 0, &trigA, &btnSoundOver, &btnClick,1);
     btn2.SetLabel(&btn2Txt);
     btn2.SetEffect(EFFECT_SLIDE_LEFT | EFFECT_SLIDE_IN, 50);
     btn2.SetRumble(false);
-    if (HBC==1) {
-        btn2.SetPosition(-150, 0);
-    }
 
     GuiText btn3Txt(btn2Label, 28, (GXColor) {0, 0, 0, 255});
     GuiImage btn3Img(&button);
@@ -178,17 +158,11 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
     btn3.SetLabel(&btn3Txt);
     btn3.SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_IN, 50);
     btn3.SetRumble(false);
-    btn3.SetPosition(150, 0);
 
     GuiImage btn4Img(&bottom);
     GuiImage btn4OverImg(&bottomOver);
-    GuiButton btn4(&btn4Img,&btn4OverImg, 0, 4, 0, 0, 0, &btnSoundOver, &btnClick,0);
+    GuiButton btn4(&btn4Img,&btn4OverImg, 0, 4, 0, 0, &trigA, &btnSoundOver, &btnClick,0);
     btn4.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
-
-    GuiImage wiimoteImg(&wiimote);
-    wiimoteImg.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    wiimoteImg.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
-    wiimoteImg.SetPosition(50,210);
 	
 	GuiButton home(1,1);
     home.SetTrigger(&trigHome);
@@ -201,7 +175,6 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
     promptWindow.Append(&btn1);
     promptWindow.Append(&closeBtn);
     promptWindow.Append(&titleTxt);
-    promptWindow.Append(&wiimoteImg);
 	promptWindow.Append(&home);
 	promptWindow.Append(&B);
 
@@ -249,10 +222,12 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
         if (shutdown == 1) {
             Sys_Shutdown();
         }
+
         if (reset == 1)
             Sys_Reboot();
         
 		if (btn1.GetState() == STATE_CLICKED ||
+			btn4.GetState() == STATE_CLICKED ||
 			home.GetState() == STATE_CLICKED ||
 			B.GetState() == STATE_CLICKED) {
             choice = 1;
@@ -262,24 +237,15 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
             btn2.SetEffect(EFFECT_SLIDE_LEFT | EFFECT_SLIDE_OUT, 50);
             btn3.SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT, 50);
             titleTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-            wiimoteImg.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 #ifdef HW_RVL
             for (int i = 0; i < 4; i++)
                 batteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 #endif
-        } else if (btn4.GetState() == STATE_SELECTED) {
-            wiimoteImg.SetPosition(50,165);
-        } else if (btn2.GetState() == STATE_CLICKED) {
-            ret = WindowPrompt(tr("Are you sure?"), 0, tr("Yes"), tr("No"));
+        }
+
+        else if (btn2.GetState() == STATE_CLICKED) {
+            ret = WindowPrompt(tr("Full Shutdown"), tr("Are you sure?"), tr("Yes"), tr("No"));
             if (ret == 1) {
-                if (HBC!=1) {
-					ExitGUIThreads();
-					ShutdownAudio();
-                    StopGX();
-                    WII_Initialize();
-					WII_BootHBC();
-                    
-                }
                 choice = 2;
             }
             HaltGui();
@@ -288,8 +254,10 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
             mainWindow->ChangeFocus(&promptWindow);
             ResumeGui();
             btn2.ResetState();
-        } else if (btn3.GetState() == STATE_CLICKED) {
-            ret = WindowPrompt(tr("Are you sure?"), 0, tr("Yes"), tr("No"));
+		}
+
+        else if (btn3.GetState() == STATE_CLICKED) {
+            ret = WindowPrompt(tr("Idle Shutdown"), tr("Are you sure?"), tr("Yes"), tr("No"));
             if (ret == 1) {
                 choice = 3;
             }
@@ -299,21 +267,19 @@ int WindowExitPrompt(const char *title, const char *msg, const char *btn1Label,
             mainWindow->ChangeFocus(&promptWindow);
             ResumeGui();
             btn3.ResetState();
-        } else if (btn4.GetState() != STATE_SELECTED) {
-            wiimoteImg.SetPosition(50,210);
-        }
+		}
     }
-    homeout->Play();
+    powerout->Play();
     while (btn1.GetEffect() > 0) usleep(50);
     while (promptWindow.GetEffect() > 0) usleep(50);
     HaltGui();
-    homein->Stop();
-    delete homein;
+    powerin->Stop();
+    delete powerin;
     mainWindow->Remove(&promptWindow);
     mainWindow->SetState(STATE_DEFAULT);
-    while (homeout->IsPlaying() > 0) usleep(50);
-    homeout->Stop();
-    delete homeout;
+    while (powerout->IsPlaying() > 0) usleep(50);
+    powerout->Stop();
+    delete powerout;
     ResumeGui();
     return choice;
 }

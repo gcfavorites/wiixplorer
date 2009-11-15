@@ -56,7 +56,7 @@
 #include "network/update.h"
 #include "sys.h"
 #include "Prompts/HomeMenu.h"
-// #include "filesystems/filesystems.h"
+#include "Prompts/PowerMenu.h"
 
 GuiWindow * mainWindow = NULL;
 GuiSound * bgMusic = NULL;
@@ -439,7 +439,7 @@ static int MenuBrowseDevice()
 		if (home.GetState() == STATE_CLICKED) {
             s32 thetimeofbg = bgMusic->GetPlayTime();
             bgMusic->Stop();
-            choice = WindowExitPrompt(tr("Exit WiiXplorer?"),0, tr("Back to Loader"),tr("Wii Menu"),tr("Back"),0);
+            choice = WindowExitPrompt(tr("HOME Menu"),0, tr("Homebrew Channel"),tr("Wii Menu"),tr("Back"),0);
 			bgMusic->Play();
             bgMusic->SetPlayTime(thetimeofbg);
             SetVolumeOgg(255*(Settings.MusicVolume/100.0));
@@ -463,8 +463,22 @@ static int MenuBrowseDevice()
         else if(SettingsBtn.GetState() == STATE_CLICKED)
 			menu = MENU_SETTINGS;
 
-        else if(ExitBtn.GetState() == STATE_CLICKED)
-			menu = MENU_EXIT;
+        else if(ExitBtn.GetState() == STATE_CLICKED) {
+			s32 thetimeofbg = bgMusic->GetPlayTime();
+            bgMusic->Stop();
+            choice = WindowPowerPrompt(tr("POWER Menu"),0, tr("Full Shutdown"),tr("Idle Shutdown"),tr("Cancel"),0);
+			bgMusic->Play();
+            bgMusic->SetPlayTime(thetimeofbg);
+            SetVolumeOgg(255*(Settings.MusicVolume/100.0));
+
+            if (choice == 3) {
+                Sys_ShutdownToIdel();
+			} else if (choice == 2) {
+                Sys_ShutdownToStandby();
+            } else {
+                ExitBtn.ResetState();
+            }
+		}
 
         else if(deviceSwitchBtn.GetState() == STATE_CLICKED) {
 
@@ -970,10 +984,8 @@ static int MenuSettings()
 
         else if(updateBtn.GetState() == STATE_CLICKED)
 		{
-			int res = CheckForUpdate();
-            if(res == 0 && IsNetworkInit())
-                WindowPrompt(tr("No new updates available"), 0, tr("OK"));
-		    updateBtn.ResetState();
+			CheckForUpdate();
+            updateBtn.ResetState();
 		}
 
 		ret = optionBrowser.GetClickedOption();

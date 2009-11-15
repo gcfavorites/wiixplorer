@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-11 00:35+0100\n"
+"POT-Creation-Date: 2009-11-15 23:27+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -181,6 +181,9 @@ msgstr "Voulez-vous mettre à jour maintenant ?"
 msgid "Do you wish to update/download all language files?"
 msgstr "Voulez-vous télécharger les fichiers langues ?"
 
+msgid "Dol"
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
@@ -248,6 +251,9 @@ msgstr "Dossier"
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
+msgid "Full Shutdown"
+msgstr "Eteindre"
+
 msgid "Go Back"
 msgstr "Retour"
 
@@ -259,6 +265,15 @@ msgstr "Chaîne Homebrew"
 
 msgid "Host:"
 msgstr "Hébergeur:"
+
+msgid "Icon"
+msgstr "Icone"
+
+msgid "Icon.png successfully Updated"
+msgstr "Icon.png a été mis à jour avec succés."
+
+msgid "Idle Shutdown"
+msgstr "Veille"
 
 msgid "ImageViewer"
 msgstr "Aperçu"
@@ -286,6 +301,12 @@ msgstr "Status changé le:"
 
 msgid "Loading file:"
 msgstr "Chargement de:"
+
+msgid "Meta"
+msgstr ""
+
+msgid "Meta.xml successfully Updated"
+msgstr "Meta.xml a été mis à jour avec succés."
 
 msgid "Mount NTFS"
 msgstr "NTFS"
@@ -359,6 +380,9 @@ msgstr "Actif"
 
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
+
+msgid "POWER Menu"
+msgstr "Menu POWER"
 
 msgid "Password:"
 msgstr "Mot de passe:"
@@ -436,7 +460,7 @@ msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
 
 msgid "URL is empty."
-msgstr "URL vide."
+msgstr "L'URL est vide."
 
 msgid "USB"
 msgstr ""
@@ -459,8 +483,9 @@ msgstr "Dossier Mise à jour modifié."
 msgid "Update all Language Files"
 msgstr "Mettre à jour tous les fichiers Langues"
 
-msgid "Update successfully finished"
-msgstr "Mise à jour réussie"
+#, c-format
+msgid "Update to Rev%i"
+msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
@@ -479,8 +504,14 @@ msgstr "Utilisateur:"
 msgid "Username:"
 msgstr "Nom d'utilisateur:"
 
+msgid "What do you want to download?"
+msgstr "Que souhaitez-vouz télécharger ?"
+
 msgid "Wii Menu"
 msgstr "Menu Wii"
+
+msgid "WiiXplorer successfully updated"
+msgstr "WiiXplorer a été mis à jour avec succés."
 
 msgid "Yes"
 msgstr "Oui"
