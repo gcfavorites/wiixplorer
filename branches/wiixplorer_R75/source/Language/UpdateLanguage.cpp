@@ -1,7 +1,6 @@
 /****************************************************************************
  * languagefile updater
- * Created for USB Loader GX by giantpune
- * Modified by Dj_Skual for WiiXPlorer
+ * by Dj_Skual for WiiXPlorer
  ***************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,13 +19,94 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "fileops.h"
+#include "Language/txt.h"
 
 extern bool actioncanceled;
 
 /****************************************************************************
  * LanguageUpdater
  ***************************************************************************/
+//Download text file on Dj_Skual server, read line by line to get links and download
 int updateAllLanguageFiles() {
+
+    if (!IsNetworkInit()) {
+        int net = NetworkInitPrompt();
+		if (net == 0) {
+			return 0;
+		}
+    }
+
+    if (IsNetworkInit()) {
+        const char url[70] = "http://pagesperso-orange.fr/skual/WiiXplorer/LangFiles/list.txt";
+		const char URL[60] = "http://pagesperso-orange.fr/skual/WiiXplorer/LangFiles/";
+        char fullURL[300];
+        char filenumber[50];
+		FILE *pfile;
+		
+		char dest[strlen(Settings.LangPath)+10];
+
+		snprintf(dest, sizeof(dest), "%slist.txt", Settings.LangPath);
+
+		CreateSubfolder(Settings.LangPath);
+
+		int res = DownloadFileToPath(url, dest);
+		if(res < 0)
+		{
+			RemoveFile(dest);
+			return 0;
+		}
+		else
+		{
+			TXT l;
+			int open = l.openLangTxtfile(dest);
+			if (open == 0) {
+				WindowPrompt(tr("ERROR"), 0, tr("OK"));
+				RemoveFile(dest);
+				return 0;
+			}
+			else {
+				int cntlang = l.getCnt();
+				StartProgress(tr("Updating Language Files:"), LANGUAGE);
+				snprintf(filenumber, sizeof(filenumber), tr("%d files available"), cntlang);
+
+				for (int i = 0; i < cntlang; i++) {
+			
+					if(actioncanceled)
+					{
+						usleep(20000);
+						StopProgress();
+						WindowPrompt(tr("ERROR"), tr("Action cancelled."), tr("OK"));
+						return 0;
+					}
+
+					ShowProgress(i, cntlang, filenumber);
+					
+					snprintf(fullURL, sizeof(fullURL), "%s%s", URL, l.getLang(i));
+					
+					struct block file = downloadfile(fullURL);
+
+					if (file.data && file.size) {
+						char filepath[300];
+
+						snprintf(filepath, sizeof(filepath), "%s%s", Settings.LangPath, l.getLang(i));
+						pfile = fopen(filepath, "wb");
+						fwrite(file.data, 1, file.size, pfile);
+						fclose(pfile);
+					}
+					free(file.data);
+				}
+				StopProgress();
+				RemoveFile(dest);
+				WindowPrompt(tr("All Language files updated."), 0, tr("OK"));
+			}
+		}
+	}
+	return 1;
+}
+
+
+//commented cause if my server is down you could download the svn version of .lang files
+/*int updateAllLanguageFiles() {
 
     if (!IsNetworkInit()) {
         int net = NetworkInitPrompt();
@@ -85,4 +165,4 @@ int updateAllLanguageFiles() {
 		WindowPrompt(tr("All Language files updated."), 0, tr("OK"));
 	}
 	return 1;
-}	
+}	*/

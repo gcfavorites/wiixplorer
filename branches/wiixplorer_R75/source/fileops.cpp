@@ -115,9 +115,7 @@ u64 FileSize(const char * filepath)
 int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 {
     int ret;
-	char temp[MAXPATHLEN];
-	sprintf(temp, "%s", filepath);
-	char * filename = strrchr(temp-2, '/')+1;
+	char * filename = strrchr(filepath, '/')+1;
 
     FILE *file = fopen(filepath, "rb");
 
@@ -255,9 +253,7 @@ int CopyFile(const char * src, const char * dest)
 	u32 read = 1;
     u64 sizesrc = FileSize(src);
 
-	char temp[MAXPATHLEN];
-	sprintf(temp, "%s", src);
-	char * filename = strrchr(temp-2, '/')+1;
+	char * filename = strrchr(src, '/')+1;
 
 	FILE * source = fopen(src, "rb");
 

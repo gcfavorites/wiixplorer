@@ -262,7 +262,7 @@ int LanguageBrowser()
 			adressBarIsSelected = false;
 		}
 		
-		else if (Adressbar.GetState() == STATE_CLICKED)
+		if (Adressbar.GetState() == STATE_CLICKED)
 		{
 			char entered[150];
 			snprintf(entered, sizeof(entered), "%s", Settings.LangPath);
@@ -276,6 +276,7 @@ int LanguageBrowser()
 					Settings.Save();
 				menu = MENU_LANGUAGE_BROWSE;
             }
+			Adressbar.ResetState();
 			break;
 		}
 		

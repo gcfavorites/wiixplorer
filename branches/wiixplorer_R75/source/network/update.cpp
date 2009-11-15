@@ -39,6 +39,7 @@
 #include "main.h"
 #include "URL_List.h"
 #include "fileops.h"
+#include "Language/txt.h"
 
 /****************************************************************************
  * UpdateApp from a given url. The dol is downloaded and overwrites the old one.
@@ -78,70 +79,56 @@ int UpdateApp(const char *url)
 /****************************************************************************
  * Checking if an Update is available
  ***************************************************************************/
-int choice = 0;
-
 int CheckForUpdate()
 {
 	if(!IsNetworkInit()) {
 		NetworkInitPrompt();
 	}
 
-    int revnumber = 0;
-    int currentrev = atoi(SvnRev());
+    const char url[80] = ("http://pagesperso-orange.fr/skual/WiiXplorer/UpdateDol/rev.txt");
+    const char URL[70] = ("http://pagesperso-orange.fr/skual/WiiXplorer/UpdateDol/");
+	char dol[80];
+	char rev[strlen(Settings.UpdatePath)+10];
+	
+	snprintf(rev, sizeof(rev), "%srev.txt", Settings.UpdatePath);
+	snprintf(dol, sizeof(dol), "%sboot.dol", URL);
 
-    URL_List URLs("http://code.google.com/p/wiixplorer/downloads/list");
+	CreateSubfolder(Settings.UpdatePath);
 
-    int urlcount = URLs.GetURLCount();
+	int res = DownloadFileToPath(url, rev);
+	if(res < 0)
+	{
+		RemoveFile(rev);
+		return 0;
+	}
+	else
+	{
+		TXT l;
+		int open = l.openRevTxtfile(rev);
+		if (open == 0) {
+			WindowPrompt(tr("ERROR"), 0, tr("OK"));
+			RemoveFile(rev);
+			return 0;
+		}
+		else {
+			int currentrev = atoi(SvnRev());
+			int revnumber = atoi(l.getRev(0));
+			
+			if(currentrev >= revnumber) {
+				RemoveFile(rev);
+				return 0;
+			}
 
-    char *DownloadLink = NULL;
-
-    for(int i = 0; i < urlcount; i++)
-    {
-        char *tmp = URLs.GetURL(i);
-        if(tmp)
-        {
-            char *fileext = strrchr(tmp, '.');
-            if(fileext)
-            {
-                if(strcasecmp(fileext, ".dol") == 0)
-                {
-                    DownloadLink = (char *) malloc(strlen(tmp)+1);
-                    sprintf(DownloadLink, "%s", tmp);
-
-                    char revtxt[80];
-                    char *filename = strrchr(DownloadLink, '/')+2;
-                    u8 n = 0;
-                    for (n = 0; n < strlen(filename)-2; n++)
-                        revtxt[n] = filename[n];
-                    revtxt[n] = 0;
-                    revnumber = atoi(revtxt);
-
-                    if(revnumber > currentrev)
-                        break;
-                    else
-                    {
-                        if(DownloadLink)
-                            free(DownloadLink);
-                        DownloadLink = NULL;
-                        revnumber = 0;
-                    }
-                }
-            }
-        }
-    }
-
-    if (revnumber > currentrev)
-    {
-        char text[200];
-        sprintf(text, tr("Update to Rev%i available"), revnumber);
-        int choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("No"));
-        if(choice)
-            UpdateApp(DownloadLink);
-    }
-
-    if(DownloadLink)
-        free(DownloadLink);
-    DownloadLink = NULL;
-
-    return revnumber;
+			char text[200];
+			sprintf(text, tr("Update to Rev%i available"), revnumber);
+			int choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("No"));
+			if(choice)
+				UpdateApp(dol);
+			RemoveFile(rev);
+		}
+	}
+	return 1;
 }
+
+//will reverted to the trunk r77 way when the new wiixplorer sources will be available
+

@@ -12,7 +12,7 @@ typedef struct SMBData {
 	char	User[50];
 	char	Password[50];
 	char	SMBName[50];
-};
+} SMBData;
 
 enum {
     off,
