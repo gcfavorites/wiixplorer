@@ -303,10 +303,11 @@ void Explorer::CheckDeviceMenu()
     {
         fileBrowser->DisableTriggerUpdate(true);
 
+        deviceSwitchBtn->SetState(STATE_DISABLED);
         this->Append(Device_Menu);
 
         int device_choice = -1;
-        while(device_choice == -1)
+        while(device_choice == -1 && Device_Menu != NULL)
         {
             usleep(100);
             if(shutdown == 1)
@@ -328,6 +329,7 @@ void Explorer::CheckDeviceMenu()
             fileBrowser->TriggerUpdate();
             AdressText->SetTextf("%s%s", browser.rootdir, browser.dir);
         }
+        deviceSwitchBtn->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
         MainWindow::Instance()->ChangeFocus(this);
     }
@@ -339,10 +341,11 @@ void Explorer::CheckRightClick()
     {
         fileBrowser->DisableTriggerUpdate(true);
 
+        clickmenuBtn->SetState(STATE_DISABLED);
         this->Append(RightClick);
 
         int RightClick_choice = -1;
-        while(RightClick_choice == -1)
+        while(RightClick_choice == -1 && RightClick != NULL)
         {
             usleep(100);
             if(shutdown == 1)
@@ -357,9 +360,13 @@ void Explorer::CheckRightClick()
         delete RightClick;
         RightClick = NULL;
 
-        ProcessChoice(RightClick_choice);
-        ParseDirectory();
-        fileBrowser->TriggerUpdate();
+        if(RightClick_choice >= 0)
+        {
+            ProcessChoice(RightClick_choice);
+            ParseDirectory();
+            fileBrowser->TriggerUpdate();
+        }
+        clickmenuBtn->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
         MainWindow::Instance()->ChangeFocus(this);
     }

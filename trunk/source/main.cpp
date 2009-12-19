@@ -69,9 +69,6 @@ main(int argc, char *argv[])
 	}
 
 	MainWindow::Instance()->Show();
-	MainWindow::DestroyInstance();
-
-	Resources::DestroyInstance();
 
 	return 0;
 }
