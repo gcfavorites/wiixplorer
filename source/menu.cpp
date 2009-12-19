@@ -93,7 +93,6 @@ void HaltGui()
 	MainWindow::Instance()->HaltGui();
 }
 
-
 /****************************************************************************
  * MenuBrowseDevice
  ***************************************************************************/
@@ -537,11 +536,6 @@ void MainMenu(int menu)
 	int currentMenu = menu;
 	currentDevice = Settings.MountMethod;
 
-	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-
-	ResumeGui();
-
 	while(currentMenu != MENU_EXIT)
 	{
 	    Taskbar::Instance()->ResetState();
@@ -574,6 +568,8 @@ void MainMenu(int menu)
 
 	ClearFontData();
 
+	Resources::DestroyInstance();
+
 //	UnloadFilesystems();
 
 	CloseSMBShare();
@@ -588,7 +584,4 @@ void MainMenu(int menu)
 
     if(boothomebrew)
         BootHomebrew(Clipboard.filepath);
-
-    //last point in programm to make sure the allocated memory is freed
-	Sys_BackToLoader();
 }

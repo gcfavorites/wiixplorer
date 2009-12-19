@@ -50,23 +50,9 @@ MainWindow *MainWindow::instance = NULL;
 MainWindow::MainWindow()
 	: GuiWindow(screenwidth, screenheight) // screenwidth and height are defined in Video.h
 {
+	guihalt = true;
 	exitApplication = false;
-
-	bgImgData = Resources::GetImageData(background_png, background_png_size);
-    bgImg = new GuiImage(bgImgData);
-	Append(bgImg);
-
-	bgMusic = Resources::GetSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(Settings.MusicVolume);
-	bgMusic->SetLoop(1);
-	bgMusic->Play(); // startup music
-
-	#ifdef HW_RVL
-	pointer[0] = Resources::GetImageData(player1_point_png, player1_point_png_size);
-	pointer[1] = Resources::GetImageData(player2_point_png, player2_point_png_size);
-	pointer[2] = Resources::GetImageData(player3_point_png, player3_point_png_size);
-	pointer[3] = Resources::GetImageData(player4_point_png, player4_point_png_size);
-	#endif
+	guithread = LWP_THREAD_NULL;
 
 	//!Initialize main GUI handling thread
 	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 0, 70);
@@ -88,6 +74,22 @@ MainWindow::MainWindow()
 
     //!Initialize Parsethread for browser
     InitParseThread();
+
+	bgImgData = Resources::GetImageData(background_png, background_png_size);
+    bgImg = new GuiImage(bgImgData);
+	Append(bgImg);
+
+	bgMusic = Resources::GetSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
+	bgMusic->SetVolume(Settings.MusicVolume);
+	bgMusic->SetLoop(1);
+	bgMusic->Play(); // startup music
+
+	#ifdef HW_RVL
+	pointer[0] = Resources::GetImageData(player1_point_png, player1_point_png_size);
+	pointer[1] = Resources::GetImageData(player2_point_png, player2_point_png_size);
+	pointer[2] = Resources::GetImageData(player3_point_png, player3_point_png_size);
+	pointer[3] = Resources::GetImageData(player4_point_png, player4_point_png_size);
+	#endif
 
 	Append(Taskbar::Instance());
 
