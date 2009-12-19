@@ -2,7 +2,7 @@
 
 bool TimePassed(int limit)
 {
-	time_t timer1;
+	time_t timer1 = 0;
 	static time_t timer2;
 
 	if (timer2 == 0) {

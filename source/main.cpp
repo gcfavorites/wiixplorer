@@ -15,6 +15,8 @@
 #include <unistd.h>
 
 #include "FreeTypeGX.h"
+#include "Controls/MainWindow.h"
+#include "Controls/Resources.h"
 #include "video.h"
 #include "audio.h"
 #include "menu.h"
@@ -66,6 +68,10 @@ main(int argc, char *argv[])
         fontSystem[i] = NULL;
 	}
 
-	InitThreads();
-	MainMenu(MENU_BROWSE_DEVICE);
+	MainWindow::Instance()->Show();
+	MainWindow::DestroyInstance();
+
+	Resources::DestroyInstance();
+
+	return 0;
 }

@@ -32,6 +32,18 @@ extern const u32	WiiXplorer_png_size;
 extern const u8		background_png[];
 extern const u32	background_png_size;
 
+extern const u8		window_tile_horizontal_png[];
+extern const u32	window_tile_horizontal_png_size;
+
+extern const u8		window_tile_vertical_png[];
+extern const u32	window_tile_vertical_png_size;
+
+extern const u8		window_corner_left_png[];
+extern const u32	window_corner_left_png_size;
+
+extern const u8		window_corner_right_png[];
+extern const u32	window_corner_right_png_size;
+
 extern const u8		button_png[];
 extern const u32	button_png_size;
 

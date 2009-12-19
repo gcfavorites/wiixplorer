@@ -34,6 +34,7 @@
 #include <time.h>
 
 #include "libwiigui/gui.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/ProgressWindow.h"
 #include "filebrowser.h"
 #include "menu.h"
@@ -57,9 +58,8 @@ static bool     changed = false;
 bool            actioncanceled = false;
 
 /*** Extern variables ***/
-extern GuiWindow *mainWindow;
-extern u8 reset;
-extern u8 shutdown;
+extern          u8 reset;
+extern          u8 shutdown;
 
 /*** Extern functions ***/
 extern void     ResumeGui();
@@ -126,7 +126,7 @@ void ProgressWindow()
 	GuiImage progressbarEmptyImg(&progressbarEmpty);
 	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	progressbarEmptyImg.SetPosition(35, 15);
-	progressbarEmptyImg.SetTile(100);
+	progressbarEmptyImg.SetTileHorizontal(100);
 
     GuiImageData progressbar(progressbar_png);
     GuiImage progressbarImg(&progressbar);
@@ -191,11 +191,17 @@ void ProgressWindow()
 	    promptWindow.Append(&throbberImg);
 	}
 
+    //! To skip progressbar for fast processes
+	usleep(400000);
+	if(!showProgress)
+        return;
+
 	HaltGui();
 	promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&promptWindow);
-	mainWindow->ChangeFocus(&promptWindow);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->SetDim(true);
+	MainWindow::Instance()->Append(&promptWindow);
+	MainWindow::Instance()->ChangeFocus(&promptWindow);
 	ResumeGui();
 
     while(promptWindow.GetEffect() > 0) usleep(100);
@@ -213,7 +219,7 @@ void ProgressWindow()
             msgTxt.SetText(progressMsg);
 
             if(showProgress == PROGRESSBAR) {
-                progressbarImg.SetTile(100*progressDone/progressTotal);
+                progressbarImg.SetTileHorizontal(100*progressDone/progressTotal);
                 prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
                 speedTxt.SetTextf("%iKB/s", progressSpeed);
                 sizeTxt.SetTextf("%s", progressSizeLeft);
@@ -247,8 +253,9 @@ void ProgressWindow()
 	while(promptWindow.GetEffect() > 0) usleep(100);
 
 	HaltGui();
-	mainWindow->Remove(&promptWindow);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&promptWindow);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->SetDim(false);
 	ResumeGui();
 
 	actioncanceled = false;

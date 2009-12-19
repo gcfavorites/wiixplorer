@@ -20,7 +20,7 @@ BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
 				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
-				source/libtinysmb source/filesystems
+				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ INCLUDES	:=	source
 
 CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
-LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000
+LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x809a0000
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------

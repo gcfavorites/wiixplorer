@@ -53,7 +53,7 @@ void FreeHomebrewBuffer()
     }
 }
 
-int BootHomebrew(const char *path) {
+int BootHomebrew(const char *path, const char * filereference) {
 
     entrypoint entry;
     u32 cpu_isr;
@@ -63,12 +63,20 @@ int BootHomebrew(const char *path) {
     struct __argv args;
     bzero(&args, sizeof(args));
     args.argvMagic = ARGV_MAGIC;
-    args.length = strlen(path) + 2;
+    u32 stringlength = strlen(path) + (filereference ? (strlen(filereference)+1) : 0) + 2;
+    args.length = stringlength;
     args.commandLine = (char*)malloc(args.length);
-    if (!args.commandLine) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-    strcpy(args.commandLine, path);
+    if (!args.commandLine)
+        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+    sprintf(args.commandLine, "%s", path);
+    if(filereference)
+    {
+        sprintf(&args.commandLine[strlen(path)+1], "%s", filereference);
+        args.argc = 2;
+    }
+    else
+        args.argc = 1;
     args.commandLine[args.length - 1] = '\0';
-    args.argc = 1;
     args.argv = &args.commandLine;
     args.endARGV = args.argv + 1;
 

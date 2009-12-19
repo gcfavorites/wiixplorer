@@ -18,7 +18,8 @@ GuiImage::GuiImage()
 	width = 0;
 	height = 0;
 	imageangle = 0;
-	tile = -1;
+	tileHorizontal = -1;
+	tileVertical = -1;
 	stripe = 0;
 	widescreen = false;
 	imgType = IMAGE_DATA;
@@ -37,7 +38,8 @@ GuiImage::GuiImage(GuiImageData * img)
 		height = img->GetHeight();
 	}
 	imageangle = 0;
-	tile = -1;
+	tileHorizontal = -1;
+	tileVertical = -1;
 	stripe = 0;
 	imgType = IMAGE_DATA;
 }
@@ -48,7 +50,8 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 	width = w;
 	height = h;
 	imageangle = 0;
-	tile = -1;
+	tileHorizontal = -1;
+	tileVertical = -1;
 	stripe = 0;
 	widescreen = false;
 	imgType = IMAGE_TEXTURE;
@@ -60,7 +63,8 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 	width = w;
 	height = h;
 	imageangle = 0;
-	tile = -1;
+	tileHorizontal = -1;
+	tileVertical = -1;
 	stripe = 0;
 	imgType = IMAGE_COLOR;
 	widescreen = false;
@@ -131,10 +135,16 @@ void GuiImage::SetAngle(float a)
 	imageangle = a;
 }
 
-void GuiImage::SetTile(int t)
+void GuiImage::SetTileHorizontal(int t)
 {
     LOCK(this);
-	tile = t;
+	tileHorizontal = t;
+}
+
+void GuiImage::SetTileVertical(int t)
+{
+    LOCK(this);
+	tileVertical = t;
 }
 
 GXColor GuiImage::GetPixel(int x, int y)
@@ -235,26 +245,38 @@ void GuiImage::ColorStripe(int shift)
  */
 void GuiImage::Draw()
 {
-	if(!image || !this->IsVisible() || tile == 0)
+	if(!image || !this->IsVisible() || tileVertical == 0 || tileHorizontal == 0)
 		return;
 
     LOCK(this);
 
 	float currScale = this->GetScale();
 	int currLeft = this->GetLeft();
+	int currTop = this->GetTop();
 
-	if(tile > 0)
-	{
-		for(int i=0; i<tile; i++)
-			Menu_DrawImg(currLeft+width*i, this->GetTop(), width, height, image, imageangle, currScale, currScale, this->GetAlpha());
-	}
+    if(tileHorizontal > 0 && tileVertical > 0)
+    {
+        for(int n=0; n<tileVertical; n++)
+            for(int i=0; i<tileHorizontal; i++)
+                Menu_DrawImg(currLeft+width*i, currTop+width*n, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+    }
+    else if(tileHorizontal > 0)
+    {
+        for(int i=0; i<tileHorizontal; i++)
+            Menu_DrawImg(currLeft+width*i, currTop, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+    }
+    else if(tileVertical > 0)
+    {
+        for(int i=0; i<tileVertical; i++)
+            Menu_DrawImg(currLeft, currTop+height*i, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+    }
 	else
 	{
 		// temporary (maybe), used to correct offset for scaled images
 		if(scale != 1)
 			currLeft = currLeft - width/2 + (width*scale)/2;
 
-		Menu_DrawImg(currLeft, this->GetTop(), width, height, image, imageangle, ((widescreen) ? (currScale*0.8) : currScale), currScale, this->GetAlpha());
+		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, ((widescreen) ? (currScale*0.8) : currScale), currScale, this->GetAlpha());
 	}
 
 	if(stripe > 0)

@@ -42,7 +42,6 @@ void Sys_Init(void)
 
 void ExitApp()
 {
-	ExitGUIThreads();
 	StopGX();
 	ShutdownAudio();
 }

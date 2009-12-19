@@ -641,7 +641,7 @@ static off_t __smb_seek(struct _reent *r, int fd, off_t pos, int dir)
 		return -1;
 	}
 
-	if (((pos > 0) && (position < 0)) || (position > file->len))
+	if (pos > 0 && position < 0)
 	{
 		r->_errno = EOVERFLOW;
 		_SMB_unlock(file->env);

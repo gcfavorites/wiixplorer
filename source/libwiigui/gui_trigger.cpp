@@ -253,3 +253,10 @@ bool GuiTrigger::Down()
 	}
 	return false;
 }
+
+
+SimpleGuiTrigger::SimpleGuiTrigger(s32 ch, u32 wiibtns, u16 gcbtns)
+{
+	SetSimpleTrigger(ch, wiibtns, gcbtns);
+}
+
