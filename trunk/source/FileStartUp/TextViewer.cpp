@@ -31,6 +31,7 @@
 #include <stdio.h>
 
 #include "libwiigui/gui.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
@@ -40,7 +41,6 @@
 #include "TextEditor.h"
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -94,18 +94,16 @@ void TextViewer(const char *filepath)
 
     char *filename = strrchr(filepath, '/')+1;
 
-    TextEditor Editor(filetext, 9, filename);
-    Editor.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    Editor.SetPosition(0, 0);
+    TextEditor * Editor = new TextEditor(filetext, 9, filename);
+    Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+    Editor->SetPosition(0, 0);
 
     delete [] filetext;
     filetext = NULL;
 
-    HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&Editor);
-    mainWindow->ChangeFocus(&Editor);
-    ResumeGui();
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(Editor);
+    MainWindow::Instance()->ChangeFocus(Editor);
 
     while(!exitwindow)
     {
@@ -116,12 +114,13 @@ void TextViewer(const char *filepath)
         else if(reset == 1)
             Sys_Reboot();
 
-        else if(Editor.GetState() == STATE_CLICKED)
+        else if(Editor->GetState() == STATE_CLOSED)
             exitwindow = true;
     }
 
-    HaltGui();
-    mainWindow->Remove(&Editor);
-    mainWindow->SetState(STATE_DEFAULT);
+    delete Editor;
+    Editor = NULL;
+
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
 }

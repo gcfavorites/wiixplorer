@@ -7,12 +7,12 @@
 
 #define MAXSMBUSERS         4
 
-typedef struct SMBData {
+typedef struct _SMBData {
 	char	Host[50];
 	char	User[50];
 	char	Password[50];
 	char	SMBName[50];
-};
+} SMBData;
 
 enum {
     off,
@@ -78,7 +78,7 @@ class Settings
         //!Default is sd:/apps/WiiXplorer/
         char	UpdatePath[150];
         //!SMB users informations
-        struct  SMBData SMBUser[MAXSMBUSERS];
+        SMBData SMBUser[MAXSMBUSERS];
 
     protected:
         void ParseLine(char *line);

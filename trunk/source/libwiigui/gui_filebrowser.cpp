@@ -34,11 +34,6 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-	bgFileSelection = new GuiImageData(bg_browser_png);
-	bgFileSelectionImg = new GuiImage(bgFileSelection);
-	bgFileSelectionImg->SetParent(this);
-	bgFileSelectionImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-
 	bgFileSelectionEntry = new GuiImageData(bg_browser_selection_png);
 	fileArchives = new GuiImageData(icon_archives_png);
 	fileDefault = new GuiImageData(icon_default_png);
@@ -112,12 +107,12 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
 		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListText[i]->SetPosition(10,0);
-		fileListText[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+50), DOTTED);
+		fileListText[i]->SetMaxWidth(this->GetWidth() - (arrowDownImg->GetWidth()+50), DOTTED);
 
 		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
 		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListTextOver[i]->SetPosition(10,0);
-		fileListTextOver[i]->SetMaxWidth(bgFileSelectionImg->GetWidth() - (arrowDownImg->GetWidth()+60), SCROLL_HORIZONTAL);
+		fileListTextOver[i]->SetMaxWidth(this->GetWidth() - (arrowDownImg->GetWidth()+60), SCROLL_HORIZONTAL);
 
 		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
 		fileListArchives[i] = new GuiImage(fileArchives);
@@ -138,6 +133,7 @@ GuiFileBrowser::GuiFileBrowser(int w, int h)
 		fileList[i]->SetTrigger(trigA);
 		fileList[i]->SetRumble(false);
 		fileList[i]->SetSoundClick(btnSoundClick);
+		fileList[i]->Clicked.connect(this, &GuiFileBrowser::OnClicked);
 	}
 }
 
@@ -150,7 +146,6 @@ GuiFileBrowser::~GuiFileBrowser()
 	delete arrowDownBtn;
 	delete scrollbarBoxBtn;
 
-	delete bgFileSelectionImg;
 	delete scrollbarImg;
 	delete arrowDownImg;
 	delete arrowDownOverImg;
@@ -159,7 +154,6 @@ GuiFileBrowser::~GuiFileBrowser()
 	delete scrollbarBoxImg;
 	delete scrollbarBoxOverImg;
 
-	delete bgFileSelection;
 	delete bgFileSelectionEntry;
 	delete fileArchives;
 	delete fileDefault;
@@ -197,6 +191,11 @@ GuiFileBrowser::~GuiFileBrowser()
 		delete fileListTXT[i];
 		delete fileListXML[i];
 	}
+}
+
+void GuiFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
+{
+state = STATE_CLICKED;
 }
 
 void GuiFileBrowser::SetFocus(int f)
@@ -239,8 +238,6 @@ void GuiFileBrowser::Draw()
 {
 	if(!this->IsVisible())
 		return;
-
-	bgFileSelectionImg->Draw();
 
 	for(int i=0; i<PAGESIZE; i++)
 	{

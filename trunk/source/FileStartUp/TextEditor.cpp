@@ -22,18 +22,21 @@
  * distribution.
  *
  * TextEditor.cpp
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
+#include <unistd.h>
 #include "TextEditor.h"
+#include "Controls/MainWindow.h"
 
 /**
  * Constructor for the TextEditor class.
  */
 TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
 {
-	focus = true; // allow focus
+	focus = 0; // allow focus
 	triggerdisabled = false;
+	ExitEditor = false;
 	linestodraw = LinesToDraw;
 	currentLine = 0;
 
@@ -122,6 +125,7 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
     closeBtn->SetTrigger(trigA);
     closeBtn->SetTrigger(trigB);
     closeBtn->SetEffectGrow();
+    closeBtn->Clicked.connect(this, &TextEditor::OnButtonClick);
 
     maximizeBtn = new GuiButton(maximizeImg->GetWidth(), maximizeImg->GetHeight());
     maximizeBtn->SetImage(maximizeImg);
@@ -149,19 +153,23 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
 
     TotalLines = MainFileTxt->GetTotalLines();
 
-	Window = new GuiWindow(bgTexteditorImg->GetWidth(), bgTexteditorImg->GetHeight());
-	Window->SetParent(this);
+	width = bgTexteditorImg->GetWidth();
+	height = bgTexteditorImg->GetHeight();
 
-    Window->Append(bgTexteditorImg);
-    Window->Append(filenameTxt);
-    Window->Append(MainFileTxt);
-    Window->Append(scrollbarImg);
-    Window->Append(scrollbarBoxBtn);
-    Window->Append(arrowUpBtn);
-    Window->Append(arrowDownBtn);
-    Window->Append(closeBtn);
-    Window->Append(maximizeBtn);
-    Window->Append(minimizeBtn);
+    this->Append(bgTexteditorImg);
+    this->Append(filenameTxt);
+    this->Append(MainFileTxt);
+    this->Append(scrollbarImg);
+    this->Append(scrollbarBoxBtn);
+    this->Append(arrowUpBtn);
+    this->Append(arrowDownBtn);
+    this->Append(closeBtn);
+    this->Append(maximizeBtn);
+    this->Append(minimizeBtn);
+
+    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+    SetPosition(0,0);
+    SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 }
 
 /**
@@ -169,7 +177,15 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
  */
 TextEditor::~TextEditor()
 {
-    Window->RemoveAll();
+    MainWindow::Instance()->ResumeGui();
+    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+    while(this->GetEffect() > 0) usleep(50);
+
+    MainWindow::Instance()->HaltGui();
+    if(parentElement)
+        ((GuiWindow *) parentElement)->Remove(this);
+
+    this->RemoveAll();
 
     /** Buttons **/
 	delete arrowUpBtn;
@@ -220,21 +236,17 @@ TextEditor::~TextEditor()
     delete filenameTxt;
     delete MainFileTxt;
 
-    /** Window **/
-    delete Window;
+    MainWindow::Instance()->ResumeGui();
 }
 
-void TextEditor::SetFocus(bool f)
-{
-    LOCK(this);
-	focus = f;
-}
-
-void TextEditor::SetText(char *intext)
+void TextEditor::SetText(const char *intext)
 {
     LOCK(this);
     if(MainFileTxt)
+    {
         delete MainFileTxt;
+        MainFileTxt = NULL;
+    }
 
     MainFileTxt = new GuiText(intext, 18, (GXColor){0, 0, 0, 255});
     MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -248,13 +260,6 @@ void TextEditor::DisableTriggerUpdate(bool set)
 {
     LOCK(this);
 	triggerdisabled = set;
-}
-
-void TextEditor::SetAlignment(int h, int v)
-{
-    LOCK(this);
-    GuiElement::SetAlignment(h, v);
-	Window->SetAlignment(h, v);
 }
 
 void TextEditor::ResetState()
@@ -271,17 +276,12 @@ void TextEditor::ResetState()
 	closeBtn->ResetState();
 }
 
-/**
- * Draw the winow
- */
-void TextEditor::Draw()
+void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 {
-	if(!this->IsVisible())
-		return;
+    sender->ResetState();
 
-	Window->Draw();
-
-	this->UpdateEffects();
+    if(sender == closeBtn)
+        SetState(STATE_CLOSED);
 }
 
 void TextEditor::Update(GuiTrigger * t)
@@ -296,12 +296,8 @@ void TextEditor::Update(GuiTrigger * t)
 	arrowDownBtn->Update(t);
 	scrollbarBoxBtn->Update(t);
 	maximizeBtn->Update(t);
-	minimizeBtn->Update(t);
 	closeBtn->Update(t);
-
-    //!This is temporary till we do a callback event
-	if(closeBtn->GetState() == STATE_CLICKED)
-        this->SetState(STATE_CLICKED);
+	minimizeBtn->Update(t);
 
 	if(TotalLines < linestodraw)
         return;

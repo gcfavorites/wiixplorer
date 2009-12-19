@@ -31,6 +31,7 @@
 #include <stdio.h>
 
 #include "libwiigui/gui.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "fileops.h"
 #include "Language/gettext.h"
@@ -43,7 +44,6 @@
 #define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga"
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -250,9 +250,9 @@ void ImageViewer(const char *filepath)
 	trigPrev.SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, 0);
 	trigNext.SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, 0);
 
-	GuiWindow window(mainWindow->GetWidth(), mainWindow->GetHeight());
+	GuiWindow window(MainWindow::Instance()->GetWidth(), MainWindow::Instance()->GetHeight());
 
-	GuiImage backGround(mainWindow->GetWidth(), mainWindow->GetHeight(), (GXColor){0, 0, 0, 0x50});
+	GuiImage backGround(MainWindow::Instance()->GetWidth(), MainWindow::Instance()->GetHeight(), (GXColor){0, 0, 0, 0x50});
 
 	float factor = (image.GetWidth() > image.GetHeight()) ? (1.0 * backGround.GetWidth()) / image.GetWidth() : (1.0 * backGround.GetHeight()) / image.GetHeight();
 	image.SetScale(factor);
@@ -385,12 +385,12 @@ void ImageViewer(const char *filepath)
 		window.Append(&prevButton);
 	}
 
-	GuiButton stopSlideshowButton(mainWindow->GetWidth(), mainWindow->GetHeight());
+	GuiButton stopSlideshowButton(MainWindow::Instance()->GetWidth(), MainWindow::Instance()->GetHeight());
 	stopSlideshowButton.SetTrigger(&trigger);
 
 	HaltGui();
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&window);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->Append(&window);
 	ResumeGui();
 
 	while (!exitwindow)
@@ -485,8 +485,8 @@ void ImageViewer(const char *filepath)
 	}
 
 	HaltGui();
-	mainWindow->Remove(&window);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&window);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	ResumeGui();
 
 	if (imageData != NULL)

@@ -1,0 +1,458 @@
+# WiiXplorer language source file.
+# italian.lang - v7 - r68
+msgid ""
+msgstr ""
+"Project-Id-Version: WiiXplorer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-25 00:06+0200\n"
+"PO-Revision-Date: 2009-10-02 23:18+0200\n"
+"Last-Translator: Cambo \n"
+"Language-Team: Cambo \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "& translaters for language files."
+msgstr ""
+
+msgid "1"
+msgstr ""
+
+msgid "Action cancelled."
+msgstr "Operazione annullata."
+
+msgid "An error occured."
+msgstr "E' avvenuto un errore."
+
+msgid "App Default"
+msgstr "Predefinito Appl."
+
+msgid "Auto Connect"
+msgstr "Connessione Automatica"
+
+msgid "Back"
+msgstr "Indietro"
+
+msgid "Bootup Mount"
+msgstr "Mount all'avvio"
+
+msgid "Can not open the file"
+msgstr "Il file non si può aprire"
+
+msgid "Can't load any device"
+msgstr "Impossibile caricare le periferiche"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Cannot open image"
+msgstr "L'immagine non si può aprire"
+
+msgid "Cannot write to destination."
+msgstr "Impossibile scrivere nella destinazione."
+
+msgid "Caps"
+msgstr "Blocco Maiuscole"
+
+msgid "Change Settings"
+msgstr "Modifica Impostazioni"
+
+msgid "Coders:"
+msgstr "Sviluppatori:"
+
+msgid "Connect SMB"
+msgstr "Connetti SMB"
+
+msgid "Console Default"
+msgstr "Predefinito Console"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Copy directory?"
+msgstr "Copio la cartella?"
+
+msgid "Copy file?"
+msgstr "Copio il file?"
+
+msgid "Copying file:"
+msgstr "Sto copiando il file:"
+
+msgid "Copying files:"
+msgstr "Sto copiando i file:"
+
+msgid "Could not connect to the server."
+msgstr "Impossibile connettersi al server."
+
+msgid "Could not download file."
+msgstr ""
+
+msgid "Credits"
+msgstr "Credits"
+
+msgid "Customfont Path"
+msgstr "Percorso Font"
+
+msgid "Cut"
+msgstr "Taglio"
+
+msgid "Cut directory?"
+msgstr "Taglio la cartella?"
+
+msgid "Cut file?"
+msgstr "Taglio il file?"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Delete directory and its content?"
+msgstr "Elimino la cartella ed il suo contenuto?"
+
+msgid "Delete this file?"
+msgstr "Elimino questo file?"
+
+msgid "Deleting files:"
+msgstr "Sto eliminando i file:"
+
+msgid "Designer:"
+msgstr "Grafica:"
+
+msgid "Directory .."
+msgstr "Cartella ..."
+
+msgid "Directory couldn't be deleted."
+msgstr "La cartella non si può eliminare."
+
+msgid "Directory successfully copied."
+msgstr "La cartella è stata copiata con successo."
+
+msgid "Directory successfully deleted."
+msgstr "La cartella è stata eliminata."
+
+msgid "Directory successfully moved."
+msgstr "La cartella è stata spostata."
+
+msgid "Do you want to boot:"
+msgstr "Vuoi caricare:"
+
+msgid "Do you want to load app default language ?"
+msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
+
+msgid "Do you want to load console default language."
+msgstr "Vuoi caricare la lingua predefinita della console ?"
+
+msgid "Do you want to load this language ?"
+msgstr "Vuoi caricare questa lingua ?"
+
+msgid "Do you want to open this file in TextViewer?"
+msgstr "Vuoi aprire questo file con TextViewer?"
+
+msgid "Do you want to open this file with ImageViewer?"
+msgstr "Vuoi aprire questo file con ImageViewer?"
+
+msgid "Do you want to playback this file?"
+msgstr "Vuoi riutilizzare questo file?"
+
+msgid "Do you want to reconnect the SMB?"
+msgstr "Vuoi riconnettere la SMB?"
+
+msgid "Do you want to update now ?"
+msgstr "Vuoi eseguire l'aggiornamento ?"
+
+msgid "Downloading file..."
+msgstr "Sto scaricando il file..."
+
+msgid "ERROR"
+msgstr "ERRORE"
+
+msgid "Enter a directory where to extract the files to."
+msgstr "Digita il nome della cartella nella quale estrarre i file."
+
+msgid "Error"
+msgstr "Errore"
+
+msgid "Error:"
+msgstr "Errore:"
+
+msgid "Extracting files..."
+msgstr "Sto estraendo i file..."
+
+msgid "Failed copying file."
+msgstr "Errore nella copia del file."
+
+msgid "Failed copying files."
+msgstr "Errore nella copia dei file."
+
+msgid "Failed renaming file"
+msgstr "Errore nella ridenominazione del file"
+
+msgid "Failed to extract files."
+msgstr "Errore nella estrazione dei file."
+
+msgid "File couldn't be deleted."
+msgstr "Non è stato possibile eliminare il file."
+
+msgid "File does not exist anymore!"
+msgstr "Il file non esiste più!"
+
+msgid "File successfully copied."
+msgstr "Il file è stato copiato con successo."
+
+msgid "File successfully moved."
+msgstr "Il file è stato spostato con successo."
+
+#, c-format
+msgid "Filepath:  %s"
+msgstr ""
+
+msgid "Files successfully extracted."
+msgstr "I file sono stati estratti con successo."
+
+msgid "Files:"
+msgstr "File:"
+
+msgid "Filesize is empty."
+msgstr "Il file ha dimensione nulla."
+
+msgid "Filetype:"
+msgstr "Tipo file:"
+
+msgid "Folder"
+msgstr "Cartella"
+
+msgid "Fontpath changed"
+msgstr "Percorso font modificato"
+
+msgid "Go Back"
+msgstr "Indietro"
+
+msgid "Host:"
+msgstr "Host:"
+
+msgid "ImageViewer"
+msgstr "Mostra Immagine"
+
+msgid "It is recommended to restart app now."
+msgstr "Si raccomanda di riavviare l'applicazione."
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "Last access:"
+msgstr "Ultimo accesso:"
+
+msgid "Last modified:"
+msgstr "Ultima modifica:"
+
+msgid "Last status change:"
+msgstr "Ultima modifica stato:"
+
+msgid "Loading file:"
+msgstr "Sto caricando il file:"
+
+msgid "Mount NTFS"
+msgstr "Attiva NTFS"
+
+msgid "Moving files:"
+msgstr "Sto spostando i file:"
+
+msgid "Music Volume"
+msgstr "Volume Musica"
+
+msgid "NTFS0"
+msgstr ""
+
+msgid "NTFS1"
+msgstr ""
+
+msgid "NTFS2"
+msgstr ""
+
+msgid "NTFS3"
+msgstr ""
+
+msgid "NTFS4"
+msgstr ""
+
+msgid "Name already exists."
+msgstr "Nome già utilizzato."
+
+msgid "Network initialising..."
+msgstr "Inizializzazione rete..."
+
+msgid "New Folder"
+msgstr "Nuova cartella"
+
+msgid "Next device"
+msgstr "Periferica successiva"
+
+msgid "No"
+msgstr ""
+
+#, c-format
+msgid "No image found at index %d."
+msgstr "Nessuna immagine trovata in %d."
+
+msgid "No language files found."
+msgstr "Nessuna lingua trovata."
+
+msgid "No network connection"
+msgstr "Nessuna conenssione di rete"
+
+msgid "No new updates available"
+msgstr "Nessun aggiornamento disponibile"
+
+msgid "Not a valid URL"
+msgstr "Non è un URL valido"
+
+msgid "Not a valid URL path"
+msgstr "Non è un indirizzo valido"
+
+msgid "Not a valid domain"
+msgstr "Non è un dominio valido"
+
+msgid "Not enough memory."
+msgstr "Memoria insufficiente."
+
+msgid "OFF"
+msgstr "Disattivato"
+
+msgid "OK"
+msgstr ""
+
+msgid "ON"
+msgstr "Attivato"
+
+msgid "Out of memory: too many files!"
+msgstr "Memoria insufficiente: troppi file!"
+
+msgid "Password:"
+msgstr ""
+
+msgid "Paste"
+msgstr "Incolla"
+
+msgid "Paste into current directory?"
+msgstr "Incollare nella cartella corrente?"
+
+msgid "Please wait:"
+msgstr "Attendere prego:"
+
+msgid "Properties"
+msgstr "Proprietà"
+
+msgid "Reconnect SMB"
+msgstr "Riconnetti SMB"
+
+msgid "Rename"
+msgstr "Rinomina"
+
+msgid "Restart the app to load the new font."
+msgstr "Riavviare l'applicazione per utilizzare il nuovo font."
+
+msgid "Retry"
+msgstr "Riprova"
+
+msgid "SD"
+msgstr ""
+
+msgid "SMB Name:"
+msgstr "Nome SMB:"
+
+msgid "SMB Settings"
+msgstr "Impostazioni SMB:"
+
+msgid "SMB is connecting..."
+msgstr "SMB in connessione..."
+
+msgid "SMB1"
+msgstr ""
+
+msgid "SMB2"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid "SMB4"
+msgstr ""
+
+msgid "Shift"
+msgstr "Maiuscole"
+
+msgid "Size:"
+msgstr "Dimensione:"
+
+msgid "Special thanks to:"
+msgstr "Grazie mille a:"
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr "Tutto lo staff di DevkitPro & libogc."
+
+msgid "This is no OGG/MP3 file"
+msgstr "Questo non è un file OGG/MP3"
+
+msgid "Transfer cancelled."
+msgstr "Trasferimento annullato."
+
+msgid "Transfer failed"
+msgstr "Trasferimento fallito"
+
+msgid "Transfering files:"
+msgstr "Sto spostando i file:"
+
+msgid "URL is empty."
+msgstr "L'URL è vuoto"
+
+msgid "USB"
+msgstr ""
+
+msgid "Unable to create folder."
+msgstr "Non è stato possibile creare la cartella."
+
+msgid "Unable to load device."
+msgstr "Non è stato possibile accedere alla periferica."
+
+msgid "Update (App) Path"
+msgstr "Percorso Aggiornamento Applic."
+
+msgid "Update App"
+msgstr "Aggiorna Applic."
+
+msgid "Update Path changed."
+msgstr "Percorso Aggiornamento modificato."
+
+msgid "Update failed"
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr "Aggiornamento concluso con successo"
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr "Disponibile aggiornamento alla Rev%i"
+
+#, c-format
+msgid "User %i"
+msgstr "Utente %i"
+
+msgid "User:"
+msgstr "Utente:"
+
+msgid "Username:"
+msgstr "Nome utente:"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "You can not cut into the directory itself."
+msgstr "Non puoi tagliare nella stessa cartella."
+
+msgid "You cannot read/write from/to the same file."
+msgstr "Non puoi leggere/scrivere da/a lo stesso file."
+
+msgid "You cant use this operation on:"
+msgstr "Non puoi eseguire questa operazione su:"
+
+msgid "for his great tool LibWiiGui."
+msgstr "per la sua fantastica libreria LibWiiGui."

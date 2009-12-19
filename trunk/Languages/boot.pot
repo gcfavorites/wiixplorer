@@ -1,0 +1,465 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-19 14:39+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "1"
+msgstr ""
+
+msgid "Action cancelled."
+msgstr ""
+
+msgid "An error occured."
+msgstr ""
+
+msgid "App Default"
+msgstr ""
+
+msgid "Auto Connect"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
+msgid "Can not open the file"
+msgstr ""
+
+msgid "Can't load any device"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cannot open image"
+msgstr ""
+
+msgid "Cannot write to destination."
+msgstr ""
+
+msgid "Caps"
+msgstr ""
+
+msgid "Change Settings"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Coders:"
+msgstr ""
+
+msgid "Connect SMB"
+msgstr ""
+
+msgid "Console Default"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
+msgid "Copy directory?"
+msgstr ""
+
+msgid "Copy file?"
+msgstr ""
+
+msgid "Copying file:"
+msgstr ""
+
+msgid "Copying files:"
+msgstr ""
+
+msgid "Could not connect to the server."
+msgstr ""
+
+msgid "Could not download file."
+msgstr ""
+
+msgid "Credits"
+msgstr ""
+
+msgid "Customfont Path"
+msgstr ""
+
+msgid "Cut"
+msgstr ""
+
+msgid "Cut directory?"
+msgstr ""
+
+msgid "Cut file?"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete directory and its content?"
+msgstr ""
+
+msgid "Delete this file?"
+msgstr ""
+
+msgid "Deleting files:"
+msgstr ""
+
+msgid "Designer:"
+msgstr ""
+
+msgid "Directory .."
+msgstr ""
+
+msgid "Directory couldn't be deleted."
+msgstr ""
+
+msgid "Directory successfully copied."
+msgstr ""
+
+msgid "Directory successfully deleted."
+msgstr ""
+
+msgid "Directory successfully moved."
+msgstr ""
+
+msgid "Do you want to boot:"
+msgstr ""
+
+msgid "Do you want to load app default language ?"
+msgstr ""
+
+msgid "Do you want to load console default language."
+msgstr ""
+
+msgid "Do you want to load this language ?"
+msgstr ""
+
+msgid "Do you want to open this file in TextViewer?"
+msgstr ""
+
+msgid "Do you want to open this file with ImageViewer?"
+msgstr ""
+
+msgid "Do you want to playback this file?"
+msgstr ""
+
+msgid "Do you want to reconnect the SMB?"
+msgstr ""
+
+msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Downloading file..."
+msgstr ""
+
+msgid "ERROR"
+msgstr ""
+
+msgid "Enter a directory where to extract the files to."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Error:"
+msgstr ""
+
+msgid "Extracting files..."
+msgstr ""
+
+msgid "Failed copying file."
+msgstr ""
+
+msgid "Failed copying files."
+msgstr ""
+
+msgid "Failed renaming file"
+msgstr ""
+
+msgid "Failed to extract files."
+msgstr ""
+
+msgid "File couldn't be deleted."
+msgstr ""
+
+msgid "File does not exist anymore!"
+msgstr ""
+
+msgid "File successfully copied."
+msgstr ""
+
+msgid "File successfully moved."
+msgstr ""
+
+#, c-format
+msgid "Filepath:  %s"
+msgstr ""
+
+msgid "Files successfully extracted."
+msgstr ""
+
+msgid "Files:"
+msgstr ""
+
+msgid "Filesize is empty."
+msgstr ""
+
+msgid "Filetype:"
+msgstr ""
+
+msgid "Folder"
+msgstr ""
+
+msgid "Fontpath changed"
+msgstr ""
+
+msgid "Go Back"
+msgstr ""
+
+msgid "Host:"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
+msgid "It is recommended to restart app now."
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Last access:"
+msgstr ""
+
+msgid "Last modified:"
+msgstr ""
+
+msgid "Last status change:"
+msgstr ""
+
+msgid "Loading file:"
+msgstr ""
+
+msgid "Mount NTFS"
+msgstr ""
+
+msgid "Moving files:"
+msgstr ""
+
+msgid "Music Volume"
+msgstr ""
+
+msgid "NTFS0"
+msgstr ""
+
+msgid "NTFS1"
+msgstr ""
+
+msgid "NTFS2"
+msgstr ""
+
+msgid "NTFS3"
+msgstr ""
+
+msgid "NTFS4"
+msgstr ""
+
+msgid "Name already exists."
+msgstr ""
+
+msgid "Network initialising..."
+msgstr ""
+
+msgid "New Folder"
+msgstr ""
+
+msgid "Next device"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+#, c-format
+msgid "No image found at index %d."
+msgstr ""
+
+msgid "No language files found."
+msgstr ""
+
+msgid "No network connection"
+msgstr ""
+
+msgid "No new updates available"
+msgstr ""
+
+msgid "Not a valid URL"
+msgstr ""
+
+msgid "Not a valid URL path"
+msgstr ""
+
+msgid "Not a valid domain"
+msgstr ""
+
+msgid "Not enough memory."
+msgstr ""
+
+msgid "OFF"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "ON"
+msgstr ""
+
+msgid "Out of memory: too many files!"
+msgstr ""
+
+msgid "Password:"
+msgstr ""
+
+msgid "Paste"
+msgstr ""
+
+msgid "Paste into current directory?"
+msgstr ""
+
+msgid "Please wait:"
+msgstr ""
+
+msgid "Properties"
+msgstr ""
+
+msgid "Reconnect SMB"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Restart the app to load the new font."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "SD"
+msgstr ""
+
+msgid "SMB Name:"
+msgstr ""
+
+msgid "SMB Settings"
+msgstr ""
+
+msgid "SMB is connecting..."
+msgstr ""
+
+msgid "SMB1"
+msgstr ""
+
+msgid "SMB2"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid "SMB4"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+msgid "Size:"
+msgstr ""
+
+msgid "Special thanks to:"
+msgstr ""
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr ""
+
+msgid "This is no OGG/MP3 file"
+msgstr ""
+
+msgid "Transfer cancelled."
+msgstr ""
+
+msgid "Transfer failed"
+msgstr ""
+
+msgid "Transfering files:"
+msgstr ""
+
+msgid "URL is empty."
+msgstr ""
+
+msgid "USB"
+msgstr ""
+
+msgid "Unable to create folder."
+msgstr ""
+
+msgid "Unable to load device."
+msgstr ""
+
+msgid "Unable to load path."
+msgstr ""
+
+msgid "Update (App) Path"
+msgstr ""
+
+msgid "Update App"
+msgstr ""
+
+msgid "Update Path changed."
+msgstr ""
+
+msgid "Update failed"
+msgstr ""
+
+msgid "Update successfully finished"
+msgstr ""
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr ""
+
+#, c-format
+msgid "User %i"
+msgstr ""
+
+msgid "User:"
+msgstr ""
+
+msgid "Username:"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You can not cut into the directory itself."
+msgstr ""
+
+msgid "You cannot read/write from/to the same file."
+msgstr ""
+
+msgid "You cant use this operation on:"
+msgstr ""
+
+msgid "for his great tool LibWiiGui."
+msgstr ""

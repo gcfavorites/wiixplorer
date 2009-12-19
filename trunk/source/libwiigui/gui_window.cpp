@@ -15,6 +15,7 @@ GuiWindow::GuiWindow()
 	width = 0;
 	height = 0;
 	focus = 0; // allow focus
+	dim = false;
 }
 
 GuiWindow::GuiWindow(int w, int h)
@@ -22,6 +23,7 @@ GuiWindow::GuiWindow(int w, int h)
 	width = w;
 	height = h;
 	focus = 0; // allow focus
+	dim = false;
 }
 
 GuiWindow::~GuiWindow()
@@ -68,6 +70,16 @@ void GuiWindow::RemoveAll()
 	_elements.clear();
 }
 
+void GuiWindow::SetDim(bool d)
+{
+    dim = d;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try	{ _elements.at(i)->SetDim(d); }
+		catch (const std::exception& e) { }
+	}
+}
 GuiElement* GuiWindow::GetGuiElementAt(u32 index) const
 {
 	if (index >= _elements.size())
@@ -93,7 +105,7 @@ void GuiWindow::Draw()
 
 	this->UpdateEffects();
 
-	if(parentElement && state == STATE_DISABLED)
+	if(parentElement && dim == true)
 		Menu_DrawRectangle(0,0,screenwidth,screenheight,(GXColor){0, 0, 0, 0x70},1);
 }
 

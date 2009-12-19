@@ -31,6 +31,7 @@
 #include <stdio.h>
 
 #include "libwiigui/gui.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
@@ -38,9 +39,6 @@
 #include "fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
-
-/*** Extern variables ***/
-extern GuiSound *bgMusic;
 
 
 /****************************************************************************
@@ -59,31 +57,11 @@ void LoadMusic(const char *filepath)
 
     if(strcasecmp(fileext, ".ogg") == 0) {
 
-        ///Stop and remove old music
-        if(bgMusic) {
-            delete bgMusic;
-            bgMusic = NULL;
-        }
-
-        bgMusic = new GuiSound(file, filesize, SOUND_OGG);
-        bgMusic->SetVolume(Settings.MusicVolume);
-        bgMusic->SetLoop(1);
-        bgMusic->Play(); /// startup music
-
-        ///filebuffer is freed/deleted by the memclose of oggplayer.c
+        MainWindow::Instance()->LoadMusic(file, filesize, SOUND_OGG);
 
     } else if(strcasecmp(fileext, ".mp3") == 0) {
 
-        ///Stop and remove old music
-        if(bgMusic) {
-            delete bgMusic;
-            bgMusic = NULL;
-        }
-
-        bgMusic = new GuiSound(file, filesize, SOUND_MP3);
-        bgMusic->SetVolume(Settings.MusicVolume);
-        bgMusic->SetLoop(1);
-        bgMusic->Play(); /// startup music
+        MainWindow::Instance()->LoadMusic(file, filesize, SOUND_MP3);
 
         ///free the filebuffer
         if(file) {

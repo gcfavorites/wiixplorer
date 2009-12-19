@@ -34,6 +34,7 @@
 
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
 #include "Language/gettext.h"
@@ -44,7 +45,6 @@
 #include "sys.h"
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -136,7 +136,7 @@ int LanguageBrowser()
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
@@ -204,7 +204,7 @@ int LanguageBrowser()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;

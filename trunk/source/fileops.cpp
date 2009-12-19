@@ -117,7 +117,7 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
     int ret;
 	char temp[MAXPATHLEN];
 	sprintf(temp, "%s", filepath);
-	char * filename = strrchr(temp-2, '/')+1;
+	char * filename = strrchr(temp, '/')+1;
 
     FILE *file = fopen(filepath, "rb");
 
@@ -257,7 +257,7 @@ int CopyFile(const char * src, const char * dest)
 
 	char temp[MAXPATHLEN];
 	sprintf(temp, "%s", src);
-	char * filename = strrchr(temp-2, '/')+1;
+	char * filename = strrchr(temp, '/')+1;
 
 	FILE * source = fopen(src, "rb");
 

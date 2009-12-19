@@ -47,6 +47,7 @@
 #include "filelist.h"
 #include "input.h"
 #include "oggplayer.h"
+#include "sigslot.h"
 
 extern FreeTypeGX *fontSystem[];
 
@@ -74,7 +75,8 @@ enum
 	STATE_SELECTED,
 	STATE_CLICKED,
 	STATE_HELD,
-	STATE_DISABLED
+	STATE_DISABLED,
+	STATE_CLOSED
 };
 
 enum
@@ -120,6 +122,11 @@ typedef struct _paddata {
 	u8 triggerL;
 	u8 triggerR;
 } PADData;
+
+typedef struct _POINT {
+	s32 x;
+	s32 y;
+} POINT;
 
 #define EFFECT_SLIDE_TOP			1
 #define EFFECT_SLIDE_BOTTOM			2
@@ -220,10 +227,16 @@ class GuiTrigger
 		PADData pad; //!< GameCube controller trigger data
 };
 
+class SimpleGuiTrigger : public GuiTrigger
+{
+	public:
+		SimpleGuiTrigger(s32 ch, u32 wiibtns, u16 gcbtns);
+};
+
 extern GuiTrigger userInput[4];
 
 //!Primary GUI class. Most other classes inherit from this class.
-class GuiElement
+class GuiElement : public sigslot::has_slots<>
 {
 	public:
 		//!Constructor
@@ -383,11 +396,23 @@ class GuiElement
 		//!\param hor Horizontal alignment (ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTRE)
 		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
 		virtual void SetAlignment(int hor, int vert);
+		//!Dim the Window and its elements
+		virtual void SetDim(bool d);
 		//!Called constantly to allow the element to respond to the current input data
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
 		virtual void Update(GuiTrigger * t);
 		//!Called constantly to redraw the element
 		virtual void Draw();
+
+		POINT PtrToScreen(POINT p);
+		POINT PtrToControl(POINT p);
+
+		sigslot::signal3<GuiElement *, int, POINT> Clicked;
+		sigslot::signal3<GuiElement *, int, POINT> Held;
+		sigslot::signal2<GuiElement *, int> Released;
+		sigslot::signal2<GuiElement *, int> FocusChanged;
+		sigslot::signal2<GuiElement *, bool> VisibleChanged;
+		sigslot::signal3<GuiElement *, int, int> StateChanged;
 	protected:
 		void Lock();
 		void Unlock();
@@ -424,6 +449,7 @@ class GuiElement
 		bool selectable; //!< Whether or not this element selectable (can change to SELECTED state)
 		bool clickable; //!< Whether or not this element is clickable (can change to CLICKED state)
 		bool holdable; //!< Whether or not this element is holdable (can change to HELD state)
+        bool dim;   //! Enable/disable dim of a window only
 		GuiTrigger * trigger[4]; //!< GuiTriggers (input actions) that this element responds to
 		GuiElement * parentElement; //!< Parent element
 		UpdateCallback updateCB; //!< Callback function to call when this element is updated
@@ -500,12 +526,20 @@ class GuiWindow : public GuiElement
 		//!Moves the selected element to the element above or below
 		//!\param d Direction to move (-1 = up, 1 = down)
 		void MoveSelectionVert(int d);
+		//!Dim the Window and its elements
+		void SetDim(bool d);
 		//!Draws all the elements in this GuiWindow
 		void Draw();
 		//!Updates the window and all elements contains within
 		//!Allows the GuiWindow and all elements to respond to the input data specified
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
 		void Update(GuiTrigger * t);
+        //!Closing signal
+		sigslot::signal1<GuiWindow *> ClickedClose;
+        //!Closing signal
+		sigslot::signal1<GuiWindow *> Closing;
+        //!Closed signal
+		sigslot::signal1<GuiWindow *> Closed;
 	protected:
 		std::vector<GuiElement*> _elements; //!< Contains all elements within the GuiWindow
 };
@@ -577,7 +611,10 @@ class GuiImage : public GuiElement
 		void SetAngle(float a);
 		//!Sets the number of times to draw the image horizontally
 		//!\param t Number of times to draw the image
-		void SetTile(int t);
+		void SetTileHorizontal(int t);
+		//!Sets the number of times to draw the image vertically
+		//!\param t Number of times to draw the image
+		void SetTileVertical(int t);
 		//!Constantly called to draw the image
 		void Draw();
 		//!Gets the image data
@@ -614,7 +651,8 @@ class GuiImage : public GuiElement
 		int imgType; //!< Type of image data (IMAGE_TEXTURE, IMAGE_COLOR, IMAGE_DATA)
 		u8 * image; //!< Poiner to image data. May be shared with GuiImageData data
 		f32 imageangle; //!< Angle to draw the image
-		int tile; //!< Number of times to draw (tile) the image horizontally
+		int tileHorizontal; //!< Number of times to draw (tile) the image horizontally
+		int tileVertical; //!< Number of times to draw (tile) the image vertically
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
 		bool widescreen;
 };
@@ -858,6 +896,7 @@ class GuiFileBrowser : public GuiElement
 		void Update(GuiTrigger * t);
 		GuiButton * fileList[PAGESIZE];
 	protected:
+        void OnClicked(GuiElement *sender, int pointer, POINT p);
 		int selectedItem;
 		int numEntries;
 		bool listChanged;

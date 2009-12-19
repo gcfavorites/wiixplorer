@@ -31,27 +31,22 @@
 #include "libwiigui/gui.h"
 
 //!Display a list of files
-class TextEditor : public GuiElement
+class TextEditor : public GuiWindow
 {
 	public:
 		TextEditor(char *intext, int LinesToDraw, char *filename);
 		~TextEditor();
 		void DisableTriggerUpdate(bool set);
-		void SetText(char *intext);
-		void SetFocus(bool f);
-		void SetAlignment(int h, int v);
+		void SetText(const char *intext);
 		void ResetState();
-		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
+        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 		int currentLine;
 		int linestodraw;
 		int TotalLines;
-		bool focus;
 		bool triggerdisabled;
-
-        /** Window **/
-        GuiWindow * Window;
+		bool ExitEditor;
 
         /** Buttons **/
 		GuiButton * arrowUpBtn;

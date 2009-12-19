@@ -48,6 +48,7 @@ GuiElement::GuiElement()
 	effectsOver = 0;
 	effectAmountOver = 0;
 	effectTargetOver = 0;
+	dim = false;
 
 	// default alignment - align to top left
 	alignmentVert = ALIGN_TOP;
@@ -242,6 +243,7 @@ void GuiElement::SetVisible(bool v)
 {
     LOCK(this);
 	visible = v;
+	VisibleChanged(this, v);
 }
 
 void GuiElement::SetAlpha(int a)
@@ -296,15 +298,31 @@ void GuiElement::SetState(int s, int c)
     LOCK(this);
 	state = s;
 	stateChan = c;
+	StateChanged(this, s, c);
+
+	POINT p = { userInput[c].wpad.ir.x,
+				userInput[c].wpad.ir.y };
+
+	if (s == STATE_CLICKED) {
+		Clicked(this, c, PtrToControl(p));
+	} else if (s == STATE_HELD) {
+		Held(this, c, PtrToControl(p));
+	}
 }
 
 void GuiElement::ResetState()
 {
+	int prevState = state;
+	int prevStateChan = stateChan;
+
 	if(state != STATE_DISABLED)
 	{
 		state = STATE_DEFAULT;
 		stateChan = -1;
 	}
+
+	if (prevState == STATE_HELD)
+		Released(this, prevStateChan);
 }
 
 void GuiElement::SetClickable(bool c)
@@ -355,6 +373,7 @@ void GuiElement::SetFocus(int f)
 {
     LOCK(this);
 	focus = f;
+	FocusChanged(this, focus);
 }
 
 int GuiElement::IsFocused()
@@ -440,6 +459,10 @@ void GuiElement::SetEffectGrow()
 {
     LOCK(this);
 	SetEffectOnOver(EFFECT_SCALE, 4, 110);
+}
+
+void GuiElement::SetDim(bool d)
+{
 }
 
 void GuiElement::UpdateEffects()
@@ -616,3 +639,16 @@ SimpleLock::~SimpleLock()
 {
 	element->Unlock();
 }
+
+POINT GuiElement::PtrToScreen(POINT p)
+{
+	POINT r = { p.x + GetLeft(), p.y + GetTop() };
+	return r;
+}
+
+POINT GuiElement::PtrToControl(POINT p)
+{
+	POINT r = { p.x - GetLeft(), p.y - GetTop() };
+	return r;
+}
+

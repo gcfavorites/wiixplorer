@@ -38,6 +38,7 @@
 
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "Menus/Explorer.h"
 #include "menu.h"
 #include "main.h"
 #include "input.h"
@@ -54,21 +55,14 @@
 #include "Language/gettext.h"
 #include "Language/LanguageBrowser.h"
 #include "network/update.h"
+#include "Controls/MainWindow.h"
+#include "Controls/Taskbar.h"
 #include "sys.h"
-// #include "filesystems/filesystems.h"
 
-GuiWindow * mainWindow = NULL;
-GuiSound * bgMusic = NULL;
+CLIPBOARD Clipboard;
+bool boothomebrew = false;
 
-static GuiImageData * pointer[4];
-static GuiImage * bgImg = NULL;
-static GuiImageData * bgImgData = NULL;
-static lwp_t guithread = LWP_THREAD_NULL;
-static bool guiHalt = true;
-static CLIPBOARD Clipboard;
-static int ExitRequested = 0;
 static int currentDevice = 0;
-static bool boothomebrew = false;
 static bool firsttimestart = true;
 
 extern u8 shutdown;
@@ -83,8 +77,7 @@ extern u8 reset;
  ***************************************************************************/
 void ResumeGui()
 {
-	guiHalt = false;
-	LWP_ResumeThread (guithread);
+	MainWindow::Instance()->ResumeGui();
 }
 
 /****************************************************************************
@@ -97,116 +90,15 @@ void ResumeGui()
  ***************************************************************************/
 void HaltGui()
 {
-	guiHalt = true;
-
-	// wait for thread to finish
-	while(!LWP_ThreadIsSuspended(guithread))
-		usleep(THREAD_SLEEP);
+	MainWindow::Instance()->HaltGui();
 }
 
-/****************************************************************************
- * UpdateGUI
- *
- * Primary thread to allow GUI to respond to state changes, and draws GUI
- ***************************************************************************/
-
-static void *
-UpdateGUI (void *arg)
-{
-	int i;
-
-	while(1)
-	{
-		if(guiHalt)
-		{
-			LWP_SuspendThread(guithread);
-		}
-		else
-		{
-			mainWindow->Draw();
-
-			#ifdef HW_RVL
-			for(i=3; i >= 0; i--) // so that player 1's cursor appears on top!
-			{
-				if(userInput[i].wpad.ir.valid)
-					Menu_DrawImg(userInput[i].wpad.ir.x-48, userInput[i].wpad.ir.y-48,
-						96, 96, pointer[i]->GetImage(), userInput[i].wpad.ir.angle, 1, 1, 255);
-				//DoRumble(i);
-			}
-			#endif
-
-			Menu_Render();
-
-			for(i=0; i < 4; i++)
-				mainWindow->Update(&userInput[i]);
-
-			if(ExitRequested)
-			{
-				for(i = 0; i < 255; i += 15)
-				{
-					mainWindow->Draw();
-					Menu_DrawRectangle(0,0,screenwidth,screenheight,(GXColor){0, 0, 0, i},1);
-					Menu_Render();
-				}
-                ExitRequested = 2;
-                return NULL;
-			}
-		}
-	}
-	return NULL;
-}
-
-/****************************************************************************
- * InitThread
- *
- * Startup threads
- ***************************************************************************/
-void InitThreads()
-{
-    //!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, NULL, NULL, 0, 70);
-
-	//!Initalize the progress thread
-	InitProgressThread();
-	StopProgress();
-
-    //!Initialize network thread if selected
-    InitNetworkThread();
-    if(Settings.AutoConnect == on)
-        ResumeNetworkThread();
-    else
-        HaltNetworkThread();
-
-    //!Initialize GetSizeThread for Properties
-    InitGetSizeThread();
-    StopSizeGain();
-
-    //!Initialize Parsethread for browser
-    InitParseThread();
-}
-
-/****************************************************************************
- * ExitGUIThread
- *
- * Shutdown GUI threads
- ***************************************************************************/
-void ExitGUIThreads()
-{
-	ExitRequested = 1;
-	LWP_JoinThread(guithread, NULL);
-	guithread = LWP_THREAD_NULL;
-}
 
 /****************************************************************************
  * MenuBrowseDevice
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-	int i, choice = -1;
-	char currentdir[50];
-    time_t currenttime = time(0);
-    struct tm * timeinfo = localtime(&currenttime);
-
     if(firsttimestart && Settings.MountMethod > NTFS4 &&
         Settings.AutoConnect == on && !IsNetworkInit()) {
 
@@ -255,176 +147,15 @@ static int MenuBrowseDevice()
 
 	int menu = MENU_NONE;
 
-	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-	GuiTrigger trigPlus;
-	trigPlus.SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
-    GuiTrigger trigMinus;
-	trigMinus.SetButtonOnlyTrigger(-1, WPAD_BUTTON_MINUS | WPAD_CLASSIC_BUTTON_MINUS, 0);
+    Explorer * Explorer_1 = new Explorer(currentDevice);
 
-	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+    MainWindow::Instance()->Append(Explorer_1);
+    MainWindow::Instance()->ChangeFocus(Explorer_1);
+    ResumeGui();
 
-	GuiFileBrowser fileBrowser(584, 248);
-	fileBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	fileBrowser.SetPosition(28, 100);
-
-	GuiImageData settingsImgData(settingsbtn_png);
-	GuiImage settingsImg(&settingsImgData);
-	GuiImageData settingsImgOverData(settingsbtn_over_png);
-	GuiImage settingsImgOver(&settingsImgOverData);
-
-	GuiButton SettingsBtn(settingsImg.GetWidth(), settingsImg.GetHeight());
-	SettingsBtn.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	SettingsBtn.SetPosition(87, 0);
-	SettingsBtn.SetImage(&settingsImg);
-	SettingsBtn.SetImageOver(&settingsImgOver);
-	SettingsBtn.SetSoundClick(&btnSoundClick);
-	SettingsBtn.SetSoundOver(&btnSoundOver);
-	SettingsBtn.SetTrigger(&trigA);
-	SettingsBtn.SetEffectGrow();
-
-    GuiImageData creditsImgData(WiiXplorer_png);
-    GuiImage creditsImg(&creditsImgData);
-	GuiButton CreditsBtn(creditsImgData.GetWidth(), creditsImgData.GetHeight());
-	CreditsBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	CreditsBtn.SetPosition(fileBrowser.GetLeft()+235, fileBrowser.GetTop()+262);
-	CreditsBtn.SetImage(&creditsImg);
-	CreditsBtn.SetSoundClick(&btnSoundClick);
-	CreditsBtn.SetSoundOver(&btnSoundOver);
-	CreditsBtn.SetTrigger(&trigA);
-	CreditsBtn.SetEffectGrow();
-
-    GuiImageData ExitBtnImgData(power_png);
-	GuiImage ExitBtnImg(&ExitBtnImgData);
-    GuiImageData ExitBtnImgOverData(power_over_png);
-	GuiImage ExitBtnImgOver(&ExitBtnImgOverData);
-	GuiButton ExitBtn(ExitBtnImg.GetWidth(), ExitBtnImg.GetHeight());
-	ExitBtn.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	ExitBtn.SetPosition(490, 0);
-	ExitBtn.SetImage(&ExitBtnImg);
-	ExitBtn.SetImageOver(&ExitBtnImgOver);
-	ExitBtn.SetSoundClick(&btnSoundClick);
-	ExitBtn.SetSoundOver(&btnSoundOver);
-	ExitBtn.SetTrigger(&trigA);
-	ExitBtn.SetEffectGrow();
-
-	GuiImageData sdstorage(sdstorage_png);
-	GuiImageData usbstorage(usbstorage_png);
-	GuiImageData networkstorage(networkstorage_png);
-//	GuiImageData isfsstorage(isfsstorage_png);
-	GuiImage deviceImg(&sdstorage);
-
-	if(currentDevice > SD && currentDevice < SMB1)
-        deviceImg.SetImage(&usbstorage);
-    else if(currentDevice >= SMB1)
-        deviceImg.SetImage(&networkstorage);
-
-	GuiButton deviceSwitchBtn(deviceImg.GetWidth(), deviceImg.GetHeight());
-	deviceSwitchBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceSwitchBtn.SetPosition(48, fileBrowser.GetTop()-38);
-	deviceSwitchBtn.SetImage(&deviceImg);
-	deviceSwitchBtn.SetSoundClick(&btnSoundClick);
-	deviceSwitchBtn.SetSoundOver(&btnSoundOver);
-	deviceSwitchBtn.SetTrigger(&trigA);
-	deviceSwitchBtn.SetEffectGrow();
-
-	GuiImageData Address(addressbar_textbox_png);
-    snprintf(currentdir, sizeof(currentdir), "%s%s", browser.rootdir, browser.dir);
-	GuiText AdressText(currentdir, 20, (GXColor) {0, 0, 0, 255});
-	AdressText.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	AdressText.SetPosition(18, 0);
-	AdressText.SetMaxWidth(Address.GetWidth()-40, SCROLL_HORIZONTAL);
-	GuiImage AdressbarImg(&Address);
-	GuiButton Adressbar(Address.GetWidth(), Address.GetHeight());
-	Adressbar.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	Adressbar.SetPosition(110, fileBrowser.GetTop()-38);
-	Adressbar.SetImage(&AdressbarImg);
-	Adressbar.SetLabel(&AdressText);
-
-	char timetxt[20];
-	strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
-
-	GuiText TimeTxt(timetxt, 20, (GXColor) {40, 40, 40, 255});
-	TimeTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	TimeTxt.SetPosition(540, 0);
-	TimeTxt.SetFont(clock_ttf, clock_ttf_size);
-
-	GuiImageData taskbarImgData(taskbar_png);
-	GuiImage taskbarImg(&taskbarImgData);
-	GuiWindow TaskBar(taskbarImg.GetWidth(), taskbarImg.GetHeight());
-	TaskBar.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	TaskBar.SetPosition(4, -15);
-
-	GuiButton clickmenuBtn(screenwidth, screenheight);
-	clickmenuBtn.SetTrigger(&trigPlus);
-
-	HaltGui();
-	GuiWindow w(screenwidth, screenheight);
-	TaskBar.Append(&taskbarImg);
-	TaskBar.Append(&SettingsBtn);
-	TaskBar.Append(&ExitBtn);
-	TaskBar.Append(&TimeTxt);
-	w.Append(&clickmenuBtn);
-	w.Append(&fileBrowser);
-	w.Append(&CreditsBtn);
-	w.Append(&Adressbar);
-	w.Append(&deviceSwitchBtn);
-	w.Append(&TaskBar);
-	mainWindow->Append(&w);
-
-    w.SetEffect(EFFECT_FADE, 50);
-
-	ResumeGui();
-
-	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
-
-	while(menu == MENU_NONE)
-	{
+    while(menu == MENU_NONE)
+    {
 	    VIDEO_WaitVSync();
-
-		for(i=0; i<PAGESIZE; i++)
-		{
-			if(fileBrowser.fileList[i]->GetState() == STATE_CLICKED)
-			{
-				fileBrowser.fileList[i]->ResetState();
-				// check corresponding browser entry
-				if(browserList[browser.selIndex].isdir)
-				{
-					if(BrowserChangeFolder())
-					{
-						fileBrowser.ResetState();
-						fileBrowser.fileList[0]->SetState(STATE_SELECTED);
-						fileBrowser.TriggerUpdate();
-                        AdressText.SetTextf("%s%s", browser.rootdir, browser.dir);
-					} else {
-						menu = MENU_BROWSE_DEVICE;
-						break;
-					}
-				} else {
-				    char filepath[MAXPATHLEN];
-					snprintf(filepath, sizeof(filepath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                    int result = FileStartUp(filepath);
-
-                    if(result == BOOTHOMEBREW) {
-                        menu = MENU_EXIT;
-                        boothomebrew = true;
-                    }
-                    else if(result == TRIGGERUPDATE) {
-                        ParseDirectory();
-                        fileBrowser.TriggerUpdate();
-                    }
-				}
-			}
-		}
-
-        if(frameCount % 60 == 0) //! Update time value every sec
-        {
-            currenttime = time(0);
-            timeinfo = localtime(&currenttime);
-            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
-            TimeTxt.SetText(timetxt);
-        }
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -432,235 +163,15 @@ static int MenuBrowseDevice()
         else if(reset == 1)
             Sys_Reboot();
 
-        else if(CreditsBtn.GetState() == STATE_CLICKED) {
-            CreditsWindow();
-            CreditsBtn.ResetState();
-        }
+        menu = Explorer_1->GetMenuChoice();
 
-        else if(SettingsBtn.GetState() == STATE_CLICKED)
-			menu = MENU_SETTINGS;
-
-        else if(ExitBtn.GetState() == STATE_CLICKED)
-			menu = MENU_EXIT;
-
-        else if(deviceSwitchBtn.GetState() == STATE_CLICKED) {
-
-            fileBrowser.DisableTriggerUpdate(true);
-
-            int result = DeviceMenu();
-
-            if(result >= 0)
-            {
-                currentDevice = result;
-                menu = MENU_BROWSE_DEVICE;
-            }
-
-            fileBrowser.DisableTriggerUpdate(false);
-
-            deviceSwitchBtn.ResetState();
-        }
-
-		else if(clickmenuBtn.GetState() == STATE_CLICKED) {
-
-		    int x = 0, y = 0;
-            if(userInput[clickmenuBtn.GetStateChan()].wpad.ir.valid) {
-                x = userInput[clickmenuBtn.GetStateChan()].wpad.ir.x;
-                y = userInput[clickmenuBtn.GetStateChan()].wpad.ir.y;
-            }
-
-            if(fileBrowser.IsInside(x, y)) {
-
-            fileBrowser.DisableTriggerUpdate(true);
-            choice = RightClickMenu(x, y);
-
-            if(strcmp(browserList[browser.selIndex].filename,"..") != 0) {
-
-            if(choice == CUT) {
-                if(browserList[browser.selIndex].isdir)
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Cut directory?"), tr("Yes"), tr("Cancel"));
-                else
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Cut file?"), tr("Yes"), tr("Cancel"));
-                if(choice == 1) {
-                    sprintf(Clipboard.filepath, "%s%s", browser.rootdir, browser.dir);
-                    sprintf(Clipboard.filename, "%s", browserList[browser.selIndex].filename);
-                    if(browserList[browser.selIndex].isdir)
-                        Clipboard.isdir = true;
-                    else
-                        Clipboard.isdir = false;
-                    Clipboard.cutted = true;
-                }
-            }
-
-            else if(choice == COPY) {
-                if(browserList[browser.selIndex].isdir)
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Copy directory?"), tr("Yes"), tr("Cancel"));
-                else
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Copy file?"), tr("Yes"), tr("Cancel"));
-                if(choice == 1) {
-                    sprintf(Clipboard.filepath, "%s%s", browser.rootdir, browser.dir);
-                    sprintf(Clipboard.filename, "%s", browserList[browser.selIndex].filename);
-                    if(browserList[browser.selIndex].isdir)
-                        Clipboard.isdir = true;
-                    else
-                        Clipboard.isdir = false;
-                    Clipboard.cutted = false;
-                }
-            }
-
-            else if(choice == RENAME) {
-                char srcpath[MAXPATHLEN];
-                char destdir[MAXPATHLEN];
-                snprintf(srcpath, sizeof(srcpath), "%s/%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                char entered[151];
-                snprintf(entered, sizeof(entered), "%s", browserList[browser.selIndex].filename);
-                int result = OnScreenKeyboard(entered, 150);
-                if(result == 1) {
-                    snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, entered);
-                    int ret = rename(srcpath, destdir);
-                    if(ret != 0)
-                        WindowPrompt(tr("Failed renaming file"), tr("Name already exists."), tr("OK"));
-                    ParseDirectory();
-                    fileBrowser.TriggerUpdate();
-                }
-            }
-
-            else if(choice == DELETE) {
-                if(browserList[browser.selIndex].isdir) {
-                    char currentpath[MAXPATHLEN];
-                    snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Delete directory and its content?"), tr("Yes"), tr("Cancel"));
-                    if(choice == 1) {
-                        StartProgress(tr("Deleting files:"), THROBBER);
-                        int res = RemoveDirectory(currentpath);
-                        StopProgress();
-                        if(res == -10)
-                            WindowPrompt(tr("Deleting files:"), tr("Action cancelled."), tr("OK"));
-                        else if(res < 0)
-                            WindowPrompt(tr("Error"), tr("Directory couldn't be deleted."), tr("OK"));
-                        else
-                            WindowPrompt(tr("Directory successfully deleted."), 0, tr("OK"));
-                        ParseDirectory();
-                        fileBrowser.TriggerUpdate();
-                    }
-                } else {
-                    char currentpath[MAXPATHLEN];
-                    snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                    choice = WindowPrompt(browserList[browser.selIndex].filename, tr("Delete this file?"), tr("Yes"), tr("Cancel"));
-                    if(choice == 1) {
-                        if(RemoveFile(currentpath) == false) {
-                            WindowPrompt(tr("Error"), tr("File couldn't be deleted."), tr("OK"));
-                        }
-                        ParseDirectory();
-                        fileBrowser.TriggerUpdate();
-                    }
-                }
-            }
-
-            else if(choice == PROPERTIES) {
-                char currentitem[MAXPATHLEN];
-                snprintf(currentitem, sizeof(currentitem), "%s%s/", browser.rootdir, browser.dir);
-                Properties(browserList[browser.selIndex].filename, currentitem, browserList[browser.selIndex].isdir, (float) browserList[browser.selIndex].length);
-            }
-
-            } else if(choice >= 0 && choice != PASTE && choice != NEWFOLDER)
-                WindowPrompt(tr("You cant use this operation on:"), tr("Directory .."), tr("OK"));
-
-            if(choice == PASTE) {
-                choice = WindowPrompt(Clipboard.filename, tr("Paste into current directory?"), tr("Yes"), tr("Cancel"));
-                if(choice == 1) {
-                    char srcpath[MAXPATHLEN];
-                    char destdir[MAXPATHLEN];
-                    if(Clipboard.isdir == true) {
-                        snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
-                        snprintf(destdir, sizeof(destdir), "%s%s/%s/", browser.rootdir, browser.dir, Clipboard.filename);
-                        int res = 0;
-                        if(Clipboard.cutted == false) {
-                            StartProgress(tr("Copying files:"));
-                            res = CopyDirectory(srcpath, destdir);
-                            StopProgress();
-                        } else {
-                            if(strcmp(srcpath, destdir) != 0) {
-                                if(CompareDevices(srcpath, destdir))
-                                    StartProgress(tr("Moving files:"), THROBBER);
-                                else
-                                    StartProgress(tr("Moving files:"));
-                                res = MoveDirectory(srcpath, destdir);
-                                StopProgress();
-                            } else {
-                                WindowPrompt(tr("Error:"), tr("You can not cut into the directory itself.") , tr("OK"));
-                                res =  -1;
-                            }
-                        }
-                        if(res == -10)
-                            WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
-                        else if(res < 0)
-                            WindowPrompt(tr("An error occured."), tr("Failed copying files."), tr("OK"));
-                        else {
-                            if(Clipboard.cutted == false)
-                                WindowPrompt(tr("Directory successfully copied."), 0, tr("OK"));
-                            else {
-                                WindowPrompt(tr("Directory successfully moved."), 0, tr("OK"));
-                            }
-                        }
-                    } else {
-                        snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
-                        int ret = CheckFile(srcpath);
-                        if(ret == false)
-                            WindowPrompt(tr("File does not exist anymore!"), 0, tr("OK"));
-                        else {
-                            snprintf(destdir, sizeof(destdir), "%s%s/%s", browser.rootdir, browser.dir, Clipboard.filename);
-                            if(strcmp(srcpath, destdir) != 0) {
-                                StartProgress(tr("Copying file:"));
-                                int res = 0;
-                                if(Clipboard.cutted == false)
-                                    res = CopyFile(srcpath, destdir);
-                                else
-                                    res = MoveFile(srcpath, destdir);
-                                StopProgress();
-                                if(res < 0)
-                                    WindowPrompt(tr("ERROR"), tr("Failed copying file."), tr("OK"));
-                                else {
-                                    if(Clipboard.cutted == false)
-                                        WindowPrompt(tr("File successfully copied."), 0, tr("OK"));
-                                    else {
-                                        WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
-                                    }
-                                }
-                            } else {
-                                WindowPrompt(tr("Error:"), tr("You cannot read/write from/to the same file."), tr("OK"));
-                            }
-                        }
-                    }
-                    ParseDirectory();
-                }
-                    fileBrowser.TriggerUpdate();
-            }
-
-            else if(choice == NEWFOLDER) {
-                char entered[151];
-                snprintf(entered, sizeof(entered), tr("New Folder"));
-                int result = OnScreenKeyboard(entered, 150);
-                if(result == 1) {
-                    char currentpath[MAXPATHLEN];
-                    snprintf(currentpath, sizeof(currentpath), "%s%s/%s/", browser.rootdir, browser.dir, entered);
-                    bool ret = CreateSubfolder(currentpath);
-                    if(ret == false)
-                        WindowPrompt(tr("Error:"), tr("Unable to create folder."), tr("OK"));
-                    ParseDirectory();
-                    fileBrowser.TriggerUpdate();
-                }
-            }
-            fileBrowser.DisableTriggerUpdate(false);
-		}
-            clickmenuBtn.ResetState();
-        }
-	}
-
-    w.SetEffect(EFFECT_FADE, -50);
-	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+        if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+    }
 
 	HaltGui();
-	mainWindow->Remove(&w);
+    delete Explorer_1;
+    Explorer_1 = NULL;
 	ResumeGui();
 
 	return menu;
@@ -700,7 +211,7 @@ static int MenuSMBSettings()
 	GuiImage backBtnImg(&btnOutline);
 	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backBtn.SetPosition(100, -35);
+	backBtn.SetPosition(50, -65);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
 	backBtn.SetSoundOver(&btnSoundOver);
@@ -720,7 +231,7 @@ static int MenuSMBSettings()
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&titleTxt);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
@@ -740,6 +251,9 @@ static int MenuSMBSettings()
 		{
 			menu = MENU_SETTINGS;
 		}
+
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
 
 		ret = optionBrowser.GetClickedOption();
 
@@ -806,7 +320,7 @@ static int MenuSMBSettings()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;
@@ -843,7 +357,7 @@ static int MenuSettings()
 	GuiImage backBtnImg(&btnOutline);
 	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backBtn.SetPosition(100, -35);
+	backBtn.SetPosition(50, -65);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
 	backBtn.SetSoundOver(&btnSoundOver);
@@ -854,7 +368,7 @@ static int MenuSettings()
 	GuiImage updateBtnImg(&btnOutline);
 	GuiButton updateBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	updateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	updateBtn.SetPosition(-100, -35);
+	updateBtn.SetPosition(-50, -65);
 	updateBtn.SetLabel(&updateBtnTxt);
 	updateBtn.SetImage(&updateBtnImg);
 	updateBtn.SetSoundOver(&btnSoundOver);
@@ -876,7 +390,7 @@ static int MenuSettings()
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
 	w.Append(&settingsimg);
-	mainWindow->Append(&w);
+	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
 
@@ -907,6 +421,9 @@ static int MenuSettings()
 		    updateBtn.ResetState();
 		}
 
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+
 		ret = optionBrowser.GetClickedOption();
 
 		switch (ret)
@@ -930,7 +447,7 @@ static int MenuSettings()
 				Settings.MusicVolume += 10;
 				if(Settings.MusicVolume > 100)
                     Settings.MusicVolume = 0;
-                bgMusic->SetVolume(Settings.MusicVolume);
+                MainWindow::Instance()->ChangeVolume(Settings.MusicVolume);
 				break;
             case 4:
 				Settings.MountNTFS++;
@@ -1006,7 +523,7 @@ static int MenuSettings()
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
 	HaltGui();
-	mainWindow->Remove(&w);
+	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
 	return menu;
@@ -1020,32 +537,15 @@ void MainMenu(int menu)
 	int currentMenu = menu;
 	currentDevice = Settings.MountMethod;
 
-	#ifdef HW_RVL
-	pointer[0] = new GuiImageData(player1_point_png);
-	pointer[1] = new GuiImageData(player2_point_png);
-	pointer[2] = new GuiImageData(player3_point_png);
-	pointer[3] = new GuiImageData(player4_point_png);
-	#endif
-
-	mainWindow = new GuiWindow(screenwidth, screenheight);
-
-    bgImgData = new GuiImageData(background_png);
-
-    bgImg = new GuiImage(bgImgData);
-	mainWindow->Append(bgImg);
-
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
 	ResumeGui();
 
-	bgMusic = new GuiSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(Settings.MusicVolume);
-	bgMusic->SetLoop(1);
-	bgMusic->Play(); // startup music
-
 	while(currentMenu != MENU_EXIT)
 	{
+	    Taskbar::Instance()->ResetState();
+
 		switch (currentMenu)
 		{
 			case MENU_SETTINGS:
@@ -1068,18 +568,10 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
-	delete bgMusic;
+	MainWindow::Instance()->DestroyInstance();
+
 	ExitApp();
 
-	while(ExitRequested != 2) usleep(THREAD_SLEEP);
-
-	delete bgImg;
-	delete bgImgData;
-	delete mainWindow;
-	delete pointer[0];
-	delete pointer[1];
-	delete pointer[2];
-	delete pointer[3];
 	ClearFontData();
 
 //	UnloadFilesystems();

@@ -24,18 +24,16 @@
  * PromptWindows.cpp
  *
  * All promptwindows
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #include <gccore.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
 #include <time.h>
 #include <stdlib.h>
 
-#include "libwiigui/gui.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
@@ -45,22 +43,11 @@
 #include "menu.h"
 #include "filelist.h"
 #include "Language/gettext.h"
+#include "Controls/MainWindow.h"
 #include "sys.h"
 #include "svnrev.h"
 
-/*** Variables used only in this file ***/
-static GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
-static GuiText speedTxt(NULL, 22, (GXColor){0, 0, 0, 255});
-static GuiText sizeTxt(NULL, 22, (GXColor){0, 0, 0, 255});
-static GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
-static GuiImageData progressbar(progressbar_png);
-static GuiImage progressbarImg(&progressbar);
-static GuiImageData throbber(throbber_png);
-static GuiImage throbberImg(&throbber);
-
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
-extern GuiSound * bgMusic;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -118,9 +105,10 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	keyboard.Append(&cancelBtn);
 
 	HaltGui();
-	mainWindow->SetState(STATE_DISABLED);
-	mainWindow->Append(&keyboard);
-	mainWindow->ChangeFocus(&keyboard);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->SetDim(true);
+	MainWindow::Instance()->Append(&keyboard);
+	MainWindow::Instance()->ChangeFocus(&keyboard);
 	ResumeGui();
 
 	while(save == -1)
@@ -139,8 +127,9 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	}
 
 	HaltGui();
-	mainWindow->Remove(&keyboard);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&keyboard);
+    MainWindow::Instance()->SetDim(false);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	ResumeGui();
 	return save;
 }
@@ -148,12 +137,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 /****************************************************************************
 * WindowPrompt
 *
-* Displays a prompt window to user, with information, an error message, or
-* presenting a user with a choice of up to 4 Buttons.
-*
-* Give him 1 Titel, 1 Subtitel and 4 Buttons
-* If titel/subtitle or one of the buttons is not needed give him a 0 on that
-* place.
+* Shortcut function
 ***************************************************************************/
 int
 WindowPrompt(const char *title, const char *msg, const char *btn1Label,
@@ -162,182 +146,25 @@ const char *btn4Label)
 {
     int choice = -1;
 
-    GuiWindow promptWindow(472,320);
-    promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    promptWindow.SetPosition(0, -10);
-    GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-    GuiImageData btnOutline(button_png);
+    PromptWindow * Prompt = new PromptWindow(title, msg, btn1Label, btn2Label, btn3Label, btn4Label);
 
-
-    GuiTrigger trigA;
-    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-    GuiTrigger trigB;
-    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-
-    GuiImageData dialogBox(dialogue_box_png);
-    GuiImage dialogBoxImg(&dialogBox);
-
-    GuiText titleTxt(title, 24, (GXColor){0, 0, 0, 255});
-    titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    titleTxt.SetPosition(0,55);
-    titleTxt.SetMaxWidth(400, DOTTED);
-
-    GuiText msgTxt(msg, 22, (GXColor){0, 0, 0, 255});
-    msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    msgTxt.SetPosition(0,-40);
-    msgTxt.SetMaxWidth(430, DOTTED);
-
-    GuiText btn1Txt(btn1Label, 22, (GXColor){0, 0, 0, 255});
-    GuiImage btn1Img(&btnOutline);
-    GuiButton btn1(btnOutline.GetWidth(), btnOutline.GetHeight());
-    btn1.SetLabel(&btn1Txt);
-    btn1.SetImage(&btn1Img);
-    btn1.SetSoundOver(&btnSoundOver);
-    btn1.SetSoundClick(&btnClick);
-    btn1.SetTrigger(&trigA);
-    btn1.SetState(STATE_SELECTED);
-    btn1.SetEffectGrow();
-
-    GuiText btn2Txt(btn2Label, 22, (GXColor){0, 0, 0, 255});
-    GuiImage btn2Img(&btnOutline);
-    GuiButton btn2(btnOutline.GetWidth(), btnOutline.GetHeight());
-    btn2.SetLabel(&btn2Txt);
-    btn2.SetImage(&btn2Img);
-    btn2.SetSoundOver(&btnSoundOver);
-    btn2.SetSoundClick(&btnClick);
-    if(!btn3Label && !btn4Label)
-        btn2.SetTrigger(&trigB);
-    btn2.SetTrigger(&trigA);
-    btn2.SetEffectGrow();
-
-    GuiText btn3Txt(btn3Label, 22, (GXColor){0, 0, 0, 255});
-    GuiImage btn3Img(&btnOutline);
-    GuiButton btn3(btnOutline.GetWidth(), btnOutline.GetHeight());
-    btn3.SetLabel(&btn3Txt);
-    btn3.SetImage(&btn3Img);
-    btn3.SetSoundOver(&btnSoundOver);
-    btn3.SetSoundClick(&btnClick);
-    if(!btn4Label)
-        btn3.SetTrigger(&trigB);
-    btn3.SetTrigger(&trigA);
-    btn3.SetEffectGrow();
-
-    GuiText btn4Txt(btn4Label, 22, (GXColor){0, 0, 0, 255});
-    GuiImage btn4Img(&btnOutline);
-    GuiButton btn4(btnOutline.GetWidth(), btnOutline.GetHeight());
-    btn4.SetLabel(&btn4Txt);
-    btn4.SetImage(&btn4Img);
-    btn4.SetSoundOver(&btnSoundOver);
-    btn4.SetSoundClick(&btnClick);
-    if(btn4Label)
-        btn4.SetTrigger(&trigB);
-    btn4.SetTrigger(&trigA);
-    btn4.SetEffectGrow();
-
-    if(btn2Label && !btn3Label && !btn4Label) {
-        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn1.SetPosition(40, -50);
-        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn2.SetPosition(-40, -50);
-        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn3.SetPosition(50, -65);
-        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn4.SetPosition(-50, -65);
-    } else if(btn2Label && btn3Label && !btn4Label) {
-        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn1.SetPosition(50, -120);
-        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn2.SetPosition(-50, -120);
-        btn3.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        btn3.SetPosition(0, -65);
-        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn4.SetPosition(-50, -65);
-    } else if(btn2Label && btn3Label && btn4Label) {
-        btn1.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn1.SetPosition(50, -120);
-        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn2.SetPosition(-50, -120);
-        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn3.SetPosition(50, -65);
-        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn4.SetPosition(-50, -65);
-    } else if(!btn2Label && btn3Label && btn4Label) {
-        btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        btn1.SetPosition(0, -120);
-        btn2.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn2.SetPosition(-50, -120);
-        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn3.SetPosition(50, -65);
-        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn4.SetPosition(-50, -65);
-    } else {
-        btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        btn1.SetPosition(0, -50);
-        btn2.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn2.SetPosition(50, -120);
-        btn3.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        btn3.SetPosition(50, -65);
-        btn4.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        btn4.SetPosition(-50, -65);
-    }
-
-    promptWindow.Append(&dialogBoxImg);
-    promptWindow.Append(&titleTxt);
-    promptWindow.Append(&msgTxt);
-
-    if(btn1Label)
-        promptWindow.Append(&btn1);
-    if(btn2Label)
-        promptWindow.Append(&btn2);
-    if(btn3Label)
-        promptWindow.Append(&btn3);
-    if(btn4Label)
-        promptWindow.Append(&btn4);
-
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-    HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
-    ResumeGui();
+    MainWindow::Instance()->Append(Prompt);
 
     while(choice == -1)
     {
-        VIDEO_WaitVSync();
+        usleep(100);
 
         if(shutdown == 1)
             Sys_Shutdown();
-
-        if(reset == 1)
+        else if(reset == 1)
             Sys_Reboot();
 
-        if(btn1.GetState() == STATE_CLICKED) {
-            choice = 1;
-        }
-        else if(btn2.GetState() == STATE_CLICKED) {
-            if(!btn3Label)
-                choice = 0;
-            else
-                choice = 2;
-            }
-        else if(btn3.GetState() == STATE_CLICKED) {
-            if(!btn4Label)
-                choice = 0;
-            else
-                choice = 3;
-        }
-        else if(btn4.GetState() == STATE_CLICKED) {
-            choice = 0;
-        }
+        choice = Prompt->GetChoice();
     }
 
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-    while(promptWindow.GetEffect() > 0) usleep(50);
-    HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
-    ResumeGui();
+    delete Prompt;
+    Prompt = NULL;
+
     return choice;
 }
 
@@ -348,287 +175,58 @@ int WaitSMBConnect(void)
 {
     int choice = -1;
 
-    GuiWindow promptWindow(472,320);
-    promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    promptWindow.SetPosition(0, -10);
-    GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-    GuiImageData btnOutline(button_png);
+    PromptWindow * Prompt = NULL;
+    Prompt = new PromptWindow(tr("Please wait:"), tr("Network initialising..."), tr("Cancel"));
 
-    GuiTrigger trigA;
-    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-
-    GuiImageData dialogBox(dialogue_box_png);
-    GuiImage dialogBoxImg(&dialogBox);
-
-    GuiText titleTxt(tr("Please wait:"), 24, (GXColor){0, 0, 0, 255});
-    titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    titleTxt.SetPosition(0,55);
-    titleTxt.SetMaxWidth(430, DOTTED);
-
-    GuiText msgTxt(tr("Network initialising..."), 22, (GXColor){0, 0, 0, 255});
-    msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    msgTxt.SetPosition(0,-40);
-    msgTxt.SetMaxWidth(430, DOTTED);
-
-    GuiText btn1Txt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
-    GuiImage btn1Img(&btnOutline);
-    GuiButton btn1(btnOutline.GetWidth(), btnOutline.GetHeight());
-    btn1.SetLabel(&btn1Txt);
-    btn1.SetImage(&btn1Img);
-    btn1.SetSoundOver(&btnSoundOver);
-    btn1.SetSoundClick(&btnClick);
-    btn1.SetTrigger(&trigA);
-    btn1.SetState(STATE_SELECTED);
-    btn1.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    btn1.SetPosition(0, -50);
-    btn1.SetEffectGrow();
-
-    promptWindow.Append(&dialogBoxImg);
-    promptWindow.Append(&titleTxt);
-    promptWindow.Append(&msgTxt);
-    promptWindow.Append(&btn1);
-
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-    HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
-    ResumeGui();
+    MainWindow::Instance()->Append(Prompt);
 
     while(choice == -1)
     {
         VIDEO_WaitVSync();
 
-        if(IsNetworkInit()) {
-            msgTxt.SetText(tr("SMB is connecting..."));
+        if(IsNetworkInit())
+        {
+            Prompt->SetMessage(tr("SMB is connecting..."));
 
             for(int i = 0; i < 4; i++)
                 if(IsSMB_Mounted(i))
                     choice = 1;
         }
 
-        if(btn1.GetState() == STATE_CLICKED) {
-            choice = -2;
-            btn1.ResetState();
-        }
+        choice = Prompt->GetChoice();
     }
 
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-    while(promptWindow.GetEffect() > 0) usleep(50);
-    HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
-    ResumeGui();
+    delete Prompt;
+    Prompt = NULL;
+
     return choice;
 }
 
+
 /****************************************************************************
-* RightClickMenu
+* RightMouseClicked connection for RightClickMenu
 ***************************************************************************/
-int RightClickMenu(int x, int y)
+void RightMouseClicked(GuiElement *sender, int pointer, POINT p)
 {
-    int choice = -1;
-    int numItems = 8;
-    int buttonY = 0;
+    RightClickMenu * ClickMenu = NULL;
+    ClickMenu = new RightClickMenu(p.x, p.y);
 
-    GuiImageData dialogBox(clickmenu_png);
-    GuiImage dialogBoxImg(&dialogBox);
-    dialogBoxImg.SetPosition(-8, -dialogBox.GetHeight()/numItems/2);
+    MainWindow::Instance()->Append(ClickMenu);
 
-    GuiImageData menu_select(menu_selection_png);
-
-    if(screenwidth < x + dialogBox.GetWidth() + 10)
-        x = screenwidth - dialogBox.GetWidth() - 10;
-
-    if(screenheight < y + dialogBox.GetHeight() + 10)
-        y = screenheight - dialogBox.GetHeight() - 10;
-
-    GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
-    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    promptWindow.SetPosition(x, y);
-
-    GuiTrigger trigA;
-    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-    GuiTrigger trigB;
-    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-
-    GuiText cutTxt(tr("Cut"), 24, (GXColor){0, 0, 0, 255});
-    GuiText cutTxtOver(tr("Cut"), 24, (GXColor){28, 32, 190, 255});
-    cutTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    cutTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton btnCut(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    btnCut.SetLabel(&cutTxt);
-    btnCut.SetLabelOver(&cutTxtOver);
-    btnCut.SetSoundClick(&btnClick);
-    GuiImage btnCutMenuSelect(&menu_select);
-    btnCut.SetImageOver(&btnCutMenuSelect);
-    btnCut.SetTrigger(&trigA);
-    btnCut.SetPosition(0,buttonY);
-    btnCut.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText copyTxt(tr("Copy"), 24, (GXColor){0, 0, 0, 255});
-    GuiText copyTxtOver(tr("Copy"), 24, (GXColor){28, 32, 190, 255});
-    copyTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    copyTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton Copybtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    Copybtn.SetLabel(&copyTxt);
-    Copybtn.SetLabelOver(&copyTxtOver);
-    GuiImage CopybtnMenuSelect(&menu_select);
-    Copybtn.SetImageOver(&CopybtnMenuSelect);
-    Copybtn.SetSoundClick(&btnClick);
-    Copybtn.SetTrigger(&trigA);
-    Copybtn.SetPosition(0,buttonY);
-    Copybtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText pasteTxt(tr("Paste"), 24, (GXColor){0, 0, 0, 255});
-    GuiText PasteTxtOver(tr("Paste"), 24, (GXColor){28, 32, 190, 255});
-    pasteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    PasteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton Pastebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    Pastebtn.SetLabel(&pasteTxt);
-    Pastebtn.SetLabelOver(&PasteTxtOver);
-    GuiImage PastebtnMenuSelect(&menu_select);
-    Pastebtn.SetImageOver(&PastebtnMenuSelect);
-    Pastebtn.SetSoundClick(&btnClick);
-    Pastebtn.SetTrigger(&trigA);
-    Pastebtn.SetPosition(0,buttonY);
-    Pastebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText RenameTxt(tr("Rename"), 24, (GXColor){0, 0, 0, 255});
-    GuiText RenameTxtOver(tr("Rename"), 24, (GXColor){28, 32, 190, 255});
-    RenameTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    RenameTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton Renamebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    Renamebtn.SetLabel(&RenameTxt);
-    Renamebtn.SetLabelOver(&RenameTxtOver);
-    GuiImage RenamebtnMenuSelect(&menu_select);
-    Renamebtn.SetImageOver(&RenamebtnMenuSelect);
-    Renamebtn.SetSoundClick(&btnClick);
-    Renamebtn.SetTrigger(&trigA);
-    Renamebtn.SetPosition(0,buttonY);
-    Renamebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText DeleteTxt(tr("Delete"), 24, (GXColor){0, 0, 0, 255});
-    GuiText DeleteTxtOver(tr("Delete"), 24, (GXColor){28, 32, 190, 255});
-    DeleteTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    DeleteTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton Deletebtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    Deletebtn.SetLabel(&DeleteTxt);
-    Deletebtn.SetLabelOver(&DeleteTxtOver);
-    GuiImage DeletebtnMenuSelect(&menu_select);
-    Deletebtn.SetImageOver(&DeletebtnMenuSelect);
-    Deletebtn.SetSoundClick(&btnClick);
-    Deletebtn.SetTrigger(&trigA);
-    Deletebtn.SetPosition(0,buttonY);
-    Deletebtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText NewFolderTxt(tr("New Folder"), 24, (GXColor){0, 0, 0, 255});
-    GuiText NewFolderTxtOver(tr("New Folder"), 24, (GXColor){28, 32, 190, 255});
-    NewFolderTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    NewFolderTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton NewFolderbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    NewFolderbtn.SetLabel(&NewFolderTxt);
-    NewFolderbtn.SetLabelOver(&NewFolderTxtOver);
-    GuiImage NewFolderbtnMenuSelect(&menu_select);
-    NewFolderbtn.SetImageOver(&NewFolderbtnMenuSelect);
-    NewFolderbtn.SetSoundClick(&btnClick);
-    NewFolderbtn.SetTrigger(&trigA);
-    NewFolderbtn.SetPosition(0,buttonY);
-    NewFolderbtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiText PropertiesTxt(tr("Properties"), 24, (GXColor){0, 0, 0, 255});
-    GuiText PropertiesTxtOver(tr("Properties"), 24, (GXColor){28, 32, 190, 255});
-    PropertiesTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    PropertiesTxtOver.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    GuiButton Propertiesbtn(promptWindow.GetWidth(), promptWindow.GetHeight()/numItems);
-    Propertiesbtn.SetLabel(&PropertiesTxt);
-    Propertiesbtn.SetLabelOver(&PropertiesTxtOver);
-    GuiImage PropertiesbtnMenuSelect(&menu_select);
-    Propertiesbtn.SetImageOver(&PropertiesbtnMenuSelect);
-    Propertiesbtn.SetSoundClick(&btnClick);
-    Propertiesbtn.SetTrigger(&trigA);
-    Propertiesbtn.SetPosition(0,buttonY);
-    Propertiesbtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    buttonY += promptWindow.GetHeight()/numItems;
-
-    GuiButton NoBtn(screenwidth, screenheight);
-    NoBtn.SetPosition(-x, -y);
-    NoBtn.SetTrigger(&trigA);
-    NoBtn.SetTrigger(&trigB);
-
-    promptWindow.Append(&dialogBoxImg);
-    promptWindow.Append(&NoBtn);
-    promptWindow.Append(&btnCut);
-    promptWindow.Append(&Copybtn);
-    promptWindow.Append(&Pastebtn);
-    promptWindow.Append(&Renamebtn);
-    promptWindow.Append(&Deletebtn);
-    promptWindow.Append(&NewFolderbtn);
-    promptWindow.Append(&Propertiesbtn);
-
-    HaltGui();
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
-    ResumeGui();
-
-    while(choice == -1)
+    while(ClickMenu->GetChoice() == -1)
     {
-        VIDEO_WaitVSync();
+        usleep(100);
 
-        if(shutdown == 1) {
+        if(shutdown == 1)
             Sys_Shutdown();
-        }
         else if(reset == 1)
             Sys_Reboot();
-
-        else if(btnCut.GetState() == STATE_CLICKED) {
-            choice = CUT;
-            break;
-        }
-        else if(Copybtn.GetState() == STATE_CLICKED) {
-            choice = COPY;
-            break;
-        }
-        else if(Pastebtn.GetState() == STATE_CLICKED) {
-            choice = PASTE;
-            break;
-        }
-        else if(Renamebtn.GetState() == STATE_CLICKED) {
-            choice = RENAME;
-            break;
-        }
-        else if(Deletebtn.GetState() == STATE_CLICKED) {
-            choice = DELETE;
-            break;
-        }
-        else if(NewFolderbtn.GetState() == STATE_CLICKED) {
-            choice = NEWFOLDER;
-            break;
-        }
-        else if(Propertiesbtn.GetState() == STATE_CLICKED) {
-            choice = PROPERTIES;
-            break;
-        }
-        else if(NoBtn.GetState() == STATE_CLICKED){
-            choice = -2;
-            break;
-        }
     }
 
-    HaltGui();
-    mainWindow->Remove(&promptWindow);
-    ResumeGui();
+    delete ClickMenu;
+    ClickMenu = NULL;
 
-    return choice;
+    ResumeGui();
 }
 
 /****************************************************************************
@@ -785,9 +383,10 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     promptWindow.Append(&Backbtn);
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->SetDim(true);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
 
@@ -834,8 +433,9 @@ int Properties(const char * filename, const char * filepath, int folder, float f
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->Remove(&promptWindow);
+    MainWindow::Instance()->SetDim(false);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
     ResumeGui();
 
     if(folder)
@@ -863,7 +463,7 @@ void CreditsWindow(void)
 
     GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-    int numEntries = 10;
+    int numEntries = 9;
     int i = 0;
     int y = 30;
 
@@ -916,18 +516,11 @@ void CreditsWindow(void)
     txt[i]->SetPosition(20,y);
     i++;
     y += 30;
-	
-	txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
+
+    txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
     txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     txt[i]->SetPosition(20,y);
-	i++;
-    y += 30;
-	
-	snprintf(text, sizeof(text), "Dj Skual %s ", tr("& translaters for language files."));
-    txt[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20,y);
-    
+
     GuiImageData arrowUp(scrollbar_arrowup_png);
     GuiImageData arrowUpOver(scrollbar_arrowup_over_png);
     GuiImage arrowUpImg(&arrowUp);
@@ -958,9 +551,10 @@ void CreditsWindow(void)
     promptWindow.Append(&Backbtn);
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->SetDim(true);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
 
@@ -985,275 +579,14 @@ void CreditsWindow(void)
     while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
 
     HaltGui();
-    mainWindow->Remove(&promptWindow);
+    MainWindow::Instance()->Remove(&promptWindow);
 
     for(int i = 0; i < numEntries; i++) {
         delete txt[i];
         txt[i] = NULL;
     }
 
-    mainWindow->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetDim(false);
     ResumeGui();
-}
-
-/****************************************************************************
-* DeviceMenu
-***************************************************************************/
-int DeviceMenu(void)
-{
-    int choice = -1, cnt = 0, deviceCount = 0;
-
-    //! Menu images
-    GuiImageData device_choose_right_Data(device_choose_right_png);
-    GuiImage rightImg(&device_choose_right_Data);
-    GuiImageData device_choose_left_Data(device_choose_left_png);
-    GuiImage leftImg(&device_choose_left_Data);
-    GuiImageData device_choose_center_Data(device_choose_center_png);
-    GuiImage centerImg(&device_choose_center_Data);
-
-    //! Device images
-    GuiImageData sd_ImgData(sdstorage_png);
-    GuiImageData usb_ImgData(usbstorage_png);
-    GuiImageData smb_ImgData(networkstorage_png);
-//	GuiImageData isfs_ImgData(isfsstorage_png);
-//	GuiImageData nand_ImgData(isfsstorage_png);
-
-    GuiImageData menu_select(menu_selection_png);
-
-    GuiTrigger trigA;
-    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-    GuiTrigger trigB;
-    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-
-    GuiButton *deviceBtn[MAXDEVICES];
-    GuiImage *deviceImgs[MAXDEVICES];
-    GuiImage *deviceImgOver[MAXDEVICES];
-    GuiText *deviceText[MAXDEVICES];
-
-    int deviceSelection[MAXDEVICES];
-
-    for(int i = 0; i < MAXDEVICES; i++)
-    {
-        deviceBtn[i] = NULL;
-        deviceImgs[i] = NULL;
-        deviceImgOver[i] = NULL;
-        deviceText[i] = NULL;
-        deviceSelection[i] = -1;
-    }
-
-    int PositionX = leftImg.GetWidth();
-    int PositionY = 19;
-    int FontSize = 17;
-
-    if(SDCard_Inserted())
-    {
-        deviceText[deviceCount] = new GuiText("sd", FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(&sd_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(&trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-
-        deviceSelection[deviceCount] = SD;
-
-        deviceCount++;
-    }
-
-    if(USBDevice_Inserted())
-    {
-        deviceText[deviceCount] = new GuiText("usb", FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(&usb_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(&trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-
-        deviceSelection[deviceCount] = USB;
-
-        deviceCount++;
-    }
-
-	char text[50];
-    for(int i = 0; i < NTFS_GetMountCount(); i++)
-    {
-        sprintf(text, "%s", NTFS_GetMountName(i));
-        deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(&usb_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(&trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-
-        deviceSelection[deviceCount] = NTFS0+i;
-
-        deviceCount++;
-    }
-
-    for(int i = 0; i < 4; i++)
-    {
-        if(IsSMB_Mounted(i))
-        {
-            sprintf(text, "smb%i", i+1);
-            deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
-            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-            deviceText[deviceCount]->SetPosition(0, 2);
-            deviceImgs[deviceCount] = new GuiImage(&smb_ImgData);
-            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-            deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-            deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-            deviceBtn[deviceCount]->SetTrigger(&trigA);
-            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-
-            deviceSelection[deviceCount] = SMB1+i;
-
-            deviceCount++;
-        }
-    }
-/*
-	deviceText[deviceCount] = new GuiText("nand", FontSize, (GXColor){0, 0, 0, 255});
-	deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	deviceText[deviceCount]->SetPosition(0, 2);
-	deviceImgs[deviceCount] = new GuiImage(&nand_ImgData);
-	deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-	deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-	deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-	deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-	deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-	deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-	deviceBtn[deviceCount]->SetTrigger(&trigA);
-	deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-	PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-	deviceSelection[deviceCount] = NAND;
-	deviceCount++;
-*/
-    if(!deviceCount)
-        return -5;
-
-    //! Set image position and tile
-    int tile = (PositionX-leftImg.GetWidth())/centerImg.GetWidth();
-
-    leftImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    leftImg.SetPosition(0, 0);
-
-    centerImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    centerImg.SetPosition(leftImg.GetLeft()+leftImg.GetWidth(), 0);
-    centerImg.SetTile(tile);
-
-    rightImg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    rightImg.SetPosition(leftImg.GetWidth() + tile * centerImg.GetWidth(), 0);
-
-    int width = leftImg.GetWidth() + tile * centerImg.GetWidth() + rightImg.GetWidth();
-
-    GuiWindow promptWindow(width, leftImg.GetHeight());
-    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    promptWindow.SetPosition(43, 97);
-
-    GuiButton NoBtn(screenwidth, screenheight);
-    NoBtn.SetPosition(-promptWindow.GetLeft(), -promptWindow.GetTop());
-    NoBtn.SetTrigger(&trigA);
-    NoBtn.SetTrigger(&trigB);
-
-    promptWindow.Append(&NoBtn);
-    promptWindow.Append(&leftImg);
-    promptWindow.Append(&centerImg);
-    promptWindow.Append(&rightImg);
-    for(int i = 0; i < deviceCount; i++)
-        promptWindow.Append(deviceBtn[i]);
-
-    HaltGui();
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
-    promptWindow.SetEffect(EFFECT_FADE, 25);
-    ResumeGui();
-
-    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
-
-    while(choice == -1)
-    {
-        VIDEO_WaitVSync();
-
-        if(NoBtn.GetState() == STATE_CLICKED){
-            choice = -2;
-            NoBtn.ResetState();
-        }
-
-        for(cnt = 0; cnt < deviceCount; cnt++)
-        {
-            if(deviceBtn[cnt]->GetState() == STATE_CLICKED)
-            {
-                choice = deviceSelection[cnt];
-                deviceBtn[cnt]->ResetState();
-            }
-        }
-    }
-
-    promptWindow.SetEffect(EFFECT_FADE, -30);
-    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
-
-    HaltGui();
-    mainWindow->Remove(&promptWindow);
-    for(int i = 0; i < MAXDEVICES; i++)
-    {
-        if(deviceBtn[i]) {
-            delete deviceBtn[i];
-            deviceBtn[i] = NULL;
-        }
-        if(deviceImgs[i]) {
-            delete deviceImgs[i];
-            deviceImgs[i] = NULL;
-        }
-        if(deviceImgOver[i]) {
-            delete deviceImgOver[i];
-            deviceImgOver[i] = NULL;
-        }
-        if(deviceText[i]) {
-            delete deviceText[i];
-            deviceText[i] = NULL;
-        }
-    }
-    ResumeGui();
-
-    return choice;
 }

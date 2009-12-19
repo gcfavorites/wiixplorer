@@ -16,23 +16,7 @@
 #define MAXJOLIET 255
 #define MAXDISPLAY MAXPATHLEN
 
-
-enum {
-    SD = 0,
-    USB,
-    NTFS0,
-    NTFS1,
-    NTFS2,
-    NTFS3,
-    NTFS4,
-    SMB1,
-    SMB2,
-    SMB3,
-    SMB4,
-//	ISFS,
-//	NAND,
-    MAXDEVICES
-};
+#include "Prompts/DeviceMenu.h"
 
 typedef struct
 {
