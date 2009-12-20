@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,9 +36,6 @@ msgstr "起動時のデバイス"
 msgid "Can not open the file"
 msgstr "ﾌｧｲﾙを開けません"
 
-msgid "Can't load any device"
-msgstr "どのデバイスも開けません"
-
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -50,9 +47,6 @@ msgstr "書き込めません"
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change Settings"
-msgstr "設定を変更"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "接続中..."
 msgid "New Folder"
 msgstr "新規ﾌｫﾙﾀﾞ"
 
-msgid "Next device"
-msgstr "次のデバイス"
-
 msgid "No"
 msgstr "いいえ"
 
@@ -410,9 +401,6 @@ msgstr ""
 msgid "Unable to create folder."
 msgstr "ﾌｫﾙﾀﾞを作成できませんでした"
 
-msgid "Unable to load device."
-msgstr "ﾃﾞﾊﾞｲｽをﾛｰﾄﾞできません"
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,3 +447,15 @@ msgstr "この操作は実行できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
+
+#~ msgid "Can't load any device"
+#~ msgstr "どのデバイスも開けません"
+
+#~ msgid "Change Settings"
+#~ msgstr "設定を変更"
+
+#~ msgid "Next device"
+#~ msgstr "次のデバイス"
+
+#~ msgid "Unable to load device."
+#~ msgstr "ﾃﾞﾊﾞｲｽをﾛｰﾄﾞできません"

@@ -36,8 +36,8 @@
 #include "FileStartUp/FileStartUp.h"
 #include "Language/gettext.h"
 #include "devicemounter.h"
-#include "filebrowser.h"
-#include "fileops.h"
+#include "FileOperations/filebrowser.h"
+#include "FileOperations/fileops.h"
 #include "sys.h"
 
 /*** Extern functions ***/
@@ -54,6 +54,8 @@ Explorer::Explorer()
 	menu = MENU_NONE;
 	currentDevice = 0;
 
+    Browser = new FileBrowser();
+
     this->Setup();
 }
 
@@ -62,6 +64,8 @@ Explorer::Explorer(int device)
 {
 	menu = MENU_NONE;
 	currentDevice = device;
+
+    Browser = new FileBrowser();
 
     this->LoadDevice(device);
     this->Setup();
@@ -72,6 +76,8 @@ Explorer::Explorer(const char *path)
 {
 	menu = MENU_NONE;
 	currentDevice = 0;
+
+    Browser = new FileBrowser();
 
     this->LoadPath(path);
     this->Setup();
@@ -113,6 +119,9 @@ Explorer::~Explorer()
     delete trigA;
     delete trigPlus;
     delete trigMinus;
+
+    delete Browser;
+    delete fileBrowser;
 }
 
 void Explorer::Setup()
@@ -146,7 +155,7 @@ void Explorer::Setup()
     height = Background->GetHeight();
 	BackgroundImg = new GuiImage(Background);
 
-	fileBrowser = new GuiFileBrowser(width, 252);
+	fileBrowser = new GuiFileBrowser(Browser, width, 252);
 	fileBrowser->SetPosition(0, 53);
 
     creditsImg = new GuiImage(creditsImgData);
@@ -178,7 +187,7 @@ void Explorer::Setup()
     deviceSwitchBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
 	char currentdir[50];
-    snprintf(currentdir, sizeof(currentdir), "%s%s", browser.rootdir, browser.dir);
+    snprintf(currentdir, sizeof(currentdir), "%s", Browser->GetCurrentPath());
     AdressText = new GuiText(currentdir, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
@@ -207,7 +216,7 @@ void Explorer::Setup()
 
 int Explorer::LoadPath(const char * path)
 {
-	filecount = BrowsePath(path);
+	filecount = Browser->BrowsePath(path);
 	if(filecount < 0)
 	{
 		int choice = WindowPrompt(tr("Error"),
@@ -227,7 +236,7 @@ int Explorer::LoadPath(const char * path)
 }
 int Explorer::LoadDevice(int device)
 {
-    filecount = BrowseDevice(device);
+    filecount = Browser->BrowseDevice(device);
 	if(filecount < 0)
 	{
 		int choice = WindowPrompt(tr("Error"),
@@ -269,30 +278,39 @@ void Explorer::CheckBrowserChanges()
     {
             fileBrowser->ResetState();
             // check corresponding browser entry
-            if(browserList[browser.selIndex].isdir)
+            if(Browser->IsCurrentDir())
             {
-                if(BrowserChangeFolder())
+                if(Browser->BrowserChangeFolder())
                 {
                     fileBrowser->ResetState();
                     fileBrowser->fileList[0]->SetState(STATE_SELECTED);
                     fileBrowser->TriggerUpdate();
-                    AdressText->SetTextf("%s%s", browser.rootdir, browser.dir);
-                } else {
+                    AdressText->SetTextf("%s", Browser->GetCurrentPath());
+                }
+                else
+                {
                     menu = MENU_BROWSE_DEVICE;
                 }
-            } else {
-                char filepath[MAXPATHLEN];
-                snprintf(filepath, sizeof(filepath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-                int result = FileStartUp(filepath);
+            }
+            else
+            {
+				char filepath[MAXPATHLEN];
+                snprintf(filepath, sizeof(filepath), "%s", Browser->GetCurrentSelectedFilepath());
 
-                if(result == BOOTHOMEBREW) {
+				int result = FileStartUp(filepath);
+
+                if(result == BOOTHOMEBREW)
+				{
                     boothomebrew = true;
+					snprintf(Clipboard.filename, sizeof(Clipboard.filename), "%s", filepath);
                     menu = MENU_EXIT;
                 }
-                else if(result == TRIGGERUPDATE) {
-                    ParseDirectory();
+                else if(result == TRIGGERUPDATE)
+				{
+                    Browser->ParseDirectory();
                     fileBrowser->TriggerUpdate();
                 }
+                MainWindow::Instance()->ChangeFocus(this);
             }
     }
 }
@@ -324,10 +342,10 @@ void Explorer::CheckDeviceMenu()
         if(device_choice >= 0)
         {
             LoadDevice(device_choice);
-            ParseDirectory();
+            Browser->ParseDirectory();
             fileBrowser->fileList[0]->SetState(STATE_SELECTED);
             fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s%s", browser.rootdir, browser.dir);
+            AdressText->SetTextf("%s", Browser->GetCurrentPath());
         }
         deviceSwitchBtn->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
@@ -362,8 +380,8 @@ void Explorer::CheckRightClick()
 
         if(RightClick_choice >= 0)
         {
-            ProcessChoice(RightClick_choice);
-            ParseDirectory();
+            ProcessChoice(Browser, RightClick_choice);
+            Browser->ParseDirectory();
             fileBrowser->TriggerUpdate();
         }
         clickmenuBtn->SetState(STATE_DEFAULT);

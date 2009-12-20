@@ -32,7 +32,7 @@
 #include <string.h>
 
 #include "Settings.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 
 #define DEFAULT_APP_PATH    "sd:/apps/WiiExplorer/"

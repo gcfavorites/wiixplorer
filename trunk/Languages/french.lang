@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -36,9 +36,6 @@ msgstr "Périphérique"
 msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
 
-msgid "Can't load any device"
-msgstr "Pas de périphérique"
-
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -50,9 +47,6 @@ msgstr "Ecriture impossible."
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change Settings"
-msgstr "Paramètres"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "Initialisation du réseau..."
 msgid "New Folder"
 msgstr "Nouveau"
 
-msgid "Next device"
-msgstr "Périphérique"
-
 msgid "No"
 msgstr "Non"
 
@@ -410,9 +401,6 @@ msgstr ""
 msgid "Unable to create folder."
 msgstr "Impossible de créer le dossier."
 
-msgid "Unable to load device."
-msgstr "Impossible de charger le périphérique."
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,6 +447,18 @@ msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
+
+#~ msgid "Can't load any device"
+#~ msgstr "Pas de périphérique"
+
+#~ msgid "Change Settings"
+#~ msgstr "Paramètres"
+
+#~ msgid "Next device"
+#~ msgstr "Périphérique"
+
+#~ msgid "Unable to load device."
+#~ msgstr "Impossible de charger le périphérique."
 
 #~ msgid "& translaters for language files."
 #~ msgstr "et tous les traducteurs."

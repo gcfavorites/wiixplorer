@@ -35,7 +35,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 #include "TextEditor.h"
@@ -102,6 +102,7 @@ void TextViewer(const char *filepath)
     filetext = NULL;
 
     MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->SetDim(true);
     MainWindow::Instance()->Append(Editor);
     MainWindow::Instance()->ChangeFocus(Editor);
 
@@ -122,5 +123,6 @@ void TextViewer(const char *filepath)
     Editor = NULL;
 
     MainWindow::Instance()->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetDim(false);
     ResumeGui();
 }

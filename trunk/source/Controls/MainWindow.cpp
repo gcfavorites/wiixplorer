@@ -31,8 +31,8 @@
 #include "MainWindow.h"
 #include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
-#include "filebrowser.h"
-#include "foldersize.h"
+#include "FileOperations/filebrowser.h"
+#include "FileOperations/foldersize.h"
 #include "filelist.h"
 #include "Settings.h"
 #include "menu.h"
@@ -60,9 +60,6 @@ MainWindow::MainWindow()
 	//!Initalize the progress thread
 	InitProgressThread();
 	StopProgress();
-
-    //!Initialize Parsethread for browser
-    InitParseThread();
 
     //!Initialize network thread if selected
     if(Settings.AutoConnect == on)

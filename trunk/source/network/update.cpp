@@ -37,7 +37,7 @@
 #include "svnrev.h"
 #include "main.h"
 #include "URL_List.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 
 /****************************************************************************
  * UpdateApp from a given url. The dol is downloaded and overwrites the old one.

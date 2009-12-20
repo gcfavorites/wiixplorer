@@ -32,7 +32,7 @@
 #include "Language/gettext.h"
 #include "network/networkops.h"
 #include "devicemounter.h"
-#include "filebrowser.h"
+#include "FileOperations/filebrowser.h"
 
 /*** Extern functions ***/
 extern void ResumeGui();

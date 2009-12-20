@@ -35,7 +35,7 @@
 #include "Prompts/PromptWindows.h"
 #include "unzip/unzip.h"
 #include "FileStartUp/ZipFile.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 

@@ -29,6 +29,8 @@
 #ifndef _PROCESS_CHOICE_H_
 #define _PROCESS_CHOICE_H_
 
-void ProcessChoice(int choice);
+#include "FileOperations/filebrowser.h"
+
+void ProcessChoice(FileBrowser * browser, int choice);
 
 #endif
