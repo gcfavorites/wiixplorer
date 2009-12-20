@@ -343,11 +343,11 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
     // move the file listing to respond to wiimote cursor movement
 	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
 		scrollbarBoxBtn->GetStateChan() == t->chan &&
-		t->wpad.ir.valid &&
+		t->wpad->ir.valid &&
 		optionslength > PAGESIZE)
 	{
 		scrollbarBoxBtn->SetPosition(-10,0);
-		positionWiimote = t->wpad.ir.y - 60 - scrollbarBoxBtn->GetTop();
+		positionWiimote = t->wpad->ir.y - 60 - scrollbarBoxBtn->GetTop();
 
 		if(positionWiimote < scrollbarBoxBtn->GetMinY())
 			positionWiimote = scrollbarBoxBtn->GetMinY();
@@ -370,13 +370,13 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 
 	if(arrowDownBtn->GetState() == STATE_HELD && arrowDownBtn->GetStateChan() == t->chan)
 	{
-		t->wpad.btns_h |= WPAD_BUTTON_DOWN;
+		t->wpad->btns_h |= WPAD_BUTTON_DOWN;
 		if(!this->IsFocused())
 			((GuiWindow *)this->GetParent())->ChangeFocus(this);
 	}
 	else if(arrowUpBtn->GetState() == STATE_HELD && arrowUpBtn->GetStateChan() == t->chan)
 	{
-		t->wpad.btns_h |= WPAD_BUTTON_UP;
+		t->wpad->btns_h |= WPAD_BUTTON_UP;
 		if(!this->IsFocused())
 			((GuiWindow *)this->GetParent())->ChangeFocus(this);
 	}
@@ -435,7 +435,7 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 
 		int currChan = t->chan;
 
-		if(t->wpad.ir.valid && !optionBtn[i]->IsInside(t->wpad.ir.x, t->wpad.ir.y))
+		if(t->wpad->ir.valid && !optionBtn[i]->IsInside(t->wpad->ir.x, t->wpad->ir.y))
 			t->chan = -1;
 
 		optionBtn[i]->Update(t);

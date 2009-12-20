@@ -141,8 +141,8 @@ void Window::Draw()
 		POINT prevPoint = clickedPoint;
 
 		// Get the current point
-		clickedPoint.x = userInput[clickedChannel].wpad.ir.x;
-		clickedPoint.y = userInput[clickedChannel].wpad.ir.y;
+		clickedPoint.x = userInput[clickedChannel].wpad->ir.x;
+		clickedPoint.y = userInput[clickedChannel].wpad->ir.y;
 
 		// Move the window, based on the top and left of this window
 		// Therefor, we need to calculate the difference between the mouse down point and the topleft point of this window

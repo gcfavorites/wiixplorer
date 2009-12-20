@@ -369,11 +369,11 @@ bool ConnectSMBShare()
 
             char mountname[10];
             sprintf(mountname, "smb%i", i+1);
-            SMB_Mounted[i] = false;
 
             if(!SMB_Mounted[i])
             {
-                if(strcmp(Settings.SMBUser[i].Host, "")) {
+                if(strcmp(Settings.SMBUser[i].Host, ""))
+                {
                     if(smbInitDevice(mountname,
                         Settings.SMBUser[i].User,
                         Settings.SMBUser[i].Password,
@@ -408,8 +408,8 @@ bool IsSMB_Mounted(int smb)
 /****************************************************************************
  * Initialize_Network
  ***************************************************************************/
-void Initialize_Network(void) {
-
+void Initialize_Network(void)
+{
     if(networkinit)
         return;
 
@@ -486,19 +486,14 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-    while(1) {
-        if(networkHalt)
-            LWP_SuspendThread(networkthread);
+    Initialize_Network();
 
-        ConnectSMBShare();
+    ConnectSMBShare();
 
-        if(!autoupdated)
-        {
-            CheckForUpdate();
-            autoupdated = true;
-        }
-
-        usleep(100);
+    if(!autoupdated)
+    {
+        CheckForUpdate();
+        autoupdated = true;
     }
 	return NULL;
 }

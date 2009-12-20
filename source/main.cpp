@@ -29,22 +29,27 @@
 #include "mload/mload.h"
 #include "mload/ehcmodule_elf.h"
 
+extern "C"
+{
+    extern void __exception_setreload(int t);
+}
+
 Settings Settings;
 
 int
 main(int argc, char *argv[])
 {
     IOS_ReloadIOS(202);
-    if (mload_init() >= 0) {
+    if (mload_init() >= 0)
+    {
         data_elf my_data_elf;
         mload_elf((void *) ehcmodule_elf, &my_data_elf);
         mload_run_thread(my_data_elf.start, my_data_elf.stack, my_data_elf.size_stack, 0x47);
     }
 
-	PAD_Init();
-	Wpad_Init();
 	Sys_Init();
 	InitVideo(); // Initialise video
+	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
 	SDCard_Init(); // Initialize file system
 	USBDevice_Init(); // Initialize file system
@@ -57,10 +62,6 @@ main(int argc, char *argv[])
 	{
         NTFS_Mount();
 	}
-
-	// read wiimote accelerometer and IR data
-	WPAD_SetDataFormat(WPAD_CHAN_ALL,WPAD_FMT_BTNS_ACC_IR);
-	WPAD_SetVRes(WPAD_CHAN_ALL, screenwidth, screenheight);
 
 	for(int i = 0; i < MAX_FONT_SIZE+1; i++)
 	{

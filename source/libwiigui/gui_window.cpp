@@ -207,7 +207,7 @@ void GuiWindow::ToggleFocus(GuiTrigger * t)
 		}
 	}
 	// change focus
-	else if(t->wpad.btns_d & (WPAD_BUTTON_2)
+	else if(t->wpad->btns_d & (WPAD_BUTTON_2)
 		|| t->pad.btns_d & PAD_BUTTON_B)
 	{
 		for (i = found; i < _elements.size(); i++)
