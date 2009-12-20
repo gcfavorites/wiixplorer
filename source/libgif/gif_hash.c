@@ -20,9 +20,6 @@
 *
 *****************************************************************************/
 #include <malloc.h>
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
 
 /* Find a thirty-two bit int type */
 #ifdef HAVE_STDINT_H

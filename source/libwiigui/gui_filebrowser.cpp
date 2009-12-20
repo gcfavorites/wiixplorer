@@ -8,18 +8,18 @@
  * GUI class definitions
  ***************************************************************************/
 
-#include "gui.h"
-#include "filebrowser.h"
+#include "gui_filebrowser.h"
 
 /**
  * Constructor for the GuiFileBrowser class.
  */
-GuiFileBrowser::GuiFileBrowser(int w, int h)
+GuiFileBrowser::GuiFileBrowser(FileBrowser * filebrowser, int w, int h)
 {
 	width = w;
 	height = h;
 	selectedItem = 0;
 	numEntries = 0;
+	browser = filebrowser;
 	selectable = true;
 	listChanged = true; // trigger an initial list update
 	triggerdisabled = false; // trigger disable
@@ -268,7 +268,7 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
 		scrollbarBoxBtn->GetStateChan() == t->chan &&
 		t->wpad->ir.valid &&
-		browser.numEntries > PAGESIZE
+		browser->GetEntrieCount() > PAGESIZE
 		)
 	{
 		scrollbarBoxBtn->SetPosition(-10,0);
@@ -279,16 +279,17 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 		else if(positionWiimote > scrollbarBoxBtn->GetMaxY())
 			positionWiimote = scrollbarBoxBtn->GetMaxY();
 
-		browser.pageIndex = (positionWiimote * browser.numEntries)/136.0 - selectedItem;
+		int pageIndex = (positionWiimote * browser->GetEntrieCount())/136.0 - selectedItem;
 
-		if(browser.pageIndex <= 0)
+		if(pageIndex <= 0)
 		{
-			browser.pageIndex = 0;
+			pageIndex = 0;
 		}
-		else if(browser.pageIndex+PAGESIZE >= browser.numEntries)
+		else if(pageIndex+PAGESIZE >= browser->GetEntrieCount())
 		{
-			browser.pageIndex = browser.numEntries-PAGESIZE;
+			pageIndex = browser->GetEntrieCount()-PAGESIZE;
 		}
+		browser->SetPageIndex(pageIndex);
 		listChanged = true;
 		focus = false;
 	}
@@ -315,32 +316,34 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 
 	if(t->Right())
 	{
-		if(browser.pageIndex < browser.numEntries && browser.numEntries > PAGESIZE)
+		if(browser->GetPageIndex() < browser->GetEntrieCount() && browser->GetEntrieCount() > PAGESIZE)
 		{
-			browser.pageIndex += PAGESIZE;
-			if(browser.pageIndex+PAGESIZE >= browser.numEntries)
-				browser.pageIndex = browser.numEntries-PAGESIZE;
+			int pageIndex = browser->GetPageIndex() + PAGESIZE;
+			if(pageIndex+PAGESIZE >= browser->GetEntrieCount())
+				pageIndex = browser->GetEntrieCount()-PAGESIZE;
+			browser->SetPageIndex(pageIndex);
 			listChanged = true;
 		}
 	}
 	else if(t->Left())
 	{
-		if(browser.pageIndex > 0)
+		if(browser->GetPageIndex() > 0)
 		{
-			browser.pageIndex -= PAGESIZE;
-			if(browser.pageIndex < 0)
-				browser.pageIndex = 0;
+			int pageIndex = browser->GetPageIndex() - PAGESIZE;
+			if(pageIndex < 0)
+				pageIndex = 0;
+			browser->SetPageIndex(pageIndex);
 			listChanged = true;
 		}
 	}
 	else if(t->Down())
 	{
-		if(browser.pageIndex + selectedItem + 1 < browser.numEntries)
+		if(browser->GetPageIndex() + selectedItem + 1 < browser->GetEntrieCount())
 		{
 			if(selectedItem == PAGESIZE-1)
 			{
 				// move list down by 1
-				browser.pageIndex++;
+				browser->SetPageIndex(browser->GetPageIndex()+1);
 				listChanged = true;
 			}
 			else if(fileList[selectedItem+1]->IsVisible())
@@ -352,10 +355,10 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	}
 	else if(t->Up())
 	{
-		if(selectedItem == 0 &&	browser.pageIndex + selectedItem > 0)
+		if(selectedItem == 0 &&	 browser->GetPageIndex() + selectedItem > 0)
 		{
 			// move list up by 1
-			browser.pageIndex--;
+			browser->SetPageIndex(browser->GetPageIndex()-1);
 			listChanged = true;
 		}
 		else if(selectedItem > 0)
@@ -366,8 +369,8 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	}
 
 	//endNavigation:
-	if(numEntries != browser.numEntries) {
-	    numEntries = browser.numEntries;
+	if(numEntries != browser->GetEntrieCount()) {
+	    numEntries = browser->GetEntrieCount();
         listChanged = true;
 	}
 
@@ -375,17 +378,17 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	{
 		if(listChanged)
 		{
-			if(browser.pageIndex+i < browser.numEntries)
+			if(browser->GetPageIndex()+i < browser->GetEntrieCount())
 			{
 				if(fileList[i]->GetState() == STATE_DISABLED)
 					fileList[i]->SetState(STATE_DEFAULT);
 
 				fileList[i]->SetVisible(true);
 
-				fileListText[i]->SetText(browserList[browser.pageIndex+i].displayname);
-				fileListTextOver[i]->SetText(browserList[browser.pageIndex+i].displayname);
+				fileListText[i]->SetText(browser->GetItemDisplayname(browser->GetPageIndex()+i));
+				fileListTextOver[i]->SetText(browser->GetItemDisplayname(browser->GetPageIndex()+i));
 
-				if(browserList[browser.pageIndex+i].isdir) // directory
+				if(browser->IsDir(browser->GetPageIndex()+i)) // directory
 				{
 					fileList[i]->SetIcon(fileListFolder[i]);
 					fileListText[i]->SetPosition(30,0);
@@ -393,7 +396,7 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 				}
 				else
 				{
-				    char *fileext = strrchr(browserList[browser.pageIndex+i].displayname, '.');
+				    char *fileext = strrchr(browser->GetItemDisplayname(browser->GetPageIndex()+i), '.');
 					fileListText[i]->SetPosition(32,0);
 					fileListTextOver[i]->SetPosition(32,0);
 				    if(fileext)
@@ -442,7 +445,7 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 		if(fileList[i]->GetState() == STATE_SELECTED)
 		{
 			selectedItem = i;
-			browser.selIndex = browser.pageIndex + i;
+			browser->SetSelectedIndex(browser->GetPageIndex() + i);
 		}
 	}
 
@@ -453,11 +456,11 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	}
 	else
 	{
-		position = 136*(browser.pageIndex + PAGESIZE/2.0) / (browser.numEntries*1.0);
+		position = 136*(browser->GetPageIndex() + PAGESIZE/2.0) / (browser->GetEntrieCount()*1.0);
 
-		if(browser.pageIndex/(PAGESIZE/2.0) < 1)
+		if(browser->GetPageIndex()/(PAGESIZE/2.0) < 1)
 			position = 0;
-		else if((browser.pageIndex+PAGESIZE)/(PAGESIZE*1.0) >= (browser.numEntries)/(PAGESIZE*1.0))
+		else if((browser->GetPageIndex()+PAGESIZE)/(PAGESIZE*1.0) >= (browser->GetEntrieCount())/(PAGESIZE*1.0))
 			position = 136;
 	}
 

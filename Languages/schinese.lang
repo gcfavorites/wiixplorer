@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -36,9 +36,6 @@ msgstr "开始挂载"
 msgid "Can not open the file"
 msgstr "不能打开文件"
 
-msgid "Can't load any device"
-msgstr "设备无法读取"
-
 msgid "Cancel"
 msgstr "取消"
 
@@ -50,9 +47,6 @@ msgstr "目的地址无法写入"
 
 msgid "Caps"
 msgstr "大写"
-
-msgid "Change Settings"
-msgstr "更改设置"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "网络正在初始化"
 msgid "New Folder"
 msgstr "新文件夹"
 
-msgid "Next device"
-msgstr "下一个设备"
-
 msgid "No"
 msgstr "否"
 
@@ -410,9 +401,6 @@ msgstr "USB设置"
 msgid "Unable to create folder."
 msgstr "不能建立文件夹"
 
-msgid "Unable to load device."
-msgstr "设备不能读取"
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,3 +447,15 @@ msgstr "无法使用此功能在："
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "Can't load any device"
+#~ msgstr "设备无法读取"
+
+#~ msgid "Change Settings"
+#~ msgstr "更改设置"
+
+#~ msgid "Next device"
+#~ msgstr "下一个设备"
+
+#~ msgid "Unable to load device."
+#~ msgstr "设备不能读取"

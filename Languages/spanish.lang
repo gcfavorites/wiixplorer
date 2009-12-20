@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -36,9 +36,6 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "No se puede abrir el archivo"
 
-msgid "Can't load any device"
-msgstr ""
-
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -50,9 +47,6 @@ msgstr ""
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change Settings"
-msgstr "Cambiar configuración"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "Inicializando la red..."
 msgid "New Folder"
 msgstr "Nueva carpeta"
 
-msgid "Next device"
-msgstr ""
-
 msgid "No"
 msgstr "No"
 
@@ -410,9 +401,6 @@ msgstr "USB"
 msgid "Unable to create folder."
 msgstr "No se puede crear carpeta."
 
-msgid "Unable to load device."
-msgstr "No se puede cargar el dispositivo."
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,3 +447,9 @@ msgstr "No puedes usar esta operación en:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
+
+#~ msgid "Change Settings"
+#~ msgstr "Cambiar configuración"
+
+#~ msgid "Unable to load device."
+#~ msgstr "No se puede cargar el dispositivo."

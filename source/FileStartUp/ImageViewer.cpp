@@ -33,7 +33,7 @@
 #include "libwiigui/gui.h"
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 #include "DirList.h"

@@ -31,6 +31,7 @@
 #include <gctypes.h>
 #include <unistd.h>
 
+#include "libwiigui/gui_filebrowser.h"
 #include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/RightClickMenu.h"
@@ -57,6 +58,7 @@ class Explorer : public GuiWindow
         bool CreditsPressed;
         u32 filecount;
 
+        FileBrowser * Browser;
         GuiFileBrowser * fileBrowser;
 
         DeviceMenu * Device_Menu;

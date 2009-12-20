@@ -43,9 +43,9 @@
 #include "main.h"
 #include "input.h"
 #include "filelist.h"
-#include "filebrowser.h"
-#include "fileops.h"
-#include "foldersize.h"
+#include "FileOperations/filebrowser.h"
+#include "FileOperations/fileops.h"
+#include "FileOperations/foldersize.h"
 #include "devicemounter.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Prompts/PromptWindows.h"
@@ -105,7 +105,7 @@ static int MenuBrowseDevice()
         firsttimestart = false;
         sleep(2);
     }
-
+/*
 	// populate initial directory listing
 	if(BrowseDevice(currentDevice) <= 0)
 	{
@@ -143,7 +143,7 @@ static int MenuBrowseDevice()
 		else
 			return MENU_SETTINGS;
 	}
-
+*/
 	int menu = MENU_NONE;
 
     Explorer * Explorer_1 = new Explorer(currentDevice);

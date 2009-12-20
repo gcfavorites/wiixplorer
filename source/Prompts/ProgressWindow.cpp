@@ -36,9 +36,9 @@
 #include "libwiigui/gui.h"
 #include "Controls/MainWindow.h"
 #include "Prompts/ProgressWindow.h"
-#include "filebrowser.h"
+#include "FileOperations/filebrowser.h"
 #include "menu.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 

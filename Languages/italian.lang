@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -36,9 +36,6 @@ msgstr "Mount all'avvio"
 msgid "Can not open the file"
 msgstr "Il file non si può aprire"
 
-msgid "Can't load any device"
-msgstr "Impossibile caricare le periferiche"
-
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -50,9 +47,6 @@ msgstr "Impossibile scrivere nella destinazione."
 
 msgid "Caps"
 msgstr "Blocco Maiuscole"
-
-msgid "Change Settings"
-msgstr "Modifica Impostazioni"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "Inizializzazione rete..."
 msgid "New Folder"
 msgstr "Nuova cartella"
 
-msgid "Next device"
-msgstr "Periferica successiva"
-
 msgid "No"
 msgstr ""
 
@@ -410,9 +401,6 @@ msgstr ""
 msgid "Unable to create folder."
 msgstr "Non è stato possibile creare la cartella."
 
-msgid "Unable to load device."
-msgstr "Non è stato possibile accedere alla periferica."
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,3 +447,15 @@ msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
+
+#~ msgid "Can't load any device"
+#~ msgstr "Impossibile caricare le periferiche"
+
+#~ msgid "Change Settings"
+#~ msgstr "Modifica Impostazioni"
+
+#~ msgid "Next device"
+#~ msgstr "Periferica successiva"
+
+#~ msgid "Unable to load device."
+#~ msgstr "Non è stato possibile accedere alla periferica."

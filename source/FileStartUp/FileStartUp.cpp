@@ -12,7 +12,7 @@
 #include "FileStartUp/MusicLoader.h"
 #include "FileStartUp/ZipBrowser.h"
 #include "Language/gettext.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 
 int FileStartUp(const char *filepath)
 {

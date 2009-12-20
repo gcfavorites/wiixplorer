@@ -36,7 +36,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
 #include "main.h"
-#include "fileops.h"
+#include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 

@@ -6,7 +6,7 @@
 #include <sdcard/wiisd_io.h>
 
 #include "usbstorage/usbstorage.h"
-#include <ntfs.h>   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
+#include "libntfs/ntfs.h"   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
 
 //these are the only stable and speed is good
 #define CACHE 8
@@ -14,10 +14,12 @@
 
 static ntfs_md *ntfs_mounts = NULL;
 static int ntfs_mountCount = 0;
+static DISC_INTERFACE * sd = (DISC_INTERFACE *) &__io_wiisd;
+static DISC_INTERFACE * usb = NULL;
 
 int NTFS_Mount()
 {
-    ntfs_mountCount = ntfsMountAll(&ntfs_mounts, NTFS_DEFAULT | NTFS_RECOVER);
+    ntfs_mountCount = ntfsMountAll(&ntfs_mounts, NTFS_SHOW_HIDDEN_FILES | NTFS_RECOVER);
 
     return ntfs_mountCount;
 }
@@ -54,9 +56,14 @@ int USBDevice_Init()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
 
-    if (fatMount("usb", &__io_usb2storage, 0, CACHE, SECTORS)) {
+    if (fatMount("usb", &__io_usb2storage, 0, CACHE, SECTORS))
+    {
+        usb = (DISC_INTERFACE *) &__io_usb2storage;
 		ret = 1;
-	} else if (fatMount("usb", &__io_usb1storage, 0, CACHE, SECTORS)) {
+	}
+	else if (fatMount("usb", &__io_usb1storage, 0, CACHE, SECTORS))
+	{
+        usb = (DISC_INTERFACE *) &__io_usb1storage;
 		ret = 1;
 	}
 
@@ -65,22 +72,25 @@ int USBDevice_Init()
 
 void USBDevice_deInit()
 {
+    if(!usb)
+        return;
+
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
+	usb->shutdown();
 }
 
-int USBDevice_Inserted()
+bool USBDevice_Inserted()
 {
-    int ret = __io_usb2storage.isInserted();
-	if(ret >= 0)
-        return ret;
-    else
-        return __io_usb1storage.isInserted();
+    if(!usb)
+        return false;
+
+	return usb->isInserted();
 }
 
-int SDCard_Inserted()
+bool SDCard_Inserted()
 {
-    return __io_wiisd.isInserted();
+    return sd->isInserted();
 }
 
 int SDCard_Init()
@@ -88,7 +98,7 @@ int SDCard_Init()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
 	//right now mounts first FAT-partition
-	if (fatMount("sd", &__io_wiisd, 0, CACHE, SECTORS))
+	if (fatMount("sd", sd, 0, CACHE, SECTORS))
 		return 1;
 	return -1;
 }
@@ -97,4 +107,5 @@ void SDCard_deInit()
 {
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
+	sd->shutdown();
 }

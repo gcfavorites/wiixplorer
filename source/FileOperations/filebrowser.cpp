@@ -12,7 +12,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wiiuse/wpad.h>
-#include <sys/dir.h>
 #include <malloc.h>
 
 #include "filebrowser.h"
@@ -20,19 +19,160 @@
 #include "Language/gettext.h"
 #include "menu.h"
 
-BROWSERINFO browser;
-BROWSERENTRY * browserList = NULL; // list of files/folders in browser
+/****************************************************************************
+ * FileBrowser Class to parse directories on the fly
+ ***************************************************************************/
+FileBrowser::FileBrowser()
+{
+    browserList = NULL;
+    parsethread = LWP_THREAD_NULL;
+    dirIter = NULL;
+    parseHalt = true;
+    exit_Requested = false;
 
-// folder parsing thread
-static lwp_t parsethread = LWP_THREAD_NULL;
-static DIR_ITER *dirIter = NULL;
-static bool parseHalt = true;
+    //!Reset and prepare browser
+    ResetBrowser();
+    //!Initialize Parsethread for browser
+    InitParseThread();
+}
+
+/****************************************************************************
+ * Destructor
+ ***************************************************************************/
+FileBrowser::~FileBrowser()
+{
+    ShutdownParseThread();
+    dirclose(dirIter); // close directory
+    dirIter = NULL;
+    if(browserList != NULL)
+	{
+		free(browserList);
+		browserList = NULL;
+	}
+}
+
+/****************************************************************************
+ * BrowsePath
+ * Displays a list of files on the selected path
+ ***************************************************************************/
+int FileBrowser::BrowsePath(const char *path)
+{
+	int length = strlen(path)+1;
+
+	char *device = strchr(path, ':');
+	int position = device-path+1;
+
+
+	if(!device || position < 0)
+        return -1;
+
+	snprintf(browser.rootdir, position+1, "%s", path);
+
+    int n = 0;
+	for(int i = position; i < length; i++)
+	{
+	    browser.dir[n] = path[i];
+	    browser.dir[n+1] = '\0';
+	    n++;
+	}
+
+	ParseDirectory(); // Parse root directory
+	return browser.numEntries;
+}
+
+/****************************************************************************
+ * BrowseDevice
+ * Displays a list of files on the selected device
+ ***************************************************************************/
+int FileBrowser::BrowseDevice(int device)
+{
+	sprintf(browser.dir, "/");
+	switch(device)
+	{
+	    case SD:
+            sprintf(browser.rootdir, "sd:");
+            break;
+	    case USB:
+            sprintf(browser.rootdir, "usb:");
+            break;
+	    case NTFS0:
+            sprintf(browser.rootdir, "ntfs0:");
+            break;
+	    case NTFS1:
+            sprintf(browser.rootdir, "ntfs1:");
+            break;
+	    case NTFS2:
+            sprintf(browser.rootdir, "ntfs2:");
+            break;
+	    case NTFS3:
+            sprintf(browser.rootdir, "ntfs3:");
+            break;
+	    case NTFS4:
+            sprintf(browser.rootdir, "ntfs4:");
+            break;
+	    case SMB1:
+            sprintf(browser.rootdir, "smb1:");
+            break;
+	    case SMB2:
+            sprintf(browser.rootdir, "smb2:");
+            break;
+	    case SMB3:
+            sprintf(browser.rootdir, "smb3:");
+            break;
+	    case SMB4:
+            sprintf(browser.rootdir, "smb4:");
+            break;
+//		case ISFS:
+//			sprintf(browser.rootdir, "isfs:");
+//			break;
+//		case NAND:
+//			sprintf(browser.rootdir, "nand:");
+//			break;
+	}
+	ParseDirectory(); // Parse root directory
+	return browser.numEntries;
+}
+
+/****************************************************************************
+ * SetPageIndex
+ * not inline for later mutex purpose
+ ***************************************************************************/
+void FileBrowser::SetPageIndex(int ind)
+{
+    browser.pageIndex = ind;
+}
+/****************************************************************************
+ * SetSelectedIndex
+ * not inline for later mutex purpose
+ ***************************************************************************/
+void FileBrowser::SetSelectedIndex(int ind)
+{
+    browser.selIndex = ind;
+}
+/****************************************************************************
+ * Get the current full path
+ ***************************************************************************/
+const char * FileBrowser::GetCurrentPath()
+{
+    snprintf(currentpath, sizeof(currentpath), "%s%s", browser.rootdir, browser.dir);
+
+    return currentpath;
+}
+/****************************************************************************
+ * Get the current full path with filename
+ ***************************************************************************/
+const char * FileBrowser::GetCurrentSelectedFilepath()
+{
+    snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+
+    return currentpath;
+}
 
 /****************************************************************************
  * ResetBrowser()
  * Clears the file browser memory, and allocates one initial entry
  ***************************************************************************/
-void ResetBrowser()
+void FileBrowser::ResetBrowser()
 {
 	browser.numEntries = 0;
 	browser.selIndex = 0;
@@ -53,7 +193,7 @@ void ResetBrowser()
  * UpdateDirName()
  * Update curent directory name for file browser
  ***************************************************************************/
-int UpdateDirName()
+int FileBrowser::UpdateDirName()
 {
 	int size=0;
 	char * test;
@@ -99,6 +239,7 @@ int UpdateDirName()
 	}
 }
 
+
 /****************************************************************************
  * FileSortCallback
  *
@@ -108,7 +249,7 @@ int UpdateDirName()
  *   <dirs>
  *   <files>
  ***************************************************************************/
-int FileSortCallback(const void *f1, const void *f2)
+static int FileSortCallback(const void *f1, const void *f2)
 {
 	/* Special case for implicit directories */
 	if(((BROWSERENTRY *)f1)->filename[0] == '.' || ((BROWSERENTRY *)f2)->filename[0] == '.')
@@ -131,7 +272,7 @@ int FileSortCallback(const void *f1, const void *f2)
  *
  * Update current directory and set new entry list and entrynum
  ***************************************************************************/
-static bool ParseDirEntries()
+bool FileBrowser::ParseDirEntries()
 {
 	if(!dirIter)
 		return false;
@@ -205,7 +346,7 @@ static bool ParseDirEntries()
 /***************************************************************************
  * Browse subdirectories
  **************************************************************************/
-int ParseDirectory()
+int FileBrowser::ParseDirectory()
 {
 	char fulldir[MAXPATHLEN];
 
@@ -241,34 +382,11 @@ int ParseDirectory()
 }
 
 /****************************************************************************
- * ParseThread callback function
- ***************************************************************************/
-static void *parsecallback (void *arg)
-{
-	while(1)
-	{
-		while(ParseDirEntries())
-			usleep(THREAD_SLEEP);
-
-		LWP_SuspendThread(parsethread);
-	}
-	return NULL;
-}
-
-/****************************************************************************
- * InitParseThread
- ***************************************************************************/
-void InitParseThread()
-{
-	LWP_CreateThread(&parsethread, parsecallback, NULL, NULL, 0, 60);
-}
-
-/****************************************************************************
  * BrowserChangeFolder
  *
  * Update current directory and set new entry list if directory has changed
  ***************************************************************************/
-int BrowserChangeFolder()
+int FileBrowser::BrowserChangeFolder()
 {
 	if(!UpdateDirName())
 		return -1;
@@ -279,83 +397,46 @@ int BrowserChangeFolder()
 }
 
 /****************************************************************************
- * BrowsePath
- * Displays a list of files on the selected path
+ * ParseThread callback function
  ***************************************************************************/
-int BrowsePath(const char *path)
+void * FileBrowser::UpdateThread(void *arg)
 {
-	int length = strlen(path)+1;
-
-	char *device = strchr(path, ':');
-	int position = device-path+1;
-
-
-	if(!device || position < 0)
-        return -1;
-
-	snprintf(browser.rootdir, position+1, "%s", path);
-
-    int n = 0;
-	for(int i = position; i < length; i++)
-	{
-	    browser.dir[n] = path[i];
-	    browser.dir[n+1] = '\0';
-	    n++;
-	}
-
-	ParseDirectory(); // Parse root directory
-	return browser.numEntries;
+	((FileBrowser *) arg)->InternalThreadUpdate();
+	return NULL;
 }
 
 /****************************************************************************
- * BrowseDevice
- * Displays a list of files on the selected device
+ * InternalThreadUpdate
  ***************************************************************************/
-int BrowseDevice(int device)
+void FileBrowser::InternalThreadUpdate()
 {
-	sprintf(browser.dir, "/");
-	switch(device)
+	while(!exit_Requested)
 	{
-	    case SD:
-            sprintf(browser.rootdir, "sd:");
-            break;
-	    case USB:
-            sprintf(browser.rootdir, "usb:");
-            break;
-	    case NTFS0:
-            sprintf(browser.rootdir, "ntfs0:");
-            break;
-	    case NTFS1:
-            sprintf(browser.rootdir, "ntfs1:");
-            break;
-	    case NTFS2:
-            sprintf(browser.rootdir, "ntfs2:");
-            break;
-	    case NTFS3:
-            sprintf(browser.rootdir, "ntfs3:");
-            break;
-	    case NTFS4:
-            sprintf(browser.rootdir, "ntfs4:");
-            break;
-	    case SMB1:
-            sprintf(browser.rootdir, "smb1:");
-            break;
-	    case SMB2:
-            sprintf(browser.rootdir, "smb2:");
-            break;
-	    case SMB3:
-            sprintf(browser.rootdir, "smb3:");
-            break;
-	    case SMB4:
-            sprintf(browser.rootdir, "smb4:");
-            break;
-//		case ISFS:
-//			sprintf(browser.rootdir, "isfs:");
-//			break;
-//		case NAND:
-//			sprintf(browser.rootdir, "nand:");
-//			break;
+		while(ParseDirEntries())
+			usleep(THREAD_SLEEP);
+
+		LWP_SuspendThread(parsethread);
 	}
-	ParseDirectory(); // Parse root directory
-	return browser.numEntries;
+}
+
+/****************************************************************************
+ * InitParseThread
+ ***************************************************************************/
+void FileBrowser::InitParseThread()
+{
+	LWP_CreateThread(&parsethread, UpdateThread, this, NULL, 0, 60);
+}
+
+/****************************************************************************
+ * InitParseThread
+ ***************************************************************************/
+void FileBrowser::ShutdownParseThread()
+{
+    if(parsethread != LWP_THREAD_NULL)
+	{
+        exit_Requested = true;
+        LWP_ResumeThread(parsethread);
+        LWP_JoinThread(parsethread, NULL);
+        parsethread = LWP_THREAD_NULL;
+	}
 }

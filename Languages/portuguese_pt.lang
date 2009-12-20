@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-10-12 18:38\n"
 "Last-Translator: Sky8000\n"
 "Language-Team: Sky8000\n"
@@ -36,9 +36,6 @@ msgstr "Montar no arranque"
 msgid "Can not open the file"
 msgstr "Não foi possível abrir o ficheiro"
 
-msgid "Can't load any device"
-msgstr "Não foi possível carregar nenhum dispositivo"
-
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -50,9 +47,6 @@ msgstr "Impossível escrever para o destino."
 
 msgid "Caps"
 msgstr "Maiúsculas"
-
-msgid "Change Settings"
-msgstr "Alterar Configuração"
 
 msgid "Close"
 msgstr ""
@@ -283,9 +277,6 @@ msgstr "Inicializando rede..."
 msgid "New Folder"
 msgstr "Nova Pasta"
 
-msgid "Next device"
-msgstr ""
-
 msgid "No"
 msgstr "Não"
 
@@ -410,9 +401,6 @@ msgstr ""
 msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
 
-msgid "Unable to load device."
-msgstr "Não é possível ler o dispositivo."
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -459,3 +447,12 @@ msgstr "Não pode usar esta operação em:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
+
+#~ msgid "Can't load any device"
+#~ msgstr "Não foi possível carregar nenhum dispositivo"
+
+#~ msgid "Change Settings"
+#~ msgstr "Alterar Configuração"
+
+#~ msgid "Unable to load device."
+#~ msgstr "Não é possível ler o dispositivo."

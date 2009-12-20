@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 12:06+0100\n"
+"POT-Creation-Date: 2009-12-20 17:59+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -37,9 +37,6 @@ msgstr ""
 msgid "Can not open the file"
 msgstr "Nelze otevřít soubor"
 
-msgid "Can't load any device"
-msgstr ""
-
 msgid "Cancel"
 msgstr "Zpět"
 
@@ -51,9 +48,6 @@ msgstr ""
 
 msgid "Caps"
 msgstr "Velká písmena"
-
-msgid "Change Settings"
-msgstr "Změna nastavení"
 
 msgid "Close"
 msgstr ""
@@ -284,9 +278,6 @@ msgstr "Inicializace sítě ..."
 msgid "New Folder"
 msgstr "Nový adresář"
 
-msgid "Next device"
-msgstr ""
-
 msgid "No"
 msgstr "Ne"
 
@@ -411,9 +402,6 @@ msgstr ""
 msgid "Unable to create folder."
 msgstr "Nelze vytvořit adresář."
 
-msgid "Unable to load device."
-msgstr "Nelze připojit zařízení."
-
 msgid "Unable to load path."
 msgstr ""
 
@@ -460,3 +448,9 @@ msgstr "Nelze použít tuto operaci na:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
+
+#~ msgid "Change Settings"
+#~ msgstr "Změna nastavení"
+
+#~ msgid "Unable to load device."
+#~ msgstr "Nelze připojit zařízení."

@@ -20,20 +20,21 @@ BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
 				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
-				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus
+				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus \
+				source/libntfs
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-ffast-math -g -O3 -mrvl -mcpu=750 -meabi -mhard-float -Wall $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DGEKKO -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-ljpeg -lpng -lz -lntfs -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
+LIBS :=	-ljpeg -lpng -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
