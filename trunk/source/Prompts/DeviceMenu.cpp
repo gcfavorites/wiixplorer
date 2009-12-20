@@ -220,7 +220,7 @@ DeviceMenu::DeviceMenu(int x, int y)
     height = leftImg->GetHeight();
 
     NoBtn = new GuiButton(screenwidth, screenheight);
-    NoBtn->SetPosition(-this->GetLeft(), -this->GetTop());
+    NoBtn->SetPosition(-x, -y);
     NoBtn->SetTrigger(trigA);
     NoBtn->SetTrigger(trigB);
     NoBtn->Clicked.connect(this, &DeviceMenu::OnButtonClick);

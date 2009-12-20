@@ -300,9 +300,16 @@ void GuiElement::SetState(int s, int c)
 	stateChan = c;
 	StateChanged(this, s, c);
 
-	POINT p = { userInput[c].wpad.ir.x,
-				userInput[c].wpad.ir.y };
+	POINT p = {0, 0};
 
+    if (userInput[c].wpad)
+    {
+        if (userInput[c].wpad->ir.valid)
+        {
+            p.x = userInput[c].wpad->ir.x;
+            p.y = userInput[c].wpad->ir.y;
+        }
+    }
 	if (s == STATE_CLICKED) {
 		Clicked(this, c, PtrToControl(p));
 	} else if (s == STATE_HELD) {

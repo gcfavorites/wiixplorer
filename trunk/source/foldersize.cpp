@@ -33,12 +33,14 @@
 #include <unistd.h>
 
 #include "fileops.h"
+#include "foldersize.h"
 
 /*** Variables used only in this file ***/
 static lwp_t foldersizethread = LWP_THREAD_NULL;
-static char folderpath[1024];
+static char * folderpath = NULL;
 static u64 foldersize = 0;
 static u32 filecount = 0;
+static bool threadrunning = false;
 bool sizegainrunning = false;
 
 /****************************************************************************
@@ -61,7 +63,7 @@ u32 GetFilecount()
  ***************************************************************************/
 static void GetSize()
 {
-    if(!sizegainrunning)
+    if(!sizegainrunning && !folderpath)
         return;
 
     GetFolderSize(folderpath, foldersize, filecount);
@@ -75,15 +77,8 @@ static void GetSize()
 
 static void * FolderSizeThread(void *arg)
 {
-	while(1)
-	{
-		if(!sizegainrunning)
-			LWP_SuspendThread(foldersizethread);
-
-        GetSize();
-
-        usleep(100);
-	}
+    GetSize();
+    threadrunning = false;
 	return NULL;
 }
 /****************************************************************************
@@ -93,10 +88,20 @@ static void * FolderSizeThread(void *arg)
  ***************************************************************************/
 void StartGetFolderSizeThread(const char * path)
 {
-    strncpy(folderpath, path, sizeof(folderpath));
+    if(!path)
+        return;
+
+    if(folderpath)
+        delete [] folderpath;
+
+    folderpath = new char[strlen(path)+1];
+    snprintf(folderpath, strlen(path)+1, "%s", path);
     foldersize = 0;
     filecount = 0;
     sizegainrunning = true;
+    threadrunning = true;
+    //!Initialize GetSizeThread for Properties
+    InitGetSizeThread();
     LWP_ResumeThread(foldersizethread);
 }
 /****************************************************************************
@@ -105,6 +110,15 @@ void StartGetFolderSizeThread(const char * path)
 void StopSizeGain()
 {
     sizegainrunning = false;
+
+    while(threadrunning)
+        usleep(100);
+
+    if(folderpath)
+        delete [] folderpath;
+    folderpath = NULL;
+
+    ExitGetSizeThread();
 }
 
 /****************************************************************************
@@ -112,7 +126,8 @@ void StopSizeGain()
  *
  * Startup FolderSizeThread in idle prio
  ***************************************************************************/
-void InitGetSizeThread() {
+void InitGetSizeThread()
+{
 	LWP_CreateThread(&foldersizethread, FolderSizeThread, NULL, NULL, 0, 60);
 }
 

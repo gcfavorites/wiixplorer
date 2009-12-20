@@ -61,19 +61,16 @@ MainWindow::MainWindow()
 	InitProgressThread();
 	StopProgress();
 
-    //!Initialize network thread if selected
-    InitNetworkThread();
-    if(Settings.AutoConnect == on)
-        ResumeNetworkThread();
-    else
-        HaltNetworkThread();
-
-    //!Initialize GetSizeThread for Properties
-    InitGetSizeThread();
-    StopSizeGain();
-
     //!Initialize Parsethread for browser
     InitParseThread();
+
+    //!Initialize network thread if selected
+    if(Settings.AutoConnect == on)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
+    //ShutdownNetworkThread();
 
 	bgImgData = Resources::GetImageData(background_png, background_png_size);
     bgImg = new GuiImage(bgImgData);
@@ -222,15 +219,16 @@ void MainWindow::InternalUpdateGUI()
 			continue;
 		}
 
+        UpdatePads();
 		Draw();
 
 		#ifdef HW_RVL
 		for (i = 3; i >= 0; i--)
 		{
-			if (userInput[i].wpad.ir.valid)
+			if (userInput[i].wpad->ir.valid)
 			{
-				Menu_DrawImg(userInput[i].wpad.ir.x-48, userInput[i].wpad.ir.y-48,
-					96, 96, pointer[i]->GetImage(), userInput[i].wpad.ir.angle, 1, 1, 255);
+				Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48,
+					96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
 			}
 		}
 		#endif

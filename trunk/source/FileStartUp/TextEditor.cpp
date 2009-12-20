@@ -304,10 +304,10 @@ void TextEditor::Update(GuiTrigger * t)
 
 	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
 		scrollbarBoxBtn->GetStateChan() == t->chan &&
-		t->wpad.ir.valid)
+		t->wpad->ir.valid)
 	{
 		scrollbarBoxBtn->SetPosition(-25, 55);
-		positionWiimote = t->wpad.ir.y - 60 - scrollbarBoxBtn->GetTop();
+		positionWiimote = t->wpad->ir.y - 60 - scrollbarBoxBtn->GetTop();
 
 		if(positionWiimote < scrollbarBoxBtn->GetMinY())
 			positionWiimote = scrollbarBoxBtn->GetMinY();
