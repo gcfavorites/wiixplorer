@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-20 17:59+0100\n"
+"POT-Creation-Date: 2009-12-21 20:44+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,6 +47,9 @@ msgid "Cannot write to destination."
 msgstr ""
 
 msgid "Caps"
+msgstr ""
+
+msgid "Clear"
 msgstr ""
 
 msgid "Close"
@@ -151,6 +154,9 @@ msgstr "Wil je dit bestand afspelen?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Wil je terug met de SMB verbinden?"
 
+msgid "Do you want to save changes?"
+msgstr ""
+
 msgid "Do you want to update now ?"
 msgstr ""
 
@@ -195,6 +201,9 @@ msgstr "Bestand gekopieerd"
 
 msgid "File successfully moved."
 msgstr "Bestand verplaatst."
+
+msgid "File was edited."
+msgstr ""
 
 #, c-format
 msgid "Filepath:  %s"
@@ -241,6 +250,9 @@ msgstr "Laatst gewijzigd:"
 
 msgid "Last status change:"
 msgstr "Laatste statuswijziging:"
+
+msgid "Linebreak"
+msgstr ""
 
 msgid "Loading file:"
 msgstr "Bestand laden:"

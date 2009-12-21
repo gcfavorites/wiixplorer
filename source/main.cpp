@@ -47,6 +47,8 @@ main(int argc, char *argv[])
         mload_run_thread(my_data_elf.start, my_data_elf.stack, my_data_elf.size_stack, 0x47);
     }
 
+    __exception_setreload(20);
+
 	Sys_Init();
 	InitVideo(); // Initialise video
 	SetupPads(); // Initialize input

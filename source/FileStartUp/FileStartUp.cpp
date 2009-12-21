@@ -7,7 +7,7 @@
 #include "Prompts/PromptWindows.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
-#include "FileStartUp/TextViewer.h"
+#include "TextOperations/TextViewer.h"
 #include "FileStartUp/ImageViewer.h"
 #include "FileStartUp/MusicLoader.h"
 #include "FileStartUp/ZipBrowser.h"

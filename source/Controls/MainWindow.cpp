@@ -30,6 +30,7 @@
 
 #include "MainWindow.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
 #include "FileOperations/filebrowser.h"
 #include "FileOperations/foldersize.h"
@@ -60,14 +61,6 @@ MainWindow::MainWindow()
 	//!Initalize the progress thread
 	InitProgressThread();
 	StopProgress();
-
-    //!Initialize network thread if selected
-    if(Settings.AutoConnect == on)
-    {
-        InitNetworkThread();
-        ResumeNetworkThread();
-    }
-    //ShutdownNetworkThread();
 
 	bgImgData = Resources::GetImageData(background_png, background_png_size);
     bgImg = new GuiImage(bgImgData);
@@ -174,6 +167,21 @@ void MainWindow::Quit()
 void MainWindow::Show()
 {
     ResumeGui();
+
+    //!Initialize network thread if selected
+    if(Settings.AutoConnect == on)
+    {
+        PromptWindow * Prompt = new PromptWindow("Loading...", "Network is buggy, so we wait for it...");
+
+        MainWindow::Instance()->Append(Prompt);
+        //!Does not work right with threads for now
+        ConnectSMBShare();
+        //InitNetworkThread();
+        //ResumeNetworkThread();
+
+        delete Prompt;
+        Prompt = NULL;
+    }
 
     MainMenu(MENU_BROWSE_DEVICE);
 }

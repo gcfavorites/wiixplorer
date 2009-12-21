@@ -189,8 +189,8 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
     Append(titleTxt);
     Append(msgTxt);
 
-    Append(btn1);
-
+    if(btn1Label)
+        Append(btn1);
     if(btn2Label)
         Append(btn2);
     if(btn3Label)

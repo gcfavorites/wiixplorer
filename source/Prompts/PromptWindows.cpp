@@ -34,6 +34,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+#include "libwiigui/gui_keyboard.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
