@@ -21,7 +21,7 @@ SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds sou
 				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
 				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus \
-				source/libntfs
+				source/libntfs source/TextOperations
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------

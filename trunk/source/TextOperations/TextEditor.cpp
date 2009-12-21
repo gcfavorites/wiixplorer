@@ -26,19 +26,31 @@
  ***************************************************************************/
 
 #include <unistd.h>
-#include "TextEditor.h"
+#include "TextOperations/TextEditor.h"
+#include "Prompts/PromptWindows.h"
+#include "Language/gettext.h"
 #include "Controls/MainWindow.h"
+#include "Controls/Resources.h"
+
+#define FONTSIZE    18
 
 /**
  * Constructor for the TextEditor class.
  */
-TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
+TextEditor::TextEditor(char *intext, int LinesToDraw, const char *path)
 {
 	focus = 0; // allow focus
 	triggerdisabled = false;
 	ExitEditor = false;
+	LineEditing = false;
+	FileEdited = false;
 	linestodraw = LinesToDraw;
 	currentLine = 0;
+
+	filepath = new char[strlen(path)+1];
+	snprintf(filepath, strlen(path)+1, "%s", path);
+
+	char * filename = strrchr(filepath, '/')+1;
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -46,6 +58,8 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
 	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger;
 	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+	trigPlus = new GuiTrigger;
+	trigPlus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
 
 	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
@@ -144,21 +158,33 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, char *filename)
     filenameTxt->SetPosition(-30,30);
     filenameTxt->SetMaxWidth(340, DOTTED);
 
-    MainFileTxt = new GuiText(intext, 18, (GXColor){0, 0, 0, 255});
+    MainFileTxt = new GuiText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
     MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    MainFileTxt->SetPosition(43, 75);
+    MainFileTxt->SetPosition(0, 0);
     MainFileTxt->SetMaxWidth(343, LONGTEXT);
     MainFileTxt->SetFirstLine(0);
     MainFileTxt->SetLinesToDraw(linestodraw);
-
     TotalLines = MainFileTxt->GetTotalLines();
+
+    TextPointerBtn = new TextPointer(MainFileTxt, FONTSIZE, linestodraw);
+    TextPointerBtn->SetPosition(43, 75);
+    TextPointerBtn->SetClickable(false);
+    TextPointerBtn->SetHoldable(true);
+    TextPointerBtn->SetTrigger(trigHeldA);
+    TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
+
+    PlusBtn = new GuiButton(0, 0);
+    PlusBtn->SetTrigger(trigPlus);
+    PlusBtn->SetSoundClick(btnSoundClick);
+    PlusBtn->Clicked.connect(this, &TextEditor::OnButtonClick);
 
 	width = bgTexteditorImg->GetWidth();
 	height = bgTexteditorImg->GetHeight();
 
+    this->Append(PlusBtn);
     this->Append(bgTexteditorImg);
     this->Append(filenameTxt);
-    this->Append(MainFileTxt);
+    this->Append(TextPointerBtn);
     this->Append(scrollbarImg);
     this->Append(scrollbarBoxBtn);
     this->Append(arrowUpBtn);
@@ -194,6 +220,7 @@ TextEditor::~TextEditor()
 	delete maximizeBtn;
 	delete minimizeBtn;
 	delete closeBtn;
+	delete TextPointerBtn;
 
     /** Images **/
 	delete bgTexteditorImg;
@@ -231,10 +258,12 @@ TextEditor::~TextEditor()
 	delete trigHeldA;
 	delete trigA;
 	delete trigB;
+	delete PlusBtn;
 
     /** Texts **/
     delete filenameTxt;
     delete MainFileTxt;
+    delete [] filepath;
 
     MainWindow::Instance()->ResumeGui();
 }
@@ -247,19 +276,39 @@ void TextEditor::SetText(const char *intext)
         delete MainFileTxt;
         MainFileTxt = NULL;
     }
+    if(TextPointerBtn)
+    {
+        delete TextPointerBtn;
+        TextPointerBtn = NULL;
+    }
 
-    MainFileTxt = new GuiText(intext, 18, (GXColor){0, 0, 0, 255});
+    MainFileTxt = new GuiText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
     MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    MainFileTxt->SetPosition(40, 75);
-    MainFileTxt->SetMaxWidth(350, LONGTEXT);
+    MainFileTxt->SetPosition(0, 0);
+    MainFileTxt->SetMaxWidth(343, LONGTEXT);
     MainFileTxt->SetFirstLine(0);
     MainFileTxt->SetLinesToDraw(linestodraw);
+    TotalLines = MainFileTxt->GetTotalLines();
+
+    TextPointerBtn = new TextPointer(MainFileTxt, FONTSIZE, linestodraw);
+    TextPointerBtn->SetPosition(43, 75);
+    TextPointerBtn->SetClickable(false);
+    TextPointerBtn->SetHoldable(true);
+    TextPointerBtn->SetTrigger(trigHeldA);
+    TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
 }
 
 void TextEditor::DisableTriggerUpdate(bool set)
 {
     LOCK(this);
 	triggerdisabled = set;
+}
+
+void TextEditor::WriteTextFile(const char * path)
+{
+    FILE * f = fopen(path, "wb");
+    fwrite(MainFileTxt->GetOrigText(), 1, strlen(MainFileTxt->GetOrigText())+1, f);
+    fclose(f);
 }
 
 void TextEditor::ResetState()
@@ -276,12 +325,54 @@ void TextEditor::ResetState()
 	closeBtn->ResetState();
 }
 
+int TextEditor::GetState()
+{
+    if(LineEditing)
+    {
+        DisableTriggerUpdate(true);
+        if(TextPointerBtn->EditLine() > 0)
+        {
+            FileEdited = true;
+        }
+        DisableTriggerUpdate(false);
+
+        MainWindow::Instance()->SetState(STATE_DISABLED);
+        MainWindow::Instance()->SetDim(true);
+        MainWindow::Instance()->ChangeFocus(this);
+        this->SetDim(false);
+        this->SetState(STATE_DEFAULT);
+        LineEditing = false;
+    }
+
+    if(state == STATE_CLOSED && FileEdited)
+    {
+        int choice = WindowPrompt(tr("File was edited."), tr("Do you want to save changes?"), tr("Yes"), tr("Cancel"));
+        if(choice)
+            WriteTextFile(filepath);
+
+        //to revert the state reset
+        state = STATE_CLOSED;
+    }
+
+    return GuiWindow::GetState();
+}
+
 void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 {
     sender->ResetState();
 
     if(sender == closeBtn)
         SetState(STATE_CLOSED);
+
+    else if(sender == PlusBtn)
+    {
+        LineEditing = true;
+    }
+}
+
+void TextEditor::OnPointerHeld(GuiElement *sender, int pointer, POINT p)
+{
+    TextPointerBtn->PositionChanged(pointer, p.x, p.y);
 }
 
 void TextEditor::Update(GuiTrigger * t)
@@ -298,6 +389,8 @@ void TextEditor::Update(GuiTrigger * t)
 	maximizeBtn->Update(t);
 	closeBtn->Update(t);
 	minimizeBtn->Update(t);
+	TextPointerBtn->Update(t);
+	PlusBtn->Update(t);
 
 	if(TotalLines < linestodraw)
         return;

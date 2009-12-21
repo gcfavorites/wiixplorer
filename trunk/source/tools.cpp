@@ -1,4 +1,5 @@
 #include <time.h>
+#include <math.h>
 
 bool TimePassed(int limit)
 {
@@ -19,4 +20,23 @@ bool TimePassed(int limit)
     }
 
     return false;
+}
+
+int ROUND2FOUR(double x)
+{
+    double tmp = 0.0;
+    double rest = modf((double) x/4.0f, &tmp);
+    int res = 0;
+
+    if(rest >= 0.5)
+    {
+        res = ((int) x/4) +1;
+    }
+    else
+    {
+        res = (int) x/4;
+    }
+
+
+    return res*4;
 }

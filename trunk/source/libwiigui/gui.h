@@ -717,8 +717,16 @@ class GuiText : public GuiElement
 		//!Sets the font
 		//!\param f Font
 		void SetFont(FreeTypeGX *f);
+		//!Get the original text as char
+        const char * GetOrigText();
 		//!Get the Horizontal Size of Text
 		int GetTextWidth();
+        int GetTextWidth(int ind);
+		//!Get the max textwidth
+        int GetTextMaxWidth();
+		//!Get current Textline (for position calculation)
+        wchar_t * GetDynText();
+        wchar_t * GetDynTextLine(int ind);
 		//!Get the offset of a linebreak
 		u32 GetLineBreakOffset(int line);
 		//!Change the font
@@ -729,7 +737,7 @@ class GuiText : public GuiElement
 		void Draw();
 	protected:
         wchar_t *text;
-		wchar_t *textDyn; //!< Wrapped text value
+        wchar_t *textDyn;
 		wchar_t *textDynRow[MAX_LINES_TO_DRAW]; //!< Wrapped lines text values
 		char *origText; //!< Original text data
 		int wrapMode; //!< Wrapping toggle
@@ -830,57 +838,6 @@ class GuiButton : public GuiElement
 		GuiSound * soundOver; //!< Sound to play for STATE_SELECTED
 		GuiSound * soundHold; //!< Sound to play for STATE_HELD
 		GuiSound * soundClick; //!< Sound to play for STATE_CLICKED
-};
-
-typedef struct _keytype {
-	char ch, chShift;
-} Key;
-
-//!On-screen keyboard
-class GuiKeyboard : public GuiWindow
-{
-	public:
-		GuiKeyboard(char * t, u32 m);
-		~GuiKeyboard();
-		void Update(GuiTrigger * t);
-		char kbtextstr[256];
-	protected:
-		u32 kbtextmaxlen;
-		Key keys[4][13];
-		int shift;
-		int caps;
-		GuiText * kbText;
-		GuiImage * keyTextboxImg;
-		GuiText * keyCapsText;
-		GuiImage * keyCapsImg;
-		GuiImage * keyCapsOverImg;
-		GuiButton * keyCaps;
-		GuiText * keyShiftText;
-		GuiImage * keyShiftImg;
-		GuiImage * keyShiftOverImg;
-		GuiButton * keyShift;
-		GuiText * keyBackText;
-		GuiImage * keyBackImg;
-		GuiImage * keyBackOverImg;
-		GuiButton * keyBack;
-		GuiImage * keySpaceImg;
-		GuiImage * keySpaceOverImg;
-		GuiButton * keySpace;
-		GuiButton * keyBtn[4][13];
-		GuiImage * keyImg[4][13];
-		GuiImage * keyImgOver[4][13];
-		GuiText * keyTxt[4][13];
-		GuiImageData * keyTextbox;
-		GuiImageData * key;
-		GuiImageData * keyOver;
-		GuiImageData * keyMedium;
-		GuiImageData * keyMediumOver;
-		GuiImageData * keyLarge;
-		GuiImageData * keyLargeOver;
-		GuiSound * keySoundOver;
-		GuiSound * keySoundClick;
-		GuiTrigger * trigA;
-		GuiTrigger * trigB;
 };
 
 #endif

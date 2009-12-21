@@ -29,24 +29,31 @@
 #define TEXTEDITOR_H
 
 #include "libwiigui/gui.h"
+#include "TextOperations/TextPointer.h"
 
 //!Display a list of files
 class TextEditor : public GuiWindow
 {
 	public:
-		TextEditor(char *intext, int LinesToDraw, char *filename);
+		TextEditor(char *intext, int LinesToDraw, const char *path);
 		~TextEditor();
 		void DisableTriggerUpdate(bool set);
 		void SetText(const char *intext);
+        void WriteTextFile(const char * path);
+        int GetState();
 		void ResetState();
 		void Update(GuiTrigger * t);
 	protected:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
 		int currentLine;
 		int linestodraw;
 		int TotalLines;
 		bool triggerdisabled;
 		bool ExitEditor;
+		bool LineEditing;
+		bool FileEdited;
+		char * filepath;
 
         /** Buttons **/
 		GuiButton * arrowUpBtn;
@@ -55,6 +62,8 @@ class TextEditor : public GuiWindow
 		GuiButton * maximizeBtn;
 		GuiButton * minimizeBtn;
 		GuiButton * closeBtn;
+		GuiButton * PlusBtn;
+		TextPointer * TextPointerBtn;
 
         /** Images **/
 		GuiImage * bgTexteditorImg;
@@ -90,6 +99,7 @@ class TextEditor : public GuiWindow
 
         /** Triggers **/
 		GuiTrigger * trigA;
+		GuiTrigger * trigPlus;
 		GuiTrigger * trigHeldA;
 		GuiTrigger * trigB;
 

@@ -92,9 +92,7 @@ void TextViewer(const char *filepath)
     free(file);
     file = NULL;
 
-    char *filename = strrchr(filepath, '/')+1;
-
-    TextEditor * Editor = new TextEditor(filetext, 9, filename);
+    TextEditor * Editor = new TextEditor(filetext, 9, filepath);
     Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     Editor->SetPosition(0, 0);
 

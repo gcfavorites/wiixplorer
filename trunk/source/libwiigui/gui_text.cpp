@@ -372,6 +372,14 @@ int GuiText::GetTextWidth()
 	return fontSystem[currentSize]->getWidth(text);
 }
 
+int GuiText::GetTextWidth(int ind)
+{
+	if(!textDynRow[ind])
+		return this->GetTextWidth();
+
+	return fontSystem[currentSize]->getWidth(textDynRow[ind]);
+}
+
 /**
  * Set the lines to draw
  */
@@ -411,6 +419,40 @@ void GuiText::SetLinesToDraw(int line)
 int GuiText::GetTotalLines()
 {
     return totalLines-1;
+}
+
+int GuiText::GetTextMaxWidth()
+{
+    return maxWidth;
+}
+
+wchar_t * GuiText::GetDynText()
+{
+    if(!text)
+        return textDyn;
+
+    return text;
+}
+
+wchar_t * GuiText::GetDynTextLine(int ind)
+{
+    if(!textDynRow[ind])
+        return this->GetDynText();
+
+    return textDynRow[ind];
+}
+
+u32 GuiText::GetLineBreakOffset(int ind)
+{
+    if(!LineBreak)
+        return 0;
+
+    return LineBreak[firstLine+ind];
+}
+
+const char * GuiText::GetOrigText()
+{
+    return origText;
 }
 
 /**
