@@ -23,20 +23,13 @@
  *
  * ZipFile.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #ifndef _ZIPFILE_H_
 #define _ZIPFILE_H_
 
 #include "unzip/unzip.h"
-
-typedef struct
-{
-	u64 offset; // ZipFile offset
-	u64 length; // uncompressed file length in 64 bytes for sizes higher than 4GB
-	bool isdir; // 0 - file, 1 - directory
-	char filename[256]; // full filename
-} FileStructure;
+#include "7ZipFile.h"
 
 class ZipFile
 {
@@ -45,14 +38,28 @@ class ZipFile
         ZipFile(const char *filepath);
 		//!Destructor
 		~ZipFile();
+		//!Check if it is a 7zip file
+        bool Is7ZipFile (char *buffer);
+		//!Get the archive file structure
+        ArchiveFileStruct * GetFileStruct(int fileIndx);
+		//!Extract a files from a zip file to a path
+		int ExtractFile(int ind, const char *dest, bool withpath = false);
 		//!Extract all files from a zip file to a directory
-		//!\param dest Destination path to where to extract
-		bool ExtractAll(const char *dest);
-    protected:
+		int ExtractAll(const char *dest);
+		//!Get the total amount of items inside the archive
+        u32 GetItemCount() { return ItemCount; };
+
+    private:
         bool LoadList();
+        void ResetOffsets();
+
+        char filename[MAXPATHLEN];
+        ArchiveFileStruct CurArcFile;
+        int curFileIndex;
+        int ItemCount;
+        unz_file_pos * unzPosition;
         unzFile File;
         unz_file_info cur_file_info;
-        FileStructure *FileList;
 };
 
 #endif

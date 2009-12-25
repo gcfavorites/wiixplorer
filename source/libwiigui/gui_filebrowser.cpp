@@ -9,11 +9,12 @@
  ***************************************************************************/
 
 #include "gui_filebrowser.h"
+#include "Controls/Resources.h"
 
 /**
  * Constructor for the GuiFileBrowser class.
  */
-GuiFileBrowser::GuiFileBrowser(FileBrowser * filebrowser, int w, int h)
+GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 {
 	width = w;
 	height = h;
@@ -31,36 +32,36 @@ GuiFileBrowser::GuiFileBrowser(FileBrowser * filebrowser, int w, int h)
 	trigHeldA = new GuiTrigger;
 	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-	bgFileSelectionEntry = new GuiImageData(bg_browser_selection_png);
-	fileArchives = new GuiImageData(icon_archives_png);
-	fileDefault = new GuiImageData(icon_default_png);
-	fileFolder = new GuiImageData(icon_folder_png);
-	fileGFX = new GuiImageData(icon_gfx_png);
-	filePLS = new GuiImageData(icon_pls_png);
-	fileSFX = new GuiImageData(icon_sfx_png);
-	fileTXT = new GuiImageData(icon_txt_png);
-	fileXML = new GuiImageData(icon_xml_png);
+	bgFileSelectionEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
+	fileArchives = Resources::GetImageData(icon_archives_png, icon_archives_png_size);
+	fileDefault = Resources::GetImageData(icon_default_png, icon_default_png_size);
+	fileFolder = Resources::GetImageData(icon_folder_png, icon_folder_png_size);
+	fileGFX = Resources::GetImageData(icon_gfx_png, icon_gfx_png_size);
+	filePLS = Resources::GetImageData(icon_pls_png, icon_pls_png_size);
+	fileSFX = Resources::GetImageData(icon_sfx_png, icon_sfx_png_size);
+	fileTXT = Resources::GetImageData(icon_txt_png, icon_txt_png_size);
+	fileXML = Resources::GetImageData(icon_xml_png, icon_xml_png_size);
+	scrollbar = Resources::GetImageData(scrollbar_png, scrollbar_png_size);
+	arrowDown = Resources::GetImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
+	arrowDownOver = Resources::GetImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
+	arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
+	arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
+	scrollbarBox = Resources::GetImageData(scrollbar_box_png, scrollbar_box_png_size);
+	scrollbarBoxOver = Resources::GetImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
 
-	scrollbar = new GuiImageData(scrollbar_png);
 	scrollbarImg = new GuiImage(scrollbar);
 	scrollbarImg->SetParent(this);
 	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbarImg->SetPosition(-10, 20);
 
-	arrowDown = new GuiImageData(scrollbar_arrowdown_png);
 	arrowDownImg = new GuiImage(arrowDown);
-	arrowDownOver = new GuiImageData(scrollbar_arrowdown_over_png);
 	arrowDownOverImg = new GuiImage(arrowDownOver);
-	arrowUp = new GuiImageData(scrollbar_arrowup_png);
 	arrowUpImg = new GuiImage(arrowUp);
-	arrowUpOver = new GuiImageData(scrollbar_arrowup_over_png);
 	arrowUpOverImg = new GuiImage(arrowUpOver);
-	scrollbarBox = new GuiImageData(scrollbar_box_png);
 	scrollbarBoxImg = new GuiImage(scrollbarBox);
-	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png);
 	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
 
 	arrowUpBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
@@ -142,6 +143,26 @@ GuiFileBrowser::GuiFileBrowser(FileBrowser * filebrowser, int w, int h)
  */
 GuiFileBrowser::~GuiFileBrowser()
 {
+    browser = NULL;
+	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnSoundClick);
+	Resources::Remove(bgFileSelectionEntry);
+	Resources::Remove(fileArchives);
+	Resources::Remove(fileDefault);
+	Resources::Remove(fileFolder);
+	Resources::Remove(fileGFX);
+	Resources::Remove(filePLS);
+	Resources::Remove(fileSFX);
+	Resources::Remove(fileTXT);
+	Resources::Remove(fileXML);
+	Resources::Remove(scrollbar);
+	Resources::Remove(arrowDown);
+	Resources::Remove(arrowDownOver);
+	Resources::Remove(arrowUp);
+	Resources::Remove(arrowUpOver);
+	Resources::Remove(scrollbarBox);
+	Resources::Remove(scrollbarBoxOver);
+
 	delete arrowUpBtn;
 	delete arrowDownBtn;
 	delete scrollbarBoxBtn;
@@ -154,25 +175,6 @@ GuiFileBrowser::~GuiFileBrowser()
 	delete scrollbarBoxImg;
 	delete scrollbarBoxOverImg;
 
-	delete bgFileSelectionEntry;
-	delete fileArchives;
-	delete fileDefault;
-	delete fileFolder;
-	delete fileGFX;
-	delete filePLS;
-	delete fileSFX;
-	delete fileTXT;
-	delete fileXML;
-	delete scrollbar;
-	delete arrowDown;
-	delete arrowDownOver;
-	delete arrowUp;
-	delete arrowUpOver;
-	delete scrollbarBox;
-	delete scrollbarBoxOver;
-
-	delete btnSoundOver;
-	delete btnSoundClick;
 	delete trigHeldA;
 	delete trigA;
 
@@ -207,6 +209,12 @@ void GuiFileBrowser::SetFocus(int f)
 
 	if(f == 1)
 		fileList[selectedItem]->SetState(STATE_SELECTED);
+}
+
+void GuiFileBrowser::SetBrowser(Browser * b)
+{
+    browser = b;
+    TriggerUpdate();
 }
 
 void GuiFileBrowser::DisableTriggerUpdate(bool set)

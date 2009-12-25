@@ -35,21 +35,35 @@
 #include "libwiigui/gui.h"
 #include "Controls/Resources.h"
 
+#define MAX_CLICKBUTTONS    7
+
 enum
 {
-    CUT,
+    CUT = 0,
     COPY,
     PASTE,
     RENAME,
     DELETE,
     NEWFOLDER,
-    PROPERTIES
+    PROPERTIES,
+    NoButton = -10
+};
+
+enum
+{
+    ArcOpen = 0,
+    ArcExtractFile,
+    ArcExtractAll
 };
 
 class RightClickMenu : public GuiWindow
 {
     public:
-        RightClickMenu(int x, int y);
+        RightClickMenu(int x, int y,
+                       const char *btn1Label = NULL, const char *btn2Label = NULL,
+                       const char *btn3Label = NULL, const char *btn4Label = NULL,
+                       const char *btn5Label = NULL, const char *btn6Label = NULL,
+                       const char *btn7Label = NULL);
         ~RightClickMenu();
         int GetChoice();
     private:
@@ -57,44 +71,24 @@ class RightClickMenu : public GuiWindow
 
         int choice;
         int numItems;
+        int buttonX;
         int buttonY;
 
-        GuiImage * dialogBoxImg;
-        GuiImage * btnCutMenuSelect;
-        GuiImage * CopybtnMenuSelect;
-        GuiImage * PastebtnMenuSelect;
-        GuiImage * RenamebtnMenuSelect;
-        GuiImage * DeletebtnMenuSelect;
-        GuiImage * NewFolderbtnMenuSelect;
-        GuiImage * PropertiesbtnMenuSelect;
+        GuiImage * ClickMenuMiddleImg;
+        GuiImage * ClickMenuUpperImg;
+        GuiImage * ClickMenuLowerImg;
+        GuiImage * btnMenuSelect[MAX_CLICKBUTTONS];
 
-        GuiImageData * dialogBox;
+        GuiImageData * ClickMenuMiddle;
+        GuiImageData * ClickMenuUpper;
         GuiImageData * menu_select;
 
         GuiSound * btnClick;
 
-        GuiText * cutTxt;
-        GuiText * cutTxtOver;
-        GuiText * copyTxt;
-        GuiText * copyTxtOver;
-        GuiText * pasteTxt;
-        GuiText * PasteTxtOver;
-        GuiText * RenameTxt;
-        GuiText * RenameTxtOver;
-        GuiText * DeleteTxt;
-        GuiText * DeleteTxtOver;
-        GuiText * NewFolderTxt;
-        GuiText * NewFolderTxtOver;
-        GuiText * PropertiesTxt;
-        GuiText * PropertiesTxtOver;
+        GuiText * ButtonTxt[MAX_CLICKBUTTONS];
+        GuiText * ButtonTxtOver[MAX_CLICKBUTTONS];
 
-        GuiButton * btnCut;
-        GuiButton * Copybtn;
-        GuiButton * Pastebtn;
-        GuiButton * Renamebtn;
-        GuiButton * Deletebtn;
-        GuiButton * NewFolderbtn;
-        GuiButton * Propertiesbtn;
+        GuiButton * Button[MAX_CLICKBUTTONS];
         GuiButton * NoBtn;
 
         GuiTrigger * trigA;

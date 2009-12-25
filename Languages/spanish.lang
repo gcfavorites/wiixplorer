@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -24,6 +24,12 @@ msgstr "Se ha producido un error."
 msgid "App Default"
 msgstr "Aplicación por defecto"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Conexión automática"
 
@@ -35,6 +41,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "No se puede abrir el archivo"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr ""
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,17 +177,38 @@ msgstr ""
 msgid "ERROR"
 msgstr "ERROR"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "Ingresa un directorio a donde extraer los archivos."
-
 msgid "Error"
 msgstr "Error"
 
 msgid "Error:"
 msgstr "Error:"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "Extrayendo archivos..."
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Fallo al copiar archivo."
@@ -183,11 +216,23 @@ msgstr "Fallo al copiar archivo."
 msgid "Failed copying files."
 msgstr "Fallo al copiar archivos."
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "Fallo al renombrar archivo."
 
 msgid "Failed to extract files."
 msgstr "Fallo al extraer archivo."
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "El archivo no puede ser eliminado."
@@ -195,11 +240,26 @@ msgstr "El archivo no puede ser eliminado."
 msgid "File does not exist anymore!"
 msgstr "¡El archivo ya no existe!"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "Archivo copiado correctamente."
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "Archivo movido correctamente."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "Tipo de archivo:"
 
 msgid "Folder"
 msgstr "Carpeta"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "Fuente de ruta cambiada"
@@ -289,6 +352,9 @@ msgstr "Inicializando la red..."
 msgid "New Folder"
 msgstr "Nueva carpeta"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "No"
 
@@ -298,9 +364,6 @@ msgstr "Imagen no encontrada en índice %d."
 
 msgid "No language files found."
 msgstr "No se encontró archivo de lenguaje."
-
-msgid "No network connection"
-msgstr ""
 
 msgid "No new updates available"
 msgstr ""
@@ -326,6 +389,12 @@ msgstr "OK"
 msgid "ON"
 msgstr "ON"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Fuera de memoria: ¡demasiados archivos!"
 
@@ -340,6 +409,9 @@ msgstr "¿Pegar en directorio actual?"
 
 msgid "Please wait:"
 msgstr "Espera Por favor:"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "Propiedades"
@@ -459,6 +531,9 @@ msgstr "No puedes usar esta operación en:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "Ingresa un directorio a donde extraer los archivos."
 
 #~ msgid "Change Settings"
 #~ msgstr "Cambiar configuración"

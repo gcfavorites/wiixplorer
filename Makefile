@@ -18,17 +18,19 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
-				source/BootHomebrew source/sevenzip source/libmad source/libgif source/libpngu source/FileStartUp \
-				source/unzip source/Language source/mload source/usbstorage source/libbmp source/libtga \
+				source/BootHomebrew source/Language source/libmad source/libgif source/libpngu source/FileStartUp \
+				source/ArchiveOperations/unzip source/mload source/usbstorage source/libbmp source/libtga \
 				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus \
-				source/libntfs source/TextOperations
+				source/libntfs source/TextOperations source/ArchiveOperations source/ArchiveOperations/sevenzip
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-ffast-math -g -O3 -mrvl -mcpu=750 -meabi -mhard-float -Wall $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DGEKKO -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+CFLAGS		=	-ffast-math -g -O3 -mrvl -mcpu=750 -meabi -mhard-float -Wall $(MACHDEP) $(INCLUDE) \
+				-DHAVE_CONFIG_H -DGEKKO -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE	\
+				-D_SZ_ONE_DIRECTORY -D_LZMA_IN_CB -D_LZMA_OUT_READ
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000
 #---------------------------------------------------------------------------------

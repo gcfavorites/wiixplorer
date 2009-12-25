@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,6 +25,12 @@ msgstr ""
 msgid "App Default"
 msgstr ""
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr ""
 
@@ -35,6 +41,9 @@ msgid "Bootup Mount"
 msgstr ""
 
 msgid "Can not open the file"
+msgstr ""
+
+msgid "Can't read file:"
 msgstr ""
 
 msgid "Cancel"
@@ -83,6 +92,9 @@ msgid "Could not connect to the server."
 msgstr ""
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -166,16 +178,37 @@ msgstr ""
 msgid "ERROR"
 msgstr ""
 
-msgid "Enter a directory where to extract the files to."
-msgstr ""
-
 msgid "Error"
 msgstr ""
 
 msgid "Error:"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
+msgstr ""
+
+msgid "Extracting folder:"
 msgstr ""
 
 msgid "Failed copying file."
@@ -184,10 +217,22 @@ msgstr ""
 msgid "Failed copying files."
 msgstr ""
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr ""
 
 msgid "Failed to extract files."
+msgstr ""
+
+msgid "Failed to read file data."
 msgstr ""
 
 msgid "File couldn't be deleted."
@@ -196,10 +241,25 @@ msgstr ""
 msgid "File does not exist anymore!"
 msgstr ""
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr ""
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
+msgstr ""
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
 msgstr ""
 
 msgid "File was edited."
@@ -222,6 +282,9 @@ msgid "Filetype:"
 msgstr ""
 
 msgid "Folder"
+msgstr ""
+
+msgid "Folder successfully extracted."
 msgstr ""
 
 msgid "Fontpath changed"
@@ -290,6 +353,9 @@ msgstr ""
 msgid "New Folder"
 msgstr ""
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr ""
 
@@ -298,9 +364,6 @@ msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
-msgstr ""
-
-msgid "No network connection"
 msgstr ""
 
 msgid "No new updates available"
@@ -327,6 +390,12 @@ msgstr ""
 msgid "ON"
 msgstr ""
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr ""
 
@@ -340,6 +409,9 @@ msgid "Paste into current directory?"
 msgstr ""
 
 msgid "Please wait:"
+msgstr ""
+
+msgid "Process canceled."
 msgstr ""
 
 msgid "Properties"

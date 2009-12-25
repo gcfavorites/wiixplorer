@@ -1,6 +1,8 @@
-/***************************************************************************
+/****************************************************************************
  * Copyright (C) 2009
  * by Dimok
+ *
+ * Original Filebrowser by Tantric for libwiigui
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,18 +23,27 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * ProcessChoice.cpp
+ * Browser Class
+ *
+ * Virtual class to inherit the browsers off
+ * introducing the minimum of functions need to browse
  *
  * for WiiXplorer 2009
  ***************************************************************************/
+#ifndef _BROWSER_H_
+#define _BROWSER_H_
 
-#ifndef _PROCESS_CHOICE_H_
-#define _PROCESS_CHOICE_H_
-
-#include "FileOperations/filebrowser.h"
-#include "ArchiveOperations/ArchiveBrowser.h"
-
-void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);
-void ProcessChoice(FileBrowser * browser, int choice);
+class Browser
+{
+    public:
+        Browser() { };
+        virtual ~Browser() { };
+        virtual int GetEntrieCount() { return 0; };
+        virtual int GetPageIndex() { return 0; };
+        virtual void SetPageIndex(int ind) { };
+        virtual void SetSelectedIndex(int ind) { };
+        virtual bool IsDir(int ind) { return true; };
+        virtual const char * GetItemDisplayname(int ind) { return NULL; };
+};
 
 #endif

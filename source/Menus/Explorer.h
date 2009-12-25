@@ -35,6 +35,8 @@
 #include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/RightClickMenu.h"
+#include "FileOperations/filebrowser.h"
+#include "ArchiveOperations/ArchiveBrowser.h"
 
 class Explorer : public GuiWindow
 {
@@ -47,7 +49,9 @@ class Explorer : public GuiWindow
         int LoadPath(const char * path);
         int LoadDevice(int device);
         int GetMenuChoice();
+        void SetState(int s);
     private:
+		void ArchiveChanges();
 		void CheckBrowserChanges();
 		void CheckDeviceMenu();
 		void CheckRightClick();
@@ -59,6 +63,7 @@ class Explorer : public GuiWindow
         u32 filecount;
 
         FileBrowser * Browser;
+        ArchiveBrowser * ArcBrowser;
         GuiFileBrowser * fileBrowser;
 
         DeviceMenu * Device_Menu;

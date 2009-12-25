@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -24,6 +24,12 @@ msgstr "Une erreur est survenue."
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Connexion auto"
 
@@ -35,6 +41,9 @@ msgstr "Périphérique"
 
 msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,17 +177,38 @@ msgstr "Téléchargement..."
 msgid "ERROR"
 msgstr "ERREUR"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "Entrer un dossier vers lequel extraire les fichiers."
-
 msgid "Error"
 msgstr "Erreur"
 
 msgid "Error:"
 msgstr "Erreur:"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "La copie a échouée."
@@ -183,11 +216,23 @@ msgstr "La copie a échouée."
 msgid "Failed copying files."
 msgstr "La copie a échouée."
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "Le renommage a échoué"
 
 msgid "Failed to extract files."
 msgstr "L'extraction a échouée."
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
@@ -195,11 +240,26 @@ msgstr "Suppression impossible."
 msgid "File does not exist anymore!"
 msgstr "Ce fichier n'existe plus !"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "Copie du fichier effectuée."
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "Déplacement effectué."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "Type:"
 
 msgid "Folder"
 msgstr "Dossier"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
@@ -289,6 +352,9 @@ msgstr "Initialisation du réseau..."
 msgid "New Folder"
 msgstr "Nouveau"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "Non"
 
@@ -298,9 +364,6 @@ msgstr "Pas d'image pour l'index %d"
 
 msgid "No language files found."
 msgstr "Aucun fichier langue trouvé."
-
-msgid "No network connection"
-msgstr "Pas de connexion réseau"
 
 msgid "No new updates available"
 msgstr "Pas de nouvelle mise à jour disponible"
@@ -326,6 +389,12 @@ msgstr ""
 msgid "ON"
 msgstr "Actif"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
 
@@ -340,6 +409,9 @@ msgstr "Coller dans le dossier actuel?"
 
 msgid "Please wait:"
 msgstr "Patientez:"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "Propriétés"
@@ -459,6 +531,12 @@ msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "Entrer un dossier vers lequel extraire les fichiers."
+
+#~ msgid "No network connection"
+#~ msgstr "Pas de connexion réseau"
 
 #~ msgid "Can't load any device"
 #~ msgstr "Pas de périphérique"

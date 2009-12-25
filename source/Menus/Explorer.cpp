@@ -40,9 +40,7 @@
 #include "FileOperations/fileops.h"
 #include "sys.h"
 
-/*** Extern functions ***/
-extern void ResumeGui();
-extern void HaltGui();
+/*** Extern variables ***/
 extern CLIPBOARD Clipboard;
 extern bool boothomebrew;
 extern u8 shutdown;
@@ -85,11 +83,11 @@ Explorer::Explorer(const char *path)
 
 Explorer::~Explorer()
 {
-    ResumeGui();
+    MainWindow::Instance()->ResumeGui();
     SetEffect(EFFECT_FADE, -50);
     while(this->GetEffect() > 0) usleep(100);
 
-    HaltGui();
+    MainWindow::Instance()->HaltGui();
     if(parentElement)
         ((GuiWindow *) parentElement)->Remove(this);
 
@@ -120,14 +118,17 @@ Explorer::~Explorer()
     delete trigPlus;
     delete trigMinus;
 
-    delete Browser;
     delete fileBrowser;
+    if(ArcBrowser)
+        delete ArcBrowser;
+    delete Browser;
 }
 
 void Explorer::Setup()
 {
     Device_Menu = NULL;
     RightClick = NULL;
+    ArcBrowser = NULL;
     CreditsPressed = false;
 
 	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -276,42 +277,51 @@ void Explorer::CheckBrowserChanges()
     //!This will be changed later
 	if(fileBrowser->GetState() == STATE_CLICKED)
     {
-            fileBrowser->ResetState();
-            // check corresponding browser entry
-            if(Browser->IsCurrentDir())
+        fileBrowser->ResetState();
+        if(ArcBrowser)
+        {
+            ArchiveChanges();
+        }
+        // check corresponding browser entry
+        else if(Browser->IsCurrentDir())
+        {
+            if(Browser->BrowserChangeFolder())
             {
-                if(Browser->BrowserChangeFolder())
-                {
-                    fileBrowser->ResetState();
-                    fileBrowser->fileList[0]->SetState(STATE_SELECTED);
-                    fileBrowser->TriggerUpdate();
-                    AdressText->SetTextf("%s", Browser->GetCurrentPath());
-                }
-                else
-                {
-                    menu = MENU_BROWSE_DEVICE;
-                }
+                fileBrowser->fileList[0]->SetState(STATE_SELECTED);
+                fileBrowser->TriggerUpdate();
+                AdressText->SetTextf("%s", Browser->GetCurrentPath());
             }
             else
             {
-				char filepath[MAXPATHLEN];
-                snprintf(filepath, sizeof(filepath), "%s", Browser->GetCurrentSelectedFilepath());
-
-				int result = FileStartUp(filepath);
-
-                if(result == BOOTHOMEBREW)
-				{
-                    boothomebrew = true;
-					snprintf(Clipboard.filename, sizeof(Clipboard.filename), "%s", filepath);
-                    menu = MENU_EXIT;
-                }
-                else if(result == TRIGGERUPDATE)
-				{
-                    Browser->ParseDirectory();
-                    fileBrowser->TriggerUpdate();
-                }
-                MainWindow::Instance()->ChangeFocus(this);
+                menu = MENU_BROWSE_DEVICE;
             }
+        }
+        else
+        {
+            char filepath[MAXPATHLEN];
+            snprintf(filepath, sizeof(filepath), "%s", Browser->GetCurrentSelectedFilepath());
+
+            int result = FileStartUp(filepath);
+
+            if(result == BOOTHOMEBREW)
+            {
+                boothomebrew = true;
+                snprintf(Clipboard.filename, sizeof(Clipboard.filename), "%s", filepath);
+                menu = MENU_EXIT;
+            }
+            else if(result == ARCHIVE)
+            {
+                ArcBrowser = new ArchiveBrowser(filepath);
+                fileBrowser->SetBrowser(ArcBrowser);
+                AdressText->SetTextf("%s", ArcBrowser->GetCurrentPath());
+            }
+            else if(result == TRIGGERUPDATE)
+            {
+                Browser->ParseDirectory();
+                fileBrowser->TriggerUpdate();
+            }
+            MainWindow::Instance()->ChangeFocus(this);
+        }
     }
 }
 
@@ -319,10 +329,9 @@ void Explorer::CheckDeviceMenu()
 {
     if(Device_Menu != NULL)
     {
+        SetState(STATE_DISABLED);
         fileBrowser->DisableTriggerUpdate(true);
-
-        deviceSwitchBtn->SetState(STATE_DISABLED);
-        this->Append(Device_Menu);
+        Append(Device_Menu);
 
         int device_choice = -1;
         while(device_choice == -1 && Device_Menu != NULL)
@@ -341,13 +350,19 @@ void Explorer::CheckDeviceMenu()
 
         if(device_choice >= 0)
         {
+            if(ArcBrowser)
+            {
+                fileBrowser->SetBrowser(Browser);
+                delete ArcBrowser;
+                ArcBrowser = NULL;
+            }
             LoadDevice(device_choice);
             Browser->ParseDirectory();
             fileBrowser->fileList[0]->SetState(STATE_SELECTED);
             fileBrowser->TriggerUpdate();
             AdressText->SetTextf("%s", Browser->GetCurrentPath());
         }
-        deviceSwitchBtn->SetState(STATE_DEFAULT);
+        SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
         MainWindow::Instance()->ChangeFocus(this);
     }
@@ -357,10 +372,9 @@ void Explorer::CheckRightClick()
 {
     if(RightClick != NULL)
     {
+        SetState(STATE_DISABLED);
         fileBrowser->DisableTriggerUpdate(true);
-
-        clickmenuBtn->SetState(STATE_DISABLED);
-        this->Append(RightClick);
+        Append(RightClick);
 
         int RightClick_choice = -1;
         while(RightClick_choice == -1 && RightClick != NULL)
@@ -378,13 +392,21 @@ void Explorer::CheckRightClick()
         delete RightClick;
         RightClick = NULL;
 
-        if(RightClick_choice >= 0)
+        if(ArcBrowser)
+        {
+            if(RightClick_choice >= 0)
+            {
+                ProcessArcChoice(ArcBrowser, RightClick_choice, Browser->GetCurrentPath());
+            }
+        }
+
+        else if(!ArcBrowser && RightClick_choice >= 0)
         {
             ProcessChoice(Browser, RightClick_choice);
             Browser->ParseDirectory();
             fileBrowser->TriggerUpdate();
         }
-        clickmenuBtn->SetState(STATE_DEFAULT);
+        this->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
         MainWindow::Instance()->ChangeFocus(this);
     }
@@ -408,7 +430,67 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     {
         if(this->IsInside(p.x, p.y))
         {
-            RightClick = new RightClickMenu(p.x, p.y);
+            if(ArcBrowser)
+            {
+                RightClick = new RightClickMenu(p.x, p.y,
+                                                tr("Open"), tr("Extract"), tr("Extract All"));
+            }
+            else
+            {
+                RightClick = new RightClickMenu(p.x, p.y,
+                                                tr("Cut"), tr("Copy"), tr("Paste"),
+                                                tr("Rename"), tr("Delete"), tr("NewFolder"),
+                                                tr("Properties"));
+            }
         }
     }
+}
+
+void Explorer::ArchiveChanges()
+{
+    if(!ArcBrowser)
+        return;
+
+    //Change archive path
+    if(ArcBrowser->IsCurrentDir())
+    {
+        int result = ArcBrowser->ChangeDirectory();
+        if(result > 0)
+        {
+            fileBrowser->fileList[0]->SetState(STATE_SELECTED);
+            fileBrowser->TriggerUpdate();
+            AdressText->SetTextf("%s", ArcBrowser->GetCurrentPath());
+        }
+        else if(result == 0)
+        {
+            //leave Archive
+            fileBrowser->SetBrowser(Browser);
+            delete ArcBrowser;
+            ArcBrowser = NULL;
+            fileBrowser->TriggerUpdate();
+            AdressText->SetTextf("%s", Browser->GetCurrentPath());
+        }
+        else
+        {
+            //error Accured closing Archive
+            fileBrowser->SetBrowser(Browser);
+            delete ArcBrowser;
+            ArcBrowser = NULL;
+            fileBrowser->TriggerUpdate();
+            AdressText->SetTextf("%s", Browser->GetCurrentPath());
+        }
+    }
+    else
+    {
+        //TODO fileoperations inside archive
+    }
+}
+
+void Explorer::SetState(int s)
+{
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try { _elements.at(i)->SetState(s); }
+		catch (const std::exception& e) { }
+	}
 }

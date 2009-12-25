@@ -8,11 +8,10 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
+#include "FileOperations/fileops.h"
 #include "FileStartUp/ImageViewer.h"
 #include "FileStartUp/MusicLoader.h"
-#include "FileStartUp/ZipBrowser.h"
 #include "Language/gettext.h"
-#include "FileOperations/fileops.h"
 
 int FileStartUp(const char *filepath)
 {
@@ -54,6 +53,7 @@ int FileStartUp(const char *filepath)
         if(choice)
             LoadMusic(filepath);
     }
+    /*
     else if(strcasecmp(fileext, ".zip") == 0)
     {
         int choice = WindowPrompt(filename, tr("Enter a directory where to extract the files to."), tr("OK"), tr("Cancel"));
@@ -68,8 +68,13 @@ int FileStartUp(const char *filepath)
             return TRIGGERUPDATE;
         }
     }
+    */
     else if(strcasecmp(fileext, ".rar") == 0) {
         //TODO
+    }
+    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0)
+    {
+        return ARCHIVE;
     }
     else {
         loadtext:

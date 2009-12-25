@@ -1,12 +1,33 @@
 /****************************************************************************
- * libwiigui Template
- * Tantric 2009
+ * Copyright (C) 2009
+ * by Dimok
  *
- * filebrowser.h
+ * Original Filebrowser by Tantric for libwiigui
  *
- * Generic file routines - reading, writing, browsing
- ****************************************************************************/
-
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * FileBrowser
+ *
+ * Directory parsing Class
+ * for WiiXplorer 2009
+ ***************************************************************************/
 #ifndef _FILEBROWSER_H_
 #define _FILEBROWSER_H_
 
@@ -18,6 +39,7 @@
 #define MAXDISPLAY MAXPATHLEN
 
 #include "Prompts/DeviceMenu.h"
+#include "Browser.hpp"
 
 typedef struct
 {
@@ -47,7 +69,7 @@ typedef struct
 } CLIPBOARD;
 
 
-class FileBrowser
+class FileBrowser : public Browser
 {
     public:
         FileBrowser();
@@ -74,6 +96,8 @@ class FileBrowser
         int ParseDirectory();
         int BrowserChangeFolder();
     private:
+        int EnterSelDir();
+        int LeaveCurDir();
         void InitParseThread();
         void ShutdownParseThread();
         bool ParseDirEntries();

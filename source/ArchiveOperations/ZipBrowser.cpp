@@ -23,7 +23,7 @@
  *
  * ZipBrowser.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #include <gctypes.h>
 #include <string.h>
@@ -32,15 +32,15 @@
 
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "unzip/unzip.h"
-#include "FileStartUp/ZipFile.h"
+#include "ArchiveOperations/ZipFile.h"
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "sys.h"
 
 /*** Extern variables ***/
-extern GuiWindow * mainWindow;
 extern u8 shutdown;
 extern u8 reset;
 
@@ -98,9 +98,9 @@ bool ZipBrowse(const char *filepath, const char *dest)
     promptWindow.Append(&Backbtn);
 
     HaltGui();
-    mainWindow->SetState(STATE_DISABLED);
-    mainWindow->Append(&promptWindow);
-    mainWindow->ChangeFocus(&promptWindow);
+    MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->Append(&promptWindow);
+    MainWindow::Instance()->ChangeFocus(&promptWindow);
     promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
     ResumeGui();
 
@@ -122,7 +122,7 @@ bool ZipBrowse(const char *filepath, const char *dest)
 	}
 
 	HaltGui();
-	mainWindow->Remove(&promptWindow);
-	mainWindow->SetState(STATE_DEFAULT);
+	MainWindow::Instance()->Remove(&promptWindow);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	ResumeGui();
 }
