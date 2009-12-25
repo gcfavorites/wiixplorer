@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,6 +25,12 @@ msgstr "Er is een fout opgetreden"
 msgid "App Default"
 msgstr "Standaard"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
@@ -36,6 +42,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Annuleren"
@@ -83,6 +92,9 @@ msgid "Could not connect to the server."
 msgstr ""
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -166,17 +178,38 @@ msgstr ""
 msgid "ERROR"
 msgstr "FOUT"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "Kies Waar je de bestanden wilt uitpakken."
-
 msgid "Error"
 msgstr "Fout"
 
 msgid "Error:"
 msgstr "Fout:"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "Bezig met uitpakken..."
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Bestand kopieren mislukt."
@@ -184,11 +217,23 @@ msgstr "Bestand kopieren mislukt."
 msgid "Failed copying files."
 msgstr "Bestanden kopieren mislukt."
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "Bestand hernoemen mislukt"
 
 msgid "Failed to extract files."
 msgstr "Uitpakken gefaald."
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Bestand kon niet worden verwijderd"
@@ -196,11 +241,26 @@ msgstr "Bestand kon niet worden verwijderd"
 msgid "File does not exist anymore!"
 msgstr "Dit bestand bestaat niet meer!"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "Bestand gekopieerd"
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "Bestand verplaatst."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -223,6 +283,9 @@ msgstr "Type:"
 
 msgid "Folder"
 msgstr "Map"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "Locatie lettertype gewijzigd"
@@ -290,6 +353,9 @@ msgstr "Netwerk Initialiseren..."
 msgid "New Folder"
 msgstr "Nieuwe map"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "Nee"
 
@@ -299,9 +365,6 @@ msgstr "Geen afb. gevonden bij index %d."
 
 msgid "No language files found."
 msgstr "Geen taalbestanden gevonden."
-
-msgid "No network connection"
-msgstr ""
 
 msgid "No new updates available"
 msgstr ""
@@ -327,6 +390,12 @@ msgstr "OK"
 msgid "ON"
 msgstr "AAN"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Te wijnig geheugen: te veel bestanden!"
 
@@ -341,6 +410,9 @@ msgstr "Plakken op deze locatie?"
 
 msgid "Please wait:"
 msgstr "Even geduld:"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "Eigenschappen"
@@ -460,6 +532,9 @@ msgstr "Je kan deze handeling niet uitvoeren op:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "Kies Waar je de bestanden wilt uitpakken."
 
 #~ msgid "Change Settings"
 #~ msgstr "Opties wijzigen"

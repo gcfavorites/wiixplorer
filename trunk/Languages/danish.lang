@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -24,6 +24,12 @@ msgstr "Der skete en fejl."
 msgid "App Default"
 msgstr "Programstandard"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Auto-forbind"
 
@@ -35,6 +41,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Kan ikke åbne filen"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Afbryd"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr "Kunne ikke forbinde til serveren."
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,17 +177,38 @@ msgstr "Downloader fil..."
 msgid "ERROR"
 msgstr "FEJL"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "Angiv en mappe, som filerne skal pakkes ud til."
-
 msgid "Error"
 msgstr "Fejl"
 
 msgid "Error:"
 msgstr "Fejl:"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "Udpakker filer..."
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Kunne ikke kopiere fil."
@@ -183,11 +216,23 @@ msgstr "Kunne ikke kopiere fil."
 msgid "Failed copying files."
 msgstr "Kunne ikke kopiere filer."
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "Kunne ikke omdøbe fil."
 
 msgid "Failed to extract files."
 msgstr "Kunne ikke udpakke filer."
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Filen kunne ikke slettes."
@@ -195,11 +240,26 @@ msgstr "Filen kunne ikke slettes."
 msgid "File does not exist anymore!"
 msgstr "Filen eksisterer ikke mere!"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "Filen blev kopieret."
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "Filen blev flyttet."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "Filtype:"
 
 msgid "Folder"
 msgstr "Mappe"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "Sti til fonte ændret"
@@ -289,6 +352,9 @@ msgstr "Initialiserer netforbindelse..."
 msgid "New Folder"
 msgstr "Ny mappe"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "Nej"
 
@@ -298,9 +364,6 @@ msgstr "Intet billede fundet på indeks %d."
 
 msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
-
-msgid "No network connection"
-msgstr "Ingen netforbindelse"
 
 msgid "No new updates available"
 msgstr "Der er ingen ny opdateringer"
@@ -326,6 +389,12 @@ msgstr ""
 msgid "ON"
 msgstr "Til"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
 
@@ -340,6 +409,9 @@ msgstr "Sæt ind i nuværende mappe?"
 
 msgid "Please wait:"
 msgstr "Vent venligst:"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "Egenskaber"
@@ -459,6 +531,12 @@ msgstr "Du kan ikke udføre denne handling på:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "Angiv en mappe, som filerne skal pakkes ud til."
+
+#~ msgid "No network connection"
+#~ msgstr "Ingen netforbindelse"
 
 #~ msgid "Can't load any device"
 #~ msgstr "Kan ikke indlæse nogle enheder"

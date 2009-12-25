@@ -21,18 +21,43 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * ProcessChoice.cpp
+ * Archive Class
+ *
+ * Virtual Class to inherit the Archives from and enable
  *
  * for WiiXplorer 2009
  ***************************************************************************/
+#ifndef ARCHIVE_H_
+#define ARCHIVE_H_
 
-#ifndef _PROCESS_CHOICE_H_
-#define _PROCESS_CHOICE_H_
+#include <gctypes.h>
 
-#include "FileOperations/filebrowser.h"
-#include "ArchiveOperations/ArchiveBrowser.h"
+#include "7ZipFile.h"
+#include "ZipFile.h"
 
-void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);
-void ProcessChoice(FileBrowser * browser, int choice);
+class Archive
+{
+    public:
+		//!Constructor
+        Archive(const char  * filepath);
+		//!Destructor
+        ~Archive();
+		//!Get the archive file structure
+        ArchiveFileStruct * GetFileStruct(int fileIndx);
+		//!Extract a files from a zip file to a path
+        int ExtractFile(int ind, const char *destpath, bool withpath = false);
+		//!Extract all files from a zip file to a directory
+        int ExtractAll(const char *destpath);
+		//!Get the total amount of items inside the archive
+        u32 GetItemCount();
 
-#endif
+    private:
+		//!Check what kind of archive it is
+        bool IsZipFile (const char *buffer);
+        bool Is7ZipFile(const char *buffer);
+
+        SzFile * szFile;
+        ZipFile * zipFile;
+};
+
+#endif //ARCHIVE_BROWSER_H_

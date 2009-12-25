@@ -168,7 +168,6 @@ static int MenuBrowseDevice()
 			menu = Taskbar::Instance()->GetMenu();
     }
 
-	HaltGui();
     delete Explorer_1;
     Explorer_1 = NULL;
 	ResumeGui();

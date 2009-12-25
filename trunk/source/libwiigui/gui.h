@@ -35,6 +35,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <vector>
 #include <exception>
 #include <wchar.h>

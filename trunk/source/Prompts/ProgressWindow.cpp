@@ -192,7 +192,7 @@ void ProgressWindow()
 	}
 
     //! To skip progressbar for fast processes
-	usleep(400000);
+	usleep(500000);
 	if(!showProgress)
         return;
 
@@ -315,15 +315,14 @@ void ShowProgress(u64 done, u64 total, const char *msg)
 	if(done > total)
 		done = total;
 
+    if(msg)
+        strncpy(progressMsg, msg, sizeof(progressMsg));
+    else
+        strcpy(progressMsg, "");  //this shouldn't happen but in case it clears msg
+
     //progress start for this file
-    if(!done) {
+    if(!done)
         start = time(0);
-        //set new filename
-        if(msg)
-            strncpy(progressMsg, msg, sizeof(progressMsg));
-        else
-            sprintf(progressMsg, " ");  //this shouldn't happen but in case it clears msg
-    }
 
     progressDone = done;
     progressTotal = total;

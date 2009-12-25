@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,6 +24,12 @@ msgstr "ｴﾗｰが発生しました"
 msgid "App Default"
 msgstr "英語"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "自動接続"
 
@@ -35,6 +41,9 @@ msgstr "起動時のデバイス"
 
 msgid "Can not open the file"
 msgstr "ﾌｧｲﾙを開けません"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "キャンセル"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,17 +177,38 @@ msgstr "ダウンロード中…"
 msgid "ERROR"
 msgstr "エラー"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "どこにﾌｧｲﾙを解凍するか決定してください"
-
 msgid "Error"
 msgstr "エラー"
 
 msgid "Error:"
 msgstr "エラー"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "解凍中..."
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "ｺﾋﾟｰに失敗しました"
@@ -183,11 +216,23 @@ msgstr "ｺﾋﾟｰに失敗しました"
 msgid "Failed copying files."
 msgstr "ｺﾋﾟｰに失敗しました"
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "ﾘﾈｰﾑに失敗しました"
 
 msgid "Failed to extract files."
 msgstr "解凍に失敗しました"
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "ﾌｧｲﾙを削除できませんでした"
@@ -195,11 +240,26 @@ msgstr "ﾌｧｲﾙを削除できませんでした"
 msgid "File does not exist anymore!"
 msgstr "ファイルがありません"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "コピーに成功しました"
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "移動に成功しました"
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "ファイルタイプ"
 
 msgid "Folder"
 msgstr "フォルダ"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
@@ -289,6 +352,9 @@ msgstr "接続中..."
 msgid "New Folder"
 msgstr "新規ﾌｫﾙﾀﾞ"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "いいえ"
 
@@ -298,9 +364,6 @@ msgstr "%dの階層に画像が見つかりませんでした"
 
 msgid "No language files found."
 msgstr "言語が見つかりませんでした"
-
-msgid "No network connection"
-msgstr "接続していません"
 
 msgid "No new updates available"
 msgstr "更新はありません"
@@ -326,6 +389,12 @@ msgstr "はい"
 msgid "ON"
 msgstr "オン"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "ﾌｧｲﾙが多いためﾒﾓﾘ不足です"
 
@@ -340,6 +409,9 @@ msgstr "このﾌｫﾙﾀﾞに貼り付けますか?"
 
 msgid "Please wait:"
 msgstr "お待ちください"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "プロパティ"
@@ -459,6 +531,12 @@ msgstr "この操作は実行できません"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "どこにﾌｧｲﾙを解凍するか決定してください"
+
+#~ msgid "No network connection"
+#~ msgstr "接続していません"
 
 #~ msgid "Can't load any device"
 #~ msgstr "どのデバイスも開けません"

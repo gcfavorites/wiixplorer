@@ -80,46 +80,54 @@ int UpdateApp(const char *url)
  ***************************************************************************/
 int CheckForUpdate()
 {
-    if (!IsNetworkInit())
-    {
-        WindowPrompt(tr("No network connection"), 0, tr("OK"));
-        return -1;
-    }
+	if(!IsNetworkInit())
+		WaitSMBConnect();
 
     int revnumber = 0;
     int currentrev = atoi(SvnRev());
 
-    struct block file = downloadfile("http://code.google.com/p/wiixplorer/downloads/list");
+    URL_List URLs("http://code.google.com/p/wiixplorer/downloads/list");
 
-    u32 cnt = 0;
+    int urlcount = URLs.GetURLCount();
 
-    while(cnt < file.size)
+    char *DownloadLink = NULL;
+
+    for(int i = 0; i < urlcount; i++)
     {
-        if(htmlstringcompare(file.data, "Revision ", cnt) == 0)
+        char *tmpLink = URLs.GetURL(i);
+        if(tmpLink)
         {
-            char temp[MAXPATHLEN];
-            copyhtmlsting((const char *) file.data, temp, ", ", cnt);
+            char *fileext = strrchr(tmpLink, '.');
+            if(fileext)
+            {
+                if(strcasecmp(fileext, ".dol") == 0)
+                {
+                    char revtxt[80];
+                    char *filename = strrchr(tmpLink, '/')+2;
+                    u8 n = 0;
+                    for (n = 0; n < strlen(filename)-2; n++)
+                        revtxt[n] = filename[n];
+                    revtxt[n] = 0;
+                    revnumber = atoi(revtxt);
 
-            int temprev = atoi(temp);
-
-            if(temprev > revnumber)
-                revnumber = temprev;
+                    if(revnumber > currentrev)
+                    {
+                        currentrev = revnumber;
+                        DownloadLink = URLs.GetURL(i);
+                    }
+                }
+            }
         }
-        cnt++;
     }
-
-    free(file.data);
 
     if (revnumber > currentrev)
     {
-        char text[200];
+        char text[100];
         sprintf(text, tr("Update to Rev%i available"), revnumber);
         int choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("No"));
         if(choice)
-            UpdateApp("http://wiixplorer.googlecode.com/files/boot.dol");
+            UpdateApp(DownloadLink);
     }
-    else
-        return 0;
 
     return revnumber;
 }

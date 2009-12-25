@@ -2,18 +2,19 @@
 #define __GUI_FILEBROWSER_H_
 
 #include "gui.h"
-#include "FileOperations/filebrowser.h"
+#include "FileOperations/Browser.hpp"
 
 
 //!Display a list of files
 class GuiFileBrowser : public GuiElement
 {
 	public:
-		GuiFileBrowser(FileBrowser * filebrowser, int w, int h);
+		GuiFileBrowser(Browser * filebrowser, int w, int h);
 		~GuiFileBrowser();
 		void DisableTriggerUpdate(bool set);
 		void ResetState();
 		void SetFocus(int f);
+        void SetBrowser(Browser * b);
 		void Draw();
 		void TriggerUpdate();
 		void Update(GuiTrigger * t);
@@ -25,7 +26,7 @@ class GuiFileBrowser : public GuiElement
 		bool listChanged;
 		bool triggerdisabled;
 
-		FileBrowser * browser;
+		Browser * browser;
 
 		GuiText * fileListText[PAGESIZE];
 		GuiText * fileListTextOver[PAGESIZE];

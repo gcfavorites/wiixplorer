@@ -32,6 +32,12 @@ SZ_RESULT SzDecode2(const CFileSize *packSizes, const CFolder *folder,
     Byte *outBuffer, size_t outSize,
     size_t *outSizeProcessed, ISzAlloc *allocMain,
 	size_t *fileOffset, size_t *fileSize);
+
+SZ_RESULT SzDecode3(const CFileSize *packSizes, const CFolder *folder,
+    ISzInStream *stream,
+    FILE *pFile, size_t outSize,
+    size_t *outSizeProcessed, ISzAlloc *allocMain,
+	size_t *fileOffset, size_t *fileSize);
 #endif // #ifdef _LZMA_OUT_READ
 
 #endif

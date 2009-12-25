@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -24,6 +24,12 @@ msgstr "Ocorreu um erro"
 msgid "App Default"
 msgstr "Padrão do App"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Auto Conexão"
 
@@ -35,6 +41,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Impossível abrir o arquivo"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr ""
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,16 +177,37 @@ msgstr ""
 msgid "ERROR"
 msgstr ""
 
-msgid "Enter a directory where to extract the files to."
-msgstr ""
-
 msgid "Error"
 msgstr ""
 
 msgid "Error:"
 msgstr ""
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
+msgstr ""
+
+msgid "Extracting folder:"
 msgstr ""
 
 msgid "Failed copying file."
@@ -183,10 +216,22 @@ msgstr "Falha ao copiar arquivo."
 msgid "Failed copying files."
 msgstr "Falha ao copiar arquivos."
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "Falha ao renomear aquivo"
 
 msgid "Failed to extract files."
+msgstr ""
+
+msgid "Failed to read file data."
 msgstr ""
 
 msgid "File couldn't be deleted."
@@ -195,11 +240,26 @@ msgstr "Arquivo não foi apagado."
 msgid "File does not exist anymore!"
 msgstr "O Arquivo não existe mais!"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "Arquivo copiado com sucesso."
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "Arquivo movido com sucesso."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "Tipo do Arquivo:"
 
 msgid "Folder"
 msgstr "Pasta"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr ""
@@ -289,6 +352,9 @@ msgstr "Iniciando Rede..."
 msgid "New Folder"
 msgstr "Nova Pasta"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "Não"
 
@@ -297,9 +363,6 @@ msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
-msgstr ""
-
-msgid "No network connection"
 msgstr ""
 
 msgid "No new updates available"
@@ -326,6 +389,12 @@ msgstr ""
 msgid "ON"
 msgstr "Ligado"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Sem memória: muitos arquivos!"
 
@@ -340,6 +409,9 @@ msgstr "Colar no diretório atual?"
 
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "Propriedades"

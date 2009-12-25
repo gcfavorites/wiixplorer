@@ -36,9 +36,73 @@
 /*** Extern functions ***/
 extern CLIPBOARD Clipboard;
 
+void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
+{
+    if(!browser)
+        return;
+
+    if(choice == ArcOpen)
+    {
+        WindowPrompt(tr("Opening is not yet implemented"), tr("Extract first and open than."), tr("OK"));
+    }
+    else if(choice == ArcExtractFile)
+    {
+        bool directory = browser->IsCurrentDir();
+
+        int ret = WindowPrompt((directory ? tr("Extract this folder?") : tr("Extract this file?")), browser->GetCurrentDisplayname(), tr("Yes"), tr("Cancel"));
+        if(ret <= 0)
+            return;
+
+        char dest[MAXPATHLEN];
+        snprintf(dest, sizeof(dest), "%s", destCandidat);
+        int result = OnScreenKeyboard(dest, sizeof(dest));
+        if(result)
+        {
+
+            if(!directory)
+                StartProgress(tr("Extracting file:"));
+            else
+                StartProgress(tr("Extracting folder:"));
+            result = browser->ExtractCurrentItem(dest);
+            StopProgress();
+            if(result <= 0)
+            {
+                WindowPrompt(tr("Error:"), (directory ? tr("Failed extracting the folder.") : tr("Failed extracting file.")), tr("OK"));
+            }
+            else
+            {
+                WindowPrompt((directory ? tr("Folder successfully extracted.") : tr("File successfully extracted.")), 0, tr("OK"));
+            }
+        }
+    }
+    else if(choice == ArcExtractAll)
+    {
+        int ret = WindowPrompt(tr("Extract full archive?"), 0, tr("Yes"), tr("Cancel"));
+        if(ret <= 0)
+            return;
+
+        char dest[MAXPATHLEN];
+        snprintf(dest, sizeof(dest), "%s", destCandidat);
+        int result = OnScreenKeyboard(dest, sizeof(dest));
+        if(result)
+        {
+            result = browser->ExtractAll(dest);
+            StopProgress();
+            if(result <= 0)
+            {
+                WindowPrompt(tr("Error:"), tr("Failed extracting the archive."), tr("OK"));
+            }
+            else
+            {
+                WindowPrompt(tr("Archive successfully extracted."), 0, tr("OK"));
+            }
+        }
+    }
+}
+
 void ProcessChoice(FileBrowser * browser, int choice)
 {
-    if(choice == -1)
+    if(!browser)
         return;
 
     else if(strcmp(browser->GetCurrentFilename(),"..") != 0)

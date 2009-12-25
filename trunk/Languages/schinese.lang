@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 20:44+0100\n"
+"POT-Creation-Date: 2009-12-25 21:46+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -24,6 +24,12 @@ msgstr "发生错误。"
 msgid "App Default"
 msgstr "程序缺省"
 
+msgid "Archive contains too many files."
+msgstr ""
+
+msgid "Archive successfully extracted."
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "自动连接"
 
@@ -35,6 +41,9 @@ msgstr "开始挂载"
 
 msgid "Can not open the file"
 msgstr "不能打开文件"
+
+msgid "Can't read file:"
+msgstr ""
 
 msgid "Cancel"
 msgstr "取消"
@@ -82,6 +91,9 @@ msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
 
 msgid "Could not download file."
+msgstr ""
+
+msgid "Could not extract file:"
 msgstr ""
 
 msgid "Credits"
@@ -165,17 +177,38 @@ msgstr "正在下载文件"
 msgid "ERROR"
 msgstr "错误"
 
-msgid "Enter a directory where to extract the files to."
-msgstr "进入你所提取文件的目录"
-
 msgid "Error"
 msgstr "错误"
 
 msgid "Error:"
 msgstr "错误"
 
+msgid "Extract"
+msgstr ""
+
+msgid "Extract All"
+msgstr ""
+
+msgid "Extract first and open than."
+msgstr ""
+
+msgid "Extract full archive?"
+msgstr ""
+
+msgid "Extract this file?"
+msgstr ""
+
+msgid "Extract this folder?"
+msgstr ""
+
+msgid "Extracting file:"
+msgstr ""
+
 msgid "Extracting files..."
 msgstr "提取文件中"
+
+msgid "Extracting folder:"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "复制失败"
@@ -183,11 +216,23 @@ msgstr "复制失败"
 msgid "Failed copying files."
 msgstr "复制失败"
 
+msgid "Failed extracting file."
+msgstr ""
+
+msgid "Failed extracting the archive."
+msgstr ""
+
+msgid "Failed extracting the folder."
+msgstr ""
+
 msgid "Failed renaming file"
 msgstr "更名失败"
 
 msgid "Failed to extract files."
 msgstr "提取文件失败"
+
+msgid "Failed to read file data."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
@@ -195,11 +240,26 @@ msgstr "文件不能删除"
 msgid "File does not exist anymore!"
 msgstr "此文件不存在"
 
+msgid "File is corrupt (CRC mismatch)."
+msgstr ""
+
+msgid "File is corrupt."
+msgstr ""
+
 msgid "File successfully copied."
 msgstr "文件复制成功"
 
+msgid "File successfully extracted."
+msgstr ""
+
 msgid "File successfully moved."
 msgstr "文件移动成功"
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr ""
+
+msgid "File uses unsupported compression settings."
+msgstr ""
 
 msgid "File was edited."
 msgstr ""
@@ -222,6 +282,9 @@ msgstr "文件类型："
 
 msgid "Folder"
 msgstr "文件夹"
+
+msgid "Folder successfully extracted."
+msgstr ""
 
 msgid "Fontpath changed"
 msgstr "字体路径已改变"
@@ -289,6 +352,9 @@ msgstr "网络正在初始化"
 msgid "New Folder"
 msgstr "新文件夹"
 
+msgid "NewFolder"
+msgstr ""
+
 msgid "No"
 msgstr "否"
 
@@ -298,9 +364,6 @@ msgstr "索引%d 中没有发现图片。"
 
 msgid "No language files found."
 msgstr "没有发现语言文件。"
-
-msgid "No network connection"
-msgstr "没有网络连接"
 
 msgid "No new updates available"
 msgstr "没有新的可用更新"
@@ -326,6 +389,12 @@ msgstr "确定"
 msgid "ON"
 msgstr "打开"
 
+msgid "Open"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
 
@@ -340,6 +409,9 @@ msgstr "是否粘贴到当前目录？"
 
 msgid "Please wait:"
 msgstr "请等待："
+
+msgid "Process canceled."
+msgstr ""
 
 msgid "Properties"
 msgstr "属性"
@@ -459,6 +531,12 @@ msgstr "无法使用此功能在："
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "进入你所提取文件的目录"
+
+#~ msgid "No network connection"
+#~ msgstr "没有网络连接"
 
 #~ msgid "Can't load any device"
 #~ msgstr "设备无法读取"

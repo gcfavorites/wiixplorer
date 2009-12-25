@@ -1,12 +1,33 @@
 /****************************************************************************
- * libwiigui Template
- * Tantric 2009
+ * Copyright (C) 2009
+ * by Dimok
  *
- * filebrowser.cpp
+ * Original Filebrowser by Tantric for libwiigui
  *
- * Generic file routines - reading, writing, browsing
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * FileBrowser
+ *
+ * Directory parsing Class
+ * for WiiXplorer 2009
  ***************************************************************************/
-
 #include <gccore.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +44,7 @@
  * FileBrowser Class to parse directories on the fly
  ***************************************************************************/
 FileBrowser::FileBrowser()
+    :Browser()
 {
     browserList = NULL;
     parsethread = LWP_THREAD_NULL;
@@ -86,51 +108,109 @@ int FileBrowser::BrowsePath(const char *path)
  ***************************************************************************/
 int FileBrowser::BrowseDevice(int device)
 {
-	sprintf(browser.dir, "/");
+	strcpy(browser.dir, "");
 	switch(device)
 	{
 	    case SD:
-            sprintf(browser.rootdir, "sd:");
+            sprintf(browser.rootdir, "sd:/");
             break;
 	    case USB:
-            sprintf(browser.rootdir, "usb:");
+            sprintf(browser.rootdir, "usb:/");
             break;
 	    case NTFS0:
-            sprintf(browser.rootdir, "ntfs0:");
+            sprintf(browser.rootdir, "ntfs0:/");
             break;
 	    case NTFS1:
-            sprintf(browser.rootdir, "ntfs1:");
+            sprintf(browser.rootdir, "ntfs1:/");
             break;
 	    case NTFS2:
-            sprintf(browser.rootdir, "ntfs2:");
+            sprintf(browser.rootdir, "ntfs2:/");
             break;
 	    case NTFS3:
-            sprintf(browser.rootdir, "ntfs3:");
+            sprintf(browser.rootdir, "ntfs3:/");
             break;
 	    case NTFS4:
-            sprintf(browser.rootdir, "ntfs4:");
+            sprintf(browser.rootdir, "ntfs4:/");
             break;
 	    case SMB1:
-            sprintf(browser.rootdir, "smb1:");
+            sprintf(browser.rootdir, "smb1:/");
             break;
 	    case SMB2:
-            sprintf(browser.rootdir, "smb2:");
+            sprintf(browser.rootdir, "smb2:/");
             break;
 	    case SMB3:
-            sprintf(browser.rootdir, "smb3:");
+            sprintf(browser.rootdir, "smb3:/");
             break;
 	    case SMB4:
-            sprintf(browser.rootdir, "smb4:");
+            sprintf(browser.rootdir, "smb4:/");
             break;
 //		case ISFS:
-//			sprintf(browser.rootdir, "isfs:");
+//			sprintf(browser.rootdir, "isfs:/");
 //			break;
 //		case NAND:
-//			sprintf(browser.rootdir, "nand:");
+//			sprintf(browser.rootdir, "nand:/");
 //			break;
 	}
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;
+}
+
+/****************************************************************************
+ * Enter the current selected directory
+ ***************************************************************************/
+int FileBrowser::EnterSelDir()
+{
+    int dirlength = strlen(browser.dir);
+    int filelength = strlen(browserList[browser.selIndex].filename);
+    if((dirlength+filelength+1) > MAXPATHLEN)
+        return -1;
+
+    if(dirlength == 0)
+        sprintf(browser.dir, "%s", browserList[browser.selIndex].filename);
+    else
+        sprintf(browser.dir, "%s/%s", browser.dir, browserList[browser.selIndex].filename);
+
+    return 1;
+}
+
+/****************************************************************************
+ * Leave the current directory
+ ***************************************************************************/
+int FileBrowser::LeaveCurDir()
+{
+    char * ptr = strrchr(browser.dir, '/');
+    if(ptr)
+    {
+        ptr[0] = '\0';
+        return 1;
+    }
+    else
+    {
+        if(strlen(browser.dir) != 0)
+        {
+            strcpy(browser.dir, "");
+            return 1;
+        }
+        else
+        {
+            //There is no upper directory
+            return 1;
+        }
+    }
+}
+
+/****************************************************************************
+ * UpdateDirName()
+ * Update curent directory name for file browser
+ ***************************************************************************/
+int FileBrowser::UpdateDirName()
+{
+    if(strcmp(browserList[browser.selIndex].filename, "..") == 0)
+    {
+        return LeaveCurDir();
+    }
+
+    return EnterSelDir();
 }
 
 /****************************************************************************
@@ -188,57 +268,6 @@ void FileBrowser::ResetBrowser()
 	browserList = (BROWSERENTRY *)malloc(sizeof(BROWSERENTRY));
 	memset(browserList, 0, sizeof(BROWSERENTRY));
 }
-
-/****************************************************************************
- * UpdateDirName()
- * Update curent directory name for file browser
- ***************************************************************************/
-int FileBrowser::UpdateDirName()
-{
-	int size=0;
-	char * test;
-	char temp[1024];
-
-	/* current directory doesn't change */
-	if (strcmp(browserList[browser.selIndex].filename,".") == 0)
-	{
-		return 0;
-	}
-	/* go up to parent directory */
-	else if (strcmp(browserList[browser.selIndex].filename,"..") == 0)
-	{
-		/* determine last subdirectory namelength */
-		sprintf(temp,"%s",browser.dir);
-		test = strtok(temp,"/");
-		while (test != NULL)
-		{
-			size = strlen(test);
-			test = strtok(NULL,"/");
-		}
-
-		/* remove last subdirectory name */
-		size = strlen(browser.dir) - size - 1;
-		browser.dir[size] = 0;
-
-		return 1;
-	}
-	/* Open a directory */
-	else
-	{
-		/* test new directory namelength */
-		if ((strlen(browser.dir)+1+strlen(browserList[browser.selIndex].filename)) < MAXPATHLEN)
-		{
-			/* update current directory name */
-			sprintf(browser.dir, "%s/%s",browser.dir, browserList[browser.selIndex].filename);
-			return 1;
-		}
-		else
-		{
-			return -1;
-		}
-	}
-}
-
 
 /****************************************************************************
  * FileSortCallback
@@ -366,7 +395,7 @@ int FileBrowser::ParseDirectory()
 	if(dirIter == NULL)
 	{
 	    // if we can't open the dir, try opening the root dir
-        sprintf(browser.dir,"/");
+        strcpy(browser.dir, "");
         sprintf(fulldir, "%s%s", browser.rootdir, browser.dir);
         dirIter = diropen(fulldir);
 
