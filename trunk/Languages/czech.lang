@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -25,9 +25,6 @@ msgstr "Došlo k chybě."
 msgid "App Default"
 msgstr "Původní nastavení"
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -42,6 +39,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Nelze otevřít soubor"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -229,9 +229,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "Nepodařilo se přejmenovat soubor."
 
-msgid "Failed to extract files."
-msgstr "Nepodařilo se rozbalit soubory."
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -268,9 +265,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Cesta:  %s"
-
-msgid "Files successfully extracted."
-msgstr "Soubory úspěšně rozbaleny."
 
 msgid "Files:"
 msgstr "Soubory:"
@@ -532,6 +526,12 @@ msgstr "Nelze použít tuto operaci na:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
+
+#~ msgid "Failed to extract files."
+#~ msgstr "Nepodařilo se rozbalit soubory."
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "Soubory úspěšně rozbaleny."
 
 #~ msgid "Enter a directory where to extract the files to."
 #~ msgstr "zadejte adresář, kam chcete rozbalit soubory."

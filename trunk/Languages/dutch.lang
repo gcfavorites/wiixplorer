@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,9 +25,6 @@ msgstr "Er is een fout opgetreden"
 msgid "App Default"
 msgstr "Standaard"
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -42,6 +39,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -229,9 +229,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "Bestand hernoemen mislukt"
 
-msgid "Failed to extract files."
-msgstr "Uitpakken gefaald."
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -268,9 +265,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Locatie: %s"
-
-msgid "Files successfully extracted."
-msgstr "Uitpakken voltooid!"
 
 msgid "Files:"
 msgstr "Bestanden:"
@@ -532,6 +526,12 @@ msgstr "Je kan deze handeling niet uitvoeren op:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+#~ msgid "Failed to extract files."
+#~ msgstr "Uitpakken gefaald."
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "Uitpakken voltooid!"
 
 #~ msgid "Enter a directory where to extract the files to."
 #~ msgstr "Kies Waar je de bestanden wilt uitpakken."

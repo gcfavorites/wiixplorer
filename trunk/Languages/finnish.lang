@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,9 +25,6 @@ msgstr ""
 msgid "App Default"
 msgstr ""
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -41,6 +38,9 @@ msgid "Bootup Mount"
 msgstr ""
 
 msgid "Can not open the file"
+msgstr ""
+
+msgid "Can't open file."
 msgstr ""
 
 msgid "Can't read file:"
@@ -229,9 +229,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr ""
 
-msgid "Failed to extract files."
-msgstr ""
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -267,9 +264,6 @@ msgstr ""
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
-
-msgid "Files successfully extracted."
 msgstr ""
 
 msgid "Files:"

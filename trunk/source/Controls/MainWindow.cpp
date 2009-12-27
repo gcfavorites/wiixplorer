@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2009
- * by r-win
+ * by r-win & Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -62,6 +62,13 @@ MainWindow::MainWindow()
 	InitProgressThread();
 	StopProgress();
 
+    //!Initialize network thread if selected
+    if(Settings.AutoConnect == on)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
+
 	bgImgData = Resources::GetImageData(background_png, background_png_size);
     bgImg = new GuiImage(bgImgData);
 	Append(bgImg);
@@ -98,7 +105,8 @@ MainWindow::~MainWindow()
 	bgMusic->Stop();
 	Resources::Remove(bgMusic);
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++)
+	{
 		Resources::Remove(pointer[i]);
 	}
 }
@@ -135,6 +143,9 @@ void MainWindow::Quit()
 {
 	if (!exitApplication)
 	{
+	    //shutdown progress thread
+	    ExitProgressThread();
+
 		// Exit the application if this function is called...
 		exitApplication = true;
 
@@ -167,22 +178,6 @@ void MainWindow::Quit()
 void MainWindow::Show()
 {
     ResumeGui();
-
-    //!Initialize network thread if selected
-    if(Settings.AutoConnect == on)
-    {
-        PromptWindow * Prompt = new PromptWindow("Loading...", "Network is buggy, so we wait for it...");
-
-        MainWindow::Instance()->Append(Prompt);
-        //!Does not work right with threads for now
-        ConnectSMBShare();
-        //InitNetworkThread();
-        //ResumeNetworkThread();
-
-        delete Prompt;
-        Prompt = NULL;
-    }
-
     MainMenu(MENU_BROWSE_DEVICE);
 }
 

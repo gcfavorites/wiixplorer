@@ -21,22 +21,21 @@ SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds sou
 				source/BootHomebrew source/Language source/libmad source/libgif source/libpngu source/FileStartUp \
 				source/ArchiveOperations/unzip source/mload source/usbstorage source/libbmp source/libtga \
 				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus \
-				source/libntfs source/TextOperations source/ArchiveOperations source/ArchiveOperations/sevenzip
+				source/TextOperations source/ArchiveOperations source/ArchiveOperations/sevenzip \
+				source/ArchiveOperations/unrarlib
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-ffast-math -g -O3 -mrvl -mcpu=750 -meabi -mhard-float -Wall $(MACHDEP) $(INCLUDE) \
-				-DHAVE_CONFIG_H -DGEKKO -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE	\
-				-D_SZ_ONE_DIRECTORY -D_LZMA_IN_CB -D_LZMA_OUT_READ
+CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-ljpeg -lpng -lz -lfat -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
+LIBS :=	-ljpeg -lpng -lz -lfat -lntfs -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

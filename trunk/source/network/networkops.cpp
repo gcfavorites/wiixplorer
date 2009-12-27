@@ -360,33 +360,32 @@ bool ConnectSMBShare()
 {
     bool result = false;
 
-    if(!networkinit)
-        Initialize_Network();
-
-    if(networkinit)
+    for(int i = 0; i < 4; i++)
     {
-        for(int i = 0; i < 4; i++) {
+        char mountname[10];
+        sprintf(mountname, "smb%i", i+1);
 
-            char mountname[10];
-            sprintf(mountname, "smb%i", i+1);
-
-            if(!SMB_Mounted[i])
+        if(!SMB_Mounted[i])
+        {
+            if(strcmp(Settings.SMBUser[i].Host, ""))
             {
-                if(strcmp(Settings.SMBUser[i].Host, ""))
+                if(smbInitDevice(mountname,
+                    Settings.SMBUser[i].User,
+                    Settings.SMBUser[i].Password,
+                    Settings.SMBUser[i].SMBName,
+                    Settings.SMBUser[i].Host))
                 {
-                    if(smbInitDevice(mountname,
-                        Settings.SMBUser[i].User,
-                        Settings.SMBUser[i].Password,
-                        Settings.SMBUser[i].SMBName,
-                        Settings.SMBUser[i].Host))
-                    {
-                        SMB_Mounted[i] = true;
-                        result = true;
-                    } else {
-                        SMB_Mounted[i] = false;
-                    }
-                } else
+                    SMB_Mounted[i] = true;
+                    result = true;
+                }
+                else
+                {
                     SMB_Mounted[i] = false;
+                }
+            }
+            else
+            {
+                SMB_Mounted[i] = false;
             }
         }
     }
@@ -486,9 +485,10 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-    Initialize_Network();
-
     ConnectSMBShare();
+
+    if(!networkinit)
+        Initialize_Network();
 
     if(!autoupdated)
     {

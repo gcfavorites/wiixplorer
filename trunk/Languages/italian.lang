@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-10-02 23:18+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -24,9 +24,6 @@ msgstr "E' avvenuto un errore."
 msgid "App Default"
 msgstr "Predefinito Appl."
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -41,6 +38,9 @@ msgstr "Mount all'avvio"
 
 msgid "Can not open the file"
 msgstr "Il file non si può aprire"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -228,9 +228,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "Errore nella ridenominazione del file"
 
-msgid "Failed to extract files."
-msgstr "Errore nella estrazione dei file."
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -267,9 +264,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr ""
-
-msgid "Files successfully extracted."
-msgstr "I file sono stati estratti con successo."
 
 msgid "Files:"
 msgstr "File:"
@@ -531,6 +525,12 @@ msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
+
+#~ msgid "Failed to extract files."
+#~ msgstr "Errore nella estrazione dei file."
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "I file sono stati estratti con successo."
 
 #~ msgid "Enter a directory where to extract the files to."
 #~ msgstr "Digita il nome della cartella nella quale estrarre i file."

@@ -420,7 +420,8 @@ void GuiFileBrowser::Update(GuiTrigger * t)
                             fileList[i]->SetIcon(fileListTXT[i]);
                         } else if(strcasecmp(fileext, ".xml") == 0) {
                             fileList[i]->SetIcon(fileListXML[i]);
-                        } else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0) {
+                        } else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0 ||
+                                  strcasecmp(fileext, ".7z") == 0) {
                             fileList[i]->SetIcon(fileListArchives[i]);
                         } else {
                             fileList[i]->SetIcon(fileListDefault[i]);

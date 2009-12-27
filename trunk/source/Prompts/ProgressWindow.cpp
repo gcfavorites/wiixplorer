@@ -53,6 +53,7 @@ static u64      progressDone = 0;
 static u64      progressTotal = 100;
 static time_t   start = 0;
 static bool     changed = false;
+static bool     ShutDownThread = false;
 
 /*** Variables used outside of this file ***/
 bool            actioncanceled = false;
@@ -266,9 +267,9 @@ void ProgressWindow()
 
 static void * ProgressThread(void *arg)
 {
-	while(1)
+	while(!ShutDownThread)
 	{
-		if(!showProgress)
+		if(!showProgress && !ShutDownThread)
 			LWP_SuspendThread(progressthread);
 
         ProgressWindow();
@@ -335,7 +336,8 @@ void ShowProgress(u64 done, u64 total, const char *msg)
  *
  * Startup Progressthread in idle prio
  ***************************************************************************/
-void InitProgressThread() {
+void InitProgressThread()
+{
 	LWP_CreateThread(&progressthread, ProgressThread, NULL, NULL, 0, 70);
 }
 
@@ -344,7 +346,11 @@ void InitProgressThread() {
  *
  * Shutdown Progressthread
  ***************************************************************************/
-void ExitProgressThread() {
+void ExitProgressThread()
+{
+    ShutDownThread = true;
+    showProgress = 0;
+    LWP_ResumeThread(progressthread);
 	LWP_JoinThread(progressthread, NULL);
 	progressthread = LWP_THREAD_NULL;
 }

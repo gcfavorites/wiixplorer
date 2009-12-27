@@ -53,26 +53,8 @@ int FileStartUp(const char *filepath)
         if(choice)
             LoadMusic(filepath);
     }
-    /*
-    else if(strcasecmp(fileext, ".zip") == 0)
-    {
-        int choice = WindowPrompt(filename, tr("Enter a directory where to extract the files to."), tr("OK"), tr("Cancel"));
-        if(choice) {
-            char entered[151];
-            bool result = false;
-            int position = fileext-filepath;
-            snprintf(entered, position+1, "%s", filepath);
-            if(OnScreenKeyboard(entered, 150))
-                result = ZipBrowse(filepath, entered);
-
-            return TRIGGERUPDATE;
-        }
-    }
-    */
-    else if(strcasecmp(fileext, ".rar") == 0) {
-        //TODO
-    }
-    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0)
+    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
+            strcasecmp(fileext, ".rar") == 0)
     {
         return ARCHIVE;
     }
