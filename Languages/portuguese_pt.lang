@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-26 14:25+0100\n"
+"POT-Creation-Date: 2009-12-27 14:04+0100\n"
 "PO-Revision-Date: 2009-10-12 18:38\n"
 "Last-Translator: Sky8000\n"
 "Language-Team: Sky8000\n"
@@ -66,6 +66,9 @@ msgstr ""
 msgid "Coders:"
 msgstr "Programadores:"
 
+msgid "Compressed Size:"
+msgstr ""
+
 msgid "Connect SMB"
 msgstr "Ligar SMB"
 
@@ -125,6 +128,12 @@ msgstr "Eliminando ficheiros:"
 
 msgid "Designer:"
 msgstr "Designer:"
+
+msgid "Device Free Space:"
+msgstr ""
+
+msgid "Device Total Space:"
+msgstr ""
 
 msgid "Directory .."
 msgstr "Pasta .."

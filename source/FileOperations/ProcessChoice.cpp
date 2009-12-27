@@ -191,14 +191,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 }
             }
         }
-
-        else if(choice == PROPERTIES)
-        {
-            char currentitem[MAXPATHLEN];
-            snprintf(currentitem, sizeof(currentitem), "%s/", browser->GetCurrentPath());
-            Properties(browser->GetCurrentFilename(), currentitem, browser->IsCurrentDir(), (float) browser->GetCurrentFilesize());
-        }
-
     }
     else if(choice >= 0 && choice != PASTE && choice != NEWFOLDER)
         WindowPrompt(tr("You cant use this operation on:"), tr("Directory .."), tr("OK"));

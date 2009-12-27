@@ -74,6 +74,8 @@ bool RarFile::LoadList(const char * filepath)
         else
             TempStruct->isdir = false;
         TempStruct->fileindex = index;
+        TempStruct->ModTime = (u64) ArcList->item.FileTime;
+        TempStruct->archiveType = RAR;
 
         RarStructure.push_back(TempStruct);
         free(realfilename);

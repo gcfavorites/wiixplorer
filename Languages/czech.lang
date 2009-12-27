@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-26 14:25+0100\n"
+"POT-Creation-Date: 2009-12-27 14:04+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -67,6 +67,9 @@ msgstr ""
 msgid "Coders:"
 msgstr "Programátoři"
 
+msgid "Compressed Size:"
+msgstr ""
+
 msgid "Connect SMB"
 msgstr "Připojení SMSB"
 
@@ -125,6 +128,12 @@ msgid "Deleting files:"
 msgstr "Mazání souborů:"
 
 msgid "Designer:"
+msgstr ""
+
+msgid "Device Free Space:"
+msgstr ""
+
+msgid "Device Total Space:"
 msgstr ""
 
 msgid "Directory .."

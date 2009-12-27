@@ -61,6 +61,9 @@ class ArchiveBrowser : public Browser
         //!Is the current ind item a directory
         bool IsDir(int ind);
         bool IsCurrentDir() { return IsDir(SelIndex); };
+        //!Get the item archive structure of ind file
+        ArchiveFileStruct * GetItemStructure(int ind);
+        ArchiveFileStruct * GetCurrentItemStructure() { return GetItemStructure(SelIndex); };
         //!Get the name to display in the explorer
         const char * GetItemDisplayname(int ind);
         //!Get the name to display in the explorer
@@ -78,7 +81,7 @@ class ArchiveBrowser : public Browser
     private:
         int EnterSelDir();
         int LeaveCurDir();
-        void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index);
+        void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 archiveType);
         bool InDirectoryTree(const char * Path, const char * itemFullFilename, bool firstpage);
 
         Archive * archive;

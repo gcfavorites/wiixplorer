@@ -247,6 +247,14 @@ const char * ArchiveBrowser::GetCurrentPath()
     return displayPath;
 }
 
+ArchiveFileStruct * ArchiveBrowser::GetItemStructure(int ind)
+{
+    if(ind < 0 || ind > (int) PathStructure.size())
+        return NULL;
+
+    return archive->GetFileStruct(PathStructure.at(ind)->fileindex);
+}
+
 int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)
 {
 	if(!PathStructure.empty())
@@ -264,8 +272,8 @@ int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)
 	    firstpage = true;
 	}
 
-    // add '..' folder in case the user wants exit the 7z or go up in directory
-    AddListEntrie("..", 0, 0, true, 0);
+    // add '..' folder in case the user wants exit the archive or go up in directory
+    AddListEntrie("..", 0, 0, true, 0, 0, UNKNOWN);
 
     // get contents and parse them into file list structure
     for (u32 i = 0; i < ItemNumber; i++)
@@ -279,7 +287,8 @@ int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)
         {
             AddListEntrie(TmpArchive->filename,  TmpArchive->length,
                           TmpArchive->comp_length, TmpArchive->isdir,
-                          TmpArchive->fileindex);
+                          TmpArchive->fileindex, TmpArchive->ModTime,
+                          TmpArchive->archiveType);
         }
     }
 
@@ -310,7 +319,7 @@ void ArchiveBrowser::SortList()
     std::sort(PathStructure.begin(), PathStructure.end(), FileSortCallback);
 }
 
-void ArchiveBrowser::AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index)
+void ArchiveBrowser::AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 Type)
 {
     if(!filename)
         return;
@@ -326,6 +335,8 @@ void ArchiveBrowser::AddListEntrie(const char * filename, size_t length, size_t 
     TempStruct->comp_length = comp_length;
     TempStruct->isdir = isdir;
     TempStruct->fileindex = index;
+    TempStruct->ModTime = modtime;
+    TempStruct->archiveType = Type;
 
     PathStructure.push_back(TempStruct);
     TempStruct = NULL;
