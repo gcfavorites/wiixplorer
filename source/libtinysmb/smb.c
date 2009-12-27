@@ -44,6 +44,7 @@
 #include <ogc/lwp_threads.h>
 #include <ogc/lwp_objmgr.h>
 #include <ogc/lwp_watchdog.h>
+#include <sys/statvfs.h>
 #include <errno.h>
 #include <fcntl.h>
 
@@ -112,10 +113,12 @@
 /**
  * SMB_COM
  */
-#define SMB_COM_CREATE_DIRECTORY    0x00
-#define SMB_COM_DELETE_DIRECTORY    0x01
-#define SMB_COM_DELETE              0x06
-#define SMB_COM_RENAME              0x07
+#define SMB_COM_CREATE_DIRECTORY        0x00
+#define SMB_COM_DELETE_DIRECTORY        0x01
+#define SMB_COM_DELETE                  0x06
+#define SMB_COM_RENAME                  0x07
+#define SMB_COM_QUERY_INFORMATION_DISK  0x80
+
 
 /**
  * TRANS2 Offsets
@@ -565,9 +568,6 @@ static s32 SMBCheck(u8 command, s32 readlen,SMBHANDLE *handle)
 
 	ret = getUInt(ptr,SMB_OFFSET_NTSTATUS);
 	if(ret) return SMB_ERROR;
-
-	//ret = getUShort(ptr,SMB_OFFSET_ECODE);
-	//if(ret != 0) return ret;
 
 	return SMB_SUCCESS;
 }
@@ -1577,6 +1577,77 @@ s32 SMB_Rename(const char *filename, const char * newfilename, SMBCONN smbhndl)
     return ret;
 
 failed:
+	return ret;
+}
+
+/**
+ * SMB_DiskInformation
+ */
+s32 SMB_DiskInformation(struct statvfs *buf, SMBCONN smbhndl)
+{
+	s32 pos;
+	s32 bpos,ret;
+	u16 TotalUnits, BlocksPerUnit, BlockSize, FreeUnits;
+	u8 *ptr;
+	SMBHANDLE *handle;
+
+	if(SMB_Reconnect(&smbhndl,TRUE)!=SMB_SUCCESS) return -1;
+
+	handle = __smb_handle_open(smbhndl);
+	if(!handle) return -1;
+
+	MakeSMBHeader(SMB_COM_QUERY_INFORMATION_DISK,CIFS_FLAGS1, CIFS_FLAGS2,handle);
+
+	pos = SMB_HEADER_SIZE;
+	ptr = handle->message.smb;
+	setUChar(ptr, pos, 0);
+	pos++;			       /*** Word Count ***/
+	setUShort(ptr, pos, 0);
+	pos += 2;              /*** Byte Count ***/
+	bpos = pos;
+
+	handle->message.msg = NBT_SESSISON_MSG;
+	handle->message.length = htons(pos);
+
+	pos += 4;
+	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
+	if(ret < 0) goto failed;
+
+	if((ret=SMBCheck(SMB_COM_QUERY_INFORMATION_DISK,(SMB_HEADER_SIZE+13),handle))==SMB_SUCCESS) {
+		ptr = handle->message.smb;
+		/** Read the received data ***/
+		/** WordCount **/
+		s32 recv_pos = 1;
+		/** TotalUnits **/
+		TotalUnits = getUShort(ptr,(SMB_HEADER_SIZE+recv_pos));
+		recv_pos += 2;
+		/** BlocksPerUnit **/
+		BlocksPerUnit = getUShort(ptr,(SMB_HEADER_SIZE+recv_pos));
+		recv_pos += 2;
+		/** BlockSize **/
+		BlockSize = getUShort(ptr,(SMB_HEADER_SIZE+recv_pos));
+		recv_pos += 2;
+		/** FreeUnits **/
+		FreeUnits = getUShort(ptr,(SMB_HEADER_SIZE+recv_pos));
+		recv_pos += 2;
+
+        buf->f_bsize = (unsigned long) BlockSize;		    // File system block size.
+        buf->f_frsize = (unsigned long) BlockSize;	        // Fundamental file system block size.
+        buf->f_blocks = (fsblkcnt_t) (TotalUnits*BlocksPerUnit);   // Total number of blocks on file system in units of f_frsize.
+        buf->f_bfree = (fsblkcnt_t) (FreeUnits*BlocksPerUnit);	    // Total number of free blocks.
+        buf->f_bavail	= 0;	// Number of free blocks available to non-privileged process.
+        buf->f_files = 0;	// Total number of file serial numbers.
+        buf->f_ffree = 0;	// Total number of free file serial numbers.
+        buf->f_favail = 0;	// Number of file serial numbers available to non-privileged process.
+        buf->f_fsid = 0;    // File system ID. 32bit ioType value
+        buf->f_flag = 0;    // Bit mask of f_flag values.
+        buf->f_namemax = SMB_MAXPATH;   // Maximum filename length.
+
+        return SMB_SUCCESS;
+	}
+
+failed:
+	handle->conn_valid = FALSE;
 	return ret;
 }
 

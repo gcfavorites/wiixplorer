@@ -15,6 +15,7 @@
 #include <ogcsys.h>
 #include <ogc/lwp_watchdog.h>
 #include <ogc/mutex.h>
+#include <sys/statvfs.h>
 
 #include "libtinysmb/smb.h"
 
@@ -1272,6 +1273,40 @@ static int __smb_rename(struct _reent *r, const char *oldName, const char *newNa
 	return ret;
 }
 
+static int __smb_statvfs_r(struct _reent *r, const char *name, struct statvfs *buf)
+{
+	char fixedName[SMB_MAXPATH];
+	smb_env *env;
+
+	ExtractDevice(name,fixedName);
+	if(fixedName[0]=='\0')
+	{
+		getcwd(fixedName,SMB_MAXPATH);
+		ExtractDevice(fixedName,fixedName);
+	}
+
+	env=FindSMBEnv(fixedName);
+	if(env==NULL)
+	{
+		r->_errno = ENODEV;
+		return -1;
+	}
+
+	if (smb_absolute_path_no_device(name, fixedName, env->pos) == NULL)
+	{
+		r->_errno = EINVAL;
+		return -1;
+	}
+
+	s32 ret = 0;
+	_SMB_lock(env->pos);
+        if(SMB_DiskInformation(buf, env->smbconn) != SMB_SUCCESS)
+            ret = -1;
+	_SMB_unlock(env->pos);
+
+	return ret;
+}
+
 static void MountDevice(const char *name,SMBCONN smbconn, int env)
 {
 	devoptab_t *dotab_smb;
@@ -1304,7 +1339,7 @@ static void MountDevice(const char *name,SMBCONN smbconn, int env)
 	dotab_smb->dirreset_r=__smb_dirreset; // device dirreset_r
 	dotab_smb->dirnext_r=__smb_dirnext; // device dirnext_r
 	dotab_smb->dirclose_r=__smb_dirclose; // device dirclose_r
-	dotab_smb->statvfs_r=NULL;			// device statvfs_r
+	dotab_smb->statvfs_r=__smb_statvfs_r; // device statvfs_r
 	dotab_smb->ftruncate_r=NULL;               // device ftruncate_r
 	dotab_smb->fsync_r=NULL;           // device fsync_r
 	dotab_smb->deviceData=NULL;       	/* Device data */
