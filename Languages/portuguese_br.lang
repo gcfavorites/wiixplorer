@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -24,9 +24,6 @@ msgstr "Ocorreu um erro"
 msgid "App Default"
 msgstr "Padrão do App"
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -41,6 +38,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Impossível abrir o arquivo"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -228,9 +228,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "Falha ao renomear aquivo"
 
-msgid "Failed to extract files."
-msgstr ""
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -267,9 +264,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Caminho:  %s"
-
-msgid "Files successfully extracted."
-msgstr ""
 
 msgid "Files:"
 msgstr "Arquivos:"

@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2009
- * by r-win
+ * by r-win & Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,7 +23,7 @@
  *
  * MainWindow.h
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #ifndef _MAINWINDOW_H

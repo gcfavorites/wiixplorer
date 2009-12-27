@@ -30,8 +30,11 @@
 
 extern "C" {
 #include "sevenzip/7zCrc.h"
+#include "sevenzip/7zFile.h"
 #include "sevenzip/7zIn.h"
 #include "sevenzip/7zExtract.h"
+#include "sevenzip/7zAlloc.h"
+#include "sevenzip/7zHeader.h"
 }
 
 typedef struct
@@ -42,16 +45,6 @@ typedef struct
 	bool isdir; // 0 - file, 1 - directory
 	u32 fileindex; // fileindex number
 } ArchiveFileStruct;
-
-typedef struct _SzFileInStream
-{
-   ISzInStream InStream;
-   off_t offset; // offset of the file
-   size_t len; // length of the file
-   size_t pos;  // current position of the file pointer
-   FILE * pFile;  // current file pointer
-   Byte tempBuffer[2048];  // current file pointer
-} SzFileInStream;
 
 
 class SzFile
@@ -73,19 +66,17 @@ class SzFile
         u32 GetItemCount();
 
     private:
-        void DisplayError(SZ_RESULT res);
+        void DisplayError(SRes res);
 
         ArchiveFileStruct CurArcFile;
-        SZ_RESULT SzResult;
-        SzFileInStream SzArchiveStream;
-        CArchiveDatabaseEx SzArchiveDb;
+        SRes SzResult;
+        CFileInStream archiveStream;
+        CLookToRead lookStream;
+        CSzArEx SzArchiveDb;
         ISzAlloc SzAllocImp;
         ISzAlloc SzAllocTempImp;
         UInt32 SzBlockIndex;
-        CFileItem * SzFileItem;
-
-        static SZ_RESULT SzFileReadImp(void *object, void **buffer, size_t maxRequiredSize, size_t *processedSize);
-        static SZ_RESULT SzFileSeekImp(void *object, CFileSize pos);
+        CSzFileItem * SzFileItem;
 };
 
 #endif

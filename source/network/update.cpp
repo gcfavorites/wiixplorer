@@ -24,16 +24,17 @@
  * update.cpp
  *
  * Update operations
- * for Wii-Xplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
+#include <ogcsys.h>
 #include <stdio.h>
 #include <string.h>
-#include <ogcsys.h>
 
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
 #include "http.h"
 #include "networkops.h"
+#include "update.h"
 #include "svnrev.h"
 #include "main.h"
 #include "URL_List.h"
@@ -69,6 +70,8 @@ int UpdateApp(const char *url)
         snprintf(realdest, sizeof(realdest), "%sboot.dol", Settings.UpdatePath);
         RemoveFile(realdest);
         rename(dest, realdest);
+        UpdateMetaXml();
+        UpdateIconPNG();
         WindowPrompt(tr("Update successfully finished"), tr("It is recommended to restart app now."), tr("OK"));
     }
 
@@ -81,7 +84,7 @@ int UpdateApp(const char *url)
 int CheckForUpdate()
 {
 	if(!IsNetworkInit())
-		WaitSMBConnect();
+		Initialize_Network();
 
     int revnumber = 0;
     int currentrev = atoi(SvnRev());
@@ -130,4 +133,56 @@ int CheckForUpdate()
     }
 
     return revnumber;
+}
+
+/****************************************************************************
+ * Update the Meta.xml file
+ ***************************************************************************/
+bool UpdateMetaXml()
+{
+	if(!IsNetworkInit())
+        Initialize_Network();
+
+    struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/meta.xml");
+    if(!file.data || !file.data)
+        return false;
+
+    CreateSubfolder(Settings.UpdatePath);
+
+    char path[MAXPATHLEN];
+    snprintf(path, sizeof(path), "%smeta.xml", Settings.UpdatePath);
+    FILE * pFile = fopen(path, "wb");
+    if(!pFile)
+        return false;
+
+    fwrite(file.data, 1, file.size, pFile);
+    fclose(pFile);
+
+    return true;
+}
+
+/****************************************************************************
+ * Update the Icon.png file
+ ***************************************************************************/
+bool UpdateIconPNG()
+{
+	if(!IsNetworkInit())
+        Initialize_Network();
+
+    struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/icon.png");
+    if(!file.data || !file.data)
+        return false;
+
+    CreateSubfolder(Settings.UpdatePath);
+
+    char path[MAXPATHLEN];
+    snprintf(path, sizeof(path), "%sicon.png", Settings.UpdatePath);
+    FILE * pFile = fopen(path, "wb");
+    if(!pFile)
+        return false;
+
+    fwrite(file.data, 1, file.size, pFile);
+    fclose(pFile);
+
+    return true;
 }

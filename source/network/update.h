@@ -31,5 +31,7 @@
 
 int UpdateApp(const char *url);
 int CheckForUpdate();
+bool UpdateMetaXml();
+bool UpdateIconPNG();
 
 #endif

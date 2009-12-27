@@ -1,8 +1,5 @@
-/* 7zExtract.h */
-
-#if defined(_LZMA_OUT_READ) && !defined(_LZMA_IN_CB)
-#error "Fixme: _LZMA_OUT_READ && _LZMA_IN_CB isn't currently possible!"
-#endif
+/* 7zExtract.h -- Extracting from 7z archive
+2008-11-23 : Igor Pavlov : Public domain */
 
 #ifndef __7Z_EXTRACT_H
 #define __7Z_EXTRACT_H
@@ -11,8 +8,6 @@
 
 /*
   SzExtract extracts file from archive
-
-  SzExtract2 does the same but needs less memory
 
   *outBuffer must be 0 before first call for each new archive.
 
@@ -24,16 +19,16 @@
       *outBufferSize
     You can consider "*outBuffer" as cache of solid block. If your archive is solid,
     it will increase decompression speed.
-
+  
     If you use external function, you can declare these 3 cache variables
     (blockIndex, outBuffer, outBufferSize) as static in that external function.
-
+    
     Free *outBuffer and set *outBuffer to 0, if you want to flush cache.
 */
 
-SZ_RESULT SzExtract(
-    ISzInStream *inStream,
-    CArchiveDatabaseEx *db,
+SRes SzAr_Extract(
+    const CSzArEx *db,
+    ILookInStream *inStream,
     UInt32 fileIndex,         /* index of file */
     UInt32 *blockIndex,       /* index of solid block */
     Byte **outBuffer,         /* pointer to pointer to output buffer (allocated with allocMain) */
@@ -43,31 +38,4 @@ SZ_RESULT SzExtract(
     ISzAlloc *allocMain,
     ISzAlloc *allocTemp);
 
-#ifdef _LZMA_OUT_READ
-SZ_RESULT SzExtract2(
-    ISzInStream *inStream,
-    CArchiveDatabaseEx *db,
-    UInt32 fileIndex,         /* index of file */
-    UInt32 *blockIndex,       /* index of solid block */
-    Byte **outBuffer,         /* pointer to pointer to output buffer (allocated with allocMain) */
-    size_t *outBufferSize,    /* buffer size for output buffer */
-    size_t *offset,           /* offset of stream for required file in *outBuffer */
-    size_t *outSizeProcessed, /* size of file in *outBuffer */
-    ISzAlloc *allocMain,
-    ISzAlloc *allocTemp);
-
-
-SZ_RESULT SzExtract3(
-    ISzInStream *inStream,
-    CArchiveDatabaseEx *db,
-    UInt32 fileIndex,         /* index of file */
-    UInt32 *blockIndex,       /* index of solid block */
-    FILE   *pFile,            /* pointer to pointer to output FILE* */
-    size_t *outBufferSize,    /* buffer size for output buffer */
-    size_t *offset,           /* offset of stream for required file in *outBuffer */
-    size_t *outSizeProcessed, /* size of file in *outBuffer */
-    ISzAlloc *allocMain,
-    ISzAlloc *allocTemp);
-
-#endif
 #endif

@@ -34,6 +34,7 @@ Archive::Archive(const char  * filepath)
 {
     szFile = NULL;
     zipFile = NULL;
+    rarFile = NULL;
 
     char checkbuffer[6];
 
@@ -49,6 +50,9 @@ Archive::Archive(const char  * filepath)
 
     if(Is7ZipFile(checkbuffer))
         szFile = new SzFile(filepath);
+
+    if(IsRarFile(checkbuffer))
+        rarFile = new RarFile(filepath);
 }
 
 Archive::~Archive()
@@ -59,8 +63,12 @@ Archive::~Archive()
     if(szFile)
         delete szFile;
 
+    if(rarFile)
+        delete szFile;
+
     zipFile = NULL;
     szFile = NULL;
+    rarFile = NULL;
 }
 
 ArchiveFileStruct * Archive::GetFileStruct(int ind)
@@ -70,6 +78,9 @@ ArchiveFileStruct * Archive::GetFileStruct(int ind)
 
     if(szFile)
         return szFile->GetFileStruct(ind);
+
+    if(rarFile)
+        return rarFile->GetFileStruct(ind);
 
     return NULL;
 }
@@ -82,6 +93,9 @@ u32 Archive::GetItemCount()
     if(szFile)
         return szFile->GetItemCount();
 
+    if(rarFile)
+        return rarFile->GetItemCount();
+
     return 0;
 }
 
@@ -91,7 +105,10 @@ int Archive::ExtractFile(int ind, const char *destpath, bool withpath)
         return zipFile->ExtractFile(ind, destpath, withpath);
 
     if(szFile)
-        return 0;//szFile->ExtractFile(ind, destpath, withpath);
+        return szFile->ExtractFile(ind, destpath, withpath);
+
+    if(rarFile)
+        return rarFile->ExtractFile(ind, destpath, withpath);
 
     return 0;
 }
@@ -102,7 +119,10 @@ int Archive::ExtractAll(const char * destpath)
         return zipFile->ExtractAll(destpath);
 
     if(szFile)
-        return 0;//szFile->ExtractAll(destpath);
+        return szFile->ExtractAll(destpath);
+
+    if(rarFile)
+        return rarFile->ExtractAll(destpath);
 
 	return 0;
 }
@@ -125,7 +145,21 @@ bool Archive::Is7ZipFile(const char *buffer)
 	check = (unsigned int *) buffer;
 
 	// 7z signature
-	static Byte Signature[6] = {'7', 'z', 0xBC, 0xAF, 0x27, 0x1C};
+	int i;
+	for(i = 0; i < 6; i++)
+		if(buffer[i] != k7zSignature[i])
+			return false;
+
+	return true; // 7z archive found
+}
+
+bool Archive::IsRarFile(const char *buffer)
+{
+	unsigned int *check;
+	check = (unsigned int *) buffer;
+
+	// Rar signature    Rar!\x1A\a\0
+	Byte Signature[6] = {'R', 'a', 'r', 0x21, 0x1a, 0x07};
 
 	int i;
 	for(i = 0; i < 6; i++)

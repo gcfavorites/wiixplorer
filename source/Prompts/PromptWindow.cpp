@@ -70,12 +70,12 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 
     btnOutline = Resources::GetImageData(button_png, button_png_size);
 
-    titleTxt = new GuiText(title, 20, (GXColor){0, 0, 0, 255});
+    titleTxt = new GuiText(title, 22, (GXColor){0, 0, 0, 255});
     titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     titleTxt->SetPosition(0,55);
     titleTxt->SetMaxWidth(this->GetWidth()-68, DOTTED);
 
-    msgTxt = new GuiText(msg, 18, (GXColor){0, 0, 0, 255});
+    msgTxt = new GuiText(msg, 20, (GXColor){0, 0, 0, 255});
     msgTxt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     msgTxt->SetPosition(0,-40);
     msgTxt->SetMaxWidth(this->GetWidth()-68, WRAP);

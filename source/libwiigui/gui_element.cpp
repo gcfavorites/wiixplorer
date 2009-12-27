@@ -13,7 +13,7 @@
 /**
  * Constructor for the Object class.
  */
-mutex_t GuiElement::mutex = 0;
+mutex_t GuiElement::mutex = LWP_MUTEX_NULL;
 GuiElement::GuiElement()
 {
 	xoffset = 0;

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -24,9 +24,6 @@ msgstr "Ein Fehler ist aufgetreten."
 msgid "App Default"
 msgstr "Standardeinstellung"
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -41,6 +38,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Datei kann nicht geöffnet werden"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -228,9 +228,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "Datei konnte nicht umbenannt werden"
 
-msgid "Failed to extract files."
-msgstr "Dateien konnten nicht entpackt werden."
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -267,9 +264,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Pfad: %s"
-
-msgid "Files successfully extracted."
-msgstr "Datei erfolgreich entpackt."
 
 msgid "Files:"
 msgstr "Dateien:"
@@ -531,6 +525,12 @@ msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
 msgid "for his great tool LibWiiGui."
 msgstr "für seine großartige LibWiiGui."
+
+#~ msgid "Failed to extract files."
+#~ msgstr "Dateien konnten nicht entpackt werden."
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "Datei erfolgreich entpackt."
 
 #~ msgid "Enter a directory where to extract the files to."
 #~ msgstr "Verzeichnis zum entpacken angeben."

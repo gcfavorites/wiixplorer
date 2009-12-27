@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win</coder>
-  <version>r87</version>
-  <release_date>200912250000</release_date>
+  <version>r88</version>
+  <release_date>200912252137</release_date>
   <short_description>Wii File Browser</short_description> 
   <long_description>A multi device file explorer for the Wii by dimok and r-win.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
@@ -21,7 +21,7 @@ Features:
  * Boot .dol/.elf files
  * Open TXT/XML/MP3/OGG/PNG/JPEG/GIF
    /BMP/TGA files
- * ZIP/RAR/7zip support
+ * ZIP/7zip browsing and decompressing
  * Auto-Update feature
 
 Credits:
@@ -52,5 +52,3 @@ Links:
 	index.php?showtopic=174053
   </long_description> 
 </app>
-
-

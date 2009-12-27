@@ -49,6 +49,9 @@ main(int argc, char *argv[])
 
     __exception_setreload(20);
 
+    //for later purpose
+    //LWP_SetThreadPriority(LWP_GetSelf(), 60);
+
 	Sys_Init();
 	InitVideo(); // Initialise video
 	SetupPads(); // Initialize input

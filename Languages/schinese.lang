@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-25 21:46+0100\n"
+"POT-Creation-Date: 2009-12-26 14:25+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -24,9 +24,6 @@ msgstr "发生错误。"
 msgid "App Default"
 msgstr "程序缺省"
 
-msgid "Archive contains too many files."
-msgstr ""
-
 msgid "Archive successfully extracted."
 msgstr ""
 
@@ -41,6 +38,9 @@ msgstr "开始挂载"
 
 msgid "Can not open the file"
 msgstr "不能打开文件"
+
+msgid "Can't open file."
+msgstr ""
 
 msgid "Can't read file:"
 msgstr ""
@@ -228,9 +228,6 @@ msgstr ""
 msgid "Failed renaming file"
 msgstr "更名失败"
 
-msgid "Failed to extract files."
-msgstr "提取文件失败"
-
 msgid "Failed to read file data."
 msgstr ""
 
@@ -267,9 +264,6 @@ msgstr ""
 #, c-format
 msgid "Filepath:  %s"
 msgstr "文件路径"
-
-msgid "Files successfully extracted."
-msgstr "文件成功提取"
 
 msgid "Files:"
 msgstr "文件："
@@ -531,6 +525,12 @@ msgstr "无法使用此功能在："
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "Failed to extract files."
+#~ msgstr "提取文件失败"
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "文件成功提取"
 
 #~ msgid "Enter a directory where to extract the files to."
 #~ msgstr "进入你所提取文件的目录"
