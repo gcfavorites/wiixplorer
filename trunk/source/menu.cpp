@@ -45,7 +45,6 @@
 #include "filelist.h"
 #include "FileOperations/filebrowser.h"
 #include "FileOperations/fileops.h"
-#include "FileOperations/foldersize.h"
 #include "devicemounter.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Prompts/PromptWindows.h"

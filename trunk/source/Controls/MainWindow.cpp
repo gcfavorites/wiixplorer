@@ -33,7 +33,6 @@
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
 #include "FileOperations/filebrowser.h"
-#include "FileOperations/foldersize.h"
 #include "filelist.h"
 #include "Settings.h"
 #include "menu.h"

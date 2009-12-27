@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-26 14:25+0100\n"
+"POT-Creation-Date: 2009-12-27 14:04+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -66,6 +66,9 @@ msgstr ""
 msgid "Coders:"
 msgstr "程式設計師:"
 
+msgid "Compressed Size:"
+msgstr ""
+
 msgid "Connect SMB"
 msgstr "連接區域網路"
 
@@ -125,6 +128,12 @@ msgstr "正在刪除檔案:"
 
 msgid "Designer:"
 msgstr "設計者:"
+
+msgid "Device Free Space:"
+msgstr ""
+
+msgid "Device Total Space:"
+msgstr ""
 
 msgid "Directory .."
 msgstr "目錄.."

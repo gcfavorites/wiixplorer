@@ -64,7 +64,7 @@ Archive::~Archive()
         delete szFile;
 
     if(rarFile)
-        delete szFile;
+        delete rarFile;
 
     zipFile = NULL;
     szFile = NULL;

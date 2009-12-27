@@ -35,7 +35,6 @@ int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Labe
                     const char *btn2Label = NULL, const char *btn3Label = NULL,
                     const char *btn4Label = NULL);
 void RightMouseClicked(GuiElement *sender, int pointer, POINT p);
-int Properties(const char * filename, const char * filepath, int folder, float filesize = 0.0);
 int WaitSMBConnect(void);
 void CreditsWindow(void);
 

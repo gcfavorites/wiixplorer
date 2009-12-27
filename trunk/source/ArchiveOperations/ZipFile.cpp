@@ -136,6 +136,8 @@ void ZipFile::ResetOffsets()
     CurArcFile.length = cur_file_info.uncompressed_size;
     CurArcFile.comp_length = cur_file_info.compressed_size;
     CurArcFile.fileindex = 0;
+    CurArcFile.ModTime = 0;
+    CurArcFile.archiveType = ZIP;
 }
 
 ArchiveFileStruct * ZipFile::GetFileStruct(int ind)
@@ -171,6 +173,8 @@ ArchiveFileStruct * ZipFile::GetFileStruct(int ind)
         CurArcFile.length = cur_file_info.uncompressed_size;
         CurArcFile.comp_length = cur_file_info.compressed_size;
         CurArcFile.fileindex = ind;
+        CurArcFile.ModTime = (u64) cur_file_info.dosDate;
+        CurArcFile.archiveType = ZIP;
 
         return &CurArcFile;
     }

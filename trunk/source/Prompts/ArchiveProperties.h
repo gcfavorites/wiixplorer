@@ -21,76 +21,61 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * PromptWindows.cpp
+ * ArchiveProperties.cpp
  *
- * All promptwindows
  * for WiiXplorer 2009
  ***************************************************************************/
- #ifndef __RIGHTCLICKMENU_H_
- #define __RIGHTCLICKMENU_H_
+ #ifndef __ARCHIVEPROPERTIES_H_
+ #define __ARCHIVEPROPERTIES_H_
 
 #include <gctypes.h>
 #include <unistd.h>
 
 #include "libwiigui/gui.h"
+#include "ArchiveOperations/ArchiveBrowser.h"
 #include "Controls/Resources.h"
 
-#define MAX_CLICKBUTTONS    7
-
-enum
-{
-    CUT = 0,
-    COPY,
-    PASTE,
-    RENAME,
-    DELETE,
-    NEWFOLDER,
-    PROPERTIES,
-    NoButton = -10
-};
-
-enum
-{
-    ArcOpen = 0,
-    ArcExtractFile,
-    ArcExtractAll,
-    ArcProperties
-};
-
-class RightClickMenu : public GuiWindow
+class ArchiveProperties : public GuiWindow
 {
     public:
-        RightClickMenu(int x, int y,
-                       const char *btn1Label = NULL, const char *btn2Label = NULL,
-                       const char *btn3Label = NULL, const char *btn4Label = NULL,
-                       const char *btn5Label = NULL, const char *btn6Label = NULL,
-                       const char *btn7Label = NULL);
-        ~RightClickMenu();
+        ArchiveProperties(ArchiveFileStruct * File);
+        ~ArchiveProperties();
         int GetChoice();
     private:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int choice;
-        int numItems;
-        int buttonX;
-        int buttonY;
+        ArchiveFileStruct ArchiveFile;
+        u64 foldersize;
+        u64 oldfoldersize;
+        u32 filecount;
 
-        GuiImage * ClickMenuMiddleImg;
-        GuiImage * ClickMenuUpperImg;
-        GuiImage * ClickMenuLowerImg;
-        GuiImage * btnMenuSelect[MAX_CLICKBUTTONS];
+        GuiImage * dialogBoxImg;
+        GuiImage * TitleImg;
+        GuiImage * arrowUpImg;
+        GuiImage * arrowUpImgOver;
 
-        GuiImageData * ClickMenuMiddle;
-        GuiImageData * ClickMenuUpper;
-        GuiImageData * menu_select;
+        GuiImageData * dialogBox;
+        GuiImageData * titleData;
+        GuiImageData * arrowUp;
+        GuiImageData * arrowUpOver;
 
         GuiSound * btnClick;
 
-        GuiText * ButtonTxt[MAX_CLICKBUTTONS];
-        GuiText * ButtonTxtOver[MAX_CLICKBUTTONS];
+        GuiText * TitleTxt;
+        GuiText * filepathTxt;
+        GuiText * filecountTxt;
+        GuiText * filecountTxtVal;
+        GuiText * filesizeTxt;
+        GuiText * filesizeTxtVal;
+        GuiText * filesizeCompTxt;
+        GuiText * filesizeCompTxtVal;
+        GuiText * filetypeTxt;
+        GuiText * filetypeTxtVal;
+        GuiText * last_modifTxt;
+        GuiText * last_modifTxtVal;
 
-        GuiButton * Button[MAX_CLICKBUTTONS];
-        GuiButton * NoBtn;
+        GuiButton * CloseBtn;
 
         GuiTrigger * trigA;
         GuiTrigger * trigB;

@@ -29,15 +29,12 @@
 #include <ogcsys.h>
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
 
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 #include "7ZipFile.h"
 #include "Language/gettext.h"
-
-#define BLOCKSIZE   2048
 
 extern bool actioncanceled;
 
@@ -122,6 +119,11 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
     CurArcFile.comp_length = 0;
     CurArcFile.isdir = SzFileItem->IsDir;
     CurArcFile.fileindex = ind;
+    if(SzFileItem->MTimeDefined)
+        CurArcFile.ModTime = (u64) (SzFileItem->MTime.Low  | ((u64) SzFileItem->MTime.High << 32));
+    else
+        CurArcFile.ModTime = 0;
+    CurArcFile.archiveType = SZIP;
 
     return &CurArcFile;
 }

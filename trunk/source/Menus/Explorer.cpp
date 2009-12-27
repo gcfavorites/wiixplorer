@@ -33,6 +33,8 @@
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/Properties.h"
+#include "Prompts/ArchiveProperties.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Language/gettext.h"
 #include "devicemounter.h"
@@ -394,7 +396,21 @@ void Explorer::CheckRightClick()
 
         if(ArcBrowser)
         {
-            if(RightClick_choice >= 0)
+            if(RightClick_choice == ArcProperties)
+            {
+                ArchiveProperties * Prompt = new ArchiveProperties(ArcBrowser->GetCurrentItemStructure());
+                Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+                MainWindow::Instance()->SetDim(true);
+                MainWindow::Instance()->Append(Prompt);
+                MainWindow::Instance()->ChangeFocus(Prompt);
+
+                while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
+
+                delete Prompt;
+                Prompt = NULL;
+                MainWindow::Instance()->SetDim(false);
+            }
+            else if(RightClick_choice >= 0)
             {
                 ProcessArcChoice(ArcBrowser, RightClick_choice, Browser->GetCurrentPath());
             }
@@ -402,7 +418,24 @@ void Explorer::CheckRightClick()
 
         else if(!ArcBrowser && RightClick_choice >= 0)
         {
-            ProcessChoice(Browser, RightClick_choice);
+            if(RightClick_choice == PROPERTIES)
+            {
+                Properties * Prompt = new Properties(Browser->GetCurrentSelectedFilepath());
+                Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+                MainWindow::Instance()->SetDim(true);
+                MainWindow::Instance()->Append(Prompt);
+                MainWindow::Instance()->ChangeFocus(Prompt);
+
+                while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
+
+                delete Prompt;
+                Prompt = NULL;
+                MainWindow::Instance()->SetDim(false);
+            }
+            else if(RightClick_choice >= 0)
+            {
+                ProcessChoice(Browser, RightClick_choice);
+            }
             Browser->ParseDirectory();
             fileBrowser->TriggerUpdate();
         }
@@ -433,7 +466,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
             if(ArcBrowser)
             {
                 RightClick = new RightClickMenu(p.x, p.y,
-                                                tr("Open"), tr("Extract"), tr("Extract All"));
+                                                tr("Open"), tr("Extract"), tr("Extract All"), tr("Properties"));
             }
             else
             {
