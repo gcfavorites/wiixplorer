@@ -25,7 +25,7 @@ msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "Extraction réussie."
 
 msgid "Auto Connect"
 msgstr "Connexion auto"
@@ -40,10 +40,10 @@ msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
 
 msgid "Can't open file."
-msgstr ""
+msgstr "Ouverture du fichier impossible."
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "Lecture impossible du fichier:"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -58,16 +58,16 @@ msgid "Caps"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
+msgstr "Nettoyer"
 
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 msgid "Coders:"
 msgstr "Développeurs:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "Taille Compressée:"
 
 msgid "Connect SMB"
 msgstr "Connecter SMB"
@@ -94,10 +94,10 @@ msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
 msgid "Could not download file."
-msgstr ""
+msgstr "Téléchargement impossible."
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "Impossible d'extraire le fichier:"
 
 msgid "Credits"
 msgstr "Crédits"
@@ -130,10 +130,10 @@ msgid "Designer:"
 msgstr "Graphiste:"
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "Espace Libre:"
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "Espace Total:"
 
 msgid "Directory .."
 msgstr "Dossier .."
@@ -175,7 +175,7 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "Voulez-vous sauvegarder les modifications ?"
 
 msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant ?"
@@ -193,31 +193,31 @@ msgid "Error:"
 msgstr "Erreur:"
 
 msgid "Extract"
-msgstr ""
+msgstr "Extraire"
 
 msgid "Extract All"
-msgstr ""
+msgstr "Extraire tout"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Extraire puis ouvrir."
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "Extraire l'archive complete ?"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "Extraire ce fichier ?"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "Extraire ce dossier ?"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "Extraction du fichier:"
 
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "Extraction du dossier:"
 
 msgid "Failed copying file."
 msgstr "La copie a échouée."
@@ -226,19 +226,19 @@ msgid "Failed copying files."
 msgstr "La copie a échouée."
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "L'extraction a échouée."
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "L'extraction a échouée."
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "L'extraction a échouée."
 
 msgid "Failed renaming file"
 msgstr "Le renommage a échoué"
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "La lecture des données a échouée"
 
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
@@ -247,28 +247,28 @@ msgid "File does not exist anymore!"
 msgstr "Ce fichier n'existe plus !"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "Le fichier est corrompu (CRC erroné)."
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "Le fichier est corrompu."
 
 msgid "File successfully copied."
 msgstr "Copie du fichier effectuée."
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "Fichier extrait avec succès."
 
 msgid "File successfully moved."
 msgstr "Déplacement effectué."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "Les paramètres de compression sont trop élevés (dictionary size is too large)."
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "Les paramètres de compression ne sont pas supportés."
 
 msgid "File was edited."
-msgstr ""
+msgstr "Le fichier a été édité."
 
 #, c-format
 msgid "Filepath:  %s"
@@ -287,7 +287,7 @@ msgid "Folder"
 msgstr "Dossier"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "Dossier extrait avec succès."
 
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
@@ -356,7 +356,7 @@ msgid "New Folder"
 msgstr "Nouveau"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "Nouveau"
 
 msgid "No"
 msgstr "Non"
@@ -393,10 +393,10 @@ msgid "ON"
 msgstr "Actif"
 
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "L'ouverture n'est pas implémentée."
 
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
@@ -414,7 +414,7 @@ msgid "Please wait:"
 msgstr "Patientez:"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "Procédure annulée."
 
 msgid "Properties"
 msgstr "Propriétés"
@@ -489,7 +489,7 @@ msgid "Unable to create folder."
 msgstr "Impossible de créer le dossier."
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "Chemin introuvable."
 
 msgid "Update (App) Path"
 msgstr "Dossier MàJ (App)"
@@ -501,7 +501,7 @@ msgid "Update Path changed."
 msgstr "Dossier Mise à jour modifié."
 
 msgid "Update failed"
-msgstr ""
+msgstr "Echec de la Mise à jour."
 
 msgid "Update successfully finished"
 msgstr "Mise à jour réussie"

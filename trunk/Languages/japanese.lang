@@ -19,13 +19,13 @@ msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "An error occured."
-msgstr "ｴﾗｰが発生しました"
+msgstr "エラーが発生しました"
 
 msgid "App Default"
 msgstr "英語"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "解凍しました"
 
 msgid "Auto Connect"
 msgstr "自動接続"
@@ -37,13 +37,13 @@ msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
 msgid "Can not open the file"
-msgstr "ﾌｧｲﾙを開けません"
+msgstr "ファイルを開けません"
 
 msgid "Can't open file."
-msgstr ""
+msgstr "ファイルを開けません"
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "ファイルを読めません"
 
 msgid "Cancel"
 msgstr "キャンセル"
@@ -58,16 +58,16 @@ msgid "Caps"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 msgid "Close"
-msgstr ""
+msgstr "とじる"
 
 msgid "Coders:"
 msgstr "制作:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "圧縮サイズ:"
 
 msgid "Connect SMB"
 msgstr "SMBと接続"
@@ -79,25 +79,25 @@ msgid "Copy"
 msgstr "コピー"
 
 msgid "Copy directory?"
-msgstr "ﾌｫﾙﾀﾞをｺﾋﾟｰしますか?"
+msgstr "フォルダをコピーしますか?"
 
 msgid "Copy file?"
-msgstr "ﾌｧｲﾙをｺﾋﾟｰしますか?"
+msgstr "ファイルをコピーしますか?"
 
 msgid "Copying file:"
-msgstr "ｺﾋﾟｰしています:"
+msgstr "コピーしています:"
 
 msgid "Copying files:"
-msgstr "ｺﾋﾟｰしています:"
+msgstr "コピーしています:"
 
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
 msgid "Could not download file."
-msgstr ""
+msgstr "ダウンロードできませんでした"
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "解凍できませんでした""
 
 msgid "Credits"
 msgstr "提供･協力"
@@ -109,19 +109,19 @@ msgid "Cut"
 msgstr "切り取り"
 
 msgid "Cut directory?"
-msgstr "ﾌｫﾙﾀﾞを切り取りますか?"
+msgstr "フォルダを切り取りますか?"
 
 msgid "Cut file?"
-msgstr "ﾌｧｲﾙを切り取りますか?"
+msgstr "ファイルを切り取りますか?"
 
 msgid "Delete"
 msgstr "削除"
 
 msgid "Delete directory and its content?"
-msgstr "ﾌｫﾙﾀﾞと中身を削除しますか?"
+msgstr "フォルダと中身を削除しますか?"
 
 msgid "Delete this file?"
-msgstr "このﾌｧｲﾙを削除しますか?"
+msgstr "このファイルを削除しますか?"
 
 msgid "Deleting files:"
 msgstr "削除しています:"
@@ -130,25 +130,25 @@ msgid "Designer:"
 msgstr "デザイナー:"
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "空き領域:"
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "使用領域:"
 
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 
 msgid "Directory couldn't be deleted."
-msgstr "ﾌｫﾙﾀﾞを削除できませんでした"
+msgstr "フォルダを削除できませんでした"
 
 msgid "Directory successfully copied."
-msgstr "ﾌｫﾙﾀﾞのｺﾋﾟｰに成功しました"
+msgstr "フォルダのコピーに成功しました"
 
 msgid "Directory successfully deleted."
-msgstr "ﾌｫﾙﾀﾞの削除に成功しました"
+msgstr "フォルダの削除に成功しました"
 
 msgid "Directory successfully moved."
-msgstr "ﾌｫﾙﾀﾞの移動に成功しました"
+msgstr "フォルダの移動に成功しました"
 
 msgid "Do you want to boot:"
 msgstr "起動しますか?"
@@ -175,7 +175,7 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再接続しますか?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "変更を保存しますか?"
 
 msgid "Do you want to update now ?"
 msgstr "更新しますか?"
@@ -193,101 +193,101 @@ msgid "Error:"
 msgstr "エラー"
 
 msgid "Extract"
-msgstr ""
+msgstr "解凍"
 
 msgid "Extract All"
-msgstr ""
+msgstr "すべて解凍"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "解凍してから開いてください"
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "すべて解凍しますか?"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "このファイルを解凍しますか?"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "このフォルダを解凍しますか?"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "ファイルを解凍しています"
 
 msgid "Extracting files..."
 msgstr "解凍中..."
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "フォルダを解凍しています"
 
 msgid "Failed copying file."
-msgstr "ｺﾋﾟｰに失敗しました"
+msgstr "コピーに失敗しました"
 
 msgid "Failed copying files."
-msgstr "ｺﾋﾟｰに失敗しました"
+msgstr "コピーに失敗しました"
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "Failed renaming file"
-msgstr "ﾘﾈｰﾑに失敗しました"
+msgstr "リネームに失敗しました"
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "データの読み込みに失敗しました"
 
 msgid "File couldn't be deleted."
-msgstr "ﾌｧｲﾙを削除できませんでした"
+msgstr "ファイルを削除できませんでした"
 
 msgid "File does not exist anymore!"
 msgstr "ファイルがありません"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "ファイルのCRCが一致しません"
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "ファイルが破損しています"
 
 msgid "File successfully copied."
 msgstr "コピーに成功しました"
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "解凍しました"
 
 msgid "File successfully moved."
 msgstr "移動に成功しました"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "書庫のサイズが大きすぎです"
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "未対応の書庫形式です"
 
 msgid "File was edited."
-msgstr ""
+msgstr "編集されています"
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "ﾌｧｲﾙのﾊﾟｽ:%s"
+msgstr "場所:%s"
 
 msgid "Files:"
-msgstr "ファイル数"
+msgstr "ファイル数:"
 
 msgid "Filesize is empty."
-msgstr "空のﾌｧｲﾙです"
+msgstr "空のファイルです"
 
 msgid "Filetype:"
-msgstr "ファイルタイプ"
+msgstr "種類:"
 
 msgid "Folder"
 msgstr "フォルダ"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "フォルダを解凍しました"
 
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
@@ -308,16 +308,16 @@ msgid "Language"
 msgstr "言語"
 
 msgid "Last access:"
-msgstr "最後のアクセス"
+msgstr "アクセス日時:"
 
 msgid "Last modified:"
-msgstr "更新日時"
+msgstr "更新日時:"
 
 msgid "Last status change:"
-msgstr "変更日時"
+msgstr "変更日時:"
 
 msgid "Linebreak"
-msgstr ""
+msgstr "改行"
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
@@ -353,10 +353,10 @@ msgid "Network initialising..."
 msgstr "接続中..."
 
 msgid "New Folder"
-msgstr "新規ﾌｫﾙﾀﾞ"
+msgstr "新しいフォルダ"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "新規作成"
 
 msgid "No"
 msgstr "いいえ"
@@ -393,13 +393,13 @@ msgid "ON"
 msgstr "オン"
 
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "まだ実装されていません"
 
 msgid "Out of memory: too many files!"
-msgstr "ﾌｧｲﾙが多いためﾒﾓﾘ不足です"
+msgstr "ファイルが多いためメモリ不足です"
 
 msgid "Password:"
 msgstr "パスワード"
@@ -408,13 +408,13 @@ msgid "Paste"
 msgstr "貼り付け"
 
 msgid "Paste into current directory?"
-msgstr "このﾌｫﾙﾀﾞに貼り付けますか?"
+msgstr "このフォルダに貼り付けますか?"
 
 msgid "Please wait:"
 msgstr "お待ちください"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "キャンセルしました"
 
 msgid "Properties"
 msgstr "プロパティ"
@@ -426,7 +426,7 @@ msgid "Rename"
 msgstr "リネーム"
 
 msgid "Restart the app to load the new font."
-msgstr "ﾌｫﾝﾄを読み込むため再起動してください"
+msgstr "フォントを読み込むため 再起動してください"
 
 msgid "Retry"
 msgstr "再試行"
@@ -468,7 +468,7 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
 
 msgid "This is no OGG/MP3 file"
-msgstr "これはOGG/MP3ﾌｧｲﾙではありません"
+msgstr "これはOGG/MP3ファイルではありません"
 
 msgid "Transfer cancelled."
 msgstr "転送を中止しました"
@@ -486,10 +486,10 @@ msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
-msgstr "ﾌｫﾙﾀﾞを作成できませんでした"
+msgstr "フォルダを作成できませんでした"
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "パスを読み込めませんでした"
 
 msgid "Update (App) Path"
 msgstr "WiiXplorerのパス"
@@ -512,13 +512,13 @@ msgstr "更新があります:Rev%i"
 
 #, c-format
 msgid "User %i"
-msgstr "ﾕｰｻﾞｰ %i"
+msgstr "ユーザー%i"
 
 msgid "User:"
-msgstr "ﾕｰｻﾞｰ"
+msgstr "ユーザー"
 
 msgid "Username:"
-msgstr "ﾕｰｻﾞｰﾈｰﾑ"
+msgstr "ユーザー名"
 
 msgid "Yes"
 msgstr "はい"
@@ -542,7 +542,7 @@ msgstr "…LibWiiGuiの制作者様"
 #~ msgstr "解凍しました"
 
 #~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "どこにﾌｧｲﾙを解凍するか決定してください"
+#~ msgstr "どこにファイルを解凍するか決定してください"
 
 #~ msgid "No network connection"
 #~ msgstr "接続していません"
