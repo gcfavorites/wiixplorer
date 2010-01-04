@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-27 14:04+0100\n"
+"POT-Creation-Date: 2010-01-04 10:56+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -271,7 +271,7 @@ msgid "File was edited."
 msgstr "Il file è stato modificato."
 
 #, c-format
-msgid "Filepath: %s"
+msgid "Filepath:  %s"
 msgstr ""
 
 msgid "Files:"
