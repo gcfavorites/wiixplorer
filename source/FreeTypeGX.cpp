@@ -509,7 +509,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
     if(!text)
         return 0;
 
-	uint16_t strLength = wcslen(text);
+	uint32_t strLength = wcslen(text);
 	uint16_t x_pos = x, printed = 0;
 	uint16_t x_offset = 0, y_offset = 0;
 	GXTexObj glyphTexture;
@@ -526,7 +526,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 		y_offset = this->getStyleOffsetHeight(&offset, textStyle);
 	}
 
-	for (uint16_t i = 0; i < strLength; i++)
+	for (uint32_t i = 0; i < strLength; i++)
 	{
 		ftgxCharData* glyphData = NULL;
 		if( this->fontData.find(text[i]) != this->fontData.end() )
@@ -596,11 +596,11 @@ uint16_t FreeTypeGX::getWidth(wchar_t *text)
     if(!text)
         return 0;
 
-	uint16_t strLength = wcslen(text);
+	uint32_t strLength = wcslen(text);
 	uint16_t strWidth = 0;
 	FT_Vector pairDelta;
 
-	for (uint16_t i = 0; i < strLength; i++)
+	for (uint32_t i = 0; i < strLength; i++)
 	{
 
 		ftgxCharData* glyphData = NULL;
@@ -672,10 +672,10 @@ uint16_t FreeTypeGX::getHeight(wchar_t const *text)
  */
 void FreeTypeGX::getOffset(wchar_t *text, ftgxDataOffset* offset)
 {
-	uint16_t strLength = wcslen(text);
+	uint32_t strLength = wcslen(text);
 	int16_t strMax = 0, strMin = 9999;
 
-	for (uint16_t i = 0; i < strLength; i++)
+	for (uint32_t i = 0; i < strLength; i++)
 	{
 
 		ftgxCharData* glyphData = NULL;

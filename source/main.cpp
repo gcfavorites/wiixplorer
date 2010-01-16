@@ -58,8 +58,9 @@ main(int argc, char *argv[])
 	InitAudio(); // Initialize audio
 	SDCard_Init(); // Initialize file system
 	USBDevice_Init(); // Initialize file system
+    DiskDrive_Init(false); //Init DVD Driver
 
-	Settings.Load();
+	Settings.Load(argc, argv);
 	Settings.LoadLanguage(Settings.LanguagePath);
 	LoadCustomFont(Settings.CustomFontPath);
 

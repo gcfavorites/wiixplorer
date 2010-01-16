@@ -8,6 +8,11 @@
 #include "usbstorage/usbstorage.h"
 #include <ntfs.h>   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
 
+#include "devicemounter.h"
+#include "libdisk/fst.h"
+#include "libdisk/iso.h"
+#include "libdisk/di2.h"
+
 //these are the only stable and speed is good
 #define CACHE 8
 #define SECTORS 64
@@ -108,4 +113,70 @@ void SDCard_deInit()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
 	sd->shutdown();
+}
+
+int DiskDrive_Init(bool have_dvdx)
+{
+    int result = -1;
+
+	if(have_dvdx)
+        result = DI2_Init();
+	else
+        result = DI2_InitNoDVDx();
+
+	return result; //Init DVD Driver
+}
+
+void DiskDrive_deInit()
+{
+    FST_Unmount();
+    ISO9660_Unmount();
+    DI2_Close(); //Deinit DVD Driver
+}
+
+bool Disk_Inserted()
+{
+    uint32_t cover = 0;
+    DI2_GetCoverRegister(&cover);
+
+    if(cover & DVD_COVER_DISC_INSERTED)
+        return true;
+
+	return false;
+}
+
+bool DiskDrive_Mount()
+{
+    if(DI2_GetStatus() & DVD_READY)
+        return true;
+
+    bool devicemounted = false;
+
+    DiskDrive_UnMount();
+
+    DI2_Mount();
+	time_t timer1, timer2;
+	timer1 = time(0);
+
+	while(DI2_GetStatus() & DVD_INIT)
+	{
+		timer2 = time(0);
+		if(timer2-timer1 > 15)
+            return false;
+
+		usleep(5000);
+	}
+
+    devicemounted = ISO9660_Mount();
+
+    if(!devicemounted)
+        devicemounted = FST_Mount();
+
+    return devicemounted;
+}
+
+void DiskDrive_UnMount()
+{
+    FST_Unmount();
+    ISO9660_Unmount();
 }

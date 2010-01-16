@@ -132,6 +132,9 @@ int FileBrowser::BrowseDevice(int device)
 	    case NTFS4:
             sprintf(browser.rootdir, "ntfs4:/");
             break;
+	    case DVD:
+            sprintf(browser.rootdir, "dvd:/");
+            break;
 	    case SMB1:
             sprintf(browser.rootdir, "smb1:/");
             break;

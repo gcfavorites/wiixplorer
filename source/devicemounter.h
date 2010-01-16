@@ -16,6 +16,11 @@ bool USBDevice_Inserted();
 bool SDCard_Inserted();
 int SDCard_Init();
 void SDCard_deInit();
+int DiskDrive_Init(bool have_dvdx);
+void DiskDrive_deInit();
+bool Disk_Inserted();
+bool DiskDrive_Mount();
+void DiskDrive_UnMount();
 
 #ifdef __cplusplus
 }

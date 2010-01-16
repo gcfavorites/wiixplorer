@@ -141,9 +141,6 @@ bool Archive::IsZipFile (const char *buffer)
 
 bool Archive::Is7ZipFile(const char *buffer)
 {
-	unsigned int *check;
-	check = (unsigned int *) buffer;
-
 	// 7z signature
 	int i;
 	for(i = 0; i < 6; i++)
@@ -155,9 +152,6 @@ bool Archive::Is7ZipFile(const char *buffer)
 
 bool Archive::IsRarFile(const char *buffer)
 {
-	unsigned int *check;
-	check = (unsigned int *) buffer;
-
 	// Rar signature    Rar!\x1A\a\0
 	Byte Signature[6] = {'R', 'a', 'r', 0x21, 0x1a, 0x07};
 
@@ -166,5 +160,5 @@ bool Archive::IsRarFile(const char *buffer)
 		if(buffer[i] != Signature[i])
 			return false;
 
-	return true; // 7z archive found
+	return true; // RAR archive found
 }
