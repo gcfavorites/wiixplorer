@@ -35,10 +35,10 @@
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 
-#define DEFAULT_APP_PATH    "sd:/apps/WiiExplorer/"
-#define CONFIGPATH          "sd:/config/WiiXplorer/"
+#define DEFAULT_APP_PATH    "apps/WiiExplorer/"
+#define CONFIGPATH          "config/WiiXplorer/"
 #define CONFIGNAME          "WiiXplorer.cfg"
-#define LANGPATH      	    "sd:/config/WiiXplorer/Languages/"
+#define LANGPATH      	    "config/WiiXplorer/Languages/"
 
 Settings::Settings()
 {
@@ -55,7 +55,8 @@ void Settings::SetDefault()
     MountNTFS = off;
     CurrentUser = 0;
     AutoConnect = off;
-    sprintf(CustomFontPath, "%sfont.ttf", CONFIGPATH);
+    strcpy(BootDevice, "sd:/");
+    sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     strcpy(LanguagePath, "");
     strcpy(UpdatePath, DEFAULT_APP_PATH);
 
@@ -70,9 +71,11 @@ void Settings::SetDefault()
 bool Settings::Save()
 {
     char filepath[300];
-    snprintf(filepath, sizeof(filepath), "%s%s", CONFIGPATH, CONFIGNAME);
+    char filedest[300];
+    snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
+    snprintf(filedest, sizeof(filepath), "%s%s", BootDevice, CONFIGPATH);
 
-    CreateSubfolder(CONFIGPATH);
+    CreateSubfolder(filedest);
     file = fopen(filepath, "w");
 
     if(!file) {
@@ -105,11 +108,39 @@ bool Settings::Save()
 	return true;
 }
 
+bool Settings::Load(int argc, char *argv[])
+{
+    char testpath[300];
+    bool found = false;
+
+    snprintf(testpath, sizeof(testpath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
+    found = CheckFile(testpath);
+    if(!found)
+    {
+        snprintf(testpath, sizeof(testpath), "usb:/%s%s", CONFIGPATH, CONFIGNAME);
+        found = CheckFile(testpath);
+        if(!found)
+        {
+            if (argc >= 1)
+            {
+                if (!strncasecmp(argv[0], "usb:/", 5)) {
+                    strcpy(BootDevice, "usb:/");
+                    found = true;
+                }
+            }
+        }
+        else
+            strcpy(BootDevice, "usb:/");
+    }
+
+    return Load();
+}
+
 bool Settings::Load()
 {
 	char line[300];
     char filepath[300];
-    snprintf(filepath, sizeof(filepath), "%s%s", CONFIGPATH, CONFIGNAME);
+    snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
 
 	file = fopen(filepath, "r");
 	if (!file) {

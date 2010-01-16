@@ -48,6 +48,7 @@ enum {
     SMB2,
     SMB3,
     SMB4,
+    DVD,
 //	ISFS,
 //	NAND,
     MAXDEVICES
@@ -80,6 +81,7 @@ class DeviceMenu : public GuiWindow
         GuiImageData * sd_ImgData;
         GuiImageData * usb_ImgData;
         GuiImageData * smb_ImgData;
+        GuiImageData * dvd_ImgData;
 
         GuiSound * btnClick;
 

@@ -161,6 +161,9 @@ extern const u32	usbstorage_png_size;
 extern const u8		sdstorage_png[];
 extern const u32	sdstorage_png_size;
 
+extern const u8		dvdstorage_png[];
+extern const u32	dvdstorage_png_size;
+
 extern const u8		settingsbtn_png[];
 extern const u32	settingsbtn_png_size;
 

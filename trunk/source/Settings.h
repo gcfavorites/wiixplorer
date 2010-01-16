@@ -47,6 +47,9 @@ class Settings
 		void SetDefault();
 		//!Load Settings
 		bool Load();
+        //!Overload to determine the BootDevice
+        //!Also for later purpose for more argv parsing options
+        bool Load(int argc, char *argv[]);
 		//!Save Settings
         bool Save();
 		//!Reset Settings
@@ -60,6 +63,9 @@ class Settings
         bool LoadLanguage(const char *path, int language = -1);
 
         //!Settings variables:
+
+        //!BootDevice determines from which devices to load the config
+        char	BootDevice[10];
         //!Current selected device to browse
         short	MountMethod;
         //!Current selected SMB user

@@ -54,6 +54,7 @@ DeviceMenu::DeviceMenu(int x, int y)
     sd_ImgData = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
     usb_ImgData = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
     smb_ImgData = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
+    dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
 
     //! Menu images
     centerImg = new GuiImage(device_choose_center_Data);
@@ -152,6 +153,35 @@ DeviceMenu::DeviceMenu(int x, int y)
         deviceSelection[deviceCount] = NTFS0+i;
 
         deviceCount++;
+    }
+
+    if(Disk_Inserted())
+    {
+        bool dvdmounted = DiskDrive_Mount();
+        if(dvdmounted)
+        {
+            deviceText[deviceCount] = new GuiText("dvd", FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+            deviceText[deviceCount]->SetPosition(0, 2);
+            deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
+            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+            deviceImgOver[deviceCount] = new GuiImage(menu_select);
+            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+            deviceBtn[deviceCount]->SetSoundClick(btnClick);
+            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+            deviceBtn[deviceCount]->SetTrigger(trigA);
+            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+            deviceSelection[deviceCount] = DVD;
+
+            deviceCount++;
+        }
     }
 
     for(int i = 0; i < 4; i++)
@@ -255,6 +285,7 @@ DeviceMenu::~DeviceMenu()
     Resources::Remove(sd_ImgData);
     Resources::Remove(usb_ImgData);
     Resources::Remove(smb_ImgData);
+    Resources::Remove(dvd_ImgData);
 
 	Resources::Remove(btnClick);
 
@@ -281,11 +312,6 @@ DeviceMenu::~DeviceMenu()
     delete centerImg;
     delete leftImg;
     delete rightImg;
-
-    //delete [] deviceImgs;
-    //delete [] deviceImgOver;
-    //delete [] deviceBtn;
-    //delete [] deviceText;
 
     delete NoBtn;
 

@@ -17,11 +17,33 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	boot
 BUILD		:=	build
-SOURCES		:=	source source/libwiigui source/images source/fonts source/sounds source/network source/Prompts \
-				source/BootHomebrew source/Language source/libmad source/libgif source/libpngu source/FileStartUp \
-				source/ArchiveOperations/unzip source/mload source/usbstorage source/libbmp source/libtga \
-				source/libtinysmb source/filesystems source/Controls source/FileOperations source/Menus \
-				source/TextOperations source/ArchiveOperations source/ArchiveOperations/sevenzip \
+SOURCES		:=	source \
+				source/libwiigui \
+				source/images \
+				source/fonts \
+				source/sounds \
+				source/Menus \
+				source/network \
+				source/Prompts \
+				source/BootHomebrew \
+				source/Controls \
+				source/filesystems \
+				source/FileStartUp \
+				source/FileOperations \
+				source/TextOperations \
+				source/Language \
+				source/usbstorage \
+				source/mload \
+				source/libmad \
+				source/libgif \
+				source/libpngu \
+				source/libbmp \
+				source/libtga \
+				source/libtinysmb \
+				source/libdisk \
+				source/ArchiveOperations \
+				source/ArchiveOperations/unzip \
+				source/ArchiveOperations/sevenzip \
 				source/ArchiveOperations/unrarlib
 INCLUDES	:=	source
 
@@ -35,7 +57,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS :=	-ljpeg -lpng -lz -lfat -lntfs -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
+LIBS :=	-ljpeg -lpng -ldi -lz -lfat -lntfs -lwiiuse -lbte -lasnd -logc -ltremor -lfreetype
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
