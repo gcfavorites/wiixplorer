@@ -239,10 +239,16 @@ static int MenuSMBSettings()
 	    VIDEO_WaitVSync();
 
         if(shutdown == 1)
+        {
+		    Settings.Save();
             Sys_Shutdown();
+        }
 
         else if(reset == 1)
+        {
+		    Settings.Save();
             Sys_Reboot();
+        }
 
 		else if(backBtn.GetState() == STATE_CLICKED)
 		{
@@ -319,6 +325,8 @@ static int MenuSMBSettings()
 	HaltGui();
 	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
+
+    Settings.Save();
 
 	return menu;
 }
@@ -398,15 +406,19 @@ static int MenuSettings()
 	    usleep(THREAD_SLEEP);
 
         if(shutdown == 1)
+        {
+		    Settings.Save();
             Sys_Shutdown();
+        }
 
         else if(reset == 1)
+        {
+		    Settings.Save();
             Sys_Reboot();
+        }
 
 		else if(backBtn.GetState() == STATE_CLICKED)
 		{
-		    if(SDCard_Inserted())
-                Settings.Save();
 			menu = MENU_BROWSE_DEVICE;
 		}
 
@@ -467,8 +479,6 @@ static int MenuSettings()
                 }
 				break;
             case 7:
-				if(SDCard_Inserted())
-					Settings.Save();
                 menu = MENU_SMB_SETTINGS;
                 break;
 		}
@@ -523,6 +533,8 @@ static int MenuSettings()
 	MainWindow::Instance()->Remove(&w);
 	ResumeGui();
 
+    Settings.Save();
+
 	return menu;
 }
 
@@ -560,20 +572,16 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
+    Settings.Save();
 	MainWindow::Instance()->DestroyInstance();
-
 	ExitApp();
-
 	ClearFontData();
-
 	Resources::DestroyInstance();
-
-//	UnloadFilesystems();
-
 	CloseSMBShare();
     NTFS_UnMount();
     SDCard_deInit();
     USBDevice_deInit();
+    DiskDrive_deInit();
 	DeInit_Network();
 
 	WPAD_Flush(0);

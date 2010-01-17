@@ -131,6 +131,10 @@ int CheckForUpdate()
         if(choice)
             UpdateApp(DownloadLink);
     }
+    else
+    {
+        revnumber = 0;
+    }
 
     return revnumber;
 }
