@@ -36,8 +36,7 @@ extern "C"
 
 Settings Settings;
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     IOS_ReloadIOS(202);
     if (mload_init() >= 0)

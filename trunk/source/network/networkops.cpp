@@ -40,7 +40,7 @@
 #include "update.h"
 #include "main.h"
 
-static bool SMB_Mounted[5] = {0, 0, 0, 0, 0};
+static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false};
 static bool networkinit = false;
 static bool network_initiating = false;
 static char IP[16];
@@ -50,6 +50,25 @@ static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
 
 extern bool actioncanceled;
+
+
+/****************************************************************************
+ * Copy a html parse from pos cnt to string stopat
+ ****************************************************************************/
+void copyhtmlsting(const char *from, char *outtext, const char *stopat, u32 &cnt)
+{
+    u32 cnt2 = 0;
+
+    u32 stringlength = strlen(from);
+
+    while ((htmlstringcompare(from, stopat, cnt+strlen(stopat)) != 0) && (cnt2 < 1024) && (cnt < stringlength))
+    {
+        outtext[cnt2] = from[cnt];
+        cnt2++;
+        cnt++;
+    }
+    outtext[cnt2] = '\0';
+}
 
 /****************************************************************************
  * Download a file from a given url with a Progressbar
@@ -297,7 +316,7 @@ int DownloadFileToPath(const char *url, const char *dest)
  ****************************************************************************/
 void CloseSMBShare()
 {
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < MAXSMBUSERS; i++) {
 
         char mountname[10];
         sprintf(mountname, "smb%i", i+1);
@@ -310,28 +329,13 @@ void CloseSMBShare()
     networkinit = false;
 }
 
-void copyhtmlsting(const char *from, char *outtext, const char *stopat, u32 &cnt)
-{
-    u32 cnt2 = 0;
-
-    u32 stringlength = strlen(from);
-
-    while ((htmlstringcompare(from, stopat, cnt+strlen(stopat)) != 0) && (cnt2 < 1024) && (cnt < stringlength))
-    {
-        outtext[cnt2] = from[cnt];
-        cnt2++;
-        cnt++;
-    }
-    outtext[cnt2] = '\0';
-}
-
 /****************************************************************************
  * Reconnect SMB Connection
  ****************************************************************************/
 
 void SMB_Reconnect()
 {
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < MAXSMBUSERS; i++) {
         char mountname[10];
         sprintf(mountname, "smb%i", i+1);
 
@@ -360,14 +364,14 @@ bool ConnectSMBShare()
 {
     bool result = false;
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < MAXSMBUSERS; i++)
     {
         char mountname[10];
         sprintf(mountname, "smb%i", i+1);
 
         if(!SMB_Mounted[i])
         {
-            if(strcmp(Settings.SMBUser[i].Host, ""))
+            if(strcmp(Settings.SMBUser[i].Host, "") != 0)
             {
                 if(smbInitDevice(mountname,
                     Settings.SMBUser[i].User,
@@ -398,7 +402,7 @@ bool ConnectSMBShare()
  ***************************************************************************/
 bool IsSMB_Mounted(int smb)
 {
-    if(smb < 0 || smb > 3)
+    if(smb < 0 || smb >= MAXSMBUSERS)
         return false;
 
     return SMB_Mounted[smb];
@@ -485,10 +489,10 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-    ConnectSMBShare();
-
     if(!networkinit)
         Initialize_Network();
+
+    ConnectSMBShare();
 
     if(!autoupdated)
     {

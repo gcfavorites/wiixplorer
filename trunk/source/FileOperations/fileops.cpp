@@ -82,13 +82,20 @@ bool FindFile(const char * filename, const char * path)
  ***************************************************************************/
 bool CheckFile(const char * filepath)
 {
-    FILE * f;
-    f = fopen(filepath,"rb");
-    if(f) {
-        fclose(f);
+    if(!filepath)
+        return false;
+
+    struct stat filestat;
+
+    char dirnoslash[strlen(filepath)+1];
+    snprintf(dirnoslash, sizeof(dirnoslash), "%s", filepath);
+
+    if(dirnoslash[strlen(dirnoslash)-1] == '/')
+        dirnoslash[strlen(dirnoslash)-1] = '\0';
+
+    if (stat(dirnoslash, &filestat) == 0)
         return true;
-    }
-    fclose(f);
+
     return false;
 }
 
@@ -219,24 +226,55 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8
  ***************************************************************************/
 bool CreateSubfolder(const char * fullpath)
 {
+    if(!fullpath)
+        return false;
 
-    //check/create subfolders
-    struct stat st;
+    char dirnoslash[strlen(fullpath)+1];
+    snprintf(dirnoslash, sizeof(dirnoslash), "%s", fullpath);
 
-    char dirnoslash[MAXPATHLEN];
-    snprintf(dirnoslash, strlen(fullpath), "%s", fullpath);
+    if(dirnoslash[strlen(dirnoslash)-1] == '/')
+        dirnoslash[strlen(dirnoslash)-1] = '\0';
 
-    if(stat(fullpath, &st) != 0) {
-        char dircheck[MAXPATHLEN];
-        char * pch = NULL;
-        u32 cnt = 0;
-        pch = strrchr(dirnoslash, '/');
-        cnt = pch-dirnoslash;
-        snprintf(dircheck, cnt+2, "%s", dirnoslash);
-        CreateSubfolder(dircheck);
-    };
+    char * parentpath = strdup(dirnoslash);
+    if(parentpath)
+    {
+        char * ptr = strrchr(parentpath, '/');
+        if(ptr)
+        {
+            ptr++;
+            ptr[0] = '\0';
+        }
+        else
+        {
+            free(parentpath);
+            //!Device root directory
+            struct stat filestat;
+            if (stat(fullpath, &filestat) == 0)
+                return true;
 
-    if (mkdir(dirnoslash, 0777) == -1) {
+            return false;
+        }
+    }
+
+    if(!CheckFile(fullpath))
+    {
+        bool result = CreateSubfolder(parentpath);
+        if(!result)
+        {
+            free(parentpath);
+            return false;
+        }
+    }
+    else
+    {
+        free(parentpath);
+        return true;
+    }
+
+    free(parentpath);
+
+    if (mkdir(dirnoslash, 0777) == -1)
+    {
         return false;
     }
 

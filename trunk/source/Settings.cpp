@@ -72,13 +72,28 @@ bool Settings::Save()
 {
     char filepath[300];
     char filedest[300];
+
     snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
-    snprintf(filedest, sizeof(filepath), "%s%s", BootDevice, CONFIGPATH);
+    snprintf(filedest, sizeof(filedest), "%s%s", BootDevice, CONFIGPATH);
 
-    CreateSubfolder(filedest);
+    if(!CreateSubfolder(filedest))
+    {
+        //!Try the other device
+        if(strcmp(BootDevice, "usb:/") == 0)
+            strcpy(BootDevice, "sd:/");
+        else
+            strcpy(BootDevice, "usb:/");
+
+        snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
+        snprintf(filedest, sizeof(filedest), "%s%s", BootDevice, CONFIGPATH);
+
+        if(!CreateSubfolder(filedest))
+            return false;
+    }
+
     file = fopen(filepath, "w");
-
-    if(!file) {
+    if(!file)
+    {
         fclose(file);
         return false;
     }
@@ -142,10 +157,16 @@ bool Settings::Load()
     char filepath[300];
     snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
 
+    if(!CheckFile(filepath))
+        return false;
+
 	file = fopen(filepath, "r");
-	if (!file) {
-		return false;
+	if (!file)
+	{
+        fclose(file);
+        return false;
 	}
+
 	while (fgets(line, sizeof(line), file)) {
 
 		if (line[0] == '#') continue;
@@ -178,34 +199,34 @@ bool Settings::LoadLanguage(const char *path, int language)
             return this->LoadLanguage(NULL, CONF_GetLanguage()+2);
         }
         else if(language == JAPANESE) {
-            snprintf(filepath, sizeof(filepath), "%s/japanese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/japanese.lang", BootDevice, LANGPATH);
         }
         else if(language == ENGLISH) {
-            snprintf(filepath, sizeof(filepath), "%s/english.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/english.lang", BootDevice, LANGPATH);
         }
         else if(language == GERMAN) {
-            snprintf(filepath, sizeof(filepath), "%s/german.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/german.lang", BootDevice, LANGPATH);
         }
         else if(language == FRENCH) {
-            snprintf(filepath, sizeof(filepath), "%s/french.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/french.lang", BootDevice, LANGPATH);
         }
         else if(language == SPANISH) {
-            snprintf(filepath, sizeof(filepath), "%s/spanish.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/spanish.lang", BootDevice, LANGPATH);
         }
         else if(language == ITALIAN) {
-            snprintf(filepath, sizeof(filepath), "%s/italian.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/italian.lang", BootDevice, LANGPATH);
         }
         else if(language == DUTCH) {
-            snprintf(filepath, sizeof(filepath), "%s/dutch.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/dutch.lang", BootDevice, LANGPATH);
         }
         else if(language == S_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/s_chinese.lang", BootDevice, LANGPATH);
         }
         else if(language == T_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/t_chinese.lang", BootDevice, LANGPATH);
         }
         else if(language == KOREAN) {
-            snprintf(filepath, sizeof(filepath), "%s/korean.lang", LANGPATH);
+            snprintf(filepath, sizeof(filepath), "%s%s/korean.lang", BootDevice, LANGPATH);
         }
 
         ret = gettextLoadLanguage(filepath);
@@ -284,22 +305,22 @@ bool Settings::SetSetting(char *name, char *value)
 
 	    for(n = 0; n < MAXSMBUSERS; n++) {
 	        sprintf(temp, "SMBUser[%d].Host", n+1);
-            if (strcmp(name, temp) == 0) {
+            if (stricmp(name, temp) == 0) {
                 strncpy(SMBUser[n].Host, value, sizeof(SMBUser[n].Host));
                 return true;
             }
             sprintf(temp, "SMBUser[%d].User", n+1);
-            if (strcmp(name, temp) == 0) {
+            if (stricmp(name, temp) == 0) {
                 strncpy(SMBUser[n].User, value, sizeof(SMBUser[n].User));
                 return true;
             }
             sprintf(temp, "SMBUser[%d].Password", n+1);
-            if (strcmp(name, temp) == 0) {
+            if (stricmp(name, temp) == 0) {
                 strncpy(SMBUser[n].Password, value, sizeof(SMBUser[n].Password));
                 return true;
             }
             sprintf(temp, "SMBUser[%d].SMBName", n+1);
-            if (strcmp(name, temp) == 0) {
+            if (stricmp(name, temp) == 0) {
                 strncpy(SMBUser[n].SMBName, value, sizeof(SMBUser[n].SMBName));
                 return true;
             }

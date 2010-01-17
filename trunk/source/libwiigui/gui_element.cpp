@@ -53,7 +53,8 @@ GuiElement::GuiElement()
 	// default alignment - align to top left
 	alignmentVert = ALIGN_TOP;
 	alignmentHor = ALIGN_LEFT;
-	if(mutex == 0)	LWP_MutexInit(&mutex, true);
+	if(mutex == LWP_MUTEX_NULL)
+        LWP_MutexInit(&mutex, true);
 }
 
 /**

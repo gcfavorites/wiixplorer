@@ -35,6 +35,7 @@
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
 #include "Controls/MainWindow.h"
+#include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
 #include "Language/gettext.h"
@@ -61,7 +62,10 @@ int LanguageBrowser()
 	int ret;
 	int i = 0, n = 0;
 
-	DirList FileList("sd:/config/WiiXplorer/Languages/", ".lang");
+	char lang_path[300];
+	snprintf(lang_path, sizeof(lang_path), "%sconfig/WiiXplorer/Languages/", Settings.BootDevice);
+
+	DirList FileList(lang_path, ".lang");
 
 	int filecount = FileList.GetFilecount();
 
@@ -73,7 +77,8 @@ int LanguageBrowser()
 
 	for(i = 0; i < filecount; i++)
 	{
-	    if(!FileList.IsDir(i)) {
+	    if(!FileList.IsDir(i))
+	    {
             options.SetName(n, FileList.GetFilename(i));
             options.SetValue(n, " ");
             n++;
@@ -91,7 +96,7 @@ int LanguageBrowser()
 	GuiImage backBtnImg(&btnOutline);
 	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backBtn.SetPosition(50, -35);
+	backBtn.SetPosition(50, -90);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
 	backBtn.SetSoundOver(&btnSoundOver);
@@ -102,7 +107,7 @@ int LanguageBrowser()
 	GuiImage ConsoleDefaultBtnImg(&btnOutline);
 	GuiButton ConsoleDefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	ConsoleDefaultBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	ConsoleDefaultBtn.SetPosition(-50, -35);
+	ConsoleDefaultBtn.SetPosition(-50, -90);
 	ConsoleDefaultBtn.SetLabel(&ConsoleDefaultBtnTxt);
 	ConsoleDefaultBtn.SetImage(&ConsoleDefaultBtnImg);
 	ConsoleDefaultBtn.SetSoundOver(&btnSoundOver);
@@ -113,7 +118,7 @@ int LanguageBrowser()
 	GuiImage AppDefaultBtnImg(&btnOutline);
 	GuiButton AppDefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
 	AppDefaultBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	AppDefaultBtn.SetPosition(0, -35);
+	AppDefaultBtn.SetPosition(0, -65);
 	AppDefaultBtn.SetLabel(&AppDefaultBtnTxt);
 	AppDefaultBtn.SetImage(&AppDefaultBtnImg);
 	AppDefaultBtn.SetSoundOver(&btnSoundOver);
@@ -121,7 +126,7 @@ int LanguageBrowser()
 	AppDefaultBtn.SetEffectGrow();
 
 	GuiOptionBrowser optionBrowser(584, 248, &options);
-	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetPosition(30, 60);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
 	GuiImageData settingsimgData(settingsbtn_over_png);
@@ -152,34 +157,36 @@ int LanguageBrowser()
         else if(reset == 1)
             Sys_Reboot();
 
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+
 		else if(backBtn.GetState() == STATE_CLICKED)
 		{
-		    if(SDCard_Inserted())
-                Settings.Save();
+            Settings.Save();
 			menu = MENU_SETTINGS;
 		}
 
 		else if(ConsoleDefaultBtn.GetState() == STATE_CLICKED)
 		{
 		    int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
-            if(choice) {
-		    if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT)) {
-                if(SDCard_Inserted())
+            if(choice)
+            {
+                if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT))
                     Settings.Save();
-            }
-            menu = MENU_SETTINGS;
+
+                menu = MENU_SETTINGS;
             }
 		}
 
 		else if(AppDefaultBtn.GetState() == STATE_CLICKED)
 		{
 		    int choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
-            if(choice) {
-		    if(Settings.LoadLanguage(NULL, APP_DEFAULT)) {
-                if(SDCard_Inserted())
-                    Settings.Save();
-            }
-            menu = MENU_SETTINGS;
+            if(choice)
+            {
+                if(Settings.LoadLanguage(NULL, APP_DEFAULT))
+                        Settings.Save();
+
+                menu = MENU_SETTINGS;
             }
 		}
 
@@ -188,13 +195,13 @@ int LanguageBrowser()
 		if(ret >= 0)
 		{
 		    int choice = WindowPrompt(FileList.GetFilename(ret), tr("Do you want to load this language ?"), tr("Yes"), tr("Cancel"));
-            if(choice) {
+            if(choice)
+            {
                 char filepath[200];
                 snprintf(filepath, sizeof(filepath), "%s%s", FileList.GetFilepath(ret), FileList.GetFilename(ret));
-                if(Settings.LoadLanguage(filepath)) {
-                    if(SDCard_Inserted())
+                if(Settings.LoadLanguage(filepath))
                         Settings.Save();
-                }
+
                 menu = MENU_SETTINGS;
             }
 		}
