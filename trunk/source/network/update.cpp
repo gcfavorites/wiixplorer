@@ -111,11 +111,11 @@ int CheckForUpdate()
                     for (n = 0; n < strlen(filename)-2; n++)
                         revtxt[n] = filename[n];
                     revtxt[n] = 0;
-                    revnumber = atoi(revtxt);
+                    int fileRev = atoi(revtxt);
 
-                    if(revnumber > currentrev)
+                    if(fileRev > revnumber)
                     {
-                        currentrev = revnumber;
+                        revnumber = fileRev;
                         DownloadLink = URLs.GetURL(i);
                     }
                 }
