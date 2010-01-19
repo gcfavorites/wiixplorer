@@ -42,7 +42,6 @@ void cfg_parseline(char *line, void (*set_func)(char*, char*))
 	*eq = 0;
 	trimcopy(name, tmp, sizeof(name));
 	trimcopy(val, eq+1, sizeof(val));
-	//printf("CFG: %s = %s\n", name, val);
 	set_func(name, val);
 }
 
@@ -52,10 +51,8 @@ bool cfg_parsefile(char *fname, void (*set_func)(char*, char*))
 	FILE *f;
 	char line[200];
 
-	//printf("opening(%s)\n", fname);
 	f = fopen(fname, "r");
 	if (!f) {
-		//printf("error opening(%s)\n", fname);
 		return false;
 	}
 	while (fgets(line, sizeof(line), f)) {
@@ -71,7 +68,7 @@ void cfg_set(char *name, char *val)
 {
     cfg_name = name;
     cfg_val = val;
-	if (strcmp(name, "update_path") == 0) {
+	if (strcmp(name, "UpdatePath") == 0) {
 		strcopy(update_path, val, sizeof(update_path));
 	}
 }

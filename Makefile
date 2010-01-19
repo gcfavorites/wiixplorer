@@ -17,7 +17,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	boot
 BUILD		:=	build
-SOURCES		:=	source source/images
+SOURCES		:=	source source/images/bk source/images/bk169
 DATA		:=	data  
 INCLUDES	:=
 
@@ -31,8 +31,8 @@ CXXFLAGS	=	$(CFLAGS)
 #---------------------------------------------------------------------------------
 # move loader to another location - THANKS CREDIAR - 0x81330000 for HBC
 #---------------------------------------------------------------------------------
-LDFLAGS = -g $(MACHDEP) -Wl,-Map,$(notdir $@).map -Wl,--section-start,.init=0x81230000
-#LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
+#LDFLAGS = -g $(MACHDEP) -Wl,-Map,$(notdir $@).map -Wl,--section-start,.init=0x81100000
+LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #LDFLAGS = -g $(MACHDEP) -Wl,-Map,$(notdir $@).map -Wl,--section-start,.init=0x80003f00
 
 #---------------------------------------------------------------------------------
