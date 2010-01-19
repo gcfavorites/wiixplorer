@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-17 01:24+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -25,25 +25,25 @@ msgid "App Default"
 msgstr "Standardeinstellung"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "Archiv erfolgreich entpackt."
 
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
 msgid "Back"
-msgstr ""
+msgstr "Zurück"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Mount beim Start"
 
 msgid "Can not open the file"
 msgstr "Datei kann nicht geöffnet werden"
 
 msgid "Can't open file."
-msgstr ""
+msgstr "Datei kann nicht geöffnet werden."
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "Folgendes kann nicht gelesen werden:"
 
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -52,22 +52,22 @@ msgid "Cannot open image"
 msgstr "Bild konnte nicht geöffnet werden"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "Zielverzeichnis nicht beschreibbar."
 
 msgid "Caps"
-msgstr ""
+msgstr "Großbuchstaben"
 
 msgid "Clear"
-msgstr ""
+msgstr "Löschen"
 
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 msgid "Coders:"
 msgstr "Programmierer:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "Größe komprimiert:"
 
 msgid "Connect SMB"
 msgstr "SMB verbinden"
@@ -91,13 +91,13 @@ msgid "Copying files:"
 msgstr "Kopiere Dateien:"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "Kann nicht mit dem Server verbinden."
 
 msgid "Could not download file."
-msgstr ""
+msgstr "Kann Datei nicht downloaden."
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "Datei kann nicht entpackt werden:"
 
 msgid "Credits"
 msgstr "Credits"
@@ -130,10 +130,10 @@ msgid "Designer:"
 msgstr "Designer:"
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "Freier Speicher:"
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "Gesamter Speicher:"
 
 msgid "Directory .."
 msgstr "Verzeichnis .."
@@ -175,13 +175,13 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "SMB neu verbinden?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "Änderungen speichern?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "Jetzt updaten?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Lade Datei herunter..."
 
 msgid "ERROR"
 msgstr "FEHLER"
@@ -193,31 +193,31 @@ msgid "Error:"
 msgstr "Fehler:"
 
 msgid "Extract"
-msgstr ""
+msgstr "Enpacken"
 
 msgid "Extract All"
-msgstr ""
+msgstr "Alles Entpacken"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Erst entpacken, dann öffnen."
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "Ganzes Archiv entpacken?"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "Diese Datei entpacken?"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "Dieses Verzeichnis entpacken?"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "Entpacke Datei:"
 
 msgid "Extracting files..."
 msgstr "Entpacke Dateien..."
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "Entpacke Verzeichnis:"
 
 msgid "Failed copying file."
 msgstr "Datei konnte nicht kopiert werden."
@@ -226,19 +226,19 @@ msgid "Failed copying files."
 msgstr "Dateien konnten nicht kopiert werden."
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "Entpacken der Datei fehlgeschlagen."
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "Entpacken des Archivs fehlgeschlagen."
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "Entpacken der Verzeichnisses fehlgeschlagen."
 
 msgid "Failed renaming file"
 msgstr "Datei konnte nicht umbenannt werden"
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "Daten konnten nicht gelesen werden."
 
 msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
@@ -247,28 +247,28 @@ msgid "File does not exist anymore!"
 msgstr "Datei existiert nicht mehr!"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "Datei beschädigt (CRC-Fehler)"
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "Datei beschädigt."
 
 msgid "File successfully copied."
 msgstr "Datei erfolgreich kopiert."
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "Datei erfolgreich entpackt."
 
 msgid "File successfully moved."
 msgstr "Datei erfolgreich verschoben."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "Kompressionseinstellungen der Datei sind zu hoch (Worterbuch zu groß)."
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "Kompressionseinstellungen der Datei werden nicht unterstützt."
 
 msgid "File was edited."
-msgstr ""
+msgstr "Datei wurde geändert."
 
 #, c-format
 msgid "Filepath:  %s"
@@ -287,7 +287,7 @@ msgid "Folder"
 msgstr "Verzeichnis"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "Verzeichnis erfolgreich entpackt."
 
 msgid "Fontpath changed"
 msgstr "Schriftartenverzeichnis gewechselt"
@@ -302,7 +302,7 @@ msgid "ImageViewer"
 msgstr "Bildbetrachter"
 
 msgid "It is recommended to restart app now."
-msgstr ""
+msgstr "Es wird empfohlen das Programm neu zu starten."
 
 msgid "Language"
 msgstr "Sprache"
@@ -317,13 +317,13 @@ msgid "Last status change:"
 msgstr "Letzte Statusänderung:"
 
 msgid "Linebreak"
-msgstr ""
+msgstr "Zeilenumbruch"
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "Mount NTFS"
 
 msgid "Moving files:"
 msgstr "Verschiebe Dateien:"
@@ -332,19 +332,19 @@ msgid "Music Volume"
 msgstr "Lautstärke"
 
 msgid "NTFS0"
-msgstr ""
+msgstr "NTFS0"
 
 msgid "NTFS1"
-msgstr ""
+msgstr "NTFS1"
 
 msgid "NTFS2"
-msgstr ""
+msgstr "NTFS2"
 
 msgid "NTFS3"
-msgstr ""
+msgstr "NTFS3"
 
 msgid "NTFS4"
-msgstr ""
+msgstr "NTFS4"
 
 msgid "Name already exists."
 msgstr "Name existiert bereits."
@@ -356,7 +356,7 @@ msgid "New Folder"
 msgstr "Neues Verzeichnis"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "Neues Verzeichnis."
 
 msgid "No"
 msgstr "Nein"
@@ -369,16 +369,16 @@ msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Kein neues Update verfügbar"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "Kein gültiger URL"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "Kein gültiges URL-Ziel"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "Keine gültige Domain"
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
@@ -393,10 +393,10 @@ msgid "ON"
 msgstr "AN"
 
 msgid "Open"
-msgstr ""
+msgstr "Öffnen"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "Öffnen bisher nicht möglich"
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
@@ -414,7 +414,7 @@ msgid "Please wait:"
 msgstr "Bitte warten:"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "Prozess abgebrochen."
 
 msgid "Properties"
 msgstr "Eigenschaften"
@@ -456,7 +456,7 @@ msgid "SMB4"
 msgstr "SMB4"
 
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 msgid "Size:"
 msgstr "Größe:"
@@ -471,16 +471,16 @@ msgid "This is no OGG/MP3 file"
 msgstr "Dies ist keine OGG/MP3 Datei"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Trasfer abgebrochen."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Transfer fehlgeschlagen"
 
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URL ist leer."
 
 msgid "USB"
 msgstr "USB"
@@ -489,26 +489,26 @@ msgid "Unable to create folder."
 msgstr "Verzeichnis konnte nicht erstellt werden."
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "Konnte Pfad nicht öffnen."
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Update (Programm) Pfad"
 
 msgid "Update App"
-msgstr ""
+msgstr "Programm updaten"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "Updatepfad geändert"
 
 msgid "Update failed"
-msgstr ""
+msgstr "Update fehlgeschlagen"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Update erfolgreich abgeschlossen"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Update zur Version Rev%i verfügbar"
 
 #, c-format
 msgid "User %i"

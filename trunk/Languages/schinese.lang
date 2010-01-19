@@ -25,7 +25,7 @@ msgid "App Default"
 msgstr "程序缺省"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "文件提取成功。"
 
 msgid "Auto Connect"
 msgstr "自动连接"
@@ -40,10 +40,10 @@ msgid "Can not open the file"
 msgstr "不能打开文件"
 
 msgid "Can't open file."
-msgstr ""
+msgstr "文件无法打开。"
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "文件无法读取"
 
 msgid "Cancel"
 msgstr "取消"
@@ -58,16 +58,16 @@ msgid "Caps"
 msgstr "大写"
 
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 msgid "Coders:"
 msgstr "作者"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "已压缩大小"
 
 msgid "Connect SMB"
 msgstr "连接共享网络"
@@ -94,10 +94,10 @@ msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
 
 msgid "Could not download file."
-msgstr ""
+msgstr "文件无法下载。"
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "文件无法提取。"
 
 msgid "Credits"
 msgstr "感谢"
@@ -130,10 +130,10 @@ msgid "Designer:"
 msgstr "设计者："
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "设备剩余空间："
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "设备总计空间："
 
 msgid "Directory .."
 msgstr "目录.."
@@ -175,7 +175,7 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再次连接到网络共享？"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "是否保存更改？"
 
 msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
@@ -193,31 +193,31 @@ msgid "Error:"
 msgstr "错误"
 
 msgid "Extract"
-msgstr ""
+msgstr "提取"
 
 msgid "Extract All"
-msgstr ""
+msgstr "提取全部"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "提取并打开"
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "提取所有文件？"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "提取此文件？"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "提取此文件夹？"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "文件提取中："
 
 msgid "Extracting files..."
-msgstr "提取文件中"
+msgstr "提取文件中......"
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "文件夹提取中："
 
 msgid "Failed copying file."
 msgstr "复制失败"
@@ -226,19 +226,19 @@ msgid "Failed copying files."
 msgstr "复制失败"
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "提取失败。"
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "正在提取文件失败。"
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "正在提取文件夹失败。"
 
 msgid "Failed renaming file"
 msgstr "更名失败"
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "读取文件数据失败。"
 
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
@@ -247,28 +247,28 @@ msgid "File does not exist anymore!"
 msgstr "此文件不存在"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "文件损坏（CRC不匹配）"
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "文件已损坏"
 
 msgid "File successfully copied."
 msgstr "文件复制成功"
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "文件已提取成功。"
 
 msgid "File successfully moved."
 msgstr "文件移动成功"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "文件使用了高压缩比设置（字典尺寸过大。）"
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "文件使用了不支持的压缩设置。"
 
 msgid "File was edited."
-msgstr ""
+msgstr "文件被编辑。"
 
 #, c-format
 msgid "Filepath:  %s"
@@ -287,7 +287,7 @@ msgid "Folder"
 msgstr "文件夹"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "文件夹成功提取。"
 
 msgid "Fontpath changed"
 msgstr "字体路径已改变"
@@ -317,7 +317,7 @@ msgid "Last status change:"
 msgstr "最近状态改变："
 
 msgid "Linebreak"
-msgstr ""
+msgstr "换行符"
 
 msgid "Loading file:"
 msgstr "正在读取文件:"
@@ -356,7 +356,7 @@ msgid "New Folder"
 msgstr "新文件夹"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "新文件夹"
 
 msgid "No"
 msgstr "否"
@@ -393,10 +393,10 @@ msgid "ON"
 msgstr "打开"
 
 msgid "Open"
-msgstr ""
+msgstr "打开"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "开启还没有提供"
 
 msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
@@ -414,7 +414,7 @@ msgid "Please wait:"
 msgstr "请等待："
 
 msgid "Process canceled."
-msgstr ""
+msgstr "进程已取消"
 
 msgid "Properties"
 msgstr "属性"
@@ -489,7 +489,7 @@ msgid "Unable to create folder."
 msgstr "不能建立文件夹"
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "不能找到路径。"
 
 msgid "Update (App) Path"
 msgstr "更新程序路径"
@@ -501,7 +501,7 @@ msgid "Update Path changed."
 msgstr "更新路径已更改"
 
 msgid "Update failed"
-msgstr ""
+msgstr "更新失败。"
 
 msgid "Update successfully finished"
 msgstr "更新成功！"
