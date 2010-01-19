@@ -30,7 +30,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Language/gettext.h"
 #include "Controls/MainWindow.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 #define FONTSIZE    18
 

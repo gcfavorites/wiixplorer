@@ -16,7 +16,6 @@
 
 #include "FreeTypeGX.h"
 #include "Controls/MainWindow.h"
-#include "Controls/Resources.h"
 #include "video.h"
 #include "audio.h"
 #include "menu.h"

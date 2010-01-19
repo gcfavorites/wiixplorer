@@ -9,7 +9,7 @@
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
 #include "FileOperations/fileops.h"
-#include "FileStartUp/ImageViewer.h"
+#include "ImageOperations/ImageLoader.h"
 #include "FileStartUp/MusicLoader.h"
 #include "Language/gettext.h"
 
@@ -46,7 +46,7 @@ int FileStartUp(const char *filepath)
 			|| strcasecmp(fileext, ".tga") == 0) {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
-			ImageViewer(filepath);
+			ImageLoader(filepath);
     }
     else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0) {
         int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));

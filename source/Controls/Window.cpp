@@ -23,11 +23,11 @@
  *
  * Window.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #include "Window.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 bool Window::busyMoving = false;
 

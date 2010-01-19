@@ -39,7 +39,7 @@
 #include "video.h"
 #include "sys.h"
 
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
 
 extern Settings Settings;

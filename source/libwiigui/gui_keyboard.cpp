@@ -27,7 +27,7 @@
  * for WiiXplorer 2009
  ***************************************************************************/
 #include "gui_keyboard.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 #include "Language/gettext.h"
 
 static char tmptxt[MAX_KEYBOARD_DISPLAY];

@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2009
- * by r-win
+ * by r-win & Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,7 +23,7 @@
  *
  * Taskbar.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #include <time.h>
@@ -31,7 +31,7 @@
 #include "menu.h"
 #include "Taskbar.h"
 #include "Controls/MainWindow.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 extern u8 shutdown;
 extern u8 reset;

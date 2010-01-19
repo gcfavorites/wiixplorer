@@ -27,7 +27,7 @@
  ***************************************************************************/
 
 #include "PictureButton.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 PictureButton::PictureButton(const u8 *img, u32 imgSize)
 	: GuiButton(0, 0)

@@ -33,7 +33,7 @@
 #include <unistd.h>
 
 #include "libwiigui/gui.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 #define MAX_CLICKBUTTONS    7
 

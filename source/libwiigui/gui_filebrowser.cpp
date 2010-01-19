@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "gui_filebrowser.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 /**
  * Constructor for the GuiFileBrowser class.

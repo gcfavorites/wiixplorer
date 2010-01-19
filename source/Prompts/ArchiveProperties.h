@@ -33,7 +33,7 @@
 
 #include "libwiigui/gui.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 class ArchiveProperties : public GuiWindow
 {

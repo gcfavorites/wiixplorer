@@ -29,7 +29,7 @@
 #include "Explorer.h"
 #include "menu.h"
 #include "Controls/MainWindow.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
@@ -303,8 +303,11 @@ void Explorer::CheckBrowserChanges()
             char filepath[MAXPATHLEN];
             snprintf(filepath, sizeof(filepath), "%s", Browser->GetCurrentSelectedFilepath());
 
+            SetState(STATE_DISABLED);
+            fileBrowser->DisableTriggerUpdate(true);
             int result = FileStartUp(filepath);
-
+            SetState(STATE_DEFAULT);
+            fileBrowser->DisableTriggerUpdate(false);
             if(result == BOOTHOMEBREW)
             {
                 boothomebrew = true;

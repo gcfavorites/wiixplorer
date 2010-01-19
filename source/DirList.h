@@ -5,15 +5,18 @@
 #ifndef ___DIRLIST_H_
 #define ___DIRLIST_H_
 
-typedef struct {
-    char            *FileName;
-    char            *FilePath;
-    unsigned int    FileSize;
-    bool            isDir;
+#include <gctypes.h>
+
+typedef struct
+{
+    char        *FileName;
+    char        *FilePath;
+    u64         FileSize;
+    bool        isDir;
 } FileInfos;
 
-class DirList {
-
+class DirList
+{
     public:
         //!Constructor
         //!\param path Path from where to load the filelist of all files
@@ -43,6 +46,11 @@ class DirList {
 		//! Get the index of the specified filename
 		int GetFileIndex(const char *filename);
     protected:
+        //!Add a list entrie
+bool    AddEntrie(const char * folderpath, const char * filename, u64 filesize, bool isDir);
+        //! Clear the list
+        void ClearList();
+
         int filecount;
         FileInfos *FileInfo;
 };

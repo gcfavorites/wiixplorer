@@ -28,7 +28,7 @@
 
 #include "DeviceMenu.h"
 #include "Controls/MainWindow.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 #include "Language/gettext.h"
 #include "network/networkops.h"
 #include "devicemounter.h"

@@ -26,7 +26,7 @@
  ***************************************************************************/
 
 #include <unistd.h>
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "TextPointer.h"
 #include "tools.h"

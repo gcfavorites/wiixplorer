@@ -27,9 +27,11 @@ SOURCES		:=	source \
 				source/Prompts \
 				source/BootHomebrew \
 				source/Controls \
+				source/Memory \
 				source/filesystems \
 				source/FileStartUp \
 				source/FileOperations \
+				source/ImageOperations \
 				source/TextOperations \
 				source/Language \
 				source/usbstorage \
@@ -53,7 +55,7 @@ INCLUDES	:=	source
 
 CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
-LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000
+LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,--section-start,.init=0x80F00000,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
