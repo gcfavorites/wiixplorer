@@ -32,7 +32,7 @@
 #include <unistd.h>
 
 #include "libwiigui/gui.h"
-#include "Controls/Resources.h"
+#include "Memory/Resources.h"
 
 class Properties : public GuiWindow
 {

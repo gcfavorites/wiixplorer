@@ -1,8 +1,5 @@
 /****************************************************************************
- * libwiigui Template
- * Tantric 2009
- *
- * imagelist.h
+ * filelist.h
  * Contains a list of all of the files in the images, fonts, sounds folders
  ***************************************************************************/
 
@@ -11,10 +8,46 @@
 
 #include <gccore.h>
 
-extern const u8		background_png[];
-extern const u32	background_png_size;
+extern const u8		bkdu_png[];
+extern const u32	bkdu_png_size;
 
-extern const u8		background169_png[];
-extern const u32	background169_png_size;
+extern const u8		bken_png[];
+extern const u32	bken_png_size;
+
+extern const u8		bkfr_png[];
+extern const u32	bkfr_png_size;
+
+extern const u8		bkge_png[];
+extern const u32	bkge_png_size;
+
+extern const u8		bkit_png[];
+extern const u32	bkit_png_size;
+
+extern const u8		bkjp_png[];
+extern const u32	bkjp_png_size;
+
+extern const u8		bksp_png[];
+extern const u32	bksp_png_size;
+
+extern const u8		bk169du_png[];
+extern const u32	bk169du_png_size;
+
+extern const u8		bk169en_png[];
+extern const u32	bk169en_png_size;
+
+extern const u8		bk169fr_png[];
+extern const u32	bk169fr_png_size;
+
+extern const u8		bk169ge_png[];
+extern const u32	bk169ge_png_size;
+
+extern const u8		bk169it_png[];
+extern const u32	bk169it_png_size;
+
+extern const u8		bk169jp_png[];
+extern const u32	bk169jp_png_size;
+
+extern const u8		bk169sp_png[];
+extern const u32	bk169sp_png_size;
 
 #endif

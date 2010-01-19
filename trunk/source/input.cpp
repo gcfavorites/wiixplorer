@@ -20,12 +20,19 @@
 #include "input.h"
 #include "libwiigui/gui.h"
 
+#ifdef DEBUG_MEM
+extern "C"
+{
+    extern void StartMemDebug();
+    extern void StopMemDebug();
+}
+#endif
+
 int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
 static int rumbleCount[4] = {0,0,0,0};
 
 extern u8 shutdown;
-
 /****************************************************************************
  * UpdatePads
  *
@@ -48,6 +55,13 @@ void UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 	}
+
+    #ifdef DEBUG_MEM
+	if(userInput[0].wpad->btns_h & WPAD_BUTTON_1)
+        StartMemDebug();
+    else if(!(userInput[0].wpad->btns_h & WPAD_BUTTON_1))
+        StopMemDebug();
+    #endif
 }
 
 /****************************************************************************

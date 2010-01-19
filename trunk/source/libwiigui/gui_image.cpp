@@ -59,7 +59,11 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 
 GuiImage::GuiImage(int w, int h, GXColor c)
 {
-	image = (u8 *)memalign (32, w * h * 4);
+	int len = w*h*4;
+	if(len%32)
+        len += (32-len%32);
+
+	image = (u8 *)memalign (32, len);
 	width = w;
 	height = h;
 	imageangle = 0;
@@ -81,8 +85,6 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 			this->SetPixel(x, y, c);
 		}
 	}
-	int len = w*h*4;
-	if(len%32) len += (32-len%32);
 	DCFlushRange(image, len);
 }
 
