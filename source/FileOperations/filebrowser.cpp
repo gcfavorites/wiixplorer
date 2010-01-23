@@ -108,52 +108,12 @@ int FileBrowser::BrowsePath(const char *path)
  ***************************************************************************/
 int FileBrowser::BrowseDevice(int device)
 {
+    if(device < 0 || device >= MAXDEVICES)
+        return -1;
+
 	strcpy(browser.dir, "");
-	switch(device)
-	{
-	    case SD:
-            sprintf(browser.rootdir, "sd:/");
-            break;
-	    case USB:
-            sprintf(browser.rootdir, "usb:/");
-            break;
-	    case NTFS0:
-            sprintf(browser.rootdir, "ntfs0:/");
-            break;
-	    case NTFS1:
-            sprintf(browser.rootdir, "ntfs1:/");
-            break;
-	    case NTFS2:
-            sprintf(browser.rootdir, "ntfs2:/");
-            break;
-	    case NTFS3:
-            sprintf(browser.rootdir, "ntfs3:/");
-            break;
-	    case NTFS4:
-            sprintf(browser.rootdir, "ntfs4:/");
-            break;
-	    case DVD:
-            sprintf(browser.rootdir, "dvd:/");
-            break;
-	    case SMB1:
-            sprintf(browser.rootdir, "smb1:/");
-            break;
-	    case SMB2:
-            sprintf(browser.rootdir, "smb2:/");
-            break;
-	    case SMB3:
-            sprintf(browser.rootdir, "smb3:/");
-            break;
-	    case SMB4:
-            sprintf(browser.rootdir, "smb4:/");
-            break;
-//		case ISFS:
-//			sprintf(browser.rootdir, "isfs:/");
-//			break;
-//		case NAND:
-//			sprintf(browser.rootdir, "nand:/");
-//			break;
-	}
+	sprintf(browser.rootdir, "%s:/", DeviceName[device]);
+
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;
 }

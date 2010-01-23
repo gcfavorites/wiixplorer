@@ -200,176 +200,27 @@ int WaitSMBConnect(void)
     return choice;
 }
 
-
-/****************************************************************************
-* RightMouseClicked connection for RightClickMenu
-***************************************************************************/
-void RightMouseClicked(GuiElement *sender, int pointer, POINT p)
+void ShowCredits(CreditWindow *& Credits)
 {
-    RightClickMenu * ClickMenu = NULL;
-    ClickMenu = new RightClickMenu(p.x, p.y);
+    if(!Credits)
+        return;
 
-    MainWindow::Instance()->Append(ClickMenu);
+    MainWindow::Instance()->SetDim(true);
+    MainWindow::Instance()->Append(Credits);
 
-    while(ClickMenu->GetChoice() == -1)
+    int credits_choice = -1;
+    while(credits_choice < 0)
     {
         usleep(100);
 
         if(shutdown == 1)
             Sys_Shutdown();
-        else if(reset == 1)
-            Sys_Reboot();
-    }
 
-    delete ClickMenu;
-    ClickMenu = NULL;
-
-    ResumeGui();
-}
-
-/****************************************************************************
-* CreditsWindow
-***************************************************************************/
-void CreditsWindow(void)
-{
-    GuiImageData dialogBox(bg_properties_png);
-    GuiImage dialogBoxImg(&dialogBox);
-
-    GuiWindow promptWindow(dialogBox.GetWidth(), dialogBox.GetHeight());
-    promptWindow.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    promptWindow.SetPosition(100, 100);
-
-    GuiTrigger trigA;
-    trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-    GuiTrigger trigB;
-    trigB.SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-
-    GuiSound btnClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
-
-    int numEntries = 9;
-    int i = 0;
-    int y = 30;
-
-    GuiText * txt[numEntries];
-
-    txt[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    txt[i]->SetPosition(0, y);
-    i++;
-    y += 60;
-
-    txt[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20, y);
-    i++;
-
-    txt[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(170, y);
-    i++;
-    y += 32;
-
-    txt[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(170, y);
-    i++;
-    y += 40;
-
-    txt[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20, y);
-    i++;
-
-    txt[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(170, y);
-    i++;
-    y += 60;
-
-    txt[i] = new GuiText(tr("Special thanks to:"), 24, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20,y);
-    i++;
-    y += 30;
-
-    char text[80];
-    snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool LibWiiGui."));
-    txt[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20,y);
-    i++;
-    y += 30;
-
-    txt[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
-    txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    txt[i]->SetPosition(20,y);
-
-    GuiImageData arrowUp(scrollbar_arrowup_png);
-    GuiImageData arrowUpOver(scrollbar_arrowup_over_png);
-    GuiImage arrowUpImg(&arrowUp);
-    arrowUpImg.SetAngle(45);
-    GuiImage arrowUpImgOver(&arrowUpOver);
-    arrowUpImgOver.SetAngle(45);
-    GuiButton Backbtn(arrowUpImg.GetWidth(), arrowUpImg.GetHeight());
-    Backbtn.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-    Backbtn.SetSoundClick(&btnClick);
-    Backbtn.SetImage(&arrowUpImg);
-    Backbtn.SetImageOver(&arrowUpImgOver);
-    Backbtn.SetPosition(-20, 20);
-    Backbtn.SetEffectGrow();
-    Backbtn.SetTrigger(&trigA);
-    Backbtn.SetTrigger(&trigB);
-
-    char Rev[50];
-    sprintf(Rev, "Rev. %i", atoi(SvnRev()));
-
-    GuiText RevNum(Rev, 22, (GXColor) {0, 0, 0, 255});
-    RevNum.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    RevNum.SetPosition(20, 20);
-
-    promptWindow.Append(&dialogBoxImg);
-    promptWindow.Append(&RevNum);
-    for(int i = 0; i < numEntries; i++)
-        promptWindow.Append(txt[i]);
-    promptWindow.Append(&Backbtn);
-
-    HaltGui();
-    MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
-    MainWindow::Instance()->Append(&promptWindow);
-    MainWindow::Instance()->ChangeFocus(&promptWindow);
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
-    ResumeGui();
-
-    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
-
-    while(1)
-    {
-        VIDEO_WaitVSync();
-
-        if(shutdown == 1)
-            Sys_Shutdown();
         else if(reset == 1)
             Sys_Reboot();
 
-        else if(Backbtn.GetState() == STATE_CLICKED) {
-            break;
-        }
+        credits_choice = Credits->GetChoice();
     }
-
-    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
-
-    while(promptWindow.GetEffect() > 0) usleep(THREAD_SLEEP);
-
-    HaltGui();
-    MainWindow::Instance()->Remove(&promptWindow);
-
-    for(int i = 0; i < numEntries; i++) {
-        delete txt[i];
-        txt[i] = NULL;
-    }
-
-    MainWindow::Instance()->SetState(STATE_DEFAULT);
-    MainWindow::Instance()->SetDim(false);
-    ResumeGui();
+    delete Credits;
+    Credits = NULL;
 }

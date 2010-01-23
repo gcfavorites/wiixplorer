@@ -38,6 +38,7 @@
 
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "network/ChangeLog.h"
 #include "Menus/Explorer.h"
 #include "menu.h"
 #include "main.h"
@@ -97,8 +98,9 @@ void HaltGui()
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-    if(firsttimestart && Settings.MountMethod > NTFS4 &&
-        Settings.AutoConnect == on && !IsNetworkInit()) {
+    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 &&
+        Settings.AutoConnect == on && !IsNetworkInit())
+    {
 
         WaitSMBConnect();
         firsttimestart = false;
@@ -426,7 +428,14 @@ static int MenuSettings()
 		{
             int res = CheckForUpdate();
             if(res == 0)
-                WindowPrompt(tr("No new updates available"), 0, tr("OK"));
+            {
+                int choice = WindowPrompt(tr("No new updates available"), 0, tr("OK"), tr("Show Changelog"));
+                if(choice == 0)
+                {
+                    ChangeLog Changelog;
+                    Changelog.Show();
+                }
+            }
 		    updateBtn.ResetState();
 		}
 
@@ -489,19 +498,7 @@ static int MenuSettings()
             i = 0;
             firstRun = false;
 
-            if (Settings.MountMethod == SD) options.SetValue(i++,tr("SD"));
-            else if (Settings.MountMethod == USB) options.SetValue(i++,tr("USB"));
-            else if (Settings.MountMethod == SMB1) options.SetValue(i++, tr("SMB1"));
-            else if (Settings.MountMethod == SMB2) options.SetValue(i++, tr("SMB2"));
-            else if (Settings.MountMethod == SMB3) options.SetValue(i++, tr("SMB3"));
-            else if (Settings.MountMethod == SMB4) options.SetValue(i++, tr("SMB4"));
-            else if (Settings.MountMethod == NTFS0) options.SetValue(i++, tr("NTFS0"));
-            else if (Settings.MountMethod == NTFS1) options.SetValue(i++, tr("NTFS1"));
-            else if (Settings.MountMethod == NTFS2) options.SetValue(i++, tr("NTFS2"));
-            else if (Settings.MountMethod == NTFS3) options.SetValue(i++, tr("NTFS3"));
-            else if (Settings.MountMethod == NTFS4) options.SetValue(i++, tr("NTFS4"));
-//            else if (Settings.MountMethod == ISFS) options.SetValue(i++, tr("ISFS"));
-//            else if (Settings.MountMethod == NAND) options.SetValue(i++, tr("NAND"));
+            options.SetValue(i++,DeviceName[Settings.MountMethod]);
 
             if(strcmp(Settings.LanguagePath, "") != 0) {
                 char *language = strrchr(Settings.LanguagePath, '/')+1;

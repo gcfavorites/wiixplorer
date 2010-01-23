@@ -29,7 +29,7 @@
 #define _RARFILE_H_
 
 #include <vector>
-#include <algorithm >
+#include <algorithm>
 
 #include "7ZipFile.h"
 #include "unrarlib/unrarlib.h"

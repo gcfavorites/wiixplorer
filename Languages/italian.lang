@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -292,11 +292,17 @@ msgstr "Cartella estratta con successo."
 msgid "Fontpath changed"
 msgstr "Percorso font modificato"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Indietro"
 
 msgid "Host:"
 msgstr "Host:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Mostra Immagine"
@@ -330,21 +336,6 @@ msgstr "Sto spostando i file:"
 
 msgid "Music Volume"
 msgstr "Volume Musica"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Nome già utilizzato."
@@ -431,9 +422,6 @@ msgstr "Riavviare l'applicazione per utilizzare il nuovo font."
 msgid "Retry"
 msgstr "Riprova"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "Nome SMB:"
 
@@ -443,20 +431,11 @@ msgstr "Impostazioni SMB:"
 msgid "SMB is connecting..."
 msgstr "SMB in connessione..."
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
 msgstr "Maiuscole"
+
+msgid "Show Changelog"
+msgstr ""
 
 msgid "Size:"
 msgstr "Dimensione:"
@@ -481,9 +460,6 @@ msgstr "Sto spostando i file:"
 
 msgid "URL is empty."
 msgstr "L'URL è vuoto"
-
-msgid "USB"
-msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Impossibile creare la cartella."
@@ -531,6 +507,9 @@ msgstr "Non puoi leggere/scrivere da/a lo stesso file."
 
 msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."

@@ -211,7 +211,7 @@ PromptWindow::~PromptWindow()
 {
     MainWindow::Instance()->ResumeGui();
     SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-    while(this->GetEffect() > 0) usleep(50);
+    while(this->GetEffect() > 0) usleep(100);
 
     MainWindow::Instance()->HaltGui();
     if(parentElement)

@@ -57,22 +57,79 @@ extern bool actioncanceled;
  ***************************************************************************/
 bool FindFile(const char * filename, const char * path)
 {
-    DIR *dir;
-    struct dirent *file;
+    if(!filename || ! path)
+        return false;
 
-    dir = opendir(path);
+    DIR_ITER *dir = NULL;
+    struct stat st;
+    char currfilename[MAXPATHLEN];
 
-    char temp[11];
-    while ((file = readdir(dir)))
+    dir = diropen(path);
+    if(!dir)
     {
-        snprintf(temp,sizeof(temp),"%s",file->d_name);
-        if (!strncmpi(temp,filename,11)) {
-            closedir(dir);
-        return true;
+        dirclose(dir);
+        return false;
+    }
+
+    while (dirnext(dir,currfilename,&st) == 0)
+    {
+        if (strcasecmp(currfilename, filename) == 0)
+        {
+            dirclose(dir);
+            return true;
         }
     }
-    closedir(dir);
+    dirclose(dir);
     return false;
+}
+
+/****************************************************************************
+ * SearchFile
+ *
+ * Search for a file recursive through all subdirectories
+ ***************************************************************************/
+bool SearchFile(const char * searchpath, const char * searched_filename, char * outfilepath)
+{
+    struct stat st;
+    DIR_ITER *dir = NULL;
+    bool result = false;
+
+    char filename[MAXPATHLEN];
+    char pathptr[strlen(searchpath)+1];
+    snprintf(pathptr, sizeof(pathptr), "%s", searchpath);
+
+    if(pathptr[strlen(pathptr)-1] == '/')
+    {
+        pathptr[strlen(pathptr)-1] = '\0';
+    }
+
+    dir = diropen(pathptr);
+    if(!dir)
+        return false;
+
+    while (dirnext(dir,filename,&st) == 0 && result == false)
+	{
+	    if(strcasecmp(filename, searched_filename) == 0)
+	    {
+	        if(outfilepath)
+	        {
+	            sprintf(outfilepath, "%s/%s", pathptr, filename);
+	        }
+	        result = true;
+	    }
+        else if((st.st_mode & S_IFDIR) != 0)
+        {
+            if(strcmp(filename, ".") != 0 && strcmp(filename, "..") != 0)
+            {
+                char newpath[1024];
+                snprintf(newpath, sizeof(newpath), "%s/%s", pathptr, filename);
+                result = SearchFile(newpath, searched_filename, outfilepath);
+            }
+        }
+	}
+    dirclose(dir);
+
+    return result;
 }
 
 /****************************************************************************
@@ -229,49 +286,47 @@ bool CreateSubfolder(const char * fullpath)
     if(!fullpath)
         return false;
 
+    bool result  = false;
+
     char dirnoslash[strlen(fullpath)+1];
-    snprintf(dirnoslash, sizeof(dirnoslash), "%s", fullpath);
+    strcpy(dirnoslash, fullpath);
 
-    if(dirnoslash[strlen(dirnoslash)-1] == '/')
-        dirnoslash[strlen(dirnoslash)-1] = '\0';
-
-    char * parentpath = strdup(dirnoslash);
-    if(parentpath)
+    int pos = strlen(dirnoslash)-1;
+    while(dirnoslash[pos] == '/')
     {
+        dirnoslash[pos] = '\0';
+        pos--;
+    }
+
+    if(CheckFile(dirnoslash))
+    {
+        return true;
+    }
+    else
+    {
+        char parentpath[strlen(dirnoslash)+2];
+        strcpy(parentpath, dirnoslash);
         char * ptr = strrchr(parentpath, '/');
-        if(ptr)
+
+        if(!ptr)
         {
-            ptr++;
-            ptr[0] = '\0';
-        }
-        else
-        {
-            free(parentpath);
-            //!Device root directory
+            //!Device root directory (must be with '/')
+            strcat(parentpath, "/");
             struct stat filestat;
-            if (stat(fullpath, &filestat) == 0)
+            if (stat(parentpath, &filestat) == 0)
                 return true;
 
             return false;
         }
+
+        ptr++;
+        ptr[0] = '\0';
+
+        result = CreateSubfolder(parentpath);
     }
 
-    if(!CheckFile(fullpath))
-    {
-        bool result = CreateSubfolder(parentpath);
-        if(!result)
-        {
-            free(parentpath);
-            return false;
-        }
-    }
-    else
-    {
-        free(parentpath);
-        return true;
-    }
-
-    free(parentpath);
+    if(!result)
+        return false;
 
     if (mkdir(dirnoslash, 0777) == -1)
     {

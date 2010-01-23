@@ -53,24 +53,6 @@ extern bool actioncanceled;
 
 
 /****************************************************************************
- * Copy a html parse from pos cnt to string stopat
- ****************************************************************************/
-void copyhtmlsting(const char *from, char *outtext, const char *stopat, u32 &cnt)
-{
-    u32 cnt2 = 0;
-
-    u32 stringlength = strlen(from);
-
-    while ((htmlstringcompare(from, stopat, cnt+strlen(stopat)) != 0) && (cnt2 < 1024) && (cnt < stringlength))
-    {
-        outtext[cnt2] = from[cnt];
-        cnt2++;
-        cnt++;
-    }
-    outtext[cnt2] = '\0';
-}
-
-/****************************************************************************
  * Download a file from a given url with a Progressbar
  ****************************************************************************/
 int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
@@ -507,7 +489,7 @@ static void * networkinitcallback(void *arg)
  ***************************************************************************/
 void InitNetworkThread()
 {
-	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 0, 0);
+	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 0, 30);
 }
 
 /****************************************************************************

@@ -34,6 +34,8 @@ EOF
 		echo "svnrev.c created" >&2
 	fi
 	echo >&2
+	
+fi
 
 	rev_new=`expr $rev_new + 1`
 	rev_date=`date +%Y%m%d%H%M -u`
@@ -51,18 +53,22 @@ The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
 
 Features:
  * USB2 support with cIOS202 installed
- * SMB/USB/SD recursive copy/move/delete
+ * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
- * USB FAT and NTFS files systems support
+ * FAT and NTFS files systems support
  * Rename files/directories
  * Properties of files/directories
- * Browse through SD/USB/SMB
+ * Browse through SD/USB/SMB/DVD/WiiDisk
  * Addressbar with path
  * Multilanguage with custom font support
  * Boot .dol/.elf files
- * Open TXT/XML/MP3/OGG/PNG/JPEG/GIF
-   /BMP/TGA files
+ * Open TXT/XML/MP3/OGG/PNG/JPEG/GIF/
+   BMP/TGA files
+ * Imageoperations zoom/slideshow
  * ZIP/7zip browsing and decompressing
+ * Rar browsing
+ * Properties of archive files
+ * Textediting support
  * Auto-Update feature
 
 Credits:
@@ -95,5 +101,4 @@ Links:
 </app>
 EOF
 
-fi
 echo $a

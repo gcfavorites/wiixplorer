@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-27 14:04+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr "フォルダを解凍しました"
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "戻る"
 
 msgid "Host:"
 msgstr "ホスト"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "ｲﾒｰｼﾞﾋﾞｭｰﾜ"
@@ -330,21 +336,6 @@ msgstr "移動しています"
 
 msgid "Music Volume"
 msgstr "音量"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "同じ名前がすでにあります"
@@ -431,9 +422,6 @@ msgstr "フォントを読み込むため 再起動してください"
 msgid "Retry"
 msgstr "再試行"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "SMB名"
 
@@ -443,19 +431,10 @@ msgstr "SMBの設定"
 msgid "SMB is connecting..."
 msgstr "接続中"
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgstr "転送中です:"
 
 msgid "URL is empty."
 msgstr "URLが空です"
-
-msgid "USB"
-msgstr ""
 
 msgid "Unable to create folder."
 msgstr "フォルダを作成できませんでした"
@@ -531,6 +507,9 @@ msgstr "同じ所に読み書きはできません"
 
 msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"

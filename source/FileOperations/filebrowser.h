@@ -68,7 +68,6 @@ typedef struct
 	bool cutted;
 } CLIPBOARD;
 
-
 class FileBrowser : public Browser
 {
     public:

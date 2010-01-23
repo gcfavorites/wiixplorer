@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,92 +21,46 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * Device Menu
+ * CreditWindow.h
  *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
- #ifndef __DEVICE_MENU_H_
- #define __DEVICE_MENU_H_
+ #ifndef __CREDITWINDOW_H_
+ #define __CREDITWINDOW_H_
 
 #include <gctypes.h>
 #include <unistd.h>
 
 #include "libwiigui/gui.h"
+#include "Memory/Resources.h"
 
-#define PositionY   19
-#define FontSize    17
+#define CREDITENTRIES       10
 
-enum {
-    SD = 0,
-    USB,
-    NTFS0,
-    NTFS1,
-    NTFS2,
-    NTFS3,
-    NTFS4,
-    SMB1,
-    SMB2,
-    SMB3,
-    SMB4,
-    DVD,
-//	ISFS,
-//	NAND,
-    MAXDEVICES
-};
-
-
-const char DeviceName[MAXDEVICES][6] =
-{
-    "sd",
-    "usb",
-    "ntfs0",
-    "ntfs1",
-    "ntfs2",
-    "ntfs3",
-    "ntfs4",
-    "smb1",
-    "smb2",
-    "smb3",
-    "smb4",
-    "dvd",
-};
-
-
-class DeviceMenu : public GuiWindow
+class CreditWindow : public GuiWindow
 {
     public:
-        DeviceMenu(int x, int y);
-        ~DeviceMenu();
+        CreditWindow();
+        ~CreditWindow();
         int GetChoice();
     private:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
-        int deviceCount;
-        int deviceSelection[MAXDEVICES];
-        int tile;
         int choice;
 
-        GuiImage * centerImg;
-        GuiImage * leftImg;
-        GuiImage * rightImg;
-        GuiImage * deviceImgs[MAXDEVICES];
-        GuiImage * deviceImgOver[MAXDEVICES];
+        GuiImage * dialogBoxImg;
+        GuiImage * arrowUpImg;
+        GuiImage * arrowUpImgOver;
 
-        GuiImageData * device_choose_right_Data;
-        GuiImageData * device_choose_left_Data;
-        GuiImageData * device_choose_center_Data;
-        GuiImageData * menu_select;
-        GuiImageData * sd_ImgData;
-        GuiImageData * usb_ImgData;
-        GuiImageData * smb_ImgData;
-        GuiImageData * dvd_ImgData;
+        GuiImageData * dialogBox;
+        GuiImageData * arrowUp;
+        GuiImageData * arrowUpOver;
 
         GuiSound * btnClick;
 
-        GuiText * deviceText[MAXDEVICES];
+        GuiText * RevNum;
+        GuiText * Entrie[CREDITENTRIES];
 
-        GuiButton * NoBtn;
-        GuiButton * deviceBtn[MAXDEVICES];
+        GuiButton * Backbtn;
 
         GuiTrigger * trigA;
         GuiTrigger * trigB;

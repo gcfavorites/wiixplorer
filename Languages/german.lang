@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 01:24+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr "Verzeichnis erfolgreich entpackt."
 msgid "Fontpath changed"
 msgstr "Schriftartenverzeichnis gewechselt"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Zurück"
 
 msgid "Host:"
 msgstr "Host:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Bildbetrachter"
@@ -330,21 +336,6 @@ msgstr "Verschiebe Dateien:"
 
 msgid "Music Volume"
 msgstr "Lautstärke"
-
-msgid "NTFS0"
-msgstr "NTFS0"
-
-msgid "NTFS1"
-msgstr "NTFS1"
-
-msgid "NTFS2"
-msgstr "NTFS2"
-
-msgid "NTFS3"
-msgstr "NTFS3"
-
-msgid "NTFS4"
-msgstr "NTFS4"
 
 msgid "Name already exists."
 msgstr "Name existiert bereits."
@@ -431,9 +422,6 @@ msgstr "Anwendung neustarten um Schrift zu laden."
 msgid "Retry"
 msgstr "Wiederholen"
 
-msgid "SD"
-msgstr "SD"
-
 msgid "SMB Name:"
 msgstr "SMB Name:"
 
@@ -443,20 +431,11 @@ msgstr "SMB Einstellungen"
 msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
 
-msgid "SMB1"
-msgstr "SMB1"
-
-msgid "SMB2"
-msgstr "SMB2"
-
-msgid "SMB3"
-msgstr "SMB3"
-
-msgid "SMB4"
-msgstr "SMB4"
-
 msgid "Shift"
 msgstr "Shift"
+
+msgid "Show Changelog"
+msgstr ""
 
 msgid "Size:"
 msgstr "Größe:"
@@ -481,9 +460,6 @@ msgstr "Übertrage Dateien:"
 
 msgid "URL is empty."
 msgstr "URL ist leer."
-
-msgid "USB"
-msgstr "USB"
 
 msgid "Unable to create folder."
 msgstr "Verzeichnis konnte nicht erstellt werden."
@@ -532,8 +508,44 @@ msgstr "Lesen/schreiben aus/in dieselbe Datei nicht möglich."
 msgid "You cant use this operation on:"
 msgstr "Aktion kann nicht auf folgendes angewendet werden:"
 
+msgid "and all the translators."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "für seine großartige LibWiiGui."
+
+#~ msgid "NTFS0"
+#~ msgstr "NTFS0"
+
+#~ msgid "NTFS1"
+#~ msgstr "NTFS1"
+
+#~ msgid "NTFS2"
+#~ msgstr "NTFS2"
+
+#~ msgid "NTFS3"
+#~ msgstr "NTFS3"
+
+#~ msgid "NTFS4"
+#~ msgstr "NTFS4"
+
+#~ msgid "SD"
+#~ msgstr "SD"
+
+#~ msgid "SMB1"
+#~ msgstr "SMB1"
+
+#~ msgid "SMB2"
+#~ msgstr "SMB2"
+
+#~ msgid "SMB3"
+#~ msgstr "SMB3"
+
+#~ msgid "SMB4"
+#~ msgstr "SMB4"
+
+#~ msgid "USB"
+#~ msgstr "USB"
 
 #~ msgid "Failed to extract files."
 #~ msgstr "Dateien konnten nicht entpackt werden."

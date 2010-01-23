@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -293,11 +293,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Locatie lettertype gewijzigd"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Terug"
 
 msgid "Host:"
 msgstr "Gastheer:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "ImageViewer"
@@ -331,21 +337,6 @@ msgstr "Bestanden verplaatsen:"
 
 msgid "Music Volume"
 msgstr "Muziekvolume"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Naam bestaat al."
@@ -432,9 +423,6 @@ msgstr "Herstart dit programma om het lettertype te wijzigen."
 msgid "Retry"
 msgstr "Opnieuw prob."
 
-msgid "SD"
-msgstr "SD"
-
 msgid "SMB Name:"
 msgstr "SMB naam:"
 
@@ -444,19 +432,10 @@ msgstr "SMB opties"
 msgid "SMB is connecting..."
 msgstr "Verbinden SMB..."
 
-msgid "SMB1"
-msgstr "SMB1"
-
-msgid "SMB2"
-msgstr "SMB2"
-
-msgid "SMB3"
-msgstr "SMB3"
-
-msgid "SMB4"
-msgstr "SMB4"
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -482,9 +461,6 @@ msgstr "Bestanden Overplaatsen:"
 
 msgid "URL is empty."
 msgstr ""
-
-msgid "USB"
-msgstr "USB"
 
 msgid "Unable to create folder."
 msgstr "Kan map niet aanmaken."
@@ -533,8 +509,29 @@ msgstr "Je kan niet lezen/schrijven van/naar hetzelfde bestand."
 msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
+msgid "and all the translators."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+#~ msgid "SD"
+#~ msgstr "SD"
+
+#~ msgid "SMB1"
+#~ msgstr "SMB1"
+
+#~ msgid "SMB2"
+#~ msgstr "SMB2"
+
+#~ msgid "SMB3"
+#~ msgstr "SMB3"
+
+#~ msgid "SMB4"
+#~ msgstr "SMB4"
+
+#~ msgid "USB"
+#~ msgstr "USB"
 
 #~ msgid "Failed to extract files."
 #~ msgstr "Uitpakken gefaald."
