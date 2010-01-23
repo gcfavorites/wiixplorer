@@ -14,5 +14,6 @@ void Sys_BackToLoader(void);
 int Sys_IosReload(int IOS);
 s32  Sys_GetCerts(signed_blob **, u32 *);
 void ExitApp();
+bool IsFromHBC();
 
 #endif

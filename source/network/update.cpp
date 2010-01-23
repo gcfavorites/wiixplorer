@@ -142,7 +142,8 @@ int CheckForUpdate()
             {
                 ChangeLog Changelog;
                 Changelog.DownloadChangeLog(revnumber-5, revnumber);
-                Changelog.Show();
+                if(!Changelog.Show())
+                    WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
             }
         }
     }

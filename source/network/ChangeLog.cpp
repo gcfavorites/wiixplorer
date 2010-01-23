@@ -180,6 +180,8 @@ bool ChangeLog::DownloadChangeLog(int fromRev, int tillRev, bool backwards)
 
     char writepath[MAXPATHLEN];
     snprintf(writepath, sizeof(writepath), "%sChangeLog.txt", Settings.UpdatePath);
+    CreateSubfolder(Settings.UpdatePath);
+
     FILE * f = fopen(writepath, "wb");
     if(!f)
         return false;

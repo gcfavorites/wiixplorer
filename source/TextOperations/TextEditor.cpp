@@ -307,6 +307,9 @@ void TextEditor::DisableTriggerUpdate(bool set)
 void TextEditor::WriteTextFile(const char * path)
 {
     FILE * f = fopen(path, "wb");
+    if(!f)
+        return;
+
     fwrite(MainFileTxt->GetOrigText(), 1, strlen(MainFileTxt->GetOrigText())+1, f);
     fclose(f);
 }

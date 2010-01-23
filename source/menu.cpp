@@ -433,7 +433,8 @@ static int MenuSettings()
                 if(choice == 0)
                 {
                     ChangeLog Changelog;
-                    Changelog.Show();
+                    if(!Changelog.Show())
+                        WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
                 }
             }
 		    updateBtn.ResetState();
