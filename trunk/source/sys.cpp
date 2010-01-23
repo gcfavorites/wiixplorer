@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ogcsys.h>
 #include <gccore.h>
+#include <string.h>
 #include <stdlib.h>
 #include <wiiuse/wpad.h>
 
@@ -101,11 +102,25 @@ void Sys_LoadMenu(void)
 
 void Sys_BackToLoader(void)
 {
-	if (*((u32*) 0x80001800))
+	if (IsFromHBC())
 	{
 		ExitApp();
 		exit(0);
 	}
 	// Channel Version
 	Sys_LoadMenu();
+}
+
+bool IsFromHBC()
+{
+    if(!(*((u32*) 0x80001800)))
+        return false;
+
+    char * signature = (char *) 0x80001804;
+    if(strncmp(signature, "STUBHAXX", 8) == 0)
+    {
+        return true;
+    }
+
+    return false;
 }

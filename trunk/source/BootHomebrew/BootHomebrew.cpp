@@ -9,36 +9,16 @@
 #include "network/networkops.h"
 #include "devicemounter.h"
 #include "dolloader.h"
-#include "elfloader.h"
 
-static u8 *homebrewbuffer = (u8 *)0x92000000;
+extern const u8		app_booter_dol[];
+extern const u32	app_booter_dol_size;
+
+static u8 *homebrewbuffer = (u8 *) 0x92000000;
 static u32 homebrewsize = 0;
-
 
 int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
 {
-    if(homebrewbuffer == (u8 *)0x92000000)
-    {
-        homebrewbuffer = (u8 *) malloc(len);
-        homebrewsize = len;
-    }
-    else
-    {
-        homebrewsize += len;
-        u8 *tempbuffer = (u8 *) realloc(homebrewbuffer, homebrewsize);
-        if(!tempbuffer)
-        {
-            if(homebrewbuffer) {
-                free(homebrewbuffer);
-                homebrewbuffer = (u8 *)0x92000000;
-            }
-            homebrewsize = 0;
-            return -1;
-        } else {
-            homebrewbuffer = tempbuffer;
-        }
-    }
-
+    homebrewsize += len;
     memcpy((homebrewbuffer)+pos, temp, len);
 
     return 1;
@@ -46,28 +26,32 @@ int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
 
 void FreeHomebrewBuffer()
 {
-    if(homebrewbuffer)
-    {
-        free(homebrewbuffer);
-        homebrewbuffer = (u8 *)0x92000000;
-    }
+    homebrewbuffer = (u8 *)0x92000000;
+    homebrewsize = 0;
 }
 
-int BootHomebrew(const char *path, const char * filereference) {
+int BootHomebrew(const char *path, const char * filereference)
+{
+    if(homebrewsize == 0)
+        return -1;
 
     entrypoint entry;
     u32 cpu_isr;
 
-    if (homebrewbuffer == (u8 *)0x92000000 || homebrewsize == 0) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+    u8 * buffer = (u8*) malloc(app_booter_dol_size);
+    if(!buffer)
+        return -1;
+
+    memcpy(buffer, app_booter_dol, app_booter_dol_size);
 
     struct __argv args;
     bzero(&args, sizeof(args));
     args.argvMagic = ARGV_MAGIC;
     u32 stringlength = strlen(path) + (filereference ? (strlen(filereference)+1) : 0) + 2;
     args.length = stringlength;
-    args.commandLine = (char*)malloc(args.length);
+    args.commandLine = (char*) malloc(args.length);
     if (!args.commandLine)
-        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+        return -1;
     sprintf(args.commandLine, "%s", path);
     if(filereference)
     {
@@ -80,16 +64,13 @@ int BootHomebrew(const char *path, const char * filereference) {
     args.argv = &args.commandLine;
     args.endARGV = args.argv + 1;
 
-    int ret = valid_elf_image(homebrewbuffer);
-    if (ret == 1)
-        entry = (entrypoint) load_elf_image(homebrewbuffer);
-    else
-        entry = (entrypoint) load_dol(homebrewbuffer, &args);
+    entry = (entrypoint) load_dol(buffer, &args);
 
-    FreeHomebrewBuffer();
+    if(buffer)
+        free(buffer);
 
     if (!entry)
-        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+        return -1;
 
     SYS_ResetSystem(SYS_SHUTDOWN, 0, 0);
     _CPU_ISR_Disable (cpu_isr);

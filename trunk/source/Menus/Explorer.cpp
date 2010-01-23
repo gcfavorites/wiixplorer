@@ -335,7 +335,7 @@ void Explorer::CheckBrowserChanges()
             if(result == BOOTHOMEBREW)
             {
                 boothomebrew = true;
-                snprintf(Clipboard.filename, sizeof(Clipboard.filename), "%s", filepath);
+                snprintf(Clipboard.filepath, sizeof(Clipboard.filepath), "%s", filepath);
                 menu = MENU_EXIT;
             }
             else if(result == ARCHIVE)

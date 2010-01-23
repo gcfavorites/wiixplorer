@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 00:34+0100\n"
+"POT-Creation-Date: 2010-01-23 15:13+0100\n"
 "PO-Revision-Date: 2009-11-23 18:02-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -236,6 +236,9 @@ msgstr ""
 
 msgid "Failed renaming file"
 msgstr "Falha ao renomear ficheiro"
+
+msgid "Failed to get the Changelog."
+msgstr ""
 
 msgid "Failed to read file data."
 msgstr ""

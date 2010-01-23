@@ -75,5 +75,9 @@ int main(int argc, char *argv[])
 
 	MainWindow::Instance()->Show();
 
+	/* Return to the Wii system menu  if not from HBC*/
+    if(!IsFromHBC())
+        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+
 	return 0;
 }

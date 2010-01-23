@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 00:34+0100\n"
+"POT-Creation-Date: 2010-01-23 15:13+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -236,6 +236,9 @@ msgstr "Errore nella estrazione della cartella."
 
 msgid "Failed renaming file"
 msgstr "Errore nella ridenominazione del file"
+
+msgid "Failed to get the Changelog."
+msgstr ""
 
 msgid "Failed to read file data."
 msgstr "Errore nella lettura del file dati."

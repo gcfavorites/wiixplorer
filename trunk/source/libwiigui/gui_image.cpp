@@ -278,7 +278,7 @@ void GuiImage::Draw()
 		if(scale != 1)
 			currLeft = currLeft - width/2 + (width*scale)/2;
 
-		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, ((widescreen) ? (currScale*0.9f) : currScale), currScale, this->GetAlpha());
+		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, ((widescreen) ? (currScale*screenwidth/VI_MAX_WIDTH_PAL) : currScale), currScale, this->GetAlpha());
 	}
 
 	if(stripe > 0)
