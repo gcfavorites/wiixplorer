@@ -77,16 +77,12 @@ MainWindow::MainWindow()
 	bgMusic->SetLoop(1);
 	bgMusic->Play(); // startup music
 
-	#ifdef HW_RVL
 	pointer[0] = Resources::GetImageData(player1_point_png, player1_point_png_size);
 	pointer[1] = Resources::GetImageData(player2_point_png, player2_point_png_size);
 	pointer[2] = Resources::GetImageData(player3_point_png, player3_point_png_size);
 	pointer[3] = Resources::GetImageData(player4_point_png, player4_point_png_size);
-	#endif
 
 	Append(Taskbar::Instance());
-
-    Taskbar::Instance()->SetFocus(0);
 }
 
 MainWindow::~MainWindow()
@@ -250,7 +246,8 @@ void MainWindow::ChangeVolume(int v)
 void MainWindow::LoadMusic(const u8 * file, u32 filesize, int mode)
 {
     ///Stop and remove old music
-    if(bgMusic) {
+    if(bgMusic)
+    {
         delete bgMusic;
         bgMusic = NULL;
     }
