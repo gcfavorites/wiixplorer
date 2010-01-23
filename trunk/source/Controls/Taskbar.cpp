@@ -39,7 +39,7 @@ extern u8 reset;
 Taskbar *Taskbar::instance = NULL;
 
 Taskbar::Taskbar()
-	: GuiWindow(screenwidth, 32)
+	: GuiWindow(0, 0)
 {
     menu = MENU_NONE;
 
@@ -51,9 +51,6 @@ Taskbar::Taskbar()
 
 	width = taskbarImg->GetWidth();
 	height = taskbarImg->GetHeight();
-
-	SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	SetPosition(0, -15);
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
 	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
@@ -78,15 +75,18 @@ Taskbar::Taskbar()
 
 	if(widescreen)
 	{
-	    timeTxt->SetPosition(493, 0);
-	    settingsBtn->SetPosition(125, 0);
-	    exitBtn->SetPosition(444, 0);
+	    timeTxt->SetPosition(517, 0);
+	    settingsBtn->SetPosition(108, 0);
+	    exitBtn->SetPosition(465, 0);
 	}
 
 	Append(taskbarImg);
 	Append(timeTxt);
 	Append(settingsBtn);
 	Append(exitBtn);
+
+	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	SetPosition(0, -15);
 }
 
 Taskbar::~Taskbar()
@@ -146,9 +146,6 @@ void Taskbar::Draw()
 
 void Taskbar::Update(GuiTrigger * t)
 {
-    //if(shutdown)
-        //MainWindow::Instance()->Quit();
-
 	if(_elements.size() == 0 || state == STATE_DISABLED)
 		return;
 
@@ -162,7 +159,6 @@ void Taskbar::Update(GuiTrigger * t)
 void Taskbar::ResetState()
 {
     menu = MENU_NONE;
-    GuiWindow::ResetState();
 }
 
 int Taskbar::GetMenu()
@@ -172,10 +168,12 @@ int Taskbar::GetMenu()
 
 void Taskbar::OnExitClick(GuiElement *sender, int pointer, POINT p)
 {
+    sender->ResetState();
 	menu = MENU_EXIT;
 }
 
 void Taskbar::OnSettingsClick(GuiElement *sender, int pointer, POINT p)
 {
+    sender->ResetState();
 	menu = MENU_SETTINGS;
 }
