@@ -67,8 +67,8 @@ Explorer::Explorer(int device)
 
     Browser = new FileBrowser();
 
-    this->LoadDevice(device);
     this->Setup();
+    this->LoadDevice(device);
 }
 
 Explorer::Explorer(const char *path)
@@ -79,8 +79,8 @@ Explorer::Explorer(const char *path)
 
     Browser = new FileBrowser();
 
-    this->LoadPath(path);
     this->Setup();
+    this->LoadPath(path);
 }
 
 Explorer::~Explorer()
@@ -103,6 +103,7 @@ Explorer::~Explorer()
     Resources::Remove(sdstorage);
     Resources::Remove(usbstorage);
     Resources::Remove(networkstorage);
+    Resources::Remove(dvd_ImgData);
 
     delete BackgroundImg;
     delete creditsImg;
@@ -120,6 +121,13 @@ Explorer::~Explorer()
     delete trigPlus;
     delete trigMinus;
 
+    if(Credits)
+        delete Credits;
+    if(Device_Menu)
+        delete Device_Menu;
+    if(RightClick)
+        delete RightClick;
+
     delete fileBrowser;
     if(ArcBrowser)
         delete ArcBrowser;
@@ -131,7 +139,7 @@ void Explorer::Setup()
     Device_Menu = NULL;
     RightClick = NULL;
     ArcBrowser = NULL;
-    CreditsPressed = false;
+    Credits = NULL;
 
 	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	SetPosition(28, 50);
@@ -152,7 +160,7 @@ void Explorer::Setup()
 	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
 	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
 	networkstorage = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
-//	isfsstorage = Resources::GetImageData(isfsstorage_png, isfsstorage_png_size);
+    dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
 
     width = Background->GetWidth();
     height = Background->GetHeight();
@@ -174,11 +182,6 @@ void Explorer::Setup()
 
 	deviceImg = new GuiImage(sdstorage);
 
-	if(currentDevice > SD && currentDevice < SMB1)
-        deviceImg->SetImage(usbstorage);
-    else if(currentDevice >= SMB1)
-        deviceImg->SetImage(networkstorage);
-
 	deviceSwitchBtn = new GuiButton(deviceImg->GetWidth(), deviceImg->GetHeight());
 	deviceSwitchBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	deviceSwitchBtn->SetPosition(fileBrowser->GetLeft()+20, fileBrowser->GetTop()-38);
@@ -189,9 +192,7 @@ void Explorer::Setup()
 	deviceSwitchBtn->SetEffectGrow();
     deviceSwitchBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
-	char currentdir[50];
-    snprintf(currentdir, sizeof(currentdir), "%s", Browser->GetCurrentPath());
-    AdressText = new GuiText(currentdir, 20, (GXColor) {0, 0, 0, 255});
+    AdressText = new GuiText(NULL, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
 	AdressText->SetMaxWidth(Address->GetWidth()-40, SCROLL_HORIZONTAL);
@@ -235,6 +236,9 @@ int Explorer::LoadPath(const char * path)
 		else
 			return -2;
 	}
+
+    AdressText->SetText(Browser->GetCurrentPath());
+	SetDeviceImage();
 	return filecount;
 }
 int Explorer::LoadDevice(int device)
@@ -247,7 +251,8 @@ int Explorer::LoadDevice(int device)
 		tr("Retry"),
 		tr("Close"));
 
-		if(choice) {
+		if(choice)
+		{
             SDCard_Init();
             USBDevice_Init();
 			return LoadDevice(device);
@@ -255,7 +260,32 @@ int Explorer::LoadDevice(int device)
 		else
 			return -2;
 	}
+
+    AdressText->SetText(Browser->GetCurrentPath());
+	SetDeviceImage();
 	return filecount;
+}
+
+void Explorer::SetDeviceImage()
+{
+    const char * currentroot = Browser->GetRootDir();
+    if(strncmp(currentroot, DeviceName[SD], 2) == 0)
+    {
+        deviceImg->SetImage(sdstorage);
+    }
+    else if(strncmp(currentroot, DeviceName[USB], 3) == 0 ||
+            strncmp(currentroot, DeviceName[NTFS0], 4) == 0)
+    {
+        deviceImg->SetImage(usbstorage);
+    }
+    else if(strncmp(currentroot, DeviceName[SMB1], 3) == 0)
+    {
+        deviceImg->SetImage(networkstorage);
+    }
+    else if(strncmp(currentroot, DeviceName[DVD], 3) == 0)
+    {
+        deviceImg->SetImage(dvd_ImgData);
+    }
 }
 
 int Explorer::GetMenuChoice()
@@ -263,14 +293,8 @@ int Explorer::GetMenuChoice()
     CheckBrowserChanges();
     CheckDeviceMenu();
     CheckRightClick();
+    ShowCredits(Credits);
 
-    ///* Temporary till the Credits is a class *//
-    if(CreditsPressed)
-    {
-        CreditsPressed = false;
-        CreditsWindow();
-        MainWindow::Instance()->ChangeFocus(this);
-    }
 	return menu;
 }
 
@@ -291,7 +315,7 @@ void Explorer::CheckBrowserChanges()
             {
                 fileBrowser->fileList[0]->SetState(STATE_SELECTED);
                 fileBrowser->TriggerUpdate();
-                AdressText->SetTextf("%s", Browser->GetCurrentPath());
+                AdressText->SetText(Browser->GetCurrentPath());
             }
             else
             {
@@ -325,7 +349,6 @@ void Explorer::CheckBrowserChanges()
                 Browser->ParseDirectory();
                 fileBrowser->TriggerUpdate();
             }
-            MainWindow::Instance()->ChangeFocus(this);
         }
     }
 }
@@ -369,7 +392,6 @@ void Explorer::CheckDeviceMenu()
         }
         SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
-        MainWindow::Instance()->ChangeFocus(this);
     }
 }
 
@@ -405,7 +427,6 @@ void Explorer::CheckRightClick()
                 Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
                 MainWindow::Instance()->SetDim(true);
                 MainWindow::Instance()->Append(Prompt);
-                MainWindow::Instance()->ChangeFocus(Prompt);
 
                 while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
 
@@ -427,7 +448,6 @@ void Explorer::CheckRightClick()
                 Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
                 MainWindow::Instance()->SetDim(true);
                 MainWindow::Instance()->Append(Prompt);
-                MainWindow::Instance()->ChangeFocus(Prompt);
 
                 while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
 
@@ -444,7 +464,6 @@ void Explorer::CheckRightClick()
         }
         this->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
-        MainWindow::Instance()->ChangeFocus(this);
     }
 }
 
@@ -454,7 +473,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 
     if(sender == CreditsBtn)
     {
-        CreditsPressed = true;
+        Credits = new CreditWindow();
     }
 
     else if(sender == deviceSwitchBtn)

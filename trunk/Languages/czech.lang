@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -293,11 +293,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Cesta k fontu změněna"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Jdi Zpět"
 
 msgid "Host:"
 msgstr "Hostitel:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr ""
@@ -331,21 +337,6 @@ msgstr "Přesouvám soubory:"
 
 msgid "Music Volume"
 msgstr "Hlasitost hudby"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Jméno již existuje."
@@ -432,9 +423,6 @@ msgstr "Spustit znovu aplikaci pro načtení nového fontu."
 msgid "Retry"
 msgstr "Opakovat"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "SMB Název:"
 
@@ -444,19 +432,10 @@ msgstr "SMB nastavení"
 msgid "SMB is connecting..."
 msgstr "SMB se připojuje ..."
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgid "Transfering files:"
 msgstr "Přenáším soubory:"
 
 msgid "URL is empty."
-msgstr ""
-
-msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
@@ -532,6 +508,9 @@ msgstr "Nelze číst/psát z/do samého souboru."
 
 msgid "You cant use this operation on:"
 msgstr "Nelze použít tuto operaci na:"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"

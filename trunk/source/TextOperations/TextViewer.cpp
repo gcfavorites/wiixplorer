@@ -23,7 +23,7 @@
  *
  * TextViewer.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #include <gctypes.h>
 #include <string.h>

@@ -33,6 +33,7 @@
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
 #include "http.h"
+#include "ChangeLog.h"
 #include "networkops.h"
 #include "update.h"
 #include "svnrev.h"
@@ -127,9 +128,23 @@ int CheckForUpdate()
     {
         char text[100];
         sprintf(text, tr("Update to Rev%i available"), revnumber);
-        int choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("No"));
-        if(choice)
-            UpdateApp(DownloadLink);
+        int choice = 1;
+        while(choice)
+        {
+            choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("Show Changelog"), tr("Cancel"));
+
+            if(choice == 1)
+            {
+                UpdateApp(DownloadLink);
+                break;
+            }
+            else if(choice == 2)
+            {
+                ChangeLog Changelog;
+                Changelog.DownloadChangeLog(revnumber-5, revnumber);
+                Changelog.Show();
+            }
+        }
     }
     else
     {

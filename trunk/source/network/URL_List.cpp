@@ -49,7 +49,6 @@ URL_List::URL_List(const char * url)
 
     if (!file.data || !file.size)
     {
-        exit(0);
         urlcount = -2;
         return;
     }

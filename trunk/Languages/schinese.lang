@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr "文件夹成功提取。"
 msgid "Fontpath changed"
 msgstr "字体路径已改变"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "返回"
 
 msgid "Host:"
 msgstr "主机："
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "图片查看器"
@@ -330,21 +336,6 @@ msgstr "正在移动文件："
 
 msgid "Music Volume"
 msgstr "音乐音量"
-
-msgid "NTFS0"
-msgstr "NTFS零分区"
-
-msgid "NTFS1"
-msgstr "NTFS一分区"
-
-msgid "NTFS2"
-msgstr "NTFS二分区"
-
-msgid "NTFS3"
-msgstr "NTFS三分区"
-
-msgid "NTFS4"
-msgstr "NTFS四分区"
 
 msgid "Name already exists."
 msgstr "文件名已经存在。"
@@ -431,9 +422,6 @@ msgstr "复位程序读取新字体"
 msgid "Retry"
 msgstr "重试"
 
-msgid "SD"
-msgstr "SD卡"
-
 msgid "SMB Name:"
 msgstr "网络共享名"
 
@@ -443,20 +431,11 @@ msgstr "网络共享设置"
 msgid "SMB is connecting..."
 msgstr "正在连接网络共享"
 
-msgid "SMB1"
-msgstr "共享一"
-
-msgid "SMB2"
-msgstr "共享二"
-
-msgid "SMB3"
-msgstr "共享三"
-
-msgid "SMB4"
-msgstr "共享四"
-
 msgid "Shift"
 msgstr "Shift键"
+
+msgid "Show Changelog"
+msgstr ""
 
 msgid "Size:"
 msgstr "尺寸："
@@ -481,9 +460,6 @@ msgstr "文件传输中："
 
 msgid "URL is empty."
 msgstr "URL是空"
-
-msgid "USB"
-msgstr "USB设置"
 
 msgid "Unable to create folder."
 msgstr "不能建立文件夹"
@@ -532,8 +508,44 @@ msgstr "无法读取相当文件。"
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
+msgid "and all the translators."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "NTFS0"
+#~ msgstr "NTFS零分区"
+
+#~ msgid "NTFS1"
+#~ msgstr "NTFS一分区"
+
+#~ msgid "NTFS2"
+#~ msgstr "NTFS二分区"
+
+#~ msgid "NTFS3"
+#~ msgstr "NTFS三分区"
+
+#~ msgid "NTFS4"
+#~ msgstr "NTFS四分区"
+
+#~ msgid "SD"
+#~ msgstr "SD卡"
+
+#~ msgid "SMB1"
+#~ msgstr "共享一"
+
+#~ msgid "SMB2"
+#~ msgstr "共享二"
+
+#~ msgid "SMB3"
+#~ msgstr "共享三"
+
+#~ msgid "SMB4"
+#~ msgstr "共享四"
+
+#~ msgid "USB"
+#~ msgstr "USB设置"
 
 #~ msgid "Failed to extract files."
 #~ msgstr "提取文件失败"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "字型路徑已變更"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "返回"
 
 msgid "Host:"
 msgstr "主機:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "圖片瀏覽"
@@ -330,21 +336,6 @@ msgstr "正在移動檔案:"
 
 msgid "Music Volume"
 msgstr "音樂音量"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr "NTFS4"
 
 msgid "Name already exists."
 msgstr "名稱已存在"
@@ -431,9 +422,6 @@ msgstr "重新啟動程式以載入新字型"
 msgid "Retry"
 msgstr "重試"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "區域網路名稱:"
 
@@ -443,20 +431,11 @@ msgstr "區域網路設定"
 msgid "SMB is connecting..."
 msgstr "正在連接區域網路..."
 
-msgid "SMB1"
-msgstr "區域網路1"
-
-msgid "SMB2"
-msgstr "區域網路2"
-
-msgid "SMB3"
-msgstr "區域網路3"
-
-msgid "SMB4"
-msgstr "區域網路4"
-
 msgid "Shift"
 msgstr "Shift鍵"
+
+msgid "Show Changelog"
+msgstr ""
 
 msgid "Size:"
 msgstr "檔案大小:"
@@ -480,9 +459,6 @@ msgid "Transfering files:"
 msgstr "正在傳輸檔案:"
 
 msgid "URL is empty."
-msgstr ""
-
-msgid "USB"
 msgstr ""
 
 msgid "Unable to create folder."
@@ -532,8 +508,26 @@ msgstr "無法讀/寫相同檔案"
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在:"
 
+msgid "and all the translators."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
+
+#~ msgid "NTFS4"
+#~ msgstr "NTFS4"
+
+#~ msgid "SMB1"
+#~ msgstr "區域網路1"
+
+#~ msgid "SMB2"
+#~ msgstr "區域網路2"
+
+#~ msgid "SMB3"
+#~ msgstr "區域網路3"
+
+#~ msgid "SMB4"
+#~ msgstr "區域網路4"
 
 #~ msgid "Failed to extract files."
 #~ msgstr "輸出檔案失敗"

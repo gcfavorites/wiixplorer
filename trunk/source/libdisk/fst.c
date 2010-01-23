@@ -722,6 +722,7 @@ static bool read_disc() {
                 if (DI2_Read(read_buffer, sizeof(FST_INFO), 0x420 >> 2)) goto error;
                 memcpy(&partition->fst_info, read_buffer, sizeof(FST_INFO));
 
+                if (!(add_child_entry(meta_entry, "..")->flags = FLAG_DIR)) goto error;
                 if (!add_header_entry(meta_entry)) goto error;
                 if (!add_appldr_entry(meta_entry)) goto error;
                 if (partition->fst_info.dol_offset) {

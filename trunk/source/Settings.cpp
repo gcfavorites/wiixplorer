@@ -42,6 +42,7 @@
 
 Settings::Settings()
 {
+    strcpy(BootDevice, "sd:/");
     this->SetDefault();
 }
 
@@ -55,10 +56,9 @@ void Settings::SetDefault()
     MountNTFS = off;
     CurrentUser = 0;
     AutoConnect = off;
-    strcpy(BootDevice, "sd:/");
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
-    strcpy(LanguagePath, "");
-    strcpy(UpdatePath, DEFAULT_APP_PATH);
+    sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
+    sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -147,6 +147,8 @@ bool Settings::Load(int argc, char *argv[])
         else
             strcpy(BootDevice, "usb:/");
     }
+
+    SetDefault();
 
     return Load();
 }

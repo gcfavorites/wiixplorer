@@ -35,6 +35,7 @@
 #include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/RightClickMenu.h"
+#include "Prompts/CreditWindow.h"
 #include "FileOperations/filebrowser.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
 
@@ -50,16 +51,16 @@ class Explorer : public GuiWindow
         int LoadDevice(int device);
         int GetMenuChoice();
         void SetState(int s);
-    private:
+    protected:
 		void ArchiveChanges();
 		void CheckBrowserChanges();
 		void CheckDeviceMenu();
 		void CheckRightClick();
+        void SetDeviceImage();
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int menu;
         int currentDevice;
-        bool CreditsPressed;
         u32 filecount;
 
         FileBrowser * Browser;
@@ -68,6 +69,7 @@ class Explorer : public GuiWindow
 
         DeviceMenu * Device_Menu;
         RightClickMenu * RightClick;
+        CreditWindow * Credits;
 
         GuiImage * BackgroundImg;
         GuiImage * creditsImg;
@@ -80,6 +82,7 @@ class Explorer : public GuiWindow
         GuiImageData * sdstorage;
         GuiImageData * usbstorage;
         GuiImageData * networkstorage;
+        GuiImageData * dvd_ImgData;
 
         GuiSound * btnSoundClick;
         GuiSound * btnSoundOver;

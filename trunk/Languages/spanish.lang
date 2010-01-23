@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -292,11 +292,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Fuente de ruta cambiada"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Atrás"
 
 msgid "Host:"
 msgstr "Host:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Visor de Imágenes"
@@ -330,21 +336,6 @@ msgstr "Moviendo archivos:"
 
 msgid "Music Volume"
 msgstr "Volumen de música"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Nombre ya existe."
@@ -431,9 +422,6 @@ msgstr "Reinicia la aplic. para cargar la nueva fuente."
 msgid "Retry"
 msgstr "Reintentar"
 
-msgid "SD"
-msgstr "SD"
-
 msgid "SMB Name:"
 msgstr "Nombre del SMB:"
 
@@ -443,19 +431,10 @@ msgstr "Configuración de SMB"
 msgid "SMB is connecting..."
 msgstr "SMB está conectando..."
 
-msgid "SMB1"
-msgstr "SMB1"
-
-msgid "SMB2"
-msgstr "SMB2"
-
-msgid "SMB3"
-msgstr "SMB3"
-
-msgid "SMB4"
-msgstr "SMB4"
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgstr "Transfiriendo archivos:"
 
 msgid "URL is empty."
 msgstr ""
-
-msgid "USB"
-msgstr "USB"
 
 msgid "Unable to create folder."
 msgstr "No se puede crear carpeta."
@@ -532,8 +508,29 @@ msgstr "No puedes leer/escribir desde/hacia el mismo archivo."
 msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
+msgid "and all the translators."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
+
+#~ msgid "SD"
+#~ msgstr "SD"
+
+#~ msgid "SMB1"
+#~ msgstr "SMB1"
+
+#~ msgid "SMB2"
+#~ msgstr "SMB2"
+
+#~ msgid "SMB3"
+#~ msgstr "SMB3"
+
+#~ msgid "SMB4"
+#~ msgstr "SMB4"
+
+#~ msgid "USB"
+#~ msgstr "USB"
 
 #~ msgid "Failed to extract files."
 #~ msgstr "Fallo al extraer archivo."

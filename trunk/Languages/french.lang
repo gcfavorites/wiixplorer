@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr "Dossier extrait avec succès."
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Retour"
 
 msgid "Host:"
 msgstr "Hébergeur:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Aperçu"
@@ -330,21 +336,6 @@ msgstr "Déplacement de:"
 
 msgid "Music Volume"
 msgstr "Volume"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Ce nom existe déjà."
@@ -431,9 +422,6 @@ msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 msgid "Retry"
 msgstr "Réessayer"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "Nom du SMB:"
 
@@ -443,19 +431,10 @@ msgstr "Paramètres SMB"
 msgid "SMB is connecting..."
 msgstr "Connexion SMB..."
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgstr "Transfert des fichiers:"
 
 msgid "URL is empty."
 msgstr "URL vide."
-
-msgid "USB"
-msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Impossible de créer le dossier."
@@ -531,6 +507,9 @@ msgstr "Lecture/écriture impossible depuis/vers le même fichier."
 
 msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."

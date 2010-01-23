@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -292,11 +292,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Sti til fonte ændret"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Tilbage"
 
 msgid "Host:"
 msgstr "Vært:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr ""
@@ -330,21 +336,6 @@ msgstr "Flytter filer:"
 
 msgid "Music Volume"
 msgstr "Musiklydstyrke"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "Navnet eksisterer allerede."
@@ -431,9 +422,6 @@ msgstr "Genstart programmet for at indlæse den ny font."
 msgid "Retry"
 msgstr "Forsøg igen"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "SMB-navn:"
 
@@ -443,19 +431,10 @@ msgstr "SMB-indstillinger"
 msgid "SMB is connecting..."
 msgstr "SMB forbinder..."
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgstr "Overfører filer:"
 
 msgid "URL is empty."
 msgstr "URL'en er tom."
-
-msgid "USB"
-msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Kan ikke oprette mappe."
@@ -531,6 +507,9 @@ msgstr "Du kan ikke læse/skrive til/fra samme fil."
 
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."

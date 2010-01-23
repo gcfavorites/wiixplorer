@@ -21,21 +21,26 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * for WiiXplorer 2009
+ * ChangeLog.h
+ *
+ * for WiiXplorer 2010
  ***************************************************************************/
+#ifndef _CHANGELOG_H_
+#define _CHANGELOG_H_
 
-#ifndef _PROMPTS_H_
-#define _PROMPTS_H_
-
-#include <gctypes.h>
-#include "PromptWindow.h"
-#include "CreditWindow.h"
-
-int OnScreenKeyboard(char * var, u16 maxlen);
-int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Label = NULL,
-                    const char *btn2Label = NULL, const char *btn3Label = NULL,
-                    const char *btn4Label = NULL);
-int WaitSMBConnect(void);
-void ShowCredits(CreditWindow *& Credits);
+class ChangeLog
+{
+    public:
+        ChangeLog();
+        ~ChangeLog();
+        //!Does all the checks and downloads
+        //!opens the ChangeLog.txt with TextViewer afterwards
+        bool Show();
+        int GetSavedChangeLogRev();
+        bool DownloadChangeLog(int fromRev, int tillRev, bool backwards = true);
+        //!Allocates memory that has to be freed afterwards
+        char * GetChangeLogRange(int fromRev, int tillRev, bool backwards = true);
+        char * GetChanges(int Rev);
+};
 
 #endif

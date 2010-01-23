@@ -80,7 +80,7 @@ DeviceMenu::DeviceMenu(int x, int y)
 
     if(SDCard_Inserted())
     {
-        deviceText[deviceCount] = new GuiText("sd", FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount] = new GuiText(DeviceName[SD], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
         deviceText[deviceCount]->SetPosition(0, 2);
         deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
@@ -105,7 +105,7 @@ DeviceMenu::DeviceMenu(int x, int y)
 
     if(USBDevice_Inserted())
     {
-        deviceText[deviceCount] = new GuiText("usb", FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount] = new GuiText(DeviceName[USB], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
         deviceText[deviceCount]->SetPosition(0, 2);
         deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
@@ -160,7 +160,7 @@ DeviceMenu::DeviceMenu(int x, int y)
         bool dvdmounted = DiskDrive_Mount();
         if(dvdmounted)
         {
-            deviceText[deviceCount] = new GuiText("dvd", FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
             deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
             deviceText[deviceCount]->SetPosition(0, 2);
             deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
@@ -188,8 +188,7 @@ DeviceMenu::DeviceMenu(int x, int y)
     {
         if(IsSMB_Mounted(i))
         {
-            sprintf(text, "smb%i", i+1);
-            deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount] = new GuiText(DeviceName[SMB1+i], FontSize, (GXColor){0, 0, 0, 255});
             deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
             deviceText[deviceCount]->SetPosition(0, 2);
             deviceImgs[deviceCount] = new GuiImage(smb_ImgData);

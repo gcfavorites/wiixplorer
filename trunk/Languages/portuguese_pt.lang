@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 10:56+0100\n"
+"POT-Creation-Date: 2010-01-23 00:34+0100\n"
 "PO-Revision-Date: 2009-11-23 18:02-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -292,11 +292,17 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Pasta de fonte alterada"
 
+msgid "Getting Changelog..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Voltar"
 
 msgid "Host:"
 msgstr "Servidor:"
+
+msgid "Image Viewer"
+msgstr ""
 
 msgid "ImageViewer"
 msgstr "Visualizador de Imagens"
@@ -330,21 +336,6 @@ msgstr "Movendo ficheiros:"
 
 msgid "Music Volume"
 msgstr "Volume da Música"
-
-msgid "NTFS0"
-msgstr ""
-
-msgid "NTFS1"
-msgstr ""
-
-msgid "NTFS2"
-msgstr ""
-
-msgid "NTFS3"
-msgstr ""
-
-msgid "NTFS4"
-msgstr ""
 
 msgid "Name already exists."
 msgstr "O nome já existe."
@@ -431,9 +422,6 @@ msgstr "Reinicie o aplicativo para activar a nova fonte."
 msgid "Retry"
 msgstr "Tentar novamente"
 
-msgid "SD"
-msgstr ""
-
 msgid "SMB Name:"
 msgstr "Nome SMB:"
 
@@ -443,19 +431,10 @@ msgstr "Configuração SMB"
 msgid "SMB is connecting..."
 msgstr "Ligando ao SMB..."
 
-msgid "SMB1"
-msgstr ""
-
-msgid "SMB2"
-msgstr ""
-
-msgid "SMB3"
-msgstr ""
-
-msgid "SMB4"
-msgstr ""
-
 msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
 msgstr ""
 
 msgid "Size:"
@@ -481,9 +460,6 @@ msgstr "Transferindo ficheiros:"
 
 msgid "URL is empty."
 msgstr "URL vazio"
-
-msgid "USB"
-msgstr ""
 
 msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
@@ -531,6 +507,9 @@ msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."
 
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
+
+msgid "and all the translators."
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."

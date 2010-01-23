@@ -43,6 +43,8 @@
 #define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga"
 #define MIN_IMAGE_WIDTH         4.0f
 #define MIN_IMAGE_HEIGHT        4.0f
+#define MAX_IMAGE_WIDTH         1024.0f
+#define MAX_IMAGE_HEIGHT        768.0f
 
 extern u8 shutdown;
 extern u8 reset;
@@ -240,13 +242,13 @@ void ImageViewer::SetImageSize(float scale)
 
     int retries = 100;
 
-    while(imgheight * newscale > height || imgwidth * newscale > width ||
+    while(imgheight * newscale > MAX_IMAGE_HEIGHT || imgwidth * newscale > MAX_IMAGE_WIDTH ||
           imgheight * newscale < MIN_IMAGE_HEIGHT ||  imgwidth * newscale < MIN_IMAGE_WIDTH)
     {
-        if(imgheight * newscale > height)
-            newscale = height/imgheight;
-        if(imgwidth * newscale > width)
-            newscale = width/imgwidth;
+        if(imgheight * newscale > MAX_IMAGE_HEIGHT)
+            newscale = MAX_IMAGE_HEIGHT/imgheight;
+        if(imgwidth * newscale > MAX_IMAGE_WIDTH)
+            newscale = MAX_IMAGE_WIDTH/imgwidth;
         if(imgheight * newscale < MIN_IMAGE_HEIGHT)
             newscale = MIN_IMAGE_HEIGHT/imgheight;
         if(imgwidth * newscale < MIN_IMAGE_WIDTH)
@@ -263,8 +265,8 @@ void ImageViewer::SetImageSize(float scale)
     if(newscale < 0.05f)
         newscale = 0.05f;
 
-    int PositionX = (int) (width/2.0f-imgwidth*newscale/2.0f);
-    int PositionY = (int) (height/2.0f-imgheight/2.0f);
+    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth*newscale/2.0f);
+    int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
     image->SetScale(newscale);
     image->SetPosition(PositionX, PositionY);
 }
@@ -307,7 +309,7 @@ void ImageViewer::StartSlideShow()
     if(backGround)
         delete backGround;
 
-	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 200});
+	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 255});
     Insert(backGround, 0);
 }
 

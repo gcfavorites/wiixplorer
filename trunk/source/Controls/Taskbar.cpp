@@ -43,14 +43,17 @@ Taskbar::Taskbar()
 {
     menu = MENU_NONE;
 
+    bool widescreen = CONF_GetAspectRatio() ? true : false;
+
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);
+	taskbarImg->SetWidescreen(widescreen);
 
 	width = taskbarImg->GetWidth();
 	height = taskbarImg->GetHeight();
 
 	SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	SetPosition(4, -15);
+	SetPosition(0, -15);
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
 	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
@@ -72,6 +75,13 @@ Taskbar::Taskbar()
 	exitBtn->SetPosition(490, 0);
 	exitBtn->SetTrigger(trigA);
 	exitBtn->Clicked.connect(this, &Taskbar::OnExitClick);
+
+	if(widescreen)
+	{
+	    timeTxt->SetPosition(493, 0);
+	    settingsBtn->SetPosition(125, 0);
+	    exitBtn->SetPosition(444, 0);
+	}
 
 	Append(taskbarImg);
 	Append(timeTxt);
@@ -139,7 +149,14 @@ void Taskbar::Update(GuiTrigger * t)
     //if(shutdown)
         //MainWindow::Instance()->Quit();
 
-    GuiWindow::Update(t);
+	if(_elements.size() == 0 || state == STATE_DISABLED)
+		return;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try	{ _elements.at(i)->Update(t); }
+		catch (const std::exception& e) { }
+	}
 }
 
 void Taskbar::ResetState()
