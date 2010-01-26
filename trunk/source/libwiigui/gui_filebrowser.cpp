@@ -197,7 +197,7 @@ GuiFileBrowser::~GuiFileBrowser()
 
 void GuiFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
 {
-state = STATE_CLICKED;
+    state = STATE_CLICKED;
 }
 
 void GuiFileBrowser::SetFocus(int f)

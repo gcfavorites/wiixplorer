@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 15:13+0100\n"
+"POT-Creation-Date: 2010-01-25 21:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Screemer and ilduderino\n"
 "Language-Team: \n"
@@ -89,6 +89,9 @@ msgstr "Kopiere Datei:"
 
 msgid "Copying files:"
 msgstr "Kopiere Dateien:"
+
+msgid "Could not connect to the network"
+msgstr ""
 
 msgid "Could not connect to the server."
 msgstr "Kann nicht mit dem Server verbinden."
@@ -469,6 +472,9 @@ msgstr "Verzeichnis konnte nicht erstellt werden."
 
 msgid "Unable to load path."
 msgstr "Konnte Pfad nicht öffnen."
+
+msgid "Unable to load the device."
+msgstr ""
 
 msgid "Update (App) Path"
 msgstr "Update (Programm) Pfad"

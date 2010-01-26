@@ -39,6 +39,7 @@
 #include "FileOperations/fileops.h"
 #include "FileOperations/filebrowser.h"
 #include "menu.h"
+#include "main.h"
 #include "filelist.h"
 #include "Language/gettext.h"
 #include "Controls/MainWindow.h"
@@ -178,20 +179,31 @@ int WaitSMBConnect(void)
 
     MainWindow::Instance()->Append(Prompt);
 
+    if(Settings.AutoConnect == off)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
+
     while(choice == -1)
     {
         VIDEO_WaitVSync();
+
+        choice = Prompt->GetChoice();
 
         if(IsNetworkInit())
         {
             Prompt->SetMessage(tr("SMB is connecting..."));
 
             for(int i = 0; i < 4; i++)
+            {
                 if(IsSMB_Mounted(i))
-                    choice = 1;
+                {
+                    choice = 2;
+                    break;
+                }
+            }
         }
-
-        choice = Prompt->GetChoice();
     }
 
     delete Prompt;

@@ -945,6 +945,11 @@ int DI2_ReadDiscID(uint64_t *id)
 	return(ret == 1)? 0 : -ret;
 }
 
+bool DI2_IsMotorRunning()
+{
+    return !motor_stopped;
+}
+
 bool diio_Startup()
 {
 	return true;

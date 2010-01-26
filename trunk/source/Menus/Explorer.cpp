@@ -247,7 +247,7 @@ int Explorer::LoadDevice(int device)
 	if(filecount < 0)
 	{
 		int choice = WindowPrompt(tr("Error"),
-		tr("Unable to load path."),
+		tr("Unable to load the device."),
 		tr("Retry"),
 		tr("Close"));
 
@@ -458,9 +458,12 @@ void Explorer::CheckRightClick()
             else if(RightClick_choice >= 0)
             {
                 ProcessChoice(Browser, RightClick_choice);
+                if(RightClick_choice >= PASTE)
+                {
+                    Browser->ParseDirectory();
+                    fileBrowser->TriggerUpdate();
+                }
             }
-            Browser->ParseDirectory();
-            fileBrowser->TriggerUpdate();
         }
         this->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);

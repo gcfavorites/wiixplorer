@@ -271,6 +271,31 @@ void ImageViewer::SetImageSize(float scale)
     image->SetPosition(PositionX, PositionY);
 }
 
+void ImageViewer::SetStartUpImageSize()
+{
+    if(!image)
+        return;
+
+    SetImageSize(1.0f);
+
+    float newscale = image->GetScale();
+
+    float imgwidth = (float) image->GetWidth() * 1.0f;
+    float imgheight = (float) image->GetHeight() * 1.0f;
+
+    while(imgheight * newscale > height || imgwidth * newscale > width)
+    {
+        newscale -= 0.01f;
+    }
+
+    if(newscale < 0.05f)
+        newscale = 0.05f;
+
+    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth*newscale/2.0f);
+    int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
+    image->SetScale(newscale);
+    image->SetPosition(PositionX, PositionY);
+}
 
 bool ImageViewer::NextImage(bool silent)
 {
@@ -432,7 +457,7 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	image = new GuiImage(imageData);
 
     //!Set original size first if not over the limits
-    SetImageSize(1.0f);
+    SetStartUpImageSize();
 
     //!Insert after background image and before Buttons
 	Insert(image, 1);
