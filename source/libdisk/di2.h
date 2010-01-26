@@ -88,6 +88,7 @@ int DI2_ClosePartition(void);
 
 void DI2_SetDVDMotorStopSecs(int secs);
 unsigned int DI2_GetDVDMotorStopSecs(void);
+bool DI2_IsMotorRunning();
 
 #ifdef __cplusplus
 	}

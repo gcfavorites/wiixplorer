@@ -157,31 +157,27 @@ DeviceMenu::DeviceMenu(int x, int y)
 
     if(Disk_Inserted())
     {
-        bool dvdmounted = DiskDrive_Mount();
-        if(dvdmounted)
-        {
-            deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
-            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-            deviceText[deviceCount]->SetPosition(0, 2);
-            deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
-            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-            deviceImgOver[deviceCount] = new GuiImage(menu_select);
-            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-            deviceBtn[deviceCount]->SetSoundClick(btnClick);
-            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-            deviceBtn[deviceCount]->SetTrigger(trigA);
-            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+        deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = DVD;
+        deviceSelection[deviceCount] = DVD;
 
-            deviceCount++;
-        }
+        deviceCount++;
     }
 
     for(int i = 0; i < 4; i++)
@@ -211,26 +207,6 @@ DeviceMenu::DeviceMenu(int x, int y)
             deviceCount++;
         }
     }
-/*
-	deviceText[deviceCount] = new GuiText("nand", FontSize, (GXColor){0, 0, 0, 255});
-	deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	deviceText[deviceCount]->SetPosition(0, 2);
-	deviceImgs[deviceCount] = new GuiImage(&nand_ImgData);
-	deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	deviceImgOver[deviceCount] = new GuiImage(&menu_select);
-	deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-	deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-	deviceBtn[deviceCount]->SetSoundClick(&btnClick);
-	deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-	deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-	deviceBtn[deviceCount]->SetTrigger(&trigA);
-	deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-	PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-	deviceSelection[deviceCount] = NAND;
-	deviceCount++;
-*/
 
     //! Set image position and tile
     tile = (PositionX-leftImg->GetWidth())/centerImg->GetWidth();
@@ -341,6 +317,9 @@ void DeviceMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
         if(sender == deviceBtn[i])
         {
             choice = deviceSelection[i];
+
+            if(deviceSelection[i] == DVD)
+                DiskDrive_Mount();
             break;
         }
     }

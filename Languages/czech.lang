@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 15:13+0100\n"
+"POT-Creation-Date: 2010-01-25 21:28+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -90,6 +90,9 @@ msgstr "Kopíruji soubor:"
 
 msgid "Copying files:"
 msgstr "Kopíruji soubory:"
+
+msgid "Could not connect to the network"
+msgstr ""
 
 msgid "Could not connect to the server."
 msgstr ""
@@ -469,6 +472,9 @@ msgid "Unable to create folder."
 msgstr "Nelze vytvořit adresář."
 
 msgid "Unable to load path."
+msgstr ""
+
+msgid "Unable to load the device."
 msgstr ""
 
 msgid "Update (App) Path"

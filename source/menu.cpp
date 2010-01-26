@@ -62,7 +62,6 @@
 CLIPBOARD Clipboard;
 bool boothomebrew = false;
 
-static int currentDevice = 0;
 static bool firsttimestart = true;
 
 extern u8 shutdown;
@@ -102,60 +101,22 @@ static int MenuBrowseDevice()
         Settings.AutoConnect == on && !IsNetworkInit())
     {
 
-        WaitSMBConnect();
+        if(WaitSMBConnect() < 2)
+            WindowPrompt(tr("Error:"), tr("Could not connect to the network"), tr("OK"));
         firsttimestart = false;
-        sleep(2);
     }
-/*
-	// populate initial directory listing
-	if(BrowseDevice(currentDevice) <= 0)
-	{
-		int choice = WindowPrompt(tr("Error"),
-		tr("Unable to load device."),
-		tr("Retry"),
-		tr("Next device"),
-		tr("Change Settings"));
 
-		if(choice == 1)
-		{
-            SDCard_Init();
-            USBDevice_Init();
-			return MENU_BROWSE_DEVICE;
-		}
-		else if(choice == 2)
-		{
-		    int retries = 2;
-		    while(BrowseDevice(currentDevice) <= 0)
-            {
-                currentDevice++;
-                if(currentDevice >= MAXDEVICES)
-                {
-                    currentDevice = 0;
-
-                    if(retries == 0)
-                    {
-                        WindowPrompt(tr("ERROR"), tr("Can't load any device"), tr("OK"));
-                        return MENU_BROWSE_DEVICE;
-                    }
-                    retries--;
-                }
-            }
-		}
-		else
-			return MENU_SETTINGS;
-	}
-*/
 	int menu = MENU_NONE;
 
-    Explorer * Explorer_1 = new Explorer(currentDevice);
+    Explorer * Explorer_1 = new Explorer(Settings.MountMethod);
 
     MainWindow::Instance()->Append(Explorer_1);
-    MainWindow::Instance()->ChangeFocus(Explorer_1);
+    //MainWindow::Instance()->ChangeFocus(Explorer_1);
     ResumeGui();
 
     while(menu == MENU_NONE)
     {
-	    VIDEO_WaitVSync();
+	    usleep(THREAD_SLEEP);
 
         if(shutdown == 1)
             Sys_Shutdown();
@@ -542,7 +503,6 @@ static int MenuSettings()
 void MainMenu(int menu)
 {
 	int currentMenu = menu;
-	currentDevice = Settings.MountMethod;
 
 	while(currentMenu != MENU_EXIT)
 	{

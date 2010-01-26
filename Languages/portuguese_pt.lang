@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 15:13+0100\n"
+"POT-Creation-Date: 2010-01-25 21:28+0100\n"
 "PO-Revision-Date: 2009-11-23 18:02-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -89,6 +89,9 @@ msgstr "Copiando ficheiro:"
 
 msgid "Copying files:"
 msgstr "Copiando ficheiros"
+
+msgid "Could not connect to the network"
+msgstr ""
 
 msgid "Could not connect to the server."
 msgstr "Não foi possível ligar ao servidor."
@@ -468,6 +471,9 @@ msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
 
 msgid "Unable to load path."
+msgstr ""
+
+msgid "Unable to load the device."
 msgstr ""
 
 msgid "Update (App) Path"

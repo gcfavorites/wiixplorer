@@ -120,11 +120,11 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
     width = ClickMenuUpperImg->GetWidth();
     height = ClickMenuUpperImg->GetHeight()+middleheight+ClickMenuLowerImg->GetHeight();
 
-    if(screenwidth < x + width + 20)
-        x = screenwidth - width - 20;
+    if(screenwidth < x + width + 60)
+        x = screenwidth - width - 60;
 
-    if(screenheight < y + height + 20)
-        y = screenheight - height - 20;
+    if(screenheight < y + height + 60)
+        y = screenheight - height - 60;
 
     SetPosition(x, y);
 

@@ -147,7 +147,7 @@ bool Disk_Inserted()
 
 bool DiskDrive_Mount()
 {
-    if(DI2_GetStatus() & DVD_READY)
+    if(DI2_IsMotorRunning())
         return true;
 
     bool devicemounted = false;

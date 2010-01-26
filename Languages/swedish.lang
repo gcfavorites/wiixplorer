@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 15:13+0100\n"
+"POT-Creation-Date: 2010-01-25 21:28+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -89,6 +89,9 @@ msgstr "Kopierar fil:"
 
 msgid "Copying files:"
 msgstr "Kopierar filer:"
+
+msgid "Could not connect to the network"
+msgstr ""
 
 msgid "Could not connect to the server."
 msgstr ""
@@ -468,6 +471,9 @@ msgid "Unable to create folder."
 msgstr "Kunde inte skapa mapp."
 
 msgid "Unable to load path."
+msgstr ""
+
+msgid "Unable to load the device."
 msgstr ""
 
 msgid "Update (App) Path"

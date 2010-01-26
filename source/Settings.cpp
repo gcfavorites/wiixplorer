@@ -24,7 +24,7 @@
  * Settings.cpp
  *
  * Settings Class
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #include <ogcsys.h>
 #include <stdio.h>
@@ -53,7 +53,8 @@ Settings::~Settings()
 void Settings::SetDefault()
 {
     MountMethod = 0;
-    MountNTFS = off;
+    MountNTFS = 0;
+    MusicVolume = 80;
     CurrentUser = 0;
     AutoConnect = off;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);

@@ -46,6 +46,9 @@ class ImageViewer : public GuiWindow
         //!Set image size  (limits described above)
         //!\param scale of the image (%/100)
         void SetImageSize(float scale);
+        //!Set the startup image size when loading an image
+        //!Sets up imagesize at 1.0 scale and limits it to screenwidth/screenheight if it's over size
+        void SetStartUpImageSize();
         //!Load NextImage in the Directory
         bool NextImage(bool silent = false);
         //!Load PreviousImage in the directory
