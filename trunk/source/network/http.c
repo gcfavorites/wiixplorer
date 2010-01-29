@@ -180,9 +180,9 @@ struct block downloadfile(const char *url)
 	}
 
 	//Form a nice request header to send to the webserver
-	char* headerformat = "GET %s HTTP/1.0\r\nHost: %s\r\nUser-Agent: WiiEarthh 1.0\r\n\r\n";;
-	char header[strlen(headerformat) + strlen(domain) + strlen(path)];
-	sprintf(header, headerformat, path, domain);
+	char* headerformat = "GET %s HTTP/1.0\r\nHost: %s\r\nReferer: %s\r\nUser-Agent: WiiXplorer\r\n\r\n";
+	char header[strlen(headerformat) + strlen(path) + strlen(domain)*2 + 1];
+	sprintf(header, headerformat, path, domain, domain);
 
 	//Do the request and get the response
 	send_message(connection, header);
@@ -246,7 +246,7 @@ s32 GetConnection(char * domain)
 
 }
 
-int network_request(int connection, const char * request)
+int network_request(int connection, const char * request, char * filename)
 {
     char buf[1024];
     char *ptr = NULL;
@@ -266,6 +266,23 @@ int network_request(int connection, const char * request)
 
     if (!strstr(buf, "HTTP/1.1 200 OK"))
         return -1;
+
+    if(filename)
+    {
+        /* Get filename */
+        ptr = strstr(buf, "filename=\"");
+
+        if(ptr)
+        {
+            ptr += sizeof("filename=\"")-1;
+
+            for(cnt = 0; ptr[cnt] != '\r' && ptr[cnt] != '\n' && ptr[cnt] != '"'; cnt++)
+            {
+                filename[cnt] = ptr[cnt];
+                filename[cnt+1] = '\0';
+            }
+        }
+    }
 
     ptr = strstr(buf, "Content-Length:");
     if (!ptr)

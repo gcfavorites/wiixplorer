@@ -1,20 +1,20 @@
-/* 
+/*
  * Metaphrasis is a static conversion class for transforming RGBA image
  * buffers into verious GX texture formats for Wii homebrew development.
  * Copyright (C) 2008 Armin Tamzarian
- * 
+ *
  * This file is part of Metaphrasis.
- * 
+ *
  * Metaphrasis is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Metaphrasis is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with Metaphrasis.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,9 +37,9 @@ Metaphrasis::~Metaphrasis() {
 
 /**
  * Convert the specified RGBA data buffer into the I4 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the I4 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -71,9 +71,9 @@ uint32_t* Metaphrasis::convertBufferToI4(uint32_t* rgbaBuffer, uint16_t bufferWi
 
 /**
  * Convert the specified RGBA data buffer into the I8 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the I8 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -92,7 +92,7 @@ uint32_t* Metaphrasis::convertBufferToI8(uint32_t* rgbaBuffer, uint16_t bufferWi
 		for(uint32_t y = 0; y < bufferHeight; y += 4) {
 			uint32_t bufWid = ((y + rows) * bufferWidth);
 			for(uint32_t x = 0; x < bufferWidth; x += 8) {
-			
+
 				*dst++ = src[bufWid + (x + 0)] & 0xff;
 				*dst++ = src[bufWid + (x + 1)] & 0xff;
 				*dst++ = src[bufWid + (x + 2)] & 0xff;
@@ -111,9 +111,9 @@ uint32_t* Metaphrasis::convertBufferToI8(uint32_t* rgbaBuffer, uint16_t bufferWi
 
 /**
  * Downsample the specified RGBA value data buffer to an IA4 value.
- * 
+ *
  * This routine downsamples the given RGBA data value into the IA4 texture data format.
- * 
+ *
  * @param rgba	A 32-bit RGBA value to convert to the IA4 format.
  * @return The IA4 value of the given RGBA value.
  */
@@ -126,9 +126,9 @@ uint8_t Metaphrasis::convertRGBAToIA4(uint32_t rgba) {
 
 /**
  * Convert the specified RGBA data buffer into the IA4 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the IA4 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -164,9 +164,9 @@ uint32_t* Metaphrasis::convertBufferToIA4(uint32_t* rgbaBuffer, uint16_t bufferW
 
 /**
  * Downsample the specified RGBA value data buffer to an IA8 value.
- * 
+ *
  * This routine downsamples the given RGBA data value into the IA8 texture data format.
- * 
+ *
  * @param rgba	A 32-bit RGBA value to convert to the IA8 format.
  * @return The IA8 value of the given RGBA value.
  */
@@ -177,9 +177,9 @@ uint16_t Metaphrasis::convertRGBAToIA8(uint32_t rgba) {
 
 /**
  * Convert the specified RGBA data buffer into the IA8 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the IA8 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -213,9 +213,9 @@ uint32_t* Metaphrasis::convertBufferToIA8(uint32_t* rgbaBuffer, uint16_t bufferW
 
 /**
  * Convert the specified RGBA data buffer into the RGBA8 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the RGBA8 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -265,10 +265,10 @@ uint32_t* Metaphrasis::convertBufferToRGBA8(uint32_t* rgbaBuffer, uint16_t buffe
 
 /**
  * Downsample the specified RGBA value data buffer to an RGB565 value.
- * 
+ *
  * This routine downsamples the given RGBA data value into the RGB565 texture data format.
  * Attribution for this routine is given fully to NoNameNo of GRRLIB Wii library.
- * 
+ *
  * @param rgba	A 32-bit RGBA value to convert to the RGB565 format.
  * @return The RGB565 value of the given RGBA value.
  */
@@ -282,9 +282,9 @@ uint16_t Metaphrasis::convertRGBAToRGB565(uint32_t rgba) {
 
 /**
  * Convert the specified RGBA data buffer into the RGB565 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the RGB565 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.
@@ -317,10 +317,10 @@ uint32_t* Metaphrasis::convertBufferToRGB565(uint32_t* rgbaBuffer, uint16_t buff
 
 /**
  * Downsample the specified RGBA value data buffer to an RGB5A3 value.
- * 
+ *
  * This routine downsamples the given RGBA data value into the RGB5A3 texture data format.
  * Attribution for this routine is given fully to WiiGator via the TehSkeen forum.
- * 
+ *
  * @param rgba	A 32-bit RGBA value to convert to the RGB5A3 format.
  * @return The RGB5A3 value of the given RGBA value.
  */
@@ -342,7 +342,7 @@ uint16_t Metaphrasis::convertRGBAToRGB5A3(uint32_t rgba) {
 		color |= 0x8000;
 		return color;
 	}
-	
+
 	r >>= 4;
 	g >>= 4;
 	b >>= 4;
@@ -350,12 +350,12 @@ uint16_t Metaphrasis::convertRGBAToRGB5A3(uint32_t rgba) {
 	color = (a << 12) | (r << 8) | (g << 4) | b;
 	return color;
 }
-	
+
 /**
  * Convert the specified RGBA data buffer into the RGB5A3 texture format
- * 
+ *
  * This routine converts the RGBA data buffer into the RGB5A3 texture format and returns a pointer to the converted buffer.
- * 
+ *
  * @param rgbaBuffer	Buffer containing the temporarily rendered RGBA data.
  * @param bufferWidth	Pixel width of the data buffer.
  * @param bufferHeight	Pixel height of the data buffer.

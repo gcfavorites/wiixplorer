@@ -64,12 +64,14 @@ Taskbar::Taskbar()
 	settingsBtn = new PictureButton(settingsbtn_png, settingsbtn_png_size, settingsbtn_over_png, settingsbtn_over_png_size, soundClick, soundOver);
 	settingsBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	settingsBtn->SetPosition(87, 0);
+	settingsBtn->SetSelectable(false);
 	settingsBtn->SetTrigger(trigA);
 	settingsBtn->Clicked.connect(this, &Taskbar::OnSettingsClick);
 
 	exitBtn = new PictureButton(power_png, power_png_size, power_over_png, power_over_png_size, soundClick, soundOver);
 	exitBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	exitBtn->SetPosition(490, 0);
+	exitBtn->SetSelectable(false);
 	exitBtn->SetTrigger(trigA);
 	exitBtn->Clicked.connect(this, &Taskbar::OnExitClick);
 

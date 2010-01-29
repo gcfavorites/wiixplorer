@@ -186,6 +186,35 @@ static s32 USBStorage_Init(int verbose)
 	LWP_MutexUnlock(usb2_mutex);
 	return ret;
 }
+
+static void USBStorage_DeInit()
+{
+    if(usb2_mutex != LWP_MUTEX_NULL)
+    {
+        LWP_MutexUnlock(usb2_mutex);
+        LWP_MutexDestroy(usb2_mutex);
+        usb2_mutex = LWP_MUTEX_NULL;
+    }
+
+    if(fd != -1)
+        IOS_Close(fd);
+
+    if(hId != -1)
+        iosDestroyHeap(hId);
+
+    if(fixed_buffer && __usb2_heap_created != 0)
+    {
+        usb2_free(fixed_buffer);
+        fixed_buffer = NULL;
+    }
+
+    fd = -1;
+    hId = -1;
+    usb2 = -1;
+    usb2_init_value = -1;
+    __usb2_heap_created = 0;
+
+}
 /*
 static s32 USBStorage_Get_Capacity(u32*_sector_size)
 {
@@ -345,9 +374,7 @@ static bool __usb2storage_ClearStatus(void)
 
 static bool __usb2storage_Shutdown(void)
 {
-	LWP_MutexLock(usb2_mutex);
-	usb2=-1;
-	LWP_MutexUnlock(usb2_mutex);
+    USBStorage_DeInit();
 	return true;
 }
 

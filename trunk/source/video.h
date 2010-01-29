@@ -11,8 +11,6 @@
 
 #include <ogcsys.h>
 
-
-s32 TakeScreenshot(const char *path);
 void InitVideo ();
 void StopGX();
 void ResetVideo_Menu();

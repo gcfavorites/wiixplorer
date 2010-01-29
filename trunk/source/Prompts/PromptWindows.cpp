@@ -67,8 +67,8 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	GuiKeyboard keyboard(var, maxlen);
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	GuiImageData btnOutline(button_png);
-	GuiImageData btnOutlineOver(button_over_png);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
