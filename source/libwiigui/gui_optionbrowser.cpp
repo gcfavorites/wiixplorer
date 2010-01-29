@@ -93,26 +93,26 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-	bgOptions = new GuiImageData(bg_browser_png);
+	bgOptions = new GuiImageData(bg_browser_png, bg_browser_png_size);
 	bgOptionsImg = new GuiImage(bgOptions);
 	bgOptionsImg->SetParent(this);
 	bgOptionsImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
-	bgOptionsEntry = new GuiImageData(bg_browser_selection_png);
+	bgOptionsEntry = new GuiImageData(bg_browser_selection_png, bg_browser_selection_png_size);
 
-	scrollbar = new GuiImageData(scrollbar_png);
+	scrollbar = new GuiImageData(scrollbar_png, scrollbar_png_size);
 	scrollbarImg = new GuiImage(scrollbar);
 	scrollbarImg->SetParent(this);
 	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbarImg->SetPosition(-10, 30);
 
-	arrowDown = new GuiImageData(scrollbar_arrowdown_png);
+	arrowDown = new GuiImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
 	arrowDownImg = new GuiImage(arrowDown);
-	arrowDownOver = new GuiImageData(scrollbar_arrowdown_over_png);
+	arrowDownOver = new GuiImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
 	arrowDownOverImg = new GuiImage(arrowDownOver);
-	arrowUp = new GuiImageData(scrollbar_arrowup_png);
+	arrowUp = new GuiImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
 	arrowUpImg = new GuiImage(arrowUp);
-	arrowUpOver = new GuiImageData(scrollbar_arrowup_over_png);
+	arrowUpOver = new GuiImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
 	arrowUpOverImg = new GuiImage(arrowUpOver);
 
 	arrowUpBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
@@ -137,9 +137,9 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	arrowDownBtn->SetSoundOver(btnSoundOver);
 	arrowDownBtn->SetSoundClick(btnSoundClick);
 
-	scrollbarBox = new GuiImageData(scrollbar_box_png);
+	scrollbarBox = new GuiImageData(scrollbar_box_png, scrollbar_box_png_size);
 	scrollbarBoxImg = new GuiImage(scrollbarBox);
-	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png);
+	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
 	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
 
 	scrollbarBoxBtn = new GuiButton(scrollbarBoxImg->GetWidth(), scrollbarBoxImg->GetHeight());

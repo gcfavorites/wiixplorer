@@ -90,15 +90,18 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
         return -4;
     }
 
-    char header[strlen(path)+strlen(domain)+100];
-    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, domain);
+    char header[strlen(path)+strlen(domain)*2+100];
+    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nReferer: %s\r\nUser-Agent: WiiXplorer\r\nConnection: close\r\n\r\n", path, domain, domain);
 
-    u32 filesize = network_request(connection, header);
+    char filename[255];
+    memset(filename, 0, sizeof(filename));
+
+    u32 filesize = network_request(connection, header, (char *) &filename);
 
     if(!filesize)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Filesize is empty."), tr("OK"));
+        WindowPrompt(tr("ERROR"), tr("Filesize is 0 Byte."), tr("OK"));
         return -5;
     }
 
@@ -113,8 +116,6 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
     }
 
     u32 done = 0;
-
-    char *filename = strrchr(url, '/')+1;
 
     StartProgress(tr("Downloading file..."));
 
@@ -212,15 +213,18 @@ int DownloadFileToPath(const char *url, const char *dest)
         return -4;
     }
 
-    char header[strlen(path)+strlen(domain)+100];
-    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", path, domain);
+    char header[strlen(path)+strlen(domain)*2+100];
+    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nReferer: %s\r\nUser-Agent: WiiXplorer\r\nConnection: close\r\n\r\n", path, domain, domain);
 
-    u32 filesize = network_request(connection, header);
+    char filename[255];
+    memset(filename, 0, sizeof(filename));
+
+    u32 filesize = network_request(connection, header, (char *) &filename);
 
     if(!filesize)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Filesize is empty."), tr("OK"));
+        WindowPrompt(tr("ERROR"), tr("Filesize is 0 Byte."), tr("OK"));
         return -5;
     }
 
@@ -244,8 +248,6 @@ int DownloadFileToPath(const char *url, const char *dest)
     }
 
     u32 done = 0;
-
-    char *filename = strrchr(url, '/')+1;
 
     StartProgress(tr("Downloading file..."));
 

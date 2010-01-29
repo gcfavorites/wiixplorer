@@ -1,4 +1,4 @@
-/* mload.c (for PPC) (c) 2009, Hermes 
+/* mload.c (for PPC) (c) 2009, Hermes
 
   This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ int n;
 	for(n=0;n<10;n++) // try 2.5 seconds
 	{
 		mload_fd=IOS_Open(mload_fs, 0);
-		
+
 		if(mload_fd>=0) break;
 
 		usleep(250*1000);
@@ -52,9 +52,9 @@ int mload_close()
 int ret;
 
 	if(mload_fd<0) return -1;
-	
+
 	ret=IOS_Close(mload_fd);
-	
+
 	mload_fd=-1;
 
 return ret;
@@ -73,11 +73,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_MLOAD_THREAD_ID, ":");
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -98,11 +98,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_GET_LOAD_BASE, ":ii",starlet_base, size);
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -124,26 +124,26 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(len+0x800);
-    
+
 	if(hid<0) return hid;
 
 	buf= iosAlloc(hid, len);
 
 	if(!buf) {ret= -1;goto out;}
 
-	
+
 	memcpy(buf, addr,len);
 
 	ret = IOS_IoctlvFormat(hid, mload_fd, MLOAD_LOAD_MODULE, ":d", buf, len);
 
 	if(ret<0) goto out;
-	
+
 	ret=IOS_IoctlvFormat(hid, mload_fd, MLOAD_RUN_MODULE, ":");
 
 	if(ret<0) {ret= -666;goto out;}
-	
+
 out:
-	
+
 	iosDestroyHeap(hid);
 
 return ret;
@@ -202,7 +202,7 @@ for(n=0; n<head->phnum; n++)
 				case 0x7F:
 					data_elf->stack= (void *) (getbe32(m+4));
 					break;
-				
+
 				}
 
 			}
@@ -215,7 +215,7 @@ for(n=0; n<head->phnum; n++)
 		if(mload_memset((void *) entries->vaddr, 0, entries->memsz)<0) return -1;
 		if(mload_seek(entries->vaddr, SEEK_SET)<0) return -1;
 	    if(mload_write((void *) (elf + entries->offset), entries->filesz)<0) return -1;
-			
+
 		}
 	}
 
@@ -235,11 +235,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_RUN_THREAD, "iiii:", starlet_addr,starlet_top_stack, stack_size, priority);
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -259,11 +259,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_STOP_THREAD, "i:", id);
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -284,11 +284,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_CONTINUE_THREAD, "i:", id);
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -299,7 +299,7 @@ return ret;
 
 // fix starlet address to read/write (uses SEEK_SET, etc as mode)
 
-int mload_seek(int offset, int mode) 
+int mload_seek(int offset, int mode)
 {
 	if(mload_init()<0) return -1;
 	return IOS_Seek(mload_fd, offset, mode);
@@ -309,7 +309,7 @@ int mload_seek(int offset, int mode)
 
 // read bytes from starlet (it update the offset)
 
-int mload_read(void* buf, u32 size) 
+int mload_read(void* buf, u32 size)
 {
 	if(mload_init()<0) return -1;
 	return IOS_Read(mload_fd, buf, size);
@@ -319,7 +319,7 @@ int mload_read(void* buf, u32 size)
 
 // write bytes from starlet (it update the offset)
 
-int mload_write(const void * buf, u32 size) 
+int mload_write(const void * buf, u32 size)
 {
 	if(mload_init()<0) return -1;
 	return IOS_Write(mload_fd, buf, size);
@@ -338,11 +338,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_MEMSET, "iii:", starlet_addr, set, len);
-	
+
 
 	iosDestroyHeap(hid);
 
@@ -362,9 +362,9 @@ s32 hid = -1;
 	if(mload_init()<0) return NULL;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return NULL;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_GET_EHCI_DATA, ":");
 	if(ret<0) return NULL;
 
@@ -386,11 +386,11 @@ s32 hid = -1;
 	if(mload_init()<0) return -1;
 
 	hid = iosCreateHeap(0x800);
-    
+
 	if(hid<0) return hid;
-	
+
 	ret= IOS_IoctlvFormat(hid, mload_fd, MLOAD_SET_ES_IOCTLV, "i:", starlet_addr);
-	
+
 
 	iosDestroyHeap(hid);
 

@@ -151,15 +151,6 @@ InitVideo ()
 	// Finally, the video is up and ready for use :)
 }
 
-s32 TakeScreenshot(const char *path)
-{
-    IMGCTX ctx = PNGU_SelectImageFromDevice (path);
-    PNGU_EncodeFromYCbYCr(ctx,vmode->fbWidth, vmode->efbHeight,xfb[whichfb],0);
-    PNGU_ReleaseImageContext (ctx);
-    return 1;
-}
-
-
 /****************************************************************************
  * StopGX
  *

@@ -24,7 +24,7 @@
  * update.h
  *
  * Update operations
- * for Wii-Xplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #ifndef _UPDATEOPS_H_
 #define _UPDATEOPS_H_

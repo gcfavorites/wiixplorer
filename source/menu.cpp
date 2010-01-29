@@ -161,8 +161,8 @@ static int MenuSMBSettings()
         options.SetName(i++, tr("Connect SMB"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	GuiImageData btnOutline(button_png);
-	GuiImageData btnOutlineOver(button_over_png);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -315,8 +315,8 @@ static int MenuSettings()
 	options.SetName(i++, tr("SMB Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	GuiImageData btnOutline(button_png);
-	GuiImageData btnOutlineOver(button_over_png);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -347,7 +347,7 @@ static int MenuSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData settingsimgData(settingsbtn_over_png);
+	GuiImageData settingsimgData(settingsbtn_over_png, settingsbtn_over_png_size);
 	GuiImage settingsimg(&settingsimgData);
 	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);

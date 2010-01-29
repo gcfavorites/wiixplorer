@@ -95,13 +95,19 @@ bool SearchFile(const char * searchpath, const char * searched_filename, char * 
     bool result = false;
 
     char filename[MAXPATHLEN];
-    char pathptr[strlen(searchpath)+1];
+    char pathptr[strlen(searchpath)+2];
     snprintf(pathptr, sizeof(pathptr), "%s", searchpath);
 
     if(pathptr[strlen(pathptr)-1] == '/')
     {
         pathptr[strlen(pathptr)-1] = '\0';
     }
+
+	char * notRoot = strrchr(pathptr, '/');
+	if(!notRoot)
+	{
+	    strcat(pathptr, "/");
+	}
 
     dir = diropen(pathptr);
     if(!dir)
@@ -144,11 +150,17 @@ bool CheckFile(const char * filepath)
 
     struct stat filestat;
 
-    char dirnoslash[strlen(filepath)+1];
+    char dirnoslash[strlen(filepath)+2];
     snprintf(dirnoslash, sizeof(dirnoslash), "%s", filepath);
 
     if(dirnoslash[strlen(dirnoslash)-1] == '/')
         dirnoslash[strlen(dirnoslash)-1] = '\0';
+
+	char * notRoot = strrchr(dirnoslash, '/');
+	if(!notRoot)
+	{
+	    strcat(dirnoslash, "/");
+	}
 
     if (stat(dirnoslash, &filestat) == 0)
         return true;

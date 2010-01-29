@@ -52,13 +52,18 @@ bool DirList::LoadPath(const char * folder, const char *filter)
     struct stat st;
     DIR_ITER *dir = NULL;
     char filename[1024];
-	char * filterTok = NULL;
 
-	char folderpath[strlen(folder)+1];
+	char folderpath[strlen(folder)+2];
 	sprintf(folderpath, "%s", folder);
 
 	if(folderpath[strlen(folderpath)-1] == '/')
         folderpath[strlen(folderpath)-1] = '\0';
+
+	char * notRoot = strrchr(folderpath, '/');
+	if(!notRoot)
+	{
+	    strcat(folderpath, "/");
+	}
 
     dir = diropen(folderpath);
     if (dir == NULL)
@@ -76,8 +81,8 @@ bool DirList::LoadPath(const char * folder, const char *filter)
                 char * fileext = strrchr(filename, '.');
                 if(fileext)
                 {
-					strncpy(filterCopy, filter, sizeof(filterCopy));
-					filterTok = strtok(filterCopy, ",");
+					snprintf(filterCopy, sizeof(filterCopy), "%s", filter);
+					char * filterTok = strtok(filterCopy, ",");
 
 					while (filterTok != NULL)
 					{
@@ -237,7 +242,7 @@ int DirList::GetFileIndex(const char *filename)
 
 	for (int i = 0; i < filecount; i++)
 	{
-		if (stricmp(FileInfo[i].FileName, filename) == 0)
+		if (strcasecmp(FileInfo[i].FileName, filename) == 0)
 		{
 			return i;
 		}

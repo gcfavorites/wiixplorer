@@ -32,15 +32,13 @@ SOURCES		:=	source \
 				source/FileStartUp \
 				source/FileOperations \
 				source/ImageOperations \
+				source/ImageOperations/libgd \
+				source/ImageOperations/libtiff \
 				source/TextOperations \
 				source/Language \
 				source/usbstorage \
 				source/mload \
 				source/libmad \
-				source/libgif \
-				source/libpngu \
-				source/libbmp \
-				source/libtga \
 				source/libtinysmb \
 				source/libdisk \
 				source/ArchiveOperations \
@@ -53,7 +51,7 @@ INCLUDES	:=	source
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-g -O2 -Wall $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG -DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
@@ -174,11 +172,11 @@ language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 %.png.o : %.png
 	@echo $(notdir $<)
 	$(bin2o)
-	
+
 %.ogg.o : %.ogg
 	@echo $(notdir $<)
 	$(bin2o)
-	
+
 %.pcm.o : %.pcm
 	@echo $(notdir $<)
 	$(bin2o)

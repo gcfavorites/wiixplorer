@@ -40,7 +40,7 @@
 #include "DirList.h"
 
 #define TIME_BETWEEN_IMAGES		5
-#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga"
+#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga,.tif,.tiff,.jfif,.jpe,.gd,.gd2"
 #define MIN_IMAGE_WIDTH         4.0f
 #define MIN_IMAGE_HEIGHT        4.0f
 #define MAX_IMAGE_WIDTH         1024.0f
@@ -152,6 +152,7 @@ bool ImageViewer::LoadImageList(const char * filepath)
 	if (!ptr)
 	    return false;
 
+    ptr++;
     ptr[0] = '\0';
 
     if(imageDir)
@@ -282,10 +283,21 @@ void ImageViewer::SetStartUpImageSize()
 
     float imgwidth = (float) image->GetWidth() * 1.0f;
     float imgheight = (float) image->GetHeight() * 1.0f;
+    int retries = 100;
 
     while(imgheight * newscale > height || imgwidth * newscale > width)
     {
-        newscale -= 0.01f;
+        if(imgheight * newscale > height)
+            newscale = height/imgheight;
+        if(imgwidth * newscale > width)
+            newscale = width/imgwidth;
+
+        retries--;
+        if(retries == 0)
+        {
+            newscale = 1.0f;
+            break;
+        }
     }
 
     if(newscale < 0.05f)

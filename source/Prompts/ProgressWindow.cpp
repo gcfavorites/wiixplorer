@@ -112,29 +112,29 @@ void ProgressWindow()
 	promptWindow.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	promptWindow.SetPosition(0, -10);
 
-	GuiImageData dialogBox(dialogue_box_png);
+	GuiImageData dialogBox(dialogue_box_png, dialogue_box_png_size);
 	GuiImage dialogBoxImg(&dialogBox);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	GuiImageData progressbarOutline(progressbar_outline_png);
+	GuiImageData progressbarOutline(progressbar_outline_png, progressbar_outline_png_size);
 	GuiImage progressbarOutlineImg(&progressbarOutline);
 	progressbarOutlineImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	progressbarOutlineImg.SetPosition(35, 15);
 
-	GuiImageData progressbarEmpty(progressbar_empty_png);
+	GuiImageData progressbarEmpty(progressbar_empty_png, progressbar_empty_png_size);
 	GuiImage progressbarEmptyImg(&progressbarEmpty);
 	progressbarEmptyImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	progressbarEmptyImg.SetPosition(35, 15);
 	progressbarEmptyImg.SetTileHorizontal(100);
 
-    GuiImageData progressbar(progressbar_png);
+    GuiImageData progressbar(progressbar_png, progressbar_png_size);
     GuiImage progressbarImg(&progressbar);
     progressbarImg.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	progressbarImg.SetPosition(35, 15);
 
-    GuiImageData throbber(throbber_png);
+    GuiImageData throbber(throbber_png, throbber_png_size);
     GuiImage throbberImg(&throbber);
 	throbberImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	throbberImg.SetPosition(0, 25);
@@ -165,7 +165,7 @@ void ProgressWindow()
     sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	sizeTxt.SetPosition(50, 205);
 
-    GuiImageData btnOutline(small_button_png);
+    GuiImageData btnOutline(small_button_png, small_button_png_size);
 	GuiImage buttonImg(&btnOutline);
     GuiText AbortTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	GuiButton AbortBtn(buttonImg.GetWidth(), buttonImg.GetHeight());

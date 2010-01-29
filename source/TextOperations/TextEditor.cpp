@@ -61,36 +61,36 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, const char *path)
 	trigPlus = new GuiTrigger;
 	trigPlus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
 
-	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 
-	bgTexteditorData = new GuiImageData(textreader_box_png);
+	bgTexteditorData = Resources::GetImageData(textreader_box_png, textreader_box_png_size);
 	bgTexteditorImg = new GuiImage(bgTexteditorData);
 
-	scrollbar = new GuiImageData(scrollbar_png);
+	scrollbar = Resources::GetImageData(scrollbar_png, scrollbar_png_size);
 	scrollbarImg = new GuiImage(scrollbar);
 	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbarImg->SetPosition(-25, 80);
 
-	arrowDown = new GuiImageData(scrollbar_arrowdown_png);
+	arrowDown = Resources::GetImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
 	arrowDownImg = new GuiImage(arrowDown);
-	arrowDownOver = new GuiImageData(scrollbar_arrowdown_over_png);
+	arrowDownOver = Resources::GetImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
 	arrowDownOverImg = new GuiImage(arrowDownOver);
-	arrowUp = new GuiImageData(scrollbar_arrowup_png);
+	arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
 	arrowUpImg = new GuiImage(arrowUp);
-	arrowUpOver = new GuiImageData(scrollbar_arrowup_over_png);
+	arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
 	arrowUpOverImg = new GuiImage(arrowUpOver);
-	scrollbarBox = new GuiImageData(scrollbar_box_png);
+	scrollbarBox = Resources::GetImageData(scrollbar_box_png, scrollbar_box_png_size);
 	scrollbarBoxImg = new GuiImage(scrollbarBox);
-	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png);
+	scrollbarBoxOver = Resources::GetImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
 	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
-	closeImgData = new GuiImageData(close_png);
-	closeImgOverData = new GuiImageData(close_over_png);
+	closeImgData = Resources::GetImageData(close_png, close_png_size);
+	closeImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
     closeImg = new GuiImage(closeImgData);
     closeImgOver = new GuiImage(closeImgOverData);
-	maximizeImgData = new GuiImageData(maximize_dis_png);
+	maximizeImgData = Resources::GetImageData(maximize_dis_png, maximize_dis_png_size);
     maximizeImg = new GuiImage(maximizeImgData);
-	minimizeImgData = new GuiImageData(minimize_dis_png);
+	minimizeImgData = Resources::GetImageData(minimize_dis_png, minimize_dis_png_size);
     minimizeImg = new GuiImage(minimizeImgData);
 
 	arrowUpBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
@@ -237,22 +237,22 @@ TextEditor::~TextEditor()
 	delete minimizeImg;
 
     /** ImageDatas **/
-	delete bgTexteditorData;
-	delete scrollbar;
-	delete arrowDown;
-	delete arrowDownOver;
-	delete arrowUp;
-	delete arrowUpOver;
-	delete scrollbarBox;
-	delete scrollbarBoxOver;
-	delete closeImgData;
-	delete closeImgOverData;
-	delete maximizeImgData;
-	delete minimizeImgData;
+	Resources::Remove(bgTexteditorData);
+	Resources::Remove(scrollbar);
+	Resources::Remove(arrowDown);
+	Resources::Remove(arrowDownOver);
+	Resources::Remove(arrowUp);
+	Resources::Remove(arrowUpOver);
+	Resources::Remove(scrollbarBox);
+	Resources::Remove(scrollbarBoxOver);
+	Resources::Remove(closeImgData);
+	Resources::Remove(closeImgOverData);
+	Resources::Remove(maximizeImgData);
+	Resources::Remove(minimizeImgData);
 
     /** Sounds **/
-	delete btnSoundOver;
-	delete btnSoundClick;
+	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnSoundClick);
 
     /** Triggers **/
 	delete trigHeldA;

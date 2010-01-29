@@ -54,12 +54,12 @@ class Resources
 		void InternalRemoveSound(GuiSound *snd);
 
 		~Resources();
-		
+
 		static Resources *instance;
-		
+
 		std::map<const u8 *, GuiImageData *> images;
 		std::map<const u8 *, GuiSound *> sounds;
-		
+
 		std::map<GuiImageData *, int> imageCount;
 		std::map<GuiSound *, int> soundCount;
 };

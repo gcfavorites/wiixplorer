@@ -42,8 +42,12 @@ int FileStartUp(const char *filepath)
         return 0;
     }
     else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
-			|| strcasecmp(fileext, ".bmp") == 0 || strcasecmp(fileext, ".gif") == 0
-			|| strcasecmp(fileext, ".tga") == 0) {
+            || strcasecmp(fileext, ".jpeg") == 0 || strcasecmp(fileext, ".jpe") == 0
+            || strcasecmp(fileext, ".jfif") == 0 || strcasecmp(fileext, ".bmp") == 0
+			|| strcasecmp(fileext, ".gif") == 0 || strcasecmp(fileext, ".tga") == 0
+			|| strcasecmp(fileext, ".tif") == 0 || strcasecmp(fileext, ".tiff") == 0
+			|| strcasecmp(fileext, ".gd") == 0 || strcasecmp(fileext, ".gd2") == 0)
+    {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
 			ImageLoader(filepath);
