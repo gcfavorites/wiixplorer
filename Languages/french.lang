@@ -40,7 +40,7 @@ msgid "Can not open the file"
 msgstr "Impossible d'ouvrir le fichier."
 
 msgid "Can't load file"
-msgstr ""
+msgstr "Chargement du fichier impossible."
 
 msgid "Can't open file."
 msgstr "Ouverture du fichier impossible."
@@ -94,7 +94,7 @@ msgid "Copying files:"
 msgstr "Copie des fichiers"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "Connexion au réseau impossible."
 
 msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
@@ -178,7 +178,7 @@ msgid "Do you want to playback this file?"
 msgstr "Voulez-vous écouter ce son ?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "Voulez-vous redémarrer maintenant ?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
@@ -196,7 +196,7 @@ msgid "ERROR"
 msgstr "ERREUR"
 
 msgid "ERROR:"
-msgstr ""
+msgstr "ERREUR:"
 
 msgid "Error"
 msgstr "Erreur"
@@ -250,7 +250,7 @@ msgid "Failed renaming file"
 msgstr "Le renommage a échoué"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "L'obtention du Changelog a échouée."
 
 msgid "Failed to read file data."
 msgstr "La lecture des données a échouée"
@@ -293,7 +293,7 @@ msgid "Files:"
 msgstr "Fichiers:"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "Taille du fichier éguale à 0 bits."
 
 msgid "Filetype:"
 msgstr "Type:"
@@ -308,7 +308,7 @@ msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "Obtention du Changelog..."
 
 msgid "Go Back"
 msgstr "Retour"
@@ -317,7 +317,7 @@ msgid "Host:"
 msgstr "Hébergeur:"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "Aperçu"
 
 msgid "ImageViewer"
 msgstr "Aperçu"
@@ -423,7 +423,7 @@ msgid "Properties"
 msgstr "Propriétés"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "Echec du redémarrage."
 
 msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
@@ -450,7 +450,7 @@ msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "Voir le Changelog"
 
 msgid "Size:"
 msgstr "Taille:"
@@ -483,7 +483,7 @@ msgid "Unable to load path."
 msgstr "Chemin introuvable."
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "Périphériques introuvables."
 
 msgid "Update (App) Path"
 msgstr "Dossier MàJ (App)"
@@ -527,40 +527,7 @@ msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "and all the translators."
-msgstr ""
+msgstr "et tous les traducteurs."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "Redémarrage recommandé."
-
-#~ msgid "Filesize is empty."
-#~ msgstr "Fichier vide."
-
-#~ msgid "Failed to extract files."
-#~ msgstr "L'extraction a échouée."
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "Extraction effectuée."
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "Entrer un dossier vers lequel extraire les fichiers."
-
-#~ msgid "No network connection"
-#~ msgstr "Pas de connexion réseau"
-
-#~ msgid "Can't load any device"
-#~ msgstr "Pas de périphérique"
-
-#~ msgid "Change Settings"
-#~ msgstr "Paramètres"
-
-#~ msgid "Next device"
-#~ msgstr "Périphérique"
-
-#~ msgid "Unable to load device."
-#~ msgstr "Impossible de charger le périphérique."
-
-#~ msgid "& translaters for language files."
-#~ msgstr "et tous les traducteurs."

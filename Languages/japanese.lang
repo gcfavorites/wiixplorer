@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-01 00:37+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -94,7 +94,7 @@ msgid "Copying files:"
 msgstr "コピーしています:"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "接続できませんでした"
 
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
@@ -250,7 +250,7 @@ msgid "Failed renaming file"
 msgstr "リネームに失敗しました"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "更新履歴を受信できませんでした"
 
 msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
@@ -293,7 +293,7 @@ msgid "Files:"
 msgstr "ファイル数:"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "ファイルサイズが0バイトです"
 
 msgid "Filetype:"
 msgstr "種類:"
@@ -308,7 +308,7 @@ msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "更新履歴を受信しています･･･"
 
 msgid "Go Back"
 msgstr "戻る"
@@ -317,10 +317,10 @@ msgid "Host:"
 msgstr "ホスト"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "画像ビューア"
 
 msgid "ImageViewer"
-msgstr "ｲﾒｰｼﾞﾋﾞｭｰﾜ"
+msgstr "画像ビューア"
 
 msgid "Language"
 msgstr "言語"
@@ -450,7 +450,7 @@ msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "更新履歴を見る"
 
 msgid "Size:"
 msgstr "サイズ"
@@ -483,7 +483,7 @@ msgid "Unable to load path."
 msgstr "パスを読み込めませんでした"
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "デバイスを読み込めませんでした"
 
 msgid "Update (App) Path"
 msgstr "WiiXplorerのパス"
@@ -495,7 +495,7 @@ msgid "Update Path changed."
 msgstr "WiiXplorerのパスを変更しました"
 
 msgid "Update failed"
-msgstr ""
+msgstr "更新に失敗しました"
 
 msgid "Update successfully finished"
 msgstr "更新が完了しました"
@@ -527,7 +527,7 @@ msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
 msgid "and all the translators."
-msgstr ""
+msgstr ", K-M…日本語への翻訳"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
