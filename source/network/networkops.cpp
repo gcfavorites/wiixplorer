@@ -42,12 +42,12 @@
 
 static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false};
 static bool networkinit = false;
-static bool network_initiating = false;
 static char IP[16];
 static bool autoupdated = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
+static bool exitRequested = false;
 
 extern bool actioncanceled;
 
@@ -401,18 +401,15 @@ void Initialize_Network(void)
         return;
 
 	s32 result;
-	network_initiating = true;
 
     result = if_config(IP, NULL, NULL, true);
 
    if(result < 0) {
         networkinit = false;
-        network_initiating = false;
 		return;
 	}
 
     networkinit = true;
-    network_initiating = false;
     return;
 }
 
@@ -429,14 +426,6 @@ void DeInit_Network(void)
 bool IsNetworkInit(void)
 {
     return networkinit;
-}
-
-/****************************************************************************
- * Check if network is initialising
- ***************************************************************************/
-bool IsNetworkInitiating(void)
-{
-    return network_initiating;
 }
 
 /****************************************************************************
@@ -473,15 +462,26 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg)
 {
-    if(!networkinit)
-        Initialize_Network();
-
-    ConnectSMBShare();
-
-    if(!autoupdated)
+    while(!exitRequested)
     {
-        CheckForUpdate();
-        autoupdated = true;
+        if(networkHalt)
+        {
+            LWP_SuspendThread(networkthread);
+            continue;
+        }
+
+        if(!networkinit)
+            Initialize_Network();
+
+        ConnectSMBShare();
+
+        if(!autoupdated)
+        {
+            CheckForUpdate();
+            autoupdated = true;
+        }
+
+        usleep(100);
     }
 	return NULL;
 }
@@ -492,6 +492,7 @@ static void * networkinitcallback(void *arg)
 void InitNetworkThread()
 {
 	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 0, 30);
+	ResumeNetworkThread();
 }
 
 /****************************************************************************
@@ -499,6 +500,8 @@ void InitNetworkThread()
  ***************************************************************************/
 void ShutdownNetworkThread()
 {
+    exitRequested = true;
+    ResumeNetworkThread();
 	LWP_JoinThread (networkthread, NULL);
 	networkthread = LWP_THREAD_NULL;
 }

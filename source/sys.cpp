@@ -6,23 +6,59 @@
 #include <wiiuse/wpad.h>
 
 #include "network/networkops.h"
+#include "Language/gettext.h"
+#include "Prompts/PromptWindows.h"
+#include "BootHomebrew/BootHomebrew.h"
+#include "Controls/MainWindow.h"
+#include "Controls/Taskbar.h"
 #include "video.h"
 #include "audio.h"
+#include "main.h"
 #include "menu.h"
 #include "devicemounter.h"
 #include "sys.h"
 
-
-//Wiilight stuff
-static vu32 *_wiilight_reg = (u32*)0xCD0000C0;
-void wiilight(int enable) {             // Toggle wiilight (thanks Bool for wiilight source)
-    u32 val = (*_wiilight_reg&~0x20);
-    if(enable) val |= 0x20;
-    *_wiilight_reg=val;
-}
-
 u8 shutdown = 0;
 u8 reset = 0;
+extern bool boothomebrew;
+
+bool RebootApp()
+{
+    char filepath[MAXPATHLEN];
+    snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
+    int ret = LoadHomebrew(filepath);
+    if(ret < 0)
+    {
+     WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
+     return false;
+    }
+
+    boothomebrew = true;
+
+    Taskbar::Instance()->SetMenu(MENU_EXIT);
+
+    return true;
+}
+
+void ExitApp()
+{
+    Settings.Save();
+	MainWindow::Instance()->DestroyInstance();
+	StopGX();
+	ShutdownAudio();
+	ClearFontData();
+	Resources::DestroyInstance();
+	CloseSMBShare();
+    NTFS_UnMount();
+    SDCard_deInit();
+    USBDevice_deInit();
+    DiskDrive_deInit();
+	DeInit_Network();
+
+	WPAD_Flush(0);
+    WPAD_Disconnect(0);
+    WPAD_Shutdown();
+}
 
 void __Sys_ResetCallback(void)
 {
@@ -40,13 +76,6 @@ void Sys_Init(void)
 	SYS_SetResetCallback(__Sys_ResetCallback);
 	SYS_SetPowerCallback(__Sys_PowerCallback);
 }
-
-void ExitApp()
-{
-	StopGX();
-	ShutdownAudio();
-}
-
 
 void Sys_Reboot(void)
 {

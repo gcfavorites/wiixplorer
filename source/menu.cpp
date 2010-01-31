@@ -111,7 +111,6 @@ static int MenuBrowseDevice()
     Explorer * Explorer_1 = new Explorer(Settings.MountMethod);
 
     MainWindow::Instance()->Append(Explorer_1);
-    //MainWindow::Instance()->ChangeFocus(Explorer_1);
     ResumeGui();
 
     while(menu == MENU_NONE)
@@ -530,21 +529,7 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
-    Settings.Save();
-	MainWindow::Instance()->DestroyInstance();
 	ExitApp();
-	ClearFontData();
-	Resources::DestroyInstance();
-	CloseSMBShare();
-    NTFS_UnMount();
-    SDCard_deInit();
-    USBDevice_deInit();
-    DiskDrive_deInit();
-	DeInit_Network();
-
-	WPAD_Flush(0);
-    WPAD_Disconnect(0);
-    WPAD_Shutdown();
 
     if(boothomebrew)
         BootHomebrew(Clipboard.filepath);

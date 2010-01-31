@@ -32,14 +32,15 @@
 
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
+#include "FileOperations/fileops.h"
 #include "http.h"
 #include "ChangeLog.h"
 #include "networkops.h"
 #include "update.h"
 #include "svnrev.h"
 #include "main.h"
+#include "sys.h"
 #include "URL_List.h"
-#include "FileOperations/fileops.h"
 
 /****************************************************************************
  * UpdateApp from a given url. The dol is downloaded and overwrites the old one.
@@ -73,7 +74,6 @@ int UpdateApp(const char *url)
         rename(dest, realdest);
         UpdateMetaXml();
         UpdateIconPNG();
-        WindowPrompt(tr("Update successfully finished"), tr("It is recommended to restart app now."), tr("OK"));
     }
 
     return 1;
@@ -135,7 +135,12 @@ int CheckForUpdate()
 
             if(choice == 1)
             {
-                UpdateApp(DownloadLink);
+                if(UpdateApp(DownloadLink) >= 0)
+                {
+                    int ret = WindowPrompt(tr("Update successfully finished"), tr("Do you want to reboot now ?"), tr("Yes"), tr("No"));
+                    if(ret)
+                        RebootApp();
+                }
                 break;
             }
             else if(choice == 2)

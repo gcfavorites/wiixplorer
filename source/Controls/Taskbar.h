@@ -38,6 +38,7 @@ class Taskbar : public GuiWindow
 		static Taskbar *Instance();
         static void DestroyInstance();
 
+        void SetMenu(int m);
         int GetMenu();
 
 		virtual void SetState(int s, int c = -1);

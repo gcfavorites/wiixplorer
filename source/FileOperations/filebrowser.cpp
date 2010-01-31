@@ -304,7 +304,7 @@ bool FileBrowser::ParseDirEntries()
 
 		strncpy(browserList[browser.numEntries+i].filename, filename, MAXJOLIET);
 		browserList[browser.numEntries+i].length = filestat.st_size;
-		browserList[browser.numEntries+i].isdir = (filestat.st_mode & _IFDIR) == 0 ? 0 : 1; // flag this as a dir
+		browserList[browser.numEntries+i].isdir = (filestat.st_mode & S_IFDIR) ? true : false; // flag this as a dir
 
 		if(browserList[browser.numEntries+i].isdir)
 		{

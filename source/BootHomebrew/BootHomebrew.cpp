@@ -6,6 +6,8 @@
 #include <ogc/machine/processor.h>
 #include <wiiuse/wpad.h>
 
+#include "FileOperations/fileops.h"
+#include "Language/gettext.h"
 #include "network/networkops.h"
 #include "devicemounter.h"
 #include "dolloader.h"
@@ -28,6 +30,23 @@ void FreeHomebrewBuffer()
 {
     homebrewbuffer = (u8 *)0x92000000;
     homebrewsize = 0;
+}
+
+int LoadHomebrew(const char * filepath)
+{
+     u8 *buffer = NULL;
+     u64 filesize = 0;
+     int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
+     if(ret < 0)
+         return ret;
+
+     ret = CopyHomebrewMemory(buffer, 0, filesize);
+     if(buffer) {
+         free(buffer);
+         buffer = NULL;
+     }
+
+     return ret;
 }
 
 int BootHomebrew(const char *path, const char * filereference)

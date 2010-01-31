@@ -1,7 +1,22 @@
 #include <time.h>
 #include <math.h>
 
+#include "Prompts/PromptWindows.h"
+#include "Language/gettext.h"
 #include "tools.h"
+
+extern "C" void ShowError(const char * format, ...)
+{
+	char *tmp=0;
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va)>=0) && tmp)
+	{
+		WindowPrompt(tr("ERROR:"), tmp, tr("OK"));
+		free(tmp);
+	}
+	va_end(va);
+}
 
 bool TimePassed(int limit)
 {

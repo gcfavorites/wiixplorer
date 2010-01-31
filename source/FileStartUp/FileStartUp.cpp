@@ -25,16 +25,7 @@ int FileStartUp(const char *filepath)
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
         {
-             u8 *buffer = NULL;
-             u64 filesize = 0;
-             int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
-             if(ret < 0)
-                 return 0;
-             ret = CopyHomebrewMemory(buffer, 0, filesize);
-             if(buffer) {
-                 free(buffer);
-                 buffer = NULL;
-             }
+             int ret = LoadHomebrew(filepath);
              if(ret >= 0)
                  return BOOTHOMEBREW;
         }
