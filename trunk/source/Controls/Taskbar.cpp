@@ -163,6 +163,11 @@ void Taskbar::ResetState()
     menu = MENU_NONE;
 }
 
+void Taskbar::SetMenu(int m)
+{
+    menu = m;
+}
+
 int Taskbar::GetMenu()
 {
     return menu;

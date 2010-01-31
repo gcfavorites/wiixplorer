@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 13:33+0100\n"
+"POT-Creation-Date: 2010-01-30 22:22+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,6 +39,9 @@ msgstr ""
 
 msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
+
+msgid "Can't load file"
+msgstr ""
 
 msgid "Can't open file."
 msgstr ""
@@ -175,6 +178,9 @@ msgstr "Wil je dit bestand als afbeelding openen?"
 msgid "Do you want to playback this file?"
 msgstr "Wil je dit bestand afspelen?"
 
+msgid "Do you want to reboot now ?"
+msgstr ""
+
 msgid "Do you want to reconnect the SMB?"
 msgstr "Wil je terug met de SMB verbinden?"
 
@@ -189,6 +195,9 @@ msgstr ""
 
 msgid "ERROR"
 msgstr "FOUT"
+
+msgid "ERROR:"
+msgstr ""
 
 msgid "Error"
 msgstr "Fout"
@@ -314,9 +323,6 @@ msgstr ""
 msgid "ImageViewer"
 msgstr "ImageViewer"
 
-msgid "It is recommended to restart app now."
-msgstr ""
-
 msgid "Language"
 msgstr "Taal"
 
@@ -416,6 +422,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "Eigenschappen"
+
+msgid "Reboot failed"
+msgstr ""
 
 msgid "Reconnect SMB"
 msgstr "SMB Herverbinden"

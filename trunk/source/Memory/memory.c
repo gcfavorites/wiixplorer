@@ -72,6 +72,9 @@ void *__wrap_memalign(size_t a, size_t size)
 
 void __wrap_free(void *p)
 {
+    if(!p)
+        return;
+
     #ifdef DEBUG_MEM
     if(mem_debugging)
     {

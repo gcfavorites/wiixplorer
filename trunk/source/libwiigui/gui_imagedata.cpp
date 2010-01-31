@@ -113,7 +113,6 @@ void GuiImageData::LoadPNG(const u8 *img, int imgSize)
 // This function finds it's origin in GRRLIB, which can be found here: http://code.google.com/p/grrlib/
 void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 {
-
     gdImagePtr gdImg = gdImageCreateFromJpegPtr(imgSize, (u8*) img);
     if(gdImg == 0)
         return;
@@ -130,7 +129,6 @@ void GuiImageData::LoadGIF(const u8 *img, int imgSize)
 
     GDImageToRGBA8(gdImg);
     gdImageDestroy(gdImg);
-    return;
 }
 
 void GuiImageData::LoadGD(const u8 *img, int imgSize)
@@ -141,7 +139,6 @@ void GuiImageData::LoadGD(const u8 *img, int imgSize)
 
     GDImageToRGBA8(gdImg);
     gdImageDestroy(gdImg);
-    return;
 }
 
 void GuiImageData::LoadGD2(const u8 *img, int imgSize)
@@ -152,7 +149,6 @@ void GuiImageData::LoadGD2(const u8 *img, int imgSize)
 
     GDImageToRGBA8(gdImg);
     gdImageDestroy(gdImg);
-    return;
 }
 
 void GuiImageData::LoadTIFF(const u8 *img, int imgSize)

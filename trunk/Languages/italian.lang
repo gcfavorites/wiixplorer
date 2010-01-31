@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 13:33+0100\n"
+"POT-Creation-Date: 2010-01-30 22:22+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -38,6 +38,9 @@ msgstr "Mount all'avvio"
 
 msgid "Can not open the file"
 msgstr "Il file non si può aprire"
+
+msgid "Can't load file"
+msgstr ""
 
 msgid "Can't open file."
 msgstr "Impossibile aprire il file."
@@ -174,6 +177,9 @@ msgstr "Vuoi aprire questo file con ImageViewer?"
 msgid "Do you want to playback this file?"
 msgstr "Vuoi riutilizzare questo file?"
 
+msgid "Do you want to reboot now ?"
+msgstr ""
+
 msgid "Do you want to reconnect the SMB?"
 msgstr "Vuoi riconnettere la SMB?"
 
@@ -188,6 +194,9 @@ msgstr "Sto scaricando il file..."
 
 msgid "ERROR"
 msgstr "ERRORE"
+
+msgid "ERROR:"
+msgstr ""
 
 msgid "Error"
 msgstr "Errore"
@@ -313,9 +322,6 @@ msgstr ""
 msgid "ImageViewer"
 msgstr "Mostra Immagine"
 
-msgid "It is recommended to restart app now."
-msgstr "Si raccomanda di riavviare l'applicazione."
-
 msgid "Language"
 msgstr "Lingua"
 
@@ -415,6 +421,9 @@ msgstr "Il processo è stato annullato."
 
 msgid "Properties"
 msgstr "Proprietà"
+
+msgid "Reboot failed"
+msgstr ""
 
 msgid "Reconnect SMB"
 msgstr "Riconnetti SMB"
@@ -522,6 +531,9 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
+
+#~ msgid "It is recommended to restart app now."
+#~ msgstr "Si raccomanda di riavviare l'applicazione."
 
 #~ msgid "Filesize is empty."
 #~ msgstr "Il file ha dimensione nulla."
