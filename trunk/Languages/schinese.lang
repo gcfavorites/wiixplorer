@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-01 00:37+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -94,7 +94,7 @@ msgid "Copying files:"
 msgstr "复制文件中："
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "网络无法连接"
 
 msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
@@ -250,7 +250,7 @@ msgid "Failed renaming file"
 msgstr "更名失败"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "更新日志失败"
 
 msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
@@ -293,7 +293,7 @@ msgid "Files:"
 msgstr "文件："
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "0字节文件"
 
 msgid "Filetype:"
 msgstr "文件类型："
@@ -308,7 +308,7 @@ msgid "Fontpath changed"
 msgstr "字体路径已改变"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "正在提取更新日志信息......"
 
 msgid "Go Back"
 msgstr "返回"
@@ -317,7 +317,7 @@ msgid "Host:"
 msgstr "主机："
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "图片查看器"
 
 msgid "ImageViewer"
 msgstr "图片查看器"
@@ -450,7 +450,7 @@ msgid "Shift"
 msgstr "Shift键"
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "显示更新日志"
 
 msgid "Size:"
 msgstr "尺寸："
@@ -483,7 +483,7 @@ msgid "Unable to load path."
 msgstr "不能找到路径。"
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "设备无法读取"
 
 msgid "Update (App) Path"
 msgstr "更新程序路径"
@@ -527,7 +527,7 @@ msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
 msgid "and all the translators."
-msgstr ""
+msgstr "和所有的翻译者。"
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
