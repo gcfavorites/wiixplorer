@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-11-23 18:02-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -26,9 +26,6 @@ msgstr "Predefinição do programa"
 
 msgid "Archive successfully extracted."
 msgstr ""
-
-msgid "Auto Connect"
-msgstr "Ligação automática"
 
 msgid "Back"
 msgstr "Voltar"
@@ -60,6 +57,9 @@ msgstr "Impossível escrever para o destino."
 msgid "Caps"
 msgstr "Maiúsculas"
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr ""
 
@@ -71,9 +71,6 @@ msgstr "Programadores:"
 
 msgid "Compressed Size:"
 msgstr ""
-
-msgid "Connect SMB"
-msgstr "Ligar SMB"
 
 msgid "Console Default"
 msgstr "Predefinição da consola"
@@ -325,6 +322,9 @@ msgstr "Visualizador de Imagens"
 msgid "Language"
 msgstr "Idioma"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Último acesso:"
 
@@ -340,11 +340,17 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "Montar NTFS"
 
 msgid "Moving files:"
 msgstr "Movendo ficheiros:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Volume da Música"
@@ -413,6 +419,12 @@ msgstr "Colar"
 msgid "Paste into current directory?"
 msgstr "Colar dentro da pasta actual?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
 
@@ -421,6 +433,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "Propriedades"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr "Agradecimentos especiais a:"
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Toda a equipda do DevkitPro e do libogc."
 
-msgid "This is no OGG/MP3 file"
-msgstr "Não é um ficheiro OGG/MP3"
-
 msgid "Transfer cancelled."
 msgstr "Transferência cancelada."
 
@@ -491,8 +503,17 @@ msgstr "Pasta de Act. do Aplicativo"
 msgid "Update App"
 msgstr "Actualizar Aplicativo"
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
 msgstr "Pasta de Act. do Aplicativo alterada."
+
+msgid "Update Settings"
+msgstr ""
 
 msgid "Update failed"
 msgstr "Actualização não concluída"
@@ -531,6 +552,15 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Não é um ficheiro OGG/MP3"
+
+#~ msgid "Auto Connect"
+#~ msgstr "Ligação automática"
+
+#~ msgid "Connect SMB"
+#~ msgstr "Ligar SMB"
 
 #~ msgid "It is recommended to restart app now."
 #~ msgstr "Deve reiniciar o aplicativo agora."

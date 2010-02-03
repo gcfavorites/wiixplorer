@@ -62,15 +62,42 @@ int LanguageBrowser()
 	int ret;
 	int i = 0, n = 0;
 
-	char lang_path[300];
-	snprintf(lang_path, sizeof(lang_path), "%sconfig/WiiXplorer/Languages/", Settings.BootDevice);
+    char langpath[150];
+    snprintf(langpath, sizeof(langpath), "%s", Settings.LanguagePath);
+    if(langpath[strlen(langpath)-1] != '/')
+    {
+        char * ptr = strrchr(langpath, '/');
+        if(ptr)
+        {
+            ptr++;
+            ptr[0] = '\0';
+        }
+    }
 
-	DirList FileList(lang_path, ".lang");
+	DirList FileList(langpath, ".lang");
 
 	int filecount = FileList.GetFilecount();
 
-	if(!filecount) {
-        WindowPrompt(tr("No language files found."), 0, tr("OK"));
+	if(!filecount)
+	{
+        int choice = WindowPrompt(tr("No language files found."), tr("Change Language Path?"), tr("Yes"), tr("No"));
+        if(choice)
+        {
+            char entered[150];
+            snprintf(entered, sizeof(entered), "%s", langpath);
+            if(OnScreenKeyboard(entered, 149))
+            {
+                snprintf(Settings.LanguagePath, sizeof(Settings.LanguagePath), "%s", entered);
+                if(Settings.LanguagePath[strlen(Settings.LanguagePath)-1] != '/' &&
+                   strncasecmp(&Settings.LanguagePath[strlen(Settings.LanguagePath)-5], ".lang", 5) != 0)
+                {
+                    strncat(Settings.LanguagePath, "/", sizeof(Settings.LanguagePath));
+                }
+
+                WindowPrompt(tr("Language Path changed."), 0, tr("OK"));
+                return MENU_LANGUAGE_BROWSE;
+            }
+        }
         return MENU_SETTINGS;
 	}
 	OptionList options(filecount-1);
@@ -85,7 +112,7 @@ int LanguageBrowser()
 	    }
 	}
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 

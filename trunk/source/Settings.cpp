@@ -43,6 +43,7 @@
 Settings::Settings()
 {
     strcpy(BootDevice, "sd:/");
+    snprintf(ConfigPath, sizeof(ConfigPath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
     this->SetDefault();
 }
 
@@ -56,10 +57,13 @@ void Settings::SetDefault()
     MountNTFS = 0;
     MusicVolume = 80;
     CurrentUser = 0;
-    AutoConnect = off;
+    BGMLoopMode = 1;
+    UpdateMetaxml = 1;
+    UpdateIconpng = 1;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
+    strcpy(MusicPath, "");
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -71,15 +75,21 @@ void Settings::SetDefault()
 
 bool Settings::Save()
 {
-    char filepath[300];
-    char filedest[300];
+    char filepath[100];
+    char filedest[100];
 
-    snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
-    snprintf(filedest, sizeof(filedest), "%s%s", BootDevice, CONFIGPATH);
+    snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
+    snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
+    char * tmppath = strrchr(filedest, '/');
+    if(tmppath)
+    {
+        tmppath++;
+        tmppath[0] = '\0';
+    }
 
     if(!CreateSubfolder(filedest))
     {
-        //!Try the other device
+        //!Try the other device and standard path
         if(strcmp(BootDevice, "usb:/") == 0)
             strcpy(BootDevice, "sd:/");
         else
@@ -104,10 +114,13 @@ bool Settings::Save()
 	fprintf(file, "# Main Settings\n\n");
 	fprintf(file, "MountMethod = %d\n", MountMethod);
 	fprintf(file, "CurrentUser = %d\n", CurrentUser);
-	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "LanguagePath = %s\n", LanguagePath);
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 	fprintf(file, "MountNTFS = %d\n", MountNTFS);
+	fprintf(file, "BGMLoopMode = %d\n", BGMLoopMode);
+	fprintf(file, "UpdateMetaxml = %d\n", UpdateMetaxml);
+	fprintf(file, "UpdateIconpng = %d\n", UpdateIconpng);
+	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
 
@@ -126,27 +139,90 @@ bool Settings::Save()
 
 bool Settings::Load(int argc, char *argv[])
 {
-    char testpath[300];
+    char testpath[100];
     bool found = false;
 
-    snprintf(testpath, sizeof(testpath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
-    found = CheckFile(testpath);
+    //! Try first standard SD Path
+    snprintf(ConfigPath, sizeof(ConfigPath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
+    found = CheckFile(ConfigPath);
     if(!found)
     {
+        //! Try standard USB Path
         snprintf(testpath, sizeof(testpath), "usb:/%s%s", CONFIGPATH, CONFIGNAME);
         found = CheckFile(testpath);
-        if(!found)
+        if(found)
         {
-            if (argc >= 1)
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
+            strcpy(BootDevice, "usb:/");
+            found = true;
+        }
+    }
+    if(!found)
+    {
+        //! Try alternative SD Path
+        snprintf(testpath, sizeof(testpath), "sd:/apps/WiiXplorer/%s", CONFIGNAME);
+        found = CheckFile(testpath);
+        if(found)
+        {
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
+            strcpy(BootDevice, "sd:/");
+            found = true;
+        }
+    }
+    if(!found)
+    {
+        //! Try alternative SD Path
+        snprintf(testpath, sizeof(testpath), "sd:/apps/WiiExplorer/%s", CONFIGNAME);
+        found = CheckFile(testpath);
+        if(found)
+        {
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
+            strcpy(BootDevice, "sd:/");
+            found = true;
+        }
+    }
+    if(!found)
+    {
+        //! Try alternative USB Path
+        snprintf(testpath, sizeof(testpath), "usb:/apps/WiiXplorer/%s", CONFIGNAME);
+        found = CheckFile(testpath);
+        if(found)
+        {
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
+            strcpy(BootDevice, "usb:/");
+            found = true;
+        }
+    }
+    if(!found)
+    {
+        //! Try alternative USB Path
+        snprintf(testpath, sizeof(testpath), "usb:/apps/WiiExplorer/%s", CONFIGNAME);
+        found = CheckFile(testpath);
+        if(found)
+        {
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
+            strcpy(BootDevice, "usb:/");
+            found = true;
+        }
+    }
+    if(!found)
+    {
+        //! If all failed check argv and set standard path
+        if (argc >= 1)
+        {
+            if (!strncasecmp(argv[0], "usb:/", 5))
             {
-                if (!strncasecmp(argv[0], "usb:/", 5)) {
-                    strcpy(BootDevice, "usb:/");
-                    found = true;
-                }
+                strcpy(BootDevice, "usb:/");
+                snprintf(ConfigPath, sizeof(ConfigPath), "usb:/%s%s", CONFIGPATH, CONFIGNAME);
+                found = true;
+            }
+            else
+            {
+                strcpy(BootDevice, "sd:/");
+                snprintf(ConfigPath, sizeof(ConfigPath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
+                found = true;
             }
         }
-        else
-            strcpy(BootDevice, "usb:/");
     }
 
     SetDefault();
@@ -158,7 +234,7 @@ bool Settings::Load()
 {
 	char line[300];
     char filepath[300];
-    snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
+    snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
 
     if(!CheckFile(filepath))
         return false;
@@ -191,56 +267,79 @@ bool Settings::LoadLanguage(const char *path, int language)
         if(language < 0)
             return false;
 
-        char filepath[300];
+        char filepath[150];
+        char langpath[150];
+        snprintf(langpath, sizeof(langpath), "%s", LanguagePath);
+        if(langpath[strlen(langpath)-1] != '/')
+        {
+            char * ptr = strrchr(langpath, '/');
+            if(ptr)
+            {
+                ptr++;
+                ptr[0] = '\0';
+            }
+        }
 
-        if(language == APP_DEFAULT) {
-            strcpy(LanguagePath, "");
+        if(language == APP_DEFAULT)
+        {
+            strcpy(LanguagePath, langpath);
             gettextCleanUp();
             return true;
         }
-        else if(language == CONSOLE_DEFAULT) {
+        else if(language == CONSOLE_DEFAULT)
+        {
             return this->LoadLanguage(NULL, CONF_GetLanguage()+2);
         }
-        else if(language == JAPANESE) {
-            snprintf(filepath, sizeof(filepath), "%s%s/japanese.lang", BootDevice, LANGPATH);
+        else if(language == JAPANESE)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/japanese.lang", BootDevice, langpath);
         }
-        else if(language == ENGLISH) {
-            snprintf(filepath, sizeof(filepath), "%s%s/english.lang", BootDevice, LANGPATH);
+        else if(language == ENGLISH)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/english.lang", BootDevice, langpath);
         }
-        else if(language == GERMAN) {
-            snprintf(filepath, sizeof(filepath), "%s%s/german.lang", BootDevice, LANGPATH);
+        else if(language == GERMAN)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/german.lang", BootDevice, langpath);
         }
-        else if(language == FRENCH) {
-            snprintf(filepath, sizeof(filepath), "%s%s/french.lang", BootDevice, LANGPATH);
+        else if(language == FRENCH)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/french.lang", BootDevice, langpath);
         }
-        else if(language == SPANISH) {
-            snprintf(filepath, sizeof(filepath), "%s%s/spanish.lang", BootDevice, LANGPATH);
+        else if(language == SPANISH)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/spanish.lang", BootDevice, langpath);
         }
-        else if(language == ITALIAN) {
-            snprintf(filepath, sizeof(filepath), "%s%s/italian.lang", BootDevice, LANGPATH);
+        else if(language == ITALIAN)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/italian.lang", BootDevice, langpath);
         }
-        else if(language == DUTCH) {
-            snprintf(filepath, sizeof(filepath), "%s%s/dutch.lang", BootDevice, LANGPATH);
+        else if(language == DUTCH)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/dutch.lang", BootDevice, langpath);
         }
-        else if(language == S_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s%s/s_chinese.lang", BootDevice, LANGPATH);
+        else if(language == S_CHINESE)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/s_chinese.lang", BootDevice, langpath);
         }
-        else if(language == T_CHINESE) {
-            snprintf(filepath, sizeof(filepath), "%s%s/t_chinese.lang", BootDevice, LANGPATH);
+        else if(language == T_CHINESE)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/t_chinese.lang", BootDevice, langpath);
         }
-        else if(language == KOREAN) {
-            snprintf(filepath, sizeof(filepath), "%s%s/korean.lang", BootDevice, LANGPATH);
+        else if(language == KOREAN)
+        {
+            snprintf(filepath, sizeof(filepath), "%s%s/korean.lang", BootDevice, langpath);
         }
 
         ret = gettextLoadLanguage(filepath);
         if(ret)
-            strncpy(LanguagePath, filepath, sizeof(this->LanguagePath));
+            strncpy(LanguagePath, filepath, sizeof(LanguagePath));
 
     } else {
 
         ret = gettextLoadLanguage(path);
         if(ret)
-            strncpy(LanguagePath, path, sizeof(this->LanguagePath));
+            strncpy(LanguagePath, path, sizeof(LanguagePath));
     }
 
     return ret;
@@ -272,12 +371,6 @@ bool Settings::SetSetting(char *name, char *value)
 		}
 		return true;
 	}
-	else if (strcmp(name, "AutoConnect") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			AutoConnect = i;
-		}
-		return true;
-	}
 	else if (strcmp(name, "LanguagePath") == 0) {
         strncpy(LanguagePath, value, sizeof(LanguagePath));
 		return true;
@@ -294,8 +387,30 @@ bool Settings::SetSetting(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "BGMLoopMode") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			BGMLoopMode = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "UpdateMetaxml") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			UpdateMetaxml = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "UpdateIconpng") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			UpdateIconpng = i;
+		}
+		return true;
+	}
 	else if (strcmp(name, "CustomFontPath") == 0) {
         strncpy(CustomFontPath, value, sizeof(CustomFontPath));
+		return true;
+	}
+	else if (strcmp(name, "MusicPath") == 0) {
+        strncpy(MusicPath, value, sizeof(MusicPath));
 		return true;
 	}
 	else if (strcmp(name, "UpdatePath") == 0) {

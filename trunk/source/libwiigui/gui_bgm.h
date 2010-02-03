@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,37 +21,49 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * MusicLoader.cpp
- *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
-#include <gctypes.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
+#ifndef _BGM_H_
+#define _BGM_H_
 
 #include "libwiigui/gui.h"
-#include "libwiigui/gui_bgm.h"
-#include "Controls/MainWindow.h"
-#include "Prompts/PromptWindows.h"
-#include "Prompts/ProgressWindow.h"
-#include "menu.h"
-#include "main.h"
-#include "FileOperations/fileops.h"
-#include "Language/gettext.h"
-#include "sys.h"
 
-
-/****************************************************************************
-* LoadMusic
-***************************************************************************/
-void LoadMusic(const char *filepath)
+enum
 {
-    bool result = GuiBGM::Instance()->Load(filepath, false);
+    ONCE = 0,
+    LOOP,
+    RANDOM_BGM,
+    DIR_LOOP,
+    MAX_LOOP_MODES
+};
 
-    if(result)
-    {
-        GuiBGM::Instance()->Play();
-        GuiBGM::Instance()->ParsePath(filepath);
-    }
-}
+class GuiBGM : public GuiSound
+{
+    public:
+		static GuiBGM * Instance();
+		static void DestroyInstance();
+
+        bool Load(const char *path, bool silent = true);
+        bool LoadStandard();
+        bool ParsePath(const char * filepath);
+        bool PlayNext();
+        bool PlayPrevious();
+        bool PlayRandom();
+    protected:
+        GuiBGM();
+        ~GuiBGM();
+        void AddEntrie(const char * filename);
+        void ClearList();
+
+		static void * UpdateBMG(void *arg);
+        void UpdateState();
+		lwp_t bgmthread;
+		bool ExitRequested;
+
+		static GuiBGM *instance;
+        int currentPlaying;
+        char * currentPath;
+        std::vector<char *> PlayList;
+};
+
+#endif

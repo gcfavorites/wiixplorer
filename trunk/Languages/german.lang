@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-01 00:37+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -26,9 +26,6 @@ msgstr "Standardeinstellung"
 
 msgid "Archive successfully extracted."
 msgstr "Archiv erfolgreich entpackt."
-
-msgid "Auto Connect"
-msgstr "Automatisch verbinden"
 
 msgid "Back"
 msgstr "Zurück"
@@ -60,6 +57,9 @@ msgstr "Zielverzeichnis nicht beschreibbar."
 msgid "Caps"
 msgstr ""
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr "Löschen"
 
@@ -71,9 +71,6 @@ msgstr "Programmierer:"
 
 msgid "Compressed Size:"
 msgstr "Komprimierte Größe:"
-
-msgid "Connect SMB"
-msgstr "SMB verbinden"
 
 msgid "Console Default"
 msgstr "Konsolenstandard"
@@ -325,6 +322,9 @@ msgstr ""
 msgid "Language"
 msgstr "Sprache"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Letzter Zugriff:"
 
@@ -340,11 +340,17 @@ msgstr "Absatz"
 msgid "Loading file:"
 msgstr "Lade Datei:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr ""
 
 msgid "Moving files:"
 msgstr "Verschiebe Dateien:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Musik Lautstärke"
@@ -413,6 +419,12 @@ msgstr "Einfügen"
 msgid "Paste into current directory?"
 msgstr "Ins aktuelle Verzeichnis einfügen?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Bitte warten:"
 
@@ -421,6 +433,9 @@ msgstr "Prozess abgebrochen."
 
 msgid "Properties"
 msgstr "Eigenschaften"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr "Besonderen Dank an:"
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
 
-msgid "This is no OGG/MP3 file"
-msgstr "Das ist keine OGG/MP3 Datei"
-
 msgid "Transfer cancelled."
 msgstr "Trasfer abgebrochen."
 
@@ -491,8 +503,17 @@ msgstr "Update Pfad"
 msgid "Update App"
 msgstr "Updaten"
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
 msgstr "Update Pfad geändert."
+
+msgid "Update Settings"
+msgstr ""
 
 msgid "Update failed"
 msgstr "Update fehlgeschlagen"
@@ -531,6 +552,15 @@ msgstr "und allen Übersetzern."
 
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Das ist keine OGG/MP3 Datei"
+
+#~ msgid "Auto Connect"
+#~ msgstr "Automatisch verbinden"
+
+#~ msgid "Connect SMB"
+#~ msgstr "SMB verbinden"
 
 #~ msgid "Filesize is empty."
 #~ msgstr "Dateigröße ist 0."

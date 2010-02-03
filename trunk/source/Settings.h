@@ -29,6 +29,8 @@
 #ifndef _SETTINGS_H_
 #define _SETTINGS_H_
 
+#include <stdio.h>
+
 #define MAXSMBUSERS         4
 
 typedef struct _SMBData
@@ -88,7 +90,7 @@ class Settings
 		//!\param language
         bool LoadLanguage(const char *path, int language = -1);
 
-        //!Settings variables:
+        /**************** Settings Variables ************************/
 
         //!BootDevice determines from which devices to load the config
         char	BootDevice[10];
@@ -96,12 +98,18 @@ class Settings
         short	MountMethod;
         //!Current selected SMB user
         short	CurrentUser;
-        //!Auto initialize network and connect to SMB on startup
-        short	AutoConnect;
         //!Music Volume.
         short	MusicVolume;
         //!Option to mount or not mount the NTFS volumes
         short	MountNTFS;
+        //!BGM Loop Mode
+        short	BGMLoopMode;
+        //!Update the meta.xml
+        short	UpdateMetaxml;
+        //!Update the icon.png
+        short	UpdateIconpng;
+        //!Languagefile path
+        char	MusicPath[150];
         //!Languagefile path
         char	LanguagePath[150];
         //!Path to the customfont file.
@@ -113,6 +121,10 @@ class Settings
         SMBData SMBUser[MAXSMBUSERS];
 
     protected:
+        //!Path to the configuration file
+        //!only for internal use
+        char    ConfigPath[50];
+
         void ParseLine(char *line);
         void TrimLine(char *dest, char *src, int size);
         FILE * file;

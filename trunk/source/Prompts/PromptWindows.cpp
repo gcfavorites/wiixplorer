@@ -66,7 +66,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	GuiKeyboard keyboard(var, maxlen);
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
@@ -179,11 +179,8 @@ int WaitSMBConnect(void)
 
     MainWindow::Instance()->Append(Prompt);
 
-    if(Settings.AutoConnect == off)
-    {
-        InitNetworkThread();
-        ResumeNetworkThread();
-    }
+    InitNetworkThread();
+    ResumeNetworkThread();
 
     while(choice == -1)
     {

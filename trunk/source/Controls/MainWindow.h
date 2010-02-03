@@ -46,8 +46,6 @@ class MainWindow : public GuiWindow
 
 		void Quit();
 		void Show();
-		void ChangeVolume(int v);
-		void LoadMusic(const u8 * file, u32 filesize, int mode);
 	private:
 		MainWindow();
 		~MainWindow();
@@ -63,9 +61,8 @@ class MainWindow : public GuiWindow
 		lwp_t guithread;
 
 		GuiImageData *bgImgData;
-		GuiSound *bgMusic;
-		GuiImageData *pointer[4];
 		GuiImage *bgImg;
+		GuiImageData *pointer[4];
 
 		std::list<GuiWindow *> windows;
 };

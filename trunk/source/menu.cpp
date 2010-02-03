@@ -37,6 +37,7 @@
 #include <time.h>
 
 #include "libwiigui/gui.h"
+#include "libwiigui/gui_bgm.h"
 #include "libwiigui/gui_optionbrowser.h"
 #include "network/ChangeLog.h"
 #include "Menus/Explorer.h"
@@ -97,8 +98,7 @@ void HaltGui()
  ***************************************************************************/
 static int MenuBrowseDevice()
 {
-    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 &&
-        Settings.AutoConnect == on && !IsNetworkInit())
+    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 && !IsNetworkInit())
     {
 
         if(WaitSMBConnect() < 2)
@@ -137,9 +137,185 @@ static int MenuBrowseDevice()
 }
 
 /****************************************************************************
+ * MenuSettings
+ ***************************************************************************/
+static int MenuSettings()
+{
+	int menu = MENU_NONE;
+	int ret;
+	int i = 0;
+	bool firstRun = true;
+
+	OptionList options(8);
+	options.SetName(i++, tr("Bootup Mount"));
+	options.SetName(i++, tr("Language"));
+	options.SetName(i++, tr("Music Volume"));
+	options.SetName(i++, tr("Music Loop Mode"));
+	options.SetName(i++, tr("Mount NTFS"));
+	options.SetName(i++, tr("Customfont Path"));
+	options.SetName(i++, tr("Update Settings"));
+	options.SetName(i++, tr("SMB Settings"));
+
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+
+	GuiTrigger trigA;
+	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
+	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage backBtnImg(&btnOutline);
+	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	backBtn.SetPosition(50, -65);
+	backBtn.SetLabel(&backBtnTxt);
+	backBtn.SetImage(&backBtnImg);
+	backBtn.SetSoundOver(&btnSoundOver);
+	backBtn.SetTrigger(&trigA);
+	backBtn.SetEffectGrow();
+
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+
+	GuiImageData settingsimgData(settingsbtn_over_png, settingsbtn_over_png_size);
+	GuiImage settingsimg(&settingsimgData);
+	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
+
+	HaltGui();
+	GuiWindow w(screenwidth, screenheight);
+	w.Append(&backBtn);
+	w.Append(&optionBrowser);
+	w.Append(&settingsimg);
+	MainWindow::Instance()->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
+	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	while(menu == MENU_NONE)
+	{
+	    usleep(THREAD_SLEEP);
+
+        if(shutdown == 1)
+        {
+		    Settings.Save();
+            Sys_Shutdown();
+        }
+
+        else if(reset == 1)
+        {
+		    Settings.Save();
+            Sys_Reboot();
+        }
+
+		else if(backBtn.GetState() == STATE_CLICKED)
+		{
+			menu = MENU_BROWSE_DEVICE;
+		}
+
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+
+		ret = optionBrowser.GetClickedOption();
+
+		switch (ret)
+		{
+			case 0:
+				Settings.MountMethod++;
+				if(Settings.MountMethod >= MAXDEVICES)
+                    Settings.MountMethod = 0;
+                else if(Settings.MountMethod < SD)
+                    Settings.MountMethod = 0;
+				break;
+			case 1:
+				menu = MENU_LANGUAGE_BROWSE;
+				break;
+            case 2:
+				Settings.MusicVolume += 10;
+				if(Settings.MusicVolume > 100)
+                    Settings.MusicVolume = 0;
+                GuiBGM::Instance()->SetVolume(Settings.MusicVolume);
+				break;
+            case 3:
+                Settings.BGMLoopMode++;
+                if(Settings.BGMLoopMode >= MAX_LOOP_MODES)
+                    Settings.BGMLoopMode = 0;
+                GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
+				break;
+            case 4:
+				Settings.MountNTFS++;
+				if(Settings.MountNTFS >= on_off_max)
+                    Settings.MountNTFS = off;
+				break;
+            case 5:
+                char entered[150];
+                snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
+                if(OnScreenKeyboard(entered, 149)) {
+                    snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
+                    WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
+                }
+				break;
+            case 6:
+                menu = MENU_UPDATE_SETTINGS;
+				break;
+            case 7:
+                menu = MENU_SMB_SETTINGS;
+                break;
+		}
+
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            options.SetValue(i++,DeviceName[Settings.MountMethod]);
+
+            if(strcmp(Settings.LanguagePath, "") != 0)
+            {
+                char * language = strrchr(Settings.LanguagePath, '/')+1;
+                options.SetValue(i++, "%s", language);
+            }
+            else
+                options.SetValue(i++, tr("App Default"));
+
+            if (Settings.MusicVolume > 0)
+                options.SetValue(i++, "%i", Settings.MusicVolume);
+            else
+                options.SetValue(i++, tr("OFF"));
+
+            if (Settings.BGMLoopMode == ONCE) options.SetValue(i++,tr("Play Once"));
+            else if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
+            else if (Settings.BGMLoopMode == RANDOM_BGM) options.SetValue(i++,tr("Random"));
+            else if (Settings.BGMLoopMode == DIR_LOOP) options.SetValue(i++,tr("Play Directory"));
+
+            if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
+            else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
+
+            options.SetValue(i++, "%s", Settings.CustomFontPath);
+
+            options.SetValue(i++, " ");
+
+            options.SetValue(i++, " ");
+        }
+	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	HaltGui();
+	MainWindow::Instance()->Remove(&w);
+	ResumeGui();
+
+    Settings.Save();
+
+	return menu;
+}
+
+/****************************************************************************
  * MenuSMBSettings
  ***************************************************************************/
-
 static int MenuSMBSettings()
 {
 	int menu = MENU_NONE;
@@ -154,12 +330,9 @@ static int MenuSMBSettings()
 	options.SetName(i++, tr("Username:"));
 	options.SetName(i++, tr("Password:"));
 	options.SetName(i++, tr("SMB Name:"));
-	if(Settings.AutoConnect == on)
-        options.SetName(i++, tr("Reconnect SMB"));
-    else
-        options.SetName(i++, tr("Connect SMB"));
+	options.SetName(i++, tr("Reconnect SMB"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -293,27 +466,22 @@ static int MenuSMBSettings()
 	return menu;
 }
 /****************************************************************************
- * MenuSettings
+ * MenuUpdateSettings
  ***************************************************************************/
-
-static int MenuSettings()
+static int MenuUpdateSettings()
 {
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
-	bool firstRun = true;
+    char entered[150];
+    bool firstRun = true;
 
-	OptionList options(7);
-	options.SetName(i++, tr("Bootup Mount"));
-	options.SetName(i++, tr("Language"));
-	options.SetName(i++, tr("Auto Connect"));
-	options.SetName(i++, tr("Music Volume"));
-	options.SetName(i++, tr("Mount NTFS"));
-	options.SetName(i++, tr("Customfont Path"));
+	OptionList options(3);
+	options.SetName(i++, tr("Update Meta.xml"));
+	options.SetName(i++, tr("Update Icon.png"));
 	options.SetName(i++, tr("Update (App) Path"));
-	options.SetName(i++, tr("SMB Settings"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -346,17 +514,16 @@ static int MenuSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData settingsimgData(settingsbtn_over_png, settingsbtn_over_png_size);
-	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
+	GuiText titleTxt(tr("Update Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
 
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
-	w.Append(&updateBtn);
 	w.Append(&backBtn);
+	w.Append(&updateBtn);
 	w.Append(&optionBrowser);
-	w.Append(&settingsimg);
+	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
@@ -365,7 +532,7 @@ static int MenuSettings()
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+	    VIDEO_WaitVSync();
 
         if(shutdown == 1)
         {
@@ -381,7 +548,7 @@ static int MenuSettings()
 
 		else if(backBtn.GetState() == STATE_CLICKED)
 		{
-			menu = MENU_BROWSE_DEVICE;
+			menu = MENU_SETTINGS;
 		}
 
         else if(updateBtn.GetState() == STATE_CLICKED)
@@ -408,79 +575,37 @@ static int MenuSettings()
 		switch (ret)
 		{
 			case 0:
-				Settings.MountMethod++;
-				if(Settings.MountMethod >= MAXDEVICES)
-                    Settings.MountMethod = 0;
-                else if(Settings.MountMethod < SD)
-                    Settings.MountMethod = 0;
+				Settings.UpdateMetaxml++;
+                if(Settings.UpdateMetaxml > 1)
+                    Settings.UpdateMetaxml = 0;
 				break;
 			case 1:
-				menu = MENU_LANGUAGE_BROWSE;
+				Settings.UpdateIconpng++;
+                if(Settings.UpdateIconpng > 1)
+                    Settings.UpdateIconpng = 0;
 				break;
             case 2:
-				Settings.AutoConnect++;
-				if(Settings.AutoConnect >= on_off_max)
-                    Settings.AutoConnect = off;
-				break;
-            case 3:
-				Settings.MusicVolume += 10;
-				if(Settings.MusicVolume > 100)
-                    Settings.MusicVolume = 0;
-                MainWindow::Instance()->ChangeVolume(Settings.MusicVolume);
-				break;
-            case 4:
-				Settings.MountNTFS++;
-				if(Settings.MountNTFS >= on_off_max)
-                    Settings.MountNTFS = off;
-				break;
-            case 5:
-                char entered[150];
-                snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
-                if(OnScreenKeyboard(entered, 149)) {
-                    snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
-                    WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
-                }
-				break;
-            case 6:
                 snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
                 if(OnScreenKeyboard(entered, 149)) {
                     snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
                     WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
                 }
 				break;
-            case 7:
-                menu = MENU_SMB_SETTINGS;
-                break;
 		}
-
 
         if(firstRun || ret >= 0)
         {
             i = 0;
             firstRun = false;
 
-            options.SetValue(i++,DeviceName[Settings.MountMethod]);
 
-            if(strcmp(Settings.LanguagePath, "") != 0) {
-                char *language = strrchr(Settings.LanguagePath, '/')+1;
-                options.SetValue(i++, "%s", language);
-            } else
-                options.SetValue(i++, tr("App Default"));
+            if(Settings.UpdateMetaxml == on) options.SetValue(i++, tr("ON"));
+            else if(Settings.UpdateMetaxml == off) options.SetValue(i++, tr("OFF"));
 
-            if (Settings.AutoConnect == on) options.SetValue(i++,tr("ON"));
-            else if (Settings.AutoConnect == off) options.SetValue(i++,tr("OFF"));
-
-            if (Settings.MusicVolume > 0) options.SetValue(i++, "%i", Settings.MusicVolume);
-            else options.SetValue(i++, tr("OFF"));
-
-            if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
-            else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
-
-            options.SetValue(i++, "%s", Settings.CustomFontPath);
+            if(Settings.UpdateIconpng == on) options.SetValue(i++, tr("ON"));
+            else if(Settings.UpdateIconpng == off) options.SetValue(i++, tr("OFF"));
 
             options.SetValue(i++, "%s", Settings.UpdatePath);
-
-            options.SetValue(i++, " ");
         }
 	}
 
@@ -514,6 +639,9 @@ void MainMenu(int menu)
 				break;
 			case MENU_SMB_SETTINGS:
 				currentMenu = MenuSMBSettings();
+				break;
+			case MENU_UPDATE_SETTINGS:
+				currentMenu = MenuUpdateSettings();
 				break;
 			case MENU_BROWSE_DEVICE:
 				currentMenu = MenuBrowseDevice();

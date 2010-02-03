@@ -74,7 +74,7 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
     arrowUp = Resources::GetImageData(close_png, close_png_size);
     arrowUpOver = Resources::GetImageData(close_over_png, close_over_png_size);
 
-    btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+    btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 
     dialogBoxImg = new GuiImage(dialogBox);
 
@@ -100,7 +100,10 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
     int ImgPos = (TitleTxt->GetTextWidth() > maxTxtWidth ? maxTxtWidth : TitleTxt->GetTextWidth());
     TitleImg = new GuiImage(titleData);
     TitleImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    TitleImg->SetPosition(-(ImgPos/2+titleData->GetWidth())+10, Position_Y);
+    int IconPosition = -(ImgPos/2+titleData->GetWidth())+10;
+    if(IconPosition < (30-width/2))
+        IconPosition = 30-width/2;
+    TitleImg->SetPosition(IconPosition, Position_Y);
     Position_Y += 80;
 
     sprintf(temp, tr("Filepath:  %s"), ArcFile->filename);

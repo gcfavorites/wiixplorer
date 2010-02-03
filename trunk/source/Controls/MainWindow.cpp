@@ -29,6 +29,7 @@
 #include <unistd.h>
 
 #include "MainWindow.h"
+#include "libwiigui/gui_bgm.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
@@ -42,7 +43,6 @@
 #include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
 
-extern Settings Settings;
 extern u8 reset;
 
 MainWindow *MainWindow::instance = NULL;
@@ -62,20 +62,20 @@ MainWindow::MainWindow()
 	StopProgress();
 
     //!Initialize network thread if selected
-    if(Settings.AutoConnect == on)
-    {
-        InitNetworkThread();
-        ResumeNetworkThread();
-    }
+    InitNetworkThread();
+    ResumeNetworkThread();
 
 	bgImgData = Resources::GetImageData(background_png, background_png_size);
     bgImg = new GuiImage(bgImgData);
 	Append(bgImg);
 
-	bgMusic = Resources::GetSound(bg_music_ogg, bg_music_ogg_size, SOUND_OGG);
-	bgMusic->SetVolume(Settings.MusicVolume);
-	bgMusic->SetLoop(1);
-	bgMusic->Play(); // startup music
+	if(GuiBGM::Instance()->Load(Settings.MusicPath))
+	{
+	    GuiBGM::Instance()->ParsePath(Settings.MusicPath);
+	}
+	GuiBGM::Instance()->SetVolume(Settings.MusicVolume);
+	GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
+	GuiBGM::Instance()->Play(); // startup music
 
 	pointer[0] = Resources::GetImageData(player1_point_png, player1_point_png_size);
 	pointer[1] = Resources::GetImageData(player2_point_png, player2_point_png_size);
@@ -97,8 +97,7 @@ MainWindow::~MainWindow()
 
 	Resources::Remove(bgImgData);
 
-	bgMusic->Stop();
-	Resources::Remove(bgMusic);
+	GuiBGM::Instance()->DestroyInstance();
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -235,25 +234,4 @@ void MainWindow::InternalUpdateGUI()
 			Update(&userInput[i]);
 		}
 	}
-}
-
-//! THIS AND THE FOLLOWING WILL BE MOVED SOON
-void MainWindow::ChangeVolume(int v)
-{
-    bgMusic->SetVolume(v);
-}
-
-void MainWindow::LoadMusic(const u8 * file, u32 filesize, int mode)
-{
-    ///Stop and remove old music
-    if(bgMusic)
-    {
-        delete bgMusic;
-        bgMusic = NULL;
-    }
-
-    bgMusic = new GuiSound(file, filesize, mode);
-    bgMusic->SetVolume(Settings.MusicVolume);
-    bgMusic->SetLoop(1);
-    bgMusic->Play(); /// startup music
 }

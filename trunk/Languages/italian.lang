@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -26,9 +26,6 @@ msgstr "Predefinito Appl."
 
 msgid "Archive successfully extracted."
 msgstr "Archivio scompattato con successo."
-
-msgid "Auto Connect"
-msgstr "Connessione Automatica"
 
 msgid "Back"
 msgstr "Indietro"
@@ -60,6 +57,9 @@ msgstr "Impossibile scrivere nella destinazione."
 msgid "Caps"
 msgstr "Blocco Maiuscole"
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr "Resetta"
 
@@ -71,9 +71,6 @@ msgstr "Sviluppatori:"
 
 msgid "Compressed Size:"
 msgstr "Dimensione dopo Compressione:"
-
-msgid "Connect SMB"
-msgstr "Connetti SMB"
 
 msgid "Console Default"
 msgstr "Predefinito Console"
@@ -325,6 +322,9 @@ msgstr "Mostra Immagine"
 msgid "Language"
 msgstr "Lingua"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Ultimo accesso:"
 
@@ -340,11 +340,17 @@ msgstr "Interruzione di riga"
 msgid "Loading file:"
 msgstr "Sto caricando il file:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "Attiva NTFS"
 
 msgid "Moving files:"
 msgstr "Sto spostando i file:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Volume Musica"
@@ -413,6 +419,12 @@ msgstr "Incolla"
 msgid "Paste into current directory?"
 msgstr "Incollare nella cartella corrente?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Attendere prego:"
 
@@ -421,6 +433,9 @@ msgstr "Il processo è stato annullato."
 
 msgid "Properties"
 msgstr "Proprietà"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr "Grazie mille a:"
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Tutto lo staff di DevkitPro & libogc."
 
-msgid "This is no OGG/MP3 file"
-msgstr "Questo non è un file OGG/MP3"
-
 msgid "Transfer cancelled."
 msgstr "Trasferimento annullato."
 
@@ -491,8 +503,17 @@ msgstr "Percorso Aggiornamento Applic."
 msgid "Update App"
 msgstr "Aggiorna Applic."
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
 msgstr "Percorso Aggiornamento modificato."
+
+msgid "Update Settings"
+msgstr ""
 
 msgid "Update failed"
 msgstr "Aggiornamento fallito"
@@ -531,6 +552,15 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Questo non è un file OGG/MP3"
+
+#~ msgid "Auto Connect"
+#~ msgstr "Connessione Automatica"
+
+#~ msgid "Connect SMB"
+#~ msgstr "Connetti SMB"
 
 #~ msgid "It is recommended to restart app now."
 #~ msgstr "Si raccomanda di riavviare l'applicazione."

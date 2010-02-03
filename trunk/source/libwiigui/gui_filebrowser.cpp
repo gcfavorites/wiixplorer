@@ -32,8 +32,8 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 	trigHeldA = new GuiTrigger;
 	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
+	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 
 	bgFileSelectionEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
 	fileArchives = Resources::GetImageData(icon_archives_png, icon_archives_png_size);

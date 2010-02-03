@@ -12,6 +12,7 @@
 #include "ImageOperations/ImageLoader.h"
 #include "FileStartUp/MusicLoader.h"
 #include "Language/gettext.h"
+#include "menu.h"
 
 int FileStartUp(const char *filepath)
 {
@@ -43,7 +44,9 @@ int FileStartUp(const char *filepath)
 		if (choice)
 			ImageLoader(filepath);
     }
-    else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0) {
+    else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
+            || strcasecmp(fileext, ".pcm") == 0)
+    {
         int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));
         if(choice)
             LoadMusic(filepath);
@@ -52,6 +55,11 @@ int FileStartUp(const char *filepath)
             strcasecmp(fileext, ".rar") == 0)
     {
         return ARCHIVE;
+    }
+    else if(strcasecmp(fileext, ".lang") == 0)
+    {
+        Settings.LoadLanguage(filepath);
+        return RELOADBROWSER;
     }
     else {
         loadtext:

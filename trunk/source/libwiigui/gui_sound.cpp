@@ -11,26 +11,18 @@
 #include "gui.h"
 #include "libmad/mp3player.h"
 
-static mutex_t mp3mutex = LWP_MUTEX_NULL;
-
 /**
  * Constructor for the GuiSound class.
  */
-GuiSound::GuiSound(const u8 * snd, s32 len, int t)
+GuiSound::GuiSound(const u8 * snd, s32 len, bool isallocated)
 {
-    if(t == SOUND_MP3) {
-        sound = NULL;
-        sound = new unsigned char[len];
-        memcpy((u8*) sound, snd, len);
-        LWP_MutexInit(&mp3mutex, true);
-    } else {
-        sound = snd;
-    }
+    sound = snd;
 	length = len;
-	type = t;
+	type = GetType(snd);
 	voice = -1;
 	volume = 100;
 	loop = false;
+	allocated = isallocated;
 }
 
 /**
@@ -38,50 +30,52 @@ GuiSound::GuiSound(const u8 * snd, s32 len, int t)
  */
 GuiSound::~GuiSound()
 {
-	if(type == SOUND_OGG)
-		StopOgg();
-    else if(type == SOUND_MP3) {
-        LWP_MutexUnlock(mp3mutex);
-        MP3Player_Stop();
-        LWP_MutexDestroy(mp3mutex);
-        mp3mutex = LWP_MUTEX_NULL;
-        if(sound) {
-            delete [] sound;
-            sound = NULL;
-        }
-    }
+	this->Stop();
+
+    if(allocated)
+        free((u8*) sound);
+}
+
+bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
+{
+	this->Stop();
+
+    if(allocated)
+        free((u8*) sound);
+
+    sound = snd;
+	length = len;
+	type = GetType(snd);
+	allocated = isallocated;
+
+	return true;
 }
 
 void GuiSound::Play()
 {
-	int vol;
+    Stop();
+
+    voice = 0;
 
 	switch(type)
 	{
 		case SOUND_PCM:
-		vol = 255*(volume/100.0);
-		voice = ASND_GetFirstUnusedVoice();
-		if(voice >= 0)
-			ASND_SetVoice(voice, VOICE_STEREO_16BIT, 48000, 0,
-				(u8 *)sound, length, vol, vol, NULL);
-		break;
+            voice = ASND_GetFirstUnusedVoice();
+            if(voice > 0)
+                ASND_SetVoice(voice, VOICE_STEREO_16BIT, 48000, 0,
+                              (u8 *)sound, length, volume, volume, NULL);
+            break;
 
 		case SOUND_OGG:
-		voice = 0;
-		if(loop)
-			PlayOgg(mem_open((char *)sound, length), 0, OGG_INFINITE_TIME);
-		else
-			PlayOgg(mem_open((char *)sound, length), 0, OGG_ONE_TIME);
-		SetVolumeOgg(255*(volume/100.0));
-		break;
+            PlayOgg(mem_open((char *)sound, length), 0, loop ? OGG_INFINITE_TIME : OGG_ONE_TIME);
+            break;
 
 		case SOUND_MP3:
-		voice = 0;
-		MP3Player_PlayBuffer(sound, length, NULL);
-		MP3Player_Volume(255*(volume/100.0));
-		LWP_MutexLock(mp3mutex);
-		break;
+            MP3Player_PlayBuffer(sound, length, NULL);
+            break;
 	}
+
+	SetVolume(volume);
 }
 
 void GuiSound::Stop()
@@ -92,17 +86,17 @@ void GuiSound::Stop()
 	switch(type)
 	{
 		case SOUND_PCM:
-		ASND_StopVoice(voice);
-		break;
+            ASND_StopVoice(voice);
+            break;
 
 		case SOUND_OGG:
-		StopOgg();
-		break;
+            StopOgg();
+            break;
 
 		case SOUND_MP3:
-		LWP_MutexUnlock(mp3mutex);
-		MP3Player_Stop();
-		break;
+            MP3Player_Stop();
+            ASND_StopVoice(0);
+            break;
 	}
 }
 
@@ -137,22 +131,26 @@ void GuiSound::Resume()
 	switch(type)
 	{
 		case SOUND_PCM:
-		ASND_PauseVoice(voice, 0);
-		break;
+            ASND_PauseVoice(voice, 0);
+            break;
 
 		case SOUND_OGG:
-		PauseOgg(0);
-		break;
+            PauseOgg(0);
+            break;
 	}
 }
 
 bool GuiSound::IsPlaying()
 {
-    if(type == SOUND_MP3) {
-		LWP_MutexUnlock(mp3mutex);
-        bool playing = MP3Player_IsPlaying();
-		LWP_MutexLock(mp3mutex);
-        return playing;
+    if(type == SOUND_MP3)
+        return MP3Player_IsPlaying();
+
+    if(type == SOUND_OGG)
+    {
+        if(StatusOgg() == OGG_STATUS_RUNNING)
+            return true;
+
+        return false;
     }
 
 	if(ASND_StatusVoice(voice) == SND_WORKING || ASND_StatusVoice(voice) == SND_WAITING)
@@ -173,25 +171,37 @@ void GuiSound::SetVolume(int vol)
 	switch(type)
 	{
 		case SOUND_PCM:
-		ASND_ChangeVolumeVoice(voice, newvol, newvol);
-		break;
+            ASND_ChangeVolumeVoice(voice, newvol, newvol);
+            break;
 
 		case SOUND_OGG:
-		SetVolumeOgg(newvol);
-		break;
+            SetVolumeOgg(newvol);
+            break;
 
 		case SOUND_MP3:
-		LWP_MutexUnlock(mp3mutex);
-		MP3Player_Volume(newvol);
-		LWP_MutexLock(mp3mutex);
-		break;
+            MP3Player_Volume(newvol);
+            break;
 	}
 }
 
-void GuiSound::SetLoop(bool l)
+void GuiSound::SetLoop(u8 l)
 {
-    if(type == SOUND_MP3)
-        LWP_MutexLock(mp3mutex);
-
 	loop = l;
+}
+
+int GuiSound::GetType(const u8 * sound)
+{
+    //! If no type found than take it as raw.
+    int MusicType = SOUND_PCM;
+
+    if(sound[0] == 'O' && sound[1] == 'g' && sound[2] == 'g' && sound[3] == 'S')
+    {
+        MusicType = SOUND_OGG;
+    }
+    else if((sound[0] == 0x49 && sound[1] == 0x44 && sound[2] == 0x33) || sound[0] == 0xFF)
+    {
+        MusicType = SOUND_MP3;
+    }
+
+    return MusicType;
 }

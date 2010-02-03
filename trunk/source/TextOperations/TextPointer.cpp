@@ -153,7 +153,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
     {
         differenz = abs(x);
         Position_X = 0;
-        LetterNumInLine = 1;
+        LetterNumInLine = 0;
     }
 
     currentChan = chan;

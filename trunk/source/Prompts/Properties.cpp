@@ -80,7 +80,7 @@ Properties::Properties(const char * filepath)
     arrowUp = Resources::GetImageData(close_png, close_png_size);
     arrowUpOver = Resources::GetImageData(close_over_png, close_over_png_size);
 
-    btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+    btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 
     dialogBoxImg = new GuiImage(dialogBox);
 
@@ -99,7 +99,10 @@ Properties::Properties(const char * filepath)
 
     TitleImg = new GuiImage(titleData);
     TitleImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    TitleImg->SetPosition(-(TitleTxt->GetTextWidth()/2+titleData->GetWidth())+10, Position_Y);
+    int IconPosition = -(TitleTxt->GetTextWidth()/2+titleData->GetWidth())+10;
+    if(IconPosition < (30-width/2))
+        IconPosition = 30-width/2;
+    TitleImg->SetPosition(IconPosition, Position_Y);
     Position_Y += 50;
 
     sprintf(temp, tr("Filepath:  %s"), filepath);

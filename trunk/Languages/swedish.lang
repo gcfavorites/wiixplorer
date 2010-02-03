@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -26,9 +26,6 @@ msgstr "App Standard"
 
 msgid "Archive successfully extracted."
 msgstr ""
-
-msgid "Auto Connect"
-msgstr "Auto anslut"
 
 msgid "Back"
 msgstr ""
@@ -60,6 +57,9 @@ msgstr ""
 msgid "Caps"
 msgstr ""
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr ""
 
@@ -71,9 +71,6 @@ msgstr ""
 
 msgid "Compressed Size:"
 msgstr ""
-
-msgid "Connect SMB"
-msgstr "Anslut SMB"
 
 msgid "Console Default"
 msgstr "Konsol Standard"
@@ -325,6 +322,9 @@ msgstr ""
 msgid "Language"
 msgstr "Språk"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Senaste tillträde:"
 
@@ -340,11 +340,17 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Laddar fil:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr ""
 
 msgid "Moving files:"
 msgstr "Flyttar filer:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Musik volym"
@@ -413,6 +419,12 @@ msgstr "Klistra in"
 msgid "Paste into current directory?"
 msgstr "Klistra in i nuvarande katalog?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
 
@@ -421,6 +433,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "Egenskaper"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr ""
 msgid "The whole DevkitPro & libogc staff."
 msgstr ""
 
-msgid "This is no OGG/MP3 file"
-msgstr "Detta är inte en OGG/MP3 fil"
-
 msgid "Transfer cancelled."
 msgstr ""
 
@@ -491,7 +503,16 @@ msgstr ""
 msgid "Update App"
 msgstr ""
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
+msgstr ""
+
+msgid "Update Settings"
 msgstr ""
 
 msgid "Update failed"
@@ -531,6 +552,15 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr ""
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Detta är inte en OGG/MP3 fil"
+
+#~ msgid "Auto Connect"
+#~ msgstr "Auto anslut"
+
+#~ msgid "Connect SMB"
+#~ msgstr "Anslut SMB"
 
 #~ msgid "Change Settings"
 #~ msgstr "Ändra inställningar"

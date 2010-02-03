@@ -72,8 +72,10 @@ int UpdateApp(const char *url)
         snprintf(realdest, sizeof(realdest), "%sboot.dol", Settings.UpdatePath);
         RemoveFile(realdest);
         rename(dest, realdest);
-        UpdateMetaXml();
-        UpdateIconPNG();
+        if(Settings.UpdateMetaxml)
+            UpdateMetaXml();
+        if(Settings.UpdateIconpng)
+            UpdateIconPNG();
     }
 
     return 1;
