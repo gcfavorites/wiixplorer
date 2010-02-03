@@ -10,6 +10,7 @@
 #define _MENU_H_
 
 #include <ogcsys.h>
+#include "main.h"
 
 #define THREAD_SLEEP    100
 #define KBSIZE          1024.0
@@ -27,7 +28,8 @@ enum
 	MENU_SETTINGS,
 	MENU_BROWSE_DEVICE,
 	MENU_SMB_SETTINGS,
-	MENU_LANGUAGE_BROWSE
+	MENU_LANGUAGE_BROWSE,
+	MENU_UPDATE_SETTINGS
 };
 
 #endif

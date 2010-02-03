@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -26,9 +26,6 @@ msgstr "程式預設值"
 
 msgid "Archive successfully extracted."
 msgstr ""
-
-msgid "Auto Connect"
-msgstr "自動連線"
 
 msgid "Back"
 msgstr "返回"
@@ -60,6 +57,9 @@ msgstr ""
 msgid "Caps"
 msgstr "Caps鍵"
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr ""
 
@@ -71,9 +71,6 @@ msgstr "程式設計師:"
 
 msgid "Compressed Size:"
 msgstr ""
-
-msgid "Connect SMB"
-msgstr "連接區域網路"
 
 msgid "Console Default"
 msgstr "主機預設值"
@@ -325,6 +322,9 @@ msgstr "圖片瀏覽"
 msgid "Language"
 msgstr "語言"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "最近存取:"
 
@@ -340,11 +340,17 @@ msgstr ""
 msgid "Loading file:"
 msgstr "正在載入檔案:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "掛載NTFS"
 
 msgid "Moving files:"
 msgstr "正在移動檔案:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "音樂音量"
@@ -413,6 +419,12 @@ msgstr "貼上"
 msgid "Paste into current directory?"
 msgstr "貼上至目前目錄位置?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "請稍候"
 
@@ -421,6 +433,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "內容"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr "特別感謝:"
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
 
-msgid "This is no OGG/MP3 file"
-msgstr "非OGG/MP3檔案"
-
 msgid "Transfer cancelled."
 msgstr ""
 
@@ -491,7 +503,16 @@ msgstr ""
 msgid "Update App"
 msgstr ""
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
+msgstr ""
+
+msgid "Update Settings"
 msgstr ""
 
 msgid "Update failed"
@@ -531,6 +552,15 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "非OGG/MP3檔案"
+
+#~ msgid "Auto Connect"
+#~ msgstr "自動連線"
+
+#~ msgid "Connect SMB"
+#~ msgstr "連接區域網路"
 
 #~ msgid "NTFS4"
 #~ msgstr "NTFS4"

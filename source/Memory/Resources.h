@@ -41,15 +41,15 @@ class Resources
 	public:
 		static Resources *Instance();
 		static void DestroyInstance();
-
+        //! Only images/sounds that are compiled into the app go here
 		static GuiImageData *GetImageData(const u8 *img, u32 imgSize);
-		static GuiSound *GetSound(const u8 *snd, s32 sndSize, int type);
+		static GuiSound *GetSound(const u8 *snd, s32 sndSize);
 
 		static void Remove(GuiImageData *img);
 		static void Remove(GuiSound *snd);
 	private:
 		GuiImageData *InternalGetImageData(const u8 *img, u32 imgSize);
-		GuiSound *InternalGetSound(const u8 *snd, s32 sndSize, int type);
+		GuiSound *InternalGetSound(const u8 *snd, s32 sndSize);
 		void InternalRemoveImageData(GuiImageData *img);
 		void InternalRemoveSound(GuiSound *snd);
 

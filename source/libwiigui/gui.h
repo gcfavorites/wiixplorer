@@ -145,12 +145,13 @@ class GuiSound
 {
 	public:
 		//!Constructor
-		//!\param s Pointer to the sound data
-		//!\param l Length of sound data
-		//!\param t Sound format type (SOUND_PCM or SOUND_OGG)
-		GuiSound(const u8 * s, int l, int t);
+		//!\param sound Pointer to the sound data
+		//!\param filesize Length of sound data
+		GuiSound(const u8 * sound, int filesize, bool allocated = false);
 		//!Destructor
 		~GuiSound();
+		//!Load a file and replace the old one
+		bool Load(const u8 * sound, int filesize, bool allocated = true);
 		//!Start sound playback
 		void Play();
 		//!Stop sound playback
@@ -165,16 +166,21 @@ class GuiSound
 		//!Set sound volume
 		//!\param v Sound volume (0-100)
 		void SetVolume(int v);
-		//!Set the sound to loop playback (only applies to OGG)
+		//!Set the sound to loop playback (only applies to OGG & MP3)
 		//!\param l Loop (true to loop)
-		void SetLoop(bool l);
+		void SetLoop(u8 l);
 	protected:
+		//!Determine what filetype the sound is
+		//!\param sound Pointer to the sound data
+		int GetType(const u8 * sound);
+
 		const u8 * sound; //!< Pointer to the sound data
 		int type; //!< Sound format type (SOUND_PCM or SOUND_OGG)
 		s32 length; //!< Length of sound data
 		s32 voice; //!< Currently assigned ASND voice channel
 		s32 volume; //!< Sound volume (0-100)
-		bool loop; //!< Loop sound playback
+		u8 loop; //!< Loop sound playback
+		bool allocated; //!< Is the file allocated or not
 };
 
 //!Menu input trigger management. Determine if action is neccessary based on input data by comparing controller input data to a specific trigger element.

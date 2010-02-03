@@ -103,7 +103,7 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
 
     menu_select = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
 
-	btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger();

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -27,9 +27,6 @@ msgstr "Standaard"
 
 msgid "Archive successfully extracted."
 msgstr ""
-
-msgid "Auto Connect"
-msgstr "Automatisch verbinden"
 
 msgid "Back"
 msgstr ""
@@ -61,6 +58,9 @@ msgstr ""
 msgid "Caps"
 msgstr ""
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr ""
 
@@ -72,9 +72,6 @@ msgstr "Codering:"
 
 msgid "Compressed Size:"
 msgstr ""
-
-msgid "Connect SMB"
-msgstr "SMB verbinden"
 
 msgid "Console Default"
 msgstr "Console Standaard"
@@ -326,6 +323,9 @@ msgstr "ImageViewer"
 msgid "Language"
 msgstr "Taal"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "Laatste gebruik:"
 
@@ -341,11 +341,17 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Bestand laden:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr ""
 
 msgid "Moving files:"
 msgstr "Bestanden verplaatsen:"
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Muziekvolume"
@@ -414,6 +420,12 @@ msgstr "Plakken"
 msgid "Paste into current directory?"
 msgstr "Plakken op deze locatie?"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Even geduld:"
 
@@ -422,6 +434,9 @@ msgstr ""
 
 msgid "Properties"
 msgstr "Eigenschappen"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -462,9 +477,6 @@ msgstr "Speciale dank aan:"
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Het hele Devkitpro en libogc team."
 
-msgid "This is no OGG/MP3 file"
-msgstr "Dit is geen OGG/MP3 bestand"
-
 msgid "Transfer cancelled."
 msgstr ""
 
@@ -492,7 +504,16 @@ msgstr ""
 msgid "Update App"
 msgstr ""
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
+msgstr ""
+
+msgid "Update Settings"
 msgstr ""
 
 msgid "Update failed"
@@ -532,6 +553,15 @@ msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Dit is geen OGG/MP3 bestand"
+
+#~ msgid "Auto Connect"
+#~ msgstr "Automatisch verbinden"
+
+#~ msgid "Connect SMB"
+#~ msgstr "SMB verbinden"
 
 #~ msgid "SD"
 #~ msgstr "SD"

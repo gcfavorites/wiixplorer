@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok & r-win
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,7 +21,7 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include "gui.h"
 
@@ -110,7 +110,6 @@ void GuiImageData::LoadPNG(const u8 *img, int imgSize)
     gdImageDestroy(gdImg);
 }
 
-// This function finds it's origin in GRRLIB, which can be found here: http://code.google.com/p/grrlib/
 void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 {
     gdImagePtr gdImg = gdImageCreateFromJpegPtr(imgSize, (u8*) img);

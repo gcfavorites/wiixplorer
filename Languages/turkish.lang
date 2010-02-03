@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-30 22:22+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,9 +26,6 @@ msgid "App Default"
 msgstr ""
 
 msgid "Archive successfully extracted."
-msgstr ""
-
-msgid "Auto Connect"
 msgstr ""
 
 msgid "Back"
@@ -61,6 +58,9 @@ msgstr ""
 msgid "Caps"
 msgstr ""
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr ""
 
@@ -71,9 +71,6 @@ msgid "Coders:"
 msgstr ""
 
 msgid "Compressed Size:"
-msgstr ""
-
-msgid "Connect SMB"
 msgstr ""
 
 msgid "Console Default"
@@ -326,6 +323,9 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr ""
 
@@ -341,10 +341,16 @@ msgstr ""
 msgid "Loading file:"
 msgstr ""
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr ""
 
 msgid "Moving files:"
+msgstr ""
+
+msgid "Music Loop Mode"
 msgstr ""
 
 msgid "Music Volume"
@@ -414,6 +420,12 @@ msgstr ""
 msgid "Paste into current directory?"
 msgstr ""
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr ""
 
@@ -421,6 +433,9 @@ msgid "Process canceled."
 msgstr ""
 
 msgid "Properties"
+msgstr ""
+
+msgid "Random"
 msgstr ""
 
 msgid "Reboot failed"
@@ -462,9 +477,6 @@ msgstr ""
 msgid "The whole DevkitPro & libogc staff."
 msgstr ""
 
-msgid "This is no OGG/MP3 file"
-msgstr ""
-
 msgid "Transfer cancelled."
 msgstr ""
 
@@ -492,7 +504,16 @@ msgstr ""
 msgid "Update App"
 msgstr ""
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
+msgstr ""
+
+msgid "Update Settings"
 msgstr ""
 
 msgid "Update failed"

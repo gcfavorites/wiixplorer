@@ -90,8 +90,8 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	trigHeldA = new GuiTrigger;
 	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size, SOUND_PCM);
-	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size, SOUND_PCM);
+	btnSoundOver = new GuiSound(button_over_pcm, button_over_pcm_size);
+	btnSoundClick = new GuiSound(button_click_pcm, button_click_pcm_size);
 
 	bgOptions = new GuiImageData(bg_browser_png, bg_browser_png_size);
 	bgOptionsImg = new GuiImage(bgOptions);

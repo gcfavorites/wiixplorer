@@ -31,7 +31,7 @@ static u32 mp3_volume = 255;
 #endif
 #define STACKSIZE				(32768)
 
-#define DATABUFFER_SIZE			(32768)
+#define DATABUFFER_SIZE			(32768*2)
 
 typedef struct _eqstate_s
 {
@@ -237,7 +237,7 @@ s32 MP3Player_PlayBuffer(const void *buffer,s32 len,void (*filterfunc)(struct ma
 	mp3cb_data = &rambuffer;
 	mp3read = _mp3ramcopy;
 	mp3filterfunc = filterfunc;
-	if(LWP_CreateThread(&hStreamPlay,StreamPlay,NULL,StreamPlay_Stack,STACKSIZE,30)<0) {
+	if(LWP_CreateThread(&hStreamPlay,StreamPlay,NULL,StreamPlay_Stack,STACKSIZE,80)<0) {
 		return -1;
 	}
 	return 0;

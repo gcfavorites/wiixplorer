@@ -13,12 +13,12 @@
 #include <string.h>
 #include <ogcsys.h>
 #include <unistd.h>
+#include <locale.h>
 
 #include "FreeTypeGX.h"
 #include "Controls/MainWindow.h"
 #include "video.h"
 #include "audio.h"
-#include "menu.h"
 #include "libwiigui/gui.h"
 #include "input.h"
 #include "filelist.h"
@@ -72,6 +72,9 @@ int main(int argc, char *argv[])
         // Initialize font system
         fontSystem[i] = NULL;
 	}
+
+	setlocale(LC_CTYPE, "C-UTF-8");
+	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	MainWindow::Instance()->Show();
 

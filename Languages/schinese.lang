@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-01 00:37+0100\n"
+"POT-Creation-Date: 2010-02-03 14:02+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -26,9 +26,6 @@ msgstr "程序缺省"
 
 msgid "Archive successfully extracted."
 msgstr "文件提取成功。"
-
-msgid "Auto Connect"
-msgstr "自动连接"
 
 msgid "Back"
 msgstr "返回"
@@ -60,6 +57,9 @@ msgstr "目的地址无法写入"
 msgid "Caps"
 msgstr "大写"
 
+msgid "Change Language Path?"
+msgstr ""
+
 msgid "Clear"
 msgstr "清除"
 
@@ -71,9 +71,6 @@ msgstr "作者"
 
 msgid "Compressed Size:"
 msgstr "已压缩大小"
-
-msgid "Connect SMB"
-msgstr "连接共享网络"
 
 msgid "Console Default"
 msgstr "主机缺省"
@@ -325,6 +322,9 @@ msgstr "图片查看器"
 msgid "Language"
 msgstr "语言"
 
+msgid "Language Path changed."
+msgstr ""
+
 msgid "Last access:"
 msgstr "最近读取"
 
@@ -340,11 +340,17 @@ msgstr "换行符"
 msgid "Loading file:"
 msgstr "正在读取文件:"
 
+msgid "Loop"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
 
 msgid "Moving files:"
 msgstr "正在移动文件："
+
+msgid "Music Loop Mode"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "音乐音量"
@@ -413,6 +419,12 @@ msgstr "粘贴"
 msgid "Paste into current directory?"
 msgstr "是否粘贴到当前目录？"
 
+msgid "Play Directory"
+msgstr ""
+
+msgid "Play Once"
+msgstr ""
+
 msgid "Please wait:"
 msgstr "请等待："
 
@@ -421,6 +433,9 @@ msgstr "进程已取消"
 
 msgid "Properties"
 msgstr "属性"
+
+msgid "Random"
+msgstr ""
 
 msgid "Reboot failed"
 msgstr ""
@@ -461,9 +476,6 @@ msgstr "特别感谢："
 msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
 
-msgid "This is no OGG/MP3 file"
-msgstr "此文件不是OGG或MP3文件"
-
 msgid "Transfer cancelled."
 msgstr "传输取消"
 
@@ -491,8 +503,17 @@ msgstr "更新程序路径"
 msgid "Update App"
 msgstr "更新程序"
 
+msgid "Update Icon.png"
+msgstr ""
+
+msgid "Update Meta.xml"
+msgstr ""
+
 msgid "Update Path changed."
 msgstr "更新路径已更改"
+
+msgid "Update Settings"
+msgstr ""
 
 msgid "Update failed"
 msgstr "更新失败。"
@@ -531,6 +552,15 @@ msgstr "和所有的翻译者。"
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "此文件不是OGG或MP3文件"
+
+#~ msgid "Auto Connect"
+#~ msgstr "自动连接"
+
+#~ msgid "Connect SMB"
+#~ msgstr "连接共享网络"
 
 #~ msgid "It is recommended to restart app now."
 #~ msgstr "建议现在重新启动程序"

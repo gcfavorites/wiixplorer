@@ -76,9 +76,9 @@ GuiImageData *Resources::GetImageData(const u8 *img, u32 imgSize)
 	return Resources::Instance()->InternalGetImageData(img, imgSize);
 }
 
-GuiSound *Resources::GetSound(const u8 *snd, s32 sndSize, int type)
+GuiSound *Resources::GetSound(const u8 *snd, s32 sndSize)
 {
-	return Resources::Instance()->InternalGetSound(snd, sndSize, type);
+	return Resources::Instance()->InternalGetSound(snd, sndSize);
 }
 
 void Resources::Remove(GuiImageData *img)
@@ -107,13 +107,14 @@ GuiImageData *Resources::InternalGetImageData(const u8 *img, u32 imgSize)
 	return itr->second;
 }
 
-GuiSound *Resources::InternalGetSound(const u8 *snd, s32 sndSize, int type)
+GuiSound *Resources::InternalGetSound(const u8 *snd, s32 sndSize)
 {
 	std::map<const u8 *, GuiSound *>::iterator itr = sounds.find(snd);
 	if (itr == sounds.end())
 	{
 		// Not found, create a new one
-		GuiSound *d = new GuiSound(snd, sndSize, type);
+		// Only unallocated sounds go here
+		GuiSound *d = new GuiSound(snd, sndSize, false);
 		sounds[snd] = d;
 		soundCount[d] = 1;
 		return d;
