@@ -225,7 +225,7 @@ int LanguageBrowser()
             if(choice)
             {
                 char filepath[200];
-                snprintf(filepath, sizeof(filepath), "%s%s", FileList.GetFilepath(ret), FileList.GetFilename(ret));
+                snprintf(filepath, sizeof(filepath), "%s/%s", FileList.GetFilepath(ret), FileList.GetFilename(ret));
                 if(Settings.LoadLanguage(filepath))
                         Settings.Save();
 

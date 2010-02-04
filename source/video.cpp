@@ -113,8 +113,7 @@ InitVideo ()
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
 	// widescreen fix
-	if(CONF_GetAspectRatio() == CONF_ASPECT_16_9)
-		vmode->viWidth = VI_MAX_WIDTH_PAL;
+	vmode->viWidth = VI_MAX_WIDTH_PAL;
 
 	VIDEO_Configure (vmode);
 

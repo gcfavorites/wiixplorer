@@ -172,7 +172,7 @@ class GuiSound
 	protected:
 		//!Determine what filetype the sound is
 		//!\param sound Pointer to the sound data
-		int GetType(const u8 * sound);
+		int GetType(const u8 * sound, int len);
 
 		const u8 * sound; //!< Pointer to the sound data
 		int type; //!< Sound format type (SOUND_PCM or SOUND_OGG)
@@ -337,9 +337,21 @@ class GuiElement : public sigslot::has_slots<>
 		//!Sets the element's scale
 		//!\param s scale (1 is 100%)
 		void SetScale(float s);
+		//!Sets the element's scale
+		//!\param s scale (1 is 100%)
+		void SetScaleX(float s);
+		//!Sets the element's scale
+		//!\param s scale (1 is 100%)
+		void SetScaleY(float s);
 		//!Gets the element's current scale
 		//!Considers scale, scaleDyn, and the parent element's GetScale() value
 		float GetScale();
+		//!Gets the element's current scale
+		//!Considers scale, scaleDyn, and the parent element's GetScale() value
+		float GetScaleX();
+		//!Gets the element's current scale
+		//!Considers scale, scaleDyn, and the parent element's GetScale() value
+		float GetScaleY();
 		//!Set a new GuiTrigger for the element
 		//!\param t Pointer to GuiTrigger
 		void SetTrigger(GuiTrigger * t);
@@ -441,7 +453,8 @@ class GuiElement : public sigslot::has_slots<>
 		int xoffsetDyn; //!< Element X offset, dynamic (added to xoffset value for animation effects)
 		int yoffsetDyn; //!< Element Y offset, dynamic (added to yoffset value for animation effects)
 		int alpha; //!< Element alpha value (0-255)
-		f32 scale; //!< Element scale (1 = 100%)
+		f32 scaleX; //!< Element scale (1 = 100%)
+		f32 scaleY; //!< Element scale (1 = 100%)
 		int alphaDyn; //!< Element alpha, dynamic (multiplied by alpha value for blending/fading effects)
 		f32 scaleDyn; //!< Element scale, dynamic (multiplied by alpha value for blending/fading effects)
 		bool rumble; //!< Wiimote rumble (on/off) - set to on when this element requests a rumble event

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 14:02+0100\n"
+"POT-Creation-Date: 2010-02-03 23:34+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -164,6 +164,9 @@ msgstr "Vuoi caricare la lingua predefinita della console ?"
 
 msgid "Do you want to load this language ?"
 msgstr "Vuoi caricare questa lingua ?"
+
+msgid "Do you want to load this language file?"
+msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Vuoi aprire questo file con TextViewer?"
@@ -472,6 +475,9 @@ msgstr "Dimensione:"
 
 msgid "Special thanks to:"
 msgstr "Grazie mille a:"
+
+msgid "Standard"
+msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Tutto lo staff di DevkitPro & libogc."
