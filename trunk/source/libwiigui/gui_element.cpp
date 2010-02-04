@@ -25,7 +25,8 @@ GuiElement::GuiElement()
 	width = 0;
 	height = 0;
 	alpha = 255;
-	scale = 1;
+	scaleX = 1.0f;
+	scaleY = 1.0f;
 	state = STATE_DEFAULT;
 	stateChan = -1;
 	trigger[0] = NULL;
@@ -271,15 +272,48 @@ int GuiElement::GetAlpha()
 void GuiElement::SetScale(float s)
 {
     LOCK(this);
-	scale = s;
+	scaleX = s;
+	scaleY = s;
+}
+
+void GuiElement::SetScaleX(float s)
+{
+    LOCK(this);
+	scaleX = s;
+}
+
+void GuiElement::SetScaleY(float s)
+{
+    LOCK(this);
+	scaleY = s;
 }
 
 float GuiElement::GetScale()
 {
-	float s = scale * scaleDyn;
+	float s = (scaleX+scaleY)/2 * scaleDyn;
 
 	if(parentElement)
 		s *= parentElement->GetScale();
+
+	return s;
+}
+
+float GuiElement::GetScaleX()
+{
+	float s = scaleX * scaleDyn;
+
+	if(parentElement)
+		s *= parentElement->GetScaleX();
+
+	return s;
+}
+
+float GuiElement::GetScaleY()
+{
+	float s = scaleY * scaleDyn;
+
+	if(parentElement)
+		s *= parentElement->GetScaleY();
 
 	return s;
 }

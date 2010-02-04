@@ -11,6 +11,7 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
+#include "Memory/mem2.hpp"
 #include "video.h"
 #include "audio.h"
 #include "main.h"
@@ -54,6 +55,7 @@ void ExitApp()
     USBDevice_deInit();
     DiskDrive_deInit();
 	DeInit_Network();
+	MEM2_cleanup();
 
 	WPAD_Flush(0);
     WPAD_Disconnect(0);

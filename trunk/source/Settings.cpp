@@ -288,43 +288,43 @@ bool Settings::LoadLanguage(const char *path, int language)
         }
         else if(language == CONSOLE_DEFAULT)
         {
-            return this->LoadLanguage(NULL, CONF_GetLanguage()+2);
+            return LoadLanguage(NULL, CONF_GetLanguage()+2);
         }
         else if(language == JAPANESE)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/japanese.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/japanese.lang", langpath);
         }
         else if(language == ENGLISH)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/english.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/english.lang", langpath);
         }
         else if(language == GERMAN)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/german.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/german.lang", langpath);
         }
         else if(language == FRENCH)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/french.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/french.lang", langpath);
         }
         else if(language == SPANISH)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/spanish.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/spanish.lang", langpath);
         }
         else if(language == ITALIAN)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/italian.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/italian.lang", langpath);
         }
         else if(language == DUTCH)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/dutch.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/dutch.lang", langpath);
         }
         else if(language == S_CHINESE)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/s_chinese.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", langpath);
         }
         else if(language == T_CHINESE)
         {
-            snprintf(filepath, sizeof(filepath), "%s%s/t_chinese.lang", BootDevice, langpath);
+            snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", langpath);
         }
         else if(language == KOREAN)
         {

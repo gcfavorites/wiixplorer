@@ -266,7 +266,7 @@ void ImageViewer::SetImageSize(float scale)
     if(newscale < 0.05f)
         newscale = 0.05f;
 
-    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth*newscale/2.0f);
+    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth/2.0f);
     int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
     image->SetScale(newscale);
     image->SetPosition(PositionX, PositionY);
@@ -303,7 +303,7 @@ void ImageViewer::SetStartUpImageSize()
     if(newscale < 0.05f)
         newscale = 0.05f;
 
-    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth*newscale/2.0f);
+    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth/2.0f);
     int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
     image->SetScale(newscale);
     image->SetPosition(PositionX, PositionY);

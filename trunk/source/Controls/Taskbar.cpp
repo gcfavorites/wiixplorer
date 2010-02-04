@@ -43,18 +43,16 @@ Taskbar::Taskbar()
 {
     menu = MENU_NONE;
 
-    bool widescreen = CONF_GetAspectRatio() ? true : false;
-
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);
-	taskbarImg->SetWidescreen(widescreen);
+	taskbarImg->SetWidescreen(true);
 
 	width = taskbarImg->GetWidth();
 	height = taskbarImg->GetHeight();
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
 	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	timeTxt->SetPosition(540, 0);
+	timeTxt->SetPosition(517, 0);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
 	soundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
@@ -63,24 +61,17 @@ Taskbar::Taskbar()
 
 	settingsBtn = new PictureButton(settingsbtn_png, settingsbtn_png_size, settingsbtn_over_png, settingsbtn_over_png_size, soundClick, soundOver);
 	settingsBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	settingsBtn->SetPosition(87, 0);
+	settingsBtn->SetPosition(108, 0);
 	settingsBtn->SetSelectable(false);
 	settingsBtn->SetTrigger(trigA);
 	settingsBtn->Clicked.connect(this, &Taskbar::OnSettingsClick);
 
 	exitBtn = new PictureButton(power_png, power_png_size, power_over_png, power_over_png_size, soundClick, soundOver);
 	exitBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	exitBtn->SetPosition(490, 0);
+	exitBtn->SetPosition(465, 0);
 	exitBtn->SetSelectable(false);
 	exitBtn->SetTrigger(trigA);
 	exitBtn->Clicked.connect(this, &Taskbar::OnExitClick);
-
-	if(widescreen)
-	{
-	    timeTxt->SetPosition(517, 0);
-	    settingsBtn->SetPosition(108, 0);
-	    exitBtn->SetPosition(465, 0);
-	}
 
 	Append(taskbarImg);
 	Append(timeTxt);

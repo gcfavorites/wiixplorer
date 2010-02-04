@@ -39,7 +39,7 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
 {
     choice = -1;
     numItems = 0;
-    buttonX = 7;
+    buttonX = 15;
     buttonY = 0;
     const int EntrieHeight = 33;
 
@@ -113,9 +113,9 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
     int tileCount = middleheight/4;
 
     ClickMenuMiddleImg->SetTileVertical(tileCount);
-    ClickMenuMiddleImg->SetPosition(-5, ClickMenuUpperImg->GetHeight());
-    ClickMenuUpperImg->SetPosition(-5, 0);
-    ClickMenuLowerImg->SetPosition(-4, ClickMenuUpperImg->GetHeight()+tileCount*4);
+    ClickMenuMiddleImg->SetPosition(0, ClickMenuUpperImg->GetHeight());
+    ClickMenuUpperImg->SetPosition(0, 0);
+    ClickMenuLowerImg->SetPosition(1, ClickMenuUpperImg->GetHeight()+tileCount*4);
 
     width = ClickMenuUpperImg->GetWidth();
     height = ClickMenuUpperImg->GetHeight()+middleheight+ClickMenuLowerImg->GetHeight();
@@ -125,8 +125,6 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
 
     if(screenheight < y + height + 60)
         y = screenheight - height - 60;
-
-    SetPosition(x, y);
 
     NoBtn = new GuiButton(screenwidth, screenheight);
     NoBtn->SetPosition(-x, -y);
@@ -139,7 +137,11 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
     Append(ClickMenuLowerImg);
     Append(NoBtn);
 
+    SetPosition(x, y);
+
     buttonY = ClickMenuUpperImg->GetHeight()+5;
+
+    int maxTxtWidth = 0;
 
     for(int i = 0; i < numItems; i++)
     {
@@ -157,11 +159,32 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
         Button[i]->SetPosition(buttonX, buttonY);
         Button[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
         Button[i]->Clicked.connect(this, &RightClickMenu::OnButtonClick);
-        buttonY += EntrieHeight;//height/(numItems+1);
+        buttonY += EntrieHeight;
+
+        int buttonTxtWidth = ButtonTxt[i]->GetTextWidth();
+        int buttonTxtOverWidth = ButtonTxtOver[i]->GetTextWidth();
+
+        if(maxTxtWidth < buttonTxtWidth)
+            maxTxtWidth = buttonTxtWidth;
+        if(maxTxtWidth < buttonTxtOverWidth)
+            maxTxtWidth = buttonTxtOverWidth;
 
         Append(Button[i]);
     }
 
+    float newscale = 1.0f;
+
+    if(maxTxtWidth > (ClickMenuMiddleImg->GetWidth()-30))
+        newscale = 1.0f * maxTxtWidth/(ClickMenuMiddleImg->GetWidth()-30);
+
+    ClickMenuMiddleImg->SetScaleX(newscale);
+    ClickMenuUpperImg->SetScaleX(newscale);
+    ClickMenuLowerImg->SetScaleX(newscale);
+
+    int NewPosX = ClickMenuMiddleImg->GetLeft()-GetLeft()+(newscale-1)*ClickMenuMiddleImg->GetWidth()/2;
+    ClickMenuMiddleImg->SetPosition(NewPosX, ClickMenuMiddleImg->GetTop()-GetTop());
+    ClickMenuUpperImg->SetPosition(NewPosX, ClickMenuUpperImg->GetTop()-GetTop());
+    ClickMenuLowerImg->SetPosition(NewPosX, ClickMenuLowerImg->GetTop()-GetTop());
 }
 
 RightClickMenu::~RightClickMenu()

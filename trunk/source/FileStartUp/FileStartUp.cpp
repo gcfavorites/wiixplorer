@@ -58,8 +58,12 @@ int FileStartUp(const char *filepath)
     }
     else if(strcasecmp(fileext, ".lang") == 0)
     {
-        Settings.LoadLanguage(filepath);
-        return RELOADBROWSER;
+        int choice = WindowPrompt(tr("Do you want to load this language file?"), filename, tr("Yes"), tr("No"));
+        if(choice)
+        {
+            Settings.LoadLanguage(filepath);
+            return RELOADBROWSER;
+        }
     }
     else {
         loadtext:

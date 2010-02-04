@@ -18,7 +18,7 @@ GuiSound::GuiSound(const u8 * snd, s32 len, bool isallocated)
 {
     sound = snd;
 	length = len;
-	type = GetType(snd);
+	type = GetType(snd, len);
 	voice = -1;
 	volume = 100;
 	loop = false;
@@ -32,20 +32,26 @@ GuiSound::~GuiSound()
 {
 	this->Stop();
 
-    if(allocated)
+    if(allocated && sound != NULL)
+    {
         free((u8*) sound);
+        sound = NULL;
+    }
 }
 
 bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
 {
 	this->Stop();
 
-    if(allocated)
+    if(allocated && sound != NULL)
+    {
         free((u8*) sound);
+        sound = NULL;
+    }
 
     sound = snd;
 	length = len;
-	type = GetType(snd);
+	type = GetType(snd, len);
 	allocated = isallocated;
 
 	return true;
@@ -95,7 +101,6 @@ void GuiSound::Stop()
 
 		case SOUND_MP3:
             MP3Player_Stop();
-            ASND_StopVoice(0);
             break;
 	}
 }
@@ -142,15 +147,12 @@ void GuiSound::Resume()
 
 bool GuiSound::IsPlaying()
 {
-    if(type == SOUND_MP3)
-        return MP3Player_IsPlaying();
-
-    if(type == SOUND_OGG)
+    if(type == SOUND_MP3 || type == SOUND_OGG)
     {
-        if(StatusOgg() == OGG_STATUS_RUNNING)
+        if(ASND_StatusVoice(0) == SND_WORKING || ASND_StatusVoice(0) == SND_WAITING)
             return true;
-
-        return false;
+        else
+            return false;
     }
 
 	if(ASND_StatusVoice(voice) == SND_WORKING || ASND_StatusVoice(voice) == SND_WAITING)
@@ -189,18 +191,36 @@ void GuiSound::SetLoop(u8 l)
 	loop = l;
 }
 
-int GuiSound::GetType(const u8 * sound)
+int GuiSound::GetType(const u8 * sound, int len)
 {
-    //! If no type found than take it as raw.
-    int MusicType = SOUND_PCM;
+    int MusicType = -1;
 
-    if(sound[0] == 'O' && sound[1] == 'g' && sound[2] == 'g' && sound[3] == 'S')
+    const u8 * check = sound;
+    int cnt = 0;
+
+    //!Skip 0 ... whysoever some files have
+    while(check[0] == 0 && cnt < len)
+    {
+        check++;
+        cnt++;
+    }
+
+    if(cnt >= len)
+        return MusicType;
+
+    if(check[0] == 'O' && check[1] == 'g' && check[2] == 'g' && check[3] == 'S')
     {
         MusicType = SOUND_OGG;
     }
-    else if((sound[0] == 0x49 && sound[1] == 0x44 && sound[2] == 0x33) || sound[0] == 0xFF)
+    else if((check[0] == 0x49 && check[1] == 0x44 && check[2] == 0x33) ||
+            (check[0] == 0xFF && (check[1] == 0xFA || check[1] == 0xFB)))
     {
         MusicType = SOUND_MP3;
+    }
+    else
+    {
+        //! If no type found than take it as raw.
+        MusicType = SOUND_PCM;
     }
 
     return MusicType;

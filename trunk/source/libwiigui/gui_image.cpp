@@ -252,7 +252,8 @@ void GuiImage::Draw()
 
     LOCK(this);
 
-	float currScale = this->GetScale();
+	float currScaleX = (widescreen) ? (GetScaleX()*screenwidth/VI_MAX_WIDTH_PAL) : GetScaleX();
+	float currScaleY = this->GetScaleY();
 	int currLeft = this->GetLeft();
 	int currTop = this->GetTop();
 
@@ -260,25 +261,21 @@ void GuiImage::Draw()
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
-                Menu_DrawImg(currLeft+width*i, currTop+width*n, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+                Menu_DrawImg(currLeft+width*i, currTop+width*n, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
-            Menu_DrawImg(currLeft+width*i, currTop, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+            Menu_DrawImg(currLeft+width*i, currTop, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
-            Menu_DrawImg(currLeft, currTop+height*i, width, height, image, imageangle, currScale, currScale, this->GetAlpha());
+            Menu_DrawImg(currLeft, currTop+height*i, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
 	else
 	{
-		// temporary (maybe), used to correct offset for scaled images
-		if(scale != 1)
-			currLeft = currLeft - width/2 + (width*scale)/2;
-
-		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, ((widescreen) ? (currScale*screenwidth/VI_MAX_WIDTH_PAL) : currScale), currScale, this->GetAlpha());
+		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
 	}
 
 	if(stripe > 0)

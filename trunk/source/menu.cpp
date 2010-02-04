@@ -274,8 +274,19 @@ static int MenuSettings()
 
             if(strcmp(Settings.LanguagePath, "") != 0)
             {
-                char * language = strrchr(Settings.LanguagePath, '/')+1;
-                options.SetValue(i++, "%s", language);
+                if(strcmp(Settings.LanguagePath, "") == 0)
+                {
+                    options.SetValue(i++, tr("Standard"));
+                }
+                else if(Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
+                {
+                    options.SetValue(i++, tr("Standard"));
+                }
+                else
+                {
+                    char * language = strrchr(Settings.LanguagePath, '/')+1;
+                    options.SetValue(i++, "%s", language);
+                }
             }
             else
                 options.SetValue(i++, tr("App Default"));
