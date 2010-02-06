@@ -6,7 +6,6 @@
 #include <wiiuse/wpad.h>
 
 #include "network/networkops.h"
-#include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"
@@ -19,8 +18,9 @@
 #include "devicemounter.h"
 #include "sys.h"
 
-u8 shutdown = 0;
-u8 reset = 0;
+bool shutdown = false;
+bool reset = false;
+
 extern bool boothomebrew;
 
 bool RebootApp()
@@ -62,14 +62,14 @@ void ExitApp()
     WPAD_Shutdown();
 }
 
-void __Sys_ResetCallback(void)
+extern "C" void __Sys_ResetCallback(void)
 {
-	reset = 1;
+	reset = true;
 }
 
-void __Sys_PowerCallback(void)
+extern "C" void __Sys_PowerCallback(void)
 {
-	shutdown = 1;
+	shutdown = true;
 }
 
 

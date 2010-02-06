@@ -55,6 +55,11 @@ GuiText::GuiText(const char * t, int s, GXColor c)
 	{
 		origText = strdup(t);
 		text = charToWideChar(t);
+		if(!text)
+		{
+		    free(origText);
+		    origText = NULL;
+		}
 
         if(currentSize > MAX_FONT_SIZE)
             currentSize = MAX_FONT_SIZE;
@@ -102,6 +107,11 @@ GuiText::GuiText(const char * t)
 	{
 		origText = strdup(t);
 		text = charToWideChar(t);
+		if(!text)
+		{
+		    free(origText);
+		    origText = NULL;
+		}
 
         if(currentSize > MAX_FONT_SIZE)
             currentSize = MAX_FONT_SIZE;
@@ -163,7 +173,7 @@ void GuiText::SetText(const char * t)
 	{
 	    if(textDynRow[i])
 	    {
-           delete [] textDynRow[i];
+            delete [] textDynRow[i];
             textDynRow[i] = NULL;
 	    }
 	}
@@ -178,6 +188,11 @@ void GuiText::SetText(const char * t)
 	{
 		origText = strdup(t);
 		text = charToWideChar(t);
+		if(!text)
+		{
+		    free(origText);
+		    origText = NULL;
+		}
 		textWidth = fontSystem[currentSize]->getWidth(text);
 	}
 }

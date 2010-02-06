@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc\n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "動做取消"
-
-msgid "An error occured."
-msgstr "發生錯誤"
 
 msgid "App Default"
 msgstr "程式預設值"
@@ -27,14 +27,17 @@ msgstr "程式預設值"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "自動連線"
+
 msgid "Back"
 msgstr "返回"
 
 msgid "Bootup Mount"
 msgstr "啟動掛載"
 
-msgid "Can not open the file"
-msgstr "無法開啟檔案"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr "錯誤"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "錯誤"
 
 msgid "Error:"
 msgstr "錯誤:"
@@ -319,9 +316,6 @@ msgstr "主機:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr "圖片瀏覽"
-
 msgid "Language"
 msgstr "語言"
 
@@ -360,6 +354,9 @@ msgstr "音樂音量"
 
 msgid "Name already exists."
 msgstr "名稱已存在"
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "正在啟動網路"
@@ -559,11 +556,23 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
 
+#~ msgid "Can not open the file"
+#~ msgstr "無法開啟檔案"
+
+#~ msgid "ImageViewer"
+#~ msgstr "圖片瀏覽"
+
+#~ msgid "Error"
+#~ msgstr "錯誤"
+
+#~ msgid "An error occured."
+#~ msgstr "發生錯誤"
+
+#~ msgid "ERROR"
+#~ msgstr "錯誤"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "非OGG/MP3檔案"
-
-#~ msgid "Auto Connect"
-#~ msgstr "自動連線"
 
 #~ msgid "Connect SMB"
 #~ msgstr "連接區域網路"

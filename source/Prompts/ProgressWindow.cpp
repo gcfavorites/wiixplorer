@@ -39,7 +39,6 @@
 #include "FileOperations/filebrowser.h"
 #include "menu.h"
 #include "FileOperations/fileops.h"
-#include "Language/gettext.h"
 #include "sys.h"
 
 /*** Variables used only in this file ***/
@@ -57,14 +56,6 @@ static bool     ShutDownThread = false;
 
 /*** Variables used outside of this file ***/
 bool            actioncanceled = false;
-
-/*** Extern variables ***/
-extern          u8 reset;
-extern          u8 shutdown;
-
-/*** Extern functions ***/
-extern void     ResumeGui();
-extern void     HaltGui();
 
 /****************************************************************************
  * UpdateProgressValues
@@ -233,12 +224,12 @@ void ProgressWindow()
             changed = false;
 	    }
 
-        if(shutdown == 1) {
+        if(shutdown) {
             actioncanceled = true;
             sleep(1);
             Sys_Shutdown();
         }
-        else if(reset == 1) {
+        else if(reset) {
             actioncanceled = true;
             sleep(1);
             Sys_Reboot();

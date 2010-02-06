@@ -36,17 +36,8 @@
 #include "Prompts/ProgressWindow.h"
 #include "menu.h"
 #include "FileOperations/fileops.h"
-#include "Language/gettext.h"
 #include "sys.h"
 #include "TextEditor.h"
-
-/*** Extern variables ***/
-extern u8 shutdown;
-extern u8 reset;
-
-/*** Extern functions ***/
-extern void ResumeGui();
-extern void HaltGui();
 
 
 /****************************************************************************
@@ -59,31 +50,18 @@ void TextViewer(const char *filepath)
     u8 *file = NULL;
     u64 filesize = 0;
 
-    StartProgress(tr("Loading file:"));
-    int ret = LoadFileToMem(filepath, &file, &filesize);
-    StopProgress();
-
-    if(ret == -1) {
-        WindowPrompt(tr("Error"), tr("Can not open the file"), tr("OK"));
-        return;
-    }
-    else if(ret == -2) {
-        WindowPrompt(tr("Error"), tr("Not enough memory."), tr("OK"));
-        return;
-    }
-    else if(ret == -3) {
-        WindowPrompt(tr("Error"), tr("Can not open the file"), tr("OK"));
-        return;
-    }
-    else if(ret == -10) {
-        WindowPrompt(tr("Loading file:"), tr("Action cancelled."), tr("OK"));
+    int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
+    if(ret < 0)
+    {
         return;
     }
 
     //To check if enough memory available for strcpy in GuiText
-    char *filetext = new char[filesize];
-    if(!filetext) {
-        WindowPrompt(tr("Error"), tr("Not enough memory."), tr("OK"));
+    char * filetext = (char*) malloc(filesize);
+    if(!filetext)
+    {
+        free(file);
+        ShowError(tr("Not enough memory."));
         return;
     }
 
@@ -96,7 +74,7 @@ void TextViewer(const char *filepath)
     Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     Editor->SetPosition(0, 0);
 
-    delete [] filetext;
+    free(filetext);
     filetext = NULL;
 
     MainWindow::Instance()->SetState(STATE_DISABLED);
@@ -106,11 +84,11 @@ void TextViewer(const char *filepath)
 
     while(!exitwindow)
     {
-        VIDEO_WaitVSync();
+        usleep(100);
 
-        if(shutdown == 1)
+        if(shutdown)
             Sys_Shutdown();
-        else if(reset == 1)
+        else if(reset)
             Sys_Reboot();
 
         else if(Editor->GetState() == STATE_CLOSED)

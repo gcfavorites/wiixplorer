@@ -29,7 +29,6 @@
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "TextPointer.h"
-#include "tools.h"
 
 /**
  * Constructor for the TextPointer class.
@@ -216,9 +215,12 @@ int TextPointer::EditLine()
     if(currentline < 0)
         PositionChanged(0, 0, 0);
 
-    char * origText = new char[strlen(Text->GetOrigText())+MAXPATHLEN];
+    char * origText = (char *) malloc(strlen(Text->GetOrigText())+MAXPATHLEN);
+    if(!origText)
+        return -1;
+
     memset(origText, 0, strlen(Text->GetOrigText())+MAXPATHLEN);
-    sprintf(origText, "%s", Text->GetOrigText());
+    memcpy(origText, Text->GetOrigText(), strlen(Text->GetOrigText()));
 
     char * StartPosition =  &origText[LineOffset];
     char * EndPosition =  &origText[LineOffset+LetterNumInLine];
@@ -228,18 +230,34 @@ int TextPointer::EditLine()
     int result = OnScreenKeyboard(temp, 150);
     if(result == 1)
     {
-        char * temp2 = new char[strlen(origText)+1];
-        sprintf(temp2, "%s", EndPosition);
+        int endlength = strlen(EndPosition);
+        char * temp2 = (char *) malloc(endlength);
+        if(!temp2)
+        {
+            free(origText);
+            return -1;
+        }
+        memcpy(temp2, EndPosition, endlength);
+
         sprintf(StartPosition, "%s%s", temp, temp2);
-        delete [] temp2;
-        Text->SetText(origText);
-        delete [] origText;
+        free(temp2);
+
+        char * origTxtCpy = (char *) realloc(origText, strlen(origText)+1);
+        if(!origTxtCpy)
+        {
+            free(origText);
+            return -1;
+        }
+
+        Text->SetText(origTxtCpy);
+        free(origTxtCpy);
+
         Text->SetMaxWidth(343, LONGTEXT);
         PositionChanged(0, Position_X, Position_Y);
         return 1;
     }
 
-    delete [] origText;
+    free(origText);
 
     return -1;
 }

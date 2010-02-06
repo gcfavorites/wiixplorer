@@ -20,6 +20,8 @@
 void InitThreads();
 void ExitGUIThreads();
 void MainMenu (int menuitem);
+void ResumeGui();
+void HaltGui();
 
 enum
 {
@@ -29,7 +31,7 @@ enum
 	MENU_BROWSE_DEVICE,
 	MENU_SMB_SETTINGS,
 	MENU_LANGUAGE_BROWSE,
-	MENU_UPDATE_SETTINGS
+	MENU_NETWORK_SETTINGS
 };
 
 #endif

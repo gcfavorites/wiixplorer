@@ -10,7 +10,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+/*
 static struct entities_s {
 	char	*name;
 	int	value;
@@ -268,7 +268,7 @@ static struct entities_s {
 	{"zwj", 8205},
 	{"zwnj", 8204},
 };
-
+*/
 #define ENTITY_NAME_LENGTH_MAX 8
 #define NR_OF_ENTITIES 252
 

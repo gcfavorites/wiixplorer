@@ -33,9 +33,6 @@
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
 
-extern u8 shutdown;
-extern u8 reset;
-
 Taskbar *Taskbar::instance = NULL;
 
 Taskbar::Taskbar()

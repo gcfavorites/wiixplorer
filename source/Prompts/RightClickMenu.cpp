@@ -28,7 +28,6 @@
 
 #include "RightClickMenu.h"
 #include "Controls/MainWindow.h"
-#include "Language/gettext.h"
 
 
 RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *btn2Label,

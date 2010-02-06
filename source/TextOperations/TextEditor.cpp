@@ -28,7 +28,6 @@
 #include <unistd.h>
 #include "TextOperations/TextEditor.h"
 #include "Prompts/PromptWindows.h"
-#include "Language/gettext.h"
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
 

@@ -59,6 +59,9 @@ bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
 
 void GuiSound::Play()
 {
+    if(!sound)
+        return;
+
     Stop();
 
     voice = 0;
@@ -73,7 +76,7 @@ void GuiSound::Play()
             break;
 
 		case SOUND_OGG:
-            PlayOgg(mem_open((char *)sound, length), 0, loop ? OGG_INFINITE_TIME : OGG_ONE_TIME);
+            PlayOgg(sound, length, 0, loop ? OGG_INFINITE_TIME : OGG_ONE_TIME);
             break;
 
 		case SOUND_MP3:
@@ -147,14 +150,6 @@ void GuiSound::Resume()
 
 bool GuiSound::IsPlaying()
 {
-    if(type == SOUND_MP3 || type == SOUND_OGG)
-    {
-        if(ASND_StatusVoice(0) == SND_WORKING || ASND_StatusVoice(0) == SND_WAITING)
-            return true;
-        else
-            return false;
-    }
-
 	if(ASND_StatusVoice(voice) == SND_WORKING || ASND_StatusVoice(voice) == SND_WAITING)
 		return true;
 	else

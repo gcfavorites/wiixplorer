@@ -28,7 +28,6 @@
  ***************************************************************************/
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
-#include "Language/gettext.h"
 
 static char tmptxt[MAX_KEYBOARD_DISPLAY];
 

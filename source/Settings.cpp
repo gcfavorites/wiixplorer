@@ -58,6 +58,7 @@ void Settings::SetDefault()
     MusicVolume = 80;
     CurrentUser = 0;
     BGMLoopMode = 1;
+    AutoConnect = 0;
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
@@ -118,6 +119,7 @@ bool Settings::Save()
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 	fprintf(file, "MountNTFS = %d\n", MountNTFS);
 	fprintf(file, "BGMLoopMode = %d\n", BGMLoopMode);
+	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "UpdateMetaxml = %d\n", UpdateMetaxml);
 	fprintf(file, "UpdateIconpng = %d\n", UpdateIconpng);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
@@ -390,6 +392,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "BGMLoopMode") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			BGMLoopMode = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "AutoConnect") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			AutoConnect = i;
 		}
 		return true;
 	}

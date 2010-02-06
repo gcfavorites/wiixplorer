@@ -22,7 +22,7 @@
  * distribution.
  *
  * fileops.cpp
- * File operations for the Wii-FileXplorer
+ * File operations for the WiiXplorer
  * Handling all the needed file operations
  ***************************************************************************/
 
@@ -35,11 +35,10 @@
 #include <unistd.h>
 
 #include "Prompts/ProgressWindow.h"
-#include "Prompts/PromptWindows.h"
 #include "fileops.h"
 #include "filebrowser.h"
 
-#define BLOCKSIZE               50*1024      //50KB
+#define BLOCKSIZE               70*1024      //70KB
 
 
 typedef struct {
@@ -190,73 +189,78 @@ u64 FileSize(const char * filepath)
  ***************************************************************************/
 int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 {
-    int ret;
-	char temp[MAXPATHLEN];
-	sprintf(temp, "%s", filepath);
-	char * filename = strrchr(temp, '/')+1;
+    int ret = -1;
+    u64 filesize = FileSize(filepath);
+	char * filename = strrchr(filepath, '/');
+	if(filename)
+        filename++;
 
     FILE *file = fopen(filepath, "rb");
 
-    if (file == NULL) {
+    if (file == NULL)
+    {
+        *inbuffer = NULL;
+        *size = 0;
         return -1;
     }
 
-    u64 filesize = FileSize(filepath);
-
-    u8 *tempbuffer = (u8 *) malloc(BLOCKSIZE);
-    if (tempbuffer == NULL) {
+    u8 *buffer = (u8 *) malloc(filesize);
+    if (buffer == NULL)
+    {
         fclose(file);
+        *inbuffer = NULL;
+        *size = 0;
         return -2;
     }
 
     u64 done = 0;
+    u32 blocksize = BLOCKSIZE;
 
-    u8 *readbuffer = (u8 *) malloc(BLOCKSIZE);
-    if(!readbuffer) {
-            free(tempbuffer);
+    do
+    {
+        if(actioncanceled)
+        {
+            free(buffer);
             fclose(file);
-            return -2;
-    }
-
-    do {
-        if(actioncanceled) {
-            usleep(20000);
-            free(readbuffer);
-            free(tempbuffer);
-            fclose(file);
+            *inbuffer = NULL;
+            *size = 0;
             return -10;
         }
 
+        if(blocksize > filesize-done)
+            blocksize = filesize-done;
+
         ShowProgress(done, filesize, filename);
-        ret = fread(tempbuffer, 1, BLOCKSIZE, file);
-        done += ret;
-
-        u8 *tempreadbuffer = (u8 *) realloc(readbuffer, done);
-        if(!tempreadbuffer) {
-            free(tempreadbuffer);
-            tempreadbuffer = NULL;
-            free(readbuffer);
-            readbuffer = NULL;
-            free(tempbuffer);
-            tempbuffer = NULL;
+        ret = fread(buffer+done, 1, blocksize, file);
+        if(ret < 0)
+        {
+            free(buffer);
             fclose(file);
-            return -2;
-        } else
-            readbuffer = tempreadbuffer;
+            *inbuffer = NULL;
+            *size = 0;
+            return -3;
+        }
+        else if(ret == 0)
+        {
+            //we are done
+            break;
+        }
 
-        memcpy(readbuffer+(done-ret), tempbuffer, ret);
+        done += ret;
 
     } while(done < filesize);
 
-    free(tempbuffer);
     fclose(file);
 
-    if (done != filesize) {
-        free(readbuffer);
+    if (done != filesize)
+    {
+        free(buffer);
+        *inbuffer = NULL;
+        *size = 0;
         return -3;
     }
 
-    *inbuffer = readbuffer;
+    *inbuffer = buffer;
     *size = filesize;
 
     return 1;
@@ -274,16 +278,16 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8
     StopProgress();
 
     if(ret == -1) {
-        WindowPrompt("Error", "Can not open the file", "OK");
+        ShowError(tr("Can not open the file."));
     }
     else if(ret == -2) {
-        WindowPrompt("Error", "Not enough memory.", "OK");
+        ShowError(tr("Not enough memory."));
     }
     else if(ret == -3) {
-        WindowPrompt("Error", "Can not open the file", "OK");
+        ShowError(tr("Error while reading file."));
     }
     else if(ret == -10) {
-        WindowPrompt("Loading file:", "Action cancelled.", "OK");
+        ShowError(tr("Action cancelled."));
     }
 	return ret;
 }
@@ -355,27 +359,22 @@ bool CreateSubfolder(const char * fullpath)
  ***************************************************************************/
 int CopyFile(const char * src, const char * dest)
 {
-
-	u32 blksize;
 	u32 read = 1;
+	u32 wrote = 1;
     u64 sizesrc = FileSize(src);
 
-	char temp[MAXPATHLEN];
-	sprintf(temp, "%s", src);
-	char * filename = strrchr(temp, '/')+1;
+	char * filename = strrchr(src, '/');
+	if(filename)
+        filename++;
 
 	FILE * source = fopen(src, "rb");
 
-	if(!source){
+	if(!source)
 		return -2;
-	}
 
-    if(sizesrc < BLOCKSIZE)
-        blksize = sizesrc;
-    else
-        blksize = BLOCKSIZE;
+    u32 blksize = BLOCKSIZE;
 
-	u8 * buffer = new unsigned char[blksize];
+	u8 * buffer = (u8 *) malloc(blksize);
 
 	if(buffer == NULL){
 	    //no memory
@@ -387,38 +386,58 @@ int CopyFile(const char * src, const char * dest)
 
     if(destination == NULL)
     {
-        delete [] buffer;
+        free(buffer);
         fclose(source);
         return -3;
     }
 
     u64 done = 0;
-    do {
+
+    do
+    {
         if(actioncanceled)
         {
-            usleep(20000);
             fclose(source);
             fclose(destination);
-            delete [] buffer;
+            free(buffer);
             RemoveFile((char *) dest);
             return -10;
         }
 
+        if(blksize > sizesrc - done)
+            blksize = sizesrc - done;
+
         //Display progress
         ShowProgress(done, sizesrc, filename);
         read = fread(buffer, 1, blksize, source);
-        fwrite(buffer, 1, read, destination);
-        done += read;
+        if(read < 0)
+        {
+            fclose(source);
+            fclose(destination);
+            free(buffer);
+            RemoveFile((char *) dest);
+            return -3;
+        }
+
+        wrote = fwrite(buffer, 1, read, destination);
+        if(wrote < 0)
+        {
+            fclose(source);
+            fclose(destination);
+            free(buffer);
+            RemoveFile((char *) dest);
+            return -3;
+        }
+
+        done += wrote;
+
     } while (read > 0);
 
+    free(buffer);
     fclose(source);
     fclose(destination);
-    delete [] buffer;
 
-    //get size of written file
-    u64 sizedest = FileSize(dest);
-
-    if(sizesrc != sizedest)
+    if(sizesrc != done)
         return -4;
 
 	return 1;

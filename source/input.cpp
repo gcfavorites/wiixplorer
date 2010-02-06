@@ -18,6 +18,7 @@
 #include "menu.h"
 #include "video.h"
 #include "input.h"
+#include "sys.h"
 #include "libwiigui/gui.h"
 
 #ifdef DEBUG_MEM
@@ -32,7 +33,6 @@ int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
 static int rumbleCount[4] = {0,0,0,0};
 
-extern u8 shutdown;
 /****************************************************************************
  * UpdatePads
  *
@@ -175,9 +175,9 @@ s8 WPAD_Stick(u8 chan, u8 right, int axis)
 /****************************************************************************
  * Initialize Stuff
  ***************************************************************************/
-void __Wpad_PowerCallback(s32 chan)
+extern "C" void __Wpad_PowerCallback(s32 chan)
 {
-	shutdown = 1;
+	shutdown = true;
 }
 
 int Wpad_Init(void)

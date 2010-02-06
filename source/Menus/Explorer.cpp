@@ -36,7 +36,6 @@
 #include "Prompts/Properties.h"
 #include "Prompts/ArchiveProperties.h"
 #include "FileStartUp/FileStartUp.h"
-#include "Language/gettext.h"
 #include "devicemounter.h"
 #include "FileOperations/filebrowser.h"
 #include "FileOperations/fileops.h"
@@ -45,8 +44,6 @@
 /*** Extern variables ***/
 extern CLIPBOARD Clipboard;
 extern bool boothomebrew;
-extern u8 shutdown;
-extern u8 reset;
 
 Explorer::Explorer()
     :GuiWindow(0, 0)
@@ -223,7 +220,7 @@ int Explorer::LoadPath(const char * path)
 	filecount = Browser->BrowsePath(path);
 	if(filecount < 0)
 	{
-		int choice = WindowPrompt(tr("Error"),
+		int choice = WindowPrompt(tr("Error:"),
 		tr("Unable to load path."),
 		tr("Retry"),
 		tr("Close"));
@@ -246,7 +243,7 @@ int Explorer::LoadDevice(int device)
     filecount = Browser->BrowseDevice(device);
 	if(filecount < 0)
 	{
-		int choice = WindowPrompt(tr("Error"),
+		int choice = WindowPrompt(tr("Error:"),
 		tr("Unable to load the device."),
 		tr("Retry"),
 		tr("Close"));
@@ -369,10 +366,10 @@ void Explorer::CheckDeviceMenu()
         while(device_choice == -1 && Device_Menu != NULL)
         {
             usleep(100);
-            if(shutdown == 1)
-                Sys_Shutdown();
 
-            else if(reset == 1)
+            if(shutdown)
+                Sys_Shutdown();
+            else if(reset)
                 Sys_Reboot();
 
             device_choice = Device_Menu->GetChoice();
@@ -411,10 +408,10 @@ void Explorer::CheckRightClick()
         while(RightClick_choice == -1 && RightClick != NULL)
         {
             usleep(100);
-            if(shutdown == 1)
-                Sys_Shutdown();
 
-            else if(reset == 1)
+            if(shutdown)
+                Sys_Shutdown();
+            else if(reset)
                 Sys_Reboot();
 
             RightClick_choice = RightClick->GetChoice();

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Handling afbrudt."
-
-msgid "An error occured."
-msgstr "Der skete en fejl."
 
 msgid "App Default"
 msgstr "Programstandard"
@@ -27,14 +27,17 @@ msgstr "Programstandard"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Auto-forbind"
+
 msgid "Back"
 msgstr "Tilbage"
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "Kan ikke åbne filen"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr "Vil du opdatere nu?"
 msgid "Downloading file..."
 msgstr "Downloader fil..."
 
-msgid "ERROR"
-msgstr "FEJL"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Fejl"
 
 msgid "Error:"
 msgstr "Fejl:"
@@ -319,9 +316,6 @@ msgstr "Vært:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr "Sprog"
 
@@ -360,6 +354,9 @@ msgstr "Musiklydstyrke"
 
 msgid "Name already exists."
 msgstr "Navnet eksisterer allerede."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Initialiserer netforbindelse..."
@@ -559,11 +556,20 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
 
+#~ msgid "Can not open the file"
+#~ msgstr "Kan ikke åbne filen"
+
+#~ msgid "Error"
+#~ msgstr "Fejl"
+
+#~ msgid "An error occured."
+#~ msgstr "Der skete en fejl."
+
+#~ msgid "ERROR"
+#~ msgstr "FEJL"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Dette er ikke en OGG-/MP3-fil"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Auto-forbind"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Forbind til SMB"

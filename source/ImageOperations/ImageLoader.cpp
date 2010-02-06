@@ -1,5 +1,7 @@
+#include <unistd.h>
 #include "Controls/MainWindow.h"
 #include "ImageViewer.h"
+#include "sys.h"
 
 void ImageLoader(const char *filepath)
 {
@@ -9,7 +11,12 @@ void ImageLoader(const char *filepath)
 
     while(ImageVwr->MainUpdate() < 0)
     {
-	    VIDEO_WaitVSync();
+	    usleep(100);
+
+        if(shutdown)
+            Sys_Shutdown();
+        else if(reset)
+            Sys_Reboot();
     }
     delete ImageVwr;
     ImageVwr = NULL;

@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 
-#define MAXSMBUSERS         4
+#define MAXSMBUSERS         5
 
 typedef struct _SMBData
 {
@@ -104,6 +104,8 @@ class Settings
         short	MountNTFS;
         //!BGM Loop Mode
         short	BGMLoopMode;
+        //!AutoConnect Network on StartUp
+        short	AutoConnect;
         //!Update the meta.xml
         short	UpdateMetaxml;
         //!Update the icon.png

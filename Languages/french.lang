@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Action annulée"
-
-msgid "An error occured."
-msgstr "Une erreur est survenue."
 
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
@@ -27,14 +27,17 @@ msgstr "WiiXplorer Défaut"
 msgid "Archive successfully extracted."
 msgstr "Extraction réussie."
 
+msgid "Auto Connect"
+msgstr "Connexion auto"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr "Périphérique"
 
-msgid "Can not open the file"
-msgstr "Impossible d'ouvrir le fichier."
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr "Chargement du fichier impossible."
@@ -192,14 +195,8 @@ msgstr "Voulez-vous mettre à jour maintenant ?"
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
-msgid "ERROR"
-msgstr "ERREUR"
-
-msgid "ERROR:"
-msgstr "ERREUR:"
-
-msgid "Error"
-msgstr "Erreur"
+msgid "Error while reading file."
+msgstr ""
 
 msgid "Error:"
 msgstr "Erreur:"
@@ -319,9 +316,6 @@ msgstr "Hébergeur:"
 msgid "Image Viewer"
 msgstr "Aperçu"
 
-msgid "ImageViewer"
-msgstr "Aperçu"
-
 msgid "Language"
 msgstr "Langue"
 
@@ -360,6 +354,9 @@ msgstr "Volume"
 
 msgid "Name already exists."
 msgstr "Ce nom existe déjà."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Initialisation du réseau..."
@@ -559,11 +556,26 @@ msgstr "et tous les traducteurs."
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
 
+#~ msgid "Can not open the file"
+#~ msgstr "Impossible d'ouvrir le fichier."
+
+#~ msgid "ImageViewer"
+#~ msgstr "Aperçu"
+
+#~ msgid "Error"
+#~ msgstr "Erreur"
+
+#~ msgid "An error occured."
+#~ msgstr "Une erreur est survenue."
+
+#~ msgid "ERROR"
+#~ msgstr "ERREUR"
+
+#~ msgid "ERROR:"
+#~ msgstr "ERREUR:"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Ce n'est pas un fichier OGG/MP3"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Connexion auto"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Connecter SMB"

@@ -25,7 +25,6 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include "Language/gettext.h"
 #include "Controls/MainWindow.h"
 #include "CreditWindow.h"
 #include "svnrev.h"

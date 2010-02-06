@@ -36,7 +36,6 @@
 #include "Prompts/ProgressWindow.h"
 #include "ZipFile.h"
 #include "FileOperations/fileops.h"
-#include "Language/gettext.h"
 
 extern bool actioncanceled;
 

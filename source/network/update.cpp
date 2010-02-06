@@ -30,7 +30,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
 #include "http.h"
@@ -49,7 +48,7 @@ int UpdateApp(const char *url)
 {
     if(!url)
     {
-        WindowPrompt(tr("ERROR"), tr("URL is empty."), tr("OK"));
+        ShowError(tr("URL is empty."));
         return -1;
     }
 

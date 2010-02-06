@@ -64,7 +64,7 @@ void ClearFontData()
 	}
 	if(customfontbuffer)
     {
-        delete customfontbuffer;
+        delete [] customfontbuffer;
         customfontbuffer = NULL;
         cstfontfilesize = 0;
     }
@@ -84,6 +84,8 @@ wchar_t* charToWideChar(const char* strChar)
 {
 	wchar_t *strWChar;
 	strWChar = new wchar_t[strlen(strChar) + 1];
+	if(!strWChar)
+        return NULL;
 
 	// UTF-8
 	int	bt;

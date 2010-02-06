@@ -34,7 +34,6 @@
 
 #include "ArchiveBrowser.h"
 #include "Prompts/PromptWindows.h"
-#include "Language/gettext.h"
 #include "menu.h"
 
 /****************************************************************************

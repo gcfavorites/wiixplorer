@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,11 +16,11 @@ msgstr ""
 msgid "1"
 msgstr "1"
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Actie geannuleerd"
-
-msgid "An error occured."
-msgstr "Er is een fout opgetreden"
 
 msgid "App Default"
 msgstr "Standaard"
@@ -28,14 +28,17 @@ msgstr "Standaard"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Automatisch verbinden"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "Kan bestand niet openen"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -193,14 +196,8 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr "FOUT"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Fout"
 
 msgid "Error:"
 msgstr "Fout:"
@@ -320,9 +317,6 @@ msgstr "Gastheer:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr "ImageViewer"
-
 msgid "Language"
 msgstr "Taal"
 
@@ -361,6 +355,9 @@ msgstr "Muziekvolume"
 
 msgid "Name already exists."
 msgstr "Naam bestaat al."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Netwerk Initialiseren..."
@@ -560,11 +557,23 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
 
+#~ msgid "Can not open the file"
+#~ msgstr "Kan bestand niet openen"
+
+#~ msgid "ImageViewer"
+#~ msgstr "ImageViewer"
+
+#~ msgid "Error"
+#~ msgstr "Fout"
+
+#~ msgid "An error occured."
+#~ msgstr "Er is een fout opgetreden"
+
+#~ msgid "ERROR"
+#~ msgstr "FOUT"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Dit is geen OGG/MP3 bestand"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Automatisch verbinden"
 
 #~ msgid "Connect SMB"
 #~ msgstr "SMB verbinden"

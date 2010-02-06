@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "キャンセルしました"
-
-msgid "An error occured."
-msgstr "エラーが発生しました"
 
 msgid "App Default"
 msgstr "英語"
@@ -27,14 +27,17 @@ msgstr "英語"
 msgid "Archive successfully extracted."
 msgstr "解凍しました"
 
+msgid "Auto Connect"
+msgstr "自動接続"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
-msgid "Can not open the file"
-msgstr "ファイルを開けません"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr "更新しますか?"
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
-msgid "ERROR"
-msgstr "エラー"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "エラー"
 
 msgid "Error:"
 msgstr "エラー"
@@ -319,9 +316,6 @@ msgstr "ホスト"
 msgid "Image Viewer"
 msgstr "画像ビューア"
 
-msgid "ImageViewer"
-msgstr "画像ビューア"
-
 msgid "Language"
 msgstr "言語"
 
@@ -360,6 +354,9 @@ msgstr "音量"
 
 msgid "Name already exists."
 msgstr "同じ名前がすでにあります"
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "接続中..."
@@ -559,11 +556,23 @@ msgstr ", K-M…日本語への翻訳"
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
 
+#~ msgid "Can not open the file"
+#~ msgstr "ファイルを開けません"
+
+#~ msgid "ImageViewer"
+#~ msgstr "画像ビューア"
+
+#~ msgid "Error"
+#~ msgstr "エラー"
+
+#~ msgid "An error occured."
+#~ msgstr "エラーが発生しました"
+
+#~ msgid "ERROR"
+#~ msgstr "エラー"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "これはOGG/MP3ファイルではありません"
-
-#~ msgid "Auto Connect"
-#~ msgstr "自動接続"
 
 #~ msgid "Connect SMB"
 #~ msgstr "SMBと接続"

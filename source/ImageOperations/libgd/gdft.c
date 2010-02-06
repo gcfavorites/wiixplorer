@@ -36,12 +36,12 @@
 /* number of antialised colors for indexed bitmaps */
 #define GD_NUMCOLORS 8
 
-static int fontConfigFlag = 0;
+//static int fontConfigFlag = 0;
 
-static char *font_path(char **fontpath, char *name_list);
+//static char *font_path(char **fontpath, char *name_list);
 /* translate a fontconfig fontpattern into a fontpath. 
 	return NULL if OK, else return error string */
-static char *font_pattern(char **fontpath, char *fontpattern);
+//static char *font_pattern(char **fontpath, char *fontpattern);
 
 /* 2.0.30: move these up here so we can build correctly without freetype
 	but with fontconfig */
@@ -1578,120 +1578,120 @@ static char * font_pattern(char **fontpath, char *fontpattern)
 #endif /* HAVE_LIBFONTCONFIG */
 
 /* Look up font using font names as file names. */
-static char * font_path(char **fontpath, char *name_list)
-{
-  int font_found = 0;
-  char *fontsearchpath, *fontlist;
-  char *fullname = NULL;
-  char *name, *path, *dir;
-  char *strtok_ptr;
-
-  /*
-   * Search the pathlist for any of a list of font names.
-   */
-  *fontpath = NULL;
-  fontsearchpath = getenv ("GDFONTPATH");
-  if (!fontsearchpath)
-    fontsearchpath = DEFAULT_FONTPATH;
-  fontlist = strdup (name_list);
-
-  /*
-   * Must use gd_strtok_r else pointer corrupted by strtok in nested loop.
-   */
-  for (name = gd_strtok_r (fontlist, LISTSEPARATOR, &strtok_ptr); name;
-       name = gd_strtok_r (0, LISTSEPARATOR, &strtok_ptr))
-    {
-      char *path_ptr;
-
-      /* make a fresh copy each time - strtok corrupts it. */
-      path = strdup (fontsearchpath);
-      /*
-       * Allocate an oversized buffer that is guaranteed to be
-       * big enough for all paths to be tested.
-       */
-      /* 2.0.22: Thorben Kundinger: +8 is needed, not +6. */
-      fullname = gdRealloc (fullname,
-                          strlen (fontsearchpath) + strlen (name) + 8);
-      if (!fullname) {
-          free (path);
-          free (fontlist);
-          return "could not alloc full path of font";
-      }
-      /* if name is an absolute or relative pathname then test directly */
-#ifdef NETWARE
-      /* netware uses the format "volume:/path" or the standard "/path" */
-      if (name[0] != 0 && (strstr(name, ":/") || name[0] == '/'))
-#else
-      if (strchr (name, '/')
-	  || (name[0] != 0 && name[1] == ':'
-	      && (name[2] == '/' || name[2] == '\\')))
-#endif
-	{
-	  sprintf (fullname, "%s", name);
-	  if (access (fullname, R_OK) == 0)
-	    {
-	      font_found++;
-              /* 2.0.16: memory leak fixed, Gustavo Scotti */
-              free (path);
-	      break;
-	    }
-	}
-      for (dir = gd_strtok_r (path, PATHSEPARATOR, &path_ptr); dir;
-           dir = gd_strtok_r (0, PATHSEPARATOR, &path_ptr))
-	{
-          if (strchr (name, '.'))
-	    {
-	      sprintf (fullname, "%s/%s", dir, name);
-	      if (access (fullname, R_OK) == 0)
-	        {
-	          font_found++;
-	          break;
-	        }
-	      else
-		{
-		  continue;
-		}
-            }
-	  sprintf (fullname, "%s/%s.ttf", dir, name);
-	  if (access (fullname, R_OK) == 0)
-	    {
-	      font_found++;
-	      break;
-	    }
-	  sprintf (fullname, "%s/%s.pfa", dir, name);
-	  if (access (fullname, R_OK) == 0)
-	    {
-	      font_found++;
-	      break;
-	    }
-	  sprintf (fullname, "%s/%s.pfb", dir, name);
-	  if (access (fullname, R_OK) == 0)
-	    {
-	      font_found++;
-	      break;
-	    }
-	  sprintf (fullname, "%s/%s.dfont", dir, name);
-	  if (access (fullname, R_OK) == 0)
-	    {
-	      font_found++;
-	      break;
-	    }
-	}
-      free (path);
-      if (font_found)
-	break;
-    }
-  free (fontlist);
-  if (!font_found)
-    {
-      gdFree (fullname);
-      return "Could not find/open font";
-    }
-
-  *fontpath = fullname;
-  return NULL;
-}
-
+//static char * font_path(char **fontpath, char *name_list)
+//{
+//  int font_found = 0;
+//  char *fontsearchpath, *fontlist;
+//  char *fullname = NULL;
+//  char *name, *path, *dir;
+//  char *strtok_ptr;
+//
+//  /*
+//   * Search the pathlist for any of a list of font names.
+//   */
+//  *fontpath = NULL;
+//  fontsearchpath = getenv ("GDFONTPATH");
+//  if (!fontsearchpath)
+//    fontsearchpath = DEFAULT_FONTPATH;
+//  fontlist = strdup (name_list);
+//
+//  /*
+//   * Must use gd_strtok_r else pointer corrupted by strtok in nested loop.
+//   */
+//  for (name = gd_strtok_r (fontlist, LISTSEPARATOR, &strtok_ptr); name;
+//       name = gd_strtok_r (0, LISTSEPARATOR, &strtok_ptr))
+//    {
+//      char *path_ptr;
+//
+//      /* make a fresh copy each time - strtok corrupts it. */
+//      path = strdup (fontsearchpath);
+//      /*
+//       * Allocate an oversized buffer that is guaranteed to be
+//       * big enough for all paths to be tested.
+//       */
+//      /* 2.0.22: Thorben Kundinger: +8 is needed, not +6. */
+//      fullname = gdRealloc (fullname,
+//                          strlen (fontsearchpath) + strlen (name) + 8);
+//      if (!fullname) {
+//          free (path);
+//          free (fontlist);
+//          return "could not alloc full path of font";
+//      }
+//      /* if name is an absolute or relative pathname then test directly */
+//#ifdef NETWARE
+//      /* netware uses the format "volume:/path" or the standard "/path" */
+//      if (name[0] != 0 && (strstr(name, ":/") || name[0] == '/'))
+//#else
+//      if (strchr (name, '/')
+//	  || (name[0] != 0 && name[1] == ':'
+//	      && (name[2] == '/' || name[2] == '\\')))
+//#endif
+//	{
+//	  sprintf (fullname, "%s", name);
+//	  if (access (fullname, R_OK) == 0)
+//	    {
+//	      font_found++;
+//              /* 2.0.16: memory leak fixed, Gustavo Scotti */
+//              free (path);
+//	      break;
+//	    }
+//	}
+//      for (dir = gd_strtok_r (path, PATHSEPARATOR, &path_ptr); dir;
+//           dir = gd_strtok_r (0, PATHSEPARATOR, &path_ptr))
+//	{
+//          if (strchr (name, '.'))
+//	    {
+//	      sprintf (fullname, "%s/%s", dir, name);
+//	      if (access (fullname, R_OK) == 0)
+//	        {
+//	          font_found++;
+//	          break;
+//	        }
+//	      else
+//		{
+//		  continue;
+//		}
+//            }
+//	  sprintf (fullname, "%s/%s.ttf", dir, name);
+//	  if (access (fullname, R_OK) == 0)
+//	    {
+//	      font_found++;
+//	      break;
+//	    }
+//	  sprintf (fullname, "%s/%s.pfa", dir, name);
+//	  if (access (fullname, R_OK) == 0)
+//	    {
+//	      font_found++;
+//	      break;
+//	    }
+//	  sprintf (fullname, "%s/%s.pfb", dir, name);
+//	  if (access (fullname, R_OK) == 0)
+//	    {
+//	      font_found++;
+//	      break;
+//	    }
+//	  sprintf (fullname, "%s/%s.dfont", dir, name);
+//	  if (access (fullname, R_OK) == 0)
+//	    {
+//	      font_found++;
+//	      break;
+//	    }
+//	}
+//      free (path);
+//      if (font_found)
+//	break;
+//    }
+//  free (fontlist);
+//  if (!font_found)
+//    {
+//      gdFree (fullname);
+//      return "Could not find/open font";
+//    }
+//
+//  *fontpath = fullname;
+//  return NULL;
+//}
+//
 BGD_DECLARE(int) gdFTUseFontConfig(int flag)
 {
 #ifdef HAVE_LIBFONTCONFIG

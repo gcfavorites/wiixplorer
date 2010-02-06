@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -16,11 +16,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Akce zrušena"
-
-msgid "An error occured."
-msgstr "Došlo k chybě."
 
 msgid "App Default"
 msgstr "Původní nastavení"
@@ -28,14 +28,17 @@ msgstr "Původní nastavení"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Automatické připojení"
+
 msgid "Back"
 msgstr "Zpět"
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "Nelze otevřít soubor"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -193,14 +196,8 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr "CHYBA"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Chyba"
 
 msgid "Error:"
 msgstr "Chyba:"
@@ -320,9 +317,6 @@ msgstr "Hostitel:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr "Jazyk"
 
@@ -361,6 +355,9 @@ msgstr "Hlasitost hudby"
 
 msgid "Name already exists."
 msgstr "Jméno již existuje."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Inicializace sítě ..."
@@ -560,11 +557,20 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
 
+#~ msgid "Can not open the file"
+#~ msgstr "Nelze otevřít soubor"
+
+#~ msgid "Error"
+#~ msgstr "Chyba"
+
+#~ msgid "An error occured."
+#~ msgstr "Došlo k chybě."
+
+#~ msgid "ERROR"
+#~ msgstr "CHYBA"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Toto není OGG/MP3 soubor"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Automatické připojení"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Připojení SMSB"

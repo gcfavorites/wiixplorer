@@ -31,13 +31,8 @@
 
 #include "Prompts/PromptWindow.h"
 #include "filelist.h"
-#include "Language/gettext.h"
 #include "Controls/MainWindow.h"
 #include "sys.h"
-
-/*** Extern variables ***/
-extern u8 shutdown;
-extern u8 reset;
 
 /****************************************************************************
 * PromptWindow Class

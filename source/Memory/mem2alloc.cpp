@@ -156,8 +156,11 @@ void *CMEM2Alloc::reallocate(void *p, unsigned int s)
 	{
 		LockMutex lock(m_mutex);
 
+        //out of memory /* Dimok */
 		if (i + s + 1 >= m_endAddress)
+		{
 			return 0;
+		}
 
 		// Last block
 		if (i->next == 0 && i + s + 1 < m_endAddress)
