@@ -29,14 +29,9 @@
 #include "DeviceMenu.h"
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
-#include "Language/gettext.h"
 #include "network/networkops.h"
 #include "devicemounter.h"
 #include "FileOperations/filebrowser.h"
-
-/*** Extern functions ***/
-extern void ResumeGui();
-extern void HaltGui();
 
 DeviceMenu::DeviceMenu(int x, int y)
     :GuiWindow(0, 0)
@@ -244,11 +239,11 @@ DeviceMenu::DeviceMenu(int x, int y)
 
 DeviceMenu::~DeviceMenu()
 {
-    ResumeGui();
+    MainWindow::Instance()->ResumeGui();
     SetEffect(EFFECT_FADE, -30);
     while(this->GetEffect() > 0) usleep(100);
 
-    HaltGui();
+    MainWindow::Instance()->HaltGui();
     if(parentElement)
         ((GuiWindow *) parentElement)->Remove(this);
 
@@ -293,7 +288,7 @@ DeviceMenu::~DeviceMenu()
     delete trigA;
     delete trigB;
 
-    ResumeGui();
+    MainWindow::Instance()->ResumeGui();
 }
 
 int DeviceMenu::GetChoice()

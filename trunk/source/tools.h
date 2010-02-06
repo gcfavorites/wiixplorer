@@ -1,6 +1,10 @@
 #ifndef __TOOLS_H
 #define __TOOLS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <gctypes.h>
 
 typedef struct _TimeStruct
@@ -13,9 +17,15 @@ typedef struct _TimeStruct
     u32 tm_year;           /* years - [1980..2044] */
 } TimeStruct;
 
-int ROUND2FOUR(double x);
 bool TimePassed(int limit);
 void ConvertDosDate(u64 ulDosDate, TimeStruct * ptm);
 void ConvertNTFSDate(u64 ulNTFSDate,  TimeStruct * ptm);
+
+
+void ShowError(const char * format, ...);
+
+#ifdef __cplusplus
+}
+#endif //__cplusplus
 
 #endif /* SVNREV_H */

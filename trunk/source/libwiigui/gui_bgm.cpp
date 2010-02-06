@@ -27,7 +27,6 @@
 #include <unistd.h>
 #include "gui_bgm.h"
 #include "FileOperations/fileops.h"
-#include "Language/gettext.h"
 #include "main.h"
 
 GuiBGM *GuiBGM::instance = NULL;
@@ -37,7 +36,8 @@ GuiBGM::GuiBGM()
 {
     loop = 0;
     currentPath = NULL;
-    currentPlaying = 0;
+    currentPlaying = -1;
+    voice = 0;
     ExitRequested = false;
 	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 0, 0);
 }
@@ -126,6 +126,8 @@ bool GuiBGM::Load(const char * path, bool silent)
         LoadStandard();
         return false;
     }
+
+    Play();
 
     return true;
 }
@@ -231,12 +233,7 @@ bool GuiBGM::PlayNext()
 
     snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s%s", currentPath, PlayList.at(currentPlaying));
 
-    if(!Load(Settings.MusicPath, true))
-        return false;
-
-    Play();
-
-    return true;
+    return Load(Settings.MusicPath, true);
 }
 
 bool GuiBGM::PlayPrevious()
@@ -250,12 +247,7 @@ bool GuiBGM::PlayPrevious()
 
     snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s%s", currentPath, PlayList.at(currentPlaying));
 
-    if(!Load(Settings.MusicPath, true))
-        return false;
-
-    Play();
-
-    return true;
+    return Load(Settings.MusicPath, true);
 }
 
 bool GuiBGM::PlayRandom()
@@ -275,12 +267,7 @@ bool GuiBGM::PlayRandom()
 
     snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s%s", currentPath, PlayList.at(currentPlaying));
 
-    if(!Load(Settings.MusicPath, true))
-        return false;
-
-    Play();
-
-    return true;
+    return Load(Settings.MusicPath, true);
 }
 
 void * GuiBGM::UpdateBMG(void * arg)
@@ -291,13 +278,23 @@ void * GuiBGM::UpdateBMG(void * arg)
 
 void GuiBGM::UpdateState()
 {
+    //wait for first playing
+    while(!IsPlaying())
+        usleep(100);
+
     while(!ExitRequested)
     {
+        usleep(500000);
+
         if(!IsPlaying())
         {
             if(loop > 0 && strcmp(Settings.MusicPath, "") == 0)
             {
                 //!Standard Music is always looped except on loop = 0
+                Play();
+            }
+            else if(loop == LOOP)
+            {
                 Play();
             }
             else if(loop == DIR_LOOP)
@@ -309,7 +306,5 @@ void GuiBGM::UpdateState()
                 PlayRandom();
             }
         }
-
-        usleep(200000);
     }
 }

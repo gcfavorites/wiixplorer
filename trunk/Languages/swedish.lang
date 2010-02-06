@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Händelse avbryten."
-
-msgid "An error occured."
-msgstr "Ett fel har uppståt."
 
 msgid "App Default"
 msgstr "App Standard"
@@ -27,14 +27,17 @@ msgstr "App Standard"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Auto anslut"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "Kan inte öppna filen"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr "FEL"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Fel"
 
 msgid "Error:"
 msgstr "Fel:"
@@ -319,9 +316,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr "Språk"
 
@@ -360,6 +354,9 @@ msgstr "Musik volym"
 
 msgid "Name already exists."
 msgstr "Namn existerar redan."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Nätverk initieras..."
@@ -559,11 +556,20 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr ""
 
+#~ msgid "Can not open the file"
+#~ msgstr "Kan inte öppna filen"
+
+#~ msgid "Error"
+#~ msgstr "Fel"
+
+#~ msgid "An error occured."
+#~ msgstr "Ett fel har uppståt."
+
+#~ msgid "ERROR"
+#~ msgstr "FEL"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Detta är inte en OGG/MP3 fil"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Auto anslut"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Anslut SMB"

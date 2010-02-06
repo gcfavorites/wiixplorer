@@ -33,14 +33,13 @@
 #include "libtinysmb/smb.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
-#include "Language/gettext.h"
 
 #include "http.h"
 #include "networkops.h"
 #include "update.h"
 #include "main.h"
 
-static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false};
+static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false, false};
 static bool networkinit = false;
 static char IP[16];
 static bool autoupdated = false;
@@ -59,14 +58,14 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 {
     if(strncmp(url, "http://", strlen("http://")) != 0)
     {
-        WindowPrompt(tr("ERROR"), tr("Not a valid URL"), tr("OK"));
+        ShowError(tr("Not a valid URL"));
 		return -1;
     }
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
 	{
-        WindowPrompt(tr("ERROR"), tr("Not a valid URL path"), tr("OK"));
+        ShowError(tr("Not a valid URL path"));
         return -2;
 	}
 
@@ -74,7 +73,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	if(domainlength == 0)
 	{
-        WindowPrompt(tr("ERROR"), tr("Not a valid domain"), tr("OK"));
+        ShowError(tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -86,7 +85,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
     if(connection < 0)
     {
-        WindowPrompt(tr("ERROR"), tr("Could not connect to the server."), tr("OK"));
+        ShowError(tr("Could not connect to the server."));
         return -4;
     }
 
@@ -101,17 +100,17 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
     if(!filesize)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Filesize is 0 Byte."), tr("OK"));
+        ShowError(tr("Filesize is 0 Byte."));
         return -5;
     }
 
     u32 blocksize = 5*1024;
 
-    u8 *buffer = (u8 *) malloc(blocksize);
+    u8 * buffer = (u8 *) malloc(filesize);
     if(!buffer)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
+        ShowError(tr("Not enough memory."));
         return -6;
     }
 
@@ -127,7 +126,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
             free(buffer);
             StopProgress();
             net_close(connection);
-            WindowPrompt(tr("ERROR"), tr("Transfer cancelled."), tr("OK"));
+            ShowError(tr("Transfer cancelled."));
             return -10;
         }
 
@@ -136,28 +135,15 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
         if(blocksize > filesize - done)
             blocksize = filesize - done;
 
-        u8 *tmpbuffer = (u8 *) realloc(buffer, done+blocksize);
-        if(!tmpbuffer)
-        {
-            free(tmpbuffer);
-            free(buffer);
-            StopProgress();
-            net_close(connection);
-            WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
-            return -7;
-        }
-        else
-            buffer = tmpbuffer;
 
-
-        s32 read = network_read(connection, buffer, blocksize);
+        s32 read = network_read(connection, buffer+done, blocksize);
 
         if(read < 0)
         {
             free(buffer);
             StopProgress();
             net_close(connection);
-            WindowPrompt(tr("ERROR"), tr("Transfer failed"), tr("OK"));
+            ShowError(tr("Transfer failed"));
             return -8;
         }
         else if(!read)
@@ -182,14 +168,14 @@ int DownloadFileToPath(const char *url, const char *dest)
 {
     if(strncmp(url, "http://", strlen("http://")) != 0)
     {
-        WindowPrompt(tr("ERROR"), tr("Not a valid URL"), tr("OK"));
+        ShowError(tr("Not a valid URL"));
 		return -1;
     }
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
 	{
-        WindowPrompt(tr("ERROR"), tr("Not a valid URL path"), tr("OK"));
+        ShowError(tr("Not a valid URL path"));
         return -2;
 	}
 
@@ -197,7 +183,7 @@ int DownloadFileToPath(const char *url, const char *dest)
 
 	if(domainlength == 0)
 	{
-        WindowPrompt(tr("ERROR"), tr("Not a valid domain"), tr("OK"));
+        ShowError(tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -209,7 +195,7 @@ int DownloadFileToPath(const char *url, const char *dest)
 
     if(connection < 0)
     {
-        WindowPrompt(tr("ERROR"), tr("Could not connect to the server."), tr("OK"));
+        ShowError(tr("Could not connect to the server."));
         return -4;
     }
 
@@ -224,7 +210,7 @@ int DownloadFileToPath(const char *url, const char *dest)
     if(!filesize)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Filesize is 0 Byte."), tr("OK"));
+        ShowError(tr("Filesize is 0 Byte."));
         return -5;
     }
 
@@ -234,7 +220,7 @@ int DownloadFileToPath(const char *url, const char *dest)
     if(!buffer)
     {
         net_close(connection);
-        WindowPrompt(tr("ERROR"), tr("Not enough memory."), tr("OK"));
+        ShowError(tr("Not enough memory."));
         return -6;
     }
 
@@ -243,7 +229,7 @@ int DownloadFileToPath(const char *url, const char *dest)
     {
         net_close(connection);
         free(buffer);
-        WindowPrompt(tr("ERROR"), tr("Cannot write to destination."), tr("OK"));
+        ShowError(tr("Cannot write to destination."));
         return -7;
     }
 
@@ -260,7 +246,7 @@ int DownloadFileToPath(const char *url, const char *dest)
             StopProgress();
             net_close(connection);
             fclose(file);
-            WindowPrompt(tr("ERROR"), tr("Transfer cancelled."), tr("OK"));
+            ShowError(tr("Transfer cancelled."));
             return -10;
         }
 
@@ -277,7 +263,7 @@ int DownloadFileToPath(const char *url, const char *dest)
             StopProgress();
             net_close(connection);
             fclose(file);
-            WindowPrompt(tr("ERROR"), tr("Transfer failed"), tr("OK"));
+            ShowError(tr("Transfer failed"));
             return -8;
         }
         else if(!read)

@@ -44,6 +44,7 @@
 #include <wiiuse/wpad.h>
 #include "ImageOperations/libgd/gd.h"
 #include "FreeTypeGX.h"
+#include "Language/gettext.h"
 #include "video.h"
 #include "filelist.h"
 #include "input.h"
@@ -52,6 +53,8 @@
 #include "tools.h"
 
 extern FreeTypeGX *fontSystem[];
+extern bool shutdown;
+extern bool reset;
 
 #define SCROLL_INITIAL_DELAY 	20
 #define SCROLL_LOOP_DELAY 		3

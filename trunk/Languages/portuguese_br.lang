@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Ação cancelada"
-
-msgid "An error occured."
-msgstr "Ocorreu um erro"
 
 msgid "App Default"
 msgstr "Padrão do App"
@@ -27,14 +27,17 @@ msgstr "Padrão do App"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Auto Conexão"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "Impossível abrir o arquivo"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,13 +195,7 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr ""
-
-msgid "ERROR:"
-msgstr ""
-
-msgid "Error"
+msgid "Error while reading file."
 msgstr ""
 
 msgid "Error:"
@@ -319,9 +316,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr "Língua"
 
@@ -360,6 +354,9 @@ msgstr "Volume Musical"
 
 msgid "Name already exists."
 msgstr "Nome já existe."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Iniciando Rede..."
@@ -559,11 +556,14 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr ""
 
+#~ msgid "Can not open the file"
+#~ msgstr "Impossível abrir o arquivo"
+
+#~ msgid "An error occured."
+#~ msgstr "Ocorreu um erro"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Não é um arquivo OGG/MP3"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Auto Conexão"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Conectar SMB"

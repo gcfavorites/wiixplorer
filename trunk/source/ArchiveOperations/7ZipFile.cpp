@@ -34,7 +34,6 @@
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 #include "7ZipFile.h"
-#include "Language/gettext.h"
 
 extern bool actioncanceled;
 
@@ -131,7 +130,7 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 void SzFile::DisplayError(SRes res)
 {
 	StopProgress();
-	WindowPrompt("7z decompression failed:", szerrormsg[(res - 1)], "OK");
+	WindowPrompt(tr("7z decompression failed:"), szerrormsg[(res - 1)], tr("OK"));
 }
 
 u32 SzFile::GetItemCount()

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr "1"
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Operación cancelada."
-
-msgid "An error occured."
-msgstr "Se ha producido un error."
 
 msgid "App Default"
 msgstr "Aplicación por defecto"
@@ -27,14 +27,17 @@ msgstr "Aplicación por defecto"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Conexión automática"
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
-msgstr "No se puede abrir el archivo"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr "ERROR"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Error"
 
 msgid "Error:"
 msgstr "Error:"
@@ -319,9 +316,6 @@ msgstr "Host:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr "Visor de Imágenes"
-
 msgid "Language"
 msgstr "Idioma"
 
@@ -360,6 +354,9 @@ msgstr "Volumen de música"
 
 msgid "Name already exists."
 msgstr "Nombre ya existe."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Inicializando la red..."
@@ -559,11 +556,23 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
 
+#~ msgid "Can not open the file"
+#~ msgstr "No se puede abrir el archivo"
+
+#~ msgid "ImageViewer"
+#~ msgstr "Visor de Imágenes"
+
+#~ msgid "Error"
+#~ msgstr "Error"
+
+#~ msgid "An error occured."
+#~ msgstr "Se ha producido un error."
+
+#~ msgid "ERROR"
+#~ msgstr "ERROR"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Esto no es un archivo OGG/MP3"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Conexión automática"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Conectar SMB"

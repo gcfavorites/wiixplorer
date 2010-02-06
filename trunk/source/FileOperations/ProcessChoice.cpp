@@ -27,10 +27,9 @@
  ***************************************************************************/
 
 #include "ProcessChoice.h"
-#include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/PromptWindows.h"
 #include "FileStartUp/FileStartUp.h"
-#include "Language/gettext.h"
 #include "FileOperations/fileops.h"
 
 /*** Extern functions ***/
@@ -67,7 +66,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             StopProgress();
             if(result <= 0)
             {
-                WindowPrompt(tr("Error:"), (directory ? tr("Failed extracting the folder.") : tr("Failed extracting file.")), tr("OK"));
+                ShowError((directory ? tr("Failed extracting the folder.") : tr("Failed extracting file.")));
             }
             else
             {
@@ -90,7 +89,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             StopProgress();
             if(result <= 0)
             {
-                WindowPrompt(tr("Error:"), tr("Failed extracting the archive."), tr("OK"));
+                ShowError(tr("Failed extracting the archive."));
             }
             else
             {
@@ -174,7 +173,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                     if(res == -10)
                         WindowPrompt(tr("Deleting files:"), tr("Action cancelled."), tr("OK"));
                     else if(res < 0)
-                        WindowPrompt(tr("Error"), tr("Directory couldn't be deleted."), tr("OK"));
+                        ShowError(tr("Directory couldn't be deleted."));
                     else
                         WindowPrompt(tr("Directory successfully deleted."), 0, tr("OK"));
                 }
@@ -187,7 +186,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 if(choice == 1)
                 {
                     if(RemoveFile(currentpath) == false)
-                        WindowPrompt(tr("Error"), tr("File couldn't be deleted."), tr("OK"));
+                        ShowError(tr("File couldn't be deleted."));
                 }
             }
         }
@@ -226,7 +225,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                     }
                     else
                     {
-                        WindowPrompt(tr("Error:"), tr("You can not cut into the directory itself.") , tr("OK"));
+                        ShowError(tr("You can not cut into the directory itself."));
                         res =  -1;
                     }
                 }
@@ -234,7 +233,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 if(res == -10)
                     WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
                 else if(res < 0)
-                    WindowPrompt(tr("An error occured."), tr("Failed copying files."), tr("OK"));
+                    ShowError(tr("Failed copying files."));
                 else
                 {
                     if(Clipboard.cutted == false)
@@ -262,7 +261,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                             res = MoveFile(srcpath, destdir);
                         StopProgress();
                         if(res < 0)
-                            WindowPrompt(tr("ERROR"), tr("Failed copying file."), tr("OK"));
+                            ShowError(tr("Failed copying file."));
                         else
                         {
                             if(Clipboard.cutted == false)
@@ -272,7 +271,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                         }
                     }
                     else
-                        WindowPrompt(tr("Error:"), tr("You cannot read/write from/to the same file."), tr("OK"));
+                        ShowError(tr("You cannot read/write from/to the same file."));
                 }
             }
         }
@@ -289,7 +288,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
             snprintf(currentpath, sizeof(currentpath), "%s/%s/", browser->GetCurrentPath(), entered);
             bool ret = CreateSubfolder(currentpath);
             if(ret == false)
-                WindowPrompt(tr("Error:"), tr("Unable to create folder."), tr("OK"));
+                ShowError(tr("Unable to create folder."));
         }
     }
 }

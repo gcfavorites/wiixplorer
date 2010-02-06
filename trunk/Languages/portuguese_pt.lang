@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-11-23 18:02-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Operação cancelada"
-
-msgid "An error occured."
-msgstr "Ocorreu um erro."
 
 msgid "App Default"
 msgstr "Predefinição do programa"
@@ -27,14 +27,17 @@ msgstr "Predefinição do programa"
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr "Ligação automática"
+
 msgid "Back"
 msgstr "Voltar"
 
 msgid "Bootup Mount"
 msgstr "Montar no arranque"
 
-msgid "Can not open the file"
-msgstr "Não foi possível abrir o ficheiro"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr "Deseja actualizar agora ?"
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
 
-msgid "ERROR"
-msgstr "ERRO"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Erro"
 
 msgid "Error:"
 msgstr "Erro:"
@@ -319,9 +316,6 @@ msgstr "Servidor:"
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr "Visualizador de Imagens"
-
 msgid "Language"
 msgstr "Idioma"
 
@@ -360,6 +354,9 @@ msgstr "Volume da Música"
 
 msgid "Name already exists."
 msgstr "O nome já existe."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Inicializando rede..."
@@ -559,11 +556,23 @@ msgstr ""
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
 
+#~ msgid "Can not open the file"
+#~ msgstr "Não foi possível abrir o ficheiro"
+
+#~ msgid "ImageViewer"
+#~ msgstr "Visualizador de Imagens"
+
+#~ msgid "Error"
+#~ msgstr "Erro"
+
+#~ msgid "An error occured."
+#~ msgstr "Ocorreu um erro."
+
+#~ msgid "ERROR"
+#~ msgstr "ERRO"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Não é um ficheiro OGG/MP3"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Ligação automática"
 
 #~ msgid "Connect SMB"
 #~ msgstr "Ligar SMB"

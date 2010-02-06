@@ -4,14 +4,13 @@
 #include <stdio.h>
 #include <malloc.h>
 
+#include "libwiigui/gui_bgm.h"
 #include "Prompts/PromptWindows.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
-#include "FileStartUp/MusicLoader.h"
-#include "Language/gettext.h"
 #include "menu.h"
 
 int FileStartUp(const char *filepath)
@@ -49,7 +48,12 @@ int FileStartUp(const char *filepath)
     {
         int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));
         if(choice)
-            LoadMusic(filepath);
+        {
+            bool result = GuiBGM::Instance()->Load(filepath, false);
+
+            if(result)
+                GuiBGM::Instance()->ParsePath(filepath);
+        }
     }
     else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
             strcasecmp(fileext, ".rar") == 0)

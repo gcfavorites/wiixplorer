@@ -35,7 +35,6 @@
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageViewer.h"
-#include "Language/gettext.h"
 #include "sys.h"
 #include "DirList.h"
 
@@ -45,10 +44,6 @@
 #define MIN_IMAGE_HEIGHT        4.0f
 #define MAX_IMAGE_WIDTH         1024.0f
 #define MAX_IMAGE_HEIGHT        768.0f
-
-extern u8 shutdown;
-extern u8 reset;
-
 
 ImageViewer::ImageViewer(const char *filepath)
     : GuiWindow(0, 0)
@@ -177,11 +172,6 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
 int ImageViewer::MainUpdate()
 {
-    if(shutdown == 1)
-        Sys_Shutdown();
-    else if(reset == 1)
-        Sys_Reboot();
-
     if(SlideShowStart > 0)
     {
         time_t currentTime = time(0);
@@ -444,10 +434,10 @@ bool ImageViewer::LoadImage(int index, bool silent)
         file = NULL;
     }
 
-	if (newImage->GetImage() == NULL)
+	if (newImage->GetImage() == NULL && !silent)
 	{
-		WindowPrompt(tr("ImageViewer"), tr("Cannot open image"), tr("OK"));
-		delete newImage;
+	    delete newImage;
+		ShowError(tr("Cannot open image"));
 		return false;
 	}
 

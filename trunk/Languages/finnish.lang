@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,10 +16,10 @@ msgstr ""
 msgid "1"
 msgstr ""
 
-msgid "Action cancelled."
+msgid "7z decompression failed:"
 msgstr ""
 
-msgid "An error occured."
+msgid "Action cancelled."
 msgstr ""
 
 msgid "App Default"
@@ -28,13 +28,16 @@ msgstr ""
 msgid "Archive successfully extracted."
 msgstr ""
 
+msgid "Auto Connect"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr ""
 
-msgid "Can not open the file"
+msgid "Can not open the file."
 msgstr ""
 
 msgid "Can't load file"
@@ -193,13 +196,7 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "ERROR"
-msgstr ""
-
-msgid "ERROR:"
-msgstr ""
-
-msgid "Error"
+msgid "Error while reading file."
 msgstr ""
 
 msgid "Error:"
@@ -320,9 +317,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr ""
 
@@ -360,6 +354,9 @@ msgid "Music Volume"
 msgstr ""
 
 msgid "Name already exists."
+msgstr ""
+
+msgid "Network Settings"
 msgstr ""
 
 msgid "Network initialising..."

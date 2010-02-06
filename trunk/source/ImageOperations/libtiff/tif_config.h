@@ -68,7 +68,7 @@
 ///#define HAVE_POW 1
 
 /* Define if you have POSIX threads libraries and header files. */
-///#define HAVE_PTHREAD 1
+#define HAVE_PTHREAD 1
 
 /* Define to 1 if you have the <search.h> header file. */
 #define HAVE_SEARCH_H 1
@@ -188,7 +188,7 @@
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
-///#define PTHREAD_CREATE_JOINABLE 1
+#define PTHREAD_CREATE_JOINABLE 1
 
 /* The size of a `int', as computed by sizeof. */
 #define SIZEOF_INT 4
@@ -201,10 +201,10 @@
 
 /* Support strip chopping (whether or not to convert single-strip uncompressed
    images to mutiple strips of specified size to reduce memory usage) */
-///#define STRIPCHOP_DEFAULT TIFF_STRIPCHOP
+#define STRIPCHOP_DEFAULT TIFF_STRIPCHOP
 
 /* Default size of the strip in bytes (when strip chopping enabled) */
-///#define STRIP_SIZE_DEFAULT 32
+#define STRIP_SIZE_DEFAULT 1024*50
 
 /* Enable SubIFD tag (330) support */
 #define SUBIFD_SUPPORT 1

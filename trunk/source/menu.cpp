@@ -53,7 +53,6 @@
 #include "Prompts/ProgressWindow.h"
 #include "network/networkops.h"
 #include "BootHomebrew/BootHomebrew.h"
-#include "Language/gettext.h"
 #include "Language/LanguageBrowser.h"
 #include "network/update.h"
 #include "Controls/MainWindow.h"
@@ -64,9 +63,6 @@ CLIPBOARD Clipboard;
 bool boothomebrew = false;
 
 static bool firsttimestart = true;
-
-extern u8 shutdown;
-extern u8 reset;
 
 /****************************************************************************
  * ResumeGui
@@ -102,7 +98,7 @@ static int MenuBrowseDevice()
     {
 
         if(WaitSMBConnect() < 2)
-            WindowPrompt(tr("Error:"), tr("Could not connect to the network"), tr("OK"));
+            ShowError(tr("Could not connect to the network"));
         firsttimestart = false;
     }
 
@@ -146,15 +142,14 @@ static int MenuSettings()
 	int i = 0;
 	bool firstRun = true;
 
-	OptionList options(8);
+	OptionList options(7);
 	options.SetName(i++, tr("Bootup Mount"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Music Loop Mode"));
 	options.SetName(i++, tr("Mount NTFS"));
 	options.SetName(i++, tr("Customfont Path"));
-	options.SetName(i++, tr("Update Settings"));
-	options.SetName(i++, tr("SMB Settings"));
+	options.SetName(i++, tr("Network Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
@@ -258,11 +253,8 @@ static int MenuSettings()
                 }
 				break;
             case 6:
-                menu = MENU_UPDATE_SETTINGS;
+                menu = MENU_NETWORK_SETTINGS;
 				break;
-            case 7:
-                menu = MENU_SMB_SETTINGS;
-                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -305,8 +297,6 @@ static int MenuSettings()
             else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
 
             options.SetValue(i++, "%s", Settings.CustomFontPath);
-
-            options.SetValue(i++, " ");
 
             options.SetValue(i++, " ");
         }
@@ -398,7 +388,7 @@ static int MenuSMBSettings()
 
 		else if(backBtn.GetState() == STATE_CLICKED)
 		{
-			menu = MENU_SETTINGS;
+			menu = MENU_NETWORK_SETTINGS;
 		}
 
         else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
@@ -410,7 +400,7 @@ static int MenuSMBSettings()
 		{
 			case 0:
 				Settings.CurrentUser++;
-                if(Settings.CurrentUser > MAXSMBUSERS-1)
+                if(Settings.CurrentUser >= MAXSMBUSERS)
                     Settings.CurrentUser = 0;
 				break;
             case 1:
@@ -479,7 +469,7 @@ static int MenuSMBSettings()
 /****************************************************************************
  * MenuUpdateSettings
  ***************************************************************************/
-static int MenuUpdateSettings()
+static int MenuNetworkSettings()
 {
 	int menu = MENU_NONE;
 	int ret;
@@ -487,10 +477,12 @@ static int MenuUpdateSettings()
     char entered[150];
     bool firstRun = true;
 
-	OptionList options(3);
+	OptionList options(5);
+	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Update Meta.xml"));
 	options.SetName(i++, tr("Update Icon.png"));
 	options.SetName(i++, tr("Update (App) Path"));
+	options.SetName(i++, tr("SMB Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
@@ -586,22 +578,30 @@ static int MenuUpdateSettings()
 		switch (ret)
 		{
 			case 0:
+				Settings.AutoConnect++;
+                if(Settings.AutoConnect > 1)
+                    Settings.AutoConnect = 0;
+				break;
+			case 1:
 				Settings.UpdateMetaxml++;
                 if(Settings.UpdateMetaxml > 1)
                     Settings.UpdateMetaxml = 0;
 				break;
-			case 1:
+			case 2:
 				Settings.UpdateIconpng++;
                 if(Settings.UpdateIconpng > 1)
                     Settings.UpdateIconpng = 0;
 				break;
-            case 2:
+            case 3:
                 snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
                 if(OnScreenKeyboard(entered, 149)) {
                     snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
                     WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
                 }
 				break;
+            case 4:
+                menu = MENU_SMB_SETTINGS;
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -609,6 +609,8 @@ static int MenuUpdateSettings()
             i = 0;
             firstRun = false;
 
+            if(Settings.AutoConnect == on) options.SetValue(i++, tr("ON"));
+            else if(Settings.AutoConnect == off) options.SetValue(i++, tr("OFF"));
 
             if(Settings.UpdateMetaxml == on) options.SetValue(i++, tr("ON"));
             else if(Settings.UpdateMetaxml == off) options.SetValue(i++, tr("OFF"));
@@ -617,6 +619,8 @@ static int MenuUpdateSettings()
             else if(Settings.UpdateIconpng == off) options.SetValue(i++, tr("OFF"));
 
             options.SetValue(i++, "%s", Settings.UpdatePath);
+
+            options.SetValue(i++, " ");
         }
 	}
 
@@ -651,8 +655,8 @@ void MainMenu(int menu)
 			case MENU_SMB_SETTINGS:
 				currentMenu = MenuSMBSettings();
 				break;
-			case MENU_UPDATE_SETTINGS:
-				currentMenu = MenuUpdateSettings();
+			case MENU_NETWORK_SETTINGS:
+				currentMenu = MenuNetworkSettings();
 				break;
 			case MENU_BROWSE_DEVICE:
 				currentMenu = MenuBrowseDevice();

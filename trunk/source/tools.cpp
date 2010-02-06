@@ -2,7 +2,6 @@
 #include <math.h>
 
 #include "Prompts/PromptWindows.h"
-#include "Language/gettext.h"
 #include "tools.h"
 
 extern "C" void ShowError(const char * format, ...)
@@ -12,56 +11,33 @@ extern "C" void ShowError(const char * format, ...)
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
-		WindowPrompt(tr("ERROR:"), tmp, tr("OK"));
+		WindowPrompt(tr("Error:"), tmp, tr("OK"));
 		free(tmp);
 	}
 	va_end(va);
 }
 
-bool TimePassed(int limit)
+extern "C" bool TimePassed(int limit)
 {
-	time_t timer1 = 0;
-	static time_t timer2;
+	static time_t starttime = 0;
+	time_t timer = time(NULL);
 
-	if (timer2 == 0) {
-			time(&timer1);
-		    timer2 = timer1;
-    }
+	if (starttime == 0)
+        starttime = timer;
 
-    if(timer1 != 0)	// timer läuft
-        time(&timer1);
-
-    if(difftime(timer1, timer2) >= limit) {
-        timer1 = 0;
+    if(difftime(timer, starttime) >= limit)
+    {
+        starttime = 0;
         return true;
     }
 
     return false;
 }
 
-int ROUND2FOUR(double x)
-{
-    double tmp = 0.0;
-    double rest = modf((double) x/4.0f, &tmp);
-    int res = 0;
-
-    if(rest >= 0.5)
-    {
-        res = ((int) x/4) +1;
-    }
-    else
-    {
-        res = (int) x/4;
-    }
-
-
-    return res*4;
-}
-
 #define PERIOD_4 (4 * 365 + 1)
 #define PERIOD_100 (PERIOD_4 * 25 - 1)
 #define PERIOD_400 (PERIOD_100 * 4 + 1)
-void ConvertNTFSDate(u64 ulNTFSDate,  TimeStruct * ptm)
+extern "C" void ConvertNTFSDate(u64 ulNTFSDate,  TimeStruct * ptm)
 {
     unsigned year, mon, day, hour, min, sec;
     u64 v64 = ulNTFSDate;
@@ -119,7 +95,7 @@ void ConvertNTFSDate(u64 ulNTFSDate,  TimeStruct * ptm)
     ptm->tm_sec =  (u32)sec;
 }
 
-void ConvertDosDate(u64 ulDosDate, TimeStruct * ptm)
+extern "C" void ConvertDosDate(u64 ulDosDate, TimeStruct * ptm)
 {
     u32 uDate;
     uDate = (u32)(ulDosDate>>16);

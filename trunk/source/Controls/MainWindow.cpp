@@ -43,8 +43,6 @@
 #include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
 
-extern u8 reset;
-
 MainWindow *MainWindow::instance = NULL;
 
 MainWindow::MainWindow()
@@ -62,14 +60,17 @@ MainWindow::MainWindow()
 	StopProgress();
 
     //!Initialize network thread if selected
-    InitNetworkThread();
-    ResumeNetworkThread();
+    if(Settings.AutoConnect)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
 
 	bgImgData = Resources::GetImageData(background_png, background_png_size);
     bgImg = new GuiImage(bgImgData);
 	Append(bgImg);
 
-	if(GuiBGM::Instance()->Load(Settings.MusicPath))
+	if(GuiBGM::Instance()->Load(Settings.MusicPath, true))
 	{
 	    GuiBGM::Instance()->ParsePath(Settings.MusicPath);
 	}
@@ -160,12 +161,9 @@ void MainWindow::Quit()
 		{
 			if (*itr != NULL) {
 				Remove(*itr);
-//				delete *itr;
 			}
 		}
 		windows.clear();
-
-		reset = 1;
 	}
 }
 

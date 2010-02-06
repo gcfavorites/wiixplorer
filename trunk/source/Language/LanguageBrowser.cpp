@@ -38,20 +38,11 @@
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "devicemounter.h"
-#include "Language/gettext.h"
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"
 #include "filelist.h"
 #include "sys.h"
-
-/*** Extern variables ***/
-extern u8 shutdown;
-extern u8 reset;
-
-/*** Extern functions ***/
-extern void ResumeGui();
-extern void HaltGui();
 
 /****************************************************************************
  * LanguageBrowser
@@ -178,13 +169,12 @@ int LanguageBrowser()
 	{
 	    usleep(THREAD_SLEEP);
 
-        if(shutdown == 1)
+        if(shutdown)
             Sys_Shutdown();
-
-        else if(reset == 1)
+        else if(reset)
             Sys_Reboot();
 
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+        if(Taskbar::Instance()->GetMenu() != MENU_NONE)
 			menu = Taskbar::Instance()->GetMenu();
 
 		else if(backBtn.GetState() == STATE_CLICKED)

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-03 23:34+0100\n"
+"POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "1"
 msgstr ""
 
+msgid "7z decompression failed:"
+msgstr ""
+
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
-
-msgid "An error occured."
-msgstr "Ein Fehler ist aufgetreten."
 
 msgid "App Default"
 msgstr "Standardeinstellung"
@@ -27,14 +27,17 @@ msgstr "Standardeinstellung"
 msgid "Archive successfully extracted."
 msgstr "Archiv erfolgreich entpackt."
 
+msgid "Auto Connect"
+msgstr "Automatisch verbinden"
+
 msgid "Back"
 msgstr "Zurück"
 
 msgid "Bootup Mount"
 msgstr "Mount beim Start"
 
-msgid "Can not open the file"
-msgstr "Die Datei konnte nicht geöffnet werden"
+msgid "Can not open the file."
+msgstr ""
 
 msgid "Can't load file"
 msgstr ""
@@ -192,14 +195,8 @@ msgstr "Jetzt updaten?"
 msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
-msgid "ERROR"
-msgstr "FEHLER"
-
-msgid "ERROR:"
+msgid "Error while reading file."
 msgstr ""
-
-msgid "Error"
-msgstr "Fehler"
 
 msgid "Error:"
 msgstr "Fehler:"
@@ -319,9 +316,6 @@ msgstr ""
 msgid "Image Viewer"
 msgstr ""
 
-msgid "ImageViewer"
-msgstr ""
-
 msgid "Language"
 msgstr "Sprache"
 
@@ -360,6 +354,9 @@ msgstr "Musik Lautstärke"
 
 msgid "Name already exists."
 msgstr "Name existiert bereits."
+
+msgid "Network Settings"
+msgstr ""
 
 msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
@@ -559,11 +556,20 @@ msgstr "und allen Übersetzern."
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
 
+#~ msgid "Can not open the file"
+#~ msgstr "Die Datei konnte nicht geöffnet werden"
+
+#~ msgid "Error"
+#~ msgstr "Fehler"
+
+#~ msgid "An error occured."
+#~ msgstr "Ein Fehler ist aufgetreten."
+
+#~ msgid "ERROR"
+#~ msgstr "FEHLER"
+
 #~ msgid "This is no OGG/MP3 file"
 #~ msgstr "Das ist keine OGG/MP3 Datei"
-
-#~ msgid "Auto Connect"
-#~ msgstr "Automatisch verbinden"
 
 #~ msgid "Connect SMB"
 #~ msgstr "SMB verbinden"

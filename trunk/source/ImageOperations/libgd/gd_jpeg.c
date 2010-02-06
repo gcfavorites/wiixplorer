@@ -831,7 +831,7 @@ void jpeg_gdIOCtx_src(j_decompress_ptr cinfo, gdIOCtx *infile)
 
 	src = (my_src_ptr)cinfo->src;
 	src->pub.init_source = init_source;
-	src->pub.fill_input_buffer = fill_input_buffer;
+	src->pub.fill_input_buffer = (void *) fill_input_buffer;
 	src->pub.skip_input_data = skip_input_data;
 	src->pub.resync_to_restart = jpeg_resync_to_restart; /* use default method */
 	src->pub.term_source = term_source;
@@ -957,7 +957,7 @@ void jpeg_gdIOCtx_dest(j_compress_ptr cinfo, gdIOCtx *outfile)
 
 	dest = (my_dest_ptr)cinfo->dest;
 	dest->pub.init_destination = init_destination;
-	dest->pub.empty_output_buffer = empty_output_buffer;
+	dest->pub.empty_output_buffer = (void *) empty_output_buffer;
 	dest->pub.term_destination = term_destination;
 	dest->outfile = outfile;
 }

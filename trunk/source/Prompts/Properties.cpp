@@ -36,11 +36,8 @@
 #include "menu.h"
 #include "Controls/MainWindow.h"
 #include "FileOperations/fileops.h"
-#include "Language/gettext.h"
 
 bool sizegainrunning = false;
-extern u8 shutdown;
-extern u8 reset;
 
 Properties::Properties(const char * filepath)
     :GuiWindow(0,0)
@@ -324,9 +321,9 @@ Properties::~Properties()
 
 int Properties::GetChoice()
 {
-    if(shutdown == 1)
+    if(shutdown)
         Sys_Shutdown();
-    else if(reset == 1)
+    else if(reset)
         Sys_Reboot();
 
     if(folder)

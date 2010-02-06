@@ -41,18 +41,9 @@
 #include "menu.h"
 #include "main.h"
 #include "filelist.h"
-#include "Language/gettext.h"
 #include "Controls/MainWindow.h"
 #include "sys.h"
 #include "svnrev.h"
-
-/*** Extern variables ***/
-extern u8 shutdown;
-extern u8 reset;
-
-/*** Extern functions ***/
-extern void ResumeGui();
-extern void HaltGui();
 
 /****************************************************************************
  * OnScreenKeyboard by Tantric 2009
@@ -112,7 +103,12 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	while(save == -1)
 	{
-		VIDEO_WaitVSync();
+		usleep(100);
+
+        if(shutdown)
+            Sys_Shutdown();
+        else if(reset)
+            Sys_Reboot();
 
 		if(okBtn.GetState() == STATE_CLICKED)
 			save = 1;
@@ -153,9 +149,9 @@ const char *btn4Label)
     {
         usleep(100);
 
-        if(shutdown == 1)
+        if(shutdown)
             Sys_Shutdown();
-        else if(reset == 1)
+        else if(reset)
             Sys_Reboot();
 
         choice = Prompt->GetChoice();
@@ -184,7 +180,12 @@ int WaitSMBConnect(void)
 
     while(choice == -1)
     {
-        VIDEO_WaitVSync();
+        usleep(100);
+
+        if(shutdown)
+            Sys_Shutdown();
+        else if(reset)
+            Sys_Reboot();
 
         choice = Prompt->GetChoice();
 
@@ -222,10 +223,9 @@ void ShowCredits(CreditWindow *& Credits)
     {
         usleep(100);
 
-        if(shutdown == 1)
+        if(shutdown)
             Sys_Shutdown();
-
-        else if(reset == 1)
+        else if(reset)
             Sys_Reboot();
 
         credits_choice = Credits->GetChoice();

@@ -37,11 +37,6 @@
 #include "menu.h"
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
-#include "Language/gettext.h"
-#include "tools.h"
-
-extern u8 shutdown;
-extern u8 reset;
 
 ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
     :GuiWindow(0,0)
@@ -294,9 +289,9 @@ ArchiveProperties::~ArchiveProperties()
 
 int ArchiveProperties::GetChoice()
 {
-    if(shutdown == 1)
+    if(shutdown)
         Sys_Shutdown();
-    else if(reset == 1)
+    else if(reset)
         Sys_Reboot();
 
     return choice;
