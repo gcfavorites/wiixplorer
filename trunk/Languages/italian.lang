@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
+"POT-Creation-Date: 2010-02-09 08:56+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -40,7 +40,7 @@ msgid "Can not open the file."
 msgstr ""
 
 msgid "Can't load file"
-msgstr ""
+msgstr "Impossibile caricare il file"
 
 msgid "Can't open file."
 msgstr "Impossibile aprire il file."
@@ -94,7 +94,7 @@ msgid "Copying files:"
 msgstr "Sto copiando i file:"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "Impossibile connettersi alla rete"
 
 msgid "Could not connect to the server."
 msgstr "Impossibile connettersi al server."
@@ -181,13 +181,13 @@ msgid "Do you want to playback this file?"
 msgstr "Vuoi riutilizzare questo file?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "Vuoi riavviare adesso ?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "Vuoi riconnettere la SMB?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "Vuoi salvare le modifiche?"
 
 msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento ?"
@@ -208,7 +208,7 @@ msgid "Extract All"
 msgstr "Estrai Tutto"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Prima estrai e poi apri."
 
 msgid "Extract full archive?"
 msgstr "Estrarre l'intero archivio?"
@@ -247,7 +247,7 @@ msgid "Failed renaming file"
 msgstr "Errore nella ridenominazione del file"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "Errore prendendo il Changelog."
 
 msgid "Failed to read file data."
 msgstr "Errore nella lettura del file dati."
@@ -284,13 +284,13 @@ msgstr "Il file è stato modificato."
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "Percorso: %s"
 
 msgid "Files:"
 msgstr "File:"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "Dimensione file 0 Byte."
 
 msgid "Filetype:"
 msgstr "Tipo file:"
@@ -305,7 +305,7 @@ msgid "Fontpath changed"
 msgstr "Percorso font modificato"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "Sto prendendo il Changelog..."
 
 msgid "Go Back"
 msgstr "Indietro"
@@ -314,7 +314,7 @@ msgid "Host:"
 msgstr "Host:"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "Visualizzatore Immagini"
 
 msgid "Language"
 msgstr "Lingua"
@@ -438,7 +438,7 @@ msgid "Random"
 msgstr ""
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "Riavvio fallito"
 
 msgid "Reconnect SMB"
 msgstr "Riconnetti SMB"
@@ -465,7 +465,7 @@ msgid "Shift"
 msgstr "Maiuscole"
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "Mostra il Changelog"
 
 msgid "Size:"
 msgstr "Dimensione:"
@@ -498,7 +498,7 @@ msgid "Unable to load path."
 msgstr "Impossibile caricare il percorso."
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "Impossibile caricare la periferica."
 
 msgid "Update (App) Path"
 msgstr "Percorso Aggiornamento Applic."
@@ -551,58 +551,7 @@ msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
 msgid "and all the translators."
-msgstr ""
+msgstr "e tutti i traduttori."
 
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
-
-#~ msgid "Can not open the file"
-#~ msgstr "Il file non si può aprire"
-
-#~ msgid "ImageViewer"
-#~ msgstr "Mostra Immagine"
-
-#~ msgid "Error"
-#~ msgstr "Errore"
-
-#~ msgid "An error occured."
-#~ msgstr "E' avvenuto un errore."
-
-#~ msgid "ERROR"
-#~ msgstr "ERRORE"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Questo non è un file OGG/MP3"
-
-#~ msgid "Connect SMB"
-#~ msgstr "Connetti SMB"
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "Si raccomanda di riavviare l'applicazione."
-
-#~ msgid "Filesize is empty."
-#~ msgstr "Il file ha dimensione nulla."
-
-#~ msgid "Failed to extract files."
-#~ msgstr "Errore nella estrazione dei file."
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "I file sono stati estratti con successo."
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "Digita il nome della cartella nella quale estrarre i file."
-
-#~ msgid "No network connection"
-#~ msgstr "Nessuna conenssione di rete"
-
-#~ msgid "Can't load any device"
-#~ msgstr "Impossibile caricare le periferiche"
-
-#~ msgid "Change Settings"
-#~ msgstr "Modifica Impostazioni"
-
-#~ msgid "Next device"
-#~ msgstr "Periferica successiva"
-
-#~ msgid "Unable to load device."
-#~ msgstr "Non è stato possibile accedere alla periferica."

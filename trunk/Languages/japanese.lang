@@ -16,7 +16,7 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "7zの解凍に失敗しました"
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
@@ -37,10 +37,10 @@ msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "ファイルを開けません"
 
 msgid "Can't load file"
-msgstr ""
+msgstr "ファイルを読めません"
 
 msgid "Can't open file."
 msgstr "ファイルを開けません"
@@ -61,7 +61,7 @@ msgid "Caps"
 msgstr ""
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "言語のパスを変更しますか?"
 
 msgid "Clear"
 msgstr "クリア"
@@ -169,7 +169,7 @@ msgid "Do you want to load this language ?"
 msgstr "この言語に設定しますか?"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "この言語ファイルを読み込みますか?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "テキストビューワで開きますか?"
@@ -181,7 +181,7 @@ msgid "Do you want to playback this file?"
 msgstr "このファイルを再生しますか?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "今すぐ再起動しますか?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "再接続しますか?"
@@ -196,7 +196,7 @@ msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "読み込み中にエラーが発生しました"
 
 msgid "Error:"
 msgstr "エラー"
@@ -320,7 +320,7 @@ msgid "Language"
 msgstr "言語"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "言語のパスを変更しました"
 
 msgid "Last access:"
 msgstr "アクセス日時:"
@@ -338,7 +338,7 @@ msgid "Loading file:"
 msgstr "読み込んでいます"
 
 msgid "Loop"
-msgstr ""
+msgstr "ループ"
 
 msgid "Mount NTFS"
 msgstr "NTFSのマウント"
@@ -347,7 +347,7 @@ msgid "Moving files:"
 msgstr "移動しています"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "音楽の再生"
 
 msgid "Music Volume"
 msgstr "音量"
@@ -356,7 +356,7 @@ msgid "Name already exists."
 msgstr "同じ名前がすでにあります"
 
 msgid "Network Settings"
-msgstr ""
+msgstr "接続設定"
 
 msgid "Network initialising..."
 msgstr "接続中..."
@@ -420,10 +420,10 @@ msgid "Paste into current directory?"
 msgstr "このフォルダに貼り付けますか?"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "フォルダを再生"
 
 msgid "Play Once"
-msgstr ""
+msgstr "一度だけ再生"
 
 msgid "Please wait:"
 msgstr "お待ちください"
@@ -435,10 +435,10 @@ msgid "Properties"
 msgstr "プロパティ"
 
 msgid "Random"
-msgstr ""
+msgstr "ランダム再生"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "再起動に失敗しました"
 
 msgid "Reconnect SMB"
 msgstr "再接続"
@@ -474,7 +474,7 @@ msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
 
 msgid "Standard"
-msgstr ""
+msgstr "標準"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
@@ -507,16 +507,16 @@ msgid "Update App"
 msgstr "更新"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "アイコンの更新"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "XMLの更新"
 
 msgid "Update Path changed."
 msgstr "WiiXplorerのパスを変更しました"
 
 msgid "Update Settings"
-msgstr ""
+msgstr "更新設定"
 
 msgid "Update failed"
 msgstr "更新に失敗しました"
@@ -556,53 +556,3 @@ msgstr ", K-M…日本語への翻訳"
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
 
-#~ msgid "Can not open the file"
-#~ msgstr "ファイルを開けません"
-
-#~ msgid "ImageViewer"
-#~ msgstr "画像ビューア"
-
-#~ msgid "Error"
-#~ msgstr "エラー"
-
-#~ msgid "An error occured."
-#~ msgstr "エラーが発生しました"
-
-#~ msgid "ERROR"
-#~ msgstr "エラー"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "これはOGG/MP3ファイルではありません"
-
-#~ msgid "Connect SMB"
-#~ msgstr "SMBと接続"
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "WiiXplorerを再起動してください"
-
-#~ msgid "Filesize is empty."
-#~ msgstr "空のファイルです"
-
-#~ msgid "Failed to extract files."
-#~ msgstr "解凍に失敗しました"
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "解凍しました"
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "どこにファイルを解凍するか決定してください"
-
-#~ msgid "No network connection"
-#~ msgstr "接続していません"
-
-#~ msgid "Can't load any device"
-#~ msgstr "どのデバイスも開けません"
-
-#~ msgid "Change Settings"
-#~ msgstr "設定を変更"
-
-#~ msgid "Next device"
-#~ msgstr "次のデバイス"
-
-#~ msgid "Unable to load device."
-#~ msgstr "ﾃﾞﾊﾞｲｽをﾛｰﾄﾞできません"

@@ -16,7 +16,7 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "7z解压缩失败:"
 
 msgid "Action cancelled."
 msgstr "动作取消。"
@@ -37,10 +37,10 @@ msgid "Bootup Mount"
 msgstr "开始挂载"
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "文件无法打开。"
 
 msgid "Can't load file"
-msgstr ""
+msgstr "无法读取文件"
 
 msgid "Can't open file."
 msgstr "文件无法打开。"
@@ -61,7 +61,7 @@ msgid "Caps"
 msgstr "大写"
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "更改语言文件路径？"
 
 msgid "Clear"
 msgstr "清除"
@@ -169,7 +169,7 @@ msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "是否读取此语言文件？"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "是否用文本查看器打开此文件吗？"
@@ -181,7 +181,7 @@ msgid "Do you want to playback this file?"
 msgstr "是否播放此文件？"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "是否现在重新启动？"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "再次连接到网络共享？"
@@ -196,7 +196,7 @@ msgid "Downloading file..."
 msgstr "正在下载文件"
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "错误"
 
 msgid "Error:"
 msgstr "错误"
@@ -320,7 +320,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "语言文件路径已更改"
 
 msgid "Last access:"
 msgstr "最近读取"
@@ -338,7 +338,7 @@ msgid "Loading file:"
 msgstr "正在读取文件:"
 
 msgid "Loop"
-msgstr ""
+msgstr "循环"
 
 msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
@@ -347,7 +347,7 @@ msgid "Moving files:"
 msgstr "正在移动文件："
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "音乐循环模式"
 
 msgid "Music Volume"
 msgstr "音乐音量"
@@ -356,7 +356,7 @@ msgid "Name already exists."
 msgstr "文件名已经存在。"
 
 msgid "Network Settings"
-msgstr ""
+msgstr "网络设置"
 
 msgid "Network initialising..."
 msgstr "网络正在初始化"
@@ -420,10 +420,10 @@ msgid "Paste into current directory?"
 msgstr "是否粘贴到当前目录？"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "播放目录"
 
 msgid "Play Once"
-msgstr ""
+msgstr "只播放一次"
 
 msgid "Please wait:"
 msgstr "请等待："
@@ -435,10 +435,10 @@ msgid "Properties"
 msgstr "属性"
 
 msgid "Random"
-msgstr ""
+msgstr "随机"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "重启失败"
 
 msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
@@ -471,10 +471,10 @@ msgid "Size:"
 msgstr "尺寸："
 
 msgid "Special thanks to:"
-msgstr "特别感谢："
+msgstr "特别感谢：Kavid"
 
 msgid "Standard"
-msgstr ""
+msgstr "标准"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
@@ -507,16 +507,16 @@ msgid "Update App"
 msgstr "更新程序"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "更新Icon.png"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "更新Meta.xml"
 
 msgid "Update Path changed."
 msgstr "更新路径已更改"
 
 msgid "Update Settings"
-msgstr ""
+msgstr "更新设置"
 
 msgid "Update failed"
 msgstr "更新失败。"
@@ -555,87 +555,3 @@ msgstr "和所有的翻译者。"
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
-
-#~ msgid "Can not open the file"
-#~ msgstr "不能打开文件"
-
-#~ msgid "ImageViewer"
-#~ msgstr "图片查看器"
-
-#~ msgid "Error"
-#~ msgstr "错误"
-
-#~ msgid "An error occured."
-#~ msgstr "发生错误。"
-
-#~ msgid "ERROR"
-#~ msgstr "错误"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "此文件不是OGG或MP3文件"
-
-#~ msgid "Connect SMB"
-#~ msgstr "连接共享网络"
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "建议现在重新启动程序"
-
-#~ msgid "Filesize is empty."
-#~ msgstr "文件大小是空"
-
-#~ msgid "NTFS0"
-#~ msgstr "NTFS零分区"
-
-#~ msgid "NTFS1"
-#~ msgstr "NTFS一分区"
-
-#~ msgid "NTFS2"
-#~ msgstr "NTFS二分区"
-
-#~ msgid "NTFS3"
-#~ msgstr "NTFS三分区"
-
-#~ msgid "NTFS4"
-#~ msgstr "NTFS四分区"
-
-#~ msgid "SD"
-#~ msgstr "SD卡"
-
-#~ msgid "SMB1"
-#~ msgstr "共享一"
-
-#~ msgid "SMB2"
-#~ msgstr "共享二"
-
-#~ msgid "SMB3"
-#~ msgstr "共享三"
-
-#~ msgid "SMB4"
-#~ msgstr "共享四"
-
-#~ msgid "USB"
-#~ msgstr "USB设置"
-
-#~ msgid "Failed to extract files."
-#~ msgstr "提取文件失败"
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "文件成功提取"
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "进入你所提取文件的目录"
-
-#~ msgid "No network connection"
-#~ msgstr "没有网络连接"
-
-#~ msgid "Can't load any device"
-#~ msgstr "设备无法读取"
-
-#~ msgid "Change Settings"
-#~ msgstr "更改设置"
-
-#~ msgid "Next device"
-#~ msgstr "下一个设备"
-
-#~ msgid "Unable to load device."
-#~ msgstr "设备不能读取"

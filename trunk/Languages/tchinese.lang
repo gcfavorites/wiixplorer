@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-06 17:09+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: kyogc\n"
+"Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -16,16 +16,16 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "7z 格式解壓失敗："
 
 msgid "Action cancelled."
-msgstr "動做取消"
+msgstr "動作取消"
 
 msgid "App Default"
 msgstr "程式預設值"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "檔案成功提取"
 
 msgid "Auto Connect"
 msgstr "自動連線"
@@ -34,19 +34,19 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Bootup Mount"
-msgstr "啟動掛載"
+msgstr "預設載入裝置"
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "無法開啟這個檔案"
 
 msgid "Can't load file"
-msgstr ""
+msgstr "無法讀取這個檔案"
 
 msgid "Can't open file."
-msgstr ""
+msgstr "無法打開文件"
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "無法讀取文件"
 
 msgid "Cancel"
 msgstr "取消"
@@ -55,25 +55,25 @@ msgid "Cannot open image"
 msgstr "圖片無法開啟"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "無法寫入目的地"
 
 msgid "Caps"
 msgstr "Caps鍵"
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "變更語系路徑？"
 
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 msgid "Coders:"
 msgstr "程式設計師:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "壓縮大小"
 
 msgid "Console Default"
 msgstr "主機預設值"
@@ -94,19 +94,19 @@ msgid "Copying files:"
 msgstr "正在複製檔案:"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "無法連接到網路"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "無法連接到伺服器"
 
 msgid "Could not download file."
-msgstr ""
+msgstr "無法下載檔案"
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "無法解壓縮文件"
 
 msgid "Credits"
-msgstr ""
+msgstr "作者信息"
 
 msgid "Customfont Path"
 msgstr "字型路徑"
@@ -136,10 +136,10 @@ msgid "Designer:"
 msgstr "設計者:"
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "磁碟可用空間："
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "磁碟大小："
 
 msgid "Directory .."
 msgstr "目錄.."
@@ -169,7 +169,7 @@ msgid "Do you want to load this language ?"
 msgstr "是否載入此語言 ?"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "您確定要載入這個語言檔案？"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "是否在TextViewer開啟此檔案?"
@@ -181,52 +181,52 @@ msgid "Do you want to playback this file?"
 msgstr "是否撥放此檔案?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "你要重新啟動嗎？"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "是否重新連接區域網路"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "你想保存更改？"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "是否要立即更新？"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "下載檔案..."
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "讀取檔案時發生錯誤。"
 
 msgid "Error:"
 msgstr "錯誤:"
 
 msgid "Extract"
-msgstr ""
+msgstr "匯出"
 
 msgid "Extract All"
-msgstr ""
+msgstr "匯出所有"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "匯出第一個開啟項目"
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "匯出所有壓縮檔"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "匯出這個檔案？"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "匯出這個資料夾？"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "解壓文件："
 
 msgid "Extracting files..."
 msgstr "正在輸出檔案..."
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "解壓縮資料夾："
 
 msgid "Failed copying file."
 msgstr "檔案複製失敗"
@@ -235,22 +235,22 @@ msgid "Failed copying files."
 msgstr "檔案複製失敗"
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "解壓縮失敗"
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "匯出檔案失敗"
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "匯出資料夾失敗"
 
 msgid "Failed renaming file"
 msgstr "檔案更名失敗"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "無法取得更新日誌"
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "無法讀取檔案資料"
 
 msgid "File couldn't be deleted."
 msgstr "無法刪除該檔案"
@@ -259,38 +259,38 @@ msgid "File does not exist anymore!"
 msgstr "該檔案不存在"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "檔案已損壞（CRC不相同）"
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "檔案已損壞"
 
 msgid "File successfully copied."
 msgstr "檔案已複製"
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "成功提取檔案"
 
 msgid "File successfully moved."
 msgstr "檔案已移動"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "檔案使用過高的壓縮設定（字典大小太大）"
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "檔案使用不被支援的壓縮設定"
 
 msgid "File was edited."
-msgstr ""
+msgstr "檔案已修改"
 
 #, c-format
-msgid "Filepath:  %s"
-msgstr "檔案路徑:  %s"
+msgid "Filepath: %s"
+msgstr "檔案路徑: %s"
 
 msgid "Files:"
 msgstr "檔案:"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "檔案大小為 0 Byte"
 
 msgid "Filetype:"
 msgstr "檔案類型:"
@@ -299,13 +299,13 @@ msgid "Folder"
 msgstr "資料夾"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "成功提取資料夾"
 
 msgid "Fontpath changed"
 msgstr "字型路徑已變更"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "使用更新日誌 ..."
 
 msgid "Go Back"
 msgstr "返回"
@@ -314,13 +314,13 @@ msgid "Host:"
 msgstr "主機:"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "檢視影像"
 
 msgid "Language"
 msgstr "語言"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "語系路徑變更。"
 
 msgid "Last access:"
 msgstr "最近存取:"
@@ -332,13 +332,13 @@ msgid "Last status change:"
 msgstr "最近狀態變更:"
 
 msgid "Linebreak"
-msgstr ""
+msgstr "斷行"
 
 msgid "Loading file:"
 msgstr "正在載入檔案:"
 
 msgid "Loop"
-msgstr ""
+msgstr "重複播放"
 
 msgid "Mount NTFS"
 msgstr "掛載NTFS"
@@ -347,7 +347,7 @@ msgid "Moving files:"
 msgstr "正在移動檔案:"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "音樂播放模式"
 
 msgid "Music Volume"
 msgstr "音樂音量"
@@ -356,7 +356,7 @@ msgid "Name already exists."
 msgstr "名稱已存在"
 
 msgid "Network Settings"
-msgstr ""
+msgstr "更新及區網設定"
 
 msgid "Network initialising..."
 msgstr "正在啟動網路"
@@ -365,7 +365,7 @@ msgid "New Folder"
 msgstr "新資料夾"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "新資料夾"
 
 msgid "No"
 msgstr "否"
@@ -378,16 +378,16 @@ msgid "No language files found."
 msgstr "找不到語言檔案"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "沒有新的更新可用"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "不是有效的URL"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "不是有效的URL路徑"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "不是有效的網域名稱"
 
 msgid "Not enough memory."
 msgstr "記憶體空間不足"
@@ -402,10 +402,10 @@ msgid "ON"
 msgstr "開"
 
 msgid "Open"
-msgstr ""
+msgstr "開啟"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "啟動時尚未啟用"
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足: 太多檔案!"
@@ -420,25 +420,25 @@ msgid "Paste into current directory?"
 msgstr "貼上至目前目錄位置?"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "播放整個目錄"
 
 msgid "Play Once"
-msgstr ""
+msgstr "播放單曲"
 
 msgid "Please wait:"
 msgstr "請稍候"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "內容取消"
 
 msgid "Properties"
 msgstr "內容"
 
 msgid "Random"
-msgstr ""
+msgstr "隨機播放"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "重新啟動失敗"
 
 msgid "Reconnect SMB"
 msgstr "重新連接區域網路"
@@ -453,7 +453,7 @@ msgid "Retry"
 msgstr "重試"
 
 msgid "SMB Name:"
-msgstr "區域網路名稱:"
+msgstr "連接資料夾名稱:"
 
 msgid "SMB Settings"
 msgstr "區域網路設定"
@@ -465,7 +465,7 @@ msgid "Shift"
 msgstr "Shift鍵"
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "顯示更新日誌"
 
 msgid "Size:"
 msgstr "檔案大小:"
@@ -473,60 +473,60 @@ msgstr "檔案大小:"
 msgid "Special thanks to:"
 msgstr "特別感謝:"
 
-msgid "Standard"
-msgstr ""
-
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
 
+msgid "This is no OGG/MP3 file"
+msgstr "非OGG/MP3檔案"
+
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "傳輸取消"
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "傳輸失敗"
 
 msgid "Transfering files:"
 msgstr "正在傳輸檔案:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "網址是空的"
 
 msgid "Unable to create folder."
 msgstr "無法建立資料夾"
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "無法載入路徑"
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "無法載入設備"
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "更新(APP)的路徑"
 
 msgid "Update App"
-msgstr ""
+msgstr "更新程式"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "更新 icon.png"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "更新 Meta.xml"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "路徑已改變"
 
 msgid "Update Settings"
-msgstr ""
+msgstr "更新設定"
 
 msgid "Update failed"
-msgstr ""
+msgstr "路徑變更失敗"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "路徑變更完成"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "更新到 Rev%i 可用的"
 
 #, c-format
 msgid "User %i"
@@ -551,58 +551,7 @@ msgid "You cant use this operation on:"
 msgstr "無法使用此功能在:"
 
 msgid "and all the translators."
-msgstr ""
+msgstr "和所有的翻譯"
 
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
-
-#~ msgid "Can not open the file"
-#~ msgstr "無法開啟檔案"
-
-#~ msgid "ImageViewer"
-#~ msgstr "圖片瀏覽"
-
-#~ msgid "Error"
-#~ msgstr "錯誤"
-
-#~ msgid "An error occured."
-#~ msgstr "發生錯誤"
-
-#~ msgid "ERROR"
-#~ msgstr "錯誤"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "非OGG/MP3檔案"
-
-#~ msgid "Connect SMB"
-#~ msgstr "連接區域網路"
-
-#~ msgid "NTFS4"
-#~ msgstr "NTFS4"
-
-#~ msgid "SMB1"
-#~ msgstr "區域網路1"
-
-#~ msgid "SMB2"
-#~ msgstr "區域網路2"
-
-#~ msgid "SMB3"
-#~ msgstr "區域網路3"
-
-#~ msgid "SMB4"
-#~ msgstr "區域網路4"
-
-#~ msgid "Failed to extract files."
-#~ msgstr "輸出檔案失敗"
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "檔案已輸出"
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "輸入檔案輸出後的存放目錄"
-
-#~ msgid "Change Settings"
-#~ msgstr "變更設定"
-
-#~ msgid "Unable to load device."
-#~ msgstr "無法載入裝置"

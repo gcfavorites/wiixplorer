@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
+"POT-Creation-Date: 2010-02-09 08:56+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "La décompression 7z a échouée:"
 
 msgid "Action cancelled."
 msgstr "Action annulée"
@@ -28,7 +28,7 @@ msgid "Archive successfully extracted."
 msgstr "Extraction réussie."
 
 msgid "Auto Connect"
-msgstr "Connexion auto"
+msgstr "Connection Auto"
 
 msgid "Back"
 msgstr ""
@@ -37,7 +37,7 @@ msgid "Bootup Mount"
 msgstr "Périphérique"
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "Ouverture du fichier impossible."
 
 msgid "Can't load file"
 msgstr "Chargement du fichier impossible."
@@ -61,7 +61,7 @@ msgid "Caps"
 msgstr ""
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "Modifier le dossier Language ?"
 
 msgid "Clear"
 msgstr "Nettoyer"
@@ -169,7 +169,7 @@ msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language ?"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "Voulez-vous charger ce fichier language ?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Voulez-vous ouvrir ce fichier texte ?"
@@ -196,7 +196,7 @@ msgid "Downloading file..."
 msgstr "Téléchargement..."
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "Erreur durant la lecture du fichier."
 
 msgid "Error:"
 msgstr "Erreur:"
@@ -320,7 +320,7 @@ msgid "Language"
 msgstr "Langue"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "Dossier Language modifié."
 
 msgid "Last access:"
 msgstr "Dernier acces:"
@@ -338,7 +338,7 @@ msgid "Loading file:"
 msgstr "Chargement de:"
 
 msgid "Loop"
-msgstr ""
+msgstr "Boucle"
 
 msgid "Mount NTFS"
 msgstr "NTFS"
@@ -347,7 +347,7 @@ msgid "Moving files:"
 msgstr "Déplacement de:"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "Lecture en boucle"
 
 msgid "Music Volume"
 msgstr "Volume"
@@ -356,7 +356,7 @@ msgid "Name already exists."
 msgstr "Ce nom existe déjà."
 
 msgid "Network Settings"
-msgstr ""
+msgstr "Paramètres réseau"
 
 msgid "Network initialising..."
 msgstr "Initialisation du réseau..."
@@ -420,10 +420,10 @@ msgid "Paste into current directory?"
 msgstr "Coller dans le dossier actuel?"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "Lire Dossier"
 
 msgid "Play Once"
-msgstr ""
+msgstr "Lire"
 
 msgid "Please wait:"
 msgstr "Patientez:"
@@ -435,7 +435,7 @@ msgid "Properties"
 msgstr "Propriétés"
 
 msgid "Random"
-msgstr ""
+msgstr "Aléatoire"
 
 msgid "Reboot failed"
 msgstr "Echec du redémarrage."
@@ -507,16 +507,16 @@ msgid "Update App"
 msgstr "Mise à jour App"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "Mise à jour Icon"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "Mise à jour Meta"
 
 msgid "Update Path changed."
 msgstr "Dossier Mise à jour modifié."
 
 msgid "Update Settings"
-msgstr ""
+msgstr "Mise à jour Paramètres"
 
 msgid "Update failed"
 msgstr "Echec de la Mise à jour."
@@ -555,27 +555,3 @@ msgstr "et tous les traducteurs."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
-
-#~ msgid "Can not open the file"
-#~ msgstr "Impossible d'ouvrir le fichier."
-
-#~ msgid "ImageViewer"
-#~ msgstr "Aperçu"
-
-#~ msgid "Error"
-#~ msgstr "Erreur"
-
-#~ msgid "An error occured."
-#~ msgstr "Une erreur est survenue."
-
-#~ msgid "ERROR"
-#~ msgstr "ERREUR"
-
-#~ msgid "ERROR:"
-#~ msgstr "ERREUR:"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Ce n'est pas un fichier OGG/MP3"
-
-#~ msgid "Connect SMB"
-#~ msgstr "Connecter SMB"
