@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r101
+# r107
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
+"POT-Creation-Date: 2010-02-07 01:30+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -16,7 +16,7 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "7z Dekomprimierung fehlgeschlagen:"
 
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
@@ -37,16 +37,16 @@ msgid "Bootup Mount"
 msgstr "Mount beim Start"
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "Die Datei konnte nicht geöffnet werden."
 
 msgid "Can't load file"
-msgstr ""
+msgstr "Datei kann nicht geladen werden."
 
 msgid "Can't open file."
-msgstr "Datei konnte nicht geöffnet werden."
+msgstr "Datei kann nicht geöffnet werden."
 
 msgid "Can't read file:"
-msgstr "Datei konnte nicht gelesen werden:"
+msgstr "Datei kann nicht gelesen werden:"
 
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -55,13 +55,13 @@ msgid "Cannot open image"
 msgstr "Bild konnte nicht geöffnet werden"
 
 msgid "Cannot write to destination."
-msgstr "Zielverzeichnis nicht beschreibbar."
+msgstr "Zielverzeichnis ist nicht beschreibbar."
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "Pfad zu den Sprachdateien ändern?"
 
 msgid "Clear"
 msgstr "Löschen"
@@ -124,7 +124,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete directory and its content?"
-msgstr "Verzeichnis mit dem Inhalt löschen?"
+msgstr "Verzeichnis und den Inhalt löschen?"
 
 msgid "Delete this file?"
 msgstr "Datei löschen?"
@@ -169,7 +169,7 @@ msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "Diese Sprachdatei laden?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Diese Datei im TextViewer öffnen?"
@@ -181,7 +181,7 @@ msgid "Do you want to playback this file?"
 msgstr "Diese Datei abspielen?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "Anwendung jetzt neu starten?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "SMB neu verbinden?"
@@ -196,7 +196,7 @@ msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "Fehler während dem Lesen einer Datei."
 
 msgid "Error:"
 msgstr "Fehler:"
@@ -205,7 +205,7 @@ msgid "Extract"
 msgstr "Enpacken"
 
 msgid "Extract All"
-msgstr "Alles Entpacken"
+msgstr "Alles entpacken"
 
 msgid "Extract first and open than."
 msgstr "Erst entpacken, dann öffnen."
@@ -217,7 +217,7 @@ msgid "Extract this file?"
 msgstr "Diese Datei entpacken?"
 
 msgid "Extract this folder?"
-msgstr "Dieses Verzeichnis entpacken?"
+msgstr "Diesen Ordner entpacken?"
 
 msgid "Extracting file:"
 msgstr "Entpacke Datei:"
@@ -226,13 +226,13 @@ msgid "Extracting files..."
 msgstr "Entpacke Dateien..."
 
 msgid "Extracting folder:"
-msgstr "Entpacke Verzeichnis:"
+msgstr "Entpacke Ordner:"
 
 msgid "Failed copying file."
-msgstr "Datei konnte nicht kopiert werden."
+msgstr "Kopieren der Datei fehlgeschlagen."
 
 msgid "Failed copying files."
-msgstr "Dateien konnten nicht kopiert werden."
+msgstr "Kopieren der Dateien fehlgeschlagen."
 
 msgid "Failed extracting file."
 msgstr "Entpacken der Datei fehlgeschlagen."
@@ -241,16 +241,16 @@ msgid "Failed extracting the archive."
 msgstr "Entpacken des Archivs fehlgeschlagen."
 
 msgid "Failed extracting the folder."
-msgstr "Entpacken der Verzeichnisse fehlgeschlagen."
+msgstr "Entpacken des Ordners fehlgeschlagen."
 
 msgid "Failed renaming file"
-msgstr "Datei konnte nicht umbenannt werden"
+msgstr "Umbenennen der Datei fehlgeschlagen"
 
 msgid "Failed to get the Changelog."
-msgstr "Changelog konnte nicht geladen werden."
+msgstr "Laden des Changelogs fehlgeschlagen."
 
 msgid "Failed to read file data."
-msgstr "Daten konnten nicht gelesen werden."
+msgstr "Lesen der Dateidaten fehlgeschlagen."
 
 msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
@@ -290,16 +290,16 @@ msgid "Files:"
 msgstr "Dateien:"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "Dateigröße ist 0 Byte."
 
 msgid "Filetype:"
 msgstr "Dateityp:"
 
 msgid "Folder"
-msgstr "Verzeichnis"
+msgstr "Ordner"
 
 msgid "Folder successfully extracted."
-msgstr "Verzeichnis erfolgreich entpackt."
+msgstr "Ordner erfolgreich entpackt."
 
 msgid "Fontpath changed"
 msgstr "Pfad zur Schriftart geändert"
@@ -320,7 +320,7 @@ msgid "Language"
 msgstr "Sprache"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "Pfad geändert."
 
 msgid "Last access:"
 msgstr "Letzter Zugriff:"
@@ -338,7 +338,7 @@ msgid "Loading file:"
 msgstr "Lade Datei:"
 
 msgid "Loop"
-msgstr ""
+msgstr "Schleife"
 
 msgid "Mount NTFS"
 msgstr ""
@@ -347,7 +347,7 @@ msgid "Moving files:"
 msgstr "Verschiebe Dateien:"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "Musik Wiederholungsmodus"
 
 msgid "Music Volume"
 msgstr "Musik Lautstärke"
@@ -356,7 +356,7 @@ msgid "Name already exists."
 msgstr "Name existiert bereits."
 
 msgid "Network Settings"
-msgstr ""
+msgstr "Netzwerkeinstellungen"
 
 msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
@@ -365,7 +365,7 @@ msgid "New Folder"
 msgstr "Neu"
 
 msgid "NewFolder"
-msgstr "Neues Verzeichnis"
+msgstr "Neuer Ordner"
 
 msgid "No"
 msgstr "Nein"
@@ -378,10 +378,10 @@ msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
 
 msgid "No new updates available"
-msgstr "Kein neues Update verfügbar"
+msgstr "Keine neue Version verfügbar"
 
 msgid "Not a valid URL"
-msgstr "Kein gültiger URL"
+msgstr "Keine gültige URL"
 
 msgid "Not a valid URL path"
 msgstr "Kein gültiger URL Pfad"
@@ -420,10 +420,10 @@ msgid "Paste into current directory?"
 msgstr "Ins aktuelle Verzeichnis einfügen?"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "Verzeichnis abspielen"
 
 msgid "Play Once"
-msgstr ""
+msgstr "Einmal abspielen"
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
@@ -435,10 +435,10 @@ msgid "Properties"
 msgstr "Eigenschaften"
 
 msgid "Random"
-msgstr ""
+msgstr "Zufällig"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "Neustart fehlgeschlagen"
 
 msgid "Reconnect SMB"
 msgstr "SMB neu verbinden"
@@ -480,10 +480,10 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
 
 msgid "Transfer cancelled."
-msgstr "Trasfer abgebrochen."
+msgstr "Übertragung abgebrochen."
 
 msgid "Transfer failed"
-msgstr "Transfer fehlgeschlagen"
+msgstr "Übertragung fehlgeschlagen"
 
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
@@ -492,13 +492,13 @@ msgid "URL is empty."
 msgstr "URL ist leer."
 
 msgid "Unable to create folder."
-msgstr "Verzeichnis konnte nicht erstellt werden."
+msgstr "Ordner konnte nicht erstellt werden."
 
 msgid "Unable to load path."
 msgstr "Pfad konnte nicht geöffnet werden."
 
 msgid "Unable to load the device."
-msgstr "Das Gerät konnte nicht geladeb werdeb."
+msgstr "Das Gerät konnte nicht geladen werden."
 
 msgid "Update (App) Path"
 msgstr "Update Pfad"
@@ -507,16 +507,16 @@ msgid "Update App"
 msgstr "Updaten"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "icon.png aktualisieren"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "meta.xml aktualisieren"
 
 msgid "Update Path changed."
 msgstr "Update Pfad geändert."
 
 msgid "Update Settings"
-msgstr ""
+msgstr "Einstelllungen aktualisieren"
 
 msgid "Update failed"
 msgstr "Update fehlgeschlagen"
@@ -556,41 +556,3 @@ msgstr "und allen Übersetzern."
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
 
-#~ msgid "Can not open the file"
-#~ msgstr "Die Datei konnte nicht geöffnet werden"
-
-#~ msgid "Error"
-#~ msgstr "Fehler"
-
-#~ msgid "An error occured."
-#~ msgstr "Ein Fehler ist aufgetreten."
-
-#~ msgid "ERROR"
-#~ msgstr "FEHLER"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Das ist keine OGG/MP3 Datei"
-
-#~ msgid "Connect SMB"
-#~ msgstr "SMB verbinden"
-
-#~ msgid "Filesize is empty."
-#~ msgstr "Dateigröße ist 0."
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "Es wird empfohlen die Anwendung neu zu starten."
-
-#~ msgid "Failed to extract files."
-#~ msgstr "Dateien konnten nicht entpackt werden."
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "Datei erfolgreich entpackt."
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "Verzeichnis zum entpacken angeben."
-
-#~ msgid "Change Settings"
-#~ msgstr "Einstellungen ändern"
-
-#~ msgid "Unable to load device."
-#~ msgstr "Gerät konnte nicht gestartet werden."

@@ -1,11 +1,11 @@
 # WiiXplorer (Official) language source file.
-# for 76
+# for r103
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
-"PO-Revision-Date: 2009-11-23 18:02-0000\n"
+"POT-Creation-Date: 2010-02-09 08:56+0100\n"
+"PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgid "App Default"
 msgstr "Predefinição do programa"
 
 msgid "Archive successfully extracted."
-msgstr ""
+msgstr "Ficheiro extraído com sucesso."
 
 msgid "Auto Connect"
 msgstr "Ligação automática"
@@ -40,13 +40,13 @@ msgid "Can not open the file."
 msgstr ""
 
 msgid "Can't load file"
-msgstr ""
+msgstr "Impossível carregar ficheiro."
 
 msgid "Can't open file."
-msgstr ""
+msgstr "Impossível abrir ficheiro."
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "Impossível lêr ficheiro:"
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -64,16 +64,16 @@ msgid "Change Language Path?"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
+msgstr "Limpar"
 
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 msgid "Coders:"
 msgstr "Programadores:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "Tamanho Comprimido:"
 
 msgid "Console Default"
 msgstr "Predefinição da consola"
@@ -94,7 +94,7 @@ msgid "Copying files:"
 msgstr "Copiando ficheiros"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "Não foi possível ligar à rede"
 
 msgid "Could not connect to the server."
 msgstr "Não foi possível ligar ao servidor."
@@ -103,7 +103,7 @@ msgid "Could not download file."
 msgstr "Não foi possível descarregar o ficheiro."
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "Não foi possível extrair o ficheiro:"
 
 msgid "Credits"
 msgstr "Créditos"
@@ -136,10 +136,10 @@ msgid "Designer:"
 msgstr "Designer:"
 
 msgid "Device Free Space:"
-msgstr ""
+msgstr "Espaço Disponível:"
 
 msgid "Device Total Space:"
-msgstr ""
+msgstr "Espaço Total:"
 
 msgid "Directory .."
 msgstr "Pasta .."
@@ -181,13 +181,13 @@ msgid "Do you want to playback this file?"
 msgstr "Pretende reproduzir este ficheiro?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "Deseja reiniciar agora ?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr "Pretende voltar a ligar-se ao SMB?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "Deseja guardar as alterações?"
 
 msgid "Do you want to update now ?"
 msgstr "Deseja actualizar agora ?"
@@ -202,31 +202,31 @@ msgid "Error:"
 msgstr "Erro:"
 
 msgid "Extract"
-msgstr ""
+msgstr "Extrair"
 
 msgid "Extract All"
-msgstr ""
+msgstr "Extrair Tudo"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Extrair primeiro e abrir depois."
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "Extrair todo o conteúdo?"
 
 msgid "Extract this file?"
-msgstr ""
+msgstr "Extrair este ficheiro?"
 
 msgid "Extract this folder?"
-msgstr ""
+msgstr "Extrair esta pasta?"
 
 msgid "Extracting file:"
-msgstr ""
+msgstr "Extraindo ficheiro:"
 
 msgid "Extracting files..."
 msgstr "Extraindo ficheiros..."
 
 msgid "Extracting folder:"
-msgstr ""
+msgstr "Extraindo pasta:"
 
 msgid "Failed copying file."
 msgstr "Falha ao copiar ficheiro."
@@ -235,22 +235,22 @@ msgid "Failed copying files."
 msgstr "Falha ao copiar ficheiros."
 
 msgid "Failed extracting file."
-msgstr ""
+msgstr "Falha ao extrair ficheiro."
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "Falha na extracção do ficheiro."
 
 msgid "Failed extracting the folder."
-msgstr ""
+msgstr "Falha na extracção da pasta."
 
 msgid "Failed renaming file"
 msgstr "Falha ao renomear ficheiro"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "Falha ao obter o Changelog."
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "Falha ao ler o ficheiro."
 
 msgid "File couldn't be deleted."
 msgstr "O ficheiro não pode ser eliminado."
@@ -259,28 +259,28 @@ msgid "File does not exist anymore!"
 msgstr "Ficheiro inexistente!"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "Ficheiro corrompido (erro de CRC)."
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "Ficheiro corrompido."
 
 msgid "File successfully copied."
 msgstr "Ficheiro copiado com sucesso."
 
 msgid "File successfully extracted."
-msgstr ""
+msgstr "Ficheiro extraído com sucesso."
 
 msgid "File successfully moved."
 msgstr "Ficheiro movido com sucesso."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "Ficheiro com nível de compressão muito elevada (tamanho de dicionário demasiado grande)."
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "Ficheiro com tipo de compressão não suportada."
 
 msgid "File was edited."
-msgstr ""
+msgstr "O ficheiro foi editado."
 
 #, c-format
 msgid "Filepath:  %s"
@@ -290,7 +290,7 @@ msgid "Files:"
 msgstr "Ficheiros"
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "Ficheiro vazio."
 
 msgid "Filetype:"
 msgstr "Tipo de ficheiro:"
@@ -299,13 +299,13 @@ msgid "Folder"
 msgstr "Pasta"
 
 msgid "Folder successfully extracted."
-msgstr ""
+msgstr "Pasta extraída com sucesso."
 
 msgid "Fontpath changed"
 msgstr "Pasta de fonte alterada"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "Obtendo Changelog..."
 
 msgid "Go Back"
 msgstr "Voltar"
@@ -314,7 +314,7 @@ msgid "Host:"
 msgstr "Servidor:"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "Visualizador de Imagens"
 
 msgid "Language"
 msgstr "Idioma"
@@ -332,7 +332,7 @@ msgid "Last status change:"
 msgstr "Última alteração de estado:"
 
 msgid "Linebreak"
-msgstr ""
+msgstr "Quebra de linha"
 
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
@@ -365,7 +365,7 @@ msgid "New Folder"
 msgstr "Nova Pasta"
 
 msgid "NewFolder"
-msgstr ""
+msgstr "NovaPasta"
 
 msgid "No"
 msgstr "Não"
@@ -402,10 +402,10 @@ msgid "ON"
 msgstr "Ligado"
 
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "Abertura ainda não implementada"
 
 msgid "Out of memory: too many files!"
 msgstr "Memória insuficiente: demasiados ficheiros!"
@@ -429,7 +429,7 @@ msgid "Please wait:"
 msgstr "Por favor aguarde:"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "Processo cancelado."
 
 msgid "Properties"
 msgstr "Propriedades"
@@ -438,7 +438,7 @@ msgid "Random"
 msgstr ""
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "Falha ao reiniciar"
 
 msgid "Reconnect SMB"
 msgstr "Ligar SMB"
@@ -465,7 +465,7 @@ msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "Mostrar Changelog"
 
 msgid "Size:"
 msgstr "Tamanho:"
@@ -495,10 +495,10 @@ msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "Não foi possível aceder à pasta."
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "Não foi possível aceder ao dispositivo."
 
 msgid "Update (App) Path"
 msgstr "Pasta de Act. do Aplicativo"
@@ -551,61 +551,7 @@ msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
 
 msgid "and all the translators."
-msgstr ""
+msgstr "e todos os tradutores."
 
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
-
-#~ msgid "Can not open the file"
-#~ msgstr "Não foi possível abrir o ficheiro"
-
-#~ msgid "ImageViewer"
-#~ msgstr "Visualizador de Imagens"
-
-#~ msgid "Error"
-#~ msgstr "Erro"
-
-#~ msgid "An error occured."
-#~ msgstr "Ocorreu um erro."
-
-#~ msgid "ERROR"
-#~ msgstr "ERRO"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Não é um ficheiro OGG/MP3"
-
-#~ msgid "Connect SMB"
-#~ msgstr "Ligar SMB"
-
-#~ msgid "It is recommended to restart app now."
-#~ msgstr "Deve reiniciar o aplicativo agora."
-
-#~ msgid "Filesize is empty."
-#~ msgstr "Tamango de ficheiro vazio."
-
-#~ msgid "& translaters for language files."
-#~ msgstr "& tradutores pelos ficheiros de idioma."
-
-#~ msgid "Can't load any device"
-#~ msgstr "Não foi possível carregar nenhum dispositivo"
-
-#~ msgid "Change Settings"
-#~ msgstr "Alterar Configuração"
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "Seleccione a pasta destino para extrair os ficheiros."
-
-#~ msgid "Failed to extract files."
-#~ msgstr "Erro ao extrair ficheiros."
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "Ficheiros extraídos com sucesso."
-
-#~ msgid "Next device"
-#~ msgstr "Próximo dispositivo"
-
-#~ msgid "No network connection"
-#~ msgstr "Ligação de rede indisponível"
-
-#~ msgid "Unable to load device."
-#~ msgstr "Não é possível ler o dispositivo."
