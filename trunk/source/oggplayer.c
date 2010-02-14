@@ -196,7 +196,7 @@ static long f_tell(int *f)
 	return (long) k;
 }
 
-static int mem_open(char * ogg, int size)
+int mem_open(char * ogg, int size)
 {
 	static int one = 1;
 	int n;
@@ -220,7 +220,7 @@ static int mem_open(char * ogg, int size)
 	return -1;
 }
 
-static int mem_close(int fd)
+int mem_close(int fd)
 {
 	if (fd >= 0x666 && fd <= 0x669) // it is a memory file descriptor?
 	{

@@ -45,7 +45,11 @@ SOURCES		:=	source \
 				source/ArchiveOperations \
 				source/ArchiveOperations/unzip \
 				source/ArchiveOperations/sevenzip \
-				source/ArchiveOperations/unrarlib
+				source/ArchiveOperations/unrarlib \
+				source/ftpServer \
+				source/console  \
+				source/FTPClient \
+				source/UnBlockingSocket
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------

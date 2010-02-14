@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-07 01:30+0100\n"
+"POT-Creation-Date: 2010-02-15 00:12+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -304,6 +304,9 @@ msgstr "Ordner erfolgreich entpackt."
 msgid "Fontpath changed"
 msgstr "Pfad zur Schriftart geändert"
 
+msgid "Ftp stopped"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Lade Changelog..."
 
@@ -330,6 +333,9 @@ msgstr "Zuletzt geändert:"
 
 msgid "Last status change:"
 msgstr "Letzte Statusänderung:"
+
+msgid "Launch Ftp"
+msgstr ""
 
 msgid "Linebreak"
 msgstr "Absatz"
@@ -476,6 +482,9 @@ msgstr "Besonderen Dank an:"
 msgid "Standard"
 msgstr ""
 
+msgid "Stop Ftp "
+msgstr ""
+
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
 
@@ -555,4 +564,3 @@ msgstr "und allen Übersetzern."
 
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
-

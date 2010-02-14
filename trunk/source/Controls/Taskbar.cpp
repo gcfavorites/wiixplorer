@@ -63,6 +63,12 @@ Taskbar::Taskbar()
 	settingsBtn->SetTrigger(trigA);
 	settingsBtn->Clicked.connect(this, &Taskbar::OnSettingsClick);
 
+	ftpBtn = new PictureButton(ftpbtn_png, ftpbtn_png_size, ftpbtn_over_png, ftpbtn_over_png_size, soundClick, soundOver);
+	ftpBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	ftpBtn->SetPosition(87+72+10, 0);
+	ftpBtn->SetTrigger(trigA);
+	ftpBtn->Clicked.connect(this, &Taskbar::OnFtpClick);
+
 	exitBtn = new PictureButton(power_png, power_png_size, power_over_png, power_over_png_size, soundClick, soundOver);
 	exitBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	exitBtn->SetPosition(465, 0);
@@ -73,6 +79,7 @@ Taskbar::Taskbar()
 	Append(taskbarImg);
 	Append(timeTxt);
 	Append(settingsBtn);
+	Append(ftpBtn);
 	Append(exitBtn);
 
 	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -172,3 +179,12 @@ void Taskbar::OnSettingsClick(GuiElement *sender, int pointer, POINT p)
     sender->ResetState();
 	menu = MENU_SETTINGS;
 }
+
+
+void Taskbar::OnFtpClick(GuiElement *sender, int pointer, POINT p)
+{
+    sender->ResetState();
+	menu = MENU_FTP;
+}
+
+
