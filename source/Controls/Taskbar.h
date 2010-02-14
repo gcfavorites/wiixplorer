@@ -49,6 +49,8 @@ class Taskbar : public GuiWindow
 		void Draw();
 		void OnExitClick(GuiElement *sender, int pointer, POINT p);
 		void OnSettingsClick(GuiElement *sender, int pointer, POINT p);
+		void OnFtpClick(GuiElement *sender, int pointer, POINT p);
+
 	private:
 		Taskbar();
 		~Taskbar();
@@ -62,6 +64,7 @@ class Taskbar : public GuiWindow
 		GuiText *timeTxt;
 		PictureButton *settingsBtn;
 		PictureButton *exitBtn;
+		PictureButton *ftpBtn;
 		GuiTrigger *trigA;
 		GuiSound *soundClick, *soundOver;
 };

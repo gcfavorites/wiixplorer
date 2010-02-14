@@ -11,6 +11,15 @@
 
 #include <gccore.h>
 
+extern const u8		bg_cftp_png[];
+extern const u32	bg_cftp_png_size;
+
+extern const u8		ftpbtn_png[];
+extern const u32	ftpbtn_png_size;
+
+extern const u8		ftpbtn_over_png[];
+extern const u32	ftpbtn_over_png_size;
+
 extern const u8		font_ttf[];
 extern const u32	font_ttf_size;
 

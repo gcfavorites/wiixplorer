@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-09 08:56+0100\n"
+"POT-Creation-Date: 2010-02-15 00:12+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -304,6 +304,9 @@ msgstr "Dossier extrait avec succès."
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
+msgid "Ftp stopped"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Obtention du Changelog..."
 
@@ -330,6 +333,9 @@ msgstr "Modifié le:"
 
 msgid "Last status change:"
 msgstr "Status changé le:"
+
+msgid "Launch Ftp"
+msgstr ""
 
 msgid "Linebreak"
 msgstr "Retour à la ligne"
@@ -474,6 +480,9 @@ msgid "Special thanks to:"
 msgstr "Remerciements:"
 
 msgid "Standard"
+msgstr ""
+
+msgid "Stop Ftp "
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."

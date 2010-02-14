@@ -64,6 +64,9 @@ bool boothomebrew = false;
 
 static bool firsttimestart = true;
 
+extern u32 launchServer(char *drive, int status, bool stop) ;
+extern int ServerFtpGui();
+
 /****************************************************************************
  * ResumeGui
  *
@@ -168,7 +171,7 @@ static int MenuSettings()
 	backBtn.SetSoundOver(&btnSoundOver);
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
-
+	
 	GuiOptionBrowser optionBrowser(584, 248, &options);
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -663,6 +666,9 @@ void MainMenu(int menu)
 				break;
 			case MENU_LANGUAGE_BROWSE:
 				currentMenu = LanguageBrowser();
+				break;
+			case MENU_FTP:
+				currentMenu = ServerFtpGui();
 				break;
 			default: // unrecognized menu
 				currentMenu = MenuBrowseDevice();

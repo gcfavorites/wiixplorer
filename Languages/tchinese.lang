@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
+"POT-Creation-Date: 2010-02-15 00:12+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -283,8 +283,8 @@ msgid "File was edited."
 msgstr "檔案已修改"
 
 #, c-format
-msgid "Filepath: %s"
-msgstr "檔案路徑: %s"
+msgid "Filepath:  %s"
+msgstr ""
 
 msgid "Files:"
 msgstr "檔案:"
@@ -303,6 +303,9 @@ msgstr "成功提取資料夾"
 
 msgid "Fontpath changed"
 msgstr "字型路徑已變更"
+
+msgid "Ftp stopped"
+msgstr ""
 
 msgid "Getting Changelog..."
 msgstr "使用更新日誌 ..."
@@ -330,6 +333,9 @@ msgstr "最近修改:"
 
 msgid "Last status change:"
 msgstr "最近狀態變更:"
+
+msgid "Launch Ftp"
+msgstr ""
 
 msgid "Linebreak"
 msgstr "斷行"
@@ -473,11 +479,14 @@ msgstr "檔案大小:"
 msgid "Special thanks to:"
 msgstr "特別感謝:"
 
+msgid "Standard"
+msgstr ""
+
+msgid "Stop Ftp "
+msgstr ""
+
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
-
-msgid "This is no OGG/MP3 file"
-msgstr "非OGG/MP3檔案"
 
 msgid "Transfer cancelled."
 msgstr "傳輸取消"
@@ -555,3 +564,9 @@ msgstr "和所有的翻譯"
 
 msgid "for his great tool LibWiiGui."
 msgstr "偉大的工具LibWiiGui"
+
+#~ msgid "Filepath: %s"
+#~ msgstr "檔案路徑: %s"
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "非OGG/MP3檔案"

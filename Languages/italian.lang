@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-09 08:56+0100\n"
+"POT-Creation-Date: 2010-02-15 00:12+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -304,6 +304,9 @@ msgstr "Cartella estratta con successo."
 msgid "Fontpath changed"
 msgstr "Percorso font modificato"
 
+msgid "Ftp stopped"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Sto prendendo il Changelog..."
 
@@ -330,6 +333,9 @@ msgstr "Ultima modifica:"
 
 msgid "Last status change:"
 msgstr "Ultima modifica stato:"
+
+msgid "Launch Ftp"
+msgstr ""
 
 msgid "Linebreak"
 msgstr "Interruzione di riga"
@@ -474,6 +480,9 @@ msgid "Special thanks to:"
 msgstr "Grazie mille a:"
 
 msgid "Standard"
+msgstr ""
+
+msgid "Stop Ftp "
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."

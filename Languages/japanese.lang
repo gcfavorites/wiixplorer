@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 17:09+0100\n"
+"POT-Creation-Date: 2010-02-15 00:12+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -304,6 +304,9 @@ msgstr "フォルダを解凍しました"
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
 
+msgid "Ftp stopped"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "更新履歴を受信しています･･･"
 
@@ -330,6 +333,9 @@ msgstr "更新日時:"
 
 msgid "Last status change:"
 msgstr "変更日時:"
+
+msgid "Launch Ftp"
+msgstr ""
 
 msgid "Linebreak"
 msgstr "改行"
@@ -476,6 +482,9 @@ msgstr "スペシャルサンクス:"
 msgid "Standard"
 msgstr "標準"
 
+msgid "Stop Ftp "
+msgstr ""
+
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
 
@@ -555,4 +564,3 @@ msgstr ", K-M…日本語への翻訳"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
-
