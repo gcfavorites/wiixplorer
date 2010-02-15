@@ -65,7 +65,8 @@ Taskbar::Taskbar()
 
 	ftpBtn = new PictureButton(ftpbtn_png, ftpbtn_png_size, ftpbtn_over_png, ftpbtn_over_png_size, soundClick, soundOver);
 	ftpBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	ftpBtn->SetPosition(87+72+10, 0);
+	ftpBtn->SetPosition(108+72+8, 0);
+	ftpBtn->SetSelectable(false);
 	ftpBtn->SetTrigger(trigA);
 	ftpBtn->Clicked.connect(this, &Taskbar::OnFtpClick);
 
