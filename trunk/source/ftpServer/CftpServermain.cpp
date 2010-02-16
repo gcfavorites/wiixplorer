@@ -190,6 +190,8 @@ const char * GetCurrentDevice(int currentDevice)
 	}
 
 }
+
+#define TOP_OFFSET 40
 		
 int ServerFtpGui()
 {
@@ -237,8 +239,7 @@ int ServerFtpGui()
 
 	GuiImageData settingsimgData(bg_cftp_png,bg_cftp_png_size);
 	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	settingsimg.SetPosition(0, 0);
+	settingsimg.SetPosition(20, TOP_OFFSET);
 	
 	u32 cr=0;
 	u32 y =20; 
@@ -247,25 +248,25 @@ int ServerFtpGui()
     snprintf(currentdir, sizeof(currentdir), "%s", GetCurrentDevice(currentDevice));
     GuiText *AdressText = new GuiText(currentdir, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	AdressText->SetPosition( x+40, y*1);
+	AdressText->SetPosition( x+40, y*1+TOP_OFFSET);
 
 	char NintendoAdress[50];
     snprintf(NintendoAdress, sizeof(NintendoAdress), "%s", "?");
     NintendoAdressText = new GuiText(NintendoAdress, 20, (GXColor) {0, 0, 0, 255});
 	NintendoAdressText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	NintendoAdressText->SetPosition(175, y*1);
+	NintendoAdressText->SetPosition(175, y*1+TOP_OFFSET);
 
 	char WWWAdress[50];
     snprintf(WWWAdress, sizeof(WWWAdress), "%s", "?");
     WWWAdressText = new GuiText(WWWAdress, 20, (GXColor) {0, 0, 0, 255});
 	WWWAdressText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	WWWAdressText->SetPosition(425, y*1);
+	WWWAdressText->SetPosition(425, y*1+TOP_OFFSET);
 
 	char ftpMainStatus[50];
     snprintf(ftpMainStatus, sizeof(ftpMainStatus), "%s", "Not connected");
     ftpMainStatusText = new GuiText(ftpMainStatus, 20, (GXColor) {0, 0, 0, 255});
 	ftpMainStatusText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ftpMainStatusText->SetPosition(x, y*3);
+	ftpMainStatusText->SetPosition(x, y*3+TOP_OFFSET);
 
 	char ftpDebugStatus[50];
     snprintf(ftpDebugStatus, sizeof(ftpDebugStatus), "%s", "");
@@ -275,7 +276,7 @@ int ServerFtpGui()
 	{
 	ftpDebugText[i] = new GuiText(ftpDebugStatus, 20, (GXColor) {0, 0, 0, 255});
 	ftpDebugText[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ftpDebugText[i]->SetPosition(x, y*(5+i));
+	ftpDebugText[i]->SetPosition(x, (y*(5+i))+TOP_OFFSET);
 	}
 	
 	u32 font = 22;
@@ -291,7 +292,7 @@ int ServerFtpGui()
 
 	GuiButton deviceSwitchBtn = GuiButton(deviceImg.GetWidth(), deviceImg.GetHeight());
 	deviceSwitchBtn.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	deviceSwitchBtn.SetPosition(40, 20);
+	deviceSwitchBtn.SetPosition(40, 20+TOP_OFFSET);
 	deviceSwitchBtn.SetImage(&deviceImg);
 	deviceSwitchBtn.SetTrigger(&trigA);
 	deviceSwitchBtn.SetEffectGrow();

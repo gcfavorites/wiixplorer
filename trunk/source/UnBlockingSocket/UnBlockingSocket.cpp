@@ -229,24 +229,20 @@ void CUnBlockingSocket::Cleanup()
 {
 	m_connected=false;
 	
-   // doesn't throw an exception because it's called in a catch block
    if( m_hSocket==SOCKET_UNDEF ) 
       return ;
 
 
-  if(m_hSocket) 
-  {
-  set_blocking(m_hSocket, true); 
+   set_blocking(m_hSocket, true); 
 
     if ( net_close(m_hSocket)<0  )
     {
     }
-  }
    
 
-  if(m_aSocket &&  m_aSocket !=  m_hSocket)
+  if(m_aSocket !=  m_hSocket)
   {
-  set_blocking(m_aSocket, true); 
+    set_blocking(m_aSocket, true); 
 
     if ( net_close(m_aSocket)<0  )
     {
@@ -268,8 +264,7 @@ bool CUnBlockingSocket::Close()
   {
   set_blocking(m_hSocket, true); 
 
-    net_shutdown(m_hSocket,50);
-	sleep(10);
+    net_close(m_hSocket);
   }
    
 
@@ -277,10 +272,8 @@ bool CUnBlockingSocket::Close()
   {
   set_blocking(m_aSocket, true); 
 
-    net_shutdown(m_aSocket,50);
-	
-		sleep(10);
-    }
+    net_close(m_aSocket);
+  }
    
    m_hSocket = SOCKET_UNDEF;
    m_aSocket = SOCKET_UNDEF;

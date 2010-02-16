@@ -144,13 +144,6 @@ void CFtpServer::Create(void)
 }
 
 
-void CFtpServer::Delete(void)
-{
-	if( IsListening() )
-		StopListening();
-
-}
-
 
 ////////////////////////////////////////
 // CONFIG
@@ -267,13 +260,7 @@ u32 CFtpServer::CClientEntry::RunClientShell(void)
 {
 if ( this->Shell ()  == false)
 {
-			if (this->m_ControlConnection.Isconnected()) {
-			this->m_ControlConnection.Cleanup();
-			}
-		if( this->eStatus == WAITING ) {
-			this->Delete();
-		} else
-			this->bIsCtrlCanalOpen = false;
+	this->m_ControlConnection.Cleanup();
 	return false;
 }
 return true;
@@ -1587,11 +1574,9 @@ bool CFtpServer::CClientEntry::OpenDataConnection(s32 nCmd )
 		if( eDataConnection == PASV ) {
 			sgIP_dbgprint("trying to connect on%d \n",ulDataIp);
 
-			for (u32 k=0; k<50;k++) {
 			if( m_DataConnection.Accept() ) { 
 				SendReply( "150 Connection net_accepted." );
 				return true;
-			}
 			sleep(1);
 			}
 
@@ -1621,10 +1606,9 @@ bool CFtpServer::CClientEntry::ResetDataConnection( bool bSyncWait )
 	{
 	m_DataConnection.Cleanup();
 
-
-		memset( &CurrentTransfer, 0x0, sizeof( CurrentTransfer ) );
-		eStatus = WAITING;
-		eDataConnection = NONE;
+	memset( &CurrentTransfer, 0x0, sizeof( CurrentTransfer ) );
+	eStatus = WAITING;
+	eDataConnection = NONE;
 	}
 	return true;
 }
@@ -2651,7 +2635,6 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
                     } else
                     OneClient.bIsCtrlCanalOpen = false;
 
-                this->Delete();
                 return NOT_INITIALIZED;
                 
             }
@@ -2663,11 +2646,11 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
         {
             case NOT_INITIALIZED:
             {
-                 this->Delete();
                 break;
             }
             case INITIALIZED :
             case LISTENING :
+			case ACCEPTING :
             case LAUNCHCLIENT :
             case LAUNCHCLIENTEX :
             {
@@ -2677,12 +2660,12 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
             }
             case SHELL:
             {
+				OneClient.m_ControlConnection.Cleanup();                   
                 OneClient.Delete();
-                this->Delete();
                 break;
             }
         }
-    }
+   }
 }
 
 
