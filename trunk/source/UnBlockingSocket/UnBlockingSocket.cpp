@@ -298,14 +298,11 @@ bool CUnBlockingSocket::Create(s32 nType /* = SOCK_STREAM */)
 {
    ASSERT( m_hSocket==SOCKET_UNDEF );
 
-retry : 
-
    if( (m_hSocket=net_socket(AF_INET, nType, IPPROTO_IP))<0 ) 
    {
       return false;
    }
    
-   if (m_hSocket==0) goto retry ;
    return true;
 }
 
@@ -359,7 +356,7 @@ sgIP_dbgprint("net_accept  %d\n", m_hSocket);
 //sgIP_dbgprint("net_accept start %d\n", m_aSocket);
      
 	 struct sockaddr_in data_peer_address;
- 
+	
     u16 i=0;
 	do
     {
