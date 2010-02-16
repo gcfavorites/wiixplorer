@@ -95,7 +95,6 @@ public:
 	~CFtpServer(){};
 
 	void Create(void);
-	void Delete(void);
 
 	bool RunClient( void);
 	class CUserEntry;
