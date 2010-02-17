@@ -168,7 +168,7 @@ Properties::Properties(const char * filepath)
 
     if(folder)
     {
-        devicefreeTxt = new GuiText(tr("Device Free Space:"), 20, (GXColor){0, 0, 0, 255});
+        devicefreeTxt = new GuiText(tr("Free Space:"), 20, (GXColor){0, 0, 0, 255});
         devicefreeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
         devicefreeTxt->SetPosition(Position_X, Position_Y);
 
@@ -177,7 +177,7 @@ Properties::Properties(const char * filepath)
         devicefreeTxtVal->SetPosition(Position_X+180, Position_Y);
         Position_Y += 30;
 
-        devicetotalTxt = new GuiText(tr("Device Total Space:"), 20, (GXColor){0, 0, 0, 255});
+        devicetotalTxt = new GuiText(tr("Total Space:"), 20, (GXColor){0, 0, 0, 255});
         devicetotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
         devicetotalTxt->SetPosition(Position_X, Position_Y);
 
@@ -207,7 +207,7 @@ Properties::Properties(const char * filepath)
     last_modifTxtVal->SetPosition(Position_X+180, Position_Y);
     Position_Y += 30;
 
-    last_changeTxt = new GuiText(tr("Last status change:"), 20, (GXColor){0, 0, 0, 255});
+    last_changeTxt = new GuiText(tr("Last change:"), 20, (GXColor){0, 0, 0, 255});
     last_changeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     last_changeTxt->SetPosition(Position_X, Position_Y);
 

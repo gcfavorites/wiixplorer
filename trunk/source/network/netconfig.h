@@ -1,6 +1,9 @@
-/***************************************************************************
- * Copyright (C) 2009
+ /****************************************************************************
+ * Copyright (C) 2010
  * by Dimok
+ *
+ * Created based on information from:
+ * http://wiibrew.org/wiki//shared2/sys/net/02/config.dat
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,22 +24,32 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * for WiiXplorer 2009
+ * netconfig.h
+ * for WiiXplorer 2010
  ***************************************************************************/
+#ifndef _NETCONFIG_H_
+#define _NETCONFIG_H_
 
-#ifndef _PROMPTS_H_
-#define _PROMPTS_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include <gctypes.h>
-#include "PromptWindow.h"
-#include "CreditWindow.h"
+/**     Connection Flags     **/
+#define LANADAPTER          0x01
+#define DNSDHCP             0x02
+#define IPDHCP              0x04
+#define USESPROXY           0x10
+#define INTERNETTESTPASSED  0x20
+#define CONNECTIONSELECTED  0x80
 
-int OnScreenKeyboard(char * var, u16 maxlen);
-int OnScreenKeyboard(wchar_t * var, u16 maxlen);
-int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Label = NULL,
-                    const char *btn2Label = NULL, const char *btn3Label = NULL,
-                    const char *btn4Label = NULL);
-int WaitSMBConnect(void);
-void ShowCredits(CreditWindow *& Credits);
+#define READINGFAILED       0xFF
+
+u8 ConnectionFlags();
+u8 HasValidConnection();
+const char * GetWLanKeys();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

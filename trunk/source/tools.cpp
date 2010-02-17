@@ -1,3 +1,34 @@
+/***************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
+ ***************************************************************************/
+ #include <string.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <wchar.h>
 #include <time.h>
 #include <math.h>
 
@@ -106,4 +137,58 @@ extern "C" void ConvertDosDate(u64 ulDosDate, TimeStruct * ptm)
     ptm->tm_hour = (u32) ((ulDosDate &0xF800)/0x800);
     ptm->tm_min =  (u32) ((ulDosDate&0x7E0)/0x20) ;
     ptm->tm_sec =  (u32) (2*(ulDosDate&0x1f)) ;
+}
+
+extern "C" const char * fmt(const char * format, ...)
+{
+    static char strChar[512];
+    memset(strChar, 0, sizeof(strChar));
+	char * tmp = NULL;
+
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va) >= 0) && tmp)
+	{
+        snprintf(strChar, sizeof(strChar), tmp);
+		free(tmp);
+		return (const char *) strChar;
+	}
+	va_end(va);
+
+	return NULL;
+}
+
+extern "C" const wchar_t * wfmt(const char * format, ...)
+{
+    static wchar_t strWChar[512];
+    memset(strWChar, 0, sizeof(strWChar));
+	char * tmp = NULL;
+
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va) >= 0) && tmp)
+	{
+        int	bt;
+        int strlength = strlen(tmp);
+        bt = mbstowcs(strWChar, tmp, (strlength < 512) ? strlength : 512 );
+        free(tmp);
+
+        if(bt > 0)
+            return (const wchar_t *) &strWChar;
+	}
+	va_end(va);
+
+	return NULL;
+}
+
+extern "C" bool char2wchar_t(const char * strChar, wchar_t * dest)
+{
+    int	bt;
+    bt = mbstowcs(dest, strChar, strlen(strChar));
+    if (bt > 0) {
+        dest[bt] = (wchar_t) '\0';
+        return true;
+    }
+
+    return false;
 }

@@ -27,6 +27,7 @@
 
 #include <unistd.h>
 #include "TextOperations/TextEditor.h"
+#include "FileOperations/fileops.h"
 #include "Prompts/PromptWindows.h"
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
@@ -36,15 +37,14 @@
 /**
  * Constructor for the TextEditor class.
  */
-TextEditor::TextEditor(char *intext, int LinesToDraw, const char *path)
+TextEditor::TextEditor(char *intext, int linestodraw, const char *path)
 {
 	focus = 0; // allow focus
 	triggerdisabled = false;
 	ExitEditor = false;
 	LineEditing = false;
 	FileEdited = false;
-	linestodraw = LinesToDraw;
-	currentLine = 0;
+	filesize = (u32) FileSize(path);
 
 	filepath = new char[strlen(path)+1];
 	snprintf(filepath, strlen(path)+1, "%s", path);
@@ -157,15 +157,13 @@ TextEditor::TextEditor(char *intext, int LinesToDraw, const char *path)
     filenameTxt->SetPosition(-30,30);
     filenameTxt->SetMaxWidth(340, DOTTED);
 
-    MainFileTxt = new GuiText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
+    MainFileTxt = new Text(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
     MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     MainFileTxt->SetPosition(0, 0);
-    MainFileTxt->SetMaxWidth(343, LONGTEXT);
-    MainFileTxt->SetFirstLine(0);
     MainFileTxt->SetLinesToDraw(linestodraw);
-    TotalLines = MainFileTxt->GetTotalLines();
+    MainFileTxt->SetMaxWidth(340);
 
-    TextPointerBtn = new TextPointer(MainFileTxt, FONTSIZE, linestodraw);
+    TextPointerBtn = new TextPointer(MainFileTxt, linestodraw);
     TextPointerBtn->SetPosition(43, 75);
     TextPointerBtn->SetClickable(false);
     TextPointerBtn->SetHoldable(true);
@@ -270,26 +268,15 @@ TextEditor::~TextEditor()
 void TextEditor::SetText(const char *intext)
 {
     LOCK(this);
-    if(MainFileTxt)
-    {
-        delete MainFileTxt;
-        MainFileTxt = NULL;
-    }
     if(TextPointerBtn)
     {
         delete TextPointerBtn;
         TextPointerBtn = NULL;
     }
 
-    MainFileTxt = new GuiText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
-    MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    MainFileTxt->SetPosition(0, 0);
-    MainFileTxt->SetMaxWidth(343, LONGTEXT);
-    MainFileTxt->SetFirstLine(0);
-    MainFileTxt->SetLinesToDraw(linestodraw);
-    TotalLines = MainFileTxt->GetTotalLines();
+    MainFileTxt->SetText(intext);
 
-    TextPointerBtn = new TextPointer(MainFileTxt, FONTSIZE, linestodraw);
+    TextPointerBtn = new TextPointer(MainFileTxt, 0);
     TextPointerBtn->SetPosition(43, 75);
     TextPointerBtn->SetClickable(false);
     TextPointerBtn->SetHoldable(true);
@@ -309,7 +296,10 @@ void TextEditor::WriteTextFile(const char * path)
     if(!f)
         return;
 
-    fwrite(MainFileTxt->GetOrigText(), 1, strlen(MainFileTxt->GetOrigText())+1, f);
+    std::string FullText = MainFileTxt->GetUTF8String();
+
+    fwrite(FullText.c_str(), 1, strlen(FullText.c_str())+1, f);
+
     fclose(f);
 }
 
@@ -348,12 +338,17 @@ int TextEditor::GetState()
 
     if(state == STATE_CLOSED && FileEdited)
     {
-        int choice = WindowPrompt(tr("File was edited."), tr("Do you want to save changes?"), tr("Yes"), tr("Cancel"));
-        if(choice)
+        int choice = WindowPrompt(tr("File was edited."), tr("Do you want to save changes?"), tr("Yes"), tr("No"), tr("Cancel"));
+        if(choice == 1)
+        {
             WriteTextFile(filepath);
-
-        //to revert the state reset
-        state = STATE_CLOSED;
+            state = STATE_CLOSED;
+        }
+        else if(choice == 2)
+        {
+            //to revert the state reset
+            state = STATE_CLOSED;
+        }
     }
 
     return GuiWindow::GetState();
@@ -394,9 +389,6 @@ void TextEditor::Update(GuiTrigger * t)
 	TextPointerBtn->Update(t);
 	PlusBtn->Update(t);
 
-	if(TotalLines < linestodraw)
-        return;
-
 	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
 		scrollbarBoxBtn->GetStateChan() == t->chan &&
 		t->wpad->ir.valid)
@@ -409,68 +401,48 @@ void TextEditor::Update(GuiTrigger * t)
 		else if(positionWiimote > scrollbarBoxBtn->GetMaxY())
 			positionWiimote = scrollbarBoxBtn->GetMaxY();
 
-		currentLine = (positionWiimote * TotalLines)/120.0;
+		int currentPos = (positionWiimote * (filesize-MainFileTxt->GetCharsCount()))/120.0;
+		bool lastline = false;
+		if((u32) currentPos >= filesize-MainFileTxt->GetCharsCount())
+		{
+            currentPos = filesize-MainFileTxt->GetCharsCount();
+            lastline = true;
+		}
+        else if(currentPos < 0)
+            currentPos = 0;
 
-        if(currentLine+linestodraw > TotalLines)
-            currentLine = TotalLines-linestodraw;
-        if(currentLine < 0)
-            currentLine = 0;
+		MainFileTxt->SetTextPos(currentPos);
 
-		MainFileTxt->SetFirstLine(currentLine);
+		if(lastline)
+            MainFileTxt->NextLine();
 	}
 
 	if(arrowDownBtn->GetState() == STATE_HELD && arrowDownBtn->GetStateChan() == t->chan)
 	{
-        currentLine++;
-        if(currentLine+linestodraw > TotalLines)
-            currentLine = TotalLines-linestodraw;
-        if(currentLine < 0)
-            currentLine = 0;
-
-        MainFileTxt->SetFirstLine(currentLine);
+        MainFileTxt->NextLine();
 	}
 	else if(arrowUpBtn->GetState() == STATE_HELD && arrowUpBtn->GetStateChan() == t->chan)
 	{
-		currentLine--;
-        if(currentLine < 0)
-            currentLine = 0;
-        MainFileTxt->SetFirstLine(currentLine);
+        MainFileTxt->PreviousLine();
 	}
 
 	if(t->Right())
 	{
-		currentLine += 8;
-        if(currentLine+linestodraw > TotalLines)
-            currentLine = TotalLines-linestodraw;
-        if(currentLine < 0)
-            currentLine = 0;
-
-        MainFileTxt->SetFirstLine(currentLine);
+	    for(int i = 0; i < 8; i++)
+            MainFileTxt->NextLine();
 	}
 	else if(t->Left())
 	{
-		currentLine -= 8;
-        if(currentLine < 0)
-            currentLine = 0;
-
-        MainFileTxt->SetFirstLine(currentLine);
+	    for(int i = 0; i < 8; i++)
+            MainFileTxt->PreviousLine();
 	}
 	else if(t->Down())
 	{
-		currentLine++;
-        if(currentLine+linestodraw > TotalLines)
-            currentLine = TotalLines-linestodraw;
-        if(currentLine < 0)
-            currentLine = 0;
-
-        MainFileTxt->SetFirstLine(currentLine);
+        MainFileTxt->NextLine();
 	}
 	else if(t->Up())
 	{
-		currentLine--;
-        if(currentLine < 0)
-            currentLine = 0;
-        MainFileTxt->SetFirstLine(currentLine);
+        MainFileTxt->PreviousLine();
 	}
 
 	// update the location of the scroll box based on the position in the file list
@@ -480,11 +452,11 @@ void TextEditor::Update(GuiTrigger * t)
 	}
 	else
 	{
-		position = 120*(currentLine + linestodraw/2.0) / (TotalLines*1.0);
+		position = 120*MainFileTxt->GetCurrPos()/((filesize-MainFileTxt->GetCharsCount())*1.0);
 
-		if(currentLine < 1)
+		if(position < 0)
 			position = 0;
-		else if((currentLine+linestodraw) >= TotalLines)
+		else if((u32) position >= filesize-MainFileTxt->GetCharsCount())
 			position = 120;
 	}
 

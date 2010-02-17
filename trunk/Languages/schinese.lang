@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7z解压缩失败:"
+
+msgid "ASDFGHJKL:\"+"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "动作取消。"
@@ -134,12 +137,6 @@ msgstr "文件删除中..."
 
 msgid "Designer:"
 msgstr "设计者："
-
-msgid "Device Free Space:"
-msgstr "设备剩余空间："
-
-msgid "Device Total Space:"
-msgstr "设备总计空间："
 
 msgid "Directory .."
 msgstr "目录.."
@@ -304,6 +301,9 @@ msgstr "文件夹成功提取。"
 msgid "Fontpath changed"
 msgstr "字体路径已改变"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr "语言文件路径已更改"
 msgid "Last access:"
 msgstr "最近读取"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "最近修改："
-
-msgid "Last status change:"
-msgstr "最近状态改变："
 
 msgid "Launch Ftp"
 msgstr ""
@@ -440,6 +440,9 @@ msgstr "进程已取消"
 msgid "Properties"
 msgstr "属性"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr "随机"
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "传输取消"
@@ -559,8 +565,36 @@ msgstr "无法读取相当文件。"
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr "和所有的翻译者。"
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Device Free Space:"
+#~ msgstr "设备剩余空间："
+
+#~ msgid "Device Total Space:"
+#~ msgstr "设备总计空间："
+
+#~ msgid "Last status change:"
+#~ msgstr "最近状态改变："

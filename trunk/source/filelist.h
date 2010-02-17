@@ -77,6 +77,9 @@ extern const u32	ClickMenuMiddle_png_size;
 extern const u8		ClickMenuUpper_png[];
 extern const u32	ClickMenuUpper_png_size;
 
+extern const u8		ClickMenuLower_png[];
+extern const u32	ClickMenuLower_png_size;
+
 extern const u8		bg_properties_png[];
 extern const u32	bg_properties_png_size;
 

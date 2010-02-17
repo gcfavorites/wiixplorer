@@ -274,6 +274,7 @@ int DownloadFileToPath(const char *url, const char *dest)
         done += read;
     }
 
+    free(buffer);
     StopProgress();
     net_close(connection);
     fclose(file);

@@ -157,11 +157,11 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
-		optionTxt[i] = new GuiText(NULL, 20, (GXColor){0, 0, 0, 0xff});
+		optionTxt[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 0xff});
 		optionTxt[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		optionTxt[i]->SetPosition(15,0);
 
-		optionVal[i] = new GuiText(NULL, 20, (GXColor){0, 0, 0, 0xff});
+		optionVal[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 0xff});
 		optionVal[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		optionVal[i]->SetPosition(250,0);
 		optionVal[i]->SetMaxWidth(width-optionTxt[i]->GetLeft()-50,DOTTED);

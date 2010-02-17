@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
+
+msgid "ASDFGHJKL:\"+"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
@@ -134,12 +137,6 @@ msgstr "削除しています:"
 
 msgid "Designer:"
 msgstr "デザイナー:"
-
-msgid "Device Free Space:"
-msgstr "空き領域:"
-
-msgid "Device Total Space:"
-msgstr "使用領域:"
 
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
@@ -304,6 +301,9 @@ msgstr "フォルダを解凍しました"
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr "言語のパスを変更しました"
 msgid "Last access:"
 msgstr "アクセス日時:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "更新日時:"
-
-msgid "Last status change:"
-msgstr "変更日時:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -440,6 +440,9 @@ msgstr "キャンセルしました"
 msgid "Properties"
 msgstr "プロパティ"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr "ランダム再生"
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "転送を中止しました"
@@ -559,8 +565,36 @@ msgstr "同じ所に読み書きはできません"
 msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr ", K-M…日本語への翻訳"
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Device Free Space:"
+#~ msgstr "空き領域:"
+
+#~ msgid "Device Total Space:"
+#~ msgstr "使用領域:"
+
+#~ msgid "Last status change:"
+#~ msgstr "変更日時:"

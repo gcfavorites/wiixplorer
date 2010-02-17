@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 01:46+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "La décompression 7z a échouée:"
+
+msgid "ASDFGHJKL:\"+"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "Action annulée"
@@ -134,12 +137,6 @@ msgstr "Suppression des fichiers:"
 
 msgid "Designer:"
 msgstr "Graphiste:"
-
-msgid "Device Free Space:"
-msgstr "Espace Libre:"
-
-msgid "Device Total Space:"
-msgstr "Espace Total:"
 
 msgid "Directory .."
 msgstr "Dossier .."
@@ -304,6 +301,9 @@ msgstr "Dossier extrait avec succès."
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr "Ftp stoppé."
 
@@ -328,11 +328,11 @@ msgstr "Dossier Language modifié."
 msgid "Last access:"
 msgstr "Dernier acces:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Modifié le:"
-
-msgid "Last status change:"
-msgstr "Status changé le:"
 
 msgid "Launch Ftp"
 msgstr "Lancer Ftp"
@@ -440,6 +440,9 @@ msgstr "Procédure annulée."
 msgid "Properties"
 msgstr "Propriétés"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr "Aléatoire"
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "Transfert annulé."
@@ -559,8 +565,36 @@ msgstr "Lecture/écriture impossible depuis/vers le même fichier."
 msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr "et tous les traducteurs."
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Device Free Space:"
+#~ msgstr "Espace Libre:"
+
+#~ msgid "Device Total Space:"
+#~ msgstr "Espace Total:"
+
+#~ msgid "Last status change:"
+#~ msgstr "Status changé le:"

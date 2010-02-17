@@ -1,29 +1,42 @@
+#ifndef GUI_KEYBOARD_H_
+#define GUI_KEYBOARD_H_
+
 #include "gui.h"
 #include "TextOperations/TextPointer.h"
+#include "TextOperations/wstring.hpp"
 
-typedef struct _keytype {
-	char ch, chShift;
-} Key;
+#define MAXKEYS 13
+#define MAXROWS 4
+
+typedef struct _keyrowtype
+{
+	wchar_t ch[MAXKEYS];
+	wchar_t chShift[MAXKEYS];
+} KeyboardRow;
 
 //!On-screen keyboard
 class GuiKeyboard : public GuiWindow
 {
 	public:
-		GuiKeyboard(char * t, u32 m);
+        GuiKeyboard(const char * t, u32 max);
+		GuiKeyboard(const wchar_t * t, u32 max);
 		~GuiKeyboard();
-        void AddChar(int pos, char Char);
+        const wchar_t * GetString();
+		std::string GetUTF8String() const;
+        void AddChar(int pos, wchar_t Char);
         void RemoveChar(int pos);
 		void Update(GuiTrigger * t);
-		char kbtextstr[256];
 	protected:
+        void SetupKeyboard(const wchar_t * t, u32 max);
         void MoveText(int n);
-        const char * GetDisplayText(const char * t);
+        const wchar_t * GetDisplayText(const wString * ws);
         void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
         void OnPositionMoved(GuiElement *sender, int pointer, POINT p);
 
         int CurrentFirstLetter;
+		wString * kbtextstr;
 		u32 kbtextmaxlen;
-		Key keys[4][13];
+		KeyboardRow keys[MAXROWS];
 		int shift;
 		int caps;
 		TextPointer * TextPointerBtn;
@@ -54,10 +67,10 @@ class GuiKeyboard : public GuiWindow
 		GuiImage * keyClearImg;
 		GuiImage * keyClearOverImg;
 		GuiButton * keyClear;
-		GuiButton * keyBtn[4][13];
-		GuiImage * keyImg[4][13];
-		GuiImage * keyImgOver[4][13];
-		GuiText * keyTxt[4][13];
+		GuiButton * keyBtn[MAXROWS][MAXKEYS];
+		GuiImage * keyImg[MAXROWS][MAXKEYS];
+		GuiImage * keyImgOver[MAXROWS][MAXKEYS];
+		GuiText * keyTxt[MAXROWS][MAXKEYS];
 		GuiImageData * keyTextbox;
 		GuiImageData * key;
 		GuiImageData * keyOver;
@@ -73,3 +86,5 @@ class GuiKeyboard : public GuiWindow
 		GuiTrigger * trigLeft;
 		GuiTrigger * trigRight;
 };
+
+#endif

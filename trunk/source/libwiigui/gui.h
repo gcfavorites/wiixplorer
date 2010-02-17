@@ -50,6 +50,7 @@
 #include "input.h"
 #include "oggplayer.h"
 #include "sigslot.h"
+#include "gecko.h"
 #include "tools.h"
 
 extern FreeTypeGX *fontSystem[];
@@ -109,7 +110,6 @@ enum
 enum
 {
 	WRAP,
-	LONGTEXT,
 	DOTTED,
 	SCROLL_HORIZONTAL,
 	SCROLL_NONE
@@ -691,6 +691,11 @@ class GuiText : public GuiElement
 		//!\param c Font color
 		GuiText(const char * t, int s, GXColor c);
 		//!\overload
+		//!\param t Text
+		//!\param s Font size
+		//!\param c Font color
+		GuiText(const wchar_t * t, int s, GXColor c);
+		//!\overload
 		//!\Assumes SetPresets() has been called to setup preferred text attributes
 		//!\param t Text
 		GuiText(const char * t);
@@ -698,8 +703,9 @@ class GuiText : public GuiElement
 		~GuiText();
 		//!Sets the text of the GuiText element
 		//!\param t Text
-		void SetText(const char * t);
-		void SetTextf(const char *format, ...) __attribute__((format(printf,2,3)));
+		virtual void SetText(const char * t);
+		virtual void SetText(const wchar_t * t);
+		virtual void SetTextf(const char *format, ...) __attribute__((format(printf,2,3)));
 		//!Sets up preset values to be used by GuiText(t)
 		//!Useful when printing multiple text elements, all with the same attributes set
 		//!\param sz Font size
@@ -713,14 +719,6 @@ class GuiText : public GuiElement
 		//!Sets the font size
 		//!\param s Font size
 		void SetFontSize(int s);
-		//!Sets the first line to draw (default = 0)
-		//!\param line
-		void SetFirstLine(int line);
-		//!Sets max lines to draw
-		//!\param lines
-		void SetLinesToDraw(int lines);
-		//!Gets the total line number
-		int GetTotalLines();
 		//!Sets the maximum width of the drawn texture image
 		//!If the text exceeds this, it is wrapped to the next line
 		//!\param w Maximum width
@@ -742,16 +740,22 @@ class GuiText : public GuiElement
 		void SetFont(FreeTypeGX *f);
 		//!Get the original text as char
         const char * GetOrigText();
+		//!Get the original text as char
+        virtual const wchar_t * GetText();
 		//!Get the Horizontal Size of Text
 		int GetTextWidth();
         int GetTextWidth(int ind);
 		//!Get the max textwidth
         int GetTextMaxWidth();
+		//!Gets the total line number
+		virtual int GetLinesCount() { return 1; };
+		//!Get fontsize
+		int GetFontSize() { return size; };
+		//!Set max lines to draw
+        void SetLinesToDraw(int l);
 		//!Get current Textline (for position calculation)
-        wchar_t * GetDynText();
-        wchar_t * GetDynTextLine(int ind);
-		//!Get the offset of a linebreak
-		u32 GetLineBreakOffset(int line);
+        const wchar_t * GetDynText();
+        virtual const wchar_t * GetTextLine(int ind);
 		//!Change the font
 		//!\param font bufferblock
 		//!\param font filesize
@@ -772,13 +776,10 @@ class GuiText : public GuiElement
 		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
-		bool widescreen; //added
-		int firstLine;
-		int linestodraw;
-		int totalLines;
+		bool widescreen;
 		int textWidth;
 		int currentSize;
-		u32 *LineBreak;
+		int linestodraw;
 };
 
 //!Display, manage, and manipulate buttons in the GUI. Buttons can have images, icons, text, and sound set (all of which are optional)

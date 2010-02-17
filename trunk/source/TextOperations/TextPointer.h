@@ -29,13 +29,14 @@
 #define TEXTPOINTER_H
 
 #include "libwiigui/gui.h"
+//#include "Text.hpp"
 
 
 class TextPointer : public GuiButton
 {
 	public:
-        TextPointer(GuiText *parent, int FontSize, int lines);
-        TextPointer(GuiText *parent, int FontSize, int lines, int w, int h);
+        TextPointer(GuiText *parent, int linestodraw);
+        TextPointer(GuiText *parent, int linestodraw, int w, int h);
 		~TextPointer();
 		void PositionChanged(int chan, int x, int y);
         void SetPointerPosition(int LetterPos);
@@ -46,7 +47,6 @@ class TextPointer : public GuiButton
 		void Update(GuiTrigger * t);
 	protected:
         int fontsize;
-        int linestodraw;
         int lineLength;
         int currentline;
         int currentChan;
@@ -59,7 +59,7 @@ class TextPointer : public GuiButton
         GuiImageData * TextPointerImgData;
         GuiImage * TextPointerImg;
         GuiImage * MarkImage;
-        GuiText * Text;
+        GuiText * TextPtr;
 };
 
 #endif

@@ -113,9 +113,11 @@ InitVideo ()
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
 	// widescreen fix
-	vmode->viWidth = VI_MAX_WIDTH_PAL;
-
-	VIDEO_Configure (vmode);
+	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
+	{
+		vmode->viWidth = 700;
+		vmode->viXOrigin = ((VI_MAX_WIDTH_PAL - vmode->viWidth) / 2);
+	}
 
 	screenheight = 480;
 	screenwidth = vmode->fbWidth;
@@ -123,6 +125,8 @@ InitVideo ()
 	// Allocate the video buffers
 	xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
 	xfb[1] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
+
+	VIDEO_Configure (vmode);
 
 	// A console is always useful while debugging
 	console_init (xfb[0], 20, 64, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);

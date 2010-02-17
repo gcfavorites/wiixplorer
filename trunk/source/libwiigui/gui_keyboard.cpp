@@ -29,13 +29,22 @@
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
 
-static char tmptxt[MAX_KEYBOARD_DISPLAY];
+static wchar_t tmptxt[MAX_KEYBOARD_DISPLAY];
 
 /**
  * Constructor for the GuiKeyboard class.
  */
+GuiKeyboard::GuiKeyboard(const char * t, u32 max)
+{
+    SetupKeyboard(wfmt(t), max);
+}
 
-GuiKeyboard::GuiKeyboard(char * t, u32 max)
+GuiKeyboard::GuiKeyboard(const wchar_t * t, u32 max)
+{
+    SetupKeyboard(t, max);
+}
+
+void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 {
 	width = 540;
 	height = 400;
@@ -45,77 +54,26 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	focus = 0; // allow focus
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
-	strncpy(kbtextstr, t, max);
-	kbtextstr[max] = 0;
+	kbtextstr = new wString(t);
 	kbtextmaxlen = max;
 	CurrentFirstLetter = 0;
 	if(t)
 	{
-        CurrentFirstLetter = strlen(t)-MAX_KEYBOARD_DISPLAY+1;
+        CurrentFirstLetter = wcslen(t)-MAX_KEYBOARD_DISPLAY+1;
         if(CurrentFirstLetter < 0)
             CurrentFirstLetter = 0;
 	}
 
-	Key thekeys[4][13] = {
-	{
-        {'`','~'},
-		{'1','!'},
-		{'2','@'},
-		{'3','#'},
-		{'4','$'},
-		{'5','%'},
-		{'6','^'},
-		{'7','&'},
-		{'8','*'},
-		{'9','('},
-		{'0',')'},
-		{'-','_'}
-	},
-	{
-		{'q','Q'},
-		{'w','W'},
-		{'e','E'},
-		{'r','R'},
-		{'t','T'},
-		{'y','Y'},
-		{'u','U'},
-		{'i','I'},
-		{'o','O'},
-		{'p','P'},
-		{'[','{'},
-		{']','}'},
-		{0x5C,'|'}
-	},
-	{
-		{'a','A'},
-		{'s','S'},
-		{'d','D'},
-		{'f','F'},
-		{'g','G'},
-		{'h','H'},
-		{'j','J'},
-		{'k','K'},
-		{'l','L'},
-		{';',':'},
-		{'\'','"'},
-		{'=','+'}
-	},
+    memset(keys, 0, MAXROWS*sizeof(KeyboardRow));
 
-	{
-		{'z','Z'},
-		{'x','X'},
-		{'c','C'},
-		{'v','V'},
-		{'b','B'},
-		{'n','N'},
-		{'m','M'},
-		{',','<'},
-		{'.','>'},
-		{'/','?'},
-		{'\0','\0'}
-	}
-	};
-	memcpy(keys, thekeys, sizeof(thekeys));
+    wcslcpy(keys[0].ch,       wfmt(tr("`1234567890-")), MAXKEYS);
+    wcslcpy(keys[0].chShift,  wfmt(tr("~!@#$%%^&*()_")), MAXKEYS);
+    wcslcpy(keys[1].ch,       wfmt(tr("qwertyuiop[]\\")), MAXKEYS);
+    wcslcpy(keys[1].chShift,  wfmt(tr("QWERTYUIOP{}|")), MAXKEYS);
+    wcslcpy(keys[2].ch,       wfmt(tr("asdfghjkl;'=")), MAXKEYS);
+    wcslcpy(keys[2].chShift,  wfmt(tr("ASDFGHJKL:\"+")), MAXKEYS);
+    wcslcpy(keys[3].ch,       wfmt(tr("zxcvbnm,./")), MAXKEYS);
+    wcslcpy(keys[3].chShift,  wfmt(tr("ZXCVBNM<>?")), MAXKEYS);
 
 	int KeyboardPosition = -25;
 
@@ -130,7 +88,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 
 	kbText = new GuiText(GetDisplayText(kbtextstr), 20, (GXColor){0, 0, 0, 0xff});
 
-    TextPointerBtn = new TextPointer(kbText, 20, 0);
+    TextPointerBtn = new TextPointer(kbText, 0);
 	TextPointerBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	kbText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	TextPointerBtn->SetPosition(0, 11);
@@ -260,17 +218,16 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	keySpace->SetEffectGrow();
 	this->Append(keySpace);
 
-	char txt[2] = { 0, 0 };
-
 	int Pos = 0;
+	wchar_t txt[2] = { 0, 0 };
 
-	for(int i=0; i<4; i++)
+	for(int i = 0; i < MAXROWS; i++)
 	{
-		for(int j=0; j<13; j++)
+		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i][j].ch != '\0')
+			if(keys[i].ch[j] != '\0')
 			{
-				txt[0] = keys[i][j].ch;
+			    txt[0] = keys[i].ch[j];
 				keyImg[i][j] = new GuiImage(key);
 				keyImgOver[i][j] = new GuiImage(keyOver);
 				keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
@@ -333,6 +290,7 @@ GuiKeyboard::~GuiKeyboard()
 	delete trigHeldA;
 	delete trigLeft;
 	delete trigRight;
+	delete kbtextstr;
 	Resources::Remove(keyTextbox);
 	Resources::Remove(key);
 	Resources::Remove(keyOver);
@@ -343,11 +301,11 @@ GuiKeyboard::~GuiKeyboard()
 	Resources::Remove(keySoundOver);
 	Resources::Remove(keySoundClick);
 
-	for(int i=0; i<4; i++)
+	for(int i = 0; i < MAXROWS; i++)
 	{
-		for(int j=0; j<13; j++)
+		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i][j].ch != '\0')
+			if(keys[i].ch[j] != '\0')
 			{
 				delete keyImg[i][j];
 				delete keyImgOver[i][j];
@@ -358,66 +316,33 @@ GuiKeyboard::~GuiKeyboard()
 	}
 }
 
-void GuiKeyboard::AddChar(int pos, char Char)
+std::string GuiKeyboard::GetUTF8String() const
 {
-    int stringlength = strlen(kbtextstr);
+    return kbtextstr->toUTF8();
+}
 
-    if(stringlength+1 > (int) kbtextmaxlen)
-        return;
+const wchar_t * GuiKeyboard::GetString()
+{
+    return kbtextstr->c_str();
+}
 
-    char * origText = strdup(kbtextstr);
-    memset(kbtextstr, 0, sizeof(kbtextstr));
-
-
-    int n = 0;
-    int i = 0;
-
-    while(i < stringlength+1)
-    {
-        if(n == pos)
-        {
-            kbtextstr[n] = Char;
-            n++;
-        }
-
-        kbtextstr[n] = origText[i];
-
-        n++;
-        i++;
-    }
-
-    free(origText);
+void GuiKeyboard::AddChar(int pos, wchar_t Char)
+{
+    wchar_t txt[2] = { Char, 0 };
+    kbtextstr->insert(pos, txt);
 
     MoveText(1);
 }
 
 void GuiKeyboard::RemoveChar(int pos)
 {
-    int stringlength = strlen(kbtextstr);
-
-    int n = 0;
-    int i = 0;
-
-    while(i < stringlength+1)
-    {
-        if(i == pos)
-        {
-            i++;
-        }
-
-        kbtextstr[n] = kbtextstr[i];
-
-        n++;
-        i++;
-    }
-    kbtextstr[n] = '\0';
-
+    kbtextstr->erase(pos, 1);
     MoveText(-1);
 }
 
 void GuiKeyboard::MoveText(int n)
 {
-    int strlength = strlen(kbText->GetOrigText())+1;
+    int strlength = wcslen(kbText->GetText());
 
     if(strlength > MAX_KEYBOARD_DISPLAY-1)
     {
@@ -463,7 +388,7 @@ void GuiKeyboard::OnPositionMoved(GuiElement *sender, int pointer, POINT p)
     {
         int currentPointLetter = TextPointerBtn->GetCurrentLetter();
         currentPointLetter++;
-        int strlength = strlen(kbtextstr);
+        int strlength = kbtextstr->length();
         if(currentPointLetter > (MAX_KEYBOARD_DISPLAY-1) || currentPointLetter > strlength)
         {
             currentPointLetter--;
@@ -479,20 +404,13 @@ void GuiKeyboard::OnPositionMoved(GuiElement *sender, int pointer, POINT p)
 
 void GuiKeyboard::Update(GuiTrigger * t)
 {
-	if(_elements.size() == 0 || (state == STATE_DISABLED && parentElement))
-		return;
-
-	for (u8 i = 0; i < _elements.size(); i++)
-	{
-		try	{ _elements.at(i)->Update(t); }
-		catch (const std::exception& e) { }
-	}
+    GuiWindow::Update(t);
 
 	bool update = false;
 
 	if(keySpace->GetState() == STATE_CLICKED)
 	{
-		if(strlen(kbtextstr) < kbtextmaxlen)
+		if(kbtextstr->length() < kbtextmaxlen)
 		{
 			AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), ' ');
 		}
@@ -510,7 +428,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	}
 	else if(keyClear->GetState() == STATE_CLICKED)
 	{
-	    strcpy(kbtextstr, "");
+	    kbtextstr->clear();
         kbText->SetText(GetDisplayText(kbtextstr));
         TextPointerBtn->TextWidthChanged();
         TextPointerBtn->SetPointerPosition(0);
@@ -529,37 +447,37 @@ void GuiKeyboard::Update(GuiTrigger * t)
 		update = true;
 	}
 
-	char txt[2] = { 0, 0 };
+	wchar_t txt[2] = { 0, 0 };
 
 	startloop:
 
-	for(int i=0; i<4; i++)
+	for(int i = 0; i < MAXROWS; i++)
 	{
-		for(int j=0; j<13; j++)
+		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i][j].ch != '\0')
+			if(keys[i].ch[j] != '\0')
 			{
 				if(update)
 				{
 					if(shift || caps)
-						txt[0] = keys[i][j].chShift;
+						txt[0] = keys[i].chShift[j];
 					else
-						txt[0] = keys[i][j].ch;
+						txt[0] = keys[i].ch[j];
 
 					keyTxt[i][j]->SetText(txt);
 				}
 
 				if(keyBtn[i][j]->GetState() == STATE_CLICKED)
 				{
-					if(strlen(kbtextstr) < kbtextmaxlen)
+					if(kbtextstr->length() < kbtextmaxlen)
 					{
 						if(shift || caps)
 						{
-							AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i][j].chShift);
+							AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i].chShift[j]);
 						}
 						else
 						{
-							AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i][j].ch);
+							AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i].ch[j]);
 						}
 					}
 					keyBtn[i][j]->SetState(STATE_SELECTED, t->chan);
@@ -591,12 +509,14 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	}
 }
 
-const char * GuiKeyboard::GetDisplayText(const char * t)
+const wchar_t * GuiKeyboard::GetDisplayText(const wString * text)
 {
-	if(!t)
+	if(!text)
 		return NULL;
 
-	int len = strlen(t);
+	const wchar_t * t = text->data();
+
+	int len = wcslen(t);
 
 	if(len < MAX_KEYBOARD_DISPLAY)
 		return t;
@@ -607,9 +527,9 @@ const char * GuiKeyboard::GetDisplayText(const char * t)
     for(int i = startPos; i < endPos && i < len; i++)
     {
         tmptxt[n] = t[i];
-        tmptxt[n+1] = '\0';
         n++;
     }
+    tmptxt[n] = '\0';
 
 	return tmptxt;
 }

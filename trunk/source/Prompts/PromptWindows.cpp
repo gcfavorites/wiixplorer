@@ -118,7 +118,85 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	if(save)
 	{
-		snprintf(var, maxlen, "%s", keyboard.kbtextstr);
+	    snprintf(var, maxlen, "%s", keyboard.GetUTF8String().c_str());
+	}
+
+	HaltGui();
+	MainWindow::Instance()->Remove(&keyboard);
+    MainWindow::Instance()->SetDim(false);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
+	ResumeGui();
+	return save;
+}
+
+int OnScreenKeyboard(wchar_t * var, u16 maxlen)
+{
+	int save = -1;
+
+	GuiKeyboard keyboard(var, maxlen);
+
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+	GuiTrigger trigA;
+	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
+	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage okBtnImg(&btnOutline);
+	GuiImage okBtnImgOver(&btnOutlineOver);
+	GuiButton okBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+
+	okBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	okBtn.SetPosition(25, -25);
+
+	okBtn.SetLabel(&okBtnTxt);
+	okBtn.SetImage(&okBtnImg);
+	okBtn.SetImageOver(&okBtnImgOver);
+	okBtn.SetSoundOver(&btnSoundOver);
+	okBtn.SetTrigger(&trigA);
+	okBtn.SetEffectGrow();
+
+	GuiText cancelBtnTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage cancelBtnImg(&btnOutline);
+	GuiImage cancelBtnImgOver(&btnOutlineOver);
+	GuiButton cancelBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	cancelBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	cancelBtn.SetPosition(-25, -25);
+	cancelBtn.SetLabel(&cancelBtnTxt);
+	cancelBtn.SetImage(&cancelBtnImg);
+	cancelBtn.SetImageOver(&cancelBtnImgOver);
+	cancelBtn.SetSoundOver(&btnSoundOver);
+	cancelBtn.SetTrigger(&trigA);
+	cancelBtn.SetEffectGrow();
+
+	keyboard.Append(&okBtn);
+	keyboard.Append(&cancelBtn);
+
+	HaltGui();
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+    MainWindow::Instance()->SetDim(true);
+	MainWindow::Instance()->Append(&keyboard);
+	MainWindow::Instance()->ChangeFocus(&keyboard);
+	ResumeGui();
+
+	while(save == -1)
+	{
+		usleep(100);
+
+        if(shutdown)
+            Sys_Shutdown();
+        else if(reset)
+            Sys_Reboot();
+
+		if(okBtn.GetState() == STATE_CLICKED)
+			save = 1;
+		else if(cancelBtn.GetState() == STATE_CLICKED)
+			save = 0;
+	}
+
+	if(save)
+	{
+		wcsncpy(var, keyboard.GetString(), maxlen);
 	}
 
 	HaltGui();
