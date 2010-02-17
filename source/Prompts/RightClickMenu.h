@@ -82,6 +82,7 @@ class RightClickMenu : public GuiWindow
 
         GuiImageData * ClickMenuMiddle;
         GuiImageData * ClickMenuUpper;
+        GuiImageData * ClickMenuLower;
         GuiImageData * menu_select;
 
         GuiSound * btnClick;

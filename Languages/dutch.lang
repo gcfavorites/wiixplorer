@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgid "1"
 msgstr "1"
 
 msgid "7z decompression failed:"
+msgstr ""
+
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -135,12 +138,6 @@ msgstr "Bestanden verwijderen:"
 
 msgid "Designer:"
 msgstr "Ontwerp:"
-
-msgid "Device Free Space:"
-msgstr ""
-
-msgid "Device Total Space:"
-msgstr ""
 
 msgid "Directory .."
 msgstr "Locatie .."
@@ -305,6 +302,9 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Locatie lettertype gewijzigd"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -329,11 +329,11 @@ msgstr ""
 msgid "Last access:"
 msgstr "Laatste gebruik:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Laatst gewijzigd:"
-
-msgid "Last status change:"
-msgstr "Laatste statuswijziging:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -441,6 +441,9 @@ msgstr ""
 msgid "Properties"
 msgstr "Eigenschappen"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr ""
 
@@ -488,6 +491,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Het hele Devkitpro en libogc team."
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr ""
@@ -560,11 +566,33 @@ msgstr "Je kan niet lezen/schrijven van/naar hetzelfde bestand."
 msgid "You cant use this operation on:"
 msgstr "Je kan deze handeling niet uitvoeren op:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
+msgstr ""
+
+msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "voor de LibWiiGui"
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Last status change:"
+#~ msgstr "Laatste statuswijziging:"
 
 #~ msgid "Can not open the file"
 #~ msgstr "Kan bestand niet openen"

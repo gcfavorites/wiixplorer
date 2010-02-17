@@ -95,10 +95,11 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
 
     ClickMenuMiddle = Resources::GetImageData(ClickMenuMiddle_png, ClickMenuMiddle_png_size);
     ClickMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
+    ClickMenuLower = Resources::GetImageData(ClickMenuLower_png, ClickMenuLower_png_size);
     ClickMenuMiddleImg = new GuiImage(ClickMenuMiddle);
     ClickMenuUpperImg = new GuiImage(ClickMenuUpper);
     ClickMenuLowerImg = new GuiImage(ClickMenuUpper);
-    ClickMenuLowerImg->SetAngle(180);
+    ClickMenuLowerImg = new GuiImage(ClickMenuLower);
 
     menu_select = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
 
@@ -114,7 +115,7 @@ RightClickMenu::RightClickMenu(int x, int y, const char *btn1Label, const char *
     ClickMenuMiddleImg->SetTileVertical(tileCount);
     ClickMenuMiddleImg->SetPosition(0, ClickMenuUpperImg->GetHeight());
     ClickMenuUpperImg->SetPosition(0, 0);
-    ClickMenuLowerImg->SetPosition(1, ClickMenuUpperImg->GetHeight()+tileCount*4);
+    ClickMenuLowerImg->SetPosition(0, ClickMenuUpperImg->GetHeight()+tileCount*4);
 
     width = ClickMenuUpperImg->GetWidth();
     height = ClickMenuUpperImg->GetHeight()+middleheight+ClickMenuLowerImg->GetHeight();
@@ -196,6 +197,7 @@ RightClickMenu::~RightClickMenu()
 
 	Resources::Remove(ClickMenuMiddle);
 	Resources::Remove(ClickMenuUpper);
+	Resources::Remove(ClickMenuLower);
 	Resources::Remove(menu_select);
 	Resources::Remove(btnClick);
 

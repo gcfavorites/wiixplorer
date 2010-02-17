@@ -29,7 +29,8 @@
 #define TEXTEDITOR_H
 
 #include "libwiigui/gui.h"
-#include "TextOperations/TextPointer.h"
+#include "TextPointer.h"
+#include "Text.hpp"
 
 //!Display a list of files
 class TextEditor : public GuiWindow
@@ -46,13 +47,11 @@ class TextEditor : public GuiWindow
 	protected:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
         void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
-		int currentLine;
-		int linestodraw;
-		int TotalLines;
 		bool triggerdisabled;
 		bool ExitEditor;
 		bool LineEditing;
 		bool FileEdited;
+		u32 filesize;
 		char * filepath;
 
         /** Buttons **/
@@ -105,7 +104,7 @@ class TextEditor : public GuiWindow
 
         /** Texts **/
 		GuiText * filenameTxt;
-		GuiText * MainFileTxt;
+		Text * MainFileTxt;
 };
 
 #endif

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -17,6 +17,9 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
+msgstr ""
+
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -134,12 +137,6 @@ msgid "Deleting files:"
 msgstr "Mazání souborů:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Device Free Space:"
-msgstr ""
-
-msgid "Device Total Space:"
 msgstr ""
 
 msgid "Directory .."
@@ -305,6 +302,9 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Cesta k fontu změněna"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -329,11 +329,11 @@ msgstr ""
 msgid "Last access:"
 msgstr "Poslední přístup:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Poslední změna:"
-
-msgid "Last status change:"
-msgstr "Poslední změna stavu:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -441,6 +441,9 @@ msgstr ""
 msgid "Properties"
 msgstr "Vlastnosti"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr ""
 
@@ -488,6 +491,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Celý tým DevkitPro & libogc"
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr ""
@@ -560,11 +566,33 @@ msgstr "Nelze číst/psát z/do samého souboru."
 msgid "You cant use this operation on:"
 msgstr "Nelze použít tuto operaci na:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
+msgstr ""
+
+msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "za jeho výborný nástroj LibWiiGui"
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Last status change:"
+#~ msgstr "Poslední změna stavu:"
 
 #~ msgid "Can not open the file"
 #~ msgstr "Nelze otevřít soubor"

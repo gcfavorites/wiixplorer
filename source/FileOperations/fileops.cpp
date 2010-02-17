@@ -495,6 +495,8 @@ int CopyDirectory(const char * src, const char * dest)
         return -1;
     }
 
+    CreateSubfolder(dest);
+
     while (dirnext(dir,filename,&st) == 0)
 	{
         if(actioncanceled) {
@@ -646,7 +648,6 @@ int CopyDirectory(const char * src, const char * dest)
     for(u32 i = 0; i < filecount; i++) {
         char currentname[strlen(src)+strlen(filelist[i].name)+2];
         char destname[strlen(dest)+strlen(filelist[i].name)+2];
-        CreateSubfolder(dest);
         snprintf(currentname, sizeof(currentname), "%s%s", src, filelist[i].name);
         snprintf(destname, sizeof(destname), "%s%s", dest, filelist[i].name);
         CopyFile(currentname, destname);
@@ -739,6 +740,8 @@ int MoveDirectory(char * src, const char * dest)
         filename = NULL;
         return -1;
     }
+
+    CreateSubfolder(dest);
 
     while (dirnext(dir,filename,&st) == 0)
 	{
@@ -892,7 +895,6 @@ int MoveDirectory(char * src, const char * dest)
     {
         char currentname[strlen(src)+strlen(filelist[i].name)+2];
         char destname[strlen(dest)+strlen(filelist[i].name)+2];
-        CreateSubfolder(dest);
         snprintf(currentname, sizeof(currentname), "%s%s", src, filelist[i].name);
         snprintf(destname, sizeof(destname), "%s%s", dest, filelist[i].name);
         MoveFile(currentname, destname);

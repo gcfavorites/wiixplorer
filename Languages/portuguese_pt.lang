@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -16,6 +16,9 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
+msgstr ""
+
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -134,12 +137,6 @@ msgstr "Eliminando ficheiros:"
 
 msgid "Designer:"
 msgstr "Designer:"
-
-msgid "Device Free Space:"
-msgstr "Espaço Disponível:"
-
-msgid "Device Total Space:"
-msgstr "Espaço Total:"
 
 msgid "Directory .."
 msgstr "Pasta .."
@@ -304,6 +301,9 @@ msgstr "Pasta extraída com sucesso."
 msgid "Fontpath changed"
 msgstr "Pasta de fonte alterada"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr ""
 msgid "Last access:"
 msgstr "Último acesso:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Última modificação:"
-
-msgid "Last status change:"
-msgstr "Última alteração de estado:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -440,6 +440,9 @@ msgstr "Processo cancelado."
 msgid "Properties"
 msgstr "Propriedades"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr ""
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Toda a equipda do DevkitPro e do libogc."
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "Transferência cancelada."
@@ -559,8 +565,36 @@ msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr "e todos os tradutores."
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "pela sua excelente ferramenta LibWiiGui."
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Device Free Space:"
+#~ msgstr "Espaço Disponível:"
+
+#~ msgid "Device Total Space:"
+#~ msgstr "Espaço Total:"
+
+#~ msgid "Last status change:"
+#~ msgstr "Última alteração de estado:"

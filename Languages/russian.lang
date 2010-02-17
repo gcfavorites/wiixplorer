@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
+msgstr ""
+
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -134,12 +137,6 @@ msgid "Deleting files:"
 msgstr ""
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Device Free Space:"
-msgstr ""
-
-msgid "Device Total Space:"
 msgstr ""
 
 msgid "Directory .."
@@ -305,6 +302,9 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr ""
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -329,10 +329,10 @@ msgstr ""
 msgid "Last access:"
 msgstr ""
 
-msgid "Last modified:"
+msgid "Last change:"
 msgstr ""
 
-msgid "Last status change:"
+msgid "Last modified:"
 msgstr ""
 
 msgid "Launch Ftp"
@@ -441,6 +441,9 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr ""
 
@@ -487,6 +490,9 @@ msgid "Stop Ftp "
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
+msgstr ""
+
+msgid "Total Space:"
 msgstr ""
 
 msgid "Transfer cancelled."
@@ -560,8 +566,27 @@ msgstr ""
 msgid "You cant use this operation on:"
 msgstr ""
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr ""
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
+msgstr ""
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
 msgstr ""

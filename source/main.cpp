@@ -26,8 +26,7 @@
 #include "devicemounter.h"
 #include "sys.h"
 #include "memory/mem2.hpp"
-#include "mload/mload.h"
-#include "mload/ehcmodule_elf.h"
+#include "mload/mload_init.h"
 
 extern "C"
 {
@@ -40,16 +39,12 @@ int main(int argc, char *argv[])
 {
 	MEM2_init(48); // Initialize 48 MB
 	MEM2_takeBigOnes(true);
+    InitGecko();
 
     __exception_setreload(20);
 
     IOS_ReloadIOS(202);
-    if (mload_init() >= 0)
-    {
-        data_elf my_data_elf;
-        mload_elf((void *) ehcmodule_elf, &my_data_elf);
-        mload_run_thread(my_data_elf.start, my_data_elf.stack, my_data_elf.size_stack, 0x47);
-    }
+    mload_Init();
 
     //for later purpose
     //LWP_SetThreadPriority(LWP_GetSelf(), 60);

@@ -105,12 +105,12 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
-		fileListText[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
+		fileListText[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListText[i]->SetPosition(10,0);
 		fileListText[i]->SetMaxWidth(this->GetWidth() - (arrowDownImg->GetWidth()+50), DOTTED);
 
-		fileListTextOver[i] = new GuiText(NULL,20, (GXColor){0, 0, 0, 255});
+		fileListTextOver[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 		fileListTextOver[i]->SetPosition(10,0);
 		fileListTextOver[i]->SetMaxWidth(this->GetWidth() - (arrowDownImg->GetWidth()+60), SCROLL_HORIZONTAL);

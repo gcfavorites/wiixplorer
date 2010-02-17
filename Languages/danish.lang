@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -16,6 +16,9 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
+msgstr ""
+
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -133,12 +136,6 @@ msgid "Deleting files:"
 msgstr "Sletter filer:"
 
 msgid "Designer:"
-msgstr ""
-
-msgid "Device Free Space:"
-msgstr ""
-
-msgid "Device Total Space:"
 msgstr ""
 
 msgid "Directory .."
@@ -304,6 +301,9 @@ msgstr ""
 msgid "Fontpath changed"
 msgstr "Sti til fonte ændret"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr ""
 msgid "Last access:"
 msgstr "Sidst tilgået:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Sidst ændret:"
-
-msgid "Last status change:"
-msgstr "Sidste statusændring:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -440,6 +440,9 @@ msgstr ""
 msgid "Properties"
 msgstr "Egenskaber"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr ""
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "Overførsel afbrudt."
@@ -559,11 +565,33 @@ msgstr "Du kan ikke læse/skrive til/fra samme fil."
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
+msgstr ""
+
+msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Last status change:"
+#~ msgstr "Sidste statusændring:"
 
 #~ msgid "Can not open the file"
 #~ msgstr "Kan ikke åbne filen"

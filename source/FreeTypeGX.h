@@ -292,15 +292,16 @@ class FreeTypeGX {
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);
 
-		uint16_t drawText(int16_t x, int16_t y, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
-		uint16_t drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL);
+		uint16_t drawText(int16_t x, int16_t y, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
+		uint16_t drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
 
 		uint16_t getWidth(wchar_t *text);
 		uint16_t getWidth(wchar_t const *text);
+        uint16_t getCharWidth(const wchar_t wChar);
 		uint16_t getHeight(wchar_t *text);
 		uint16_t getHeight(wchar_t const *text);
-		void getOffset(wchar_t *text, ftgxDataOffset* offset);
-		void getOffset(wchar_t const *text, ftgxDataOffset* offset);
+		void getOffset(wchar_t *text, ftgxDataOffset* offset, uint16_t widthLimit = 0);
+		void getOffset(wchar_t const *text, ftgxDataOffset* offset, uint16_t widthLimit = 0);
 };
 
 #endif /* FREETYPEGX_H_ */

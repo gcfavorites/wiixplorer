@@ -135,12 +135,12 @@ void ProgressWindow()
 	titleTxt.SetPosition(0,50);
 	titleTxt.SetMaxWidth(430, DOTTED);
 
-    GuiText msgTxt(NULL, 22, (GXColor){0, 0, 0, 255});
+    GuiText msgTxt((char*) NULL, 22, (GXColor){0, 0, 0, 255});
 	msgTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	msgTxt.SetPosition(0,110);
 	msgTxt.SetMaxWidth(430, DOTTED);
 
-    GuiText prTxt(NULL, 24, (GXColor){0, 0, 0, 255});
+    GuiText prTxt((char*) NULL, 24, (GXColor){0, 0, 0, 255});
 	prTxt.SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	prTxt.SetPosition(210, 15);
 
@@ -148,11 +148,11 @@ void ProgressWindow()
 	prsTxt.SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
 	prsTxt.SetPosition(-178, 15);
 
-    GuiText speedTxt(NULL, 24, (GXColor){0, 0, 0, 255});
+    GuiText speedTxt((char*) NULL, 24, (GXColor){0, 0, 0, 255});
     speedTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	speedTxt.SetPosition(350, 205);
 
-    GuiText sizeTxt(NULL, 24, (GXColor){0, 0, 0, 255});
+    GuiText sizeTxt((char*) NULL, 24, (GXColor){0, 0, 0, 255});
     sizeTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	sizeTxt.SetPosition(50, 205);
 

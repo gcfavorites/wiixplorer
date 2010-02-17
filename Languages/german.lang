@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 00:12+0100\n"
+"POT-Creation-Date: 2010-02-17 00:55+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7z Dekomprimierung fehlgeschlagen:"
+
+msgid "ASDFGHJKL:\"+"
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
@@ -134,12 +137,6 @@ msgstr "Lösche Dateien:"
 
 msgid "Designer:"
 msgstr ""
-
-msgid "Device Free Space:"
-msgstr "Freier Speicher:"
-
-msgid "Device Total Space:"
-msgstr "Gesamter Speicher:"
 
 msgid "Directory .."
 msgstr "Verzeichnis .."
@@ -304,6 +301,9 @@ msgstr "Ordner erfolgreich entpackt."
 msgid "Fontpath changed"
 msgstr "Pfad zur Schriftart geändert"
 
+msgid "Free Space:"
+msgstr ""
+
 msgid "Ftp stopped"
 msgstr ""
 
@@ -328,11 +328,11 @@ msgstr "Pfad geändert."
 msgid "Last access:"
 msgstr "Letzter Zugriff:"
 
+msgid "Last change:"
+msgstr ""
+
 msgid "Last modified:"
 msgstr "Zuletzt geändert:"
-
-msgid "Last status change:"
-msgstr "Letzte Statusänderung:"
 
 msgid "Launch Ftp"
 msgstr ""
@@ -440,6 +440,9 @@ msgstr "Prozess abgebrochen."
 msgid "Properties"
 msgstr "Eigenschaften"
 
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
 msgid "Random"
 msgstr "Zufällig"
 
@@ -487,6 +490,9 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
+
+msgid "Total Space:"
+msgstr ""
 
 msgid "Transfer cancelled."
 msgstr "Übertragung abgebrochen."
@@ -559,8 +565,36 @@ msgstr "Du kannst nicht aus/in dieselbe Datei lesen/schreiben."
 msgid "You cant use this operation on:"
 msgstr "Diese Aktion kann nicht auf folgendem angewendet werden:"
 
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
 msgid "and all the translators."
 msgstr "und allen Übersetzern."
 
+msgid "asdfghjkl;'="
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+#, c-format
+msgid "~!@#$%%^&*()_"
+msgstr ""
+
+#~ msgid "Device Free Space:"
+#~ msgstr "Freier Speicher:"
+
+#~ msgid "Device Total Space:"
+#~ msgstr "Gesamter Speicher:"
+
+#~ msgid "Last status change:"
+#~ msgstr "Letzte Statusänderung:"

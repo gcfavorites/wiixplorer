@@ -29,23 +29,23 @@
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "TextPointer.h"
+#include "Text.hpp"
 
 /**
  * Constructor for the TextPointer class.
  */
-TextPointer::TextPointer(GuiText *parent, int FontSize, int lines)
+TextPointer::TextPointer(GuiText *parent, int linestodraw)
     : GuiButton(343, 240)
 {
-    fontsize = FontSize;
-    Text = parent;
-    linestodraw = lines;
+    TextPtr = parent;
+    fontsize = TextPtr->GetFontSize();
     MarkImage = NULL;
     currentline = -1;
     Position_X = 0;
     Position_Y = 0;
-    width = Text->GetTextMaxWidth();
+    width = TextPtr->GetTextMaxWidth();
     if(width == 0)
-        width = Text->GetTextWidth(0);
+        width = TextPtr->GetTextWidth();
     height = (linestodraw+1)*(fontsize+6);
     visibility = true;
 
@@ -53,16 +53,15 @@ TextPointer::TextPointer(GuiText *parent, int FontSize, int lines)
     TextPointerImg = new GuiImage(TextPointerImgData);
     TextPointerImg->SetVisible(visibility);
 
-    SetLabel(Text);
+    SetLabel(TextPtr);
     SetImage(TextPointerImg);
 }
 
-TextPointer::TextPointer(GuiText *parent, int FontSize, int lines, int w, int h)
-    : GuiButton(343, 240)
+TextPointer::TextPointer(GuiText *parent, int linestodraw, int w, int h)
+    : GuiButton(w, h)
 {
-    fontsize = FontSize;
-    Text = parent;
-    linestodraw = lines;
+    TextPtr = parent;
+    fontsize = TextPtr->GetFontSize();
     MarkImage = NULL;
     currentline = -1;
     Position_X = 0;
@@ -75,7 +74,7 @@ TextPointer::TextPointer(GuiText *parent, int FontSize, int lines, int w, int h)
     TextPointerImg = new GuiImage(TextPointerImgData);
     TextPointerImg->SetVisible(visibility);
 
-    SetLabel(Text);
+    SetLabel(TextPtr);
     SetImage(TextPointerImg);
 }
 
@@ -111,7 +110,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
 
     int differenz = 1000;
 
-    int maxlines = (linestodraw > Text->GetTotalLines()) ?  Text->GetTotalLines() : linestodraw;
+    int maxlines = TextPtr->GetLinesCount();
     if(maxlines < 1)
         maxlines = 1;
 
@@ -125,18 +124,18 @@ void TextPointer::PositionChanged(int chan, int x, int y)
         }
     }
     differenz = 1000;
-    wchar_t * line = Text->GetDynTextLine(linenumber);
+    const wchar_t * line = TextPtr->GetTextLine(linenumber);
 
     if(!line)
         return;
 
     lineLength = wcslen(line)+1;
     wchar_t temp[lineLength];
+    memset(temp, 0, lineLength*sizeof(wchar_t));
 
     for(int i = 0; i < lineLength; i++)
     {
         temp[i] = line[i];
-        temp[i+1] = 0;
 
         int w = fontSystem[fontsize]->getWidth(temp);
 
@@ -158,7 +157,6 @@ void TextPointer::PositionChanged(int chan, int x, int y)
     currentChan = chan;
     currentline = linenumber;
     Position_Y = linenumber*(fontsize+6);
-    LineOffset = Text->GetLineBreakOffset(currentline);
     Marking = true;
 }
 
@@ -172,7 +170,7 @@ void TextPointer::SetPointerPosition(int LetterPos)
         return;
     }
 
-    wchar_t * line = Text->GetDynTextLine(currentline);
+    const wchar_t * line = TextPtr->GetTextLine(currentline);
 
     if(!line)
         return;
@@ -185,12 +183,14 @@ void TextPointer::SetPointerPosition(int LetterPos)
         LetterPos = lineLength-1;
 
     wchar_t temp[lineLength];
-    memset(temp, 0, lineLength);
+    memset(temp, 0, sizeof(temp));
 
     for(int i = 0; i < LetterPos; i++)
     {
         temp[i] = line[i];
-        temp[i+1] = 0;
+
+        if(line[i] == 0)
+            break;
     }
 
     Position_X = fontSystem[fontsize]->getWidth(temp);
@@ -200,14 +200,14 @@ void TextPointer::SetPointerPosition(int LetterPos)
 
 void TextPointer::TextWidthChanged()
 {
-    width = Text->GetTextMaxWidth();
+    width = TextPtr->GetTextMaxWidth();
     if(width == 0)
-        width = Text->GetTextWidth(0);
+        width = TextPtr->GetTextWidth();
 }
 
 int TextPointer::GetCurrentLetter()
 {
-    return currentline+LetterNumInLine;
+    return LetterNumInLine;
 }
 
 int TextPointer::EditLine()
@@ -215,49 +215,33 @@ int TextPointer::EditLine()
     if(currentline < 0)
         PositionChanged(0, 0, 0);
 
-    char * origText = (char *) malloc(strlen(Text->GetOrigText())+MAXPATHLEN);
+    const wchar_t * origText = TextPtr->GetText();
     if(!origText)
         return -1;
 
-    memset(origText, 0, strlen(Text->GetOrigText())+MAXPATHLEN);
-    memcpy(origText, Text->GetOrigText(), strlen(Text->GetOrigText()));
+    const wchar_t * lineText = TextPtr->GetTextLine(currentline);
+    if(!origText)
+        return -1;
 
-    char * StartPosition =  &origText[LineOffset];
-    char * EndPosition =  &origText[LineOffset+LetterNumInLine];
+    wString wText(origText);
 
-    char temp[150];
-    snprintf(temp, LetterNumInLine+1, "%s", StartPosition);
-    int result = OnScreenKeyboard(temp, 150);
+    wchar_t temptxt[150];
+    memset(temptxt, 0, sizeof(temptxt));
+
+    LineOffset = ((Text *) TextPtr)->GetLineOffset(currentline);
+
+    wcsncpy(temptxt, lineText, LetterNumInLine);
+    temptxt[LetterNumInLine] = 0;
+
+    int result = OnScreenKeyboard(temptxt, 150);
     if(result == 1)
     {
-        int endlength = strlen(EndPosition);
-        char * temp2 = (char *) malloc(endlength);
-        if(!temp2)
-        {
-            free(origText);
-            return -1;
-        }
-        memcpy(temp2, EndPosition, endlength);
-
-        sprintf(StartPosition, "%s%s", temp, temp2);
-        free(temp2);
-
-        char * origTxtCpy = (char *) realloc(origText, strlen(origText)+1);
-        if(!origTxtCpy)
-        {
-            free(origText);
-            return -1;
-        }
-
-        Text->SetText(origTxtCpy);
-        free(origTxtCpy);
-
-        Text->SetMaxWidth(343, LONGTEXT);
+        wText.replace(LineOffset, LetterNumInLine, temptxt);
+        TextPtr->SetText(wText.c_str());
+        ((Text *) TextPtr)->Refresh();
         PositionChanged(0, Position_X, Position_Y);
         return 1;
     }
-
-    free(origText);
 
     return -1;
 }
@@ -277,20 +261,5 @@ void TextPointer::Draw()
 
 void TextPointer::Update(GuiTrigger * t)
 {
-    //!saves too many loops
-    /*
-    if(t == &userInput[currentChan])
-    {
-        if(t->wpad->btns_h |= WPAD_BUTTON_A && Marking)
-        {
-            ROUND2FOUR()
-        }
-        else
-        {
-            Marking = false;
-        }
-    }
-    */
-
     GuiButton::Update(t);
 }

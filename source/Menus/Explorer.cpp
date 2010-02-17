@@ -189,7 +189,7 @@ void Explorer::Setup()
 	deviceSwitchBtn->SetEffectGrow();
     deviceSwitchBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
-    AdressText = new GuiText(NULL, 20, (GXColor) {0, 0, 0, 255});
+    AdressText = new GuiText((char*) NULL, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
 	AdressText->SetMaxWidth(Address->GetWidth()-40, SCROLL_HORIZONTAL);
@@ -429,7 +429,7 @@ void Explorer::CheckRightClick()
                 MainWindow::Instance()->SetDim(true);
                 MainWindow::Instance()->Append(Prompt);
 
-                while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
+                while(Prompt->GetChoice() == -1) usleep(THREAD_SLEEP);
 
                 delete Prompt;
                 Prompt = NULL;
@@ -450,7 +450,7 @@ void Explorer::CheckRightClick()
                 MainWindow::Instance()->SetDim(true);
                 MainWindow::Instance()->Append(Prompt);
 
-                while(Prompt->GetChoice() == -1) VIDEO_WaitVSync();
+                while(Prompt->GetChoice() == -1) usleep(THREAD_SLEEP);
 
                 delete Prompt;
                 Prompt = NULL;
