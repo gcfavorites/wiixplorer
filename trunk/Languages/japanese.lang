@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -84,17 +84,11 @@ msgstr "日本語"
 msgid "Copy"
 msgstr "コピー"
 
-msgid "Copy directory?"
-msgstr "フォルダをコピーしますか?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "ファイルをコピーしますか?"
-
-msgid "Copying file:"
-msgstr "コピーしています:"
-
-msgid "Copying files:"
-msgstr "コピーしています:"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr "接続できませんでした"
@@ -120,20 +114,14 @@ msgstr "フォントのパス"
 msgid "Cut"
 msgstr "切り取り"
 
-msgid "Cut directory?"
-msgstr "フォルダを切り取りますか?"
-
-msgid "Cut file?"
-msgstr "ファイルを切り取りますか?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "削除"
 
-msgid "Delete directory and its content?"
-msgstr "フォルダと中身を削除しますか?"
-
-msgid "Delete this file?"
-msgstr "このファイルを削除しますか?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "削除しています:"
@@ -146,15 +134,6 @@ msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 
 msgid "Directory couldn't be deleted."
 msgstr "フォルダを削除できませんでした"
-
-msgid "Directory successfully copied."
-msgstr "フォルダのコピーに成功しました"
-
-msgid "Directory successfully deleted."
-msgstr "フォルダの削除に成功しました"
-
-msgid "Directory successfully moved."
-msgstr "フォルダの移動に成功しました"
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,20 +199,14 @@ msgstr "解凍してから開いてください"
 msgid "Extract full archive?"
 msgstr "すべて解凍しますか?"
 
-msgid "Extract this file?"
-msgstr "このファイルを解凍しますか?"
-
-msgid "Extract this folder?"
-msgstr "このフォルダを解凍しますか?"
-
-msgid "Extracting file:"
-msgstr "ファイルを解凍しています"
+msgid "Extract the selected item(s)?"
+msgstr ""
 
 msgid "Extracting files..."
 msgstr "解凍中..."
 
-msgid "Extracting folder:"
-msgstr "フォルダを解凍しています"
+msgid "Extracting item(s):"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "コピーに失敗しました"
@@ -241,17 +214,20 @@ msgstr "コピーに失敗しました"
 msgid "Failed copying files."
 msgstr "コピーに失敗しました"
 
-msgid "Failed extracting file."
-msgstr "解凍に失敗しました"
+msgid "Failed copying item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "解凍に失敗しました"
 
-msgid "Failed extracting the folder."
-msgstr "解凍に失敗しました"
+msgid "Failed extracting the item(s)."
+msgstr ""
 
-msgid "Failed renaming file"
-msgstr "リネームに失敗しました"
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr "更新履歴を受信できませんでした"
@@ -262,23 +238,11 @@ msgstr "データの読み込みに失敗しました"
 msgid "File couldn't be deleted."
 msgstr "ファイルを削除できませんでした"
 
-msgid "File does not exist anymore!"
-msgstr "ファイルがありません"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr "ファイルのCRCが一致しません"
 
 msgid "File is corrupt."
 msgstr "ファイルが破損しています"
-
-msgid "File successfully copied."
-msgstr "コピーに成功しました"
-
-msgid "File successfully extracted."
-msgstr "解凍しました"
-
-msgid "File successfully moved."
-msgstr "移動に成功しました"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "書庫のサイズが大きすぎです"
@@ -308,9 +272,6 @@ msgstr "種類:"
 msgid "Folder"
 msgstr "フォルダ"
 
-msgid "Folder successfully extracted."
-msgstr "フォルダを解凍しました"
-
 msgid "Fontpath changed"
 msgstr "フォントのパスを変更しました"
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr "画像ビューア"
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr "ループ"
 msgid "Mount NTFS"
 msgstr "NTFSのマウント"
 
-msgid "Moving files:"
-msgstr "移動しています"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr "音楽の再生"
@@ -374,8 +338,8 @@ msgstr "音楽の再生"
 msgid "Music Volume"
 msgstr "音量"
 
-msgid "Name already exists."
-msgstr "同じ名前がすでにあります"
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr "接続設定"
@@ -441,8 +405,8 @@ msgstr "パスワード"
 msgid "Paste"
 msgstr "貼り付け"
 
-msgid "Paste into current directory?"
-msgstr "このフォルダに貼り付けますか?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr "フォルダを再生"
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr "標準"
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,84 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Extract this file?"
+#~ msgstr "このファイルを解凍しますか?"
+
+#~ msgid "Extract this folder?"
+#~ msgstr "このフォルダを解凍しますか?"
+
+#~ msgid "Extracting file:"
+#~ msgstr "ファイルを解凍しています"
+
+#~ msgid "Extracting folder:"
+#~ msgstr "フォルダを解凍しています"
+
+#~ msgid "Failed extracting file."
+#~ msgstr "解凍に失敗しました"
+
+#~ msgid "Failed extracting the folder."
+#~ msgstr "解凍に失敗しました"
+
+#~ msgid "File successfully extracted."
+#~ msgstr "解凍しました"
+
+#~ msgid "Folder successfully extracted."
+#~ msgstr "フォルダを解凍しました"
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "フォルダの削除に成功しました"
+
+#~ msgid "Copy directory?"
+#~ msgstr "フォルダをコピーしますか?"
+
+#~ msgid "Copy file?"
+#~ msgstr "ファイルをコピーしますか?"
+
+#~ msgid "Copying file:"
+#~ msgstr "コピーしています:"
+
+#~ msgid "Copying files:"
+#~ msgstr "コピーしています:"
+
+#~ msgid "Cut directory?"
+#~ msgstr "フォルダを切り取りますか?"
+
+#~ msgid "Cut file?"
+#~ msgstr "ファイルを切り取りますか?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "フォルダと中身を削除しますか?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "このファイルを削除しますか?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "フォルダのコピーに成功しました"
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "フォルダの移動に成功しました"
+
+#~ msgid "Failed renaming file"
+#~ msgstr "リネームに失敗しました"
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "ファイルがありません"
+
+#~ msgid "File successfully copied."
+#~ msgstr "コピーに成功しました"
+
+#~ msgid "File successfully moved."
+#~ msgstr "移動に成功しました"
+
+#~ msgid "Moving files:"
+#~ msgstr "移動しています"
+
+#~ msgid "Name already exists."
+#~ msgstr "同じ名前がすでにあります"
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "このフォルダに貼り付けますか?"
 
 #~ msgid "Device Free Space:"
 #~ msgstr "空き領域:"

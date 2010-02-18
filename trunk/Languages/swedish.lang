@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -84,17 +84,11 @@ msgstr "Konsol Standard"
 msgid "Copy"
 msgstr "Kopiera"
 
-msgid "Copy directory?"
-msgstr "Kopiera katalog?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "Kopiera fil?"
-
-msgid "Copying file:"
-msgstr "Kopierar fil:"
-
-msgid "Copying files:"
-msgstr "Kopierar filer:"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr ""
@@ -120,20 +114,14 @@ msgstr ""
 msgid "Cut"
 msgstr "Klipp ut"
 
-msgid "Cut directory?"
-msgstr "Klipp ut katalog?"
-
-msgid "Cut file?"
-msgstr "Klipp ut fil?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "Radera"
 
-msgid "Delete directory and its content?"
-msgstr "Radera katalog och dess innehåll?"
-
-msgid "Delete this file?"
-msgstr "Radera denna fil?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "Raderar filer:"
@@ -146,15 +134,6 @@ msgstr "Katalog .."
 
 msgid "Directory couldn't be deleted."
 msgstr "Katalog kunde inte raderas."
-
-msgid "Directory successfully copied."
-msgstr "Kopiering av katalog lyckades."
-
-msgid "Directory successfully deleted."
-msgstr "Katalog raderad."
-
-msgid "Directory successfully moved."
-msgstr "Katalog flyttad."
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,19 +199,13 @@ msgstr ""
 msgid "Extract full archive?"
 msgstr ""
 
-msgid "Extract this file?"
-msgstr ""
-
-msgid "Extract this folder?"
-msgstr ""
-
-msgid "Extracting file:"
+msgid "Extract the selected item(s)?"
 msgstr ""
 
 msgid "Extracting files..."
 msgstr ""
 
-msgid "Extracting folder:"
+msgid "Extracting item(s):"
 msgstr ""
 
 msgid "Failed copying file."
@@ -241,17 +214,20 @@ msgstr "Misslyckades att kopiera fil."
 msgid "Failed copying files."
 msgstr "Misslyckades att kopiera filer."
 
-msgid "Failed extracting file."
+msgid "Failed copying item(s)."
 msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr ""
 
-msgid "Failed extracting the folder."
+msgid "Failed extracting the item(s)."
 msgstr ""
 
-msgid "Failed renaming file"
-msgstr "Namnbyte på fil misslyckades."
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr ""
@@ -262,23 +238,11 @@ msgstr ""
 msgid "File couldn't be deleted."
 msgstr "Fil kunde inte raderas."
 
-msgid "File does not exist anymore!"
-msgstr "Filen existerar inte längre!"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr ""
 
 msgid "File is corrupt."
 msgstr ""
-
-msgid "File successfully copied."
-msgstr "Lyckadess kopiera fil."
-
-msgid "File successfully extracted."
-msgstr ""
-
-msgid "File successfully moved."
-msgstr "Lyckadess flytta fil."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
@@ -308,9 +272,6 @@ msgstr "Filtyp:"
 msgid "Folder"
 msgstr "Mapp"
 
-msgid "Folder successfully extracted."
-msgstr ""
-
 msgid "Fontpath changed"
 msgstr ""
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr ""
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr ""
 msgid "Mount NTFS"
 msgstr ""
 
-msgid "Moving files:"
-msgstr "Flyttar filer:"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr ""
@@ -374,8 +338,8 @@ msgstr ""
 msgid "Music Volume"
 msgstr "Musik volym"
 
-msgid "Name already exists."
-msgstr "Namn existerar redan."
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr ""
@@ -441,8 +405,8 @@ msgstr "Lösenord:"
 msgid "Paste"
 msgstr "Klistra in"
 
-msgid "Paste into current directory?"
-msgstr "Klistra in i nuvarande katalog?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr ""
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,60 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Katalog raderad."
+
+#~ msgid "Copy directory?"
+#~ msgstr "Kopiera katalog?"
+
+#~ msgid "Copy file?"
+#~ msgstr "Kopiera fil?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Kopierar fil:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Kopierar filer:"
+
+#~ msgid "Cut directory?"
+#~ msgstr "Klipp ut katalog?"
+
+#~ msgid "Cut file?"
+#~ msgstr "Klipp ut fil?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "Radera katalog och dess innehåll?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "Radera denna fil?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Kopiering av katalog lyckades."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Katalog flyttad."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Namnbyte på fil misslyckades."
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "Filen existerar inte längre!"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Lyckadess kopiera fil."
+
+#~ msgid "File successfully moved."
+#~ msgstr "Lyckadess flytta fil."
+
+#~ msgid "Moving files:"
+#~ msgstr "Flyttar filer:"
+
+#~ msgid "Name already exists."
+#~ msgstr "Namn existerar redan."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "Klistra in i nuvarande katalog?"
 
 #~ msgid "Last status change:"
 #~ msgstr "Senast status ändring:"

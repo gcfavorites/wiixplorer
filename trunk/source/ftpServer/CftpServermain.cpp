@@ -59,14 +59,14 @@ extern "C" void sgIP_dbgprint(char * txt, ...) ;
 
 extern  void HaltGui();
 extern void ResumeGui();
-	
+
 GuiText *ftpDebugText[19];
 GuiText *ftpMainStatusText;
 GuiText *WWWAdressText;
 GuiText *NintendoAdressText ;
-		
+
 #define FONTSIZE    18
-extern s32 master_stop; 
+extern s32 master_stop;
 
 
 
@@ -97,7 +97,7 @@ s32 SetTextfGlobal(const char *format, ...)
 
 }
 
-		
+
 extern void debug(const char * text)
 {
 ftpDebugText[0]->SetText(text);
@@ -192,7 +192,7 @@ const char * GetCurrentDevice(int currentDevice)
 }
 
 #define TOP_OFFSET 40
-		
+
 int ServerFtpGui()
 {
 	int menu = MENU_NONE;
@@ -202,8 +202,8 @@ int ServerFtpGui()
     GuiImageData * usbstorage;
     GuiImageData * networkstorage;
 	int currentDevice =0;
-				
-				
+
+
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
@@ -240,9 +240,9 @@ int ServerFtpGui()
 	GuiImageData settingsimgData(bg_cftp_png,bg_cftp_png_size);
 	GuiImage settingsimg(&settingsimgData);
 	settingsimg.SetPosition(20, TOP_OFFSET);
-	
+
 	u32 cr=0;
-	u32 y =20; 
+	u32 y =20;
 	u32 x=40;
 	char currentdir[50];
     snprintf(currentdir, sizeof(currentdir), "%s", GetCurrentDevice(currentDevice));
@@ -270,19 +270,19 @@ int ServerFtpGui()
 
 	char ftpDebugStatus[50];
     snprintf(ftpDebugStatus, sizeof(ftpDebugStatus), "%s", "");
-    
-	
-	for (u32 i=0;i<10;i++) 
+
+
+	for (u32 i=0;i<10;i++)
 	{
 	ftpDebugText[i] = new GuiText(ftpDebugStatus, 20, (GXColor) {0, 0, 0, 255});
 	ftpDebugText[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	ftpDebugText[i]->SetPosition(x, (y*(5+i))+TOP_OFFSET);
 	}
-	
+
 	u32 font = 22;
 	u32 linestodraw = 10;
-	
-	
+
+
 	GuiImage deviceImg = GuiImage(sdstorage);
 
 	if(currentDevice > SD && currentDevice < SMB1)
@@ -308,7 +308,7 @@ int ServerFtpGui()
 	w.Append(&backBtn);
 	w.Append(&deviceSwitchBtn);
 
-	for (u32 i=0;i<10;i++) 
+	for (u32 i=0;i<10;i++)
 	{
 	w.Append(ftpDebugText[i]);
 	}
@@ -388,7 +388,7 @@ int ServerFtpGui()
 	HaltGui();
 	delete AdressText;
 	MainWindow::Instance()->Remove(&w);
-    
+
 
 	ResumeGui();
 

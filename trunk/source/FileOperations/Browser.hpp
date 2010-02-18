@@ -33,6 +33,8 @@
 #ifndef _BROWSER_H_
 #define _BROWSER_H_
 
+#include "ItemMarker.h"
+
 class Browser
 {
     public:
@@ -44,6 +46,27 @@ class Browser
         virtual void SetSelectedIndex(int ind) { };
         virtual bool IsDir(int ind) { return true; };
         virtual const char * GetItemDisplayname(int ind) { return NULL; };
+        virtual const char * Get(int ind) { return NULL; };
+        virtual ItemStruct GetCurrentItemStruct() const
+        {
+            ItemStruct Item;
+            memset(&Item, 0, sizeof(ItemStruct));
+            return Item;
+        };
+        void MarkCurrentItem()
+        {
+            ItemStruct Item = GetCurrentItemStruct();
+            IMarker.AddItem(&Item);
+        };
+        void UnMarkCurrentItem()
+        {
+            ItemStruct Item = GetCurrentItemStruct();
+            IMarker.RemoveItem(&Item);
+        };
+        void ResetMarker() { IMarker.Reset(); };
+        ItemMarker * GetItemMarker() { return (ItemMarker *) &IMarker; };
+    protected:
+        ItemMarker IMarker;
 };
 
 #endif

@@ -1,4 +1,4 @@
- /***************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -21,40 +21,34 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * netreceiver.cpp
+ * Clipboard Class
  *
- * for WiiXplorer 2010
+ * for Wii-FileXplorer 2010
  ***************************************************************************/
-#ifndef _NETRECEIVER_H_
-#define _NETRECEIVER_H_
+#include "Clipboard.h"
 
-class NetReceiver
+Clipboard * Clipboard::instance = NULL;
+
+Clipboard::Clipboard()
 {
-    public:
-        NetReceiver();
-        ~NetReceiver();
-        bool CheckIncomming();
-        void CloseConnection();
-        const u8 * ReceiveData();
-        const u8 * GetData();
-        u32 GetFilesize();
-        const char * GetFilename() { return (const char *) &FileName; };
-        const char * GetIncommingIP() { return (const char *) &incommingIP; };
-        void FreeData();
-    protected:
-        const u8 * UncompressData();
+    Cutted = false;
+}
 
-        int connection;
-        int socket;
-        u8 * filebuffer;
-        u32 filesize;
-        u32 uncfilesize;
-        char incommingIP[20];
-        char FileName[50];
-        char wiiloadVersion[2];
-};
+Clipboard::~Clipboard()
+{
+}
 
+Clipboard * Clipboard::Instance()
+{
+	if (instance == NULL)
+	{
+		instance = new Clipboard();
+	}
+	return instance;
+}
 
-void IncommingConnection(NetReceiver & Receiver);
-
-#endif
+void Clipboard::DestroyInstance()
+{
+	delete instance;
+	instance = NULL;
+}

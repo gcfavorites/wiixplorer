@@ -29,6 +29,8 @@
 #include "Explorer.h"
 #include "menu.h"
 #include "Controls/MainWindow.h"
+#include "Controls/ClipBoard.h"
+#include "Controls/Taskbar.h"
 #include "Memory/Resources.h"
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/PromptWindows.h"
@@ -42,8 +44,8 @@
 #include "sys.h"
 
 /*** Extern variables ***/
-extern CLIPBOARD Clipboard;
 extern bool boothomebrew;
+extern int curDevice;
 
 Explorer::Explorer()
     :GuiWindow(0, 0)
@@ -234,6 +236,7 @@ int Explorer::LoadPath(const char * path)
 			return -2;
 	}
 
+	Browser->ResetMarker();
     AdressText->SetText(Browser->GetCurrentPath());
 	SetDeviceImage();
 	return filecount;
@@ -257,9 +260,13 @@ int Explorer::LoadDevice(int device)
 		else
 			return -2;
 	}
+	Browser->ResetMarker();
 
     AdressText->SetText(Browser->GetCurrentPath());
 	SetDeviceImage();
+	currentDevice = device;
+	curDevice = device;
+
 	return filecount;
 }
 
@@ -312,6 +319,7 @@ void Explorer::CheckBrowserChanges()
             {
                 fileBrowser->fileList[0]->SetState(STATE_SELECTED);
                 fileBrowser->TriggerUpdate();
+                Browser->ResetMarker();
                 AdressText->SetText(Browser->GetCurrentPath());
             }
             else
@@ -326,13 +334,19 @@ void Explorer::CheckBrowserChanges()
 
             SetState(STATE_DISABLED);
             fileBrowser->DisableTriggerUpdate(true);
+            Taskbar::Instance()->SetTriggerUpdate(false);
             int result = FileStartUp(filepath);
             SetState(STATE_DEFAULT);
             fileBrowser->DisableTriggerUpdate(false);
+            Taskbar::Instance()->SetTriggerUpdate(true);
             if(result == BOOTHOMEBREW)
             {
                 boothomebrew = true;
-                snprintf(Clipboard.filepath, sizeof(Clipboard.filepath), "%s", filepath);
+				ItemStruct Item;
+				memset(&Item, 0, sizeof(ItemStruct));
+
+                snprintf(Item.itempath, sizeof(Item.itempath), "%s", filepath);
+				Clipboard::Instance()->AddItem(&Item);
                 menu = MENU_EXIT;
             }
             else if(result == ARCHIVE)
@@ -360,6 +374,7 @@ void Explorer::CheckDeviceMenu()
     {
         SetState(STATE_DISABLED);
         fileBrowser->DisableTriggerUpdate(true);
+        Taskbar::Instance()->SetTriggerUpdate(false);
         Append(Device_Menu);
 
         int device_choice = -1;
@@ -393,6 +408,7 @@ void Explorer::CheckDeviceMenu()
         }
         SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
+        Taskbar::Instance()->SetTriggerUpdate(true);
     }
 }
 
@@ -402,6 +418,7 @@ void Explorer::CheckRightClick()
     {
         SetState(STATE_DISABLED);
         fileBrowser->DisableTriggerUpdate(true);
+        Taskbar::Instance()->SetTriggerUpdate(false);
         Append(RightClick);
 
         int RightClick_choice = -1;
@@ -468,6 +485,7 @@ void Explorer::CheckRightClick()
         }
         this->SetState(STATE_DEFAULT);
         fileBrowser->DisableTriggerUpdate(false);
+        Taskbar::Instance()->SetTriggerUpdate(true);
     }
 }
 

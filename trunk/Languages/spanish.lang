@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Victory \n"
 "Language-Team: Victory \n"
@@ -84,17 +84,11 @@ msgstr "Pred. de la Consola"
 msgid "Copy"
 msgstr "Copiar"
 
-msgid "Copy directory?"
-msgstr "¿Copiar directorio?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "¿Copiar archivo?"
-
-msgid "Copying file:"
-msgstr "Copiando archivo:"
-
-msgid "Copying files:"
-msgstr "Copiando archivos:"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr ""
@@ -120,20 +114,14 @@ msgstr "Ruta fuente personalizada"
 msgid "Cut"
 msgstr "Cortar"
 
-msgid "Cut directory?"
-msgstr "¿Cortar directorio?"
-
-msgid "Cut file?"
-msgstr "¿Cortar archivo?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
 
-msgid "Delete directory and its content?"
-msgstr "¿Eliminar el directorio y su contenido?"
-
-msgid "Delete this file?"
-msgstr "¿Eliminar este archivo?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "Eliminando archivo:"
@@ -146,15 +134,6 @@ msgstr "Directorio .."
 
 msgid "Directory couldn't be deleted."
 msgstr "Directorio no puede ser eliminado."
-
-msgid "Directory successfully copied."
-msgstr "Directorio copiado correctamente."
-
-msgid "Directory successfully deleted."
-msgstr "Directorio eliminado correctamente."
-
-msgid "Directory successfully moved."
-msgstr "Directorio movido correctamente."
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,19 +199,13 @@ msgstr ""
 msgid "Extract full archive?"
 msgstr ""
 
-msgid "Extract this file?"
-msgstr ""
-
-msgid "Extract this folder?"
-msgstr ""
-
-msgid "Extracting file:"
+msgid "Extract the selected item(s)?"
 msgstr ""
 
 msgid "Extracting files..."
 msgstr "Extrayendo archivos..."
 
-msgid "Extracting folder:"
+msgid "Extracting item(s):"
 msgstr ""
 
 msgid "Failed copying file."
@@ -241,17 +214,20 @@ msgstr "Fallo al copiar archivo."
 msgid "Failed copying files."
 msgstr "Fallo al copiar archivos."
 
-msgid "Failed extracting file."
+msgid "Failed copying item(s)."
 msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr ""
 
-msgid "Failed extracting the folder."
+msgid "Failed extracting the item(s)."
 msgstr ""
 
-msgid "Failed renaming file"
-msgstr "Fallo al renombrar archivo."
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr ""
@@ -262,23 +238,11 @@ msgstr ""
 msgid "File couldn't be deleted."
 msgstr "El archivo no puede ser eliminado."
 
-msgid "File does not exist anymore!"
-msgstr "¡El archivo ya no existe!"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr ""
 
 msgid "File is corrupt."
 msgstr ""
-
-msgid "File successfully copied."
-msgstr "Archivo copiado correctamente."
-
-msgid "File successfully extracted."
-msgstr ""
-
-msgid "File successfully moved."
-msgstr "Archivo movido correctamente."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
@@ -308,9 +272,6 @@ msgstr "Tipo de archivo:"
 msgid "Folder"
 msgstr "Carpeta"
 
-msgid "Folder successfully extracted."
-msgstr ""
-
 msgid "Fontpath changed"
 msgstr "Fuente de ruta cambiada"
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr ""
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr ""
 msgid "Mount NTFS"
 msgstr ""
 
-msgid "Moving files:"
-msgstr "Moviendo archivos:"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr ""
@@ -374,8 +338,8 @@ msgstr ""
 msgid "Music Volume"
 msgstr "Volumen de música"
 
-msgid "Name already exists."
-msgstr "Nombre ya existe."
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr ""
@@ -441,8 +405,8 @@ msgstr "Contraseña:"
 msgid "Paste"
 msgstr "Pegar"
 
-msgid "Paste into current directory?"
-msgstr "¿Pegar en directorio actual?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr ""
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,60 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Directorio eliminado correctamente."
+
+#~ msgid "Copy directory?"
+#~ msgstr "¿Copiar directorio?"
+
+#~ msgid "Copy file?"
+#~ msgstr "¿Copiar archivo?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Copiando archivo:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Copiando archivos:"
+
+#~ msgid "Cut directory?"
+#~ msgstr "¿Cortar directorio?"
+
+#~ msgid "Cut file?"
+#~ msgstr "¿Cortar archivo?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "¿Eliminar el directorio y su contenido?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "¿Eliminar este archivo?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Directorio copiado correctamente."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Directorio movido correctamente."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Fallo al renombrar archivo."
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "¡El archivo ya no existe!"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Archivo copiado correctamente."
+
+#~ msgid "File successfully moved."
+#~ msgstr "Archivo movido correctamente."
+
+#~ msgid "Moving files:"
+#~ msgstr "Moviendo archivos:"
+
+#~ msgid "Name already exists."
+#~ msgstr "Nombre ya existe."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "¿Pegar en directorio actual?"
 
 #~ msgid "Last status change:"
 #~ msgstr "Último cambio de estado:"

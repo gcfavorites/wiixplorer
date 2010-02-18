@@ -1,4 +1,4 @@
- /***************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -21,40 +21,45 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * netreceiver.cpp
+ * ItemMarker.h
  *
- * for WiiXplorer 2010
+ * for Wii-FileXplorer 2010
  ***************************************************************************/
-#ifndef _NETRECEIVER_H_
-#define _NETRECEIVER_H_
+#ifndef _ITEMMARKER_H_
+#define _ITEMMARKER_H_
 
-class NetReceiver
+#include <vector>
+#include <unistd.h>
+#include <gccore.h>
+#include <string.h>
+#include <sys/dir.h>
+
+typedef struct _ItemStruct
+{
+	char    itempath[MAXPATHLEN];
+	u64     itemsize;
+	bool    isdir;
+	int     itemindex;
+} ItemStruct;
+
+class ItemMarker
 {
     public:
-        NetReceiver();
-        ~NetReceiver();
-        bool CheckIncomming();
-        void CloseConnection();
-        const u8 * ReceiveData();
-        const u8 * GetData();
-        u32 GetFilesize();
-        const char * GetFilename() { return (const char *) &FileName; };
-        const char * GetIncommingIP() { return (const char *) &incommingIP; };
-        void FreeData();
+        ItemMarker();
+        ~ItemMarker();
+        void AddItem(const ItemStruct * file);
+        int FindItem(const ItemStruct * Item);
+        void RemoveItem(const ItemStruct * Item);
+        ItemStruct * GetItem(int ind);
+        const char * GetItemName(int ind);
+        const char * GetItemPath(int ind);
+        u64 GetItemSize(int ind);
+        bool IsItemDir(int ind);
+        int GetItemIndex(int ind);
+        int GetItemcount() { return Items.size(); };
+        void Reset();
     protected:
-        const u8 * UncompressData();
-
-        int connection;
-        int socket;
-        u8 * filebuffer;
-        u32 filesize;
-        u32 uncfilesize;
-        char incommingIP[20];
-        char FileName[50];
-        char wiiloadVersion[2];
+        std::vector<ItemStruct> Items;
 };
-
-
-void IncommingConnection(NetReceiver & Receiver);
 
 #endif

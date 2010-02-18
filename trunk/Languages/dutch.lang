@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -85,17 +85,11 @@ msgstr "Console Standaard"
 msgid "Copy"
 msgstr "Kopieren"
 
-msgid "Copy directory?"
-msgstr "Locatie kopieren?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "Bestand kopieren?"
-
-msgid "Copying file:"
-msgstr "Bestand kopieren:"
-
-msgid "Copying files:"
-msgstr "Bestanden kopieren:"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr ""
@@ -121,20 +115,14 @@ msgstr "Locatie Lettertype"
 msgid "Cut"
 msgstr "Knippen"
 
-msgid "Cut directory?"
-msgstr "Locatie knippen?"
-
-msgid "Cut file?"
-msgstr "Bestand knippen?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "Verwijder"
 
-msgid "Delete directory and its content?"
-msgstr "Wil je de map met alle inhoud verwijderen?"
-
-msgid "Delete this file?"
-msgstr "Bestand verwijderen?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "Bestanden verwijderen:"
@@ -147,15 +135,6 @@ msgstr "Locatie .."
 
 msgid "Directory couldn't be deleted."
 msgstr "Locatie kon niet worden verwijderd."
-
-msgid "Directory successfully copied."
-msgstr "Locatie gekopieerd."
-
-msgid "Directory successfully deleted."
-msgstr "Locatie verwijderd."
-
-msgid "Directory successfully moved."
-msgstr "Locatie verplaatst."
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -221,19 +200,13 @@ msgstr ""
 msgid "Extract full archive?"
 msgstr ""
 
-msgid "Extract this file?"
-msgstr ""
-
-msgid "Extract this folder?"
-msgstr ""
-
-msgid "Extracting file:"
+msgid "Extract the selected item(s)?"
 msgstr ""
 
 msgid "Extracting files..."
 msgstr "Bezig met uitpakken..."
 
-msgid "Extracting folder:"
+msgid "Extracting item(s):"
 msgstr ""
 
 msgid "Failed copying file."
@@ -242,17 +215,20 @@ msgstr "Bestand kopieren mislukt."
 msgid "Failed copying files."
 msgstr "Bestanden kopieren mislukt."
 
-msgid "Failed extracting file."
+msgid "Failed copying item(s)."
 msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr ""
 
-msgid "Failed extracting the folder."
+msgid "Failed extracting the item(s)."
 msgstr ""
 
-msgid "Failed renaming file"
-msgstr "Bestand hernoemen mislukt"
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr ""
@@ -263,23 +239,11 @@ msgstr ""
 msgid "File couldn't be deleted."
 msgstr "Bestand kon niet worden verwijderd"
 
-msgid "File does not exist anymore!"
-msgstr "Dit bestand bestaat niet meer!"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr ""
 
 msgid "File is corrupt."
 msgstr ""
-
-msgid "File successfully copied."
-msgstr "Bestand gekopieerd"
-
-msgid "File successfully extracted."
-msgstr ""
-
-msgid "File successfully moved."
-msgstr "Bestand verplaatst."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
@@ -309,9 +273,6 @@ msgstr "Type:"
 msgid "Folder"
 msgstr "Map"
 
-msgid "Folder successfully extracted."
-msgstr ""
-
 msgid "Fontpath changed"
 msgstr "Locatie lettertype gewijzigd"
 
@@ -334,6 +295,9 @@ msgid "Image Viewer"
 msgstr ""
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -366,8 +330,8 @@ msgstr ""
 msgid "Mount NTFS"
 msgstr ""
 
-msgid "Moving files:"
-msgstr "Bestanden verplaatsen:"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr ""
@@ -375,8 +339,8 @@ msgstr ""
 msgid "Music Volume"
 msgstr "Muziekvolume"
 
-msgid "Name already exists."
-msgstr "Naam bestaat al."
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr ""
@@ -442,8 +406,8 @@ msgstr "Wachtwoord:"
 msgid "Paste"
 msgstr "Plakken"
 
-msgid "Paste into current directory?"
-msgstr "Plakken op deze locatie?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr ""
@@ -509,6 +473,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -615,6 +585,60 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Locatie verwijderd."
+
+#~ msgid "Copy directory?"
+#~ msgstr "Locatie kopieren?"
+
+#~ msgid "Copy file?"
+#~ msgstr "Bestand kopieren?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Bestand kopieren:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Bestanden kopieren:"
+
+#~ msgid "Cut directory?"
+#~ msgstr "Locatie knippen?"
+
+#~ msgid "Cut file?"
+#~ msgstr "Bestand knippen?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "Wil je de map met alle inhoud verwijderen?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "Bestand verwijderen?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Locatie gekopieerd."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Locatie verplaatst."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Bestand hernoemen mislukt"
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "Dit bestand bestaat niet meer!"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Bestand gekopieerd"
+
+#~ msgid "File successfully moved."
+#~ msgstr "Bestand verplaatst."
+
+#~ msgid "Moving files:"
+#~ msgstr "Bestanden verplaatsen:"
+
+#~ msgid "Name already exists."
+#~ msgstr "Naam bestaat al."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "Plakken op deze locatie?"
 
 #~ msgid "Last status change:"
 #~ msgstr "Laatste statuswijziging:"

@@ -992,6 +992,9 @@ int RemoveDirectory(char * dirpath)
 
     u32 dircount = 0;
 
+    if(dirpath[strlen(dirpath)-1] != '/')
+        strcat(dirpath, "/");
+
     memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
 
     SubDirList *filelist = (SubDirList *) malloc(sizeof(SubDirList));

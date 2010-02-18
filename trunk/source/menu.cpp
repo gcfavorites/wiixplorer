@@ -39,6 +39,7 @@
 #include "libwiigui/gui.h"
 #include "libwiigui/gui_bgm.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "Controls/Clipboard.h"
 #include "network/ChangeLog.h"
 #include "Menus/Explorer.h"
 #include "menu.h"
@@ -59,8 +60,8 @@
 #include "Controls/Taskbar.h"
 #include "sys.h"
 
-CLIPBOARD Clipboard;
 bool boothomebrew = false;
+int curDevice = 0;
 
 static bool firsttimestart = true;
 
@@ -107,7 +108,7 @@ static int MenuBrowseDevice()
 
 	int menu = MENU_NONE;
 
-    Explorer * Explorer_1 = new Explorer(Settings.MountMethod);
+    Explorer * Explorer_1 = new Explorer(curDevice);
 
     MainWindow::Instance()->Append(Explorer_1);
     ResumeGui();
@@ -171,7 +172,7 @@ static int MenuSettings()
 	backBtn.SetSoundOver(&btnSoundOver);
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
-	
+
 	GuiOptionBrowser optionBrowser(584, 248, &options);
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -646,6 +647,8 @@ void MainMenu(int menu)
 {
 	int currentMenu = menu;
 
+	curDevice = Settings.MountMethod;
+
 	while(currentMenu != MENU_EXIT)
 	{
 	    Taskbar::Instance()->ResetState();
@@ -681,5 +684,5 @@ void MainMenu(int menu)
 	ExitApp();
 
     if(boothomebrew)
-        BootHomebrew(Clipboard.filepath);
+        BootHomebrew(Clipboard::Instance()->GetItemPath(Clipboard::Instance()->GetItemcount()-1));
 }
