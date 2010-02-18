@@ -681,8 +681,11 @@ void MainMenu(int menu)
 
 	ResumeGui();
 
+	char argument[MAXPATHLEN];
+	snprintf(argument, sizeof(argument), "%s", Clipboard::Instance()->GetItemPath(Clipboard::Instance()->GetItemcount()-1));
+
 	ExitApp();
 
     if(boothomebrew)
-        BootHomebrew(Clipboard::Instance()->GetItemPath(Clipboard::Instance()->GetItemcount()-1));
+        BootHomebrew(argument);
 }
