@@ -52,7 +52,13 @@ Text::~Text()
         delete wText;
     wText = NULL;
 
-    ClearRows();
+	for(int i = 0; i < MAX_LINES_TO_DRAW; i++)
+	{
+	    if(textDynRow[i])
+            delete [] textDynRow[i];
+        textDynRow[i] = NULL;
+        LineOffset[i] = -1;
+	}
 }
 
 void Text::SetText(const char * t)
@@ -200,6 +206,8 @@ void Text::FillRows()
 
     filling = true;
 
+    ClearRows();
+
     int linenum = 0;
     curCharsCount = 0;
 
@@ -257,6 +265,12 @@ void Text::FillRows()
         i++;
     }
 
+    if(origTxt[ch] == 0)
+    {
+        linenum++;
+        LineOffset[linenum] = ch+1;
+    }
+
     filling = false;
 
 	curLinesCount = linenum;
@@ -267,8 +281,9 @@ void Text::ClearRows()
 	for(int i = 0; i < MAX_LINES_TO_DRAW; i++)
 	{
 	    if(textDynRow[i])
-            delete [] textDynRow[i];
-        textDynRow[i] = NULL;
+	    {
+	        memset(textDynRow[i], 0, maxWidth);
+	    }
         LineOffset[i] = -1;
 	}
 

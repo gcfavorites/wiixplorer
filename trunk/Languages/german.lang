@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-17 00:55+0100\n"
+"POT-Creation-Date: 2010-02-18 01:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -102,6 +102,9 @@ msgstr "Es konnte keine Verbindung zum Netzwerk hergestellt werden."
 msgid "Could not connect to the server."
 msgstr "Es konnte keine Verbindung zum Server hergestellt werden."
 
+msgid "Could not decompress the file."
+msgstr ""
+
 msgid "Could not download file."
 msgstr "Datei konnte nicht heruntergeladen werden."
 
@@ -153,6 +156,9 @@ msgstr "Verzeichnis erfolgreich gelöscht."
 msgid "Directory successfully moved."
 msgstr "Verzeichnis erfolgreich verschoben."
 
+msgid "Do you want to boot file now?"
+msgstr ""
+
 msgid "Do you want to boot:"
 msgstr "Möchtest du folgendes starten:"
 
@@ -161,6 +167,10 @@ msgstr "Standardsprache der Anwendung laden?"
 
 msgid "Do you want to load console default language."
 msgstr "Standardsprache der Konsole laden?"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
@@ -286,6 +296,9 @@ msgstr "Pfad: %s"
 msgid "Files:"
 msgstr "Dateien:"
 
+msgid "Filesize doesn't match."
+msgstr ""
+
 msgid "Filesize is 0 Byte."
 msgstr "Dateigröße ist 0 Byte."
 
@@ -317,6 +330,9 @@ msgid "Host:"
 msgstr ""
 
 msgid "Image Viewer"
+msgstr ""
+
+msgid "Incomming connection."
 msgstr ""
 
 msgid "Language"
@@ -375,6 +391,9 @@ msgstr "Neuer Ordner"
 
 msgid "No"
 msgstr "Nein"
+
+msgid "No homebrew in the zip."
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
@@ -449,6 +468,9 @@ msgstr "Zufällig"
 msgid "Reboot failed"
 msgstr "Neustart fehlgeschlagen"
 
+msgid "Receiving file..."
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "SMB neu verbinden"
 
@@ -499,6 +521,9 @@ msgstr "Übertragung abgebrochen."
 
 msgid "Transfer failed"
 msgstr "Übertragung fehlgeschlagen"
+
+msgid "Transfer failed."
+msgstr ""
 
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"

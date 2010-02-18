@@ -11,7 +11,7 @@ void ImageLoader(const char *filepath)
 
     while(ImageVwr->MainUpdate() < 0)
     {
-	    usleep(100);
+	    VIDEO_WaitVSync();
 
         if(shutdown)
             Sys_Shutdown();

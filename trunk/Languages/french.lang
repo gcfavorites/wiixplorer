@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-17 00:55+0100\n"
+"POT-Creation-Date: 2010-02-18 01:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -102,6 +102,9 @@ msgstr "Connexion au réseau impossible."
 msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
+msgid "Could not decompress the file."
+msgstr ""
+
 msgid "Could not download file."
 msgstr "Téléchargement impossible."
 
@@ -153,6 +156,9 @@ msgstr "Suppression du dossier effectuée."
 msgid "Directory successfully moved."
 msgstr "Déplacement du dossier effectué."
 
+msgid "Do you want to boot file now?"
+msgstr ""
+
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
@@ -161,6 +167,10 @@ msgstr "Voulez-vous charger le language de WiiWplorer par défaut ?"
 
 msgid "Do you want to load console default language."
 msgstr "Voulez-vous charger le language de la Wii par défaut ?"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language ?"
@@ -286,6 +296,9 @@ msgstr "Chemin:  %s"
 msgid "Files:"
 msgstr "Fichiers:"
 
+msgid "Filesize doesn't match."
+msgstr ""
+
 msgid "Filesize is 0 Byte."
 msgstr "Taille du fichier éguale à 0 bits."
 
@@ -318,6 +331,9 @@ msgstr "Hébergeur:"
 
 msgid "Image Viewer"
 msgstr "Aperçu"
+
+msgid "Incomming connection."
+msgstr ""
 
 msgid "Language"
 msgstr "Langue"
@@ -375,6 +391,9 @@ msgstr "Nouveau"
 
 msgid "No"
 msgstr "Non"
+
+msgid "No homebrew in the zip."
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
@@ -449,6 +468,9 @@ msgstr "Aléatoire"
 msgid "Reboot failed"
 msgstr "Echec du redémarrage."
 
+msgid "Receiving file..."
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
 
@@ -499,6 +521,9 @@ msgstr "Transfert annulé."
 
 msgid "Transfer failed"
 msgstr "Le transfert a échoué"
+
+msgid "Transfer failed."
+msgstr ""
 
 msgid "Transfering files:"
 msgstr "Transfert des fichiers:"

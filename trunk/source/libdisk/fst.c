@@ -207,8 +207,18 @@ static int _read(void *ptr, u64 offset, u32 len) {
     len = MIN(BUFFER_SIZE - sector_offset, len);
     if (DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector)) {
         last_access = gettime();
+        u32 error;
+        if (!DI2_GetError(&error)) {
+            if ((error & 0xFFFFFF) == 0x020401) { // discid has to be read again
+                u64 discid;
+                DI2_ReadDiscID(&discid);
+                if (!DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector))
+                    goto read_success;
+            }
+        }
         return -1;
     }
+    read_success:
     last_access = gettime();
     memcpy(ptr, read_buffer + sector_offset, len);
     return len;

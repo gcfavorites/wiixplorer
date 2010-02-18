@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-17 00:55+0100\n"
+"POT-Creation-Date: 2010-02-18 01:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -102,6 +102,9 @@ msgstr "無法連接到網路"
 msgid "Could not connect to the server."
 msgstr "無法連接到伺服器"
 
+msgid "Could not decompress the file."
+msgstr ""
+
 msgid "Could not download file."
 msgstr "無法下載檔案"
 
@@ -153,6 +156,9 @@ msgstr "目錄已刪除"
 msgid "Directory successfully moved."
 msgstr "目錄已移動"
 
+msgid "Do you want to boot file now?"
+msgstr ""
+
 msgid "Do you want to boot:"
 msgstr "是否啟動:"
 
@@ -161,6 +167,10 @@ msgstr "是否載入程式預設語言 ?"
 
 msgid "Do you want to load console default language."
 msgstr "是否載入控制台預設語言 ?"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "是否載入此語言 ?"
@@ -286,6 +296,9 @@ msgstr ""
 msgid "Files:"
 msgstr "檔案:"
 
+msgid "Filesize doesn't match."
+msgstr ""
+
 msgid "Filesize is 0 Byte."
 msgstr "檔案大小為 0 Byte"
 
@@ -318,6 +331,9 @@ msgstr "主機:"
 
 msgid "Image Viewer"
 msgstr "檢視影像"
+
+msgid "Incomming connection."
+msgstr ""
 
 msgid "Language"
 msgstr "語言"
@@ -375,6 +391,9 @@ msgstr "新資料夾"
 
 msgid "No"
 msgstr "否"
+
+msgid "No homebrew in the zip."
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
@@ -449,6 +468,9 @@ msgstr "隨機播放"
 msgid "Reboot failed"
 msgstr "重新啟動失敗"
 
+msgid "Receiving file..."
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "重新連接區域網路"
 
@@ -499,6 +521,9 @@ msgstr "傳輸取消"
 
 msgid "Transfer failed"
 msgstr "傳輸失敗"
+
+msgid "Transfer failed."
+msgstr ""
 
 msgid "Transfering files:"
 msgstr "正在傳輸檔案:"

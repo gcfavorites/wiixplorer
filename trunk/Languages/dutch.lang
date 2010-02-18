@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-17 00:55+0100\n"
+"POT-Creation-Date: 2010-02-18 01:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -103,6 +103,9 @@ msgstr ""
 msgid "Could not connect to the server."
 msgstr ""
 
+msgid "Could not decompress the file."
+msgstr ""
+
 msgid "Could not download file."
 msgstr ""
 
@@ -154,6 +157,9 @@ msgstr "Locatie verwijderd."
 msgid "Directory successfully moved."
 msgstr "Locatie verplaatst."
 
+msgid "Do you want to boot file now?"
+msgstr ""
+
 msgid "Do you want to boot:"
 msgstr "Wil je starten:"
 
@@ -162,6 +168,10 @@ msgstr "Wil je de toepassings standaardtaal laden?"
 
 msgid "Do you want to load console default language."
 msgstr "Wil je de console standaadtaal laden?"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Wil je deze taal laden?"
@@ -287,6 +297,9 @@ msgstr "Locatie: %s"
 msgid "Files:"
 msgstr "Bestanden:"
 
+msgid "Filesize doesn't match."
+msgstr ""
+
 msgid "Filesize is 0 Byte."
 msgstr ""
 
@@ -318,6 +331,9 @@ msgid "Host:"
 msgstr "Gastheer:"
 
 msgid "Image Viewer"
+msgstr ""
+
+msgid "Incomming connection."
 msgstr ""
 
 msgid "Language"
@@ -376,6 +392,9 @@ msgstr ""
 
 msgid "No"
 msgstr "Nee"
+
+msgid "No homebrew in the zip."
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
@@ -450,6 +469,9 @@ msgstr ""
 msgid "Reboot failed"
 msgstr ""
 
+msgid "Receiving file..."
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "SMB Herverbinden"
 
@@ -499,6 +521,9 @@ msgid "Transfer cancelled."
 msgstr ""
 
 msgid "Transfer failed"
+msgstr ""
+
+msgid "Transfer failed."
 msgstr ""
 
 msgid "Transfering files:"
