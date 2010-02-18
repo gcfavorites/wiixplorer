@@ -39,7 +39,7 @@ Taskbar::Taskbar()
 	: GuiWindow(0, 0)
 {
     menu = MENU_NONE;
-    triggerupdate = false;
+    triggerupdate = true;
 
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);

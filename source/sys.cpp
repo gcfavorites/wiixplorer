@@ -9,6 +9,7 @@
 #include "Prompts/PromptWindows.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"
+#include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "Memory/mem2.hpp"
 #include "video.h"
@@ -44,6 +45,7 @@ bool RebootApp()
 void ExitApp()
 {
     Settings.Save();
+	Clipboard::Instance()->DestroyInstance();
 	MainWindow::Instance()->DestroyInstance();
 	StopGX();
 	ShutdownAudio();
