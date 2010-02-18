@@ -430,10 +430,14 @@ char * GetNetworkIP(void)
 void HaltNetworkThread()
 {
     networkHalt = true;
+    Receiver.FreeData();
+    Receiver.CloseConnection();
 
 	// wait for thread to finish
 	while(!LWP_ThreadIsSuspended(networkthread))
+	{
 		usleep(100);
+	}
 }
 
 /****************************************************************************
@@ -455,7 +459,8 @@ static void * networkinitcallback(void *arg)
         if(networkHalt)
         {
             LWP_SuspendThread(networkthread);
-            continue;
+			usleep(100);
+			continue;
         }
 
         if(!networkinit)

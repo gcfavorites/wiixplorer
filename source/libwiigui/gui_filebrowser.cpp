@@ -272,6 +272,19 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 	arrowDownBtn->Update(t);
 	scrollbarBoxBtn->Update(t);
 
+	if(t->wpad->btns_d & WPAD_BUTTON_B)
+	{
+        browser->ResetMarker();
+	}
+	else if(t->wpad->btns_d & WPAD_BUTTON_1)
+	{
+	    browser->MarkCurrentItem();
+	}
+	else if(t->wpad->btns_d & WPAD_BUTTON_MINUS)
+	{
+	    browser->UnMarkCurrentItem();
+	}
+
 	// move the file listing to respond to wiimote cursor movement
 	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
 		scrollbarBoxBtn->GetStateChan() == t->chan &&
@@ -455,6 +468,16 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 		{
 			selectedItem = i;
 			browser->SetSelectedIndex(browser->GetPageIndex() + i);
+		}
+
+		ItemMarker * IMarker = browser->GetItemMarker();
+
+		for(int n = 0; n < IMarker->GetItemcount(); n++)
+		{
+		    if(browser->GetPageIndex() + i == IMarker->GetItemIndex(n))
+		    {
+		        fileList[i]->SetState(STATE_SELECTED);
+		    }
 		}
 	}
 

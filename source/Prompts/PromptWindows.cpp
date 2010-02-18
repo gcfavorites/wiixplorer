@@ -35,6 +35,7 @@
 #include "libwiigui/gui_keyboard.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Taskbar.h"
 #include "devicemounter.h"
 #include "FileOperations/fileops.h"
 #include "FileOperations/filebrowser.h"
@@ -296,6 +297,7 @@ void ShowCredits(CreditWindow *& Credits)
     if(!Credits)
         return;
 
+    Taskbar::Instance()->SetTriggerUpdate(false);
     MainWindow::Instance()->SetDim(true);
     MainWindow::Instance()->Append(Credits);
 
@@ -313,4 +315,6 @@ void ShowCredits(CreditWindow *& Credits)
     }
     delete Credits;
     Credits = NULL;
+
+    Taskbar::Instance()->SetTriggerUpdate(true);
 }

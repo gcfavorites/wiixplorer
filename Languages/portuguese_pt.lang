@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -84,17 +84,11 @@ msgstr "Predefinição da consola"
 msgid "Copy"
 msgstr "Copiar"
 
-msgid "Copy directory?"
-msgstr "Copiar pasta?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "Copiar ficheiro?"
-
-msgid "Copying file:"
-msgstr "Copiando ficheiro:"
-
-msgid "Copying files:"
-msgstr "Copiando ficheiros"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr "Não foi possível ligar à rede"
@@ -120,20 +114,14 @@ msgstr "Pasta Fontes Person."
 msgid "Cut"
 msgstr "Cortar"
 
-msgid "Cut directory?"
-msgstr "Cortar pasta?"
-
-msgid "Cut file?"
-msgstr "Cortar ficheiro?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "Eliminar"
 
-msgid "Delete directory and its content?"
-msgstr "Eliminar pasta e respectivo conteúdo?"
-
-msgid "Delete this file?"
-msgstr "Eliminar este ficheiro?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "Eliminando ficheiros:"
@@ -146,15 +134,6 @@ msgstr "Pasta .."
 
 msgid "Directory couldn't be deleted."
 msgstr "A pasta não pode ser apagada."
-
-msgid "Directory successfully copied."
-msgstr "Pasta copiada com sucesso."
-
-msgid "Directory successfully deleted."
-msgstr "Pasta eliminada com sucesso."
-
-msgid "Directory successfully moved."
-msgstr "Pasta movida com sucesso."
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,20 +199,14 @@ msgstr "Extrair primeiro e abrir depois."
 msgid "Extract full archive?"
 msgstr "Extrair todo o conteúdo?"
 
-msgid "Extract this file?"
-msgstr "Extrair este ficheiro?"
-
-msgid "Extract this folder?"
-msgstr "Extrair esta pasta?"
-
-msgid "Extracting file:"
-msgstr "Extraindo ficheiro:"
+msgid "Extract the selected item(s)?"
+msgstr ""
 
 msgid "Extracting files..."
 msgstr "Extraindo ficheiros..."
 
-msgid "Extracting folder:"
-msgstr "Extraindo pasta:"
+msgid "Extracting item(s):"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "Falha ao copiar ficheiro."
@@ -241,17 +214,20 @@ msgstr "Falha ao copiar ficheiro."
 msgid "Failed copying files."
 msgstr "Falha ao copiar ficheiros."
 
-msgid "Failed extracting file."
-msgstr "Falha ao extrair ficheiro."
+msgid "Failed copying item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "Falha na extracção do ficheiro."
 
-msgid "Failed extracting the folder."
-msgstr "Falha na extracção da pasta."
+msgid "Failed extracting the item(s)."
+msgstr ""
 
-msgid "Failed renaming file"
-msgstr "Falha ao renomear ficheiro"
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr "Falha ao obter o Changelog."
@@ -262,23 +238,11 @@ msgstr "Falha ao ler o ficheiro."
 msgid "File couldn't be deleted."
 msgstr "O ficheiro não pode ser eliminado."
 
-msgid "File does not exist anymore!"
-msgstr "Ficheiro inexistente!"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr "Ficheiro corrompido (erro de CRC)."
 
 msgid "File is corrupt."
 msgstr "Ficheiro corrompido."
-
-msgid "File successfully copied."
-msgstr "Ficheiro copiado com sucesso."
-
-msgid "File successfully extracted."
-msgstr "Ficheiro extraído com sucesso."
-
-msgid "File successfully moved."
-msgstr "Ficheiro movido com sucesso."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Ficheiro com nível de compressão muito elevada (tamanho de dicionário demasiado grande)."
@@ -308,9 +272,6 @@ msgstr "Tipo de ficheiro:"
 msgid "Folder"
 msgstr "Pasta"
 
-msgid "Folder successfully extracted."
-msgstr "Pasta extraída com sucesso."
-
 msgid "Fontpath changed"
 msgstr "Pasta de fonte alterada"
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr "Visualizador de Imagens"
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr ""
 msgid "Mount NTFS"
 msgstr "Montar NTFS"
 
-msgid "Moving files:"
-msgstr "Movendo ficheiros:"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr ""
@@ -374,8 +338,8 @@ msgstr ""
 msgid "Music Volume"
 msgstr "Volume da Música"
 
-msgid "Name already exists."
-msgstr "O nome já existe."
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr ""
@@ -441,8 +405,8 @@ msgstr "Palavra-chave:"
 msgid "Paste"
 msgstr "Colar"
 
-msgid "Paste into current directory?"
-msgstr "Colar dentro da pasta actual?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr ""
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,84 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Extract this file?"
+#~ msgstr "Extrair este ficheiro?"
+
+#~ msgid "Extract this folder?"
+#~ msgstr "Extrair esta pasta?"
+
+#~ msgid "Extracting file:"
+#~ msgstr "Extraindo ficheiro:"
+
+#~ msgid "Extracting folder:"
+#~ msgstr "Extraindo pasta:"
+
+#~ msgid "Failed extracting file."
+#~ msgstr "Falha ao extrair ficheiro."
+
+#~ msgid "Failed extracting the folder."
+#~ msgstr "Falha na extracção da pasta."
+
+#~ msgid "File successfully extracted."
+#~ msgstr "Ficheiro extraído com sucesso."
+
+#~ msgid "Folder successfully extracted."
+#~ msgstr "Pasta extraída com sucesso."
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Pasta eliminada com sucesso."
+
+#~ msgid "Copy directory?"
+#~ msgstr "Copiar pasta?"
+
+#~ msgid "Copy file?"
+#~ msgstr "Copiar ficheiro?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Copiando ficheiro:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Copiando ficheiros"
+
+#~ msgid "Cut directory?"
+#~ msgstr "Cortar pasta?"
+
+#~ msgid "Cut file?"
+#~ msgstr "Cortar ficheiro?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "Eliminar pasta e respectivo conteúdo?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "Eliminar este ficheiro?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Pasta copiada com sucesso."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Pasta movida com sucesso."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Falha ao renomear ficheiro"
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "Ficheiro inexistente!"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Ficheiro copiado com sucesso."
+
+#~ msgid "File successfully moved."
+#~ msgstr "Ficheiro movido com sucesso."
+
+#~ msgid "Moving files:"
+#~ msgstr "Movendo ficheiros:"
+
+#~ msgid "Name already exists."
+#~ msgstr "O nome já existe."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "Colar dentro da pasta actual?"
 
 #~ msgid "Device Free Space:"
 #~ msgstr "Espaço Disponível:"

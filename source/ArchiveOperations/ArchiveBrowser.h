@@ -44,8 +44,9 @@ class ArchiveBrowser : public Browser
         ArchiveBrowser(Archive * archive);
         //!Destructor
         ~ArchiveBrowser();
-        //!Extract the current selected item (folder or file) into a destination path
-        int ExtractCurrentItem(const char * dest);
+        //!Extract item (folder or file) into a destination path
+        int ExtractItem(int ind, const char * dest);
+        int ExtractCurrentItem(const char * dest) { return ExtractItem(SelIndex, dest); };
         //!Extract a folder into a destination path
         int ExtractFolder(const char * foldername, const char * dest);
         //!Extract the all archive items into a destination path
@@ -72,8 +73,11 @@ class ArchiveBrowser : public Browser
         int ChangeDirectory();
         //!Parse the archive directory into an archive structure
         int ParseArchiveDirectory(const char * ArcPath);
+        //!Returns a ItemStruct for the file marker
+        ItemStruct GetCurrentItemStruct() const;
         //!Get the current archive path
         const char * GetCurrentPath();
+
         //!Clear the current PathStructure and free the memory
         void ClearList();
         //!Sort the current PathStructure

@@ -99,9 +99,12 @@ ArchiveBrowser::~ArchiveBrowser()
         delete archive;
 }
 
-int ArchiveBrowser::ExtractCurrentItem(const char * dest)
+int ArchiveBrowser::ExtractItem(int ind, const char * dest)
 {
-    ArchiveFileStruct * currentItem = archive->GetFileStruct(PathStructure.at(SelIndex)->fileindex);
+    if(ind < 0 || ind > (int) PathStructure.size())
+        return -1;
+
+    ArchiveFileStruct * currentItem = archive->GetFileStruct(PathStructure.at(ind)->fileindex);
 
     if(currentItem->isdir)
     {
@@ -339,6 +342,21 @@ void ArchiveBrowser::AddListEntrie(const char * filename, size_t length, size_t 
 
     PathStructure.push_back(TempStruct);
     TempStruct = NULL;
+}
+
+ItemStruct ArchiveBrowser::GetCurrentItemStruct() const
+{
+    ItemStruct Item;
+    memset(&Item, 0, sizeof(ItemStruct));
+
+    ArchiveFileStruct * CurArchive = archive->GetFileStruct(PathStructure.at(SelIndex)->fileindex);
+
+    snprintf(Item.itempath, sizeof(Item.itempath), "%s", CurArchive->filename);
+    Item.itemsize = CurArchive->length;
+    Item.isdir = CurArchive->isdir;
+    Item.itemindex = SelIndex;
+
+    return Item;
 }
 
 bool ArchiveBrowser::InDirectoryTree(const char * Path, const char * itemFullFilename, bool firstpage)

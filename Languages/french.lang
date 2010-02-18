@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -84,17 +84,11 @@ msgstr "Wii Défaut"
 msgid "Copy"
 msgstr "Copier"
 
-msgid "Copy directory?"
-msgstr "Copier le dossier ?"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "Copier le fichier ?"
-
-msgid "Copying file:"
-msgstr "Copie du fichier:"
-
-msgid "Copying files:"
-msgstr "Copie des fichiers"
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr "Connexion au réseau impossible."
@@ -120,20 +114,14 @@ msgstr "Dossier police"
 msgid "Cut"
 msgstr "Couper"
 
-msgid "Cut directory?"
-msgstr "Couper le dossier ?"
-
-msgid "Cut file?"
-msgstr "Couper le fichier ?"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "Supprimer"
 
-msgid "Delete directory and its content?"
-msgstr "Supprimer le dossier et son contenu ?"
-
-msgid "Delete this file?"
-msgstr "Supprimer ce fichier ?"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "Suppression des fichiers:"
@@ -146,15 +134,6 @@ msgstr "Dossier .."
 
 msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
-
-msgid "Directory successfully copied."
-msgstr "Copie du dossier effectuée."
-
-msgid "Directory successfully deleted."
-msgstr "Suppression du dossier effectuée."
-
-msgid "Directory successfully moved."
-msgstr "Déplacement du dossier effectué."
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,20 +199,14 @@ msgstr "Extraire puis ouvrir."
 msgid "Extract full archive?"
 msgstr "Extraire l'archive complete ?"
 
-msgid "Extract this file?"
-msgstr "Extraire ce fichier ?"
-
-msgid "Extract this folder?"
-msgstr "Extraire ce dossier ?"
-
-msgid "Extracting file:"
-msgstr "Extraction du fichier:"
+msgid "Extract the selected item(s)?"
+msgstr ""
 
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
 
-msgid "Extracting folder:"
-msgstr "Extraction du dossier:"
+msgid "Extracting item(s):"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "La copie a échouée."
@@ -241,17 +214,20 @@ msgstr "La copie a échouée."
 msgid "Failed copying files."
 msgstr "La copie a échouée."
 
-msgid "Failed extracting file."
-msgstr "L'extraction a échouée."
+msgid "Failed copying item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "L'extraction a échouée."
 
-msgid "Failed extracting the folder."
-msgstr "L'extraction a échouée."
+msgid "Failed extracting the item(s)."
+msgstr ""
 
-msgid "Failed renaming file"
-msgstr "Le renommage a échoué"
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr "L'obtention du Changelog a échouée."
@@ -262,23 +238,11 @@ msgstr "La lecture des données a échouée"
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
 
-msgid "File does not exist anymore!"
-msgstr "Ce fichier n'existe plus !"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr "Le fichier est corrompu (CRC erroné)."
 
 msgid "File is corrupt."
 msgstr "Le fichier est corrompu."
-
-msgid "File successfully copied."
-msgstr "Copie du fichier effectuée."
-
-msgid "File successfully extracted."
-msgstr "Fichier extrait avec succès."
-
-msgid "File successfully moved."
-msgstr "Déplacement effectué."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Les paramètres de compression sont trop élevés (dictionary size is too large)."
@@ -308,9 +272,6 @@ msgstr "Type:"
 msgid "Folder"
 msgstr "Dossier"
 
-msgid "Folder successfully extracted."
-msgstr "Dossier extrait avec succès."
-
 msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr "Aperçu"
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr "Boucle"
 msgid "Mount NTFS"
 msgstr "NTFS"
 
-msgid "Moving files:"
-msgstr "Déplacement de:"
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr "Lecture en boucle"
@@ -374,8 +338,8 @@ msgstr "Lecture en boucle"
 msgid "Music Volume"
 msgstr "Volume"
 
-msgid "Name already exists."
-msgstr "Ce nom existe déjà."
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr "Paramètres réseau"
@@ -441,8 +405,8 @@ msgstr "Mot de passe:"
 msgid "Paste"
 msgstr "Coller"
 
-msgid "Paste into current directory?"
-msgstr "Coller dans le dossier actuel?"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr "Lire Dossier"
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,84 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Extract this file?"
+#~ msgstr "Extraire ce fichier ?"
+
+#~ msgid "Extract this folder?"
+#~ msgstr "Extraire ce dossier ?"
+
+#~ msgid "Extracting file:"
+#~ msgstr "Extraction du fichier:"
+
+#~ msgid "Extracting folder:"
+#~ msgstr "Extraction du dossier:"
+
+#~ msgid "Failed extracting file."
+#~ msgstr "L'extraction a échouée."
+
+#~ msgid "Failed extracting the folder."
+#~ msgstr "L'extraction a échouée."
+
+#~ msgid "File successfully extracted."
+#~ msgstr "Fichier extrait avec succès."
+
+#~ msgid "Folder successfully extracted."
+#~ msgstr "Dossier extrait avec succès."
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Suppression du dossier effectuée."
+
+#~ msgid "Copy directory?"
+#~ msgstr "Copier le dossier ?"
+
+#~ msgid "Copy file?"
+#~ msgstr "Copier le fichier ?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Copie du fichier:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Copie des fichiers"
+
+#~ msgid "Cut directory?"
+#~ msgstr "Couper le dossier ?"
+
+#~ msgid "Cut file?"
+#~ msgstr "Couper le fichier ?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "Supprimer le dossier et son contenu ?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "Supprimer ce fichier ?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Copie du dossier effectuée."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Déplacement du dossier effectué."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Le renommage a échoué"
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "Ce fichier n'existe plus !"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Copie du fichier effectuée."
+
+#~ msgid "File successfully moved."
+#~ msgstr "Déplacement effectué."
+
+#~ msgid "Moving files:"
+#~ msgstr "Déplacement de:"
+
+#~ msgid "Name already exists."
+#~ msgstr "Ce nom existe déjà."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "Coller dans le dossier actuel?"
 
 #~ msgid "Device Free Space:"
 #~ msgstr "Espace Libre:"

@@ -39,6 +39,7 @@ Taskbar::Taskbar()
 	: GuiWindow(0, 0)
 {
     menu = MENU_NONE;
+    triggerupdate = false;
 
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);
@@ -144,7 +145,7 @@ void Taskbar::Draw()
 
 void Taskbar::Update(GuiTrigger * t)
 {
-	if(_elements.size() == 0 || state == STATE_DISABLED)
+	if(_elements.size() == 0 || state == STATE_DISABLED || !triggerupdate)
 		return;
 
 	for (u8 i = 0; i < _elements.size(); i++)

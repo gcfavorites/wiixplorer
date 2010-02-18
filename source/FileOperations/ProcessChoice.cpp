@@ -30,10 +30,9 @@
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "FileStartUp/FileStartUp.h"
+#include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"
 
-/*** Extern functions ***/
-extern CLIPBOARD Clipboard;
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
 {
@@ -46,9 +45,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
     }
     else if(choice == ArcExtractFile)
     {
-        bool directory = browser->IsCurrentDir();
-
-        int ret = WindowPrompt((directory ? tr("Extract this folder?") : tr("Extract this file?")), browser->GetCurrentDisplayname(), tr("Yes"), tr("Cancel"));
+        int ret = WindowPrompt(tr("Extract the selected item(s)?"), browser->GetCurrentDisplayname(), tr("Yes"), tr("Cancel"));
         if(ret <= 0)
             return;
 
@@ -57,21 +54,26 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
         int result = OnScreenKeyboard(dest, sizeof(dest));
         if(result)
         {
+            //append selected Item
+            browser->MarkCurrentItem();
 
-            if(!directory)
-                StartProgress(tr("Extracting file:"));
-            else
-                StartProgress(tr("Extracting folder:"));
-            result = browser->ExtractCurrentItem(dest);
+            ItemMarker * IMarker = browser->GetItemMarker();
+
+            StartProgress(tr("Extracting item(s):"));
+            for(int i = 0; i < IMarker->GetItemcount(); i++)
+            {
+                result = browser->ExtractItem(IMarker->GetItemIndex(i), dest);
+            }
             StopProgress();
             if(result <= 0)
             {
-                ShowError((directory ? tr("Failed extracting the folder.") : tr("Failed extracting file.")));
+                ShowError(tr("Failed extracting the item(s)."));
             }
             else
             {
-                WindowPrompt((directory ? tr("Folder successfully extracted.") : tr("File successfully extracted.")), 0, tr("OK"));
+                WindowPrompt(tr("Item(s) successfully extracted."), 0, tr("OK"));
             }
+            IMarker->Reset();
         }
     }
     else if(choice == ArcExtractAll)
@@ -95,6 +97,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             {
                 WindowPrompt(tr("Archive successfully extracted."), 0, tr("OK"));
             }
+            browser->GetItemMarker()->Reset();
         }
     }
 }
@@ -108,37 +111,57 @@ void ProcessChoice(FileBrowser * browser, int choice)
     {
         if(choice == CUT)
         {
-            if(browser->IsCurrentDir())
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Cut directory?"), tr("Yes"), tr("Cancel"));
-            else
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Cut file?"), tr("Yes"), tr("Cancel"));
+            choice = WindowPrompt(browser->GetCurrentFilename(), tr("Cut current marked item(s)?"), tr("Yes"), tr("Cancel"));
             if(choice == 1)
             {
-                sprintf(Clipboard.filepath, "%s", browser->GetCurrentPath());
-                sprintf(Clipboard.filename, "%s", browser->GetCurrentFilename());
-                if(browser->IsCurrentDir())
-                    Clipboard.isdir = true;
-                else
-                    Clipboard.isdir = false;
-                Clipboard.cutted = true;
+                Clipboard::Instance()->Reset();
+                //Get marked
+                ItemMarker * IMarker = browser->GetItemMarker();
+                if(IMarker)
+                {
+                    for(int i = 0; i < IMarker->GetItemcount(); i++)
+                    {
+                        ItemStruct * Item = IMarker->GetItem(i);
+                        Clipboard::Instance()->AddItem(Item);
+                    }
+                }
+                IMarker->Reset();
+                //append current selected
+                ItemStruct Item;
+                snprintf(Item.itempath, sizeof(Item.itempath), "%s", browser->GetCurrentSelectedFilepath());
+                Item.itemsize = browser->GetCurrentFilesize();
+                Item.isdir = browser->IsCurrentDir();
+                Item.itemindex = browser->GetSelIndex();
+                Clipboard::Instance()->AddItem(&Item);
+                Clipboard::Instance()->Cutted = true;
             }
         }
 
         else if(choice == COPY)
         {
-            if(browser->IsCurrentDir())
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Copy directory?"), tr("Yes"), tr("Cancel"));
-            else
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Copy file?"), tr("Yes"), tr("Cancel"));
+            choice = WindowPrompt(browser->GetCurrentFilename(), tr("Copy current marked item(s)?"), tr("Yes"), tr("Cancel"));
             if(choice == 1)
             {
-                sprintf(Clipboard.filepath, "%s", browser->GetCurrentPath());
-                sprintf(Clipboard.filename, "%s", browser->GetCurrentFilename());
-                if(browser->IsCurrentDir())
-                    Clipboard.isdir = true;
-                else
-                    Clipboard.isdir = false;
-                Clipboard.cutted = false;
+                Clipboard::Instance()->Reset();
+                //Get marked
+                ItemMarker * IMarker = browser->GetItemMarker();
+                if(IMarker)
+                {
+                    for(int i = 0; i < IMarker->GetItemcount(); i++)
+                    {
+                        ItemStruct * Item = IMarker->GetItem(i);
+                        Clipboard::Instance()->AddItem(Item);
+                    }
+                }
+                IMarker->Reset();
+                //append current selected
+                ItemStruct Item;
+                snprintf(Item.itempath, sizeof(Item.itempath), "%s", browser->GetCurrentSelectedFilepath());
+                Item.itemsize = browser->GetCurrentFilesize();
+                Item.isdir = browser->IsCurrentDir();
+                Item.itemindex = browser->GetSelIndex();
+                Clipboard::Instance()->AddItem(&Item);
+                Clipboard::Instance()->Cutted = false;
             }
         }
 
@@ -155,39 +178,55 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), entered);
                 int ret = rename(srcpath, destdir);
                 if(ret != 0)
-                    WindowPrompt(tr("Failed renaming file"), tr("Name already exists."), tr("OK"));
+                    WindowPrompt(tr("Failed renaming item"), tr("Name might already exists."), tr("OK"));
             }
         }
 
-        else if(choice == DELETE) {
-            if(browser->IsCurrentDir())
+        else if(choice == DELETE)
+        {
+            char currentpath[MAXPATHLEN];
+            snprintf(currentpath, sizeof(currentpath), "%s/", browser->GetCurrentSelectedFilepath());
+            choice = WindowPrompt(browser->GetCurrentFilename(), tr("Delete the selected item(s) and its content?"), tr("Yes"), tr("Cancel"));
+            if(choice == 1)
             {
-                char currentpath[MAXPATHLEN];
-                snprintf(currentpath, sizeof(currentpath), "%s/", browser->GetCurrentSelectedFilepath());
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Delete directory and its content?"), tr("Yes"), tr("Cancel"));
-                if(choice == 1)
+                ItemMarker * IMarker = browser->GetItemMarker();
+
+                //append selected Item
+                browser->MarkCurrentItem();
+
+                StartProgress(tr("Deleting files:"), THROBBER);
+                for(int i = 0; i < IMarker->GetItemcount(); i++)
                 {
-                    StartProgress(tr("Deleting files:"), THROBBER);
-                    int res = RemoveDirectory(currentpath);
-                    StopProgress();
-                    if(res == -10)
-                        WindowPrompt(tr("Deleting files:"), tr("Action cancelled."), tr("OK"));
-                    else if(res < 0)
-                        ShowError(tr("Directory couldn't be deleted."));
+                    if(IMarker->IsItemDir(i))
+                    {
+                        snprintf(currentpath, sizeof(currentpath), "%s/", IMarker->GetItemPath(i));
+                        int res = RemoveDirectory(currentpath);
+                        if(res == -10)
+                        {
+                            StopProgress();
+                            WindowPrompt(tr("Deleting files:"), tr("Action cancelled."), tr("OK"));
+                            break;
+                        }
+                        else if(res < 0)
+                        {
+                            StopProgress();
+                            ShowError(tr("Directory couldn't be deleted."));
+                            break;
+                        }
+                    }
                     else
-                        WindowPrompt(tr("Directory successfully deleted."), 0, tr("OK"));
+                    {
+                        snprintf(currentpath, sizeof(currentpath), "%s", IMarker->GetItemPath(i));
+                        if(RemoveFile(currentpath) == false)
+                        {
+                            StopProgress();
+                            ShowError(tr("File couldn't be deleted."));
+                            break;
+                        }
+                    }
                 }
-            }
-            else
-            {
-                char currentpath[MAXPATHLEN];
-                snprintf(currentpath, sizeof(currentpath), "%s", browser->GetCurrentSelectedFilepath());
-                choice = WindowPrompt(browser->GetCurrentFilename(), tr("Delete this file?"), tr("Yes"), tr("Cancel"));
-                if(choice == 1)
-                {
-                    if(RemoveFile(currentpath) == false)
-                        ShowError(tr("File couldn't be deleted."));
-                }
+                StopProgress();
+                IMarker->Reset();
             }
         }
     }
@@ -196,83 +235,106 @@ void ProcessChoice(FileBrowser * browser, int choice)
 
     if(choice == PASTE)
     {
-        choice = WindowPrompt(Clipboard.filename, tr("Paste into current directory?"), tr("Yes"), tr("Cancel"));
+        choice = WindowPrompt(Clipboard::Instance()->GetItemName(Clipboard::Instance()->GetItemcount()-1), tr("Paste item(s) into current directory?"), tr("Yes"), tr("Cancel"));
         if(choice == 1)
         {
             char srcpath[MAXPATHLEN];
             char destdir[MAXPATHLEN];
-            if(Clipboard.isdir == true)
+            int res = 0;
+            bool Cutted = Clipboard::Instance()->Cutted;
+            if(Cutted)
             {
-                snprintf(srcpath, sizeof(srcpath), "%s/%s/", Clipboard.filepath, Clipboard.filename);
-                snprintf(destdir, sizeof(destdir), "%s/%s/", browser->GetCurrentPath(), Clipboard.filename);
-                int res = 0;
-                if(Clipboard.cutted == false)
+                if(Clipboard::Instance()->GetItemcount() > 0)
                 {
-                    StartProgress(tr("Copying files:"));
-                    res = CopyDirectory(srcpath, destdir);
-                    StopProgress();
-                }
-                else
-                {
-                    if(strcmp(srcpath, destdir) != 0)
-                    {
-                        if(CompareDevices(srcpath, destdir))
-                            StartProgress(tr("Moving files:"), THROBBER);
-                        else
-                            StartProgress(tr("Moving files:"));
-                        res = MoveDirectory(srcpath, destdir);
-                        StopProgress();
-                    }
+                    snprintf(srcpath, sizeof(srcpath), "%s/", Clipboard::Instance()->GetItemPath(0));
+                    snprintf(destdir, sizeof(destdir), "%s/%s/", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(0));
+                    if(CompareDevices(srcpath, destdir))
+                        StartProgress(tr("Moving item(s):"), THROBBER);
                     else
-                    {
-                        ShowError(tr("You can not cut into the directory itself."));
-                        res =  -1;
-                    }
-                }
-
-                if(res == -10)
-                    WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
-                else if(res < 0)
-                    ShowError(tr("Failed copying files."));
-                else
-                {
-                    if(Clipboard.cutted == false)
-                        WindowPrompt(tr("Directory successfully copied."), 0, tr("OK"));
-                    else
-                        WindowPrompt(tr("Directory successfully moved."), 0, tr("OK"));
+                        StartProgress(tr("Moving item(s):"));
                 }
             }
             else
             {
-                snprintf(srcpath, sizeof(srcpath), "%s/%s", Clipboard.filepath, Clipboard.filename);
-                int ret = CheckFile(srcpath);
-                if(ret == false)
-                    WindowPrompt(tr("File does not exist anymore!"), 0, tr("OK"));
+                StartProgress(tr("Copying item(s):"));
+            }
+            for(int i = 0; i < Clipboard::Instance()->GetItemcount(); i++)
+            {
+                if(Clipboard::Instance()->IsItemDir(i) == true)
+                {
+                    snprintf(srcpath, sizeof(srcpath), "%s/", Clipboard::Instance()->GetItemPath(i));
+                    snprintf(destdir, sizeof(destdir), "%s/%s/", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(i));
+                    if(Cutted == false)
+                    {
+                        res = CopyDirectory(srcpath, destdir);
+                    }
+                    else
+                    {
+                        if(strcmp(srcpath, destdir) != 0)
+                        {
+                            res = MoveDirectory(srcpath, destdir);
+                        }
+                        else
+                        {
+                            StopProgress();
+                            ShowError(tr("You can not cut into the directory itself."));
+                            res =  -1;
+                        }
+                    }
+
+                    if(res == -10)
+                    {
+                        StopProgress();
+                        WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
+                        break;
+                    }
+                    else if(res < 0)
+                    {
+                        StopProgress();
+                        ShowError(tr("Failed copying files."));
+                        break;
+                    }
+                }
                 else
                 {
-                    snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), Clipboard.filename);
+                    snprintf(srcpath, sizeof(srcpath), "%s", Clipboard::Instance()->GetItemPath(i));
+                    snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(i));
                     if(strcmp(srcpath, destdir) != 0)
                     {
-                        StartProgress(tr("Copying file:"));
-                        int res = 0;
-                        if(Clipboard.cutted == false)
+                        if(Cutted == false)
                             res = CopyFile(srcpath, destdir);
                         else
                             res = MoveFile(srcpath, destdir);
-                        StopProgress();
                         if(res < 0)
-                            ShowError(tr("Failed copying file."));
-                        else
                         {
-                            if(Clipboard.cutted == false)
-                                WindowPrompt(tr("File successfully copied."), 0, tr("OK"));
-                            else
-                                WindowPrompt(tr("File successfully moved."), 0, tr("OK"));
+                            StopProgress();
+                            ShowError(tr("Failed copying file."));
+                            break;
                         }
                     }
                     else
+                    {
+                        StopProgress();
                         ShowError(tr("You cannot read/write from/to the same file."));
+                        res = -1;
+                        break;
+                    }
                 }
+            }
+            StopProgress();
+            if(res < 0)
+            {
+                if(Cutted)
+                    ShowError(tr("Failed moving item(s)."));
+                else
+                    ShowError(tr("Failed copying item(s)."));
+            }
+            else
+            {
+                if(Cutted)
+                    WindowPrompt(tr("Successfully moved item(s)."), 0, tr("OK"));
+                else
+                    WindowPrompt(tr("Successfully copied item(s)."), 0, tr("OK"));
             }
         }
     }

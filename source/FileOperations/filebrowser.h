@@ -59,15 +59,6 @@ typedef struct
 	char displayname[MAXDISPLAY + 1]; // name for browser display
 } BROWSERENTRY;
 
-typedef struct
-{
-	char filepath[MAXPATHLEN];
-	char filename[MAXJOLIET + 1];
-	u64  filesize;
-	bool isdir;
-	bool cutted;
-} CLIPBOARD;
-
 class FileBrowser : public Browser
 {
     public:
@@ -79,6 +70,7 @@ class FileBrowser : public Browser
         void SetSelectedIndex(int ind);
         int GetEntrieCount() { return browser.numEntries; };
         int GetPageIndex() { return browser.pageIndex; };
+        int GetSelIndex() { return browser.selIndex; };
         bool IsDir(int ind) { return browserList[ind].isdir; };
         bool IsCurrentDir() { return browserList[browser.selIndex].isdir; };
         u64 GetFilesize(int ind) { return browserList[ind].length; };
@@ -90,6 +82,7 @@ class FileBrowser : public Browser
         const char * GetDir() { return browser.dir; };
         const char * GetCurrentPath();
         const char * GetCurrentSelectedFilepath();
+        ItemStruct GetCurrentItemStruct() const;
         void ResetBrowser();
         int UpdateDirName();
         int ParseDirectory();

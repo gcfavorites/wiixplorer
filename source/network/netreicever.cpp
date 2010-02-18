@@ -1,5 +1,5 @@
  /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -23,8 +23,7 @@
  *
  * netreceiver.cpp
  *
- * Network operations
- * for Wii-Xplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include <stdio.h>
 #include <string.h>
@@ -212,6 +211,8 @@ const u8 * NetReceiver::ReceiveData()
 
     char temp[50];
     network_read(connection, (u8 *) &temp, 49);
+    temp[49] = 0;
+
     snprintf(FileName, sizeof(FileName), "%s", temp);
 
     if(UncompressData() == NULL)
@@ -289,16 +290,22 @@ const u8 * NetReceiver::UncompressData()
         RemoveDirectory(temppath);
         filesize = newfilesize;
         filebuffer = buffer;
-
     }
 
-    //WiiLoad zlip compression
+    //WiiLoad zlib compression
     else if((wiiloadVersion[0] > 0 || wiiloadVersion[1] > 4) && uncfilesize != 0)
     {
-        u8 *unc = (u8 *) malloc(uncfilesize);
+        u8 * unc = (u8 *) malloc(uncfilesize);
+        if(!unc)
+        {
+            FreeData();
+            return NULL;
+        }
+
         uLongf f = uncfilesize;
         if(uncompress(unc, &f, filebuffer, filesize) != Z_OK)
         {
+            free(unc);
             FreeData();
             return NULL;
         }

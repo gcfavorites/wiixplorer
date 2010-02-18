@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 01:28+0100\n"
+"POT-Creation-Date: 2010-02-18 18:05+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -84,17 +84,11 @@ msgstr "主机缺省"
 msgid "Copy"
 msgstr "复制"
 
-msgid "Copy directory?"
-msgstr "复制目录？"
+msgid "Copy current marked item(s)?"
+msgstr ""
 
-msgid "Copy file?"
-msgstr "复制文件？"
-
-msgid "Copying file:"
-msgstr "复制文件："
-
-msgid "Copying files:"
-msgstr "复制文件中："
+msgid "Copying item(s):"
+msgstr ""
 
 msgid "Could not connect to the network"
 msgstr "网络无法连接"
@@ -120,20 +114,14 @@ msgstr "自定义字体路径"
 msgid "Cut"
 msgstr "剪切"
 
-msgid "Cut directory?"
-msgstr "剪切目录"
-
-msgid "Cut file?"
-msgstr "剪切文件"
+msgid "Cut current marked item(s)?"
+msgstr ""
 
 msgid "Delete"
 msgstr "删除"
 
-msgid "Delete directory and its content?"
-msgstr "删除目录及其内容"
-
-msgid "Delete this file?"
-msgstr "确定删除此文件吗？"
+msgid "Delete the selected item(s) and its content?"
+msgstr ""
 
 msgid "Deleting files:"
 msgstr "文件删除中..."
@@ -146,15 +134,6 @@ msgstr "目录.."
 
 msgid "Directory couldn't be deleted."
 msgstr "不能删除目录。"
-
-msgid "Directory successfully copied."
-msgstr "目录成功复制。"
-
-msgid "Directory successfully deleted."
-msgstr "目录成功删除。"
-
-msgid "Directory successfully moved."
-msgstr "目录成功移动。"
 
 msgid "Do you want to boot file now?"
 msgstr ""
@@ -220,20 +199,14 @@ msgstr "提取并打开"
 msgid "Extract full archive?"
 msgstr "提取所有文件？"
 
-msgid "Extract this file?"
-msgstr "提取此文件？"
-
-msgid "Extract this folder?"
-msgstr "提取此文件夹？"
-
-msgid "Extracting file:"
-msgstr "文件提取中："
+msgid "Extract the selected item(s)?"
+msgstr ""
 
 msgid "Extracting files..."
 msgstr "提取文件中......"
 
-msgid "Extracting folder:"
-msgstr "文件夹提取中："
+msgid "Extracting item(s):"
+msgstr ""
 
 msgid "Failed copying file."
 msgstr "复制失败"
@@ -241,17 +214,20 @@ msgstr "复制失败"
 msgid "Failed copying files."
 msgstr "复制失败"
 
-msgid "Failed extracting file."
-msgstr "提取失败。"
+msgid "Failed copying item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "正在提取文件失败。"
 
-msgid "Failed extracting the folder."
-msgstr "正在提取文件夹失败。"
+msgid "Failed extracting the item(s)."
+msgstr ""
 
-msgid "Failed renaming file"
-msgstr "更名失败"
+msgid "Failed moving item(s)."
+msgstr ""
+
+msgid "Failed renaming item"
+msgstr ""
 
 msgid "Failed to get the Changelog."
 msgstr "更新日志失败"
@@ -262,23 +238,11 @@ msgstr "读取文件数据失败。"
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
 
-msgid "File does not exist anymore!"
-msgstr "此文件不存在"
-
 msgid "File is corrupt (CRC mismatch)."
 msgstr "文件损坏（CRC不匹配）"
 
 msgid "File is corrupt."
 msgstr "文件已损坏"
-
-msgid "File successfully copied."
-msgstr "文件复制成功"
-
-msgid "File successfully extracted."
-msgstr "文件已提取成功。"
-
-msgid "File successfully moved."
-msgstr "文件移动成功"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "文件使用了高压缩比设置（字典尺寸过大。）"
@@ -308,9 +272,6 @@ msgstr "文件类型："
 msgid "Folder"
 msgstr "文件夹"
 
-msgid "Folder successfully extracted."
-msgstr "文件夹成功提取。"
-
 msgid "Fontpath changed"
 msgstr "字体路径已改变"
 
@@ -333,6 +294,9 @@ msgid "Image Viewer"
 msgstr "图片查看器"
 
 msgid "Incomming connection."
+msgstr ""
+
+msgid "Item(s) successfully extracted."
 msgstr ""
 
 msgid "Language"
@@ -365,8 +329,8 @@ msgstr "循环"
 msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
 
-msgid "Moving files:"
-msgstr "正在移动文件："
+msgid "Moving item(s):"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr "音乐循环模式"
@@ -374,8 +338,8 @@ msgstr "音乐循环模式"
 msgid "Music Volume"
 msgstr "音乐音量"
 
-msgid "Name already exists."
-msgstr "文件名已经存在。"
+msgid "Name might already exists."
+msgstr ""
 
 msgid "Network Settings"
 msgstr "网络设置"
@@ -441,8 +405,8 @@ msgstr "密码："
 msgid "Paste"
 msgstr "粘贴"
 
-msgid "Paste into current directory?"
-msgstr "是否粘贴到当前目录？"
+msgid "Paste item(s) into current directory?"
+msgstr ""
 
 msgid "Play Directory"
 msgstr "播放目录"
@@ -508,6 +472,12 @@ msgid "Standard"
 msgstr "标准"
 
 msgid "Stop Ftp "
+msgstr ""
+
+msgid "Successfully copied item(s)."
+msgstr ""
+
+msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -614,6 +584,84 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Extract this file?"
+#~ msgstr "提取此文件？"
+
+#~ msgid "Extract this folder?"
+#~ msgstr "提取此文件夹？"
+
+#~ msgid "Extracting file:"
+#~ msgstr "文件提取中："
+
+#~ msgid "Extracting folder:"
+#~ msgstr "文件夹提取中："
+
+#~ msgid "Failed extracting file."
+#~ msgstr "提取失败。"
+
+#~ msgid "Failed extracting the folder."
+#~ msgstr "正在提取文件夹失败。"
+
+#~ msgid "File successfully extracted."
+#~ msgstr "文件已提取成功。"
+
+#~ msgid "Folder successfully extracted."
+#~ msgstr "文件夹成功提取。"
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "目录成功删除。"
+
+#~ msgid "Copy directory?"
+#~ msgstr "复制目录？"
+
+#~ msgid "Copy file?"
+#~ msgstr "复制文件？"
+
+#~ msgid "Copying file:"
+#~ msgstr "复制文件："
+
+#~ msgid "Copying files:"
+#~ msgstr "复制文件中："
+
+#~ msgid "Cut directory?"
+#~ msgstr "剪切目录"
+
+#~ msgid "Cut file?"
+#~ msgstr "剪切文件"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "删除目录及其内容"
+
+#~ msgid "Delete this file?"
+#~ msgstr "确定删除此文件吗？"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "目录成功复制。"
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "目录成功移动。"
+
+#~ msgid "Failed renaming file"
+#~ msgstr "更名失败"
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "此文件不存在"
+
+#~ msgid "File successfully copied."
+#~ msgstr "文件复制成功"
+
+#~ msgid "File successfully moved."
+#~ msgstr "文件移动成功"
+
+#~ msgid "Moving files:"
+#~ msgstr "正在移动文件："
+
+#~ msgid "Name already exists."
+#~ msgstr "文件名已经存在。"
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "是否粘贴到当前目录？"
 
 #~ msgid "Device Free Space:"
 #~ msgstr "设备剩余空间："

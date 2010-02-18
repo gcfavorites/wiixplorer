@@ -1,6 +1,6 @@
 /***************************************************************************
- * Copyright (C) 2009
- * by r-win
+ * Copyright (C) 2010
+ * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,54 +21,29 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * Taskbar.h
+ * Clipboard.h
  *
- * for Wii-FileXplorer 2009
+ * for Wii-FileXplorer 2010
  ***************************************************************************/
-
-#ifndef _TASKBAR_H
-#define _TASKBAR_H
+#ifndef _CLIPBOARD_H_
+#define _CLIPBOARD_H_
 
 #include "libwiigui/gui.h"
-#include "libwiigui/PictureButton.h"
+#include "FileOperations/filebrowser.h"
+#include "FileOperations/ItemMarker.h"
 
-class Taskbar : public GuiWindow
+class Clipboard : public ItemMarker
 {
-	public:
-		static Taskbar *Instance();
+    public:
+		static Clipboard * Instance();
         static void DestroyInstance();
 
-        void SetMenu(int m);
-        int GetMenu();
+        bool Cutted;
+    private:
+        Clipboard();
+        ~Clipboard();
+		static Clipboard *instance;
 
-		virtual void SetState(int s, int c = -1);
-        void ResetState();
-        void SetTriggerUpdate(bool b) { triggerupdate = b; };
-		virtual void SetDim(bool d);
-	protected:
-        void Update(GuiTrigger * t);
-		void Draw();
-		void OnExitClick(GuiElement *sender, int pointer, POINT p);
-		void OnSettingsClick(GuiElement *sender, int pointer, POINT p);
-		void OnFtpClick(GuiElement *sender, int pointer, POINT p);
-
-	private:
-		Taskbar();
-		~Taskbar();
-
-		static Taskbar *instance;
-
-        int menu;
-        bool triggerupdate;
-
-		GuiImageData *taskbarImgData;
-		GuiImage *taskbarImg;
-		GuiText *timeTxt;
-		PictureButton *settingsBtn;
-		PictureButton *exitBtn;
-		PictureButton *ftpBtn;
-		GuiTrigger *trigA;
-		GuiSound *soundClick, *soundOver;
 };
 
-#endif // _TASKBAR_H
+#endif
