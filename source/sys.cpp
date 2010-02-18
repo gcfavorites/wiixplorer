@@ -35,6 +35,12 @@ bool RebootApp()
          return false;
     }
 
+    ItemStruct Item;
+    memset(&Item, 0, sizeof(ItemStruct));
+    snprintf(Item.itempath, sizeof(Item.itempath), "%s", filepath);
+
+    Clipboard::Instance()->AddItem(&Item);
+
     boothomebrew = true;
 
     Taskbar::Instance()->SetMenu(MENU_EXIT);

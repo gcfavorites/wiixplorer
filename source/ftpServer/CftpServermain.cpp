@@ -203,6 +203,11 @@ int ServerFtpGui()
     GuiImageData * networkstorage;
 	int currentDevice =0;
 
+    PromptWindow * WaitPrompt = new PromptWindow(tr("Please wait:"), tr("Preparing Network..."));
+    MainWindow::Instance()->Append(WaitPrompt);
+    HaltNetworkThread();
+    delete WaitPrompt;
+    WaitPrompt = NULL;
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png, button_png_size);
@@ -389,8 +394,8 @@ int ServerFtpGui()
 	delete AdressText;
 	MainWindow::Instance()->Remove(&w);
 
-
 	ResumeGui();
+    ResumeNetworkThread();
 
 	return menu;
 }

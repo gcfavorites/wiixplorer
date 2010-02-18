@@ -44,7 +44,7 @@ static NetReceiver Receiver;
 static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false, false};
 static bool networkinit = false;
 static char IP[16];
-static bool autoupdated = false;
+static bool firstRun = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
@@ -430,8 +430,6 @@ char * GetNetworkIP(void)
 void HaltNetworkThread()
 {
     networkHalt = true;
-    Receiver.FreeData();
-    Receiver.CloseConnection();
 
 	// wait for thread to finish
 	while(!LWP_ThreadIsSuspended(networkthread))
@@ -466,12 +464,12 @@ static void * networkinitcallback(void *arg)
         if(!networkinit)
             Initialize_Network();
 
-        ConnectSMBShare();
-
-        if(!autoupdated)
+        if(!firstRun)
         {
+            ConnectSMBShare();
             CheckForUpdate();
-            autoupdated = true;
+            LWP_SetThreadPriority(LWP_GetSelf(), 0);
+            firstRun = true;
         }
 
         if(Receiver.CheckIncomming())
@@ -479,7 +477,7 @@ static void * networkinitcallback(void *arg)
             IncommingConnection(Receiver);
         }
 
-        usleep(100);
+        usleep(200000);
     }
 	return NULL;
 }
