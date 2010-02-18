@@ -251,10 +251,13 @@ int WaitSMBConnect(void)
     PromptWindow * Prompt = NULL;
     Prompt = new PromptWindow(tr("Please wait:"), tr("Network initialising..."), tr("Cancel"));
 
-    MainWindow::Instance()->Append(Prompt);
+    if(!Settings.AutoConnect)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
 
-    InitNetworkThread();
-    ResumeNetworkThread();
+    MainWindow::Instance()->Append(Prompt);
 
     while(choice == -1)
     {

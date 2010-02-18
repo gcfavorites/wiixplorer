@@ -36,9 +36,11 @@
 
 #include "http.h"
 #include "networkops.h"
+#include "netreceiver.h"
 #include "update.h"
 #include "main.h"
 
+static NetReceiver Receiver;
 static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false, false};
 static bool networkinit = false;
 static char IP[16];
@@ -364,7 +366,6 @@ bool ConnectSMBShare()
             }
         }
     }
-	networkHalt = true;
 	return result;
 }
 
@@ -468,6 +469,11 @@ static void * networkinitcallback(void *arg)
             autoupdated = true;
         }
 
+        if(Receiver.CheckIncomming())
+        {
+            IncommingConnection(Receiver);
+        }
+
         usleep(100);
     }
 	return NULL;
@@ -487,6 +493,8 @@ void InitNetworkThread()
  ***************************************************************************/
 void ShutdownNetworkThread()
 {
+    Receiver.FreeData();
+    Receiver.CloseConnection();
     exitRequested = true;
     ResumeNetworkThread();
 	LWP_JoinThread (networkthread, NULL);

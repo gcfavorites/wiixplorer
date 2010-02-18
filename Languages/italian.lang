@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-17 00:55+0100\n"
+"POT-Creation-Date: 2010-02-18 01:28+0100\n"
 "PO-Revision-Date: 2010-01-01 23:38+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -102,6 +102,9 @@ msgstr "Impossibile connettersi alla rete"
 msgid "Could not connect to the server."
 msgstr "Impossibile connettersi al server."
 
+msgid "Could not decompress the file."
+msgstr ""
+
 msgid "Could not download file."
 msgstr "Impossibile scaricare il file."
 
@@ -153,6 +156,9 @@ msgstr "La cartella è stata eliminata."
 msgid "Directory successfully moved."
 msgstr "La cartella è stata spostata."
 
+msgid "Do you want to boot file now?"
+msgstr ""
+
 msgid "Do you want to boot:"
 msgstr "Vuoi caricare:"
 
@@ -161,6 +167,10 @@ msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
 
 msgid "Do you want to load console default language."
 msgstr "Vuoi caricare la lingua predefinita della console ?"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Vuoi caricare questa lingua ?"
@@ -286,6 +296,9 @@ msgstr "Percorso: %s"
 msgid "Files:"
 msgstr "File:"
 
+msgid "Filesize doesn't match."
+msgstr ""
+
 msgid "Filesize is 0 Byte."
 msgstr "Dimensione file 0 Byte."
 
@@ -318,6 +331,9 @@ msgstr "Host:"
 
 msgid "Image Viewer"
 msgstr "Visualizzatore Immagini"
+
+msgid "Incomming connection."
+msgstr ""
 
 msgid "Language"
 msgstr "Lingua"
@@ -374,6 +390,9 @@ msgid "NewFolder"
 msgstr "Nuova cartella"
 
 msgid "No"
+msgstr ""
+
+msgid "No homebrew in the zip."
 msgstr ""
 
 #, c-format
@@ -449,6 +468,9 @@ msgstr ""
 msgid "Reboot failed"
 msgstr "Riavvio fallito"
 
+msgid "Receiving file..."
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Riconnetti SMB"
 
@@ -499,6 +521,9 @@ msgstr "Trasferimento annullato."
 
 msgid "Transfer failed"
 msgstr "Trasferimento fallito"
+
+msgid "Transfer failed."
+msgstr ""
 
 msgid "Transfering files:"
 msgstr "Sto spostando i file:"

@@ -30,8 +30,8 @@ bool RebootApp()
     int ret = LoadHomebrew(filepath);
     if(ret < 0)
     {
-     WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
-     return false;
+         WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
+         return false;
     }
 
     boothomebrew = true;

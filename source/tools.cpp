@@ -162,6 +162,13 @@ extern "C" const wchar_t * wfmt(const char * format, ...)
 {
     static wchar_t strWChar[512];
     memset(strWChar, 0, sizeof(strWChar));
+
+	if(!format)
+        return (const wchar_t *) &strWChar;
+
+	if(strcmp(format, "") == 0)
+        return (const wchar_t *) &strWChar;
+
 	char * tmp = NULL;
 
 	va_list va;
