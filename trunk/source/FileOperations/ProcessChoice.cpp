@@ -56,7 +56,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
         {
             //append selected Item
             browser->MarkCurrentItem();
-
+            //Get ItemMarker
             ItemMarker * IMarker = browser->GetItemMarker();
 
             StartProgress(tr("Extracting item(s):"));
@@ -68,10 +68,6 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             if(result <= 0)
             {
                 ShowError(tr("Failed extracting the item(s)."));
-            }
-            else
-            {
-                WindowPrompt(tr("Item(s) successfully extracted."), 0, tr("OK"));
             }
             IMarker->Reset();
         }
@@ -93,10 +89,6 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             {
                 ShowError(tr("Failed extracting the archive."));
             }
-            else
-            {
-                WindowPrompt(tr("Archive successfully extracted."), 0, tr("OK"));
-            }
             browser->GetItemMarker()->Reset();
         }
     }
@@ -115,7 +107,9 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(choice == 1)
             {
                 Clipboard::Instance()->Reset();
-                //Get marked
+                //append selected Item
+                browser->MarkCurrentItem();
+                //Get ItemMarker
                 ItemMarker * IMarker = browser->GetItemMarker();
                 if(IMarker)
                 {
@@ -126,13 +120,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
                     }
                 }
                 IMarker->Reset();
-                //append current selected
-                ItemStruct Item;
-                snprintf(Item.itempath, sizeof(Item.itempath), "%s", browser->GetCurrentSelectedFilepath());
-                Item.itemsize = browser->GetCurrentFilesize();
-                Item.isdir = browser->IsCurrentDir();
-                Item.itemindex = browser->GetSelIndex();
-                Clipboard::Instance()->AddItem(&Item);
                 Clipboard::Instance()->Cutted = true;
             }
         }
@@ -143,8 +130,11 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(choice == 1)
             {
                 Clipboard::Instance()->Reset();
-                //Get marked
+                //append selected Item
+                browser->MarkCurrentItem();
+                //Get ItemMarker
                 ItemMarker * IMarker = browser->GetItemMarker();
+
                 if(IMarker)
                 {
                     for(int i = 0; i < IMarker->GetItemcount(); i++)
@@ -154,13 +144,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
                     }
                 }
                 IMarker->Reset();
-                //append current selected
-                ItemStruct Item;
-                snprintf(Item.itempath, sizeof(Item.itempath), "%s", browser->GetCurrentSelectedFilepath());
-                Item.itemsize = browser->GetCurrentFilesize();
-                Item.isdir = browser->IsCurrentDir();
-                Item.itemindex = browser->GetSelIndex();
-                Clipboard::Instance()->AddItem(&Item);
                 Clipboard::Instance()->Cutted = false;
             }
         }
@@ -190,7 +173,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(choice == 1)
             {
                 ItemMarker * IMarker = browser->GetItemMarker();
-
                 //append selected Item
                 browser->MarkCurrentItem();
 
@@ -322,19 +304,12 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 }
             }
             StopProgress();
-            if(res < 0)
+            if(res < 0 && res != 10)
             {
                 if(Cutted)
                     ShowError(tr("Failed moving item(s)."));
                 else
                     ShowError(tr("Failed copying item(s)."));
-            }
-            else
-            {
-                if(Cutted)
-                    WindowPrompt(tr("Successfully moved item(s)."), 0, tr("OK"));
-                else
-                    WindowPrompt(tr("Successfully copied item(s)."), 0, tr("OK"));
             }
         }
     }

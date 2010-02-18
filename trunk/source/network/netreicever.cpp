@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ogcsys.h>
+#include <fcntl.h>
 #include <ogc/machine/processor.h>
 #include "libtinysmb/smb.h"
 #include "Prompts/PromptWindows.h"
@@ -63,8 +64,10 @@ NetReceiver::~NetReceiver()
 
 void NetReceiver::CloseConnection()
 {
-    net_close(connection);
-    net_close(socket);
+    if(connection >= 0)
+        net_close(connection);
+    if(socket >= 0)
+        net_close(socket);
     connection = -1;
     socket = -1;
 }
@@ -110,22 +113,36 @@ bool NetReceiver::CheckIncomming()
     sin.sin_port = htons(PORT);
     sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
+    int flags = net_fcntl(socket, F_GETFL, 0);
+    flags = net_fcntl(socket, F_SETFL, flags | 4);
+
     if (net_bind(socket, (struct sockaddr*)&sin, sizeof(sin)) < 0) {
         net_close(socket);
         return false;
     }
 
-    if (net_listen(socket, 3) < 0) {
+    if (net_listen(socket, 10) < 0) {
         net_close(socket);
         return false;
     }
 
-    connection = net_accept(socket, (struct sockaddr*)&client_address, &addrlen);
+    time_t start = time(NULL);
+    time_t time_now = 0;
+    do
+    {
+        connection = net_accept(socket, (struct sockaddr*)&client_address, &addrlen);
+        if(connection >= 0)
+            break;
+
+        time_now = time(NULL);
+    }
+    while(time_now - start < 2);
 
     sprintf(incommingIP, "%s", inet_ntoa(client_address.sin_addr));
 
     if (connection < 0)
     {
+
         net_close(connection);
         net_close(socket);
         return false;

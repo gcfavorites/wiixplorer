@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 18:05+0100\n"
+"POT-Creation-Date: 2010-02-19 00:47+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -26,9 +26,6 @@ msgstr "動作取消"
 
 msgid "App Default"
 msgstr "程式預設值"
-
-msgid "Archive successfully extracted."
-msgstr "檔案成功提取"
 
 msgid "Auto Connect"
 msgstr "自動連線"
@@ -296,9 +293,6 @@ msgstr "檢視影像"
 msgid "Incomming connection."
 msgstr ""
 
-msgid "Item(s) successfully extracted."
-msgstr ""
-
 msgid "Language"
 msgstr "語言"
 
@@ -417,6 +411,9 @@ msgstr "播放單曲"
 msgid "Please wait:"
 msgstr "請稍候"
 
+msgid "Preparing Network..."
+msgstr ""
+
 msgid "Process canceled."
 msgstr "內容取消"
 
@@ -472,12 +469,6 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
-msgstr ""
-
-msgid "Successfully copied item(s)."
-msgstr ""
-
-msgid "Successfully moved item(s)."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -584,6 +575,9 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Archive successfully extracted."
+#~ msgstr "檔案成功提取"
 
 #~ msgid "Extract this file?"
 #~ msgstr "匯出這個檔案？"
