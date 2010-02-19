@@ -78,7 +78,7 @@ void Settings::SetDefault()
         strcpy(FTPUser[i].Host, "");
         strcpy(FTPUser[i].User, "");
         strcpy(FTPUser[i].Password, "");
-        strcpy(FTPUser[i].FTPName, "");
+        strcpy(FTPUser[i].FTPPath, "/");
 		FTPUser[i].Passive = 0;
 	}
 }
@@ -149,7 +149,7 @@ bool Settings::Save()
         fprintf(file, "FTPUser[%d].Host = %s\n", i+1, FTPUser[i].Host);
         fprintf(file, "FTPUser[%d].User = %s\n", i+1, FTPUser[i].User);
         fprintf(file, "FTPUser[%d].Password = %s\n", i+1, FTPUser[i].Password);
-        fprintf(file, "FTPUser[%d].FTPName = %s\n", i+1, FTPUser[i].FTPName);
+        fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
 	}
 
@@ -493,9 +493,9 @@ bool Settings::SetSetting(char *name, char *value)
                 strncpy(FTPUser[n].Password, value, sizeof(FTPUser[n].Password));
                 return true;
             }
-            sprintf(temp, "FTPUser[%d].FTPName", n+1);
+            sprintf(temp, "FTPUser[%d].FTPPath", n+1);
             if (stricmp(name, temp) == 0) {
-                strncpy(FTPUser[n].FTPName, value, sizeof(FTPUser[n].FTPName));
+                strncpy(FTPUser[n].FTPPath, value, sizeof(FTPUser[n].FTPPath));
                 return true;
             }
             sprintf(temp, "FTPUser[%d].Passive", n+1);

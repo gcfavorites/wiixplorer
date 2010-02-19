@@ -37,7 +37,7 @@
 /**
  * Constructor for the TextEditor class.
  */
-TextEditor::TextEditor(char *intext, int linestodraw, const char *path)
+TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
 {
 	focus = 0; // allow focus
 	triggerdisabled = false;
@@ -265,7 +265,7 @@ TextEditor::~TextEditor()
     MainWindow::Instance()->ResumeGui();
 }
 
-void TextEditor::SetText(const char *intext)
+void TextEditor::SetText(const wchar_t *intext)
 {
     LOCK(this);
     if(TextPointerBtn)

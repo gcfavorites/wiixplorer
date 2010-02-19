@@ -190,6 +190,9 @@ extern "C" const wchar_t * wfmt(const char * format, ...)
 
 extern "C" bool char2wchar_t(const char * strChar, wchar_t * dest)
 {
+    if(!strChar || !dest)
+        return false;
+
     int	bt;
     bt = mbstowcs(dest, strChar, strlen(strChar));
     if (bt > 0) {

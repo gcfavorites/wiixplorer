@@ -33,44 +33,6 @@ wString &wString::operator=(const string &s)
 	return *this;
 }
 
-static size_t utf8Len(const char *s)
-{
-	size_t len = 0;
-
-	for (int i = 0; s[i] != 0; )
-	{
-		if ((s[i] & 0xF8) == 0xF0)
-		{
-			if (((s[i + 1] & 0xC0) != 0x80) || ((s[i + 2] & 0xC0) != 0x80) || ((s[i + 3] & 0xC0) != 0x80))
-				return 0;
-			++len;
-			i += 4;
-		}
-		else if ((s[i] & 0xF0) == 0xE0)
-		{
-			if (((s[i + 1] & 0xC0) != 0x80) || ((s[i + 2] & 0xC0) != 0x80))
-				return 0;
-			++len;
-			i += 3;
-		}
-		else if ((s[i] & 0xE0) == 0xC0)
-		{
-			if (((s[i + 1] & 0xC0) != 0x80))
-				return 0;
-			++len;
-			i += 2;
-		}
-		else if ((s[i] & 0x80) == 0x00)
-		{
-			++len;
-			++i;
-		}
-		else
-			return 0;
-	}
-	return len;
-}
-
 void wString::fromUTF8(const char *s)
 {
 	size_t len = utf8Len(s);
@@ -148,4 +110,42 @@ string wString::toUTF8(void) const
 		}
 	}
 	return s;
+}
+
+size_t utf8Len(const char *s)
+{
+	size_t len = 0;
+
+	for (int i = 0; s[i] != 0; )
+	{
+		if ((s[i] & 0xF8) == 0xF0)
+		{
+			if (((s[i + 1] & 0xC0) != 0x80) || ((s[i + 2] & 0xC0) != 0x80) || ((s[i + 3] & 0xC0) != 0x80))
+				return 0;
+			++len;
+			i += 4;
+		}
+		else if ((s[i] & 0xF0) == 0xE0)
+		{
+			if (((s[i + 1] & 0xC0) != 0x80) || ((s[i + 2] & 0xC0) != 0x80))
+				return 0;
+			++len;
+			i += 3;
+		}
+		else if ((s[i] & 0xE0) == 0xC0)
+		{
+			if (((s[i + 1] & 0xC0) != 0x80))
+				return 0;
+			++len;
+			i += 2;
+		}
+		else if ((s[i] & 0x80) == 0x00)
+		{
+			++len;
+			++i;
+		}
+		else
+			return 0;
+	}
+	return len;
 }

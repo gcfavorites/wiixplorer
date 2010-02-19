@@ -19,5 +19,7 @@ public:
 	std::string toUTF8(void) const;
 };
 
+size_t utf8Len(const char *s);
+
 
 #endif // !defined(__WSTRING_HPP)

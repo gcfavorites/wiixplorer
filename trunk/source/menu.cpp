@@ -487,7 +487,7 @@ static int MenuFTPSettings()
 	options.SetName(i++, tr("Host:"));
 	options.SetName(i++, tr("Username:"));
 	options.SetName(i++, tr("Password:"));
-	options.SetName(i++, tr("FTP Name:"));
+	options.SetName(i++, tr("FTP Path:"));
 	options.SetName(i++, tr("Passive Mode:"));
 	options.SetName(i++, tr("Reconnect FTP"));
 
@@ -583,10 +583,10 @@ static int MenuFTPSettings()
                 }
                 break;
             case 4:
-                snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPName);
+                snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].FTPName, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].FTPName), "%s", entered);
+                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].FTPPath, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].FTPPath), "%s", entered);
                 }
                 break;
             case 5:
@@ -613,7 +613,7 @@ static int MenuFTPSettings()
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
-            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPName);
+            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
 			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == on) options.SetValue(i++,tr("ON"));
 			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == off) options.SetValue(i++,tr("OFF"));
             options.SetValue(i++," ");
@@ -649,8 +649,8 @@ static int MenuNetworkSettings()
 	options.SetName(i++, tr("Update Icon.png"));
 	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("SMB Settings"));
-	options.SetName(i++, tr("FTP Settings"));
-	
+	options.SetName(i++, tr("FTP Client Settings"));
+
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
