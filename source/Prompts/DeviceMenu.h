@@ -48,7 +48,11 @@ enum {
     SMB2,
     SMB3,
     SMB4,
-    DVD,
+    FTP1,
+    FTP2,
+    FTP3,
+    FTP4,
+	DVD,
 //	ISFS,
 //	NAND,
     MAXDEVICES
@@ -68,7 +72,11 @@ const char DeviceName[MAXDEVICES][6] =
     "smb2",
     "smb3",
     "smb4",
-    "dvd",
+    "ftp1",
+    "ftp2",
+    "ftp3",
+    "ftp4",
+	"dvd",
 };
 
 
@@ -99,7 +107,8 @@ class DeviceMenu : public GuiWindow
         GuiImageData * sd_ImgData;
         GuiImageData * usb_ImgData;
         GuiImageData * smb_ImgData;
-        GuiImageData * dvd_ImgData;
+        GuiImageData * ftp_ImgData;
+		GuiImageData * dvd_ImgData;
 
         GuiSound * btnClick;
 

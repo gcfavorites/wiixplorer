@@ -164,6 +164,9 @@ extern const u32	throbber_png_size;
 extern const u8		networkstorage_png[];
 extern const u32	networkstorage_png_size;
 
+extern const u8		ftpstorage_png[];
+extern const u32	ftpstorage_png_size;
+
 extern const u8		nandstorage_png[];
 extern const u32	nandstorage_png_size;
 

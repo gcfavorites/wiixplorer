@@ -33,7 +33,7 @@
 #include "FTPClientFileState.h"
 
 
-#include "FTPclient.h"
+#include "FTPClient.h"
 
 extern "C" void waitpersecond ( unsigned int nbr );
 

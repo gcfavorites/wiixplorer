@@ -31,7 +31,8 @@
 
 #include <stdio.h>
 
-#define MAXSMBUSERS         5
+#define MAXSMBUSERS         4
+#define MAXFTPUSERS         4
 
 typedef struct _SMBData
 {
@@ -40,6 +41,15 @@ typedef struct _SMBData
 	char	Password[50];
 	char	SMBName[50];
 } SMBData;
+
+typedef struct _FTPData
+{
+	char	Host[50];
+	char	User[50];
+	char	Password[50];
+	char	FTPName[50];
+	short	Passive;
+} FTPData;
 
 enum
 {
@@ -97,7 +107,9 @@ class Settings
         //!Current selected device to browse
         short	MountMethod;
         //!Current selected SMB user
-        short	CurrentUser;
+        short	CurrentSMBUser;
+        //!Current selected FTP user
+        short	CurrentFTPUser;
         //!Music Volume.
         short	MusicVolume;
         //!Option to mount or not mount the NTFS volumes
@@ -121,6 +133,8 @@ class Settings
         char	UpdatePath[150];
         //!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
+        //!FTP users informations
+        FTPData FTPUser[MAXFTPUSERS];
 
     protected:
         //!Path to the configuration file

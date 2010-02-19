@@ -2,7 +2,7 @@
 #define _TEXT_HPP_
 
 #include "libwiigui/gui.h"
-#include "wString.hpp"
+#include "wstring.hpp"
 
 class Text : public GuiText
 {

@@ -82,6 +82,7 @@ class Explorer : public GuiWindow
         GuiImageData * sdstorage;
         GuiImageData * usbstorage;
         GuiImageData * networkstorage;
+		GuiImageData * ftpstorage;
         GuiImageData * dvd_ImgData;
 
         GuiSound * btnSoundClick;

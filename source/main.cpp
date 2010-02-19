@@ -25,7 +25,7 @@
 #include "Settings.h"
 #include "devicemounter.h"
 #include "sys.h"
-#include "memory/mem2.hpp"
+#include "Memory/mem2.hpp"
 #include "mload/mload_init.h"
 
 extern "C"

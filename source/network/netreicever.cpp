@@ -40,7 +40,7 @@
 #include "ArchiveOperations/Archive.h"
 #include "DirList.h"
 #include "main.h"
-#include "NetReceiver.h"
+#include "netreceiver.h"
 
 #define PORT    4299
 
