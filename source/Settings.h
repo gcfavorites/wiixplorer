@@ -47,7 +47,7 @@ typedef struct _FTPData
 	char	Host[50];
 	char	User[50];
 	char	Password[50];
-	char	FTPName[50];
+	char	FTPPath[50];
 	short	Passive;
 } FTPData;
 

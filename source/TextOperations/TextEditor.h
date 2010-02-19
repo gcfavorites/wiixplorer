@@ -36,10 +36,10 @@
 class TextEditor : public GuiWindow
 {
 	public:
-		TextEditor(char *intext, int LinesToDraw, const char *path);
+		TextEditor(const wchar_t *intext, int LinesToDraw, const char *path);
 		~TextEditor();
 		void DisableTriggerUpdate(bool set);
-		void SetText(const char *intext);
+		void SetText(const wchar_t *intext);
         void WriteTextFile(const char * path);
         int GetState();
 		void ResetState();

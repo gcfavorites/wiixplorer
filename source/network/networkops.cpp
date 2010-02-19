@@ -400,7 +400,7 @@ bool ConnectFTP()
 			if (ftpInitDevice(name,
 				Settings.FTPUser[i].User,
 				Settings.FTPUser[i].Password,
-				Settings.FTPUser[i].FTPName,
+				Settings.FTPUser[i].FTPPath,
 				Settings.FTPUser[i].Host,
 				Settings.FTPUser[i].Passive))
 			{

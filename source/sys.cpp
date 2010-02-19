@@ -57,6 +57,7 @@ void ExitApp()
 	ShutdownAudio();
 	ClearFontData();
 	Resources::DestroyInstance();
+	CloseFTP();
 	CloseSMBShare();
     NTFS_UnMount();
     SDCard_deInit();

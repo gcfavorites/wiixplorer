@@ -38,6 +38,7 @@
 #include "FileOperations/fileops.h"
 #include "sys.h"
 #include "TextEditor.h"
+#include "wstring.hpp"
 
 
 /****************************************************************************
@@ -53,28 +54,44 @@ void TextViewer(const char *filepath)
     int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
     if(ret < 0)
     {
+        ShowError(tr("Could not load text file."));
         return;
     }
 
-    //To check if enough memory available for strcpy in GuiText
-    char * filetext = (char*) malloc(filesize);
-    if(!filetext)
+    wString * filetext = NULL;
+
+    //To check if text is UTF8 or not
+    if(utf8Len((char*) file) > 0)
     {
+        filetext = new wString();
+        filetext->fromUTF8((char*) file);
         free(file);
-        ShowError(tr("Not enough memory."));
-        return;
+        file = NULL;
+    }
+    else
+    {
+        wchar_t * tmptext = new (std::nothrow) wchar_t[strlen((char *) file)+1];
+        if(!tmptext)
+        {
+            free(file);
+            file = NULL;
+            ShowError(tr("Not enough memory."));
+            return;
+        }
+
+        char2wchar_t((char*) file, tmptext);
+        free(file);
+        file = NULL;
+
+        filetext = new wString(tmptext);
+        delete [] tmptext;
     }
 
-    snprintf(filetext, filesize, "%s", (char *) file);
-
-    free(file);
-    file = NULL;
-
-    TextEditor * Editor = new TextEditor(filetext, 9, filepath);
+    TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
     Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
     Editor->SetPosition(0, 0);
 
-    free(filetext);
+    delete filetext;
     filetext = NULL;
 
     MainWindow::Instance()->SetState(STATE_DISABLED);
