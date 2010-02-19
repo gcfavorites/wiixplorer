@@ -31,6 +31,7 @@
 #include <ogcsys.h>
 #include <ogc/machine/processor.h>
 #include "libtinysmb/smb.h"
+#include "libftp/ftp_devoptab.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 
@@ -41,10 +42,11 @@
 #include "main.h"
 
 static NetReceiver Receiver;
-static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false, false};
+static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false};
 static bool networkinit = false;
 static char IP[16];
 static bool firstRun = false;
+static bool ftpReady = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
 static bool networkHalt = true;
@@ -316,10 +318,10 @@ void SMB_Reconnect()
             smbCheckConnection(mountname);
         else {
             if(smbInitDevice(mountname,
-                Settings.SMBUser[Settings.CurrentUser].User,
-                Settings.SMBUser[Settings.CurrentUser].Password,
-                Settings.SMBUser[Settings.CurrentUser].SMBName,
-                Settings.SMBUser[Settings.CurrentUser].Host))
+                Settings.SMBUser[Settings.CurrentSMBUser].User,
+                Settings.SMBUser[Settings.CurrentSMBUser].Password,
+                Settings.SMBUser[Settings.CurrentSMBUser].SMBName,
+                Settings.SMBUser[Settings.CurrentSMBUser].Host))
             {
                 SMB_Mounted[i] = true;
             } else {
@@ -378,6 +380,58 @@ bool IsSMB_Mounted(int smb)
         return false;
 
     return SMB_Mounted[smb];
+}
+
+/****************************************************************************
+ * FTP Stuff
+ ***************************************************************************/
+
+bool ConnectFTP()
+{
+	ftpReady = false;
+
+	for (int i = 0; i < MAXFTPUSERS; i++)
+	{
+		char name[10];
+		sprintf(name, "ftp%i", i+1);
+
+		if (strcmp(Settings.FTPUser[i].Host, "") != 0)
+		{
+			if (ftpInitDevice(name,
+				Settings.FTPUser[i].User,
+				Settings.FTPUser[i].Password,
+				Settings.FTPUser[i].FTPName,
+				Settings.FTPUser[i].Host,
+				Settings.FTPUser[i].Passive))
+			{
+				ftpReady = true;
+			}
+		}
+	}
+
+	return ftpReady;
+}
+
+void CloseFTP()
+{
+	for (int i = 0; i < MAXFTPUSERS; i++)
+	{
+		char name[10];
+		sprintf(name, "ftp%i", i+1);
+		ftpClose(name);
+    }
+// 	networkinit = false;
+}
+
+bool IsFTPConnected(int ftp)
+{
+	if (ftp < 0 || ftp >= MAXFTPUSERS || !ftpReady)
+		return false;
+
+	char name[10];
+	sprintf(name, "ftp%i", ftp+1);
+
+	return CheckFTPConnection(name);
 }
 
 /****************************************************************************
@@ -467,6 +521,7 @@ static void * networkinitcallback(void *arg)
         if(!firstRun)
         {
             ConnectSMBShare();
+			ConnectFTP();
             CheckForUpdate();
             LWP_SetThreadPriority(LWP_GetSelf(), 0);
             firstRun = true;

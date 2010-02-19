@@ -42,6 +42,7 @@ SOURCES		:=	source \
 				source/libtinysmb \
 				source/libdisk \
 				source/libntfs \
+				source/libftp \
 				source/ArchiveOperations \
 				source/ArchiveOperations/unzip \
 				source/ArchiveOperations/sevenzip \

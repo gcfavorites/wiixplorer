@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 00:47+0100\n"
+"POT-Creation-Date: 2010-02-19 12:58+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -169,6 +169,9 @@ msgstr "Voulez-vous redémarrer maintenant ?"
 msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
 
+msgid "Do you want to reconnect to FTP server?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications ?"
 
@@ -203,6 +206,12 @@ msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
 
 msgid "Extracting item(s):"
+msgstr ""
+
+msgid "FTP Name:"
+msgstr ""
+
+msgid "FTP Settings"
 msgstr ""
 
 msgid "Failed copying file."
@@ -393,6 +402,9 @@ msgstr "L'ouverture n'est pas implémentée."
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
 
+msgid "Passive Mode:"
+msgstr ""
+
 msgid "Password:"
 msgstr "Mot de passe:"
 
@@ -430,6 +442,9 @@ msgid "Reboot failed"
 msgstr "Echec du redémarrage."
 
 msgid "Receiving file..."
+msgstr ""
+
+msgid "Reconnect FTP"
 msgstr ""
 
 msgid "Reconnect SMB"

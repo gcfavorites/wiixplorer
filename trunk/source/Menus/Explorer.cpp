@@ -29,7 +29,7 @@
 #include "Explorer.h"
 #include "menu.h"
 #include "Controls/MainWindow.h"
-#include "Controls/ClipBoard.h"
+#include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "Memory/Resources.h"
 #include "FileOperations/ProcessChoice.h"
@@ -102,6 +102,7 @@ Explorer::~Explorer()
     Resources::Remove(sdstorage);
     Resources::Remove(usbstorage);
     Resources::Remove(networkstorage);
+	Resources::Remove(ftpstorage);
     Resources::Remove(dvd_ImgData);
 
     delete BackgroundImg;
@@ -159,6 +160,7 @@ void Explorer::Setup()
 	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
 	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
 	networkstorage = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
+	ftpstorage = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
     dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
 
     width = Background->GetWidth();
@@ -286,7 +288,11 @@ void Explorer::SetDeviceImage()
     {
         deviceImg->SetImage(networkstorage);
     }
-    else if(strncmp(currentroot, DeviceName[DVD], 3) == 0)
+    else if(strncmp(currentroot, DeviceName[FTP1], 3) == 0)
+    {
+        deviceImg->SetImage(ftpstorage);
+    }
+	else if(strncmp(currentroot, DeviceName[DVD], 3) == 0)
     {
         deviceImg->SetImage(dvd_ImgData);
     }

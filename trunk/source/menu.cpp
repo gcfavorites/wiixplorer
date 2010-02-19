@@ -403,36 +403,36 @@ static int MenuSMBSettings()
 		switch (ret)
 		{
 			case 0:
-				Settings.CurrentUser++;
-                if(Settings.CurrentUser >= MAXSMBUSERS)
-                    Settings.CurrentUser = 0;
+				Settings.CurrentSMBUser++;
+                if(Settings.CurrentSMBUser >= MAXSMBUSERS)
+                    Settings.CurrentSMBUser = 0;
 				break;
             case 1:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Host);
+                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentUser].Host, sizeof(Settings.SMBUser[Settings.CurrentUser].Host), "%s", entered);
+                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Host, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Host), "%s", entered);
                 }
                 break;
             case 2:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].User);
+                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentUser].User, sizeof(Settings.SMBUser[Settings.CurrentUser].User), "%s", entered);
+                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].User, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].User), "%s", entered);
                 }
                 break;
             case 3:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].Password);
+                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].Password);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentUser].Password, sizeof(Settings.SMBUser[Settings.CurrentUser].Password), "%s", entered);
+                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Password, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Password), "%s", entered);
                 }
                 break;
             case 4:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
+                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentUser].SMBName, sizeof(Settings.SMBUser[Settings.CurrentUser].SMBName), "%s", entered);
+                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].SMBName, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].SMBName), "%s", entered);
                 }
                 break;
             case 5:
@@ -450,11 +450,11 @@ static int MenuSMBSettings()
             i = 0;
             firstRun = false;
 
-            options.SetValue(i++,tr("User %i"), Settings.CurrentUser+1);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].Host);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].User);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].Password);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentUser].SMBName);
+            options.SetValue(i++,tr("User %i"), Settings.CurrentSMBUser+1);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Password);
+            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
             options.SetValue(i++," ");
         }
 	}
@@ -470,6 +470,168 @@ static int MenuSMBSettings()
 
 	return menu;
 }
+
+/****************************************************************************
+ * MenuFTPSettings
+ ***************************************************************************/
+static int MenuFTPSettings()
+{
+	int menu = MENU_NONE;
+	int ret, result = 0;
+	int i = 0;
+    char entered[150];
+    bool firstRun = true;
+
+	OptionList options(7);
+	options.SetName(i++, tr("User:"));
+	options.SetName(i++, tr("Host:"));
+	options.SetName(i++, tr("Username:"));
+	options.SetName(i++, tr("Password:"));
+	options.SetName(i++, tr("FTP Name:"));
+	options.SetName(i++, tr("Passive Mode:"));
+	options.SetName(i++, tr("Reconnect FTP"));
+
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+
+	GuiTrigger trigA;
+	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
+	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage backBtnImg(&btnOutline);
+	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	backBtn.SetPosition(50, -65);
+	backBtn.SetLabel(&backBtnTxt);
+	backBtn.SetImage(&backBtnImg);
+	backBtn.SetSoundOver(&btnSoundOver);
+	backBtn.SetTrigger(&trigA);
+	backBtn.SetEffectGrow();
+
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+
+	GuiText titleTxt(tr("FTP Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
+
+	HaltGui();
+	GuiWindow w(screenwidth, screenheight);
+	w.Append(&backBtn);
+	w.Append(&optionBrowser);
+	w.Append(&titleTxt);
+	MainWindow::Instance()->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
+	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	while(menu == MENU_NONE)
+	{
+	    VIDEO_WaitVSync();
+
+        if(shutdown == 1)
+        {
+		    Settings.Save();
+            Sys_Shutdown();
+        }
+
+        else if(reset == 1)
+        {
+		    Settings.Save();
+            Sys_Reboot();
+        }
+
+		else if(backBtn.GetState() == STATE_CLICKED)
+		{
+			menu = MENU_NETWORK_SETTINGS;
+		}
+
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+
+		ret = optionBrowser.GetClickedOption();
+
+		switch (ret)
+		{
+			case 0:
+				Settings.CurrentFTPUser++;
+                if(Settings.CurrentFTPUser >= MAXFTPUSERS)
+                    Settings.CurrentFTPUser = 0;
+				break;
+            case 1:
+				snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].Host, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].Host), "%s", entered);
+                }
+                break;
+            case 2:
+				snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].User, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].User), "%s", entered);
+                }
+                break;
+            case 3:
+                snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].Password, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].Password), "%s", entered);
+                }
+                break;
+            case 4:
+                snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPName);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPUser[Settings.CurrentFTPUser].FTPName, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].FTPName), "%s", entered);
+                }
+                break;
+            case 5:
+				Settings.FTPUser[Settings.CurrentFTPUser].Passive++;
+				if(Settings.FTPUser[Settings.CurrentFTPUser].Passive >= on_off_max)
+                    Settings.FTPUser[Settings.CurrentFTPUser].Passive = off;
+				break;
+			case 6:
+                result = WindowPrompt(tr("Do you want to reconnect to FTP server?"),0,tr("OK"),tr("Cancel"));
+                if(result) {
+                     CloseFTP();
+                     sleep(1);
+                     ConnectFTP();
+                }
+                break;
+		}
+
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            options.SetValue(i++,tr("User %i"), Settings.CurrentFTPUser+1);
+            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
+            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
+            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
+            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPName);
+			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == off) options.SetValue(i++,tr("OFF"));
+            options.SetValue(i++," ");
+        }
+	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	HaltGui();
+	MainWindow::Instance()->Remove(&w);
+	ResumeGui();
+
+    Settings.Save();
+
+	return menu;
+}
+
 /****************************************************************************
  * MenuUpdateSettings
  ***************************************************************************/
@@ -481,13 +643,14 @@ static int MenuNetworkSettings()
     char entered[150];
     bool firstRun = true;
 
-	OptionList options(5);
+	OptionList options(6);
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Update Meta.xml"));
 	options.SetName(i++, tr("Update Icon.png"));
 	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("SMB Settings"));
-
+	options.SetName(i++, tr("FTP Settings"));
+	
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
@@ -606,6 +769,9 @@ static int MenuNetworkSettings()
             case 4:
                 menu = MENU_SMB_SETTINGS;
                 break;
+            case 5:
+                menu = MENU_FTP_SETTINGS;
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -660,6 +826,9 @@ void MainMenu(int menu)
 				break;
 			case MENU_SMB_SETTINGS:
 				currentMenu = MenuSMBSettings();
+				break;
+			case MENU_FTP_SETTINGS:
+				currentMenu = MenuFTPSettings();
 				break;
 			case MENU_NETWORK_SETTINGS:
 				currentMenu = MenuNetworkSettings();

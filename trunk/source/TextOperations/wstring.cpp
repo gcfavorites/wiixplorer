@@ -1,4 +1,4 @@
-#include "wString.hpp"
+#include "wstring.hpp"
 
 using namespace std;
 
