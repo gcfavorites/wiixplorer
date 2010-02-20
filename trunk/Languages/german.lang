@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r107
+# r118
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 12:58+0100\n"
+"POT-Creation-Date: 2010-02-20 00:52+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -37,7 +37,7 @@ msgid "Bootup Mount"
 msgstr "Mount beim Start"
 
 msgid "Can not open the file."
-msgstr "Die Datei konnte nicht geöffnet werden."
+msgstr "Die Datei kann nicht geöffnet werden."
 
 msgid "Can't load file"
 msgstr "Datei kann nicht geladen werden."
@@ -82,10 +82,10 @@ msgid "Copy"
 msgstr "Kopieren"
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "Markierte Elemente kopieren?"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "Kopiere Elemente:"
 
 msgid "Could not connect to the network"
 msgstr "Es konnte keine Verbindung zum Netzwerk hergestellt werden."
@@ -94,13 +94,16 @@ msgid "Could not connect to the server."
 msgstr "Es konnte keine Verbindung zum Server hergestellt werden."
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "Datei konnte nicht dekomprimiert werden."
 
 msgid "Could not download file."
 msgstr "Datei konnte nicht heruntergeladen werden."
 
 msgid "Could not extract file:"
 msgstr "Datei konnte nicht entpackt werden:"
+
+msgid "Could not load text file."
+msgstr ""
 
 msgid "Credits"
 msgstr ""
@@ -112,13 +115,13 @@ msgid "Cut"
 msgstr "Ausschneiden"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "Markierte Elemente ausschneiden?"
 
 msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "Markierte Elemente (und deren Inhalt) löschen?"
 
 msgid "Deleting files:"
 msgstr "Lösche Dateien:"
@@ -133,7 +136,7 @@ msgid "Directory couldn't be deleted."
 msgstr "Verzeichnis konnte nicht gelöscht werden."
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "Möchtest du die Datei jetzt starten?"
 
 msgid "Do you want to boot:"
 msgstr "Möchtest du folgendes starten:"
@@ -146,7 +149,7 @@ msgstr "Standardsprache der Konsole laden?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "Datei laden von: %s ?"
 
 msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
@@ -167,10 +170,10 @@ msgid "Do you want to reboot now ?"
 msgstr "Anwendung jetzt neu starten?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr "SMB neu verbinden?"
+msgstr "Wieder mit dem SMB verbinden?"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr ""
+msgstr "Wieder mit dem FTP Server verbinden?"
 
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
@@ -182,7 +185,7 @@ msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
 msgid "Error while reading file."
-msgstr "Fehler während dem Lesen einer Datei."
+msgstr "Fehler beim Lesen der Datei."
 
 msgid "Error:"
 msgstr "Fehler:"
@@ -200,19 +203,22 @@ msgid "Extract full archive?"
 msgstr "Ganzes Archiv entpacken?"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "Markierte Elemente entpacken?"
 
 msgid "Extracting files..."
 msgstr "Entpacke Dateien..."
 
 msgid "Extracting item(s):"
+msgstr "Entpacke Elemente:"
+
+msgid "FTP Client Settings"
 msgstr ""
 
-msgid "FTP Name:"
+msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Settings"
-msgstr ""
+msgstr "FTP Einstellungen"
 
 msgid "Failed copying file."
 msgstr "Kopieren der Datei fehlgeschlagen."
@@ -221,19 +227,19 @@ msgid "Failed copying files."
 msgstr "Kopieren der Dateien fehlgeschlagen."
 
 msgid "Failed copying item(s)."
-msgstr ""
+msgstr "Kopieren der Elemente fehlgeschlagen."
 
 msgid "Failed extracting the archive."
 msgstr "Entpacken des Archivs fehlgeschlagen."
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "Entpacken der Elemete fehlgeschlagen."
 
 msgid "Failed moving item(s)."
-msgstr ""
+msgstr "Verschieben der Elemete fehlgeschlagen."
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "Umbenennen des Elements fehlgeschlagen"
 
 msgid "Failed to get the Changelog."
 msgstr "Laden des Changelogs fehlgeschlagen."
@@ -267,7 +273,7 @@ msgid "Files:"
 msgstr "Dateien:"
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "Dateigröße ist unterschiedlich."
 
 msgid "Filesize is 0 Byte."
 msgstr "Dateigröße ist 0 Byte."
@@ -282,10 +288,10 @@ msgid "Fontpath changed"
 msgstr "Pfad zur Schriftart geändert"
 
 msgid "Free Space:"
-msgstr ""
+msgstr "Freier Speicher:"
 
 msgid "Ftp stopped"
-msgstr ""
+msgstr "FTP wurde angehalten"
 
 msgid "Getting Changelog..."
 msgstr "Lade Changelog..."
@@ -300,7 +306,7 @@ msgid "Image Viewer"
 msgstr ""
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "Eingehende Verbindung."
 
 msgid "Language"
 msgstr "Sprache"
@@ -312,13 +318,13 @@ msgid "Last access:"
 msgstr "Letzter Zugriff:"
 
 msgid "Last change:"
-msgstr ""
+msgstr "Letzte Anderung:"
 
 msgid "Last modified:"
 msgstr "Zuletzt geändert:"
 
 msgid "Launch Ftp"
-msgstr ""
+msgstr "FTP starten"
 
 msgid "Linebreak"
 msgstr "Absatz"
@@ -333,7 +339,7 @@ msgid "Mount NTFS"
 msgstr ""
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "Verschiebe Elemente:"
 
 msgid "Music Loop Mode"
 msgstr "Musik Wiederholungsmodus"
@@ -342,7 +348,7 @@ msgid "Music Volume"
 msgstr "Musik Lautstärke"
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "Evtl. existiert der Name bereits."
 
 msgid "Network Settings"
 msgstr "Netzwerkeinstellungen"
@@ -360,7 +366,7 @@ msgid "No"
 msgstr "Nein"
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "Keine Homebrew im ZIP."
 
 #, c-format
 msgid "No image found at index %d."
@@ -370,7 +376,7 @@ msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
 
 msgid "No new updates available"
-msgstr "Keine neue Version verfügbar"
+msgstr "Keine Updates verfügbar"
 
 msgid "Not a valid URL"
 msgstr "Keine gültige URL"
@@ -397,7 +403,7 @@ msgid "Open"
 msgstr "Öffnen"
 
 msgid "Opening is not yet implemented"
-msgstr "Öffnen noch nicht möglich"
+msgstr "Öffnen noch nicht implementiert"
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
@@ -412,7 +418,7 @@ msgid "Paste"
 msgstr "Einfügen"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "Elemente im aktuellen Verzeichnis einfügen?"
 
 msgid "Play Directory"
 msgstr "Verzeichnis abspielen"
@@ -424,7 +430,7 @@ msgid "Please wait:"
 msgstr "Bitte warten:"
 
 msgid "Preparing Network..."
-msgstr ""
+msgstr "Netzwerk wird vorbereitet..."
 
 msgid "Process canceled."
 msgstr "Prozess abgebrochen."
@@ -442,13 +448,13 @@ msgid "Reboot failed"
 msgstr "Neustart fehlgeschlagen"
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "Empfange Datei..."
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "FTP wiederverbinden"
 
 msgid "Reconnect SMB"
-msgstr "SMB neu verbinden"
+msgstr "SMB wiederverbinden"
 
 msgid "Rename"
 msgstr "Umbenennen"
@@ -484,13 +490,13 @@ msgid "Standard"
 msgstr ""
 
 msgid "Stop Ftp "
-msgstr ""
+msgstr "FTP anhalten"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
 
 msgid "Total Space:"
-msgstr ""
+msgstr "Gesamter Speicher:"
 
 msgid "Transfer cancelled."
 msgstr "Übertragung abgebrochen."
@@ -499,7 +505,7 @@ msgid "Transfer failed"
 msgstr "Übertragung fehlgeschlagen"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "Übertragung fehlgeschlagen."
 
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
@@ -532,7 +538,7 @@ msgid "Update Path changed."
 msgstr "Update Pfad geändert."
 
 msgid "Update Settings"
-msgstr "Einstelllungen aktualisieren"
+msgstr "Einstelllungen ändern"
 
 msgid "Update failed"
 msgstr "Update fehlgeschlagen"

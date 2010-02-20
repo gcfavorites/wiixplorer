@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 12:58+0100\n"
+"POT-Creation-Date: 2010-02-20 00:52+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgid "7z decompression failed:"
 msgstr "7z解压缩失败:"
 
 msgid "ASDFGHJKL:\"+"
-msgstr ""
+msgstr "ASDFGHJKL:\"+"
 
 msgid "Action cancelled."
 msgstr "动作取消。"
@@ -82,10 +82,10 @@ msgid "Copy"
 msgstr "复制"
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "是否复制已标记的项目？"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "复制项目中:"
 
 msgid "Could not connect to the network"
 msgstr "网络无法连接"
@@ -94,13 +94,16 @@ msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "此文件无法解压缩。"
 
 msgid "Could not download file."
 msgstr "文件无法下载。"
 
 msgid "Could not extract file:"
 msgstr "文件无法提取。"
+
+msgid "Could not load text file."
+msgstr ""
 
 msgid "Credits"
 msgstr "感谢"
@@ -112,13 +115,13 @@ msgid "Cut"
 msgstr "剪切"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "是否剪切已标记项目？"
 
 msgid "Delete"
 msgstr "删除"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "删除已选择的项目和内容？"
 
 msgid "Deleting files:"
 msgstr "文件删除中..."
@@ -133,7 +136,7 @@ msgid "Directory couldn't be deleted."
 msgstr "不能删除目录。"
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "是否立刻运行此文件？"
 
 msgid "Do you want to boot:"
 msgstr "你想要重新启动:"
@@ -146,7 +149,7 @@ msgstr "是否读取主机缺省语言模式。"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "是否想要运行文件来自:%s ?"
 
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
@@ -200,15 +203,18 @@ msgid "Extract full archive?"
 msgstr "提取所有文件？"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "提取已选择的项目？"
 
 msgid "Extracting files..."
 msgstr "提取文件中......"
 
 msgid "Extracting item(s):"
+msgstr "提取项目中："
+
+msgid "FTP Client Settings"
 msgstr ""
 
-msgid "FTP Name:"
+msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Settings"
@@ -221,19 +227,19 @@ msgid "Failed copying files."
 msgstr "复制失败"
 
 msgid "Failed copying item(s)."
-msgstr ""
+msgstr "复制项目失败。"
 
 msgid "Failed extracting the archive."
 msgstr "正在提取文件失败。"
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "提取这些项目失败。"
 
 msgid "Failed moving item(s)."
-msgstr ""
+msgstr "移动项目失败。"
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "重命名项目失败。"
 
 msgid "Failed to get the Changelog."
 msgstr "更新日志失败"
@@ -267,7 +273,7 @@ msgid "Files:"
 msgstr "文件："
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "文件尺寸不匹配"
 
 msgid "Filesize is 0 Byte."
 msgstr "0字节文件"
@@ -282,10 +288,10 @@ msgid "Fontpath changed"
 msgstr "字体路径已改变"
 
 msgid "Free Space:"
-msgstr ""
+msgstr "空余空间："
 
 msgid "Ftp stopped"
-msgstr ""
+msgstr "FTP停止"
 
 msgid "Getting Changelog..."
 msgstr "正在提取更新日志信息......"
@@ -300,7 +306,7 @@ msgid "Image Viewer"
 msgstr "图片查看器"
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "接入链接。"
 
 msgid "Language"
 msgstr "语言"
@@ -312,13 +318,13 @@ msgid "Last access:"
 msgstr "最近读取"
 
 msgid "Last change:"
-msgstr ""
+msgstr "最近更改："
 
 msgid "Last modified:"
 msgstr "最近修改："
 
 msgid "Launch Ftp"
-msgstr ""
+msgstr "运行FTP"
 
 msgid "Linebreak"
 msgstr "换行符"
@@ -333,7 +339,7 @@ msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "正在移动项目："
 
 msgid "Music Loop Mode"
 msgstr "音乐循环模式"
@@ -342,7 +348,7 @@ msgid "Music Volume"
 msgstr "音乐音量"
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "文件名可能重复。"
 
 msgid "Network Settings"
 msgstr "网络设置"
@@ -360,7 +366,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "Zip压缩包中无自制程序。"
 
 #, c-format
 msgid "No image found at index %d."
@@ -412,7 +418,7 @@ msgid "Paste"
 msgstr "粘贴"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "是否在当前目录中粘贴项目"
 
 msgid "Play Directory"
 msgstr "播放目录"
@@ -424,7 +430,7 @@ msgid "Please wait:"
 msgstr "请等待："
 
 msgid "Preparing Network..."
-msgstr ""
+msgstr "网络准备中..."
 
 msgid "Process canceled."
 msgstr "进程已取消"
@@ -433,7 +439,7 @@ msgid "Properties"
 msgstr "属性"
 
 msgid "QWERTYUIOP{}|"
-msgstr ""
+msgstr "QWERTYUIOP{}|"
 
 msgid "Random"
 msgstr "随机"
@@ -442,7 +448,7 @@ msgid "Reboot failed"
 msgstr "重启失败"
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "文件接收中..."
 
 msgid "Reconnect FTP"
 msgstr ""
@@ -484,13 +490,13 @@ msgid "Standard"
 msgstr "标准"
 
 msgid "Stop Ftp "
-msgstr ""
+msgstr "停止FTP"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
 
 msgid "Total Space:"
-msgstr ""
+msgstr "总计空间："
 
 msgid "Transfer cancelled."
 msgstr "传输取消"
@@ -499,7 +505,7 @@ msgid "Transfer failed"
 msgstr "传输失败"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "传输失败。"
 
 msgid "Transfering files:"
 msgstr "文件传输中："
@@ -567,29 +573,29 @@ msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
 msgid "ZXCVBNM<>?"
-msgstr ""
+msgstr "ZXCVBNM<>?"
 
 msgid "`1234567890-"
-msgstr ""
+msgstr "`1234567890-"
 
 msgid "and all the translators."
 msgstr "和所有的翻译者。"
 
 msgid "asdfghjkl;'="
-msgstr ""
+msgstr "asdfghjkl;'="
 
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
 
 msgid "qwertyuiop[]\\"
-msgstr ""
+msgstr "qwertyuiop[]\\"
 
 msgid "zxcvbnm,./"
-msgstr ""
+msgstr "zxcvbnm,./"
 
 #, c-format
 msgid "~!@#$%%^&*()_"
-msgstr ""
+msgstr "~!@#$%%^&*()_"
 
 #~ msgid "Archive successfully extracted."
 #~ msgstr "文件提取成功。"

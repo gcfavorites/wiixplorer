@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-19 12:58+0100\n"
+"POT-Creation-Date: 2010-02-20 00:52+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -82,10 +82,10 @@ msgid "Copy"
 msgstr "Copier"
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "Copier le(s) élement(s) marqué(s) ?"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "Copie en cours:"
 
 msgid "Could not connect to the network"
 msgstr "Connexion au réseau impossible."
@@ -94,13 +94,16 @@ msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "Décompréssion du fichier impossible."
 
 msgid "Could not download file."
 msgstr "Téléchargement impossible."
 
 msgid "Could not extract file:"
 msgstr "Impossible d'extraire le fichier:"
+
+msgid "Could not load text file."
+msgstr "Imposible de charger le fichier texte."
 
 msgid "Credits"
 msgstr "Crédits"
@@ -112,13 +115,13 @@ msgid "Cut"
 msgstr "Couper"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "Couper le(s) élement(s) marqué(s) ?"
 
 msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "Supprimer le(s) élement(s) marqué(s) ?"
 
 msgid "Deleting files:"
 msgstr "Suppression des fichiers:"
@@ -133,7 +136,7 @@ msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "Voulez-vous lancer le fichier maintenant ?"
 
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
@@ -146,7 +149,7 @@ msgstr "Voulez-vous charger le language de la Wii par défaut ?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr Voulez-vous lancer le fichier de: %s ?""
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language ?"
@@ -170,7 +173,7 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Voulez-vous reconnecter le SMB ?"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr ""
+msgstr "Voulez-vous reconnecter le serveur FTP ?"
 
 msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications ?"
@@ -200,19 +203,22 @@ msgid "Extract full archive?"
 msgstr "Extraire l'archive complete ?"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "Extraire le(s) fichier(s) sélectioné(s) ?"
 
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
 
 msgid "Extracting item(s):"
-msgstr ""
+msgstr "Extraction:"
 
-msgid "FTP Name:"
-msgstr ""
+msgid "FTP Client Settings"
+msgstr "Paramètres client FTP"
+
+msgid "FTP Path:"
+msgstr "Chemin FTP:"
 
 msgid "FTP Settings"
-msgstr ""
+msgstr "Paramètres FTP"
 
 msgid "Failed copying file."
 msgstr "La copie a échouée."
@@ -221,19 +227,19 @@ msgid "Failed copying files."
 msgstr "La copie a échouée."
 
 msgid "Failed copying item(s)."
-msgstr ""
+msgstr "La copie a échouée."
 
 msgid "Failed extracting the archive."
 msgstr "L'extraction a échouée."
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "L'extraction a échouée."
 
 msgid "Failed moving item(s)."
-msgstr ""
+msgstr "Le déplacement a échoué."
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "Le renommage a échoué."
 
 msgid "Failed to get the Changelog."
 msgstr "L'obtention du Changelog a échouée."
@@ -267,7 +273,7 @@ msgid "Files:"
 msgstr "Fichiers:"
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "La taille du fichier ne correspond pas."
 
 msgid "Filesize is 0 Byte."
 msgstr "Taille du fichier éguale à 0 bits."
@@ -282,7 +288,7 @@ msgid "Fontpath changed"
 msgstr "Dossier police modifié."
 
 msgid "Free Space:"
-msgstr ""
+msgstr "Espace libre:"
 
 msgid "Ftp stopped"
 msgstr "Ftp stoppé."
@@ -300,7 +306,7 @@ msgid "Image Viewer"
 msgstr "Aperçu"
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "ConnexDion entrante."
 
 msgid "Language"
 msgstr "Langue"
@@ -312,7 +318,7 @@ msgid "Last access:"
 msgstr "Dernier acces:"
 
 msgid "Last change:"
-msgstr ""
+msgstr "Dernier changement:"
 
 msgid "Last modified:"
 msgstr "Modifié le:"
@@ -333,7 +339,7 @@ msgid "Mount NTFS"
 msgstr "NTFS"
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "Déplacement:"
 
 msgid "Music Loop Mode"
 msgstr "Lecture en boucle"
@@ -342,7 +348,7 @@ msgid "Music Volume"
 msgstr "Volume"
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "Ce nom de fichier existe déjà."
 
 msgid "Network Settings"
 msgstr "Paramètres réseau"
@@ -360,7 +366,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "Pas de homebrew dans le zip."
 
 #, c-format
 msgid "No image found at index %d."
@@ -403,7 +409,7 @@ msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "Mode passif:"
 
 msgid "Password:"
 msgstr "Mot de passe:"
@@ -412,7 +418,7 @@ msgid "Paste"
 msgstr "Coller"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "Coller le(s) fichier(s) dans ce dossier ?"
 
 msgid "Play Directory"
 msgstr "Lire Dossier"
@@ -424,7 +430,7 @@ msgid "Please wait:"
 msgstr "Patientez:"
 
 msgid "Preparing Network..."
-msgstr ""
+msgstr "Préparation réseau..."
 
 msgid "Process canceled."
 msgstr "Procédure annulée."
@@ -442,10 +448,10 @@ msgid "Reboot failed"
 msgstr "Echec du redémarrage."
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "Réception du fichier..."
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "Reconnecter FTP"
 
 msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
@@ -490,7 +496,7 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
 
 msgid "Total Space:"
-msgstr ""
+msgstr "Espace total:"
 
 msgid "Transfer cancelled."
 msgstr "Transfert annulé."
@@ -499,7 +505,7 @@ msgid "Transfer failed"
 msgstr "Le transfert a échoué"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "Le transfert a échoué"
 
 msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
