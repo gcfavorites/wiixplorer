@@ -44,10 +44,11 @@ typedef struct _SMBData
 
 typedef struct _FTPData
 {
-	char	Host[50];
-	char	User[50];
-	char	Password[50];
-	char	FTPPath[50];
+	char    Host[50];
+	char    User[50];
+	char    Password[50];
+	char    FTPPath[50];
+    unsigned short	Port;
 	short	Passive;
 } FTPData;
 

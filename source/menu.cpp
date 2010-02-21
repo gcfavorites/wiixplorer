@@ -482,11 +482,12 @@ static int MenuFTPSettings()
     char entered[150];
     bool firstRun = true;
 
-	OptionList options(7);
+	OptionList options(8);
 	options.SetName(i++, tr("User:"));
 	options.SetName(i++, tr("Host:"));
 	options.SetName(i++, tr("Username:"));
 	options.SetName(i++, tr("Password:"));
+	options.SetName(i++, tr("FTP Port:"));
 	options.SetName(i++, tr("FTP Path:"));
 	options.SetName(i++, tr("Passive Mode:"));
 	options.SetName(i++, tr("Reconnect FTP"));
@@ -583,18 +584,25 @@ static int MenuFTPSettings()
                 }
                 break;
             case 4:
+                snprintf(entered, sizeof(entered), "%i", Settings.FTPUser[Settings.CurrentFTPUser].Port);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    Settings.FTPUser[Settings.CurrentFTPUser].Port = (u16) atoi(entered);
+                }
+                break;
+            case 5:
                 snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.FTPUser[Settings.CurrentFTPUser].FTPPath, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].FTPPath), "%s", entered);
                 }
                 break;
-            case 5:
+            case 6:
 				Settings.FTPUser[Settings.CurrentFTPUser].Passive++;
 				if(Settings.FTPUser[Settings.CurrentFTPUser].Passive >= on_off_max)
                     Settings.FTPUser[Settings.CurrentFTPUser].Passive = off;
 				break;
-			case 6:
+			case 7:
                 result = WindowPrompt(tr("Do you want to reconnect to FTP server?"),0,tr("OK"),tr("Cancel"));
                 if(result) {
                      CloseFTP();
@@ -613,6 +621,7 @@ static int MenuFTPSettings()
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
+            options.SetValue(i++,"%i", Settings.FTPUser[Settings.CurrentFTPUser].Port);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
 			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == on) options.SetValue(i++,tr("ON"));
 			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == off) options.SetValue(i++,tr("OFF"));

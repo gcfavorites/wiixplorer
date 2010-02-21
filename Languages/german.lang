@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 00:52+0100\n"
+"POT-Creation-Date: 2010-02-21 09:28+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -215,6 +215,9 @@ msgid "FTP Client Settings"
 msgstr ""
 
 msgid "FTP Path:"
+msgstr ""
+
+msgid "FTP Port:"
 msgstr ""
 
 msgid "FTP Settings"

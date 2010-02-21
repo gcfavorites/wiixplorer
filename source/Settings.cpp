@@ -79,6 +79,7 @@ void Settings::SetDefault()
         strcpy(FTPUser[i].User, "");
         strcpy(FTPUser[i].Password, "");
         strcpy(FTPUser[i].FTPPath, "/");
+        FTPUser[i].Port = 21;
 		FTPUser[i].Passive = 0;
 	}
 }
@@ -150,6 +151,7 @@ bool Settings::Save()
         fprintf(file, "FTPUser[%d].User = %s\n", i+1, FTPUser[i].User);
         fprintf(file, "FTPUser[%d].Password = %s\n", i+1, FTPUser[i].Password);
         fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
+		fprintf(file, "FTPUser[%d].Port = %d\n\n", i+1, FTPUser[i].Port);
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
 	}
 
@@ -496,6 +498,13 @@ bool Settings::SetSetting(char *name, char *value)
             sprintf(temp, "FTPUser[%d].FTPPath", n+1);
             if (stricmp(name, temp) == 0) {
                 strncpy(FTPUser[n].FTPPath, value, sizeof(FTPUser[n].FTPPath));
+                return true;
+            }
+            sprintf(temp, "FTPUser[%d].Port", n+1);
+            if (stricmp(name, temp) == 0) {
+				if (sscanf(value, "%d", &i) == 1) {
+					FTPUser[n].Port = i;
+				}
                 return true;
             }
             sprintf(temp, "FTPUser[%d].Passive", n+1);
