@@ -24,7 +24,7 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-
+ 
 #include <limits>
 #include <algorithm>
 #include <string.h>
@@ -149,7 +149,7 @@ namespace nsFTP
 
 	void CFile::OnBytesReceived(const char * vBuffer, long lReceivedBytes)
 	{
-		int ret = Write(vBuffer, sizeof(TByteVector::value_type), lReceivedBytes);
+		Write(vBuffer, sizeof(TByteVector::value_type), lReceivedBytes);
 	}
 
 	void CFile::OnPreBytesSend(char * vBuffer, unsigned int vBufferSize, size_t& bytesToSend)
@@ -180,6 +180,7 @@ namespace nsFTP
 	m_len = len;
 	m_pos = 0;
 	m_final_pos=0;
+	return true;
 	}
 
 	bool CMemFile::Close()
@@ -187,6 +188,7 @@ namespace nsFTP
 	m_pFile = 0;
 	m_len = 0;
 	m_pos = 0;
+	return true;
 	}
 
 	bool CMemFile::Seek(u64 lOffset, T_enOrigin enOrigin)
@@ -259,7 +261,7 @@ namespace nsFTP
 
 	void CMemFile::OnBytesReceived(const char * vBuffer, long lReceivedBytes)
 	{
-		int ret = Write(vBuffer, sizeof(TByteVector::value_type), lReceivedBytes);
+		Write(vBuffer, sizeof(TByteVector::value_type), lReceivedBytes);
 	}
 
 	void CMemFile::OnPreBytesSend(char * vBuffer, unsigned int vBufferSize, size_t& bytesToSend)
@@ -1337,7 +1339,7 @@ bool CFTPClient::ReceiveData(t_Obserser pObserver)
 	m_fTransferInProgress = true;
 
 	m_notification.OnBeginReceivingData();
-	u32 iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout, true);
+	u32 iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout);
 	u32 lTotalBytes = iNumRead;
 	while( !m_fAbortTransfer && iNumRead!=0 )
 	{
@@ -1345,15 +1347,15 @@ bool CFTPClient::ReceiveData(t_Obserser pObserver)
 
 		if (pObserver==t_file) {
 			cfile.OnBytesReceived(m_vBuffer, iNumRead); // write the result
-			iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout, true);
+			iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout);
 		}
 		else if (pObserver==t_memfile) {
 			cmemfile.OnBytesReceived(m_vBuffer, iNumRead); // write the result
-			iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout, true);
+			iNumRead=m_sckDataConnection.Receive(m_vBuffer, m_vBufferSize, mc_uiTimeout);
 		}
 		else {
 			if (m_vBufferSize-lTotalBytes > 10) { 
-			iNumRead=m_sckDataConnection.Receive(m_vBuffer+lTotalBytes, m_vBufferSize-lTotalBytes, mc_uiTimeout, true);
+			iNumRead=m_sckDataConnection.Receive(m_vBuffer+lTotalBytes, m_vBufferSize-lTotalBytes, mc_uiTimeout);
 			}
 			else iNumRead=0;
 		}
@@ -1413,7 +1415,7 @@ bool CFTPClient::ReceiveDataZip(t_Obserser pObserver)
 
 	m_notification.OnBeginReceivingData();
 
-	int iNumRead=m_sckDataConnection.Receive(pBuffer, uiBufferSize, mc_uiTimeout, true);
+	int iNumRead=m_sckDataConnection.Receive(pBuffer, uiBufferSize, mc_uiTimeout);
 	long lTotalBytes = iNumRead;
 	long lTotalStored = 0;
 
@@ -1454,7 +1456,7 @@ bool CFTPClient::ReceiveDataZip(t_Obserser pObserver)
 			break;
 		}
 
-		iNumRead=m_sckDataConnection.Receive(pBuffer, uiBufferSize, mc_uiTimeout, true);
+		iNumRead=m_sckDataConnection.Receive(pBuffer, uiBufferSize, mc_uiTimeout);
 		if(!iNumRead)
 		{
 			m_fTransferInProgress=false;
@@ -1562,7 +1564,7 @@ bool CFTPClient::GetFeatMultipleResponseLine(tstring& strResponse)
 	m_vBuffer[0] = 0; 
 	
 	// get firstline
-	iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout, true);
+	iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout);
 	if (!iNum)
 	{
 		ReportError( CCnv::ConvertToTString(__FILE__), __LINE__);
@@ -1580,7 +1582,7 @@ bool CFTPClient::GetFeatMultipleResponseLine(tstring& strResponse)
 
 	do
 	{
-		iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout, true);
+		iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout);
 		if (!iNum)
 		{
 			ReportError( CCnv::ConvertToTString(__FILE__), __LINE__);
@@ -1614,7 +1616,7 @@ bool CFTPClient::GetSingleResponseLine(tstring& strResponse)
 	m_vBuffer[0] = 0;
 	
 	// get firstline
-	iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout, true);
+	iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout);
 
 	if (!iNum)
 	{
@@ -1643,7 +1645,7 @@ restartSingleResponseLine:
 
 	do
 	{
-		iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout, true);
+		iNum=m_apSckControlConnection.ReceiveLine(m_vBuffer, m_vBufferSize-1, mc_uiTimeout);
 
 	} while(iNum !=0);
 

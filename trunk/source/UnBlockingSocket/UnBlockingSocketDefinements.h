@@ -161,13 +161,10 @@ extern int errno;
 extern void debugwii2(const char *format, ...);
 
 
-   // extern "C" void sgIP_dbgprint(char * txt, ...) ;
-   #define sgIP_dbgprint sgIP_dbgprint
-   #define dbgprintclient sgIP_dbgprint
-      #define dbgprintclient_R sgIP_dbgprint 
-	     #define dbgprintclient_E sgIP_dbgprint 
-		    #define dbgprintclient_S sgIP_dbgprint 
-			
+// extern "C" void sgIP_dbgprint(char * txt, ...) ;
+#define sgIP_dbgprint sgIP_dbgprint
+#define dbgprintclient sgIP_dbgprint
+ 			
 extern void sgIP_dbgprint(const char * txt, ...) ;
 
 			/*

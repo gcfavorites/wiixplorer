@@ -27,10 +27,7 @@
 
 #include <stdio.h>
 #include <string.h>
-//#include "tchar.h"
 #include <stdarg.h>
-
-#define _T(x)      x
 
 #define _make_upper(str) _tcsupr(str)
 #define _make_lower(str) _tcslwr(str)

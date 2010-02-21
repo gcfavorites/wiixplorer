@@ -2,7 +2,7 @@
 /****************************************************************************
  * Copyright (C) 2009
  * by LilouMaster based D. J. Bernstein (C ==> C++)
- *
+ * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -49,9 +49,11 @@ static char THIS_FILE[] = __FILE__;
 using namespace nsFTP;
 using namespace nsHelper;
 
+#define _TC(a) ((char *)a)
+
 TCHAR* CFTPListParse::m_Months[12] = {
-   _T("jan"),_T("feb"),_T("mar"),_T("apr"),_T("may"),_T("jun"),
-   _T("jul"),_T("aug"),_T("sep"),_T("oct"),_T("nov"),_T("dec")
+   _TC("jan"),_TC("feb"),_TC("mar"),_TC("apr"),_TC("may"),_TC("jun"),
+   _TC("jul"),_TC("aug"),_TC("sep"),_TC("oct"),_TC("nov"),_TC("dec")
 };
 
 CFTPListParse::CFTPListParse() :

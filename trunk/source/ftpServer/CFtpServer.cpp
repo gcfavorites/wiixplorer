@@ -27,7 +27,7 @@
 
 #include <errno.h>
 #include <network.h>
-
+ 
 #include <malloc.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -64,6 +64,7 @@
 #include "CFtpServerGlobal.h"
 #include "CFtpServerConfig.h"
 //#include "console/GUI_console.h"
+#include "vrt/vrt.h"
 
 
 #define NET_READ_BUFFERSIZE                     7300
@@ -89,7 +90,7 @@ char *mypszPath;
 extern void dbgprintclientIP(const char * text);
 extern void dbgprintWiiIP(const char * text);
 
-#define MAX_TransferBufferSize 32 * 1024
+#define MAX_TransferBufferSize 31 * 1024
 #define CFTPSERVER_REPLY_MAX_LEN (MAX_PATH+64)
 #define CFTPSERVER_LIST_MAX_LINE_LEN (MAX_PATH+57)
 
@@ -225,7 +226,6 @@ bool CFtpServer::StartAccepting( void)
 
 bool CFtpServer::StopListening( void )
 {
-
 	m_apSckControlConnection.Cleanup();
 	OnServerEventCb( STOP_LISTENING  );
 
@@ -284,6 +284,8 @@ char* CFtpServer::CClientEntry::BuildPath( char* pszAskedPath, char **pszVirtual
 			{
 				sgIP_dbgprint("BuildVirtualPath on %s...", pszBuffer);
 				SimplifyPath( pszBuffer );
+				sgIP_dbgprint("simplified path on %s...", pszBuffer);
+				
 				if( strlen( pszBuffer ) <= MAX_PATH ) {
 					if( pszVirtualPath ) {
 						*pszVirtualPath = pszVirtualP;
@@ -424,6 +426,8 @@ bool CFtpServer::SimplifyPath( char *pszPath )
 	if( *pszPath == 0 || !strcmp( pszPath, ".." ) || !strcmp( pszPath, "." ) )
 		strcpy( pszPath, "/" );
 
+	sgIP_dbgprint("Simplify end ...\n");
+
 	return true;
 }
 
@@ -445,8 +449,8 @@ void CFtpServer::UpdateUser(  char *pszLogin,  char *pszPass,  char *pszStartDir
 		struct stat st; // Verify that the StartPath exist, and is a directory
 		sgIP_dbgprint("UpdateUser on %s...", pszSDEx);
 		
-		if( stat( pszSDEx, &st ) != 0 || !S_ISDIR( st.st_mode ) ) {
-			if ( stat( pszSDEx, &st ) != 0 ) ; sgIP_dbgprint("stat...");
+		if( vrt_stat( pszSDEx, &st ) != 0 || !S_ISDIR( st.st_mode ) ) {
+			if ( vrt_stat( pszSDEx, &st ) != 0 ) ; sgIP_dbgprint("vrt_stat...");
 			free( pszSDEx );
 		}
 		sgIP_dbgprint("Is DIR on %s...", pszSDEx);
@@ -561,10 +565,12 @@ bool CFtpServer::CClientEntry::Init()
 	CurrentTransfer.RestartAt = 0;
 
 	pFtpServer=&FtpServer;
+	lastcmd = time(NULL);
 	
 #ifdef CFTPSERVER_ENABLE_ZLIB
 	iZlibLevel = 6; // Default Zlib compression level.
 #endif
+	
 	return true;
 }
 
@@ -598,20 +604,28 @@ bool CFtpServer::CClientEntry::CheckPrivileges( unsigned char ucPriv ) const
 // SHELL
 ////////////////////////////////////////
 
-
-s32 CFtpServer::CClientEntry::Shell( void )
+boolean CFtpServer::CClientEntry::Shell( void )
 {
 	struct stat st;
 	int nCmd;
 	char *pszCmdArg=NULL;
+	s32 cr;
 	
 	CFtpServer *pFtpServer = OneClient.pFtpServer;
-
-
-		if( OneClient.ReceiveLine() == false )
-			return true;
-		nCmd = OneClient.ParseLine();
-		pszCmdArg = OneClient.pszCmdArg;
+	
+	cr = OneClient.ReceiveLine() ;
+	
+	if (cr==ERROR) return false;
+	
+	if (cr==RETRY && timercmdstart && time(NULL) - lastcmd  > 20 ) return false; // master time-out
+	
+	if (cr==RETRY ) { timercmdstart = true ; return true; }
+	
+	lastcmd = time(NULL);
+	timercmdstart = false;
+	
+	nCmd = OneClient.ParseLine();
+	pszCmdArg = OneClient.pszCmdArg;
 
 		if( nCmd == CMD_NONE ) {
 
@@ -856,7 +870,6 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			{
 			    u16 usStart, usLen;
 				pFtpServer->GetDataPortRange( &usStart, &usLen );
-				u16 usFirstTry = (unsigned short) usStart;
 				CSockAddr csaAddressTemp((unsigned long int) (INADDR_ANY), usStart); 
 
 				if( OneClient.m_DataConnection.Bind(csaAddressTemp)) 
@@ -927,7 +940,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			}
 
 			mypszPath = OneClient.BuildPath( pszArg );
-			if( mypszPath && stat( mypszPath, &st ) == 0 ) {
+			if( mypszPath && vrt_stat( mypszPath, &st ) == 0 ) {
 
 				memcpy( &OneClient.CurrentTransfer.szPath, mypszPath, strlen( mypszPath ) ); 
 				memcpy( &OneClient.CurrentTransfer.st, &st, sizeof( st ) );
@@ -955,7 +968,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			if( pszCmdArg ) {
 				char *pszVirtualPath = NULL;
 				mypszPath = OneClient.BuildPath( pszCmdArg, &pszVirtualPath );
-				if( mypszPath && stat( mypszPath, &st ) == 0 && S_ISDIR( st.st_mode ) ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 && S_ISDIR( st.st_mode ) ) {
 					strcpy( OneClient.szWorkingDir, pszVirtualPath );
 					delete [] pszVirtualPath;
 					OneClient.SendReply( "250 CWD command successful." );
@@ -971,8 +984,8 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( &pszCmdArg[15] );
 				struct tm *t;
-				dbgprintbtm("cmd %s %d %d \n",mypszPath, stat( mypszPath, &st ),gmtime((time_t *) &(st.st_mtime)));
-				if( mypszPath && !stat( mypszPath, &st ) && (t = gmtime((time_t *) &(st.st_mtime))) ) {
+				dbgprintbtm("cmd %s %d %d \n",mypszPath, vrt_stat( mypszPath, &st ),gmtime((time_t *) &(st.st_mtime)));
+				if( mypszPath && !vrt_stat( mypszPath, &st ) && (t = gmtime((time_t *) &(st.st_mtime))) ) {
 					OneClient.SendReply2( "213 %04d%02d%02d%02d%02d%02d",
 						t->tm_year + 1900, t->tm_mon + 1, t->tm_mday,
 						t->tm_hour, t->tm_min, t->tm_sec );
@@ -1024,7 +1037,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			if( pszCmdArg ) {
 
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
 
 					if( OneClient.OpenDataConnection( nCmd ) == false )
 						return true;
@@ -1054,7 +1067,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 				if( nCmd == CMD_STOU ) {
 					sprintf( szName, "file.%i", rand()%9999999 );
 					mypszPath = OneClient.BuildPath( szName );
-					if( !mypszPath || !stat( mypszPath, &st ) ) {
+					if( !mypszPath || !vrt_stat( mypszPath, &st ) ) {
 						mypszPath = NULL;
 					} else
 						OneClient.SendReply2( "150 FILE: %s", szName );
@@ -1068,7 +1081,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 
 					OneClient.eStatus = UPLOADING;
 					if( nCmd == CMD_APPE ) {
-						if( stat( mypszPath, &st ) == 0 ) {
+						if( vrt_stat( mypszPath, &st ) == 0 ) {
 							OneClient.CurrentTransfer.RestartAt = st.st_size;
 						} else
 							OneClient.CurrentTransfer.RestartAt = 0;
@@ -1087,7 +1100,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 		} else if( nCmd == CMD_SIZE ) {
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
 					OneClient.SendReply2(
 							"213 %li",
 						st.st_size );
@@ -1105,8 +1118,8 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			}
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
-					if( remove( mypszPath ) != -1 ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 && S_ISREG( st.st_mode ) ) {
+					if( vrt_unlink( mypszPath ) != -1 ) {
 						OneClient.SendReply( "250 DELE command successful." );
 					} else
 						OneClient.SendReply( "550 Can' t Remove or Access Error." );
@@ -1124,7 +1137,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			}
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) == 0 ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 ) {
 					strcpy( OneClient.szRenameFromPath, mypszPath );
 					OneClient.SendReply( "350 File or directory exists, ready for destination name." );
 				} else
@@ -1139,7 +1152,7 @@ s32 CFtpServer::CClientEntry::Shell( void )
 				if( OneClient.szRenameFromPath ) {
 					mypszPath = OneClient.BuildPath( pszCmdArg );
 					dbgprintbtm("Rename %s int %s.\n",OneClient.szRenameFromPath, mypszPath);
-					if( mypszPath && rename( OneClient.szRenameFromPath, mypszPath ) == 0 ) {
+					if( mypszPath && vrt_rename( OneClient.szRenameFromPath, mypszPath ) == 0 ) {
 						OneClient.SendReply( "250 Rename successful." );
 					} else
 						OneClient.SendReply( "550 Rename failure." );
@@ -1158,8 +1171,8 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			}
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) != 0 ) {
-						if( mkdir( mypszPath, 0777 ) < 0 ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) != 0 ) {
+						if( vrt_mkdir( mypszPath, 0777 ) < 0 ) {
 						OneClient.SendReply( "550 MKD Error Creating DIR." );
 					} else
 						OneClient.SendReply( "250 MKD command successful." );
@@ -1177,8 +1190,8 @@ s32 CFtpServer::CClientEntry::Shell( void )
 			}
 			if( pszCmdArg ) {
 				mypszPath = OneClient.BuildPath( pszCmdArg );
-				if( mypszPath && stat( mypszPath, &st ) == 0 ) {
-						if ( remove( mypszPath ) < 0  ) {
+				if( mypszPath && vrt_stat( mypszPath, &st ) == 0 ) {
+						if ( vrt_unlink( mypszPath ) < 0  ) {
 						OneClient.SendReply( "450 Internal error deleting the directory." );
 					} else
 						OneClient.SendReply( "250 Directory deleted successfully." );
@@ -1264,9 +1277,11 @@ bool CFtpServer::CClientEntry::SendReply2( const char *pszList, ... )
 	return false;
 }
 
-bool CFtpServer::CClientEntry::ReceiveLine()
+ 
+
+s32 CFtpServer::CClientEntry::ReceiveLine()
 {
-sgIP_dbgprint("ReceiveLine\n");
+sgIP_dbgprint("ReceiveLine\nReceiveLine\n");
 	iCmdRecvdLen = 0;
 	pszCmdArg = NULL;
 	iCmdLen = 0;
@@ -1292,11 +1307,11 @@ sgIP_dbgprint("wait for %d\n",Err);
 			nRemainingCharToParse += Err;
 		} else if( Err == 0 ) 
 		{
-			return false;
+			return RETRY;
 		} else  
 		{
 			pFtpServer->OnClientEventCb( CLIENT_SOCK_ERROR, this ) ;
-			return false;
+			return ERROR;
 		}
 
 
@@ -1323,7 +1338,7 @@ sgIP_dbgprint("wait for %d\n",Err);
 			}
 			if( iCmdLen ) {
 				pFtpServer->OnClientEventCb( RECVD_CMD_LINE, this, sCmdBuffer );
-				return true;
+				return RECEIVE;
 			}
 		}
 
@@ -1336,7 +1351,7 @@ sgIP_dbgprint("wait for %d\n",Err);
 			iRemainingCmdLen = MAX_COMMAND_LINE_LEN;
 		}
 	}
-	return false;
+	return RETRY;
 }
 
 int CFtpServer::CClientEntry::ParseLine()
@@ -1554,33 +1569,35 @@ int CFtpServer::CClientEntry::ParseLine()
 
 bool CFtpServer::CClientEntry::OpenDataConnection(s32 nCmd )
 {
-
-	if( eStatus != WAITING ) {
+	if( eStatus != WAITING ) 
+	{
 		SendReply( "425 You're already connected." );
 		return false;
 	}
-	if( eDataConnection == NONE ) {
+	if( eDataConnection == NONE ) 
+	{
 		SendReply( "503 Bad sequence of commands." );
 		return false;
 	}
 
-	if( eDataConnection == PORT ) {
+	if( eDataConnection == PORT ) 
+	{
 		SendReply( "150 Opening data channel." );
 		OneClient.m_DataConnection.Init(CUnBlockingSocket::DataSocket);
 		if (!OneClient.m_DataConnection.Create(SOCK_STREAM))
 		   return false;
 	}
 
-		if( eDataConnection == PASV ) {
-			sgIP_dbgprint("trying to connect on%d \n",ulDataIp);
+	if( eDataConnection == PASV ) {
+		sgIP_dbgprint("trying to connect on%d \n",ulDataIp);
 
-			if( m_DataConnection.Accept() ) { 
+		if( m_DataConnection.Accept() ) 
+			{ 
 				SendReply( "150 Connection net_accepted." );
 				return true;
-			sleep(1);
 			}
 
-		} else { // eDataConnection == PORT
+	} else { // eDataConnection == PORT
 
 			u16 usLen, usStart;
 			pFtpServer->GetDataPortRange( &usStart, &usLen );
@@ -1593,7 +1610,7 @@ bool CFtpServer::CClientEntry::OpenDataConnection(s32 nCmd )
 				return true;
 				}
 			} 
-		}
+	}
 	
 	SendReply( "425 Can't open data connection." );
 	ResetDataConnection();
@@ -1624,9 +1641,9 @@ bool CFtpServer::CClientEntry::InitZlib( DataTransfer_t *pTransfer )
 	pTransfer->zStream.zfree = Z_NULL;
 	pTransfer->zStream.zalloc = Z_NULL;
 	pTransfer->zStream.opaque = Z_NULL;
-//	CFtpServer *pFtpServer = pTransfer->OneClient.pFtpServer;
 
-	switch( OneClient.eStatus ) {
+	switch( OneClient.eStatus ) 
+	{
 		case LISTING:
 		case DOWNLOADING:
 			nRet = deflateInit( &pTransfer->zStream, pTransfer->iZlibLevel );
@@ -1638,9 +1655,12 @@ bool CFtpServer::CClientEntry::InitZlib( DataTransfer_t *pTransfer )
 			if( nRet == Z_OK )
 				return true;
 			break;
+		case WAITING :
+			break;
 	}
 
-	switch( nRet ) {
+	switch( nRet ) 
+	{
 		case Z_MEM_ERROR:
 			pFtpServer->OnServerEventCb( MEM_ERROR );
 			break;
@@ -1655,18 +1675,25 @@ bool CFtpServer::CClientEntry::InitZlib( DataTransfer_t *pTransfer )
 }
 #endif
 
-bool CFtpServer::CClientEntry::SafeWrite( FILE * hFile, char *pBuffer,s32 nLen )
+#define size_t lo 
+
+bool CFtpServer::CClientEntry::SafeWrite( FILE * hFile, char *pBuffer, u32 nLen )
 {
 sgIP_dbgprint("wRITE %d\n",nLen );
-	int wl = 0, k;
-	while(wl != nLen ) {
+	u32 wl = 0, k;
+	if (nLen ==0) return true;
+	while(wl != nLen) 
+	{
+		sgIP_dbgprint("wRITE end wl=%d Len=%d sub=%d\n",wl,nLen,nLen - wl ); 
 		k = fwrite( pBuffer + wl, 1,  nLen - wl, hFile );
-		if(k < 0) {
-			sgIP_dbgprint("wRITE error %d\n",k );
+		if(k <= 0) 
+		{
+			sgIP_dbgprint("wRITE error %d\n",k );sleep(20);
 			 return false;
-			 }
-		else  {
-			; sgIP_dbgprint("wRITE end %d\n",k );
+		}
+		else  
+		{
+			sgIP_dbgprint("wRITE end %d\n",k );
 		}
 		wl += k;
 	}
@@ -1679,9 +1706,12 @@ int CFtpServer::CClientEntry::StoreThread(void)
 	CFtpServer *pFtpServer = OneClient.pFtpServer;
 	struct DataTransfer_t *pTransfer = &OneClient.CurrentTransfer;
 
-	s32 len = 0; FILE *hFile = NULL;
+	s32 len = 0; 
+	s32 mlen=0;
+	FILE *hFile = NULL;
 
 	int iflags = O_WRONLY | O_CREAT ;
+	OneClient.CurrentTransfer.RestartAt =0;
 	if( OneClient.CurrentTransfer.RestartAt > 0 ) {
 		iflags |= O_APPEND; //a|b
 	} else
@@ -1704,24 +1734,23 @@ int CFtpServer::CClientEntry::StoreThread(void)
 		pTransfer->zStream.avail_out = uiBufferSize;
 	}
 
-	hFile = fopen( pTransfer->szPath, "wb" );
+	hFile = vrt_fopen( (char *)pTransfer->szPath, "wb" );
 	sgIP_dbgprint("Open done\n" );
 // pTransfer->RestartAt =0; debug
-	if( hFile != NULL ) {
+	if( hFile != NULL ) 
+	{
 		if( (pTransfer->RestartAt > 0 && fseek( hFile, pTransfer->RestartAt, SEEK_SET) != -1 )
 			|| pTransfer->RestartAt == 0 )
 		{
-			char *ps = pBuffer;
-			char *pe = pBuffer + uiBufferSize;
-
 			while( 1 ) {
 
 				sgIP_dbgprint("Transfert in progress done\n" );
 
-					len = OneClient.m_DataConnection.Receive( ps, (pe - ps),0,true );
-					sgIP_dbgprint("recv end %d\n",len );
-					if( len > 0 ) {
+					len = OneClient.m_DataConnection.Receive( pBuffer, uiBufferSize,0 );
 
+					sgIP_dbgprint("recv end %d\n",len );
+					if( len > 0 ) 
+					{
 						if( pTransfer->eDataMode == ZLIB ) {
 							pTransfer->zStream.avail_in = len;
 							pTransfer->zStream.next_in = (Bytef*) pBuffer;
@@ -1734,7 +1763,8 @@ int CFtpServer::CClientEntry::StoreThread(void)
 								if( len == 0 && nRet == Z_BUF_ERROR )
 									break; // transfer has been interrupt by the client.
 								if( pTransfer->zStream.avail_out == 0 || nRet == Z_STREAM_END ) {
-									if( !OneClient.SafeWrite( hFile, pOutBuffer, uiBufferSize - pTransfer->zStream.avail_out) ) {
+									if( !OneClient.SafeWrite( hFile, pOutBuffer, uiBufferSize - pTransfer->zStream.avail_out) ) 
+									{
 										len = -1;
 										break; // write error
 									}
@@ -1744,27 +1774,25 @@ int CFtpServer::CClientEntry::StoreThread(void)
 							} while( pTransfer->zStream.avail_in != 0 );
 							if( nRet == Z_STREAM_END )
 								break;
-						} else
+						} 
+						else
 						if( len > 0 ) 
 						{
-							ps += len;
-							if( ps == pe ) 
+							if( !OneClient.SafeWrite(hFile, pBuffer, len)) 
 							{
-								if( !OneClient.SafeWrite(hFile, pBuffer, ps - pBuffer)) 
-								{
-									len = -1;
-									break;
-								}
-								ps = pBuffer;
+								len = -1;
+								break;
 							}
-						} else 
+						} 
+						else 
 						{
-							OneClient.SafeWrite( hFile, pBuffer, ps - pBuffer );
+							OneClient.SafeWrite( hFile, pBuffer, len);
 							break;
 						}
-					} else {
+					} else 
+					{
 						break; // SOCKET Error
-						}
+					}
 			}
 		}
 		fclose( hFile );
@@ -1822,7 +1850,7 @@ endofstore:
 	}
 
 
-	hFile = fopen( pTransfer->szPath, "rb" );
+	hFile = vrt_fopen( (char *)pTransfer->szPath, "rb" );
 	sgIP_dbgprint("open file to reaf %s \n" ,pTransfer->szPath );
 	if( hFile != NULL ) {
 	sgIP_dbgprint("file ok %s \n" ,pTransfer->szPath );
@@ -2108,7 +2136,7 @@ bool CFtpServer::CEnumFileInfo::FindFirst( const char *pszPath )
 {
 	if( pszPath ) {
 		strcpy( szDirPath, pszPath );
-		dp = diropen( pszPath ); 
+		dp = vrt_diropen( pszPath ); 
 			if( dp != NULL ) {
 				if( FindNext(pszPath) )
 					return true;
@@ -2122,7 +2150,7 @@ bool CFtpServer::CEnumFileInfo::FindNext(const char *pszPath)
 {
 		struct stat st;
 		
-		if( dirnext( dp, dir_entry, &st) == 0)
+		if( vrt_dirnext( dp, dir_entry, &st) == 0)
 		{
 		
 			int iDirPathLen = strlen( szDirPath );
@@ -2137,7 +2165,7 @@ bool CFtpServer::CEnumFileInfo::FindNext(const char *pszPath)
 				( szDirPath[ iDirPathLen - 1 ] == '/' ) ? "" : "/",
 				dir_entry );
 
-			if( stat( szFullPath, &st ) == 0 ) {
+			if( vrt_stat( szFullPath, &st ) == 0 ) {
 				size = st.st_size;
 				mode = st.st_mode;
 				mtime = st.st_mtime;
@@ -2163,7 +2191,7 @@ bool CFtpServer::CEnumFileInfo::FindNext(const char *pszPath)
 
 bool CFtpServer::CEnumFileInfo::FindClose()
 {
-		if( dp ) dirclose( dp );
+		if( dp ) vrt_dirclose( dp );
 
 	return true;
 }
@@ -2426,9 +2454,10 @@ SHELL
 
 
 
-u32 launchServer(const char *drive, int status, bool stop) 
+u32 launchServer(int status, bool stop) 
 {
-return FtpServer.Server(drive,  status,  stop) ;
+initialise_virtual_path();
+return FtpServer.Server("/",  status,  stop) ;
 }
 
 
@@ -2497,8 +2526,8 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
                 ucUserPriv |= CFtpServer::READFILE;
                 this->EnableModeZ( true );
                 this->EnableFXP( true );
-                ucUserPriv |= CFtpServer::WRITEFILE | CFtpServer::DELETEFILE |
-                CFtpServer::CREATEDIR | CFtpServer::DELETEDIR;
+                ucUserPriv |= CFtpServer::WRITEFILE | CFtpServer::DELETEFILE |CFtpServer::CREATEDIR 
+				| CFtpServer::DELETEDIR;
                 
                 // Load ini parameters
                 
@@ -2628,12 +2657,8 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
             {
                 if (OneClient.RunClientShell()==true) return SHELL;
                 
-					OneClient.m_ControlConnection.Cleanup();                   
-                    if( OneClient.eStatus == 1 )// WAITING )
-                    {
-                        OneClient.Delete();
-                    } else
-                    OneClient.bIsCtrlCanalOpen = false;
+				OneClient.m_ControlConnection.Cleanup();                   
+                OneClient.Delete();
 
                 return NOT_INITIALIZED;
                 
@@ -2666,6 +2691,7 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
             }
         }
    }
+return NOT_INITIALIZED;
 }
 
 
