@@ -159,7 +159,7 @@ void Console::printnat(int x, int y, u16 color, const char * str, int n) {
 
 char buffer[256];
 void sgIP_dbgprint(const char * txt, ...) {
-return ;
+return;
 	va_list args;
 	va_start(args,txt);
 	vsprintf(buffer,txt,args);

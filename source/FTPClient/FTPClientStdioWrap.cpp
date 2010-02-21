@@ -7,7 +7,7 @@
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any
 * damages arising from the use of this software.
-*
+* 
 * Permission is granted to anyone to use this software for any
 * purpose, including commercial applications, and to alter it and
 * redistribute it freely, subject to the following restrictions:
@@ -296,9 +296,7 @@ static int filenum=0;
 
 
 DIR_ITER* sdiropen ( const char *cpath)
-{
-    int cr;
-    
+{   
     if (isFtpPath(cpath))
     {
         tstring ftpserverpath;
@@ -413,8 +411,6 @@ int sremove (const char *cname )
         if (!decomposeurl(cname, &ftpserveruser, &ftpserverpassword, &ftpserverhost, &ftpserverport, & ftpserverpath))
         return -1;
         
-        CFTPFileStatus* FileStat;
-
         nsFTP::CLogonInfo logonInfo(ftpserverhost, ftpserverport, ftpserveruser,  ftpserverpassword);
         if (ftpClient.Init() &&
         ftpClient.Login(logonInfo)) {
@@ -535,6 +531,7 @@ int sLoadFileToMem(const char *cfilepath, u8 **inbuffer, u64 *size)
           }else{
         return LoadFileToMem(cfilepath, inbuffer, size);
     }
+return 0;
 }
 
 extern int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8 **inbuffer, u64 *size);
@@ -546,6 +543,7 @@ int sLoadFileToMemWithProgress(const char *progressText, const char *cfilepath, 
         }else{
         return LoadFileToMem(cfilepath, inbuffer, size);
     }
+return 0;
 }
 
 
@@ -1478,7 +1476,6 @@ void sstat2(void)
 {
     int cr;
     const char *fulldir = "ftp://alain:alain@192.168.1.2/adir";
-    char filename[50];
     struct stat filestat;
     
     cr = sstat(fulldir, &filestat) ;

@@ -50,7 +50,8 @@ SOURCES		:=	source \
 				source/ftpServer \
 				source/console  \
 				source/FTPClient \
-				source/UnBlockingSocket
+				source/UnBlockingSocket \
+				source/vrt
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------

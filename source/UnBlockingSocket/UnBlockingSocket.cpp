@@ -20,7 +20,7 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
+ * 
  *
  * for WiiXplorer 2009
  ***************************************************************************/
@@ -41,7 +41,6 @@
 #include <network.h>
 #include <ogcsys.h>
 #include <ogc/lwp_watchdog.h>
-#include <ogc/mutex.h>
 #include <network.h>
 #define NET_TIMEOUT  10000  // network connection timeout, in ms
 
@@ -228,25 +227,36 @@ void CUnBlockingSocket::Init(SockType_t SockType)
 void CUnBlockingSocket::Cleanup()
 {
 	m_connected=false;
-	
+
+	s32 cr;
+	s32 oldcr=-1;
+		
    if( m_hSocket==SOCKET_UNDEF ) 
       return ;
 
-
-   set_blocking(m_hSocket, true); 
-
-    if ( net_close(m_hSocket)<0  )
+   {
+ 	time_t start = time(NULL);
+	time_t end = time(NULL);
+    time_t time_now = 0;
+	do
     {
-    }
-   
+		cr = net_close(m_hSocket);
+        time_now = time(NULL);
+		if (cr != oldcr) {oldcr=cr;sgIP_dbgprint("close %d ",cr);}
+
+    } while((cr == -EAGAIN && time_now - start < 5) || time_now - end > 10); // try 5 second
+   }
 
   if(m_aSocket !=  m_hSocket)
   {
-    set_blocking(m_aSocket, true); 
-
-    if ( net_close(m_aSocket)<0  )
+	time_t start = time(NULL);
+	time_t end = time(NULL);
+    time_t time_now = 0;
+	do
     {
-    }
+		cr = net_close(m_aSocket);
+       time_now = time(NULL);
+    } while((cr == -EAGAIN && time_now - start < 5) || time_now - end > 10); // try 5 second
   }
    
    m_hSocket = SOCKET_UNDEF;
@@ -258,26 +268,7 @@ void CUnBlockingSocket::Cleanup()
 bool CUnBlockingSocket::Close()
 {
 
-	m_connected=false;
-
-  if(m_hSocket!=SOCKET_UNDEF) 
-  {
-  set_blocking(m_hSocket, true); 
-
-    net_close(m_hSocket);
-  }
-   
-
-  if(m_aSocket!=SOCKET_UNDEF &&  m_aSocket !=  m_hSocket)
-  {
-  set_blocking(m_aSocket, true); 
-
-    net_close(m_aSocket);
-  }
-   
-   m_hSocket = SOCKET_UNDEF;
-   m_aSocket = SOCKET_UNDEF;
-   
+   Cleanup();
    return true;
 }
 
@@ -348,39 +339,25 @@ bool CUnBlockingSocket::Listen() const
 bool CUnBlockingSocket::Accept() 
 {
    ASSERT( m_hSocket!=SOCKET_UNDEF );
-
-sgIP_dbgprint("net_accept  %d\n", m_hSocket);
-
     m_aSocket = m_hSocket;
-
-//sgIP_dbgprint("net_accept start %d\n", m_aSocket);
-     
-	 struct sockaddr_in data_peer_address;
-	
-    u16 i=0;
+	struct sockaddr_in data_peer_address;
+	time_t end = time(NULL);
+	time_t start = time(NULL);
+    time_t time_now = 0;
 	do
     {
 		memset(&data_peer_address, 0, sizeof(struct sockaddr));
         u32 addrlen = sizeof(data_peer_address);
-sgIP_dbgprint("net_accept begin %d\n", m_aSocket);
-
 		m_hSocket = net_accept( m_aSocket, (struct sockaddr *)&data_peer_address, &addrlen);
+        time_now = time(NULL); 
+    } while((m_hSocket == -EAGAIN && time_now - start < 5) || time_now - end > 10); // try 5 second - 10 max
 
-sgIP_dbgprint("net_accept end %d\n", m_hSocket);
-
-        if (m_hSocket == -EAGAIN) sleep(1);
-		i++;
-    } while(m_hSocket == -EAGAIN && i <5); // try 5 second
-
-		 	
-//sgIP_dbgprint("net_accept end %d\n", m_hSocket);
-
-  if( m_hSocket<0 ) { 
-
+	if( m_hSocket<0 ) 
+	{ 
 	  m_hSocket = m_aSocket;
 	  m_aSocket = SOCKET_UNDEF;
       return false;
-   }
+    }
 	  
    IPAddr = data_peer_address.sin_addr.s_addr; 
 
@@ -477,22 +454,23 @@ u32 CUnBlockingSocket::Send(const char* pch, u32 nSize, s32 nSecs) const
 }
 
 
-u32 CUnBlockingSocket::ReceiveLine(char* buf, u32 len, s32 nSecs, boolean  exitonempty) const
+s32 CUnBlockingSocket::ReceiveLine(char* buf, u32 len, s32 nSecs) const
 {
         u32 i = 0, out = 0;
-        u32 l;
+        s32 l;
 		buf[0]=0;
 		
 		do{
-                if( (l = Receive(&(buf[i]), 1, nSecs, true)) > 0 )
+                if( (l = ReceiveCmd(&(buf[i]), 1, nSecs)) > 0 )
                 {
                         if(buf[i] == '\n') out = 1;
                         i++;
                 }
                 else
                 {
-                        buf[i] = 0;
-                        return 0;
+                    buf[i] = 0;
+					if (l<0) return -1;
+                    return 0;
                 }
         }while((i < (len-1))&&(out == 0));
 
@@ -501,49 +479,70 @@ u32 CUnBlockingSocket::ReceiveLine(char* buf, u32 len, s32 nSecs, boolean  exito
         return i;
 }
 
-
-
-u32 CUnBlockingSocket::Receive(char* buf, u32 count, s32 nSecs, boolean exitonempty) const
+s32 CUnBlockingSocket::ReceiveCmd(char* buf, u32 count, s32 nSecs) const
 {
    ASSERT( m_hSocket!=SOCKET_UNDEF );
-        s32 ret;
-        u32 received = 0;
-		s32 retsave=-131;
-		u32 i=0;
+    s32 ret;
+    u32 received = 0;
+	s32 retsave=-131;
+	u32 i=0;
 
-        while(count>0)
-        {
-            ret=net_read(m_hSocket,buf,count);
+	while(1)
+	{
+		time_t end = time(NULL);
+		time_t start = time(NULL);
+		time_t time_now = 0;
+		do
+		{
+			ret=net_read(m_hSocket,buf,count);
 			if (ret !=retsave&&count!=1){sgIP_dbgprint("r.%d",ret); retsave=ret;}
-            if(ret==-EAGAIN || (ret ==0 && exitonempty ==false) )
-               {
-                usleep(1000);
- 				i++;
-                        if( i==5000)
-                        {
-						sgIP_dbgprint("socket read timeout %d %d",m_hSocket,count);
-                        return 0;                             
-						}
-                        continue;
-                }
-            else if(ret<0)
-                {
-                    return 0;   
-                }
-            else
-                {
-						i=0;
-                        buf+=ret;
-                        count-=ret;
-                        received+=ret;
-                        if(count==0 || (exitonempty == true && ret == 0))  
-                        {
-                                return received;
-                        }
- 						
-                }
-        }
-        return received;
+			if (ret!= -EAGAIN) break;
+			time_now = time(NULL); 
+		} while((ret == -EAGAIN && time_now - start < 5) || (ret<0 && time_now - end < 10)); // try 5 second - 10 max
+
+		if (ret == -EAGAIN)
+		{
+			return 0;
+		}
+		else
+		{
+			i=0;
+			buf+=ret;
+			count-=ret;
+			received+=ret;
+			if(count==0 ||  ret == 0)  
+			{
+			return received;
+			}
+		}
+	}
+    return received;
+}
+
+s32 CUnBlockingSocket::Receive(char* buf, u32 count, s32 nSecs) const
+{
+	ASSERT( m_hSocket!=SOCKET_UNDEF );
+    s32 ret;
+	s32 retsave=-131;
+
+	time_t end = time(NULL);
+	time_t start = time(NULL);
+    time_t time_now = 0;
+	do
+    {
+		ret=net_read(m_hSocket,buf,count);
+		if (ret!= -EAGAIN) break;
+		if (ret<0 &&  time_now - end > 10) break;
+		if (ret !=retsave&&count!=1){sgIP_dbgprint("r.%d",ret); retsave=ret;}
+        time_now = time(NULL); 
+    } while((ret == -EAGAIN && time_now - start < 5)); // try 5 second - 10 max
+
+	if (ret == -EAGAIN)
+	{
+		return 0;
+	}
+
+    return ret;
 }
 
 s32 CUnBlockingSocket::ReceiveDatagram(char* pch, s32 nSize, LPSOCKADDR psa, s32 nSecs) const

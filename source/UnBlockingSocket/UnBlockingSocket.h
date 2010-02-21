@@ -172,8 +172,8 @@ public:
    bool Accept() ;
    u32  Send(const char* pch, u32 nSize, s32 nSecs) const;
    u32  Write(const char* pch, u32 nSize, s32 nSecs) const;
-   u32  ReceiveLine(char* pch, u32 nSize, s32 nSecs, boolean  exitonempty = true) const;
-   u32  Receive(char* pch, u32 nSize, s32 nSecs, boolean  exitonempty = true) const;
+   s32  ReceiveLine(char* pch, u32 nSize, s32 nSecs) const;
+   s32  Receive(char* pch, u32 nSize, s32 nSecs) const;
    s32  SendDatagram(const char* pch, s32 nSize, LPCSOCKADDR psa, s32 nSecs) const;
    s32  ReceiveDatagram(char* pch, s32 nSize, LPSOCKADDR psa, s32 nSecs) const;
    bool GetPeerAddr(LPSOCKADDR psa) const;
@@ -192,6 +192,7 @@ private:
    SOCKET m_hSocket;
    SOCKET m_aSocket;
    unsigned long int IPAddr;
+   s32  ReceiveCmd(char* pch, u32 nSize, s32 nSecs) const;
    bool   m_connected;
 };
 

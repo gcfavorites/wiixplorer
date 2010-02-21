@@ -748,11 +748,17 @@ private:
 	s32 nRemainingCharToParse;
 
 	s32 ParseLine();
-	bool ReceiveLine();
+	
+	enum { ERROR, RETRY, RECEIVE };
+	s32 ReceiveLine();
 
 	u32 nPasswordTries;
 
-	static s32 Shell( void);
+	boolean Shell( void);
+	
+	time_t lastcmd;
+	bool   timercmdstart;
+
 	enum
 	{
 		CMD_NONE = -1,
@@ -865,7 +871,7 @@ private:
 	// FILE
 	////////////////////////////////////////
 
-	bool SafeWrite( FILE *hFile, char *pBuffer, s32 nLen );
+	bool SafeWrite( FILE *hFile, char *pBuffer, u32 nLen );
 
 	/**
 	* Build a Full-Path using:
