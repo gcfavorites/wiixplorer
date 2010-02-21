@@ -397,11 +397,25 @@ bool ConnectFTP()
 
 		if (strcmp(Settings.FTPUser[i].Host, "") != 0)
 		{
+		    char User[50];
+		    char Password[50];
+
+		    if(strcmp(Settings.FTPUser[i].User, "") == 0)
+                snprintf(User, sizeof(User), "anonymous");
+            else
+                snprintf(User, sizeof(User), "%s", Settings.FTPUser[i].User);
+
+		    if(strcmp(Settings.FTPUser[i].Password, "") == 0)
+                snprintf(Password, sizeof(Password), "anonymous@WiiXplorer.com");
+            else
+                snprintf(Password, sizeof(Password), "%s", Settings.FTPUser[i].Password);
+
 			if (ftpInitDevice(name,
-				Settings.FTPUser[i].User,
-				Settings.FTPUser[i].Password,
+				User,
+				Password,
 				Settings.FTPUser[i].FTPPath,
 				Settings.FTPUser[i].Host,
+				Settings.FTPUser[i].Port,
 				Settings.FTPUser[i].Passive))
 			{
 				ftpReady = true;

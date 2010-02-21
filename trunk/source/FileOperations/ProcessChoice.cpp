@@ -176,7 +176,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 //append selected Item
                 browser->MarkCurrentItem();
 
-                StartProgress(tr("Deleting files:"), THROBBER);
+                //StartProgress(tr("Deleting files:"), THROBBER);
                 for(int i = 0; i < IMarker->GetItemcount(); i++)
                 {
                     if(IMarker->IsItemDir(i))
