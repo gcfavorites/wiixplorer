@@ -128,6 +128,7 @@ void Werror(char *p)
 
 
 #define TOP_OFFSET 40
+#define LEFT_OFFSET 10
 		
 int ServerFtpGui()
 {
@@ -173,7 +174,7 @@ int ServerFtpGui()
 
 	GuiImageData settingsimgData(bg_cftp_png,bg_cftp_png_size);
 	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetPosition(20, TOP_OFFSET);
+	settingsimg.SetPosition(20+LEFT_OFFSET, TOP_OFFSET);
 	
 	u32 cr=0;
 	u32 y =20; 
