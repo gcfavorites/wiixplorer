@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 09:28+0100\n"
+"POT-Creation-Date: 2010-02-23 00:13+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -17,6 +17,37 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7z 格式解壓失敗："
+
+#, c-format
+msgid ""
+"A client has changed its working directory:\n"
+"\tFull path: \"%s\"\n"
+"\tWorking directory: \"%s\"\n"
+msgstr ""
+
+msgid "A client has disconnected.\n"
+msgstr ""
+
+msgid "A client has logged-in.\n"
+msgstr ""
+
+msgid "A client is being deleted.\n"
+msgstr ""
+
+#, c-format
+msgid "A client is downloading a file: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is listing a directory: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is uploading a file: \"%s\"\n"
+msgstr ""
+
+msgid "A new client has been created:\n"
+msgstr ""
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -35,6 +66,12 @@ msgstr "返回"
 
 msgid "Bootup Mount"
 msgstr "預設載入裝置"
+
+msgid "CLIENT_SOCK_ERROR \n"
+msgstr ""
+
+msgid "CLIENT_SOFTWARE\n"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "無法開啟這個檔案"
@@ -69,11 +106,22 @@ msgstr "清除"
 msgid "Close"
 msgstr "關閉"
 
+#, c-format
+msgid "Cmd received: %s\n"
+msgstr ""
+
 msgid "Coders:"
 msgstr "程式設計師:"
 
 msgid "Compressed Size:"
 msgstr "壓縮大小"
+
+msgid "Connected"
+msgstr ""
+
+#, c-format
+msgid "Connected with: %s)"
+msgstr ""
 
 msgid "Console Default"
 msgstr "主機預設值"
@@ -184,6 +232,27 @@ msgstr "是否要立即更新？"
 msgid "Downloading file..."
 msgstr "下載檔案..."
 
+msgid "Enable Create dir:"
+msgstr ""
+
+msgid "Enable Delete dir:"
+msgstr ""
+
+msgid "Enable Delete file:"
+msgstr ""
+
+msgid "Enable Write file:"
+msgstr ""
+
+msgid "Enable Zip Mode:"
+msgstr ""
+
+msgid "Enable list file:"
+msgstr ""
+
+msgid "Enable read file:"
+msgstr ""
+
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
 
@@ -214,10 +283,16 @@ msgstr ""
 msgid "FTP Client Settings"
 msgstr ""
 
+msgid "FTP Data Port:"
+msgstr ""
+
 msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server Settings"
 msgstr ""
 
 msgid "FTP Settings"
@@ -311,6 +386,9 @@ msgstr "檢視影像"
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Internal error"
+msgstr ""
+
 msgid "Language"
 msgstr "語言"
 
@@ -349,6 +427,9 @@ msgstr "音樂播放模式"
 
 msgid "Music Volume"
 msgstr "音樂音量"
+
+msgid "NO_LOGIN_TIMEOUT\n"
+msgstr ""
 
 msgid "Name might already exists."
 msgstr ""
@@ -432,9 +513,6 @@ msgstr "播放單曲"
 msgid "Please wait:"
 msgstr "請稍候"
 
-msgid "Preparing Network..."
-msgstr ""
-
 msgid "Process canceled."
 msgstr "內容取消"
 
@@ -462,6 +540,10 @@ msgstr "重新連接區域網路"
 msgid "Rename"
 msgstr "重新命名"
 
+#, c-format
+msgid "Reply sent: %s\n"
+msgstr ""
+
 msgid "Restart the app to load the new font."
 msgstr "重新啟動程式以載入新字型"
 
@@ -476,6 +558,19 @@ msgstr "區域網路設定"
 
 msgid "SMB is connecting..."
 msgstr "正在連接區域網路..."
+
+#, c-format
+msgid "Server at: %s"
+msgstr ""
+
+msgid "Server started"
+msgstr ""
+
+msgid "Server stopped"
+msgstr ""
+
+msgid "Server waits for client"
+msgstr ""
 
 msgid "Shift"
 msgstr "Shift鍵"
@@ -497,6 +592,10 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
+
+#, c-format
+msgid "Too many pass tries for (%s)\n"
+msgstr ""
 
 msgid "Total Space:"
 msgstr ""

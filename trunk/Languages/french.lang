@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 00:52+0100\n"
+"POT-Creation-Date: 2010-02-23 00:13+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -17,6 +17,37 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "La décompression 7z a échouée:"
+
+#, c-format
+msgid ""
+"A client has changed its working directory:\n"
+"\tFull path: \"%s\"\n"
+"\tWorking directory: \"%s\"\n"
+msgstr ""
+
+msgid "A client has disconnected.\n"
+msgstr ""
+
+msgid "A client has logged-in.\n"
+msgstr ""
+
+msgid "A client is being deleted.\n"
+msgstr ""
+
+#, c-format
+msgid "A client is downloading a file: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is listing a directory: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is uploading a file: \"%s\"\n"
+msgstr ""
+
+msgid "A new client has been created:\n"
+msgstr ""
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -35,6 +66,12 @@ msgstr ""
 
 msgid "Bootup Mount"
 msgstr "Périphérique"
+
+msgid "CLIENT_SOCK_ERROR \n"
+msgstr ""
+
+msgid "CLIENT_SOFTWARE\n"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Ouverture du fichier impossible."
@@ -69,11 +106,22 @@ msgstr "Nettoyer"
 msgid "Close"
 msgstr "Fermer"
 
+#, c-format
+msgid "Cmd received: %s\n"
+msgstr ""
+
 msgid "Coders:"
 msgstr "Développeurs:"
 
 msgid "Compressed Size:"
 msgstr "Taille Compressée:"
+
+msgid "Connected"
+msgstr ""
+
+#, c-format
+msgid "Connected with: %s)"
+msgstr ""
 
 msgid "Console Default"
 msgstr "Wii Défaut"
@@ -149,7 +197,7 @@ msgstr "Voulez-vous charger le language de la Wii par défaut ?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr Voulez-vous lancer le fichier de: %s ?""
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language ?"
@@ -184,6 +232,27 @@ msgstr "Voulez-vous mettre à jour maintenant ?"
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
+msgid "Enable Create dir:"
+msgstr ""
+
+msgid "Enable Delete dir:"
+msgstr ""
+
+msgid "Enable Delete file:"
+msgstr ""
+
+msgid "Enable Write file:"
+msgstr ""
+
+msgid "Enable Zip Mode:"
+msgstr ""
+
+msgid "Enable list file:"
+msgstr ""
+
+msgid "Enable read file:"
+msgstr ""
+
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
 
@@ -214,8 +283,17 @@ msgstr "Extraction:"
 msgid "FTP Client Settings"
 msgstr "Paramètres client FTP"
 
+msgid "FTP Data Port:"
+msgstr ""
+
 msgid "FTP Path:"
 msgstr "Chemin FTP:"
+
+msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server Settings"
+msgstr ""
 
 msgid "FTP Settings"
 msgstr "Paramètres FTP"
@@ -308,6 +386,9 @@ msgstr "Aperçu"
 msgid "Incomming connection."
 msgstr "ConnexDion entrante."
 
+msgid "Internal error"
+msgstr ""
+
 msgid "Language"
 msgstr "Langue"
 
@@ -346,6 +427,9 @@ msgstr "Lecture en boucle"
 
 msgid "Music Volume"
 msgstr "Volume"
+
+msgid "NO_LOGIN_TIMEOUT\n"
+msgstr ""
 
 msgid "Name might already exists."
 msgstr "Ce nom de fichier existe déjà."
@@ -429,9 +513,6 @@ msgstr "Lire"
 msgid "Please wait:"
 msgstr "Patientez:"
 
-msgid "Preparing Network..."
-msgstr "Préparation réseau..."
-
 msgid "Process canceled."
 msgstr "Procédure annulée."
 
@@ -459,6 +540,10 @@ msgstr "Reconnecter SMB"
 msgid "Rename"
 msgstr "Renommer"
 
+#, c-format
+msgid "Reply sent: %s\n"
+msgstr ""
+
 msgid "Restart the app to load the new font."
 msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 
@@ -473,6 +558,19 @@ msgstr "Paramètres SMB"
 
 msgid "SMB is connecting..."
 msgstr "Connexion SMB..."
+
+#, c-format
+msgid "Server at: %s"
+msgstr ""
+
+msgid "Server started"
+msgstr ""
+
+msgid "Server stopped"
+msgstr ""
+
+msgid "Server waits for client"
+msgstr ""
 
 msgid "Shift"
 msgstr ""
@@ -494,6 +592,10 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
+
+#, c-format
+msgid "Too many pass tries for (%s)\n"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Espace total:"
@@ -596,6 +698,9 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Preparing Network..."
+#~ msgstr "Préparation réseau..."
 
 #~ msgid "Archive successfully extracted."
 #~ msgstr "Extraction réussie."

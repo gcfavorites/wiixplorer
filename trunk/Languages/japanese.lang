@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 09:28+0100\n"
+"POT-Creation-Date: 2010-02-23 00:13+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,37 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
+
+#, c-format
+msgid ""
+"A client has changed its working directory:\n"
+"\tFull path: \"%s\"\n"
+"\tWorking directory: \"%s\"\n"
+msgstr ""
+
+msgid "A client has disconnected.\n"
+msgstr ""
+
+msgid "A client has logged-in.\n"
+msgstr ""
+
+msgid "A client is being deleted.\n"
+msgstr ""
+
+#, c-format
+msgid "A client is downloading a file: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is listing a directory: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is uploading a file: \"%s\"\n"
+msgstr ""
+
+msgid "A new client has been created:\n"
+msgstr ""
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -35,6 +66,12 @@ msgstr ""
 
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
+
+msgid "CLIENT_SOCK_ERROR \n"
+msgstr ""
+
+msgid "CLIENT_SOFTWARE\n"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
@@ -69,11 +106,22 @@ msgstr "クリア"
 msgid "Close"
 msgstr "とじる"
 
+#, c-format
+msgid "Cmd received: %s\n"
+msgstr ""
+
 msgid "Coders:"
 msgstr "制作:"
 
 msgid "Compressed Size:"
 msgstr "圧縮サイズ:"
+
+msgid "Connected"
+msgstr ""
+
+#, c-format
+msgid "Connected with: %s)"
+msgstr ""
 
 msgid "Console Default"
 msgstr "日本語"
@@ -184,6 +232,27 @@ msgstr "更新しますか?"
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
+msgid "Enable Create dir:"
+msgstr ""
+
+msgid "Enable Delete dir:"
+msgstr ""
+
+msgid "Enable Delete file:"
+msgstr ""
+
+msgid "Enable Write file:"
+msgstr ""
+
+msgid "Enable Zip Mode:"
+msgstr ""
+
+msgid "Enable list file:"
+msgstr ""
+
+msgid "Enable read file:"
+msgstr ""
+
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
 
@@ -214,10 +283,16 @@ msgstr ""
 msgid "FTP Client Settings"
 msgstr ""
 
+msgid "FTP Data Port:"
+msgstr ""
+
 msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server Settings"
 msgstr ""
 
 msgid "FTP Settings"
@@ -311,6 +386,9 @@ msgstr "画像ビューア"
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Internal error"
+msgstr ""
+
 msgid "Language"
 msgstr "言語"
 
@@ -349,6 +427,9 @@ msgstr "音楽の再生"
 
 msgid "Music Volume"
 msgstr "音量"
+
+msgid "NO_LOGIN_TIMEOUT\n"
+msgstr ""
 
 msgid "Name might already exists."
 msgstr ""
@@ -432,9 +513,6 @@ msgstr "一度だけ再生"
 msgid "Please wait:"
 msgstr "お待ちください"
 
-msgid "Preparing Network..."
-msgstr ""
-
 msgid "Process canceled."
 msgstr "キャンセルしました"
 
@@ -462,6 +540,10 @@ msgstr "再接続"
 msgid "Rename"
 msgstr "リネーム"
 
+#, c-format
+msgid "Reply sent: %s\n"
+msgstr ""
+
 msgid "Restart the app to load the new font."
 msgstr "フォントを読み込むため 再起動してください"
 
@@ -476,6 +558,19 @@ msgstr "SMBの設定"
 
 msgid "SMB is connecting..."
 msgstr "接続中"
+
+#, c-format
+msgid "Server at: %s"
+msgstr ""
+
+msgid "Server started"
+msgstr ""
+
+msgid "Server stopped"
+msgstr ""
+
+msgid "Server waits for client"
+msgstr ""
 
 msgid "Shift"
 msgstr ""
@@ -497,6 +592,10 @@ msgstr "FTPを停止"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
+
+#, c-format
+msgid "Too many pass tries for (%s)\n"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "使用領域:"

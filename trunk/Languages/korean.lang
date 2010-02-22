@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 09:28+0100\n"
+"POT-Creation-Date: 2010-02-23 00:13+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,37 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
+msgstr ""
+
+#, c-format
+msgid ""
+"A client has changed its working directory:\n"
+"\tFull path: \"%s\"\n"
+"\tWorking directory: \"%s\"\n"
+msgstr ""
+
+msgid "A client has disconnected.\n"
+msgstr ""
+
+msgid "A client has logged-in.\n"
+msgstr ""
+
+msgid "A client is being deleted.\n"
+msgstr ""
+
+#, c-format
+msgid "A client is downloading a file: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is listing a directory: \"%s\"\n"
+msgstr ""
+
+#, c-format
+msgid "A client is uploading a file: \"%s\"\n"
+msgstr ""
+
+msgid "A new client has been created:\n"
 msgstr ""
 
 msgid "ASDFGHJKL:\"+"
@@ -35,6 +66,12 @@ msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
+msgstr ""
+
+msgid "CLIENT_SOCK_ERROR \n"
+msgstr ""
+
+msgid "CLIENT_SOFTWARE\n"
 msgstr ""
 
 msgid "Can not open the file."
@@ -70,10 +107,21 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#, c-format
+msgid "Cmd received: %s\n"
+msgstr ""
+
 msgid "Coders:"
 msgstr ""
 
 msgid "Compressed Size:"
+msgstr ""
+
+msgid "Connected"
+msgstr ""
+
+#, c-format
+msgid "Connected with: %s)"
 msgstr ""
 
 msgid "Console Default"
@@ -185,6 +233,27 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
+msgid "Enable Create dir:"
+msgstr ""
+
+msgid "Enable Delete dir:"
+msgstr ""
+
+msgid "Enable Delete file:"
+msgstr ""
+
+msgid "Enable Write file:"
+msgstr ""
+
+msgid "Enable Zip Mode:"
+msgstr ""
+
+msgid "Enable list file:"
+msgstr ""
+
+msgid "Enable read file:"
+msgstr ""
+
 msgid "Error while reading file."
 msgstr ""
 
@@ -215,10 +284,16 @@ msgstr ""
 msgid "FTP Client Settings"
 msgstr ""
 
+msgid "FTP Data Port:"
+msgstr ""
+
 msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server Settings"
 msgstr ""
 
 msgid "FTP Settings"
@@ -312,6 +387,9 @@ msgstr ""
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Internal error"
+msgstr ""
+
 msgid "Language"
 msgstr ""
 
@@ -349,6 +427,9 @@ msgid "Music Loop Mode"
 msgstr ""
 
 msgid "Music Volume"
+msgstr ""
+
+msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
 
 msgid "Name might already exists."
@@ -433,9 +514,6 @@ msgstr ""
 msgid "Please wait:"
 msgstr ""
 
-msgid "Preparing Network..."
-msgstr ""
-
 msgid "Process canceled."
 msgstr ""
 
@@ -463,6 +541,10 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
+#, c-format
+msgid "Reply sent: %s\n"
+msgstr ""
+
 msgid "Restart the app to load the new font."
 msgstr ""
 
@@ -476,6 +558,19 @@ msgid "SMB Settings"
 msgstr ""
 
 msgid "SMB is connecting..."
+msgstr ""
+
+#, c-format
+msgid "Server at: %s"
+msgstr ""
+
+msgid "Server started"
+msgstr ""
+
+msgid "Server stopped"
+msgstr ""
+
+msgid "Server waits for client"
 msgstr ""
 
 msgid "Shift"
@@ -497,6 +592,10 @@ msgid "Stop Ftp "
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
+msgstr ""
+
+#, c-format
+msgid "Too many pass tries for (%s)\n"
 msgstr ""
 
 msgid "Total Space:"

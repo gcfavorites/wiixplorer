@@ -642,6 +642,208 @@ static int MenuFTPSettings()
 }
 
 /****************************************************************************
+ * MenuFTPSettings
+ ***************************************************************************/
+static int MenuFTPServerSettings()
+{
+	int menu = MENU_NONE;
+	int ret, result = 0;
+	int i = 0;
+    char entered[150];
+    bool firstRun = true;
+
+	OptionList options(12);
+	options.SetName(i++, tr("User:"));
+	options.SetName(i++, tr("Password:"));
+	options.SetName(i++, tr("FTP Port:"));
+	options.SetName(i++, tr("FTP Data Port:"));
+	options.SetName(i++, tr("FTP Path:"));
+	options.SetName(i++, tr("Enable Zip Mode:"));
+	options.SetName(i++, tr("Enable read file:"));
+	options.SetName(i++, tr("Enable list file:"));
+	options.SetName(i++, tr("Enable Write file:"));
+	options.SetName(i++, tr("Enable Delete file:"));
+	options.SetName(i++, tr("Enable Create dir:"));
+	options.SetName(i++, tr("Enable Delete dir:"));
+
+
+	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiImageData btnOutline(button_png, button_png_size);
+	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+
+	GuiTrigger trigA;
+	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+
+	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage backBtnImg(&btnOutline);
+	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	backBtn.SetPosition(50, -65);
+	backBtn.SetLabel(&backBtnTxt);
+	backBtn.SetImage(&backBtnImg);
+	backBtn.SetSoundOver(&btnSoundOver);
+	backBtn.SetTrigger(&trigA);
+	backBtn.SetEffectGrow();
+
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(30, 100);
+	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+
+	GuiText titleTxt(tr("FTP Server Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
+
+	HaltGui();
+	GuiWindow w(screenwidth, screenheight);
+	w.Append(&backBtn);
+	w.Append(&optionBrowser);
+	w.Append(&titleTxt);
+	MainWindow::Instance()->Append(&w);
+    w.SetEffect(EFFECT_FADE, 50);
+	ResumeGui();
+
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	while(menu == MENU_NONE)
+	{
+	    VIDEO_WaitVSync();
+
+        if(shutdown == 1)
+        {
+		    Settings.Save();
+            Sys_Shutdown();
+        }
+
+        else if(reset == 1)
+        {
+		    Settings.Save();
+            Sys_Reboot();
+        }
+
+		else if(backBtn.GetState() == STATE_CLICKED)
+		{
+			menu = MENU_NETWORK_SETTINGS;
+		}
+
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
+
+		ret = optionBrowser.GetClickedOption();
+
+		switch (ret)
+		{        
+			case 0:
+				snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.UserName);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPServerUser.UserName, sizeof(Settings.FTPServerUser.UserName), "%s", entered);
+                }
+                break;
+            case 1:
+                snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.Password);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPServerUser.Password, sizeof(Settings.FTPServerUser.Password), "%s", entered);
+                }
+                break;
+            case 2:
+                snprintf(entered, sizeof(entered), "%i", Settings.FTPServerUser.Port);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    Settings.FTPServerUser.Port = (u16) atoi(entered);
+                }
+                break;
+            case 3:
+                snprintf(entered, sizeof(entered), "%i", Settings.FTPServerUser.DataPort);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    Settings.FTPServerUser.DataPort = (u16) atoi(entered);
+                }
+                break;
+            case 4:
+                snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.FTPPath);
+                result = OnScreenKeyboard(entered, 149);
+                if(result) {
+                    snprintf(Settings.FTPServerUser.FTPPath, sizeof(Settings.FTPServerUser.FTPPath), "%s", entered);
+                }
+                break;
+            case 5:
+				Settings.FTPServerUser.ZipMode++;
+				if(Settings.FTPServerUser.ZipMode >= on_off_max)
+                    Settings.FTPServerUser.ZipMode = off;
+				break;			
+            case 6:
+				Settings.FTPServerUser.EnableReadFile++;
+				if(Settings.FTPServerUser.EnableReadFile >= on_off_max)
+                    Settings.FTPServerUser.EnableReadFile = off;
+            case 7:
+				Settings.FTPServerUser.EnableListFile++;
+				if(Settings.FTPServerUser.EnableListFile >= on_off_max)
+                    Settings.FTPServerUser.EnableListFile = off;
+            case 8:
+				Settings.FTPServerUser.EnableWriteFile++;
+				if(Settings.FTPServerUser.EnableWriteFile >= on_off_max)
+                    Settings.FTPServerUser.EnableWriteFile = off;
+				break;			
+            case 9:
+				Settings.FTPServerUser.EnableDeleteFile++;
+				if(Settings.FTPServerUser.EnableDeleteFile >= on_off_max)
+                    Settings.FTPServerUser.EnableDeleteFile = off;
+				break;			
+            case 10:
+				Settings.FTPServerUser.EnableCreateDir++;
+				if(Settings.FTPServerUser.EnableCreateDir >= on_off_max)
+                    Settings.FTPServerUser.EnableCreateDir = off;
+				break;			
+           case 11:
+				Settings.FTPServerUser.EnableDeleteDir++;
+				if(Settings.FTPServerUser.EnableDeleteDir >= on_off_max)
+                    Settings.FTPServerUser.EnableDeleteDir = off;
+				break;	
+		}
+
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            options.SetValue(i++,"%s", Settings.FTPServerUser.UserName);
+            options.SetValue(i++,"%s", Settings.FTPServerUser.Password);
+            options.SetValue(i++,"%i", Settings.FTPServerUser.Port);
+			options.SetValue(i++,"%i", Settings.FTPServerUser.DataPort);
+            options.SetValue(i++,"%s", Settings.FTPServerUser.FTPPath);
+			if (Settings.FTPServerUser.ZipMode == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.ZipMode == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableReadFile == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableReadFile == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableListFile == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableListFile == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableWriteFile == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableWriteFile == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableDeleteFile == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableDeleteFile == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableCreateDir == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableCreateDir == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPServerUser.EnableDeleteDir == on) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPServerUser.EnableDeleteDir == off) options.SetValue(i++,tr("OFF"));
+
+           options.SetValue(i++," ");
+        }
+	}
+
+    w.SetEffect(EFFECT_FADE, -50);
+	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
+
+	HaltGui();
+	MainWindow::Instance()->Remove(&w);
+	ResumeGui();
+
+    Settings.Save();
+
+	return menu;
+}
+
+/****************************************************************************
  * MenuUpdateSettings
  ***************************************************************************/
 static int MenuNetworkSettings()
@@ -652,13 +854,14 @@ static int MenuNetworkSettings()
     char entered[150];
     bool firstRun = true;
 
-	OptionList options(6);
+	OptionList options(7);
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Update Meta.xml"));
 	options.SetName(i++, tr("Update Icon.png"));
 	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("SMB Settings"));
 	options.SetName(i++, tr("FTP Client Settings"));
+	options.SetName(i++, tr("FTP Server Settings"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
@@ -781,6 +984,9 @@ static int MenuNetworkSettings()
             case 5:
                 menu = MENU_FTP_SETTINGS;
                 break;
+            case 6:
+                menu = MENU_FTPSERVER_SETTINGS;
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -838,6 +1044,9 @@ void MainMenu(int menu)
 				break;
 			case MENU_FTP_SETTINGS:
 				currentMenu = MenuFTPSettings();
+				break;
+			case MENU_FTPSERVER_SETTINGS:
+				currentMenu = MenuFTPServerSettings();
 				break;
 			case MENU_NETWORK_SETTINGS:
 				currentMenu = MenuNetworkSettings();
