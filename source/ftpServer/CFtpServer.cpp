@@ -65,7 +65,8 @@
 #include "CFtpServerConfig.h"
 //#include "console/GUI_console.h"
 #include "vrt/vrt.h"
-
+#include "main.h"
+#include "Language\gettext.h"
 
 #define NET_READ_BUFFERSIZE                     7300
 #define NET_WRITE_BUFFERSIZE                    4096
@@ -1707,7 +1708,6 @@ int CFtpServer::CClientEntry::StoreThread(void)
 	struct DataTransfer_t *pTransfer = &OneClient.CurrentTransfer;
 
 	s32 len = 0; 
-	s32 mlen=0;
 	FILE *hFile = NULL;
 
 	int iflags = O_WRONLY | O_CREAT ;
@@ -1734,7 +1734,7 @@ int CFtpServer::CClientEntry::StoreThread(void)
 		pTransfer->zStream.avail_out = uiBufferSize;
 	}
 
-	hFile = vrt_fopen( (char *)pTransfer->szPath, "wb" );
+	hFile = vrt_fopen(  (char *)pTransfer->szPath, (char *)"wb" );
 	sgIP_dbgprint("Open done\n" );
 // pTransfer->RestartAt =0; debug
 	if( hFile != NULL ) 
@@ -1850,7 +1850,7 @@ endofstore:
 	}
 
 
-	hFile = vrt_fopen( (char *)pTransfer->szPath, "rb" );
+	hFile = vrt_fopen( (char *)pTransfer->szPath, (char *)"rb" );
 	sgIP_dbgprint("open file to reaf %s \n" ,pTransfer->szPath );
 	if( hFile != NULL ) {
 	sgIP_dbgprint("file ok %s \n" ,pTransfer->szPath );
@@ -2290,19 +2290,19 @@ void OnServerEvent( s32 Event )
 	switch( Event )
 	{
 		case CFtpServer::START_LISTENING:
-			dbgprintsyntesis("Server waits for client");
+			dbgprintsyntesis(tr("Server waits for client"));
 			dbgprintclientIP("");
 			break;
 		case CFtpServer::STOP_LISTENING:
 		case CFtpServer::STOP_ACCEPTING:
-			dbgprintsyntesis("Server stopped");
+			dbgprintsyntesis(tr("Server stopped"));
 			dbgprintclientIP("");
 			break;
 		case CFtpServer::MEM_ERROR:
 		case CFtpServer::THREAD_ERROR:
 		case CFtpServer::ZLIB_VERSION_ERROR:
 		case CFtpServer::ZLIB_STREAM_ERROR:
-			dbgprintsyntesis("Internal error");
+			dbgprintsyntesis(tr("Internal error"));
 			break;
 	}
 
@@ -2330,69 +2330,66 @@ void OnClientEvent( s32 Event, CFtpServer::CClientEntry *pClient, void *pArg )
 	switch( Event )
 	{
 		case CFtpServer::NEW_CLIENT:
-			dbgprintclient_R( "Server at: %s"  , my_inet_ntoa( *OneClient.GetServerIP() ));
-			dbgprintclient_R( "Connected with: %s"  , my_inet_ntoa( *OneClient.GetIP() ));
+			dbgprintclient_R( tr("Server at: %s")  , my_inet_ntoa( (struct in_addr) *OneClient.GetServerIP() ));
+			dbgprintclient_R( tr("Connected with: %s)")  , my_inet_ntoa( (struct in_addr) *OneClient.GetIP() ));
 
-			dbgprintclient_R( "A new client has been created:\n");
+			dbgprintclient_R( tr("A new client has been created:\n"));
 			break;
 
 		case CFtpServer::DELETE_CLIENT:
-			dbgprintsyntesis("Server started");
-			dbgprintclient_R( "A client is being deleted.\n" );
+			dbgprintsyntesis(tr("Server started"));
+			dbgprintclient_R( tr("A client is being deleted.\n") );
 			break;
 
 		case CFtpServer::CLIENT_AUTH:
-			dbgprintclient_R( "Clientlogged");
-			dbgprintclient_R( "A client has logged-in.\n");
+			dbgprintclient_R( tr("A client has logged-in.\n"));
 			break;
 
 		case CFtpServer::CLIENT_DISCONNECT:
-			dbgprintclient_R( "Not connected ..              ");
-			dbgprintclient_R( "A client has disconnected.\n" );
+			dbgprintclient_R( tr("A client has disconnected.\n") );
 			break;
 
 		case CFtpServer::CLIENT_UPLOAD:
-			dbgprintclient_R( "A client is uploading a file: \"%s\"\n",
+			dbgprintclient_R( tr("A client is uploading a file: \"%s\"\n"),
 				(char*)pArg );
 			break;
 
 		case CFtpServer::CLIENT_DOWNLOAD:
-			dbgprintclient_R( "A client is downloading a file: \"%s\"\n",
+			dbgprintclient_R( tr("A client is downloading a file: \"%s\"\n"),
 				(char*)pArg );
 			break;
 
 		case CFtpServer::CLIENT_LIST:
-			dbgprintclient_R( "A client is listing a directory: \"%s\"\n",
+			dbgprintclient_R( tr("A client is listing a directory: \"%s\"\n"),
 				(char*)pArg );
 			break;
 
 		case CFtpServer::CLIENT_CHANGE_DIR:
-			dbgprintclient_R( "A client has changed its working directory:\n"
-				"\tFull path: \"%s\"\n\tWorking directory: \"%s\"\n",
+			dbgprintclient_R( tr("A client has changed its working directory:\n\tFull path: \"%s\"\n\tWorking directory: \"%s\"\n"),
 				(char*)pArg, OneClient.GetWorkingDirectory() );
 			break;
 
 		case CFtpServer::RECVD_CMD_LINE:
-			dbgprintclient_R( "Cmd received: %s\n",(char*) pArg );
+			dbgprintclient_R( tr("Cmd received: %s\n"),(char*) pArg );
 			break;
 		
 		case CFtpServer::SEND_REPLY:
-			dbgprintclient_S( "Reply sent: %s\n",(char*) pArg );
+			dbgprintclient_S( tr("Reply sent: %s\n"),(char*) pArg );
 			break;
 
 		case CFtpServer::TOO_MANY_PASS_TRIES:
-			dbgprintclient_E( "Too many pass tries for (%s)\n",
-				my_inet_ntoa( *OneClient.GetIP() ) );
+			dbgprintclient_E( tr("Too many pass tries for (%s)\n"),
+				my_inet_ntoa( (struct in_addr)*OneClient.GetIP() ) );
 			break;
 
 		case CFtpServer::NO_TRANSFER_TIMEOUT:
-			dbgprintclient_E( "NO_LOGIN_TIMEOUT\n");
+			dbgprintclient_E( tr("NO_LOGIN_TIMEOUT\n"));
 			break;
 		case CFtpServer::CLIENT_SOCK_ERROR:
-			dbgprintclient_E( "CLIENT_SOCK_ERROR \n");
+			dbgprintclient_E( tr("CLIENT_SOCK_ERROR \n"));
 			break;
 		case CFtpServer::CLIENT_SOFTWARE:
-			dbgprintclient_R( "CLIENT_SOFTWARE\n");
+			dbgprintclient_R( tr("CLIENT_SOFTWARE\n"));
 			break;
 	}
 
@@ -2400,13 +2397,13 @@ void OnClientEvent( s32 Event, CFtpServer::CClientEntry *pClient, void *pArg )
 	{
 		case CFtpServer::NEW_CLIENT:
 		case CFtpServer::CLIENT_AUTH:
-			dbgprintsyntesis( "Connected");
-			dbgprintclientIP(my_inet_ntoa( *OneClient.GetIP()));
+			dbgprintsyntesis(tr("Connected"));
+			dbgprintclientIP(my_inet_ntoa( (struct in_addr) *OneClient.GetIP()));
 			break;
 
 		case CFtpServer::DELETE_CLIENT:
 		case CFtpServer::CLIENT_DISCONNECT:
-			dbgprintsyntesis("Server waits for client");
+			dbgprintsyntesis(tr("Server waits for client"));
 			dbgprintclientIP("");
 			break;
 
@@ -2421,7 +2418,7 @@ void OnClientEvent( s32 Event, CFtpServer::CClientEntry *pClient, void *pArg )
 		case CFtpServer::NO_TRANSFER_TIMEOUT:
 		case CFtpServer::CLIENT_SOCK_ERROR:
 		case CFtpServer::CLIENT_SOFTWARE:
-			dbgprintsyntesis("Internal error");
+			dbgprintsyntesis(tr("Internal error"));
 			break;
 	}
 }
@@ -2558,41 +2555,37 @@ extern u32 CFtpServer::Server(const char *drive, int status, bool stop)
                         }
                     }
                 }
-                  Entries="UserLogin";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0) {
-                        strcpy(UserLogin,Value);
+
+
+                this->SetDataPortRange( Settings.FTPServerUser.DataPort, Settings.FTPServerUser.DataPort+10 ); 
+
+
+				if(strcmp(Settings.FTPServerUser.UserName, "") != 0) {
+                        strcpy(UserLogin,Settings.FTPServerUser.UserName);
                         pszUserLogin=UserLogin;
-                    }
                 }
-                Entries="UserPass";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0) {
-                        strcpy(UserPass,Value);
+				
+ 				if(strcmp(Settings.FTPServerUser.Password, "") != 0) {
+                         strcpy(UserPass,Settings.FTPServerUser.Password);
                         pszUserPass=UserPass;
-                    }
                 }
-                Entries="UserStartDirectory";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0) {
-                        strcpy(UserStartDirectory,Value);
-                        strcpy(pszUserStartDirectory,UserStartDirectory);
-                    }
+				
+   				if(strcmp(Settings.FTPServerUser.FTPPath, "") != 0) {
+                        strcpy(UserStartDirectory,Settings.FTPServerUser.FTPPath);
+                        strcpy(pszUserStartDirectory,Settings.FTPServerUser.FTPPath);
                 }
-                Entries="UserPriv";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0) ucUserPriv=(atoi(Value));
-                }
-                Entries="EnableModeZ";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0)this->EnableModeZ(atoi(Value));
-                }
-                Entries="EnableFXP";
-                if (cfgReadIni(&FilePath, &Section, &Entries, &Value)){
-                    if (Value.GetLength()>0)this->EnableFXP(atoi(Value));
-                }
-                
-                
+				
+				ucUserPriv=0;
+				if (Settings.FTPServerUser.EnableReadFile==on) ucUserPriv |= CFtpServer::READFILE;
+				if (Settings.FTPServerUser.EnableListFile==on) ucUserPriv |= CFtpServer::LIST;
+				if (Settings.FTPServerUser.EnableWriteFile==on) ucUserPriv |= CFtpServer::WRITEFILE;				
+				if (Settings.FTPServerUser.EnableDeleteFile==on) ucUserPriv |= CFtpServer::DELETEFILE;				
+				if (Settings.FTPServerUser.EnableCreateDir==on) ucUserPriv |= CFtpServer::CREATEDIR;				
+				if (Settings.FTPServerUser.EnableDeleteDir==on) ucUserPriv |= CFtpServer::DELETEDIR;				
+				
+				if (Settings.FTPServerUser.ZipMode==on) this->EnableModeZ( true );
+				else this->EnableModeZ( false );
+
                 if( !pszUserLogin ) {
                     dbgprintserver("/!\\Error: User Login is missing.\n\n" );
                     Usage();

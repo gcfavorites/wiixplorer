@@ -244,7 +244,7 @@ int ServerFtpGui()
 		{
 		menu = MENU_BROWSE_DEVICE;
 		}
-
+ 
         else if(updateBtn.GetState() == STATE_CLICKED)
 		{
 		cr=0;

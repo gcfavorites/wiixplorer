@@ -58,7 +58,6 @@ typedef struct {
 } VIRTUAL_PARTITION;
 
 
-
 VIRTUAL_PARTITION VIRTUAL_PARTITIONS[] = {
     { "Front SD", "/sd", "sd", "sd:/", false,  &__io_wiisd }, //SD
     { "USB storage device", "/usb", "usb", "usb:/", false, &__io_usbstorage }, // USB
@@ -71,6 +70,11 @@ VIRTUAL_PARTITION VIRTUAL_PARTITIONS[] = {
     { "SMB storage device", "/smb2", "smb2", "smb2:/", false, NULL }, // SMB2
     { "SMB storage device", "/smb3", "smb3", "smb3:/", false, NULL }, // SMB3
     { "SMB storage device", "/smb4", "smb4", "smb4:/", false, NULL }, // SMB4
+	
+    { "FTP storage device", "/ftp1", "ftp1", "ftp1:/", false, NULL }, // FTP1
+    { "FTP storage device", "/ftp2", "ftp2", "ftp2:/", false, NULL }, // FTP2
+    { "FTP storage device", "/ftp3", "ftp3", "ftp3:/", false, NULL }, // FTP3
+    { "FTP storage device", "/ftp4", "ftp4", "ftp4:/", false, NULL }, // FTP4
     { "DVD storage device", "/dvd", "dvd", "dvd:/", false, NULL }, // DVD
  
  // unused partition  	
@@ -116,9 +120,18 @@ void initialise_virtual_path(void)
     {
         if(IsSMB_Mounted(i))
         {
-		VIRTUAL_PARTITIONS[SMB1].working = true;
+		VIRTUAL_PARTITIONS[SMB1+i].working = true;
         }
     }
+	
+	for(int i = 0; i < 4; i++)
+    {
+        if(IsFTPConnected(i))
+        {
+		VIRTUAL_PARTITIONS[FTP1+i].working = true;
+        }
+    }
+	
  }
 
 static bool mounted(VIRTUAL_PARTITION *partition) {

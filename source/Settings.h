@@ -52,6 +52,23 @@ typedef struct _FTPData
 	short	Passive;
 } FTPData;
 
+
+typedef struct _FTPServerData
+{
+	char    UserName[50];
+	char    Password[50];
+	char    FTPPath[50];
+    unsigned short	Port;
+    unsigned short	DataPort;
+	short	ZipMode;
+	short	EnableReadFile;
+	short	EnableListFile;
+	short	EnableWriteFile;
+	short	EnableDeleteFile;
+	short	EnableCreateDir;
+	short	EnableDeleteDir;
+} FTPServerData;
+
 enum
 {
     off,
@@ -136,6 +153,8 @@ class Settings
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations
         FTPData FTPUser[MAXFTPUSERS];
+		//!FTP server informations
+		FTPServerData FTPServerUser;
 
     protected:
         //!Path to the configuration file

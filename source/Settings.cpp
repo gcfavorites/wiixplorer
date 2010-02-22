@@ -82,6 +82,16 @@ void Settings::SetDefault()
         FTPUser[i].Port = 21;
 		FTPUser[i].Passive = 0;
 	}
+	
+	FTPServerUser.Port=21;
+    FTPServerUser.DataPort=1024;
+	FTPServerUser.ZipMode=1;
+	FTPServerUser.EnableReadFile=1;
+	FTPServerUser.EnableListFile=1;
+	FTPServerUser.EnableWriteFile=1;
+	FTPServerUser.EnableDeleteFile=1;
+	FTPServerUser.EnableCreateDir=1;
+	FTPServerUser.EnableDeleteDir=1;
 }
 
 bool Settings::Save()
@@ -155,6 +165,20 @@ bool Settings::Save()
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
 	}
 
+	fprintf(file, "\n# FTP Server Setup Information\n\n");
+    fprintf(file, "FTPServerUser.UserName = %s\n", FTPServerUser.UserName);
+    fprintf(file, "FTPServerUser.Password = %s\n", FTPServerUser.Password);
+    fprintf(file, "FTPServerUser.FTPPath = %s\n", FTPServerUser.FTPPath);
+	fprintf(file, "FTPServerUser.Port = %d\n\n", FTPServerUser.Port);
+	fprintf(file, "FTPServerUser.DataPort = %d\n\n", FTPServerUser.DataPort);
+	fprintf(file, "FTPServerUser.ZipMode = %d\n\n",  FTPServerUser.ZipMode);
+	fprintf(file, "FTPServerUser.EnableReadFile = %d\n\n",  FTPServerUser.EnableReadFile);
+	fprintf(file, "FTPServerUser.EnableListFile = %d\n\n",  FTPServerUser.EnableListFile);
+	fprintf(file, "FTPServerUser.EnableWriteFile = %d\n\n",  FTPServerUser.EnableWriteFile);
+	fprintf(file, "FTPServerUser.EnableDeleteFile = %d\n\n",  FTPServerUser.EnableDeleteFile);
+	fprintf(file, "FTPServerUser.EnableCreateDir = %d\n\n",  FTPServerUser.EnableCreateDir);
+	fprintf(file, "FTPServerUser.EnableDeleteDir = %d\n\n",  FTPServerUser.EnableDeleteDir);
+	
 	fclose(file);
 
 	return true;
@@ -515,6 +539,74 @@ bool Settings::SetSetting(char *name, char *value)
                 return true;
             }
 		}
+           
+
+        if (stricmp(name, "FTPServerUser.UserName") == 0) {
+            strncpy(FTPServerUser.UserName, value, sizeof(FTPServerUser.UserName));
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.Password") == 0) {
+            strncpy(FTPServerUser.Password, value, sizeof(FTPServerUser.Password));
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.FTPPath") == 0) {
+            strncpy(FTPServerUser.FTPPath, value, sizeof(FTPServerUser.FTPPath));
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.Port") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.Port = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.DataPort") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.DataPort = i;
+			}
+            return true;
+        } 
+        if (stricmp(name, "FTPServerUser.ZipMode") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.ZipMode = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableReadFile") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableReadFile = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableListFile") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableListFile = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableWriteFile") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableWriteFile = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableDeleteFile") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableDeleteFile = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableCreateDir") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableCreateDir = i;
+			}
+            return true;
+        }
+        if (stricmp(name, "FTPServerUser.EnableDeleteDir") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServerUser.EnableDeleteDir = i;
+			}
+            return true;
+        }
 	}
 
     return false;
