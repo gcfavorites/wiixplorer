@@ -349,6 +349,12 @@ int TextEditor::GetState()
             //to revert the state reset
             state = STATE_CLOSED;
         }
+        else
+        {
+            MainWindow::Instance()->SetState(STATE_DISABLED);
+            MainWindow::Instance()->SetDim(true);
+            MainWindow::Instance()->ChangeFocus(this);
+        }
     }
 
     return GuiWindow::GetState();
