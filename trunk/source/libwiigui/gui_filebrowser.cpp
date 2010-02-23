@@ -471,8 +471,9 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 		}
 
 		ItemMarker * IMarker = browser->GetItemMarker();
+		int itemCount = IMarker->GetItemcount();
 
-		for(int n = 0; n < IMarker->GetItemcount(); n++)
+		for(int n = 0; n < itemCount; n++)
 		{
 		    if(browser->GetPageIndex() + i == IMarker->GetItemIndex(n))
 		    {

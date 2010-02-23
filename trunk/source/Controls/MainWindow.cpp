@@ -53,7 +53,7 @@ MainWindow::MainWindow()
 	guithread = LWP_THREAD_NULL;
 
 	//!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 0, 70);
+	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 0, LWP_PRIO_HIGHEST);
 
 	//!Initalize the progress thread
 	InitProgressThread();
