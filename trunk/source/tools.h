@@ -51,6 +51,9 @@ const char * fmt(const char * format, ...);
 const wchar_t * wfmt(const char * format, ...);
 bool char2wchar_t(const char * src, wchar_t * dest);
 
+void EncryptString(const char *src, char *dst);
+void DecryptString(const char *src, char *dst);
+
 #ifdef __cplusplus
 }
 #endif //__cplusplus

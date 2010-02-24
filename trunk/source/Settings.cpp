@@ -34,6 +34,7 @@
 #include "Settings.h"
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
+#include "tools.h"
 
 #define DEFAULT_APP_PATH    "apps/WiiExplorer/"
 #define CONFIGPATH          "config/WiiXplorer/"
@@ -98,7 +99,8 @@ bool Settings::Save()
 {
     char filepath[100];
     char filedest[100];
-
+	char password[100];
+	
     snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
     snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
     char * tmppath = strrchr(filedest, '/');
@@ -151,7 +153,10 @@ bool Settings::Save()
     for(int i = 0; i < MAXSMBUSERS; i++) {
         fprintf(file, "SMBUser[%d].Host = %s\n", i+1, SMBUser[i].Host);
         fprintf(file, "SMBUser[%d].User = %s\n", i+1, SMBUser[i].User);
-        fprintf(file, "SMBUser[%d].Password = %s\n", i+1, SMBUser[i].Password);
+        password[0] = 0;
+		if (strcmp(SMBUser[i].Password, "") != 0)
+            EncryptString(SMBUser[i].Password, password);
+		fprintf(file, "SMBUser[%d].CPassword = %s\n", i+1, password);
         fprintf(file, "SMBUser[%d].SMBName = %s\n\n", i+1, SMBUser[i].SMBName);
 	}
 
@@ -159,7 +164,10 @@ bool Settings::Save()
     for(int i = 0; i < MAXFTPUSERS; i++) {
         fprintf(file, "FTPUser[%d].Host = %s\n", i+1, FTPUser[i].Host);
         fprintf(file, "FTPUser[%d].User = %s\n", i+1, FTPUser[i].User);
-        fprintf(file, "FTPUser[%d].Password = %s\n", i+1, FTPUser[i].Password);
+        password[0] = 0;
+        if (strcmp(FTPUser[i].Password, "") != 0)
+            EncryptString(FTPUser[i].Password, password);
+        fprintf(file, "FTPUser[%d].CPassword = %s\n", i+1, password);
         fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
 		fprintf(file, "FTPUser[%d].Port = %d\n\n", i+1, FTPUser[i].Port);
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
@@ -167,17 +175,20 @@ bool Settings::Save()
 
 	fprintf(file, "\n# FTP Server Setup Information\n\n");
     fprintf(file, "FTPServerUser.UserName = %s\n", FTPServerUser.UserName);
-    fprintf(file, "FTPServerUser.Password = %s\n", FTPServerUser.Password);
+    password[0] = 0;
+    if (strcmp(FTPServerUser.Password, "") != 0)
+        EncryptString(FTPServerUser.Password, password);
+	fprintf(file, "FTPServerUser.CPassword = %s\n", password);
     fprintf(file, "FTPServerUser.FTPPath = %s\n", FTPServerUser.FTPPath);
-	fprintf(file, "FTPServerUser.Port = %d\n\n", FTPServerUser.Port);
-	fprintf(file, "FTPServerUser.DataPort = %d\n\n", FTPServerUser.DataPort);
-	fprintf(file, "FTPServerUser.ZipMode = %d\n\n",  FTPServerUser.ZipMode);
-	fprintf(file, "FTPServerUser.EnableReadFile = %d\n\n",  FTPServerUser.EnableReadFile);
-	fprintf(file, "FTPServerUser.EnableListFile = %d\n\n",  FTPServerUser.EnableListFile);
-	fprintf(file, "FTPServerUser.EnableWriteFile = %d\n\n",  FTPServerUser.EnableWriteFile);
-	fprintf(file, "FTPServerUser.EnableDeleteFile = %d\n\n",  FTPServerUser.EnableDeleteFile);
-	fprintf(file, "FTPServerUser.EnableCreateDir = %d\n\n",  FTPServerUser.EnableCreateDir);
-	fprintf(file, "FTPServerUser.EnableDeleteDir = %d\n\n",  FTPServerUser.EnableDeleteDir);
+	fprintf(file, "FTPServerUser.Port = %d\n", FTPServerUser.Port);
+	fprintf(file, "FTPServerUser.DataPort = %d\n", FTPServerUser.DataPort);
+	fprintf(file, "FTPServerUser.ZipMode = %d\n",  FTPServerUser.ZipMode);
+	fprintf(file, "FTPServerUser.EnableReadFile = %d\n",  FTPServerUser.EnableReadFile);
+	fprintf(file, "FTPServerUser.EnableListFile = %d\n",  FTPServerUser.EnableListFile);
+	fprintf(file, "FTPServerUser.EnableWriteFile = %d\n",  FTPServerUser.EnableWriteFile);
+	fprintf(file, "FTPServerUser.EnableDeleteFile = %d\n",  FTPServerUser.EnableDeleteFile);
+	fprintf(file, "FTPServerUser.EnableCreateDir = %d\n",  FTPServerUser.EnableCreateDir);
+	fprintf(file, "FTPServerUser.EnableDeleteDir = %d\n",  FTPServerUser.EnableDeleteDir);
 	
 	fclose(file);
 
@@ -405,6 +416,7 @@ bool Settings::Reset()
 bool Settings::SetSetting(char *name, char *value)
 {
     int i = 0;
+	char password[100];
 
     if (strcmp(name, "MountMethod") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
@@ -491,9 +503,11 @@ bool Settings::SetSetting(char *name, char *value)
                 strncpy(SMBUser[n].User, value, sizeof(SMBUser[n].User));
                 return true;
             }
-            sprintf(temp, "SMBUser[%d].Password", n+1);
+            sprintf(temp, "SMBUser[%d].CPassword", n+1);
             if (stricmp(name, temp) == 0) {
-                strncpy(SMBUser[n].Password, value, sizeof(SMBUser[n].Password));
+                if (strcmp(value, "") != 0)
+                    DecryptString(value, password);
+                strncpy(SMBUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(SMBUser[n].Password));
                 return true;
             }
             sprintf(temp, "SMBUser[%d].SMBName", n+1);
@@ -514,9 +528,11 @@ bool Settings::SetSetting(char *name, char *value)
                 strncpy(FTPUser[n].User, value, sizeof(FTPUser[n].User));
                 return true;
             }
-            sprintf(temp, "FTPUser[%d].Password", n+1);
+            sprintf(temp, "FTPUser[%d].CPassword", n+1);
             if (stricmp(name, temp) == 0) {
-                strncpy(FTPUser[n].Password, value, sizeof(FTPUser[n].Password));
+                if (strcmp(value, "") != 0)
+                    DecryptString(value, password);
+                strncpy(FTPUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPUser[n].Password));
                 return true;
             }
             sprintf(temp, "FTPUser[%d].FTPPath", n+1);
@@ -545,8 +561,10 @@ bool Settings::SetSetting(char *name, char *value)
             strncpy(FTPServerUser.UserName, value, sizeof(FTPServerUser.UserName));
             return true;
         }
-        if (stricmp(name, "FTPServerUser.Password") == 0) {
-            strncpy(FTPServerUser.Password, value, sizeof(FTPServerUser.Password));
+        if (stricmp(name, "FTPServerUser.CPassword") == 0) {
+            if (strcmp(value, "") != 0)
+                DecryptString(value, password);
+            strncpy(FTPServerUser.Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPServerUser.Password));
             return true;
         }
         if (stricmp(name, "FTPServerUser.FTPPath") == 0) {

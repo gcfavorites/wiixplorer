@@ -41,7 +41,7 @@ misrepresented as being the original software.
 #include <unistd.h>
 #include <wiiuse/wpad.h>
 
-#include "Prompts/deviceMenu.h"
+#include "Prompts/DeviceMenu.h"
 #include "devicemounter.h"
 #include "network/networkops.h"
 #include "vrt.h"

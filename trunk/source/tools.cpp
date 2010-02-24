@@ -23,7 +23,7 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
- #include <string.h>
+#include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -202,3 +202,37 @@ extern "C" bool char2wchar_t(const char * strChar, wchar_t * dest)
 
     return false;
 }
+
+extern "C" void EncryptString(const char *src, char *dst)
+{
+	u32 id;
+	char sid[9], tmp[3];
+
+	ES_GetDeviceID(&id);
+	sprintf(sid, "%08x", id);
+
+	dst[0] = 0;
+	for (u32 i = 0; i < strlen(src); i++)
+	{
+		sprintf(tmp, "%02x", src[i] ^ sid[i%8]);
+		strcat(dst, tmp);
+	}
+}
+
+extern "C" void DecryptString(const char *src, char *dst)
+{
+	u32 id;
+	char sid[9];
+
+	ES_GetDeviceID(&id);
+	sprintf(sid, "%08x", id);
+
+	for (u32 i = 0; i < strlen(src); i += 2)
+	{
+		char c = (src[i] >= 'a' ? (src[i] - 'a') + 10 : (src[i] - '0')) << 4;
+		c += (src[i+1] >= 'a' ? (src[i+1] - 'a') + 10 : (src[i+1] - '0'));
+		dst[i>>1] = c ^ sid[(i>>1)%8];
+	}
+	dst[strlen(src)>>1] = 0;
+}
+

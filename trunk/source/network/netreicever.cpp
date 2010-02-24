@@ -142,17 +142,21 @@ bool NetReceiver::CheckIncomming()
 
     if (connection < 0)
     {
-
-        net_close(connection);
+//        net_close(connection);
         net_close(socket);
         return false;
-
     }
     else
     {
         unsigned char haxx[9];
         //skip haxx
         net_read(connection, &haxx, 8);
+        if (memcmp(haxx, "HAXX", 4) != 0) // unsupported protocol
+        {
+            net_close(connection);
+            net_close(socket);
+            return false;
+        }
 		wiiloadVersion[0] = haxx[4];
 		wiiloadVersion[1] = haxx[5];
 

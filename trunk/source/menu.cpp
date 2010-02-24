@@ -422,7 +422,7 @@ static int MenuSMBSettings()
                 }
                 break;
             case 3:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].Password);
+                entered[0] = 0;
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Password, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Password), "%s", entered);
@@ -453,7 +453,10 @@ static int MenuSMBSettings()
             options.SetValue(i++,tr("User %i"), Settings.CurrentSMBUser+1);
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Password);
+			if (strcmp(Settings.SMBUser[Settings.CurrentSMBUser].Password, "") != 0)
+				options.SetValue(i++,"********");
+			else
+				options.SetValue(i++," ");
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
             options.SetValue(i++," ");
         }
@@ -577,7 +580,7 @@ static int MenuFTPSettings()
                 }
                 break;
             case 3:
-                snprintf(entered, sizeof(entered), "%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
+                entered[0] = 0;
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.FTPUser[Settings.CurrentFTPUser].Password, sizeof(Settings.FTPUser[Settings.CurrentFTPUser].Password), "%s", entered);
@@ -620,7 +623,10 @@ static int MenuFTPSettings()
             options.SetValue(i++,tr("User %i"), Settings.CurrentFTPUser+1);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
-            options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Password);
+			if (strcmp(Settings.FTPUser[Settings.CurrentFTPUser].Password, "") != 0)
+				options.SetValue(i++,"********");
+			else
+				options.SetValue(i++," ");
             options.SetValue(i++,"%i", Settings.FTPUser[Settings.CurrentFTPUser].Port);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
 			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == on) options.SetValue(i++,tr("ON"));
@@ -642,7 +648,7 @@ static int MenuFTPSettings()
 }
 
 /****************************************************************************
- * MenuFTPSettings
+ * MenuFTPServerSettings
  ***************************************************************************/
 static int MenuFTPServerSettings()
 {
@@ -740,7 +746,7 @@ static int MenuFTPServerSettings()
                 }
                 break;
             case 1:
-                snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.Password);
+                entered[0] = 0;
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.FTPServerUser.Password, sizeof(Settings.FTPServerUser.Password), "%s", entered);
@@ -808,7 +814,10 @@ static int MenuFTPServerSettings()
             firstRun = false;
 
             options.SetValue(i++,"%s", Settings.FTPServerUser.UserName);
-            options.SetValue(i++,"%s", Settings.FTPServerUser.Password);
+			if (strcmp(Settings.FTPServerUser.Password, "") != 0)
+				options.SetValue(i++,"********");
+			else
+				options.SetValue(i++," ");
             options.SetValue(i++,"%i", Settings.FTPServerUser.Port);
 			options.SetValue(i++,"%i", Settings.FTPServerUser.DataPort);
             options.SetValue(i++,"%s", Settings.FTPServerUser.FTPPath);
