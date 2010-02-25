@@ -185,11 +185,14 @@ extern const u32	settingsbtn_png_size;
 extern const u8		settingsbtn_over_png[];
 extern const u32	settingsbtn_over_png_size;
 
-extern const u8		power_png[];
-extern const u32	power_png_size;
+extern const u8		system_log_out_png[];
+extern const u32	system_log_out_png_size;
 
-extern const u8		power_over_png[];
-extern const u32	power_over_png_size;
+extern const u8		system_restart_png[];
+extern const u32	system_restart_png_size;
+
+extern const u8		refresh_png[];
+extern const u32	refresh_png_size;
 
 extern const u8		searchbtn_png[];
 extern const u32	searchbtn_png_size;

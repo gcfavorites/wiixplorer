@@ -41,7 +41,7 @@
 #if defined(__wii__)
 #include <sdcard/wiisd_io.h>
 #include <sdcard/gcsd.h>
-#include <ogc/usbstorage.h>
+#include "usbstorage/usbstorage.h"
 
 const INTERFACE_ID ntfs_disc_interfaces[] = {
     { "sd", &__io_wiisd },
