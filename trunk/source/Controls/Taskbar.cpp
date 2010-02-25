@@ -26,12 +26,16 @@
  * for WiiXplorer 2009
  ***************************************************************************/
 
+#include <fat.h>
 #include <time.h>
 
 #include "menu.h"
 #include "Taskbar.h"
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
+#include "Prompts/PromptWindows.h"
+#include "devicemounter.h"
+#include "sys.h"
 
 Taskbar *Taskbar::instance = NULL;
 
@@ -71,17 +75,42 @@ Taskbar::Taskbar()
 	ftpBtn->SetTrigger(trigA);
 	ftpBtn->Clicked.connect(this, &Taskbar::OnFtpClick);
 
-	exitBtn = new PictureButton(power_png, power_png_size, power_over_png, power_over_png_size, soundClick, soundOver);
+	reloadDevicesBtn = new PictureButton(refresh_png, refresh_png_size, 0, 0, soundClick, soundOver);
+	reloadDevicesBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	reloadDevicesBtn->SetPosition(410, 0);
+	reloadDevicesBtn->SetSelectable(false);
+	reloadDevicesBtn->SetTrigger(trigA);
+	reloadDevicesBtn->SetEffectGrow();
+	reloadDevicesBtn->SetScaleX(0.8f);
+	reloadDevicesBtn->SetScaleY(0.8f);
+	reloadDevicesBtn->SetAlpha(200);
+
+	rebootBtn = new PictureButton(system_restart_png, system_restart_png_size, 0, 0, soundClick, soundOver);
+	rebootBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	rebootBtn->SetPosition(440, 0);
+	rebootBtn->SetSelectable(false);
+	rebootBtn->SetTrigger(trigA);
+	rebootBtn->SetEffectGrow();
+	rebootBtn->SetScaleX(0.8f);
+	rebootBtn->SetScaleY(0.8f);
+	rebootBtn->SetAlpha(200);
+
+	exitBtn = new PictureButton(system_log_out_png, system_log_out_png_size, 0, 0, soundClick, soundOver);
 	exitBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	exitBtn->SetPosition(465, 0);
+	exitBtn->SetPosition(470, 0);
 	exitBtn->SetSelectable(false);
 	exitBtn->SetTrigger(trigA);
-	exitBtn->Clicked.connect(this, &Taskbar::OnExitClick);
+	exitBtn->SetEffectGrow();
+	exitBtn->SetScaleX(0.8f);
+	exitBtn->SetScaleY(0.8f);
+	exitBtn->SetAlpha(200);
 
 	Append(taskbarImg);
 	Append(timeTxt);
 	Append(settingsBtn);
 	Append(ftpBtn);
+	Append(rebootBtn);
+	Append(reloadDevicesBtn);
 	Append(exitBtn);
 
 	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -98,6 +127,9 @@ Taskbar::~Taskbar()
 
 	delete timeTxt;
 	delete settingsBtn;
+	delete ftpBtn;
+	delete rebootBtn;
+	delete reloadDevicesBtn;
 	delete exitBtn;
 
 	delete trigA;
@@ -167,13 +199,41 @@ void Taskbar::SetMenu(int m)
 
 int Taskbar::GetMenu()
 {
-    return menu;
-}
+    if(reloadDevicesBtn->GetState() == STATE_CLICKED)
+    {
+        int choice = WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel"));
+        if(choice)
+        {
+            SDCard_deInit();
+            NTFS_UnMount();
+            //don't need to shutdown the device
+            fatUnmount("usb:/");
+            SDCard_Init();
+            USBDevice_Init();
+            NTFS_Mount();
+        }
+        reloadDevicesBtn->ResetState();
+    }
+    else if(rebootBtn->GetState() == STATE_CLICKED)
+    {
+        int choice = WindowPrompt(tr("Do you want to reboot WiiXplorer?"), 0, tr("Yes"), tr("Cancel"));
+        if(choice)
+        {
+            RebootApp();
+        }
+        rebootBtn->ResetState();
+    }
+    else if(exitBtn->GetState() == STATE_CLICKED)
+    {
+        int choice = WindowPrompt(tr("Do you want to exit WiiXplorer?"), 0, tr("Yes"), tr("Cancel"));
+        if(choice)
+        {
+            menu = MENU_EXIT;
+        }
+        exitBtn->ResetState();
+    }
 
-void Taskbar::OnExitClick(GuiElement *sender, int pointer, POINT p)
-{
-    sender->ResetState();
-	menu = MENU_EXIT;
+    return menu;
 }
 
 void Taskbar::OnSettingsClick(GuiElement *sender, int pointer, POINT p)
@@ -181,7 +241,6 @@ void Taskbar::OnSettingsClick(GuiElement *sender, int pointer, POINT p)
     sender->ResetState();
 	menu = MENU_SETTINGS;
 }
-
 
 void Taskbar::OnFtpClick(GuiElement *sender, int pointer, POINT p)
 {

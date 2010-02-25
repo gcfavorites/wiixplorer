@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-23 00:13+0100\n"
+"POT-Creation-Date: 2010-02-25 01:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -190,6 +190,9 @@ msgstr ""
 msgid "Do you want to boot:"
 msgstr "Přejete si nabootovat:"
 
+msgid "Do you want to exit WiiXplorer?"
+msgstr ""
+
 msgid "Do you want to load app default language ?"
 msgstr "Přejete si spustit aplikaci v původním jazyce?"
 
@@ -215,6 +218,9 @@ msgstr "Přejete si otevřít tento soubor v ImageViewer?"
 msgid "Do you want to playback this file?"
 msgstr "Přejete si přehrát tento soubor?"
 
+msgid "Do you want to reboot WiiXplorer?"
+msgstr ""
+
 msgid "Do you want to reboot now ?"
 msgstr ""
 
@@ -222,6 +228,9 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "Přejete si znovu připojit SMB"
 
 msgid "Do you want to reconnect to FTP server?"
+msgstr ""
+
+msgid "Do you want to remount the devices?"
 msgstr ""
 
 msgid "Do you want to save changes?"

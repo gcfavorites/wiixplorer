@@ -438,9 +438,7 @@ static int MenuSMBSettings()
             case 5:
                 result = WindowPrompt(tr("Do you want to reconnect the SMB?"),0,tr("OK"),tr("Cancel"));
                 if(result) {
-                    CloseSMBShare();
-                    sleep(1);
-                    ConnectSMBShare();
+                    SMB_Reconnect();
                 }
                 break;
 		}
@@ -737,7 +735,7 @@ static int MenuFTPServerSettings()
 		ret = optionBrowser.GetClickedOption();
 
 		switch (ret)
-		{        
+		{
 			case 0:
 				snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.UserName);
                 result = OnScreenKeyboard(entered, 149);
@@ -777,7 +775,7 @@ static int MenuFTPServerSettings()
 				Settings.FTPServerUser.ZipMode++;
 				if(Settings.FTPServerUser.ZipMode >= on_off_max)
                     Settings.FTPServerUser.ZipMode = off;
-				break;			
+				break;
             case 6:
 				Settings.FTPServerUser.EnableReadFile++;
 				if(Settings.FTPServerUser.EnableReadFile >= on_off_max)
@@ -790,22 +788,22 @@ static int MenuFTPServerSettings()
 				Settings.FTPServerUser.EnableWriteFile++;
 				if(Settings.FTPServerUser.EnableWriteFile >= on_off_max)
                     Settings.FTPServerUser.EnableWriteFile = off;
-				break;			
+				break;
             case 9:
 				Settings.FTPServerUser.EnableDeleteFile++;
 				if(Settings.FTPServerUser.EnableDeleteFile >= on_off_max)
                     Settings.FTPServerUser.EnableDeleteFile = off;
-				break;			
+				break;
             case 10:
 				Settings.FTPServerUser.EnableCreateDir++;
 				if(Settings.FTPServerUser.EnableCreateDir >= on_off_max)
                     Settings.FTPServerUser.EnableCreateDir = off;
-				break;			
+				break;
            case 11:
 				Settings.FTPServerUser.EnableDeleteDir++;
 				if(Settings.FTPServerUser.EnableDeleteDir >= on_off_max)
                     Settings.FTPServerUser.EnableDeleteDir = off;
-				break;	
+				break;
 		}
 
         if(firstRun || ret >= 0)

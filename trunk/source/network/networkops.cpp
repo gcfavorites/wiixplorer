@@ -301,7 +301,6 @@ void CloseSMBShare()
 
         SMB_Mounted[i] = false;
     }
-    networkinit = false;
 }
 
 /****************************************************************************
@@ -310,25 +309,9 @@ void CloseSMBShare()
 
 void SMB_Reconnect()
 {
-    for(int i = 0; i < MAXSMBUSERS; i++) {
-        char mountname[10];
-        sprintf(mountname, "smb%i", i+1);
-
-        if(SMB_Mounted[i])
-            smbCheckConnection(mountname);
-        else {
-            if(smbInitDevice(mountname,
-                Settings.SMBUser[Settings.CurrentSMBUser].User,
-                Settings.SMBUser[Settings.CurrentSMBUser].Password,
-                Settings.SMBUser[Settings.CurrentSMBUser].SMBName,
-                Settings.SMBUser[Settings.CurrentSMBUser].Host))
-            {
-                SMB_Mounted[i] = true;
-            } else {
-                SMB_Mounted[i] = false;
-            }
-        }
-    }
+    CloseSMBShare();
+    sleep(1);
+    ConnectSMBShare();
 }
 
 /****************************************************************************
