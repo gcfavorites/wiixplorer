@@ -51,7 +51,8 @@ SOURCES		:=	source \
 				source/console  \
 				source/FTPClient \
 				source/UnBlockingSocket \
-				source/vrt
+				source/vrt \
+				source/Launcher
 INCLUDES	:=	source
 
 #---------------------------------------------------------------------------------
@@ -64,7 +65,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ljpeg -lpng -ldi -lz -lfat -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype
+LIBS := -ljpeg -lpng -ldi -lz -lfat -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

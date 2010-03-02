@@ -2,6 +2,9 @@
  * Copyright (C) 2009
  * by r-win
  *
+ * Copyright (C) 2010
+ * by dude
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -23,7 +26,7 @@
  *
  * Taskbar.h
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 
 #ifndef _TASKBAR_H
@@ -31,6 +34,7 @@
 
 #include "libwiigui/gui.h"
 #include "libwiigui/PictureButton.h"
+#include "Prompts/PopUpMenu.h"
 
 class Taskbar : public GuiWindow
 {
@@ -48,12 +52,14 @@ class Taskbar : public GuiWindow
 	protected:
         void Update(GuiTrigger * t);
 		void Draw();
-		void OnSettingsClick(GuiElement *sender, int pointer, POINT p);
-		void OnFtpClick(GuiElement *sender, int pointer, POINT p);
 
 	private:
 		Taskbar();
 		~Taskbar();
+
+		int CheckStartMenu();
+		void CheckAppsMenu();
+		void CheckChannelsMenu();
 
 		static Taskbar *instance;
 
@@ -63,11 +69,7 @@ class Taskbar : public GuiWindow
 		GuiImageData *taskbarImgData;
 		GuiImage *taskbarImg;
 		GuiText *timeTxt;
-		PictureButton *settingsBtn;
-		PictureButton *exitBtn;
-		PictureButton *rebootBtn;
-		PictureButton *reloadDevicesBtn;
-		PictureButton *ftpBtn;
+		PictureButton *startBtn;
 		GuiTrigger *trigA;
 		GuiSound *soundClick, *soundOver;
 };

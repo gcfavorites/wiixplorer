@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 12:43+0100\n"
+"POT-Creation-Date: 2010-03-02 19:42+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -58,6 +58,9 @@ msgstr "动作取消。"
 msgid "App Default"
 msgstr "程序缺省"
 
+msgid "Apps"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "自动连接"
 
@@ -99,6 +102,9 @@ msgstr "大写"
 
 msgid "Change Language Path?"
 msgstr "更改语言文件路径？"
+
+msgid "Channels"
+msgstr ""
 
 msgid "Clear"
 msgstr "清除"
@@ -238,6 +244,12 @@ msgstr ""
 msgid "Do you want to save changes?"
 msgstr "是否保存更改？"
 
+msgid "Do you want to start the app?"
+msgstr ""
+
+msgid "Do you want to start the channel?"
+msgstr ""
+
 msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
 
@@ -271,6 +283,9 @@ msgstr "错误"
 msgid "Error:"
 msgstr "错误"
 
+msgid "Exit"
+msgstr ""
+
 msgid "Extract"
 msgstr "提取"
 
@@ -302,6 +317,9 @@ msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
@@ -452,9 +470,6 @@ msgstr "网络正在初始化"
 msgid "New Folder"
 msgstr "新文件夹"
 
-msgid "NewFolder"
-msgstr "新文件夹"
-
 msgid "No"
 msgstr "否"
 
@@ -549,11 +564,17 @@ msgstr ""
 msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Rename"
 msgstr "重命名"
 
 #, c-format
 msgid "Reply sent: %s\n"
+msgstr ""
+
+msgid "Restart"
 msgstr ""
 
 msgid "Restart the app to load the new font."
@@ -582,6 +603,9 @@ msgid "Server stopped"
 msgstr ""
 
 msgid "Server waits for client"
+msgstr ""
+
+msgid "Settings"
 msgstr ""
 
 msgid "Shift"
@@ -713,6 +737,9 @@ msgstr "zxcvbnm,./"
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr "~!@#$%%^&*()_"
+
+#~ msgid "NewFolder"
+#~ msgstr "新文件夹"
 
 #~ msgid "Failed copying file."
 #~ msgstr "复制失败"

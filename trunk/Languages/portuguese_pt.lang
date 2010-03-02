@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 12:43+0100\n"
+"POT-Creation-Date: 2010-03-02 19:42+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -58,6 +58,9 @@ msgstr "Operação cancelada"
 msgid "App Default"
 msgstr "Predefinição do programa"
 
+msgid "Apps"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Ligação automática"
 
@@ -98,6 +101,9 @@ msgid "Caps"
 msgstr "Maiúsculas"
 
 msgid "Change Language Path?"
+msgstr ""
+
+msgid "Channels"
 msgstr ""
 
 msgid "Clear"
@@ -238,6 +244,12 @@ msgstr ""
 msgid "Do you want to save changes?"
 msgstr "Deseja guardar as alterações?"
 
+msgid "Do you want to start the app?"
+msgstr ""
+
+msgid "Do you want to start the channel?"
+msgstr ""
+
 msgid "Do you want to update now ?"
 msgstr "Deseja actualizar agora ?"
 
@@ -271,6 +283,9 @@ msgstr ""
 msgid "Error:"
 msgstr "Erro:"
 
+msgid "Exit"
+msgstr ""
+
 msgid "Extract"
 msgstr "Extrair"
 
@@ -302,6 +317,9 @@ msgid "FTP Path:"
 msgstr ""
 
 msgid "FTP Port:"
+msgstr ""
+
+msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
@@ -452,9 +470,6 @@ msgstr "Inicializando rede..."
 msgid "New Folder"
 msgstr "Nova Pasta"
 
-msgid "NewFolder"
-msgstr "NovaPasta"
-
 msgid "No"
 msgstr "Não"
 
@@ -549,11 +564,17 @@ msgstr ""
 msgid "Reconnect SMB"
 msgstr "Ligar SMB"
 
+msgid "Reload"
+msgstr ""
+
 msgid "Rename"
 msgstr "Renomear"
 
 #, c-format
 msgid "Reply sent: %s\n"
+msgstr ""
+
+msgid "Restart"
 msgstr ""
 
 msgid "Restart the app to load the new font."
@@ -582,6 +603,9 @@ msgid "Server stopped"
 msgstr ""
 
 msgid "Server waits for client"
+msgstr ""
+
+msgid "Settings"
 msgstr ""
 
 msgid "Shift"
@@ -713,6 +737,9 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "NewFolder"
+#~ msgstr "NovaPasta"
 
 #~ msgid "Failed copying file."
 #~ msgstr "Falha ao copiar ficheiro."
