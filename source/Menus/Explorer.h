@@ -34,7 +34,7 @@
 #include "libwiigui/gui_filebrowser.h"
 #include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
-#include "Prompts/RightClickMenu.h"
+#include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"
 #include "FileOperations/filebrowser.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
@@ -68,7 +68,7 @@ class Explorer : public GuiWindow
         GuiFileBrowser * fileBrowser;
 
         DeviceMenu * Device_Menu;
-        RightClickMenu * RightClick;
+        PopUpMenu * RightClick;
         CreditWindow * Credits;
 
         GuiImage * BackgroundImg;

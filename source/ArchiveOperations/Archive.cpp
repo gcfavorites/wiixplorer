@@ -196,6 +196,7 @@ bool Archive::IsU8ArchiveFile(const char *buffer)
 {
 	char SignatureIMET[4] = {'I', 'M', 'E', 'T'};
 	char SignatureIMD5[4] = {'I', 'M', 'D', '5'};
+	char SignatureU8HEAD[4] = {0x55, 0xAA, 0x38, 0x2D};
 
 	int i;
 	bool sign_passed = true;
@@ -212,5 +213,13 @@ bool Archive::IsU8ArchiveFile(const char *buffer)
                 sign_passed = false;
     }
 
-	return sign_passed;
+    if(!sign_passed)
+    {
+        sign_passed = true;
+        for(i = 0; i < 4; i++)
+            if(buffer[i] != SignatureU8HEAD[i])
+                sign_passed = false;
+    }
+
+    return sign_passed;
 }

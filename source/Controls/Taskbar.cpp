@@ -2,6 +2,9 @@
  * Copyright (C) 2009
  * by r-win & Dimok
  *
+ * Copyright (C) 2010
+ * by dude
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -23,7 +26,7 @@
  *
  * Taskbar.cpp
  *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 
 #include <fat.h>
@@ -34,6 +37,9 @@
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/PopUpMenu.h"
+#include "Launcher/Applications.h"
+#include "Launcher/Channels.h"
 #include "devicemounter.h"
 #include "sys.h"
 
@@ -61,57 +67,16 @@ Taskbar::Taskbar()
 	soundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	settingsBtn = new PictureButton(settingsbtn_png, settingsbtn_png_size, settingsbtn_over_png, settingsbtn_over_png_size, soundClick, soundOver);
-	settingsBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	settingsBtn->SetPosition(108, 0);
-	settingsBtn->SetSelectable(false);
-	settingsBtn->SetTrigger(trigA);
-	settingsBtn->Clicked.connect(this, &Taskbar::OnSettingsClick);
-
-	ftpBtn = new PictureButton(ftpbtn_png, ftpbtn_png_size, ftpbtn_over_png, ftpbtn_over_png_size, soundClick, soundOver);
-	ftpBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	ftpBtn->SetPosition(108+72+8, 0);
-	ftpBtn->SetSelectable(false);
-	ftpBtn->SetTrigger(trigA);
-	ftpBtn->Clicked.connect(this, &Taskbar::OnFtpClick);
-
-	reloadDevicesBtn = new PictureButton(refresh_png, refresh_png_size, 0, 0, soundClick, soundOver);
-	reloadDevicesBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	reloadDevicesBtn->SetPosition(410, 0);
-	reloadDevicesBtn->SetSelectable(false);
-	reloadDevicesBtn->SetTrigger(trigA);
-	reloadDevicesBtn->SetEffectGrow();
-	reloadDevicesBtn->SetScaleX(0.8f);
-	reloadDevicesBtn->SetScaleY(0.8f);
-	reloadDevicesBtn->SetAlpha(200);
-
-	rebootBtn = new PictureButton(system_restart_png, system_restart_png_size, 0, 0, soundClick, soundOver);
-	rebootBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	rebootBtn->SetPosition(440, 0);
-	rebootBtn->SetSelectable(false);
-	rebootBtn->SetTrigger(trigA);
-	rebootBtn->SetEffectGrow();
-	rebootBtn->SetScaleX(0.8f);
-	rebootBtn->SetScaleY(0.8f);
-	rebootBtn->SetAlpha(200);
-
-	exitBtn = new PictureButton(system_log_out_png, system_log_out_png_size, 0, 0, soundClick, soundOver);
-	exitBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	exitBtn->SetPosition(470, 0);
-	exitBtn->SetSelectable(false);
-	exitBtn->SetTrigger(trigA);
-	exitBtn->SetEffectGrow();
-	exitBtn->SetScaleX(0.8f);
-	exitBtn->SetScaleY(0.8f);
-	exitBtn->SetAlpha(200);
+	startBtn = new PictureButton(startbtn_png, startbtn_png_size, 0, 0, soundClick, soundOver);
+	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	startBtn->SetPosition(60, -3);
+	startBtn->SetSelectable(false);
+	startBtn->SetTrigger(trigA);
+	startBtn->SetEffectGrow();
 
 	Append(taskbarImg);
+	Append(startBtn);
 	Append(timeTxt);
-	Append(settingsBtn);
-	Append(ftpBtn);
-	Append(rebootBtn);
-	Append(reloadDevicesBtn);
-	Append(exitBtn);
 
 	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	SetPosition(0, -15);
@@ -119,18 +84,11 @@ Taskbar::Taskbar()
 
 Taskbar::~Taskbar()
 {
-	settingsBtn->Clicked.disconnect(this);
-	exitBtn->Clicked.disconnect(this);
-
 	delete taskbarImg;
 	Resources::Remove(taskbarImgData);
 
+	delete startBtn;
 	delete timeTxt;
-	delete settingsBtn;
-	delete ftpBtn;
-	delete rebootBtn;
-	delete reloadDevicesBtn;
-	delete exitBtn;
 
 	delete trigA;
 
@@ -199,53 +157,163 @@ void Taskbar::SetMenu(int m)
 
 int Taskbar::GetMenu()
 {
-    if(reloadDevicesBtn->GetState() == STATE_CLICKED)
-    {
-        int choice = WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel"));
-        if(choice)
-        {
-            SDCard_deInit();
-            NTFS_UnMount();
-            //don't need to shutdown the device
-            fatUnmount("usb:/");
-            SDCard_Init();
-            USBDevice_Init();
-            NTFS_Mount();
-        }
-        reloadDevicesBtn->ResetState();
-    }
-    else if(rebootBtn->GetState() == STATE_CLICKED)
-    {
-        int choice = WindowPrompt(tr("Do you want to reboot WiiXplorer?"), 0, tr("Yes"), tr("Cancel"));
-        if(choice)
-        {
-            RebootApp();
-        }
-        rebootBtn->ResetState();
-    }
-    else if(exitBtn->GetState() == STATE_CLICKED)
-    {
-        int choice = WindowPrompt(tr("Do you want to exit WiiXplorer?"), 0, tr("Yes"), tr("Cancel"));
-        if(choice)
-        {
-            menu = MENU_EXIT;
-        }
-        exitBtn->ResetState();
-    }
+	if (startBtn->GetState() == STATE_CLICKED)
+	{
+		menu = CheckStartMenu();
+	}
 
     return menu;
 }
 
-void Taskbar::OnSettingsClick(GuiElement *sender, int pointer, POINT p)
+int Taskbar::CheckStartMenu()
 {
-    sender->ResetState();
-	menu = MENU_SETTINGS;
+	PopUpMenu *StartMenu = new PopUpMenu(45, 164);
+
+	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
+	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
+	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
+	StartMenu->AddItem(tr("FTP Server"), ftpserver_png, ftpserver_png_size);
+	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
+	StartMenu->AddItem(tr("Restart"), system_restart_png, system_restart_png_size);
+	StartMenu->AddItem(tr("Exit"), system_log_out_png, system_log_out_png_size);
+
+	StartMenu->Finish();
+
+	SetState(STATE_DISABLED);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->Append(StartMenu);
+
+	int choice = -1;
+	while (choice == -1 && StartMenu)
+	{
+		usleep(100);
+
+		if (shutdown)
+			Sys_Shutdown();
+		else if (reset)
+			Sys_Reboot();
+
+		choice = StartMenu->GetChoice();
+
+		if (choice == APPS)
+		{
+			CheckAppsMenu();
+			choice = -1;
+		}
+		else if (choice == CHANNELS)
+		{
+			CheckChannelsMenu();
+			choice = -1;
+		}
+	}
+
+	delete StartMenu;
+
+	SetState(STATE_DEFAULT);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
+	startBtn->ResetState();
+
+	if (choice == SETTINGS)
+	{
+		menu = MENU_SETTINGS;
+	}
+	else if (choice == FTPSERVER)
+	{
+		menu = MENU_FTP;
+	}
+	else if (choice == RELOAD)
+	{
+		if (WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel")))
+		{
+			SDCard_deInit();
+			NTFS_UnMount();
+			//don't need to shutdown the device
+			fatUnmount("usb:/");
+			SDCard_Init();
+			USBDevice_Init();
+			NTFS_Mount();
+		}
+	}
+	else if (choice == RESTART)
+	{
+		if (WindowPrompt(tr("Do you want to reboot WiiXplorer?"), 0, tr("Yes"), tr("Cancel")))
+		{
+			RebootApp();
+		}
+	}
+	else if (choice == EXIT)
+	{
+		if (WindowPrompt(tr("Do you want to exit WiiXplorer?"), 0, tr("Yes"), tr("Cancel")))
+		{
+			menu = MENU_EXIT;
+		}
+	}
+
+	return menu;
 }
 
-void Taskbar::OnFtpClick(GuiElement *sender, int pointer, POINT p)
+void Taskbar::CheckAppsMenu()
 {
-    sender->ResetState();
-	menu = MENU_FTP;
+	PopUpMenu *AppsMenu = new PopUpMenu(200, 100);
+
+	Applications apps;
+	for (int i = 0; i < apps.Count(); i++)
+		AppsMenu->AddItem(apps.GetName(i));
+
+	AppsMenu->Finish();
+
+	MainWindow::Instance()->Append(AppsMenu);
+
+	int choice = -1;
+	while (choice == -1 && AppsMenu)
+	{
+		usleep(100);
+
+		if (shutdown)
+			Sys_Shutdown();
+		else if (reset)
+			Sys_Reboot();
+
+		choice = AppsMenu->GetChoice();
+	}
+
+	delete AppsMenu;
+
+	if (choice >= 0 && WindowPrompt(tr("Do you want to start the app?"), apps.GetName(choice), tr("Yes"), tr("Cancel")))
+	{
+		apps.Launch(apps.Get(choice));
+	}
 }
 
+void Taskbar::CheckChannelsMenu()
+{
+	PopUpMenu *ChannelsMenu = new PopUpMenu(200, 100);
 
+	Channels channels;
+	for (int i = 0; i < channels.Count(); i++)
+		ChannelsMenu->AddItem(channels.GetName(i));
+
+	ChannelsMenu->Finish();
+
+	MainWindow::Instance()->Append(ChannelsMenu);
+
+	int choice = -1;
+	while (choice == -1 && ChannelsMenu)
+	{
+		usleep(100);
+
+		if (shutdown)
+			Sys_Shutdown();
+		else if (reset)
+			Sys_Reboot();
+
+		choice = ChannelsMenu->GetChoice();
+	}
+
+	delete ChannelsMenu;
+
+	if (choice >= 0 && WindowPrompt(tr("Do you want to start the channel?"), channels.GetName(choice), tr("Yes"), tr("Cancel")))
+	{
+		channels.Launch(channels.Get(choice));
+	}
+}

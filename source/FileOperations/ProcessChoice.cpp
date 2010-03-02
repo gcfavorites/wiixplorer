@@ -29,6 +29,7 @@
 #include "ProcessChoice.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/PopUpMenu.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"

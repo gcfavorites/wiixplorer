@@ -20,6 +20,30 @@ extern const u32	ftpbtn_png_size;
 extern const u8		ftpbtn_over_png[];
 extern const u32	ftpbtn_over_png_size;
 
+extern const u8		arrow_up_png[];
+extern const u32	arrow_up_png_size;
+
+extern const u8		arrow_down_png[];
+extern const u32	arrow_down_png_size;
+
+extern const u8		arrow_right_png[];
+extern const u32	arrow_right_png_size;
+
+extern const u8		apps_png[];
+extern const u32	apps_png_size;
+
+extern const u8		channels_png[];
+extern const u32	channels_png_size;
+
+extern const u8		ftpserver_png[];
+extern const u32	ftpserver_png_size;
+
+extern const u8		settings_png[];
+extern const u32	settings_png_size;
+
+extern const u8		startbtn_png[];
+extern const u32	startbtn_png_size;
+
 extern const u8		font_ttf[];
 extern const u32	font_ttf_size;
 

@@ -30,6 +30,7 @@
 #include <unistd.h>
 
 #include "Prompts/PromptWindow.h"
+#include "Memory/Resources.h"
 #include "filelist.h"
 #include "Controls/MainWindow.h"
 #include "sys.h"

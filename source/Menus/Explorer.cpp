@@ -515,15 +515,31 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
         {
             if(ArcBrowser)
             {
-                RightClick = new RightClickMenu(p.x, p.y,
-                                                tr("Open"), tr("Extract"), tr("Extract All"), tr("Properties"));
+//                 RightClick = new RightClickMenu(p.x, p.y,
+//                                                 tr("Open"), tr("Extract"), tr("Extract All"), tr("Properties"));
+                 RightClick = new PopUpMenu(p.x, p.y);
+                 RightClick->AddItem(tr("Open"));
+                 RightClick->AddItem(tr("Extract"));
+                 RightClick->AddItem(tr("Extract All"));
+                 RightClick->AddItem(tr("Properties"));
+                 RightClick->Finish();
             }
             else
             {
-                RightClick = new RightClickMenu(p.x, p.y,
+                 RightClick = new PopUpMenu(p.x, p.y);
+                 RightClick->AddItem(tr("Cut"));
+                 RightClick->AddItem(tr("Copy"));
+                 RightClick->AddItem(tr("Paste"));
+                 RightClick->AddItem(tr("Rename"));
+                 RightClick->AddItem(tr("Delete"));
+                 RightClick->AddItem(tr("New Folder"));
+				 RightClick->AddItem(tr("Properties"));
+                 RightClick->Finish();
+
+/*				RightClick = new RightClickMenu(p.x, p.y,
                                                 tr("Cut"), tr("Copy"), tr("Paste"),
                                                 tr("Rename"), tr("Delete"), tr("NewFolder"),
-                                                tr("Properties"));
+                                                tr("Properties"));*/
             }
         }
     }
