@@ -239,7 +239,7 @@ int SzFile::ExtractAll(const char * destpath)
     if(!destpath)
         return -5;
 
-    StartProgress("Extracting files...");
+    StartProgress(tr("Extracting files..."));
 
     for(u32 i = 0; i < SzArchiveDb.db.NumFiles; i++)
 	{

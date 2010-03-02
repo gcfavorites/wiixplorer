@@ -132,22 +132,13 @@ static int ntfs_device_gekko_io_open(struct ntfs_device *dev, int flags)
     fd->len = (fd->sectorCount * fd->sectorSize);
     fd->ino = le64_to_cpu(boot.volume_serial_number);
 
-    // If the device sector size is not 512 bytes then we cannot continue,
-    // gekko disc I/O works on the assumption that sectors are always 512 bytes long.
-    // TODO: Implement support for non-512 byte sector sizes through some fancy maths!?
-    if (fd->sectorSize != BYTES_PER_SECTOR) {
-        ntfs_log_error("Boot sector claims there is %i bytes per sector; expected %i\n", fd->sectorSize, BYTES_PER_SECTOR);
-        errno = EIO;
-        return -1;
-    }
-
     // Mark the device as read-only (if required)
     if (flags & O_RDONLY) {
         NDevSetReadOnly(dev);
     }
 
     // Create the cache
-    fd->cache = _NTFS_cache_constructor(fd->cachePageCount, fd->cachePageSize, interface, fd->startSector + fd->sectorCount);
+    fd->cache = _NTFS_cache_constructor(fd->cachePageCount, fd->cachePageSize, interface, fd->startSector + fd->sectorCount, fd->sectorSize);
 
     // Mark the device as open
     NDevSetBlock(dev);
@@ -378,7 +369,12 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
         return -1;
     }
 
-    if(!count)
+    if(count < 0) {
+        errno = EROFS;
+        return -1;
+    }
+
+    if(count == 0)
         return 0;
 
     sec_t sec_start = (sec_t) fd->startSector;
@@ -400,7 +396,6 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
 
     // If this write happens to be on the sector boundaries then do the write straight to disc
     if((offset % fd->sectorSize == 0) && (count % fd->sectorSize == 0)) {
-
         // Write to the device
         ntfs_log_trace("direct write to sector %d (%d sector(s) long)\n", sec_start, sec_count);
         if (!ntfs_device_gekko_io_writesectors(dev, sec_start, sec_count, buf)) {
@@ -408,7 +403,6 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
             errno = EIO;
             return -1;
         }
-
     // Else write from a buffer aligned to the sector boundaries
     } else {
 
@@ -429,12 +423,23 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
                 return -1;
             }
         }
-        if((count % fd->sectorSize != 0) || buffer_offset > 0) {
-            if (!ntfs_device_gekko_io_readsectors(dev, sec_start + sec_count-1, 1, buffer + ((sec_count - 1) * fd->sectorSize))) {
-                    ntfs_log_perror("read failure @ sector %d\n", sec_start + sec_count);
-                    ntfs_free(buffer);
-                    errno = EIO;
-                    return -1;
+        if((count % fd->sectorSize != 0) || (buffer_offset > 0))
+        {
+            sec_t last_sectors = sec_count-1;
+            s32 read_sectors = 1;
+
+            if(sec_count > 1)
+            {
+                //let's read 2 sectors to be sure
+                last_sectors = sec_count-2;
+                read_sectors = 2;
+            }
+
+            if (!ntfs_device_gekko_io_readsectors(dev, sec_start + last_sectors, read_sectors, buffer + (last_sectors * fd->sectorSize))) {
+                ntfs_log_perror("read failure @ sector %d\n", sec_start + sec_count);
+                ntfs_free(buffer);
+                errno = EIO;
+                return -1;
             }
         }
 
@@ -455,8 +460,7 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
     }
 
     // Mark the device as dirty (if we actually wrote anything)
-    if (count > 0)
-        NDevSetDirty(dev);
+    NDevSetDirty(dev);
 
     return count;
 }
@@ -618,11 +622,6 @@ static int ntfs_device_gekko_io_ioctl(struct ntfs_device *dev, int request, void
         #if defined(BLKBSZSET)
         case BLKBSZSET: {
             int sectorSize = *(int*)argp;
-            if (sectorSize != BYTES_PER_SECTOR) {
-                ntfs_log_perror("Attempt to set sector size to an unsupported value (%i), ignored\n", sectorSize);
-                errno = EOPNOTSUPP;
-                return -1;
-            }
             fd->sectorSize = sectorSize;
             return 0;
         }

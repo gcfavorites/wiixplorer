@@ -57,7 +57,7 @@ CreditWindow::CreditWindow()
     Entrie[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     Entrie[i]->SetPosition(0, y);
     i++;
-    y += 60;
+    y += 55;
 
     Entrie[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -74,6 +74,12 @@ CreditWindow::CreditWindow()
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Entrie[i]->SetPosition(170, y);
     i++;
+    y += 32;
+
+    Entrie[i] = new GuiText("dude", 22, (GXColor) {0, 0, 0, 255});
+    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Entrie[i]->SetPosition(170, y);
+    i++;
     y += 40;
 
     Entrie[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
@@ -85,7 +91,7 @@ CreditWindow::CreditWindow()
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Entrie[i]->SetPosition(170, y);
     i++;
-    y += 60;
+    y += 55;
 
     Entrie[i] = new GuiText(tr("Special thanks to:"), 24, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -111,6 +117,9 @@ CreditWindow::CreditWindow()
     Entrie[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Entrie[i]->SetPosition(20,y);
+    i++;
+
+    CreditEntries = i;
 
     arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
     arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
@@ -138,7 +147,7 @@ CreditWindow::CreditWindow()
 
     Append(dialogBoxImg);
     Append(RevNum);
-    for(int i = 0; i < CREDITENTRIES; i++)
+    for(int i = 0; i < CreditEntries; i++)
         Append(Entrie[i]);
     Append(Backbtn);
 
@@ -175,7 +184,7 @@ CreditWindow::~CreditWindow()
     delete trigA;
     delete trigB;
 
-    for(int i = 0; i < CREDITENTRIES; i++)
+    for(int i = 0; i < CreditEntries; i++)
     {
         delete Entrie[i];
         Entrie[i] = NULL;

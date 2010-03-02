@@ -42,6 +42,12 @@ typedef struct _TimeStruct
     u32 tm_year;           /* years - [1980..2044] */
 } TimeStruct;
 
+struct LZ77Info
+{
+	u16 length : 4;
+	u16 offset : 12;
+} __attribute__((packed));
+
 bool TimePassed(int limit);
 void ConvertDosDate(u64 ulDosDate, TimeStruct * ptm);
 void ConvertNTFSDate(u64 ulNTFSDate,  TimeStruct * ptm);
@@ -53,6 +59,8 @@ bool char2wchar_t(const char * src, wchar_t * dest);
 
 void EncryptString(const char *src, char *dst);
 void DecryptString(const char *src, char *dst);
+
+u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * uncSize);
 
 #ifdef __cplusplus
 }

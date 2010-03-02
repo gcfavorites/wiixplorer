@@ -6,6 +6,7 @@
 
 #include "libwiigui/gui_bgm.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
@@ -37,7 +38,8 @@ int FileStartUp(const char *filepath)
             || strcasecmp(fileext, ".jfif") == 0 || strcasecmp(fileext, ".bmp") == 0
 			|| strcasecmp(fileext, ".gif") == 0 || strcasecmp(fileext, ".tga") == 0
 			|| strcasecmp(fileext, ".tif") == 0 || strcasecmp(fileext, ".tiff") == 0
-			|| strcasecmp(fileext, ".gd") == 0 || strcasecmp(fileext, ".gd2") == 0)
+			|| strcasecmp(fileext, ".gd") == 0 || strcasecmp(fileext, ".gd2") == 0
+			|| strcasecmp(fileext, ".tpl") == 0)
     {
 		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
 		if (choice)
@@ -56,9 +58,28 @@ int FileStartUp(const char *filepath)
         }
     }
     else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-            strcasecmp(fileext, ".rar") == 0)
+            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0
+            || strcasecmp(fileext, ".bin") == 0)
     {
-        return ARCHIVE;
+        //only open .bin as archive if its IMD5
+        if(strcasecmp(fileext, ".bin") == 0)
+        {
+            FILE * f = fopen(filepath, "rb");
+            if(!f)
+                goto loadtext;
+
+            u32 magic = 0;
+            fread(&magic, 1, 4, f);
+            fclose(f);
+            if(magic != 0x494D4435 /* IMD5 */ && magic != 0x55AA382D /* U.8- */)
+                goto loadtext;
+
+            return ARCHIVE;
+        }
+        else
+        {
+            return ARCHIVE;
+        }
     }
     else if(strcasecmp(fileext, ".lang") == 0)
     {

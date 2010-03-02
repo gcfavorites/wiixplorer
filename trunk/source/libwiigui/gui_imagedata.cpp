@@ -24,6 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "gui.h"
+#include "ImageOperations/TplImage.h"
 
 #define MAXWIDTH 1024.0f
 #define MAXHEIGHT 768.0f
@@ -65,6 +66,9 @@ GuiImageData::GuiImageData(const u8 * img, int imgSize)
 		}
 		else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00) { // IMAGE_GD2
 			LoadGD2(img, imgSize);
+		}
+		else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30) { // IMAGE_TPL
+			LoadTPL(img, imgSize);
 		}
 		//!This must be last since it can also intefere with outher formats
 		else if(img[0] == 0x00) { // Try loading TGA image
@@ -173,6 +177,18 @@ void GuiImageData::LoadBMP(const u8 *img, int imgSize)
 void GuiImageData::LoadTGA(const u8 *img, int imgSize)
 {
     gdImagePtr gdImg = gdImageCreateFromTgaPtr(imgSize, (u8*) img);
+    if(gdImg == 0)
+        return;
+
+    GDImageToRGBA8(gdImg);
+    gdImageDestroy(gdImg);
+}
+
+void GuiImageData::LoadTPL(const u8 *img, int imgSize)
+{
+    TplImage TplFile(img, imgSize);
+	
+    gdImagePtr gdImg = TplFile.ConvertToGD(0);
     if(gdImg == 0)
         return;
 

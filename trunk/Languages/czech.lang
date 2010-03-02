@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-25 01:47+0100\n"
+"POT-Creation-Date: 2010-03-02 12:43+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -233,6 +233,9 @@ msgstr ""
 msgid "Do you want to remount the devices?"
 msgstr ""
 
+msgid "Do you want to replace this file?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr ""
 
@@ -308,12 +311,6 @@ msgstr ""
 msgid "FTP Settings"
 msgstr ""
 
-msgid "Failed copying file."
-msgstr "Nepodařilo se zkopírovat soubor."
-
-msgid "Failed copying files."
-msgstr "Nepodařilo se zkopírovat soubory."
-
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -333,6 +330,9 @@ msgid "Failed to get the Changelog."
 msgstr ""
 
 msgid "Failed to read file data."
+msgstr ""
+
+msgid "File already exists:"
 msgstr ""
 
 msgid "File couldn't be deleted."
@@ -470,6 +470,9 @@ msgid "No language files found."
 msgstr "Nebyly nalezeny jazykové soubory."
 
 msgid "No new updates available"
+msgstr ""
+
+msgid "No to all"
 msgstr ""
 
 msgid "Not a valid URL"
@@ -675,6 +678,9 @@ msgstr "Jméno uživatele:"
 msgid "Yes"
 msgstr "Ano"
 
+msgid "Yes to all"
+msgstr ""
+
 msgid "You can not cut into the directory itself."
 msgstr "Nelze vložit adresář sám do sebe."
 
@@ -708,6 +714,12 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Failed copying file."
+#~ msgstr "Nepodařilo se zkopírovat soubor."
+
+#~ msgid "Failed copying files."
+#~ msgstr "Nepodařilo se zkopírovat soubory."
 
 #~ msgid "Directory successfully deleted."
 #~ msgstr "Adresář úspěšně smazán."

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-25 01:47+0100\n"
+"POT-Creation-Date: 2010-03-02 12:43+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -232,6 +232,9 @@ msgstr "Wieder mit dem FTP Server verbinden?"
 msgid "Do you want to remount the devices?"
 msgstr ""
 
+msgid "Do you want to replace this file?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
 
@@ -307,12 +310,6 @@ msgstr ""
 msgid "FTP Settings"
 msgstr "FTP Einstellungen"
 
-msgid "Failed copying file."
-msgstr "Kopieren der Datei fehlgeschlagen."
-
-msgid "Failed copying files."
-msgstr "Kopieren der Dateien fehlgeschlagen."
-
 msgid "Failed copying item(s)."
 msgstr "Kopieren der Elemente fehlgeschlagen."
 
@@ -333,6 +330,9 @@ msgstr "Laden des Changelogs fehlgeschlagen."
 
 msgid "Failed to read file data."
 msgstr "Lesen der Dateidaten fehlgeschlagen."
+
+msgid "File already exists:"
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
@@ -470,6 +470,9 @@ msgstr "Keine Sprachdateien gefunden."
 
 msgid "No new updates available"
 msgstr "Keine Updates verfügbar"
+
+msgid "No to all"
+msgstr ""
 
 msgid "Not a valid URL"
 msgstr "Keine gültige URL"
@@ -674,6 +677,9 @@ msgstr "Benutzername:"
 msgid "Yes"
 msgstr "Ja"
 
+msgid "Yes to all"
+msgstr ""
+
 msgid "You can not cut into the directory itself."
 msgstr "Du kannst das Verzeichnis nicht in sich selbst einfügen."
 
@@ -707,6 +713,12 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Failed copying file."
+#~ msgstr "Kopieren der Datei fehlgeschlagen."
+
+#~ msgid "Failed copying files."
+#~ msgstr "Kopieren der Dateien fehlgeschlagen."
 
 #~ msgid "Preparing Network..."
 #~ msgstr "Netzwerk wird vorbereitet..."
