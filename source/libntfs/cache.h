@@ -46,14 +46,12 @@
 #include <ogc/disc_io.h>
 #include <gccore.h>
 
-#define BYTES_PER_READ 512
-
 typedef struct {
-	sec_t        sector;
-	unsigned int count;
-	u64 last_access;
-	bool         dirty;
-	u8*     cache;
+	sec_t           sector;
+	unsigned int    count;
+	u64             last_access;
+	bool            dirty;
+	u8*             cache;
 } NTFS_CACHE_ENTRY;
 
 typedef struct {
@@ -61,7 +59,8 @@ typedef struct {
 	sec_t		          endOfPartition;
 	unsigned int          numberOfPages;
 	unsigned int          sectorsPerPage;
-	NTFS_CACHE_ENTRY*          cacheEntries;
+	sec_t                 sectorSize;
+	NTFS_CACHE_ENTRY*     cacheEntries;
 } NTFS_CACHE;
 
 /*
@@ -128,7 +127,7 @@ Clear out the contents of the NTFS_CACHE without writing any dirty sectors first
 */
 void _NTFS_cache_invalidate (NTFS_CACHE* NTFS_CACHE);
 
-NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int sectorsPerPage, const DISC_INTERFACE* discInterface, sec_t endOfPartition);
+NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int sectorsPerPage, const DISC_INTERFACE* discInterface, sec_t endOfPartition, sec_t sectorSize);
 
 void _NTFS_cache_destructor (NTFS_CACHE* NTFS_CACHE);
 

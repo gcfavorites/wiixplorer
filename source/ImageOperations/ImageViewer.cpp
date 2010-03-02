@@ -39,7 +39,7 @@
 #include "DirList.h"
 
 #define TIME_BETWEEN_IMAGES		5
-#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga,.tif,.tiff,.jfif,.jpe,.gd,.gd2"
+#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga,.tif,.tiff,.jfif,.jpe,.gd,.gd2,.tpl"
 #define MIN_IMAGE_WIDTH         4.0f
 #define MIN_IMAGE_HEIGHT        4.0f
 #define MAX_IMAGE_WIDTH         1024.0f

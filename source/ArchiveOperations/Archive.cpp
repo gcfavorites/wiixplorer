@@ -27,6 +27,7 @@
  * for WiiXplorer 2009
  ***************************************************************************/
 #include <stdio.h>
+#include <string.h>
 
 #include "Archive.h"
 
@@ -35,14 +36,21 @@ Archive::Archive(const char  * filepath)
     szFile = NULL;
     zipFile = NULL;
     rarFile = NULL;
+    u8File = NULL;
 
     char checkbuffer[6];
+    memset(checkbuffer, 0, sizeof(checkbuffer));
 
     FILE * file = fopen(filepath, "rb");
     if(!file)
         return;
 
-    fread(&checkbuffer, 1, 6, file);
+    int ret = 1;
+
+    while(checkbuffer[0] == 0 && ret > 0)
+        ret = fread(&checkbuffer, 1, 1, file);
+
+    fread(&checkbuffer[1], 1, 5, file);
     fclose(file);
 
     if(IsZipFile(checkbuffer))
@@ -53,6 +61,11 @@ Archive::Archive(const char  * filepath)
 
     if(IsRarFile(checkbuffer))
         rarFile = new RarFile(filepath);
+
+    if(IsU8ArchiveFile(checkbuffer))
+    {
+        u8File = new U8Archive(filepath);
+    }
 }
 
 Archive::~Archive()
@@ -66,9 +79,13 @@ Archive::~Archive()
     if(rarFile)
         delete rarFile;
 
+    if(u8File)
+        delete u8File;
+
     zipFile = NULL;
     szFile = NULL;
     rarFile = NULL;
+    u8File = NULL;
 }
 
 ArchiveFileStruct * Archive::GetFileStruct(int ind)
@@ -81,6 +98,9 @@ ArchiveFileStruct * Archive::GetFileStruct(int ind)
 
     if(rarFile)
         return rarFile->GetFileStruct(ind);
+
+    if(u8File)
+        return u8File->GetFileStruct(ind);
 
     return NULL;
 }
@@ -96,6 +116,9 @@ u32 Archive::GetItemCount()
     if(rarFile)
         return rarFile->GetItemCount();
 
+    if(u8File)
+        return u8File->GetItemCount();
+
     return 0;
 }
 
@@ -110,6 +133,9 @@ int Archive::ExtractFile(int ind, const char *destpath, bool withpath)
     if(rarFile)
         return rarFile->ExtractFile(ind, destpath, withpath);
 
+    if(u8File)
+        return u8File->ExtractFile(ind, destpath, withpath);
+
     return 0;
 }
 
@@ -123,6 +149,9 @@ int Archive::ExtractAll(const char * destpath)
 
     if(rarFile)
         return rarFile->ExtractAll(destpath);
+
+    if(u8File)
+        return u8File->ExtractAll(destpath);
 
 	return 0;
 }
@@ -161,4 +190,27 @@ bool Archive::IsRarFile(const char *buffer)
 			return false;
 
 	return true; // RAR archive found
+}
+
+bool Archive::IsU8ArchiveFile(const char *buffer)
+{
+	char SignatureIMET[4] = {'I', 'M', 'E', 'T'};
+	char SignatureIMD5[4] = {'I', 'M', 'D', '5'};
+
+	int i;
+	bool sign_passed = true;
+
+	for(i = 0; i < 4; i++)
+		if(buffer[i] != SignatureIMET[i])
+			sign_passed = false;
+
+    if(!sign_passed)
+    {
+        sign_passed = true;
+        for(i = 0; i < 4; i++)
+            if(buffer[i] != SignatureIMD5[i])
+                sign_passed = false;
+    }
+
+	return sign_passed;
 }

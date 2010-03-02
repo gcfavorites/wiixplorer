@@ -236,3 +236,62 @@ extern "C" void DecryptString(const char *src, char *dst)
 	dst[strlen(src)>>1] = 0;
 }
 
+static inline u32 le32(u32 i)
+{
+	return ((i & 0xFF) << 24) | ((i & 0xFF00) << 8) | ((i & 0xFF0000) >> 8) | ((i & 0xFF000000) >> 24);
+}
+
+static inline u16 le16(u16 i)
+{
+	return ((i & 0xFF) << 8) | ((i & 0xFF00) >> 8);
+}
+
+extern "C" u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * size)
+{
+	u8 *buffer = NULL;
+	if (inLength <= 0x8 || *((const u32 *)inBuf) != 0x4C5A3737 /*"LZ77"*/ || inBuf[4] != 0x10)
+		return NULL;
+
+	u32 uncSize = le32(((const u32 *)inBuf)[1] << 8);
+
+	const u8 *inBufEnd = inBuf + inLength;
+	inBuf += 8;
+
+	buffer = (u8 *) malloc(uncSize);
+
+	if (!buffer)
+		return buffer;
+
+	u8 *bufCur = buffer;
+	u8 *bufEnd = buffer + uncSize;
+
+	while (bufCur < bufEnd && inBuf < inBufEnd)
+	{
+		u8 flags = *inBuf;
+		++inBuf;
+		for (int i = 0; i < 8 && bufCur < bufEnd && inBuf < inBufEnd; ++i)
+		{
+			if ((flags & 0x80) != 0)
+			{
+				const LZ77Info &info = *(const LZ77Info *)inBuf;
+				inBuf += sizeof (LZ77Info);
+				int length = info.length + 3;
+				if (bufCur - info.offset - 1 < buffer || bufCur + length > bufEnd)
+					return buffer;
+				memcpy(bufCur, bufCur - info.offset - 1, length);
+				bufCur += length;
+			}
+			else
+			{
+				*bufCur = *inBuf;
+				++inBuf;
+				++bufCur;
+			}
+			flags <<= 1;
+		}
+	}
+	
+	*size = uncSize;
+
+	return buffer;
+}

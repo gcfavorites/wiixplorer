@@ -34,6 +34,7 @@
 #include <dirent.h>
 #include <unistd.h>
 
+#include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "fileops.h"
 #include "filebrowser.h"
@@ -45,9 +46,44 @@ typedef struct {
     char    *name;
 } SubDirList;
 
-extern bool sizegainrunning;
+bool replaceall = false;
+bool replacenone = false;
 
+extern bool sizegainrunning;
 extern bool actioncanceled;
+
+/****************************************************************************
+ * GetReplaceChoice
+ *
+ * Get the user choice if he wants to replace a file or not
+ ***************************************************************************/
+int GetReplaceChoice(const char * filename)
+{
+    const char * progressText = GetProgressTitle();
+    StopProgress();
+
+    int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
+
+    StartProgress(progressText);
+
+    if(choice == 3)
+    {
+        replaceall = true;
+        replacenone = false;
+        return choice;
+    }
+    else if(choice == 0)
+    {
+        replaceall = false;
+        replacenone = true;
+        return choice;
+    }
+    else
+    {
+        replaceall = false;
+        return choice;
+    }
+}
 
 /****************************************************************************
  * FindFile
@@ -366,6 +402,23 @@ int CopyFile(const char * src, const char * dest)
 	char * filename = strrchr(src, '/');
 	if(filename)
         filename++;
+
+    bool fileexist = CheckFile(dest);
+
+    if(fileexist == true)
+    {
+        int choice = -1;
+        if(!replaceall && !replacenone)
+            choice = GetReplaceChoice(filename);
+
+        if(replacenone || choice == 2)
+            return 1;
+
+        if(strstr(dest, "ntfs") != NULL)
+        {
+            RemoveFile(dest);
+        }
+    }
 
 	FILE * source = fopen(src, "rb");
 

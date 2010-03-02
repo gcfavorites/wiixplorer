@@ -64,16 +64,16 @@ Features:
  * Boot .dol/.elf files
  * Open TXT/XML/MP3/OGG files
  * Supported Image Formats:
-   PNG/JPEG/GIF/BMP/TGA/TIFF/GD/GD2
+   PNG/JPEG/GIF/BMP/TPL/TGA/TIFF/GD/GD2
  * Imageoperations zoom/slideshow
- * ZIP/7zip browsing and decompressing
+ * ZIP/7zip/BNR/U8Archive browsing and decompressing
  * Rar browsing
  * Properties of archive files
  * Textediting support
  * Auto-Update feature
 
 Credits:
-  Coding: Dimok, r-win
+  Coding: Dimok, r-win, dude
   Forwarder: Dimok
   Artworks: Neorame
   Languages: Dj Skual and Translaters

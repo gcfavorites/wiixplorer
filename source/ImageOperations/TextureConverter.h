@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * by Dimok
+ * Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,48 +21,34 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * CreditWindow.h
+ * TextureConverter.h
  *
+ * A texture to GD image converter.
  * for WiiXplorer 2010
  ***************************************************************************/
- #ifndef __CREDITWINDOW_H_
- #define __CREDITWINDOW_H_
+#ifndef __TEXTURE_CONVERTER_H_
+#define __TEXTURE_CONVERTER_H_
 
-#include <gctypes.h>
-#include <unistd.h>
-
-#include "libwiigui/gui.h"
-#include "Memory/Resources.h"
-
-class CreditWindow : public GuiWindow
+#ifdef __cplusplus
+extern "C"
 {
-    public:
-        CreditWindow();
-        ~CreditWindow();
-        int GetChoice();
-    private:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
-
-        int choice;
-        int CreditEntries;
-
-        GuiImage * dialogBoxImg;
-        GuiImage * arrowUpImg;
-        GuiImage * arrowUpImgOver;
-
-        GuiImageData * dialogBox;
-        GuiImageData * arrowUp;
-        GuiImageData * arrowUpOver;
-
-        GuiSound * btnClick;
-
-        GuiText * RevNum;
-        GuiText * Entrie[20];
-
-        GuiButton * Backbtn;
-
-        GuiTrigger * trigA;
-        GuiTrigger * trigB;
-};
-
 #endif
+
+#include <gccore.h>
+#include "ImageOperations/libgd/gd.h"
+
+bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
+bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
+bool I8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
+bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
+bool CMPToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
+bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
+bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
+bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
+u8 * GDImageToRGBA8(gdImagePtr gdImg);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif //__TEXTURE_CONVERTER_H_

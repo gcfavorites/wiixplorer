@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-25 01:47+0100\n"
+"POT-Creation-Date: 2010-03-02 12:43+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -232,6 +232,9 @@ msgstr "Voulez-vous reconnecter le serveur FTP ?"
 msgid "Do you want to remount the devices?"
 msgstr ""
 
+msgid "Do you want to replace this file?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications ?"
 
@@ -307,12 +310,6 @@ msgstr ""
 msgid "FTP Settings"
 msgstr "Paramètres FTP"
 
-msgid "Failed copying file."
-msgstr "La copie a échouée."
-
-msgid "Failed copying files."
-msgstr "La copie a échouée."
-
 msgid "Failed copying item(s)."
 msgstr "La copie a échouée."
 
@@ -333,6 +330,9 @@ msgstr "L'obtention du Changelog a échouée."
 
 msgid "Failed to read file data."
 msgstr "La lecture des données a échouée"
+
+msgid "File already exists:"
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
@@ -470,6 +470,9 @@ msgstr "Aucun fichier langue trouvé."
 
 msgid "No new updates available"
 msgstr "Pas de nouvelle mise à jour disponible"
+
+msgid "No to all"
+msgstr ""
 
 msgid "Not a valid URL"
 msgstr "URL invalide"
@@ -674,6 +677,9 @@ msgstr "Nom d'utilisateur:"
 msgid "Yes"
 msgstr "Oui"
 
+msgid "Yes to all"
+msgstr ""
+
 msgid "You can not cut into the directory itself."
 msgstr "Impossible de couper dans le même dossier."
 
@@ -707,6 +713,12 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Failed copying file."
+#~ msgstr "La copie a échouée."
+
+#~ msgid "Failed copying files."
+#~ msgstr "La copie a échouée."
 
 #~ msgid "Preparing Network..."
 #~ msgstr "Préparation réseau..."

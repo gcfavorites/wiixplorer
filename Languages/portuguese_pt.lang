@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-25 01:47+0100\n"
+"POT-Creation-Date: 2010-03-02 12:43+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -232,6 +232,9 @@ msgstr ""
 msgid "Do you want to remount the devices?"
 msgstr ""
 
+msgid "Do you want to replace this file?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr "Deseja guardar as alterações?"
 
@@ -307,12 +310,6 @@ msgstr ""
 msgid "FTP Settings"
 msgstr ""
 
-msgid "Failed copying file."
-msgstr "Falha ao copiar ficheiro."
-
-msgid "Failed copying files."
-msgstr "Falha ao copiar ficheiros."
-
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -333,6 +330,9 @@ msgstr "Falha ao obter o Changelog."
 
 msgid "Failed to read file data."
 msgstr "Falha ao ler o ficheiro."
+
+msgid "File already exists:"
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "O ficheiro não pode ser eliminado."
@@ -470,6 +470,9 @@ msgstr "Ficheiros de idioma inexistentes."
 
 msgid "No new updates available"
 msgstr "Não existem novas actualizações"
+
+msgid "No to all"
+msgstr ""
 
 msgid "Not a valid URL"
 msgstr "URL inválido"
@@ -674,6 +677,9 @@ msgstr "Nome de utilizador:"
 msgid "Yes"
 msgstr "Sim"
 
+msgid "Yes to all"
+msgstr ""
+
 msgid "You can not cut into the directory itself."
 msgstr "Não é possível cortar uma pasta para dentro dela própria."
 
@@ -707,6 +713,12 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Failed copying file."
+#~ msgstr "Falha ao copiar ficheiro."
+
+#~ msgid "Failed copying files."
+#~ msgstr "Falha ao copiar ficheiros."
 
 #~ msgid "Archive successfully extracted."
 #~ msgstr "Ficheiro extraído com sucesso."

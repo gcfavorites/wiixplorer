@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-25 01:47+0100\n"
+"POT-Creation-Date: 2010-03-02 12:43+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -232,6 +232,9 @@ msgstr ""
 msgid "Do you want to remount the devices?"
 msgstr ""
 
+msgid "Do you want to replace this file?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr "変更を保存しますか?"
 
@@ -307,12 +310,6 @@ msgstr ""
 msgid "FTP Settings"
 msgstr ""
 
-msgid "Failed copying file."
-msgstr "コピーに失敗しました"
-
-msgid "Failed copying files."
-msgstr "コピーに失敗しました"
-
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -333,6 +330,9 @@ msgstr "更新履歴を受信できませんでした"
 
 msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
+
+msgid "File already exists:"
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "ファイルを削除できませんでした"
@@ -470,6 +470,9 @@ msgstr "言語が見つかりませんでした"
 
 msgid "No new updates available"
 msgstr "更新はありません"
+
+msgid "No to all"
+msgstr ""
 
 msgid "Not a valid URL"
 msgstr "URLが正しくありません"
@@ -674,6 +677,9 @@ msgstr "ユーザー名"
 msgid "Yes"
 msgstr "はい"
 
+msgid "Yes to all"
+msgstr ""
+
 msgid "You can not cut into the directory itself."
 msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
@@ -707,6 +713,12 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "Failed copying file."
+#~ msgstr "コピーに失敗しました"
+
+#~ msgid "Failed copying files."
+#~ msgstr "コピーに失敗しました"
 
 #~ msgid "Archive successfully extracted."
 #~ msgstr "解凍しました"

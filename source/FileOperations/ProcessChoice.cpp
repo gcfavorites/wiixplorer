@@ -33,6 +33,8 @@
 #include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"
 
+extern bool replaceall;
+extern bool replacenone;
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
 {
@@ -65,6 +67,8 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
                 result = browser->ExtractItem(IMarker->GetItemIndex(i), dest);
             }
             StopProgress();
+            replaceall = false;
+            replacenone = false;
             if(result <= 0)
             {
                 ShowError(tr("Failed extracting the item(s)."));
@@ -85,6 +89,8 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
         {
             result = browser->ExtractAll(dest);
             StopProgress();
+            replaceall = false;
+            replacenone = false;
             if(result <= 0)
             {
                 ShowError(tr("Failed extracting the archive."));
@@ -270,12 +276,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
                         WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
                         break;
                     }
-                    else if(res < 0)
-                    {
-                        StopProgress();
-                        ShowError(tr("Failed copying files."));
-                        break;
-                    }
                 }
                 else
                 {
@@ -287,12 +287,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
                             res = CopyFile(srcpath, destdir);
                         else
                             res = MoveFile(srcpath, destdir);
-                        if(res < 0)
-                        {
-                            StopProgress();
-                            ShowError(tr("Failed copying file."));
-                            break;
-                        }
                     }
                     else
                     {
@@ -304,6 +298,8 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 }
             }
             StopProgress();
+            replaceall = false;
+            replacenone = false;
             if(res < 0 && res != 10)
             {
                 if(Cutted)

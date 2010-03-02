@@ -50,7 +50,7 @@
 
 #define CACHE_FREE UINT_MAX
 
-NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int sectorsPerPage, const DISC_INTERFACE* discInterface, sec_t endOfPartition) {
+NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int sectorsPerPage, const DISC_INTERFACE* discInterface, sec_t endOfPartition, sec_t sectorSize) {
 	NTFS_CACHE* cache;
 	unsigned int i;
 	NTFS_CACHE_ENTRY* cacheEntries;
@@ -74,6 +74,7 @@ NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int se
 	cache->endOfPartition = endOfPartition;
 	cache->numberOfPages = numberOfPages;
 	cache->sectorsPerPage = sectorsPerPage;
+	cache->sectorSize = sectorSize;
 
 
 	cacheEntries = (NTFS_CACHE_ENTRY*) ntfs_alloc ( sizeof(NTFS_CACHE_ENTRY) * numberOfPages);
@@ -87,7 +88,7 @@ NTFS_CACHE* _NTFS_cache_constructor (unsigned int numberOfPages, unsigned int se
 		cacheEntries[i].count = 0;
 		cacheEntries[i].last_access = 0;
 		cacheEntries[i].dirty = false;
-		cacheEntries[i].cache = (uint8_t*) ntfs_align ( sectorsPerPage * BYTES_PER_READ );
+		cacheEntries[i].cache = (uint8_t*) ntfs_align ( sectorsPerPage * cache->sectorSize );
 	}
 
 	cache->cacheEntries = cacheEntries;
@@ -201,9 +202,9 @@ bool _NTFS_cache_readSectors(NTFS_CACHE *cache,sec_t sector,sec_t numSectors,voi
 		secs_to_read = entry->count - sec;
 		if(secs_to_read>numSectors) secs_to_read = numSectors;
 
-		memcpy(dest,entry->cache + (sec*BYTES_PER_READ),(secs_to_read*BYTES_PER_READ));
+		memcpy(dest,entry->cache + (sec*cache->sectorSize),(secs_to_read*cache->sectorSize));
 
-		dest += (secs_to_read*BYTES_PER_READ);
+		dest += (secs_to_read*cache->sectorSize);
 		sector += secs_to_read;
 		numSectors -= secs_to_read;
 	}
@@ -220,13 +221,13 @@ bool _NTFS_cache_readPartialSector (NTFS_CACHE* cache, void* buffer, sec_t secto
 	sec_t sec;
 	NTFS_CACHE_ENTRY *entry;
 
-	if (offset + size > BYTES_PER_READ) return false;
+	if (offset + size > cache->sectorSize) return false;
 
 	entry = _NTFS_cache_getPage(cache,sector);
 	if(entry==NULL) return false;
 
 	sec = sector - entry->sector;
-	memcpy(buffer,entry->cache + ((sec*BYTES_PER_READ) + offset),size);
+	memcpy(buffer,entry->cache + ((sec*cache->sectorSize) + offset),size);
 
 	return true;
 }
@@ -253,13 +254,13 @@ bool _NTFS_cache_writePartialSector (NTFS_CACHE* cache, const void* buffer, sec_
 	sec_t sec;
 	NTFS_CACHE_ENTRY *entry;
 
-	if (offset + size > BYTES_PER_READ) return false;
+	if (offset + size > cache->sectorSize) return false;
 
 	entry = _NTFS_cache_getPage(cache,sector);
 	if(entry==NULL) return false;
 
 	sec = sector - entry->sector;
-	memcpy(entry->cache + ((sec*BYTES_PER_READ) + offset),buffer,size);
+	memcpy(entry->cache + ((sec*cache->sectorSize) + offset),buffer,size);
 
 	entry->dirty = true;
 	return true;
@@ -287,14 +288,14 @@ bool _NTFS_cache_eraseWritePartialSector (NTFS_CACHE* cache, const void* buffer,
 	sec_t sec;
 	NTFS_CACHE_ENTRY *entry;
 
-	if (offset + size > BYTES_PER_READ) return false;
+	if (offset + size > cache->sectorSize) return false;
 
 	entry = _NTFS_cache_getPage(cache,sector);
 	if(entry==NULL) return false;
 
 	sec = sector - entry->sector;
-	memset(entry->cache + (sec*BYTES_PER_READ),0,BYTES_PER_READ);
-	memcpy(entry->cache + ((sec*BYTES_PER_READ) + offset),buffer,size);
+	memset(entry->cache + (sec*cache->sectorSize),0,cache->sectorSize);
+	memcpy(entry->cache + ((sec*cache->sectorSize) + offset),buffer,size);
 
 	entry->dirty = true;
 	return true;
@@ -318,7 +319,7 @@ bool _NTFS_cache_writeSectors (NTFS_CACHE* cache, sec_t sector, sec_t numSectors
 				secs_to_write = entry->sector - sector;
 
 				cache->disc->writeSectors(sector,secs_to_write,src);
-				src += (secs_to_write*BYTES_PER_READ);
+				src += (secs_to_write*cache->sectorSize);
 				sector += secs_to_write;
 				numSectors -= secs_to_write;
 			}
@@ -328,9 +329,9 @@ bool _NTFS_cache_writeSectors (NTFS_CACHE* cache, sec_t sector, sec_t numSectors
 
 			if(secs_to_write>numSectors) secs_to_write = numSectors;
 
-			memcpy(entry->cache + (sec*BYTES_PER_READ),src,(secs_to_write*BYTES_PER_READ));
+			memcpy(entry->cache + (sec*cache->sectorSize),src,(secs_to_write*cache->sectorSize));
 
-			src += (secs_to_write*BYTES_PER_READ);
+			src += (secs_to_write*cache->sectorSize);
 			sector += secs_to_write;
 			numSectors -= secs_to_write;
 

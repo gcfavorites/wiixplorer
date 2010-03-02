@@ -53,7 +53,8 @@ enum
     UNKNOWN = 1,
     ZIP,
     SZIP,
-    RAR
+    RAR,
+    U8Arch
 };
 
 
