@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 19:42+0100\n"
+"POT-Creation-Date: 2010-03-03 01:42+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: Victory \n"
-"Language-Team: Victory \n"
+"Last-Translator: SirPalax\n"
+"Language-Team: Victory, SirPalax\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,7 +16,7 @@ msgid "1"
 msgstr "1"
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "Descompresión 7z fallida:"
 
 #, c-format
 msgid ""
@@ -24,30 +24,33 @@ msgid ""
 "\tFull path: \"%s\"\n"
 "\tWorking directory: \"%s\"\n"
 msgstr ""
+"Un cliente ha cambiado su carpeta de trabajo:\n"
+"\tRuta completa: \"%s\"\n"
+"\tCarpeta de trabajo: \"%s\"\n"
 
 msgid "A client has disconnected.\n"
-msgstr ""
+msgstr "Un cliente se ha desconectado.\n"
 
 msgid "A client has logged-in.\n"
-msgstr ""
+msgstr "Un cliente se ha logeado.\n"
 
 msgid "A client is being deleted.\n"
-msgstr ""
+msgstr "Un cliente está siendo eliminado.\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
+msgstr "Un cliente está descargando un archivo: \"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
+msgstr "Un cliente está visualizando una carpeta: \"%s\"\n"
 
 #, c-format
 msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
+msgstr "Un cliente está subiendo un archivo: \"%s\"\n"
 
 msgid "A new client has been created:\n"
-msgstr ""
+msgstr "Se ha creado un nuevo cliente:\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -56,19 +59,19 @@ msgid "Action cancelled."
 msgstr "Operación cancelada."
 
 msgid "App Default"
-msgstr "Aplicación por defecto"
+msgstr "Por defecto"
 
 msgid "Apps"
-msgstr ""
+msgstr "Aplicaciones"
 
 msgid "Auto Connect"
 msgstr "Conexión automática"
 
 msgid "Back"
-msgstr ""
+msgstr "Supr"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Al arrancar montar"
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -77,57 +80,57 @@ msgid "CLIENT_SOFTWARE\n"
 msgstr ""
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "No se puede abrir el archivo."
 
 msgid "Can't load file"
-msgstr ""
+msgstr "No se cargó el archivo"
 
 msgid "Can't open file."
-msgstr ""
+msgstr "No se abrió el archivo"
 
 msgid "Can't read file:"
-msgstr ""
+msgstr "No se leyó el archivo"
 
 msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Cannot open image"
-msgstr "No se puede abrir imagen"
+msgstr "No se puede abrir la imagen"
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "No se puede escribir en el destino."
 
 msgid "Caps"
-msgstr ""
+msgstr "Blq May"
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "¿Cambiar la ruta del idioma?"
 
 msgid "Channels"
-msgstr ""
+msgstr "Canales"
 
 msgid "Clear"
-msgstr ""
+msgstr "Borrar"
 
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #, c-format
 msgid "Cmd received: %s\n"
-msgstr ""
+msgstr "Cmd recibido: %s\n"
 
 msgid "Coders:"
 msgstr "Programadores:"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "Tamaño comprimido:"
 
 msgid "Connected"
-msgstr ""
+msgstr "Conectado"
 
 #, c-format
 msgid "Connected with: %s)"
-msgstr ""
+msgstr "Conectado con: %s)"
 
 msgid "Console Default"
 msgstr "Pred. de la Consola"
@@ -136,31 +139,31 @@ msgid "Copy"
 msgstr "Copiar"
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "¿Copiar elemento(s) marcado(s)?"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "Copiando elemento(s)"
 
 msgid "Could not connect to the network"
-msgstr ""
+msgstr "No se pudo conectar a la red"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "No se pudo conectar al servidor."
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "No se pudo descomprimir el archivo."
 
 msgid "Could not download file."
-msgstr ""
+msgstr "No se pudo descargar el archivo."
 
 msgid "Could not extract file:"
-msgstr ""
+msgstr "No se pudo extraer el archivo:"
 
 msgid "Could not load text file."
-msgstr ""
+msgstr "No se puede cargar el archivo de texto."
 
 msgid "Credits"
-msgstr "Creditos"
+msgstr "Créditos"
 
 msgid "Customfont Path"
 msgstr "Ruta fuente personalizada"
@@ -169,206 +172,206 @@ msgid "Cut"
 msgstr "Cortar"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "¿Cortar elemento(s) marcado(s)?"
 
 msgid "Delete"
 msgstr "Eliminar"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "¿Borrar elemento(s) seleccionado(s) y su contenido?"
 
 msgid "Deleting files:"
-msgstr "Eliminando archivo:"
+msgstr "Eliminando archivos:"
 
 msgid "Designer:"
 msgstr "Diseñador:"
 
 msgid "Directory .."
-msgstr "Directorio .."
+msgstr "Carpeta .."
 
 msgid "Directory couldn't be deleted."
-msgstr "Directorio no puede ser eliminado."
+msgstr "La carpeta no puede ser borrada."
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "¿Quieres iniciar el archivo ahora?"
 
 msgid "Do you want to boot:"
-msgstr "Desea arrancar:"
+msgstr "Quieres arrancar:"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "¿Quieres salir de WiiXplorer?"
 
 msgid "Do you want to load app default language ?"
-msgstr "¿Quieres cargar el lenguaje por defecto segun la aplicación?"
+msgstr "¿Quieres cargar el idioma por defecto segun la aplicación?"
 
 msgid "Do you want to load console default language."
-msgstr "¿Quieres cargar el lenguaje por defecto segun la consola?"
+msgstr "¿Quieres cargar el idioma por defecto segun la consola?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "¿Quieres cargar el archivo desde: %s ?"
 
 msgid "Do you want to load this language ?"
-msgstr "¿Quieres cargar este lenguaje?"
+msgstr "¿Quieres cargar este idioma ?"
 
 msgid "Do you want to load this language file?"
-msgstr ""
+msgstr "¿Quieres cargar este archivo de idioma?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "¿Quieres abrir este archivo en el Visor de Texto?"
+msgstr "¿Quieres abrir este archivo con el Visor de Texto?"
 
 msgid "Do you want to open this file with ImageViewer?"
-msgstr "¿Quieres abrir este archivo en el Visor de Imágenes?"
+msgstr "¿Quieres abrir este archivo con el Visor de Imágenes?"
 
 msgid "Do you want to playback this file?"
 msgstr "¿Quieres reproducir este archivo?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "¿Quieres reiniciar WiiXplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "¿Quieres reiniciar ahora ?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr "¿Quieres reconectar a SMB?"
+msgstr "¿Quieres reconectar el SMB?"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr ""
+msgstr "¿Quieres reconectar al servidor FTP?"
 
 msgid "Do you want to remount the devices?"
-msgstr ""
+msgstr "¿Quieres volver a montar los dispositivos?"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "¿Quieres sustituir este archivo?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "¿Quieres guardar los cambios?"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "¿Quieres lanzar la aplicación?"
 
 msgid "Do you want to start the channel?"
-msgstr ""
+msgstr "¿Quieres lanzar el canal?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "¿Quieres actualizar ahora ?"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Descargando archivo ..."
 
 msgid "Enable Create dir:"
-msgstr ""
+msgstr "Permitir Crear carpetas:"
 
 msgid "Enable Delete dir:"
-msgstr ""
+msgstr "Permitir Borrar carpetas:"
 
 msgid "Enable Delete file:"
-msgstr ""
+msgstr "Permitir Borrar archivos:"
 
 msgid "Enable Write file:"
-msgstr ""
+msgstr "Permitir Escribir archivos:"
 
 msgid "Enable Zip Mode:"
-msgstr ""
+msgstr "Permitir Modo Zip:"
 
 msgid "Enable list file:"
-msgstr ""
+msgstr "Permitir listar archivos:"
 
 msgid "Enable read file:"
-msgstr ""
+msgstr "Permitir leer archivos:"
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "Error al leer el archivo."
 
 msgid "Error:"
 msgstr "Error:"
 
 msgid "Exit"
-msgstr ""
+msgstr "Salir"
 
 msgid "Extract"
-msgstr ""
+msgstr "Extraer"
 
 msgid "Extract All"
-msgstr ""
+msgstr "Extraer todo"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Extraer primero y luego abrir"
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "¿Extraer archivo completo?"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "¿Extraer elemento(s) seleccionado(s)?"
 
 msgid "Extracting files..."
 msgstr "Extrayendo archivos..."
 
 msgid "Extracting item(s):"
-msgstr ""
+msgstr "Extrayendo elemento(s):"
 
 msgid "FTP Client Settings"
-msgstr ""
+msgstr "Configuración del Cliente FTP"
 
 msgid "FTP Data Port:"
-msgstr ""
+msgstr "Puerto de Datos FTP:"
 
 msgid "FTP Path:"
-msgstr ""
+msgstr "Ruta FTP:"
 
 msgid "FTP Port:"
-msgstr ""
+msgstr "Puerto FTP:"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "Servidor FTP"
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "Configuración del Servidor FTP"
 
 msgid "FTP Settings"
-msgstr ""
+msgstr "Configuración FTP"
 
 msgid "Failed copying item(s)."
-msgstr ""
+msgstr "No se pudo copiar elemento(s)."
 
 msgid "Failed extracting the archive."
-msgstr ""
+msgstr "No se pudo extraer el archivo."
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "No se pudo extraer elemento(s)."
 
 msgid "Failed moving item(s)."
-msgstr ""
+msgstr "No se pudo mover elemento(s)."
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "No se pudo renombrar elemento"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "No se pudo obtener la Lista de Cambios."
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "No se pudo leer el archivo de datos."
 
 msgid "File already exists:"
-msgstr ""
+msgstr "El archivo ya existe:"
 
 msgid "File couldn't be deleted."
 msgstr "El archivo no puede ser eliminado."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "Archivo corrupto (no coincide el CRC)."
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "Archivo corrupto"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "El archivo utilizado es demasiado alto para la configuración de compresión (tamaño del diccionario demasiado grande)."
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "El archivo utilizado es incompatible con la configuración de compresión."
 
 msgid "File was edited."
-msgstr ""
+msgstr "El archivo fue editado."
 
 #, c-format
 msgid "Filepath:  %s"
@@ -378,10 +381,10 @@ msgid "Files:"
 msgstr "Archivos:"
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "El tamaño del archivo no coincide."
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "El tamaño del archivo es de 0 Bytes."
 
 msgid "Filetype:"
 msgstr "Tipo de archivo:"
@@ -390,16 +393,16 @@ msgid "Folder"
 msgstr "Carpeta"
 
 msgid "Fontpath changed"
-msgstr "Fuente de ruta cambiada"
+msgstr "Ruta de la Fuente cambiada"
 
 msgid "Free Space:"
-msgstr ""
+msgstr "Espacio Libre:"
 
 msgid "Ftp stopped"
-msgstr ""
+msgstr "Ftp parado"
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "Obteniendo la Lista de Cambios..."
 
 msgid "Go Back"
 msgstr "Atrás"
@@ -408,61 +411,61 @@ msgid "Host:"
 msgstr "Host:"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "Visor de Imágenes"
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "Conexión entrante."
 
 msgid "Internal error"
-msgstr ""
+msgstr "Error interno"
 
 msgid "Language"
 msgstr "Idioma"
 
 msgid "Language Path changed."
-msgstr ""
+msgstr "Ruta de idioma cambiada."
 
 msgid "Last access:"
 msgstr "Último acceso:"
 
 msgid "Last change:"
-msgstr ""
+msgstr "Último cambio:"
 
 msgid "Last modified:"
 msgstr "Última modificación:"
 
 msgid "Launch Ftp"
-msgstr ""
+msgstr "Arrancar Ftp"
 
 msgid "Linebreak"
-msgstr ""
+msgstr "Salto L."
 
 msgid "Loading file:"
 msgstr "Cargando archivo:"
 
 msgid "Loop"
-msgstr ""
+msgstr "Bucle"
 
 msgid "Mount NTFS"
-msgstr ""
+msgstr "Montar NTFS"
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "Moviendo elemento(s):"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "Modo bucle musical"
 
 msgid "Music Volume"
-msgstr "Volumen de música"
+msgstr "Volumen musical"
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "El nombre puede que ya exista."
 
 msgid "Network Settings"
-msgstr ""
+msgstr "Configuración de la red"
 
 msgid "Network initialising..."
 msgstr "Inicializando la red..."
@@ -474,53 +477,53 @@ msgid "No"
 msgstr "No"
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "Sin homebrew en el zip."
 
 #, c-format
 msgid "No image found at index %d."
 msgstr "Imagen no encontrada en índice %d."
 
 msgid "No language files found."
-msgstr "No se encontró archivo de lenguaje."
+msgstr "No se encontró archivos de idiomas."
 
 msgid "No new updates available"
-msgstr ""
+msgstr "No hay nuevas actualizaciones disponibles"
 
 msgid "No to all"
-msgstr ""
+msgstr "No a todo"
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "No es una URL válida"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "No es una ruta URL válida"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "No es un dominio válido"
 
 msgid "Not enough memory."
 msgstr "No hay suficiente memoria."
 
 msgid "OFF"
-msgstr "OFF"
+msgstr "NO"
 
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 msgid "ON"
-msgstr "ON"
+msgstr "SI"
 
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "Apertura no está aún implementada"
 
 msgid "Out of memory: too many files!"
 msgstr "Fuera de memoria: ¡demasiados archivos!"
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "Modo Pasivo:"
 
 msgid "Password:"
 msgstr "Contraseña:"
@@ -529,56 +532,56 @@ msgid "Paste"
 msgstr "Pegar"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "¿Pegar elemento(s) en la carpeta actual?"
 
 msgid "Play Directory"
-msgstr ""
+msgstr "Carpeta musical"
 
 msgid "Play Once"
-msgstr ""
+msgstr "Oir una vez"
 
 msgid "Please wait:"
-msgstr "Espera Por favor:"
+msgstr "Espera por favor:"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "Proceso cancelado."
 
 msgid "Properties"
 msgstr "Propiedades"
 
 msgid "QWERTYUIOP{}|"
-msgstr ""
+msgstr "QWERTYUIOP^*|"
 
 msgid "Random"
-msgstr ""
+msgstr "Aleatorio"
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "No se pudo reiniciar"
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "Recibiendo archivo..."
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "Reconectar FTP"
 
 msgid "Reconnect SMB"
 msgstr "Reconectar SMB"
 
 msgid "Reload"
-msgstr ""
+msgstr "Actualizar"
 
 msgid "Rename"
 msgstr "Renombrar"
 
 #, c-format
 msgid "Reply sent: %s\n"
-msgstr ""
+msgstr "Respuesta enviada: %s\n"
 
 msgid "Restart"
-msgstr ""
+msgstr "Reiniciar"
 
 msgid "Restart the app to load the new font."
-msgstr "Reinicia la aplic. para cargar la nueva fuente."
+msgstr "Reiniciar la aplicación para cargar la nueva fuente."
 
 msgid "Retry"
 msgstr "Reintentar"
@@ -594,25 +597,25 @@ msgstr "SMB está conectando..."
 
 #, c-format
 msgid "Server at: %s"
-msgstr ""
+msgstr "Servidor en: %s"
 
 msgid "Server started"
-msgstr ""
+msgstr "Servidor arrancado"
 
 msgid "Server stopped"
-msgstr ""
+msgstr "Servidor parado"
 
 msgid "Server waits for client"
-msgstr ""
+msgstr "Servidor esperando clientes"
 
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 msgid "Shift"
-msgstr ""
+msgstr "May"
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "Ver Lista de Cambios"
 
 msgid "Size:"
 msgstr "Tamaño:"
@@ -621,72 +624,72 @@ msgid "Special thanks to:"
 msgstr "Agradecimientos especiales a:"
 
 msgid "Standard"
-msgstr ""
+msgstr "Estándar"
 
 msgid "Stop Ftp "
-msgstr ""
+msgstr "Parar Ftp "
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Todo el staff de Devkitpro & liboc."
 
 #, c-format
 msgid "Too many pass tries for (%s)\n"
-msgstr ""
+msgstr "Intentos de acceso excedidos por (%s)\n"
 
 msgid "Total Space:"
-msgstr ""
+msgstr "Espacio Total:"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Transferencia cancelada."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Error de transferencia"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "Error de transferencia."
 
 msgid "Transfering files:"
 msgstr "Transfiriendo archivos:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "La URL está vacía."
 
 msgid "Unable to create folder."
-msgstr "No se puede crear carpeta."
+msgstr "Imposible crear la carpeta."
 
 msgid "Unable to load path."
-msgstr ""
+msgstr "Imposible cargar la ruta."
 
 msgid "Unable to load the device."
-msgstr ""
+msgstr "Imposible cargar el dispositivo."
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Ruta para actualizar Aplicación"
 
 msgid "Update App"
-msgstr ""
+msgstr "Actualizar"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "Actualizar Icon.png"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "Actualizar Meta.xml"
 
 msgid "Update Path changed."
-msgstr ""
+msgstr "Ruta de actualización cambiada."
 
 msgid "Update Settings"
-msgstr ""
+msgstr "Configuración de actualización"
 
 msgid "Update failed"
-msgstr ""
+msgstr "Error en la actualización"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Actualización concluida con éxito"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Actualización a Rev%i disponible"
 
 #, c-format
 msgid "User %i"
@@ -702,7 +705,7 @@ msgid "Yes"
 msgstr "Sí"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "Si a todo"
 
 msgid "You can not cut into the directory itself."
 msgstr "No puedes cortar dentro del directorio en sí mismo."
@@ -714,35 +717,35 @@ msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
 msgid "ZXCVBNM<>?"
-msgstr ""
+msgstr "ZXCVBNM;:_"
 
 msgid "`1234567890-"
-msgstr ""
+msgstr "1234567890'¡"
 
 msgid "and all the translators."
-msgstr ""
+msgstr "y a todos los traductores."
 
 msgid "asdfghjkl;'="
-msgstr ""
+msgstr "asdfghjklñ´ç"
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
 
 msgid "qwertyuiop[]\\"
-msgstr ""
+msgstr "qwertyuiop`+\\"
 
 msgid "zxcvbnm,./"
-msgstr ""
+msgstr "zxcvbnm,.-"
 
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
 
 #~ msgid "Failed copying file."
-#~ msgstr "Fallo al copiar archivo."
+#~ msgstr "No se pudo copiar archivo."
 
 #~ msgid "Failed copying files."
-#~ msgstr "Fallo al copiar archivos."
+#~ msgstr "No se pudo copiar archivos."
 
 #~ msgid "Directory successfully deleted."
 #~ msgstr "Directorio eliminado correctamente."
