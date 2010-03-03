@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 19:42+0100\n"
+"POT-Creation-Date: 2010-03-03 01:42+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -24,30 +24,33 @@ msgid ""
 "\tFull path: \"%s\"\n"
 "\tWorking directory: \"%s\"\n"
 msgstr ""
+"客户端更改工作目录:\n"
+"\t完整路径: \"%s\"\n"
+"\t工作目录: \"%s\"\n"
 
 msgid "A client has disconnected.\n"
-msgstr ""
+msgstr "客户端断开链接。\n"
 
 msgid "A client has logged-in.\n"
-msgstr ""
+msgstr "客户端已登录。\n"
 
 msgid "A client is being deleted.\n"
-msgstr ""
+msgstr "客户端进行删除操作。\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
+msgstr "客户端正下载文件:\"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
+msgstr "客户端正列表目录:\"%s\"\n"
 
 #, c-format
 msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
+msgstr "客户端正上传文件： \"%s\"\n"
 
 msgid "A new client has been created:\n"
-msgstr ""
+msgstr "新客户端已建立:\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr "ASDFGHJKL:\"+"
@@ -71,10 +74,10 @@ msgid "Bootup Mount"
 msgstr "开始挂载"
 
 msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
+msgstr "客户端套接字错误 \n"
 
 msgid "CLIENT_SOFTWARE\n"
-msgstr ""
+msgstr "客户端软件\n"
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -114,7 +117,7 @@ msgstr "关闭"
 
 #, c-format
 msgid "Cmd received: %s\n"
-msgstr ""
+msgstr "Cmd接收:%s\n"
 
 msgid "Coders:"
 msgstr "作者"
@@ -123,11 +126,11 @@ msgid "Compressed Size:"
 msgstr "已压缩大小"
 
 msgid "Connected"
-msgstr ""
+msgstr "已链接"
 
 #, c-format
 msgid "Connected with: %s)"
-msgstr ""
+msgstr "已链接与：%s"
 
 msgid "Console Default"
 msgstr "主机缺省"
@@ -157,7 +160,7 @@ msgid "Could not extract file:"
 msgstr "文件无法提取。"
 
 msgid "Could not load text file."
-msgstr ""
+msgstr "文本文件无法读取。"
 
 msgid "Credits"
 msgstr "感谢"
@@ -193,10 +196,10 @@ msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
 
 msgid "Do you want to boot:"
-msgstr "你想要重新启动:"
+msgstr "是否重新启动:"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "是否退出WiiXplorer?"
 
 msgid "Do you want to load app default language ?"
 msgstr "是否读取程序缺省语言模式吗？"
@@ -224,7 +227,7 @@ msgid "Do you want to playback this file?"
 msgstr "是否播放此文件？"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "是否重新启动WiiXplorer?"
 
 msgid "Do you want to reboot now ?"
 msgstr "是否现在重新启动？"
@@ -233,10 +236,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再次连接到网络共享？"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr ""
+msgstr "再次开启FTP服务器？"
 
 msgid "Do you want to remount the devices?"
-msgstr ""
+msgstr "是否再次加载设备？"
 
 msgid "Do you want to replace this file?"
 msgstr ""
@@ -257,25 +260,25 @@ msgid "Downloading file..."
 msgstr "正在下载文件"
 
 msgid "Enable Create dir:"
-msgstr ""
+msgstr "开启创建目录："
 
 msgid "Enable Delete dir:"
-msgstr ""
+msgstr "开启删除目录："
 
 msgid "Enable Delete file:"
-msgstr ""
+msgstr "开启删除文件："
 
 msgid "Enable Write file:"
-msgstr ""
+msgstr "开启写文件："
 
 msgid "Enable Zip Mode:"
-msgstr ""
+msgstr "开启Zip模式："
 
 msgid "Enable list file:"
-msgstr ""
+msgstr "开启文件列表："
 
 msgid "Enable read file:"
-msgstr ""
+msgstr "开启读取文件:"
 
 msgid "Error while reading file."
 msgstr "错误"
@@ -308,25 +311,25 @@ msgid "Extracting item(s):"
 msgstr "提取项目中："
 
 msgid "FTP Client Settings"
-msgstr ""
+msgstr "FTP客户端设置"
 
 msgid "FTP Data Port:"
-msgstr ""
+msgstr "FTP数据端口："
 
 msgid "FTP Path:"
-msgstr ""
+msgstr "FTP路径："
 
 msgid "FTP Port:"
-msgstr ""
+msgstr "FTP端口"
 
 msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "FTP服务设置"
 
 msgid "FTP Settings"
-msgstr ""
+msgstr "FTP设置"
 
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
@@ -414,7 +417,7 @@ msgid "Incomming connection."
 msgstr "接入链接。"
 
 msgid "Internal error"
-msgstr ""
+msgstr "内部错误"
 
 msgid "Language"
 msgstr "语言"
@@ -456,7 +459,7 @@ msgid "Music Volume"
 msgstr "音乐音量"
 
 msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
+msgstr "无登录超时\n"
 
 msgid "Name might already exists."
 msgstr "文件名可能重复。"
@@ -520,7 +523,7 @@ msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "被动模式"
 
 msgid "Password:"
 msgstr "密码："
@@ -559,7 +562,7 @@ msgid "Receiving file..."
 msgstr "文件接收中..."
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "重连FTP"
 
 msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
@@ -572,7 +575,7 @@ msgstr "重命名"
 
 #, c-format
 msgid "Reply sent: %s\n"
-msgstr ""
+msgstr "回复发送：%s\n"
 
 msgid "Restart"
 msgstr ""
@@ -594,16 +597,16 @@ msgstr "正在连接网络共享"
 
 #, c-format
 msgid "Server at: %s"
-msgstr ""
+msgstr "服务在：%s"
 
 msgid "Server started"
-msgstr ""
+msgstr "服务已开启"
 
 msgid "Server stopped"
-msgstr ""
+msgstr "服务已停止"
 
 msgid "Server waits for client"
-msgstr ""
+msgstr "服务等待客户端链接"
 
 msgid "Settings"
 msgstr ""
@@ -631,7 +634,7 @@ msgstr "基于Devkitpro和libogc开发"
 
 #, c-format
 msgid "Too many pass tries for (%s)\n"
-msgstr ""
+msgstr "密码登录错误次数过多：(%s)\n"
 
 msgid "Total Space:"
 msgstr "总计空间："
@@ -738,14 +741,14 @@ msgstr "zxcvbnm,./"
 msgid "~!@#$%%^&*()_"
 msgstr "~!@#$%%^&*()_"
 
-#~ msgid "NewFolder"
-#~ msgstr "新文件夹"
-
 #~ msgid "Failed copying file."
 #~ msgstr "复制失败"
 
 #~ msgid "Failed copying files."
 #~ msgstr "复制失败"
+
+#~ msgid "NewFolder"
+#~ msgstr "新文件夹"
 
 #~ msgid "Preparing Network..."
 #~ msgstr "网络准备中..."

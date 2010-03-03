@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r118
+# r129
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 19:42+0100\n"
+"POT-Creation-Date: 2010-03-03 01:42+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -24,30 +24,33 @@ msgid ""
 "\tFull path: \"%s\"\n"
 "\tWorking directory: \"%s\"\n"
 msgstr ""
+"Ein Client hat sein Arbeitsverzeichnis gewechselt:\n"
+"\tVollständiger Pfad: \"%s\"\n"
+"\tArbeitsverzeichnis: \"%s\"\n"
 
 msgid "A client has disconnected.\n"
-msgstr ""
+msgstr "Ein Client hat die Verbindung getrennt.\n"
 
 msgid "A client has logged-in.\n"
-msgstr ""
+msgstr "Ein Client hat sich angemeldet.\n"
 
 msgid "A client is being deleted.\n"
-msgstr ""
+msgstr "Ein Client wurde gelöscht.\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
+msgstr "Ein Client lädt eine Datei herunter: \"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
+msgstr "Ein Client listet ein Verzeichnis auf: \"%s\"\n"
 
 #, c-format
 msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
+msgstr "Ein Client lädt eine Datei hoch: \"%s\"\n"
 
 msgid "A new client has been created:\n"
-msgstr ""
+msgstr "Ein neuer Client wurde erstellt:\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -68,7 +71,7 @@ msgid "Back"
 msgstr "Zurück"
 
 msgid "Bootup Mount"
-msgstr "Mount beim Start"
+msgstr "Start Mount"
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -114,7 +117,7 @@ msgstr "Schließen"
 
 #, c-format
 msgid "Cmd received: %s\n"
-msgstr ""
+msgstr "Befehl empfangen: %s\n"
 
 msgid "Coders:"
 msgstr "Programmierer:"
@@ -123,11 +126,11 @@ msgid "Compressed Size:"
 msgstr "Komprimierte Größe:"
 
 msgid "Connected"
-msgstr ""
+msgstr "Verbunden"
 
 #, c-format
 msgid "Connected with: %s)"
-msgstr ""
+msgstr "Verbunden mit: %s)"
 
 msgid "Console Default"
 msgstr "Konsolenstandard"
@@ -157,7 +160,7 @@ msgid "Could not extract file:"
 msgstr "Datei konnte nicht entpackt werden:"
 
 msgid "Could not load text file."
-msgstr ""
+msgstr "Textdatei konnte nicht geladen werden."
 
 msgid "Credits"
 msgstr ""
@@ -190,13 +193,13 @@ msgid "Directory couldn't be deleted."
 msgstr "Verzeichnis konnte nicht gelöscht werden."
 
 msgid "Do you want to boot file now?"
-msgstr "Möchtest du die Datei jetzt starten?"
+msgstr "Die Datei/Anwendung jetzt starten?"
 
 msgid "Do you want to boot:"
-msgstr "Möchtest du folgendes starten:"
+msgstr "Folgendes starten:"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorer beenden?"
 
 msgid "Do you want to load app default language ?"
 msgstr "Standardsprache der Anwendung laden?"
@@ -224,7 +227,7 @@ msgid "Do you want to playback this file?"
 msgstr "Diese Datei abspielen?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorer neu starten?"
 
 msgid "Do you want to reboot now ?"
 msgstr "Anwendung jetzt neu starten?"
@@ -236,7 +239,7 @@ msgid "Do you want to reconnect to FTP server?"
 msgstr "Wieder mit dem FTP Server verbinden?"
 
 msgid "Do you want to remount the devices?"
-msgstr ""
+msgstr "Laufwerke neu mounten?"
 
 msgid "Do you want to replace this file?"
 msgstr ""
@@ -257,25 +260,25 @@ msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
 msgid "Enable Create dir:"
-msgstr ""
+msgstr "Verzeichnis erstellen aktivieren:"
 
 msgid "Enable Delete dir:"
-msgstr ""
+msgstr "Verzeichnis löschen aktivieren:"
 
 msgid "Enable Delete file:"
-msgstr ""
+msgstr "Datei löschen aktivieren:"
 
 msgid "Enable Write file:"
-msgstr ""
+msgstr "Datei schreiben aktivieren:"
 
 msgid "Enable Zip Mode:"
-msgstr ""
+msgstr "ZIP Modus aktivieren:"
 
 msgid "Enable list file:"
-msgstr ""
+msgstr "Datei auslisten aktivieren:"
 
 msgid "Enable read file:"
-msgstr ""
+msgstr "Datei lesen aktivieren:"
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -308,13 +311,13 @@ msgid "Extracting item(s):"
 msgstr "Entpacke Elemente:"
 
 msgid "FTP Client Settings"
-msgstr ""
+msgstr "FTP Client Einstellungen"
 
 msgid "FTP Data Port:"
-msgstr ""
+msgstr "FTP Daten Port:"
 
 msgid "FTP Path:"
-msgstr ""
+msgstr "FTP Pfad:"
 
 msgid "FTP Port:"
 msgstr ""
@@ -323,7 +326,7 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "FTP Server Einstellungen"
 
 msgid "FTP Settings"
 msgstr "FTP Einstellungen"
@@ -414,7 +417,7 @@ msgid "Incomming connection."
 msgstr "Eingehende Verbindung."
 
 msgid "Internal error"
-msgstr ""
+msgstr "Interner Fehler"
 
 msgid "Language"
 msgstr "Sprache"
@@ -572,7 +575,7 @@ msgstr "Umbenennen"
 
 #, c-format
 msgid "Reply sent: %s\n"
-msgstr ""
+msgstr "Antwort gesendet: %s\n"
 
 msgid "Restart"
 msgstr ""
@@ -594,16 +597,16 @@ msgstr "SMB verbindet..."
 
 #, c-format
 msgid "Server at: %s"
-msgstr ""
+msgstr "Server auf: %s"
 
 msgid "Server started"
-msgstr ""
+msgstr "Server gestartet"
 
 msgid "Server stopped"
-msgstr ""
+msgstr "Server gestopped"
 
 msgid "Server waits for client"
-msgstr ""
+msgstr "Server wartet auf Client"
 
 msgid "Settings"
 msgstr ""
@@ -631,7 +634,7 @@ msgstr "Das ganze DevkitPro & libogc Team."
 
 #, c-format
 msgid "Too many pass tries for (%s)\n"
-msgstr ""
+msgstr "Zu viele Kennwort-Eingabeversuche für (%s)\n"
 
 msgid "Total Space:"
 msgstr "Gesamter Speicher:"
@@ -738,14 +741,14 @@ msgstr ""
 msgid "~!@#$%%^&*()_"
 msgstr ""
 
-#~ msgid "NewFolder"
-#~ msgstr "Neuer Ordner"
-
 #~ msgid "Failed copying file."
 #~ msgstr "Kopieren der Datei fehlgeschlagen."
 
 #~ msgid "Failed copying files."
 #~ msgstr "Kopieren der Dateien fehlgeschlagen."
+
+#~ msgid "NewFolder"
+#~ msgstr "Neuer Ordner"
 
 #~ msgid "Preparing Network..."
 #~ msgstr "Netzwerk wird vorbereitet..."

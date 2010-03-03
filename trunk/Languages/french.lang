@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 19:42+0100\n"
+"POT-Creation-Date: 2010-03-03 01:42+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -24,30 +24,33 @@ msgid ""
 "\tFull path: \"%s\"\n"
 "\tWorking directory: \"%s\"\n"
 msgstr ""
+"Un client a modifié son dossier de travail:\n"
+"\tChemin complet: \"%s\"\n"
+"\tDossier de travail: \"%s\"\n"
 
 msgid "A client has disconnected.\n"
-msgstr ""
+msgstr "Un client s'est déconnecté.\n"
 
 msgid "A client has logged-in.\n"
-msgstr ""
+msgstr "Un client s'est connécté\n"
 
 msgid "A client is being deleted.\n"
-msgstr ""
+msgstr "Un client est supprimé.\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
+msgstr "Un client telecharge un fichier:  \"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
+msgstr "Un client liste un dossier: \"%s\"\n"
 
 #, c-format
 msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
+msgstr "Un client upload un fichier: \"%s\"\n"
 
 msgid "A new client has been created:\n"
-msgstr ""
+msgstr "Un nouveau client a été créé: \n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -104,7 +107,7 @@ msgid "Change Language Path?"
 msgstr "Modifier le dossier Language ?"
 
 msgid "Channels"
-msgstr ""
+msgstr "Chaînes"
 
 msgid "Clear"
 msgstr "Nettoyer"
@@ -114,7 +117,7 @@ msgstr "Fermer"
 
 #, c-format
 msgid "Cmd received: %s\n"
-msgstr ""
+msgstr "Cmd reçue: %s\n"
 
 msgid "Coders:"
 msgstr "Développeurs:"
@@ -123,11 +126,11 @@ msgid "Compressed Size:"
 msgstr "Taille Compressée:"
 
 msgid "Connected"
-msgstr ""
+msgstr "Connecté"
 
 #, c-format
 msgid "Connected with: %s)"
-msgstr ""
+msgstr "Connecté avec: %s)"
 
 msgid "Console Default"
 msgstr "Wii Défaut"
@@ -196,7 +199,7 @@ msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "Voulez-vous quitter Wiixplorer ?"
 
 msgid "Do you want to load app default language ?"
 msgstr "Voulez-vous charger le language de WiiWplorer par défaut ?"
@@ -206,7 +209,7 @@ msgstr "Voulez-vous charger le language de la Wii par défaut ?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "Voulez-vous charger le fichier depuis: %s ?"
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language ?"
@@ -224,7 +227,7 @@ msgid "Do you want to playback this file?"
 msgstr "Voulez-vous écouter ce son ?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "Voulez-vous redémarrer Wiixplorer ?"
 
 msgid "Do you want to reboot now ?"
 msgstr "Voulez-vous redémarrer maintenant ?"
@@ -236,19 +239,19 @@ msgid "Do you want to reconnect to FTP server?"
 msgstr "Voulez-vous reconnecter le serveur FTP ?"
 
 msgid "Do you want to remount the devices?"
-msgstr ""
+msgstr "Voulez-vous remonter les périphériques ?"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "Voulez-vous remplacer ce fichier ?"
 
 msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications ?"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "Voulez-vous démarrer l'application ?"
 
 msgid "Do you want to start the channel?"
-msgstr ""
+msgstr "Voulez-vous démarrer la chaîne ?"
 
 msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant ?"
@@ -257,25 +260,25 @@ msgid "Downloading file..."
 msgstr "Téléchargement..."
 
 msgid "Enable Create dir:"
-msgstr ""
+msgstr "Activer création dos:"
 
 msgid "Enable Delete dir:"
-msgstr ""
+msgstr "Activer suppression dos:"
 
 msgid "Enable Delete file:"
-msgstr ""
+msgstr "Activer suppression fichier:"
 
 msgid "Enable Write file:"
-msgstr ""
+msgstr "Activer écriture fichier:"
 
 msgid "Enable Zip Mode:"
-msgstr ""
+msgstr "Activer Mode Zip:"
 
 msgid "Enable list file:"
-msgstr ""
+msgstr "Activer liste fichier:"
 
 msgid "Enable read file:"
-msgstr ""
+msgstr "Activer lecture fichier:"
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -284,7 +287,7 @@ msgid "Error:"
 msgstr "Erreur:"
 
 msgid "Exit"
-msgstr ""
+msgstr "Quitter"
 
 msgid "Extract"
 msgstr "Extraire"
@@ -311,19 +314,19 @@ msgid "FTP Client Settings"
 msgstr "Paramètres client FTP"
 
 msgid "FTP Data Port:"
-msgstr ""
+msgstr "Port Data FTP:"
 
 msgid "FTP Path:"
 msgstr "Chemin FTP:"
 
 msgid "FTP Port:"
-msgstr ""
+msgstr "Port FTP:"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "Serveur FTP"
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "Paramètres serveur FTP"
 
 msgid "FTP Settings"
 msgstr "Paramètres FTP"
@@ -350,7 +353,7 @@ msgid "Failed to read file data."
 msgstr "La lecture des données a échouée"
 
 msgid "File already exists:"
-msgstr ""
+msgstr "Le fichier existe déjà:"
 
 msgid "File couldn't be deleted."
 msgstr "Suppression impossible."
@@ -414,7 +417,7 @@ msgid "Incomming connection."
 msgstr "ConnexDion entrante."
 
 msgid "Internal error"
-msgstr ""
+msgstr "Erreur interne"
 
 msgid "Language"
 msgstr "Langue"
@@ -487,7 +490,7 @@ msgid "No new updates available"
 msgstr "Pas de nouvelle mise à jour disponible"
 
 msgid "No to all"
-msgstr ""
+msgstr "Non pour tous"
 
 msgid "Not a valid URL"
 msgstr "URL invalide"
@@ -565,17 +568,17 @@ msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
 
 msgid "Reload"
-msgstr ""
+msgstr "Recharger"
 
 msgid "Rename"
 msgstr "Renommer"
 
 #, c-format
 msgid "Reply sent: %s\n"
-msgstr ""
+msgstr "Réponse envoyée: %s\n"
 
 msgid "Restart"
-msgstr ""
+msgstr "Redémarrer"
 
 msgid "Restart the app to load the new font."
 msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
@@ -594,19 +597,19 @@ msgstr "Connexion SMB..."
 
 #, c-format
 msgid "Server at: %s"
-msgstr ""
+msgstr "Serveur à: %s"
 
 msgid "Server started"
-msgstr ""
+msgstr "Serveur démarré"
 
 msgid "Server stopped"
-msgstr ""
+msgstr "serveur stoppé"
 
 msgid "Server waits for client"
-msgstr ""
+msgstr "serveur en attente de clients"
 
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 msgid "Shift"
 msgstr ""
@@ -702,7 +705,7 @@ msgid "Yes"
 msgstr "Oui"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "Oui pour tous"
 
 msgid "You can not cut into the directory itself."
 msgstr "Impossible de couper dans le même dossier."

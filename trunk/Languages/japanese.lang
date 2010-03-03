@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 19:42+0100\n"
+"POT-Creation-Date: 2010-03-03 01:42+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,28 +26,28 @@ msgid ""
 msgstr ""
 
 msgid "A client has disconnected.\n"
-msgstr ""
+msgstr "クライアントが切断されました\n"
 
 msgid "A client has logged-in.\n"
-msgstr ""
+msgstr "クライアントがログインしました\n"
 
 msgid "A client is being deleted.\n"
-msgstr ""
+msgstr "クライアントが削除されています\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
+msgstr "クライアントはダウンロード中です: \"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
+msgstr "クライアントはディレクトリを一覧にしています: \"%s\"\n"
 
 #, c-format
 msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
+msgstr "クライアントはアップロード中です: \"%s\"\n"
 
 msgid "A new client has been created:\n"
-msgstr ""
+msgstr "新しいクライアントが作成されました\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -71,10 +71,10 @@ msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
 msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
+msgstr "クライアントソケットエラー\n"
 
 msgid "CLIENT_SOFTWARE\n"
-msgstr ""
+msgstr "クライアントソフトウェア\n"
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
@@ -114,7 +114,7 @@ msgstr "とじる"
 
 #, c-format
 msgid "Cmd received: %s\n"
-msgstr ""
+msgstr "CMDを受信しました: %s\n"
 
 msgid "Coders:"
 msgstr "制作:"
@@ -123,11 +123,11 @@ msgid "Compressed Size:"
 msgstr "圧縮サイズ:"
 
 msgid "Connected"
-msgstr ""
+msgstr "接続しました"
 
 #, c-format
 msgid "Connected with: %s)"
-msgstr ""
+msgstr "%sと接続しました)"
 
 msgid "Console Default"
 msgstr "日本語"
@@ -136,10 +136,10 @@ msgid "Copy"
 msgstr "コピー"
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "選択されたアイテムをコピーしますか?"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "コピーしています:"
 
 msgid "Could not connect to the network"
 msgstr "接続できませんでした"
@@ -148,7 +148,7 @@ msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "解凍できませんでした"
 
 msgid "Could not download file."
 msgstr "ダウンロードできませんでした"
@@ -157,7 +157,7 @@ msgid "Could not extract file:"
 msgstr "解凍できませんでした"
 
 msgid "Could not load text file."
-msgstr ""
+msgstr "テキストファイルを読み込めませんでした"
 
 msgid "Credits"
 msgstr "提供･協力"
@@ -169,13 +169,13 @@ msgid "Cut"
 msgstr "切り取り"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "選択されたアイテムを切り取りますか?"
 
 msgid "Delete"
 msgstr "削除"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "選択されたアイテムと中身を削除しますか?"
 
 msgid "Deleting files:"
 msgstr "削除しています:"
@@ -190,13 +190,13 @@ msgid "Directory couldn't be deleted."
 msgstr "フォルダを削除できませんでした"
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "今すぐ起動しますか?"
 
 msgid "Do you want to boot:"
 msgstr "起動しますか?"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorerを終了しますか?"
 
 msgid "Do you want to load app default language ?"
 msgstr "英語に変更しますか?"
@@ -206,7 +206,7 @@ msgstr "日本語に変更しますか?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "%sからファイルを読み込みますか?"
 
 msgid "Do you want to load this language ?"
 msgstr "この言語に設定しますか?"
@@ -224,7 +224,7 @@ msgid "Do you want to playback this file?"
 msgstr "このファイルを再生しますか?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorerを再起動しますか?"
 
 msgid "Do you want to reboot now ?"
 msgstr "今すぐ再起動しますか?"
@@ -233,10 +233,10 @@ msgid "Do you want to reconnect the SMB?"
 msgstr "再接続しますか?"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr ""
+msgstr "FTPサーバーに再接続しますか?"
 
 msgid "Do you want to remount the devices?"
-msgstr ""
+msgstr "デバイスをリマウントしますか?"
 
 msgid "Do you want to replace this file?"
 msgstr ""
@@ -257,25 +257,25 @@ msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
 msgid "Enable Create dir:"
-msgstr ""
+msgstr "フォルダ作成の許可"
 
 msgid "Enable Delete dir:"
-msgstr ""
+msgstr "フォルダ削除の許可"
 
 msgid "Enable Delete file:"
-msgstr ""
+msgstr "ファイル削除の許可"
 
 msgid "Enable Write file:"
-msgstr ""
+msgstr "ファイル書き込みの許可"
 
 msgid "Enable Zip Mode:"
-msgstr ""
+msgstr "Zipモードの許可"
 
 msgid "Enable list file:"
-msgstr ""
+msgstr "ファイル一覧の許可"
 
 msgid "Enable read file:"
-msgstr ""
+msgstr "ファイル読み込みの許可"
 
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
@@ -299,49 +299,49 @@ msgid "Extract full archive?"
 msgstr "すべて解凍しますか?"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "選択されたアイテムを解凍しますか?"
 
 msgid "Extracting files..."
-msgstr "解凍中..."
+msgstr "解凍中･･･"
 
 msgid "Extracting item(s):"
-msgstr ""
+msgstr "解凍中"
 
 msgid "FTP Client Settings"
-msgstr ""
+msgstr "FTPクライアント設定"
 
 msgid "FTP Data Port:"
-msgstr ""
+msgstr "FTPのデータポート"
 
 msgid "FTP Path:"
-msgstr ""
+msgstr "FTPのパス"
 
 msgid "FTP Port:"
-msgstr ""
+msgstr "FTPのポート"
 
 msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "FTPのサーバー設定"
 
 msgid "FTP Settings"
-msgstr ""
+msgstr "FTPの設定"
 
 msgid "Failed copying item(s)."
-msgstr ""
+msgstr "コピーに失敗しました"
 
 msgid "Failed extracting the archive."
 msgstr "解凍に失敗しました"
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "Failed moving item(s)."
-msgstr ""
+msgstr "移動に失敗しました"
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "リネームに失敗しました"
 
 msgid "Failed to get the Changelog."
 msgstr "更新履歴を受信できませんでした"
@@ -378,7 +378,7 @@ msgid "Files:"
 msgstr "ファイル数:"
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "ファイルサイズが一致しません"
 
 msgid "Filesize is 0 Byte."
 msgstr "ファイルサイズが0バイトです"
@@ -411,10 +411,10 @@ msgid "Image Viewer"
 msgstr "画像ビューア"
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "接続を着信しました"
 
 msgid "Internal error"
-msgstr ""
+msgstr "内部エラー"
 
 msgid "Language"
 msgstr "言語"
@@ -447,7 +447,7 @@ msgid "Mount NTFS"
 msgstr "NTFSのマウント"
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "移動しています"
 
 msgid "Music Loop Mode"
 msgstr "音楽の再生"
@@ -456,10 +456,10 @@ msgid "Music Volume"
 msgstr "音量"
 
 msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
+msgstr "タイムアウトしました\n"
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "同じ名前がすでにあります"
 
 msgid "Network Settings"
 msgstr "接続設定"
@@ -474,7 +474,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "zip内にhomebrewが何もありません"
 
 #, c-format
 msgid "No image found at index %d."
@@ -520,7 +520,7 @@ msgid "Out of memory: too many files!"
 msgstr "ファイルが多いためメモリ不足です"
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "受信モード:"
 
 msgid "Password:"
 msgstr "パスワード"
@@ -529,7 +529,7 @@ msgid "Paste"
 msgstr "貼り付け"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "このフォルダに貼り付けますか?"
 
 msgid "Play Directory"
 msgstr "フォルダを再生"
@@ -556,13 +556,13 @@ msgid "Reboot failed"
 msgstr "再起動に失敗しました"
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "ファイルを受信中･･･"
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "FTPに再接続"
 
 msgid "Reconnect SMB"
-msgstr "再接続"
+msgstr "SMBに再接続"
 
 msgid "Reload"
 msgstr ""
@@ -572,7 +572,7 @@ msgstr "リネーム"
 
 #, c-format
 msgid "Reply sent: %s\n"
-msgstr ""
+msgstr "返信: %s\n"
 
 msgid "Restart"
 msgstr ""
@@ -594,16 +594,16 @@ msgstr "接続中"
 
 #, c-format
 msgid "Server at: %s"
-msgstr ""
+msgstr "サーバー: %s"
 
 msgid "Server started"
-msgstr ""
+msgstr "サーバーが開始しました"
 
 msgid "Server stopped"
-msgstr ""
+msgstr "サーバーが停止しました"
 
 msgid "Server waits for client"
-msgstr ""
+msgstr "サーバーはクライアントを待っています"
 
 msgid "Settings"
 msgstr ""
@@ -631,7 +631,7 @@ msgstr "DevkitPro&libogcの制作者の方々"
 
 #, c-format
 msgid "Too many pass tries for (%s)\n"
-msgstr ""
+msgstr "(%s)にあまりにも多く試行しています\n"
 
 msgid "Total Space:"
 msgstr "使用領域:"
@@ -643,7 +643,7 @@ msgid "Transfer failed"
 msgstr "転送に失敗しました"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "転送に失敗しました"
 
 msgid "Transfering files:"
 msgstr "転送中です:"
@@ -738,14 +738,14 @@ msgstr ""
 msgid "~!@#$%%^&*()_"
 msgstr ""
 
-#~ msgid "NewFolder"
-#~ msgstr "新規作成"
-
 #~ msgid "Failed copying file."
 #~ msgstr "コピーに失敗しました"
 
 #~ msgid "Failed copying files."
 #~ msgstr "コピーに失敗しました"
+
+#~ msgid "NewFolder"
+#~ msgstr "新規作成"
 
 #~ msgid "Archive successfully extracted."
 #~ msgstr "解凍しました"
