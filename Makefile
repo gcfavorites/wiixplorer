@@ -28,7 +28,6 @@ SOURCES		:=	source \
 				source/BootHomebrew \
 				source/Controls \
 				source/Memory \
-				source/filesystems \
 				source/FileStartUp \
 				source/FileOperations \
 				source/ImageOperations \
@@ -49,7 +48,6 @@ SOURCES		:=	source \
 				source/ArchiveOperations/unrarlib \
 				source/ftpServer \
 				source/console  \
-				source/FTPClient \
 				source/UnBlockingSocket \
 				source/vrt \
 				source/Launcher

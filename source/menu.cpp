@@ -146,11 +146,12 @@ static int MenuSettings()
 	int i = 0;
 	bool firstRun = true;
 
-	OptionList options(7);
+	OptionList options(8);
 	options.SetName(i++, tr("Bootup Mount"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Music Loop Mode"));
+	options.SetName(i++, tr("Slideshow Delay"));
 	options.SetName(i++, tr("Mount NTFS"));
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Network Settings"));
@@ -177,16 +178,10 @@ static int MenuSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData settingsimgData(settingsbtn_over_png, settingsbtn_over_png_size);
-	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
-
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
-	w.Append(&settingsimg);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
@@ -244,11 +239,16 @@ static int MenuSettings()
                 GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
 				break;
             case 4:
+                Settings.SlideshowDelay += 5;
+                if(Settings.SlideshowDelay > 60)
+                    Settings.SlideshowDelay = 5;
+				break;
+			case 5:
 				Settings.MountNTFS++;
 				if(Settings.MountNTFS >= on_off_max)
                     Settings.MountNTFS = off;
 				break;
-            case 5:
+            case 6:
                 char entered[150];
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149)) {
@@ -256,7 +256,7 @@ static int MenuSettings()
                     WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
                 }
 				break;
-            case 6:
+            case 7:
                 menu = MENU_NETWORK_SETTINGS;
 				break;
 		}
@@ -296,6 +296,8 @@ static int MenuSettings()
             else if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
             else if (Settings.BGMLoopMode == RANDOM_BGM) options.SetValue(i++,tr("Random"));
             else if (Settings.BGMLoopMode == DIR_LOOP) options.SetValue(i++,tr("Play Directory"));
+
+			options.SetValue(i++, "%i", Settings.SlideshowDelay);
 
             if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
             else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));

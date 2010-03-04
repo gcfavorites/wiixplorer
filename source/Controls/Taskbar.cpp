@@ -179,6 +179,8 @@ int Taskbar::CheckStartMenu()
 
 	StartMenu->Finish();
 
+	menuWidth = StartMenu->GetWidth();
+
 	SetState(STATE_DISABLED);
 	MainWindow::Instance()->SetState(STATE_DISABLED);
 	MainWindow::Instance()->Append(StartMenu);
@@ -254,7 +256,7 @@ int Taskbar::CheckStartMenu()
 
 void Taskbar::CheckAppsMenu()
 {
-	PopUpMenu *AppsMenu = new PopUpMenu(200, 100);
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+45, 100);
 
 	Applications apps;
 	for (int i = 0; i < apps.Count(); i++)
@@ -287,7 +289,7 @@ void Taskbar::CheckAppsMenu()
 
 void Taskbar::CheckChannelsMenu()
 {
-	PopUpMenu *ChannelsMenu = new PopUpMenu(200, 100);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+45, 100);
 
 	Channels channels;
 	for (int i = 0; i < channels.Count(); i++)

@@ -64,6 +64,7 @@ class Taskbar : public GuiWindow
 		static Taskbar *instance;
 
         int menu;
+		int menuWidth;
         bool triggerupdate;
 
 		GuiImageData *taskbarImgData;

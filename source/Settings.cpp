@@ -60,6 +60,7 @@ void Settings::SetDefault()
     CurrentSMBUser = 0;
 	CurrentFTPUser = 0;
     BGMLoopMode = 1;
+	SlideshowDelay = 5;
     AutoConnect = 0;
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
@@ -148,6 +149,7 @@ bool Settings::Save()
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
+	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -169,7 +171,7 @@ bool Settings::Save()
             EncryptString(FTPUser[i].Password, password);
         fprintf(file, "FTPUser[%d].CPassword = %s\n", i+1, password);
         fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
-		fprintf(file, "FTPUser[%d].Port = %d\n\n", i+1, FTPUser[i].Port);
+		fprintf(file, "FTPUser[%d].Port = %d\n", i+1, FTPUser[i].Port);
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
 	}
 
@@ -488,6 +490,12 @@ bool Settings::SetSetting(char *name, char *value)
         strncpy(UpdatePath, value, sizeof(UpdatePath));
 		return true;
 	}
+	else if (strcmp(name, "SlideshowDelay") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			SlideshowDelay = i;
+		}
+		return true;
+	}
 	else {
 	    char temp[80];
 	    int n = 0;
@@ -555,7 +563,6 @@ bool Settings::SetSetting(char *name, char *value)
                 return true;
             }
 		}
-           
 
         if (stricmp(name, "FTPServerUser.UserName") == 0) {
             strncpy(FTPServerUser.UserName, value, sizeof(FTPServerUser.UserName));

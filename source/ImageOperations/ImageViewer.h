@@ -70,10 +70,23 @@ class ImageViewer : public GuiWindow
         bool LoadImageList(const char * filepath);
         //!OnButtonClick intern callback for buttonclicks.
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
-        //!Variables of the ImageViewer
+		//!Variables of the ImageViewer
         DirList * imageDir;
         int currentImage;
         int currentState;
+		int slideshowDelay;
+		int clickPosX;
+		int clickPosY;
+		int buttonAlpha;
+		int rotateRight;
+		int rotateLeft;
+		bool wasPointerVisible;
+		bool isPointerVisible;
+
+		bool isAButtonPressed[4];
+		bool updateAlpha;
+		float currentAngle;
+
         time_t SlideShowStart;
 
         GuiButton * prevButton;
@@ -85,6 +98,7 @@ class ImageViewer : public GuiWindow
         GuiButton * rotateLButton;
         GuiButton * rotateRButton;
         GuiButton * backButton;
+		GuiButton * moveButton;
 
         GuiImage * image;
         GuiImageData *imageData;
@@ -129,6 +143,9 @@ class ImageViewer : public GuiWindow
         GuiTrigger * trigPrev;
         GuiTrigger * trigB;
         GuiTrigger * trigA_Held;
+		GuiTrigger * trigRotateL;
+		GuiTrigger * trigRotateR;
+		GuiTrigger * trigSlideshow;
 };
 
 #endif

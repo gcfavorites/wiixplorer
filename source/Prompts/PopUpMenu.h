@@ -94,6 +94,8 @@ class PopUpMenu : public GuiWindow
 		PopUpMenu(int x, int y);
 		~PopUpMenu();
 		int GetChoice();
+		int GetWidth() { return width; }
+		int GetHeight() { return height; }
 		void AddItem(const char *text, const u8 *icon = NULL, u32 iconsize = 0, bool submenu = false);
 		void Finish();
 
@@ -107,7 +109,9 @@ class PopUpMenu : public GuiWindow
 
 		int choice;
 		int maxTxtWidth;
-
+		int width;
+		int height;
+		
 		u32 xpos;
 		u32 ypos;
 		u32 scrollIndex;

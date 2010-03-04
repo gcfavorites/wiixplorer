@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 01:42+0100\n"
+"POT-Creation-Date: 2010-03-04 12:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -140,6 +140,9 @@ msgstr "复制"
 
 msgid "Copy current marked item(s)?"
 msgstr "是否复制已标记的项目？"
+
+msgid "Copy of"
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "复制项目中:"
@@ -620,6 +623,9 @@ msgstr "显示更新日志"
 msgid "Size:"
 msgstr "尺寸："
 
+msgid "Slideshow Delay"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "特别感谢：Kavid"
 
@@ -710,9 +716,6 @@ msgstr ""
 msgid "You can not cut into the directory itself."
 msgstr "无法在此目录中删除自己"
 
-msgid "You cannot read/write from/to the same file."
-msgstr "无法读取相当文件。"
-
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
@@ -740,6 +743,9 @@ msgstr "zxcvbnm,./"
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr "~!@#$%%^&*()_"
+
+#~ msgid "You cannot read/write from/to the same file."
+#~ msgstr "无法读取相当文件。"
 
 #~ msgid "Failed copying file."
 #~ msgstr "复制失败"

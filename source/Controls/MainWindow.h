@@ -44,6 +44,9 @@ class MainWindow : public GuiWindow
 		void HaltGui();
 		void ResumeGui();
 
+		void SetGrabPointer(int i);
+		void ResetPointer(int i);
+
 		void Quit();
 		void Show();
 	private:
@@ -60,9 +63,11 @@ class MainWindow : public GuiWindow
 		bool exitApplication;
 		lwp_t guithread;
 
-		GuiImageData *bgImgData;
 		GuiImage *bgImg;
+		GuiImageData *bgImgData;
 		GuiImageData *pointer[4];
+		GuiImageData *standardPointer[4];
+		GuiImageData *grabPointer[4];
 
 		std::list<GuiWindow *> windows;
 };
