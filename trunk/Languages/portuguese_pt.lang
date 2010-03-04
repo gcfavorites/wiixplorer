@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 01:42+0100\n"
+"POT-Creation-Date: 2010-03-04 12:09+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -136,6 +136,9 @@ msgid "Copy"
 msgstr "Copiar"
 
 msgid "Copy current marked item(s)?"
+msgstr ""
+
+msgid "Copy of"
 msgstr ""
 
 msgid "Copying item(s):"
@@ -617,6 +620,9 @@ msgstr "Mostrar Changelog"
 msgid "Size:"
 msgstr "Tamanho:"
 
+msgid "Slideshow Delay"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Agradecimentos especiais a:"
 
@@ -707,9 +713,6 @@ msgstr ""
 msgid "You can not cut into the directory itself."
 msgstr "Não é possível cortar uma pasta para dentro dela própria."
 
-msgid "You cannot read/write from/to the same file."
-msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."
-
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
 
@@ -737,6 +740,9 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "You cannot read/write from/to the same file."
+#~ msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."
 
 #~ msgid "NewFolder"
 #~ msgstr "NovaPasta"

@@ -78,10 +78,18 @@ MainWindow::MainWindow()
 	GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
 	GuiBGM::Instance()->Play(); // startup music
 
-	pointer[0] = Resources::GetImageData(player1_point_png, player1_point_png_size);
-	pointer[1] = Resources::GetImageData(player2_point_png, player2_point_png_size);
-	pointer[2] = Resources::GetImageData(player3_point_png, player3_point_png_size);
-	pointer[3] = Resources::GetImageData(player4_point_png, player4_point_png_size);
+	standardPointer[0] = new GuiImageData(player1_point_png, player1_point_png_size);
+	standardPointer[1] = new GuiImageData(player2_point_png, player2_point_png_size);
+	standardPointer[2] = new GuiImageData(player3_point_png, player3_point_png_size);
+	standardPointer[3] = new GuiImageData(player4_point_png, player4_point_png_size);
+
+	grabPointer[0] = new GuiImageData(player1_grab_png, player1_grab_png_size);
+	grabPointer[1] = new GuiImageData(player2_grab_png, player2_grab_png_size);
+	grabPointer[2] = new GuiImageData(player3_grab_png, player3_grab_png_size);
+	grabPointer[3] = new GuiImageData(player4_grab_png, player4_grab_png_size);
+
+	for (int i = 0; i < 4; i++)
+		pointer[i] = standardPointer[i];
 
 	Append(Taskbar::Instance());
 }
@@ -102,7 +110,8 @@ MainWindow::~MainWindow()
 
 	for (int i = 0; i < 4; i++)
 	{
-		Resources::Remove(pointer[i]);
+		delete grabPointer[i];
+		delete standardPointer[i];
 	}
 }
 
@@ -200,8 +209,6 @@ void *MainWindow::UpdateGUI(void *arg)
 
 void MainWindow::InternalUpdateGUI()
 {
-	int i;
-
 	while (!exitApplication)
 	{
 		if(guihalt)
@@ -215,21 +222,39 @@ void MainWindow::InternalUpdateGUI()
 		Draw();
 
 		#ifdef HW_RVL
-		for (i = 3; i >= 0; i--)
+		for (int i = 3; i >= 0; i--)
 		{
 			if (userInput[i].wpad->ir.valid)
 			{
-				Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48,
-					96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+				Menu_DrawImg(userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
+							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2,
+							 pointer[i]->GetWidth(), pointer[i]->GetHeight(),
+							 pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
 			}
 		}
 		#endif
 
 		Menu_Render();
 
-		for(i=0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			Update(&userInput[i]);
 		}
 	}
+}
+
+void MainWindow::SetGrabPointer(int i)
+{
+	if (i < 0 || i > 3)
+		return;
+
+	pointer[i] = grabPointer[i];
+}
+
+void MainWindow::ResetPointer(int i)
+{
+	if (i < 0 || i > 3)
+		return;
+
+	pointer[i] = standardPointer[i];
 }

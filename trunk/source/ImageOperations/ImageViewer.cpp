@@ -25,6 +25,7 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
+
 #include <gctypes.h>
 #include <string.h>
 #include <unistd.h>
@@ -37,8 +38,8 @@
 #include "ImageOperations/ImageViewer.h"
 #include "sys.h"
 #include "DirList.h"
+#include "menu.h"
 
-#define TIME_BETWEEN_IMAGES		5
 #define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga,.tif,.tiff,.jfif,.jpe,.gd,.gd2,.tpl"
 #define MIN_IMAGE_WIDTH         4.0f
 #define MIN_IMAGE_HEIGHT        4.0f
@@ -50,10 +51,19 @@ ImageViewer::ImageViewer(const char *filepath)
 {
 	currentImage = 0;
 	currentState = -1;
-    SlideShowStart = 0;
+	slideshowDelay = Settings.SlideshowDelay;
+	SlideShowStart = 0;
 	imageDir = NULL;
 	image = NULL;
 	imageData = NULL;
+	rotateLeft = 90;
+	rotateRight = 90;
+	buttonAlpha = 255;
+	updateAlpha = false;
+	isPointerVisible = true;
+	
+	for (int i = 0; i < 4; i++)
+		isAButtonPressed[i] = false;
 
 	width = 0;
 	height = 0;
@@ -95,14 +105,18 @@ ImageViewer::~ImageViewer()
     delete rotateLButton;
     delete rotateRButton;
     delete backButton;
+	delete moveButton;
 
     delete trigger;
     delete trigNext;
     delete trigPrev;
     delete trigB;
     delete trigA_Held;
+	delete trigRotateL;
+	delete trigRotateR;
+	delete trigSlideshow;
 
-    delete backGround;
+	delete backGround;
 
     Resources::Remove(backButtonData);
     Resources::Remove(backButtonOverData);
@@ -172,10 +186,32 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
 int ImageViewer::MainUpdate()
 {
+	int pointerX = 0;
+	int pointerY = 0;
+
+	wasPointerVisible = isPointerVisible;
+	isPointerVisible = false;
+
+	for (int i = 3; i >= 0; i--)
+	{
+		if (userInput[i].wpad->ir.valid)
+		{
+			isPointerVisible = true;
+ 			pointerX = userInput[i].wpad->ir.x;
+ 			pointerY = userInput[i].wpad->ir.y;
+		}
+
+		if ((userInput[i].wpad->btns_u & WPAD_BUTTON_A) && isAButtonPressed[i])
+		{
+			MainWindow::Instance()->ResetPointer(i);
+			isAButtonPressed[i] = false;
+		}
+	}
+
     if(SlideShowStart > 0)
     {
         time_t currentTime = time(0);
-        if(currentTime-SlideShowStart >= TIME_BETWEEN_IMAGES)
+        if(currentTime-SlideShowStart >= slideshowDelay)
         {
             SlideShowStart = currentTime;
             NextImage(true);
@@ -200,10 +236,55 @@ int ImageViewer::MainUpdate()
     {
         ZoomOut();
     }
+	else if (moveButton->GetState() == STATE_HELD)
+	{
+		if (image && isPointerVisible)
+		{
+			image->SetPosition(pointerX-clickPosX, pointerY-clickPosY);
+		}
+	}
+
+	if (wasPointerVisible != isPointerVisible)
+	{
+		updateAlpha = true;
+	}
+
+	if (updateAlpha)
+	{
+		nextButton->SetAlpha(buttonAlpha);
+		prevButton->SetAlpha(buttonAlpha);
+
+		zoominButton->SetAlpha(buttonAlpha);
+		zoomoutButton->SetAlpha(buttonAlpha);
+		backButton->SetAlpha(buttonAlpha);
+		slideshowButton->SetAlpha(buttonAlpha);
+		rotateLButton->SetAlpha(buttonAlpha);
+		rotateRButton->SetAlpha(buttonAlpha);
+
+		if (isPointerVisible)
+		{
+			if ((buttonAlpha+=5) >= 255)
+				updateAlpha = false;
+		}
+		else
+		{
+			if ((buttonAlpha-=5) <= 0)
+				updateAlpha = false;
+		}
+	}
+
+	if (image && rotateRight < 90)
+	{
+		image->SetAngle(currentAngle+(rotateRight+=3));
+	}
+
+	if (image && rotateLeft < 90)
+	{
+		image->SetAngle(currentAngle-(rotateLeft+=3));
+	}
 
     return currentState;
 }
-
 
 void ImageViewer::ZoomIn()
 {
@@ -256,10 +337,7 @@ void ImageViewer::SetImageSize(float scale)
     if(newscale < 0.05f)
         newscale = 0.05f;
 
-    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth/2.0f);
-    int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
     image->SetScale(newscale);
-    image->SetPosition(PositionX, PositionY);
 }
 
 void ImageViewer::SetStartUpImageSize()
@@ -322,6 +400,7 @@ void ImageViewer::StartSlideShow()
     //start a slideshow
     SlideShowStart = time(0);
 
+	Remove(moveButton);
     Remove(backButton);
     Remove(slideshowButton);
     Remove(zoominButton);
@@ -345,6 +424,7 @@ void ImageViewer::StopSlideShow()
     //stop a slideshow
     SlideShowStart = 0;
 
+	Append(moveButton);
     Append(backButton);
     Append(slideshowButton);
     Append(zoominButton);
@@ -366,6 +446,22 @@ void ImageViewer::StopSlideShow()
 
 void ImageViewer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 {
+    if (sender == moveButton && image)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if ((userInput[i].wpad->btns_h & WPAD_BUTTON_A) && !isAButtonPressed[i])
+			{
+				MainWindow::Instance()->SetGrabPointer(i);
+				isAButtonPressed[i] = true;
+			}
+		}
+
+		clickPosX = p.x-image->GetLeft()+moveButton->GetLeft();
+		clickPosY = p.y-image->GetTop()+moveButton->GetTop();
+		return;
+	}
+
     sender->ResetState();
 
     if (sender == backButton)
@@ -382,13 +478,19 @@ void ImageViewer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
     else if (sender == rotateRButton)
     {
-        if(image)
-            image->SetAngle(image->GetAngle() + 90);
+		if (image && !((int)image->GetAngle()%90))
+		{
+			rotateRight = 0;
+			currentAngle = image->GetAngle();
+		}
     }
     else if (sender == rotateLButton)
     {
-        if(image)
-            image->SetAngle(image->GetAngle() - 90);
+        if (image && !((int)image->GetAngle()%90))
+		{
+			rotateLeft = 0;
+			currentAngle = image->GetAngle();
+		}
     }
 }
 
@@ -483,12 +585,18 @@ void ImageViewer::Setup()
 	trigNext = new GuiTrigger();
 	trigPrev = new GuiTrigger();
 	trigB = new GuiTrigger();
+	trigRotateL = new GuiTrigger();
+	trigRotateR = new GuiTrigger();
+	trigSlideshow = new GuiTrigger();
 
 	trigA_Held->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigger->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
 	trigPrev->SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, PAD_BUTTON_LEFT);
 	trigNext->SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, PAD_BUTTON_RIGHT);
+	trigRotateL->SetButtonOnlyTrigger(-1, WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP, PAD_BUTTON_UP);
+	trigRotateR->SetButtonOnlyTrigger(-1, WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN, PAD_BUTTON_DOWN);
+	trigSlideshow->SetButtonOnlyTrigger(-1, WPAD_BUTTON_1 | WPAD_CLASSIC_BUTTON_X, PAD_BUTTON_X);
 
 	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 0x50});
 
@@ -555,6 +663,7 @@ void ImageViewer::Setup()
 	rotateRButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	rotateRButton->SetPosition(416, -16);
 	rotateRButton->SetTrigger(trigger);
+	rotateRButton->SetTrigger(trigRotateR);
     rotateRButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
 	Append(rotateRButton);
@@ -570,6 +679,7 @@ void ImageViewer::Setup()
 	rotateLButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	rotateLButton->SetPosition(512, -16);
 	rotateLButton->SetTrigger(trigger);
+	rotateLButton->SetTrigger(trigRotateL);
     rotateLButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
 	Append(rotateLButton);
@@ -615,6 +725,7 @@ void ImageViewer::Setup()
     slideshowButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
     slideshowButton->SetPosition(128, -16);
     slideshowButton->SetTrigger(trigger);
+	slideshowButton->SetTrigger(trigSlideshow);
     slideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
     Append(slideshowButton);
@@ -623,6 +734,17 @@ void ImageViewer::Setup()
     stopSlideshowButton->SetTrigger(trigger);
     stopSlideshowButton->SetTrigger(trigB);
     stopSlideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+
+	moveButton = new GuiButton(screenwidth-(prevButton->GetLeft()+prevButton->GetWidth())*2, screenheight-backButton->GetHeight()-16);
+	moveButton->SetPosition(prevButton->GetLeft()+prevButton->GetWidth(), 0);
+	moveButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	moveButton->SetSelectable(false);
+	moveButton->SetClickable(false);
+	moveButton->SetHoldable(true);
+	moveButton->SetTrigger(trigA_Held);
+	moveButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+
+	Append(moveButton);
 
     SetEffect(EFFECT_FADE, 50);
 }

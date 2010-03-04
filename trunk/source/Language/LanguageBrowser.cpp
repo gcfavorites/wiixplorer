@@ -147,18 +147,12 @@ int LanguageBrowser()
 	optionBrowser.SetPosition(30, 60);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiImageData settingsimgData(settingsbtn_over_png, settingsbtn_over_png_size);
-	GuiImage settingsimg(&settingsimgData);
-	settingsimg.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	settingsimg.SetPosition(50, optionBrowser.GetTop()-35);
-
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&ConsoleDefaultBtn);
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
-	w.Append(&settingsimg);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();

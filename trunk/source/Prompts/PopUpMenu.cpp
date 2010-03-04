@@ -43,7 +43,10 @@ PopUpMenu::PopUpMenu(int x, int y)
 	maxTxtWidth = 0;
 	scrollIndex = 0;
 	hasIcons = false;
-	
+
+	width = 0;
+	height = 0;
+
     PopUpMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
 	PopUpMenuMiddle = Resources::GetImageData(ClickMenuMiddle_png, ClickMenuMiddle_png_size);
     PopUpMenuLower = Resources::GetImageData(ClickMenuLower_png, ClickMenuLower_png_size);
@@ -235,8 +238,9 @@ void PopUpMenu::Finish()
 
 	u32 scaledX = (NewScale-1)*PopUpMenuMiddleImg->GetWidth()/2;
 
-	u32 height = PopUpMenuUpperImg->GetHeight()+middleheight+PopUpMenuLowerImg->GetHeight();
-	u32 width  = maxTxtWidth+rightmargin+40;
+	height = PopUpMenuUpperImg->GetHeight()+middleheight+PopUpMenuLowerImg->GetHeight();
+	width  = maxTxtWidth+rightmargin+20;
+
 	u32 y = ypos;
 	u32 x = xpos;
 

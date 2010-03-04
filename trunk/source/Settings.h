@@ -149,7 +149,9 @@ class Settings
         //!Path to where the app is located
         //!Default is sd:/apps/WiiExplorer/
         char	UpdatePath[150];
-        //!SMB users informations
+		//!Slideshow time between images
+		int SlideshowDelay;
+		//!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations
         FTPData FTPUser[MAXFTPUSERS];

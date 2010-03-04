@@ -14,12 +14,6 @@
 extern const u8		bg_cftp_png[];
 extern const u32	bg_cftp_png_size;
 
-extern const u8		ftpbtn_png[];
-extern const u32	ftpbtn_png_size;
-
-extern const u8		ftpbtn_over_png[];
-extern const u32	ftpbtn_over_png_size;
-
 extern const u8		arrow_up_png[];
 extern const u32	arrow_up_png_size;
 
@@ -191,9 +185,6 @@ extern const u32	networkstorage_png_size;
 extern const u8		ftpstorage_png[];
 extern const u32	ftpstorage_png_size;
 
-extern const u8		nandstorage_png[];
-extern const u32	nandstorage_png_size;
-
 extern const u8		usbstorage_png[];
 extern const u32	usbstorage_png_size;
 
@@ -203,12 +194,6 @@ extern const u32	sdstorage_png_size;
 extern const u8		dvdstorage_png[];
 extern const u32	dvdstorage_png_size;
 
-extern const u8		settingsbtn_png[];
-extern const u32	settingsbtn_png_size;
-
-extern const u8		settingsbtn_over_png[];
-extern const u32	settingsbtn_over_png_size;
-
 extern const u8		system_log_out_png[];
 extern const u32	system_log_out_png_size;
 
@@ -217,12 +202,6 @@ extern const u32	system_restart_png_size;
 
 extern const u8		refresh_png[];
 extern const u32	refresh_png_size;
-
-extern const u8		searchbtn_png[];
-extern const u32	searchbtn_png_size;
-
-extern const u8		searchbtn_over_png[];
-extern const u32	searchbtn_over_png_size;
 
 extern const u8		scrollbar_png[];
 extern const u32	scrollbar_png_size;
@@ -277,6 +256,18 @@ extern const u32	player3_point_png_size;
 
 extern const u8		player4_point_png[];
 extern const u32	player4_point_png_size;
+
+extern const u8		player1_grab_png[];
+extern const u32	player1_grab_png_size;
+
+extern const u8		player2_grab_png[];
+extern const u32	player2_grab_png_size;
+
+extern const u8		player3_grab_png[];
+extern const u32	player3_grab_png_size;
+
+extern const u8		player4_grab_png[];
+extern const u32	player4_grab_png_size;
 
 extern const u8		back_png[];
 extern const u32	back_png_size;

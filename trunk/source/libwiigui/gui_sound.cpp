@@ -186,6 +186,40 @@ void GuiSound::SetLoop(u8 l)
 	loop = l;
 }
 
+static bool CheckMP3Signature(const u8 * buffer)
+{
+    const char MP3_Magic[][3] =
+    {
+        {'I', 'D', '3'},    //'ID3'
+        {0xff, 0xfe},       //'MPEG ADTS, layer III, v1.0 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xff},       //'MPEG ADTS, layer III, v1.0', 'mp3', 'audio/mpeg'),
+        {0xff, 0xfa},       //'MPEG ADTS, layer III, v1.0 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xfb},       //'MPEG ADTS, layer III, v1.0', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf2},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf3},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf4},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf5},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf6},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xf7},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
+        {0xff, 0xe2},       //'MPEG ADTS, layer III, v2.5 [protected]', 'mp3', 'audio/mpeg'),
+        {0xff, 0xe3},       //'MPEG ADTS, layer III, v2.5', 'mp3', 'audio/mpeg'),
+    };
+
+    if(buffer[0] == MP3_Magic[0][0] && buffer[1] == MP3_Magic[0][1] &&
+       buffer[2] == MP3_Magic[0][2])
+    {
+        return true;
+    }
+
+    for(int i = 1; i < 13; i++)
+    {
+        if(buffer[0] == MP3_Magic[i][0] && buffer[1] == MP3_Magic[i][1])
+            return true;
+    }
+
+    return false;
+}
+
 int GuiSound::GetType(const u8 * sound, int len)
 {
     int MusicType = -1;
@@ -207,8 +241,7 @@ int GuiSound::GetType(const u8 * sound, int len)
     {
         MusicType = SOUND_OGG;
     }
-    else if((check[0] == 0x49 && check[1] == 0x44 && check[2] == 0x33) ||
-            (check[0] == 0xFF && (check[1] == 0xFA || check[1] == 0xFB)))
+    else if(CheckMP3Signature(check) == true)
     {
         MusicType = SOUND_MP3;
     }

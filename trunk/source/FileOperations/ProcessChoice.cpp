@@ -282,19 +282,22 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 {
                     snprintf(srcpath, sizeof(srcpath), "%s", Clipboard::Instance()->GetItemPath(i));
                     snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(i));
-                    if(strcmp(srcpath, destdir) != 0)
+                    if(Cutted == false)
                     {
-                        if(Cutted == false)
-                            res = CopyFile(srcpath, destdir);
-                        else
-                            res = MoveFile(srcpath, destdir);
+                        if(strcmp(srcpath, destdir) == 0)
+                        {
+                            snprintf(destdir, sizeof(destdir), "%s/%s %s", browser->GetCurrentPath(), tr("Copy of"), Clipboard::Instance()->GetItemName(i));
+                        }
+                        res = CopyFile(srcpath, destdir);
                     }
                     else
                     {
-                        StopProgress();
-                        ShowError(tr("You cannot read/write from/to the same file."));
-                        res = -1;
-                        break;
+                        if(strcmp(srcpath, destdir) == 0)
+                        {
+                            res = 1;
+                            continue;
+                        }
+                        res = MoveFile(srcpath, destdir);
                     }
                 }
             }

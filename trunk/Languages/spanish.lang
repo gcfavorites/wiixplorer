@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 01:42+0100\n"
+"POT-Creation-Date: 2010-03-04 12:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: Victory, SirPalax\n"
@@ -140,6 +140,9 @@ msgstr "Copiar"
 
 msgid "Copy current marked item(s)?"
 msgstr "¿Copiar elemento(s) marcado(s)?"
+
+msgid "Copy of"
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "Copiando elemento(s)"
@@ -620,6 +623,9 @@ msgstr "Ver Lista de Cambios"
 msgid "Size:"
 msgstr "Tamaño:"
 
+msgid "Slideshow Delay"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Agradecimientos especiales a:"
 
@@ -710,9 +716,6 @@ msgstr "Si a todo"
 msgid "You can not cut into the directory itself."
 msgstr "No puedes cortar dentro del directorio en sí mismo."
 
-msgid "You cannot read/write from/to the same file."
-msgstr "No puedes leer/escribir desde/hacia el mismo archivo."
-
 msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
@@ -740,6 +743,9 @@ msgstr "zxcvbnm,.-"
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "You cannot read/write from/to the same file."
+#~ msgstr "No puedes leer/escribir desde/hacia el mismo archivo."
 
 #~ msgid "Failed copying file."
 #~ msgstr "No se pudo copiar archivo."

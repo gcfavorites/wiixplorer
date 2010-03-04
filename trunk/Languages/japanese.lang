@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 01:42+0100\n"
+"POT-Creation-Date: 2010-03-04 12:09+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -137,6 +137,9 @@ msgstr "コピー"
 
 msgid "Copy current marked item(s)?"
 msgstr "選択されたアイテムをコピーしますか?"
+
+msgid "Copy of"
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "コピーしています:"
@@ -617,6 +620,9 @@ msgstr "更新履歴を見る"
 msgid "Size:"
 msgstr "サイズ"
 
+msgid "Slideshow Delay"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
 
@@ -707,9 +713,6 @@ msgstr ""
 msgid "You can not cut into the directory itself."
 msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
-msgid "You cannot read/write from/to the same file."
-msgstr "同じ所に読み書きはできません"
-
 msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
@@ -737,6 +740,9 @@ msgstr ""
 #, c-format
 msgid "~!@#$%%^&*()_"
 msgstr ""
+
+#~ msgid "You cannot read/write from/to the same file."
+#~ msgstr "同じ所に読み書きはできません"
 
 #~ msgid "Failed copying file."
 #~ msgstr "コピーに失敗しました"
