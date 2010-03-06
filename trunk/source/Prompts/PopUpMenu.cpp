@@ -34,65 +34,67 @@
 
 const int ButtonX = 20;
 const u32 ButtonHeight = 32;
-const u32 MaxVisible = 10;
+const u32 MaxVisible = 12;
 
 PopUpMenu::PopUpMenu(int x, int y)
     :GuiWindow(0, 0)
 {
-    choice = -1;
+	choice = -1;
+	width = 0;
+	height = 0;
 	maxTxtWidth = 0;
 	scrollIndex = 0;
 	hasIcons = false;
+	hasSubmenus = false;
 
-	width = 0;
-	height = 0;
+	PopUpMenuClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 
-    PopUpMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
+	PopUpMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
 	PopUpMenuMiddle = Resources::GetImageData(ClickMenuMiddle_png, ClickMenuMiddle_png_size);
-    PopUpMenuLower = Resources::GetImageData(ClickMenuLower_png, ClickMenuLower_png_size);
-    PopUpMenuSelect = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
+	PopUpMenuLower = Resources::GetImageData(ClickMenuLower_png, ClickMenuLower_png_size);
+	PopUpMenuSelect = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
 	PopUpMenuScrollUp = Resources::GetImageData(arrow_up_png, arrow_up_png_size);
 	PopUpMenuScrollDown = Resources::GetImageData(arrow_down_png, arrow_down_png_size);
 	PopUpMenuExpand = Resources::GetImageData(arrow_right_png, arrow_right_png_size);
 
 	PopUpMenuUpperImg = new GuiImage(PopUpMenuUpper);
 	PopUpMenuMiddleImg = new GuiImage(PopUpMenuMiddle);
-    PopUpMenuLowerImg = new GuiImage(PopUpMenuLower);
+	PopUpMenuLowerImg = new GuiImage(PopUpMenuLower);
 	PopUpMenuScrollUpImg = new GuiImage(PopUpMenuScrollUp);
 	PopUpMenuScrollDownImg = new GuiImage(PopUpMenuScrollDown);
 
-	PopUpMenuClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
-
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
 
-    NoBtn = new GuiButton(screenwidth, screenheight);
-    NoBtn->SetPosition(-x, -y);
-    NoBtn->SetTrigger(trigA);
-    NoBtn->SetTrigger(trigB);
-    NoBtn->Clicked.connect(this, &PopUpMenu::OnClick);
+	NoBtn = new GuiButton(screenwidth, screenheight);
+	NoBtn->SetPosition(-x, -y);
+	NoBtn->SetTrigger(trigA);
+	NoBtn->SetTrigger(trigB);
+	NoBtn->Clicked.connect(this, &PopUpMenu::OnClick);
 
-	ScrollUp = new GuiButton(16, 16);
-	ScrollUp->SetImage(PopUpMenuScrollUpImg);
-	ScrollUp->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ScrollUp->SetTrigger(trigA);
-	ScrollUp->SetVisible(false);
-	ScrollUp->Clicked.connect(this, &PopUpMenu::OnScrollUp);
+	ScrollUpBtn = new GuiButton(16, 16);
+	ScrollUpBtn->SetImage(PopUpMenuScrollUpImg);
+	ScrollUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	ScrollUpBtn->SetTrigger(trigA);
+	ScrollUpBtn->SetVisible(false);
+	ScrollUpBtn->SetState(STATE_DISABLED);
+	ScrollUpBtn->Clicked.connect(this, &PopUpMenu::OnScrollUp);
 
-	ScrollDown = new GuiButton(16, 16);
-	ScrollDown->SetImage(PopUpMenuScrollDownImg);
-	ScrollDown->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ScrollDown->SetTrigger(trigA);
-	ScrollDown->SetVisible(false);
-	ScrollDown->Clicked.connect(this, &PopUpMenu::OnScrollDown);
+	ScrollDownBtn = new GuiButton(16, 16);
+	ScrollDownBtn->SetImage(PopUpMenuScrollDownImg);
+	ScrollDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	ScrollDownBtn->SetTrigger(trigA);
+	ScrollDownBtn->SetVisible(false);
+	ScrollDownBtn->SetState(STATE_DISABLED);
+	ScrollDownBtn->Clicked.connect(this, &PopUpMenu::OnScrollDown);
 
-    Append(PopUpMenuUpperImg);
-    Append(PopUpMenuMiddleImg);
-    Append(PopUpMenuLowerImg);
-    Append(NoBtn);
-	Append(ScrollUp);
-	Append(ScrollDown);
+	Append(PopUpMenuUpperImg);
+	Append(PopUpMenuMiddleImg);
+	Append(PopUpMenuLowerImg);
+	Append(NoBtn);
+	Append(ScrollUpBtn);
+	Append(ScrollDownBtn);
 
 	xpos = x;
 	ypos = y;
@@ -140,6 +142,8 @@ PopUpMenu::~PopUpMenu()
 	delete PopUpMenuScrollUpImg;
 	delete PopUpMenuScrollDownImg;
 
+	delete ScrollUpBtn;
+	delete ScrollDownBtn;
 	delete NoBtn;
 
 	delete trigA;
@@ -173,7 +177,7 @@ void PopUpMenu::AddItem(const char *text, const u8 *icon, u32 icon_size, bool su
 		item.Icon = Resources::GetImageData(icon, icon_size);
 
 		item.IconImg = new GuiImage(item.Icon);
-		item.IconImg->SetPosition(ButtonX, (Item.size()+1)*ButtonHeight-14);
+		item.IconImg->SetPosition(ButtonX, (Item.size()+1)*ButtonHeight-18);
 		item.IconImg->SetScale(0.8);
 
 		hasIcons = true;
@@ -190,6 +194,8 @@ void PopUpMenu::AddItem(const char *text, const u8 *icon, u32 icon_size, bool su
 	{
 		item.ExpandImg = new GuiImage(PopUpMenuExpand);
 
+		hasSubmenus = true;
+
 		Append(item.ExpandImg);
 	}
 	else
@@ -203,12 +209,17 @@ void PopUpMenu::AddItem(const char *text, const u8 *icon, u32 icon_size, bool su
 
 void PopUpMenu::Finish()
 {
+	u32 x = xpos;
+	u32 y = ypos;
 	u32 middleheight = ButtonHeight*Item.size();
-	int rightmargin = (hasIcons ? ButtonX+40 : ButtonX);
+	int leftmargin = (hasIcons ? ButtonX+40 : ButtonX);
+	int rightmargin = (hasSubmenus ? 40 : 20);
+	float scale = 1.0f;
 
 	if (Item.size() > MaxVisible)
 	{
-		ScrollDown->SetVisible(true);
+		ScrollDownBtn->SetVisible(true);
+		ScrollDownBtn->SetState(STATE_DEFAULT);
 
 		middleheight = ButtonHeight*MaxVisible;
 
@@ -225,47 +236,43 @@ void PopUpMenu::Finish()
 		}
 	}
 
-	float NewScale = 1.0f;
-
-	PopUpMenuMiddleImg->SetTileVertical(middleheight/4);
-
-	if (maxTxtWidth+rightmargin+40 > (PopUpMenuMiddleImg->GetWidth()))
-		NewScale = 1.0f * (maxTxtWidth+rightmargin+40)/(PopUpMenuMiddleImg->GetWidth());
-
-	PopUpMenuUpperImg->SetScaleX(NewScale);
-	PopUpMenuMiddleImg->SetScaleX(NewScale);
-	PopUpMenuLowerImg->SetScaleX(NewScale);
-
-	u32 scaledX = (NewScale-1)*PopUpMenuMiddleImg->GetWidth()/2;
-
+	width  = maxTxtWidth+leftmargin+rightmargin;
 	height = PopUpMenuUpperImg->GetHeight()+middleheight+PopUpMenuLowerImg->GetHeight();
-	width  = maxTxtWidth+rightmargin+20;
 
-	u32 y = ypos;
-	u32 x = xpos;
+	PopUpMenuMiddleImg->SetTileVertical(middleheight/PopUpMenuMiddleImg->GetHeight());
 
-	if (y + height + 60 > (u32)screenheight)
-		y = screenheight-height-60;
+	if (width > PopUpMenuMiddleImg->GetWidth())
+		scale = 1.0f * width / PopUpMenuMiddleImg->GetWidth();
 
-	if (x + width + 40 > (u32)screenwidth)
-		x = screenwidth - width - 40;
+	PopUpMenuUpperImg->SetScaleX(scale);
+	PopUpMenuMiddleImg->SetScaleX(scale);
+	PopUpMenuLowerImg->SetScaleX(scale);
+
+	u32 scaledX = (scale-1)*PopUpMenuMiddleImg->GetWidth()/2;
 
 	PopUpMenuUpperImg->SetPosition(scaledX, 0);
 	PopUpMenuMiddleImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight());
 	PopUpMenuLowerImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight()+middleheight);
-	ScrollUp->SetPosition(scaledX+PopUpMenuMiddleImg->GetWidth()/2-ButtonX, 0);
-	ScrollDown->SetPosition(scaledX+PopUpMenuMiddleImg->GetWidth()/2-ButtonX, PopUpMenuLowerImg->GetTop());
+
+	ScrollUpBtn->SetPosition(width/2, 0);
+	ScrollDownBtn->SetPosition(width/2, PopUpMenuLowerImg->GetTop());
+
+	if (x + width + 15 > (u32)screenwidth)
+		x = screenwidth - width - 15;
+
+	if (y + height + 25 > (u32)screenheight)
+		y = screenheight - height - 25;
 
 	for (u32 i = 0; i < Item.size(); i++)
 	{
 		Item[i].Button->SetSize(maxTxtWidth, ButtonHeight);
-		Item[i].Button->SetPosition(rightmargin, (i+1)*ButtonHeight-8);
+		Item[i].Button->SetPosition(leftmargin, i*ButtonHeight+20);
 
-		Item[i].ButtonMenuSelect->SetScaleX(NewScale);
-		Item[i].ButtonMenuSelect->SetPosition(20, -5);
+		Item[i].ButtonMenuSelect->SetScaleX(scale);
+		Item[i].ButtonMenuSelect->SetPosition(scaledX, -4);
 
 		if (Item[i].ExpandImg)
-			Item[i].ExpandImg->SetPosition(maxTxtWidth+rightmargin+5, (i+1)*ButtonHeight-5);
+			Item[i].ExpandImg->SetPosition(width-32, i*ButtonHeight+22);
 	}
 
 	SetPosition(x, y);
@@ -321,7 +328,8 @@ void PopUpMenu::Scroll(int direction)
 			return;
 
 		scrollIndex--;
-		ScrollDown->SetVisible(true);
+		ScrollDownBtn->SetVisible(true);
+		ScrollDownBtn->SetState(STATE_DEFAULT);
 	}
 	else
 	{
@@ -329,7 +337,8 @@ void PopUpMenu::Scroll(int direction)
 			return;
 
 		scrollIndex++;
-		ScrollUp->SetVisible(true);
+		ScrollUpBtn->SetVisible(true);
+		ScrollUpBtn->SetState(STATE_DEFAULT);
 		step *= -1;
 	}
 
@@ -356,8 +365,14 @@ void PopUpMenu::Scroll(int direction)
 	}
 
 	if (scrollIndex >= Item.size()-MaxVisible)
-		ScrollDown->SetVisible(false);
+	{
+		ScrollDownBtn->SetVisible(false);
+		ScrollDownBtn->SetState(STATE_DISABLED);
+	}
 
 	if (scrollIndex < 1)
-		ScrollUp->SetVisible(false);
+	{
+		ScrollUpBtn->SetVisible(false);
+		ScrollUpBtn->SetState(STATE_DISABLED);
+	}
 }

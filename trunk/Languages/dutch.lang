@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 12:39+0100\n"
+"POT-Creation-Date: 2010-03-06 13:32+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -335,9 +335,6 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr ""
 
-msgid "FTP Settings"
-msgstr ""
-
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -430,6 +427,9 @@ msgid "Language"
 msgstr "Taal"
 
 msgid "Language Path changed."
+msgstr ""
+
+msgid "Language Settings"
 msgstr ""
 
 msgid "Last access:"
@@ -689,9 +689,6 @@ msgid "Update Meta.xml"
 msgstr ""
 
 msgid "Update Path changed."
-msgstr ""
-
-msgid "Update Settings"
 msgstr ""
 
 msgid "Update failed"

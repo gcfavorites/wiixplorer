@@ -111,12 +111,13 @@ class PopUpMenu : public GuiWindow
 		int maxTxtWidth;
 		int width;
 		int height;
-		
+
 		u32 xpos;
 		u32 ypos;
 		u32 scrollIndex;
 
 		bool hasIcons;
+		bool hasSubmenus;
 
 		GuiImage * PopUpMenuUpperImg;
 		GuiImage * PopUpMenuMiddleImg;
@@ -135,8 +136,8 @@ class PopUpMenu : public GuiWindow
 		GuiSound * PopUpMenuClick;
 
 		GuiButton * NoBtn;
-		GuiButton * ScrollUp;
-		GuiButton * ScrollDown;
+		GuiButton * ScrollUpBtn;
+		GuiButton * ScrollDownBtn;
 
 		GuiTrigger * trigA;
 		GuiTrigger * trigB;

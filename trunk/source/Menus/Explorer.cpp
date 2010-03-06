@@ -206,6 +206,7 @@ void Explorer::Setup()
     Adressbar->Clicked.connect(this, &Explorer::OnButtonClick);
 
 	clickmenuBtn = new GuiButton(fileBrowser->GetWidth(), fileBrowser->GetHeight());
+	clickmenuBtn->SetPosition(fileBrowser->GetLeft(), fileBrowser->GetTop());
 	clickmenuBtn->SetTrigger(trigPlus);
     clickmenuBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
@@ -425,7 +426,7 @@ void Explorer::CheckRightClick()
         SetState(STATE_DISABLED);
         fileBrowser->DisableTriggerUpdate(true);
         Taskbar::Instance()->SetTriggerUpdate(false);
-        Append(RightClick);
+        MainWindow::Instance()->Append(RightClick);
 
         int RightClick_choice = -1;
         while(RightClick_choice == -1 && RightClick != NULL)
@@ -511,13 +512,11 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 
     else if(sender == clickmenuBtn)
     {
-        if(this->IsInside(p.x, p.y))
+        if(clickmenuBtn->IsInside(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()-10+p.y))
         {
             if(ArcBrowser)
             {
-//                 RightClick = new RightClickMenu(p.x, p.y,
-//                                                 tr("Open"), tr("Extract"), tr("Extract All"), tr("Properties"));
-                 RightClick = new PopUpMenu(p.x, p.y);
+                 RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
                  RightClick->AddItem(tr("Open"));
                  RightClick->AddItem(tr("Extract"));
                  RightClick->AddItem(tr("Extract All"));
@@ -526,7 +525,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
             }
             else
             {
-                 RightClick = new PopUpMenu(p.x, p.y);
+                 RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
                  RightClick->AddItem(tr("Cut"));
                  RightClick->AddItem(tr("Copy"));
                  RightClick->AddItem(tr("Paste"));
@@ -535,11 +534,6 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
                  RightClick->AddItem(tr("New Folder"));
 				 RightClick->AddItem(tr("Properties"));
                  RightClick->Finish();
-
-/*				RightClick = new RightClickMenu(p.x, p.y,
-                                                tr("Cut"), tr("Copy"), tr("Paste"),
-                                                tr("Rename"), tr("Delete"), tr("NewFolder"),
-                                                tr("Properties"));*/
             }
         }
     }

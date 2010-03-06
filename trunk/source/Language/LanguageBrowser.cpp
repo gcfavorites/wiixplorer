@@ -147,12 +147,17 @@ int LanguageBrowser()
 	optionBrowser.SetPosition(30, 60);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
+	GuiText titleTxt(tr("Language Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
+
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&ConsoleDefaultBtn);
 	w.Append(&AppDefaultBtn);
 	w.Append(&optionBrowser);
+	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();

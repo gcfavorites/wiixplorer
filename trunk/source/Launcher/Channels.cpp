@@ -26,17 +26,49 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 
+#include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <malloc.h>
+#include <ogc/conf.h>
 #include <ogc/isfs.h>
 #include <ogc/wiilaunch.h>
-#include "Channels.h"
 
 #include "certs.h"
+#include "Channels.h"
+#include "FileOperations/MD5.h"
+#include "TextOperations/wstring.hpp"
+
+#define IMET_OFFSET			0x40
+#define IMET_SIGNATURE		0x494d4554
+#define DOWNLOADED_CHANNELS	0x00010001
+#define SYSTEM_CHANNELS		0x00010002
+#define RF_NEWS_CHANNEL		0x48414741
+#define RF_FORECAST_CHANNEL	0x48414641
 
 #define ALIGN(x) ((x % 32 != 0) ? (x / 32) * 32 + 32 : x)
+
+typedef struct
+{
+	u8  zeroes1[0x40];
+	u32 sig;	// "IMET"
+	u32 unk1;
+	u32 unk2;
+	u32 filesizes[3];
+	u32 unk3;
+	u16 name_japanese[IMET_MAX_NAME_LEN];
+	u16 name_english[IMET_MAX_NAME_LEN];
+	u16 name_german[IMET_MAX_NAME_LEN];
+	u16 name_french[IMET_MAX_NAME_LEN];
+	u16 name_spanish[IMET_MAX_NAME_LEN];
+	u16 name_italian[IMET_MAX_NAME_LEN];
+	u16 name_dutch[IMET_MAX_NAME_LEN];
+	u16 name_simp_chinese[IMET_MAX_NAME_LEN];
+	u16 name_trad_chinese[IMET_MAX_NAME_LEN];
+	u16 name_korean[IMET_MAX_NAME_LEN];
+	u8  zeroes2[0x24c];
+	u8  md5[0x10];
+} IMET;
 
 Channels::Channels()
 {
@@ -47,7 +79,7 @@ Channels::~Channels()
 {
 }
 
-u64* Channels::GetChannels(u32* count)
+u64* Channels::GetChannelList(u32* count)
 {
 	u32 countall;
 	u32 ret = ES_GetNumTitles(&countall);
@@ -55,39 +87,40 @@ u64* Channels::GetChannels(u32* count)
 	if (ret || !countall)
 		return NULL;
 
-	u64* listall = (u64*)memalign(32, countall * sizeof(u64));
-	if (!listall)
+	u64* titles = (u64*)memalign(32, countall * sizeof(u64));
+	if (!titles)
 		return NULL;
 
-	u64* list = (u64*)malloc(countall * sizeof(u64));
-	if (!list)
+	u64* channels = (u64*)malloc(countall * sizeof(u64));
+	if (!channels)
 	{
-		free(listall);
+		free(titles);
 		return NULL;
 	}
 
-	ret = ES_GetTitles(listall, countall);
+	ret = ES_GetTitles(titles, countall);
 
 	*count = 0;
 	for (u32 i = 0; i < countall; i++)
 	{
-		u32 type = listall[i] >> 32;
+		u32 type = titles[i] >> 32;
 
-		if (type == 0x00010001 || type == 0x00010002)
+		if (type == DOWNLOADED_CHANNELS || type == SYSTEM_CHANNELS)
 		{
-			if ((listall[i] & 0xFFFFFFFF) == 0x48414741 || (listall[i] & 0xFFFFFFFF) == 0x48414641)
-				continue; // region free news and forecast channel
+			if ((titles[i] & 0xFFFFFFFF) == RF_NEWS_CHANNEL ||	// skip region free news and forecast channel
+				(titles[i] & 0xFFFFFFFF) == RF_FORECAST_CHANNEL)
+				continue;
 
-			list[(*count)++] = listall[i];
+			channels[(*count)++] = titles[i];
 		}
 	}
 
-	free(listall);
+	free(titles);
 
-	return (u64*)realloc(list, *count * sizeof(u64));
+	return (u64*)realloc(channels, *count * sizeof(u64));
 }
 
-bool GetApp(u64 title, char *app)
+bool Channels::GetAppNameFromTmd(u64 title, char* app)
 {
 	char tmd[ISFS_MAXPATH];
 	static fstats stats ATTRIBUTE_ALIGN(32);
@@ -104,12 +137,16 @@ bool GetApp(u64 title, char *app)
 	{
 		if (ISFS_GetFileStats(fd, &stats) >= 0)
 		{
-			char* data = (char*)memalign(32, ALIGN(stats.file_length));
+			u32* data = NULL;
+
+			if (stats.file_length > 0)
+				data = (u32*)memalign(32, ALIGN(stats.file_length));
+
 			if (data)
 			{
-				if (ISFS_Read(fd, data, stats.file_length) > 0x208)
+				if (ISFS_Read(fd, (char*)data, stats.file_length) > 0x208)
 				{
-					sprintf(app, "/title/%08x/%08x/content/000000%02x.app\n", high, low, data[0x1e7]);
+					sprintf(app, "/title/%08x/%08x/content/%08x.app\n", high, low, data[0x79]);
 					ret = true;
 				}
 				free(data);
@@ -121,34 +158,91 @@ bool GetApp(u64 title, char *app)
 	return ret;
 }
 
-bool Channels::GetNameFromApp(u64 title, char *name)
+bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 {
 	char app[ISFS_MAXPATH];
-	static char buffer[0x200] ATTRIBUTE_ALIGN(32);
+	static IMET imet ATTRIBUTE_ALIGN(32);
+	static fstats stats ATTRIBUTE_ALIGN(32);
 
-	s32 ret = -1;
+	bool ret = false;
 
-	if (!GetApp(title, app))
+	if (!GetAppNameFromTmd(title, app))
 		return false;
 
+	if (language > CONF_LANG_KOREAN)
+		language = CONF_LANG_ENGLISH;
+
 	s32 fd = ISFS_Open(app, ISFS_OPEN_READ);
+
 	if (fd >= 0)
 	{
-		if (ISFS_Read(fd, buffer, 0x200) > 0x140)
+		if (ISFS_GetFileStats(fd, &stats) < 0)
 		{
-			if (memcmp((void*)(buffer+0x80), "IMET", 4) == 0)
+			ISFS_Close(fd);
+			return false;
+		}
+
+		if (stats.file_length < sizeof(IMET)+IMET_OFFSET)
+		{
+			ISFS_Close(fd);
+			return false;
+		}
+
+		if (ISFS_Seek(fd, IMET_OFFSET, SEEK_SET) != IMET_OFFSET)
+		{
+			ISFS_Close(fd);
+			return false;
+		}
+
+		if (ISFS_Read(fd, (void*)(&imet), sizeof(IMET)) == sizeof(IMET))
+		{
+			if (imet.sig == IMET_SIGNATURE)
 			{
-				for (int i = 0xf1; buffer[i] != 0; i += 2)
+				unsigned char md5[16];
+				unsigned char imetmd5[16];
+
+				memcpy(imetmd5, imet.md5, 16);
+				memset(imet.md5, 0, 16);
+
+				MD5(md5, (unsigned char*)(&imet), sizeof(IMET));
+				if (memcmp(imetmd5, md5, 16) == 0)
 				{
-					name[++ret] = buffer[i];
+					// now we can be pretty sure that we have a valid imet :)
+					if (imet.name_japanese[language*IMET_MAX_NAME_LEN] == 0)
+					{
+						// channel name is not available in system language
+						if (imet.name_english[0] != 0)
+						{
+							language = CONF_LANG_ENGLISH;
+						}
+						else
+						{
+							// channel name is also not available on english, get ascii name
+							language = -1;
+							for (int i = 0; i < 4; i++)
+							{
+								name[i] = ((title&0xFFFFFFFF) >> (24-i*8)) & 0xFF;
+							}
+							name[4] = 0;
+						}
+					}
+
+					if (language >= 0)
+					{
+						// retrieve channel name in system language or on english
+						for (int i = 0; i < IMET_MAX_NAME_LEN; i++)
+						{
+							name[i] = imet.name_japanese[i+(language*IMET_MAX_NAME_LEN)];
+						}
+					}
+					ret = true;
 				}
-				name[++ret] = 0;
 			}
 		}
 		ISFS_Close(fd);
 	}
 
-	return (ret > 0);
+	return ret;
 }
 
 void Channels::Launch(Channel channel)
@@ -159,21 +253,29 @@ void Channels::Launch(Channel channel)
 void Channels::Search()
 {
 	u32 count;
-	u64 *list = GetChannels(&count);
-	if (!list) return;
+	u64* list = GetChannelList(&count);
 
-	char name[256];
+	if (!list)
+		return;
+
+	wchar_t name[IMET_MAX_NAME_LEN];
 
 	ES_Identify((u32*)Certificates, sizeof(Certificates), (u32*)Tmd, sizeof(Tmd), (u32*)Ticket, sizeof(Ticket), 0);
 
 	ISFS_Initialize();
 
+	int language = CONF_GetLanguage();
+
 	for (u32 i = 0; i < count; i++)
 	{
-		if (GetNameFromApp(list[i], name))
+		if (GetChannelNameFromApp(list[i], name, language))
 		{
 			Channel channel;
-			strcpy(channel.name, name);
+            wString *wsname = new wString(name);
+
+            snprintf(channel.name, sizeof(channel.name), "%s", (wsname->toUTF8()).c_str());
+            delete wsname;
+
 			channel.title = list[i];
 
 			channels.push_back(channel);

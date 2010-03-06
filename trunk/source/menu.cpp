@@ -180,10 +180,15 @@ static int MenuSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
+	GuiText titleTxt(tr("Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
+
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&optionBrowser);
+	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
 	ResumeGui();
@@ -527,7 +532,7 @@ static int MenuFTPSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiText titleTxt(tr("FTP Settings"), 24, (GXColor){0, 0, 0, 255});
+	GuiText titleTxt(tr("FTP Client Settings"), 24, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
 
@@ -863,7 +868,7 @@ static int MenuFTPServerSettings()
 }
 
 /****************************************************************************
- * MenuUpdateSettings
+ * MenuNetworkSettings
  ***************************************************************************/
 static int MenuNetworkSettings()
 {
@@ -915,7 +920,7 @@ static int MenuNetworkSettings()
 	optionBrowser.SetPosition(30, 100);
 	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 
-	GuiText titleTxt(tr("Update Settings"), 24, (GXColor){0, 0, 0, 255});
+	GuiText titleTxt(tr("Network Settings"), 24, (GXColor){0, 0, 0, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
 

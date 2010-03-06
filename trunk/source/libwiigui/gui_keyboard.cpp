@@ -336,6 +336,9 @@ void GuiKeyboard::AddChar(int pos, wchar_t Char)
 
 void GuiKeyboard::RemoveChar(int pos)
 {
+	if (pos < 0)
+		return;
+
     kbtextstr->erase(pos, 1);
     MoveText(-1);
 }

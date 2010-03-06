@@ -31,6 +31,8 @@
 
 #include <vector>
 
+#define IMET_MAX_NAME_LEN 0x2a
+
 typedef struct
 {
 	u64  title;
@@ -51,8 +53,9 @@ class Channels
 	private:
 		std::vector<Channel> channels;
 
-		bool GetNameFromApp(u64 title, char *name);
-		u64* GetChannels(u32* cnt);
+		u64* GetChannelList(u32* count);
+		bool GetAppNameFromTmd(u64 title, char* app);
+		bool GetChannelNameFromApp(u64 title, wchar_t* name, int language);
 		void Search();
 };
 

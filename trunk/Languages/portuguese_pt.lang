@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 12:39+0100\n"
+"POT-Creation-Date: 2010-03-06 13:32+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -334,9 +334,6 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr ""
 
-msgid "FTP Settings"
-msgstr ""
-
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -429,6 +426,9 @@ msgid "Language"
 msgstr "Idioma"
 
 msgid "Language Path changed."
+msgstr ""
+
+msgid "Language Settings"
 msgstr ""
 
 msgid "Last access:"
@@ -689,9 +689,6 @@ msgstr ""
 
 msgid "Update Path changed."
 msgstr "Pasta de Act. do Aplicativo alterada."
-
-msgid "Update Settings"
-msgstr ""
 
 msgid "Update failed"
 msgstr "Actualização não concluída"
