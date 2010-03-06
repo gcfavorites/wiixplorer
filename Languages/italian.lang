@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 12:39+0100\n"
+"POT-Creation-Date: 2010-03-06 13:32+0100\n"
 "PO-Revision-Date: 2010-02-25 22:00+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -337,9 +337,6 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr "Impostazioni Server FTP"
 
-msgid "FTP Settings"
-msgstr "Impostazioni FTP"
-
 msgid "Failed copying item(s)."
 msgstr "Errore nella copia degli elementi."
 
@@ -433,6 +430,9 @@ msgstr "Lingua"
 
 msgid "Language Path changed."
 msgstr "Percorso Lingua modificato."
+
+msgid "Language Settings"
+msgstr ""
 
 msgid "Last access:"
 msgstr "Ultimo accesso:"
@@ -693,9 +693,6 @@ msgstr "Aggiorna Meta.xml"
 msgid "Update Path changed."
 msgstr "Percorso Aggiornamento modificato."
 
-msgid "Update Settings"
-msgstr "Aggiorna Impostazioni"
-
 msgid "Update failed"
 msgstr "Aggiornamento fallito"
 
@@ -751,6 +748,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "FTP Settings"
+#~ msgstr "Impostazioni FTP"
+
+#~ msgid "Update Settings"
+#~ msgstr "Aggiorna Impostazioni"
 
 #~ msgid "You cannot read/write from/to the same file."
 #~ msgstr "Non puoi leggere/scrivere da/a lo stesso file."

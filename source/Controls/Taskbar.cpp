@@ -60,19 +60,18 @@ Taskbar::Taskbar()
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
 	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	timeTxt->SetPosition(517, 0);
+	timeTxt->SetPosition(517, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
 	soundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 	soundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	startBtn = new PictureButton(startbtn_png, startbtn_png_size, 0, 0, soundClick, soundOver);
+	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	startBtn->SetPosition(60, -3);
+	startBtn->SetPosition(58, -2);
 	startBtn->SetSelectable(false);
 	startBtn->SetTrigger(trigA);
-	startBtn->SetEffectGrow();
 
 	Append(taskbarImg);
 	Append(startBtn);
@@ -256,27 +255,31 @@ int Taskbar::CheckStartMenu()
 
 void Taskbar::CheckAppsMenu()
 {
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+45, 100);
+	int choice = -1;
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+30, 100);
 
 	Applications apps;
-	for (int i = 0; i < apps.Count(); i++)
-		AppsMenu->AddItem(apps.GetName(i));
 
-	AppsMenu->Finish();
-
-	MainWindow::Instance()->Append(AppsMenu);
-
-	int choice = -1;
-	while (choice == -1 && AppsMenu)
+	if (apps.Count() > 0)
 	{
-		usleep(100);
+		for (int i = 0; i < apps.Count(); i++)
+			AppsMenu->AddItem(apps.GetName(i));
 
-		if (shutdown)
-			Sys_Shutdown();
-		else if (reset)
-			Sys_Reboot();
+		AppsMenu->Finish();
 
-		choice = AppsMenu->GetChoice();
+		MainWindow::Instance()->Append(AppsMenu);
+
+		while (choice == -1 && AppsMenu)
+		{
+			usleep(100);
+
+			if (shutdown)
+				Sys_Shutdown();
+			else if (reset)
+				Sys_Reboot();
+
+			choice = AppsMenu->GetChoice();
+		}
 	}
 
 	delete AppsMenu;
@@ -289,7 +292,7 @@ void Taskbar::CheckAppsMenu()
 
 void Taskbar::CheckChannelsMenu()
 {
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+45, 100);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+30, 100);
 
 	Channels channels;
 	for (int i = 0; i < channels.Count(); i++)

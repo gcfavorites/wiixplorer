@@ -60,16 +60,23 @@ void Applications::Launch(Application app)
 	Taskbar::Instance()->SetMenu(MENU_EXIT);
 }
 
+mxml_error_cb_t xmlerror(const char* error)
+{
+	return NULL;
+}
+
 bool Applications::GetNameFromXML(char *xml, char *name)
 {
-	mxml_node_t *tree;
-	mxml_node_t *data;
+	mxml_node_t *tree = NULL;
+	mxml_node_t *data = NULL;
 
 	bool ret = false;
 
 	FILE *fp = fopen(xml, "rb");
 	if (fp)
 	{
+		mxmlSetErrorCallback((mxml_error_cb_t)xmlerror);
+
 		tree = mxmlLoadFile(NULL, fp, MXML_NO_CALLBACK);
 
 		fclose(fp);

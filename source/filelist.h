@@ -35,8 +35,11 @@ extern const u32	ftpserver_png_size;
 extern const u8		settings_png[];
 extern const u32	settings_png_size;
 
-extern const u8		startbtn_png[];
-extern const u32	startbtn_png_size;
+extern const u8		start_png[];
+extern const u32	start_png_size;
+
+extern const u8		start_over_png[];
+extern const u32	start_over_png_size;
 
 extern const u8		font_ttf[];
 extern const u32	font_ttf_size;
