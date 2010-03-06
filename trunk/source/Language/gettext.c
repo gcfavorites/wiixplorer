@@ -86,6 +86,30 @@ void gettextCleanUp(void)
 	}
 }
 
+static void ClearPrefixes(char * msg)
+{
+    if(!msg)
+        return;
+
+    const char * ptr = msg;
+
+    int i = 0;
+
+    while(ptr[0] != 0)
+    {
+        if(ptr[0] == '\\' && (ptr[1] == '\\' || ptr[1] == '"'))
+        {
+            ptr++;
+        }
+
+        msg[i] = ptr[0];
+
+        i++;
+        ptr++;
+    }
+
+    msg[i] = 0;
+}
 
 bool gettextLoadLanguage(const char* langFile)
 {
@@ -112,6 +136,7 @@ bool gettextLoadLanguage(const char* langFile)
 			if(end && end-msgid>1)
 			{
 				*end = 0;
+				ClearPrefixes(msgid);
 				lastID = strdup(msgid);
 			}
 		}
@@ -127,6 +152,7 @@ bool gettextLoadLanguage(const char* langFile)
 			if(end && end-msgstr>1)
 			{
 				*end = 0;
+				ClearPrefixes(msgstr);
 				setMSG(lastID, msgstr);
 			}
 			free(lastID);

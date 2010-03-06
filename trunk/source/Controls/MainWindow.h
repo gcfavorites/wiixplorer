@@ -44,6 +44,7 @@ class MainWindow : public GuiWindow
 		void HaltGui();
 		void ResumeGui();
 
+        void SetGuiPriority(int prio);
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);
 

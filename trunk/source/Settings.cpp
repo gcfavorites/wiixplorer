@@ -67,6 +67,7 @@ void Settings::SetDefault()
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
+    sprintf(AppPath, "%sapps/", BootDevice);
     strcpy(MusicPath, "");
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -84,7 +85,7 @@ void Settings::SetDefault()
         FTPUser[i].Port = 21;
 		FTPUser[i].Passive = 0;
 	}
-	
+
 	FTPServerUser.Port=21;
     FTPServerUser.DataPort=1024;
 	FTPServerUser.ZipMode=1;
@@ -101,7 +102,7 @@ bool Settings::Save()
     char filepath[100];
     char filedest[100];
 	char password[100];
-	
+
     snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
     snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
     char * tmppath = strrchr(filedest, '/');
@@ -149,6 +150,7 @@ bool Settings::Save()
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
+	fprintf(file, "AppPath = %s\n", AppPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
@@ -191,7 +193,7 @@ bool Settings::Save()
 	fprintf(file, "FTPServerUser.EnableDeleteFile = %d\n",  FTPServerUser.EnableDeleteFile);
 	fprintf(file, "FTPServerUser.EnableCreateDir = %d\n",  FTPServerUser.EnableCreateDir);
 	fprintf(file, "FTPServerUser.EnableDeleteDir = %d\n",  FTPServerUser.EnableDeleteDir);
-	
+
 	fclose(file);
 
 	return true;
@@ -490,6 +492,10 @@ bool Settings::SetSetting(char *name, char *value)
         strncpy(UpdatePath, value, sizeof(UpdatePath));
 		return true;
 	}
+	else if (strcmp(name, "AppPath") == 0) {
+        strncpy(AppPath, value, sizeof(AppPath));
+		return true;
+	}
 	else if (strcmp(name, "SlideshowDelay") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			SlideshowDelay = i;
@@ -589,7 +595,7 @@ bool Settings::SetSetting(char *name, char *value)
 				FTPServerUser.DataPort = i;
 			}
             return true;
-        } 
+        }
         if (stricmp(name, "FTPServerUser.ZipMode") == 0) {
 			if (sscanf(value, "%d", &i) == 1) {
 				FTPServerUser.ZipMode = i;

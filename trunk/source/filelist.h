@@ -143,6 +143,9 @@ extern const u32	icon_sfx_png_size;
 extern const u8		icon_txt_png[];
 extern const u32	icon_txt_png_size;
 
+extern const u8		icon_video_png[];
+extern const u32	icon_video_png_size;
+
 extern const u8		icon_xml_png[];
 extern const u32	icon_xml_png_size;
 

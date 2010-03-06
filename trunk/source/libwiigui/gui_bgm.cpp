@@ -38,6 +38,7 @@ GuiBGM::GuiBGM()
     currentPath = NULL;
     currentPlaying = -1;
     voice = 0;
+    Stopped = true;
     ExitRequested = false;
 	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 0, 0);
 }
@@ -222,6 +223,18 @@ void GuiBGM::ClearList()
     PlayList.clear();
 }
 
+void GuiBGM::Play()
+{
+    Stopped = false;
+    GuiSound::Play();
+}
+
+void GuiBGM::Stop()
+{
+    Stopped = true;
+    GuiSound::Stop();
+}
+
 bool GuiBGM::PlayNext()
 {
     if(!currentPath)
@@ -286,7 +299,7 @@ void GuiBGM::UpdateState()
     {
         usleep(500000);
 
-        if(!IsPlaying())
+        if(!IsPlaying() && !Stopped)
         {
             if(loop > 0 && strcmp(Settings.MusicPath, "") == 0)
             {

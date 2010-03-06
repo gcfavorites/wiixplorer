@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 12:09+0100\n"
+"POT-Creation-Date: 2010-03-06 12:39+0100\n"
 "PO-Revision-Date: 2010-02-25 22:00+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -60,6 +60,12 @@ msgstr "Operazione annullata."
 
 msgid "App Default"
 msgstr "Predefinito Appl."
+
+msgid "App Path"
+msgstr ""
+
+msgid "AppPath changed"
+msgstr ""
 
 msgid "Apps"
 msgstr ""
@@ -669,6 +675,9 @@ msgstr "Impossibile caricare il percorso."
 msgid "Unable to load the device."
 msgstr "Impossibile caricare la periferica."
 
+msgid "Unsupported format!"
+msgstr ""
+
 msgid "Update (App) Path"
 msgstr "Percorso Aggiornamento Applic."
 
@@ -740,8 +749,7 @@ msgstr ""
 msgid "zxcvbnm,./"
 msgstr ""
 
-#, c-format
-msgid "~!@#$%%^&*()_"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "You cannot read/write from/to the same file."

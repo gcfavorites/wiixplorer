@@ -43,7 +43,7 @@
 #include <asndlib.h>
 #include <wiiuse/wpad.h>
 #include "FreeTypeGX.h"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "filelist.h"
 #include "input.h"
 #include "oggplayer.h"

@@ -45,7 +45,7 @@
 #include "ImageOperations/libgd/gd.h"
 #include "FreeTypeGX.h"
 #include "Language/gettext.h"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "filelist.h"
 #include "input.h"
 #include "oggplayer.h"

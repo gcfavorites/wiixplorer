@@ -17,7 +17,7 @@
 
 #include "FreeTypeGX.h"
 #include "Controls/MainWindow.h"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "audio.h"
 #include "libwiigui/gui.h"
 #include "input.h"

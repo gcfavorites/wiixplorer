@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 12:09+0100\n"
+"POT-Creation-Date: 2010-03-06 12:39+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -60,6 +60,12 @@ msgstr "Vorgang abgebrochen."
 
 msgid "App Default"
 msgstr "Standardeinstellung"
+
+msgid "App Path"
+msgstr ""
+
+msgid "AppPath changed"
+msgstr ""
 
 msgid "Apps"
 msgstr ""
@@ -669,6 +675,9 @@ msgstr "Pfad konnte nicht geöffnet werden."
 msgid "Unable to load the device."
 msgstr "Das Gerät konnte nicht geladen werden."
 
+msgid "Unsupported format!"
+msgstr ""
+
 msgid "Update (App) Path"
 msgstr "Update Pfad"
 
@@ -740,8 +749,7 @@ msgstr ""
 msgid "zxcvbnm,./"
 msgstr ""
 
-#, c-format
-msgid "~!@#$%%^&*()_"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "You cannot read/write from/to the same file."
