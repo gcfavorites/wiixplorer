@@ -12,6 +12,8 @@
 #include "TextOperations/TextViewer.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
+#include "Controls/MainWindow.h"
+#include "VideoOperations/WiiMovie.hpp"
 #include "menu.h"
 
 int FileStartUp(const char *filepath)
@@ -89,6 +91,16 @@ int FileStartUp(const char *filepath)
             Settings.LoadLanguage(filepath);
             return RELOADBROWSER;
         }
+    }
+    else if(strcasecmp(fileext, ".thp") == 0)
+    {
+        WiiMovie * Video = new WiiMovie(filepath);
+        Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        Video->SetVolume(Settings.MusicVolume);
+        MainWindow::Instance()->Append(Video);
+        Video->Play();
+        delete Video;
+        Video = NULL;
     }
     else {
         loadtext:

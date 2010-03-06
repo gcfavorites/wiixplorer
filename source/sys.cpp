@@ -12,7 +12,7 @@
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "Memory/mem2.hpp"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "audio.h"
 #include "main.h"
 #include "menu.h"

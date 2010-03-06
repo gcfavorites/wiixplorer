@@ -46,6 +46,8 @@ class GuiBGM : public GuiSound
         bool Load(const char *path, bool silent = true);
         bool LoadStandard();
         bool ParsePath(const char * filepath);
+        void Play();
+        void Stop();
         bool PlayNext();
         bool PlayPrevious();
         bool PlayRandom();
@@ -58,6 +60,7 @@ class GuiBGM : public GuiSound
 		static void * UpdateBMG(void *arg);
         void UpdateState();
 		lwp_t bgmthread;
+		bool Stopped;
 		bool ExitRequested;
 
 		static GuiBGM *instance;

@@ -16,7 +16,7 @@
 #include <wiiuse/wpad.h>
 
 #include "menu.h"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "input.h"
 #include "sys.h"
 #include "libwiigui/gui.h"

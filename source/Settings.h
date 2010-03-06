@@ -149,6 +149,8 @@ class Settings
         //!Path to where the app is located
         //!Default is sd:/apps/WiiExplorer/
         char	UpdatePath[150];
+        //!Path to where the homebrew apps are
+        char	AppPath[150];
 		//!Slideshow time between images
 		int SlideshowDelay;
 		//!SMB users informations

@@ -39,6 +39,7 @@ class GuiFileBrowser : public GuiElement
 		GuiImage * fileListSFX[PAGESIZE];
 		GuiImage * fileListTXT[PAGESIZE];
 		GuiImage * fileListXML[PAGESIZE];
+		GuiImage * fileListVID[PAGESIZE];
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
@@ -63,6 +64,7 @@ class GuiFileBrowser : public GuiElement
 		GuiImageData * fileSFX;
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
+        GuiImageData * fileVID;
 		GuiImageData * scrollbar;
 		GuiImageData * arrowDown;
 		GuiImageData * arrowDownOver;

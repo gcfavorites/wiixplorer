@@ -66,14 +66,14 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 
     memset(keys, 0, MAXROWS*sizeof(KeyboardRow));
 
-    wcslcpy(keys[0].ch,       wfmt(tr("`1234567890-")), MAXKEYS);
-    wcslcpy(keys[0].chShift,  wfmt(tr("~!@#$%%^&*()_")), MAXKEYS);
-    wcslcpy(keys[1].ch,       wfmt(tr("qwertyuiop[]\\")), MAXKEYS);
-    wcslcpy(keys[1].chShift,  wfmt(tr("QWERTYUIOP{}|")), MAXKEYS);
-    wcslcpy(keys[2].ch,       wfmt(tr("asdfghjkl;'=")), MAXKEYS);
-    wcslcpy(keys[2].chShift,  wfmt(tr("ASDFGHJKL:\"+")), MAXKEYS);
-    wcslcpy(keys[3].ch,       wfmt(tr("zxcvbnm,./")), MAXKEYS);
-    wcslcpy(keys[3].chShift,  wfmt(tr("ZXCVBNM<>?")), MAXKEYS);
+    wcsncpy(keys[0].ch,       wfmt("%s", tr("`1234567890-")), MAXKEYS);
+    wcsncpy(keys[0].chShift,  wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
+    wcsncpy(keys[1].ch,       wfmt("%s", tr("qwertyuiop[]\\")), MAXKEYS);
+    wcsncpy(keys[1].chShift,  wfmt("%s", tr("QWERTYUIOP{}|")), MAXKEYS);
+    wcsncpy(keys[2].ch,       wfmt("%s", tr("asdfghjkl;'=")), MAXKEYS);
+    wcsncpy(keys[2].chShift,  wfmt("%s", tr("ASDFGHJKL:\"+")), MAXKEYS);
+    wcsncpy(keys[3].ch,       wfmt("%s", tr("zxcvbnm,./")), MAXKEYS);
+    wcsncpy(keys[3].chShift,  wfmt("%s", tr("ZXCVBNM<>?")), MAXKEYS);
 
 	int KeyboardPosition = -25;
 

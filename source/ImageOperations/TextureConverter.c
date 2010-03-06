@@ -481,3 +481,39 @@ u8 * GDImageToRGBA8(gdImagePtr gdImg)
 
     return data;
 }
+
+u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
+{
+    int x, y;
+
+    int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
+    if(len%32)
+        len += (32-len%32);
+
+    u8 * data = memalign(32, len);
+    if(!data)
+        return NULL;
+
+    for (y = 0; y < height; y++)
+    {
+        for (x = 0; x < width; x++)
+        {
+            u32 offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+            u8 a = src[offset];
+            u8 r = src[offset+1];
+            u8 g = src[offset+32];
+            u8 b = src[offset+33];
+
+            u32 offset2 = (((((height-y-1) >> 2) * (width >> 2) + ((width-x-1) >> 2)) << 5) + (((height-y-1) & 3) << 2) + ((width-x-1) & 3)) << 1;
+            data[offset2] = a;
+            data[offset2+1] = r;
+            data[offset2+32] = g;
+            data[offset2+33] = b;
+        }
+    }
+
+
+    DCFlushRange(data, len);
+
+    return data;
+}

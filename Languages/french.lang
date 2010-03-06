@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 12:09+0100\n"
+"POT-Creation-Date: 2010-03-06 12:39+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -60,6 +60,12 @@ msgstr "Action annulée"
 
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
+
+msgid "App Path"
+msgstr ""
+
+msgid "AppPath changed"
+msgstr ""
 
 msgid "Apps"
 msgstr ""
@@ -669,6 +675,9 @@ msgstr "Chemin introuvable."
 msgid "Unable to load the device."
 msgstr "Périphériques introuvables."
 
+msgid "Unsupported format!"
+msgstr ""
+
 msgid "Update (App) Path"
 msgstr "Dossier MàJ (App)"
 
@@ -740,8 +749,7 @@ msgstr ""
 msgid "zxcvbnm,./"
 msgstr ""
 
-#, c-format
-msgid "~!@#$%%^&*()_"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "You cannot read/write from/to the same file."

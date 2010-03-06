@@ -145,16 +145,18 @@ static int MenuSettings()
 	int ret;
 	int i = 0;
 	bool firstRun = true;
+    char entered[150];
 
-	OptionList options(8);
+	OptionList options(9);
 	options.SetName(i++, tr("Bootup Mount"));
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Music Loop Mode"));
 	options.SetName(i++, tr("Slideshow Delay"));
 	options.SetName(i++, tr("Mount NTFS"));
-	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Network Settings"));
+	options.SetName(i++, tr("App Path"));
+	options.SetName(i++, tr("Customfont Path"));
 
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
 	GuiImageData btnOutline(button_png, button_png_size);
@@ -249,15 +251,21 @@ static int MenuSettings()
                     Settings.MountNTFS = off;
 				break;
             case 6:
-                char entered[150];
+                menu = MENU_NETWORK_SETTINGS;
+				break;
+            case 7:
+                snprintf(entered, sizeof(entered), "%s", Settings.AppPath);
+                if(OnScreenKeyboard(entered, 149)) {
+                    snprintf(Settings.AppPath, sizeof(Settings.AppPath), "%s", entered);
+                    WindowPrompt(tr("AppPath changed"), 0, tr("OK"));
+                }
+				break;
+            case 8:
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149)) {
                     snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
                     WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
                 }
-				break;
-            case 7:
-                menu = MENU_NETWORK_SETTINGS;
 				break;
 		}
 
@@ -302,9 +310,11 @@ static int MenuSettings()
             if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
             else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
 
-            options.SetValue(i++, "%s", Settings.CustomFontPath);
-
             options.SetValue(i++, " ");
+
+            options.SetValue(i++, "%s", Settings.AppPath);
+
+            options.SetValue(i++, "%s", Settings.CustomFontPath);
         }
 	}
 

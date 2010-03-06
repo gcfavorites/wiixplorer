@@ -30,6 +30,7 @@ SOURCES		:=	source \
 				source/Memory \
 				source/FileStartUp \
 				source/FileOperations \
+				source/VideoOperations \
 				source/ImageOperations \
 				source/ImageOperations/libgd \
 				source/ImageOperations/libtiff \

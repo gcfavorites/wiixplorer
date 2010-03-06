@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 12:09+0100\n"
+"POT-Creation-Date: 2010-03-06 12:39+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -58,6 +58,12 @@ msgstr "Akce zrušena"
 
 msgid "App Default"
 msgstr "Původní nastavení"
+
+msgid "App Path"
+msgstr ""
+
+msgid "AppPath changed"
+msgstr ""
 
 msgid "Apps"
 msgstr ""
@@ -667,6 +673,9 @@ msgstr ""
 msgid "Unable to load the device."
 msgstr ""
 
+msgid "Unsupported format!"
+msgstr ""
+
 msgid "Update (App) Path"
 msgstr ""
 
@@ -738,8 +747,7 @@ msgstr ""
 msgid "zxcvbnm,./"
 msgstr ""
 
-#, c-format
-msgid "~!@#$%%^&*()_"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "You cannot read/write from/to the same file."

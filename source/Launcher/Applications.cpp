@@ -105,48 +105,43 @@ bool Applications::GetNameFromXML(char *xml, char *name)
 void Applications::Search()
 {
 	char apppath[256], hbpath[256], hbname[256], metaname[256];
-	char devices[][6] = {"sd", "usb"}; //, "ntfs0", "ntfs1", "ntfs2", "ntfs3", "ntfs4"};
-	char apps[] = ":/apps/";
 
 	FileBrowser browser;
 
-	for (u32 i = 0; i < 2; i++)
-	{
-		sprintf(apppath, "%s%s", devices[i], apps);
+    snprintf(apppath, sizeof(apppath), "%s", Settings.AppPath);
 
-		int entries = browser.BrowsePath(apppath);
+    int entries = browser.BrowsePath(apppath);
 
-		if (entries > 1)
-		{
-			for (int j = 1; j < entries; j++)
-			{
-				sprintf(hbpath, "%s%s", apppath, browser.GetItemFilename(j));
+    if (entries > 1)
+    {
+        for (int j = 1; j < entries; j++)
+        {
+            sprintf(hbpath, "%s%s", apppath, browser.GetItemFilename(j));
 
-				DirList binary(hbpath, ".dol,.elf");
-				if (binary.GetFilecount() > 0)
-				{
-					DirList meta(hbpath, ".xml");
-					if (meta.GetFileIndex("meta.xml") >= 0)
-					{
-						sprintf(metaname, "%s/meta.xml", hbpath);
+            DirList binary(hbpath, ".dol,.elf");
+            if (binary.GetFilecount() > 0)
+            {
+                DirList meta(hbpath, ".xml");
+                if (meta.GetFileIndex("meta.xml") >= 0)
+                {
+                    sprintf(metaname, "%s/meta.xml", hbpath);
 
-						if (!GetNameFromXML(metaname, hbname))
-						{
-							strcpy(hbname, browser.GetItemFilename(j));
-						}
-					}
-					else
-					{
-						strcpy(hbname, browser.GetItemFilename(j));
-					}
+                    if (!GetNameFromXML(metaname, hbname))
+                    {
+                        strcpy(hbname, browser.GetItemFilename(j));
+                    }
+                }
+                else
+                {
+                    strcpy(hbname, browser.GetItemFilename(j));
+                }
 
-					Application app;
-					sprintf(app.path, "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
-					strcpy(app.name, hbname);
+                Application app;
+                sprintf(app.path, "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
+                strcpy(app.name, hbname);
 
-					applications.push_back(app);
-				}
-			}
-		}
-	}
+                applications.push_back(app);
+            }
+        }
+    }
 }

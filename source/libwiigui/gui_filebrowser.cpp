@@ -44,6 +44,7 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 	fileSFX = Resources::GetImageData(icon_sfx_png, icon_sfx_png_size);
 	fileTXT = Resources::GetImageData(icon_txt_png, icon_txt_png_size);
 	fileXML = Resources::GetImageData(icon_xml_png, icon_xml_png_size);
+	fileVID = Resources::GetImageData(icon_video_png, icon_video_png_size);
 	scrollbar = Resources::GetImageData(scrollbar_png, scrollbar_png_size);
 	arrowDown = Resources::GetImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
 	arrowDownOver = Resources::GetImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
@@ -124,6 +125,7 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 		fileListSFX[i] = new GuiImage(fileSFX);
 		fileListTXT[i] = new GuiImage(fileTXT);
 		fileListXML[i] = new GuiImage(fileXML);
+		fileListVID[i] = new GuiImage(fileVID);
 
 		fileList[i] = new GuiButton(507,30);
 		fileList[i]->SetParent(this);
@@ -155,6 +157,7 @@ GuiFileBrowser::~GuiFileBrowser()
 	Resources::Remove(fileSFX);
 	Resources::Remove(fileTXT);
 	Resources::Remove(fileXML);
+	Resources::Remove(fileVID);
 	Resources::Remove(scrollbar);
 	Resources::Remove(arrowDown);
 	Resources::Remove(arrowDownOver);
@@ -192,6 +195,7 @@ GuiFileBrowser::~GuiFileBrowser()
 		delete fileListSFX[i];
 		delete fileListTXT[i];
 		delete fileListXML[i];
+		delete fileListVID[i];
 	}
 }
 
@@ -436,9 +440,18 @@ void GuiFileBrowser::Update(GuiTrigger * t)
                             fileList[i]->SetIcon(fileListXML[i]);
                         } else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0 ||
                                   strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
-                                  strcasecmp(fileext, ".bin") == 0) {
+                                  strcasecmp(fileext, ".bin") == 0)
+                        {
                             fileList[i]->SetIcon(fileListArchives[i]);
-                        } else {
+                        }
+                        else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
+                                  strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".wmv") == 0 ||
+                                  strcasecmp(fileext, ".mp4") == 0)
+                        {
+                            fileList[i]->SetIcon(fileListVID[i]);
+                        }
+                        else
+                        {
                             fileList[i]->SetIcon(fileListDefault[i]);
                         }
 				    } else {

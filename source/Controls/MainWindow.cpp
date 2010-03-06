@@ -37,7 +37,7 @@
 #include "filelist.h"
 #include "Settings.h"
 #include "menu.h"
-#include "video.h"
+#include "VideoOperations/video.h"
 #include "sys.h"
 
 #include "Memory/Resources.h"
@@ -187,6 +187,14 @@ void MainWindow::AddWindow(GuiWindow *window)
 	Append(window);
 }
 
+void MainWindow::SetGuiPriority(int prio)
+{
+    if(prio < 0 || prio > LWP_PRIO_HIGHEST)
+        return;
+
+	LWP_SetThreadPriority(guithread, prio);
+}
+
 void MainWindow::ResumeGui()
 {
 	guihalt = false;
@@ -227,7 +235,7 @@ void MainWindow::InternalUpdateGUI()
 			if (userInput[i].wpad->ir.valid)
 			{
 				Menu_DrawImg(userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
-							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2,
+							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2, 100.0f,
 							 pointer[i]->GetWidth(), pointer[i]->GetHeight(),
 							 pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
 			}

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 12:09+0100\n"
+"POT-Creation-Date: 2010-03-06 12:39+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -57,6 +57,12 @@ msgstr "Operação cancelada"
 
 msgid "App Default"
 msgstr "Predefinição do programa"
+
+msgid "App Path"
+msgstr ""
+
+msgid "AppPath changed"
+msgstr ""
 
 msgid "Apps"
 msgstr ""
@@ -666,6 +672,9 @@ msgstr "Não foi possível aceder à pasta."
 msgid "Unable to load the device."
 msgstr "Não foi possível aceder ao dispositivo."
 
+msgid "Unsupported format!"
+msgstr ""
+
 msgid "Update (App) Path"
 msgstr "Pasta de Act. do Aplicativo"
 
@@ -737,8 +746,7 @@ msgstr ""
 msgid "zxcvbnm,./"
 msgstr ""
 
-#, c-format
-msgid "~!@#$%%^&*()_"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "You cannot read/write from/to the same file."

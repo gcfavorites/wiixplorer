@@ -261,21 +261,21 @@ void GuiImage::Draw()
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
-                Menu_DrawImg(currLeft+width*i, currTop+width*n, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
+                Menu_DrawImg(currLeft+width*i, currTop+width*n, 0.0f, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
-            Menu_DrawImg(currLeft+width*i, currTop, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(currLeft+width*i, currTop, 0.0f, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
-            Menu_DrawImg(currLeft, currTop+height*i, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(currLeft, currTop+height*i, 0.0f, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
 	else
 	{
-		Menu_DrawImg(currLeft, currTop, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
+		Menu_DrawImg(currLeft, currTop, 0.0f, width, height, image, imageangle, currScaleX, currScaleY, this->GetAlpha());
 	}
 
 	if(stripe > 0)
