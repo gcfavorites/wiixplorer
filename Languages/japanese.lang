@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 13:32+0100\n"
+"POT-Creation-Date: 2010-03-08 08:59+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,6 +24,9 @@ msgid ""
 "\tFull path: \"%s\"\n"
 "\tWorking directory: \"%s\"\n"
 msgstr ""
+"クライアントは動作ディレクトリを変更しました:\n"
+"\tフルパス: \"%s\"\n"
+"\t動作ディレクトリ: \"%s\"\n"
 
 msgid "A client has disconnected.\n"
 msgstr "クライアントが切断されました\n"
@@ -59,13 +62,13 @@ msgid "App Default"
 msgstr "英語"
 
 msgid "App Path"
-msgstr ""
+msgstr "アプリのパス"
 
 msgid "AppPath changed"
-msgstr ""
+msgstr "アプリのパスを変更しました"
 
 msgid "Apps"
-msgstr ""
+msgstr "アプリ"
 
 msgid "Auto Connect"
 msgstr "自動接続"
@@ -110,7 +113,7 @@ msgid "Change Language Path?"
 msgstr "言語のパスを変更しますか?"
 
 msgid "Channels"
-msgstr ""
+msgstr "チャンネル"
 
 msgid "Clear"
 msgstr "クリア"
@@ -145,7 +148,7 @@ msgid "Copy current marked item(s)?"
 msgstr "選択されたアイテムをコピーしますか?"
 
 msgid "Copy of"
-msgstr ""
+msgstr "コピーされた"
 
 msgid "Copying item(s):"
 msgstr "コピーしています:"
@@ -248,16 +251,16 @@ msgid "Do you want to remount the devices?"
 msgstr "デバイスをリマウントしますか?"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "このファイルを置き換えますか?"
 
 msgid "Do you want to save changes?"
 msgstr "変更を保存しますか?"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "アプリを始めますか?"
 
 msgid "Do you want to start the channel?"
-msgstr ""
+msgstr "チャンネルを始めますか?"
 
 msgid "Do you want to update now ?"
 msgstr "更新しますか?"
@@ -293,7 +296,7 @@ msgid "Error:"
 msgstr "エラー"
 
 msgid "Exit"
-msgstr ""
+msgstr "終了"
 
 msgid "Extract"
 msgstr "解凍"
@@ -329,7 +332,7 @@ msgid "FTP Port:"
 msgstr "FTPのポート"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "FTPサーバー"
 
 msgid "FTP Server Settings"
 msgstr "FTPのサーバー設定"
@@ -356,7 +359,7 @@ msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
 
 msgid "File already exists:"
-msgstr ""
+msgstr "ファイルが既に存在します"
 
 msgid "File couldn't be deleted."
 msgstr "ファイルを削除できませんでした"
@@ -429,7 +432,7 @@ msgid "Language Path changed."
 msgstr "言語のパスを変更しました"
 
 msgid "Language Settings"
-msgstr ""
+msgstr "言語の設定"
 
 msgid "Last access:"
 msgstr "アクセス日時:"
@@ -496,7 +499,7 @@ msgid "No new updates available"
 msgstr "更新はありません"
 
 msgid "No to all"
-msgstr ""
+msgstr "全ていいえ"
 
 msgid "Not a valid URL"
 msgstr "URLが正しくありません"
@@ -574,17 +577,17 @@ msgid "Reconnect SMB"
 msgstr "SMBに再接続"
 
 msgid "Reload"
-msgstr ""
+msgstr "再読み込み"
 
 msgid "Rename"
-msgstr "リネーム"
+msgstr "名前の変更"
 
 #, c-format
 msgid "Reply sent: %s\n"
 msgstr "返信: %s\n"
 
 msgid "Restart"
-msgstr ""
+msgstr "再起動"
 
 msgid "Restart the app to load the new font."
 msgstr "フォントを読み込むため 再起動してください"
@@ -615,7 +618,7 @@ msgid "Server waits for client"
 msgstr "サーバーはクライアントを待っています"
 
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 msgid "Shift"
 msgstr ""
@@ -627,7 +630,7 @@ msgid "Size:"
 msgstr "サイズ"
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "スライドショーの間隔"
 
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
@@ -673,7 +676,7 @@ msgid "Unable to load the device."
 msgstr "デバイスを読み込めませんでした"
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "対応していない形式です!"
 
 msgid "Update (App) Path"
 msgstr "WiiXplorerのパス"
@@ -714,7 +717,7 @@ msgid "Yes"
 msgstr "はい"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "全てはい"
 
 msgid "You can not cut into the directory itself."
 msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"

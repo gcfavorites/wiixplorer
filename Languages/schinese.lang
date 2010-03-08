@@ -62,13 +62,13 @@ msgid "App Default"
 msgstr "程序缺省"
 
 msgid "App Path"
-msgstr ""
+msgstr "程序路径"
 
 msgid "AppPath changed"
-msgstr ""
+msgstr "程序路径已更改"
 
 msgid "Apps"
-msgstr ""
+msgstr "程序"
 
 msgid "Auto Connect"
 msgstr "自动连接"
@@ -113,7 +113,7 @@ msgid "Change Language Path?"
 msgstr "更改语言文件路径？"
 
 msgid "Channels"
-msgstr ""
+msgstr "频道"
 
 msgid "Clear"
 msgstr "清除"
@@ -148,7 +148,7 @@ msgid "Copy current marked item(s)?"
 msgstr "是否复制已标记的项目？"
 
 msgid "Copy of"
-msgstr ""
+msgstr "复制其中"
 
 msgid "Copying item(s):"
 msgstr "复制项目中:"
@@ -251,16 +251,16 @@ msgid "Do you want to remount the devices?"
 msgstr "是否再次加载设备？"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "是否替换此文件？"
 
 msgid "Do you want to save changes?"
 msgstr "是否保存更改？"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "是否运行此程序？"
 
 msgid "Do you want to start the channel?"
-msgstr ""
+msgstr "是否运行此频道？"
 
 msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
@@ -296,7 +296,7 @@ msgid "Error:"
 msgstr "错误"
 
 msgid "Exit"
-msgstr ""
+msgstr "退出"
 
 msgid "Extract"
 msgstr "提取"
@@ -332,7 +332,7 @@ msgid "FTP Port:"
 msgstr "FTP端口"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "FTP服务器"
 
 msgid "FTP Server Settings"
 msgstr "FTP服务设置"
@@ -359,7 +359,7 @@ msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
 
 msgid "File already exists:"
-msgstr ""
+msgstr "文件已存在："
 
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
@@ -432,7 +432,7 @@ msgid "Language Path changed."
 msgstr "语言文件路径已更改"
 
 msgid "Language Settings"
-msgstr ""
+msgstr "语言设置"
 
 msgid "Last access:"
 msgstr "最近读取"
@@ -499,7 +499,7 @@ msgid "No new updates available"
 msgstr "没有新的可用更新"
 
 msgid "No to all"
-msgstr ""
+msgstr "全选否"
 
 msgid "Not a valid URL"
 msgstr "无效的URL"
@@ -577,7 +577,7 @@ msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
 
 msgid "Reload"
-msgstr ""
+msgstr "重新运行"
 
 msgid "Rename"
 msgstr "重命名"
@@ -587,7 +587,7 @@ msgid "Reply sent: %s\n"
 msgstr "回复发送：%s\n"
 
 msgid "Restart"
-msgstr ""
+msgstr "重启动"
 
 msgid "Restart the app to load the new font."
 msgstr "复位程序读取新字体"
@@ -618,7 +618,7 @@ msgid "Server waits for client"
 msgstr "服务等待客户端链接"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Shift"
 msgstr "Shift键"
@@ -630,7 +630,7 @@ msgid "Size:"
 msgstr "尺寸："
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "幻灯片延时"
 
 msgid "Special thanks to:"
 msgstr "特别感谢：Kavid"
@@ -676,7 +676,7 @@ msgid "Unable to load the device."
 msgstr "设备无法读取"
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "不支持的格式！"
 
 msgid "Update (App) Path"
 msgstr "更新程序路径"
@@ -717,7 +717,7 @@ msgid "Yes"
 msgstr "确定"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "全部是"
 
 msgid "You can not cut into the directory itself."
 msgstr "无法在此目录中删除自己"
@@ -747,7 +747,7 @@ msgid "zxcvbnm,./"
 msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
-msgstr ""
+msgstr "~!@#$%^&*()_"
 
 #~ msgid "FTP Settings"
 #~ msgstr "FTP设置"

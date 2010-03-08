@@ -62,10 +62,10 @@ msgid "App Default"
 msgstr "Por defecto"
 
 msgid "App Path"
-msgstr ""
+msgstr "Ruta de Aplicaciones"
 
 msgid "AppPath changed"
-msgstr ""
+msgstr "Ruta de Aplicaciones cambiada"
 
 msgid "Apps"
 msgstr "Aplicaciones"
@@ -148,7 +148,7 @@ msgid "Copy current marked item(s)?"
 msgstr "¿Copiar elemento(s) marcado(s)?"
 
 msgid "Copy of"
-msgstr ""
+msgstr "Copia de"
 
 msgid "Copying item(s):"
 msgstr "Copiando elemento(s)"
@@ -432,7 +432,7 @@ msgid "Language Path changed."
 msgstr "Ruta de idioma cambiada."
 
 msgid "Language Settings"
-msgstr ""
+msgstr "Configuración de idioma"
 
 msgid "Last access:"
 msgstr "Último acceso:"
@@ -559,7 +559,7 @@ msgid "Properties"
 msgstr "Propiedades"
 
 msgid "QWERTYUIOP{}|"
-msgstr "QWERTYUIOP^*|"
+msgstr ""
 
 msgid "Random"
 msgstr "Aleatorio"
@@ -630,7 +630,7 @@ msgid "Size:"
 msgstr "Tamaño:"
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "Retardo del Diaporama"
 
 msgid "Special thanks to:"
 msgstr "Agradecimientos especiales a:"
@@ -676,7 +676,7 @@ msgid "Unable to load the device."
 msgstr "Imposible cargar el dispositivo."
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "¡Formato no soportado!"
 
 msgid "Update (App) Path"
 msgstr "Ruta para actualizar Aplicación"
@@ -726,25 +726,25 @@ msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
 msgid "ZXCVBNM<>?"
-msgstr "ZXCVBNM;:_"
+msgstr ""
 
 msgid "`1234567890-"
-msgstr "1234567890'¡"
+msgstr ""
 
 msgid "and all the translators."
 msgstr "y a todos los traductores."
 
 msgid "asdfghjkl;'="
-msgstr "asdfghjklñ´ç"
+msgstr ""
 
 msgid "for his great tool LibWiiGui."
 msgstr "por su gran utilidad LibWiiGui."
 
 msgid "qwertyuiop[]\\"
-msgstr "qwertyuiop`+\\"
+msgstr ""
 
 msgid "zxcvbnm,./"
-msgstr "zxcvbnm,.-"
+msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
