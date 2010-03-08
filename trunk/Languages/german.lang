@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r129
+# r134
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 13:32+0100\n"
+"POT-Creation-Date: 2010-03-08 08:59+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -113,7 +113,7 @@ msgid "Change Language Path?"
 msgstr "Pfad zu den Sprachdateien ändern?"
 
 msgid "Channels"
-msgstr ""
+msgstr "Kanäle"
 
 msgid "Clear"
 msgstr "Löschen"
@@ -148,7 +148,7 @@ msgid "Copy current marked item(s)?"
 msgstr "Markierte Elemente kopieren?"
 
 msgid "Copy of"
-msgstr ""
+msgstr "Kopie von"
 
 msgid "Copying item(s):"
 msgstr "Kopiere Elemente:"
@@ -251,13 +251,13 @@ msgid "Do you want to remount the devices?"
 msgstr "Laufwerke neu mounten?"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "Diese Datei ersetzen?"
 
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "Diese App starten?"
 
 msgid "Do you want to start the channel?"
 msgstr ""
@@ -296,7 +296,7 @@ msgid "Error:"
 msgstr "Fehler:"
 
 msgid "Exit"
-msgstr ""
+msgstr "Beenden"
 
 msgid "Extract"
 msgstr "Enpacken"
@@ -359,7 +359,7 @@ msgid "Failed to read file data."
 msgstr "Lesen der Dateidaten fehlgeschlagen."
 
 msgid "File already exists:"
-msgstr ""
+msgstr "Datei existiert bereits:"
 
 msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
@@ -480,7 +480,7 @@ msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
 
 msgid "New Folder"
-msgstr "Neu"
+msgstr "Neuer Ordner"
 
 msgid "No"
 msgstr "Nein"
@@ -499,7 +499,7 @@ msgid "No new updates available"
 msgstr "Keine Updates verfügbar"
 
 msgid "No to all"
-msgstr ""
+msgstr "Nein für alle"
 
 msgid "Not a valid URL"
 msgstr "Keine gültige URL"
@@ -577,7 +577,7 @@ msgid "Reconnect SMB"
 msgstr "SMB wiederverbinden"
 
 msgid "Reload"
-msgstr ""
+msgstr "Erneut laden"
 
 msgid "Rename"
 msgstr "Umbenennen"
@@ -587,10 +587,10 @@ msgid "Reply sent: %s\n"
 msgstr "Antwort gesendet: %s\n"
 
 msgid "Restart"
-msgstr ""
+msgstr "Neustarten"
 
 msgid "Restart the app to load the new font."
-msgstr "Anwendung neustarten um die neue Schriftart zu laden."
+msgstr "WiiXplorer muss neugestartet werden um die neue Schriftart zu laden."
 
 msgid "Retry"
 msgstr "Wiederholen"
@@ -618,7 +618,7 @@ msgid "Server waits for client"
 msgstr "Server wartet auf Client"
 
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 msgid "Shift"
 msgstr ""
@@ -630,7 +630,7 @@ msgid "Size:"
 msgstr "Größe:"
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "Diashow Verzögerung"
 
 msgid "Special thanks to:"
 msgstr "Besonderen Dank an:"
@@ -717,7 +717,7 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "Ja für alle"
 
 msgid "You can not cut into the directory itself."
 msgstr "Du kannst das Verzeichnis nicht in sich selbst einfügen."
@@ -754,9 +754,6 @@ msgstr ""
 
 #~ msgid "Update Settings"
 #~ msgstr "Einstelllungen ändern"
-
-#~ msgid "You cannot read/write from/to the same file."
-#~ msgstr "Du kannst nicht aus/in dieselbe Datei lesen/schreiben."
 
 #~ msgid "Failed copying file."
 #~ msgstr "Kopieren der Datei fehlgeschlagen."

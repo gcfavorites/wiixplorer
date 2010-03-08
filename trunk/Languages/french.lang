@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# 
+# r134
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 13:32+0100\n"
+"POT-Creation-Date: 2010-03-08 08:59+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgid "1"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr "La décompression 7z a échouée:"
+msgstr "La décompression 7z a échoué:"
 
 #, c-format
 msgid ""
@@ -32,14 +32,14 @@ msgid "A client has disconnected.\n"
 msgstr "Un client s'est déconnecté.\n"
 
 msgid "A client has logged-in.\n"
-msgstr "Un client s'est connécté\n"
+msgstr "Un client s'est connecté\n"
 
 msgid "A client is being deleted.\n"
 msgstr "Un client est supprimé.\n"
 
 #, c-format
 msgid "A client is downloading a file: \"%s\"\n"
-msgstr "Un client telecharge un fichier:  \"%s\"\n"
+msgstr "Un client télécharge un fichier:  \"%s\"\n"
 
 #, c-format
 msgid "A client is listing a directory: \"%s\"\n"
@@ -56,22 +56,22 @@ msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr "Action annulée"
+msgstr "Action annulée."
 
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
 msgid "App Path"
-msgstr ""
+msgstr "Dossier WiiXplorer"
 
 msgid "AppPath changed"
-msgstr ""
+msgstr "Dossier WiiXplorer modifié"
 
 msgid "Apps"
-msgstr ""
+msgstr "Applis"
 
 msgid "Auto Connect"
-msgstr "Connexion Auto"
+msgstr "Connexion auto"
 
 msgid "Back"
 msgstr ""
@@ -107,7 +107,7 @@ msgid "Cannot write to destination."
 msgstr "Ecriture impossible."
 
 msgid "Caps"
-msgstr ""
+msgstr "Verr"
 
 msgid "Change Language Path?"
 msgstr "Modifier le dossier Language ?"
@@ -148,7 +148,7 @@ msgid "Copy current marked item(s)?"
 msgstr "Copier le(s) élement(s) marqué(s) ?"
 
 msgid "Copy of"
-msgstr ""
+msgstr "Copie de "
 
 msgid "Copying item(s):"
 msgstr "Copie en cours:"
@@ -160,7 +160,7 @@ msgid "Could not connect to the server."
 msgstr "Connexion au serveur impossible."
 
 msgid "Could not decompress the file."
-msgstr "Décompréssion du fichier impossible."
+msgstr "Décompression du fichier impossible."
 
 msgid "Could not download file."
 msgstr "Téléchargement impossible."
@@ -338,13 +338,13 @@ msgid "FTP Server Settings"
 msgstr "Paramètres serveur FTP"
 
 msgid "Failed copying item(s)."
-msgstr "La copie a échouée."
+msgstr "La copie a échoué."
 
 msgid "Failed extracting the archive."
-msgstr "L'extraction a échouée."
+msgstr "L'extraction a échoué."
 
 msgid "Failed extracting the item(s)."
-msgstr "L'extraction a échouée."
+msgstr "L'extraction a échoué."
 
 msgid "Failed moving item(s)."
 msgstr "Le déplacement a échoué."
@@ -353,10 +353,10 @@ msgid "Failed renaming item"
 msgstr "Le renommage a échoué."
 
 msgid "Failed to get the Changelog."
-msgstr "L'obtention du Changelog a échouée."
+msgstr "L'obtention du Changelog a échoué."
 
 msgid "Failed to read file data."
-msgstr "La lecture des données a échouée"
+msgstr "La lecture des données a échoué"
 
 msgid "File already exists:"
 msgstr "Le fichier existe déjà:"
@@ -371,7 +371,7 @@ msgid "File is corrupt."
 msgstr "Le fichier est corrompu."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr "Les paramètres de compression sont trop élevés (dictionary size is too large)."
+msgstr "Les paramètres de compression sont trop élevés (taille du dictionaire excessive)."
 
 msgid "File uses unsupported compression settings."
 msgstr "Les paramètres de compression ne sont pas supportés."
@@ -390,7 +390,7 @@ msgid "Filesize doesn't match."
 msgstr "La taille du fichier ne correspond pas."
 
 msgid "Filesize is 0 Byte."
-msgstr "Taille du fichier éguale à 0 bits."
+msgstr "La taille du fichier est 0 octets."
 
 msgid "Filetype:"
 msgstr "Type:"
@@ -420,7 +420,7 @@ msgid "Image Viewer"
 msgstr "Aperçu"
 
 msgid "Incomming connection."
-msgstr "ConnexDion entrante."
+msgstr "Connexion entrante."
 
 msgid "Internal error"
 msgstr "Erreur interne"
@@ -432,7 +432,7 @@ msgid "Language Path changed."
 msgstr "Dossier Language modifié."
 
 msgid "Language Settings"
-msgstr ""
+msgstr "Paramètres Langues"
 
 msgid "Last access:"
 msgstr "Dernier acces:"
@@ -621,7 +621,7 @@ msgid "Settings"
 msgstr "Paramètres"
 
 msgid "Shift"
-msgstr ""
+msgstr "Maj"
 
 msgid "Show Changelog"
 msgstr "Voir le Changelog"
@@ -630,7 +630,7 @@ msgid "Size:"
 msgstr "Taille:"
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "Delai diaporama"
 
 msgid "Special thanks to:"
 msgstr "Remerciements:"
@@ -646,7 +646,7 @@ msgstr "L'équipe DevkitPro & libogc."
 
 #, c-format
 msgid "Too many pass tries for (%s)\n"
-msgstr ""
+msgstr "Trop de tentatives pour (%s)\n"
 
 msgid "Total Space:"
 msgstr "Espace total:"
@@ -658,7 +658,7 @@ msgid "Transfer failed"
 msgstr "Le transfert a échoué"
 
 msgid "Transfer failed."
-msgstr "Le transfert a échoué"
+msgstr "Le transfert a échoué."
 
 msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
@@ -676,7 +676,7 @@ msgid "Unable to load the device."
 msgstr "Périphériques introuvables."
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "Format non supporté !"
 
 msgid "Update (App) Path"
 msgstr "Dossier MàJ (App)"
@@ -720,7 +720,7 @@ msgid "Yes to all"
 msgstr "Oui pour tous"
 
 msgid "You can not cut into the directory itself."
-msgstr "Impossible de couper dans le même dossier."
+msgstr "Impossible de déplacer dans le même dossier."
 
 msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
@@ -762,10 +762,10 @@ msgstr ""
 #~ msgstr "Nouveau"
 
 #~ msgid "Failed copying file."
-#~ msgstr "La copie a échouée."
+#~ msgstr "La copie a échoué."
 
 #~ msgid "Failed copying files."
-#~ msgstr "La copie a échouée."
+#~ msgstr "La copie a échoué."
 
 #~ msgid "Preparing Network..."
 #~ msgstr "Préparation réseau..."
@@ -786,10 +786,10 @@ msgstr ""
 #~ msgstr "Extraction du dossier:"
 
 #~ msgid "Failed extracting file."
-#~ msgstr "L'extraction a échouée."
+#~ msgstr "L'extraction a échoué."
 
 #~ msgid "Failed extracting the folder."
-#~ msgstr "L'extraction a échouée."
+#~ msgstr "L'extraction a échoué."
 
 #~ msgid "File successfully extracted."
 #~ msgstr "Fichier extrait avec succès."
