@@ -35,7 +35,7 @@ class PromptWindow : public GuiWindow
     public:
         PromptWindow(const char *title, const char *msg = NULL, const char *btn1Label = NULL,
                         const char *btn2Label = NULL, const char *btn3Label = NULL,
-                        const char *btn4Label = NULL);
+                        const char *btn4Label = NULL, bool resetstate = true);
         ~PromptWindow();
         int GetChoice();
         void SetTitle(const char *title);
@@ -44,8 +44,9 @@ class PromptWindow : public GuiWindow
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int choice;
+		bool resetstate;
 
-        GuiImage * btn1Img;
+		GuiImage * btn1Img;
         GuiImage * btn2Img;
         GuiImage * btn3Img;
         GuiImage * btn4Img;

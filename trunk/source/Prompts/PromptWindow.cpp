@@ -47,11 +47,12 @@
 ***************************************************************************/
 PromptWindow::PromptWindow(const char *title, const char *msg,
                         const char *btn1Label, const char *btn2Label,
-                        const char *btn3Label, const char *btn4Label)
+                        const char *btn3Label, const char *btn4Label, bool r)
 	: GuiWindow(440, 270)
 {
     choice = -1;
-
+	resetstate = r;
+	
 	btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
 
@@ -198,9 +199,12 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
     SetPosition(0,0);
     SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
-    MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
-    this->SetState(STATE_DEFAULT);
+	if (resetstate)
+	{
+		MainWindow::Instance()->SetState(STATE_DISABLED);
+		MainWindow::Instance()->SetDim(true);
+	}
+	this->SetState(STATE_DEFAULT);
 }
 
 PromptWindow::~PromptWindow()
@@ -256,9 +260,12 @@ PromptWindow::~PromptWindow()
     delete trigA;
     delete trigB;
 
-    MainWindow::Instance()->SetState(STATE_DEFAULT);
-    MainWindow::Instance()->SetDim(false);
-    MainWindow::Instance()->ResumeGui();
+	if (resetstate)
+	{
+		MainWindow::Instance()->SetState(STATE_DEFAULT);
+		MainWindow::Instance()->SetDim(false);
+	}
+	MainWindow::Instance()->ResumeGui();
 }
 
 int PromptWindow::GetChoice()

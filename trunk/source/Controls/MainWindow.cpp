@@ -32,6 +32,8 @@
 #include "libwiigui/gui_bgm.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
+#include "Launcher/Channels.h"
+#include "Launcher/Applications.h"
 #include "network/networkops.h"
 #include "FileOperations/filebrowser.h"
 #include "filelist.h"
@@ -100,13 +102,14 @@ MainWindow::~MainWindow()
 
 	RemoveAll();
 
-	Taskbar::Instance()->DestroyInstance();
-
 	delete bgImg;
 
 	Resources::Remove(bgImgData);
 
+	Taskbar::Instance()->DestroyInstance();
 	GuiBGM::Instance()->DestroyInstance();
+	Channels::Instance()->DestroyInstance();
+	Applications::Instance()->DestroyInstance();
 
 	for (int i = 0; i < 4; i++)
 	{

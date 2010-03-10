@@ -30,13 +30,14 @@
 
 #include "Applications.h"
 #include "DirList.h"
-#include "FileOperations/filebrowser.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "menu.h"
 
 extern bool boothomebrew;
+
+Applications *Applications::instance = NULL;
 
 Applications::Applications()
 {
@@ -47,14 +48,32 @@ Applications::~Applications()
 {
 }
 
-void Applications::Launch(Application app)
+Applications * Applications::Instance()
 {
-	if (LoadHomebrew(app.path) < 0)
+	if (instance == NULL)
+	{
+		instance = new Applications();
+	}
+	return instance;
+}
+
+void Applications::DestroyInstance()
+{
+	if (instance)
+	{
+		delete instance;
+	}
+	instance = NULL;
+}
+
+void Applications::Launch(int index)
+{
+	if (LoadHomebrew(applications.at(index).path) < 0)
 		return;
 
 	ItemStruct Item;
 	memset(&Item, 0, sizeof(ItemStruct));
-	snprintf(Item.itempath, sizeof(Item.itempath), "%s", app.path);
+	snprintf(Item.itempath, sizeof(Item.itempath), "%s", applications.at(index).path);
 	Clipboard::Instance()->AddItem(&Item);
 	boothomebrew = true;
 	Taskbar::Instance()->SetMenu(MENU_EXIT);
@@ -109,21 +128,33 @@ bool Applications::GetNameFromXML(char *xml, char *name)
 	return ret;
 }
 
+void Applications::Reload()
+{
+	applications.clear();
+	Search();
+}
+
 void Applications::Search()
 {
 	char apppath[256], hbpath[256], hbname[256], metaname[256];
 
-	FileBrowser browser;
+	if (strcmp(Settings.AppPath, "") == 0)
+		return;
 
-    snprintf(apppath, sizeof(apppath), "%s", Settings.AppPath);
+	snprintf(apppath, sizeof(apppath), "%s", Settings.AppPath);
 
-    int entries = browser.BrowsePath(apppath);
+	DirList dir(apppath);
 
-    if (entries > 1)
+	int entries = dir.GetFilecount();
+
+    if (entries > 0)
     {
-        for (int j = 1; j < entries; j++)
+        for (int j = 0; j < entries; j++)
         {
-            sprintf(hbpath, "%s%s", apppath, browser.GetItemFilename(j));
+			if (!dir.IsDir(j))
+				continue;
+
+			snprintf(hbpath, sizeof(hbpath), "%s%s", apppath, dir.GetFilename(j));
 
             DirList binary(hbpath, ".dol,.elf");
             if (binary.GetFilecount() > 0)
@@ -131,21 +162,21 @@ void Applications::Search()
                 DirList meta(hbpath, ".xml");
                 if (meta.GetFileIndex("meta.xml") >= 0)
                 {
-                    sprintf(metaname, "%s/meta.xml", hbpath);
+                    snprintf(metaname, sizeof(metaname), "%s/meta.xml", hbpath);
 
                     if (!GetNameFromXML(metaname, hbname))
                     {
-                        strcpy(hbname, browser.GetItemFilename(j));
+                        strncpy(hbname, dir.GetFilename(j), sizeof(hbname));
                     }
                 }
                 else
                 {
-                    strcpy(hbname, browser.GetItemFilename(j));
+                    strncpy(hbname, dir.GetFilename(j), sizeof(hbname));
                 }
 
                 Application app;
-                sprintf(app.path, "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
-                strcpy(app.name, hbname);
+                snprintf(app.path, sizeof(app.path), "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
+                strncpy(app.name, hbname, sizeof(app.name));
 
                 applications.push_back(app);
             }

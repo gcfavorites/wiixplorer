@@ -65,7 +65,13 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger();
+	trigUp = new GuiTrigger();
+	trigDown = new GuiTrigger();
+	trigHome = new GuiTrigger();
 	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+	trigUp->SetButtonOnlyTrigger(-1, WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP, PAD_BUTTON_UP);
+	trigDown->SetButtonOnlyTrigger(-1, WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN, PAD_BUTTON_DOWN);
+	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
 
 	NoBtn = new GuiButton(screenwidth, screenheight);
 	NoBtn->SetPosition(-x, -y);
@@ -73,12 +79,17 @@ PopUpMenu::PopUpMenu(int x, int y)
 	NoBtn->SetTrigger(trigB);
 	NoBtn->Clicked.connect(this, &PopUpMenu::OnClick);
 
+	HomeBtn = new GuiButton(0, 0);
+	HomeBtn->SetTrigger(trigHome);
+	HomeBtn->Clicked.connect(this, &PopUpMenu::OnClick);
+
 	ScrollUpBtn = new GuiButton(16, 16);
 	ScrollUpBtn->SetImage(PopUpMenuScrollUpImg);
 	ScrollUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	ScrollUpBtn->SetTrigger(trigA);
 	ScrollUpBtn->SetVisible(false);
 	ScrollUpBtn->SetState(STATE_DISABLED);
+	ScrollUpBtn->SetTrigger(trigUp);
 	ScrollUpBtn->Clicked.connect(this, &PopUpMenu::OnScrollUp);
 
 	ScrollDownBtn = new GuiButton(16, 16);
@@ -87,12 +98,14 @@ PopUpMenu::PopUpMenu(int x, int y)
 	ScrollDownBtn->SetTrigger(trigA);
 	ScrollDownBtn->SetVisible(false);
 	ScrollDownBtn->SetState(STATE_DISABLED);
+	ScrollDownBtn->SetTrigger(trigDown);
 	ScrollDownBtn->Clicked.connect(this, &PopUpMenu::OnScrollDown);
 
 	Append(PopUpMenuUpperImg);
 	Append(PopUpMenuMiddleImg);
 	Append(PopUpMenuLowerImg);
 	Append(NoBtn);
+	Append(HomeBtn);
 	Append(ScrollUpBtn);
 	Append(ScrollDownBtn);
 
@@ -145,9 +158,13 @@ PopUpMenu::~PopUpMenu()
 	delete ScrollUpBtn;
 	delete ScrollDownBtn;
 	delete NoBtn;
+	delete HomeBtn;
 
 	delete trigA;
 	delete trigB;
+	delete trigUp;
+	delete trigDown;
+	delete trigHome;
 
 	MainWindow::Instance()->ResumeGui();
 }
@@ -287,7 +304,7 @@ void PopUpMenu::OnClick(GuiElement *sender, int pointer, POINT p)
 {
 	sender->ResetState();
 	//TODO add the functions instead of the link
-	if (sender == NoBtn)
+	if (sender == NoBtn || sender == HomeBtn)
 	{
 		choice = -10;
 		return;

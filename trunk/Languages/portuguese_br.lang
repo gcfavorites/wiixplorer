@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 13:32+0100\n"
+"POT-Creation-Date: 2010-03-09 21:29+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -205,6 +205,9 @@ msgid "Do you want to boot:"
 msgstr "Você deseja iniciar:"
 
 msgid "Do you want to exit WiiXplorer?"
+msgstr ""
+
+msgid "Do you want to exit to the system menu?"
 msgstr ""
 
 msgid "Do you want to load app default language ?"
@@ -410,6 +413,9 @@ msgstr ""
 msgid "Go Back"
 msgstr "Voltar"
 
+msgid "Home Menu"
+msgstr ""
+
 msgid "Host:"
 msgstr ""
 
@@ -446,10 +452,16 @@ msgstr ""
 msgid "Linebreak"
 msgstr ""
 
+msgid "Loader"
+msgstr ""
+
 msgid "Loading file:"
 msgstr "Carregando arquivo:"
 
 msgid "Loop"
+msgstr ""
+
+msgid "Menu"
 msgstr ""
 
 msgid "Mount NTFS"

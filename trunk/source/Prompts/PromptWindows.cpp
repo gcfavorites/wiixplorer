@@ -216,11 +216,11 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 int
 WindowPrompt(const char *title, const char *msg, const char *btn1Label,
 const char *btn2Label, const char *btn3Label,
-const char *btn4Label)
+const char *btn4Label, bool resetstate)
 {
     int choice = -1;
 
-    PromptWindow * Prompt = new PromptWindow(title, msg, btn1Label, btn2Label, btn3Label, btn4Label);
+    PromptWindow * Prompt = new PromptWindow(title, msg, btn1Label, btn2Label, btn3Label, btn4Label, resetstate);
 
     MainWindow::Instance()->Append(Prompt);
 

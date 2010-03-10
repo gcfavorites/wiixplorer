@@ -69,19 +69,18 @@ bool DirList::LoadPath(const char * folder, const char *filter)
     if (dir == NULL)
         return false;
 
-	char filterCopy[strlen(filter)+1];
-	memset(filterCopy, 0, sizeof(filterCopy));
-
     while (dirnext(dir,filename,&st) == 0)
     {
         if (strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
         {
             if(filter)
             {
-                char * fileext = strrchr(filename, '.');
+				char * fileext = strrchr(filename, '.');
                 if(fileext)
                 {
-					snprintf(filterCopy, sizeof(filterCopy), "%s", filter);
+					char filterCopy[256];
+					strncpy(filterCopy, filter, 255);
+
 					char * filterTok = strtok(filterCopy, ",");
 
 					while (filterTok != NULL)
@@ -107,7 +106,6 @@ bool DirList::LoadPath(const char * folder, const char *filter)
                     dirclose(dir);
                     return false;
                 }
-                filecount++;
             }
         }
     }

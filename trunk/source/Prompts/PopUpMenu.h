@@ -136,11 +136,15 @@ class PopUpMenu : public GuiWindow
 		GuiSound * PopUpMenuClick;
 
 		GuiButton * NoBtn;
+		GuiButton * HomeBtn;
 		GuiButton * ScrollUpBtn;
 		GuiButton * ScrollDownBtn;
 
 		GuiTrigger * trigA;
 		GuiTrigger * trigB;
+		GuiTrigger * trigUp;
+		GuiTrigger * trigDown;
+		GuiTrigger * trigHome;
 };
 
 #endif

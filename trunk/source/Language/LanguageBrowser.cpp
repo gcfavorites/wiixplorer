@@ -184,7 +184,8 @@ int LanguageBrowser()
 
 		else if(ConsoleDefaultBtn.GetState() == STATE_CLICKED)
 		{
-		    int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
+			ConsoleDefaultBtn.ResetState();
+			int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
             if(choice)
             {
                 if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT))
@@ -196,6 +197,7 @@ int LanguageBrowser()
 
 		else if(AppDefaultBtn.GetState() == STATE_CLICKED)
 		{
+			AppDefaultBtn.ResetState();
 		    int choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
             if(choice)
             {

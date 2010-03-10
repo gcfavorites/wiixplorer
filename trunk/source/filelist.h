@@ -323,4 +323,31 @@ extern const u32	prev_png_size;
 extern const u8		prev_over_png[];
 extern const u32	prev_over_png_size;
 
+extern const u8		homemenu_top_png[];
+extern const u32	homemenu_top_png_size;
+
+extern const u8		homemenu_top_over_png[];
+extern const u32	homemenu_top_over_png_size;
+
+extern const u8		homemenu_bottom_png[];
+extern const u32	homemenu_bottom_png_size;
+
+extern const u8		homemenu_bottom_over_png[];
+extern const u32	homemenu_bottom_over_png_size;
+
+extern const u8		homemenu_button_png[];
+extern const u32	homemenu_button_png_size;
+
+extern const u8		homemenu_close_png[];
+extern const u32	homemenu_close_png_size;
+
+extern const u8		wiimote_png[];
+extern const u32	wiimote_png_size;
+
+extern const u8		battery_bar_png[];
+extern const u32	battery_bar_png_size;
+
+extern const u8		battery_png[];
+extern const u32	battery_png_size;
+
 #endif
