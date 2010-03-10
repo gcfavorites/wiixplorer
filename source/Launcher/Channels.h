@@ -36,21 +36,25 @@
 typedef struct
 {
 	u64  title;
-	char name[256];
+	char name[IMET_MAX_NAME_LEN+1];
 } Channel;
 
 class Channels
 {
-    public:
-        Channels();
-        ~Channels();
+	public:
+		static Channels *Instance();
+		static void DestroyInstance();
 
-		void Launch(Channel channel);
-		Channel Get(int i) { return channels.at(i); }
+		void Launch(int index);
 		int Count() { return channels.size(); }
-		char *GetName(int i) { return channels.at(i).name; }
+		char *GetName(int index) { return channels.at(index).name; }
 
 	private:
+		Channels();
+		~Channels();
+
+		static Channels *instance;
+
 		std::vector<Channel> channels;
 
 		u64* GetChannelList(u32* count);

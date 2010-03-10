@@ -43,6 +43,8 @@
 #include "devicemounter.h"
 #include "sys.h"
 
+#include "Prompts/HomeMenu.h"
+
 Taskbar *Taskbar::instance = NULL;
 
 Taskbar::Taskbar()
@@ -66,6 +68,8 @@ Taskbar::Taskbar()
 	soundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
 	soundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHome = new GuiTrigger();
+	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
 
 	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
@@ -73,6 +77,11 @@ Taskbar::Taskbar()
 	startBtn->SetSelectable(false);
 	startBtn->SetTrigger(trigA);
 
+	homeBtn = new GuiButton(0, 0);
+	homeBtn->SetSelectable(false);
+	homeBtn->SetTrigger(trigHome);
+
+	Append(homeBtn);
 	Append(taskbarImg);
 	Append(startBtn);
 	Append(timeTxt);
@@ -86,10 +95,12 @@ Taskbar::~Taskbar()
 	delete taskbarImg;
 	Resources::Remove(taskbarImgData);
 
+	delete homeBtn;
 	delete startBtn;
 	delete timeTxt;
 
 	delete trigA;
+	delete trigHome;
 
 	Resources::Remove(soundClick);
 	Resources::Remove(soundOver);
@@ -160,13 +171,48 @@ int Taskbar::GetMenu()
 	{
 		menu = CheckStartMenu();
 	}
+	else if (homeBtn->GetState() == STATE_CLICKED)
+	{
+		menu = CheckHomeButton();
+	}
 
     return menu;
+}
+
+int Taskbar::CheckHomeButton()
+{
+	HomeMenu *hm = new HomeMenu();
+
+	SetState(STATE_DISABLED);
+	MainWindow::Instance()->Append(hm);
+
+	int choice = -1;
+	while (choice == -1)
+	{
+		VIDEO_WaitVSync();
+
+		if(shutdown)
+			Sys_Shutdown();
+		else if(reset)
+			Sys_Reboot();
+
+		choice = hm->GetChoice();
+	}
+
+	delete hm;
+
+	SetState(STATE_DEFAULT);
+	homeBtn->ResetState();
+
+	return menu;
 }
 
 int Taskbar::CheckStartMenu()
 {
 	PopUpMenu *StartMenu = new PopUpMenu(45, 164);
+
+	if (!StartMenu)
+		return menu;
 
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
@@ -185,7 +231,7 @@ int Taskbar::CheckStartMenu()
 	MainWindow::Instance()->Append(StartMenu);
 
 	int choice = -1;
-	while (choice == -1 && StartMenu)
+	while (choice == -1)
 	{
 		usleep(100);
 
@@ -233,6 +279,7 @@ int Taskbar::CheckStartMenu()
 			SDCard_Init();
 			USBDevice_Init();
 			NTFS_Mount();
+			Applications::Instance()->Reload();
 		}
 	}
 	else if (choice == RESTART)
@@ -258,18 +305,21 @@ void Taskbar::CheckAppsMenu()
 	int choice = -1;
 	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+30, 100);
 
-	Applications apps;
+	if (!AppsMenu)
+		return;
 
-	if (apps.Count() > 0)
+	int count = Applications::Instance()->Count();
+
+	if (count > 0)
 	{
-		for (int i = 0; i < apps.Count(); i++)
-			AppsMenu->AddItem(apps.GetName(i));
+		for (int i = 0; i < count; i++)
+			AppsMenu->AddItem(Applications::Instance()->GetName(i));
 
 		AppsMenu->Finish();
 
 		MainWindow::Instance()->Append(AppsMenu);
 
-		while (choice == -1 && AppsMenu)
+		while (choice == -1)
 		{
 			usleep(100);
 
@@ -284,41 +334,48 @@ void Taskbar::CheckAppsMenu()
 
 	delete AppsMenu;
 
-	if (choice >= 0 && WindowPrompt(tr("Do you want to start the app?"), apps.GetName(choice), tr("Yes"), tr("Cancel")))
+	if (choice >= 0 && WindowPrompt(tr("Do you want to start the app?"), Applications::Instance()->GetName(choice), tr("Yes"), tr("Cancel")))
 	{
-		apps.Launch(apps.Get(choice));
+		Applications::Instance()->Launch(choice);
 	}
 }
 
 void Taskbar::CheckChannelsMenu()
 {
+	int choice = -1;
 	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+30, 100);
 
-	Channels channels;
-	for (int i = 0; i < channels.Count(); i++)
-		ChannelsMenu->AddItem(channels.GetName(i));
+	if (!ChannelsMenu)
+		return;
 
-	ChannelsMenu->Finish();
+	int count = Channels::Instance()->Count();
 
-	MainWindow::Instance()->Append(ChannelsMenu);
-
-	int choice = -1;
-	while (choice == -1 && ChannelsMenu)
+	if (count > 0)
 	{
-		usleep(100);
+		for (int i = 0; i < count; i++)
+			ChannelsMenu->AddItem(Channels::Instance()->GetName(i));
 
-		if (shutdown)
-			Sys_Shutdown();
-		else if (reset)
-			Sys_Reboot();
+		ChannelsMenu->Finish();
 
-		choice = ChannelsMenu->GetChoice();
+		MainWindow::Instance()->Append(ChannelsMenu);
+
+		while (choice == -1)
+		{
+			usleep(100);
+
+			if (shutdown)
+				Sys_Shutdown();
+			else if (reset)
+				Sys_Reboot();
+
+			choice = ChannelsMenu->GetChoice();
+		}
 	}
 
 	delete ChannelsMenu;
 
-	if (choice >= 0 && WindowPrompt(tr("Do you want to start the channel?"), channels.GetName(choice), tr("Yes"), tr("Cancel")))
+	if (choice >= 0 && WindowPrompt(tr("Do you want to start the channel?"), Channels::Instance()->GetName(choice), tr("Yes"), tr("Cancel")))
 	{
-		channels.Launch(channels.Get(choice));
+		Channels::Instance()->Launch(choice);
 	}
 }

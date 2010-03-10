@@ -40,14 +40,20 @@ typedef struct
 class Applications
 {
     public:
-        Applications();
-        ~Applications();
-		void Launch(Application app);
-		Application Get(int i) { return applications.at(i); }
+		static Applications *Instance();
+        static void DestroyInstance();
+
+		void Launch(int index);
 		int Count() { return applications.size(); }
-		char *GetName(int i) { return applications.at(i).name; }
+		char *GetName(int index) { return applications.at(index).name; }
+		void Reload();
 
 	private:
+        Applications();
+        ~Applications();
+
+		static Applications *instance;
+
 		std::vector<Application> applications;
 
 		bool GetNameFromXML(char *xml, char *name);

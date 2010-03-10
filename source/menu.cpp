@@ -261,7 +261,9 @@ static int MenuSettings()
             case 7:
                 snprintf(entered, sizeof(entered), "%s", Settings.AppPath);
                 if(OnScreenKeyboard(entered, 149)) {
-                    snprintf(Settings.AppPath, sizeof(Settings.AppPath), "%s", entered);
+					if (entered[strlen(entered)-1] != '/')
+						strcat(entered, "/");
+					snprintf(Settings.AppPath, sizeof(Settings.AppPath), "%s", entered);
                     WindowPrompt(tr("AppPath changed"), 0, tr("OK"));
                 }
 				break;

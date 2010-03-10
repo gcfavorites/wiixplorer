@@ -57,6 +57,7 @@ class Taskbar : public GuiWindow
 		Taskbar();
 		~Taskbar();
 
+		int CheckHomeButton();
 		int CheckStartMenu();
 		void CheckAppsMenu();
 		void CheckChannelsMenu();
@@ -72,7 +73,9 @@ class Taskbar : public GuiWindow
 		GuiText *timeTxt;
 		PictureButton *startBtn;
 		GuiTrigger *trigA;
+		GuiTrigger *trigHome;
 		GuiSound *soundClick, *soundOver;
+		GuiButton *homeBtn;
 };
 
 #endif // _TASKBAR_H

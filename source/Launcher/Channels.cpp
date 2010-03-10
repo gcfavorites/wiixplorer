@@ -70,6 +70,8 @@ typedef struct
 	u8  md5[0x10];
 } IMET;
 
+Channels *Channels::instance = NULL;
+
 Channels::Channels()
 {
 	Search();
@@ -77,6 +79,24 @@ Channels::Channels()
 
 Channels::~Channels()
 {
+}
+
+Channels * Channels::Instance()
+{
+	if (instance == NULL)
+	{
+		instance = new Channels();
+	}
+	return instance;
+}
+
+void Channels::DestroyInstance()
+{
+	if (instance)
+	{
+		delete instance;
+	}
+	instance = NULL;
 }
 
 u64* Channels::GetChannelList(u32* count)
@@ -207,7 +227,7 @@ bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 				MD5(md5, (unsigned char*)(&imet), sizeof(IMET));
 				if (memcmp(imetmd5, md5, 16) == 0)
 				{
-					// now we can be pretty sure that we have a valid imet :)
+ 					//now we can be pretty sure that we have a valid imet :)
 					if (imet.name_japanese[language*IMET_MAX_NAME_LEN] == 0)
 					{
 						// channel name is not available in system language
@@ -245,9 +265,9 @@ bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 	return ret;
 }
 
-void Channels::Launch(Channel channel)
+void Channels::Launch(int index)
 {
-	WII_LaunchTitle(channel.title);
+	WII_LaunchTitle(channels.at(index).title);
 }
 
 void Channels::Search()
