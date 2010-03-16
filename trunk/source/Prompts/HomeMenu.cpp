@@ -3,7 +3,7 @@
 #include "HomeMenu.h"
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
-#include "libwiigui/gui_bgm.h"
+#include "SoundOperations/gui_bgm.h"
 #include "sys.h"
 
 #include "Memory/Resources.h"

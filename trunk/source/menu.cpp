@@ -37,8 +37,8 @@
 #include <time.h>
 
 #include "libwiigui/gui.h"
-#include "libwiigui/gui_bgm.h"
 #include "libwiigui/gui_optionbrowser.h"
+#include "SoundOperations/gui_bgm.h"
 #include "Controls/Clipboard.h"
 #include "network/ChangeLog.h"
 #include "Menus/Explorer.h"

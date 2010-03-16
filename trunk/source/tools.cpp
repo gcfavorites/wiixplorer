@@ -290,8 +290,26 @@ extern "C" u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * size)
 			flags <<= 1;
 		}
 	}
-	
+
 	*size = uncSize;
 
 	return buffer;
+}
+
+extern "C" u32 CheckIMD5Type(const u8 * buffer, int length)
+{
+    const u8 * file = buffer+32;
+
+    if(*((u32 *) file) != 'LZ77')
+    {
+        return *((u32 *) file);
+    }
+
+    u32 uncSize = 0;
+    u8 * uncompressed_data = uncompressLZ77(buffer, length-32, &uncSize);
+
+    u32 Type = *((u32 *) uncompressed_data);
+    free(uncompressed_data);
+
+    return Type;
 }

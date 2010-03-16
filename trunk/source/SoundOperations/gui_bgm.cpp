@@ -25,14 +25,19 @@
  ***************************************************************************/
 #include <sys/dir.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <string.h>
 #include "gui_bgm.h"
+#include "filelist.h"
+#include "Language/gettext.h"
 #include "FileOperations/fileops.h"
 #include "main.h"
 
 GuiBGM *GuiBGM::instance = NULL;
 
 GuiBGM::GuiBGM()
-    :GuiSound(bg_music_ogg, bg_music_ogg_size)
+    :GuiSound(bg_music_ogg, bg_music_ogg_size, false)
 {
     loop = 0;
     currentPath = NULL;
@@ -175,7 +180,7 @@ bool GuiBGM::ParsePath(const char * filepath)
         if(fileext)
         {
             if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0
-               || strcasecmp(fileext, ".pcm") == 0)
+               || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".bin") == 0)
             {
                 AddEntrie(filename);
 

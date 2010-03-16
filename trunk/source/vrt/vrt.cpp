@@ -378,7 +378,7 @@ static DIR_ITER *lvrt_diropen(const char *cwd, char *path) {
  */
 static int lvrt_dirnext(DIR_ITER *iter, char *filename, struct stat *st) {
     if (iter->device == VRT_DEVICE_ID) {
-        for (; (int)iter->dirStruct < MAX_VIRTUAL_PARTITIONS; iter->dirStruct= ((char*)(iter->dirStruct))+1) {
+        for (; (int)iter->dirStruct < (int) MAX_VIRTUAL_PARTITIONS; iter->dirStruct= ((char*)(iter->dirStruct))+1) {
             VIRTUAL_PARTITION *partition = VIRTUAL_PARTITIONS + (int)iter->dirStruct;
             if (mounted(partition)) {
                 st->st_mode = S_IFDIR;

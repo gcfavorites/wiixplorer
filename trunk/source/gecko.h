@@ -8,6 +8,9 @@ extern "C" {
 #ifdef GEKKO
     bool InitGecko();
     void gprintf(const char * format, ...);
+    void gsenddata(const u8 *data, int length, const char *filename);
+    char ascii(char s);
+    void ghexdump(void *d, int len);
 #else
 	#define gprintf(...)
 	#define InitGecko()      false

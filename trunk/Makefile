@@ -31,6 +31,7 @@ SOURCES		:=	source \
 				source/FileStartUp \
 				source/FileOperations \
 				source/VideoOperations \
+				source/SoundOperations \
 				source/ImageOperations \
 				source/ImageOperations/libgd \
 				source/ImageOperations/libtiff \
@@ -57,8 +58,7 @@ INCLUDES	:=	source
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-
-CFLAGS		=	-ffast-math -g -O2 -mrvl -mcpu=750 -meabi -mhard-float -Wall $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DGEKKO -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG -DHAVE_LIBJPEG -DHAVE_LIBTIFF
+CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG -DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
@@ -166,31 +166,31 @@ language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 #---------------------------------------------------------------------------------
 %.elf.o : %.elf
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.dol.o : %.dol
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.ttf.o : %.ttf
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.png.o : %.png
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.ogg.o : %.ogg
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.pcm.o : %.pcm
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.bin.o	:	%.bin
 	@echo $(notdir $<)
-	$(bin2o)
+	@bin2s -a 32 $< | $(AS) -o $(@)
 
 export PATH		:=	$(PROJECTDIR)/gettext-bin:$(PATH)
 
