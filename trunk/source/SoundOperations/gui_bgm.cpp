@@ -180,7 +180,8 @@ bool GuiBGM::ParsePath(const char * filepath)
         if(fileext)
         {
             if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0
-               || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".bin") == 0)
+               || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".bin") == 0
+               || strcasecmp(fileext, ".wav") == 0 || strcasecmp(fileext, ".aiff") == 0)
             {
                 AddEntrie(filename);
 
