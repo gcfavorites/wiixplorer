@@ -55,13 +55,6 @@ void UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 	}
-
-    #ifdef DEBUG_MEM
-	if(userInput[0].wpad->btns_h & WPAD_BUTTON_1)
-        StartMemDebug();
-    else if(!(userInput[0].wpad->btns_h & WPAD_BUTTON_1))
-        StopMemDebug();
-    #endif
 }
 
 /****************************************************************************

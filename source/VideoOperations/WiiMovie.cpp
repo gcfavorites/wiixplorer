@@ -29,7 +29,7 @@
 #include "Controls/MainWindow.h"
 #include "WiiMovie.hpp"
 #include "ImageOperations/TextureConverter.h"
-#include "libwiigui/gui_bgm.h"
+#include "SoundOperations/gui_bgm.h"
 #include "menu.h"
 
 WiiMovie::WiiMovie(const char * filepath)

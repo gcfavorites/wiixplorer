@@ -31,6 +31,7 @@ extern "C" {
 #endif
 
 #include <gctypes.h>
+#include <ogc/lwp_watchdog.h>
 
 typedef struct _TimeStruct
 {
@@ -61,9 +62,23 @@ void EncryptString(const char *src, char *dst);
 void DecryptString(const char *src, char *dst);
 
 u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * uncSize);
+u32 CheckIMD5Type(const u8 * buffer, int length);
 
 #ifdef __cplusplus
 }
+
+class Timer
+{
+    public:
+        Timer() { starttick = gettime(); };
+        ~Timer() { };
+        float elapsed() { return (float) (gettime()-starttick)/(1000.0f*TB_TIMER_CLOCK); };
+        float elapsed_millisecs() { return 1000.0f*elapsed(); };
+        void reset() { starttick = gettime(); }
+    protected:
+        u64 starttick;
+};
+
 #endif //__cplusplus
 
 #endif /* SVNREV_H */

@@ -29,7 +29,7 @@
 #include <unistd.h>
 
 #include "MainWindow.h"
-#include "libwiigui/gui_bgm.h"
+#include "SoundOperations/gui_bgm.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Launcher/Channels.h"

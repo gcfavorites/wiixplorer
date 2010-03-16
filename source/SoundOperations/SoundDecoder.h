@@ -2,6 +2,8 @@
  * Copyright (C) 2010
  * by Dimok
  *
+ * Decoding functions by Hibernatus.
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -23,50 +25,19 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _BGM_H_
-#define _BGM_H_
+#ifndef SOUND_DECODER_H_
+#define SOUND_DECODER_H_
 
-#include "libwiigui/gui.h"
-
-enum
+typedef struct _SoundBlock
 {
-    ONCE = 0,
-    LOOP,
-    RANDOM_BGM,
-    DIR_LOOP,
-    MAX_LOOP_MODES
-};
+	u8 * buffer;
+	u32 size;
+	u8 format;
+	u32 frequency;
+} SoundBlock;
 
-class GuiBGM : public GuiSound
-{
-    public:
-		static GuiBGM * Instance();
-		static void DestroyInstance();
-
-        bool Load(const char *path, bool silent = true);
-        bool LoadStandard();
-        bool ParsePath(const char * filepath);
-        void Play();
-        void Stop();
-        bool PlayNext();
-        bool PlayPrevious();
-        bool PlayRandom();
-    protected:
-        GuiBGM();
-        ~GuiBGM();
-        void AddEntrie(const char * filename);
-        void ClearList();
-
-		static void * UpdateBMG(void *arg);
-        void UpdateState();
-		lwp_t bgmthread;
-		bool Stopped;
-		bool ExitRequested;
-
-		static GuiBGM *instance;
-        int currentPlaying;
-        char * currentPath;
-        std::vector<char *> PlayList;
-};
+SoundBlock DecodefromWAV(const u8 *buffer, u32 size);
+SoundBlock DecodefromAIFF(const u8 *buffer, u32 size);
+SoundBlock DecodefromBNS(const u8 *buffer, u32 size);
 
 #endif

@@ -166,17 +166,17 @@ void Applications::Search()
 
                     if (!GetNameFromXML(metaname, hbname))
                     {
-                        strncpy(hbname, dir.GetFilename(j), sizeof(hbname));
+                        snprintf(hbname, sizeof(hbname), dir.GetFilename(j));
                     }
                 }
                 else
                 {
-                    strncpy(hbname, dir.GetFilename(j), sizeof(hbname));
+                    snprintf(hbname, sizeof(hbname), dir.GetFilename(j));
                 }
 
                 Application app;
                 snprintf(app.path, sizeof(app.path), "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
-                strncpy(app.name, hbname, sizeof(app.name));
+                snprintf(app.name, sizeof(app.name), hbname);
 
                 applications.push_back(app);
             }

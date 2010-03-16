@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#include "libwiigui/gui_bgm.h"
+#include "SoundOperations/gui_bgm.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "BootHomebrew/BootHomebrew.h"
@@ -48,8 +48,11 @@ int FileStartUp(const char *filepath)
 			ImageLoader(filepath);
     }
     else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
-            || strcasecmp(fileext, ".pcm") == 0)
+            || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".wav") == 0
+            || strcasecmp(fileext, ".aiff") == 0)
     {
+        loadMusic:
+
         int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));
         if(choice)
         {
@@ -59,29 +62,43 @@ int FileStartUp(const char *filepath)
                 GuiBGM::Instance()->ParsePath(filepath);
         }
     }
-    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0
-            || strcasecmp(fileext, ".bin") == 0)
+    else if(strcasecmp(fileext, ".bin") == 0)
     {
-        //only open .bin as archive if its IMD5
-        if(strcasecmp(fileext, ".bin") == 0)
-        {
-            FILE * f = fopen(filepath, "rb");
-            if(!f)
-                goto loadtext;
+        FILE * f = fopen(filepath, "rb");
+        if(!f)
+            return -1;
 
-            u32 magic = 0;
-            fread(&magic, 1, 4, f);
+        u32 magic = 0;
+        fread(&magic, 1, 4, f);
+        if(magic == 'IMD5')
+        {
+            fseek(f, 0, SEEK_END);
+            int filesize = ftell(f);
+            u8 * buffer = (u8 *) malloc(filesize);
+            rewind(f);
+            fread(buffer, 1, filesize, f);
             fclose(f);
-            if(magic != 0x494D4435 /* IMD5 */ && magic != 0x55AA382D /* U.8- */)
-                goto loadtext;
-
-            return ARCHIVE;
+            magic = CheckIMD5Type(buffer, filesize);
+            free(buffer);
         }
-        else
+        fclose(f);
+
+        if(magic == 'RIFF' || magic == 'FORM' || magic == 'BNS ')
+        {
+            goto loadMusic;
+        }
+
+        if(magic == 0x55AA382D /* U.8- */)
         {
             return ARCHIVE;
         }
+
+        goto loadtext;
+    }
+    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
+            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0)
+    {
+        return ARCHIVE;
     }
     else if(strcasecmp(fileext, ".lang") == 0)
     {

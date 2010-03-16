@@ -79,7 +79,7 @@ bool DirList::LoadPath(const char * folder, const char *filter)
                 if(fileext)
                 {
 					char filterCopy[256];
-					strncpy(filterCopy, filter, 255);
+					snprintf(filterCopy, sizeof(filterCopy), filter);
 
 					char * filterTok = strtok(filterCopy, ",");
 

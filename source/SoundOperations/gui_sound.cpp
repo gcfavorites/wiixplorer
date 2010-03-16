@@ -8,21 +8,45 @@
  * GUI class definitions
  ***************************************************************************/
 
-#include "gui.h"
+#include "libwiigui/gui.h"
 #include "libmad/mp3player.h"
+#include "SoundOperations/SoundDecoder.h"
+
+#define MAX_SND_VOICES      16
+
+static bool VoiceUsed[MAX_SND_VOICES] =
+{
+    true, false, false, false, false, false,
+    false, false, false, false, false, false,
+    false, false, false, false
+};
+
+static int GetFirstUnusedVoice()
+{
+    for(int i = 1; i < MAX_SND_VOICES; i++)
+    {
+        if(VoiceUsed[i] == false)
+            return i;
+    }
+
+    return -1;
+}
 
 /**
  * Constructor for the GuiSound class.
  */
 GuiSound::GuiSound(const u8 * snd, s32 len, bool isallocated)
 {
-    sound = snd;
-	length = len;
-	type = GetType(snd, len);
+    sound = NULL;
+	length = 0;
+	type = 0;
 	voice = -1;
 	volume = 100;
 	loop = false;
-	allocated = isallocated;
+	allocated = false;
+	format = VOICE_STEREO_16BIT;
+	frequency = 48000;
+	Load(snd, len, isallocated);
 }
 
 /**
@@ -34,7 +58,7 @@ GuiSound::~GuiSound()
 
     if(allocated && sound != NULL)
     {
-        free((u8*) sound);
+        free(sound);
         sound = NULL;
     }
 }
@@ -49,10 +73,35 @@ bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
         sound = NULL;
     }
 
-    sound = snd;
-	length = len;
-	type = GetType(snd, len);
-	allocated = isallocated;
+    if(*((u32 *) snd) == 'IMD5')
+    {
+        const u8 * file = snd+32;
+        if(*((u32 *) file) == 'LZ77')
+        {
+            u32 size = 0;
+            sound = uncompressLZ77(file, len-32, &size);
+            length = size;
+        }
+        else
+        {
+            length = len-32;
+            sound = (u8 *) malloc(length);
+            memcpy(sound, file, length);
+        }
+
+        if(isallocated)
+            free((u8 *) snd);
+
+        allocated = true;
+    }
+    else
+    {
+        sound = (u8 *) snd;
+        length = len;
+        allocated = isallocated;
+    }
+
+	type = GetType();
 
 	return true;
 }
@@ -69,10 +118,13 @@ void GuiSound::Play()
 	switch(type)
 	{
 		case SOUND_PCM:
-            voice = ASND_GetFirstUnusedVoice();
+            voice = GetFirstUnusedVoice();
             if(voice > 0)
-                ASND_SetVoice(voice, VOICE_STEREO_16BIT, 48000, 0,
+            {
+                ASND_SetVoice(voice, format, frequency, 0,
                               (u8 *)sound, length, volume, volume, NULL);
+                VoiceUsed[voice] = true;
+            }
             break;
 
 		case SOUND_OGG:
@@ -91,6 +143,9 @@ void GuiSound::Stop()
 {
 	if(voice < 0)
 		return;
+
+    if(voice > 1)
+        VoiceUsed[voice] = false;
 
 	switch(type)
 	{
@@ -220,7 +275,7 @@ static bool CheckMP3Signature(const u8 * buffer)
     return false;
 }
 
-int GuiSound::GetType(const u8 * sound, int len)
+int GuiSound::GetType()
 {
     int MusicType = -1;
 
@@ -228,18 +283,81 @@ int GuiSound::GetType(const u8 * sound, int len)
     int cnt = 0;
 
     //!Skip 0 ... whysoever some files have
-    while(check[0] == 0 && cnt < len)
+    while(check[0] == 0 && cnt < length)
     {
         check++;
         cnt++;
     }
 
-    if(cnt >= len)
+    if(cnt >= length)
         return MusicType;
 
-    if(check[0] == 'O' && check[1] == 'g' && check[2] == 'g' && check[3] == 'S')
+    if(*((u32*) check) == 'OggS')
     {
         MusicType = SOUND_OGG;
+    }
+    else if(*((u32*) check) == 'RIFF')
+    {
+        SoundBlock Block = DecodefromWAV(sound, length);
+
+        if(allocated)
+            free(sound);
+
+        sound = NULL;
+        length = 0;
+
+        if(!Block.buffer)
+            return SOUND_PCM;
+
+        length = Block.size;
+        sound = Block.buffer;
+        format = Block.format;
+        frequency = Block.frequency;
+
+        allocated = true;
+        MusicType = SOUND_PCM;
+    }
+    else if(*((u32*) check) == 'BNS ')
+    {
+        SoundBlock Block = DecodefromBNS(sound, length);
+
+        if(allocated)
+            free(sound);
+
+        sound = NULL;
+        length = 0;
+
+        if(!Block.buffer)
+            return SOUND_PCM;
+
+        length = Block.size;
+        sound = Block.buffer;
+        format = Block.format;
+        frequency = Block.frequency;
+        MusicType = SOUND_PCM;
+
+        allocated = true;
+    }
+    else if(*((u32*) check) == 'FORM')
+    {
+        SoundBlock Block = DecodefromAIFF(sound, length);
+
+        if(allocated)
+            free(sound);
+
+        sound = NULL;
+        length = 0;
+
+        if(!Block.buffer)
+            return SOUND_PCM;
+
+        length = Block.size;
+        sound = Block.buffer;
+        format = Block.format;
+        frequency = Block.frequency;
+        MusicType = SOUND_PCM;
+
+        allocated = true;
     }
     else if(CheckMP3Signature(check) == true)
     {
