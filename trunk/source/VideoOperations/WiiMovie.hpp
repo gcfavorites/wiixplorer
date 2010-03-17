@@ -6,13 +6,6 @@
 
 using namespace std;
 
-typedef struct _VFrame
-{
-    u8 * videobuffer;
-    vector<s16> soundbuffer;
-    int soundlength;
-} VFrame;
-
 class WiiMovie : public GuiElement
 {
     public:
@@ -26,16 +19,21 @@ class WiiMovie : public GuiElement
     protected:
         void OnExitClick(GuiElement *sender, int pointer, POINT p);
         void InternalUpdate();
+		static void * UpdateThread(void *arg);
+        void InternalThreadUpdate();
         void FillBuffer();
         void LoadNextFrame();
         u8 * ConvertToFlippedRGBA(const u8 * src, u32 width, u32 height);
 
+		lwp_t ReadThread;
+		mutex_t mutex;
+
         VideoFile * Video;
+        Timer PlayTime;
         u32 VideoFrameCount;
-        vector<VFrame> Frames;
+        vector<u8 *> Frames;
 		bool Playing;
 		bool ExitRequested;
-		u32 FrameCountGlobal;
 		int SndChannels;
 		int SndFrequence;
 		int volume;

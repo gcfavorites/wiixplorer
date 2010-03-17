@@ -32,10 +32,18 @@
 #include "SoundOperations/gui_bgm.h"
 #include "menu.h"
 
+#define SND_BUFFERS     20
+
+static u8 which = 0;
+static vector<s16> soundbuffer[2];
+static u16 sndsize[2] = {0, 0};
+static u16 MaxSoundSize = 0;
+
 WiiMovie::WiiMovie(const char * filepath)
 {
     VideoFrameCount = 0;
     ExitRequested = false;
+    Playing = false;
     volume = 255*80/100;
 
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
@@ -59,8 +67,10 @@ WiiMovie::WiiMovie(const char * filepath)
 
     SndChannels = (Video->getNumChannels() == 2) ? VOICE_STEREO_16BIT : VOICE_MONO_16BIT;
     SndFrequence = Video->getFrequency();
+    MaxSoundSize = Video->getMaxAudioSamples()*2;
 
-    FrameCountGlobal = frameCount;
+    LWP_MutexInit(&mutex, true);
+	LWP_CreateThread (&ReadThread, UpdateThread, this, NULL, 0, LWP_PRIO_HIGHEST);
 }
 
 WiiMovie::~WiiMovie()
@@ -68,20 +78,29 @@ WiiMovie::~WiiMovie()
     if(parentElement)
         ((GuiWindow *) parentElement)->Remove(this);
 
+    Playing = true;
     ExitRequested = true;
+
+    LWP_JoinThread(ReadThread, NULL);
+    LWP_MutexDestroy(mutex);
 
     ASND_StopVoice(0);
     GuiBGM::Instance()->Play();
 
     for(u32 i = 0; i < Frames.size(); i++)
     {
-        if(Frames.at(i).videobuffer)
-            free(Frames.at(i).videobuffer);
+        if(Frames.at(i))
+            free(Frames.at(i));
 
-        Frames.at(i).videobuffer = NULL;
-        Frames.at(i).soundbuffer.clear();
-
+        Frames.at(i) = NULL;
     }
+
+    for(u8 i = 0; i < 2; i++)
+    {
+        soundbuffer[i].clear();
+        sndsize[i] = 0;
+    }
+    which = 0;
 
     Frames.clear();
 
@@ -98,8 +117,9 @@ bool WiiMovie::Play()
     if(!Video)
         return false;
 
-    FrameCountGlobal = frameCount;
     Playing = true;
+    PlayTime.reset();
+    LWP_ResumeThread(ReadThread);
 
     InternalUpdate();
 
@@ -128,6 +148,67 @@ void WiiMovie::FillBuffer()
         LoadNextFrame();
 }
 
+extern "C" void callback(int voice)
+{
+    if(soundbuffer[which].size() == 0 || sndsize[which] < MaxSoundSize*(SND_BUFFERS-1))
+        return;
+
+    if(ASND_AddVoice(0, (u8*) &soundbuffer[which][0], sndsize[which]) != SND_OK)
+    {
+        return;
+    }
+
+    which ^= 1;
+
+    sndsize[which] = 0;
+}
+
+void * WiiMovie::UpdateThread(void *arg)
+{
+	while(!((WiiMovie *) arg)->ExitRequested)
+	{
+        ((WiiMovie *) arg)->InternalThreadUpdate();
+	}
+	return NULL;
+}
+
+void WiiMovie::InternalThreadUpdate()
+{
+    if(!Playing)
+        LWP_SuspendThread(ReadThread);
+
+    u32 FramesNeeded = (u32) (PlayTime.elapsed()*Video->getFps());
+
+    while(VideoFrameCount < FramesNeeded)
+    {
+        LWP_MutexLock(mutex);
+        Video->loadNextFrame();
+        LWP_MutexUnlock(mutex);
+
+        ++VideoFrameCount;
+
+        if(Video->hasSound())
+        {
+            if(sndsize[which] > MaxSoundSize*(SND_BUFFERS-1))
+                return;
+
+            if(soundbuffer[which].size() == 0)
+                soundbuffer[which].resize(Video->getMaxAudioSamples()*2*SND_BUFFERS);
+
+            sndsize[which] += Video->getCurrentBuffer(&soundbuffer[which][sndsize[which]/2])*2*2;
+
+            if(ASND_StatusVoice(0) == SND_UNUSED && sndsize[which] >= MaxSoundSize*(SND_BUFFERS-1))
+            {
+                ASND_StopVoice(0);
+                ASND_SetVoice(0, SndChannels, SndFrequence, 0, (u8 *) &soundbuffer[which][0], sndsize[which], volume, volume, callback);
+                which ^= 1;
+            }
+        }
+    }
+
+    usleep(100);
+}
+
 void WiiMovie::LoadNextFrame()
 {
     if(!Video || !Playing)
@@ -136,32 +217,20 @@ void WiiMovie::LoadNextFrame()
         return;
     }
 
-    u32 FramesNeeded = VideoFrameCount+frameCount-FrameCountGlobal;
-    FrameCountGlobal = frameCount;
-
-    do
-    {
-        Video->loadNextFrame();
-        ++VideoFrameCount;
-    }
-    while(VideoFrameCount < FramesNeeded);
-
     VideoFrame VideoF;
+    LWP_MutexLock(mutex);
     Video->getCurrentFrame(VideoF);
+    LWP_MutexUnlock(mutex);
+
+    if(!VideoF.getData())
+        return;
 
     width = VideoF.getWidth();
     height = VideoF.getHeight();
 
-    VFrame TmpFrame;
+    u8 * videobuffer = ConvertToFlippedRGBA(VideoF.getData(), VideoF.getWidth(), VideoF.getHeight());
 
-    TmpFrame.videobuffer = ConvertToFlippedRGBA(VideoF.getData(), VideoF.getWidth(), VideoF.getHeight());
-
-    if(Video->hasSound())
-    {
-        TmpFrame.soundbuffer.resize(Video->getMaxAudioSamples()*2);
-        TmpFrame.soundlength = Video->getCurrentBuffer(&TmpFrame.soundbuffer[0])*2*2;
-    }
-    Frames.push_back(TmpFrame);
+    Frames.push_back(videobuffer);
 }
 
 void WiiMovie::InternalUpdate()
@@ -182,29 +251,16 @@ void WiiMovie::Draw()
 
     background->Draw();
 
-    if(Frames.at(3).videobuffer)
+    if(Frames.at(3))
     {
-        Menu_DrawImg(GetLeft(), GetTop(), 1.0f, width, height, Frames.at(3).videobuffer, 0, GetScaleX(), GetScaleY(), GetAlpha());
+        Menu_DrawImg(GetLeft(), GetTop(), 1.0f, width, height, Frames.at(3), 0, GetScaleX(), GetScaleY(), GetAlpha());
     }
 
-    if(Video->hasSound())
+    if(Frames.size() > 4)
     {
-        if(ASND_StatusVoice(0) == SND_UNUSED)
-        {
-            ASND_StopVoice(0);
-            ASND_SetVoice(0, SndChannels, SndFrequence, 0, (u8 *) &Frames.at(3).soundbuffer[0], Frames.at(3).soundlength, volume, volume, NULL);
-        }
-        else
-        {
-            ASND_AddVoice(0, (u8 *) &Frames.at(3).soundbuffer[0], Frames.at(3).soundlength);
-        }
-    }
-
-    if(Frames.size() > 5)
-    {
-        if(Frames.at(0).videobuffer)
-            free(Frames.at(0).videobuffer);
-        Frames.at(0).soundbuffer.clear();
+        if(Frames.at(0))
+            free(Frames.at(0));
+        Frames.at(0) = NULL;
         Frames.erase(Frames.begin());
     }
 }
