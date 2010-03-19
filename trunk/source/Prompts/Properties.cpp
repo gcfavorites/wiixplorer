@@ -77,7 +77,7 @@ Properties::Properties(const char * filepath)
     arrowUp = Resources::GetImageData(close_png, close_png_size);
     arrowUpOver = Resources::GetImageData(close_over_png, close_over_png_size);
 
-    btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+    btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
     dialogBoxImg = new GuiImage(dialogBox);
 

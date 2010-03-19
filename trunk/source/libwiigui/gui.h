@@ -42,7 +42,7 @@
 #include <math.h>
 #include <asndlib.h>
 #include <wiiuse/wpad.h>
-#include "ImageOperations/libgd/gd.h"
+#include <gd.h>
 #include "FreeTypeGX.h"
 #include "Language/gettext.h"
 #include "VideoOperations/video.h"

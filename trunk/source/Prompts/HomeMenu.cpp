@@ -20,8 +20,8 @@ HomeMenu::HomeMenu()
 	trigHome = new GuiTrigger();
 	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
 
-	ButtonClickSnd = Resources::GetSound(button_click_pcm, button_click_pcm_size);
-	ButtonOverSnd = Resources::GetSound(button_over_pcm, button_over_pcm_size);
+	ButtonClickSnd = Resources::GetSound(button_click_wav, button_click_wav_size);
+	ButtonOverSnd = Resources::GetSound(button_over_wav, button_over_wav_size);
 
 	TopBtnImgData = new GuiImageData(homemenu_top_png, homemenu_top_png_size);
 	TopBtnOverImgData = new GuiImageData(homemenu_top_over_png, homemenu_top_over_png_size);

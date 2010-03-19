@@ -134,17 +134,9 @@ int ServerFtpGui()
 {
 	int menu = MENU_NONE;
 
-    GuiImageData * sdstorage;
-    GuiImageData * usbstorage;
-    GuiImageData * networkstorage;
-				
-				
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
-	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
-	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
-	networkstorage = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);

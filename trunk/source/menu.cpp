@@ -158,7 +158,7 @@ static int MenuSettings()
 	options.SetName(i++, tr("App Path"));
 	options.SetName(i++, tr("Customfont Path"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -356,7 +356,7 @@ static int MenuSMBSettings()
 	options.SetName(i++, tr("SMB Name:"));
 	options.SetName(i++, tr("Reconnect SMB"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -512,7 +512,7 @@ static int MenuFTPSettings()
 	options.SetName(i++, tr("Passive Mode:"));
 	options.SetName(i++, tr("Reconnect FTP"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -690,7 +690,7 @@ static int MenuFTPServerSettings()
 	options.SetName(i++, tr("Enable Delete dir:"));
 
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 
@@ -889,7 +889,7 @@ static int MenuNetworkSettings()
 	options.SetName(i++, tr("FTP Client Settings"));
 	options.SetName(i++, tr("FTP Server Settings"));
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 

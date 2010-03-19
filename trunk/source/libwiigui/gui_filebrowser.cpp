@@ -32,8 +32,8 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 	trigHeldA = new GuiTrigger;
 	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
-	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
 	bgFileSelectionEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
 	fileArchives = Resources::GetImageData(icon_archives_png, icon_archives_png_size);
@@ -428,19 +428,31 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 				    {
                         if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0 || strcasecmp(fileext, ".gif") == 0 ||
 						   strcasecmp(fileext, ".tga") == 0 || strcasecmp(fileext, ".tpl") == 0 || strcasecmp(fileext, ".bmp") == 0 ||
-						   strcasecmp(fileext, ".tif") == 0) {
+						   strcasecmp(fileext, ".tif") == 0)
+                        {
                             fileList[i]->SetIcon(fileListGFX[i]);
-                        } else if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".wav") == 0) {
+                        }
+                        else if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0
+                                  || strcasecmp(fileext, ".wav") == 0 || strcasecmp(fileext, ".aif") == 0
+                                  || strcasecmp(fileext, ".pcm") == 0 )
+                        {
                             fileList[i]->SetIcon(fileListSFX[i]);
-                        } else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0) {
+                        }
+                        else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0)
+                        {
                             fileList[i]->SetIcon(fileListPLS[i]);
-                        } else if(strcasecmp(fileext, ".txt") == 0) {
+                        }
+                        else if(strcasecmp(fileext, ".txt") == 0)
+                        {
                             fileList[i]->SetIcon(fileListTXT[i]);
-                        } else if(strcasecmp(fileext, ".xml") == 0) {
+                        }
+                        else if(strcasecmp(fileext, ".xml") == 0)
+                        {
                             fileList[i]->SetIcon(fileListXML[i]);
-                        } else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-                                  strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
-                                  strcasecmp(fileext, ".bin") == 0)
+                        }
+                        else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0 ||
+                                strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
+                                strcasecmp(fileext, ".bin") == 0 || strcasecmp(fileext, ".arc") == 0)
                         {
                             fileList[i]->SetIcon(fileListArchives[i]);
                         }
@@ -454,7 +466,9 @@ void GuiFileBrowser::Update(GuiTrigger * t)
                         {
                             fileList[i]->SetIcon(fileListDefault[i]);
                         }
-				    } else {
+				    }
+				    else
+				    {
                         fileList[i]->SetIcon(fileListDefault[i]);
 				    }
 				}

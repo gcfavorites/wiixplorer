@@ -62,7 +62,7 @@ DeviceMenu::DeviceMenu(int x, int y)
 	trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
 
-	btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
     for(int i = 0; i < MAXDEVICES; i++)
     {

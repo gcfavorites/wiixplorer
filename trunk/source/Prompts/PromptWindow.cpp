@@ -53,8 +53,8 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
     choice = -1;
 	resetstate = r;
 	
-	btnClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
-	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
+	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger();

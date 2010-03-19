@@ -311,6 +311,11 @@ void ArchiveBrowser::ClearList()
             delete [] PathStructure.at(i)->filename;
             PathStructure.at(i)->filename = NULL;
         }
+        if(PathStructure.at(i) != NULL)
+        {
+            delete PathStructure.at(i);
+            PathStructure.at(i) = NULL;
+        }
     }
 
     PathStructure.clear();

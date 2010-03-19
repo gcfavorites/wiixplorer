@@ -9,7 +9,27 @@
 #ifndef _FILELIST_H_
 #define _FILELIST_H_
 
-#include <gccore.h>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#include <gctypes.h>
+
+extern const u8		font_ttf[];
+extern const u32	font_ttf_size;
+
+extern const u8		clock_ttf[];
+extern const u32	clock_ttf_size;
+
+extern const u8		bg_music_ogg[];
+extern const u32	bg_music_ogg_size;
+
+extern const u8		button_over_wav[];
+extern const u32	button_over_wav_size;
+
+extern const u8		button_click_wav[];
+extern const u32	button_click_wav_size;
 
 extern const u8		bg_cftp_png[];
 extern const u32	bg_cftp_png_size;
@@ -40,21 +60,6 @@ extern const u32	start_png_size;
 
 extern const u8		start_over_png[];
 extern const u32	start_over_png_size;
-
-extern const u8		font_ttf[];
-extern const u32	font_ttf_size;
-
-extern const u8		clock_ttf[];
-extern const u32	clock_ttf_size;
-
-extern const u8		bg_music_ogg[];
-extern const u32	bg_music_ogg_size;
-
-extern const u8		button_over_pcm[];
-extern const u32	button_over_pcm_size;
-
-extern const u8		button_click_pcm[];
-extern const u32	button_click_pcm_size;
 
 extern const u8		WiiXplorer_png[];
 extern const u32	WiiXplorer_png_size;
@@ -349,5 +354,15 @@ extern const u32	battery_bar_png_size;
 
 extern const u8		battery_png[];
 extern const u32	battery_png_size;
+
+extern const u8		app_booter_dol[];
+extern const u32	app_booter_dol_size;
+
+extern const u8		ehcmodule_elf[];
+extern const u32	ehcmodule_elf_size;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

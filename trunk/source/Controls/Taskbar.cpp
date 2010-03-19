@@ -65,8 +65,8 @@ Taskbar::Taskbar()
 	timeTxt->SetPosition(517, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
-	soundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
-	soundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
+	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	soundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigHome = new GuiTrigger();
 	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);

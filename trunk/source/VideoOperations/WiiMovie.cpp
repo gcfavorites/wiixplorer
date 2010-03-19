@@ -81,6 +81,7 @@ WiiMovie::~WiiMovie()
     Playing = true;
     ExitRequested = true;
 
+    LWP_ResumeThread(ReadThread);
     LWP_JoinThread(ReadThread, NULL);
     LWP_MutexDestroy(mutex);
 
@@ -148,7 +149,7 @@ void WiiMovie::FillBuffer()
         LoadNextFrame();
 }
 
-extern "C" void callback(int voice)
+extern "C" void THPSoundCallback(int voice)
 {
     if(soundbuffer[which].size() == 0 || sndsize[which] < MaxSoundSize*(SND_BUFFERS-1))
         return;
@@ -200,7 +201,7 @@ void WiiMovie::InternalThreadUpdate()
             if(ASND_StatusVoice(0) == SND_UNUSED && sndsize[which] >= MaxSoundSize*(SND_BUFFERS-1))
             {
                 ASND_StopVoice(0);
-                ASND_SetVoice(0, SndChannels, SndFrequence, 0, (u8 *) &soundbuffer[which][0], sndsize[which], volume, volume, callback);
+                ASND_SetVoice(0, SndChannels, SndFrequence, 0, (u8 *) &soundbuffer[which][0], sndsize[which], volume, volume, THPSoundCallback);
                 which ^= 1;
             }
         }

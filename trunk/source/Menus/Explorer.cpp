@@ -150,8 +150,8 @@ void Explorer::Setup()
 	trigMinus = new GuiTrigger();
     trigMinus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_MINUS | WPAD_CLASSIC_BUTTON_MINUS, 0);
 
-	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
-	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
+	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
     creditsImgData = Resources::GetImageData(WiiXplorer_png, WiiXplorer_png_size);
 	Background = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
