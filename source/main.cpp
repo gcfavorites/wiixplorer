@@ -31,11 +31,10 @@
 #include <unistd.h>
 #include <ogc/machine/processor.h>
 
-#include "pngu/pngu.h"
+#include "pngu.h"
 #include "video.h"
 #include "filelist.h"
 #include "dolloader.h"
-#include "elfloader.h"
 #include "cfg.h"
 #include "fatmounter.h"
 
@@ -154,7 +153,7 @@ int main(int argc, char **argv)
 	u32 cookie;
 	FILE *exeFile = NULL;
 	void *exeBuffer          = (void *)EXECUTABLE_MEM_ADDR;
-	int exeSize              = 0;
+	u32 exeSize              = 0;
 	u32 exeEntryPointAddress = 0;
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
@@ -252,7 +251,7 @@ int main(int argc, char **argv)
 	exeSize = ftell(exeFile);
 	fseek (exeFile, 0, SEEK_SET);
 
-	if(fread (exeBuffer, 1, exeSize, exeFile) != (unsigned int) exeSize)
+	if(fread (exeBuffer, 1, exeSize, exeFile) != exeSize)
 	{
 		fadeout(imgdata);
         fclose (exeFile);
@@ -277,12 +276,23 @@ int main(int argc, char **argv)
 	args.argv = &args.commandLine;
 	args.endARGV = args.argv + 1;
 
-	int ret = valid_elf_image(exeBuffer);
-	if (ret == 1)
-		exeEntryPointAddress = load_elf_image(exeBuffer);
-	else
-		exeEntryPointAddress = load_dol_image(exeBuffer, &args);
+	u8 * appboot_buff = (u8 *) malloc(app_booter_dol_size);
+	if(!appboot_buff)
+	{
+		fadeout(imgdata);
+        SDCard_deInit();
+        USBDevice_deInit();
+        StopGX();
+        free(imgdata);
+		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+	}
 
+    memcpy(appboot_buff, app_booter_dol, app_booter_dol_size);
+
+	exeEntryPointAddress = load_dol_image(appboot_buff, &args);
+
+    if(appboot_buff)
+        free(appboot_buff);
 
 	fadeout(imgdata);
 	SDCard_deInit();
