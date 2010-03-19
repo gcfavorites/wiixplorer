@@ -29,7 +29,7 @@
 #define TPL_IMAGE_H_
 
 #include <gccore.h>
-#include "ImageOperations/libgd/gd.h"
+#include <gd.h>
 
 #define MAX_TPL_TEXTURES    255
 

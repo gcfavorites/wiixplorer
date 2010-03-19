@@ -60,8 +60,8 @@ TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
 	trigPlus = new GuiTrigger;
 	trigPlus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
 
-	btnSoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
-	btnSoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
 	bgTexteditorData = Resources::GetImageData(textreader_box_png, textreader_box_png_size);
 	bgTexteditorImg = new GuiImage(bgTexteditorData);

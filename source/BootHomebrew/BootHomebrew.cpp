@@ -11,9 +11,7 @@
 #include "network/networkops.h"
 #include "devicemounter.h"
 #include "dolloader.h"
-
-extern const u8		app_booter_dol[];
-extern const u32	app_booter_dol_size;
+#include "filelist.h"
 
 static u8 *homebrewbuffer = (u8 *) 0x92000000;
 static u32 homebrewsize = 0;

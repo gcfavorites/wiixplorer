@@ -103,7 +103,7 @@ int LanguageBrowser()
 	    }
 	}
 
-	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size);
+	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 

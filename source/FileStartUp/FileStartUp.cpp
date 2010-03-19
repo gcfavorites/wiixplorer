@@ -49,7 +49,7 @@ int FileStartUp(const char *filepath)
     }
     else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
             || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".wav") == 0
-            || strcasecmp(fileext, ".aiff") == 0)
+            || strcasecmp(fileext, ".aif") == 0)
     {
         loadMusic:
 
@@ -96,7 +96,8 @@ int FileStartUp(const char *filepath)
         goto loadtext;
     }
     else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0)
+            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
+            strcasecmp(fileext, ".arc") == 0)
     {
         return ARCHIVE;
     }

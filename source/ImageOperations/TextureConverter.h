@@ -35,7 +35,7 @@ extern "C"
 #endif
 
 #include <gccore.h>
-#include "ImageOperations/libgd/gd.h"
+#include <gd.h>
 
 bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
 bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);

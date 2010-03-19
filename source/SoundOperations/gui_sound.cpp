@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "libwiigui/gui.h"
-#include "libmad/mp3player.h"
+#include <mp3player.h>
 #include "SoundOperations/SoundDecoder.h"
 
 #define MAX_SND_VOICES      16

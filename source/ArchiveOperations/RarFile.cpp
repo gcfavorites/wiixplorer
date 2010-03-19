@@ -102,6 +102,11 @@ void RarFile::ClearList()
             delete [] RarStructure.at(i)->filename;
             RarStructure.at(i)->filename = NULL;
         }
+        if(RarStructure.at(i) != NULL)
+        {
+            delete RarStructure.at(i);
+            RarStructure.at(i) = NULL;
+        }
     }
 
     RarStructure.clear();

@@ -108,8 +108,8 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyLarge = Resources::GetImageData(keyboard_largekey_png, keyboard_largekey_png_size);
 	keyLargeOver = Resources::GetImageData(keyboard_largekey_over_png, keyboard_largekey_over_png_size);
 
-	keySoundOver = Resources::GetSound(button_over_pcm, button_over_pcm_size);
-	keySoundClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+	keySoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	keySoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);

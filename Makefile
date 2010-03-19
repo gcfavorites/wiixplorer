@@ -19,9 +19,6 @@ TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source \
 				source/libwiigui \
-				source/images \
-				source/fonts \
-				source/sounds \
 				source/Menus \
 				source/network \
 				source/Prompts \
@@ -33,16 +30,12 @@ SOURCES		:=	source \
 				source/VideoOperations \
 				source/SoundOperations \
 				source/ImageOperations \
-				source/ImageOperations/libgd \
-				source/ImageOperations/libtiff \
 				source/TextOperations \
 				source/Language \
 				source/usbstorage \
 				source/mload \
-				source/libmad \
 				source/libtinysmb \
 				source/libdisk \
-				source/libntfs \
 				source/libftp \
 				source/ArchiveOperations \
 				source/ArchiveOperations/unzip \
@@ -54,17 +47,21 @@ SOURCES		:=	source \
 				source/vrt \
 				source/Launcher
 INCLUDES	:=	source
+DATA		:=	data/images data/sounds data/fonts data/binary
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG -DHAVE_LIBJPEG -DHAVE_LIBTIFF
+CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H \
+				-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG \
+				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ljpeg -lpng -ldi -lz -lfat -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
+LIBS := -ldi -lz -lfat -lntfs -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype \
+		-lmxml -lgd -ltiff -ljpeg -lpng 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -79,7 +76,8 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
 export PROJECTDIR 	:= $(CURDIR)
 export OUTPUT		:=	$(CURDIR)/$(TARGETDIR)/$(TARGET)
-export VPATH		:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
+export VPATH		:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
+						$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export DEPSDIR		:=	$(CURDIR)/$(BUILD)
 
 #---------------------------------------------------------------------------------
@@ -90,13 +88,14 @@ export CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 export CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
-TTFFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.ttf)))
-PNGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.png)))
-OGGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.ogg)))
-PCMFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.pcm)))
-ELFFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.elf)))
-DOLFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.dol)))
-BINFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.bin)))
+TTFFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.ttf)))
+PNGFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
+OGGFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.ogg)))
+WAVFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.wav)))
+PCMFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.pcm)))
+ELFFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.elf)))
+DOLFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.dol)))
+BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bin)))
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
@@ -112,6 +111,7 @@ export OFILES	:=	$(BINFILES:.bin=.bin.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o) \
 					$(TTFFILES:.ttf=.ttf.o) $(PNGFILES:.png=.png.o) \
 					$(OGGFILES:.ogg=.ogg.o) $(PCMFILES:.pcm=.pcm.o) \
+					$(WAVFILES:.wav=.wav.o) \
 					$(addsuffix .o,$(ELFFILES)) $(addsuffix .o,$(DOLFILES))
 
 #---------------------------------------------------------------------------------
@@ -185,6 +185,10 @@ language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.pcm.o : %.pcm
+	@echo $(notdir $<)
+	@bin2s -a 32 $< | $(AS) -o $(@)
+
+%.wav.o : %.wav
 	@echo $(notdir $<)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 

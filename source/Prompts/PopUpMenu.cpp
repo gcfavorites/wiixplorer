@@ -47,7 +47,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	hasIcons = false;
 	hasSubmenus = false;
 
-	PopUpMenuClick = Resources::GetSound(button_click_pcm, button_click_pcm_size);
+	PopUpMenuClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
 	PopUpMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
 	PopUpMenuMiddle = Resources::GetImageData(ClickMenuMiddle_png, ClickMenuMiddle_png_size);

@@ -6,7 +6,7 @@
 #include <sdcard/wiisd_io.h>
 
 #include "usbstorage/usbstorage.h"
-#include "libntfs/ntfs.h"   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
+#include <ntfs.h>   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
 
 #include "devicemounter.h"
 #include "libdisk/fst.h"
