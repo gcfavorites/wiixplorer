@@ -605,7 +605,7 @@ bool CFtpServer::CClientEntry::CheckPrivileges( unsigned char ucPriv ) const
 // SHELL
 ////////////////////////////////////////
 
-boolean CFtpServer::CClientEntry::Shell( void )
+bool CFtpServer::CClientEntry::Shell( void )
 {
 	struct stat st;
 	int nCmd;

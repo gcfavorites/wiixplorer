@@ -754,7 +754,7 @@ private:
 
 	u32 nPasswordTries;
 
-	boolean Shell( void);
+	bool Shell( void);
 	
 	time_t lastcmd;
 	bool   timercmdstart;

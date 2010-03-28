@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,6 +56,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr ""
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr ""
 
@@ -71,10 +74,16 @@ msgstr ""
 msgid "Auto Connect"
 msgstr ""
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
+msgstr ""
+
+msgid "Both"
 msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
@@ -139,6 +148,12 @@ msgstr ""
 msgid "Console Default"
 msgstr ""
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr ""
 
@@ -157,6 +172,9 @@ msgstr ""
 msgid "Could not connect to the server."
 msgstr ""
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr ""
 
@@ -164,6 +182,9 @@ msgid "Could not download file."
 msgstr ""
 
 msgid "Could not extract file:"
+msgstr ""
+
+msgid "Could not load image."
 msgstr ""
 
 msgid "Could not load text file."
@@ -228,9 +249,6 @@ msgid "Do you want to load this language file?"
 msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr ""
-
-msgid "Do you want to open this file with ImageViewer?"
 msgstr ""
 
 msgid "Do you want to playback this file?"
@@ -396,6 +414,9 @@ msgstr ""
 msgid "Filetype:"
 msgstr ""
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr ""
 
@@ -408,6 +429,9 @@ msgstr ""
 msgid "Ftp stopped"
 msgstr ""
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr ""
 
@@ -417,16 +441,46 @@ msgstr ""
 msgid "Home Menu"
 msgstr ""
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
+msgstr ""
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
 msgstr ""
 
 msgid "Image Viewer"
 msgstr ""
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
+msgstr ""
+
+msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
@@ -459,6 +513,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr ""
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -475,6 +532,9 @@ msgid "Music Loop Mode"
 msgstr ""
 
 msgid "Music Volume"
+msgstr ""
+
+msgid "NONE"
 msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
@@ -520,6 +580,12 @@ msgstr ""
 msgid "Not a valid domain"
 msgstr ""
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr ""
 
@@ -539,6 +605,12 @@ msgid "Opening is not yet implemented"
 msgstr ""
 
 msgid "Out of memory: too many files!"
+msgstr ""
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
 msgstr ""
 
 msgid "Passive Mode:"
@@ -596,6 +668,9 @@ msgstr ""
 msgid "Reply sent: %s\n"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr ""
 
@@ -605,6 +680,9 @@ msgstr ""
 msgid "Retry"
 msgstr ""
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr ""
 
@@ -612,6 +690,9 @@ msgid "SMB Settings"
 msgstr ""
 
 msgid "SMB is connecting..."
+msgstr ""
+
+msgid "Save Alpha"
 msgstr ""
 
 #, c-format
@@ -721,6 +802,9 @@ msgid "User:"
 msgstr ""
 
 msgid "Username:"
+msgstr ""
+
+msgid "Vertical"
 msgstr ""
 
 msgid "Yes"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -55,6 +55,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "動作取消"
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "程式預設值"
 
@@ -70,11 +73,17 @@ msgstr ""
 msgid "Auto Connect"
 msgstr "自動連線"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr "返回"
 
 msgid "Bootup Mount"
 msgstr "預設載入裝置"
+
+msgid "Both"
+msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -138,6 +147,12 @@ msgstr ""
 msgid "Console Default"
 msgstr "主機預設值"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "複製"
 
@@ -156,6 +171,9 @@ msgstr "無法連接到網路"
 msgid "Could not connect to the server."
 msgstr "無法連接到伺服器"
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr ""
 
@@ -164,6 +182,9 @@ msgstr "無法下載檔案"
 
 msgid "Could not extract file:"
 msgstr "無法解壓縮文件"
+
+msgid "Could not load image."
+msgstr ""
 
 msgid "Could not load text file."
 msgstr ""
@@ -228,9 +249,6 @@ msgstr "您確定要載入這個語言檔案？"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "是否在TextViewer開啟此檔案?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "是否在ImageViewer中開啟此檔案?"
 
 msgid "Do you want to playback this file?"
 msgstr "是否撥放此檔案?"
@@ -395,6 +413,9 @@ msgstr "檔案大小為 0 Byte"
 msgid "Filetype:"
 msgstr "檔案類型:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "資料夾"
 
@@ -407,6 +428,9 @@ msgstr ""
 msgid "Ftp stopped"
 msgstr ""
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "使用更新日誌 ..."
 
@@ -416,16 +440,46 @@ msgstr "返回"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
 msgstr "主機:"
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr ""
 
 msgid "Image Viewer"
 msgstr "檢視影像"
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
+msgstr ""
+
+msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
@@ -458,6 +512,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr "正在載入檔案:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr "重複播放"
 
@@ -475,6 +532,9 @@ msgstr "音樂播放模式"
 
 msgid "Music Volume"
 msgstr "音樂音量"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -519,6 +579,12 @@ msgstr "不是有效的URL路徑"
 msgid "Not a valid domain"
 msgstr "不是有效的網域名稱"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "記憶體空間不足"
 
@@ -539,6 +605,12 @@ msgstr "啟動時尚未啟用"
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足: 太多檔案!"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -595,6 +667,9 @@ msgstr "重新命名"
 msgid "Reply sent: %s\n"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr ""
 
@@ -604,6 +679,9 @@ msgstr "重新啟動程式以載入新字型"
 msgid "Retry"
 msgstr "重試"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "連接資料夾名稱:"
 
@@ -612,6 +690,9 @@ msgstr "區域網路設定"
 
 msgid "SMB is connecting..."
 msgstr "正在連接區域網路..."
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -722,6 +803,9 @@ msgstr "使用者:"
 msgid "Username:"
 msgstr "使用者名稱:"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "是"
 
@@ -757,6 +841,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "是否在ImageViewer中開啟此檔案?"
 
 #~ msgid "Update Settings"
 #~ msgstr "更新設定"

@@ -527,7 +527,8 @@ MthVideoFile::MthVideoFile(FILE* f)
   _nextFrameSize = _head.firstFrameSize;
   _thisFrameSize = 0;
 
-  _currFrameData.resize(_head.unknown3);
+  _currFrameData.resize(_head.maxFrameSize);
+  loadNextFrame();
 }
 
 
@@ -539,7 +540,7 @@ int MthVideoFile::getHeight() const
 
 float MthVideoFile::getFps() const
 {
-  return 50.f; //TODO: This has to be in there somewhere
+  return (float) 1.0f*_head.fps; //TODO: This has to be in there somewhere
 }
 
 int MthVideoFile::getFrameCount() const

@@ -547,6 +547,8 @@ class GuiImageData
 		//!Gets the image height
 		//!\return image height
 		int GetHeight();
+		//!Gets the texture format
+		u8 GetTextureFormat();
 	protected:
 		void LoadPNG(const u8 *img, int imgSize);
 		void LoadBMP(const u8 *img, int imgSize);
@@ -562,6 +564,7 @@ class GuiImageData
 		u8 * data; //!< Image data
 		int height; //!< Height of image
 		int width; //!< Width of image
+		u8 format; //!< Texture format
 };
 
 //!Display, manage, and manipulate images in the GUI
@@ -637,6 +640,7 @@ class GuiImage : public GuiElement
 		int tileHorizontal; //!< Number of times to draw (tile) the image horizontally
 		int tileVertical; //!< Number of times to draw (tile) the image vertically
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
+		u8 format; //!< Texture format
 		bool widescreen;
 };
 
@@ -751,6 +755,8 @@ class GuiButton : public GuiElement
 		GuiButton(int w, int h);
 		//!Destructor
 		~GuiButton();
+		//!Sets the button's size
+		void SetSize(int w, int h);
 		//!Sets the button's image
 		//!\param i Pointer to GuiImage object
 		void SetImage(GuiImage* i);

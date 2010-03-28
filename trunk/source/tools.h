@@ -63,6 +63,7 @@ void DecryptString(const char *src, char *dst);
 
 u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * uncSize);
 u32 CheckIMD5Type(const u8 * buffer, int length);
+int cut_bounds(int val, int min, int max);
 
 #ifdef __cplusplus
 }

@@ -158,11 +158,11 @@ struct MthHeader
   char tag[4]; //'MTHP'
   u32 unknown;
   u32 unknown2;
-  u32 unknown3; //max frame size - 0x20?
+  u32 maxFrameSize;
 
   u32 width;
   u32 height;
-  u32 unknown4; //fps?
+  u32 fps;
   u32 numFrames;
 
   u32 offset;

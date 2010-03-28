@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * Dimok
+ * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,36 +21,37 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * TextureConverter.h
- *
- * A texture to GD image converter.
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef __TEXTURE_CONVERTER_H_
-#define __TEXTURE_CONVERTER_H_
+#ifndef IMAGEWRITE_H_
+#define IMAGEWRITE_H_
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-#include <gccore.h>
 #include <gd.h>
 
-bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool I8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool CMPToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-u8 * GDImageToRGBA8(gdImagePtr gdImg);
-u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height);
+/** Supported image write formats **/
+#define IMAGE_PNG       0
+#define IMAGE_JPEG      1
+#define IMAGE_GIF       2
+#define IMAGE_TIFF      3
+#define IMAGE_BMP       4
+#define IMAGE_GD        5
+#define IMAGE_GD2       6
+
+/** compression **/
+//!< JPEG-Format (0-100):   where 0 is best quality and 100 best compression
+//!< BMP-Format (0-9):      where 0 is no compression and 9 best compression
+//!< GD2-Format (0-1):      where 0 is no compression and 1 compressed
+//!<
+//!< Does not affect other formats.
+
+bool WriteGDImage(const char * filepath, gdImagePtr gdImg, u8 format, u8 compression);
 
 #ifdef __cplusplus
 }
-#endif
+#endif //__cplusplus
 
-#endif //__TEXTURE_CONVERTER_H_
+#endif //IMAGEWRITE_H_

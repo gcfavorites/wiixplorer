@@ -17,6 +17,7 @@
 
 #include "menu.h"
 #include "VideoOperations/video.h"
+#include "ImageOperations/Screenshot.h"
 #include "input.h"
 #include "sys.h"
 #include "libwiigui/gui.h"
@@ -54,6 +55,11 @@ void UpdatePads()
 		userInput[i].pad.substickY = PAD_SubStickY(i);
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
+
+        if(userInput[i].wpad->btns_h & WPAD_BUTTON_1 && userInput[i].wpad->btns_d & WPAD_BUTTON_B)
+        {
+            Screenshot();
+        }
 	}
 }
 

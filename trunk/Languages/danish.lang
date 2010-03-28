@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -55,6 +55,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "Programstandard"
 
@@ -70,10 +73,16 @@ msgstr ""
 msgid "Auto Connect"
 msgstr "Auto-forbind"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr "Tilbage"
 
 msgid "Bootup Mount"
+msgstr ""
+
+msgid "Both"
 msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
@@ -138,6 +147,12 @@ msgstr ""
 msgid "Console Default"
 msgstr "Konsolstandard"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -156,6 +171,9 @@ msgstr ""
 msgid "Could not connect to the server."
 msgstr "Kunne ikke forbinde til serveren."
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr ""
 
@@ -163,6 +181,9 @@ msgid "Could not download file."
 msgstr ""
 
 msgid "Could not extract file:"
+msgstr ""
+
+msgid "Could not load image."
 msgstr ""
 
 msgid "Could not load text file."
@@ -228,9 +249,6 @@ msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Vil du åbne filen i TextViewer?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "Vil du åbne filen i ImageViewer?"
 
 msgid "Do you want to playback this file?"
 msgstr "Vil du afspille filen?"
@@ -395,6 +413,9 @@ msgstr ""
 msgid "Filetype:"
 msgstr "Filtype:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "Mappe"
 
@@ -407,6 +428,9 @@ msgstr ""
 msgid "Ftp stopped"
 msgstr ""
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr ""
 
@@ -416,16 +440,46 @@ msgstr "Tilbage"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
 msgstr "Vært:"
 
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr ""
+
 msgid "Image Viewer"
+msgstr ""
+
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
 msgstr ""
 
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
+msgstr ""
+
+msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
@@ -458,6 +512,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Indlæser fil:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -475,6 +532,9 @@ msgstr ""
 
 msgid "Music Volume"
 msgstr "Musiklydstyrke"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -519,6 +579,12 @@ msgstr "Ikke en gyldig URL sti"
 msgid "Not a valid domain"
 msgstr "Ikke et gyldigt domæne"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
 
@@ -539,6 +605,12 @@ msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -595,6 +667,9 @@ msgstr "Omdøb"
 msgid "Reply sent: %s\n"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr ""
 
@@ -604,6 +679,9 @@ msgstr "Genstart programmet for at indlæse den ny font."
 msgid "Retry"
 msgstr "Forsøg igen"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "SMB-navn:"
 
@@ -612,6 +690,9 @@ msgstr "SMB-indstillinger"
 
 msgid "SMB is connecting..."
 msgstr "SMB forbinder..."
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -722,6 +803,9 @@ msgstr "Bruger:"
 msgid "Username:"
 msgstr "Brugernavn:"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "Ja"
 
@@ -757,6 +841,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "Vil du åbne filen i ImageViewer?"
 
 #~ msgid "You cannot read/write from/to the same file."
 #~ msgstr "Du kan ikke læse/skrive til/fra samme fil."

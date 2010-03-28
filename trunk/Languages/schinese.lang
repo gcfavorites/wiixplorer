@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -58,6 +58,9 @@ msgstr "ASDFGHJKL:\"+"
 msgid "Action cancelled."
 msgstr "动作取消。"
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "程序缺省"
 
@@ -73,11 +76,17 @@ msgstr "程序"
 msgid "Auto Connect"
 msgstr "自动连接"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr "返回"
 
 msgid "Bootup Mount"
 msgstr "开始挂载"
+
+msgid "Both"
+msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr "客户端套接字错误 \n"
@@ -141,6 +150,12 @@ msgstr "已链接与：%s"
 msgid "Console Default"
 msgstr "主机缺省"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "复制"
 
@@ -159,6 +174,9 @@ msgstr "网络无法连接"
 msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr "此文件无法解压缩。"
 
@@ -167,6 +185,9 @@ msgstr "文件无法下载。"
 
 msgid "Could not extract file:"
 msgstr "文件无法提取。"
+
+msgid "Could not load image."
+msgstr ""
 
 msgid "Could not load text file."
 msgstr "文本文件无法读取。"
@@ -231,9 +252,6 @@ msgstr "是否读取此语言文件？"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "是否用文本查看器打开此文件吗？"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "是否用图片查看器打开此文件吗？"
 
 msgid "Do you want to playback this file?"
 msgstr "是否播放此文件？"
@@ -398,6 +416,9 @@ msgstr "0字节文件"
 msgid "Filetype:"
 msgstr "文件类型："
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "文件夹"
 
@@ -410,6 +431,9 @@ msgstr "空余空间："
 msgid "Ftp stopped"
 msgstr "FTP停止"
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "正在提取更新日志信息......"
 
@@ -419,17 +443,47 @@ msgstr "返回"
 msgid "Home Menu"
 msgstr "Home菜单"
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
 msgstr "主机："
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr ""
 
 msgid "Image Viewer"
 msgstr "图片查看器"
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr "接入链接。"
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
 msgstr "内部错误"
+
+msgid "JPEG Quality"
+msgstr ""
 
 msgid "Language"
 msgstr "语言"
@@ -461,6 +515,9 @@ msgstr "读取"
 msgid "Loading file:"
 msgstr "正在读取文件:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr "循环"
 
@@ -478,6 +535,9 @@ msgstr "音乐循环模式"
 
 msgid "Music Volume"
 msgstr "音乐音量"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr "无登录超时\n"
@@ -522,6 +582,12 @@ msgstr "无线电URL路径"
 msgid "Not a valid domain"
 msgstr "无效的域名"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "内存不足"
 
@@ -542,6 +608,12 @@ msgstr "开启还没有提供"
 
 msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "被动模式"
@@ -598,6 +670,9 @@ msgstr "重命名"
 msgid "Reply sent: %s\n"
 msgstr "回复发送：%s\n"
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr "重启动"
 
@@ -607,6 +682,9 @@ msgstr "复位程序读取新字体"
 msgid "Retry"
 msgstr "重试"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "网络共享名"
 
@@ -615,6 +693,9 @@ msgstr "网络共享设置"
 
 msgid "SMB is connecting..."
 msgstr "正在连接网络共享"
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -725,6 +806,9 @@ msgstr "用户："
 msgid "Username:"
 msgstr "用户名"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "确定"
 
@@ -760,6 +844,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "是否用图片查看器打开此文件吗？"
 
 #~ msgid "FTP Settings"
 #~ msgstr "FTP设置"

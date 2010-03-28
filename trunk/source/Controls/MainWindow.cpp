@@ -237,10 +237,11 @@ void MainWindow::InternalUpdateGUI()
 		{
 			if (userInput[i].wpad->ir.valid)
 			{
-				Menu_DrawImg(userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
+				Menu_DrawImg(pointer[i]->GetImage(), pointer[i]->GetWidth(),
+							 pointer[i]->GetHeight(), GX_TF_RGBA8,
+							 userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
 							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2, 100.0f,
-							 pointer[i]->GetWidth(), pointer[i]->GetHeight(),
-							 pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+							 userInput[i].wpad->ir.angle, 1, 1, 255);
 			}
 		}
 		#endif

@@ -32,18 +32,6 @@
 #include "TextureConverter.h"
 #include "TplImage.h"
 
-#define TPL_FORMAT_I4		0
-#define TPL_FORMAT_I8		1
-#define TPL_FORMAT_IA4		2
-#define TPL_FORMAT_IA8		3
-#define TPL_FORMAT_RGB565	4
-#define TPL_FORMAT_RGB5A3	5
-#define TPL_FORMAT_RGBA8	6
-#define TPL_FORMAT_CI4		8
-#define TPL_FORMAT_CI8		9
-#define TPL_FORMAT_CI14X2	10
-#define TPL_FORMAT_CMP		14
-
 TplImage::TplImage(const char * filepath)
 {
     TPLBuffer = NULL;
@@ -149,6 +137,16 @@ int TplImage::GetHeight(int Texture)
     return TextureHeader[Texture]->height;
 }
 
+u32 TplImage::GetFormat(int Texture)
+{
+    if(Texture < 0 || Texture >= MAX_TPL_TEXTURES || Texture >= (int) TPLHeader->num_textures)
+    {
+        return 0;
+    }
+
+    return TextureHeader[Texture]->format;
+}
+
 const u8 * TplImage::GetTextureBuffer(int Texture)
 {
     if(Texture < 0 || Texture >= MAX_TPL_TEXTURES || Texture >= (int) TPLHeader->num_textures)
@@ -157,6 +155,41 @@ const u8 * TplImage::GetTextureBuffer(int Texture)
     }
 
     return TplTextureBuffer[Texture];
+}
+
+int TplImage::GetTextureSize(int Texture)
+{
+    int width = GetWidth(Texture);
+    int height = GetHeight(Texture);
+    int len = 0;
+
+    switch(GetFormat(Texture))
+    {
+            case GX_TF_I4:
+            case GX_TF_CI4:
+            case GX_TF_CMPR:
+                len = ((width+7)>>3)*((height+7)>>3)*32;
+                break;
+            case GX_TF_I8:
+            case GX_TF_IA4:
+            case GX_TF_CI8:
+                len = ((width+7)>>3)*((height+7)>>2)*32;
+                break;
+            case GX_TF_IA8:
+            case GX_TF_CI14:
+            case GX_TF_RGB565:
+            case GX_TF_RGB5A3:
+                len = ((width+3)>>2)*((height+3)>>2)*32;
+                break;
+            case GX_TF_RGBA8:
+                len = ((width+3)>>2)*((height+3)>>2)*32*2;
+                break;
+            default:
+                len = ((width+3)>>2)*((height+3)>>2)*32*2;
+                break;
+    }
+
+    return len;
 }
 
 gdImagePtr TplImage::ConvertToGD(int Texture)
@@ -170,28 +203,28 @@ gdImagePtr TplImage::ConvertToGD(int Texture)
 
     switch(TextureHeader[Texture]->format)
     {
-        case TPL_FORMAT_RGB565:
+        case GX_TF_RGB565:
             RGB565ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_RGB5A3:
+        case GX_TF_RGB5A3:
             RGB565A3ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_RGBA8:
+        case GX_TF_RGBA8:
             RGBA8ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_I4:
+        case GX_TF_I4:
             I4ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_I8:
+        case GX_TF_I8:
             I8ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_IA4:
+        case GX_TF_IA4:
             IA4ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_IA8:
+        case GX_TF_IA8:
             IA8ToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
-        case TPL_FORMAT_CMP:
+        case GX_TF_CMPR:
             CMPToGD(TplTextureBuffer[Texture], TextureHeader[Texture]->width, TextureHeader[Texture]->height, &gdImg);
             break;
         default:

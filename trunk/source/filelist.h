@@ -115,6 +115,9 @@ extern const u32	bg_browser_png_size;
 extern const u8		bg_browser_selection_png[];
 extern const u32	bg_browser_selection_png_size;
 
+extern const u8		addressbar_small_png[];
+extern const u32	addressbar_small_png_size;
+
 extern const u8		addressbar_textbox_png[];
 extern const u32	addressbar_textbox_png_size;
 
