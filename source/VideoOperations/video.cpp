@@ -20,7 +20,7 @@
 #define DEFAULT_FIFO_SIZE 256 * 1024
 static unsigned int *xfb[2] = { NULL, NULL }; // Double buffered
 static int whichfb = 0; // Switch
-static GXRModeObj *vmode; // Menu video mode
+static GXRModeObj *vmode = NULL; // Menu video mode
 static unsigned char gp_fifo[DEFAULT_FIFO_SIZE] ATTRIBUTE_ALIGN (32);
 static Mtx GXmodelView2D;
 int screenheight;
@@ -187,19 +187,40 @@ void Menu_Render()
 }
 
 /****************************************************************************
+ * Video_GetFrame
+ ***************************************************************************/
+u8 * Video_GetFrame(int * width, int * height)
+{
+    if(width)
+        *width = vmode->fbWidth;
+    if(height)
+        *height = vmode->efbHeight;
+
+    int size = 2 * vmode->fbWidth * vmode->efbHeight;
+
+    u8 * buffer = (u8 *) memalign(32, size);
+    if(!buffer)
+        return NULL;
+
+    memcpy(buffer, xfb[whichfb], size);
+
+	return buffer;
+}
+
+/****************************************************************************
  * Menu_DrawImg
  *
  * Draws the specified image on screen using GX
  ***************************************************************************/
-void Menu_DrawImg(f32 xpos, f32 ypos, f32 zpos, u16 width, u16 height, u8 data[],
-	f32 degrees, f32 scaleX, f32 scaleY, u8 alpha)
+void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos,
+                  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha)
 {
 	if(data == NULL)
 		return;
 
 	GXTexObj texObj;
 
-	GX_InitTexObj(&texObj, data, width,height, GX_TF_RGBA8,GX_CLAMP, GX_CLAMP,GX_FALSE);
+	GX_InitTexObj(&texObj, data, width,height, format, GX_CLAMP, GX_CLAMP, GX_FALSE);
 	GX_LoadTexObj(&texObj, GX_TEXMAP0);
 	GX_InvalidateTexAll();
 

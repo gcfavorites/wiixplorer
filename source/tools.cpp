@@ -203,6 +203,17 @@ extern "C" bool char2wchar_t(const char * strChar, wchar_t * dest)
     return false;
 }
 
+extern "C" int cut_bounds(int val, int min, int max)
+{
+    if(val < min)
+        return min;
+
+    else if(val > max)
+        return max;
+
+    return val;
+}
+
 extern "C" void EncryptString(const char *src, char *dst)
 {
 	u32 id;

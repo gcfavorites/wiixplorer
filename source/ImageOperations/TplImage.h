@@ -81,7 +81,9 @@ class TplImage
         bool LoadImage(const u8 * imgBuffer, u32 imgSize);
         int GetWidth(int Texture);
         int GetHeight(int Texture);
+        u32 GetFormat(int Texture);
         const u8 * GetTextureBuffer(int Texture);
+        int GetTextureSize(int Texture);
         gdImagePtr ConvertToGD(int Texture);
     private:
         bool ParseTplFile();

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -55,6 +55,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Ação cancelada"
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "Padrão do App"
 
@@ -70,10 +73,16 @@ msgstr ""
 msgid "Auto Connect"
 msgstr "Auto Conexão"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
+msgstr ""
+
+msgid "Both"
 msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
@@ -138,6 +147,12 @@ msgstr ""
 msgid "Console Default"
 msgstr "Padrão do Console"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "Copiar"
 
@@ -156,6 +171,9 @@ msgstr ""
 msgid "Could not connect to the server."
 msgstr ""
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr ""
 
@@ -163,6 +181,9 @@ msgid "Could not download file."
 msgstr ""
 
 msgid "Could not extract file:"
+msgstr ""
+
+msgid "Could not load image."
 msgstr ""
 
 msgid "Could not load text file."
@@ -228,9 +249,6 @@ msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Você deseja abrir esse arquivo no TextViewer?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "Você deseja abrir esse arquivo com o ImageViewer?"
 
 msgid "Do you want to playback this file?"
 msgstr "Você deseja tocar esse arquivo?"
@@ -395,6 +413,9 @@ msgstr ""
 msgid "Filetype:"
 msgstr "Tipo do Arquivo:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "Pasta"
 
@@ -407,6 +428,9 @@ msgstr ""
 msgid "Ftp stopped"
 msgstr ""
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr ""
 
@@ -416,16 +440,46 @@ msgstr "Voltar"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
+msgstr ""
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
 msgstr ""
 
 msgid "Image Viewer"
 msgstr ""
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
+msgstr ""
+
+msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
@@ -458,6 +512,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Carregando arquivo:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -475,6 +532,9 @@ msgstr ""
 
 msgid "Music Volume"
 msgstr "Volume Musical"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -519,6 +579,12 @@ msgstr ""
 msgid "Not a valid domain"
 msgstr ""
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Sem memória suficiente"
 
@@ -539,6 +605,12 @@ msgstr ""
 
 msgid "Out of memory: too many files!"
 msgstr "Sem memória: muitos arquivos!"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -595,6 +667,9 @@ msgstr "Renomear"
 msgid "Reply sent: %s\n"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr ""
 
@@ -604,6 +679,9 @@ msgstr ""
 msgid "Retry"
 msgstr "Tentar Novamente"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "Nome SMB:"
 
@@ -612,6 +690,9 @@ msgstr "Configurações SMB"
 
 msgid "SMB is connecting..."
 msgstr "SMB está conectando..."
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -722,6 +803,9 @@ msgstr "Usuário:"
 msgid "Username:"
 msgstr "Nome de Usuário:"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "Sim"
 
@@ -757,6 +841,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "Você deseja abrir esse arquivo com o ImageViewer?"
 
 #~ msgid "You cannot read/write from/to the same file."
 #~ msgstr "Você não pode ler/escrever de/para o mesmo arquivo."

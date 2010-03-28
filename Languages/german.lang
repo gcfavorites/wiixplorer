@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-10 21:51+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -58,6 +58,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "Standardeinstellung"
 
@@ -73,11 +76,17 @@ msgstr ""
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr "Zurück"
 
 msgid "Bootup Mount"
 msgstr "Start Mount"
+
+msgid "Both"
+msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -141,6 +150,12 @@ msgstr "Verbunden mit: %s)"
 msgid "Console Default"
 msgstr "Konsolenstandard"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "Kopieren"
 
@@ -159,6 +174,9 @@ msgstr "Es konnte keine Verbindung zum Netzwerk hergestellt werden."
 msgid "Could not connect to the server."
 msgstr "Es konnte keine Verbindung zum Server hergestellt werden."
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr "Datei konnte nicht dekomprimiert werden."
 
@@ -167,6 +185,9 @@ msgstr "Datei konnte nicht heruntergeladen werden."
 
 msgid "Could not extract file:"
 msgstr "Datei konnte nicht entpackt werden:"
+
+msgid "Could not load image."
+msgstr ""
 
 msgid "Could not load text file."
 msgstr "Textdatei konnte nicht geladen werden."
@@ -231,9 +252,6 @@ msgstr "Diese Sprachdatei laden?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Diese Datei im TextViewer öffnen?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "Diese Datei mit dem ImageViewer öffnen?"
 
 msgid "Do you want to playback this file?"
 msgstr "Diese Datei abspielen?"
@@ -398,6 +416,9 @@ msgstr "Dateigröße ist 0 Byte."
 msgid "Filetype:"
 msgstr "Dateityp:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "Ordner"
 
@@ -410,6 +431,9 @@ msgstr "Freier Speicher:"
 msgid "Ftp stopped"
 msgstr "FTP wurde angehalten"
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Lade Changelog..."
 
@@ -419,17 +443,47 @@ msgstr "Zurück"
 msgid "Home Menu"
 msgstr "HOME Menü"
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
+msgstr ""
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
 msgstr ""
 
 msgid "Image Viewer"
 msgstr ""
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr "Eingehende Verbindung."
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
 msgstr "Interner Fehler"
+
+msgid "JPEG Quality"
+msgstr ""
 
 msgid "Language"
 msgstr "Sprache"
@@ -461,6 +515,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Lade Datei:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr "Schleife"
 
@@ -478,6 +535,9 @@ msgstr "Musik Wiederholungsmodus"
 
 msgid "Music Volume"
 msgstr "Musik Lautstärke"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -522,6 +582,12 @@ msgstr "Kein gültiger URL Pfad"
 msgid "Not a valid domain"
 msgstr "Keine gültige Domain"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
 
@@ -542,6 +608,12 @@ msgstr "Öffnen noch nicht implementiert"
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -598,6 +670,9 @@ msgstr "Umbenennen"
 msgid "Reply sent: %s\n"
 msgstr "Antwort gesendet: %s\n"
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr "Neustarten"
 
@@ -607,6 +682,9 @@ msgstr "WiiXplorer muss neugestartet werden um die neue Schriftart zu laden."
 msgid "Retry"
 msgstr "Wiederholen"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr ""
 
@@ -615,6 +693,9 @@ msgstr "SMB Einstellungen"
 
 msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -725,6 +806,9 @@ msgstr "Benutzer:"
 msgid "Username:"
 msgstr "Benutzername:"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "Ja"
 
@@ -760,6 +844,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "Diese Datei mit dem ImageViewer öffnen?"
 
 #~ msgid "FTP Settings"
 #~ msgstr "FTP Einstellungen"

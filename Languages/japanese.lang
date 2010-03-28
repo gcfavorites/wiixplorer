@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -58,6 +58,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "キャンセルしました"
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "英語"
 
@@ -73,11 +76,17 @@ msgstr "アプリ"
 msgid "Auto Connect"
 msgstr "自動接続"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
+
+msgid "Both"
+msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr "クライアントソケットエラー\n"
@@ -141,6 +150,12 @@ msgstr "%sと接続しました)"
 msgid "Console Default"
 msgstr "日本語"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "コピー"
 
@@ -159,6 +174,9 @@ msgstr "接続できませんでした"
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr "解凍できませんでした"
 
@@ -167,6 +185,9 @@ msgstr "ダウンロードできませんでした"
 
 msgid "Could not extract file:"
 msgstr "解凍できませんでした"
+
+msgid "Could not load image."
+msgstr ""
 
 msgid "Could not load text file."
 msgstr "テキストファイルを読み込めませんでした"
@@ -231,9 +252,6 @@ msgstr "この言語ファイルを読み込みますか?"
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "テキストビューワで開きますか?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "画像を閲覧しますか?"
 
 msgid "Do you want to playback this file?"
 msgstr "このファイルを再生しますか?"
@@ -398,6 +416,9 @@ msgstr "ファイルサイズが0バイトです"
 msgid "Filetype:"
 msgstr "種類:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "フォルダ"
 
@@ -410,6 +431,9 @@ msgstr "空き領域:"
 msgid "Ftp stopped"
 msgstr "FTPを停止しました"
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "更新履歴を受信しています･･･"
 
@@ -419,17 +443,47 @@ msgstr "戻る"
 msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
 msgstr "ホスト"
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr ""
 
 msgid "Image Viewer"
 msgstr "画像ビューア"
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr "接続を着信しました"
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
 msgstr "内部エラー"
+
+msgid "JPEG Quality"
+msgstr ""
 
 msgid "Language"
 msgstr "言語"
@@ -461,6 +515,9 @@ msgstr "ローダーへ"
 msgid "Loading file:"
 msgstr "読み込んでいます"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr "ループ"
 
@@ -478,6 +535,9 @@ msgstr "音楽の再生"
 
 msgid "Music Volume"
 msgstr "音量"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr "タイムアウトしました\n"
@@ -522,6 +582,12 @@ msgstr "URLのパスが正しくありません"
 msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "メモリ不足です"
 
@@ -542,6 +608,12 @@ msgstr "まだ実装されていません"
 
 msgid "Out of memory: too many files!"
 msgstr "ファイルが多いためメモリ不足です"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "受信モード:"
@@ -598,6 +670,9 @@ msgstr "名前の変更"
 msgid "Reply sent: %s\n"
 msgstr "返信: %s\n"
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr "再起動"
 
@@ -607,6 +682,9 @@ msgstr "フォントを読み込むため 再起動してください"
 msgid "Retry"
 msgstr "再試行"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "SMB名"
 
@@ -615,6 +693,9 @@ msgstr "SMBの設定"
 
 msgid "SMB is connecting..."
 msgstr "接続中"
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -725,6 +806,9 @@ msgstr "ユーザー"
 msgid "Username:"
 msgstr "ユーザー名"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "はい"
 
@@ -760,6 +844,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "画像を閲覧しますか?"
 
 #~ msgid "FTP Settings"
 #~ msgstr "FTPの設定"

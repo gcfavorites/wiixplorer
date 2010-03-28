@@ -14,6 +14,9 @@ class WiiMovie : public GuiElement
         bool Play();
         void Stop();
         void SetVolume(int vol);
+        void SetFullscreen();
+        void SetFrameSize(int w, int h);
+        void SetAspectRatio(float Aspect);
         void Draw();
         void Update(GuiTrigger * t);
     protected:
@@ -21,7 +24,6 @@ class WiiMovie : public GuiElement
         void InternalUpdate();
 		static void * UpdateThread(void *arg);
         void InternalThreadUpdate();
-        void FillBuffer();
         void LoadNextFrame();
         u8 * ConvertToFlippedRGBA(const u8 * src, u32 width, u32 height);
 

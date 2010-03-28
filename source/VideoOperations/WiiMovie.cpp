@@ -44,7 +44,7 @@ WiiMovie::WiiMovie(const char * filepath)
     VideoFrameCount = 0;
     ExitRequested = false;
     Playing = false;
-    volume = 255*80/100;
+    volume = 255*Settings.MusicVolume/100;
 
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
 
@@ -135,6 +135,7 @@ void WiiMovie::Stop()
 void WiiMovie::SetVolume(int vol)
 {
     volume = 255*vol/100;
+    ASND_ChangeVolumeVoice(0, volume, volume);
 }
 
 void WiiMovie::OnExitClick(GuiElement *sender, int pointer, POINT p)
@@ -143,10 +144,52 @@ void WiiMovie::OnExitClick(GuiElement *sender, int pointer, POINT p)
     Stop();
 }
 
-void WiiMovie::FillBuffer()
+void WiiMovie::SetFullscreen()
 {
-    while(Frames.size() < 10 && !ExitRequested)
-        LoadNextFrame();
+    if(!Video)
+        return;
+
+    float newscale = 1000.0f;
+
+    float vidwidth = (float) GetWidth() * 1.0f;
+    float vidheight = (float) GetHeight() * 1.0f;
+    int retries = 100;
+
+    while(vidheight * newscale > screenheight || vidwidth * newscale > screenwidth)
+    {
+        if(vidheight * newscale > screenheight)
+            newscale = screenheight/vidheight;
+        if(vidwidth * newscale > screenwidth)
+            newscale = screenwidth/vidwidth;
+
+        retries--;
+        if(retries == 0)
+        {
+            newscale = 1.0f;
+            break;
+        }
+    }
+
+    SetScale(newscale);
+}
+
+void WiiMovie::SetFrameSize(int w, int h)
+{
+    if(!Video)
+        return;
+
+    SetScaleX((float) w /(float) GetWidth());
+    SetScaleY((float) h /(float) GetHeight());
+}
+
+void WiiMovie::SetAspectRatio(float Aspect)
+{
+    if(!Video)
+        return;
+
+    float vidwidth = (float) GetHeight()*GetScaleY()*Aspect;
+
+    SetScaleX((float) GetWidth()/vidwidth);
 }
 
 extern "C" void THPSoundCallback(int voice)
@@ -226,8 +269,12 @@ void WiiMovie::LoadNextFrame()
     if(!VideoF.getData())
         return;
 
-    width = VideoF.getWidth();
-    height = VideoF.getHeight();
+    if(width != VideoF.getWidth())
+    {
+        width = VideoF.getWidth();
+        height = VideoF.getHeight();
+        SetFullscreen();
+    }
 
     u8 * videobuffer = ConvertToFlippedRGBA(VideoF.getData(), VideoF.getWidth(), VideoF.getHeight());
 
@@ -254,7 +301,7 @@ void WiiMovie::Draw()
 
     if(Frames.at(3))
     {
-        Menu_DrawImg(GetLeft(), GetTop(), 1.0f, width, height, Frames.at(3), 0, GetScaleX(), GetScaleY(), GetAlpha());
+        Menu_DrawImg(Frames.at(3), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha());
     }
 
     if(Frames.size() > 4)

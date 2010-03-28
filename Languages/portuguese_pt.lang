@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-03-28 01:34+0100\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -55,6 +55,9 @@ msgstr ""
 msgid "Action cancelled."
 msgstr "Operação cancelada"
 
+msgid "Alpha Blending"
+msgstr ""
+
 msgid "App Default"
 msgstr "Predefinição do programa"
 
@@ -70,11 +73,17 @@ msgstr ""
 msgid "Auto Connect"
 msgstr "Ligação automática"
 
+msgid "BMP Compression"
+msgstr ""
+
 msgid "Back"
 msgstr "Voltar"
 
 msgid "Bootup Mount"
 msgstr "Montar no arranque"
+
+msgid "Both"
+msgstr ""
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -138,6 +147,12 @@ msgstr ""
 msgid "Console Default"
 msgstr "Predefinição da consola"
 
+msgid "Convert"
+msgstr ""
+
+msgid "Converting image..."
+msgstr ""
+
 msgid "Copy"
 msgstr "Copiar"
 
@@ -156,6 +171,9 @@ msgstr "Não foi possível ligar à rede"
 msgid "Could not connect to the server."
 msgstr "Não foi possível ligar ao servidor."
 
+msgid "Could not convert image."
+msgstr ""
+
 msgid "Could not decompress the file."
 msgstr ""
 
@@ -164,6 +182,9 @@ msgstr "Não foi possível descarregar o ficheiro."
 
 msgid "Could not extract file:"
 msgstr "Não foi possível extrair o ficheiro:"
+
+msgid "Could not load image."
+msgstr ""
 
 msgid "Could not load text file."
 msgstr ""
@@ -228,9 +249,6 @@ msgstr ""
 
 msgid "Do you want to open this file in TextViewer?"
 msgstr "Pretende abrir este ficheiro no TextViewer?"
-
-msgid "Do you want to open this file with ImageViewer?"
-msgstr "Pretende abrir este ficheiro com o ImageViewer?"
 
 msgid "Do you want to playback this file?"
 msgstr "Pretende reproduzir este ficheiro?"
@@ -395,6 +413,9 @@ msgstr "Ficheiro vazio."
 msgid "Filetype:"
 msgstr "Tipo de ficheiro:"
 
+msgid "Flip Mode"
+msgstr ""
+
 msgid "Folder"
 msgstr "Pasta"
 
@@ -407,6 +428,9 @@ msgstr ""
 msgid "Ftp stopped"
 msgstr ""
 
+msgid "GD2 Compression"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Obtendo Changelog..."
 
@@ -416,16 +440,46 @@ msgstr "Voltar"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Horizontal"
+msgstr ""
+
 msgid "Host:"
 msgstr "Servidor:"
+
+msgid "How do you want to open the file?"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr ""
 
 msgid "Image Viewer"
 msgstr "Visualizador de Imagens"
 
+msgid "Image Width"
+msgstr ""
+
+msgid "Image successfully converted."
+msgstr ""
+
+msgid "ImageConverter"
+msgstr ""
+
+msgid "ImageViewer"
+msgstr ""
+
 msgid "Incomming connection."
 msgstr ""
 
+msgid "Input File"
+msgstr ""
+
+msgid "Interlace"
+msgstr ""
+
 msgid "Internal error"
+msgstr ""
+
+msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
@@ -458,6 +512,9 @@ msgstr ""
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
 
+msgid "Loading image..."
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -475,6 +532,9 @@ msgstr ""
 
 msgid "Music Volume"
 msgstr "Volume da Música"
+
+msgid "NONE"
+msgstr ""
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -519,6 +579,12 @@ msgstr "Caminho URL inválido"
 msgid "Not a valid domain"
 msgstr "Domínio inválido"
 
+msgid "Not enough memory to resize."
+msgstr ""
+
+msgid "Not enough memory to rotate."
+msgstr ""
+
 msgid "Not enough memory."
 msgstr "Memória insuficiente"
 
@@ -539,6 +605,12 @@ msgstr "Abertura ainda não implementada"
 
 msgid "Out of memory: too many files!"
 msgstr "Memória insuficiente: demasiados ficheiros!"
+
+msgid "Output File"
+msgstr ""
+
+msgid "Output Type"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -595,6 +667,9 @@ msgstr "Renomear"
 msgid "Reply sent: %s\n"
 msgstr ""
 
+msgid "Reset"
+msgstr ""
+
 msgid "Restart"
 msgstr ""
 
@@ -604,6 +679,9 @@ msgstr "Reinicie o aplicativo para activar a nova fonte."
 msgid "Retry"
 msgstr "Tentar novamente"
 
+msgid "Rotate"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "Nome SMB:"
 
@@ -612,6 +690,9 @@ msgstr "Configuração SMB"
 
 msgid "SMB is connecting..."
 msgstr "Ligando ao SMB..."
+
+msgid "Save Alpha"
+msgstr ""
 
 #, c-format
 msgid "Server at: %s"
@@ -722,6 +803,9 @@ msgstr "Utilizador:"
 msgid "Username:"
 msgstr "Nome de utilizador:"
 
+msgid "Vertical"
+msgstr ""
+
 msgid "Yes"
 msgstr "Sim"
 
@@ -757,6 +841,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "Pretende abrir este ficheiro com o ImageViewer?"
 
 #~ msgid "You cannot read/write from/to the same file."
 #~ msgstr "Não é possível ler/gravar de/para o mesmo ficheiro."

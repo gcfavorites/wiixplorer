@@ -49,6 +49,12 @@ GuiButton::~GuiButton()
 {
 }
 
+void GuiButton::SetSize(int w, int h)
+{
+	width = w;
+	height = h;
+}
+
 void GuiButton::SetImage(GuiImage* img)
 {
     LOCK(this);

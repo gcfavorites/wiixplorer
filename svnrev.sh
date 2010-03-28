@@ -44,11 +44,11 @@ fi
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <app version="1">
   <name>WiiXplorer</name>
-  <coder>Dimok/r-win</coder>
+  <coder>Dimok/r-win/dude</coder>
   <version>r$rev_new</version>
   <release_date>$rev_date</release_date>
   <short_description>Wii File Browser</short_description>
-  <long_description>A multi device file explorer for the Wii by dimok and r-win.
+  <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
 The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
 
 Features:
@@ -62,10 +62,14 @@ Features:
  * Addressbar with path
  * Multilanguage with custom font support
  * Boot .dol/.elf files
- * Open TXT/XML/MP3/OGG files
+ * Open TXT/XML/MP3/OGG/WAV/BNS/AIFF files
  * Supported Image Formats:
    PNG/JPEG/GIF/BMP/TPL/TGA/TIFF/GD/GD2
  * Imageoperations zoom/slideshow
+ * Image converter which converts the
+   supported formats to:
+   PNG/JPEG/GIF/BMP/TIFF/GD/GD2
+ * Screenshot support at any point of the app
  * ZIP/7zip/BNR/U8Archive browsing and decompressing
  * Rar browsing
  * Properties of archive files
@@ -75,6 +79,7 @@ Features:
 Credits:
   Coding: Dimok, r-win, dude
   Forwarder: Dimok
+  Channel: Dj Skual
   Artworks: Neorame
   Languages: Dj Skual and Translaters
 

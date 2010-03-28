@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * Dimok
+ * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,36 +21,50 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * TextureConverter.h
- *
- * A texture to GD image converter.
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef __TEXTURE_CONVERTER_H_
-#define __TEXTURE_CONVERTER_H_
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-#include <gccore.h>
+#include <stdio.h>
+#include <gctypes.h>
 #include <gd.h>
+#include "ImageWrite.h"
+#include "tools.h"
 
-bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool I8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im);
-bool CMPToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-u8 * GDImageToRGBA8(gdImagePtr gdImg);
-u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height);
+bool WriteGDImage(const char * filepath, gdImagePtr gdImg, u8 format, u8 compression)
+{
+    if(gdImg == 0)
+        return false;
 
-#ifdef __cplusplus
+    FILE * file = fopen(filepath, "wb");
+    if(!file)
+        return false;
+
+    switch(format)
+    {
+        default:
+        case IMAGE_PNG:
+            gdImagePng(gdImg, file);
+            break;
+        case IMAGE_JPEG:
+            gdImageJpeg(gdImg, file, cut_bounds(100-compression, 0, 100));
+            break;
+        case IMAGE_GIF:
+            gdImageGif(gdImg, file);
+            break;
+        case IMAGE_TIFF:
+            gdImageTiff(gdImg, file);
+            break;
+        case IMAGE_BMP:
+            gdImageBmp(gdImg, file, cut_bounds(compression, 0, 9));
+            break;
+        case IMAGE_GD:
+            gdImageGd(gdImg, file);
+            break;
+        case IMAGE_GD2:
+            gdImageGd2(gdImg, file, 0, cut_bounds(compression+1, 1, 2));
+            break;
+    }
+
+    fclose(file);
+
+    return true;
 }
-#endif
-
-#endif //__TEXTURE_CONVERTER_H_

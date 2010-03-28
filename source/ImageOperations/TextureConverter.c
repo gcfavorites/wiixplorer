@@ -28,6 +28,7 @@
 #include <gccore.h>
 #include <malloc.h>
 #include "TextureConverter.h"
+#include "tools.h"
 
 static u16 avg(u16 w0, u16 w1, u16 c0, u16 c1)
 {
@@ -83,7 +84,7 @@ bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 					u8 b = (oldpixel >> 4) * 255 / 15;
 					u8 g = (oldpixel >> 4) * 255 / 15;
 					u8 r = (oldpixel >> 4) * 255 / 15;
-					u8 a = 0;
+					u8 a = gdAlphaOpaque;
 
 					gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 
@@ -419,6 +420,51 @@ bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 	}
 
 	return true;
+}
+
+bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
+{
+	u32 x, y, x1, YCbYCr;
+    int r, g, b;
+    u8 r1, g1, b1;
+
+	if(!buffer)
+        return false;
+
+	*im = gdImageCreateTrueColor(width, height);
+	if(*im == 0)
+		return false;
+
+    gdImageAlphaBlending(*im, 0);
+    gdImageSaveAlpha(*im, 1);
+
+    for(y = 0; y < height; y++)
+    {
+        for (x = 0, x1 = 0; x < (width / 2); x++, x1++)
+        {
+            YCbYCr = ((u32 *) buffer)[y*width/2+x];
+
+            u8 * val = (u8 *) &YCbYCr;
+
+            r = (int) (1.371f * (val[3] - 128));
+            g = (int) (- 0.698f * (val[3] - 128) - 0.336f * (val[1] - 128));
+            b = (int) (1.732f * (val[1] - 128));
+
+            r1 = cut_bounds(val[0] + r, 0, 255);
+            g1 = cut_bounds(val[0] + g, 0, 255);
+            b1 = cut_bounds(val[0] + b, 0, 255);
+
+            gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
+            x1++;
+
+            r1 = cut_bounds(val[2] + r, 0, 255);
+            g1 = cut_bounds(val[2] + g, 0, 255);
+            b1 = cut_bounds(val[2] + b, 0, 255);
+            gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
+        }
+    }
+
+    return true;
 }
 
 u8 * GDImageToRGBA8(gdImagePtr gdImg)

@@ -457,8 +457,8 @@ void GuiFileBrowser::Update(GuiTrigger * t)
                             fileList[i]->SetIcon(fileListArchives[i]);
                         }
                         else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
-                                  strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".wmv") == 0 ||
-                                  strcasecmp(fileext, ".mp4") == 0)
+                                strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".mth") == 0 ||
+                                strcasecmp(fileext, ".mp4") == 0 || strcasecmp(fileext, ".wmv") == 0)
                         {
                             fileList[i]->SetIcon(fileListVID[i]);
                         }

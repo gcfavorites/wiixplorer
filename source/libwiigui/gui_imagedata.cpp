@@ -37,41 +37,63 @@ GuiImageData::GuiImageData(const u8 * img, int imgSize)
 	data = NULL;
 	width = 0;
 	height = 0;
+	format = GX_TF_RGBA8;
 
 	if(img)
 	{
-		if (imgSize < 8) {
+		if (imgSize < 8)
+		{
 			return;
 		}
-		if (img[0] == 0xFF && img[1] == 0xD8) { // IMAGE_JPEG
+		if (img[0] == 0xFF && img[1] == 0xD8)
+		{
+		    // IMAGE_JPEG
 			LoadJpeg(img, imgSize);
 		}
-		else if (img[0] == 0x49 && img[1] == 0x49) { // IMAGE_TIFF_PC
+		else if (img[0] == 0x49 && img[1] == 0x49)
+		{
+		    // IMAGE_TIFF_PC
             LoadTIFF(img, imgSize);
 		}
-		else if (img[0] == 0x4D && img[1] == 0x4D) { // IMAGE_TIFF_MAC
+		else if (img[0] == 0x4D && img[1] == 0x4D)
+		{
+		    // IMAGE_TIFF_MAC
             LoadTIFF(img, imgSize);
 		}
-		else if (img[0] == 'B' && img[1] == 'M') { // IMAGE_BMP
+		else if (img[0] == 'B' && img[1] == 'M')
+		{
+		    // IMAGE_BMP
 			LoadBMP(img, imgSize);
 		}
-		else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F') { // IMAGE_GIF
+		else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F')
+		{
+		    // IMAGE_GIF
 			LoadGIF(img, imgSize);
 		}
-		else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G') { // IMAGE_PNG
+		else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G')
+		{
+		    // IMAGE_PNG
 			LoadPNG(img, imgSize);
 		}
-		else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE)) { // IMAGE_GD
+		else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE))
+		{
+		    // IMAGE_GD
 			LoadGD(img, imgSize);
 		}
-		else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00) { // IMAGE_GD2
+		else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00)
+		{
+		    // IMAGE_GD2
 			LoadGD2(img, imgSize);
 		}
-		else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30) { // IMAGE_TPL
+		else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30)
+		{
+		    // IMAGE_TPL
 			LoadTPL(img, imgSize);
 		}
 		//!This must be last since it can also intefere with outher formats
-		else if(img[0] == 0x00) { // Try loading TGA image
+		else if(img[0] == 0x00)
+		{
+		    // Try loading TGA image
 			LoadTGA(img, imgSize);
 		}
 	}
@@ -102,6 +124,11 @@ int GuiImageData::GetWidth()
 int GuiImageData::GetHeight()
 {
 	return height;
+}
+
+u8 GuiImageData::GetTextureFormat()
+{
+	return format;
 }
 
 void GuiImageData::LoadPNG(const u8 *img, int imgSize)
@@ -187,13 +214,24 @@ void GuiImageData::LoadTGA(const u8 *img, int imgSize)
 void GuiImageData::LoadTPL(const u8 *img, int imgSize)
 {
     TplImage TplFile(img, imgSize);
-	
-    gdImagePtr gdImg = TplFile.ConvertToGD(0);
-    if(gdImg == 0)
-        return;
 
-    GDImageToRGBA8(gdImg);
-    gdImageDestroy(gdImg);
+    width = TplFile.GetWidth(0);
+    height = TplFile.GetHeight(0);
+    format = (u8) TplFile.GetFormat(0);
+
+    const u8 * ImgPtr = TplFile.GetTextureBuffer(0);
+
+    if(ImgPtr)
+    {
+        int len =  TplFile.GetTextureSize(0);
+
+        data = (u8 *) memalign (32, len);
+        if(!data)
+            return;
+
+        memcpy(data, ImgPtr, len);
+        DCFlushRange(data, len);
+    }
 }
 
 static inline u32 coordsRGBA8(u32 x, u32 y, u32 w)

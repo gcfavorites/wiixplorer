@@ -9,6 +9,8 @@
 #ifndef _FILEOPS_H_
 #define _FILEOPS_H_
 
+#include <gctypes.h>
+
 bool CreateSubfolder(const char * fullpath);
 bool FindFile(const char * filename, const char * path);
 bool CheckFile(const char * filepath);

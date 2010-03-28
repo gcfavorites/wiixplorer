@@ -43,9 +43,16 @@ int FileStartUp(const char *filepath)
 			|| strcasecmp(fileext, ".gd") == 0 || strcasecmp(fileext, ".gd2") == 0
 			|| strcasecmp(fileext, ".tpl") == 0)
     {
-		int choice = WindowPrompt(filename, tr("Do you want to open this file with ImageViewer?"), tr("Yes"), tr("No"));
-		if (choice)
+		int choice = WindowPrompt(filename, tr("How do you want to open the file?"), tr("ImageViewer"), tr("ImageConverter"), tr("Cancel"));
+		if (choice == 1)
+		{
 			ImageLoader(filepath);
+		}
+        else if(choice == 2)
+        {
+            ImageConverterLoader(filepath);
+            return TRIGGERUPDATE;
+        }
     }
     else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
             || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".wav") == 0
@@ -110,7 +117,7 @@ int FileStartUp(const char *filepath)
             return RELOADBROWSER;
         }
     }
-    else if(strcasecmp(fileext, ".thp") == 0)
+    else if(strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".mth") == 0)
     {
         WiiMovie * Video = new WiiMovie(filepath);
         Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
