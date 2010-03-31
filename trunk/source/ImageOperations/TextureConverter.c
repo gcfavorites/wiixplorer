@@ -28,7 +28,7 @@
 #include <gccore.h>
 #include <malloc.h>
 #include "TextureConverter.h"
-#include "tools.h"
+#include "Tools/tools.h"
 
 static u16 avg(u16 w0, u16 w1, u16 c0, u16 c1)
 {

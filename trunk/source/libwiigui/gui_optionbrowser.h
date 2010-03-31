@@ -1,33 +1,5 @@
 #include "gui.h"
-
-class OptionList {
-	public:
-		OptionList(int size);
-		~OptionList();
-		void SetName(int i, const char *format, ...) __attribute__((format (printf, 3, 4)));
-		const char *GetName(int i)
-		{
-			if(i >= 0 && i < length && name[i])
-				return name[i];
-			else
-				return NULL;
-		}
-		void SetValue(int i, const char *format, ...) __attribute__((format (printf, 3, 4)));
-		const char *GetValue(int i)
-		{
-			if(i >= 0 && i < length && value[i])
-				return value[i];
-			else
-				return NULL;
-		}
-		int GetLength()	{ return length; }
-		bool IsChanged() { bool ret = listChanged; listChanged = false; return ret;}
-	private:
-		int length;
-		char ** name;
-		char ** value;
-		bool listChanged;
-};
+#include "OptionList.hpp"
 
 
 //!Display a list of menu options

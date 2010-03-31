@@ -77,6 +77,8 @@ class ArchiveBrowser : public Browser
         ItemStruct GetCurrentItemStruct() const;
         //!Get the current archive path
         const char * GetCurrentPath();
+        //!Refresh current directory
+        void Refresh();
 
         //!Clear the current PathStructure and free the memory
         void ClearList();

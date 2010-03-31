@@ -46,7 +46,7 @@ class Browser
         virtual void SetSelectedIndex(int ind) { };
         virtual bool IsDir(int ind) { return true; };
         virtual const char * GetItemDisplayname(int ind) { return NULL; };
-        virtual const char * Get(int ind) { return NULL; };
+        virtual void Refresh() { };
         virtual ItemStruct GetCurrentItemStruct() const
         {
             ItemStruct Item;

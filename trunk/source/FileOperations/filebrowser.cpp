@@ -233,8 +233,8 @@ ItemStruct FileBrowser::GetCurrentItemStruct() const
 void FileBrowser::ResetBrowser()
 {
 	browser.numEntries = 0;
-	browser.selIndex = 0;
-	browser.pageIndex = 0;
+    browser.selIndex = 0;
+    browser.pageIndex = 0;
 
 	// Clear any existing values
 	if(browserList != NULL)
@@ -353,7 +353,15 @@ bool FileBrowser::ParseDirEntries()
 /***************************************************************************
  * Browse subdirectories
  **************************************************************************/
-int FileBrowser::ParseDirectory()
+void FileBrowser::Refresh()
+{
+    ParseDirectory(false);
+}
+
+/***************************************************************************
+ * Browse subdirectories
+ **************************************************************************/
+int FileBrowser::ParseDirectory(bool ResetPosition)
 {
 	char fulldir[MAXPATHLEN];
 
@@ -364,8 +372,22 @@ int FileBrowser::ParseDirectory()
 		usleep(THREAD_SLEEP);
 
 	// reset browser
-	dirIter = NULL;
+	if(dirIter)
+	{
+	    dirclose(dirIter);
+        dirIter = NULL;
+	}
+
+    u32 currPageIndex = browser.pageIndex;
+    u32 currSelIndex = browser.selIndex;
+
 	ResetBrowser();
+
+	if(!ResetPosition)
+	{
+        browser.pageIndex = currPageIndex;
+        browser.selIndex = currSelIndex;
+	}
 
 	// open the directory
 	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add device to path
@@ -383,7 +405,7 @@ int FileBrowser::ParseDirectory()
 
 	parseHalt = false;
 	ParseDirEntries(); // index first 20 entries
-	LWP_ResumeThread(parsethread); // index remaining entries
+	LWP_ResumeThread(parsethread);
 
 	return browser.numEntries;
 }

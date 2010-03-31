@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 01:34+0100\n"
+"POT-Creation-Date: 2010-03-31 15:04+0200\n"
 "PO-Revision-Date: 2010-02-25 22:00+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -13,6 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
+msgstr ""
+
+msgid "12H"
+msgstr ""
+
+msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
@@ -82,6 +88,9 @@ msgstr ""
 msgid "Back"
 msgstr "Indietro"
 
+msgid "Boot Settings"
+msgstr ""
+
 msgid "Bootup Mount"
 msgstr "Mount all'avvio"
 
@@ -126,6 +135,9 @@ msgstr ""
 
 msgid "Clear"
 msgstr "Resetta"
+
+msgid "Clock Mode"
+msgstr ""
 
 msgid "Close"
 msgstr "Chiudi"
@@ -452,7 +464,13 @@ msgstr "Host:"
 msgid "How do you want to open the file?"
 msgstr ""
 
+msgid "Image Converter"
+msgstr ""
+
 msgid "Image Heigth"
+msgstr ""
+
+msgid "Image Settings"
 msgstr ""
 
 msgid "Image Viewer"
@@ -627,6 +645,9 @@ msgstr "Incolla"
 msgid "Paste item(s) into current directory?"
 msgstr "Incollare gli elementi in questa cartella?"
 
+msgid "Path Setup"
+msgstr ""
+
 msgid "Play Directory"
 msgstr "Suona Cartella"
 
@@ -697,6 +718,9 @@ msgstr "SMB in connessione..."
 msgid "Save Alpha"
 msgstr ""
 
+msgid "Screenshot Format"
+msgstr ""
+
 #, c-format
 msgid "Server at: %s"
 msgstr "Server a: %s"
@@ -723,6 +747,9 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 msgid "Slideshow Delay"
+msgstr ""
+
+msgid "Sound Settings"
 msgstr ""
 
 msgid "Special thanks to:"

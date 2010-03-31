@@ -257,6 +257,11 @@ ArchiveFileStruct * ArchiveBrowser::GetItemStructure(int ind)
     return archive->GetFileStruct(PathStructure.at(ind)->fileindex);
 }
 
+void ArchiveBrowser::Refresh()
+{
+    ParseArchiveDirectory(currentPath);
+}
+
 int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)
 {
 	if(!PathStructure.empty())

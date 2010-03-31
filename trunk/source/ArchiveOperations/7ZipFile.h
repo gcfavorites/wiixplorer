@@ -54,7 +54,8 @@ enum
     ZIP,
     SZIP,
     RAR,
-    U8Arch
+    U8Arch,
+    ArcArch
 };
 
 

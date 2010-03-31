@@ -25,7 +25,6 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-
 #include "Explorer.h"
 #include "menu.h"
 #include "Controls/MainWindow.h"
@@ -99,6 +98,7 @@ Explorer::~Explorer()
 	Resources::Remove(creditsImgData);
     Resources::Remove(Background);
     Resources::Remove(Address);
+    Resources::Remove(Refresh);
     Resources::Remove(sdstorage);
     Resources::Remove(usbstorage);
     Resources::Remove(networkstorage);
@@ -109,9 +109,11 @@ Explorer::~Explorer()
     delete creditsImg;
     delete deviceImg;
     delete AdressbarImg;
+    delete RefreshImg;
 
     delete AdressText;
 
+    delete RefreshBtn;
     delete CreditsBtn;
     delete deviceSwitchBtn;
     delete Adressbar;
@@ -156,6 +158,7 @@ void Explorer::Setup()
     creditsImgData = Resources::GetImageData(WiiXplorer_png, WiiXplorer_png_size);
 	Background = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
 	Address = Resources::GetImageData(addressbar_textbox_png, addressbar_textbox_png_size);
+	Refresh = Resources::GetImageData(refresh_png, refresh_png_size);
 
 	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
 	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
@@ -196,14 +199,26 @@ void Explorer::Setup()
     AdressText = new GuiText((char*) NULL, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
-	AdressText->SetMaxWidth(Address->GetWidth()-40, SCROLL_HORIZONTAL);
+	AdressText->SetMaxWidth(Address->GetWidth()-45-Refresh->GetWidth(), SCROLL_HORIZONTAL);
 	AdressbarImg = new GuiImage(Address);
-	Adressbar = new GuiButton(Address->GetWidth(), Address->GetHeight());
+	Adressbar = new GuiButton(Address->GetWidth()-Refresh->GetWidth()-5, Address->GetHeight());
 	Adressbar->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	Adressbar->SetPosition(fileBrowser->GetLeft()+62, fileBrowser->GetTop()-38);
 	Adressbar->SetImage(AdressbarImg);
 	Adressbar->SetLabel(AdressText);
     Adressbar->Clicked.connect(this, &Explorer::OnButtonClick);
+
+    RefreshImg = new GuiImage(Refresh);
+    RefreshImg->SetScale(0.8);
+    RefreshBtn = new GuiButton(Refresh->GetWidth(), Refresh->GetHeight());
+    RefreshBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    RefreshBtn->SetPosition(Adressbar->GetLeft()+Adressbar->GetWidth()-5, Adressbar->GetTop()+6);
+    RefreshBtn->SetImage(RefreshImg);
+	RefreshBtn->SetSoundClick(btnSoundClick);
+	RefreshBtn->SetSoundOver(btnSoundOver);
+	RefreshBtn->SetTrigger(trigA);
+	RefreshBtn->SetEffectGrow();
+    RefreshBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
 	clickmenuBtn = new GuiButton(fileBrowser->GetWidth(), fileBrowser->GetHeight());
 	clickmenuBtn->SetPosition(fileBrowser->GetLeft(), fileBrowser->GetTop());
@@ -215,6 +230,7 @@ void Explorer::Setup()
 	Append(fileBrowser);
 	Append(CreditsBtn);
 	Append(Adressbar);
+	Append(RefreshBtn);
 	Append(deviceSwitchBtn);
 
     SetEffect(EFFECT_FADE, 50);
@@ -362,12 +378,11 @@ void Explorer::CheckBrowserChanges()
                 fileBrowser->SetBrowser(ArcBrowser);
                 AdressText->SetTextf("%s", ArcBrowser->GetCurrentPath());
             }
-            else if(result == TRIGGERUPDATE)
+            else if(result == REFRESH_BROWSER)
             {
-                Browser->ParseDirectory();
-                fileBrowser->TriggerUpdate();
+                Browser->Refresh();
             }
-            else if(result == RELOADBROWSER)
+            else if(result == RELOAD_BROWSER)
             {
                 menu = MENU_BROWSE_DEVICE;
             }
@@ -408,7 +423,6 @@ void Explorer::CheckDeviceMenu()
                 ArcBrowser = NULL;
             }
             LoadDevice(device_choice);
-            Browser->ParseDirectory();
             fileBrowser->fileList[0]->SetState(STATE_SELECTED);
             fileBrowser->TriggerUpdate();
             AdressText->SetTextf("%s", Browser->GetCurrentPath());
@@ -485,8 +499,7 @@ void Explorer::CheckRightClick()
                 ProcessChoice(Browser, RightClick_choice);
                 if(RightClick_choice >= PASTE)
                 {
-                    Browser->ParseDirectory();
-                    fileBrowser->TriggerUpdate();
+                    Browser->Refresh();
                 }
             }
         }
@@ -536,6 +549,10 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
                  RightClick->Finish();
             }
         }
+    }
+    else if(sender == RefreshBtn)
+    {
+        Browser->Refresh();
     }
 }
 

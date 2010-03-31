@@ -27,7 +27,7 @@
 #include <gctypes.h>
 #include <gd.h>
 #include "ImageWrite.h"
-#include "tools.h"
+#include "Tools/tools.h"
 
 bool WriteGDImage(const char * filepath, gdImagePtr gdImg, u8 format, u8 compression)
 {

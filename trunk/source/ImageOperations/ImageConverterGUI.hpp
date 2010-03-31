@@ -60,9 +60,9 @@ class ImageConverterGui : public GuiWindow, ImageConverter
         GuiButton * AdressBarInput;
         GuiButton * AdressBarOutput;
 
+        GuiText * TitleTxt;
         GuiText * ConvertBtnTxt;
         GuiText * ResetBtnTxt;
-        GuiText * BackBtnTxt;
         GuiText * AdressBarInputName;
         GuiText * AdressBarOutputName;
         GuiText * AdressBarInputText;
@@ -72,11 +72,14 @@ class ImageConverterGui : public GuiWindow, ImageConverter
         GuiImage * ConvertBtnImg;
         GuiImage * ResetBtnImg;
         GuiImage * BackBtnImg;
+        GuiImage * BackBtnImgOver;
         GuiImage * AdressBarInputImg;
         GuiImage * AdressBarOutputImg;
 
         GuiImageData * bgWindow;
         GuiImageData * btnOutline;
+        GuiImageData * CloseImgData;
+        GuiImageData * CloseImgOverData;
         GuiImageData * AdressBarData;
 
         GuiTrigger * trigA;

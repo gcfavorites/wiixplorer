@@ -73,11 +73,37 @@ bool Screenshot()
     time(&rawtime);
     struct tm * curtime = localtime(&rawtime);
 
+    char Extension[6];
+
+    switch(Settings.ScreenshotFormat)
+    {
+        default:
+        case IMAGE_PNG:
+            sprintf(Extension, ".png");
+            break;
+        case IMAGE_JPEG:
+            sprintf(Extension, ".jpg");
+            break;
+        case IMAGE_GIF:
+            sprintf(Extension, ".gif");
+            break;
+        case IMAGE_TIFF:
+            sprintf(Extension, ".tif");
+            break;
+        case IMAGE_BMP:
+            sprintf(Extension, ".bmp");
+            break;
+        case IMAGE_GD:
+        case IMAGE_GD2:
+            sprintf(Extension, ".gd");
+            break;
+    }
+
     char text[100];
-    strftime (text, sizeof(text), "WiiXplorer_%H%M%S.png", curtime);
+    strftime (text, sizeof(text), "WiiXplorer_%H%M%S", curtime);
 
     char filepath[400];
-    snprintf(filepath, sizeof(filepath), "%s/%s", Settings.UpdatePath, text);
+    snprintf(filepath, sizeof(filepath), "%s/%s%s", Settings.UpdatePath, text, Extension);
 
-    return Screenshot(filepath, IMAGE_PNG);
+    return Screenshot(filepath, Settings.ScreenshotFormat);
 }

@@ -28,8 +28,7 @@
 #ifndef _U8ARCHIVE_H_
 #define _U8ARCHIVE_H_
 
-#include <string>
-#include "7ZipFile.h"
+#include "WiiArchive.h"
 
 using namespace std;
 
@@ -79,7 +78,7 @@ struct U8Entry
 	};
 } __attribute__((packed));
 
-class U8Archive
+class U8Archive : public WiiArchive
 {
     public:
 		//!Constructor
@@ -88,40 +87,12 @@ class U8Archive
         U8Archive(const u8 * Buffer, u32 Size);
 		//!Destructor
 		~U8Archive();
-		//!Close File
-		void CloseFile();
-		//!Load the file
-        bool LoadFile(const char * filepath);
-		//!Load the file from a buffer
-        bool LoadFile(const u8 * Buffer, u32 Size);
-		//!Get the archive file structure
-        ArchiveFileStruct * GetFileStruct(int fileIndx);
-		//!Extract a file
-		int ExtractFile(int ind, const char *dest, bool withpath = false);
-		//!Extract all files
-		int ExtractAll(const char *dest);
-		//!Get the total amount of items inside the archive
-        u32 GetItemCount() { return PathStructure.size(); };
-
-    private:
+    protected:
         //!Parse the archive
         bool ParseFile();
         bool ParseU8Header(u32 U8HeaderOffset);
-        //!Add archive listname
-        void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 Type);
-        //!Clear the list
-        void ClearList();
         //!Get the U8Filename
         void U8Filename(const U8Entry * fst, int fstoffset, int i, string & Filename);
-        //!Raw read from the file
-        size_t ReadFile(void * buffer, size_t size, off_t offset);
-
-        bool FromMem;
-        FILE * File;
-        u8 * FileBuffer;
-        u32 FileSize;
-        vector<ArchiveFileStruct *> PathStructure;
-        vector<int> BufferOffset;
 };
 
 #endif

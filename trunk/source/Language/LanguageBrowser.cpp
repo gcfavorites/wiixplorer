@@ -91,7 +91,7 @@ int LanguageBrowser()
         }
         return MENU_SETTINGS;
 	}
-	OptionList options(filecount-1);
+	OptionList options;
 
 	for(i = 0; i < filecount; i++)
 	{

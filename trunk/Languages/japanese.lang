@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 01:34+0100\n"
+"POT-Creation-Date: 2010-03-31 15:04+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,6 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
+msgstr ""
+
+msgid "12H"
+msgstr ""
+
+msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
@@ -82,6 +88,9 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+msgid "Boot Settings"
+msgstr ""
+
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
@@ -126,6 +135,9 @@ msgstr "チャンネル"
 
 msgid "Clear"
 msgstr "クリア"
+
+msgid "Clock Mode"
+msgstr ""
 
 msgid "Close"
 msgstr "とじる"
@@ -452,7 +464,13 @@ msgstr "ホスト"
 msgid "How do you want to open the file?"
 msgstr ""
 
+msgid "Image Converter"
+msgstr ""
+
 msgid "Image Heigth"
+msgstr ""
+
+msgid "Image Settings"
 msgstr ""
 
 msgid "Image Viewer"
@@ -627,6 +645,9 @@ msgstr "貼り付け"
 msgid "Paste item(s) into current directory?"
 msgstr "このフォルダに貼り付けますか?"
 
+msgid "Path Setup"
+msgstr ""
+
 msgid "Play Directory"
 msgstr "フォルダを再生"
 
@@ -697,6 +718,9 @@ msgstr "接続中"
 msgid "Save Alpha"
 msgstr ""
 
+msgid "Screenshot Format"
+msgstr ""
+
 #, c-format
 msgid "Server at: %s"
 msgstr "サーバー: %s"
@@ -724,6 +748,9 @@ msgstr "サイズ"
 
 msgid "Slideshow Delay"
 msgstr "スライドショーの間隔"
+
+msgid "Sound Settings"
+msgstr ""
 
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"

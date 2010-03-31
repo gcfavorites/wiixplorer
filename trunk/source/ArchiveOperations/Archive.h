@@ -36,6 +36,7 @@
 #include "ZipFile.h"
 #include "RarFile.h"
 #include "U8Archive.h"
+#include "RarcFile.h"
 
 class Archive
 {
@@ -59,11 +60,13 @@ class Archive
         bool Is7ZipFile(const char *buffer);
         bool IsRarFile(const char *buffer);
         bool IsU8ArchiveFile(const char *buffer);
+        bool IsRarcFile(const char *buffer);
 
         SzFile * szFile;
         ZipFile * zipFile;
         RarFile * rarFile;
         U8Archive * u8File;
+        RarcFile * rarcFile;
 };
 
 #endif //ARCHIVE_BROWSER_H_

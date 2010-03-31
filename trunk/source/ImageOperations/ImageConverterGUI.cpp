@@ -45,6 +45,13 @@ ImageConverterGui::ImageConverterGui(const u8 * imgBuf, int imgSize)
 
 ImageConverterGui::~ImageConverterGui()
 {
+    MainWindow::Instance()->ResumeGui();
+
+    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+
+    while(GetEffect() > 0)
+        usleep(100);
+
     MainWindow::Instance()->HaltGui();
 
     if(parentElement)
@@ -60,9 +67,9 @@ ImageConverterGui::~ImageConverterGui()
     delete ResetBtn;
     delete BackBtn;
 
+    delete TitleTxt;
     delete ConvertBtnTxt;
     delete ResetBtnTxt;
-    delete BackBtnTxt;
     delete AdressBarInputText;
     delete AdressBarOutputText;
     delete AdressBarInputName;
@@ -72,6 +79,7 @@ ImageConverterGui::~ImageConverterGui()
     delete ConvertBtnImg;
     delete ResetBtnImg;
     delete BackBtnImg;
+    delete BackBtnImgOver;
     delete AdressBarInputImg;
     delete AdressBarOutputImg;
 
@@ -80,6 +88,8 @@ ImageConverterGui::~ImageConverterGui()
 
     Resources::Remove(bgWindow);
     Resources::Remove(btnOutline);
+    Resources::Remove(CloseImgData);
+    Resources::Remove(CloseImgOverData);
     Resources::Remove(AdressBarData);
 
     delete trigA;
@@ -98,17 +108,24 @@ void ImageConverterGui::Setup()
 
     bgWindow = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
     bgWindowImg = new GuiImage(bgWindow);
-    bgWindowImg->SetScaleY(1.2);
+    bgWindowImg->SetScaleY(1.21);
     width = bgWindow->GetWidth();
     height = bgWindow->GetHeight();
     Append(bgWindowImg);
 
     AdressBarData = Resources::GetImageData(addressbar_small_png, addressbar_small_png_size);
     btnOutline = Resources::GetImageData(small_button_png, small_button_png_size);
+    CloseImgData = Resources::GetImageData(close_png, close_png_size);
+    CloseImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
 
 	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 	trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+
+    TitleTxt = new GuiText(tr("Image Converter"), 20, (GXColor){0, 0, 0, 255});
+    TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+    TitleTxt->SetPosition(0, -25);
+	Append(TitleTxt);
 
     ConvertBtnTxt = new GuiText(tr("Convert"), 16, (GXColor){0, 0, 0, 255});
     ConvertBtnImg = new GuiImage(btnOutline);
@@ -118,7 +135,8 @@ void ImageConverterGui::Setup()
     ConvertBtn->SetSoundOver(btnSoundOver);
     ConvertBtn->SetSoundClick(btnClick);
     ConvertBtn->SetTrigger(trigA);
-    ConvertBtn->SetPosition(10, 360);
+    ConvertBtn->SetPosition(-100, 365);
+    ConvertBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     ConvertBtn->SetEffectGrow();
 	ConvertBtn->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
 	Append(ConvertBtn);
@@ -131,28 +149,29 @@ void ImageConverterGui::Setup()
     ResetBtn->SetSoundOver(btnSoundOver);
     ResetBtn->SetSoundClick(btnClick);
     ResetBtn->SetTrigger(trigA);
-    ResetBtn->SetPosition(150, 360);
+    ResetBtn->SetPosition(100, 365);
+    ResetBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     ResetBtn->SetEffectGrow();
 	ResetBtn->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
 	Append(ResetBtn);
 
-    BackBtnTxt = new GuiText(tr("Back"), 16, (GXColor){0, 0, 0, 255});
-    BackBtnImg = new GuiImage(btnOutline);
+    BackBtnImg = new GuiImage(CloseImgData);
+    BackBtnImgOver = new GuiImage(CloseImgOverData);
     BackBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-    BackBtn->SetLabel(BackBtnTxt);
     BackBtn->SetImage(BackBtnImg);
+    BackBtn->SetImageOver(BackBtnImgOver);
     BackBtn->SetSoundOver(btnSoundOver);
     BackBtn->SetSoundClick(btnClick);
     BackBtn->SetTrigger(trigA);
     BackBtn->SetTrigger(trigB);
-    BackBtn->SetPosition(290, 360);
+    BackBtn->SetPosition(390, -31);
     BackBtn->SetEffectGrow();
 	BackBtn->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
 	Append(BackBtn);
 
     /** AdressBarInput **/
     AdressBarInputName = new GuiText(tr("Input File"), 18, (GXColor){0, 0, 0, 255});
-    AdressBarInputName->SetPosition(30, -9+AdressBarData->GetHeight()/2);
+    AdressBarInputName->SetPosition(30, 5-9+AdressBarData->GetHeight()/2);
     AdressBarInputName->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Append(AdressBarInputName);
 
@@ -164,14 +183,14 @@ void ImageConverterGui::Setup()
     AdressBarInput->SetSoundOver(btnSoundOver);
     AdressBarInput->SetSoundClick(btnClick);
     AdressBarInput->SetTrigger(trigA);
-    AdressBarInput->SetPosition(150, 0);
+    AdressBarInput->SetPosition(150, 10);
     AdressBarInputText->SetMaxWidth(AdressBarInputImg->GetWidth()-20, DOTTED);
 	AdressBarInput->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
     Append(AdressBarInput);
 
     /** AdressBarOuput **/
     AdressBarOutputName = new GuiText(tr("Output File"), 18, (GXColor){0, 0, 0, 255});
-    AdressBarOutputName->SetPosition(30, 50-9+AdressBarData->GetHeight()/2);
+    AdressBarOutputName->SetPosition(30, 60-9+AdressBarData->GetHeight()/2);
     AdressBarOutputName->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Append(AdressBarOutputName);
 
@@ -183,7 +202,7 @@ void ImageConverterGui::Setup()
     AdressBarOutput->SetSoundOver(btnSoundOver);
     AdressBarOutput->SetSoundClick(btnClick);
     AdressBarOutput->SetTrigger(trigA);
-    AdressBarOutput->SetPosition(150, 50);
+    AdressBarOutput->SetPosition(150, 60);
     AdressBarOutputText->SetMaxWidth(AdressBarOutputImg->GetWidth()-20, DOTTED);
 	AdressBarOutput->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
     Append(AdressBarOutput);
@@ -194,7 +213,7 @@ void ImageConverterGui::Setup()
     Options.ClickedButton.connect(this, &ImageConverterGui::OnOptionButtonClick);
 
     int PositionX = 80;
-    int PositionY = 110;
+    int PositionY = 115;
     Options.AddOption(tr("Output Type"), PositionX, PositionY);
     Options.AddOption(tr("Image Width"), PositionX+130, PositionY);
     Options.AddOption(tr("Image Heigth"), PositionX+260, PositionY);
@@ -212,6 +231,8 @@ void ImageConverterGui::Setup()
     SetOptionValues();
 
     Append(&Options);
+
+    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 }
 
 int ImageConverterGui::MainUpdate()
@@ -350,8 +371,12 @@ int ImageConverterGui::MainUpdate()
             WindowPrompt(tr("Image successfully converted."), 0, tr("OK"));
             //reset Image
             char temppath[512];
+            char tempoutpath[512];
             snprintf(temppath, sizeof(temppath), "%s", ImagePath);
+            snprintf(tempoutpath, sizeof(tempoutpath), "%s", OutPath);
             LoadImage(temppath);
+            SetOutPath(tempoutpath);
+            SetOptionValues();
         }
 
         Converting = false;

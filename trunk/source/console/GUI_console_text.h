@@ -48,7 +48,7 @@
 #include "input.h"
 #include "oggplayer.h"
 #include "sigslot.h"
-#include "tools.h"
+#include "Tools/tools.h"
 
 extern FreeTypeGX *fontSystem[];
 

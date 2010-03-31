@@ -19,6 +19,7 @@ TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source \
 				source/libwiigui \
+				source/Tools \
 				source/Menus \
 				source/network \
 				source/Prompts \

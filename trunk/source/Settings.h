@@ -140,6 +140,10 @@ class Settings
         short	UpdateMetaxml;
         //!Update the icon.png
         short	UpdateIconpng;
+        //!Clock mode
+        short	ClockMode;
+        //!Screenshot image format
+        short	ScreenshotFormat;
         //!Languagefile path
         char	MusicPath[150];
         //!Languagefile path

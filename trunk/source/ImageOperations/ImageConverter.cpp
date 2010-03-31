@@ -370,6 +370,7 @@ void ImageConverter::SetOutPath(const char * filepath)
             sprintf(Extension, ".gd");
             break;
         default:
+            free(PathPointer);
             return;
     }
 
