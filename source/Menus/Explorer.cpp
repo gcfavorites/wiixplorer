@@ -381,6 +381,7 @@ void Explorer::CheckBrowserChanges()
             else if(result == REFRESH_BROWSER)
             {
                 Browser->Refresh();
+                fileBrowser->TriggerUpdate();
             }
             else if(result == RELOAD_BROWSER)
             {
@@ -476,6 +477,8 @@ void Explorer::CheckRightClick()
             else if(RightClick_choice >= 0)
             {
                 ProcessArcChoice(ArcBrowser, RightClick_choice, Browser->GetCurrentPath());
+                Browser->Refresh();
+                fileBrowser->TriggerUpdate();
             }
         }
 
@@ -500,6 +503,7 @@ void Explorer::CheckRightClick()
                 if(RightClick_choice >= PASTE)
                 {
                     Browser->Refresh();
+                    fileBrowser->TriggerUpdate();
                 }
             }
         }
@@ -552,7 +556,15 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
     else if(sender == RefreshBtn)
     {
-        Browser->Refresh();
+        if(ArcBrowser)
+        {
+            ArcBrowser->Refresh();
+        }
+        else
+        {
+            Browser->Refresh();
+            fileBrowser->TriggerUpdate();
+        }
     }
 }
 
