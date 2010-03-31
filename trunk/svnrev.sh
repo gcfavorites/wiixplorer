@@ -62,6 +62,7 @@ Features:
  * Addressbar with path
  * Multilanguage with custom font support
  * Boot .dol/.elf files
+ * Playback Wii/GC Game Videos
  * Open TXT/XML/MP3/OGG/WAV/BNS/AIFF files
  * Supported Image Formats:
    PNG/JPEG/GIF/BMP/TPL/TGA/TIFF/GD/GD2
