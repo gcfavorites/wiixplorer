@@ -51,7 +51,7 @@ int FileStartUp(const char *filepath)
         else if(choice == 2)
         {
             ImageConverterLoader(filepath);
-            return TRIGGERUPDATE;
+            return REFRESH_BROWSER;
         }
     }
     else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
@@ -114,7 +114,7 @@ int FileStartUp(const char *filepath)
         if(choice)
         {
             Settings.LoadLanguage(filepath);
-            return RELOADBROWSER;
+            return RELOAD_BROWSER;
         }
     }
     else if(strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".mth") == 0)

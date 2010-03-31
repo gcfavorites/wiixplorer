@@ -34,7 +34,7 @@
 #include "Settings.h"
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
-#include "tools.h"
+#include "Tools/tools.h"
 
 #define DEFAULT_APP_PATH    "apps/WiiExplorer/"
 #define CONFIGPATH          "config/WiiXplorer/"
@@ -64,6 +64,8 @@ void Settings::SetDefault()
     AutoConnect = 0;
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
+    ClockMode = 0;
+    ScreenshotFormat = 0;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
@@ -147,6 +149,8 @@ bool Settings::Save()
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "UpdateMetaxml = %d\n", UpdateMetaxml);
 	fprintf(file, "UpdateIconpng = %d\n", UpdateIconpng);
+	fprintf(file, "ClockMode = %d\n", ClockMode);
+	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
@@ -477,6 +481,18 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "UpdateIconpng") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			UpdateIconpng = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ClockMode") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClockMode = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ScreenshotFormat") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ScreenshotFormat = i;
 		}
 		return true;
 	}

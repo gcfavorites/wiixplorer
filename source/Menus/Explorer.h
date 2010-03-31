@@ -73,10 +73,12 @@ class Explorer : public GuiWindow
 
         GuiImage * BackgroundImg;
         GuiImage * creditsImg;
+        GuiImage * RefreshImg;
         GuiImage * deviceImg;
         GuiImage * AdressbarImg;
 
         GuiImageData * creditsImgData;
+        GuiImageData * Refresh;
         GuiImageData * Background;
         GuiImageData * Address;
         GuiImageData * sdstorage;
@@ -91,6 +93,7 @@ class Explorer : public GuiWindow
         GuiText * AdressText;
 
         GuiButton * CreditsBtn;
+        GuiButton * RefreshBtn;
         GuiButton * deviceSwitchBtn;
         GuiButton * Adressbar;
         GuiButton * clickmenuBtn;

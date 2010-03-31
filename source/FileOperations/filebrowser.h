@@ -83,11 +83,12 @@ class FileBrowser : public Browser
         const char * GetCurrentPath();
         const char * GetCurrentSelectedFilepath();
         ItemStruct GetCurrentItemStruct() const;
-        void ResetBrowser();
-        int UpdateDirName();
-        int ParseDirectory();
         int BrowserChangeFolder();
+        void Refresh();
     private:
+        int ParseDirectory(bool ResetPosition = true);
+        int UpdateDirName();
+        void ResetBrowser();
         int EnterSelDir();
         int LeaveCurDir();
         void InitParseThread();

@@ -136,7 +136,11 @@ void Taskbar::Draw()
 		char timetxt[20];
 		time_t currenttime = time(0);
 		struct tm * timeinfo = localtime(&currenttime);
-		strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
+
+		if(Settings.ClockMode == 0)
+            strftime(timetxt, sizeof(timetxt), "%H:%M:%S", timeinfo);
+        else
+            strftime(timetxt, sizeof(timetxt), "%I:%M:%S", timeinfo);
 
 		timeTxt->SetText(timetxt);
 	}

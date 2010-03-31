@@ -306,7 +306,7 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 
 		int pageIndex = (positionWiimote * browser->GetEntrieCount())/136.0 - selectedItem;
 
-		if(pageIndex <= 0)
+		if(pageIndex < 0)
 		{
 			pageIndex = 0;
 		}
@@ -428,7 +428,7 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 				    {
                         if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0 || strcasecmp(fileext, ".gif") == 0 ||
 						   strcasecmp(fileext, ".tga") == 0 || strcasecmp(fileext, ".tpl") == 0 || strcasecmp(fileext, ".bmp") == 0 ||
-						   strcasecmp(fileext, ".tif") == 0)
+						   strcasecmp(fileext, ".tif") == 0 || strcasecmp(fileext, ".gd") == 0)
                         {
                             fileList[i]->SetIcon(fileListGFX[i]);
                         }

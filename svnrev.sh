@@ -70,7 +70,8 @@ Features:
    supported formats to:
    PNG/JPEG/GIF/BMP/TIFF/GD/GD2
  * Screenshot support at any point of the app
- * ZIP/7zip/BNR/U8Archive browsing and decompressing
+   in different formats
+ * ZIP/7zip/BNR/U8Archive/RARC browsing and decompressing
  * Rar browsing
  * Properties of archive files
  * Textediting support

@@ -52,7 +52,7 @@
 #include "oggplayer.h"
 #include "sigslot.h"
 #include "gecko.h"
-#include "tools.h"
+#include "Tools/tools.h"
 
 extern FreeTypeGX *fontSystem[];
 extern bool shutdown;

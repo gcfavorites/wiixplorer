@@ -13,62 +13,6 @@
 
 #define BROWSERSIZE        8
 
-
-OptionList::OptionList(int size)
-{
-	name = new char * [size+1];
-	value = new char * [size+1];
-	for (int i = 0; i < size+1; i++)
-	{
-		name[i] = NULL;
-		value[i] = NULL;
-	}
-	length = size+1;
-}
-OptionList::~OptionList()
-{
-	for (int i = 0; i < length; i++)
-	{
-	    if(name[i]) {
-            free(name[i]);
-            name[i] = NULL;
-	    }
-	    if(value[i]) {
-            free(value[i]);
-            name[i] = NULL;
-	    }
-	}
-	delete [] name;
-	delete [] value;
-}
-
-void OptionList::SetName(int i, const char *format, ...)
-{
-	if(i >= 0 && i < length)
-	{
-		if(name[i]) free(name[i]);
-		name[i] = NULL;
-		va_list va;
-		va_start(va, format);
-		vasprintf(&name[i], format, va);
-		va_end(va);
-		listChanged = true;
-	}
-}
-void OptionList::SetValue(int i, const char *format, ...)
-{
-	if(i >= 0 && i < length)
-	{
-		if(value[i]) free(value[i]);
-		value[i] = NULL;
-		va_list va;
-		va_start(va, format);
-		vasprintf(&value[i], format, va);
-		va_end(va);
-		listChanged = true;
-	}
-}
-
 /**
  * Constructor for the GuiOptionBrowser class.
  */

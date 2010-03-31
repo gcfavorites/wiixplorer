@@ -37,6 +37,7 @@ Archive::Archive(const char  * filepath)
     zipFile = NULL;
     rarFile = NULL;
     u8File = NULL;
+    rarcFile = NULL;
 
     char checkbuffer[6];
     memset(checkbuffer, 0, sizeof(checkbuffer));
@@ -63,9 +64,10 @@ Archive::Archive(const char  * filepath)
         rarFile = new RarFile(filepath);
 
     if(IsU8ArchiveFile(checkbuffer))
-    {
         u8File = new U8Archive(filepath);
-    }
+
+    if(IsRarcFile(checkbuffer))
+        rarcFile = new RarcFile(filepath);
 }
 
 Archive::~Archive()
@@ -82,10 +84,14 @@ Archive::~Archive()
     if(u8File)
         delete u8File;
 
+    if(rarcFile)
+        delete rarcFile;
+
     zipFile = NULL;
     szFile = NULL;
     rarFile = NULL;
     u8File = NULL;
+    rarcFile = NULL;
 }
 
 ArchiveFileStruct * Archive::GetFileStruct(int ind)
@@ -101,6 +107,9 @@ ArchiveFileStruct * Archive::GetFileStruct(int ind)
 
     if(u8File)
         return u8File->GetFileStruct(ind);
+
+    if(rarcFile)
+        return rarcFile->GetFileStruct(ind);
 
     return NULL;
 }
@@ -119,6 +128,9 @@ u32 Archive::GetItemCount()
     if(u8File)
         return u8File->GetItemCount();
 
+    if(rarcFile)
+        return rarcFile->GetItemCount();
+
     return 0;
 }
 
@@ -136,6 +148,9 @@ int Archive::ExtractFile(int ind, const char *destpath, bool withpath)
     if(u8File)
         return u8File->ExtractFile(ind, destpath, withpath);
 
+    if(rarcFile)
+        return rarcFile->ExtractFile(ind, destpath, withpath);
+
     return 0;
 }
 
@@ -152,6 +167,9 @@ int Archive::ExtractAll(const char * destpath)
 
     if(u8File)
         return u8File->ExtractAll(destpath);
+
+    if(rarcFile)
+        return rarcFile->ExtractAll(destpath);
 
 	return 0;
 }
@@ -218,6 +236,29 @@ bool Archive::IsU8ArchiveFile(const char *buffer)
         sign_passed = true;
         for(i = 0; i < 4; i++)
             if(buffer[i] != SignatureU8HEAD[i])
+                sign_passed = false;
+    }
+
+    return sign_passed;
+}
+
+bool Archive::IsRarcFile(const char *buffer)
+{
+	char SignatureYaz0[4] = {'Y', 'a', 'z', '0'};
+	char SignatureRARC[4] = {'R', 'A', 'R', 'C'};
+
+	int i;
+	bool sign_passed = true;
+
+	for(i = 0; i < 4; i++)
+		if(buffer[i] != SignatureYaz0[i])
+			sign_passed = false;
+
+    if(!sign_passed)
+    {
+        sign_passed = true;
+        for(i = 0; i < 4; i++)
+            if(buffer[i] != SignatureRARC[i])
                 sign_passed = false;
     }
 

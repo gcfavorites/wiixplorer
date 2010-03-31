@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 01:34+0100\n"
+"POT-Creation-Date: 2010-03-31 15:04+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -14,6 +14,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
+msgstr ""
+
+msgid "12H"
+msgstr ""
+
+msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
@@ -80,6 +86,9 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+msgid "Boot Settings"
+msgstr ""
+
 msgid "Bootup Mount"
 msgstr ""
 
@@ -123,6 +132,9 @@ msgid "Channels"
 msgstr "ÐšÐ°Ð½Ð°Ð»Ñ‹"
 
 msgid "Clear"
+msgstr ""
+
+msgid "Clock Mode"
 msgstr ""
 
 msgid "Close"
@@ -450,7 +462,13 @@ msgstr "Ð¥Ð¾ÑÑ‚:"
 msgid "How do you want to open the file?"
 msgstr ""
 
+msgid "Image Converter"
+msgstr ""
+
 msgid "Image Heigth"
+msgstr ""
+
+msgid "Image Settings"
 msgstr ""
 
 msgid "Image Viewer"
@@ -625,6 +643,9 @@ msgstr "Ð’ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ"
 msgid "Paste item(s) into current directory?"
 msgstr ""
 
+msgid "Path Setup"
+msgstr ""
+
 msgid "Play Directory"
 msgstr ""
 
@@ -695,6 +716,9 @@ msgstr ""
 msgid "Save Alpha"
 msgstr ""
 
+msgid "Screenshot Format"
+msgstr ""
+
 #, c-format
 msgid "Server at: %s"
 msgstr ""
@@ -721,6 +745,9 @@ msgid "Size:"
 msgstr "Ð Ð°Ð·Ð¼ÐµÑ€:"
 
 msgid "Slideshow Delay"
+msgstr ""
+
+msgid "Sound Settings"
 msgstr ""
 
 msgid "Special thanks to:"

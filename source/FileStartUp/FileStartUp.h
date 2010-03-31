@@ -5,8 +5,8 @@ enum
 {
     BOOTHOMEBREW = 1,
     ARCHIVE,
-    TRIGGERUPDATE,
-    RELOADBROWSER
+    REFRESH_BROWSER,
+    RELOAD_BROWSER
 };
 
 int FileStartUp(const char * filepath);
