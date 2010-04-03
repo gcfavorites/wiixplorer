@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r142
+# r146
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 15:04+0200\n"
+"POT-Creation-Date: 2010-03-09 21:29+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -65,7 +65,7 @@ msgid "Action cancelled."
 msgstr "Action annulée."
 
 msgid "Alpha Blending"
-msgstr ""
+msgstr "Transparence"
 
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
@@ -83,19 +83,19 @@ msgid "Auto Connect"
 msgstr "Connexion auto"
 
 msgid "BMP Compression"
-msgstr ""
+msgstr "Compression BMP"
 
 msgid "Back"
 msgstr "Arr."
 
 msgid "Boot Settings"
-msgstr ""
+msgstr "Options de démarrage"
 
 msgid "Bootup Mount"
 msgstr "Périphérique"
 
 msgid "Both"
-msgstr ""
+msgstr "Les deux"
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -128,7 +128,7 @@ msgid "Caps"
 msgstr "Verr"
 
 msgid "Change Language Path?"
-msgstr "Modifier le dossier Language ?"
+msgstr "Modifier le dossier Language?"
 
 msgid "Channels"
 msgstr "Chaînes"
@@ -137,7 +137,7 @@ msgid "Clear"
 msgstr "Vider"
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "Mode d'horloge"
 
 msgid "Close"
 msgstr "Fermer"
@@ -163,16 +163,16 @@ msgid "Console Default"
 msgstr "Wii Défaut"
 
 msgid "Convert"
-msgstr ""
+msgstr "Convertir"
 
 msgid "Converting image..."
-msgstr ""
+msgstr "Conversion de l'image..."
 
 msgid "Copy"
 msgstr "Copier"
 
 msgid "Copy current marked item(s)?"
-msgstr "Copier le(s) élement(s) marqué(s) ?"
+msgstr "Copier le(s) élement(s) marqué(s)?"
 
 msgid "Copy of"
 msgstr "Copie de "
@@ -181,25 +181,25 @@ msgid "Copying item(s):"
 msgstr "Copie en cours:"
 
 msgid "Could not connect to the network"
-msgstr "Connexion au réseau impossible."
+msgstr "Impossible de se connecter au réseau."
 
 msgid "Could not connect to the server."
-msgstr "Connexion au serveur impossible."
+msgstr "Impossible de se connecter au serveur."
 
 msgid "Could not convert image."
-msgstr ""
+msgstr "Impossible de convertir l'image."
 
 msgid "Could not decompress the file."
-msgstr "Décompression du fichier impossible."
+msgstr "Impossible de décompresser le fichier."
 
 msgid "Could not download file."
-msgstr "Téléchargement impossible."
+msgstr "Impossible de télécharger le fichier."
 
 msgid "Could not extract file:"
 msgstr "Impossible d'extraire le fichier:"
 
 msgid "Could not load image."
-msgstr ""
+msgstr "Impossible de charger l'image."
 
 msgid "Could not load text file."
 msgstr "Imposible de charger le fichier texte."
@@ -214,13 +214,13 @@ msgid "Cut"
 msgstr "Couper"
 
 msgid "Cut current marked item(s)?"
-msgstr "Couper le(s) élement(s) marqué(s) ?"
+msgstr "Couper le(s) élement(s) marqué(s)?"
 
 msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr "Supprimer le(s) élement(s) marqué(s) ?"
+msgstr "Supprimer le(s) élement(s) marqué(s)?"
 
 msgid "Deleting files:"
 msgstr "Suppression des fichiers:"
@@ -235,68 +235,68 @@ msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
 
 msgid "Do you want to boot file now?"
-msgstr "Voulez-vous lancer le fichier maintenant ?"
+msgstr "Voulez-vous lancer le fichier maintenant?"
 
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "Voulez-vous quitter Wiixplorer ?"
+msgstr "Voulez-vous quitter Wiixplorer?"
 
 msgid "Do you want to exit to the system menu?"
-msgstr "Voulez-vous retourner au menu syst笥?"
+msgstr "Voulez-vous retourner au menu système?"
 
 msgid "Do you want to load app default language ?"
-msgstr "Voulez-vous charger le language de WiiWplorer par défaut ?"
+msgstr "Voulez-vous charger le language de WiiWplorer par défaut?"
 
 msgid "Do you want to load console default language."
-msgstr "Voulez-vous charger le language de la Wii par défaut ?"
+msgstr "Voulez-vous charger le language de la Wii par défaut?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr "Voulez-vous charger le fichier depuis: %s ?"
+msgstr "Voulez-vous charger le fichier depuis: %s?"
 
 msgid "Do you want to load this language ?"
-msgstr "Voulez-vous charger ce language ?"
+msgstr "Voulez-vous charger ce language?"
 
 msgid "Do you want to load this language file?"
-msgstr "Voulez-vous charger ce fichier language ?"
+msgstr "Voulez-vous charger ce fichier language?"
 
 msgid "Do you want to open this file in TextViewer?"
-msgstr "Voulez-vous ouvrir ce fichier texte ?"
+msgstr "Voulez-vous ouvrir ce fichier texte?"
 
 msgid "Do you want to playback this file?"
-msgstr "Voulez-vous écouter ce son ?"
+msgstr "Voulez-vous jouer ce fichier?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "Voulez-vous redémarrer Wiixplorer ?"
+msgstr "Voulez-vous redémarrer Wiixplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr "Voulez-vous redémarrer maintenant ?"
+msgstr "Voulez-vous redémarrer maintenant?"
 
 msgid "Do you want to reconnect the SMB?"
-msgstr "Voulez-vous reconnecter le SMB ?"
+msgstr "Voulez-vous reconnecter le SMB?"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr "Voulez-vous reconnecter le serveur FTP ?"
+msgstr "Voulez-vous reconnecter le serveur FTP?"
 
 msgid "Do you want to remount the devices?"
-msgstr "Voulez-vous remonter les périphériques ?"
+msgstr "Voulez-vous remonter les périphériques?"
 
 msgid "Do you want to replace this file?"
-msgstr "Voulez-vous remplacer ce fichier ?"
+msgstr "Voulez-vous remplacer ce fichier?"
 
 msgid "Do you want to save changes?"
-msgstr "Voulez-vous sauvegarder les modifications ?"
+msgstr "Voulez-vous sauvegarder les modifications?"
 
 msgid "Do you want to start the app?"
-msgstr "Voulez-vous démarrer l'application ?"
+msgstr "Voulez-vous démarrer l'application?"
 
 msgid "Do you want to start the channel?"
-msgstr "Voulez-vous démarrer la chaîne ?"
+msgstr "Voulez-vous démarrer la chaîne?"
 
 msgid "Do you want to update now ?"
-msgstr "Voulez-vous mettre à jour maintenant ?"
+msgstr "Voulez-vous mettre à jour maintenant?"
 
 msgid "Downloading file..."
 msgstr "Téléchargement..."
@@ -341,10 +341,10 @@ msgid "Extract first and open than."
 msgstr "Extraire puis ouvrir."
 
 msgid "Extract full archive?"
-msgstr "Extraire l'archive complete ?"
+msgstr "Extraire l'archive complete?"
 
 msgid "Extract the selected item(s)?"
-msgstr "Extraire le(s) fichier(s) sélectioné(s) ?"
+msgstr "Extraire le(s) fichier(s) sélectioné(s)?"
 
 msgid "Extracting files..."
 msgstr "Extraction des fichiers..."
@@ -429,7 +429,7 @@ msgid "Filetype:"
 msgstr "Type:"
 
 msgid "Flip Mode"
-msgstr ""
+msgstr "Inversion"
 
 msgid "Folder"
 msgstr "Dossier"
@@ -444,7 +444,7 @@ msgid "Ftp stopped"
 msgstr "Ftp stoppé."
 
 msgid "GD2 Compression"
-msgstr ""
+msgstr "Compression GD2"
 
 msgid "Getting Changelog..."
 msgstr "Obtention du Changelog..."
@@ -462,46 +462,46 @@ msgid "Host:"
 msgstr "Hébergeur:"
 
 msgid "How do you want to open the file?"
-msgstr ""
+msgstr "Comment souhaitez-vous ouvrir le fichier?"
 
 msgid "Image Converter"
-msgstr ""
+msgstr "Convertisseur d'image"
 
 msgid "Image Heigth"
-msgstr ""
+msgstr "Hauteur"
 
 msgid "Image Settings"
-msgstr ""
+msgstr "Options d'image"
 
 msgid "Image Viewer"
 msgstr "Aperçu"
 
 msgid "Image Width"
-msgstr ""
+msgstr "Largeur"
 
 msgid "Image successfully converted."
-msgstr ""
+msgstr "Conversion de l'image réussie."
 
 msgid "ImageConverter"
-msgstr ""
+msgstr "Conversion"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Aperçu"
 
 msgid "Incomming connection."
 msgstr "Connexion entrante."
 
 msgid "Input File"
-msgstr ""
+msgstr "Fichier d'entrée"
 
 msgid "Interlace"
-msgstr ""
+msgstr "Entrelacer"
 
 msgid "Internal error"
 msgstr "Erreur interne"
 
 msgid "JPEG Quality"
-msgstr ""
+msgstr "Qualité JPEG"
 
 msgid "Language"
 msgstr "Langue"
@@ -510,10 +510,10 @@ msgid "Language Path changed."
 msgstr "Dossier Language modifié."
 
 msgid "Language Settings"
-msgstr "Paramètres Langues"
+msgstr "Paramètres de Langue"
 
 msgid "Last access:"
-msgstr "Dernier acces:"
+msgstr "Dernier accès:"
 
 msgid "Last change:"
 msgstr "Dernier changement:"
@@ -534,7 +534,7 @@ msgid "Loading file:"
 msgstr "Chargement de:"
 
 msgid "Loading image..."
-msgstr ""
+msgstr "Chargement de l'image..."
 
 msgid "Loop"
 msgstr "Boucle"
@@ -555,7 +555,7 @@ msgid "Music Volume"
 msgstr "Volume"
 
 msgid "NONE"
-msgstr ""
+msgstr "Sans"
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -564,7 +564,7 @@ msgid "Name might already exists."
 msgstr "Ce nom de fichier existe déjà."
 
 msgid "Network Settings"
-msgstr "Paramètres réseau"
+msgstr "Options réseau >"
 
 msgid "Network initialising..."
 msgstr "Initialisation du réseau..."
@@ -601,10 +601,10 @@ msgid "Not a valid domain"
 msgstr "Domaine invalide"
 
 msgid "Not enough memory to resize."
-msgstr ""
+msgstr "Pas assez de mémoire pour redimensionner."
 
 msgid "Not enough memory to rotate."
-msgstr ""
+msgstr "Pas assez de mémoire pour faire pivoter."
 
 msgid "Not enough memory."
 msgstr "Mémoire insuffisante."
@@ -628,10 +628,10 @@ msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
 
 msgid "Output File"
-msgstr ""
+msgstr "Fichier de sortie"
 
 msgid "Output Type"
-msgstr ""
+msgstr "Format"
 
 msgid "Passive Mode:"
 msgstr "Mode passif:"
@@ -643,10 +643,10 @@ msgid "Paste"
 msgstr "Coller"
 
 msgid "Paste item(s) into current directory?"
-msgstr "Coller le(s) fichier(s) dans ce dossier ?"
+msgstr "Coller le(s) fichier(s) dans ce dossier?"
 
 msgid "Path Setup"
-msgstr ""
+msgstr "Options dossiers"
 
 msgid "Play Directory"
 msgstr "Lire Dossier"
@@ -692,7 +692,7 @@ msgid "Reply sent: %s\n"
 msgstr "Réponse envoyée: %s\n"
 
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialisation"
 
 msgid "Restart"
 msgstr "Redémarrer"
@@ -704,22 +704,22 @@ msgid "Retry"
 msgstr "Réessayer"
 
 msgid "Rotate"
-msgstr ""
+msgstr "Deg. de rotation"
 
 msgid "SMB Name:"
 msgstr "Nom du SMB:"
 
 msgid "SMB Settings"
-msgstr "Paramètres SMB"
+msgstr "Paramètres client SMB"
 
 msgid "SMB is connecting..."
 msgstr "Connexion SMB..."
 
 msgid "Save Alpha"
-msgstr ""
+msgstr "Conserver Alpha"
 
 msgid "Screenshot Format"
-msgstr ""
+msgstr "Format de copie d'écran"
 
 #, c-format
 msgid "Server at: %s"
@@ -750,7 +750,7 @@ msgid "Slideshow Delay"
 msgstr "Delai diaporama"
 
 msgid "Sound Settings"
-msgstr ""
+msgstr "Options audio"
 
 msgid "Special thanks to:"
 msgstr "Remerciements:"
@@ -811,7 +811,7 @@ msgid "Update Meta.xml"
 msgstr "Mise à jour Meta"
 
 msgid "Update Path changed."
-msgstr "Dossier Mise à jour modifié."
+msgstr "Dossier de Mise à jour modifié."
 
 msgid "Update failed"
 msgstr "Echec de la Mise à jour."
@@ -900,10 +900,10 @@ msgstr ""
 #~ msgstr "Extraction réussie."
 
 #~ msgid "Extract this file?"
-#~ msgstr "Extraire ce fichier ?"
+#~ msgstr "Extraire ce fichier?"
 
 #~ msgid "Extract this folder?"
-#~ msgstr "Extraire ce dossier ?"
+#~ msgstr "Extraire ce dossier?"
 
 #~ msgid "Extracting file:"
 #~ msgstr "Extraction du fichier:"
@@ -927,10 +927,10 @@ msgstr ""
 #~ msgstr "Suppression du dossier effectuée."
 
 #~ msgid "Copy directory?"
-#~ msgstr "Copier le dossier ?"
+#~ msgstr "Copier le dossier?"
 
 #~ msgid "Copy file?"
-#~ msgstr "Copier le fichier ?"
+#~ msgstr "Copier le fichier?"
 
 #~ msgid "Copying file:"
 #~ msgstr "Copie du fichier:"
@@ -939,13 +939,13 @@ msgstr ""
 #~ msgstr "Copie des fichiers"
 
 #~ msgid "Cut directory?"
-#~ msgstr "Couper le dossier ?"
+#~ msgstr "Couper le dossier?"
 
 #~ msgid "Cut file?"
-#~ msgstr "Couper le fichier ?"
+#~ msgstr "Couper le fichier?"
 
 #~ msgid "Delete directory and its content?"
-#~ msgstr "Supprimer le dossier et son contenu ?"
+#~ msgstr "Supprimer le dossier et son contenu?"
 
 #~ msgid "Delete this file?"
 #~ msgstr "Supprimer ce fichier ?"
