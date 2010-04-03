@@ -16,10 +16,10 @@ msgid "1"
 msgstr ""
 
 msgid "12H"
-msgstr ""
+msgstr "12時間表示"
 
 msgid "24H"
-msgstr ""
+msgstr "24時間表示"
 
 msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
@@ -65,7 +65,7 @@ msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "Alpha Blending"
-msgstr ""
+msgstr "アルファブレンド"
 
 msgid "App Default"
 msgstr "英語"
@@ -83,19 +83,19 @@ msgid "Auto Connect"
 msgstr "自動接続"
 
 msgid "BMP Compression"
-msgstr ""
+msgstr "BMP圧縮"
 
 msgid "Back"
 msgstr ""
 
 msgid "Boot Settings"
-msgstr ""
+msgstr "起動設定"
 
 msgid "Bootup Mount"
 msgstr "起動時のデバイス"
 
 msgid "Both"
-msgstr ""
+msgstr "両方"
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr "クライアントソケットエラー\n"
@@ -137,7 +137,7 @@ msgid "Clear"
 msgstr "クリア"
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "時計の表示形式"
 
 msgid "Close"
 msgstr "とじる"
@@ -163,10 +163,10 @@ msgid "Console Default"
 msgstr "日本語"
 
 msgid "Convert"
-msgstr ""
+msgstr "変換"
 
 msgid "Converting image..."
-msgstr ""
+msgstr "画像を変換しています･･･"
 
 msgid "Copy"
 msgstr "コピー"
@@ -187,7 +187,7 @@ msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
 
 msgid "Could not convert image."
-msgstr ""
+msgstr "画像を変換出来ませんでした"
 
 msgid "Could not decompress the file."
 msgstr "解凍できませんでした"
@@ -199,7 +199,7 @@ msgid "Could not extract file:"
 msgstr "解凍できませんでした"
 
 msgid "Could not load image."
-msgstr ""
+msgstr "画像を読み込めませんでした"
 
 msgid "Could not load text file."
 msgstr "テキストファイルを読み込めませんでした"
@@ -429,7 +429,7 @@ msgid "Filetype:"
 msgstr "種類:"
 
 msgid "Flip Mode"
-msgstr ""
+msgstr "反転"
 
 msgid "Folder"
 msgstr "フォルダ"
@@ -444,7 +444,7 @@ msgid "Ftp stopped"
 msgstr "FTPを停止しました"
 
 msgid "GD2 Compression"
-msgstr ""
+msgstr "GD2圧縮"
 
 msgid "Getting Changelog..."
 msgstr "更新履歴を受信しています･･･"
@@ -456,52 +456,52 @@ msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
 
 msgid "Horizontal"
-msgstr ""
+msgstr "左右反転"
 
 msgid "Host:"
 msgstr "ホスト"
 
 msgid "How do you want to open the file?"
-msgstr ""
+msgstr "どのようにファイルを開きますか?"
 
 msgid "Image Converter"
-msgstr ""
+msgstr "画像を変換"
 
 msgid "Image Heigth"
-msgstr ""
+msgstr "画像の高さ"
 
 msgid "Image Settings"
-msgstr ""
+msgstr "画像の設定"
 
 msgid "Image Viewer"
 msgstr "画像ビューア"
 
 msgid "Image Width"
-msgstr ""
+msgstr "画像の幅"
 
 msgid "Image successfully converted."
-msgstr ""
+msgstr "画像を変換しました"
 
 msgid "ImageConverter"
-msgstr ""
+msgstr "画像を変換"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "画像を閲覧"
 
 msgid "Incomming connection."
 msgstr "接続を着信しました"
 
 msgid "Input File"
-msgstr ""
+msgstr "入力ファイル"
 
 msgid "Interlace"
-msgstr ""
+msgstr "インターレース"
 
 msgid "Internal error"
 msgstr "内部エラー"
 
 msgid "JPEG Quality"
-msgstr ""
+msgstr "JPEGの品質"
 
 msgid "Language"
 msgstr "言語"
@@ -534,7 +534,7 @@ msgid "Loading file:"
 msgstr "読み込んでいます"
 
 msgid "Loading image..."
-msgstr ""
+msgstr "画像を読み込んでいます･･･"
 
 msgid "Loop"
 msgstr "ループ"
@@ -555,7 +555,7 @@ msgid "Music Volume"
 msgstr "音量"
 
 msgid "NONE"
-msgstr ""
+msgstr "なし"
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr "タイムアウトしました\n"
@@ -601,10 +601,10 @@ msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
 
 msgid "Not enough memory to resize."
-msgstr ""
+msgstr "リサイズするためのメモリが足りません"
 
 msgid "Not enough memory to rotate."
-msgstr ""
+msgstr "回転するためのメモリが足りません"
 
 msgid "Not enough memory."
 msgstr "メモリ不足です"
@@ -628,10 +628,10 @@ msgid "Out of memory: too many files!"
 msgstr "ファイルが多いためメモリ不足です"
 
 msgid "Output File"
-msgstr ""
+msgstr "出力ファイル"
 
 msgid "Output Type"
-msgstr ""
+msgstr "出力形式"
 
 msgid "Passive Mode:"
 msgstr "受信モード:"
@@ -646,7 +646,7 @@ msgid "Paste item(s) into current directory?"
 msgstr "このフォルダに貼り付けますか?"
 
 msgid "Path Setup"
-msgstr ""
+msgstr "パスの設定"
 
 msgid "Play Directory"
 msgstr "フォルダを再生"
@@ -692,7 +692,7 @@ msgid "Reply sent: %s\n"
 msgstr "返信: %s\n"
 
 msgid "Reset"
-msgstr ""
+msgstr "リセット"
 
 msgid "Restart"
 msgstr "再起動"
@@ -704,7 +704,7 @@ msgid "Retry"
 msgstr "再試行"
 
 msgid "Rotate"
-msgstr ""
+msgstr "回転"
 
 msgid "SMB Name:"
 msgstr "SMB名"
@@ -716,10 +716,10 @@ msgid "SMB is connecting..."
 msgstr "接続中"
 
 msgid "Save Alpha"
-msgstr ""
+msgstr "アルファの保存"
 
 msgid "Screenshot Format"
-msgstr ""
+msgstr "画面写真の形式"
 
 #, c-format
 msgid "Server at: %s"
@@ -750,7 +750,7 @@ msgid "Slideshow Delay"
 msgstr "スライドショーの間隔"
 
 msgid "Sound Settings"
-msgstr ""
+msgstr "音の設定"
 
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
@@ -834,7 +834,7 @@ msgid "Username:"
 msgstr "ユーザー名"
 
 msgid "Vertical"
-msgstr ""
+msgstr "上下反転"
 
 msgid "Yes"
 msgstr "はい"

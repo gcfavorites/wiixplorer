@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r138
+# r145
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-31 15:04+0200\n"
+"POT-Creation-Date: 2010-03-31 17:36+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -16,10 +16,10 @@ msgid "1"
 msgstr ""
 
 msgid "12H"
-msgstr ""
+msgstr "12 Stunden"
 
 msgid "24H"
-msgstr ""
+msgstr "24 Stunden"
 
 msgid "7z decompression failed:"
 msgstr "7z Dekomprimierung fehlgeschlagen:"
@@ -71,7 +71,7 @@ msgid "App Default"
 msgstr "Standardeinstellung"
 
 msgid "App Path"
-msgstr "Apps Pfad"
+msgstr "Apps"
 
 msgid "AppPath changed"
 msgstr "Pfad geändert"
@@ -83,19 +83,19 @@ msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
 msgid "BMP Compression"
-msgstr ""
+msgstr "BMP Kompression"
 
 msgid "Back"
 msgstr "Zurück"
 
 msgid "Boot Settings"
-msgstr ""
+msgstr "Bootvorgang"
 
 msgid "Bootup Mount"
-msgstr "Start Mount"
+msgstr "Startgerät"
 
 msgid "Both"
-msgstr ""
+msgstr "Beides"
 
 msgid "CLIENT_SOCK_ERROR \n"
 msgstr ""
@@ -137,10 +137,10 @@ msgid "Clear"
 msgstr "Löschen"
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "Uhrmodus"
 
 msgid "Close"
-msgstr "Schließen"
+msgstr "   Schließen"
 
 #, c-format
 msgid "Cmd received: %s\n"
@@ -163,10 +163,10 @@ msgid "Console Default"
 msgstr "Konsolenstandard"
 
 msgid "Convert"
-msgstr ""
+msgstr "Konvertieren"
 
 msgid "Converting image..."
-msgstr ""
+msgstr "Bild wird konvertiert..."
 
 msgid "Copy"
 msgstr "Kopieren"
@@ -187,7 +187,7 @@ msgid "Could not connect to the server."
 msgstr "Es konnte keine Verbindung zum Server hergestellt werden."
 
 msgid "Could not convert image."
-msgstr ""
+msgstr "Bild konnte nicht konvertiert werden."
 
 msgid "Could not decompress the file."
 msgstr "Datei konnte nicht dekomprimiert werden."
@@ -199,7 +199,7 @@ msgid "Could not extract file:"
 msgstr "Datei konnte nicht entpackt werden:"
 
 msgid "Could not load image."
-msgstr ""
+msgstr "Bild konnte nicht geladen werden."
 
 msgid "Could not load text file."
 msgstr "Textdatei konnte nicht geladen werden."
@@ -208,7 +208,7 @@ msgid "Credits"
 msgstr ""
 
 msgid "Customfont Path"
-msgstr "Pfad zur Schriftart"
+msgstr "Schriftart"
 
 msgid "Cut"
 msgstr "Ausschneiden"
@@ -429,7 +429,7 @@ msgid "Filetype:"
 msgstr "Dateityp:"
 
 msgid "Flip Mode"
-msgstr ""
+msgstr "Spiegeln"
 
 msgid "Folder"
 msgstr "Ordner"
@@ -444,7 +444,7 @@ msgid "Ftp stopped"
 msgstr "FTP wurde angehalten"
 
 msgid "GD2 Compression"
-msgstr ""
+msgstr "GD2 Kompression"
 
 msgid "Getting Changelog..."
 msgstr "Lade Changelog..."
@@ -462,37 +462,37 @@ msgid "Host:"
 msgstr ""
 
 msgid "How do you want to open the file?"
-msgstr ""
+msgstr "Womit soll die Datei geöffnet werden?"
 
 msgid "Image Converter"
-msgstr ""
+msgstr "Bildkonverter"
 
 msgid "Image Heigth"
-msgstr ""
+msgstr "Höhe"
 
 msgid "Image Settings"
-msgstr ""
+msgstr "Bilder"
 
 msgid "Image Viewer"
-msgstr ""
+msgstr "Bildbetrachter"
 
 msgid "Image Width"
-msgstr ""
+msgstr "Breite"
 
 msgid "Image successfully converted."
-msgstr ""
+msgstr "Bild wurde erfolgreich konvertiert."
 
 msgid "ImageConverter"
-msgstr ""
+msgstr "Bildkonverter"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Bildbetrachter"
 
 msgid "Incomming connection."
 msgstr "Eingehende Verbindung."
 
 msgid "Input File"
-msgstr ""
+msgstr "Eingabe Datei"
 
 msgid "Interlace"
 msgstr ""
@@ -501,7 +501,7 @@ msgid "Internal error"
 msgstr "Interner Fehler"
 
 msgid "JPEG Quality"
-msgstr ""
+msgstr "JPEG Qualität"
 
 msgid "Language"
 msgstr "Sprache"
@@ -510,7 +510,7 @@ msgid "Language Path changed."
 msgstr "Pfad geändert."
 
 msgid "Language Settings"
-msgstr "Spracheinstellungen"
+msgstr "Sprache"
 
 msgid "Last access:"
 msgstr "Letzter Zugriff:"
@@ -534,7 +534,7 @@ msgid "Loading file:"
 msgstr "Lade Datei:"
 
 msgid "Loading image..."
-msgstr ""
+msgstr "Bild wird geladen..."
 
 msgid "Loop"
 msgstr "Schleife"
@@ -555,7 +555,7 @@ msgid "Music Volume"
 msgstr "Musik Lautstärke"
 
 msgid "NONE"
-msgstr ""
+msgstr "Nichts"
 
 msgid "NO_LOGIN_TIMEOUT\n"
 msgstr ""
@@ -564,7 +564,7 @@ msgid "Name might already exists."
 msgstr "Evtl. existiert der Name bereits."
 
 msgid "Network Settings"
-msgstr "Netzwerkeinstellungen"
+msgstr "Netzwerk"
 
 msgid "Network initialising..."
 msgstr "Netzwerk wird initialisiert..."
@@ -601,10 +601,10 @@ msgid "Not a valid domain"
 msgstr "Keine gültige Domain"
 
 msgid "Not enough memory to resize."
-msgstr ""
+msgstr "Nicht genug Speicher um die Größe zu ändern."
 
 msgid "Not enough memory to rotate."
-msgstr ""
+msgstr "Nicht genug Speicher zum drehen."
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
@@ -628,10 +628,10 @@ msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
 
 msgid "Output File"
-msgstr ""
+msgstr "Ausgabe Datei"
 
 msgid "Output Type"
-msgstr ""
+msgstr "Ausgabe Typ"
 
 msgid "Passive Mode:"
 msgstr ""
@@ -646,7 +646,7 @@ msgid "Paste item(s) into current directory?"
 msgstr "Elemente im aktuellen Verzeichnis einfügen?"
 
 msgid "Path Setup"
-msgstr ""
+msgstr "Pfade"
 
 msgid "Play Directory"
 msgstr "Verzeichnis abspielen"
@@ -692,7 +692,7 @@ msgid "Reply sent: %s\n"
 msgstr "Antwort gesendet: %s\n"
 
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 msgid "Restart"
 msgstr "Neustarten"
@@ -704,7 +704,7 @@ msgid "Retry"
 msgstr "Wiederholen"
 
 msgid "Rotate"
-msgstr ""
+msgstr "Drehen"
 
 msgid "SMB Name:"
 msgstr ""
@@ -716,10 +716,10 @@ msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
 
 msgid "Save Alpha"
-msgstr ""
+msgstr "Aplha speichern"
 
 msgid "Screenshot Format"
-msgstr ""
+msgstr "Bildformat für Screenshots"
 
 #, c-format
 msgid "Server at: %s"
@@ -747,10 +747,10 @@ msgid "Size:"
 msgstr "Größe:"
 
 msgid "Slideshow Delay"
-msgstr "Diashow Verzögerung"
+msgstr "Verzögerung der Diashow"
 
 msgid "Sound Settings"
-msgstr ""
+msgstr "Ton"
 
 msgid "Special thanks to:"
 msgstr "Besonderen Dank an:"
@@ -834,7 +834,7 @@ msgid "Username:"
 msgstr "Benutzername:"
 
 msgid "Vertical"
-msgstr ""
+msgstr "Vertikal"
 
 msgid "Yes"
 msgstr "Ja"
