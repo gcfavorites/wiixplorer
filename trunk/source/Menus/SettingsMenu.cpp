@@ -118,16 +118,10 @@ int SettingsMenu::GetClickedOption()
 int SettingsMenu::GetMenu()
 {
     if(shutdown == 1)
-    {
-        Settings.Save();
         Sys_Shutdown();
-    }
 
     else if(reset == 1)
-    {
-        Settings.Save();
         Sys_Reboot();
-    }
 
     return menu;
 }

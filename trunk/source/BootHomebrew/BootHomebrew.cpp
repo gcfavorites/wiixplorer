@@ -83,7 +83,7 @@ static int SetupARGV(struct __argv * args)
     /** Append Arguments **/
     for(u32 i = 0; i < Arguments.size(); i++)
     {
-        sprintf(&args->commandLine[position], "%s", Arguments[i].c_str());
+        strcpy(&args->commandLine[position], Arguments[i].c_str());
         position += Arguments[i].size()+1;
         argc++;
     }

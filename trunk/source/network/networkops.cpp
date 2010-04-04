@@ -417,7 +417,6 @@ void CloseFTP()
 		sprintf(name, "ftp%i", i+1);
 		ftpClose(name);
     }
-// 	networkinit = false;
 }
 
 bool IsFTPConnected(int ftp)
@@ -443,7 +442,7 @@ void Initialize_Network(void)
 
     result = if_config(IP, NULL, NULL, true);
 
-   if(result < 0) {
+    if(result < 0) {
         networkinit = false;
 		return;
 	}

@@ -2,6 +2,10 @@
  * Copyright (C) 2010
  * by Dimok
  *
+ * Original VIRTUAL_PART Struct
+ * Copyright (C) 2008
+ * Joseph Jordan <joe.ftpii@psychlaw.com.au>
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -23,25 +27,31 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _NETWORKOPS_H_
-#define _NETWORKOPS_H_
+#ifndef _VIRTUALPATH_H_
+#define _VIRTUALPATH_H_
 
-int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest);
-bool ConnectSMBShare();
-void SMB_Reconnect();
-void CloseSMBShare();
-bool IsSMB_Mounted(int smb);
-bool ConnectFTP();
-void CloseFTP();
-bool IsFTPConnected(int ftp);
-void Initialize_Network(void);
-void DeInit_Network(void);
-bool IsNetworkInit(void);
-char * GetNetworkIP(void);
-void HaltNetworkThread();
-void ResumeNetworkThread();
-void InitNetworkThread();
-void ShutdownNetworkThread();
-
+#ifdef __cplusplus
+extern "C"{
 #endif
+
+#include <gctypes.h>
+
+typedef struct {
+    char *name;
+    char *alias;
+    char *prefix;
+    bool inserted;
+} VIRTUAL_PARTITION;
+
+extern VIRTUAL_PARTITION * VIRTUAL_PARTITIONS;
+extern u8 MAX_VIRTUAL_PARTITIONS;
+
+void VirtualMountDevice(const char * devicepath);
+void AddVirtualPath(const char *name, const char *alias, const char *prefix);
+void UnmounVirtualPaths();
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _VIRTUALPART_H_ */

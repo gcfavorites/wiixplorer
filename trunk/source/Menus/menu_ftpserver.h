@@ -23,25 +23,9 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _NETWORKOPS_H_
-#define _NETWORKOPS_H_
+#ifndef MENU_FTPSERVER_H_
+#define MENU_FTPSERVER_H_
 
-int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest);
-bool ConnectSMBShare();
-void SMB_Reconnect();
-void CloseSMBShare();
-bool IsSMB_Mounted(int smb);
-bool ConnectFTP();
-void CloseFTP();
-bool IsFTPConnected(int ftp);
-void Initialize_Network(void);
-void DeInit_Network(void);
-bool IsNetworkInit(void);
-char * GetNetworkIP(void);
-void HaltNetworkThread();
-void ResumeNetworkThread();
-void InitNetworkThread();
-void ShutdownNetworkThread();
+int MenuFTPServer();
 
 #endif

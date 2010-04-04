@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -23,40 +23,6 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "7z解压缩失败:"
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-"客户端更改工作目录:\n"
-"\t完整路径: \"%s\"\n"
-"\t工作目录: \"%s\"\n"
-
-msgid "A client has disconnected.\n"
-msgstr "客户端断开链接。\n"
-
-msgid "A client has logged-in.\n"
-msgstr "客户端已登录。\n"
-
-msgid "A client is being deleted.\n"
-msgstr "客户端进行删除操作。\n"
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr "客户端正下载文件:\"%s\"\n"
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr "客户端正列表目录:\"%s\"\n"
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr "客户端正上传文件： \"%s\"\n"
-
-msgid "A new client has been created:\n"
-msgstr "新客户端已建立:\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr "ASDFGHJKL:\"+"
@@ -97,12 +63,6 @@ msgstr "开始挂载"
 msgid "Both"
 msgstr ""
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr "客户端套接字错误 \n"
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr "客户端软件\n"
-
 msgid "Can not open the file."
 msgstr "文件无法打开。"
 
@@ -142,22 +102,11 @@ msgstr ""
 msgid "Close"
 msgstr "关闭"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr "Cmd接收:%s\n"
-
 msgid "Coders:"
 msgstr "作者"
 
 msgid "Compressed Size:"
 msgstr "已压缩大小"
-
-msgid "Connected"
-msgstr "已链接"
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr "已链接与：%s"
 
 msgid "Console Default"
 msgstr "主机缺省"
@@ -304,27 +253,6 @@ msgstr "是否现在更新？"
 msgid "Downloading file..."
 msgstr "正在下载文件"
 
-msgid "Enable Create dir:"
-msgstr "开启创建目录："
-
-msgid "Enable Delete dir:"
-msgstr "开启删除目录："
-
-msgid "Enable Delete file:"
-msgstr "开启删除文件："
-
-msgid "Enable Write file:"
-msgstr "开启写文件："
-
-msgid "Enable Zip Mode:"
-msgstr "开启Zip模式："
-
-msgid "Enable list file:"
-msgstr "开启文件列表："
-
-msgid "Enable read file:"
-msgstr "开启读取文件:"
-
 msgid "Error while reading file."
 msgstr "错误"
 
@@ -358,9 +286,6 @@ msgstr "提取项目中："
 msgid "FTP Client Settings"
 msgstr "FTP客户端设置"
 
-msgid "FTP Data Port:"
-msgstr "FTP数据端口："
-
 msgid "FTP Path:"
 msgstr "FTP路径："
 
@@ -372,6 +297,9 @@ msgstr "FTP服务器"
 
 msgid "FTP Server Settings"
 msgstr "FTP服务设置"
+
+msgid "FTP Started.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
@@ -443,9 +371,6 @@ msgstr "字体路径已改变"
 msgid "Free Space:"
 msgstr "空余空间："
 
-msgid "Ftp stopped"
-msgstr "FTP停止"
-
 msgid "GD2 Compression"
 msgstr ""
 
@@ -500,9 +425,6 @@ msgstr ""
 msgid "Interlace"
 msgstr ""
 
-msgid "Internal error"
-msgstr "内部错误"
-
 msgid "JPEG Quality"
 msgstr ""
 
@@ -524,11 +446,11 @@ msgstr "最近更改："
 msgid "Last modified:"
 msgstr "最近修改："
 
-msgid "Launch Ftp"
-msgstr "运行FTP"
-
 msgid "Linebreak"
 msgstr "换行符"
+
+msgid "Listening on TCP port"
+msgstr ""
 
 msgid "Loader"
 msgstr "读取"
@@ -566,9 +488,6 @@ msgstr "音乐音量"
 msgid "NONE"
 msgstr ""
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr "无登录超时\n"
-
 msgid "Name might already exists."
 msgstr "文件名可能重复。"
 
@@ -593,6 +512,9 @@ msgstr "索引%d 中没有发现图片。"
 
 msgid "No language files found."
 msgstr "没有发现语言文件。"
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "没有新的可用更新"
@@ -663,8 +585,17 @@ msgstr "播放目录"
 msgid "Play Once"
 msgstr "只播放一次"
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "请等待："
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "进程已取消"
@@ -696,10 +627,6 @@ msgstr "重新运行"
 msgid "Rename"
 msgstr "重命名"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr "回复发送：%s\n"
-
 msgid "Reset"
 msgstr ""
 
@@ -730,18 +657,8 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
-#, c-format
-msgid "Server at: %s"
-msgstr "服务在：%s"
-
-msgid "Server started"
-msgstr "服务已开启"
-
-msgid "Server stopped"
-msgstr "服务已停止"
-
-msgid "Server waits for client"
-msgstr "服务等待客户端链接"
+msgid "Server was shutdown...\n"
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"
@@ -751,6 +668,9 @@ msgstr "Shift键"
 
 msgid "Show Changelog"
 msgstr "显示更新日志"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "尺寸："
@@ -767,15 +687,11 @@ msgstr "特别感谢：Kavid"
 msgid "Standard"
 msgstr "标准"
 
-msgid "Stop Ftp "
-msgstr "停止FTP"
+msgid "Startup FTP"
+msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr "密码登录错误次数过多：(%s)\n"
 
 msgid "Total Space:"
 msgstr "总计空间："
@@ -869,6 +785,9 @@ msgstr "和所有的翻译者。"
 msgid "asdfghjkl;'="
 msgstr "asdfghjkl;'="
 
+msgid "for his FTP Server source."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "使用了LibWiiGui这个图形工具"
 
@@ -880,6 +799,108 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Enable Create dir:"
+#~ msgstr "开启创建目录："
+
+#~ msgid "Enable Delete dir:"
+#~ msgstr "开启删除目录："
+
+#~ msgid "Enable Delete file:"
+#~ msgstr "开启删除文件："
+
+#~ msgid "Enable Write file:"
+#~ msgstr "开启写文件："
+
+#~ msgid "Enable Zip Mode:"
+#~ msgstr "开启Zip模式："
+
+#~ msgid "Enable list file:"
+#~ msgstr "开启文件列表："
+
+#~ msgid "Enable read file:"
+#~ msgstr "开启读取文件:"
+
+#~ msgid "FTP Data Port:"
+#~ msgstr "FTP数据端口："
+
+#~ msgid ""
+#~ "A client has changed its working directory:\n"
+#~ "\tFull path: \"%s\"\n"
+#~ "\tWorking directory: \"%s\"\n"
+#~ msgstr ""
+#~ "客户端更改工作目录:\n"
+#~ "\t完整路径: \"%s\"\n"
+#~ "\t工作目录: \"%s\"\n"
+
+#~ msgid "A client has disconnected.\n"
+#~ msgstr "客户端断开链接。\n"
+
+#~ msgid "A client has logged-in.\n"
+#~ msgstr "客户端已登录。\n"
+
+#~ msgid "A client is being deleted.\n"
+#~ msgstr "客户端进行删除操作。\n"
+
+#~ msgid "A client is downloading a file: \"%s\"\n"
+#~ msgstr "客户端正下载文件:\"%s\"\n"
+
+#~ msgid "A client is listing a directory: \"%s\"\n"
+#~ msgstr "客户端正列表目录:\"%s\"\n"
+
+#~ msgid "A client is uploading a file: \"%s\"\n"
+#~ msgstr "客户端正上传文件： \"%s\"\n"
+
+#~ msgid "A new client has been created:\n"
+#~ msgstr "新客户端已建立:\n"
+
+#~ msgid "CLIENT_SOCK_ERROR \n"
+#~ msgstr "客户端套接字错误 \n"
+
+#~ msgid "CLIENT_SOFTWARE\n"
+#~ msgstr "客户端软件\n"
+
+#~ msgid "Cmd received: %s\n"
+#~ msgstr "Cmd接收:%s\n"
+
+#~ msgid "Connected"
+#~ msgstr "已链接"
+
+#~ msgid "Connected with: %s)"
+#~ msgstr "已链接与：%s"
+
+#~ msgid "Ftp stopped"
+#~ msgstr "FTP停止"
+
+#~ msgid "Internal error"
+#~ msgstr "内部错误"
+
+#~ msgid "Launch Ftp"
+#~ msgstr "运行FTP"
+
+#~ msgid "NO_LOGIN_TIMEOUT\n"
+#~ msgstr "无登录超时\n"
+
+#~ msgid "Reply sent: %s\n"
+#~ msgstr "回复发送：%s\n"
+
+#~ msgid "Server at: %s"
+#~ msgstr "服务在：%s"
+
+#~ msgid "Server started"
+#~ msgstr "服务已开启"
+
+#~ msgid "Server stopped"
+#~ msgstr "服务已停止"
+
+#~ msgid "Server waits for client"
+#~ msgstr "服务等待客户端链接"
+
+#~ msgid "Stop Ftp "
+#~ msgstr "停止FTP"
+
+#~ msgid "Too many pass tries for (%s)\n"
+#~ msgstr "密码登录错误次数过多：(%s)\n"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "是否用图片查看器打开此文件吗？"

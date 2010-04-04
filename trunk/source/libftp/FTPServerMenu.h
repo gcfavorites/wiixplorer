@@ -23,25 +23,52 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _NETWORKOPS_H_
-#define _NETWORKOPS_H_
+#ifndef MENU_FTP_SERVER_H_
+#define MENU_FTP_SERVER_H_
 
-int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest);
-bool ConnectSMBShare();
-void SMB_Reconnect();
-void CloseSMBShare();
-bool IsSMB_Mounted(int smb);
-bool ConnectFTP();
-void CloseFTP();
-bool IsFTPConnected(int ftp);
-void Initialize_Network(void);
-void DeInit_Network(void);
-bool IsNetworkInit(void);
-char * GetNetworkIP(void);
-void HaltNetworkThread();
-void ResumeNetworkThread();
-void InitNetworkThread();
-void ShutdownNetworkThread();
+#include "libwiigui/gui.h"
+#include "Controls/GXConsole.hpp"
+
+class FTPServerMenu : public GuiWindow
+{
+    public:
+        FTPServerMenu();
+        ~FTPServerMenu();
+        void StartupFTP();
+        void ShutdownFTP();
+        int GetMenu();
+    protected:
+        void MountVirtualDevices();
+        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+
+        int menu;
+        u8 ftp_running;
+        s32 server;
+
+        GuiSound * btnSoundClick;
+        GuiSound * btnSoundOver;
+
+        GuiImageData * btnOutline;
+        GuiImageData * btnOutlineOver;
+        GuiImageData * network_icon;
+        GuiImageData * bgImgData;
+
+        GuiImage * bgImg;
+        GuiImage * backBtnImg;
+        GuiImage * MainFTPBtnImg;
+        GuiImage * networkImg;
+
+        GuiText * IPText;
+        GuiText * backBtnTxt;
+        GuiText * MainFTPBtnTxt;
+
+        GuiButton * backBtn;
+        GuiButton * MainFTPBtn;
+
+        SimpleGuiTrigger * trigA;
+
+        GXConsole * Console;
+};
 
 #endif
+

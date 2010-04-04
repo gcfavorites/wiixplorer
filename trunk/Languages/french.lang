@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -23,40 +23,6 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "La décompression 7z a échoué:"
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-"Un client a modifié son dossier de travail:\n"
-"\tChemin complet: \"%s\"\n"
-"\tDossier de travail: \"%s\"\n"
-
-msgid "A client has disconnected.\n"
-msgstr "Un client s'est déconnecté.\n"
-
-msgid "A client has logged-in.\n"
-msgstr "Un client s'est connecté\n"
-
-msgid "A client is being deleted.\n"
-msgstr "Un client est supprimé.\n"
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr "Un client télécharge un fichier:  \"%s\"\n"
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr "Un client liste un dossier: \"%s\"\n"
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr "Un client upload un fichier: \"%s\"\n"
-
-msgid "A new client has been created:\n"
-msgstr "Un nouveau client a été créé: \n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr "QSDFGHJKLM\"+"
@@ -97,12 +63,6 @@ msgstr "Périphérique"
 msgid "Both"
 msgstr "Les deux"
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr ""
-
 msgid "Can not open the file."
 msgstr "Ouverture du fichier impossible."
 
@@ -142,22 +102,11 @@ msgstr "Mode d'horloge"
 msgid "Close"
 msgstr "Fermer"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr "Cmd reçue: %s\n"
-
 msgid "Coders:"
 msgstr "Développeurs:"
 
 msgid "Compressed Size:"
 msgstr "Taille Compressée:"
-
-msgid "Connected"
-msgstr "Connecté"
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr "Connecté avec: %s)"
 
 msgid "Console Default"
 msgstr "Wii Défaut"
@@ -304,27 +253,6 @@ msgstr "Voulez-vous mettre à jour maintenant?"
 msgid "Downloading file..."
 msgstr "Téléchargement..."
 
-msgid "Enable Create dir:"
-msgstr "Activer création dos:"
-
-msgid "Enable Delete dir:"
-msgstr "Activer suppression dos:"
-
-msgid "Enable Delete file:"
-msgstr "Activer suppression fichier:"
-
-msgid "Enable Write file:"
-msgstr "Activer écriture fichier:"
-
-msgid "Enable Zip Mode:"
-msgstr "Activer Mode Zip:"
-
-msgid "Enable list file:"
-msgstr "Activer liste fichier:"
-
-msgid "Enable read file:"
-msgstr "Activer lecture fichier:"
-
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
 
@@ -358,9 +286,6 @@ msgstr "Extraction:"
 msgid "FTP Client Settings"
 msgstr "Paramètres client FTP"
 
-msgid "FTP Data Port:"
-msgstr "Port Data FTP:"
-
 msgid "FTP Path:"
 msgstr "Chemin FTP:"
 
@@ -372,6 +297,9 @@ msgstr "Serveur FTP"
 
 msgid "FTP Server Settings"
 msgstr "Paramètres serveur FTP"
+
+msgid "FTP Started.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "La copie a échoué."
@@ -443,9 +371,6 @@ msgstr "Dossier police modifié."
 msgid "Free Space:"
 msgstr "Espace libre:"
 
-msgid "Ftp stopped"
-msgstr "Ftp stoppé."
-
 msgid "GD2 Compression"
 msgstr "Compression GD2"
 
@@ -500,9 +425,6 @@ msgstr "Fichier d'entrée"
 msgid "Interlace"
 msgstr "Entrelacer"
 
-msgid "Internal error"
-msgstr "Erreur interne"
-
 msgid "JPEG Quality"
 msgstr "Qualité JPEG"
 
@@ -524,11 +446,11 @@ msgstr "Dernier changement:"
 msgid "Last modified:"
 msgstr "Modifié le:"
 
-msgid "Launch Ftp"
-msgstr "Lancer Ftp"
-
 msgid "Linebreak"
 msgstr "Entrée"
+
+msgid "Listening on TCP port"
+msgstr ""
 
 msgid "Loader"
 msgstr "Chargeur"
@@ -566,9 +488,6 @@ msgstr "Volume"
 msgid "NONE"
 msgstr "Sans"
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
-
 msgid "Name might already exists."
 msgstr "Ce nom de fichier existe déjà."
 
@@ -593,6 +512,9 @@ msgstr "Pas d'image pour l'index %d"
 
 msgid "No language files found."
 msgstr "Aucun fichier langue trouvé."
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "Pas de nouvelle mise à jour disponible"
@@ -663,8 +585,17 @@ msgstr "Lire Dossier"
 msgid "Play Once"
 msgstr "Lire"
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Patientez:"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Procédure annulée."
@@ -696,10 +627,6 @@ msgstr "Recharger"
 msgid "Rename"
 msgstr "Renommer"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr "Réponse envoyée: %s\n"
-
 msgid "Reset"
 msgstr "Réinitialisation"
 
@@ -730,18 +657,8 @@ msgstr "Conserver Alpha"
 msgid "Screenshot Format"
 msgstr "Format de copie d'écran"
 
-#, c-format
-msgid "Server at: %s"
-msgstr "Serveur à: %s"
-
-msgid "Server started"
-msgstr "Serveur démarré"
-
-msgid "Server stopped"
-msgstr "serveur stoppé"
-
-msgid "Server waits for client"
-msgstr "serveur en attente de clients"
+msgid "Server was shutdown...\n"
+msgstr ""
 
 msgid "Settings"
 msgstr "Paramètres"
@@ -751,6 +668,9 @@ msgstr "Maj"
 
 msgid "Show Changelog"
 msgstr "Voir le Changelog"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "Taille:"
@@ -767,15 +687,11 @@ msgstr "Remerciements:"
 msgid "Standard"
 msgstr ""
 
-msgid "Stop Ftp "
+msgid "Startup FTP"
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr "Trop de tentatives pour (%s)\n"
 
 msgid "Total Space:"
 msgstr "Espace total:"
@@ -869,6 +785,9 @@ msgstr "et tous les traducteurs."
 msgid "asdfghjkl;'="
 msgstr "qsdfghjklm'="
 
+msgid "for his FTP Server source."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "pour LibWiiGui."
 
@@ -880,6 +799,96 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Enable Create dir:"
+#~ msgstr "Activer création dos:"
+
+#~ msgid "Enable Delete dir:"
+#~ msgstr "Activer suppression dos:"
+
+#~ msgid "Enable Delete file:"
+#~ msgstr "Activer suppression fichier:"
+
+#~ msgid "Enable Write file:"
+#~ msgstr "Activer écriture fichier:"
+
+#~ msgid "Enable Zip Mode:"
+#~ msgstr "Activer Mode Zip:"
+
+#~ msgid "Enable list file:"
+#~ msgstr "Activer liste fichier:"
+
+#~ msgid "Enable read file:"
+#~ msgstr "Activer lecture fichier:"
+
+#~ msgid "FTP Data Port:"
+#~ msgstr "Port Data FTP:"
+
+#~ msgid ""
+#~ "A client has changed its working directory:\n"
+#~ "\tFull path: \"%s\"\n"
+#~ "\tWorking directory: \"%s\"\n"
+#~ msgstr ""
+#~ "Un client a modifié son dossier de travail:\n"
+#~ "\tChemin complet: \"%s\"\n"
+#~ "\tDossier de travail: \"%s\"\n"
+
+#~ msgid "A client has disconnected.\n"
+#~ msgstr "Un client s'est déconnecté.\n"
+
+#~ msgid "A client has logged-in.\n"
+#~ msgstr "Un client s'est connecté\n"
+
+#~ msgid "A client is being deleted.\n"
+#~ msgstr "Un client est supprimé.\n"
+
+#~ msgid "A client is downloading a file: \"%s\"\n"
+#~ msgstr "Un client télécharge un fichier:  \"%s\"\n"
+
+#~ msgid "A client is listing a directory: \"%s\"\n"
+#~ msgstr "Un client liste un dossier: \"%s\"\n"
+
+#~ msgid "A client is uploading a file: \"%s\"\n"
+#~ msgstr "Un client upload un fichier: \"%s\"\n"
+
+#~ msgid "A new client has been created:\n"
+#~ msgstr "Un nouveau client a été créé: \n"
+
+#~ msgid "Cmd received: %s\n"
+#~ msgstr "Cmd reçue: %s\n"
+
+#~ msgid "Connected"
+#~ msgstr "Connecté"
+
+#~ msgid "Connected with: %s)"
+#~ msgstr "Connecté avec: %s)"
+
+#~ msgid "Ftp stopped"
+#~ msgstr "Ftp stoppé."
+
+#~ msgid "Internal error"
+#~ msgstr "Erreur interne"
+
+#~ msgid "Launch Ftp"
+#~ msgstr "Lancer Ftp"
+
+#~ msgid "Reply sent: %s\n"
+#~ msgstr "Réponse envoyée: %s\n"
+
+#~ msgid "Server at: %s"
+#~ msgstr "Serveur à: %s"
+
+#~ msgid "Server started"
+#~ msgstr "Serveur démarré"
+
+#~ msgid "Server stopped"
+#~ msgstr "serveur stoppé"
+
+#~ msgid "Server waits for client"
+#~ msgstr "serveur en attente de clients"
+
+#~ msgid "Too many pass tries for (%s)\n"
+#~ msgstr "Trop de tentatives pour (%s)\n"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "Voulez-vous voir cette image ?"

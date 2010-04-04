@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -22,37 +22,6 @@ msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-
-msgid "A client has disconnected.\n"
-msgstr ""
-
-msgid "A client has logged-in.\n"
-msgstr ""
-
-msgid "A client is being deleted.\n"
-msgstr ""
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
-
-msgid "A new client has been created:\n"
 msgstr ""
 
 msgid "ASDFGHJKL:\"+"
@@ -94,12 +63,6 @@ msgstr "Montar no arranque"
 msgid "Both"
 msgstr ""
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr ""
-
 msgid "Can not open the file."
 msgstr ""
 
@@ -139,22 +102,11 @@ msgstr ""
 msgid "Close"
 msgstr "Fechar"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr ""
-
 msgid "Coders:"
 msgstr "Programadores:"
 
 msgid "Compressed Size:"
 msgstr "Tamanho Comprimido:"
-
-msgid "Connected"
-msgstr ""
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr ""
 
 msgid "Console Default"
 msgstr "Predefinição da consola"
@@ -301,27 +253,6 @@ msgstr "Deseja actualizar agora ?"
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
 
-msgid "Enable Create dir:"
-msgstr ""
-
-msgid "Enable Delete dir:"
-msgstr ""
-
-msgid "Enable Delete file:"
-msgstr ""
-
-msgid "Enable Write file:"
-msgstr ""
-
-msgid "Enable Zip Mode:"
-msgstr ""
-
-msgid "Enable list file:"
-msgstr ""
-
-msgid "Enable read file:"
-msgstr ""
-
 msgid "Error while reading file."
 msgstr ""
 
@@ -355,9 +286,6 @@ msgstr ""
 msgid "FTP Client Settings"
 msgstr ""
 
-msgid "FTP Data Port:"
-msgstr ""
-
 msgid "FTP Path:"
 msgstr ""
 
@@ -368,6 +296,9 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
+msgstr ""
+
+msgid "FTP Started.\n"
 msgstr ""
 
 msgid "Failed copying item(s)."
@@ -440,9 +371,6 @@ msgstr "Pasta de fonte alterada"
 msgid "Free Space:"
 msgstr ""
 
-msgid "Ftp stopped"
-msgstr ""
-
 msgid "GD2 Compression"
 msgstr ""
 
@@ -497,9 +425,6 @@ msgstr ""
 msgid "Interlace"
 msgstr ""
 
-msgid "Internal error"
-msgstr ""
-
 msgid "JPEG Quality"
 msgstr ""
 
@@ -521,11 +446,11 @@ msgstr ""
 msgid "Last modified:"
 msgstr "Última modificação:"
 
-msgid "Launch Ftp"
-msgstr ""
-
 msgid "Linebreak"
 msgstr "Quebra de linha"
+
+msgid "Listening on TCP port"
+msgstr ""
 
 msgid "Loader"
 msgstr ""
@@ -563,9 +488,6 @@ msgstr "Volume da Música"
 msgid "NONE"
 msgstr ""
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
-
 msgid "Name might already exists."
 msgstr ""
 
@@ -590,6 +512,9 @@ msgstr "Imagem com o número %d não encontrada."
 
 msgid "No language files found."
 msgstr "Ficheiros de idioma inexistentes."
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "Não existem novas actualizações"
@@ -660,8 +585,17 @@ msgstr ""
 msgid "Play Once"
 msgstr ""
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Processo cancelado."
@@ -693,10 +627,6 @@ msgstr ""
 msgid "Rename"
 msgstr "Renomear"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr ""
-
 msgid "Reset"
 msgstr ""
 
@@ -727,17 +657,7 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
-#, c-format
-msgid "Server at: %s"
-msgstr ""
-
-msgid "Server started"
-msgstr ""
-
-msgid "Server stopped"
-msgstr ""
-
-msgid "Server waits for client"
+msgid "Server was shutdown...\n"
 msgstr ""
 
 msgid "Settings"
@@ -748,6 +668,9 @@ msgstr ""
 
 msgid "Show Changelog"
 msgstr "Mostrar Changelog"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "Tamanho:"
@@ -764,15 +687,11 @@ msgstr "Agradecimentos especiais a:"
 msgid "Standard"
 msgstr ""
 
-msgid "Stop Ftp "
+msgid "Startup FTP"
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Toda a equipda do DevkitPro e do libogc."
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr ""
 
 msgid "Total Space:"
 msgstr ""
@@ -864,6 +783,9 @@ msgid "and all the translators."
 msgstr "e todos os tradutores."
 
 msgid "asdfghjkl;'="
+msgstr ""
+
+msgid "for his FTP Server source."
 msgstr ""
 
 msgid "for his great tool LibWiiGui."

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -22,37 +22,6 @@ msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-
-msgid "A client has disconnected.\n"
-msgstr ""
-
-msgid "A client has logged-in.\n"
-msgstr ""
-
-msgid "A client is being deleted.\n"
-msgstr ""
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
-
-msgid "A new client has been created:\n"
 msgstr ""
 
 msgid "ASDFGHJKL:\"+"
@@ -94,12 +63,6 @@ msgstr ""
 msgid "Both"
 msgstr "Begge"
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr ""
-
 msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
 
@@ -139,22 +102,11 @@ msgstr ""
 msgid "Close"
 msgstr "Luk"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr ""
-
 msgid "Coders:"
 msgstr "Programmører:"
 
 msgid "Compressed Size:"
 msgstr "Komprimeret Størrelse:"
-
-msgid "Connected"
-msgstr "Forbundet"
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr ""
 
 msgid "Console Default"
 msgstr "Konsolstandard"
@@ -301,27 +253,6 @@ msgstr "Vil du opdatere nu?"
 msgid "Downloading file..."
 msgstr "Downloader fil..."
 
-msgid "Enable Create dir:"
-msgstr ""
-
-msgid "Enable Delete dir:"
-msgstr ""
-
-msgid "Enable Delete file:"
-msgstr ""
-
-msgid "Enable Write file:"
-msgstr ""
-
-msgid "Enable Zip Mode:"
-msgstr ""
-
-msgid "Enable list file:"
-msgstr ""
-
-msgid "Enable read file:"
-msgstr ""
-
 msgid "Error while reading file."
 msgstr "Fejl Under Indlæsning Af Fil."
 
@@ -355,9 +286,6 @@ msgstr "Udpakker Emne(r)."
 msgid "FTP Client Settings"
 msgstr "FTP Klient Indstillinger"
 
-msgid "FTP Data Port:"
-msgstr ""
-
 msgid "FTP Path:"
 msgstr "FTP Sti:"
 
@@ -369,6 +297,9 @@ msgstr ""
 
 msgid "FTP Server Settings"
 msgstr "FTP Server Indstillinger"
+
+msgid "FTP Started.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "Fejlede At Kopier Emne(r)."
@@ -440,9 +371,6 @@ msgstr "Sti til fonte ændret"
 msgid "Free Space:"
 msgstr "Fri Plads:"
 
-msgid "Ftp stopped"
-msgstr "FTP Stoppet"
-
 msgid "GD2 Compression"
 msgstr ""
 
@@ -497,9 +425,6 @@ msgstr "Input Fil"
 msgid "Interlace"
 msgstr ""
 
-msgid "Internal error"
-msgstr "Indtern Fejel"
-
 msgid "JPEG Quality"
 msgstr "JPEG Kvalitet"
 
@@ -521,10 +446,10 @@ msgstr "Sidst Ændret:"
 msgid "Last modified:"
 msgstr "Sidst Modifiseret:"
 
-msgid "Launch Ftp"
+msgid "Linebreak"
 msgstr ""
 
-msgid "Linebreak"
+msgid "Listening on TCP port"
 msgstr ""
 
 msgid "Loader"
@@ -563,9 +488,6 @@ msgstr "Musiklydstyrke"
 msgid "NONE"
 msgstr "Ingen"
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
-
 msgid "Name might already exists."
 msgstr "Navn Eksister Måske Allerede."
 
@@ -590,6 +512,9 @@ msgstr "Intet billede fundet på indeks %d."
 
 msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "Der er ingen ny opdateringer"
@@ -660,8 +585,17 @@ msgstr "Afspil Mappe"
 msgid "Play Once"
 msgstr "Afspil En Gang"
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Vent venligst:"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Handling Afbrudt."
@@ -693,10 +627,6 @@ msgstr ""
 msgid "Rename"
 msgstr "Omdøb"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr ""
-
 msgid "Reset"
 msgstr "Nulstil"
 
@@ -727,18 +657,8 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
-#, c-format
-msgid "Server at: %s"
+msgid "Server was shutdown...\n"
 msgstr ""
-
-msgid "Server started"
-msgstr "Server Startet"
-
-msgid "Server stopped"
-msgstr "Server Stoppet"
-
-msgid "Server waits for client"
-msgstr "Sever Venter På Klient"
 
 msgid "Settings"
 msgstr "Indstillinger"
@@ -748,6 +668,9 @@ msgstr "Skift"
 
 msgid "Show Changelog"
 msgstr "Vis Changelog"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "Størrelse:"
@@ -764,15 +687,11 @@ msgstr "Især tak til:"
 msgid "Standard"
 msgstr ""
 
-msgid "Stop Ftp "
+msgid "Startup FTP"
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr ""
 
 msgid "Total Space:"
 msgstr "Total Plads:"
@@ -866,6 +785,9 @@ msgstr "Og Alle Hans Oversætter."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "for his FTP Server source."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
 
@@ -877,6 +799,24 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Connected"
+#~ msgstr "Forbundet"
+
+#~ msgid "Ftp stopped"
+#~ msgstr "FTP Stoppet"
+
+#~ msgid "Internal error"
+#~ msgstr "Indtern Fejel"
+
+#~ msgid "Server started"
+#~ msgstr "Server Startet"
+
+#~ msgid "Server stopped"
+#~ msgstr "Server Stoppet"
+
+#~ msgid "Server waits for client"
+#~ msgstr "Sever Venter På Klient"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "Vil du åbne filen i ImageViewer?"

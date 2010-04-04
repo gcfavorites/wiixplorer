@@ -1,5 +1,5 @@
  /****************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,10 +21,7 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * Settings.cpp
- *
- * Settings Class
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include <stdio.h>
 #include <ogcsys.h>
@@ -90,6 +87,7 @@ void ExitApp()
     DiskDrive_deInit();
 	DeInit_Network();
 	MEM2_cleanup();
+    mload_DeInit();
 
 	WPAD_Flush(0);
     WPAD_Disconnect(0);

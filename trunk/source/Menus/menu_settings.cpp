@@ -858,18 +858,8 @@ int MenuFTPServerSettings()
     bool firstRun = true;
 
 	OptionList options;
-	options.SetName(i++, tr("User:"));
 	options.SetName(i++, tr("Password:"));
 	options.SetName(i++, tr("FTP Port:"));
-	options.SetName(i++, tr("FTP Data Port:"));
-	options.SetName(i++, tr("FTP Path:"));
-	options.SetName(i++, tr("Enable Zip Mode:"));
-	options.SetName(i++, tr("Enable read file:"));
-	options.SetName(i++, tr("Enable list file:"));
-	options.SetName(i++, tr("Enable Write file:"));
-	options.SetName(i++, tr("Enable Delete file:"));
-	options.SetName(i++, tr("Enable Create dir:"));
-	options.SetName(i++, tr("Enable Delete dir:"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("FTP Server Settings"), &options, MENU_NETWORK_SETTINGS);
 
@@ -892,74 +882,20 @@ int MenuFTPServerSettings()
 
 		switch (ret)
 		{
-			case 0:
-				snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.UserName);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.FTPServerUser.UserName, sizeof(Settings.FTPServerUser.UserName), "%s", entered);
-                }
-                break;
-            case 1:
+            case 0:
                 entered[0] = 0;
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    snprintf(Settings.FTPServerUser.Password, sizeof(Settings.FTPServerUser.Password), "%s", entered);
+                    snprintf(Settings.FTPServer.Password, sizeof(Settings.FTPServer.Password), "%s", entered);
                 }
                 break;
-            case 2:
-                snprintf(entered, sizeof(entered), "%i", Settings.FTPServerUser.Port);
+            case 1:
+                snprintf(entered, sizeof(entered), "%d", Settings.FTPServer.Port);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
-                    Settings.FTPServerUser.Port = (u16) atoi(entered);
+                    Settings.FTPServer.Port = (u16) atoi(entered);
                 }
                 break;
-            case 3:
-                snprintf(entered, sizeof(entered), "%i", Settings.FTPServerUser.DataPort);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    Settings.FTPServerUser.DataPort = (u16) atoi(entered);
-                }
-                break;
-            case 4:
-                snprintf(entered, sizeof(entered), "%s", Settings.FTPServerUser.FTPPath);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.FTPServerUser.FTPPath, sizeof(Settings.FTPServerUser.FTPPath), "%s", entered);
-                }
-                break;
-            case 5:
-				Settings.FTPServerUser.ZipMode++;
-				if(Settings.FTPServerUser.ZipMode >= on_off_max)
-                    Settings.FTPServerUser.ZipMode = off;
-				break;
-            case 6:
-				Settings.FTPServerUser.EnableReadFile++;
-				if(Settings.FTPServerUser.EnableReadFile >= on_off_max)
-                    Settings.FTPServerUser.EnableReadFile = off;
-            case 7:
-				Settings.FTPServerUser.EnableListFile++;
-				if(Settings.FTPServerUser.EnableListFile >= on_off_max)
-                    Settings.FTPServerUser.EnableListFile = off;
-            case 8:
-				Settings.FTPServerUser.EnableWriteFile++;
-				if(Settings.FTPServerUser.EnableWriteFile >= on_off_max)
-                    Settings.FTPServerUser.EnableWriteFile = off;
-				break;
-            case 9:
-				Settings.FTPServerUser.EnableDeleteFile++;
-				if(Settings.FTPServerUser.EnableDeleteFile >= on_off_max)
-                    Settings.FTPServerUser.EnableDeleteFile = off;
-				break;
-            case 10:
-				Settings.FTPServerUser.EnableCreateDir++;
-				if(Settings.FTPServerUser.EnableCreateDir >= on_off_max)
-                    Settings.FTPServerUser.EnableCreateDir = off;
-				break;
-           case 11:
-				Settings.FTPServerUser.EnableDeleteDir++;
-				if(Settings.FTPServerUser.EnableDeleteDir >= on_off_max)
-                    Settings.FTPServerUser.EnableDeleteDir = off;
-				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -967,30 +903,12 @@ int MenuFTPServerSettings()
             i = 0;
             firstRun = false;
 
-            options.SetValue(i++,"%s", Settings.FTPServerUser.UserName);
-			if (strcmp(Settings.FTPServerUser.Password, "") != 0)
+			if (strcmp(Settings.FTPServer.Password, "") != 0)
 				options.SetValue(i++,"********");
 			else
 				options.SetValue(i++," ");
-            options.SetValue(i++,"%i", Settings.FTPServerUser.Port);
-			options.SetValue(i++,"%i", Settings.FTPServerUser.DataPort);
-            options.SetValue(i++,"%s", Settings.FTPServerUser.FTPPath);
-			if (Settings.FTPServerUser.ZipMode == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.ZipMode == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableReadFile == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableReadFile == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableListFile == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableListFile == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableWriteFile == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableWriteFile == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableDeleteFile == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableDeleteFile == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableCreateDir == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableCreateDir == off) options.SetValue(i++,tr("OFF"));
-			if (Settings.FTPServerUser.EnableDeleteDir == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPServerUser.EnableDeleteDir == off) options.SetValue(i++,tr("OFF"));
 
-            options.SetValue(i++," ");
+            options.SetValue(i++,"%i", Settings.FTPServer.Port);
         }
 	}
 
