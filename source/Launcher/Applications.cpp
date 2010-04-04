@@ -71,10 +71,7 @@ void Applications::Launch(int index)
 	if (LoadHomebrew(applications.at(index).path) < 0)
 		return;
 
-	ItemStruct Item;
-	memset(&Item, 0, sizeof(ItemStruct));
-	snprintf(Item.itempath, sizeof(Item.itempath), "%s", applications.at(index).path);
-	Clipboard::Instance()->AddItem(&Item);
+    AddBootArgument(applications.at(index).path);
 	boothomebrew = true;
 	Taskbar::Instance()->SetMenu(MENU_EXIT);
 }
