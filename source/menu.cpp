@@ -42,6 +42,7 @@
 #include "network/ChangeLog.h"
 #include "Menus/Explorer.h"
 #include "Menus/menu_settings.h"
+#include "Menus/menu_ftpserver.h"
 #include "menu.h"
 #include "main.h"
 #include "input.h"
@@ -57,9 +58,6 @@ bool boothomebrew = false;
 int curDevice = 0;
 
 static bool firsttimestart = true;
-
-extern u32 launchServer(char *drive, int status, bool stop) ;
-extern int ServerFtpGui();
 
 /****************************************************************************
  * ResumeGui
@@ -153,7 +151,7 @@ void MainMenu(int menu)
 				currentMenu = MenuNetworkSettings();
 				break;
 			case MENU_FTP:
-				currentMenu = ServerFtpGui();
+				currentMenu = MenuFTPServer();
 				break;
 			default: // unrecognized menu
 				currentMenu = MenuBrowseDevice();

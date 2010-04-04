@@ -23,25 +23,51 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _NETWORKOPS_H_
-#define _NETWORKOPS_H_
+#include <unistd.h>
+#include "libftp/FTPServerMenu.h"
+#include "Controls/MainWindow.h"
+#include "network/networkops.h"
+#include "Prompts/PromptWindow.h"
+#include "menu.h"
 
-int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest);
-bool ConnectSMBShare();
-void SMB_Reconnect();
-void CloseSMBShare();
-bool IsSMB_Mounted(int smb);
-bool ConnectFTP();
-void CloseFTP();
-bool IsFTPConnected(int ftp);
-void Initialize_Network(void);
-void DeInit_Network(void);
-bool IsNetworkInit(void);
-char * GetNetworkIP(void);
-void HaltNetworkThread();
-void ResumeNetworkThread();
-void InitNetworkThread();
-void ShutdownNetworkThread();
+int MenuFTPServer()
+{
+    int menu = MENU_NONE;
+    PromptWindow * Prompt = new PromptWindow(tr("Preparing the network."), tr("Please wait..."));
+    MainWindow::Instance()->Append(Prompt);
 
-#endif
+    if(!IsNetworkInit() && Settings.AutoConnect == off)
+        Initialize_Network();
+    else
+        HaltNetworkThread();
+
+	CloseFTP();
+
+    delete Prompt;
+    Prompt = NULL;
+
+    if(!IsNetworkInit())
+    {
+        ShowError(tr("No network connection."));
+        return MENU_BROWSE_DEVICE;
+    }
+
+    FTPServerMenu * FTPMenu = new FTPServerMenu();
+    FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+    FTPMenu->SetPosition(0, 30);
+
+    MainWindow::Instance()->Append(FTPMenu);
+
+    while(menu == MENU_NONE)
+    {
+        usleep(100);
+
+        menu = FTPMenu->GetMenu();
+    }
+
+    delete FTPMenu;
+
+    ResumeNetworkThread();
+
+	return menu;
+}

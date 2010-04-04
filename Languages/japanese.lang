@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,40 +23,6 @@ msgstr "24時間表示"
 
 msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-"クライアントは動作ディレクトリを変更しました:\n"
-"\tフルパス: \"%s\"\n"
-"\t動作ディレクトリ: \"%s\"\n"
-
-msgid "A client has disconnected.\n"
-msgstr "クライアントが切断されました\n"
-
-msgid "A client has logged-in.\n"
-msgstr "クライアントがログインしました\n"
-
-msgid "A client is being deleted.\n"
-msgstr "クライアントが削除されています\n"
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr "クライアントはダウンロード中です: \"%s\"\n"
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr "クライアントはディレクトリを一覧にしています: \"%s\"\n"
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr "クライアントはアップロード中です: \"%s\"\n"
-
-msgid "A new client has been created:\n"
-msgstr "新しいクライアントが作成されました\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -97,12 +63,6 @@ msgstr "起動時のデバイス"
 msgid "Both"
 msgstr "両方"
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr "クライアントソケットエラー\n"
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr "クライアントソフトウェア\n"
-
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
 
@@ -142,22 +102,11 @@ msgstr "時計の表示形式"
 msgid "Close"
 msgstr "とじる"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr "CMDを受信しました: %s\n"
-
 msgid "Coders:"
 msgstr "制作:"
 
 msgid "Compressed Size:"
 msgstr "圧縮サイズ:"
-
-msgid "Connected"
-msgstr "接続しました"
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr "%sと接続しました)"
 
 msgid "Console Default"
 msgstr "日本語"
@@ -304,27 +253,6 @@ msgstr "更新しますか?"
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
-msgid "Enable Create dir:"
-msgstr "フォルダ作成の許可"
-
-msgid "Enable Delete dir:"
-msgstr "フォルダ削除の許可"
-
-msgid "Enable Delete file:"
-msgstr "ファイル削除の許可"
-
-msgid "Enable Write file:"
-msgstr "ファイル書き込みの許可"
-
-msgid "Enable Zip Mode:"
-msgstr "Zipモードの許可"
-
-msgid "Enable list file:"
-msgstr "ファイル一覧の許可"
-
-msgid "Enable read file:"
-msgstr "ファイル読み込みの許可"
-
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
 
@@ -358,9 +286,6 @@ msgstr "解凍中"
 msgid "FTP Client Settings"
 msgstr "FTPクライアント設定"
 
-msgid "FTP Data Port:"
-msgstr "FTPのデータポート"
-
 msgid "FTP Path:"
 msgstr "FTPのパス"
 
@@ -372,6 +297,9 @@ msgstr "FTPサーバー"
 
 msgid "FTP Server Settings"
 msgstr "FTPのサーバー設定"
+
+msgid "FTP Started.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "コピーに失敗しました"
@@ -443,9 +371,6 @@ msgstr "フォントのパスを変更しました"
 msgid "Free Space:"
 msgstr "空き領域:"
 
-msgid "Ftp stopped"
-msgstr "FTPを停止しました"
-
 msgid "GD2 Compression"
 msgstr "GD2圧縮"
 
@@ -500,9 +425,6 @@ msgstr "入力ファイル"
 msgid "Interlace"
 msgstr "インターレース"
 
-msgid "Internal error"
-msgstr "内部エラー"
-
 msgid "JPEG Quality"
 msgstr "JPEGの品質"
 
@@ -524,11 +446,11 @@ msgstr "変更日時:"
 msgid "Last modified:"
 msgstr "更新日時:"
 
-msgid "Launch Ftp"
-msgstr "FTPを起動"
-
 msgid "Linebreak"
 msgstr "改行"
+
+msgid "Listening on TCP port"
+msgstr ""
 
 msgid "Loader"
 msgstr "ローダーへ"
@@ -566,9 +488,6 @@ msgstr "音量"
 msgid "NONE"
 msgstr "なし"
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr "タイムアウトしました\n"
-
 msgid "Name might already exists."
 msgstr "同じ名前がすでにあります"
 
@@ -593,6 +512,9 @@ msgstr "%dの階層に画像が見つかりませんでした"
 
 msgid "No language files found."
 msgstr "言語が見つかりませんでした"
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "更新はありません"
@@ -663,8 +585,17 @@ msgstr "フォルダを再生"
 msgid "Play Once"
 msgstr "一度だけ再生"
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "お待ちください"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "キャンセルしました"
@@ -696,10 +627,6 @@ msgstr "再読み込み"
 msgid "Rename"
 msgstr "名前の変更"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr "返信: %s\n"
-
 msgid "Reset"
 msgstr "リセット"
 
@@ -730,18 +657,8 @@ msgstr "アルファの保存"
 msgid "Screenshot Format"
 msgstr "画面写真の形式"
 
-#, c-format
-msgid "Server at: %s"
-msgstr "サーバー: %s"
-
-msgid "Server started"
-msgstr "サーバーが開始しました"
-
-msgid "Server stopped"
-msgstr "サーバーが停止しました"
-
-msgid "Server waits for client"
-msgstr "サーバーはクライアントを待っています"
+msgid "Server was shutdown...\n"
+msgstr ""
 
 msgid "Settings"
 msgstr "設定"
@@ -751,6 +668,9 @@ msgstr ""
 
 msgid "Show Changelog"
 msgstr "更新履歴を見る"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "サイズ"
@@ -767,15 +687,11 @@ msgstr "スペシャルサンクス:"
 msgid "Standard"
 msgstr "標準"
 
-msgid "Stop Ftp "
-msgstr "FTPを停止"
+msgid "Startup FTP"
+msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr "(%s)にあまりにも多く試行しています\n"
 
 msgid "Total Space:"
 msgstr "使用領域:"
@@ -869,6 +785,9 @@ msgstr ", K-M…日本語への翻訳"
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "for his FTP Server source."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
 
@@ -880,6 +799,108 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Enable Create dir:"
+#~ msgstr "フォルダ作成の許可"
+
+#~ msgid "Enable Delete dir:"
+#~ msgstr "フォルダ削除の許可"
+
+#~ msgid "Enable Delete file:"
+#~ msgstr "ファイル削除の許可"
+
+#~ msgid "Enable Write file:"
+#~ msgstr "ファイル書き込みの許可"
+
+#~ msgid "Enable Zip Mode:"
+#~ msgstr "Zipモードの許可"
+
+#~ msgid "Enable list file:"
+#~ msgstr "ファイル一覧の許可"
+
+#~ msgid "Enable read file:"
+#~ msgstr "ファイル読み込みの許可"
+
+#~ msgid "FTP Data Port:"
+#~ msgstr "FTPのデータポート"
+
+#~ msgid ""
+#~ "A client has changed its working directory:\n"
+#~ "\tFull path: \"%s\"\n"
+#~ "\tWorking directory: \"%s\"\n"
+#~ msgstr ""
+#~ "クライアントは動作ディレクトリを変更しました:\n"
+#~ "\tフルパス: \"%s\"\n"
+#~ "\t動作ディレクトリ: \"%s\"\n"
+
+#~ msgid "A client has disconnected.\n"
+#~ msgstr "クライアントが切断されました\n"
+
+#~ msgid "A client has logged-in.\n"
+#~ msgstr "クライアントがログインしました\n"
+
+#~ msgid "A client is being deleted.\n"
+#~ msgstr "クライアントが削除されています\n"
+
+#~ msgid "A client is downloading a file: \"%s\"\n"
+#~ msgstr "クライアントはダウンロード中です: \"%s\"\n"
+
+#~ msgid "A client is listing a directory: \"%s\"\n"
+#~ msgstr "クライアントはディレクトリを一覧にしています: \"%s\"\n"
+
+#~ msgid "A client is uploading a file: \"%s\"\n"
+#~ msgstr "クライアントはアップロード中です: \"%s\"\n"
+
+#~ msgid "A new client has been created:\n"
+#~ msgstr "新しいクライアントが作成されました\n"
+
+#~ msgid "CLIENT_SOCK_ERROR \n"
+#~ msgstr "クライアントソケットエラー\n"
+
+#~ msgid "CLIENT_SOFTWARE\n"
+#~ msgstr "クライアントソフトウェア\n"
+
+#~ msgid "Cmd received: %s\n"
+#~ msgstr "CMDを受信しました: %s\n"
+
+#~ msgid "Connected"
+#~ msgstr "接続しました"
+
+#~ msgid "Connected with: %s)"
+#~ msgstr "%sと接続しました)"
+
+#~ msgid "Ftp stopped"
+#~ msgstr "FTPを停止しました"
+
+#~ msgid "Internal error"
+#~ msgstr "内部エラー"
+
+#~ msgid "Launch Ftp"
+#~ msgstr "FTPを起動"
+
+#~ msgid "NO_LOGIN_TIMEOUT\n"
+#~ msgstr "タイムアウトしました\n"
+
+#~ msgid "Reply sent: %s\n"
+#~ msgstr "返信: %s\n"
+
+#~ msgid "Server at: %s"
+#~ msgstr "サーバー: %s"
+
+#~ msgid "Server started"
+#~ msgstr "サーバーが開始しました"
+
+#~ msgid "Server stopped"
+#~ msgstr "サーバーが停止しました"
+
+#~ msgid "Server waits for client"
+#~ msgstr "サーバーはクライアントを待っています"
+
+#~ msgid "Stop Ftp "
+#~ msgstr "FTPを停止"
+
+#~ msgid "Too many pass tries for (%s)\n"
+#~ msgstr "(%s)にあまりにも多く試行しています\n"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "画像を閲覧しますか?"

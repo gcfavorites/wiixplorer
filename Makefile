@@ -38,14 +38,11 @@ SOURCES		:=	source \
 				source/libtinysmb \
 				source/libdisk \
 				source/libftp \
+				source/libftp/ftpii \
 				source/ArchiveOperations \
 				source/ArchiveOperations/unzip \
 				source/ArchiveOperations/sevenzip \
 				source/ArchiveOperations/unrarlib \
-				source/ftpServer \
-				source/console  \
-				source/UnBlockingSocket \
-				source/vrt \
 				source/Launcher
 INCLUDES	:=	source
 DATA		:=	data/images data/sounds data/fonts data/binary
@@ -61,8 +58,8 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ldi -lz -lfat -lntfs -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype \
-		-lmxml -lgd -ltiff -ljpeg -lpng 
+LIBS := -ldi -lgd -ltiff -ljpeg -lpng -lz -lfat -lntfs -lmad -lwiiuse -lbte -lasnd -logc \
+		-lvorbisidec -lfreetype -lmxml
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

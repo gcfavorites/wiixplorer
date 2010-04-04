@@ -125,23 +125,20 @@ bool NetReceiver::CheckIncomming()
         return false;
     }
 
-    time_t start = time(NULL);
-    time_t time_now = 0;
+    Timer CTimer;
+
     do
     {
         connection = net_accept(socket, (struct sockaddr*)&client_address, &addrlen);
         if(connection >= 0)
             break;
-
-        time_now = time(NULL);
     }
-    while(time_now - start < 2);
+    while(CTimer.elapsed() < 1.0f);
 
     sprintf(incommingIP, "%s", inet_ntoa(client_address.sin_addr));
 
     if (connection < 0)
     {
-//        net_close(connection);
         net_close(socket);
         return false;
     }

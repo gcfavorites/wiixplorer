@@ -1,7 +1,8 @@
 /*
 
-Copyright (C) 2010 masterlilou derived from  Joseph Jordan <joe.ftpii@psychlaw.com.au>
-This work is derived from Daniel Ehlers' <danielehlers@mindeye.net> srg_vrt branch.
+ftpii -- an FTP server for the Wii
+
+Copyright (C) 2008 Joseph Jordan <joe.ftpii@psychlaw.com.au>
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from
@@ -22,24 +23,20 @@ misrepresented as being the original software.
 3.This notice may not be removed or altered from any source distribution.
 
 */
-#ifndef _VRT_H_
-#define _VRT_H_
+#ifndef _FTP_H_
+#define _FTP_H_
 
-#include <stdio.h>
-#include <sys/dir.h>
+#ifdef __cplusplus
+extern "C"{
+#endif
 
+void accept_ftp_client(s32 server);
+void set_ftp_password(char *new_password);
+bool process_ftp_events(s32 server);
+void cleanup_ftp();
 
-FILE *vrt_fopen(char *cwd, char *mode);
-int vrt_stat(char *cwd,  struct stat *st);
-int vrt_chdir(char *cwd);
-int vrt_unlink(char *cwd);
-int vrt_mkdir(char *cwd, mode_t mode);
-int vrt_rename(char *cwd, char *to_path);
-DIR_ITER *vrt_diropen(const char *cwd);
-int vrt_dirnext(DIR_ITER *iter, char *filename, struct stat *st);
-int vrt_dirclose(DIR_ITER *iter);
+#ifdef __cplusplus
+}
+#endif
 
-void initialise_virtual_path(void) ;
-
-
-#endif /* _VRT_H_ */
+#endif /* _FTP_H_ */

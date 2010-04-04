@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2010-02-25 22:00+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -23,40 +23,6 @@ msgstr ""
 
 msgid "7z decompression failed:"
 msgstr "Decompressione 7z fallita:"
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-"Un client ha cambiato la sua cartella di lavoro:\n"
-"\tPercorso completo: \"%s\"\n"
-"\tCartella di lavoro: \"%s\"\n"
-
-msgid "A client has disconnected.\n"
-msgstr "Un client si è disconnesso.\n"
-
-msgid "A client has logged-in.\n"
-msgstr "Un client si è collegato.\n"
-
-msgid "A client is being deleted.\n"
-msgstr "Un client sta per essere eliminato.\n"
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr "Un client sta scaricando un file: \"%s\"\n"
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr "Un client sta guardando una cartella: \"%s\"\n"
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr "Un client sta caricando un file: \"%s\"\n"
-
-msgid "A new client has been created:\n"
-msgstr "E' stato creato un nuovo client:\n"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -95,12 +61,6 @@ msgid "Bootup Mount"
 msgstr "Mount all'avvio"
 
 msgid "Both"
-msgstr ""
-
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
-
-msgid "CLIENT_SOFTWARE\n"
 msgstr ""
 
 msgid "Can not open the file."
@@ -142,22 +102,11 @@ msgstr ""
 msgid "Close"
 msgstr "Chiudi"
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr "Comando ricevuto: %s\n"
-
 msgid "Coders:"
 msgstr "Sviluppatori:"
 
 msgid "Compressed Size:"
 msgstr "Dimensione dopo Compressione:"
-
-msgid "Connected"
-msgstr "Connesso"
-
-#, c-format
-msgid "Connected with: %s)"
-msgstr "Connesso con: %s)"
 
 msgid "Console Default"
 msgstr "Predefinito Console"
@@ -304,27 +253,6 @@ msgstr "Vuoi eseguire l'aggiornamento ?"
 msgid "Downloading file..."
 msgstr "Sto scaricando il file..."
 
-msgid "Enable Create dir:"
-msgstr "Abilita Creazione cartelle:"
-
-msgid "Enable Delete dir:"
-msgstr "Abilita Eliminazione cartelle:"
-
-msgid "Enable Delete file:"
-msgstr "Abilita Eliminazione file:"
-
-msgid "Enable Write file:"
-msgstr "Abilita Scrittura file:"
-
-msgid "Enable Zip Mode:"
-msgstr "Abilita Modalità zip:"
-
-msgid "Enable list file:"
-msgstr "Abilita elenco file:"
-
-msgid "Enable read file:"
-msgstr "Abilita lettura file:"
-
 msgid "Error while reading file."
 msgstr "Errore durante lettura file."
 
@@ -358,9 +286,6 @@ msgstr "Sto estraendo gli elementi:"
 msgid "FTP Client Settings"
 msgstr "Impostazioni Client FTP"
 
-msgid "FTP Data Port:"
-msgstr "Porta Dati FTP:"
-
 msgid "FTP Path:"
 msgstr "Percorso FTP:"
 
@@ -372,6 +297,9 @@ msgstr ""
 
 msgid "FTP Server Settings"
 msgstr "Impostazioni Server FTP"
+
+msgid "FTP Started.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "Errore nella copia degli elementi."
@@ -443,9 +371,6 @@ msgstr "Percorso font modificato"
 msgid "Free Space:"
 msgstr "Spazio Libero:"
 
-msgid "Ftp stopped"
-msgstr "FTP interrotto"
-
 msgid "GD2 Compression"
 msgstr ""
 
@@ -500,9 +425,6 @@ msgstr ""
 msgid "Interlace"
 msgstr ""
 
-msgid "Internal error"
-msgstr "Errore interno"
-
 msgid "JPEG Quality"
 msgstr ""
 
@@ -524,11 +446,11 @@ msgstr "Ultima modifica:"
 msgid "Last modified:"
 msgstr "Ultima modifica:"
 
-msgid "Launch Ftp"
-msgstr "Avvia FTP"
-
 msgid "Linebreak"
 msgstr "Interruzione di riga"
+
+msgid "Listening on TCP port"
+msgstr ""
 
 msgid "Loader"
 msgstr ""
@@ -566,9 +488,6 @@ msgstr "Volume Musica"
 msgid "NONE"
 msgstr ""
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
-
 msgid "Name might already exists."
 msgstr "Nome già esistente."
 
@@ -593,6 +512,9 @@ msgstr "Nessuna immagine trovata in %d."
 
 msgid "No language files found."
 msgstr "Nessuna lingua trovata."
+
+msgid "No network connection."
+msgstr ""
 
 msgid "No new updates available"
 msgstr "Nessun aggiornamento disponibile"
@@ -663,8 +585,17 @@ msgstr "Suona Cartella"
 msgid "Play Once"
 msgstr "Suona una volta"
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Attendere prego:"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Il processo è stato annullato."
@@ -696,10 +627,6 @@ msgstr ""
 msgid "Rename"
 msgstr "Rinomina"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr "Risposta inviata: %s\n"
-
 msgid "Reset"
 msgstr ""
 
@@ -730,18 +657,8 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
-#, c-format
-msgid "Server at: %s"
-msgstr "Server a: %s"
-
-msgid "Server started"
-msgstr "Server avviato"
-
-msgid "Server stopped"
-msgstr "Server interrotto"
-
-msgid "Server waits for client"
-msgstr "Server in attesa di client"
+msgid "Server was shutdown...\n"
+msgstr ""
 
 msgid "Settings"
 msgstr ""
@@ -751,6 +668,9 @@ msgstr "Maiuscole"
 
 msgid "Show Changelog"
 msgstr "Mostra il Changelog"
+
+msgid "Shutdown FTP"
+msgstr ""
 
 msgid "Size:"
 msgstr "Dimensione:"
@@ -767,15 +687,11 @@ msgstr "Grazie mille a:"
 msgid "Standard"
 msgstr ""
 
-msgid "Stop Ftp "
-msgstr "Interrompi FTP"
+msgid "Startup FTP"
+msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Tutto lo staff di DevkitPro & libogc."
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
-msgstr "Troppi tentativi per (%s)\n"
 
 msgid "Total Space:"
 msgstr "Spazio Complessivo:"
@@ -869,6 +785,9 @@ msgstr "e tutti i traduttori."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "for his FTP Server source."
+msgstr ""
+
 msgid "for his great tool LibWiiGui."
 msgstr "per la sua fantastica libreria LibWiiGui."
 
@@ -880,6 +799,99 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Enable Create dir:"
+#~ msgstr "Abilita Creazione cartelle:"
+
+#~ msgid "Enable Delete dir:"
+#~ msgstr "Abilita Eliminazione cartelle:"
+
+#~ msgid "Enable Delete file:"
+#~ msgstr "Abilita Eliminazione file:"
+
+#~ msgid "Enable Write file:"
+#~ msgstr "Abilita Scrittura file:"
+
+#~ msgid "Enable Zip Mode:"
+#~ msgstr "Abilita Modalità zip:"
+
+#~ msgid "Enable list file:"
+#~ msgstr "Abilita elenco file:"
+
+#~ msgid "Enable read file:"
+#~ msgstr "Abilita lettura file:"
+
+#~ msgid "FTP Data Port:"
+#~ msgstr "Porta Dati FTP:"
+
+#~ msgid ""
+#~ "A client has changed its working directory:\n"
+#~ "\tFull path: \"%s\"\n"
+#~ "\tWorking directory: \"%s\"\n"
+#~ msgstr ""
+#~ "Un client ha cambiato la sua cartella di lavoro:\n"
+#~ "\tPercorso completo: \"%s\"\n"
+#~ "\tCartella di lavoro: \"%s\"\n"
+
+#~ msgid "A client has disconnected.\n"
+#~ msgstr "Un client si è disconnesso.\n"
+
+#~ msgid "A client has logged-in.\n"
+#~ msgstr "Un client si è collegato.\n"
+
+#~ msgid "A client is being deleted.\n"
+#~ msgstr "Un client sta per essere eliminato.\n"
+
+#~ msgid "A client is downloading a file: \"%s\"\n"
+#~ msgstr "Un client sta scaricando un file: \"%s\"\n"
+
+#~ msgid "A client is listing a directory: \"%s\"\n"
+#~ msgstr "Un client sta guardando una cartella: \"%s\"\n"
+
+#~ msgid "A client is uploading a file: \"%s\"\n"
+#~ msgstr "Un client sta caricando un file: \"%s\"\n"
+
+#~ msgid "A new client has been created:\n"
+#~ msgstr "E' stato creato un nuovo client:\n"
+
+#~ msgid "Cmd received: %s\n"
+#~ msgstr "Comando ricevuto: %s\n"
+
+#~ msgid "Connected"
+#~ msgstr "Connesso"
+
+#~ msgid "Connected with: %s)"
+#~ msgstr "Connesso con: %s)"
+
+#~ msgid "Ftp stopped"
+#~ msgstr "FTP interrotto"
+
+#~ msgid "Internal error"
+#~ msgstr "Errore interno"
+
+#~ msgid "Launch Ftp"
+#~ msgstr "Avvia FTP"
+
+#~ msgid "Reply sent: %s\n"
+#~ msgstr "Risposta inviata: %s\n"
+
+#~ msgid "Server at: %s"
+#~ msgstr "Server a: %s"
+
+#~ msgid "Server started"
+#~ msgstr "Server avviato"
+
+#~ msgid "Server stopped"
+#~ msgstr "Server interrotto"
+
+#~ msgid "Server waits for client"
+#~ msgstr "Server in attesa di client"
+
+#~ msgid "Stop Ftp "
+#~ msgstr "Interrompi FTP"
+
+#~ msgid "Too many pass tries for (%s)\n"
+#~ msgstr "Troppi tentativi per (%s)\n"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "Vuoi aprire questo file con ImageViewer?"

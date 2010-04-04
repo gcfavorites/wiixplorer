@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 02:20+0200\n"
+"POT-Creation-Date: 2010-04-04 22:24+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -22,37 +22,6 @@ msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
-
-#, c-format
-msgid ""
-"A client has changed its working directory:\n"
-"\tFull path: \"%s\"\n"
-"\tWorking directory: \"%s\"\n"
-msgstr ""
-
-msgid "A client has disconnected.\n"
-msgstr ""
-
-msgid "A client has logged-in.\n"
-msgstr ""
-
-msgid "A client is being deleted.\n"
-msgstr ""
-
-#, c-format
-msgid "A client is downloading a file: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is listing a directory: \"%s\"\n"
-msgstr ""
-
-#, c-format
-msgid "A client is uploading a file: \"%s\"\n"
-msgstr ""
-
-msgid "A new client has been created:\n"
 msgstr ""
 
 msgid "ASDFGHJKL:\"+"
@@ -94,12 +63,6 @@ msgstr ""
 msgid "Both"
 msgstr ""
 
-msgid "CLIENT_SOCK_ERROR \n"
-msgstr ""
-
-msgid "CLIENT_SOFTWARE\n"
-msgstr ""
-
 msgid "Can not open the file."
 msgstr ""
 
@@ -139,21 +102,10 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#, c-format
-msgid "Cmd received: %s\n"
-msgstr ""
-
 msgid "Coders:"
 msgstr ""
 
 msgid "Compressed Size:"
-msgstr ""
-
-msgid "Connected"
-msgstr ""
-
-#, c-format
-msgid "Connected with: %s)"
 msgstr ""
 
 msgid "Console Default"
@@ -301,27 +253,6 @@ msgstr ""
 msgid "Downloading file..."
 msgstr ""
 
-msgid "Enable Create dir:"
-msgstr ""
-
-msgid "Enable Delete dir:"
-msgstr ""
-
-msgid "Enable Delete file:"
-msgstr ""
-
-msgid "Enable Write file:"
-msgstr ""
-
-msgid "Enable Zip Mode:"
-msgstr ""
-
-msgid "Enable list file:"
-msgstr ""
-
-msgid "Enable read file:"
-msgstr ""
-
 msgid "Error while reading file."
 msgstr ""
 
@@ -355,9 +286,6 @@ msgstr ""
 msgid "FTP Client Settings"
 msgstr ""
 
-msgid "FTP Data Port:"
-msgstr ""
-
 msgid "FTP Path:"
 msgstr ""
 
@@ -368,6 +296,9 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
+msgstr ""
+
+msgid "FTP Started.\n"
 msgstr ""
 
 msgid "Failed copying item(s)."
@@ -440,9 +371,6 @@ msgstr ""
 msgid "Free Space:"
 msgstr ""
 
-msgid "Ftp stopped"
-msgstr ""
-
 msgid "GD2 Compression"
 msgstr ""
 
@@ -497,9 +425,6 @@ msgstr ""
 msgid "Interlace"
 msgstr ""
 
-msgid "Internal error"
-msgstr ""
-
 msgid "JPEG Quality"
 msgstr ""
 
@@ -521,10 +446,10 @@ msgstr ""
 msgid "Last modified:"
 msgstr "Senast modifierad:"
 
-msgid "Launch Ftp"
+msgid "Linebreak"
 msgstr ""
 
-msgid "Linebreak"
+msgid "Listening on TCP port"
 msgstr ""
 
 msgid "Loader"
@@ -563,9 +488,6 @@ msgstr "Musik volym"
 msgid "NONE"
 msgstr ""
 
-msgid "NO_LOGIN_TIMEOUT\n"
-msgstr ""
-
 msgid "Name might already exists."
 msgstr ""
 
@@ -589,6 +511,9 @@ msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
+msgstr ""
+
+msgid "No network connection."
 msgstr ""
 
 msgid "No new updates available"
@@ -660,8 +585,17 @@ msgstr ""
 msgid "Play Once"
 msgstr ""
 
+msgid "Please wait..."
+msgstr ""
+
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
+
+msgid "Preparing the network."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr ""
 
 msgid "Process canceled."
 msgstr ""
@@ -693,10 +627,6 @@ msgstr ""
 msgid "Rename"
 msgstr "Byt namn"
 
-#, c-format
-msgid "Reply sent: %s\n"
-msgstr ""
-
 msgid "Reset"
 msgstr ""
 
@@ -727,17 +657,7 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
-#, c-format
-msgid "Server at: %s"
-msgstr ""
-
-msgid "Server started"
-msgstr ""
-
-msgid "Server stopped"
-msgstr ""
-
-msgid "Server waits for client"
+msgid "Server was shutdown...\n"
 msgstr ""
 
 msgid "Settings"
@@ -747,6 +667,9 @@ msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
+msgstr ""
+
+msgid "Shutdown FTP"
 msgstr ""
 
 msgid "Size:"
@@ -764,14 +687,10 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-msgid "Stop Ftp "
+msgid "Startup FTP"
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr ""
-
-#, c-format
-msgid "Too many pass tries for (%s)\n"
 msgstr ""
 
 msgid "Total Space:"
@@ -864,6 +783,9 @@ msgid "and all the translators."
 msgstr ""
 
 msgid "asdfghjkl;'="
+msgstr ""
+
+msgid "for his FTP Server source."
 msgstr ""
 
 msgid "for his great tool LibWiiGui."

@@ -51,72 +51,80 @@ CreditWindow::CreditWindow()
     btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
     int i = 0;
+    int x = 30;
     int y = 30;
 
     Entrie[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     Entrie[i]->SetPosition(0, y);
     i++;
-    y += 55;
+    y += 50;
 
     Entrie[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20, y);
+    Entrie[i]->SetPosition(x, y);
     i++;
 
     Entrie[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(170, y);
+    Entrie[i]->SetPosition(x+150, y);
     i++;
     y += 32;
 
     Entrie[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(170, y);
+    Entrie[i]->SetPosition(x+150, y);
     i++;
     y += 32;
 
     Entrie[i] = new GuiText("dude", 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(170, y);
+    Entrie[i]->SetPosition(x+150, y);
     i++;
     y += 40;
 
     Entrie[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20, y);
+    Entrie[i]->SetPosition(x, y);
     i++;
 
     Entrie[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(170, y);
+    Entrie[i]->SetPosition(x+150, y);
     i++;
-    y += 55;
+    y += 50;
 
-    Entrie[i] = new GuiText(tr("Special thanks to:"), 24, (GXColor) {0, 0, 0, 255});
+    Entrie[i] = new GuiText(tr("Special thanks to:"), 22, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20,y);
+    Entrie[i]->SetPosition(x,y);
     i++;
-    y += 30;
+    y += 28;
 
     char text[80];
     snprintf(text, sizeof(text), "Dj_Skual %s", tr("and all the translators."));
-    Entrie[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
+    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20,y);
+    Entrie[i]->SetPosition(x,y);
     i++;
-    y += 30;
+    y += 28;
 
     snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool LibWiiGui."));
-    Entrie[i] = new GuiText(text, 22, (GXColor) {0, 0, 0, 255});
+    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20,y);
+    Entrie[i]->SetPosition(x,y);
     i++;
-    y += 30;
+    y += 28;
 
-    Entrie[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 22, (GXColor) {0, 0, 0, 255});
+    snprintf(text, sizeof(text), "Joseph Jordan %s ", tr("for his FTP Server source."));
+    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(20,y);
+    Entrie[i]->SetPosition(x,y);
+    i++;
+    y += 28;
+
+    Entrie[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
+    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Entrie[i]->SetPosition(x,y);
     i++;
 
     CreditEntries = i;

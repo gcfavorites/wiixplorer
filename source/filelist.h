@@ -31,9 +31,6 @@ extern const u32	button_over_wav_size;
 extern const u8		button_click_wav[];
 extern const u32	button_click_wav_size;
 
-extern const u8		bg_cftp_png[];
-extern const u32	bg_cftp_png_size;
-
 extern const u8		arrow_up_png[];
 extern const u32	arrow_up_png_size;
 
@@ -66,6 +63,9 @@ extern const u32	WiiXplorer_png_size;
 
 extern const u8		background_png[];
 extern const u32	background_png_size;
+
+extern const u8		network_png[];
+extern const u32	network_png_size;
 
 extern const u8		window_tile_horizontal_png[];
 extern const u32	window_tile_horizontal_png_size;
