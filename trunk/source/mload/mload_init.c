@@ -21,6 +21,5 @@ int mload_Init()
 
 void mload_DeInit()
 {
-	mload_stop_thread(mload_thread_id);
 	mload_close();
 }
