@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-04-04 02:20+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -245,6 +245,9 @@ msgstr "Voulez-vous quitter Wiixplorer?"
 
 msgid "Do you want to exit to the system menu?"
 msgstr "Voulez-vous retourner au menu système?"
+
+msgid "Do you want to launch file with MPlayerCE?"
+msgstr ""
 
 msgid "Do you want to load app default language ?"
 msgstr "Voulez-vous charger le language de WiiWplorer par défaut?"
@@ -538,6 +541,12 @@ msgstr "Chargement de l'image..."
 
 msgid "Loop"
 msgstr "Boucle"
+
+msgid "MPlayerCE Path"
+msgstr ""
+
+msgid "MPlayerPath changed"
+msgstr ""
 
 msgid "Menu"
 msgstr ""

@@ -266,7 +266,7 @@ int MenuImageSettings()
 	options.SetName(i++, tr("Slideshow Delay"));
 	options.SetName(i++, tr("Screenshot Format"));
 
-	SettingsMenu * Menu = new SettingsMenu(tr("Sound Settings"), &options, MENU_SETTINGS);
+	SettingsMenu * Menu = new SettingsMenu(tr("Image Settings"), &options, MENU_SETTINGS);
 
 	MainWindow::Instance()->Append(Menu);
 
@@ -403,6 +403,7 @@ int MenuPathSetup()
 
 	OptionList options;
 	options.SetName(i++, tr("App Path"));
+	options.SetName(i++, tr("MPlayerCE Path"));
 	options.SetName(i++, tr("Customfont Path"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Path Setup"), &options, MENU_SETTINGS);
@@ -436,6 +437,17 @@ int MenuPathSetup()
                 }
 				break;
             case 1:
+                snprintf(entered, sizeof(entered), "%s", Settings.MPlayerPath);
+                if(OnScreenKeyboard(entered, 149)) {
+					if (entered[strlen(entered)-1] != '/')
+						strcat(entered, "/");
+                    if(strstr(entered, "boot.dol") == 0)
+						strcat(entered, "boot.dol");
+					snprintf(Settings.MPlayerPath, sizeof(Settings.MPlayerPath), "%s", entered);
+                    WindowPrompt(tr("MPlayerPath changed"), 0, tr("OK"));
+                }
+				break;
+            case 2:
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149)) {
                     snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
@@ -450,6 +462,8 @@ int MenuPathSetup()
             firstRun = false;
 
             options.SetValue(i++, "%s", Settings.AppPath);
+
+            options.SetValue(i++, "%s", Settings.MPlayerPath);
 
             options.SetValue(i++, "%s", Settings.CustomFontPath);
         }

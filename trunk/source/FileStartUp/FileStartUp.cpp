@@ -14,6 +14,7 @@
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/MainWindow.h"
 #include "VideoOperations/WiiMovie.hpp"
+#include "MPlayerPath.h"
 #include "menu.h"
 
 int FileStartUp(const char *filepath)
@@ -30,7 +31,10 @@ int FileStartUp(const char *filepath)
         {
              int ret = LoadHomebrew(filepath);
              if(ret >= 0)
+             {
+                 AddBootArgument(filepath);
                  return BOOTHOMEBREW;
+             }
         }
 
         return 0;
@@ -126,6 +130,27 @@ int FileStartUp(const char *filepath)
         Video->Play();
         delete Video;
         Video = NULL;
+    }
+    else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mp4") == 0 ||
+            strcasecmp(fileext, ".wmv") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
+            strcasecmp(fileext, ".mkv") == 0)
+    {
+        int choice = WindowPrompt(tr("Do you want to launch file with MPlayerCE?"), filename, tr("Yes"), tr("No"));
+        if(choice)
+        {
+             int ret = LoadHomebrew(Settings.MPlayerPath);
+             if(ret >= 0)
+             {
+                 AddBootArgument(Settings.MPlayerPath);
+
+                 char mplayerpath[MAXPATHLEN];
+                 ConvertToMPlayerPath(filepath, mplayerpath);
+
+                 AddBootArgument(mplayerpath);
+                 AddBootArgument(fmt("−quiet"));
+                 return BOOTHOMEBREW;
+             }
+        }
     }
     else {
         loadtext:

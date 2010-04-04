@@ -30,7 +30,6 @@
 #include <ogcsys.h>
 #include <fcntl.h>
 #include <ogc/machine/processor.h>
-#include "libtinysmb/smb.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 

@@ -5,6 +5,8 @@
 #include <string.h>
 #include <ogc/machine/processor.h>
 #include <wiiuse/wpad.h>
+#include <vector>
+#include <string>
 
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
@@ -15,6 +17,13 @@
 
 static u8 *homebrewbuffer = (u8 *) 0x92000000;
 static u32 homebrewsize = 0;
+static std::vector<std::string> Arguments;
+
+void AddBootArgument(const char * argv)
+{
+    std::string arg(argv);
+    Arguments.push_back(arg);
+}
 
 int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
 {
@@ -47,7 +56,50 @@ int LoadHomebrew(const char * filepath)
      return ret;
 }
 
-int BootHomebrew(const char *path, const char * filereference)
+static int SetupARGV(struct __argv * args)
+{
+    if(!args)
+        return -1;
+
+    bzero(args, sizeof(struct __argv));
+    args->argvMagic = ARGV_MAGIC;
+
+    u32 stringlength = 1;
+
+    /** Append Arguments **/
+    for(u32 i = 0; i < Arguments.size(); i++)
+    {
+        stringlength += Arguments[i].size()+1;
+    }
+
+    args->length = stringlength;
+    args->commandLine = (char*) malloc(args->length);
+    if (!args->commandLine)
+        return -1;
+
+    u32 argc = 0;
+    u32 position = 0;
+
+    /** Append Arguments **/
+    for(u32 i = 0; i < Arguments.size(); i++)
+    {
+        sprintf(&args->commandLine[position], "%s", Arguments[i].c_str());
+        position += Arguments[i].size()+1;
+        argc++;
+    }
+
+    args->argc = argc;
+
+    args->commandLine[args->length - 1] = '\0';
+    args->argv = &args->commandLine;
+    args->endARGV = args->argv + 1;
+
+    Arguments.clear();
+
+    return 0;
+}
+
+int BootHomebrew()
 {
     if(homebrewsize == 0)
         return -1;
@@ -62,24 +114,7 @@ int BootHomebrew(const char *path, const char * filereference)
     memcpy(buffer, app_booter_dol, app_booter_dol_size);
 
     struct __argv args;
-    bzero(&args, sizeof(args));
-    args.argvMagic = ARGV_MAGIC;
-    u32 stringlength = strlen(path) + (filereference ? (strlen(filereference)+1) : 0) + 2;
-    args.length = stringlength;
-    args.commandLine = (char*) malloc(args.length);
-    if (!args.commandLine)
-        return -1;
-    sprintf(args.commandLine, "%s", path);
-    if(filereference)
-    {
-        sprintf(&args.commandLine[strlen(path)+1], "%s", filereference);
-        args.argc = 2;
-    }
-    else
-        args.argc = 1;
-    args.commandLine[args.length - 1] = '\0';
-    args.argv = &args.commandLine;
-    args.endARGV = args.argv + 1;
+    SetupARGV(&args);
 
     entry = (entrypoint) load_dol(buffer, &args);
 

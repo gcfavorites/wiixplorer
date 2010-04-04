@@ -29,8 +29,6 @@
  *  You should have received a copy of the GNU Lesser General Public
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- *  Original source: libogc R3846
  ****************************************************************************/
 
 #ifndef __NBTSMB_H__
@@ -107,6 +105,7 @@ typedef void* SMBFILE;
   u64 atime;
   u64 mtime;
   u32 attributes;
+  u16 sid;
   char name[256];
 } SMBDIRENTRY;
 
@@ -129,7 +128,7 @@ s32 SMB_Reconnect(SMBCONN *_smbhndl, BOOL test_conn);
 s32 SMB_PathInfo(const char *filename, SMBDIRENTRY *sdir, SMBCONN smbhndl);
 s32 SMB_FindFirst(const char *filename, unsigned short flags, SMBDIRENTRY *sdir,SMBCONN smbhndl);
 s32 SMB_FindNext(SMBDIRENTRY *sdir,SMBCONN smbhndl);
-s32 SMB_FindClose(SMBCONN smbhndl);
+s32 SMB_FindClose(SMBDIRENTRY *sdir,SMBCONN smbhndl);
 
 /*** File I/O ***/
 SMBFILE SMB_OpenFile(const char *filename, unsigned short access, unsigned short creation,SMBCONN smbhndl);

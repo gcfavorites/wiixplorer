@@ -113,12 +113,11 @@
 /**
  * SMB_COM
  */
-#define SMB_COM_CREATE_DIRECTORY        0x00
-#define SMB_COM_DELETE_DIRECTORY        0x01
-#define SMB_COM_DELETE                  0x06
-#define SMB_COM_RENAME                  0x07
+#define SMB_COM_CREATE_DIRECTORY    0x00
+#define SMB_COM_DELETE_DIRECTORY    0x01
+#define SMB_COM_DELETE              0x06
+#define SMB_COM_RENAME              0x07
 #define SMB_COM_QUERY_INFORMATION_DISK  0x80
-
 
 /**
  * TRANS2 Offsets
@@ -140,11 +139,9 @@
 
 #define SMB_PROTO					0x424d53ff
 #define SMB_HANDLE_NULL				0xffffffff
-#define SMB_MAX_BUFFERSIZE			((1024*64)-64)	// cannot be larger than u16 (65536) - samba header (64)
-#define SMB_MAX_NET_READ_SIZE		8192 // see smb_recv
+#define SMB_MAX_NET_READ_SIZE		(16*1024) // see smb_recv
 #define SMB_MAX_NET_WRITE_SIZE		4096 // see smb_sendv
-#define SMB_MAX_TRANSMIT_SIZE		16384
-#define SMB_DEF_READOFFSET			63
+#define SMB_MAX_TRANSMIT_SIZE		65535
 
 #define CAP_LARGE_FILES				0x00000008  // 64-bit file sizes and offsets supported
 #define CAP_UNICODE					0x00000004  // Unicode supported
@@ -184,9 +181,9 @@ struct _smbfile
 typedef struct _nbtsmb
 {
   u8 msg;		 /*** NBT Message ***/
-  u8 flags;		 /*** Not much here really ***/
+  u8 length_high;
   u16 length;	 /*** Length, excluding NBT ***/
-  u8 smb[SMB_MAX_TRANSMIT_SIZE];
+  u8 smb[SMB_MAX_TRANSMIT_SIZE+128];
 } NBTSMB;
 
 /**
@@ -200,13 +197,12 @@ typedef struct _smbsession
   u16 MID;
   u32 sKey;
   u32 capabilities;
-  u16 MaxBuffer;
+  u32 MaxBuffer;
   u16 MaxMpx;
   u16 MaxVCS;
   u8 challenge[10];
   u8 p_domain[64];
   s64 timeOffset;
-  u16 sid;
   u16 count;
   u16 eos;
   bool challengeUsed;
@@ -466,7 +462,7 @@ static s32 smb_recv(s32 s,void *mem,s32 len)
 			read=SMB_MAX_NET_READ_SIZE; // optimized value
 
 		ret=net_recv(s,mem+readtotal,read,0);
-		if(ret>=0)
+		if(ret>0)
 		{
 			readtotal+=ret;
 			len-=ret;
@@ -478,7 +474,7 @@ static s32 smb_recv(s32 s,void *mem,s32 len)
 			t2=ticks_to_millisecs(gettime());
 			if( (t2 - t1) > RECV_TIMEOUT) return -1;
 		}
-		usleep(100);
+		usleep(1000);
 	}
 	return readtotal;
 }
@@ -489,75 +485,34 @@ static s32 smb_recv(s32 s,void *mem,s32 len)
  * Do very basic checking on the return SMB
  * Read <readlen> bytes
  * if <readlen>==0 then read a single SMB packet
- * discard any NBT_KEEPALIVE_MSG packets along the way.
+ * discard any non NBT_SESSISON_MSG packets along the way.
  */
-static s32 SMBCheck(u8 command, s32 readlen,SMBHANDLE *handle)
+static s32 SMBCheck(u8 command,SMBHANDLE *handle)
 {
-	s32 ret,recvd = 0;
+	s32 ret;
 	u8 *ptr = handle->message.smb;
 	NBTSMB *nbt = &handle->message;
-	u8 *ptr2 = (u8*)nbt;
-	u8 tempLength = (readlen==0);
-	u64 t1,t2;
+	u32 readlen;
 
 	if(handle->sck_server == INVALID_SOCKET) return SMB_ERROR;
 
-	/* if length is not specified,*/
-	if(tempLength)
-	{
-		/* read entire header if available. if not, just get whatever available.*/
-		readlen = SMB_HEADER_SIZE+4;
-	}
-
 	memset(nbt,0,sizeof(NBTSMB));
 
-	t1=ticks_to_millisecs(gettime());
-	/*keep going till we get all the data we wanted*/
-	while(recvd<readlen)
-	{
-		ret=smb_recv(handle->sck_server, ptr2+recvd, readlen-recvd);
-		if(ret<0)
-		{
-			return SMB_ERROR;
-		}
-		else if(ret==0)
-		{
-			// strange smb_recv return 0
-		}
-		else
-		{
-			t1=ticks_to_millisecs(gettime());
-		}
+	/*keep going till we get a NBT session message*/
+	do{
+		ret=smb_recv(handle->sck_server, (u8*)nbt, 4);
+		if(ret<0) return SMB_ERROR;
 
-		recvd+=ret;
-		/* discard any and all keepalive packets */
-		while( (nbt->msg==NBT_KEEPALIVE_MSG) && (recvd>=KEEPALIVE_SIZE) )
-		{
-			recvd-=KEEPALIVE_SIZE;
-			memmove(ptr2, ptr2+KEEPALIVE_SIZE, recvd);
-		}
-		/* obtain required length from NBT header if readlen==0*/
-		if(tempLength && recvd>=KEEPALIVE_SIZE)
-		{
-			/* get the length header */
-			if(nbt->flags!=0 || nbt->length>SMB_MAX_TRANSMIT_SIZE)
-			{
-				/*length too big to be supported*/
-				return SMB_BAD_DATALEN;
-			}
-			else
-			{
-				readlen = nbt->length+KEEPALIVE_SIZE;
-				tempLength = 0;
-			}
-		}
-		t2=ticks_to_millisecs(gettime());
-		if((t2-t1) > RECV_TIMEOUT)
-		{
-			// SMBCheck timeout, very strange
-			return SMB_ERROR;
-		}
-	}
+		if(nbt->msg!=NBT_SESSISON_MSG && nbt->length>0)
+			smb_recv(handle->sck_server, ptr, nbt->length); //clear unexpected NBT message
+	}while(nbt->msg!=NBT_SESSISON_MSG);
+
+	/* obtain required length from NBT header if readlen==0*/
+	readlen=(u32)((nbt->length_high<<16)|nbt->length);
+
+	// Get server message block
+	ret=smb_recv(handle->sck_server, ptr, readlen);
+	if(ret<0) return SMB_ERROR;
 
 	/*** Do basic SMB Header checks ***/
 	ret = getUInt(ptr,SMB_OFFSET_PROTO);
@@ -660,7 +615,7 @@ static s32 SMB_SetupAndX(SMBHANDLE *handle)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret<=0) return SMB_ERROR;
 
-	if((ret=SMBCheck(SMB_SETUP_ANDX,0,handle))==SMB_SUCCESS) {
+	if((ret=SMBCheck(SMB_SETUP_ANDX,handle))==SMB_SUCCESS) {
 		/*** Collect UID ***/
 		sess->UID = getUShort(handle->message.smb,SMB_OFFSET_UID);
 		return SMB_SUCCESS;
@@ -723,7 +678,7 @@ static s32 SMB_TreeAndX(SMBHANDLE *handle)
 	ret = smb_send(handle->sck_server,(char *)&handle->message,pos);
 	if(ret<=0) return SMB_ERROR;
 
-	if((ret=SMBCheck(SMB_TREEC_ANDX,0,handle))==SMB_SUCCESS) {
+	if((ret=SMBCheck(SMB_TREEC_ANDX,handle))==SMB_SUCCESS) {
 		/*** Collect Tree ID ***/
 		sess->TID = getUShort(handle->message.smb,SMB_OFFSET_TID);
 		return SMB_SUCCESS;
@@ -781,7 +736,7 @@ static s32 SMB_NegotiateProtocol(const char *dialects[],int dialectc,SMBHANDLE *
 	if(ret<=0) return SMB_ERROR;
 
 	/*** Check response ***/
-	if((ret=SMBCheck(SMB_NEG_PROTOCOL,0,handle))==SMB_SUCCESS)
+	if((ret=SMBCheck(SMB_NEG_PROTOCOL,handle))==SMB_SUCCESS)
 	{
 		pos = SMB_HEADER_SIZE;
 		ptr = handle->message.smb;
@@ -1293,7 +1248,7 @@ SMBFILE SMB_OpenFile(const char *filename, u16 access, u16 creation,SMBCONN smbh
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret<0) goto failed;
 
-	if(SMBCheck(SMB_OPEN_ANDX,0,handle)==SMB_SUCCESS) {
+	if(SMBCheck(SMB_OPEN_ANDX,handle)==SMB_SUCCESS) {
 		/*** Check file handle ***/
 		fid = (struct _smbfile*)__lwp_queue_get(&smb_filehandle_queue);
 		if(fid) {
@@ -1341,7 +1296,7 @@ void SMB_CloseFile(SMBFILE sfid)
 	pos += 4;
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret<0) handle->conn_valid = FALSE;
-	else SMBCheck(SMB_CLOSE,0,handle);
+	else SMBCheck(SMB_CLOSE,handle);
 	__lwp_queue_append(&smb_filehandle_queue,&fid->node);
 }
 
@@ -1391,7 +1346,7 @@ s32 SMB_CreateDirectory(const char *dirname, SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret < 0) goto failed;
 
-    ret = SMBCheck(SMB_COM_CREATE_DIRECTORY,0,handle);
+    ret = SMBCheck(SMB_COM_CREATE_DIRECTORY,handle);
 
     return ret;
 
@@ -1445,7 +1400,7 @@ s32 SMB_DeleteDirectory(const char *dirname, SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret < 0) goto failed;
 
-    ret = SMBCheck(SMB_COM_DELETE_DIRECTORY,0,handle);
+    ret = SMBCheck(SMB_COM_DELETE_DIRECTORY,handle);
 
     return ret;
 
@@ -1501,7 +1456,7 @@ s32 SMB_DeleteFile(const char *filename, SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret < 0) goto failed;
 
-    ret = SMBCheck(SMB_COM_DELETE,0,handle);
+    ret = SMBCheck(SMB_COM_DELETE,handle);
 
     return ret;
 
@@ -1572,7 +1527,7 @@ s32 SMB_Rename(const char *filename, const char * newfilename, SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret < 0) goto failed;
 
-    ret = SMBCheck(SMB_COM_RENAME,0,handle);
+    ret = SMBCheck(SMB_COM_RENAME,handle);
 
     return ret;
 
@@ -1613,7 +1568,8 @@ s32 SMB_DiskInformation(struct statvfs *buf, SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret < 0) goto failed;
 
-	if((ret=SMBCheck(SMB_COM_QUERY_INFORMATION_DISK,(SMB_HEADER_SIZE+13),handle))==SMB_SUCCESS) {
+	if((ret=SMBCheck(SMB_COM_QUERY_INFORMATION_DISK, handle))==SMB_SUCCESS)
+	{
 		ptr = handle->message.smb;
 		/** Read the received data ***/
 		/** WordCount **/
@@ -1656,82 +1612,75 @@ failed:
  */
 s32 SMB_ReadFile(char *buffer, size_t size, off_t offset, SMBFILE sfid)
 {
-	u8 *ptr,*dest;
-	s32 pos, ret, ofs;
+	u8 *ptr;
+	u32 pos, ret, ofs;
 	u16 length = 0;
 	SMBHANDLE *handle;
+	size_t readed=0,read;
 	struct _smbfile *fid = (struct _smbfile*)sfid;
 
 	if(!fid) return -1;
 
 	// Check for invalid size
-	if(size == 0 || size > SMB_MAX_BUFFERSIZE) return -1;
+	if(size == 0) return -1;
 
-	handle = __smb_handle_open(fid->conn);
-	if(!handle) return -1;
+	while(readed<size)
+	{
+		if((size-readed)>SMB_MAX_TRANSMIT_SIZE) read=SMB_MAX_TRANSMIT_SIZE;
+		else read=size-readed;
 
-	MakeSMBHeader(SMB_READ_ANDX,CIFS_FLAGS1,CIFS_FLAGS2,handle);
+		handle = __smb_handle_open(fid->conn);
+		if(!handle) return -1;
 
-	pos = SMB_HEADER_SIZE;
-	ptr = handle->message.smb;
-	setUChar(ptr, pos, 10);
-	pos++;				      /*** Word count ***/
-	setUChar(ptr, pos, 0xff);
-	pos++;
-	pos += 3;	    /*** Reserved, Next AndX Offset ***/
-	setUShort(ptr, pos, fid->sfid);
-	pos += 2;					    /*** FID ***/
-	setUInt(ptr, pos, offset);
-	pos += 4;						 /*** Offset ***/
+		MakeSMBHeader(SMB_READ_ANDX,CIFS_FLAGS1,CIFS_FLAGS2,handle);
 
-	setUShort(ptr, pos, size & 0xffff);
-	pos += 2;
-	setUShort(ptr, pos, size & 0xffff);
-	pos += 2;
-	setUInt(ptr, pos, 0);
-	pos += 4;
-	pos += 2;	    /*** Remaining ***/
-	pos += 2;	    /*** Byte count ***/
-
-	handle->message.msg = NBT_SESSISON_MSG;
-	handle->message.length = htons(pos);
-
-	pos += 4;
-
-	ret = smb_send(handle->sck_server,(char*)&handle->message, pos);
-	if(ret<0) goto  failed;
-
-	/*** SMBCheck should now only read up to the end of a standard header ***/
-	if((ret=SMBCheck(SMB_READ_ANDX,(SMB_HEADER_SIZE+27+4),handle))==SMB_SUCCESS) {
+		pos = SMB_HEADER_SIZE;
 		ptr = handle->message.smb;
-		/*** Retrieve data length for this packet ***/
+		setUChar(ptr, pos, 12);
+		pos++;				      /*** Word count ***/
+		setUChar(ptr, pos, 0xff);
+		pos++;
+		pos += 3;	    /*** Reserved, Next AndX Offset ***/
+		setUShort(ptr, pos, fid->sfid);
+		pos += 2;					    /*** FID ***/
+		setUInt(ptr, pos, offset+readed);
+		pos += 4;						 /*** Offset ***/
+
+		setUShort(ptr, pos, read & 0xffff);
+		pos += 2;
+		setUShort(ptr, pos, read & 0xffff);
+		pos += 2;
+		setUInt(ptr, pos, 0);
+		pos += 4;
+		setUShort(ptr, pos, read & 0xffff);
+		pos += 2;	    /*** Remaining ***/
+		setUInt(ptr, pos, (offset+readed) >> 32);  // offset high
+		pos += 4;       /*** OffsetHIGH ***/
+		pos += 2;	    /*** Byte count ***/
+
+		handle->message.msg = NBT_SESSISON_MSG;
+		handle->message.length = htons(pos);
+
+		pos += 4;
+
+		ret = smb_send(handle->sck_server,(char*)&handle->message, pos);
+		if(ret<0) goto  failed;
+
+		/*** SMBCheck  ***/
+		if(SMBCheck(SMB_READ_ANDX,handle)!=SMB_SUCCESS) goto failed;
+
+		ptr = handle->message.smb;
+		// Retrieve data length for this packet
 		length = getUShort(ptr,(SMB_HEADER_SIZE+11));
-		/*** Retrieve offset to data ***/
+		// Retrieve offset to data
 		ofs = getUShort(ptr,(SMB_HEADER_SIZE+13));
 
-		/*** Default offset, with no padding is 59, so grab any outstanding padding ***/
-		while(ofs>59) {
-			char pad[1024];
-			ret = smb_recv(handle->sck_server,pad,(ofs-59));
-			if(ret<0) goto failed;
-			ofs-=ret;
-		}
+		memcpy(&buffer[readed],&ptr[ofs],length);
+		readed+=length;
 
-		/*** Finally, go grab the data ***/
-		ofs = 0;
-		dest = (u8*)buffer;
-		if(length>0) {
-			while (1)
-			{
-				ret=smb_recv(handle->sck_server,&dest[ofs],length-ofs);
-				if(ret<0) goto failed;
-				ofs += ret;
-				if (ofs>=length) break;
-			}
-		}
-		return ofs;
+		if(length==0) break;
 	}
-	return -1;
+	return size;
 
 failed:
 	handle->conn_valid = FALSE;
@@ -1813,7 +1762,7 @@ s32 SMB_WriteFile(const char *buffer, size_t size, off_t offset, SMBFILE sfid)
 	}
 
 	ret = 0;
-	if(SMBCheck(SMB_WRITE_ANDX,0,handle)==SMB_SUCCESS) {
+	if(SMBCheck(SMB_WRITE_ANDX,handle)==SMB_SUCCESS) {
 		ptr = handle->message.smb;
 		ret = getUShort(ptr,(SMB_HEADER_SIZE+5));
 	}
@@ -1879,7 +1828,7 @@ s32 SMB_PathInfo(const char *filename, SMBDIRENTRY *sdir, SMBCONN smbhndl)
 	if(ret<0) goto failed;
 
 	ret = SMB_ERROR;
-	if (SMBCheck(SMB_TRANS2, 0, handle) == SMB_SUCCESS) {
+	if (SMBCheck(SMB_TRANS2, handle) == SMB_SUCCESS) {
 
 		ptr = handle->message.smb;
 		/*** Get parameter offset ***/
@@ -1967,14 +1916,13 @@ s32 SMB_FindFirst(const char *filename, unsigned short flags, SMBDIRENTRY *sdir,
 	if(ret<0) goto failed;
 
 	sess->eos = 1;
-	sess->sid = 0;
 	sess->count = 0;
 	ret = SMB_ERROR;
-	if(SMBCheck(SMB_TRANS2,0,handle)==SMB_SUCCESS) {
+	if(SMBCheck(SMB_TRANS2,handle)==SMB_SUCCESS) {
 		ptr = handle->message.smb;
 		/*** Get parameter offset ***/
 		pos = getUShort(ptr,(SMB_HEADER_SIZE+9));
-		sess->sid = getUShort(ptr, pos); pos += 2;
+		sdir->sid = getUShort(ptr, pos); pos += 2;
 		sess->count = getUShort(ptr, pos); pos += 2;
 		sess->eos = getUShort(ptr, pos); pos += 2;
 		pos += 2; // USHORT EaErrorOffset;
@@ -2021,7 +1969,7 @@ s32 SMB_FindNext(SMBDIRENTRY *sdir,SMBCONN smbhndl)
 	if(!handle) return SMB_ERROR;
 
 	sess = &handle->session;
-	if(sess->eos || sess->sid==0) return SMB_ERROR;
+	if(sess->eos || sdir->sid==0) return SMB_ERROR;
 
 	MakeSMBHeader(SMB_TRANS2,CIFS_FLAGS1,CIFS_FLAGS2,handle);
 	MakeTRANS2Header(SMB_FIND_NEXT2,handle);
@@ -2029,7 +1977,7 @@ s32 SMB_FindNext(SMBDIRENTRY *sdir,SMBCONN smbhndl)
 	bpos = pos = (T2_BYTE_CNT+2);
 	pos += 3;	     /*** Padding ***/
 	ptr = handle->message.smb;
-	setUShort(ptr, pos, sess->sid);
+	setUShort(ptr, pos, sdir->sid);
 	pos += 2;						    /*** Search ID ***/
 	setUShort(ptr, pos, 1);
 	pos += 2;					  /*** Count ***/
@@ -2055,7 +2003,7 @@ s32 SMB_FindNext(SMBDIRENTRY *sdir,SMBCONN smbhndl)
 	if(ret<0) goto failed;
 
 	ret = SMB_ERROR;
-	if (SMBCheck(SMB_TRANS2,0,handle)==SMB_SUCCESS) {
+	if (SMBCheck(SMB_TRANS2,handle)==SMB_SUCCESS) {
 		ptr = handle->message.smb;
 		/*** Get parameter offset ***/
 		pos = getUShort(ptr,(SMB_HEADER_SIZE+9));
@@ -2091,7 +2039,7 @@ failed:
 /**
  * SMB_FindClose
  */
-s32 SMB_FindClose(SMBCONN smbhndl)
+s32 SMB_FindClose(SMBDIRENTRY *sdir,SMBCONN smbhndl)
 {
 	u8 *ptr;
 	s32 pos;
@@ -2103,7 +2051,7 @@ s32 SMB_FindClose(SMBCONN smbhndl)
 	if(!handle) return SMB_ERROR;
 
 	sess = &handle->session;
-	if(sess->sid==0) return SMB_ERROR;
+	if(sdir->sid==0) return SMB_ERROR;
 
 	MakeSMBHeader(SMB_FIND_CLOSE2,CIFS_FLAGS1,CIFS_FLAGS2,handle);
 
@@ -2111,7 +2059,7 @@ s32 SMB_FindClose(SMBCONN smbhndl)
 	ptr = handle->message.smb;
 	setUChar(ptr, pos, 1);
 	pos++;					   /*** Word Count ***/
-	setUShort(ptr, pos, sess->sid);
+	setUShort(ptr, pos, sdir->sid);
 	pos += 2;
 	pos += 2;  /*** Byte Count ***/
 
@@ -2122,7 +2070,7 @@ s32 SMB_FindClose(SMBCONN smbhndl)
 	ret = smb_send(handle->sck_server,(char*)&handle->message,pos);
 	if(ret<0) goto failed;
 
-	ret = SMBCheck(SMB_FIND_CLOSE2,0,handle);
+	ret = SMBCheck(SMB_FIND_CLOSE2,handle);
 	return ret;
 
 failed:

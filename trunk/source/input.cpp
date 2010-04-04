@@ -22,14 +22,6 @@
 #include "sys.h"
 #include "libwiigui/gui.h"
 
-#ifdef DEBUG_MEM
-extern "C"
-{
-    extern void StartMemDebug();
-    extern void StopMemDebug();
-}
-#endif
-
 int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
 static int rumbleCount[4] = {0,0,0,0};
