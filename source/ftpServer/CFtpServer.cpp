@@ -47,7 +47,6 @@
 #include <sys/fcntl.h>
 
 #include "getopt.h"
-#include <fat.h>
 
 #include <di/di.h>
 #include <network.h>

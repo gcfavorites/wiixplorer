@@ -34,6 +34,7 @@ extern "C" {
 #include "timer.h"
 #include "encrypt.h"
 #include "StringTools.h"
+#include "ConvertUTF.h"
 
 void ShowError(const char * format, ...);
 int cut_bounds(int val, int min, int max);

@@ -365,11 +365,6 @@ void Explorer::CheckBrowserChanges()
             if(result == BOOTHOMEBREW)
             {
                 boothomebrew = true;
-				ItemStruct Item;
-				memset(&Item, 0, sizeof(ItemStruct));
-
-                snprintf(Item.itempath, sizeof(Item.itempath), "%s", filepath);
-				Clipboard::Instance()->AddItem(&Item);
                 menu = MENU_EXIT;
             }
             else if(result == ARCHIVE)

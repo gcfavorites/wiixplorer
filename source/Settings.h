@@ -144,6 +144,8 @@ class Settings
         short	ClockMode;
         //!Screenshot image format
         short	ScreenshotFormat;
+        //!Path to mplayer_ce
+        char	MPlayerPath[150];
         //!Languagefile path
         char	MusicPath[150];
         //!Languagefile path

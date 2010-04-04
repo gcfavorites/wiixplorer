@@ -71,6 +71,7 @@ void Settings::SetDefault()
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
     sprintf(AppPath, "%sapps/", BootDevice);
     strcpy(MusicPath, "");
+    sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
         strcpy(SMBUser[i].Host, "");
@@ -152,6 +153,7 @@ bool Settings::Save()
 	fprintf(file, "ClockMode = %d\n", ClockMode);
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
+	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
 	fprintf(file, "AppPath = %s\n", AppPath);
@@ -502,6 +504,10 @@ bool Settings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "MusicPath") == 0) {
         strncpy(MusicPath, value, sizeof(MusicPath));
+		return true;
+	}
+	else if (strcmp(name, "MPlayerPath") == 0) {
+        strncpy(MPlayerPath, value, sizeof(MPlayerPath));
 		return true;
 	}
 	else if (strcmp(name, "UpdatePath") == 0) {

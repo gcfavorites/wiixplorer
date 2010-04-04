@@ -39,13 +39,13 @@ typedef struct
 	int env;
 } SMBDIRSTATESTRUCT;
 
-static bool FirstInit=true;
+static int smbInited = 0;
 
 ///////////////////////////////////////////
 //      CACHE FUNCTION DEFINITIONS       //
 ///////////////////////////////////////////
-#define SMB_READ_BUFFERSIZE			65472 //(64kb - smb header)
-#define SMB_WRITE_BUFFERSIZE		(1024*60) //(60kb - value by testing)
+#define SMB_READ_BUFFERSIZE				65472 //(64kb - smb header)
+#define SMB_WRITE_BUFFERSIZE			(60*1024)
 
 typedef struct
 {
@@ -79,7 +79,7 @@ typedef struct
 	devoptab_t *devoptab;
 
 	SMBCONN smbconn;
-	u8 SMBCONNECTED ;
+	u8 SMBCONNECTED;
 
 	char currentpath[SMB_MAXPATH];
 	bool first_item_dir;
@@ -290,7 +290,7 @@ static int ReadSMBFromCache(void *buf, size_t len, SMBFILESTRUCT *file)
 
 	if (SMBEnv[j].SMBReadAheadCache == NULL)
 	{
-		if (SMB_ReadFile(buf, len, file->offset, file->handle) < 0)
+		if (SMB_ReadFile(buf, len, file->offset, file->handle) <= 0)
 		{
 			return -1;
 		}
@@ -675,12 +675,6 @@ static ssize_t __smb_read(struct _reent *r, int fd, char *ptr, size_t len)
 		return -1;
 	}
 
-	// Short circuit cases where len is 0 (or less)
-	if (len <= 0)
-	{
-		return 0;
-	}
-
 	//have to flush because SMBWriteCache.file->offset holds offset of cached block not yet writeln
 	//and file->len also may not have been updated yet
 	_SMB_lock(file->env);
@@ -700,7 +694,16 @@ static ssize_t __smb_read(struct _reent *r, int fd, char *ptr, size_t len)
 	// Don't read past end of file
 	if (len + file->offset > file->len)
 	{
+		r->_errno = EOVERFLOW;
 		len = file->len - file->offset;
+	}
+
+	// Short circuit cases where len is 0 (or less)
+	if (len <= 0)
+	{
+		r->_errno = EOVERFLOW;
+		_SMB_unlock(file->env);
+		return -1;
 	}
 
 retry_read:
@@ -878,7 +881,7 @@ static int __smb_dirreset(struct _reent *r, DIR_ITER *dirState)
 	memset(&dentry, 0, sizeof(SMBDIRENTRY));
 
 	_SMB_lock(state->env);
-	SMB_FindClose(SMBEnv[state->env].smbconn);
+	SMB_FindClose(&state->smbdir, SMBEnv[state->env].smbconn);
 
 	strcpy(path_abs,SMBEnv[state->env].currentpath);
 	strcat(path_abs,"*");
@@ -903,6 +906,7 @@ static int __smb_dirreset(struct _reent *r, DIR_ITER *dirState)
 	state->smbdir.atime = dentry.atime;
 	state->smbdir.mtime = dentry.mtime;
 	state->smbdir.attributes = dentry.attributes;
+	state->smbdir.sid = dentry.sid;
 	strcpy(state->smbdir.name, dentry.name);
 
 	SMBEnv[state->env].first_item_dir = true;
@@ -972,6 +976,7 @@ static DIR_ITER* __smb_diropen(struct _reent *r, DIR_ITER *dirState, const char 
 	state->smbdir.atime = dentry.atime;
 	state->smbdir.mtime = dentry.mtime;
 	state->smbdir.attributes = dentry.attributes;
+	state->smbdir.sid = dentry.sid;
 	strcpy(state->smbdir.name, dentry.name);
 	env->first_item_dir = true;
 	_SMB_unlock(env->pos);
@@ -1043,6 +1048,8 @@ static int __smb_dirnext(struct _reent *r, DIR_ITER *dirState, char *filename,
 		return 0;
 	}
 
+	dentry.sid = state->smbdir.sid;
+
 	ret = SMB_FindNext(&dentry, SMBEnv[state->env].smbconn);
 	if(ret==SMB_SUCCESS && SMBEnv[state->env].diropen_root && !strcmp(dentry.name,".."))
 		ret = SMB_FindNext(&dentry, SMBEnv[state->env].smbconn);
@@ -1073,9 +1080,10 @@ static int __smb_dirnext(struct _reent *r, DIR_ITER *dirState, char *filename,
 static int __smb_dirclose(struct _reent *r, DIR_ITER *dirState)
 {
 	SMBDIRSTATESTRUCT* state = (SMBDIRSTATESTRUCT*) (dirState->dirStruct);
+
 	int j = state->env;
-	_SMB_lock(state->env);
-	SMB_FindClose(SMBEnv[j].smbconn);
+	_SMB_lock(j);
+	SMB_FindClose(&state->smbdir, SMBEnv[j].smbconn);
 	memset(state, 0, sizeof(SMBDIRSTATESTRUCT));
 	_SMB_unlock(j);
 	return 0;
@@ -1339,7 +1347,7 @@ static void MountDevice(const char *name,SMBCONN smbconn, int env)
 	dotab_smb->dirreset_r=__smb_dirreset; // device dirreset_r
 	dotab_smb->dirnext_r=__smb_dirnext; // device dirnext_r
 	dotab_smb->dirclose_r=__smb_dirclose; // device dirclose_r
-	dotab_smb->statvfs_r=__smb_statvfs_r; // device statvfs_r
+	dotab_smb->statvfs_r=__smb_statvfs_r;			// device statvfs_r
 	dotab_smb->ftruncate_r=NULL;               // device ftruncate_r
 	dotab_smb->fsync_r=NULL;           // device fsync_r
 	dotab_smb->deviceData=NULL;       	/* Device data */
@@ -1364,9 +1372,13 @@ bool smbInitDevice(const char* name, const char *user, const char *password, con
 	char myIP[16];
 	int i;
 
-	if(FirstInit)
+	while(smbInited == 2)
+		usleep(1000);
+
+	if(!smbInited)
 	{
-		FirstInit=false;
+		smbInited = 2;
+
 		for(i=0;i<MAX_SMB_MOUNTED;i++)
 		{
 			SMBEnv[i].SMBCONNECTED=false;
@@ -1375,19 +1387,18 @@ bool smbInitDevice(const char* name, const char *user, const char *password, con
 			SMBEnv[i].first_item_dir=false;
 			SMBEnv[i].pos=i;
 			SMBEnv[i].SMBReadAheadCache=NULL;
-			if(LWP_MutexInit(&SMBEnv[i]._SMB_mutex, false) != 0)
-				return false;
+			LWP_MutexInit(&SMBEnv[i]._SMB_mutex, false);
 		}
+
+		if(cache_thread == LWP_THREAD_NULL)
+			if(LWP_CreateThread(&cache_thread, process_cache_thread, NULL, NULL, 0, 64) != 0)
+			{
+				smbInited = 0;
+				return false;
+			}
+
+		smbInited = 1;
 	}
-
-	if(cache_thread == LWP_THREAD_NULL)
-		if(LWP_CreateThread(&cache_thread, process_cache_thread, NULL, NULL, 0, 64) != 0)
-			return false;
-
-	for(i=0;i<MAX_SMB_MOUNTED && SMBEnv[i].SMBCONNECTED;i++);
-
-	if(i==MAX_SMB_MOUNTED)
-		return false; // all samba connections in use
 
 	if (if_config(myIP, NULL, NULL, true) < 0)
 		return false;
@@ -1396,9 +1407,16 @@ bool smbInitDevice(const char* name, const char *user, const char *password, con
 	bool ret = true;
 	SMBCONN smbconn;
 	if(SMB_Connect(&smbconn, user, password, share, ip) != SMB_SUCCESS)
-		ret = false;
+		return false;
 
 	for(i=0;i<MAX_SMB_MOUNTED && SMBEnv[i].SMBCONNECTED;i++);
+
+	if(i==MAX_SMB_MOUNTED)
+	{
+		SMB_Close(smbconn);
+		return false; // all samba connections in use
+	}
+
 	SMBEnv[i].SMBCONNECTED=true; // reserved
 	MountDevice(name,smbconn,i);
 	return ret;
@@ -1411,15 +1429,13 @@ bool smbInit(const char *user, const char *password, const char *share, const ch
 
 void smbClose(const char* name)
 {
-	smb_env *env;
-	env=FindSMBEnv(name);
+	smb_env *env = FindSMBEnv(name);
 	if(env==NULL) return;
 
 	_SMB_lock(env->pos);
 	if(env->SMBCONNECTED)
-	{
 		SMB_Close(env->smbconn);
-	}
+
 	RemoveDevice(env->name);
 	env->SMBCONNECTED=false;
 	_SMB_unlock(env->pos);

@@ -18,7 +18,7 @@ appreciated but is not required.
 
 2.Altered source versions must be plainly marked as such, and must not be
 misrepresented as being the original software.
- 
+
 3.This notice may not be removed or altered from any source distribution.
 
 */
@@ -29,7 +29,6 @@ misrepresented as being the original software.
 #include <sys/dir.h>
 #include <unistd.h>
 #include <di/di.h>
-#include <fat.h>
 #include <ogc/lwp_watchdog.h>
 #include <ogc/system.h>
 #include <ogc/usbstorage.h>
@@ -70,14 +69,14 @@ VIRTUAL_PARTITION VIRTUAL_PARTITIONS[] = {
     { "SMB storage device", "/smb2", "smb2", "smb2:/", false, NULL }, // SMB2
     { "SMB storage device", "/smb3", "smb3", "smb3:/", false, NULL }, // SMB3
     { "SMB storage device", "/smb4", "smb4", "smb4:/", false, NULL }, // SMB4
-	
+
     { "FTP storage device", "/ftp1", "ftp1", "ftp1:/", false, NULL }, // FTP1
     { "FTP storage device", "/ftp2", "ftp2", "ftp2:/", false, NULL }, // FTP2
     { "FTP storage device", "/ftp3", "ftp3", "ftp3:/", false, NULL }, // FTP3
     { "FTP storage device", "/ftp4", "ftp4", "ftp4:/", false, NULL }, // FTP4
     { "DVD storage device", "/dvd", "dvd", "dvd:/", false, NULL }, // DVD
- 
- // unused partition  	
+
+ // unused partition
     { "SD Gecko A", "/carda", "carda", "carda:/", false, &__io_gcsda },
     { "SD Gecko B", "/cardb", "cardb", "cardb:/", false, &__io_gcsdb },
     { "ISO9660 filesystem", "/dvd", "dvd", "dvd:/", false, NULL },
@@ -90,12 +89,12 @@ VIRTUAL_PARTITION VIRTUAL_PARTITIONS[] = {
 static const u32 MAX_VIRTUAL_PARTITIONS = (sizeof(VIRTUAL_PARTITIONS) / sizeof(VIRTUAL_PARTITION));
 
 
-void initialise_virtual_path(void) 
+void initialise_virtual_path(void)
 {
     u32 i;
     for (i = 0; i < MAX_VIRTUAL_PARTITIONS; i++)
 		VIRTUAL_PARTITIONS[i].working = false;
-		
+
     if(SDCard_Inserted())
     {
 	VIRTUAL_PARTITIONS[SD].working = true;
@@ -123,7 +122,7 @@ void initialise_virtual_path(void)
 		VIRTUAL_PARTITIONS[SMB1+i].working = true;
         }
     }
-	
+
 	for(int i = 0; i < 4; i++)
     {
         if(IsFTPConnected(i))
@@ -131,7 +130,7 @@ void initialise_virtual_path(void)
 		VIRTUAL_PARTITIONS[FTP1+i].working = true;
         }
     }
-	
+
  }
 
 static bool mounted(VIRTUAL_PARTITION *partition) {
@@ -151,7 +150,7 @@ static char *virtual_abspath(char *virtual_cwd, char *virtual_path) {
     char *curr_dir;
 	char *normalised_path;
 	char *token;
-	
+
 	if (virtual_path[0] == '/') {
         path = virtual_path;
     } else {
@@ -160,7 +159,7 @@ static char *virtual_abspath(char *virtual_cwd, char *virtual_path) {
         strcpy(path, virtual_cwd);
         strcat(path, virtual_path);
     }
-    
+
     normalised_path = (char *)malloc(strlen(path) + 1);
     if (!normalised_path) goto endprocess;
     *normalised_path = '\0';
@@ -225,7 +224,7 @@ endprocess:
 static char *to_real_path(char *virtual_cwd, char *virtual_path) {
     size_t real_path_size;
 	const char *prefix;
-	
+
 	errno = ENOENT;
     if (strchr(virtual_path, ':')) {
         return NULL; // colon is not allowed in virtual path, i've decided =P
@@ -260,7 +259,7 @@ static char *to_real_path(char *virtual_cwd, char *virtual_path) {
         errno = ENODEV;
         goto end;
     }
-    
+
     real_path_size = strlen(prefix) + strlen(rest) + 1;
     if (real_path_size > MAXPATHLEN) goto end;
 
@@ -279,7 +278,7 @@ typedef void * (*path_func)(char *path, ...);
 static void *with_virtual_path(void *virtual_cwd, void *void_f, char *virtual_path, s32 failed, ...) {
     char *path = (char *)to_real_path((char *)virtual_cwd, virtual_path);
     if (!path || !*path) return (void *)failed;
-    
+
     path_func f = (path_func)void_f;
     va_list ap;
     void *args[3];
@@ -291,7 +290,7 @@ static void *with_virtual_path(void *virtual_cwd, void *void_f, char *virtual_pa
         args[num_args++] = arg;
     } while (1);
     va_end(ap);
-    
+
     void *result;
     switch (num_args) {
         case 0: result = f(path); break;
@@ -300,7 +299,7 @@ static void *with_virtual_path(void *virtual_cwd, void *void_f, char *virtual_pa
         case 3: result = f(path, args[0], args[1], args[2]); break;
         default: result = (void *)failed;
     }
-    
+
     free(path);
     return result;
 }
