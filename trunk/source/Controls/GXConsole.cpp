@@ -238,6 +238,9 @@ void GXConsole::Draw()
     if(Background)
         Background->Draw();
 
+    if(!fontSystem[fontSize])
+        fontSystem[fontSize] = new FreeTypeGX(fontSize);
+
     int PositionX = GetLeft();
     int PositionY = GetTop();
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 22:24+0200\n"
+"POT-Creation-Date: 2010-04-05 19:57+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -47,6 +47,9 @@ msgstr ""
 
 msgid "Auto Connect"
 msgstr "Ligação automática"
+
+msgid "Auto Start:"
+msgstr ""
 
 msgid "BMP Compression"
 msgstr ""
@@ -189,6 +192,9 @@ msgstr ""
 msgid "Do you want to boot:"
 msgstr "Pretende executar:"
 
+msgid "Do you want to change the font?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr ""
 
@@ -298,6 +304,9 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr ""
 
+msgid "FTP Server is running and listening on port"
+msgstr ""
+
 msgid "FTP Started.\n"
 msgstr ""
 
@@ -365,8 +374,8 @@ msgstr ""
 msgid "Folder"
 msgstr "Pasta"
 
-msgid "Fontpath changed"
-msgstr "Pasta de fonte alterada"
+msgid "Fontpath changed."
+msgstr ""
 
 msgid "Free Space:"
 msgstr ""
@@ -591,9 +600,6 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
 
-msgid "Preparing the network."
-msgstr ""
-
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -632,9 +638,6 @@ msgstr ""
 
 msgid "Restart"
 msgstr ""
-
-msgid "Restart the app to load the new font."
-msgstr "Reinicie o aplicativo para activar a nova fonte."
 
 msgid "Retry"
 msgstr "Tentar novamente"
@@ -688,6 +691,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The new font could not be loaded."
+msgstr ""
+
+msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -799,6 +808,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Fontpath changed"
+#~ msgstr "Pasta de fonte alterada"
+
+#~ msgid "Restart the app to load the new font."
+#~ msgstr "Reinicie o aplicativo para activar a nova fonte."
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "Pretende abrir este ficheiro com o ImageViewer?"

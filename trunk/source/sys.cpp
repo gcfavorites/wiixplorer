@@ -36,6 +36,7 @@
 #include "Controls/MainWindow.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
+#include "libftp/FTPServer.h"
 #include "Memory/mem2.hpp"
 #include "VideoOperations/video.h"
 #include "mload/mload_init.h"
@@ -79,6 +80,7 @@ void ExitApp()
 	ShutdownAudio();
 	ClearFontData();
 	Resources::DestroyInstance();
+	FTPServer::Instance()->DestroyInstance();
 	CloseFTP();
 	CloseSMBShare();
     NTFS_UnMount();

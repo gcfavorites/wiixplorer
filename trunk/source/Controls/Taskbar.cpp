@@ -167,7 +167,7 @@ void Taskbar::SetMenu(int m)
 {
     menu = m;
 }
-
+#include "libftp/FTPServer.h"
 int Taskbar::GetMenu()
 {
 	if (startBtn->GetState() == STATE_CLICKED)
@@ -178,6 +178,11 @@ int Taskbar::GetMenu()
 	{
 		menu = CheckHomeButton();
 	}
+
+//	if(FTPServer::Instance()->IsRunning())
+//	{
+//	    FTPServer::Instance()->InternalFTPUpdate();
+//	}
 
     return menu;
 }

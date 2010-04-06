@@ -26,6 +26,8 @@ misrepresented as being the original software.
 #include <network.h>
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
+#include <unistd.h>
 #include <sys/fcntl.h>
 
 #include "Tools/gxprintf.h"
@@ -36,6 +38,7 @@ misrepresented as being the original software.
 #define FREAD_BUFFER_SIZE (60*1024)
 
 static u32 NET_BUFFER_SIZE = MAX_NET_BUFFER_SIZE;
+
 #if 0
 void initialise_network() {
     printf("Waiting for network to initialise...\n");
@@ -115,6 +118,7 @@ static s32 transfer_exact(s32 s, char *buf, s32 length, transferrer_type transfe
         } else if (bytes_transferred < 0) {
             if (bytes_transferred == -EINVAL && NET_BUFFER_SIZE == MAX_NET_BUFFER_SIZE) {
                 NET_BUFFER_SIZE = MIN_NET_BUFFER_SIZE;
+                usleep(100);
                 goto try_again_with_smaller_buffer;
             }
             result = bytes_transferred;
@@ -123,6 +127,7 @@ static s32 transfer_exact(s32 s, char *buf, s32 length, transferrer_type transfe
             result = -ENODATA;
             break;
         }
+        usleep(100);
     }
     set_blocking(s, false);
     return result;
@@ -133,7 +138,10 @@ s32 send_exact(s32 s, char *buf, s32 length) {
 }
 
 s32 send_from_file(s32 s, FILE *f) {
-    char buf[FREAD_BUFFER_SIZE];
+    char * buf = (char *) malloc(FREAD_BUFFER_SIZE);
+    if(!buf)
+        return -1;
+
     s32 bytes_read;
     s32 result = 0;
 
@@ -146,13 +154,18 @@ s32 send_from_file(s32 s, FILE *f) {
         result = -!feof(f);
         goto end;
     }
+    free(buf);
     return -EAGAIN;
     end:
+    free(buf);
     return result;
 }
 
 s32 recv_to_file(s32 s, FILE *f) {
-    char buf[NET_BUFFER_SIZE];
+    char * buf = (char *) malloc(NET_BUFFER_SIZE);
+    if(!buf)
+        return -1;
+
     s32 bytes_read;
     while (1) {
         try_again_with_smaller_buffer:
@@ -160,14 +173,22 @@ s32 recv_to_file(s32 s, FILE *f) {
         if (bytes_read < 0) {
             if (bytes_read == -EINVAL && NET_BUFFER_SIZE == MAX_NET_BUFFER_SIZE) {
                 NET_BUFFER_SIZE = MIN_NET_BUFFER_SIZE;
+                usleep(100);
                 goto try_again_with_smaller_buffer;
             }
+            free(buf);
             return bytes_read;
         } else if (bytes_read == 0) {
+            free(buf);
             return 0;
         }
 
         s32 bytes_written = fwrite(buf, 1, bytes_read, f);
-        if (bytes_written < bytes_read) return -1;
+        if (bytes_written < bytes_read)
+        {
+            free(buf);
+            return -1;
+        }
+        usleep(100);
     }
 }

@@ -89,6 +89,7 @@ void Settings::SetDefault()
 		FTPUser[i].Passive = 0;
 	}
 
+    FTPServer.AutoStart = 0;
 	strcpy(FTPServer.Password, "");
 	FTPServer.Port = 21;
 }
@@ -177,6 +178,7 @@ bool Settings::Save()
 	}
 
 	fprintf(file, "\n# FTP Server Setup Information\n\n");
+	fprintf(file, "FTPServer.AutoStart = %d\n", FTPServer.AutoStart);
     password[0] = 0;
     if (strcmp(FTPServer.Password, "") != 0)
         EncryptString(FTPServer.Password, password);
@@ -574,6 +576,12 @@ bool Settings::SetSetting(char *name, char *value)
                 return true;
             }
 		}
+        if (stricmp(name, "FTPServer.AutoStart") == 0) {
+			if (sscanf(value, "%d", &i) == 1) {
+				FTPServer.AutoStart = i;
+			}
+            return true;
+        }
         if (stricmp(name, "FTPServer.CPassword") == 0) {
             if (strcmp(value, "") != 0)
                 DecryptString(value, password);

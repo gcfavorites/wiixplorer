@@ -32,6 +32,7 @@
 #include <ogc/machine/processor.h>
 #include "libtinysmb/smb.h"
 #include "libftp/ftp_devoptab.h"
+#include "libftp/FTPServer.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 
@@ -517,8 +518,12 @@ static void * networkinitcallback(void *arg)
         if(!firstRun)
         {
             ConnectSMBShare();
+            if(Settings.FTPServer.AutoStart)
+                FTPServer::Instance()->StartupFTP();
+
 			ConnectFTP();
             CheckForUpdate();
+
             LWP_SetThreadPriority(LWP_GetSelf(), 0);
             firstRun = true;
         }

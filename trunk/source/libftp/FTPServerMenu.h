@@ -34,16 +34,11 @@ class FTPServerMenu : public GuiWindow
     public:
         FTPServerMenu();
         ~FTPServerMenu();
-        void StartupFTP();
-        void ShutdownFTP();
         int GetMenu();
     protected:
-        void MountVirtualDevices();
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int menu;
-        u8 ftp_running;
-        s32 server;
 
         GuiSound * btnSoundClick;
         GuiSound * btnSoundOver;

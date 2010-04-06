@@ -429,7 +429,8 @@ int MenuPathSetup()
 		{
             case 0:
                 snprintf(entered, sizeof(entered), "%s", Settings.AppPath);
-                if(OnScreenKeyboard(entered, 149)) {
+                if(OnScreenKeyboard(entered, 149))
+                {
 					if (entered[strlen(entered)-1] != '/')
 						strcat(entered, "/");
 					snprintf(Settings.AppPath, sizeof(Settings.AppPath), "%s", entered);
@@ -438,7 +439,8 @@ int MenuPathSetup()
 				break;
             case 1:
                 snprintf(entered, sizeof(entered), "%s", Settings.MPlayerPath);
-                if(OnScreenKeyboard(entered, 149)) {
+                if(OnScreenKeyboard(entered, 149))
+                {
 					if (entered[strlen(entered)-1] != '/')
 						strcat(entered, "/");
                     if(strstr(entered, "boot.dol") == 0)
@@ -449,9 +451,17 @@ int MenuPathSetup()
 				break;
             case 2:
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
-                if(OnScreenKeyboard(entered, 149)) {
+                if(OnScreenKeyboard(entered, 149))
+                {
                     snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
-                    WindowPrompt(tr("Fontpath changed"), tr("Restart the app to load the new font."), tr("OK"));
+                    MainWindow::Instance()->HaltGui();
+                    ClearFontData();
+                    bool result = LoadCustomFont(Settings.CustomFontPath);
+                    MainWindow::Instance()->ResumeGui();
+                    if(result)
+                        WindowPrompt(tr("Fontpath changed."), tr("The new font is loaded."), tr("OK"));
+                    else
+                        WindowPrompt(tr("Fontpath changed."), tr("The new font could not be loaded."), tr("OK"));
                 }
 				break;
 		}
@@ -858,6 +868,7 @@ int MenuFTPServerSettings()
     bool firstRun = true;
 
 	OptionList options;
+	options.SetName(i++, tr("Auto Start:"));
 	options.SetName(i++, tr("Password:"));
 	options.SetName(i++, tr("FTP Port:"));
 
@@ -883,13 +894,16 @@ int MenuFTPServerSettings()
 		switch (ret)
 		{
             case 0:
+                Settings.FTPServer.AutoStart = (Settings.FTPServer.AutoStart+1) % 2;
+                break;
+            case 1:
                 entered[0] = 0;
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
                     snprintf(Settings.FTPServer.Password, sizeof(Settings.FTPServer.Password), "%s", entered);
                 }
                 break;
-            case 1:
+            case 2:
                 snprintf(entered, sizeof(entered), "%d", Settings.FTPServer.Port);
                 result = OnScreenKeyboard(entered, 149);
                 if(result) {
@@ -902,6 +916,11 @@ int MenuFTPServerSettings()
         {
             i = 0;
             firstRun = false;
+
+            if(Settings.FTPServer.AutoStart == 1)
+                options.SetValue(i++, tr("ON"));
+            else
+                options.SetValue(i++, tr("OFF"));
 
 			if (strcmp(Settings.FTPServer.Password, "") != 0)
 				options.SetValue(i++,"********");

@@ -4,7 +4,7 @@ static GXConsole * Console = NULL;
 
 extern "C" void gxprintf(const char * format, ...)
 {
-    if(!Console)
+    if(!Console || shutdown || reset)
         return;
 
 	char *tmp=0;

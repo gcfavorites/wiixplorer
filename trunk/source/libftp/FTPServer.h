@@ -23,49 +23,34 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <unistd.h>
-#include "libftp/FTPServerMenu.h"
-#include "Controls/MainWindow.h"
-#include "network/networkops.h"
-#include "Prompts/PromptWindow.h"
-#include "menu.h"
+#ifndef FTP_SERVER_H_
+#define FTP_SERVER_H_
 
-int MenuFTPServer()
+#include "libwiigui/gui.h"
+#include "Controls/GXConsole.hpp"
+
+class FTPServer
 {
-    int menu = MENU_NONE;
+    public:
+		static FTPServer * Instance();
+		static void DestroyInstance();
+        void StartupFTP();
+        void ShutdownFTP();
+        bool IsRunning() { return ftp_running; };
+    protected:
+        FTPServer();
+        ~FTPServer();
+        void MountVirtualDevices();
+		void InternalFTPUpdate();
+		static void * UpdateFTP(void *arg);
 
-    if(!IsNetworkInit())
-    {
-        PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."));
-        MainWindow::Instance()->Append(Prompt);
+		static FTPServer *instance;
 
-        if(Settings.AutoConnect == off)
-            Initialize_Network();
+		lwp_t ftpthread;
+        bool ftp_running;
+        s32 server;
+        bool ExitRequested;
+};
 
-        delete Prompt;
-        Prompt = NULL;
+#endif
 
-        if(!IsNetworkInit())
-        {
-            ShowError(tr("No network connection."));
-            return MENU_BROWSE_DEVICE;
-        }
-    }
-
-    FTPServerMenu * FTPMenu = new FTPServerMenu();
-    FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    FTPMenu->SetPosition(0, 30);
-
-    MainWindow::Instance()->Append(FTPMenu);
-
-    while(menu == MENU_NONE)
-    {
-        usleep(100);
-
-        menu = FTPMenu->GetMenu();
-    }
-
-    delete FTPMenu;
-
-	return menu;
-}
