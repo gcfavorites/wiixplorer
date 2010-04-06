@@ -205,7 +205,10 @@ const char * FileBrowser::GetCurrentPath()
  ***************************************************************************/
 const char * FileBrowser::GetCurrentSelectedFilepath()
 {
-    snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+    if(strcmp(browser.dir, "") != 0)
+        snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
+    else
+        snprintf(currentpath, sizeof(currentpath), "%s%s%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
 
     return currentpath;
 }

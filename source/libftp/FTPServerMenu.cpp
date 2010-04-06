@@ -27,6 +27,7 @@
 #include <gctypes.h>
 #include <network.h>
 #include "FTPServerMenu.h"
+#include "FTPServer.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/DeviceMenu.h"
@@ -44,8 +45,6 @@ FTPServerMenu::FTPServerMenu()
     : GuiWindow(0, 0)
 {
 	menu = MENU_NONE;
-    ftp_running = 0;
-    server = -1;
 
     trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
@@ -109,13 +108,17 @@ FTPServerMenu::FTPServerMenu()
 
     SetEffect(EFFECT_FADE, 50);
 
-    gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
+    if(FTPServer::Instance()->IsRunning())
+    {
+        gxprintf("%s %d.\n", tr("FTP Server is running and listening on port"), Settings.FTPServer.Port);
+        MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
+    }
+    else
+        gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
 }
 
 FTPServerMenu::~FTPServerMenu()
 {
-    ShutdownFTP();
-
     MainWindow::Instance()->ResumeGui();
 
     SetEffect(EFFECT_FADE, -50);
@@ -128,9 +131,9 @@ FTPServerMenu::~FTPServerMenu()
         ((GuiWindow *) parentElement)->Remove(this);
 
     RemoveAll();
-    MainWindow::Instance()->ResumeGui();
-
 	SetGXConsole(NULL);
+
+    MainWindow::Instance()->ResumeGui();
 
     Resources::Remove(btnSoundClick);
     Resources::Remove(btnSoundOver);
@@ -157,63 +160,6 @@ FTPServerMenu::~FTPServerMenu()
     delete Console;
 }
 
-void FTPServerMenu::MountVirtualDevices()
-{
-    if(SDCard_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[SD]));
-    }
-    if(USBDevice_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[USB]));
-    }
-    for(int i = 0; i < NTFS_GetMountCount(); i++)
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[NTFS0+i]));
-    }
-    if(Disk_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[DVD]));
-    }
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        if(IsSMB_Mounted(i))
-        {
-            VirtualMountDevice(fmt("%s:/", DeviceName[SMB1+i]));
-        }
-    }
-}
-
-void FTPServerMenu::StartupFTP()
-{
-    MountVirtualDevices();
-
-    net_close(server);
-    server = create_server(Settings.FTPServer.Port);
-    if (server < 0)
-        return;
-
-    if(strcmp(Settings.FTPServer.Password, "") != 0)
-    {
-        set_ftp_password(Settings.FTPServer.Password);
-    }
-
-    gxprintf(tr("FTP Started.\n"));
-    gxprintf("%s %u...\n", tr("Listening on TCP port"), Settings.FTPServer.Port);
-}
-
-void FTPServerMenu::ShutdownFTP()
-{
-    usleep(100);
-    cleanup_ftp();
-    net_close(server);
-    UnmounVirtualPaths();
-
-    Console->clear();
-    gxprintf(tr("Server was shutdown...\n"));
-    gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
-}
-
 int FTPServerMenu::GetMenu()
 {
     if(shutdown)
@@ -224,13 +170,6 @@ int FTPServerMenu::GetMenu()
     else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
     {
         menu = Taskbar::Instance()->GetMenu();
-    }
-
-    if(ftp_running)
-    {
-        bool network_down = process_ftp_events(server);
-        if(network_down)
-            StartupFTP();
     }
 
     return menu;
@@ -246,17 +185,15 @@ void FTPServerMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
     else if(sender == MainFTPBtn)
     {
-        if(ftp_running ^ 1)
+        if(FTPServer::Instance()->IsRunning())
         {
-            MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
-            StartupFTP();
-            ftp_running ^= 1;
+            MainFTPBtnTxt->SetText(tr("Startup FTP"));
+            FTPServer::Instance()->ShutdownFTP();
         }
         else
         {
-            ftp_running ^= 1;
-            MainFTPBtnTxt->SetText(tr("Startup FTP"));
-            ShutdownFTP();
+            MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
+            FTPServer::Instance()->StartupFTP();
         }
     }
 }

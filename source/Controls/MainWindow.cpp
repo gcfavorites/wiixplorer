@@ -35,6 +35,7 @@
 #include "Launcher/Channels.h"
 #include "Launcher/Applications.h"
 #include "network/networkops.h"
+#include "libftp/FTPServer.h"
 #include "FileOperations/filebrowser.h"
 #include "filelist.h"
 #include "Settings.h"
@@ -55,11 +56,14 @@ MainWindow::MainWindow()
 	guithread = LWP_THREAD_NULL;
 
 	//!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 0, LWP_PRIO_HIGHEST);
+	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 32768, LWP_PRIO_HIGHEST);
 
 	//!Initalize the progress thread
 	InitProgressThread();
 	StopProgress();
+
+    //!FTP Server thread
+    FTPServer::Instance();
 
     //!Initialize network thread if selected
     if(Settings.AutoConnect)

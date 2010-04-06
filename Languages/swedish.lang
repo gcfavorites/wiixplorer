@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 22:24+0200\n"
+"POT-Creation-Date: 2010-04-05 19:57+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -47,6 +47,9 @@ msgstr ""
 
 msgid "Auto Connect"
 msgstr "Auto anslut"
+
+msgid "Auto Start:"
+msgstr ""
 
 msgid "BMP Compression"
 msgstr ""
@@ -189,6 +192,9 @@ msgstr ""
 msgid "Do you want to boot:"
 msgstr "Vill du starta:"
 
+msgid "Do you want to change the font?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr ""
 
@@ -298,6 +304,9 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr ""
 
+msgid "FTP Server is running and listening on port"
+msgstr ""
+
 msgid "FTP Started.\n"
 msgstr ""
 
@@ -365,7 +374,7 @@ msgstr ""
 msgid "Folder"
 msgstr "Mapp"
 
-msgid "Fontpath changed"
+msgid "Fontpath changed."
 msgstr ""
 
 msgid "Free Space:"
@@ -591,9 +600,6 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
 
-msgid "Preparing the network."
-msgstr ""
-
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -631,9 +637,6 @@ msgid "Reset"
 msgstr ""
 
 msgid "Restart"
-msgstr ""
-
-msgid "Restart the app to load the new font."
 msgstr ""
 
 msgid "Retry"
@@ -688,6 +691,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The new font could not be loaded."
+msgstr ""
+
+msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."

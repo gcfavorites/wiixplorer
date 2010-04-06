@@ -477,15 +477,19 @@ void GuiText::Draw()
 	if(newSize > MAX_FONT_SIZE)
 		newSize = MAX_FONT_SIZE;
 
+    if(!fontSystem[newSize])
+    {
+        fontSystem[newSize] = new FreeTypeGX(newSize);
+        if(text)
+            textWidth = (font ? font : fontSystem[newSize])->getWidth(text);
+    }
+
 	if(newSize != currentSize)
 	{
 	    if(font)
 	    {
 	        font->ChangeFontSize(newSize);
 	    }
-        else if(!fontSystem[newSize])
-            fontSystem[newSize] = new FreeTypeGX(newSize);
-
         if(text)
             textWidth = (font ? font : fontSystem[newSize])->getWidth(text);
 		currentSize = newSize;

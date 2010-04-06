@@ -131,6 +131,22 @@ int FileStartUp(const char *filepath)
         delete Video;
         Video = NULL;
     }
+    else if(strcasecmp(fileext, ".ttf") == 0)
+    {
+        int choice = WindowPrompt(tr("Do you want to change the font?"), filename, tr("Yes"), tr("No"));
+        if(choice)
+        {
+            snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", filepath);
+            MainWindow::Instance()->HaltGui();
+            ClearFontData();
+            bool result = LoadCustomFont(Settings.CustomFontPath);
+            MainWindow::Instance()->ResumeGui();
+            if(result)
+                WindowPrompt(tr("Fontpath changed."), tr("The new font is loaded."), tr("OK"));
+            else
+                WindowPrompt(tr("Fontpath changed."), tr("The new font could not be loaded."), tr("OK"));
+        }
+    }
     else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mp4") == 0 ||
             strcasecmp(fileext, ".wmv") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
             strcasecmp(fileext, ".mkv") == 0)

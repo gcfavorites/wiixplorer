@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 22:24+0200\n"
+"POT-Creation-Date: 2010-04-05 19:57+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -47,6 +47,9 @@ msgstr ""
 
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
+
+msgid "Auto Start:"
+msgstr ""
 
 msgid "BMP Compression"
 msgstr "BMP Kompression"
@@ -189,6 +192,9 @@ msgstr "Die Datei/Anwendung jetzt starten?"
 msgid "Do you want to boot:"
 msgstr "Folgendes starten:"
 
+msgid "Do you want to change the font?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorer beenden?"
 
@@ -298,6 +304,9 @@ msgstr ""
 msgid "FTP Server Settings"
 msgstr "FTP Server Einstellungen"
 
+msgid "FTP Server is running and listening on port"
+msgstr ""
+
 msgid "FTP Started.\n"
 msgstr ""
 
@@ -365,8 +374,8 @@ msgstr "Spiegeln"
 msgid "Folder"
 msgstr "Ordner"
 
-msgid "Fontpath changed"
-msgstr "Pfad zur Schriftart geändert"
+msgid "Fontpath changed."
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Freier Speicher:"
@@ -591,9 +600,6 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Bitte warten:"
 
-msgid "Preparing the network."
-msgstr ""
-
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -632,9 +638,6 @@ msgstr "Zurücksetzen"
 
 msgid "Restart"
 msgstr "Neustarten"
-
-msgid "Restart the app to load the new font."
-msgstr "WiiXplorer muss neugestartet werden um die neue Schriftart zu laden."
 
 msgid "Retry"
 msgstr "Wiederholen"
@@ -688,6 +691,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The new font could not be loaded."
+msgstr ""
+
+msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -799,6 +808,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Fontpath changed"
+#~ msgstr "Pfad zur Schriftart geändert"
+
+#~ msgid "Restart the app to load the new font."
+#~ msgstr "WiiXplorer muss neugestartet werden um die neue Schriftart zu laden."
 
 #~ msgid "Enable Create dir:"
 #~ msgstr "Verzeichnis erstellen aktivieren:"

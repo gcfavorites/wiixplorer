@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-04 22:24+0200\n"
+"POT-Creation-Date: 2010-04-05 19:57+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -47,6 +47,9 @@ msgstr "Applis"
 
 msgid "Auto Connect"
 msgstr "Connexion auto"
+
+msgid "Auto Start:"
+msgstr ""
 
 msgid "BMP Compression"
 msgstr "Compression BMP"
@@ -189,6 +192,9 @@ msgstr "Voulez-vous lancer le fichier maintenant?"
 msgid "Do you want to boot:"
 msgstr "Voulez-vous lancer:"
 
+msgid "Do you want to change the font?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Voulez-vous quitter Wiixplorer?"
 
@@ -298,6 +304,9 @@ msgstr "Serveur FTP"
 msgid "FTP Server Settings"
 msgstr "Paramètres serveur FTP"
 
+msgid "FTP Server is running and listening on port"
+msgstr ""
+
 msgid "FTP Started.\n"
 msgstr ""
 
@@ -365,8 +374,8 @@ msgstr "Inversion"
 msgid "Folder"
 msgstr "Dossier"
 
-msgid "Fontpath changed"
-msgstr "Dossier police modifié."
+msgid "Fontpath changed."
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Espace libre:"
@@ -591,9 +600,6 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Patientez:"
 
-msgid "Preparing the network."
-msgstr ""
-
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -632,9 +638,6 @@ msgstr "Réinitialisation"
 
 msgid "Restart"
 msgstr "Redémarrer"
-
-msgid "Restart the app to load the new font."
-msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 
 msgid "Retry"
 msgstr "Réessayer"
@@ -688,6 +691,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The new font could not be loaded."
+msgstr ""
+
+msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
@@ -799,6 +808,12 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Fontpath changed"
+#~ msgstr "Dossier police modifié."
+
+#~ msgid "Restart the app to load the new font."
+#~ msgstr "Redémarrer WiiXplorer pour charger la nouvelle police."
 
 #~ msgid "Enable Create dir:"
 #~ msgstr "Activer création dos:"

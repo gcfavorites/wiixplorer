@@ -55,6 +55,7 @@ typedef struct _FTPData
 
 typedef struct _FTPServerData
 {
+    short    AutoStart;
 	char    Password[50];
     unsigned short	Port;
 } FTPServerData;

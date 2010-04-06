@@ -98,11 +98,13 @@ static bool compare_ftp_password(char *password_attempt) {
 */
 static s32 write_reply(client_t *client, u16 code, char *msg) {
     u32 msglen = 4 + strlen(msg) + CRLF_LENGTH;
-    char msgbuf[msglen + 1];
+    char * msgbuf = (char *) malloc(msglen + 1);
     if (msgbuf == NULL) return -ENOMEM;
     sprintf(msgbuf, "%u %s\r\n", code, msg);
     gxprintf("Wrote reply: %s", msgbuf);
-    return send_exact(client->socket, msgbuf, msglen);
+    s32 ret = send_exact(client->socket, msgbuf, msglen);
+    free(msgbuf);
+    return ret;
 }
 
 static void close_passive_socket(client_t *client) {
