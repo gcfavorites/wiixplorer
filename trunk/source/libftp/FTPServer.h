@@ -40,7 +40,6 @@ class FTPServer
     protected:
         FTPServer();
         ~FTPServer();
-        void MountVirtualDevices();
 		void InternalFTPUpdate();
 		static void * UpdateFTP(void *arg);
 

@@ -14,6 +14,7 @@
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/MainWindow.h"
 #include "VideoOperations/WiiMovie.hpp"
+#include "FileExtensions.h"
 #include "MPlayerPath.h"
 #include "menu.h"
 
@@ -22,10 +23,8 @@ int FileStartUp(const char *filepath)
     char *fileext = strrchr(filepath, '.');
 	char *filename = strrchr(filepath, '/')+1;
 
-	if(!fileext)
-        goto loadtext;      //!to avoid crash with strcasecmp & fileext == NULL
-
-    if(strcasecmp(fileext, ".dol") == 0 || strcasecmp(fileext, ".elf") == 0) {
+    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0)
+    {
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
         {
@@ -39,13 +38,7 @@ int FileStartUp(const char *filepath)
 
         return 0;
     }
-    else if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0
-            || strcasecmp(fileext, ".jpeg") == 0 || strcasecmp(fileext, ".jpe") == 0
-            || strcasecmp(fileext, ".jfif") == 0 || strcasecmp(fileext, ".bmp") == 0
-			|| strcasecmp(fileext, ".gif") == 0 || strcasecmp(fileext, ".tga") == 0
-			|| strcasecmp(fileext, ".tif") == 0 || strcasecmp(fileext, ".tiff") == 0
-			|| strcasecmp(fileext, ".gd") == 0 || strcasecmp(fileext, ".gd2") == 0
-			|| strcasecmp(fileext, ".tpl") == 0)
+    else if(strtokcmp(fileext, IMAGEFILES, ",") == 0)
     {
 		int choice = WindowPrompt(filename, tr("How do you want to open the file?"), tr("ImageViewer"), tr("ImageConverter"), tr("Cancel"));
 		if (choice == 1)
@@ -58,9 +51,7 @@ int FileStartUp(const char *filepath)
             return REFRESH_BROWSER;
         }
     }
-    else if(strcasecmp(fileext, ".ogg") == 0 || strcasecmp(fileext, ".mp3") == 0
-            || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".wav") == 0
-            || strcasecmp(fileext, ".aif") == 0)
+    else if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
     {
         loadMusic:
 
@@ -73,7 +64,7 @@ int FileStartUp(const char *filepath)
                 GuiBGM::Instance()->ParsePath(filepath);
         }
     }
-    else if(strcasecmp(fileext, ".bin") == 0)
+    else if(strtokcmp(fileext, BINARYFILES, ",") == 0)
     {
         FILE * f = fopen(filepath, "rb");
         if(!f)
@@ -106,13 +97,11 @@ int FileStartUp(const char *filepath)
 
         goto loadtext;
     }
-    else if(strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-            strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
-            strcasecmp(fileext, ".arc") == 0)
+    else if(strtokcmp(fileext, ARCHIVEFILES, ",") == 0)
     {
         return ARCHIVE;
     }
-    else if(strcasecmp(fileext, ".lang") == 0)
+    else if(strtokcmp(fileext, LANGUAGEFILES, ",") == 0)
     {
         int choice = WindowPrompt(tr("Do you want to load this language file?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -121,17 +110,7 @@ int FileStartUp(const char *filepath)
             return RELOAD_BROWSER;
         }
     }
-    else if(strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".mth") == 0)
-    {
-        WiiMovie * Video = new WiiMovie(filepath);
-        Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        Video->SetVolume(Settings.MusicVolume);
-        MainWindow::Instance()->Append(Video);
-        Video->Play();
-        delete Video;
-        Video = NULL;
-    }
-    else if(strcasecmp(fileext, ".ttf") == 0)
+    else if(strtokcmp(fileext, FONTFILES, ",") == 0)
     {
         int choice = WindowPrompt(tr("Do you want to change the font?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -147,9 +126,19 @@ int FileStartUp(const char *filepath)
                 WindowPrompt(tr("Fontpath changed."), tr("The new font could not be loaded."), tr("OK"));
         }
     }
-    else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mp4") == 0 ||
-            strcasecmp(fileext, ".wmv") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
-            strcasecmp(fileext, ".mkv") == 0)
+    //! Those have to be made extra and put before MPlayerCE launch
+    //! to launch them inside WiiXplorer.
+    else if(strtokcmp(fileext, ".thp,.mth", ",") == 0)
+    {
+        WiiMovie * Video = new WiiMovie(filepath);
+        Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        Video->SetVolume(Settings.MusicVolume);
+        MainWindow::Instance()->Append(Video);
+        Video->Play();
+        delete Video;
+        Video = NULL;
+    }
+    else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
     {
         int choice = WindowPrompt(tr("Do you want to launch file with MPlayerCE?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -168,7 +157,8 @@ int FileStartUp(const char *filepath)
              }
         }
     }
-    else {
+    else
+    {
         loadtext:
 
         int choice = WindowPrompt(filename, tr("Do you want to open this file in TextViewer?"), tr("Yes"), tr("No"));

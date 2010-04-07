@@ -35,12 +35,12 @@
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
+#include "FileStartUp/FileExtensions.h"
 #include "ImageOperations/ImageViewer.h"
 #include "sys.h"
 #include "DirList.h"
 #include "menu.h"
 
-#define FILETYPESFILTER			".jpg,.bmp,.gif,.png,.tga,.tif,.tiff,.jfif,.jpe,.gd,.gd2,.tpl"
 #define MIN_IMAGE_WIDTH         4.0f
 #define MIN_IMAGE_HEIGHT        4.0f
 #define MAX_IMAGE_WIDTH         1024.0f
@@ -61,7 +61,7 @@ ImageViewer::ImageViewer(const char *filepath)
 	buttonAlpha = 255;
 	updateAlpha = false;
 	isPointerVisible = true;
-	
+
 	for (int i = 0; i < 4; i++)
 		isAButtonPressed[i] = false;
 
@@ -167,7 +167,7 @@ bool ImageViewer::LoadImageList(const char * filepath)
     if(imageDir)
         delete imageDir;
 
-    imageDir = new DirList(path, FILETYPESFILTER);
+    imageDir = new DirList(path, IMAGEFILES);
 
     char * filename = strrchr(filepath, '/');
     if(filename)

@@ -1,4 +1,4 @@
-/***************************************************************************
+ /****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,21 +23,17 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef __STRING_TOOLS_H
-#define __STRING_TOOLS_H
+#ifndef MOUNTVIRTUALDEVICES_H_
+#define MOUNTVIRTUALDEVICES_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-const char * fmt(const char * format, ...);
-const wchar_t * wfmt(const char * format, ...);
-bool char2wchar_t(const char * src, wchar_t * dest);
-int strtokcmp(const char * string, const char * compare, const char * separator);
+void MountVirtualDevices();
 
 #ifdef __cplusplus
 }
-#endif //__cplusplus
+#endif
 
-#endif /* __STRING_TOOLS_H */
-
+#endif

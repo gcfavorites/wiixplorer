@@ -23,7 +23,7 @@ void USBDevice_deInit()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
 	//Let's not shutdown so it stays awake for the application
-	//__io_usbstorage.shutdown();
+	__io_usbstorage.shutdown();
 }
 
 int isSdInserted()
@@ -46,5 +46,5 @@ void SDCard_deInit()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
 	//Let's not shutdown so it stays awake for the application
-	//__io_wiisd.shutdown();
+	__io_wiisd.shutdown();
 }
