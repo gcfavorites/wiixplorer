@@ -30,6 +30,7 @@ misrepresented as being the original software.
 #include <unistd.h>
 
 #include "Tools/gxprintf.h"
+#include "devicemounter.h"
 #include "virtualpath.h"
 #include "vrt.h"
 
@@ -204,6 +205,11 @@ int vrt_stat(char *cwd, char *path, struct stat *st) {
 }
 
 int vrt_chdir(char *cwd, char *path) {
+
+    if(path && cwd && (strstr(path, "dvd") != 0 || strstr(cwd, "dvd") != 0)
+       && Disk_Inserted())
+        DiskDrive_Mount();
+
     struct stat st;
     if (vrt_stat(cwd, path, &st)) {
         return -1;
@@ -241,7 +247,8 @@ int vrt_rename(char *cwd, char *from_path, char *to_path) {
 /*
     When in vfs-root this creates a fake DIR_ITER.
  */
-DIR_ITER *vrt_diropen(char *cwd, char *path) {
+DIR_ITER *vrt_diropen(char *cwd, char *path)
+{
     char *real_path = to_real_path(cwd, path);
     if (!real_path) return NULL;
     else if (!*real_path) {

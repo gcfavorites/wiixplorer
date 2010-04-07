@@ -31,6 +31,7 @@
 #include <string.h>
 #include <sys/dir.h>
 
+#include "Tools/StringTools.h"
 #include "DirList.h"
 
 DirList::DirList(const char * path, const char *filter)
@@ -78,24 +79,15 @@ bool DirList::LoadPath(const char * folder, const char *filter)
 				char * fileext = strrchr(filename, '.');
                 if(fileext)
                 {
-					char filterCopy[256];
-					snprintf(filterCopy, sizeof(filterCopy), filter);
-
-					char * filterTok = strtok(filterCopy, ",");
-
-					while (filterTok != NULL)
-					{
-						if ((strcasecmp(fileext, filterTok) == 0 || strcasecmp(fileext, filterTok) == 0))
-						{
-						    bool result = AddEntrie(folderpath, filename, st.st_size, (st.st_mode & S_IFDIR) ? true : false);
-							if(!result)
-							{
-							    dirclose(dir);
-                                return false;
-							}
-						}
-						filterTok = strtok(NULL, ",");
-					}
+                    if(strtokcmp(fileext, filter, ",") == 0)
+                    {
+                        bool result = AddEntrie(folderpath, filename, st.st_size, (st.st_mode & S_IFDIR) ? true : false);
+                        if(!result)
+                        {
+                            dirclose(dir);
+                            return false;
+                        }
+                    }
                 }
             }
             else

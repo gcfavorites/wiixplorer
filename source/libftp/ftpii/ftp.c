@@ -35,6 +35,7 @@ misrepresented as being the original software.
 
 #include "Tools/gxprintf.h"
 #include "ftp.h"
+#include "libftp/MountVirtualDevices.h"
 #include "virtualpath.h"
 #include "net.h"
 #include "vrt.h"
@@ -447,6 +448,15 @@ static s32 ftp_LIST(client_t *client, char *path) {
     }
     if (!*path) {
         path = ".";
+    }
+
+    if(path && client->cwd)
+    {
+        if(strcmp(path, ".") == 0 && strcmp(client->cwd, "/") == 0)
+        {
+            UnmounVirtualPaths();
+            MountVirtualDevices();
+        }
     }
 
     DIR_ITER *dir = vrt_diropen(client->cwd, path);

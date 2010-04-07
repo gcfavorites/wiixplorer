@@ -10,6 +10,7 @@
 
 #include "gui_filebrowser.h"
 #include "Memory/Resources.h"
+#include "FileStartUp/FileExtensions.h"
 
 /**
  * Constructor for the GuiFileBrowser class.
@@ -426,15 +427,11 @@ void GuiFileBrowser::Update(GuiTrigger * t)
 					fileListTextOver[i]->SetPosition(32,0);
 				    if(fileext)
 				    {
-                        if(strcasecmp(fileext, ".png") == 0 || strcasecmp(fileext, ".jpg") == 0 || strcasecmp(fileext, ".gif") == 0 ||
-						   strcasecmp(fileext, ".tga") == 0 || strcasecmp(fileext, ".tpl") == 0 || strcasecmp(fileext, ".bmp") == 0 ||
-						   strcasecmp(fileext, ".tif") == 0 || strcasecmp(fileext, ".gd") == 0)
+                        if(strtokcmp(fileext, IMAGEFILES, ",") == 0)
                         {
                             fileList[i]->SetIcon(fileListGFX[i]);
                         }
-                        else if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0
-                                  || strcasecmp(fileext, ".wav") == 0 || strcasecmp(fileext, ".aif") == 0
-                                  || strcasecmp(fileext, ".pcm") == 0 )
+                        else if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
                         {
                             fileList[i]->SetIcon(fileListSFX[i]);
                         }
@@ -450,15 +447,11 @@ void GuiFileBrowser::Update(GuiTrigger * t)
                         {
                             fileList[i]->SetIcon(fileListXML[i]);
                         }
-                        else if(strcasecmp(fileext, ".rar") == 0 || strcasecmp(fileext, ".zip") == 0 ||
-                                strcasecmp(fileext, ".7z") == 0 || strcasecmp(fileext, ".bnr") == 0 ||
-                                strcasecmp(fileext, ".bin") == 0 || strcasecmp(fileext, ".arc") == 0)
+                        else if(strcasecmp(fileext, ".bin") == 0 || strtokcmp(fileext, ARCHIVEFILES, ",") == 0)
                         {
                             fileList[i]->SetIcon(fileListArchives[i]);
                         }
-                        else if(strcasecmp(fileext, ".avi") == 0 || strcasecmp(fileext, ".mpg") == 0 ||
-                                strcasecmp(fileext, ".thp") == 0 || strcasecmp(fileext, ".mth") == 0 ||
-                                strcasecmp(fileext, ".mp4") == 0 || strcasecmp(fileext, ".wmv") == 0)
+                        else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
                         {
                             fileList[i]->SetIcon(fileListVID[i]);
                         }

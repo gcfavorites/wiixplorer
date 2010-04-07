@@ -1,4 +1,4 @@
-/***************************************************************************
+ /****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,21 +23,35 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef __STRING_TOOLS_H
-#define __STRING_TOOLS_H
+#include "Prompts/DeviceMenu.h"
+#include "network/networkops.h"
+#include "devicemounter.h"
+#include "ftpii/virtualpath.h"
+#include "menu.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-const char * fmt(const char * format, ...);
-const wchar_t * wfmt(const char * format, ...);
-bool char2wchar_t(const char * src, wchar_t * dest);
-int strtokcmp(const char * string, const char * compare, const char * separator);
-
-#ifdef __cplusplus
+extern "C" void MountVirtualDevices()
+{
+    if(SDCard_Inserted())
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[SD]));
+    }
+    if(USBDevice_Inserted())
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[USB]));
+    }
+    for(int i = 0; i < NTFS_GetMountCount(); i++)
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[NTFS0+i]));
+    }
+    if(Disk_Inserted())
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[DVD]));
+    }
+    for(int i = 0; i < MAXSMBUSERS; i++)
+    {
+        if(IsSMB_Mounted(i))
+        {
+            VirtualMountDevice(fmt("%s:/", DeviceName[SMB1+i]));
+        }
+    }
 }
-#endif //__cplusplus
-
-#endif /* __STRING_TOOLS_H */
-

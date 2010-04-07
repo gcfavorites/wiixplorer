@@ -6,6 +6,8 @@ extern "C"
 {
 #endif
 
+#include <gctypes.h>
+
 int NTFS_Mount();
 void NTFS_UnMount();
 int NTFS_GetMountCount();

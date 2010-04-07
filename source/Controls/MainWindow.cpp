@@ -63,7 +63,8 @@ MainWindow::MainWindow()
 	StopProgress();
 
     //!FTP Server thread
-    FTPServer::Instance();
+    if(Settings.FTPServer.AutoStart)
+        FTPServer::Instance();
 
     //!Initialize network thread if selected
     if(Settings.AutoConnect)

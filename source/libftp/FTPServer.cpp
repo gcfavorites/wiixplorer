@@ -27,13 +27,11 @@
 #include <gctypes.h>
 #include <network.h>
 #include "FTPServer.h"
-#include "Prompts/DeviceMenu.h"
-#include "network/networkops.h"
+#include "MountVirtualDevices.h"
 #include "Tools/gxprintf.h"
 #include "ftpii/ftp.h"
 #include "ftpii/net.h"
 #include "ftpii/virtualpath.h"
-#include "devicemounter.h"
 #include "menu.h"
 
 
@@ -74,33 +72,6 @@ void FTPServer::DestroyInstance()
         delete instance;
     }
     instance = NULL;
-}
-
-void FTPServer::MountVirtualDevices()
-{
-    if(SDCard_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[SD]));
-    }
-    if(USBDevice_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[USB]));
-    }
-    for(int i = 0; i < NTFS_GetMountCount(); i++)
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[NTFS0+i]));
-    }
-    if(Disk_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[DVD]));
-    }
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        if(IsSMB_Mounted(i))
-        {
-            VirtualMountDevice(fmt("%s:/", DeviceName[SMB1+i]));
-        }
-    }
 }
 
 void FTPServer::StartupFTP()

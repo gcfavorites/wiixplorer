@@ -93,3 +93,25 @@ bool char2wchar_t(const char * strChar, wchar_t * dest)
 
     return false;
 }
+
+int strtokcmp(const char * string, const char * compare, const char * separator)
+{
+    if(!string || !compare)
+        return -1;
+
+    char TokCopy[512];
+    strcpy(TokCopy, compare);
+
+    char * strTok = strtok(TokCopy, separator);
+
+    while (strTok != NULL)
+    {
+        if (strcasecmp(string, strTok) == 0)
+        {
+            return 0;
+        }
+        strTok = strtok(NULL,separator);
+    }
+
+    return -1;
+}
