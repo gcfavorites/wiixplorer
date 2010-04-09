@@ -38,8 +38,6 @@ void VirtualMountDevice(const char * path)
     if(!path)
         return;
 
-    UnmountVirtualPaths();
-
     int i = 0;
     char name[255];
     char alias[255];
