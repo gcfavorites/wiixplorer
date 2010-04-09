@@ -454,7 +454,7 @@ static s32 ftp_LIST(client_t *client, char *path) {
     {
         if(strcmp(path, ".") == 0 && strcmp(client->cwd, "/") == 0)
         {
-            UnmounVirtualPaths();
+            UnmountVirtualPaths();
             MountVirtualDevices();
         }
     }

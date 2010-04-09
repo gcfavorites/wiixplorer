@@ -20,10 +20,13 @@
 
 int FileStartUp(const char *filepath)
 {
+    if(!filepath)
+        return -1;
+
     char *fileext = strrchr(filepath, '.');
 	char *filename = strrchr(filepath, '/')+1;
 
-    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0)
+    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0 && (strstr(filepath, "dol") != 0 || strstr(filepath, "elf") != 0))
     {
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)

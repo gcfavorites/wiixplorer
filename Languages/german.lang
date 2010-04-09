@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 19:57+0200\n"
+"POT-Creation-Date: 2010-04-09 02:21+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -66,8 +66,14 @@ msgstr "Startgerät"
 msgid "Both"
 msgstr "Beides"
 
+msgid "Browser Mode"
+msgstr ""
+
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
+
+msgid "Can't browse that path."
+msgstr ""
 
 msgid "Can't load file"
 msgstr "Datei kann nicht geladen werden."
@@ -268,6 +274,9 @@ msgstr "Fehler:"
 msgid "Exit"
 msgstr "Beenden"
 
+msgid "Explorer Settings"
+msgstr ""
+
 msgid "Extract"
 msgstr "Enpacken"
 
@@ -401,6 +410,9 @@ msgstr ""
 msgid "How do you want to open the file?"
 msgstr "Womit soll die Datei geöffnet werden?"
 
+msgid "Icon Mode"
+msgstr ""
+
 msgid "Image Converter"
 msgstr "Bildkonverter"
 
@@ -457,6 +469,9 @@ msgstr "Zuletzt geändert:"
 
 msgid "Linebreak"
 msgstr "Absatz"
+
+msgid "List Mode"
+msgstr ""
 
 msgid "Listening on TCP port"
 msgstr ""

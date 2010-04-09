@@ -27,6 +27,7 @@
 #define MENU_SETTINGS_H_
 
 int MenuSettings();
+int MenuExplorerSettings();
 int MenuSoundSettings();
 int MenuImageSettings();
 int MenuBootSettings();

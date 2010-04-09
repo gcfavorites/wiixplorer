@@ -55,13 +55,14 @@ class ArchiveBrowser : public Browser
         int GetEntrieCount() { return PathStructure.size(); };
         //!Get current pageindex
         int GetPageIndex() { return PageIndex; };
+        //!Get current pageindex
+        int GetSelIndex() { return SelIndex; };
         //!Set the pageindex
         void SetPageIndex(int ind);
         //!Set the SelectedIndex
         void SetSelectedIndex(int ind);
         //!Is the current ind item a directory
         bool IsDir(int ind);
-        bool IsCurrentDir() { return IsDir(SelIndex); };
         //!Get the item archive structure of ind file
         ArchiveFileStruct * GetItemStructure(int ind);
         ArchiveFileStruct * GetCurrentItemStructure() { return GetItemStructure(SelIndex); };

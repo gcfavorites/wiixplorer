@@ -65,6 +65,7 @@ void Settings::SetDefault()
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
     ClockMode = 0;
+    BrowserMode = 0;
     ScreenshotFormat = 0;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
@@ -145,6 +146,7 @@ bool Settings::Save()
 	fprintf(file, "UpdateMetaxml = %d\n", UpdateMetaxml);
 	fprintf(file, "UpdateIconpng = %d\n", UpdateIconpng);
 	fprintf(file, "ClockMode = %d\n", ClockMode);
+	fprintf(file, "BrowserMode = %d\n", BrowserMode);
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
@@ -474,6 +476,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "ClockMode") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ClockMode = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "BrowserMode") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			BrowserMode = i;
 		}
 		return true;
 	}

@@ -105,7 +105,7 @@ void FTPServer::ShutdownFTP()
 
     cleanup_ftp();
     net_close(server);
-    UnmounVirtualPaths();
+    UnmountVirtualPaths();
 
     gxprintf("\x1b[2;0H");
     gxprintf(tr("Server was shutdown...\n"));

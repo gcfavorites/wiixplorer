@@ -85,6 +85,9 @@ ImageViewer::~ImageViewer()
     if(parentElement)
         ((GuiWindow *) parentElement)->Remove(this);
 
+    for(int i = 0; i < 4; i++)
+        MainWindow::Instance()->ResetPointer(i);
+
     RemoveAll();
 
     if(imageDir)
@@ -150,6 +153,8 @@ ImageViewer::~ImageViewer()
     Resources::Remove(slideshowButtonOverData);
     delete slideshowButtonImage;
     delete slideshowButtonOverImage;
+
+    MainWindow::Instance()->ResumeGui();
 }
 
 bool ImageViewer::LoadImageList(const char * filepath)

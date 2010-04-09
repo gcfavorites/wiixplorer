@@ -44,7 +44,7 @@ DeviceMenu::DeviceMenu(int x, int y)
     device_choose_right_Data = Resources::GetImageData(device_choose_right_png, device_choose_right_png_size);
     device_choose_left_Data = Resources::GetImageData(device_choose_left_png, device_choose_left_png_size);
     device_choose_center_Data = Resources::GetImageData(device_choose_center_png, device_choose_center_png_size);
-    menu_select = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
+    menu_select = Resources::GetImageData(deviceselection_png, deviceselection_png_size);
 
     //! Device imagedata
     sd_ImgData = Resources::GetImageData(sdstorage_png, sdstorage_png_size);

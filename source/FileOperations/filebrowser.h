@@ -72,7 +72,6 @@ class FileBrowser : public Browser
         int GetPageIndex() { return browser.pageIndex; };
         int GetSelIndex() { return browser.selIndex; };
         bool IsDir(int ind) { return browserList[ind].isdir; };
-        bool IsCurrentDir() { return browserList[browser.selIndex].isdir; };
         u64 GetFilesize(int ind) { return browserList[ind].length; };
         u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
         const char * GetItemDisplayname(int ind) { return browserList[ind].displayname; };
@@ -83,7 +82,7 @@ class FileBrowser : public Browser
         const char * GetCurrentPath();
         const char * GetCurrentSelectedFilepath();
         ItemStruct GetCurrentItemStruct() const;
-        int BrowserChangeFolder();
+        int ChangeDirectory();
         void Refresh();
     private:
         int ParseDirectory(bool ResetPosition = true);

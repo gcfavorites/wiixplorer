@@ -1,32 +1,53 @@
-#ifndef __GUI_FILEBROWSER_H_
-#define __GUI_FILEBROWSER_H_
+/***************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
+ *
+ * Original ListBrowser by Tantric (C) 2009
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
+ ***************************************************************************/
+#ifndef __LISTBROWSER_HPP_
+#define __LISTBROWSER_HPP_
 
-#include "gui.h"
-#include "FileOperations/Browser.hpp"
-
+#include "GuiFileBrowser.hpp"
 
 //!Display a list of files
-class GuiFileBrowser : public GuiElement
+class ListFileBrowser : public GuiFileBrowser
 {
 	public:
-		GuiFileBrowser(Browser * filebrowser, int w, int h);
-		~GuiFileBrowser();
-		void DisableTriggerUpdate(bool set);
+		ListFileBrowser(Browser * filebrowser, int w, int h);
+		~ListFileBrowser();
 		void ResetState();
-		void SetFocus(int f);
-        void SetBrowser(Browser * b);
+        void SetSelected(int i);
+        void SetTriggerUpdate(bool t) { triggerupdate = t; };
+		void TriggerUpdate() { listChanged = true; };
 		void Draw();
-		void TriggerUpdate();
 		void Update(GuiTrigger * t);
-		GuiButton * fileList[PAGESIZE];
 	protected:
         void OnClicked(GuiElement *sender, int pointer, POINT p);
 		int selectedItem;
 		int numEntries;
 		bool listChanged;
-		bool triggerdisabled;
-
-		Browser * browser;
+		bool triggerupdate;
 
 		GuiText * fileListText[PAGESIZE];
 		GuiText * fileListTextOver[PAGESIZE];
@@ -40,6 +61,7 @@ class GuiFileBrowser : public GuiElement
 		GuiImage * fileListTXT[PAGESIZE];
 		GuiImage * fileListXML[PAGESIZE];
 		GuiImage * fileListVID[PAGESIZE];
+		GuiButton * fileList[PAGESIZE];
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
@@ -54,7 +76,6 @@ class GuiFileBrowser : public GuiElement
 		GuiImage * scrollbarBoxImg;
 		GuiImage * scrollbarBoxOverImg;
 
-		GuiImageData * bgFileSelection;
 		GuiImageData * bgFileSelectionEntry;
         GuiImageData * fileArchives;
 		GuiImageData * fileDefault;
