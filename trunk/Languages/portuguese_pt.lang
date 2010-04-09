@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 19:57+0200\n"
+"POT-Creation-Date: 2010-04-09 02:21+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -66,7 +66,13 @@ msgstr "Montar no arranque"
 msgid "Both"
 msgstr ""
 
+msgid "Browser Mode"
+msgstr ""
+
 msgid "Can not open the file."
+msgstr ""
+
+msgid "Can't browse that path."
 msgstr ""
 
 msgid "Can't load file"
@@ -268,6 +274,9 @@ msgstr "Erro:"
 msgid "Exit"
 msgstr ""
 
+msgid "Explorer Settings"
+msgstr ""
+
 msgid "Extract"
 msgstr "Extrair"
 
@@ -401,6 +410,9 @@ msgstr "Servidor:"
 msgid "How do you want to open the file?"
 msgstr ""
 
+msgid "Icon Mode"
+msgstr ""
+
 msgid "Image Converter"
 msgstr ""
 
@@ -457,6 +469,9 @@ msgstr "Última modificação:"
 
 msgid "Linebreak"
 msgstr "Quebra de linha"
+
+msgid "List Mode"
+msgstr ""
 
 msgid "Listening on TCP port"
 msgstr ""

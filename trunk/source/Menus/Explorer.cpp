@@ -49,22 +49,12 @@ extern int curDevice;
 Explorer::Explorer()
     :GuiWindow(0, 0)
 {
-	menu = MENU_NONE;
-	currentDevice = 0;
-
-    Browser = new FileBrowser();
-
     this->Setup();
 }
 
 Explorer::Explorer(int device)
     :GuiWindow(0, 0)
 {
-	menu = MENU_NONE;
-	currentDevice = device;
-
-    Browser = new FileBrowser();
-
     this->Setup();
     this->LoadDevice(device);
 }
@@ -72,11 +62,6 @@ Explorer::Explorer(int device)
 Explorer::Explorer(const char *path)
     :GuiWindow(0, 0)
 {
-	menu = MENU_NONE;
-	currentDevice = 0;
-
-    Browser = new FileBrowser();
-
     this->Setup();
     this->LoadPath(path);
 }
@@ -130,18 +115,30 @@ Explorer::~Explorer()
     if(RightClick)
         delete RightClick;
 
-    delete fileBrowser;
+    if(iconBrowser)
+        delete iconBrowser;
+    if(listBrowser)
+        delete listBrowser;
+
     if(ArcBrowser)
         delete ArcBrowser;
-    delete Browser;
+
+    delete DeviceBrowser;
 }
 
 void Explorer::Setup()
 {
+	menu = MENU_NONE;
+    listBrowser = NULL;
+    iconBrowser = NULL;
+    fileBrowser = NULL;
     Device_Menu = NULL;
-    RightClick = NULL;
     ArcBrowser = NULL;
+    RightClick = NULL;
     Credits = NULL;
+
+    DeviceBrowser = new FileBrowser();
+    CurBrowser = DeviceBrowser;
 
 	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	SetPosition(28, 50);
@@ -170,7 +167,17 @@ void Explorer::Setup()
     height = Background->GetHeight();
 	BackgroundImg = new GuiImage(Background);
 
-	fileBrowser = new GuiFileBrowser(Browser, width, 252);
+    if(Settings.BrowserMode == ICONBROWSER)
+    {
+        iconBrowser = new IconFileBrowser(CurBrowser, width, 252);
+        fileBrowser = iconBrowser;
+    }
+    else
+    {
+        listBrowser = new ListFileBrowser(CurBrowser, width, 252);
+        fileBrowser = listBrowser;
+    }
+
 	fileBrowser->SetPosition(0, 53);
 
     creditsImg = new GuiImage(creditsImgData);
@@ -196,7 +203,7 @@ void Explorer::Setup()
 	deviceSwitchBtn->SetEffectGrow();
     deviceSwitchBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
-    AdressText = new GuiText((char*) NULL, 20, (GXColor) {0, 0, 0, 255});
+    AdressText = new GuiText((char *) NULL, 20, (GXColor) {0, 0, 0, 255});
 	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
 	AdressText->SetMaxWidth(Address->GetWidth()-45-Refresh->GetWidth(), SCROLL_HORIZONTAL);
@@ -238,7 +245,10 @@ void Explorer::Setup()
 
 int Explorer::LoadPath(const char * path)
 {
-	filecount = Browser->BrowsePath(path);
+    if(CurBrowser != DeviceBrowser)
+        return -1;
+
+	int filecount = DeviceBrowser->BrowsePath(path);
 	if(filecount < 0)
 	{
 		int choice = WindowPrompt(tr("Error:"),
@@ -255,14 +265,17 @@ int Explorer::LoadPath(const char * path)
 			return -2;
 	}
 
-	Browser->ResetMarker();
-    AdressText->SetText(Browser->GetCurrentPath());
+	DeviceBrowser->ResetMarker();
+    AdressText->SetText(DeviceBrowser->GetCurrentPath());
 	SetDeviceImage();
 	return filecount;
 }
 int Explorer::LoadDevice(int device)
 {
-    filecount = Browser->BrowseDevice(device);
+    if(CurBrowser != DeviceBrowser)
+        return -1;
+
+    int filecount = DeviceBrowser->BrowseDevice(device);
 	if(filecount < 0)
 	{
 		int choice = WindowPrompt(tr("Error:"),
@@ -279,11 +292,10 @@ int Explorer::LoadDevice(int device)
 		else
 			return -2;
 	}
-	Browser->ResetMarker();
+	DeviceBrowser->ResetMarker();
 
-    AdressText->SetText(Browser->GetCurrentPath());
+    AdressText->SetText(DeviceBrowser->GetCurrentPath());
 	SetDeviceImage();
-	currentDevice = device;
 	curDevice = device;
 
 	return filecount;
@@ -291,7 +303,10 @@ int Explorer::LoadDevice(int device)
 
 void Explorer::SetDeviceImage()
 {
-    const char * currentroot = Browser->GetRootDir();
+    if(CurBrowser != DeviceBrowser)
+        return;
+
+    const char * currentroot = DeviceBrowser->GetRootDir();
     if(strncmp(currentroot, DeviceName[SD], 2) == 0)
     {
         deviceImg->SetImage(sdstorage);
@@ -331,37 +346,57 @@ void Explorer::CheckBrowserChanges()
 	if(fileBrowser->GetState() == STATE_CLICKED)
     {
         fileBrowser->ResetState();
-        if(ArcBrowser)
-        {
-            ArchiveChanges();
-        }
         // check corresponding browser entry
-        else if(Browser->IsCurrentDir())
+        if(CurBrowser->IsCurrentDir())
         {
-            if(Browser->BrowserChangeFolder())
+            int result = CurBrowser->ChangeDirectory();
+            if(result > 0)
             {
-                fileBrowser->fileList[0]->SetState(STATE_SELECTED);
+                fileBrowser->SetSelected(0);
                 fileBrowser->TriggerUpdate();
-                Browser->ResetMarker();
-                AdressText->SetText(Browser->GetCurrentPath());
+                CurBrowser->ResetMarker();
+                AdressText->SetText(CurBrowser->GetCurrentPath());
+            }
+            else if(result == 0)
+            {
+                if(!ArcBrowser)
+                    return;
+
+                CurBrowser = DeviceBrowser;
+                fileBrowser->SetBrowser(CurBrowser);
+                delete ArcBrowser;
+                ArcBrowser = NULL;
+                fileBrowser->TriggerUpdate();
+                AdressText->SetTextf("%s", CurBrowser->GetCurrentPath());
             }
             else
             {
+                ShowError(tr("Can't browse that path."));
                 menu = MENU_BROWSE_DEVICE;
             }
         }
         else
         {
+            if(CurBrowser == ArcBrowser)
+                return;
+
             char filepath[MAXPATHLEN];
-            snprintf(filepath, sizeof(filepath), "%s", Browser->GetCurrentSelectedFilepath());
+            int result = -1;
 
             SetState(STATE_DISABLED);
-            fileBrowser->DisableTriggerUpdate(true);
+            fileBrowser->SetTriggerUpdate(false);
             Taskbar::Instance()->SetTriggerUpdate(false);
-            int result = FileStartUp(filepath);
+
+            if(CurBrowser == DeviceBrowser)
+            {
+                snprintf(filepath, sizeof(filepath), "%s", CurBrowser->GetCurrentSelectedFilepath());
+                result = FileStartUp(filepath);
+            }
+
             SetState(STATE_DEFAULT);
-            fileBrowser->DisableTriggerUpdate(false);
+            fileBrowser->SetTriggerUpdate(true);
             Taskbar::Instance()->SetTriggerUpdate(true);
+
             if(result == BOOTHOMEBREW)
             {
                 boothomebrew = true;
@@ -370,12 +405,13 @@ void Explorer::CheckBrowserChanges()
             else if(result == ARCHIVE)
             {
                 ArcBrowser = new ArchiveBrowser(filepath);
-                fileBrowser->SetBrowser(ArcBrowser);
-                AdressText->SetTextf("%s", ArcBrowser->GetCurrentPath());
+                CurBrowser = ArcBrowser;
+                fileBrowser->SetBrowser(CurBrowser);
+                AdressText->SetTextf("%s", CurBrowser->GetCurrentPath());
             }
             else if(result == REFRESH_BROWSER)
             {
-                Browser->Refresh();
+                CurBrowser->Refresh();
                 fileBrowser->TriggerUpdate();
             }
             else if(result == RELOAD_BROWSER)
@@ -391,7 +427,7 @@ void Explorer::CheckDeviceMenu()
     if(Device_Menu != NULL)
     {
         SetState(STATE_DISABLED);
-        fileBrowser->DisableTriggerUpdate(true);
+        fileBrowser->SetTriggerUpdate(false);
         Taskbar::Instance()->SetTriggerUpdate(false);
         Append(Device_Menu);
 
@@ -414,17 +450,18 @@ void Explorer::CheckDeviceMenu()
         {
             if(ArcBrowser)
             {
-                fileBrowser->SetBrowser(Browser);
+                CurBrowser = DeviceBrowser;
+                fileBrowser->SetBrowser(CurBrowser);
                 delete ArcBrowser;
                 ArcBrowser = NULL;
             }
             LoadDevice(device_choice);
-            fileBrowser->fileList[0]->SetState(STATE_SELECTED);
+            fileBrowser->SetSelected(0);
             fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s", Browser->GetCurrentPath());
+            AdressText->SetTextf("%s", CurBrowser->GetCurrentPath());
         }
         SetState(STATE_DEFAULT);
-        fileBrowser->DisableTriggerUpdate(false);
+        fileBrowser->SetTriggerUpdate(true);
         Taskbar::Instance()->SetTriggerUpdate(true);
     }
 }
@@ -434,7 +471,7 @@ void Explorer::CheckRightClick()
     if(RightClick != NULL)
     {
         SetState(STATE_DISABLED);
-        fileBrowser->DisableTriggerUpdate(true);
+        fileBrowser->SetTriggerUpdate(false);
         Taskbar::Instance()->SetTriggerUpdate(false);
         MainWindow::Instance()->Append(RightClick);
 
@@ -471,8 +508,8 @@ void Explorer::CheckRightClick()
             }
             else if(RightClick_choice >= 0)
             {
-                ProcessArcChoice(ArcBrowser, RightClick_choice, Browser->GetCurrentPath());
-                Browser->Refresh();
+                ProcessArcChoice(ArcBrowser, RightClick_choice, CurBrowser->GetCurrentPath());
+                CurBrowser->Refresh();
                 fileBrowser->TriggerUpdate();
             }
         }
@@ -481,7 +518,7 @@ void Explorer::CheckRightClick()
         {
             if(RightClick_choice == PROPERTIES)
             {
-                Properties * Prompt = new Properties(Browser->GetCurrentSelectedFilepath());
+                Properties * Prompt = new Properties(CurBrowser->GetCurrentSelectedFilepath());
                 Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
                 MainWindow::Instance()->SetDim(true);
                 MainWindow::Instance()->Append(Prompt);
@@ -494,16 +531,16 @@ void Explorer::CheckRightClick()
             }
             else if(RightClick_choice >= 0)
             {
-                ProcessChoice(Browser, RightClick_choice);
+                ProcessChoice(DeviceBrowser, RightClick_choice);
                 if(RightClick_choice >= PASTE)
                 {
-                    Browser->Refresh();
+                    CurBrowser->Refresh();
                     fileBrowser->TriggerUpdate();
                 }
             }
         }
         this->SetState(STATE_DEFAULT);
-        fileBrowser->DisableTriggerUpdate(false);
+        fileBrowser->SetTriggerUpdate(true);
         Taskbar::Instance()->SetTriggerUpdate(true);
     }
 }
@@ -551,55 +588,8 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
     else if(sender == RefreshBtn)
     {
-        if(ArcBrowser)
-        {
-            ArcBrowser->Refresh();
-        }
-        else
-        {
-            Browser->Refresh();
-            fileBrowser->TriggerUpdate();
-        }
-    }
-}
-
-void Explorer::ArchiveChanges()
-{
-    if(!ArcBrowser)
-        return;
-
-    //Change archive path
-    if(ArcBrowser->IsCurrentDir())
-    {
-        int result = ArcBrowser->ChangeDirectory();
-        if(result > 0)
-        {
-            fileBrowser->fileList[0]->SetState(STATE_SELECTED);
-            fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s", ArcBrowser->GetCurrentPath());
-        }
-        else if(result == 0)
-        {
-            //leave Archive
-            fileBrowser->SetBrowser(Browser);
-            delete ArcBrowser;
-            ArcBrowser = NULL;
-            fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s", Browser->GetCurrentPath());
-        }
-        else
-        {
-            //error Accured closing Archive
-            fileBrowser->SetBrowser(Browser);
-            delete ArcBrowser;
-            ArcBrowser = NULL;
-            fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s", Browser->GetCurrentPath());
-        }
-    }
-    else
-    {
-        //TODO fileoperations inside archive
+        CurBrowser->Refresh();
+        fileBrowser->TriggerUpdate();
     }
 }
 

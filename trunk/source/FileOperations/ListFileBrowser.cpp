@@ -1,30 +1,47 @@
-/****************************************************************************
- * libwiigui
+/***************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
  *
- * Tantric 2009
+ * Original ListBrowser by Tantric (C) 2009
  *
- * gui_filebrowser.cpp
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
  *
- * GUI class definitions
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
  ***************************************************************************/
-
-#include "gui_filebrowser.h"
+#include "ListFileBrowser.hpp"
 #include "Memory/Resources.h"
 #include "FileStartUp/FileExtensions.h"
 
 /**
- * Constructor for the GuiFileBrowser class.
+ * Constructor for the ListFileBrowser class.
  */
-GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
+ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
+    : GuiFileBrowser(filebrowser, w, h)
 {
 	width = w;
 	height = h;
 	selectedItem = 0;
 	numEntries = 0;
 	browser = filebrowser;
-	selectable = true;
 	listChanged = true; // trigger an initial list update
-	triggerdisabled = false; // trigger disable
+	triggerupdate = true; // trigger disable
 	focus = 1; // allow focus
 
 	trigA = new GuiTrigger;
@@ -137,14 +154,14 @@ GuiFileBrowser::GuiFileBrowser(Browser * filebrowser, int w, int h)
 		fileList[i]->SetTrigger(trigA);
 		fileList[i]->SetRumble(false);
 		fileList[i]->SetSoundClick(btnSoundClick);
-		fileList[i]->Clicked.connect(this, &GuiFileBrowser::OnClicked);
+		fileList[i]->Clicked.connect(this, &ListFileBrowser::OnClicked);
 	}
 }
 
 /**
- * Destructor for the GuiFileBrowser class.
+ * Destructor for the ListFileBrowser class.
  */
-GuiFileBrowser::~GuiFileBrowser()
+ListFileBrowser::~ListFileBrowser()
 {
     browser = NULL;
 	Resources::Remove(btnSoundOver);
@@ -200,34 +217,21 @@ GuiFileBrowser::~GuiFileBrowser()
 	}
 }
 
-void GuiFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
+void ListFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
 {
     state = STATE_CLICKED;
 }
 
-void GuiFileBrowser::SetFocus(int f)
+void ListFileBrowser::SetSelected(int i)
 {
-	focus = f;
+    if(i < 0 || i >= PAGESIZE)
+        return;
 
-	for(int i=0; i<PAGESIZE; i++)
-		fileList[i]->ResetState();
-
-	if(f == 1)
-		fileList[selectedItem]->SetState(STATE_SELECTED);
+    selectedItem = i;
+    fileList[selectedItem]->SetState(STATE_SELECTED);
 }
 
-void GuiFileBrowser::SetBrowser(Browser * b)
-{
-    browser = b;
-    TriggerUpdate();
-}
-
-void GuiFileBrowser::DisableTriggerUpdate(bool set)
-{
-	triggerdisabled = set;
-}
-
-void GuiFileBrowser::ResetState()
+void ListFileBrowser::ResetState()
 {
 	state = STATE_DEFAULT;
 	stateChan = -1;
@@ -239,15 +243,10 @@ void GuiFileBrowser::ResetState()
 	}
 }
 
-void GuiFileBrowser::TriggerUpdate()
-{
-	listChanged = true;
-}
-
 /**
  * Draw the button on screen
  */
-void GuiFileBrowser::Draw()
+void ListFileBrowser::Draw()
 {
 	if(!this->IsVisible())
 		return;
@@ -265,9 +264,9 @@ void GuiFileBrowser::Draw()
 	this->UpdateEffects();
 }
 
-void GuiFileBrowser::Update(GuiTrigger * t)
+void ListFileBrowser::Update(GuiTrigger * t)
 {
-	if(state == STATE_DISABLED || !t || triggerdisabled)
+	if(state == STATE_DISABLED || !t || !triggerupdate)
 		return;
 
 	int position = 0;

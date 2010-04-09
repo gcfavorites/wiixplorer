@@ -42,10 +42,16 @@ class Browser
         virtual ~Browser() { };
         virtual int GetEntrieCount() { return 0; };
         virtual int GetPageIndex() { return 0; };
+        virtual int GetSelIndex() { return 0; };
         virtual void SetPageIndex(int ind) { };
         virtual void SetSelectedIndex(int ind) { };
         virtual bool IsDir(int ind) { return true; };
+        virtual bool IsCurrentDir() { return IsDir(GetSelIndex()); };
         virtual const char * GetItemDisplayname(int ind) { return NULL; };
+        virtual int BrowsePath(const char * path) { return 0; };
+        virtual int ChangeDirectory() { return 0; };
+        virtual const char * GetCurrentPath() { return NULL; };
+        virtual const char * GetCurrentSelectedFilepath() { return NULL; };
         virtual void Refresh() { };
         virtual ItemStruct GetCurrentItemStruct() const
         {

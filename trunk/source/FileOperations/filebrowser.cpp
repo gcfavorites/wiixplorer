@@ -414,11 +414,11 @@ int FileBrowser::ParseDirectory(bool ResetPosition)
 }
 
 /****************************************************************************
- * BrowserChangeFolder
+ * ChangeDirectory
  *
  * Update current directory and set new entry list if directory has changed
  ***************************************************************************/
-int FileBrowser::BrowserChangeFolder()
+int FileBrowser::ChangeDirectory()
 {
 	if(!UpdateDirName())
 		return -1;

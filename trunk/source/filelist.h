@@ -124,6 +124,9 @@ extern const u32	addressbar_textbox_png_size;
 extern const u8		textpointer_img_png[];
 extern const u32	textpointer_img_png_size;
 
+extern const u8		deviceselection_png[];
+extern const u32	deviceselection_png_size;
+
 extern const u8		device_choose_right_png[];
 extern const u32	device_choose_right_png_size;
 

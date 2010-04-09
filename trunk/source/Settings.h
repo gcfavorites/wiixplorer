@@ -133,6 +133,8 @@ class Settings
         short	UpdateIconpng;
         //!Clock mode
         short	ClockMode;
+        //!Browser mode
+        short	BrowserMode;
         //!Screenshot image format
         short	ScreenshotFormat;
         //!Path to mplayer_ce

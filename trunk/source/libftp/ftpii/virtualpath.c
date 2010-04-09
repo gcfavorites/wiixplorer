@@ -38,6 +38,8 @@ void VirtualMountDevice(const char * path)
     if(!path)
         return;
 
+    UnmountVirtualPaths();
+
     int i = 0;
     char name[255];
     char alias[255];
@@ -91,7 +93,7 @@ void AddVirtualPath(const char *name, const char *alias, const char *prefix)
     MAX_VIRTUAL_PARTITIONS++;
 }
 
-void UnmounVirtualPaths()
+void UnmountVirtualPaths()
 {
     u32 i = 0;
     for(i = 0; i < MAX_VIRTUAL_PARTITIONS; i++)

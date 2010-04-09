@@ -1,10 +1,6 @@
- /****************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
- *
- * Original VIRTUAL_PART Struct
- * Copyright (C) 2008
- * Joseph Jordan <joe.ftpii@psychlaw.com.au>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -27,31 +23,23 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _VIRTUALPATH_H_
-#define _VIRTUALPATH_H_
+#ifndef __GUIFILEBROWSER_HPP_
+#define __GUIFILEBROWSER_HPP_
 
-#ifdef __cplusplus
-extern "C"{
+#include "libwiigui/gui.h"
+#include "FileOperations/Browser.hpp"
+
+class GuiFileBrowser : public GuiElement
+{
+	public:
+		GuiFileBrowser(Browser * filebrowser, int w, int h) { browser = filebrowser; };
+		virtual ~GuiFileBrowser() { };
+        virtual void SetBrowser(Browser * b) { browser = b; TriggerUpdate(); };
+		virtual void SetTriggerUpdate(bool set) { };
+		virtual void TriggerUpdate() { };
+        virtual void SetSelected(int i) { };
+	protected:
+		Browser * browser;
+};
+
 #endif
-
-#include <gctypes.h>
-
-typedef struct {
-    char *name;
-    char *alias;
-    char *prefix;
-    bool inserted;
-} VIRTUAL_PARTITION;
-
-extern VIRTUAL_PARTITION * VIRTUAL_PARTITIONS;
-extern u8 MAX_VIRTUAL_PARTITIONS;
-
-void VirtualMountDevice(const char * devicepath);
-void AddVirtualPath(const char *name, const char *alias, const char *prefix);
-void UnmountVirtualPaths();
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* _VIRTUALPART_H_ */

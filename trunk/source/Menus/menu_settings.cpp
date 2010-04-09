@@ -33,6 +33,7 @@
 #include "network/networkops.h"
 #include "network/ChangeLog.h"
 #include "network/update.h"
+#include "Explorer.h"
 #include "SettingsMenu.h"
 #include "menu_settings.h"
 #include "Language/LanguageBrowser.h"
@@ -43,6 +44,9 @@ static int SwitchSettingsMenus(int menu)
 
     switch(currentMenu)
     {
+        case MENU_EXPLORER_SETTINGS:
+            currentMenu = MenuExplorerSettings();
+            break;
         case MENU_IMAGE_SETTINGS:
             currentMenu = MenuImageSettings();
             break;
@@ -87,6 +91,7 @@ int MenuSettings()
 	OptionList options;
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Clock Mode"));
+	options.SetName(i++, tr("Explorer Settings"));
 	options.SetName(i++, tr("Boot Settings"));
 	options.SetName(i++, tr("Image Settings"));
 	options.SetName(i++, tr("Sound Settings"));
@@ -121,18 +126,21 @@ int MenuSettings()
 				Settings.ClockMode = (Settings.ClockMode+1) % 2;
 				break;
 			case 2:
+                menu = MENU_EXPLORER_SETTINGS;
+				break;
+			case 3:
                 menu = MENU_BOOT_SETTINGS;
 				break;
-            case 3:
+            case 4:
                 menu = MENU_IMAGE_SETTINGS;
 				break;
-            case 4:
+            case 5:
                 menu = MENU_SOUND_SETTINGS;
 				break;
-            case 5:
+            case 6:
                 menu = MENU_NETWORK_SETTINGS;
 				break;
-            case 6:
+            case 7:
                 menu = MENU_PATH_SETUP;
 				break;
 		}
@@ -175,6 +183,8 @@ int MenuSettings()
             options.SetValue(i++, " ");
 
             options.SetValue(i++, " ");
+
+            options.SetValue(i++, " ");
         }
 	}
 
@@ -183,6 +193,59 @@ int MenuSettings()
     Settings.Save();
 
 	return SwitchSettingsMenus(menu);
+}
+
+int MenuExplorerSettings()
+{
+	int menu = MENU_NONE;
+	int ret;
+	int i = 0;
+	bool firstRun = true;
+
+	OptionList options;
+	options.SetName(i++, tr("Browser Mode"));
+
+	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
+
+	MainWindow::Instance()->Append(Menu);
+
+	while(menu == MENU_NONE)
+	{
+	    usleep(THREAD_SLEEP);
+
+		if(Menu->GetMenu() != MENU_NONE)
+		{
+			menu = Menu->GetMenu();
+		}
+        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+        {
+			menu = Taskbar::Instance()->GetMenu();
+        }
+
+		ret = Menu->GetClickedOption();
+
+		switch (ret)
+		{
+            case 0:
+				Settings.BrowserMode = (Settings.BrowserMode+1) % 2;
+				break;
+		}
+
+        if(firstRun || ret >= 0)
+        {
+            i = 0;
+            firstRun = false;
+
+            if (Settings.BrowserMode == ICONBROWSER)
+                options.SetValue(i++, tr("Icon Mode"));
+            else
+                options.SetValue(i++, tr("List Mode"));
+        }
+	}
+
+    delete Menu;
+
+	return menu;
 }
 
 int MenuSoundSettings()

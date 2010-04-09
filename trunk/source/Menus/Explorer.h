@@ -31,13 +31,20 @@
 #include <gctypes.h>
 #include <unistd.h>
 
-#include "libwiigui/gui_filebrowser.h"
+#include "FileOperations/ListFileBrowser.hpp"
+#include "FileOperations/IconFileBrowser.hpp"
 #include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"
 #include "FileOperations/filebrowser.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
+
+enum
+{
+    ICONBROWSER = 0,
+    LISTBROWSER,
+};
 
 class Explorer : public GuiWindow
 {
@@ -52,7 +59,6 @@ class Explorer : public GuiWindow
         int GetMenuChoice();
         void SetState(int s);
     protected:
-		void ArchiveChanges();
 		void CheckBrowserChanges();
 		void CheckDeviceMenu();
 		void CheckRightClick();
@@ -60,12 +66,14 @@ class Explorer : public GuiWindow
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int menu;
-        int currentDevice;
-        u32 filecount;
 
-        FileBrowser * Browser;
+        Browser * CurBrowser;
+        FileBrowser * DeviceBrowser;
         ArchiveBrowser * ArcBrowser;
+
         GuiFileBrowser * fileBrowser;
+        IconFileBrowser * iconBrowser;
+        ListFileBrowser * listBrowser;
 
         DeviceMenu * Device_Menu;
         PopUpMenu * RightClick;
