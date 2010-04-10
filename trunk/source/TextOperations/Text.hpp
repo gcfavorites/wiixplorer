@@ -4,6 +4,13 @@
 #include "libwiigui/gui.h"
 #include "wstring.hpp"
 
+typedef struct
+{
+    u32 LineOffset;
+    u32 CharCount;
+    u32 width;
+} TextLine;
+
 class Text : public GuiText
 {
     public:
@@ -26,16 +33,20 @@ class Text : public GuiText
 		void PreviousLine();
 		//!Refresh the rows to draw
         void Refresh();
+		//!Set the text line
+        void SetTextLine(int line);
 		//!Set to the char pos in text
         void SetTextPos(int pos);
 		//!Refresh the rows to draw
         int GetCurrPos() { return curLineStart; };
-		//!Get the count of loaded lines
-        int GetCharsCount() { return curCharsCount; };
-		//!Get the count of loaded lines
-        int GetLinesCount() { return curLinesCount; };
+		//!Get  the count of loaded lines
+        int GetLinesCount() { return curLinesCount-1; };
+		//!Get the total count of lines
+        int GetTotalLinesCount() { return TextLines.size(); };
         //!Get the original full Text
         const wchar_t * GetText();
+        //!Get the original full Text as wString
+        wString * GetwString() { return wText; };
         //!Get the original Text as a UTF-8 text
         //!memory is allocated in this
         //!which needs to be deleted later
@@ -47,14 +58,15 @@ class Text : public GuiText
 		//!Constantly called to draw the text
 		void Draw();
     protected:
+        void CalcLineOffsets();
         void FillRows();
         void ClearRows();
 
 		wString * wText;
-		int LineOffset[MAX_LINES_TO_DRAW];
-		int curCharsCount;
+		std::vector<TextLine> TextLines;
 		int curLinesCount;
 		int curLineStart;
+		int FirstLineOffset;
 		bool filling;
 };
 

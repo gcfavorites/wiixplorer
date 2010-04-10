@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -87,14 +87,23 @@ msgstr "Lecture impossible du fichier:"
 msgid "Cancel"
 msgstr "Annuler"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
 
 msgid "Cannot write to destination."
 msgstr "Ecriture impossible."
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
 msgstr "Verr"
+
+msgid "Change"
+msgstr ""
 
 msgid "Change Language Path?"
 msgstr "Modifier le dossier Language?"
@@ -119,6 +128,9 @@ msgstr "Taille Compressée:"
 
 msgid "Console Default"
 msgstr "Wii Défaut"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr "Convertir"
@@ -174,6 +186,9 @@ msgstr "Couper"
 msgid "Cut current marked item(s)?"
 msgstr "Couper le(s) élement(s) marqué(s)?"
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -201,24 +216,21 @@ msgstr "Voulez-vous lancer:"
 msgid "Do you want to change the font?"
 msgstr ""
 
+msgid "Do you want to download new language files?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Voulez-vous quitter Wiixplorer?"
-
-msgid "Do you want to exit to the system menu?"
-msgstr "Voulez-vous retourner au menu système?"
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr "Voulez-vous charger le language de WiiWplorer par défaut?"
-
-msgid "Do you want to load console default language."
-msgstr "Voulez-vous charger le language de la Wii par défaut?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Voulez-vous charger le fichier depuis: %s?"
+
+msgid "Do you want to load the default language."
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language?"
@@ -262,8 +274,18 @@ msgstr "Voulez-vous démarrer la chaîne?"
 msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant?"
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Téléchargement..."
+
+msgid "Downloading files..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -273,6 +295,9 @@ msgstr "Erreur:"
 
 msgid "Exit"
 msgstr "Quitter"
+
+msgid "Exit WiiXplorer?"
+msgstr ""
 
 msgid "Explorer Settings"
 msgstr ""
@@ -351,6 +376,9 @@ msgstr "Le fichier est corrompu (CRC erroné)."
 
 msgid "File is corrupt."
 msgstr "Le fichier est corrompu."
+
+msgid "File is too big."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Les paramètres de compression sont trop élevés (taille du dictionaire excessive)."
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr "Chargeur"
-
 msgid "Loading file:"
 msgstr "Chargement de:"
 
@@ -526,6 +551,9 @@ msgstr "Nouveau"
 
 msgid "No"
 msgstr "Non"
+
+msgid "No files found."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr "Pas de homebrew dans le zip."
@@ -675,6 +703,9 @@ msgstr "Conserver Alpha"
 msgid "Screenshot Format"
 msgstr "Format de copie d'écran"
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr "Maj"
 msgid "Show Changelog"
 msgstr "Voir le Changelog"
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -716,6 +753,18 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Espace total:"
@@ -823,6 +872,18 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "Voulez-vous charger le language de WiiWplorer par défaut?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "Voulez-vous charger le language de la Wii par défaut?"
+
+#~ msgid "Do you want to exit to the system menu?"
+#~ msgstr "Voulez-vous retourner au menu système?"
+
+#~ msgid "Loader"
+#~ msgstr "Chargeur"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "Dossier police modifié."

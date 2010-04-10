@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -87,14 +87,23 @@ msgstr "Impossível lêr ficheiro:"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr "Não foi possível abrir a imagem"
 
 msgid "Cannot write to destination."
 msgstr "Impossível escrever para o destino."
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
 msgstr "Maiúsculas"
+
+msgid "Change"
+msgstr ""
 
 msgid "Change Language Path?"
 msgstr ""
@@ -119,6 +128,9 @@ msgstr "Tamanho Comprimido:"
 
 msgid "Console Default"
 msgstr "Predefinição da consola"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr ""
@@ -174,6 +186,9 @@ msgstr "Cortar"
 msgid "Cut current marked item(s)?"
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -201,23 +216,20 @@ msgstr "Pretende executar:"
 msgid "Do you want to change the font?"
 msgstr ""
 
-msgid "Do you want to exit WiiXplorer?"
+msgid "Do you want to download new language files?"
 msgstr ""
 
-msgid "Do you want to exit to the system menu?"
+msgid "Do you want to exit WiiXplorer?"
 msgstr ""
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr "Deseja activar o idioma predefinido do aplicativo ?"
-
-msgid "Do you want to load console default language."
-msgstr "Deseja activar o idioma predefinido da consola ?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
+msgstr ""
+
+msgid "Do you want to load the default language."
 msgstr ""
 
 msgid "Do you want to load this language ?"
@@ -262,8 +274,18 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr "Deseja actualizar agora ?"
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
+
+msgid "Downloading files..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr ""
@@ -272,6 +294,9 @@ msgid "Error:"
 msgstr "Erro:"
 
 msgid "Exit"
+msgstr ""
+
+msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
@@ -351,6 +376,9 @@ msgstr "Ficheiro corrompido (erro de CRC)."
 
 msgid "File is corrupt."
 msgstr "Ficheiro corrompido."
+
+msgid "File is too big."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Ficheiro com nível de compressão muito elevada (tamanho de dicionário demasiado grande)."
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr ""
-
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
 
@@ -526,6 +551,9 @@ msgstr "Nova Pasta"
 
 msgid "No"
 msgstr "Não"
+
+msgid "No files found."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr ""
@@ -675,6 +703,9 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr ""
 msgid "Show Changelog"
 msgstr "Mostrar Changelog"
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -716,6 +753,18 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Toda a equipda do DevkitPro e do libogc."
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
+msgstr ""
 
 msgid "Total Space:"
 msgstr ""
@@ -823,6 +872,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "Deseja activar o idioma predefinido do aplicativo ?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "Deseja activar o idioma predefinido da consola ?"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "Pasta de fonte alterada"

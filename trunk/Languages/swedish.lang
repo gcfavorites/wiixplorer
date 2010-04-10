@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -87,13 +87,22 @@ msgstr ""
 msgid "Cancel"
 msgstr "Avbryt"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr ""
 
 msgid "Cannot write to destination."
 msgstr ""
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
+msgstr ""
+
+msgid "Change"
 msgstr ""
 
 msgid "Change Language Path?"
@@ -119,6 +128,9 @@ msgstr ""
 
 msgid "Console Default"
 msgstr "Konsol Standard"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr ""
@@ -174,6 +186,9 @@ msgstr "Klipp ut"
 msgid "Cut current marked item(s)?"
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "Radera"
 
@@ -201,23 +216,20 @@ msgstr "Vill du starta:"
 msgid "Do you want to change the font?"
 msgstr ""
 
-msgid "Do you want to exit WiiXplorer?"
+msgid "Do you want to download new language files?"
 msgstr ""
 
-msgid "Do you want to exit to the system menu?"
+msgid "Do you want to exit WiiXplorer?"
 msgstr ""
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr ""
-
-msgid "Do you want to load console default language."
-msgstr ""
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
+msgstr ""
+
+msgid "Do you want to load the default language."
 msgstr ""
 
 msgid "Do you want to load this language ?"
@@ -262,7 +274,17 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr ""
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
+msgstr ""
+
+msgid "Downloading files..."
 msgstr ""
 
 msgid "Error while reading file."
@@ -272,6 +294,9 @@ msgid "Error:"
 msgstr "Fel:"
 
 msgid "Exit"
+msgstr ""
+
+msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
@@ -350,6 +375,9 @@ msgid "File is corrupt (CRC mismatch)."
 msgstr ""
 
 msgid "File is corrupt."
+msgstr ""
+
+msgid "File is too big."
 msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr ""
-
 msgid "Loading file:"
 msgstr "Laddar fil:"
 
@@ -526,6 +551,9 @@ msgstr "Ny mapp"
 
 msgid "No"
 msgstr "Nej"
+
+msgid "No files found."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr ""
@@ -675,6 +703,9 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr ""
 msgid "Show Changelog"
 msgstr ""
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -715,6 +752,18 @@ msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
+msgstr ""
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
 msgstr ""
 
 msgid "Total Space:"

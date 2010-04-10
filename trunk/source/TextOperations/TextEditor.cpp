@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2009
  * by Dimok
  *
@@ -31,19 +31,21 @@
 #include "Prompts/PromptWindows.h"
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
+#include "menu.h"
 
 #define FONTSIZE    18
 
 /**
  * Constructor for the TextEditor class.
  */
-TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
+TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 {
 	focus = 0; // allow focus
-	triggerdisabled = false;
+	triggerupdate = true;
 	ExitEditor = false;
 	LineEditing = false;
 	FileEdited = false;
+	linestodraw = LinesToDraw;
 	filesize = (u32) FileSize(path);
 
 	filepath = new char[strlen(path)+1];
@@ -66,23 +68,6 @@ TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
 	bgTexteditorData = Resources::GetImageData(textreader_box_png, textreader_box_png_size);
 	bgTexteditorImg = new GuiImage(bgTexteditorData);
 
-	scrollbar = Resources::GetImageData(scrollbar_png, scrollbar_png_size);
-	scrollbarImg = new GuiImage(scrollbar);
-	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarImg->SetPosition(-25, 80);
-
-	arrowDown = Resources::GetImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
-	arrowDownImg = new GuiImage(arrowDown);
-	arrowDownOver = Resources::GetImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
-	arrowDownOverImg = new GuiImage(arrowDownOver);
-	arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
-	arrowUpImg = new GuiImage(arrowUp);
-	arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
-	arrowUpOverImg = new GuiImage(arrowUpOver);
-	scrollbarBox = Resources::GetImageData(scrollbar_box_png, scrollbar_box_png_size);
-	scrollbarBoxImg = new GuiImage(scrollbarBox);
-	scrollbarBoxOver = Resources::GetImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
-	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
 	closeImgData = Resources::GetImageData(close_png, close_png_size);
 	closeImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
     closeImg = new GuiImage(closeImgData);
@@ -92,41 +77,11 @@ TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
 	minimizeImgData = Resources::GetImageData(minimize_dis_png, minimize_dis_png_size);
     minimizeImg = new GuiImage(minimizeImgData);
 
-	arrowUpBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-	arrowUpBtn->SetImage(arrowUpImg);
-	arrowUpBtn->SetImageOver(arrowUpOverImg);
-	arrowUpBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	arrowUpBtn->SetPosition(-25, 60);
-	arrowUpBtn->SetSelectable(false);
-	arrowUpBtn->SetClickable(false);
-	arrowUpBtn->SetHoldable(true);
-	arrowUpBtn->SetTrigger(trigHeldA);
-	arrowUpBtn->SetSoundOver(btnSoundOver);
-	arrowUpBtn->SetSoundClick(btnSoundClick);
-
-	arrowDownBtn = new GuiButton(arrowDownImg->GetWidth(), arrowDownImg->GetHeight());
-	arrowDownBtn->SetImage(arrowDownImg);
-	arrowDownBtn->SetImageOver(arrowDownOverImg);
-	arrowDownBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	arrowDownBtn->SetPosition(-25, -30);
-	arrowDownBtn->SetSelectable(false);
-	arrowDownBtn->SetClickable(false);
-	arrowDownBtn->SetHoldable(true);
-	arrowDownBtn->SetTrigger(trigHeldA);
-	arrowDownBtn->SetSoundOver(btnSoundOver);
-	arrowDownBtn->SetSoundClick(btnSoundClick);
-
-	scrollbarBoxBtn = new GuiButton(scrollbarBoxImg->GetWidth(), scrollbarBoxImg->GetHeight());
-	scrollbarBoxBtn->SetImage(scrollbarBoxImg);
-	scrollbarBoxBtn->SetImageOver(scrollbarBoxOverImg);
-	scrollbarBoxBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarBoxBtn->SetPosition(-25, 55+36);
-	scrollbarBoxBtn->SetMinY(0);
-	scrollbarBoxBtn->SetMaxY(120);
-	scrollbarBoxBtn->SetSelectable(false);
-	scrollbarBoxBtn->SetClickable(false);
-	scrollbarBoxBtn->SetHoldable(true);
-	scrollbarBoxBtn->SetTrigger(trigHeldA);
+	scrollbar = new Scrollbar(230, LISTMODE);
+	scrollbar->SetParent(this);
+	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetPosition(-25, 60);
+	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 
     closeBtn = new GuiButton(closeImg->GetWidth(), closeImg->GetHeight());
     closeBtn->SetImage(closeImg);
@@ -182,10 +137,7 @@ TextEditor::TextEditor(const wchar_t *intext, int linestodraw, const char *path)
     this->Append(bgTexteditorImg);
     this->Append(filenameTxt);
     this->Append(TextPointerBtn);
-    this->Append(scrollbarImg);
-    this->Append(scrollbarBoxBtn);
-    this->Append(arrowUpBtn);
-    this->Append(arrowDownBtn);
+    this->Append(scrollbar);
     this->Append(closeBtn);
     this->Append(maximizeBtn);
     this->Append(minimizeBtn);
@@ -210,10 +162,9 @@ TextEditor::~TextEditor()
 
     this->RemoveAll();
 
+    delete scrollbar;
+
     /** Buttons **/
-	delete arrowUpBtn;
-	delete arrowDownBtn;
-	delete scrollbarBoxBtn;
 	delete maximizeBtn;
 	delete minimizeBtn;
 	delete closeBtn;
@@ -221,13 +172,6 @@ TextEditor::~TextEditor()
 
     /** Images **/
 	delete bgTexteditorImg;
-	delete scrollbarImg;
-	delete arrowDownImg;
-	delete arrowDownOverImg;
-	delete arrowUpImg;
-	delete arrowUpOverImg;
-	delete scrollbarBoxImg;
-	delete scrollbarBoxOverImg;
 	delete closeImg;
 	delete closeImgOver;
 	delete maximizeImg;
@@ -235,13 +179,6 @@ TextEditor::~TextEditor()
 
     /** ImageDatas **/
 	Resources::Remove(bgTexteditorData);
-	Resources::Remove(scrollbar);
-	Resources::Remove(arrowDown);
-	Resources::Remove(arrowDownOver);
-	Resources::Remove(arrowUp);
-	Resources::Remove(arrowUpOver);
-	Resources::Remove(scrollbarBox);
-	Resources::Remove(scrollbarBoxOver);
 	Resources::Remove(closeImgData);
 	Resources::Remove(closeImgOverData);
 	Resources::Remove(maximizeImgData);
@@ -284,17 +221,20 @@ void TextEditor::SetText(const wchar_t *intext)
     TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
 }
 
-void TextEditor::DisableTriggerUpdate(bool set)
+void TextEditor::SetTriggerUpdate(bool set)
 {
     LOCK(this);
-	triggerdisabled = set;
+	triggerupdate = set;
 }
 
 void TextEditor::WriteTextFile(const char * path)
 {
     FILE * f = fopen(path, "wb");
     if(!f)
+    {
+        ShowError(tr("Cannot write to the file."));
         return;
+    }
 
     std::string FullText = MainFileTxt->GetUTF8String();
 
@@ -309,9 +249,6 @@ void TextEditor::ResetState()
 	state = STATE_DEFAULT;
 	stateChan = -1;
 
-	arrowUpBtn->ResetState();
-	arrowDownBtn->ResetState();
-	scrollbarBoxBtn->ResetState();
 	maximizeBtn->ResetState();
 	minimizeBtn->ResetState();
 	closeBtn->ResetState();
@@ -321,12 +258,12 @@ int TextEditor::GetState()
 {
     if(LineEditing)
     {
-        DisableTriggerUpdate(true);
+        SetTriggerUpdate(false);
         if(TextPointerBtn->EditLine() > 0)
         {
             FileEdited = true;
         }
-        DisableTriggerUpdate(false);
+        SetTriggerUpdate(true);
 
         MainWindow::Instance()->SetState(STATE_DISABLED);
         MainWindow::Instance()->SetDim(true);
@@ -354,6 +291,8 @@ int TextEditor::GetState()
             MainWindow::Instance()->SetState(STATE_DISABLED);
             MainWindow::Instance()->SetDim(true);
             MainWindow::Instance()->ChangeFocus(this);
+            this->SetDim(false);
+            this->SetState(STATE_DEFAULT);
         }
     }
 
@@ -375,62 +314,28 @@ void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 
 void TextEditor::OnPointerHeld(GuiElement *sender, int pointer, POINT p)
 {
+    if(!userInput[pointer].wpad->ir.valid)
+        return;
+
     TextPointerBtn->PositionChanged(pointer, p.x, p.y);
 }
 
 void TextEditor::Update(GuiTrigger * t)
 {
-	if(state == STATE_DISABLED || !t || triggerdisabled)
+	if(state == STATE_DISABLED || !t || !triggerupdate)
 		return;
 
-	int position = 0;
-	int positionWiimote = 0;
-
-	arrowUpBtn->Update(t);
-	arrowDownBtn->Update(t);
-	scrollbarBoxBtn->Update(t);
+	scrollbar->Update(t);
 	maximizeBtn->Update(t);
 	closeBtn->Update(t);
 	minimizeBtn->Update(t);
 	TextPointerBtn->Update(t);
 	PlusBtn->Update(t);
 
-	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
-		scrollbarBoxBtn->GetStateChan() == t->chan &&
-		t->wpad->ir.valid)
-	{
-		scrollbarBoxBtn->SetPosition(-25, 55);
-		positionWiimote = t->wpad->ir.y - 60 - scrollbarBoxBtn->GetTop();
-
-		if(positionWiimote < scrollbarBoxBtn->GetMinY())
-			positionWiimote = scrollbarBoxBtn->GetMinY();
-		else if(positionWiimote > scrollbarBoxBtn->GetMaxY())
-			positionWiimote = scrollbarBoxBtn->GetMaxY();
-
-		int currentPos = (positionWiimote * (filesize-MainFileTxt->GetCharsCount()))/120.0;
-		bool lastline = false;
-		if((u32) currentPos >= filesize-MainFileTxt->GetCharsCount())
-		{
-            currentPos = filesize-MainFileTxt->GetCharsCount();
-            lastline = true;
-		}
-        else if(currentPos < 0)
-            currentPos = 0;
-
-		MainFileTxt->SetTextPos(currentPos);
-
-		if(lastline)
-            MainFileTxt->NextLine();
-	}
-
-	if(arrowDownBtn->GetState() == STATE_HELD && arrowDownBtn->GetStateChan() == t->chan)
-	{
-        MainFileTxt->NextLine();
-	}
-	else if(arrowUpBtn->GetState() == STATE_HELD && arrowUpBtn->GetStateChan() == t->chan)
-	{
-        MainFileTxt->PreviousLine();
-	}
+    if(scrollbar->ListChanged())
+    {
+        MainFileTxt->SetTextLine(scrollbar->GetSelectedItem()+scrollbar->GetSelectedIndex());
+    }
 
 	if(t->Right())
 	{
@@ -451,22 +356,11 @@ void TextEditor::Update(GuiTrigger * t)
         MainFileTxt->PreviousLine();
 	}
 
-	// update the location of the scroll box based on the position in the file list
-	if(positionWiimote > 0)
-	{
-		position = positionWiimote; // follow wiimote cursor
-	}
-	else
-	{
-		position = 120*MainFileTxt->GetCurrPos()/((filesize-MainFileTxt->GetCharsCount())*1.0);
-
-		if(position < 0)
-			position = 0;
-		else if((u32) position >= filesize-MainFileTxt->GetCharsCount())
-			position = 120;
-	}
-
-	scrollbarBoxBtn->SetPosition(-25,position+36+55);
+    scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
+    scrollbar->SetPageSize(linestodraw);
+    scrollbar->SetRowSize(0);
+    scrollbar->SetSelectedItem(0);
+    scrollbar->SetSelectedIndex(MainFileTxt->GetCurrPos());
 
 	if(updateCB)
 		updateCB(this);

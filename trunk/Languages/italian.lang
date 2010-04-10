@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2010-02-25 22:00+0200\n"
 "Last-Translator: Cambo \n"
 "Language-Team: Cambo \n"
@@ -87,14 +87,23 @@ msgstr "Impossibile leggere il file:"
 msgid "Cancel"
 msgstr "Annulla"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr "L'immagine non si può aprire"
 
 msgid "Cannot write to destination."
 msgstr "Impossibile scrivere nella destinazione."
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
 msgstr "Blocco Maiuscole"
+
+msgid "Change"
+msgstr ""
 
 msgid "Change Language Path?"
 msgstr "Modificare Percorso Lingua?"
@@ -119,6 +128,9 @@ msgstr "Dimensione dopo Compressione:"
 
 msgid "Console Default"
 msgstr "Predefinito Console"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr ""
@@ -174,6 +186,9 @@ msgstr "Taglio"
 msgid "Cut current marked item(s)?"
 msgstr "Tagliare gli elementi selezionati?"
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "Elimina"
 
@@ -201,24 +216,21 @@ msgstr "Vuoi caricare:"
 msgid "Do you want to change the font?"
 msgstr ""
 
+msgid "Do you want to download new language files?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Vuoi uscire da WiiXplorer?"
-
-msgid "Do you want to exit to the system menu?"
-msgstr ""
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
-
-msgid "Do you want to load console default language."
-msgstr "Vuoi caricare la lingua predefinita della console ?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Vuoi caricare il file da: %s ?"
+
+msgid "Do you want to load the default language."
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Vuoi caricare questa lingua ?"
@@ -262,8 +274,18 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento ?"
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Sto scaricando il file..."
+
+msgid "Downloading files..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Errore durante lettura file."
@@ -272,6 +294,9 @@ msgid "Error:"
 msgstr "Errore:"
 
 msgid "Exit"
+msgstr ""
+
+msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
@@ -351,6 +376,9 @@ msgstr "Il file è corrotto (errore CRC)"
 
 msgid "File is corrupt."
 msgstr "Il file è corrotto."
+
+msgid "File is too big."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Il file usa un livello di compressione troppo alto (la dimensione del dizionario è eccessiva)."
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr ""
-
 msgid "Loading file:"
 msgstr "Sto caricando il file:"
 
@@ -525,6 +550,9 @@ msgid "New Folder"
 msgstr "Nuova Cartella"
 
 msgid "No"
+msgstr ""
+
+msgid "No files found."
 msgstr ""
 
 msgid "No homebrew in the zip."
@@ -675,6 +703,9 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr "Maiuscole"
 msgid "Show Changelog"
 msgstr "Mostra il Changelog"
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -716,6 +753,18 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Tutto lo staff di DevkitPro & libogc."
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Spazio Complessivo:"
@@ -823,6 +872,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "Vuoi caricare la lingua predefinita dell'applicazione ?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "Vuoi caricare la lingua predefinita della console ?"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "Percorso font modificato"

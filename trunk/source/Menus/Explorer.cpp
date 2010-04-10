@@ -508,7 +508,7 @@ void Explorer::CheckRightClick()
             }
             else if(RightClick_choice >= 0)
             {
-                ProcessArcChoice(ArcBrowser, RightClick_choice, CurBrowser->GetCurrentPath());
+                ProcessArcChoice(ArcBrowser, RightClick_choice, DeviceBrowser->GetCurrentPath());
                 CurBrowser->Refresh();
                 fileBrowser->TriggerUpdate();
             }

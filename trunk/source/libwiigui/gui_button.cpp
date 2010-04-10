@@ -320,6 +320,20 @@ void GuiButton::Update(GuiTrigger * t)
 				{
 					this->SetState(STATE_HELD, t->chan);
 				}
+				else if(held && state == STATE_HELD && stateChan == t->chan)
+				{
+                    POINT p = {0, 0};
+
+                    if (userInput[stateChan].wpad)
+                    {
+                        if (userInput[stateChan].wpad->ir.valid)
+                        {
+                            p.x = userInput[stateChan].wpad->ir.x;
+                            p.y = userInput[stateChan].wpad->ir.y;
+                        }
+                    }
+                    Held(this, stateChan, PtrToControl(p));
+				}
 			}
 		}
 	}

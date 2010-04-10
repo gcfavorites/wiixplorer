@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -87,13 +87,22 @@ msgstr "Datei kann nicht gelesen werden:"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr "Bild konnte nicht geöffnet werden"
 
 msgid "Cannot write to destination."
 msgstr "Zielverzeichnis ist nicht beschreibbar."
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
+msgstr ""
+
+msgid "Change"
 msgstr ""
 
 msgid "Change Language Path?"
@@ -119,6 +128,9 @@ msgstr "Komprimierte Größe:"
 
 msgid "Console Default"
 msgstr "Konsolenstandard"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr "Konvertieren"
@@ -174,6 +186,9 @@ msgstr "Ausschneiden"
 msgid "Cut current marked item(s)?"
 msgstr "Markierte Elemente ausschneiden?"
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "Löschen"
 
@@ -201,24 +216,21 @@ msgstr "Folgendes starten:"
 msgid "Do you want to change the font?"
 msgstr ""
 
+msgid "Do you want to download new language files?"
+msgstr ""
+
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorer beenden?"
-
-msgid "Do you want to exit to the system menu?"
-msgstr "Zum System Menü zurückkehren?"
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr "Standardsprache der Anwendung laden?"
-
-msgid "Do you want to load console default language."
-msgstr "Standardsprache der Konsole laden?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Datei laden von: %s ?"
+
+msgid "Do you want to load the default language."
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
@@ -262,8 +274,18 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr "Jetzt updaten?"
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
+
+msgid "Downloading files..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -273,6 +295,9 @@ msgstr "Fehler:"
 
 msgid "Exit"
 msgstr "Beenden"
+
+msgid "Exit WiiXplorer?"
+msgstr ""
 
 msgid "Explorer Settings"
 msgstr ""
@@ -351,6 +376,9 @@ msgstr "Datei beschädigt (CRC-Fehler)."
 
 msgid "File is corrupt."
 msgstr "Datei ist beschädigt."
+
+msgid "File is too big."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Kompressionseinstellungen der Datei sind zu hoch (Worterbuch ist zu groß)."
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr ""
-
 msgid "Loading file:"
 msgstr "Lade Datei:"
 
@@ -526,6 +551,9 @@ msgstr "Neuer Ordner"
 
 msgid "No"
 msgstr "Nein"
+
+msgid "No files found."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr "Keine Homebrew im ZIP."
@@ -675,6 +703,9 @@ msgstr "Aplha speichern"
 msgid "Screenshot Format"
 msgstr "Bildformat für Screenshots"
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr ""
 msgid "Show Changelog"
 msgstr "Zeige Changelog"
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -716,6 +753,18 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Gesamter Speicher:"
@@ -823,6 +872,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "Standardsprache der Anwendung laden?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "Standardsprache der Konsole laden?"
+
+#~ msgid "Do you want to exit to the system menu?"
+#~ msgstr "Zum System Menü zurückkehren?"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "Pfad zur Schriftart geändert"

@@ -97,7 +97,7 @@ GuiText::GuiText(const wchar_t * t, int s, GXColor c)
 
 	if(t)
 	{
-		text = new wchar_t[wcslen(t)+1];
+		text = new (std::nothrow) wchar_t[wcslen(t)+1];
 		if(!text)
             return;
 

@@ -79,6 +79,15 @@ extern const u32	window_corner_left_png_size;
 extern const u8		window_corner_right_png[];
 extern const u32	window_corner_right_png_size;
 
+extern const u8		ScrollBG_Top_png[];
+extern const u32	ScrollBG_Top_png_size;
+
+extern const u8		ScrollBG_Buttom_png[];
+extern const u32	ScrollBG_Buttom_png_size;
+
+extern const u8		ScrollBG_Tile_png[];
+extern const u32	ScrollBG_Tile_png_size;
+
 extern const u8		button_png[];
 extern const u32	button_png_size;
 
@@ -219,9 +228,6 @@ extern const u32	system_restart_png_size;
 
 extern const u8		refresh_png[];
 extern const u32	refresh_png_size;
-
-extern const u8		scrollbar_png[];
-extern const u32	scrollbar_png_size;
 
 extern const u8		scrollbar_arrowup_png[];
 extern const u32	scrollbar_arrowup_png_size;

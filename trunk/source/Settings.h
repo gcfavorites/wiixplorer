@@ -133,6 +133,8 @@ class Settings
         short	UpdateIconpng;
         //!Clock mode
         short	ClockMode;
+        //!Scrolling speed
+        short	ScrollSpeed;
         //!Browser mode
         short	BrowserMode;
         //!Screenshot image format

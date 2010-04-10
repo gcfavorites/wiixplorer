@@ -57,13 +57,38 @@ void TextViewer(const char *filepath)
         ShowError(tr("Could not load text file."));
         return;
     }
+    else if(filesize > (u32) (4.5*MBSIZE))
+    {
+        free(file);
+        ShowError(tr("File is too big."));
+        return;
+    }
+
+    u8 * tmp = (u8 *) realloc(file, filesize+1);
+    if(!tmp)
+    {
+        free(file);
+        ShowError(tr("Not enough memory."));
+        return;
+    }
+    file = tmp;
+    file[filesize] = '\0';
+    filesize++;
 
     wString * filetext = NULL;
 
     //To check if text is UTF8 or not
     if(utf8Len((char*) file) > 0)
     {
-        filetext = new wString();
+        filetext = new (std::nothrow) wString();
+        if(!filetext)
+        {
+            free(file);
+            file = NULL;
+            ShowError(tr("Not enough memory."));
+            return;
+        }
+
         filetext->fromUTF8((char*) file);
         free(file);
         file = NULL;
@@ -83,8 +108,15 @@ void TextViewer(const char *filepath)
         free(file);
         file = NULL;
 
-        filetext = new wString(tmptext);
+        filetext = new (std::nothrow) wString(tmptext);
         delete [] tmptext;
+        if(!filetext)
+        {
+            free(file);
+            file = NULL;
+            ShowError(tr("Not enough memory."));
+            return;
+        }
     }
 
     TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);

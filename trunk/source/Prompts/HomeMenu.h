@@ -1,4 +1,4 @@
- 
+
 /***************************************************************************
  * Copyright (C) 2010
  * by dude
@@ -57,23 +57,23 @@ class HomeMenu : public GuiWindow
 		GuiImage * BottomBtnImg;
 		GuiImage * BottomBtnOverImg;
 		GuiImage * CloseBtnImg;
-		GuiImage * LoaderBtnImg;
-		GuiImage * MenuBtnImg;
+		GuiImage * ExitBtnImg;
+		GuiImage * ShutdownBtnImg;
 		GuiImage * WiimoteBtnImg;
 		GuiImage * BatteryImg[4];
 		GuiImage * BatteryBarImg[4];
 
 		GuiText * TitleText;
 		GuiText * CloseBtnText;
-		GuiText * LoaderBtnText;
-		GuiText * MenuBtnText;
+		GuiText * ExitBtnText;
+		GuiText * ShutdownBtnText;
 		GuiText * PlayerText[4];
 
 		GuiButton * TopBtn;
 		GuiButton * BottomBtn;
 		GuiButton * CloseBtn;
-		GuiButton * LoaderBtn;
-		GuiButton * MenuBtn;
+		GuiButton * ExitBtn;
+		GuiButton * ShutdownBtn;
 		GuiButton * WiimoteBtn;
 		GuiButton * BatteryBtn[4];
 

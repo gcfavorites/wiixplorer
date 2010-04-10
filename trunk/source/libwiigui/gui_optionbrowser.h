@@ -1,5 +1,6 @@
 #include "gui.h"
 #include "OptionList.hpp"
+#include "Controls/Scrollbar.hpp"
 
 
 //!Display a list of menu options
@@ -12,7 +13,6 @@ class GuiOptionBrowser : public GuiElement
 		int FindMenuItem(int c, int d);
 		int GetClickedOption();
 		void ResetState();
-		void SetFocus(int f);
 		void Draw();
 		void TriggerUpdate();
 		void Update(GuiTrigger * t);
@@ -29,31 +29,13 @@ class GuiOptionBrowser : public GuiElement
 		GuiText * optionTxt[PAGESIZE];
 		GuiImage * optionBg[PAGESIZE];
 
-		GuiButton * arrowUpBtn;
-		GuiButton * arrowDownBtn;
-		GuiButton * scrollbarBoxBtn;
+        Scrollbar * scrollbar;
 
 		GuiImage * bgOptionsImg;
-		GuiImage * scrollbarImg;
-		GuiImage * arrowDownImg;
-		GuiImage * arrowDownOverImg;
-		GuiImage * arrowUpImg;
-		GuiImage * arrowUpOverImg;
-		GuiImage * scrollbarBoxImg;
-		GuiImage * scrollbarBoxOverImg;
 
 		GuiImageData * bgOptions;
 		GuiImageData * bgOptionsEntry;
-		GuiImageData * scrollbar;
-		GuiImageData * arrowDown;
-		GuiImageData * arrowDownOver;
-		GuiImageData * arrowUp;
-		GuiImageData * arrowUpOver;
-		GuiImageData * scrollbarBox;
-		GuiImageData * scrollbarBoxOver;
 
-		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 		GuiTrigger * trigA;
-		GuiTrigger * trigHeldA;
 };

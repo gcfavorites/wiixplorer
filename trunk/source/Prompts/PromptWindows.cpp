@@ -209,6 +209,32 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 }
 
 /****************************************************************************
+* NetworkInitPrompt
+***************************************************************************/
+bool NetworkInitPrompt()
+{
+    if(IsNetworkInit())
+        return true;
+
+    PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."));
+    MainWindow::Instance()->Append(Prompt);
+
+    if(Settings.AutoConnect == off)
+        Initialize_Network();
+
+    delete Prompt;
+    Prompt = NULL;
+
+    if(!IsNetworkInit())
+    {
+        ShowError(tr("No network connection."));
+        return false;
+    }
+
+    return true;
+}
+
+/****************************************************************************
 * WindowPrompt
 *
 * Shortcut function

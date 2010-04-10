@@ -5,9 +5,9 @@ Text::Text(const char * t, int s, GXColor c)
 {
     maxWidth = 400;
     linestodraw = 9;
-    curCharsCount = 0;
     curLinesCount = 0;
     curLineStart = 0;
+    FirstLineOffset = 0;
     wText = NULL;
 
     if(origText)
@@ -17,7 +17,13 @@ Text::Text(const char * t, int s, GXColor c)
     if(!text)
         return;
 
-    wText = new wString(text);
+    wText = new (std::nothrow) wString(text);
+    if(!wText)
+    {
+        ShowError(tr("Not enough memory."));
+        return;
+    }
+
     textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
     delete [] text;
     text = NULL;
@@ -26,22 +32,30 @@ Text::Text(const char * t, int s, GXColor c)
 }
 
 Text::Text(const wchar_t * t, int s, GXColor c)
-    : GuiText(t, s, c)
+    : GuiText((wchar_t *) NULL, s, c)
 {
     maxWidth = 400;
     linestodraw = 9;
-    curCharsCount = 0;
     curLinesCount = 0;
     curLineStart = 0;
+    FirstLineOffset = 0;
     wText = NULL;
 
     if(!t)
         return;
 
-    wText = new wString(text);
+    wText = new (std::nothrow) wString(t);
+    if(!wText)
+    {
+        ShowError(tr("Not enough memory."));
+        return;
+    }
+
+    if(!fontSystem[currentSize])
+    {
+        fontSystem[currentSize] = new FreeTypeGX(currentSize);
+    }
     textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
-    delete [] text;
-    text = NULL;
 
     SetMaxWidth(400);
 }
@@ -57,8 +71,8 @@ Text::~Text()
 	    if(textDynRow[i])
             delete [] textDynRow[i];
         textDynRow[i] = NULL;
-        LineOffset[i] = -1;
 	}
+    TextLines.clear();
 }
 
 void Text::SetText(const char * t)
@@ -74,6 +88,7 @@ void Text::SetText(const char * t)
     textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
 
     delete [] tmp;
+    CalcLineOffsets();
 }
 
 void Text::SetText(const wchar_t * t)
@@ -86,15 +101,27 @@ void Text::SetText(const wchar_t * t)
 
     wText = new wString(t);
     textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
+    CalcLineOffsets();
 }
 
 void Text::SetMaxWidth(int w)
 {
     maxWidth = w;
-    curCharsCount = 0;
     curLinesCount = 0;
     curLineStart = 0;
     Refresh();
+}
+
+void Text::SetTextLine(int line)
+{
+    curLineStart = cut_bounds(line, 0, TextLines.size()-1);
+
+    FillRows();
+
+    while(curLinesCount+1 <= linestodraw && curLineStart > 0)
+    {
+        PreviousLine();
+    }
 }
 
 void Text::SetTextPos(int pos)
@@ -102,18 +129,21 @@ void Text::SetTextPos(int pos)
     if(!wText)
         return;
 
-    int position = wText->find_last_of('\n', pos);
-    if(position < 0)
-        position = 0;
+    int diff = 10000;
 
-    curLineStart = position;
-
-    if(curLineStart != 0)
-        curLineStart++;
+    for(u32 i = 0; i < TextLines.size(); i++)
+    {
+        int curDiff = abs(TextLines[i].LineOffset - pos);
+        if(curDiff < diff)
+        {
+            diff = curDiff;
+            curLineStart = i;
+        }
+    }
 
     FillRows();
 
-    while(curLinesCount+1 < linestodraw && curLinesCount > 0)
+    while(curLinesCount+1 <= linestodraw && curLineStart > 0)
     {
         PreviousLine();
     }
@@ -132,12 +162,11 @@ std::string Text::GetUTF8String(void) const
 int Text::GetLineOffset(int ind)
 {
     if(ind < 0)
-        return LineOffset[0];
+        return TextLines[0].LineOffset;
+    if(ind >= (int) TextLines.size()-1)
+        return TextLines[TextLines.size()-1].LineOffset;
 
-    if(ind >= curLinesCount)
-        return LineOffset[curLinesCount-1];
-
-    return LineOffset[ind];
+    return TextLines[ind].LineOffset;
 }
 
 const wchar_t * Text::GetTextLine(int ind)
@@ -156,45 +185,26 @@ const wchar_t * Text::GetTextLine(int ind)
 
 void Text::Refresh()
 {
+    CalcLineOffsets();
     FillRows();
 }
 
 void Text::NextLine()
 {
-    if(!wText || curLinesCount < linestodraw)
+    if(!wText || (curLineStart+1 > ((int) TextLines.size())-linestodraw))
         return;
 
-    int position = wText->find_first_of('\n', curLineStart);
-
-    if(position < 0)
-        PreviousLine();
-
-    curLineStart = position;
-
-    if(curLineStart != 0)
-        curLineStart++;
+    ++curLineStart;
 
     FillRows();
-
-    if(curLinesCount+1 < linestodraw)
-        PreviousLine();
 }
 
 void Text::PreviousLine()
 {
-    if(!wText)
+    if(!wText || curLineStart-1 < 0)
         return;
 
-    if(curLineStart-2 < 0)
-        curLineStart = 0;
-    else
-        curLineStart = wText->find_last_of('\n', curLineStart-2);
-
-    if(curLineStart < 0)
-        curLineStart = 0;
-
-    if(curLineStart != 0)
-        curLineStart++;
+    --curLineStart;
 
     FillRows();
 }
@@ -208,48 +218,77 @@ void Text::FillRows()
 
     ClearRows();
 
-    int linenum = 0;
-    curCharsCount = 0;
+    curLinesCount = 0;
 
-    const wchar_t * origTxt = wText->data();
-    int ch = curLineStart;
+    for(int i = 0; (i <= linestodraw) && (curLineStart+i < (int) TextLines.size()); i++)
+    {
+        if(!textDynRow[i])
+        {
+            textDynRow[i] = new wchar_t[maxWidth];
+        }
+        u32 offset = TextLines[curLineStart+i].LineOffset;
+        u32 count = TextLines[curLineStart+i].CharCount;
+
+        const wchar_t * ptrSrc = (wText->substr(offset, count)).c_str();
+        for(u32 n = 0; n < count; n++)
+            textDynRow[i][n] = *ptrSrc++;
+
+        textDynRow[i][count] = '\0';
+
+        curLinesCount++;
+    }
+
+    filling = false;
+
+    return;
+}
+
+void Text::CalcLineOffsets()
+{
+    if(!wText)
+        return;
+
+    TextLines.clear();
+
+    TextLine TmpLine;
+    TmpLine.CharCount = 0;
+    TmpLine.LineOffset = 0;
+    TmpLine.width = 0;
+
+    const wchar_t * origTxt = wText->c_str();
+    int ch = 0;
     int lastSpace = -1;
     int lastSpaceIndex = -1;
     int currWidth = 0;
-    LineOffset[0] = ch;
     int i = 0;
 
     while(origTxt[ch])
     {
-        if(!textDynRow[linenum])
-        {
-            textDynRow[linenum] = new wchar_t[maxWidth];
-        }
-        textDynRow[linenum][i] = origTxt[ch];
-        textDynRow[linenum][i+1] = 0;
-
         currWidth += fontSystem[currentSize]->getCharWidth(origTxt[ch]);
 
         if(currWidth >= maxWidth)
         {
             if(lastSpace > 0)
             {
-                textDynRow[linenum][lastSpaceIndex] = 0;
                 ch = lastSpace;
             }
+            TmpLine.CharCount = ch-TmpLine.LineOffset;
+            TmpLine.width = currWidth;
+            TextLines.push_back(TmpLine);
             currWidth = 0;
             lastSpace = -1;
             i = -1;
-            linenum++;
-            LineOffset[linenum] = ch+1;
+            TmpLine.LineOffset = ch+1;
         }
         else if(origTxt[ch] == '\n')
         {
+            TmpLine.CharCount = ch-TmpLine.LineOffset;
+            TmpLine.width = currWidth;
+            TextLines.push_back(TmpLine);
             currWidth = 0;
             lastSpace = -1;
             i = -1;
-            linenum++;
-            LineOffset[linenum] = ch+1;
+            TmpLine.LineOffset = ch+1;
         }
         else if(origTxt[ch] == ' ')
         {
@@ -257,23 +296,13 @@ void Text::FillRows()
             lastSpaceIndex = i;
         }
 
-        if(linenum >= linestodraw)
-            break;
-
-        curCharsCount++;
         ch++;
         i++;
     }
 
-    if(origTxt[ch] == 0)
-    {
-        linenum++;
-        LineOffset[linenum] = ch+1;
-    }
-
-    filling = false;
-
-	curLinesCount = linenum;
+    TmpLine.CharCount = ch-TmpLine.LineOffset;
+    TmpLine.width = currWidth;
+    TextLines.push_back(TmpLine);
 }
 
 void Text::ClearRows()
@@ -284,7 +313,6 @@ void Text::ClearRows()
 	    {
 	        memset(textDynRow[i], 0, maxWidth);
 	    }
-        LineOffset[i] = -1;
 	}
 
 }
@@ -319,7 +347,7 @@ void Text::Draw()
 		currentSize = newSize;
 	}
 
-    int lineheight = newSize + 6;
+    u16 lineheight = newSize + 6;
 
     for(int i = 0; i < linestodraw; i++)
     {

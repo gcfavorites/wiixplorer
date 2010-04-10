@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 02:21+0200\n"
+"POT-Creation-Date: 2010-04-10 15:59+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller\n"
 "Language-Team: \n"
@@ -87,14 +87,23 @@ msgstr "無法讀取文件"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Cannot create directory: "
+msgstr ""
+
 msgid "Cannot open image"
 msgstr "圖片無法開啟"
 
 msgid "Cannot write to destination."
 msgstr "無法寫入目的地"
 
+msgid "Cannot write to the file."
+msgstr ""
+
 msgid "Caps"
 msgstr "Caps鍵"
+
+msgid "Change"
+msgstr ""
 
 msgid "Change Language Path?"
 msgstr "變更語系路徑？"
@@ -119,6 +128,9 @@ msgstr "壓縮大小"
 
 msgid "Console Default"
 msgstr "主機預設值"
+
+msgid "Continue"
+msgstr ""
 
 msgid "Convert"
 msgstr ""
@@ -174,6 +186,9 @@ msgstr "剪下"
 msgid "Cut current marked item(s)?"
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Delete"
 msgstr "刪除"
 
@@ -201,23 +216,20 @@ msgstr "是否啟動:"
 msgid "Do you want to change the font?"
 msgstr ""
 
-msgid "Do you want to exit WiiXplorer?"
+msgid "Do you want to download new language files?"
 msgstr ""
 
-msgid "Do you want to exit to the system menu?"
+msgid "Do you want to exit WiiXplorer?"
 msgstr ""
 
 msgid "Do you want to launch file with MPlayerCE?"
 msgstr ""
 
-msgid "Do you want to load app default language ?"
-msgstr "是否載入程式預設語言 ?"
-
-msgid "Do you want to load console default language."
-msgstr "是否載入控制台預設語言 ?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
+msgstr ""
+
+msgid "Do you want to load the default language."
 msgstr ""
 
 msgid "Do you want to load this language ?"
@@ -262,8 +274,18 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr "是否要立即更新？"
 
+msgid "Download Files"
+msgstr ""
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr ""
+
 msgid "Downloading file..."
 msgstr "下載檔案..."
+
+msgid "Downloading files..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
@@ -272,6 +294,9 @@ msgid "Error:"
 msgstr "錯誤:"
 
 msgid "Exit"
+msgstr ""
+
+msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
@@ -351,6 +376,9 @@ msgstr "檔案已損壞（CRC不相同）"
 
 msgid "File is corrupt."
 msgstr "檔案已損壞"
+
+msgid "File is too big."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "檔案使用過高的壓縮設定（字典大小太大）"
@@ -476,9 +504,6 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
-msgid "Loader"
-msgstr ""
-
 msgid "Loading file:"
 msgstr "正在載入檔案:"
 
@@ -526,6 +551,9 @@ msgstr "新資料夾"
 
 msgid "No"
 msgstr "否"
+
+msgid "No files found."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr ""
@@ -675,6 +703,9 @@ msgstr ""
 msgid "Screenshot Format"
 msgstr ""
 
+msgid "Scrolling Speed"
+msgstr ""
+
 msgid "Server was shutdown...\n"
 msgstr ""
 
@@ -687,7 +718,13 @@ msgstr "Shift鍵"
 msgid "Show Changelog"
 msgstr "顯示更新日誌"
 
+msgid "Shutdown"
+msgstr ""
+
 msgid "Shutdown FTP"
+msgstr ""
+
+msgid "Shutdown the Wii?"
 msgstr ""
 
 msgid "Size:"
@@ -716,6 +753,18 @@ msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
+
+msgid "To Idle"
+msgstr ""
+
+msgid "To Loader"
+msgstr ""
+
+msgid "To Menu"
+msgstr ""
+
+msgid "To Standby"
+msgstr ""
 
 msgid "Total Space:"
 msgstr ""
@@ -823,6 +872,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "是否載入程式預設語言 ?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "是否載入控制台預設語言 ?"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "字型路徑已變更"
