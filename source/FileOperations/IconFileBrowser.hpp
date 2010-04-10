@@ -26,6 +26,7 @@
 #ifndef __ICONBROWSER_HPP_
 #define __ICONBROWSER_HPP_
 
+#include "Controls/Scrollbar.hpp"
 #include "GuiFileBrowser.hpp"
 
 using namespace std;
@@ -60,17 +61,7 @@ class IconFileBrowser : public GuiFileBrowser
 		vector<GuiImage *> ButtonImg;
 		vector<GuiButton *> Buttons;
 
-		GuiButton * arrowUpBtn;
-		GuiButton * arrowDownBtn;
-		GuiButton * scrollbarBoxBtn;
-
-		GuiImage * scrollbarImg;
-		GuiImage * arrowDownImg;
-		GuiImage * arrowDownOverImg;
-		GuiImage * arrowUpImg;
-		GuiImage * arrowUpOverImg;
-		GuiImage * scrollbarBoxImg;
-		GuiImage * scrollbarBoxOverImg;
+		Scrollbar * scrollbar;
 
 		GuiImageData * bgFileSelection;
         GuiImageData * fileArchives;
@@ -82,19 +73,11 @@ class IconFileBrowser : public GuiFileBrowser
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
         GuiImageData * fileVID;
-		GuiImageData * scrollbar;
-		GuiImageData * arrowDown;
-		GuiImageData * arrowDownOver;
-		GuiImageData * arrowUp;
-		GuiImageData * arrowUpOver;
-		GuiImageData * scrollbarBox;
-		GuiImageData * scrollbarBoxOver;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 
 		GuiTrigger * trigA;
-		GuiTrigger * trigHeldA;
 };
 
 #endif

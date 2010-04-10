@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,34 +23,53 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <unistd.h>
-#include "libftp/FTPServerMenu.h"
-#include "Controls/MainWindow.h"
-#include "network/networkops.h"
+#include <gctypes.h>
 #include "Prompts/PromptWindows.h"
+#include "network/networkops.h"
+#include "Controls/MainWindow.h"
+#include "Controls/Taskbar.h"
+#include "Explorer.h"
 #include "menu.h"
+#include "sys.h"
 
-int MenuFTPServer()
+static bool firsttimestart = true;
+extern int curDevice;
+
+int MenuBrowseDevice()
 {
-    int menu = MENU_NONE;
+    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 && !IsNetworkInit())
+    {
+        if(WaitSMBConnect() < 2)
+            ShowError(tr("Could not connect to the network"));
+        firsttimestart = false;
+    }
 
-    if(!NetworkInitPrompt())
-        return MENU_BROWSE_DEVICE;
+	int menu = MENU_NONE;
 
-    FTPServerMenu * FTPMenu = new FTPServerMenu();
-    FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    FTPMenu->SetPosition(0, 30);
+    Explorer * Explorer_1 = new Explorer(curDevice);
 
-    MainWindow::Instance()->Append(FTPMenu);
+    MainWindow::Instance()->Append(Explorer_1);
+    ResumeGui();
 
     while(menu == MENU_NONE)
     {
-        usleep(100);
+	    usleep(THREAD_SLEEP);
 
-        menu = FTPMenu->GetMenu();
+        if(shutdown)
+            Sys_Shutdown();
+
+        else if(reset)
+            Sys_Reboot();
+
+        menu = Explorer_1->GetMenuChoice();
+
+        if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+			menu = Taskbar::Instance()->GetMenu();
     }
 
-    delete FTPMenu;
+    delete Explorer_1;
+    Explorer_1 = NULL;
+	ResumeGui();
 
 	return menu;
 }

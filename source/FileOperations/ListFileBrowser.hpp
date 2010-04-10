@@ -29,6 +29,7 @@
 #define __LISTBROWSER_HPP_
 
 #include "GuiFileBrowser.hpp"
+#include "Controls/Scrollbar.hpp"
 
 //!Display a list of files
 class ListFileBrowser : public GuiFileBrowser
@@ -63,18 +64,7 @@ class ListFileBrowser : public GuiFileBrowser
 		GuiImage * fileListVID[PAGESIZE];
 		GuiButton * fileList[PAGESIZE];
 
-		GuiButton * arrowUpBtn;
-		GuiButton * arrowDownBtn;
-		GuiButton * scrollbarBoxBtn;
-
-		GuiImage * bgFileSelectionImg;
-		GuiImage * scrollbarImg;
-		GuiImage * arrowDownImg;
-		GuiImage * arrowDownOverImg;
-		GuiImage * arrowUpImg;
-		GuiImage * arrowUpOverImg;
-		GuiImage * scrollbarBoxImg;
-		GuiImage * scrollbarBoxOverImg;
+		Scrollbar * scrollbar;
 
 		GuiImageData * bgFileSelectionEntry;
         GuiImageData * fileArchives;
@@ -86,18 +76,10 @@ class ListFileBrowser : public GuiFileBrowser
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
         GuiImageData * fileVID;
-		GuiImageData * scrollbar;
-		GuiImageData * arrowDown;
-		GuiImageData * arrowDownOver;
-		GuiImageData * arrowUp;
-		GuiImageData * arrowUpOver;
-		GuiImageData * scrollbarBox;
-		GuiImageData * scrollbarBoxOver;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 		GuiTrigger * trigA;
-		GuiTrigger * trigHeldA;
 };
 
 #endif

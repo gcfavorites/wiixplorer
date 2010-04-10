@@ -39,8 +39,8 @@ HomeMenu::HomeMenu()
 	BottomBtnImg = new GuiImage(BottomBtnImgData);
 	BottomBtnOverImg = new GuiImage(BottomBtnOverImgData);
 	CloseBtnImg = new GuiImage(CloseBtnImgData);
-	LoaderBtnImg = new GuiImage(StandardBtnImgData);
-	MenuBtnImg = new GuiImage(StandardBtnImgData);
+	ExitBtnImg = new GuiImage(StandardBtnImgData);
+	ShutdownBtnImg = new GuiImage(StandardBtnImgData);
 	WiimoteBtnImg = new GuiImage(WiimoteBtnImgData);
 
 	TitleText = new GuiText(tr("Home Menu"), 40, (GXColor) {255, 255, 255, 255});
@@ -78,33 +78,33 @@ HomeMenu::HomeMenu()
 	CloseBtn->SetLabel(CloseBtnText);
 	CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
-	LoaderBtnText = new GuiText(tr("Loader"), 28, (GXColor) {0, 0, 0, 255});
+	ExitBtnText = new GuiText(tr("Menu"), 28, (GXColor) {0, 0, 0, 255});
 
-	LoaderBtn = new GuiButton(LoaderBtnImg->GetWidth(), LoaderBtnImg->GetHeight());
-	LoaderBtn->SetImage(LoaderBtnImg);
-	LoaderBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	LoaderBtn->SetPosition(-140, 0);
-	LoaderBtn->SetLabel(LoaderBtnText);
-	LoaderBtn->SetSoundClick(ButtonClickSnd);
-	LoaderBtn->SetSoundOver(ButtonOverSnd);
-	LoaderBtn->SetTrigger(trigA);
-	LoaderBtn->SetClickable(true);
-	LoaderBtn->SetEffectGrow();
-	LoaderBtn->SetEffect(EFFECT_FADE, 50);
+	ExitBtn = new GuiButton(ExitBtnImg->GetWidth(), ExitBtnImg->GetHeight());
+	ExitBtn->SetImage(ExitBtnImg);
+	ExitBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	ExitBtn->SetPosition(-140, 0);
+	ExitBtn->SetLabel(ExitBtnText);
+	ExitBtn->SetSoundClick(ButtonClickSnd);
+	ExitBtn->SetSoundOver(ButtonOverSnd);
+	ExitBtn->SetTrigger(trigA);
+	ExitBtn->SetClickable(true);
+	ExitBtn->SetEffectGrow();
+	ExitBtn->SetEffect(EFFECT_FADE, 50);
 
-	MenuBtnText = new GuiText(tr("Menu"), 28, (GXColor) {0, 0, 0, 255});
+	ShutdownBtnText = new GuiText(tr("Shutdown"), 28, (GXColor) {0, 0, 0, 255});
 
-	MenuBtn = new GuiButton(MenuBtnImg->GetWidth(), MenuBtnImg->GetHeight());
-	MenuBtn->SetImage(MenuBtnImg);
-	MenuBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	MenuBtn->SetPosition(140, 0);
-	MenuBtn->SetLabel(MenuBtnText);
-	MenuBtn->SetSoundClick(ButtonClickSnd);
-	MenuBtn->SetSoundOver(ButtonOverSnd);
-	MenuBtn->SetClickable(true);
-	MenuBtn->SetTrigger(trigA);
-	MenuBtn->SetEffectGrow();
-	MenuBtn->SetEffect(EFFECT_FADE, 50);
+	ShutdownBtn = new GuiButton(ShutdownBtnImg->GetWidth(), ShutdownBtnImg->GetHeight());
+	ShutdownBtn->SetImage(ShutdownBtnImg);
+	ShutdownBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	ShutdownBtn->SetPosition(140, 0);
+	ShutdownBtn->SetLabel(ShutdownBtnText);
+	ShutdownBtn->SetSoundClick(ButtonClickSnd);
+	ShutdownBtn->SetSoundOver(ButtonOverSnd);
+	ShutdownBtn->SetClickable(true);
+	ShutdownBtn->SetTrigger(trigA);
+	ShutdownBtn->SetEffectGrow();
+	ShutdownBtn->SetEffect(EFFECT_FADE, 50);
 
 	WiimoteBtn = new GuiButton(WiimoteBtnImg->GetWidth(), WiimoteBtnImg->GetHeight());
 	WiimoteBtn->SetImage(WiimoteBtnImg);
@@ -116,8 +116,8 @@ HomeMenu::HomeMenu()
 	Append(BottomBtn);
 	Append(TopBtn);
 	Append(CloseBtn);
-	Append(LoaderBtn);
-	Append(MenuBtn);
+	Append(ExitBtn);
+	Append(ShutdownBtn);
 	Append(WiimoteBtn);
 
 	for (int i = 0; i < 4; i++)
@@ -166,8 +166,8 @@ HomeMenu::~HomeMenu()
 	RemoveAll();
 
 	delete WiimoteBtn;
-	delete MenuBtn;
-	delete LoaderBtn;
+	delete ShutdownBtn;
+	delete ExitBtn;
 	delete CloseBtn;
 	delete TopBtn;
 	delete BottomBtn;
@@ -177,8 +177,8 @@ HomeMenu::~HomeMenu()
 	delete BottomBtnImg;
 	delete BottomBtnOverImg;
 	delete CloseBtnImg;
-	delete LoaderBtnImg;
-	delete MenuBtnImg;
+	delete ExitBtnImg;
+	delete ShutdownBtnImg;
 	delete WiimoteBtnImg;
 
 	delete TopBtnImgData;
@@ -192,8 +192,8 @@ HomeMenu::~HomeMenu()
 	delete BatteryBarImgData;
 
 	delete TitleText;
-	delete MenuBtnText;
-	delete LoaderBtnText;
+	delete ShutdownBtnText;
+	delete ExitBtnText;
 	delete CloseBtnText;
 
 	for (int i = 0; i < 4; i++)
@@ -221,8 +221,8 @@ void HomeMenu::FadeOut()
 	TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 	TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 	CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	LoaderBtn->SetEffect(EFFECT_FADE, -50);
-	MenuBtn->SetEffect(EFFECT_FADE, -50);
+	ExitBtn->SetEffect(EFFECT_FADE, -50);
+	ShutdownBtn->SetEffect(EFFECT_FADE, -50);
 	BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 	WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 
@@ -266,25 +266,38 @@ int HomeMenu::GetChoice()
 		FadeOut();
 		choice = 0; // return to WiiXplorer
 	}
-	else if (LoaderBtn->GetState() == STATE_CLICKED)
+	else if (ExitBtn->GetState() == STATE_CLICKED)
 	{
-		LoaderBtn->ResetState();
+		ExitBtn->ResetState();
 
 		this->SetState(STATE_DISABLED);
-		if (WindowPrompt(tr("Do you want to exit WiiXplorer?"), 0, tr("Yes"), tr("Cancel"), 0, 0, false))
+		int ret = WindowPrompt(tr("Exit WiiXplorer?"), 0, tr("To Loader"), tr("To Menu"), tr("Cancel"), 0, false);
+		if (ret == 1)
 		{
 			Sys_BackToLoader();
 		}
+		else if(ret == 2)
+		{
+		    Sys_LoadMenu();
+		}
 		this->SetState(STATE_DEFAULT);
 	}
-	else if (MenuBtn->GetState() == STATE_CLICKED)
+	else if (ShutdownBtn->GetState() == STATE_CLICKED)
 	{
-		MenuBtn->ResetState();
-
+		ShutdownBtn->ResetState();
 		this->SetState(STATE_DISABLED);
-		if (WindowPrompt(tr("Do you want to exit to the system menu?"), 0, tr("Yes"), tr("Cancel"), 0, 0, false))
+		int ret = WindowPrompt(tr("Shutdown the Wii?"), 0, tr("Default"), tr("To Standby"), tr("To Idle"), tr("Cancel"), false);
+		if (ret == 1)
 		{
-			Sys_LoadMenu();
+		    Sys_Shutdown();
+		}
+		else if (ret == 2)
+		{
+		    Sys_ShutdownToStandby();
+		}
+		else if(ret == 3)
+		{
+		    Sys_ShutdownToIdle();
 		}
 		this->SetState(STATE_DEFAULT);
 	}

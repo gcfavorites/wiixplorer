@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,34 +23,9 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <unistd.h>
-#include "libftp/FTPServerMenu.h"
-#include "Controls/MainWindow.h"
-#include "network/networkops.h"
-#include "Prompts/PromptWindows.h"
-#include "menu.h"
+#ifndef LANGUAGEUPDATER_H_
+#define LANGUAGEUPDATER_H_
 
-int MenuFTPServer()
-{
-    int menu = MENU_NONE;
+int UpdateLanguageFiles();
 
-    if(!NetworkInitPrompt())
-        return MENU_BROWSE_DEVICE;
-
-    FTPServerMenu * FTPMenu = new FTPServerMenu();
-    FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    FTPMenu->SetPosition(0, 30);
-
-    MainWindow::Instance()->Append(FTPMenu);
-
-    while(menu == MENU_NONE)
-    {
-        usleep(100);
-
-        menu = FTPMenu->GetMenu();
-    }
-
-    delete FTPMenu;
-
-	return menu;
-}
+#endif

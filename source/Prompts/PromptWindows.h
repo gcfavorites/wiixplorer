@@ -37,6 +37,7 @@ int WindowPrompt(const char *title, const char *msg = NULL, const char *btn1Labe
                     const char *btn2Label = NULL, const char *btn3Label = NULL,
                     const char *btn4Label = NULL, bool resetstate = true);
 int WaitSMBConnect(void);
+bool NetworkInitPrompt();
 void ShowCredits(CreditWindow *& Credits);
 
 #endif

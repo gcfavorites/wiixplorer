@@ -215,20 +215,18 @@ int TextPointer::EditLine()
     if(currentline < 0)
         PositionChanged(0, 0, 0);
 
-    const wchar_t * origText = TextPtr->GetText();
-    if(!origText)
+    wString * wText = ((Text *) TextPtr)->GetwString();
+    if(!wText)
         return -1;
 
     const wchar_t * lineText = TextPtr->GetTextLine(currentline);
-    if(!origText)
+    if(!lineText)
         return -1;
-
-    wString wText(origText);
 
     wchar_t temptxt[150];
     memset(temptxt, 0, sizeof(temptxt));
 
-    LineOffset = ((Text *) TextPtr)->GetLineOffset(currentline);
+    LineOffset = ((Text *) TextPtr)->GetLineOffset(currentline+((Text *) TextPtr)->GetCurrPos());
 
     wcsncpy(temptxt, lineText, LetterNumInLine);
     temptxt[LetterNumInLine] = 0;
@@ -236,10 +234,8 @@ int TextPointer::EditLine()
     int result = OnScreenKeyboard(temptxt, 150);
     if(result == 1)
     {
-        wText.replace(LineOffset, LetterNumInLine, temptxt);
-        TextPtr->SetText(wText.c_str());
+        wText->replace(LineOffset, LetterNumInLine, temptxt);
         ((Text *) TextPtr)->Refresh();
-        PositionChanged(0, Position_X, Position_Y);
         return 1;
     }
 

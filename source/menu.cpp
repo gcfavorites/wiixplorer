@@ -26,7 +26,7 @@
  *
  * menu.cpp
  * Menu flow routines - handles all menu logic
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 #include <gccore.h>
 #include <ogcsys.h>
@@ -36,28 +36,20 @@
 #include <string.h>
 #include <time.h>
 
-#include "libwiigui/gui.h"
 #include "SoundOperations/gui_bgm.h"
 #include "Controls/Clipboard.h"
-#include "network/ChangeLog.h"
-#include "Menus/Explorer.h"
-#include "Menus/menu_settings.h"
-#include "Menus/menu_ftpserver.h"
-#include "menu.h"
-#include "main.h"
-#include "input.h"
-#include "filelist.h"
-#include "Prompts/PromptWindows.h"
-#include "network/networkops.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
+#include "Language/LanguageBrowser.h"
+#include "Menus/menu_ftpserver.h"
+#include "Menus/menu_settings.h"
+#include "Menus/menu_browsedevice.h"
+#include "menu.h"
 #include "sys.h"
 
 bool boothomebrew = false;
 int curDevice = 0;
-
-static bool firsttimestart = true;
 
 /****************************************************************************
  * ResumeGui
@@ -85,48 +77,6 @@ void HaltGui()
 }
 
 /****************************************************************************
- * MenuBrowseDevice
- ***************************************************************************/
-static int MenuBrowseDevice()
-{
-    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 && !IsNetworkInit())
-    {
-        if(WaitSMBConnect() < 2)
-            ShowError(tr("Could not connect to the network"));
-        firsttimestart = false;
-    }
-
-	int menu = MENU_NONE;
-
-    Explorer * Explorer_1 = new Explorer(curDevice);
-
-    MainWindow::Instance()->Append(Explorer_1);
-    ResumeGui();
-
-    while(menu == MENU_NONE)
-    {
-	    usleep(THREAD_SLEEP);
-
-        if(shutdown == 1)
-            Sys_Shutdown();
-
-        else if(reset == 1)
-            Sys_Reboot();
-
-        menu = Explorer_1->GetMenuChoice();
-
-        if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-			menu = Taskbar::Instance()->GetMenu();
-    }
-
-    delete Explorer_1;
-    Explorer_1 = NULL;
-	ResumeGui();
-
-	return menu;
-}
-
-/****************************************************************************
  * MainMenu
  ***************************************************************************/
 void MainMenu(int menu)
@@ -139,24 +89,51 @@ void MainMenu(int menu)
 	{
 	    Taskbar::Instance()->ResetState();
 
-		switch (currentMenu)
-		{
-			case MENU_BROWSE_DEVICE:
-				currentMenu = MenuBrowseDevice();
-				break;
-			case MENU_SETTINGS:
-				currentMenu = MenuSettings();
-				break;
-			case MENU_NETWORK_SETTINGS:
-				currentMenu = MenuNetworkSettings();
-				break;
-			case MENU_FTP:
-				currentMenu = MenuFTPServer();
-				break;
-			default: // unrecognized menu
-				currentMenu = MenuBrowseDevice();
-				break;
-		}
+        switch(currentMenu)
+        {
+            case MENU_BROWSE_DEVICE:
+                currentMenu = MenuBrowseDevice();
+                break;
+            case MENU_SETTINGS:
+                currentMenu = MenuSettings();
+                break;
+            case MENU_LANGUAGE_BROWSE:
+                currentMenu = LanguageBrowser();
+                break;
+            case MENU_NETWORK_SETTINGS:
+                currentMenu = MenuNetworkSettings();
+                break;
+            case MENU_FTP:
+                currentMenu = MenuFTPServer();
+                break;
+            case MENU_EXPLORER_SETTINGS:
+                currentMenu = MenuExplorerSettings();
+                break;
+            case MENU_IMAGE_SETTINGS:
+                currentMenu = MenuImageSettings();
+                break;
+            case MENU_SOUND_SETTINGS:
+                currentMenu = MenuSoundSettings();
+                break;
+            case MENU_BOOT_SETTINGS:
+                currentMenu = MenuBootSettings();
+                break;
+            case MENU_PATH_SETUP:
+                currentMenu = MenuPathSetup();
+                break;
+            case MENU_SMB_SETTINGS:
+                currentMenu = MenuSMBSettings();
+                break;
+            case MENU_FTPCLIENT_SETTINGS:
+                currentMenu = MenuFTPClientSettings();
+                break;
+            case MENU_FTPSERVER_SETTINGS:
+                currentMenu = MenuFTPServerSettings();
+                break;
+            default: // unrecognized menu
+                currentMenu = MenuBrowseDevice();
+                break;
+        }
 	}
 
 	ResumeGui();

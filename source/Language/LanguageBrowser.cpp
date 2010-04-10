@@ -37,6 +37,7 @@
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
+#include "LanguageUpdater.h"
 #include "devicemounter.h"
 #include "DirList.h"
 #include "main.h"
@@ -51,7 +52,7 @@ int LanguageBrowser()
 {
 	int menu = MENU_NONE;
 	int ret;
-	int i = 0, n = 0;
+	int i = 0;
 
     char langpath[150];
     snprintf(langpath, sizeof(langpath), "%s", Settings.LanguagePath);
@@ -71,7 +72,7 @@ int LanguageBrowser()
 
 	if(!filecount)
 	{
-        int choice = WindowPrompt(tr("No language files found."), tr("Change Language Path?"), tr("Yes"), tr("No"));
+        int choice = WindowPrompt(tr("No language files found."), tr("Change Language Path?"), tr("Change"), tr("Continue"));
         if(choice)
         {
             char entered[150];
@@ -89,18 +90,13 @@ int LanguageBrowser()
                 return MENU_LANGUAGE_BROWSE;
             }
         }
-        return MENU_SETTINGS;
 	}
 	OptionList options;
 
 	for(i = 0; i < filecount; i++)
 	{
-	    if(!FileList.IsDir(i))
-	    {
-            options.SetName(n, FileList.GetFilename(i));
-            options.SetValue(n, " ");
-            n++;
-	    }
+        options.SetName(i, FileList.GetFilename(i));
+        options.SetValue(i, " ");
 	}
 
 	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
@@ -121,27 +117,27 @@ int LanguageBrowser()
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
 
-	GuiText ConsoleDefaultBtnTxt(tr("Console Default"), 18, (GXColor){0, 0, 0, 255});
-	GuiImage ConsoleDefaultBtnImg(&btnOutline);
-	GuiButton ConsoleDefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
-	ConsoleDefaultBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	ConsoleDefaultBtn.SetPosition(-50, -90);
-	ConsoleDefaultBtn.SetLabel(&ConsoleDefaultBtnTxt);
-	ConsoleDefaultBtn.SetImage(&ConsoleDefaultBtnImg);
-	ConsoleDefaultBtn.SetSoundOver(&btnSoundOver);
-	ConsoleDefaultBtn.SetTrigger(&trigA);
-	ConsoleDefaultBtn.SetEffectGrow();
+	GuiText DefaultBtnTxt(tr("Default"), 18, (GXColor){0, 0, 0, 255});
+	GuiImage DefaultBtnImg(&btnOutline);
+	GuiButton DefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	DefaultBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	DefaultBtn.SetPosition(-50, -90);
+	DefaultBtn.SetLabel(&DefaultBtnTxt);
+	DefaultBtn.SetImage(&DefaultBtnImg);
+	DefaultBtn.SetSoundOver(&btnSoundOver);
+	DefaultBtn.SetTrigger(&trigA);
+	DefaultBtn.SetEffectGrow();
 
-	GuiText AppDefaultBtnTxt(tr("App Default"), 18, (GXColor){0, 0, 0, 255});
-	GuiImage AppDefaultBtnImg(&btnOutline);
-	GuiButton AppDefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
-	AppDefaultBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	AppDefaultBtn.SetPosition(0, -65);
-	AppDefaultBtn.SetLabel(&AppDefaultBtnTxt);
-	AppDefaultBtn.SetImage(&AppDefaultBtnImg);
-	AppDefaultBtn.SetSoundOver(&btnSoundOver);
-	AppDefaultBtn.SetTrigger(&trigA);
-	AppDefaultBtn.SetEffectGrow();
+	GuiText DownloadBtnTxt(tr("Download Files"), 18, (GXColor){0, 0, 0, 255});
+	GuiImage DownloadBtnImg(&btnOutline);
+	GuiButton DownloadBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	DownloadBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	DownloadBtn.SetPosition(0, -65);
+	DownloadBtn.SetLabel(&DownloadBtnTxt);
+	DownloadBtn.SetImage(&DownloadBtnImg);
+	DownloadBtn.SetSoundOver(&btnSoundOver);
+	DownloadBtn.SetTrigger(&trigA);
+	DownloadBtn.SetEffectGrow();
 
 	GuiOptionBrowser optionBrowser(584, 248, &options);
 	optionBrowser.SetPosition(30, 60);
@@ -154,8 +150,8 @@ int LanguageBrowser()
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
-	w.Append(&ConsoleDefaultBtn);
-	w.Append(&AppDefaultBtn);
+	w.Append(&DefaultBtn);
+	w.Append(&DownloadBtn);
 	w.Append(&optionBrowser);
 	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
@@ -182,29 +178,40 @@ int LanguageBrowser()
 			menu = MENU_SETTINGS;
 		}
 
-		else if(ConsoleDefaultBtn.GetState() == STATE_CLICKED)
+		else if(DefaultBtn.GetState() == STATE_CLICKED)
 		{
-			ConsoleDefaultBtn.ResetState();
-			int choice = WindowPrompt(tr("Console Default"), tr("Do you want to load console default language."), tr("Yes"), tr("Cancel"));
+			DefaultBtn.ResetState();
+			int choice = WindowPrompt(0, tr("Do you want to load the default language."), tr("Console Default"), tr("App Default"), tr("Cancel"));
             if(choice)
             {
-                if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT))
-                    Settings.Save();
+                if(choice == 1)
+                {
+                    if(Settings.LoadLanguage(NULL, CONSOLE_DEFAULT))
+                        Settings.Save();
+                }
+
+                if(choice == 2)
+                {
+                    if(Settings.LoadLanguage(NULL, APP_DEFAULT))
+                        Settings.Save();
+                }
 
                 menu = MENU_SETTINGS;
             }
 		}
 
-		else if(AppDefaultBtn.GetState() == STATE_CLICKED)
+		else if(DownloadBtn.GetState() == STATE_CLICKED)
 		{
-			AppDefaultBtn.ResetState();
-		    int choice = WindowPrompt(tr("App Default"), tr("Do you want to load app default language ?"), tr("Yes"), tr("Cancel"));
+			DownloadBtn.ResetState();
+		    int choice = WindowPrompt(0, tr("Do you want to download new language files?"), tr("Yes"), tr("Cancel"));
             if(choice)
             {
-                if(Settings.LoadLanguage(NULL, APP_DEFAULT))
-                        Settings.Save();
-
-                menu = MENU_SETTINGS;
+				int result = UpdateLanguageFiles();
+                if(result > 0)
+                {
+                    WindowPrompt(0, fmt(tr("Downloaded %d files."), result), tr("OK"));
+                    menu = MENU_LANGUAGE_BROWSE;
+                }
             }
 		}
 

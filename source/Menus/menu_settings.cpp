@@ -36,47 +36,6 @@
 #include "Explorer.h"
 #include "SettingsMenu.h"
 #include "menu_settings.h"
-#include "Language/LanguageBrowser.h"
-
-static int SwitchSettingsMenus(int menu)
-{
-    int currentMenu = menu;
-
-    switch(currentMenu)
-    {
-        case MENU_EXPLORER_SETTINGS:
-            currentMenu = MenuExplorerSettings();
-            break;
-        case MENU_IMAGE_SETTINGS:
-            currentMenu = MenuImageSettings();
-            break;
-        case MENU_SOUND_SETTINGS:
-            currentMenu = MenuSoundSettings();
-            break;
-        case MENU_BOOT_SETTINGS:
-            currentMenu = MenuBootSettings();
-            break;
-        case MENU_PATH_SETUP:
-            currentMenu = MenuPathSetup();
-            break;
-        case MENU_SMB_SETTINGS:
-            currentMenu = MenuSMBSettings();
-            break;
-        case MENU_FTPCLIENT_SETTINGS:
-            currentMenu = MenuFTPClientSettings();
-            break;
-        case MENU_FTPSERVER_SETTINGS:
-            currentMenu = MenuFTPServerSettings();
-            break;
-        case MENU_LANGUAGE_BROWSE:
-            currentMenu = LanguageBrowser();
-            break;
-        default:
-            break;
-    }
-
-    return currentMenu;
-}
 
 /****************************************************************************
  * MenuSettings
@@ -192,7 +151,7 @@ int MenuSettings()
 
     Settings.Save();
 
-	return SwitchSettingsMenus(menu);
+	return menu;
 }
 
 int MenuExplorerSettings()
@@ -204,6 +163,7 @@ int MenuExplorerSettings()
 
 	OptionList options;
 	options.SetName(i++, tr("Browser Mode"));
+	options.SetName(i++, tr("Scrolling Speed"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
@@ -229,6 +189,9 @@ int MenuExplorerSettings()
             case 0:
 				Settings.BrowserMode = (Settings.BrowserMode+1) % 2;
 				break;
+            case 1:
+                Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -240,6 +203,8 @@ int MenuExplorerSettings()
                 options.SetValue(i++, tr("Icon Mode"));
             else
                 options.SetValue(i++, tr("List Mode"));
+
+            options.SetValue(i++, "%i", Settings.ScrollSpeed);
         }
 	}
 
@@ -687,7 +652,7 @@ int MenuNetworkSettings()
 
     Settings.Save();
 
-	return SwitchSettingsMenus(menu);
+	return menu;
 }
 
 /****************************************************************************

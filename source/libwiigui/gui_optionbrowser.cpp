@@ -10,6 +10,8 @@
 
 #include "gui.h"
 #include "gui_optionbrowser.h"
+#include "Memory/Resources.h"
+#include "menu.h"
 
 #define BROWSERSIZE        8
 
@@ -26,78 +28,24 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	listOffset = this->FindMenuItem(-1, 1);
 	listChanged = true; // trigger an initial list update
 	selectedItem = 0;
-	focus = 0; // allow focus
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
-	btnSoundOver = new GuiSound(button_over_wav, button_over_wav_size);
-	btnSoundClick = new GuiSound(button_click_wav, button_click_wav_size);
-
-	bgOptions = new GuiImageData(bg_browser_png, bg_browser_png_size);
+	bgOptions = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
 	bgOptionsImg = new GuiImage(bgOptions);
 	bgOptionsImg->SetParent(this);
 	bgOptionsImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
-	bgOptionsEntry = new GuiImageData(bg_browser_selection_png, bg_browser_selection_png_size);
+	bgOptionsEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
 
-	scrollbar = new GuiImageData(scrollbar_png, scrollbar_png_size);
-	scrollbarImg = new GuiImage(scrollbar);
-	scrollbarImg->SetParent(this);
-	scrollbarImg->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarImg->SetPosition(-10, 30);
-
-	arrowDown = new GuiImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
-	arrowDownImg = new GuiImage(arrowDown);
-	arrowDownOver = new GuiImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
-	arrowDownOverImg = new GuiImage(arrowDownOver);
-	arrowUp = new GuiImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
-	arrowUpImg = new GuiImage(arrowUp);
-	arrowUpOver = new GuiImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
-	arrowUpOverImg = new GuiImage(arrowUpOver);
-
-	arrowUpBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-	arrowUpBtn->SetParent(this);
-	arrowUpBtn->SetImage(arrowUpImg);
-	arrowUpBtn->SetImageOver(arrowUpOverImg);
-	arrowUpBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	arrowUpBtn->SetPosition(-10, 0);
-	arrowUpBtn->SetSelectable(false);
-	arrowUpBtn->SetTrigger(trigA);
-	arrowUpBtn->SetSoundOver(btnSoundOver);
-	arrowUpBtn->SetSoundClick(btnSoundClick);
-
-	arrowDownBtn = new GuiButton(arrowDownImg->GetWidth(), arrowDownImg->GetHeight());
-	arrowDownBtn->SetParent(this);
-	arrowDownBtn->SetImage(arrowDownImg);
-	arrowDownBtn->SetImageOver(arrowDownOverImg);
-	arrowDownBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	arrowDownBtn->SetPosition(-10, 0);
-	arrowDownBtn->SetSelectable(false);
-	arrowDownBtn->SetTrigger(trigA);
-	arrowDownBtn->SetSoundOver(btnSoundOver);
-	arrowDownBtn->SetSoundClick(btnSoundClick);
-
-	scrollbarBox = new GuiImageData(scrollbar_box_png, scrollbar_box_png_size);
-	scrollbarBoxImg = new GuiImage(scrollbarBox);
-	scrollbarBoxOver = new GuiImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
-	scrollbarBoxOverImg = new GuiImage(scrollbarBoxOver);
-
-	scrollbarBoxBtn = new GuiButton(scrollbarBoxImg->GetWidth(), scrollbarBoxImg->GetHeight());
-	scrollbarBoxBtn->SetParent(this);
-	scrollbarBoxBtn->SetImage(scrollbarBoxImg);
-	scrollbarBoxBtn->SetImageOver(scrollbarBoxOverImg);
-	scrollbarBoxBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	scrollbarBoxBtn->SetPosition(-10, 0);
-	scrollbarBoxBtn->SetMinY(0);
-	scrollbarBoxBtn->SetMaxY(136);
-	scrollbarBoxBtn->SetSelectable(false);
-	scrollbarBoxBtn->SetClickable(false);
-	scrollbarBoxBtn->SetHoldable(true);
-	scrollbarBoxBtn->SetTrigger(trigHeldA);
+	scrollbar = new Scrollbar(245);
+	scrollbar->SetParent(this);
+	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetPosition(-10, 5);
+	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
@@ -128,33 +76,15 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
  */
 GuiOptionBrowser::~GuiOptionBrowser()
 {
-	delete arrowUpBtn;
-	delete arrowDownBtn;
-	delete scrollbarBoxBtn;
+    delete scrollbar;
 
 	delete bgOptionsImg;
-	delete scrollbarImg;
-	delete arrowDownImg;
-	delete arrowDownOverImg;
-	delete arrowUpImg;
-	delete arrowUpOverImg;
-	delete scrollbarBoxImg;
-	delete scrollbarBoxOverImg;
 
-	delete bgOptions;
-	delete bgOptionsEntry;
-	delete scrollbar;
-	delete arrowDown;
-	delete arrowDownOver;
-	delete arrowUp;
-	delete arrowUpOver;
-	delete scrollbarBox;
-	delete scrollbarBoxOver;
+	Resources::Remove(bgOptions);
+	Resources::Remove(bgOptionsEntry);
+	Resources::Remove(btnSoundClick);
 
 	delete trigA;
-	delete trigHeldA;
-	delete btnSoundOver;
-	delete btnSoundClick;
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
@@ -169,17 +99,6 @@ void GuiOptionBrowser::SetCol2Position(int x)
 {
 	for(int i=0; i<PAGESIZE; i++)
 		optionVal[i]->SetPosition(x,0);
-}
-
-void GuiOptionBrowser::SetFocus(int f)
-{
-	focus = f;
-
-	for(int i=0; i<PAGESIZE; i++)
-		optionBtn[i]->ResetState();
-
-	if(f == 1)
-		optionBtn[selectedItem]->SetState(STATE_SELECTED);
 }
 
 void GuiOptionBrowser::ResetState()
@@ -253,12 +172,7 @@ void GuiOptionBrowser::Draw()
 			break;
 	}
 
-	if(options->GetLength() > PAGESIZE) {
-        scrollbarImg->Draw();
-        arrowUpBtn->Draw();
-        arrowDownBtn->Draw();
-        scrollbarBoxBtn->Draw();
-	}
+    scrollbar->Draw();
 
 	this->UpdateEffects();
 }
@@ -274,56 +188,16 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 		return;
 
 	int next, prev;
-	int position = 0;
-	int positionWiimote = 0;
 	int optionslength = options->GetLength();
 
-    if(optionslength > PAGESIZE) {
-        arrowUpBtn->Update(t);
-        arrowDownBtn->Update(t);
-        scrollbarBoxBtn->Update(t);
+    scrollbar->Update(t);
+
+    if(scrollbar->ListChanged())
+    {
+        selectedItem = scrollbar->GetSelectedItem();
+        listOffset = scrollbar->GetSelectedIndex();
+        listChanged = true;
     }
-
-    // move the file listing to respond to wiimote cursor movement
-	if(scrollbarBoxBtn->GetState() == STATE_HELD &&
-		scrollbarBoxBtn->GetStateChan() == t->chan &&
-		t->wpad->ir.valid &&
-		optionslength > PAGESIZE)
-	{
-		scrollbarBoxBtn->SetPosition(-10,0);
-		positionWiimote = t->wpad->ir.y - 60 - scrollbarBoxBtn->GetTop();
-
-		if(positionWiimote < scrollbarBoxBtn->GetMinY())
-			positionWiimote = scrollbarBoxBtn->GetMinY();
-		else if(positionWiimote > scrollbarBoxBtn->GetMaxY())
-			positionWiimote = scrollbarBoxBtn->GetMaxY();
-
-		listOffset = (positionWiimote * optionslength)/136.0 - selectedItem;
-
-		if(listOffset <= 0)
-		{
-			listOffset = 0;
-		}
-		else if(listOffset+PAGESIZE >= optionslength)
-		{
-			listOffset= optionslength-PAGESIZE;
-		}
-		listChanged = true;
-		focus = false;
-	}
-
-	if(arrowDownBtn->GetState() == STATE_HELD && arrowDownBtn->GetStateChan() == t->chan)
-	{
-		t->wpad->btns_h |= WPAD_BUTTON_DOWN;
-		if(!this->IsFocused())
-			((GuiWindow *)this->GetParent())->ChangeFocus(this);
-	}
-	else if(arrowUpBtn->GetState() == STATE_HELD && arrowUpBtn->GetStateChan() == t->chan)
-	{
-		t->wpad->btns_h |= WPAD_BUTTON_UP;
-		if(!this->IsFocused())
-			((GuiWindow *)this->GetParent())->ChangeFocus(this);
-	}
 
 	next = listOffset;
 
@@ -374,7 +248,7 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 	{
 		if(i != selectedItem && optionBtn[i]->GetState() == STATE_SELECTED)
 			optionBtn[i]->ResetState();
-		else if(focus && i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
+		else if(i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
 			optionBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
 
 		int currChan = t->chan;
@@ -389,11 +263,7 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			selectedItem = i;
 	}
 
-	// pad/joystick navigation
-	//if(!focus)
-		//return; // skip navigation
-
-	if(t->Down() || arrowDownBtn->GetState() == STATE_CLICKED)
+	if(t->Down())
 	{
 		next = this->FindMenuItem(optionIndex[selectedItem], 1);
 
@@ -412,9 +282,8 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 				selectedItem++;
 			}
 		}
-		arrowDownBtn->ResetState();
 	}
-	else if(t->Up() || arrowUpBtn->GetState() == STATE_CLICKED)
+	else if(t->Up())
 	{
 		prev = this->FindMenuItem(optionIndex[selectedItem], -1);
 
@@ -433,25 +302,13 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 				selectedItem--;
 			}
 		}
-		arrowUpBtn->ResetState();
 	}
 
-	// update the location of the scroll box based on the position in the file list
-	if(positionWiimote > 0)
-	{
-		position = positionWiimote; // follow wiimote cursor
-	}
-	else
-	{
-		position = 136*(listOffset + PAGESIZE/2.0) / (optionslength*1.0);
-
-		if(listOffset/(PAGESIZE/2.0) < 1)
-			position = 0;
-		else if((listOffset+PAGESIZE)/(PAGESIZE*1.0) >= (optionslength)/(PAGESIZE*1.0))
-			position = 136;
-	}
-
-	scrollbarBoxBtn->SetPosition(-10,position+36);
+    scrollbar->SetEntrieCount(optionslength);
+    scrollbar->SetPageSize(PAGESIZE);
+    scrollbar->SetRowSize(0);
+    scrollbar->SetSelectedItem(selectedItem);
+    scrollbar->SetSelectedIndex(listOffset);
 
 	if(updateCB)
 		updateCB(this);

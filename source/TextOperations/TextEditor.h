@@ -29,6 +29,7 @@
 #define TEXTEDITOR_H
 
 #include "libwiigui/gui.h"
+#include "Controls/Scrollbar.hpp"
 #include "TextPointer.h"
 #include "Text.hpp"
 
@@ -38,7 +39,7 @@ class TextEditor : public GuiWindow
 	public:
 		TextEditor(const wchar_t *intext, int LinesToDraw, const char *path);
 		~TextEditor();
-		void DisableTriggerUpdate(bool set);
+		void SetTriggerUpdate(bool set);
 		void SetText(const wchar_t *intext);
         void WriteTextFile(const char * path);
         int GetState();
@@ -47,17 +48,17 @@ class TextEditor : public GuiWindow
 	protected:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
         void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
-		bool triggerdisabled;
+		bool triggerupdate;
 		bool ExitEditor;
 		bool LineEditing;
 		bool FileEdited;
+		int linestodraw;
 		u32 filesize;
 		char * filepath;
 
+		Scrollbar * scrollbar;
+
         /** Buttons **/
-		GuiButton * arrowUpBtn;
-		GuiButton * arrowDownBtn;
-		GuiButton * scrollbarBoxBtn;
 		GuiButton * maximizeBtn;
 		GuiButton * minimizeBtn;
 		GuiButton * closeBtn;
@@ -66,13 +67,6 @@ class TextEditor : public GuiWindow
 
         /** Images **/
 		GuiImage * bgTexteditorImg;
-		GuiImage * scrollbarImg;
-		GuiImage * arrowDownImg;
-		GuiImage * arrowDownOverImg;
-		GuiImage * arrowUpImg;
-		GuiImage * arrowUpOverImg;
-		GuiImage * scrollbarBoxImg;
-		GuiImage * scrollbarBoxOverImg;
 		GuiImage * closeImg;
 		GuiImage * closeImgOver;
 		GuiImage * maximizeImg;
@@ -80,13 +74,6 @@ class TextEditor : public GuiWindow
 
         /** ImageDatas **/
 		GuiImageData * bgTexteditorData;
-		GuiImageData * scrollbar;
-		GuiImageData * arrowDown;
-		GuiImageData * arrowDownOver;
-		GuiImageData * arrowUp;
-		GuiImageData * arrowUpOver;
-		GuiImageData * scrollbarBox;
-		GuiImageData * scrollbarBoxOver;
 		GuiImageData * closeImgData;
 		GuiImageData * closeImgOverData;
 		GuiImageData * maximizeImgData;
@@ -98,8 +85,8 @@ class TextEditor : public GuiWindow
 
         /** Triggers **/
 		GuiTrigger * trigA;
-		GuiTrigger * trigPlus;
 		GuiTrigger * trigHeldA;
+		GuiTrigger * trigPlus;
 		GuiTrigger * trigB;
 
         /** Texts **/
