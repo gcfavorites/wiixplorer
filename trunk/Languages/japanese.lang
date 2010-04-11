@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 15:59+0200\n"
+"POT-Creation-Date: 2010-04-11 03:56+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "Alpha Blending"
-msgstr "アルファブレンド"
+msgstr "アルファ合成"
 
 msgid "App Default"
 msgstr "英語"
@@ -49,7 +49,7 @@ msgid "Auto Connect"
 msgstr "自動接続"
 
 msgid "Auto Start:"
-msgstr ""
+msgstr "自動スタート:"
 
 msgid "BMP Compression"
 msgstr "BMP圧縮"
@@ -67,13 +67,13 @@ msgid "Both"
 msgstr "両方"
 
 msgid "Browser Mode"
-msgstr ""
+msgstr "ブラウザのモード"
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
 
 msgid "Can't browse that path."
-msgstr ""
+msgstr "パスを開けませんでした"
 
 msgid "Can't load file"
 msgstr "ファイルを読めません"
@@ -214,7 +214,7 @@ msgid "Do you want to boot:"
 msgstr "起動しますか?"
 
 msgid "Do you want to change the font?"
-msgstr ""
+msgstr "フォントを変更しますか?"
 
 msgid "Do you want to download new language files?"
 msgstr ""
@@ -223,7 +223,7 @@ msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorerを終了しますか?"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr ""
+msgstr "MPlayerCEで再生しますか?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
@@ -300,7 +300,7 @@ msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
-msgstr ""
+msgstr "エクスプローラの設定"
 
 msgid "Extract"
 msgstr "解凍"
@@ -339,10 +339,10 @@ msgid "FTP Server Settings"
 msgstr "FTPのサーバー設定"
 
 msgid "FTP Server is running and listening on port"
-msgstr ""
+msgstr "FTPサーバーは起動中でポートを待ち受けています"
 
 msgid "FTP Started.\n"
-msgstr ""
+msgstr "FTPを開始しました\n"
 
 msgid "Failed copying item(s)."
 msgstr "コピーに失敗しました"
@@ -412,7 +412,7 @@ msgid "Folder"
 msgstr "フォルダ"
 
 msgid "Fontpath changed."
-msgstr ""
+msgstr "フォントのパスを変更しました"
 
 msgid "Free Space:"
 msgstr "空き領域:"
@@ -439,7 +439,7 @@ msgid "How do you want to open the file?"
 msgstr "どのようにファイルを開きますか?"
 
 msgid "Icon Mode"
-msgstr ""
+msgstr "アイコン表示"
 
 msgid "Image Converter"
 msgstr "画像を変換"
@@ -499,10 +499,10 @@ msgid "Linebreak"
 msgstr "改行"
 
 msgid "List Mode"
-msgstr ""
+msgstr "リスト表示"
 
 msgid "Listening on TCP port"
-msgstr ""
+msgstr "TCPポートを待ち受け中"
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
@@ -514,10 +514,10 @@ msgid "Loop"
 msgstr "ループ"
 
 msgid "MPlayerCE Path"
-msgstr ""
+msgstr "MPlayerCEのパス"
 
 msgid "MPlayerPath changed"
-msgstr ""
+msgstr "MPlayerCEのパスを変更しました"
 
 msgid "Menu"
 msgstr "Wiiメニューへ"
@@ -566,7 +566,7 @@ msgid "No language files found."
 msgstr "言語が見つかりませんでした"
 
 msgid "No network connection."
-msgstr ""
+msgstr "ネットワーク接続がありません"
 
 msgid "No new updates available"
 msgstr "更新はありません"
@@ -638,13 +638,13 @@ msgid "Play Once"
 msgstr "一度だけ再生"
 
 msgid "Please wait..."
-msgstr ""
+msgstr "お待ちください…"
 
 msgid "Please wait:"
 msgstr "お待ちください"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr ""
+msgstr "ポートのサーバーを開始するためFTPを開始してください"
 
 msgid "Process canceled."
 msgstr "キャンセルしました"
@@ -707,7 +707,7 @@ msgid "Scrolling Speed"
 msgstr ""
 
 msgid "Server was shutdown...\n"
-msgstr ""
+msgstr "サーバーは終了しました…\n"
 
 msgid "Settings"
 msgstr "設定"
@@ -722,7 +722,7 @@ msgid "Shutdown"
 msgstr ""
 
 msgid "Shutdown FTP"
-msgstr ""
+msgstr "FTPを終了"
 
 msgid "Shutdown the Wii?"
 msgstr ""
@@ -743,13 +743,13 @@ msgid "Standard"
 msgstr "標準"
 
 msgid "Startup FTP"
-msgstr ""
+msgstr "FTPを開始"
 
 msgid "The new font could not be loaded."
-msgstr ""
+msgstr "フォントを読み込めませんでした"
 
 msgid "The new font is loaded."
-msgstr ""
+msgstr "フォントを読み込みました"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
@@ -859,7 +859,7 @@ msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his FTP Server source."
-msgstr ""
+msgstr "…FTPのソースを制作"
 
 msgid "for his great tool LibWiiGui."
 msgstr "…LibWiiGuiの制作者様"
@@ -873,233 +873,14 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Do you want to exit to the system menu?"
+#~ msgstr "Wiiメニューにもどりますか?"
+
 #~ msgid "Do you want to load app default language ?"
 #~ msgstr "英語に変更しますか?"
 
 #~ msgid "Do you want to load console default language."
 #~ msgstr "日本語に変更しますか?"
 
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "Wiiメニューにもどりますか?"
-
 #~ msgid "Loader"
 #~ msgstr "ローダーへ"
-
-#~ msgid "Fontpath changed"
-#~ msgstr "フォントのパスを変更しました"
-
-#~ msgid "Restart the app to load the new font."
-#~ msgstr "フォントを読み込むため 再起動してください"
-
-#~ msgid "Enable Create dir:"
-#~ msgstr "フォルダ作成の許可"
-
-#~ msgid "Enable Delete dir:"
-#~ msgstr "フォルダ削除の許可"
-
-#~ msgid "Enable Delete file:"
-#~ msgstr "ファイル削除の許可"
-
-#~ msgid "Enable Write file:"
-#~ msgstr "ファイル書き込みの許可"
-
-#~ msgid "Enable Zip Mode:"
-#~ msgstr "Zipモードの許可"
-
-#~ msgid "Enable list file:"
-#~ msgstr "ファイル一覧の許可"
-
-#~ msgid "Enable read file:"
-#~ msgstr "ファイル読み込みの許可"
-
-#~ msgid "FTP Data Port:"
-#~ msgstr "FTPのデータポート"
-
-#~ msgid ""
-#~ "A client has changed its working directory:\n"
-#~ "\tFull path: \"%s\"\n"
-#~ "\tWorking directory: \"%s\"\n"
-#~ msgstr ""
-#~ "クライアントは動作ディレクトリを変更しました:\n"
-#~ "\tフルパス: \"%s\"\n"
-#~ "\t動作ディレクトリ: \"%s\"\n"
-
-#~ msgid "A client has disconnected.\n"
-#~ msgstr "クライアントが切断されました\n"
-
-#~ msgid "A client has logged-in.\n"
-#~ msgstr "クライアントがログインしました\n"
-
-#~ msgid "A client is being deleted.\n"
-#~ msgstr "クライアントが削除されています\n"
-
-#~ msgid "A client is downloading a file: \"%s\"\n"
-#~ msgstr "クライアントはダウンロード中です: \"%s\"\n"
-
-#~ msgid "A client is listing a directory: \"%s\"\n"
-#~ msgstr "クライアントはディレクトリを一覧にしています: \"%s\"\n"
-
-#~ msgid "A client is uploading a file: \"%s\"\n"
-#~ msgstr "クライアントはアップロード中です: \"%s\"\n"
-
-#~ msgid "A new client has been created:\n"
-#~ msgstr "新しいクライアントが作成されました\n"
-
-#~ msgid "CLIENT_SOCK_ERROR \n"
-#~ msgstr "クライアントソケットエラー\n"
-
-#~ msgid "CLIENT_SOFTWARE\n"
-#~ msgstr "クライアントソフトウェア\n"
-
-#~ msgid "Cmd received: %s\n"
-#~ msgstr "CMDを受信しました: %s\n"
-
-#~ msgid "Connected"
-#~ msgstr "接続しました"
-
-#~ msgid "Connected with: %s)"
-#~ msgstr "%sと接続しました)"
-
-#~ msgid "Ftp stopped"
-#~ msgstr "FTPを停止しました"
-
-#~ msgid "Internal error"
-#~ msgstr "内部エラー"
-
-#~ msgid "Launch Ftp"
-#~ msgstr "FTPを起動"
-
-#~ msgid "NO_LOGIN_TIMEOUT\n"
-#~ msgstr "タイムアウトしました\n"
-
-#~ msgid "Reply sent: %s\n"
-#~ msgstr "返信: %s\n"
-
-#~ msgid "Server at: %s"
-#~ msgstr "サーバー: %s"
-
-#~ msgid "Server started"
-#~ msgstr "サーバーが開始しました"
-
-#~ msgid "Server stopped"
-#~ msgstr "サーバーが停止しました"
-
-#~ msgid "Server waits for client"
-#~ msgstr "サーバーはクライアントを待っています"
-
-#~ msgid "Stop Ftp "
-#~ msgstr "FTPを停止"
-
-#~ msgid "Too many pass tries for (%s)\n"
-#~ msgstr "(%s)にあまりにも多く試行しています\n"
-
-#~ msgid "Do you want to open this file with ImageViewer?"
-#~ msgstr "画像を閲覧しますか?"
-
-#~ msgid "FTP Settings"
-#~ msgstr "FTPの設定"
-
-#~ msgid "Update Settings"
-#~ msgstr "更新設定"
-
-#~ msgid "You cannot read/write from/to the same file."
-#~ msgstr "同じ所に読み書きはできません"
-
-#~ msgid "Failed copying file."
-#~ msgstr "コピーに失敗しました"
-
-#~ msgid "Failed copying files."
-#~ msgstr "コピーに失敗しました"
-
-#~ msgid "NewFolder"
-#~ msgstr "新規作成"
-
-#~ msgid "Archive successfully extracted."
-#~ msgstr "解凍しました"
-
-#~ msgid "Copy directory?"
-#~ msgstr "フォルダをコピーしますか?"
-
-#~ msgid "Copy file?"
-#~ msgstr "ファイルをコピーしますか?"
-
-#~ msgid "Copying file:"
-#~ msgstr "コピーしています:"
-
-#~ msgid "Copying files:"
-#~ msgstr "コピーしています:"
-
-#~ msgid "Cut directory?"
-#~ msgstr "フォルダを切り取りますか?"
-
-#~ msgid "Cut file?"
-#~ msgstr "ファイルを切り取りますか?"
-
-#~ msgid "Delete directory and its content?"
-#~ msgstr "フォルダと中身を削除しますか?"
-
-#~ msgid "Delete this file?"
-#~ msgstr "このファイルを削除しますか?"
-
-#~ msgid "Directory successfully copied."
-#~ msgstr "フォルダのコピーに成功しました"
-
-#~ msgid "Directory successfully deleted."
-#~ msgstr "フォルダの削除に成功しました"
-
-#~ msgid "Directory successfully moved."
-#~ msgstr "フォルダの移動に成功しました"
-
-#~ msgid "Extract this file?"
-#~ msgstr "このファイルを解凍しますか?"
-
-#~ msgid "Extract this folder?"
-#~ msgstr "このフォルダを解凍しますか?"
-
-#~ msgid "Extracting file:"
-#~ msgstr "ファイルを解凍しています"
-
-#~ msgid "Extracting folder:"
-#~ msgstr "フォルダを解凍しています"
-
-#~ msgid "Failed extracting file."
-#~ msgstr "解凍に失敗しました"
-
-#~ msgid "Failed extracting the folder."
-#~ msgstr "解凍に失敗しました"
-
-#~ msgid "Failed renaming file"
-#~ msgstr "リネームに失敗しました"
-
-#~ msgid "File does not exist anymore!"
-#~ msgstr "ファイルがありません"
-
-#~ msgid "File successfully copied."
-#~ msgstr "コピーに成功しました"
-
-#~ msgid "File successfully extracted."
-#~ msgstr "解凍しました"
-
-#~ msgid "File successfully moved."
-#~ msgstr "移動に成功しました"
-
-#~ msgid "Folder successfully extracted."
-#~ msgstr "フォルダを解凍しました"
-
-#~ msgid "Moving files:"
-#~ msgstr "移動しています"
-
-#~ msgid "Name already exists."
-#~ msgstr "同じ名前がすでにあります"
-
-#~ msgid "Paste into current directory?"
-#~ msgstr "このフォルダに貼り付けますか?"
-
-#~ msgid "Device Free Space:"
-#~ msgstr "空き領域:"
-
-#~ msgid "Device Total Space:"
-#~ msgstr "使用領域:"
-
-#~ msgid "Last status change:"
-#~ msgstr "変更日時:"

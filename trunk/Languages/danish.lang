@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 15:59+0200\n"
+"POT-Creation-Date: 2010-04-11 03:56+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: dorf[dk]\n"
 "Language-Team: \n"
@@ -73,7 +73,7 @@ msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
 
 msgid "Can't browse that path."
-msgstr ""
+msgstr "Kan Ikke Åbne Denne Sti"
 
 msgid "Can't load file"
 msgstr "Kan Ikke Indlæse Fil"
@@ -85,7 +85,7 @@ msgid "Can't read file:"
 msgstr "Kan Ikke Læse Fil:"
 
 msgid "Cancel"
-msgstr "Afbryd"
+msgstr "Annuller"
 
 msgid "Cannot create directory: "
 msgstr ""
@@ -100,7 +100,7 @@ msgid "Cannot write to the file."
 msgstr ""
 
 msgid "Caps"
-msgstr "Store bogstaver"
+msgstr ""
 
 msgid "Change"
 msgstr ""
@@ -115,7 +115,7 @@ msgid "Clear"
 msgstr "Ryd"
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "Ur"
 
 msgid "Close"
 msgstr "Luk"
@@ -214,16 +214,16 @@ msgid "Do you want to boot:"
 msgstr "Vil du boote:"
 
 msgid "Do you want to change the font?"
-msgstr ""
+msgstr "Vil Du Ændre Font?"
 
 msgid "Do you want to download new language files?"
 msgstr ""
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "Vil Du Forlade WiiXplorer?"
+msgstr "Vil Du Lukke WiiXplorer?"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr ""
+msgstr "Vil Du Køre Filen Med MPlayerCE?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
@@ -294,13 +294,13 @@ msgid "Error:"
 msgstr "Fejl:"
 
 msgid "Exit"
-msgstr "Forlad"
+msgstr "Luk"
 
 msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
-msgstr ""
+msgstr "Explorer Indstillinger"
 
 msgid "Extract"
 msgstr "Udpak"
@@ -339,7 +339,7 @@ msgid "FTP Server Settings"
 msgstr "FTP Server Indstillinger"
 
 msgid "FTP Server is running and listening on port"
-msgstr ""
+msgstr "FTP Server Kører Og Lytter På Port"
 
 msgid "FTP Started.\n"
 msgstr ""
@@ -360,7 +360,7 @@ msgid "Failed renaming item"
 msgstr "Fejlede At Omdøbe Emne"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "Fejlede At Få Changelog."
 
 msgid "Failed to read file data."
 msgstr "Fejlede At Læse Fil Data."
@@ -412,7 +412,7 @@ msgid "Folder"
 msgstr "Mappe"
 
 msgid "Fontpath changed."
-msgstr ""
+msgstr "Fontsti Ændret."
 
 msgid "Free Space:"
 msgstr "Fri Plads:"
@@ -421,7 +421,7 @@ msgid "GD2 Compression"
 msgstr ""
 
 msgid "Getting Changelog..."
-msgstr ""
+msgstr "Henter Changelog..."
 
 msgid "Go Back"
 msgstr "Tilbage"
@@ -502,7 +502,7 @@ msgid "List Mode"
 msgstr ""
 
 msgid "Listening on TCP port"
-msgstr ""
+msgstr "Lytter På TCP Port"
 
 msgid "Loading file:"
 msgstr "Indlæser fil:"
@@ -514,10 +514,10 @@ msgid "Loop"
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr ""
+msgstr "MplayerCE Sti"
 
 msgid "MPlayerPath changed"
-msgstr ""
+msgstr "MPlayersti Ændret"
 
 msgid "Menu"
 msgstr ""
@@ -566,7 +566,7 @@ msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
 
 msgid "No network connection."
-msgstr ""
+msgstr "Ingen Netværksforbindelse."
 
 msgid "No new updates available"
 msgstr "Der er ingen ny opdateringer"
@@ -587,7 +587,7 @@ msgid "Not enough memory to resize."
 msgstr "Ikke Nok Hukommelse Til At Ændre Størrelse."
 
 msgid "Not enough memory to rotate."
-msgstr ""
+msgstr "Ikke Nok Hukommelse Til At Roter."
 
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
@@ -638,13 +638,13 @@ msgid "Play Once"
 msgstr "Afspil En Gang"
 
 msgid "Please wait..."
-msgstr ""
+msgstr "Vent Venligst..."
 
 msgid "Please wait:"
 msgstr "Vent venligst:"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr ""
+msgstr "Pres Startup FTP Få At Starte Server På Port"
 
 msgid "Process canceled."
 msgstr "Handling Afbrudt."
@@ -671,7 +671,7 @@ msgid "Reconnect SMB"
 msgstr "Genforbind SMB"
 
 msgid "Reload"
-msgstr ""
+msgstr "Genindlæs"
 
 msgid "Rename"
 msgstr "Omdøb"
@@ -722,7 +722,7 @@ msgid "Shutdown"
 msgstr ""
 
 msgid "Shutdown FTP"
-msgstr ""
+msgstr "Luk FTP Ned"
 
 msgid "Shutdown the Wii?"
 msgstr ""
@@ -746,10 +746,10 @@ msgid "Startup FTP"
 msgstr ""
 
 msgid "The new font could not be loaded."
-msgstr ""
+msgstr "Den Nye Font Kunne Ikke Loades."
 
 msgid "The new font is loaded."
-msgstr ""
+msgstr "Den Nye Font Er Loadet."
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
@@ -800,7 +800,7 @@ msgid "Update (App) Path"
 msgstr "Opdateringssti til programmet"
 
 msgid "Update App"
-msgstr "Opdatér programmet"
+msgstr "Opdatér prg."
 
 msgid "Update Icon.png"
 msgstr "Opdater Icon.png"
@@ -859,7 +859,7 @@ msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his FTP Server source."
-msgstr ""
+msgstr "For Hans FTP Server Source."
 
 msgid "for his great tool LibWiiGui."
 msgstr "for hans fantastiske LibWiiGui."
@@ -873,14 +873,14 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Do you want to exit to the system menu?"
+#~ msgstr "Vil Du Gå Til System Menuen?"
+
 #~ msgid "Do you want to load app default language ?"
 #~ msgstr "Vil du indlæse programmets standardsprog?"
 
 #~ msgid "Do you want to load console default language."
 #~ msgstr "Vil du indlæse konsollens standardsprog?"
-
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "Vil Du Gå Til System Menuen?"
 
 #~ msgid "Loader"
 #~ msgstr "Indlæser"
