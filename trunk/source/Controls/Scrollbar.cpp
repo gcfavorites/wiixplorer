@@ -205,12 +205,11 @@ void Scrollbar::OnDownButtonHold(GuiElement *sender, int pointer, POINT p)
     if(Mode == ICONMODE)
     {
         int i = RowSize;
-        while(SelInd+SelItem+RowSize >= EntrieCount && i > 0)
+        while(SelInd+SelItem+RowSize >= EntrieCount && i > 0 && SelItem > 0 && RowSize < EntrieCount)
         {
             --i;
             --SelItem;
         }
-
 		if(SelInd+SelItem+RowSize < EntrieCount)
 		{
             SelItem = SelItem+RowSize;
