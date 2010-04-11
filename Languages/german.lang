@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r145
+# r153
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 15:59+0200\n"
+"POT-Creation-Date: 2010-04-11 03:56+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -49,7 +49,7 @@ msgid "Auto Connect"
 msgstr "Automatisch verbinden"
 
 msgid "Auto Start:"
-msgstr ""
+msgstr "Automatisch starten:"
 
 msgid "BMP Compression"
 msgstr "BMP Kompression"
@@ -67,13 +67,13 @@ msgid "Both"
 msgstr "Beides"
 
 msgid "Browser Mode"
-msgstr ""
+msgstr "Browsermodus"
 
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
 
 msgid "Can't browse that path."
-msgstr ""
+msgstr "Dieser Pfad kann nicht durchsucht werden."
 
 msgid "Can't load file"
 msgstr "Datei kann nicht geladen werden."
@@ -115,7 +115,7 @@ msgid "Clear"
 msgstr "Löschen"
 
 msgid "Clock Mode"
-msgstr "Uhrmodus"
+msgstr "Uhranzeige"
 
 msgid "Close"
 msgstr "   Schließen"
@@ -214,7 +214,7 @@ msgid "Do you want to boot:"
 msgstr "Folgendes starten:"
 
 msgid "Do you want to change the font?"
-msgstr ""
+msgstr "Die Schriftart ändern?"
 
 msgid "Do you want to download new language files?"
 msgstr ""
@@ -223,7 +223,7 @@ msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorer beenden?"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr ""
+msgstr "Datei mit MPlayer CE starten?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
@@ -300,7 +300,7 @@ msgid "Exit WiiXplorer?"
 msgstr ""
 
 msgid "Explorer Settings"
-msgstr ""
+msgstr "Explorer"
 
 msgid "Extract"
 msgstr "Enpacken"
@@ -339,10 +339,10 @@ msgid "FTP Server Settings"
 msgstr "FTP Server Einstellungen"
 
 msgid "FTP Server is running and listening on port"
-msgstr ""
+msgstr "FTP Server läuft und lauscht an Port"
 
 msgid "FTP Started.\n"
-msgstr ""
+msgstr "Server gestartet.\n"
 
 msgid "Failed copying item(s)."
 msgstr "Kopieren der Elemente fehlgeschlagen."
@@ -412,7 +412,7 @@ msgid "Folder"
 msgstr "Ordner"
 
 msgid "Fontpath changed."
-msgstr ""
+msgstr "Pfad geändert"
 
 msgid "Free Space:"
 msgstr "Freier Speicher:"
@@ -439,7 +439,7 @@ msgid "How do you want to open the file?"
 msgstr "Womit soll die Datei geöffnet werden?"
 
 msgid "Icon Mode"
-msgstr ""
+msgstr "Symbole"
 
 msgid "Image Converter"
 msgstr "Bildkonverter"
@@ -499,10 +499,10 @@ msgid "Linebreak"
 msgstr "Absatz"
 
 msgid "List Mode"
-msgstr ""
+msgstr "Liste"
 
 msgid "Listening on TCP port"
-msgstr ""
+msgstr "Lausche an TCP Port"
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
@@ -514,10 +514,10 @@ msgid "Loop"
 msgstr "Schleife"
 
 msgid "MPlayerCE Path"
-msgstr ""
+msgstr "MPlayer CE"
 
 msgid "MPlayerPath changed"
-msgstr ""
+msgstr "Pfad geändert"
 
 msgid "Menu"
 msgstr "Menü"
@@ -566,7 +566,7 @@ msgid "No language files found."
 msgstr "Keine Sprachdateien gefunden."
 
 msgid "No network connection."
-msgstr ""
+msgstr "Keine Netzwerkverbindung."
 
 msgid "No new updates available"
 msgstr "Keine Updates verfügbar"
@@ -638,13 +638,13 @@ msgid "Play Once"
 msgstr "Einmal abspielen"
 
 msgid "Please wait..."
-msgstr ""
+msgstr "Bitte warten..."
 
 msgid "Please wait:"
 msgstr "Bitte warten:"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr ""
+msgstr "Drücke 'FTP starten' zum Starten des Servers an Port"
 
 msgid "Process canceled."
 msgstr "Prozess abgebrochen."
@@ -707,7 +707,7 @@ msgid "Scrolling Speed"
 msgstr ""
 
 msgid "Server was shutdown...\n"
-msgstr ""
+msgstr "Server wurde ausgeschaltet...\n"
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -722,7 +722,7 @@ msgid "Shutdown"
 msgstr ""
 
 msgid "Shutdown FTP"
-msgstr ""
+msgstr "FTP stoppen"
 
 msgid "Shutdown the Wii?"
 msgstr ""
@@ -743,13 +743,13 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
-msgstr ""
+msgstr "FTP starten"
 
 msgid "The new font could not be loaded."
-msgstr ""
+msgstr "Die neue Schriftart konnte nicht geladen werden."
 
 msgid "The new font is loaded."
-msgstr ""
+msgstr "Die neue Schriftart wurde geladen."
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
@@ -859,7 +859,7 @@ msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his FTP Server source."
-msgstr ""
+msgstr "für seinen FTP Server Quellcode."
 
 msgid "for his great tool LibWiiGui."
 msgstr "für sein großartiges Tool LibWiiGui."
@@ -873,14 +873,14 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Do you want to exit to the system menu?"
+#~ msgstr "Zum System Menü zurückkehren?"
+
 #~ msgid "Do you want to load app default language ?"
 #~ msgstr "Standardsprache der Anwendung laden?"
 
 #~ msgid "Do you want to load console default language."
 #~ msgstr "Standardsprache der Konsole laden?"
-
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "Zum System Menü zurückkehren?"
 
 #~ msgid "Fontpath changed"
 #~ msgstr "Pfad zur Schriftart geändert"
