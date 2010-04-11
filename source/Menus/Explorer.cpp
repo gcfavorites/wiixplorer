@@ -155,7 +155,7 @@ void Explorer::Setup()
     creditsImgData = Resources::GetImageData(WiiXplorer_png, WiiXplorer_png_size);
 	Background = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
 	Address = Resources::GetImageData(addressbar_textbox_png, addressbar_textbox_png_size);
-	Refresh = Resources::GetImageData(refresh_png, refresh_png_size);
+	Refresh = Resources::GetImageData(refresh2_png, refresh2_png_size);
 
 	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
 	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
@@ -219,7 +219,7 @@ void Explorer::Setup()
     RefreshImg->SetScale(0.8);
     RefreshBtn = new GuiButton(Refresh->GetWidth(), Refresh->GetHeight());
     RefreshBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    RefreshBtn->SetPosition(Adressbar->GetLeft()+Adressbar->GetWidth()-5, Adressbar->GetTop()+6);
+    RefreshBtn->SetPosition(Adressbar->GetLeft()+Adressbar->GetWidth()-5, Adressbar->GetTop()+4);
     RefreshBtn->SetImage(RefreshImg);
 	RefreshBtn->SetSoundClick(btnSoundClick);
 	RefreshBtn->SetSoundOver(btnSoundOver);

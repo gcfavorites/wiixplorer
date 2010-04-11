@@ -23,8 +23,8 @@ static int whichfb = 0; // Switch
 static GXRModeObj *vmode = NULL; // Menu video mode
 static unsigned char gp_fifo[DEFAULT_FIFO_SIZE] ATTRIBUTE_ALIGN (32);
 static Mtx GXmodelView2D;
-int screenheight;
-int screenwidth;
+int screenwidth = 640;
+int screenheight = 480;
 u32 frameCount = 0;
 
 
@@ -91,7 +91,7 @@ ResetVideo_Menu()
 	guMtxTransApply (GXmodelView2D, GXmodelView2D, 0.0F, 0.0F, -200.0F);
 	GX_LoadPosMtxImm(GXmodelView2D,GX_PNMTX0);
 
-	guOrtho(p,0,479,0,639,0,300);
+	guOrtho(p,0,screenheight-1,0,screenwidth-1,0,300);
 	GX_LoadProjectionMtx(p, GX_ORTHOGRAPHIC);
 
 	GX_SetViewport(0,0,vmode->fbWidth,vmode->efbHeight,0,1);
@@ -112,15 +112,46 @@ InitVideo ()
 	VIDEO_Init();
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
-	// widescreen fix
-	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
-	{
-		vmode->viWidth = 700;
-		vmode->viXOrigin = ((VI_MAX_WIDTH_PAL - vmode->viWidth) / 2);
-	}
+    bool pal = false;
 
-	screenheight = 480;
-	screenwidth = vmode->fbWidth;
+    if (vmode == &TVPal528IntDf)
+        pal = true;
+
+    if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
+    {
+        vmode->fbWidth = 640;
+        vmode->efbHeight = 456;
+        vmode->viWidth = 686;
+
+        if (pal)
+        {
+            vmode->xfbHeight = 542;
+            vmode->viHeight = 542;
+        }
+        else
+        {
+            vmode->xfbHeight = 456;
+            vmode->viHeight = 456;
+        }
+    }
+    else
+    {
+        if (pal)
+            vmode = &TVPal574IntDfScale;
+
+        vmode->viWidth = 672;
+    }
+
+    if (pal)
+    {
+        vmode->viXOrigin = (VI_MAX_WIDTH_PAL - vmode->viWidth) / 2;
+        vmode->viYOrigin = (VI_MAX_HEIGHT_PAL - vmode->viHeight) / 2;
+    }
+    else
+    {
+        vmode->viXOrigin = (VI_MAX_WIDTH_NTSC - vmode->viWidth) / 2;
+        vmode->viYOrigin = (VI_MAX_HEIGHT_NTSC - vmode->viHeight) / 2;
+    }
 
 	// Allocate the video buffers
 	xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));

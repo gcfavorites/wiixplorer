@@ -26,7 +26,7 @@ int FileStartUp(const char *filepath)
     char *fileext = strrchr(filepath, '.');
 	char *filename = strrchr(filepath, '/')+1;
 
-    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0 && (strstr(filepath, "dol") != 0 || strstr(filepath, "elf") != 0))
+    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0 && (strcasestr(filepath, "dol") != 0 || strcasestr(filepath, "elf") != 0))
     {
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -164,7 +164,7 @@ int FileStartUp(const char *filepath)
     {
         loadtext:
 
-        int choice = WindowPrompt(filename, tr("Do you want to open this file in TextViewer?"), tr("Yes"), tr("No"));
+        int choice = WindowPrompt(filename, tr("Do you want to open this file in TextEditor?"), tr("Yes"), tr("No"));
         if(choice)
             TextViewer(filepath);
     }

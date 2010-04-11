@@ -360,7 +360,8 @@ void IconFileBrowser::Update(GuiTrigger * t)
 	else if(t->Down())
 	{
         int i = RowSize;
-        while(browser->GetPageIndex()+selectedItem+RowSize >= browser->GetEntrieCount() && i > 0)
+        while(browser->GetPageIndex()+selectedItem+RowSize >= browser->GetEntrieCount() &&
+              i > 0 && selectedItem > 0 && RowSize < browser->GetEntrieCount())
         {
             --i;
             --selectedItem;
