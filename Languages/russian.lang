@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 20:58+0200\n"
+"POT-Creation-Date: 2010-04-12 13:12+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -17,10 +17,10 @@ msgid "1"
 msgstr ""
 
 msgid "12H"
-msgstr ""
+msgstr "12 часов"
 
 msgid "24H"
-msgstr ""
+msgstr "24 часа"
 
 msgid "7z decompression failed:"
 msgstr ""
@@ -29,7 +29,7 @@ msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr "Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ð¾Ñ‚Ð¼ÐµÐ½ÐµÐ½Ð¾."
+msgstr "Действие отменено."
 
 msgid "Alpha Blending"
 msgstr ""
@@ -44,13 +44,13 @@ msgid "AppPath changed"
 msgstr ""
 
 msgid "Apps"
-msgstr "ÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹"
+msgstr "Программы"
 
 msgid "Auto Connect"
-msgstr "ÐÐ²Ñ‚Ð¾Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ"
+msgstr "Автоподключение"
 
 msgid "Auto Start:"
-msgstr ""
+msgstr "Автостарт:"
 
 msgid "BMP Compression"
 msgstr ""
@@ -59,7 +59,7 @@ msgid "Back"
 msgstr ""
 
 msgid "Boot Settings"
-msgstr ""
+msgstr "Настройки загрузки"
 
 msgid "Bootup Mount"
 msgstr ""
@@ -68,61 +68,61 @@ msgid "Both"
 msgstr ""
 
 msgid "Browser Mode"
-msgstr ""
+msgstr "Режим просмотра"
 
 msgid "Can not open the file."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»."
+msgstr "Не удалось открыть файл."
 
 msgid "Can't browse that path."
 msgstr ""
 
 msgid "Can't load file"
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»"
+msgstr "Не удалось загрузить файл"
 
 msgid "Can't open file."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»."
+msgstr "Не удалось открыть файл."
 
 msgid "Can't read file:"
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ñ€Ð¾Ñ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»:"
+msgstr "Не удалось прочитать файл:"
 
 msgid "Cancel"
-msgstr "ÐžÑ‚Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ"
+msgstr "Отменить"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Невозможно создать каталог: "
 
 msgid "Cannot open image"
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ"
+msgstr "Не удалось открыть изображение"
 
 msgid "Cannot write to destination."
 msgstr ""
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Не удалось записать в файл."
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 msgid "Change Language Path?"
-msgstr ""
+msgstr "Изменить языковой путь?"
 
 msgid "Channels"
-msgstr "ÐšÐ°Ð½Ð°Ð»Ñ‹"
+msgstr "Каналы"
 
 msgid "Clear"
 msgstr ""
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "Режим часов"
 
 msgid "Close"
-msgstr "Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ"
+msgstr ""
 
 msgid "Coders:"
-msgstr "ÐšÐ¾Ð´ÐµÑ€Ñ‹:"
+msgstr "Кодеры:"
 
 msgid "Compressed Size:"
 msgstr ""
@@ -131,125 +131,125 @@ msgid "Console Default"
 msgstr ""
 
 msgid "Continue"
-msgstr ""
+msgstr "Продолжить"
 
 msgid "Convert"
-msgstr ""
+msgstr "Преобразовать"
 
 msgid "Converting image..."
-msgstr ""
+msgstr "Преобразование изображения..."
 
 msgid "Copy"
-msgstr "ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ"
+msgstr "Копировать"
 
 msgid "Copy current marked item(s)?"
-msgstr "ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹?"
+msgstr "Копировать выделенные объекты?"
 
 msgid "Copy of"
-msgstr "ÐšÐ¾Ð¿Ð¸Ñ"
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr ""
 
 msgid "Could not connect to the network"
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ðº ÑÐµÑ‚Ð¸"
+msgstr "Не удалось подключиться к сети"
 
 msgid "Could not connect to the server."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ðº ÑÐµÑ€Ð²ÐµÑ€Ñƒ."
+msgstr "Не удалось подключиться к серверу."
 
 msgid "Could not convert image."
-msgstr ""
+msgstr "Не удалось преобразовать изображение."
 
 msgid "Could not decompress the file."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ñ€Ð°ÑÐ¿Ð°ÐºÐ¾Ð²Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»."
+msgstr "Не удалось распаковать файл."
 
 msgid "Could not download file."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»."
+msgstr "Не удалось загрузить файл."
 
 msgid "Could not extract file:"
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¸Ð·Ð²Ð»ÐµÑ‡ÑŒ Ñ„Ð°Ð¹Ð»:"
+msgstr "Не удалось извлечь файл:"
 
 msgid "Could not load image."
-msgstr ""
+msgstr "Не удалось загрузить изображение."
 
 msgid "Could not load text file."
-msgstr "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»."
+msgstr "Не удалось загрузить текстовый файл."
 
 msgid "Credits"
-msgstr ""
+msgstr "Спасибо"
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Путь к шрифту"
 
 msgid "Cut"
-msgstr "Ð’Ñ‹Ñ€ÐµÐ·Ð°Ñ‚ÑŒ"
+msgstr "Вырезать"
 
 msgid "Cut current marked item(s)?"
-msgstr "Ð’Ñ‹Ñ€ÐµÐ·Ð°Ñ‚ÑŒ Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹?"
+msgstr "Вырезать выделенные объекты?"
 
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 msgid "Delete"
-msgstr "Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ"
+msgstr "Удалить"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr ""
 
 msgid "Deleting files:"
-msgstr "Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð¾Ð²:"
+msgstr "Удаление файлов:"
 
 msgid "Designer:"
-msgstr "Ð”Ð¸Ð·Ð°Ð¹Ð½ÐµÑ€:"
+msgstr "Дизайнер:"
 
 msgid "Directory .."
-msgstr "Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸Ñ .."
+msgstr "Директория .."
 
 msgid "Directory couldn't be deleted."
-msgstr "Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸Ñ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ ÑƒÐ´Ð°Ð»ÐµÐ½Ð°."
+msgstr "Директория не может быть удалена."
 
 msgid "Do you want to boot file now?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» ÑÐµÐ¹Ñ‡Ð°Ñ?"
+msgstr "Вы хотите загрузить файл сейчас?"
 
 msgid "Do you want to boot:"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ:"
+msgstr "Вы хотите загрузить:"
 
 msgid "Do you want to change the font?"
-msgstr ""
+msgstr "Вы хотите изменить шрифт?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "Вы хотите скачать новые языковые файлы?"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð²Ñ‹Ð¹Ñ‚Ð¸ Ð¸Ð· WiiXplorer?"
+msgstr "Вы хотите выйти из WiiXplorer?"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr ""
+msgstr "Вы хотите запустить файл в MPlayerCE?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» Ð¸Ð·: %s ?"
+msgstr "Вы хотите загрузить файл из: %s ?"
 
 msgid "Do you want to load the default language."
 msgstr ""
 
 msgid "Do you want to load this language ?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÑÑ‚Ð¾Ñ‚ ÑÐ·Ñ‹Ðº ?"
+msgstr "Вы хотите загрузить этот язык ?"
 
 msgid "Do you want to load this language file?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÑÑ‚Ð¾Ñ‚ ÑÐ·Ñ‹ÐºÐ¾Ð²Ð¾Ð¹ Ñ„Ð°Ð¹Ð» ?"
+msgstr "Вы хотите загрузить этот языковой файл ?"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr ""
 
 msgid "Do you want to playback this file?"
-msgstr ""
+msgstr "Вы хотите воспроизвести этот файл?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¿ÐµÑ€ÐµÐ·Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ WiiXplorer?"
+msgstr "Вы хотите перезапустить WiiXplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¿ÐµÑ€ÐµÐ·Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ ÑÐµÐ¹Ñ‡Ð°Ñ ?"
+msgstr "Вы хотите перезапустить сейчас ?"
 
 msgid "Do you want to reconnect the SMB?"
 msgstr ""
@@ -258,13 +258,13 @@ msgid "Do you want to reconnect to FTP server?"
 msgstr ""
 
 msgid "Do you want to remount the devices?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¿ÐµÑ€ÐµÐ·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ [sd:],[usb:]?"
+msgstr "Вы хотите перезагрузить [sd:],[usb:]?"
 
 msgid "Do you want to replace this file?"
 msgstr ""
 
 msgid "Do you want to save changes?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ?"
+msgstr "Вы хотите сохранить изменения?"
 
 msgid "Do you want to start the app?"
 msgstr ""
@@ -273,74 +273,74 @@ msgid "Do you want to start the channel?"
 msgstr ""
 
 msgid "Do you want to update now ?"
-msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¾Ð±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ ÑÐµÐ¹Ñ‡Ð°Ñ ?"
+msgstr "Вы хотите обновить сейчас ?"
 
 msgid "Download Files"
-msgstr ""
+msgstr "Загрузить файлы"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "Загружены %d файлы."
 
 msgid "Downloading file..."
-msgstr "Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð°..."
+msgstr "Загрузка файла..."
 
 msgid "Downloading files..."
 msgstr ""
 
 msgid "Error while reading file."
-msgstr "ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ñ‡Ñ‚ÐµÐ½Ð¸Ð¸ Ñ„Ð°Ð¹Ð»Ð°."
+msgstr "Ошибка при чтении файла."
 
 msgid "Error:"
-msgstr "ÐžÑˆÐ¸Ð±ÐºÐ°:"
+msgstr "Ошибка:"
 
 msgid "Exit"
-msgstr "Ð’Ñ‹Ñ…Ð¾Ð´"
+msgstr "Выход"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "Покинуть WiiXplorer?"
 
 msgid "Explorer Settings"
-msgstr ""
+msgstr "Настройки проводника"
 
 msgid "Extract"
-msgstr "Ð˜Ð·Ð²Ð»ÐµÑ‡ÑŒ"
+msgstr "Извлечь"
 
 msgid "Extract All"
-msgstr "Ð˜Ð·Ð²Ð»ÐµÑ‡ÑŒ Ð²ÑÑ‘"
+msgstr "Извлечь всё"
 
 msgid "Extract first and open than."
-msgstr ""
+msgstr "Извлеките, затем откройте."
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "Извлечь всё содержимое архива?"
 
 msgid "Extract the selected item(s)?"
 msgstr ""
 
 msgid "Extracting files..."
-msgstr "Ð˜Ð·Ð²Ð»ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð¾Ð²..."
+msgstr "Извлечение файлов..."
 
 msgid "Extracting item(s):"
 msgstr ""
 
 msgid "FTP Client Settings"
-msgstr "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ FTP ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð°"
+msgstr "Настройки FTP клиента"
 
 msgid "FTP Path:"
-msgstr "ÐŸÑƒÑ‚ÑŒ:"
+msgstr "Путь:"
 
 msgid "FTP Port:"
-msgstr "ÐŸÐ¾Ñ€Ñ‚:"
+msgstr "Порт:"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "FTP сервер"
 
 msgid "FTP Server Settings"
-msgstr "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ FTP ÑÐµÑ€Ð²ÐµÑ€Ð°"
+msgstr "Настройки FTP сервера"
 
 msgid "FTP Server is running and listening on port"
-msgstr ""
+msgstr "FTP сервер работает и прослушивает порт"
 
 msgid "FTP Started.\n"
 msgstr ""
@@ -373,13 +373,13 @@ msgid "File couldn't be deleted."
 msgstr ""
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "Ð¤Ð°Ð¹Ð» Ð¿Ð¾Ð²Ñ€ÐµÐ¶Ð´Ñ‘Ð½ (Ð½ÐµÑÐ¾Ð²Ð¿Ð°Ð´ÐµÐ½Ð¸Ðµ CRC)."
+msgstr "Файл повреждён (несовпадение CRC)."
 
 msgid "File is corrupt."
-msgstr "Ð¤Ð°Ð¹Ð» Ð¿Ð¾Ð²Ñ€ÐµÐ¶Ð´Ñ‘Ð½."
+msgstr "Файл повреждён."
 
 msgid "File is too big."
-msgstr ""
+msgstr "Файл слишком велик."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
@@ -392,10 +392,10 @@ msgstr ""
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "ÐŸÑƒÑ‚ÑŒ: %s"
+msgstr "Путь: %s"
 
 msgid "Files:"
-msgstr "Ð¤Ð°Ð¹Ð»Ð¾Ð²:"
+msgstr "Файлов:"
 
 msgid "Filesize doesn't match."
 msgstr ""
@@ -404,13 +404,13 @@ msgid "Filesize is 0 Byte."
 msgstr ""
 
 msgid "Filetype:"
-msgstr "Ð¢Ð¸Ð¿:"
+msgstr "Тип:"
 
 msgid "Flip Mode"
 msgstr ""
 
 msgid "Folder"
-msgstr "ÐŸÐ°Ð¿ÐºÐ°"
+msgstr "Папка"
 
 msgid "Fontpath changed."
 msgstr ""
@@ -422,25 +422,25 @@ msgid "GD2 Compression"
 msgstr ""
 
 msgid "Getting Changelog..."
-msgstr "ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¹..."
+msgstr "Получение изменений..."
 
 msgid "Go Back"
-msgstr "Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ"
+msgstr "Вернуться"
 
 msgid "Home Menu"
-msgstr ""
+msgstr "Меню Home"
 
 msgid "Horizontal"
 msgstr ""
 
 msgid "Host:"
-msgstr "Ð¥Ð¾ÑÑ‚:"
+msgstr "Хост:"
 
 msgid "How do you want to open the file?"
-msgstr ""
+msgstr "Как вы хотите открыть этот файл?"
 
 msgid "Icon Mode"
-msgstr ""
+msgstr "Иконки"
 
 msgid "Image Converter"
 msgstr ""
@@ -449,7 +449,7 @@ msgid "Image Heigth"
 msgstr ""
 
 msgid "Image Settings"
-msgstr ""
+msgstr "Настройки изображения"
 
 msgid "Image Viewer"
 msgstr ""
@@ -479,7 +479,7 @@ msgid "JPEG Quality"
 msgstr ""
 
 msgid "Language"
-msgstr "Ð¯Ð·Ñ‹Ðº"
+msgstr "Язык"
 
 msgid "Language Path changed."
 msgstr ""
@@ -500,40 +500,40 @@ msgid "Linebreak"
 msgstr ""
 
 msgid "List Mode"
-msgstr ""
+msgstr "Список"
 
 msgid "Listening on TCP port"
 msgstr ""
 
 msgid "Loading file:"
-msgstr "Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð°:"
+msgstr "Загрузка файла:"
 
 msgid "Loading image..."
-msgstr ""
+msgstr "Загрузка изображения..."
 
 msgid "Loop"
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr ""
+msgstr "Путь к MPlayerCE"
 
 msgid "MPlayerPath changed"
-msgstr ""
+msgstr "Путь к MPlayerCE изменён"
 
 msgid "Menu"
-msgstr ""
+msgstr "Меню Wii"
 
 msgid "Mount NTFS"
-msgstr "ÐœÐ¾Ð½Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ NTFS"
+msgstr "Монтировать NTFS"
 
 msgid "Moving item(s):"
 msgstr ""
 
 msgid "Music Loop Mode"
-msgstr "Ð ÐµÐ¶Ð¸Ð¼ Ð²Ð¾ÑÐ¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ñ"
+msgstr "Режим воспроизведения"
 
 msgid "Music Volume"
-msgstr "Ð“Ñ€Ð¾Ð¼ÐºÐ¾ÑÑ‚ÑŒ"
+msgstr "Громкость"
 
 msgid "NONE"
 msgstr ""
@@ -542,19 +542,19 @@ msgid "Name might already exists."
 msgstr ""
 
 msgid "Network Settings"
-msgstr "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ ÑÐµÑ‚Ð¸"
+msgstr "Настройки сети"
 
 msgid "Network initialising..."
-msgstr "Ð˜Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐµÑ‚Ð¸..."
+msgstr "Инициализация сети..."
 
 msgid "New Folder"
-msgstr "ÐÐ¾Ð²Ð°Ñ Ð¿Ð°Ð¿ÐºÐ°"
+msgstr "Новая папка"
 
 msgid "No"
-msgstr "ÐÐµÑ‚"
+msgstr "Нет"
 
 msgid "No files found."
-msgstr ""
+msgstr "Файлы не найдены."
 
 msgid "No homebrew in the zip."
 msgstr ""
@@ -564,16 +564,16 @@ msgid "No image found at index %d."
 msgstr ""
 
 msgid "No language files found."
-msgstr ""
+msgstr "Языковые файлы не найдены."
 
 msgid "No network connection."
 msgstr ""
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Нет новых обновлений"
 
 msgid "No to all"
-msgstr ""
+msgstr "Нет для всех"
 
 msgid "Not a valid URL"
 msgstr ""
@@ -594,16 +594,16 @@ msgid "Not enough memory."
 msgstr ""
 
 msgid "OFF"
-msgstr "Ð’Ñ‹ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¾"
+msgstr "Выключено"
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr "Ð’ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¾"
+msgstr "Включено"
 
 msgid "Open"
-msgstr "ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ"
+msgstr "Открыть"
 
 msgid "Opening is not yet implemented"
 msgstr ""
@@ -621,10 +621,10 @@ msgid "Passive Mode:"
 msgstr ""
 
 msgid "Password:"
-msgstr "ÐŸÐ°Ñ€Ð¾Ð»ÑŒ:"
+msgstr "Пароль:"
 
 msgid "Paste"
-msgstr "Ð’ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ"
+msgstr "Вставить"
 
 msgid "Paste item(s) into current directory?"
 msgstr ""
@@ -639,10 +639,10 @@ msgid "Play Once"
 msgstr ""
 
 msgid "Please wait..."
-msgstr ""
+msgstr "Пожалуйста, подождите..."
 
 msgid "Please wait:"
-msgstr "ÐŸÐ¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð° Ð¿Ð¾Ð´Ð¾Ð¶Ð´Ð¸Ñ‚Ðµ:"
+msgstr "Пожалуйста, подождите:"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
@@ -651,7 +651,7 @@ msgid "Process canceled."
 msgstr ""
 
 msgid "Properties"
-msgstr "Ð¡Ð²Ð¾Ð¹ÑÑ‚Ð²Ð°"
+msgstr "Свойства"
 
 msgid "QWERTYUIOP{}|"
 msgstr ""
@@ -663,37 +663,37 @@ msgid "Reboot failed"
 msgstr ""
 
 msgid "Receiving file..."
-msgstr "ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð°..."
+msgstr "Получение файла..."
 
 msgid "Reconnect FTP"
-msgstr "ÐŸÐµÑ€ÐµÐ¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ FTP"
+msgstr "Переподключить FTP"
 
 msgid "Reconnect SMB"
-msgstr "ÐŸÐµÑ€ÐµÐ¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ SMB"
+msgstr "Переподключить SMB"
 
 msgid "Reload"
-msgstr "ÐŸÐµÑ€ÐµÐ·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° [sd:],[usb:]"
+msgstr "Перезагрузка [sd:],[usb:]"
 
 msgid "Rename"
-msgstr "ÐŸÐµÑ€ÐµÐ¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ñ‚ÑŒ"
+msgstr "Переименовать"
 
 msgid "Reset"
-msgstr ""
+msgstr "Сброс"
 
 msgid "Restart"
-msgstr "ÐŸÐµÑ€ÐµÐ·Ð°Ð¿ÑƒÑÐº"
+msgstr "Перезапуск"
 
 msgid "Retry"
-msgstr "ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚ÑŒ"
+msgstr "Повторить"
 
 msgid "Rotate"
-msgstr ""
+msgstr "Повернуть"
 
 msgid "SMB Name:"
-msgstr "Ð˜Ð¼Ñ SMB:"
+msgstr "Имя SMB:"
 
 msgid "SMB Settings"
-msgstr "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ SMB"
+msgstr "Настройки SMB клиента"
 
 msgid "SMB is connecting..."
 msgstr ""
@@ -702,55 +702,55 @@ msgid "Save Alpha"
 msgstr ""
 
 msgid "Screenshot Format"
-msgstr ""
+msgstr "Формат скриншота"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "Скорость прокрутки"
 
 msgid "Server was shutdown...\n"
-msgstr ""
+msgstr "Сервер остановлен...\n"
 
 msgid "Settings"
-msgstr "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸"
+msgstr "Настройки"
 
 msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr "Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ"
+msgstr "Изменения"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Выключить"
 
 msgid "Shutdown FTP"
-msgstr ""
+msgstr "Остановить FTP"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Выключить Wii?"
 
 msgid "Size:"
-msgstr "Ð Ð°Ð·Ð¼ÐµÑ€:"
+msgstr "Размер:"
 
 msgid "Slideshow Delay"
-msgstr ""
+msgstr "Задержка слайд-шоу"
 
 msgid "Sound Settings"
-msgstr ""
+msgstr "Настройки звука"
 
 msgid "Special thanks to:"
-msgstr "ÐžÑÐ¾Ð±Ð°Ñ Ð±Ð»Ð°Ð³Ð¾Ð´Ð°Ñ€Ð½Ð¾ÑÑ‚ÑŒ:"
+msgstr "Особая благодарность:"
 
 msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
-msgstr ""
+msgstr "Запустить FTP"
 
 msgid "The new font could not be loaded."
 msgstr ""
 
 msgid "The new font is loaded."
-msgstr ""
+msgstr "Новый шрифт загружен"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr ""
@@ -759,10 +759,10 @@ msgid "To Idle"
 msgstr ""
 
 msgid "To Loader"
-msgstr ""
+msgstr "В загрузчик"
 
 msgid "To Menu"
-msgstr ""
+msgstr "В меню Wii"
 
 msgid "To Standby"
 msgstr ""
@@ -771,19 +771,19 @@ msgid "Total Space:"
 msgstr ""
 
 msgid "Transfer cancelled."
-msgstr "ÐŸÐµÑ€ÐµÐ´Ð°Ñ‡Ð° Ð¾Ñ‚Ð¼ÐµÐ½ÐµÐ½Ð°."
+msgstr "Передача отменена."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Сбой передачи"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "Сбой передача."
 
 msgid "Transfering files:"
-msgstr "ÐŸÐµÑ€ÐµÐ´Ð°Ñ‡Ð° Ñ„Ð°Ð¹Ð»Ð¾Ð²:"
+msgstr "Передача файлов:"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "URL пуст."
 
 msgid "Unable to create folder."
 msgstr ""
@@ -795,32 +795,32 @@ msgid "Unable to load the device."
 msgstr ""
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "Неподдерживаемый формат!"
 
 msgid "Update (App) Path"
 msgstr ""
 
 msgid "Update App"
-msgstr "ÐžÐ±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ"
+msgstr "Обновить"
 
 msgid "Update Icon.png"
-msgstr "ÐžÐ±Ð½Ð¾Ð²Ð»ÑÑ‚ÑŒ Icon.png"
+msgstr "Обновлять Icon.png"
 
 msgid "Update Meta.xml"
-msgstr "ÐžÐ±Ð½Ð¾Ð²Ð»ÑÑ‚ÑŒ Meta.xml"
+msgstr "Обновлять Meta.xml"
 
 msgid "Update Path changed."
 msgstr ""
 
 msgid "Update failed"
-msgstr "ÐžÑˆÐ¸Ð±ÐºÐ° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ"
+msgstr "Ошибка обновления"
 
 msgid "Update successfully finished"
-msgstr "ÐžÐ±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾"
+msgstr "Обновление завершено успешно"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr "Ð”Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð´Ð¾ Rev. %i"
+msgstr "Доступно обновление до Rev. %i"
 
 #, c-format
 msgid "User %i"
@@ -830,16 +830,16 @@ msgid "User:"
 msgstr ""
 
 msgid "Username:"
-msgstr "Ð˜Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ:"
+msgstr "Имя пользователя:"
 
 msgid "Vertical"
 msgstr ""
 
 msgid "Yes"
-msgstr "Ð”Ð°"
+msgstr "Да"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "Да для всех"
 
 msgid "You can not cut into the directory itself."
 msgstr ""
@@ -875,22 +875,7 @@ msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð» Ð² TextViewer?"
-
-#~ msgid "Connected"
-#~ msgstr "Ð¡Ð¾ÐµÐ´Ð¸Ð½Ñ‘Ð½"
-
-#~ msgid "Connected with: %s)"
-#~ msgstr "Ð¡Ð¾ÐµÐ´Ð¸Ð½Ñ‘Ð½ Ñ: %s)"
-
-#~ msgid "Ftp stopped"
-#~ msgstr "FTP Ð¾ÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½"
-
-#~ msgid "Internal error"
-#~ msgstr "Ð’Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½ÑÑ Ð¾ÑˆÐ¸Ð±ÐºÐ°"
-
-#~ msgid "Launch Ftp"
-#~ msgstr "Ð—Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ"
+#~ msgstr "Вы хотите открыть этот файл в TextViewer?"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
-#~ msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð» Ð² ImageViewer?"
+#~ msgstr "Вы хотите открыть этот файл в ImageViewer?"
