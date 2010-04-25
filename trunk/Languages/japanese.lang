@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "フォルダを作成できませんでした"
 
 msgid "Cannot open image"
 msgstr "画像を開けません"
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "書き込めません"
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "ファイルに書き込めませんでした"
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 msgid "Change Language Path?"
 msgstr "言語のパスを変更しますか?"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "日本語"
 
 msgid "Continue"
-msgstr ""
+msgstr "続行"
 
 msgid "Convert"
 msgstr "変換"
@@ -187,7 +187,7 @@ msgid "Cut current marked item(s)?"
 msgstr "選択されたアイテムを切り取りますか?"
 
 msgid "Default"
-msgstr ""
+msgstr "スタンバイ"
 
 msgid "Delete"
 msgstr "削除"
@@ -217,7 +217,7 @@ msgid "Do you want to change the font?"
 msgstr "フォントを変更しますか?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "新しい言語ファイルをダウンロードしますか?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorerを終了しますか?"
@@ -230,7 +230,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "%sからファイルを読み込みますか?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "デフォルトの言語を読み込みますか?"
 
 msgid "Do you want to load this language ?"
 msgstr "この言語に設定しますか?"
@@ -239,7 +239,7 @@ msgid "Do you want to load this language file?"
 msgstr "この言語ファイルを読み込みますか?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "テキストエディタで開きますか?"
 
 msgid "Do you want to playback this file?"
 msgstr "このファイルを再生しますか?"
@@ -275,17 +275,17 @@ msgid "Do you want to update now ?"
 msgstr "更新しますか?"
 
 msgid "Download Files"
-msgstr ""
+msgstr "ファイルをダウンロード"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "%d個のファイルをダウンロードしました"
 
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "ダウンロード中…"
 
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
@@ -297,7 +297,7 @@ msgid "Exit"
 msgstr "終了"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorerを終了しますか?"
 
 msgid "Explorer Settings"
 msgstr "エクスプローラの設定"
@@ -378,7 +378,7 @@ msgid "File is corrupt."
 msgstr "ファイルが破損しています"
 
 msgid "File is too big."
-msgstr ""
+msgstr "ファイルが大きすぎです"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "書庫のサイズが大きすぎです"
@@ -553,7 +553,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No files found."
-msgstr ""
+msgstr "ファイルが見つかりません"
 
 msgid "No homebrew in the zip."
 msgstr "zip内にhomebrewが何もありません"
@@ -704,7 +704,7 @@ msgid "Screenshot Format"
 msgstr "画面写真の形式"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "スクロール速度"
 
 msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
@@ -719,13 +719,13 @@ msgid "Show Changelog"
 msgstr "更新履歴を見る"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "シャットダウン"
 
 msgid "Shutdown FTP"
 msgstr "FTPを終了"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Wiiをシャットダウンしますか?"
 
 msgid "Size:"
 msgstr "サイズ"
@@ -755,16 +755,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
 
 msgid "To Idle"
-msgstr ""
+msgstr "休止状態"
 
 msgid "To Loader"
-msgstr ""
+msgstr "ローダーへ"
 
 msgid "To Menu"
-msgstr ""
+msgstr "メニューへ"
 
 msgid "To Standby"
-msgstr ""
+msgstr "シャットダウン"
 
 msgid "Total Space:"
 msgstr "使用領域:"

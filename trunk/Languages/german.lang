@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r153
+# r157
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 20:58+0200\n"
+"POT-Creation-Date: 2010-04-12 00:33+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Verzeichnis kann nicht erstellt werden:"
 
 msgid "Cannot open image"
 msgstr "Bild konnte nicht geöffnet werden"
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "Zielverzeichnis ist nicht beschreibbar."
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Die Datei kann nicht geschrieben werden."
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 msgid "Change Language Path?"
 msgstr "Pfad zu den Sprachdateien ändern?"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "Konsolenstandard"
 
 msgid "Continue"
-msgstr ""
+msgstr "Fortsetzen"
 
 msgid "Convert"
 msgstr "Konvertieren"
@@ -187,7 +187,7 @@ msgid "Cut current marked item(s)?"
 msgstr "Markierte Elemente ausschneiden?"
 
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -217,7 +217,7 @@ msgid "Do you want to change the font?"
 msgstr "Die Schriftart ändern?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "Neue Sprachdateien herunterladen?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorer beenden?"
@@ -230,7 +230,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "Datei laden von: %s ?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "Die Standardsprache laden?"
 
 msgid "Do you want to load this language ?"
 msgstr "Diese Sprache laden?"
@@ -239,7 +239,7 @@ msgid "Do you want to load this language file?"
 msgstr "Diese Sprachdatei laden?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "Diese Datei im TextEditor öffnen?"
 
 msgid "Do you want to playback this file?"
 msgstr "Diese Datei abspielen?"
@@ -275,17 +275,17 @@ msgid "Do you want to update now ?"
 msgstr "Jetzt updaten?"
 
 msgid "Download Files"
-msgstr ""
+msgstr "Dateien herunterladen"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "%d Dateien heruntergeladen."
 
 msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "Dateien werden heruntergeladen..."
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -297,7 +297,7 @@ msgid "Exit"
 msgstr "Beenden"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorer beenden?"
 
 msgid "Explorer Settings"
 msgstr "Explorer"
@@ -378,7 +378,7 @@ msgid "File is corrupt."
 msgstr "Datei ist beschädigt."
 
 msgid "File is too big."
-msgstr ""
+msgstr "Datei ist zu groß."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Kompressionseinstellungen der Datei sind zu hoch (Worterbuch ist zu groß)."
@@ -553,7 +553,7 @@ msgid "No"
 msgstr "Nein"
 
 msgid "No files found."
-msgstr ""
+msgstr "Keine Dateien gefunden."
 
 msgid "No homebrew in the zip."
 msgstr "Keine Homebrew im ZIP."
@@ -704,7 +704,7 @@ msgid "Screenshot Format"
 msgstr "Bildformat für Screenshots"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "Geschwindigkeit beim Scrollen"
 
 msgid "Server was shutdown...\n"
 msgstr "Server wurde ausgeschaltet...\n"
@@ -719,13 +719,13 @@ msgid "Show Changelog"
 msgstr "Zeige Changelog"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Herunterfahren"
 
 msgid "Shutdown FTP"
 msgstr "FTP stoppen"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Wii herunterfahren?"
 
 msgid "Size:"
 msgstr "Größe:"
@@ -755,16 +755,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
 
 msgid "To Idle"
-msgstr ""
+msgstr "StandBy"
 
 msgid "To Loader"
-msgstr ""
+msgstr "Loader"
 
 msgid "To Menu"
-msgstr ""
+msgstr "Menü"
 
 msgid "To Standby"
-msgstr ""
+msgstr "Komplett"
 
 msgid "Total Space:"
 msgstr "Gesamter Speicher:"

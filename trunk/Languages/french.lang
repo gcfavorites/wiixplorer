@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r154
+# r157
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 20:58+0200\n"
+"POT-Creation-Date: 2010-03-09 21:29+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Impossible de créer le répertoire: "
 
 msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "Ecriture impossible."
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Impossible d'écrire dans le fichier."
 
 msgid "Caps"
 msgstr "Verr"
 
 msgid "Change"
-msgstr ""
+msgstr "Modifier"
 
 msgid "Change Language Path?"
 msgstr "Modifier le dossier Language?"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "Wii Défaut"
 
 msgid "Continue"
-msgstr ""
+msgstr "Continuer"
 
 msgid "Convert"
 msgstr "Convertir"
@@ -187,7 +187,7 @@ msgid "Cut current marked item(s)?"
 msgstr "Couper le(s) élement(s) marqué(s)?"
 
 msgid "Default"
-msgstr ""
+msgstr "Par défaut"
 
 msgid "Delete"
 msgstr "Supprimer"
@@ -217,7 +217,7 @@ msgid "Do you want to change the font?"
 msgstr "Voulez-vous changer de police?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "Voulez-vous télécharger les nouveaux fichiers de langue?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Voulez-vous quitter Wiixplorer?"
@@ -230,7 +230,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "Voulez-vous charger le fichier depuis: %s?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "Voulez-vous charger la langue par défaut?"
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language?"
@@ -239,7 +239,7 @@ msgid "Do you want to load this language file?"
 msgstr "Voulez-vous charger ce fichier language?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "Voulez-vous éditer ce fichier texte?"
 
 msgid "Do you want to playback this file?"
 msgstr "Voulez-vous jouer ce fichier?"
@@ -275,17 +275,17 @@ msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant?"
 
 msgid "Download Files"
-msgstr ""
+msgstr "Télécharger"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "%d fichiers téléchargés."
 
 msgid "Downloading file..."
-msgstr "Téléchargement..."
+msgstr "Téléchargement du fichier..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "Téléchargement des fichiers..."
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -297,7 +297,7 @@ msgid "Exit"
 msgstr "Quitter"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "Voulez-vous quitter WiiXplorer?"
 
 msgid "Explorer Settings"
 msgstr "Options d'exploration"
@@ -378,7 +378,7 @@ msgid "File is corrupt."
 msgstr "Le fichier est corrompu."
 
 msgid "File is too big."
-msgstr ""
+msgstr "Le fichier est trop gros."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Les paramètres de compression sont trop élevés (taille du dictionaire excessive)."
@@ -553,7 +553,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No files found."
-msgstr ""
+msgstr "Aucun fichier trouvé."
 
 msgid "No homebrew in the zip."
 msgstr "Pas de homebrew dans le zip."
@@ -704,7 +704,7 @@ msgid "Screenshot Format"
 msgstr "Format de copie d'écran"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "Vitesse de défilement"
 
 msgid "Server was shutdown...\n"
 msgstr "Le serveur a été arrêté"
@@ -719,13 +719,13 @@ msgid "Show Changelog"
 msgstr "Voir le Changelog"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Eteindre"
 
 msgid "Shutdown FTP"
 msgstr "Arrêter FTP"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Eteindre la Wii?"
 
 msgid "Size:"
 msgstr "Taille:"
@@ -755,16 +755,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
 
 msgid "To Idle"
-msgstr ""
+msgstr "Mettre en veille"
 
 msgid "To Loader"
-msgstr ""
+msgstr "Vers le chargeur"
 
 msgid "To Menu"
-msgstr ""
+msgstr "Vers le menu"
 
 msgid "To Standby"
-msgstr ""
+msgstr "Eteindre"
 
 msgid "Total Space:"
 msgstr "Espace total:"

@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "Annuller"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Kan Ikke Skabe Mappe: "
 
 msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "Kan ikke skrive til destinationen."
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Kan Ikke Skrive Til Filen."
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "Ændre"
 
 msgid "Change Language Path?"
 msgstr "Ændre Sprog Sti?"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "Konsolstandard"
 
 msgid "Continue"
-msgstr ""
+msgstr "Fortsæt"
 
 msgid "Convert"
 msgstr "Konventer"
@@ -187,7 +187,7 @@ msgid "Cut current marked item(s)?"
 msgstr "Klip Markerede Emne(r)?"
 
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 msgid "Delete"
 msgstr "Slet"
@@ -217,7 +217,7 @@ msgid "Do you want to change the font?"
 msgstr "Vil Du Ændre Font?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "Vil Du Downloade Nye Sprogfiler?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Vil Du Lukke WiiXplorer?"
@@ -230,7 +230,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr ""
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "Vil Du Indlæse Standard Sprog."
 
 msgid "Do you want to load this language ?"
 msgstr "Vil du indlæse dette sprog?"
@@ -239,7 +239,7 @@ msgid "Do you want to load this language file?"
 msgstr "Vil Du IndLæse Denne Sprogfil?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "Vil Du Åbne Denne Fil Med TextEditor?"
 
 msgid "Do you want to playback this file?"
 msgstr "Vil du afspille filen?"
@@ -275,7 +275,7 @@ msgid "Do you want to update now ?"
 msgstr "Vil du opdatere nu?"
 
 msgid "Download Files"
-msgstr ""
+msgstr "Download Filer"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -285,7 +285,7 @@ msgid "Downloading file..."
 msgstr "Downloader fil..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "Downloader Filer..."
 
 msgid "Error while reading file."
 msgstr "Fejl Under Indlæsning Af Fil."
@@ -297,7 +297,7 @@ msgid "Exit"
 msgstr "Luk"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "Luk WiiXplorer?"
 
 msgid "Explorer Settings"
 msgstr "Explorer Indstillinger"
@@ -378,7 +378,7 @@ msgid "File is corrupt."
 msgstr "Fil Er Istykker."
 
 msgid "File is too big."
-msgstr ""
+msgstr "Fil Er For Stor."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
@@ -553,7 +553,7 @@ msgid "No"
 msgstr "Nej"
 
 msgid "No files found."
-msgstr ""
+msgstr "Ingen Filer Fundet."
 
 msgid "No homebrew in the zip."
 msgstr "Ingen Homebrew I Zip."
@@ -605,7 +605,7 @@ msgid "Open"
 msgstr "Åben"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "Åbning Er Ikke Muligt Endnu"
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
@@ -704,7 +704,7 @@ msgid "Screenshot Format"
 msgstr ""
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "Scrolling Hastighed"
 
 msgid "Server was shutdown...\n"
 msgstr ""
@@ -719,13 +719,13 @@ msgid "Show Changelog"
 msgstr "Vis Changelog"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Luk Ned"
 
 msgid "Shutdown FTP"
 msgstr "Luk FTP Ned"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Luk Wii Ned"
 
 msgid "Size:"
 msgstr "Størrelse:"
@@ -755,16 +755,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
 
 msgid "To Idle"
-msgstr ""
+msgstr "Til Idle"
 
 msgid "To Loader"
-msgstr ""
+msgstr "Til Loader"
 
 msgid "To Menu"
-msgstr ""
+msgstr "Til Menu"
 
 msgid "To Standby"
-msgstr ""
+msgstr "Til Standby"
 
 msgid "Total Space:"
 msgstr "Total Plads:"

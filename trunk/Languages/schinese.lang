@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "无法创建目录："
 
 msgid "Cannot open image"
 msgstr "无法打开图片程序"
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "目的地址无法写入"
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "无法写入文件。"
 
 msgid "Caps"
 msgstr "大写"
 
 msgid "Change"
-msgstr ""
+msgstr "更改"
 
 msgid "Change Language Path?"
 msgstr "更改语言文件路径？"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "主机缺省"
 
 msgid "Continue"
-msgstr ""
+msgstr "继续"
 
 msgid "Convert"
 msgstr "转换"
@@ -187,7 +187,7 @@ msgid "Cut current marked item(s)?"
 msgstr "是否剪切已标记项目？"
 
 msgid "Default"
-msgstr ""
+msgstr "缺省"
 
 msgid "Delete"
 msgstr "删除"
@@ -217,7 +217,7 @@ msgid "Do you want to change the font?"
 msgstr "是否要更改字体？"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "是否想要下载新的语言文件？"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "是否退出WiiXplorer?"
@@ -230,7 +230,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "是否想要运行文件来自:%s ?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "是否要读取缺省语言。"
 
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
@@ -239,7 +239,7 @@ msgid "Do you want to load this language file?"
 msgstr "是否读取此语言文件？"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "是否使用文本编辑器打开此文件？"
 
 msgid "Do you want to playback this file?"
 msgstr "是否播放此文件？"
@@ -275,17 +275,17 @@ msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
 
 msgid "Download Files"
-msgstr ""
+msgstr "下载文件"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "下载 %d 文件。"
 
 msgid "Downloading file..."
 msgstr "正在下载文件"
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "文件下载中"
 
 msgid "Error while reading file."
 msgstr "错误"
@@ -297,7 +297,7 @@ msgid "Exit"
 msgstr "退出"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "退出WiiXplorer?"
 
 msgid "Explorer Settings"
 msgstr "浏览器设置"
@@ -378,7 +378,7 @@ msgid "File is corrupt."
 msgstr "文件已损坏"
 
 msgid "File is too big."
-msgstr ""
+msgstr "文件过大。"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "文件使用了高压缩比设置（字典尺寸过大。）"
@@ -553,7 +553,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No files found."
-msgstr ""
+msgstr "没有发现文件。"
 
 msgid "No homebrew in the zip."
 msgstr "Zip压缩包中无自制程序。"
@@ -704,7 +704,7 @@ msgid "Screenshot Format"
 msgstr "截屏格式"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "滚动速度"
 
 msgid "Server was shutdown...\n"
 msgstr "服务已关闭...\n"
@@ -719,13 +719,13 @@ msgid "Show Changelog"
 msgstr "显示更新日志"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "关闭"
 
 msgid "Shutdown FTP"
 msgstr "关闭FTP"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "关闭Wii？"
 
 msgid "Size:"
 msgstr "尺寸："
@@ -755,16 +755,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
 
 msgid "To Idle"
-msgstr ""
+msgstr "空闲"
 
 msgid "To Loader"
-msgstr ""
+msgstr "返回HBC"
 
 msgid "To Menu"
-msgstr ""
+msgstr "返回菜单"
 
 msgid "To Standby"
-msgstr ""
+msgstr "待机"
 
 msgid "Total Space:"
 msgstr "总计空间："
