@@ -129,8 +129,7 @@ void TextViewer(const char *filepath)
     MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
     MainWindow::Instance()->Append(Editor);
-    MainWindow::Instance()->ChangeFocus(Editor);
-
+    
     while(!exitwindow)
     {
         usleep(100);

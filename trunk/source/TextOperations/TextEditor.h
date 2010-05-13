@@ -46,8 +46,10 @@ class TextEditor : public GuiWindow
 		void ResetState();
 		void Update(GuiTrigger * t);
 	protected:
+        int EditLine();
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
         void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
+
 		bool triggerupdate;
 		bool ExitEditor;
 		bool LineEditing;

@@ -117,7 +117,7 @@ class DeviceMenu : public GuiWindow
         GuiButton * NoBtn;
         GuiButton * deviceBtn[MAXDEVICES];
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigB;
 };
 

@@ -65,6 +65,8 @@ int FileStartUp(const char *filepath)
 
             if(result)
                 GuiBGM::Instance()->ParsePath(filepath);
+            else
+                WindowPrompt(tr("Could not load file."), tr("Possible unsupported format."), tr("OK"));
         }
     }
     else if(strtokcmp(fileext, BINARYFILES, ",") == 0)

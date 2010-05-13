@@ -193,7 +193,6 @@ void ProgressWindow()
 	MainWindow::Instance()->SetState(STATE_DISABLED);
 	MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&promptWindow);
-	MainWindow::Instance()->ChangeFocus(&promptWindow);
 	ResumeGui();
 
     while(promptWindow.GetEffect() > 0) usleep(100);

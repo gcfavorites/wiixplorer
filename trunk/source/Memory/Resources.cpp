@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2009
- * by r-win
+ * by Dimok & r-win
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,7 +23,7 @@
  *
  * Resources.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #include "Resources.h"
@@ -62,7 +62,6 @@ Resources::~Resources()
 	std::map<const u8 *, GuiSound *>::iterator snditr;
 	for (snditr = sounds.begin(); snditr != sounds.end(); snditr++)
 	{
-		snditr->second->Stop();
 		delete snditr->second;
 	}
 	sounds.clear();

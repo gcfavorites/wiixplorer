@@ -1,16 +1,34 @@
-/****************************************************************************
- * libwiigui
+/***************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
  *
- * Tantric 2009
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
  *
- * gui_sound.cpp
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
  *
- * GUI class definitions
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
  ***************************************************************************/
-
+#include <unistd.h>
 #include "libwiigui/gui.h"
-#include <mp3player.h>
-#include "SoundOperations/SoundDecoder.h"
+#include "gui_bgm.h"
+#include "FileOperations/fileops.h"
+#include "SoundHandler.hpp"
+#include "WavDecoder.hpp"
 
 #define MAX_SND_VOICES      16
 
@@ -21,7 +39,7 @@ static bool VoiceUsed[MAX_SND_VOICES] =
     false, false, false, false
 };
 
-static int GetFirstUnusedVoice()
+static inline int GetFirstUnusedVoice()
 {
     for(int i = 1; i < MAX_SND_VOICES; i++)
     {
@@ -32,67 +50,144 @@ static int GetFirstUnusedVoice()
     return -1;
 }
 
-/**
- * Constructor for the GuiSound class.
- */
-GuiSound::GuiSound(const u8 * snd, s32 len, bool isallocated)
+extern "C" void SoundCallback(s32 voice)
+{
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return;
+
+    if(decoder->IsBufferReady())
+    {
+        if(ASND_AddVoice(voice, decoder->GetBuffer(), decoder->GetBufferSize()) == SND_OK)
+        {
+            decoder->LoadNext();
+            SoundHandler::Instance()->ThreadSignal();
+        }
+    }
+    else if(decoder->IsEOF())
+    {
+        ASND_StopVoice(voice);
+        if(voice == 0)
+            GuiBGM::Instance()->ResumeThread(); //see if next music must be played
+    }
+    else
+    {
+        SoundHandler::Instance()->ThreadSignal();
+    }
+}
+
+GuiSound::GuiSound(const char * filepath)
 {
     sound = NULL;
 	length = 0;
-	type = 0;
-	voice = -1;
-	volume = 100;
+    voice = GetFirstUnusedVoice();
+    if(voice > 0)
+        VoiceUsed[voice] = true;
+
+    volume = 255;
+	SoundEffectLength = 0;
 	loop = false;
 	allocated = false;
-	format = VOICE_STEREO_16BIT;
-	frequency = 48000;
+	Load(filepath);
+}
+
+GuiSound::GuiSound(const u8 * snd, s32 len, bool isallocated, int v)
+{
+    sound = NULL;
+	length = 0;
+	if(v < 0)
+        voice = GetFirstUnusedVoice();
+    else
+        voice = v;
+
+    if(voice > 0)
+        VoiceUsed[voice] = true;
+
+    volume = 255;
+	SoundEffectLength = 0;
+	loop = false;
+	allocated = false;
 	Load(snd, len, isallocated);
 }
 
-/**
- * Destructor for the GuiSound class.
- */
 GuiSound::~GuiSound()
 {
+	FreeMemory();
+	if(voice > 0)
+        VoiceUsed[voice] = false;
+}
+
+void GuiSound::FreeMemory()
+{
 	this->Stop();
+
+    SoundHandler::Instance()->RemoveDecoder(voice);
 
     if(allocated && sound != NULL)
     {
         free(sound);
         sound = NULL;
+        allocated = false;
     }
+
+    SoundEffectLength = 0;
+}
+
+bool GuiSound::Load(const char * filepath)
+{
+    FreeMemory();
+
+	if(!filepath)
+        return false;
+
+    u32 magic;
+    FILE * f = fopen(filepath, "rb");
+    if(!f)
+        return false;
+
+    fread(&magic, 1, 4, f);
+    fclose(f);
+
+    if(magic == 'IMD5')
+    {
+        u8 * snd = NULL;
+        u64 filesize = 0;
+        LoadFileToMem(filepath, &snd, &filesize);
+        return Load(snd, filesize, true);
+    }
+
+    SoundHandler::Instance()->AddDecoder(voice, filepath);
+
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return false;
+
+    if(!decoder->IsBufferReady())
+    {
+        SoundHandler::Instance()->RemoveDecoder(voice);
+        return false;
+    }
+
+    SetLoop(loop);
+
+	return true;
 }
 
 bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
 {
-	this->Stop();
+    FreeMemory();
 
-    if(allocated && sound != NULL)
+    if(!snd)
+        return false;
+
+    if(!isallocated && *((u32 *) snd) == 'RIFF')
     {
-        free((u8*) sound);
-        sound = NULL;
+        return LoadSoundEffect(snd, len);
     }
 
     if(*((u32 *) snd) == 'IMD5')
     {
-        const u8 * file = snd+32;
-        if(*((u32 *) file) == 'LZ77')
-        {
-            u32 size = 0;
-            sound = uncompressLZ77(file, len-32, &size);
-            length = size;
-        }
-        else
-        {
-            length = len-32;
-            sound = (u8 *) malloc(length);
-            memcpy(sound, file, length);
-        }
-
-        if(isallocated)
-            free((u8 *) snd);
-
-        allocated = true;
+        UncompressSoundbin(snd, len, isallocated);
     }
     else
     {
@@ -101,273 +196,185 @@ bool GuiSound::Load(const u8 * snd, s32 len, bool isallocated)
         allocated = isallocated;
     }
 
-	type = GetType();
+    SoundHandler::Instance()->AddDecoder(voice, sound, length);
+
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return false;
+
+    if(!decoder->IsBufferReady())
+    {
+        SoundHandler::Instance()->RemoveDecoder(voice);
+        return false;
+    }
+
+    SetLoop(loop);
 
 	return true;
 }
 
+bool GuiSound::LoadSoundEffect(const u8 * snd, s32 len)
+{
+    WavDecoder decoder(snd, len);
+    decoder.Rewind();
+
+    u32 done = 0;
+    sound = (u8 *) malloc(4096);
+    memset(sound, 0, 4096);
+
+    while(1)
+    {
+        u8 * tmpsnd = (u8 *) realloc(sound, done+4096);
+        if(!tmpsnd)
+        {
+            free(sound);
+            sound = NULL;
+            return false;
+        }
+
+        sound = tmpsnd;
+
+        int read = decoder.Read(sound+done, 4096, done);
+        if(read <= 0)
+            break;
+
+        done += read;
+    }
+
+    sound = (u8 *) realloc(sound, done);
+    SoundEffectLength = done;
+    allocated = true;
+
+    return true;
+}
+
 void GuiSound::Play()
 {
-    if(!sound)
+    if(SoundEffectLength > 0)
+    {
+        ASND_StopVoice(voice);
+        ASND_SetVoice(voice, VOICE_STEREO_16BIT, 32000, 0, sound, SoundEffectLength, volume, volume, NULL);
+        return;
+    }
+
+    if(IsPlaying())
         return;
 
-    Stop();
+	if(voice < 0 || voice >= 16)
+		return;
 
-    voice = 0;
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return;
 
-	switch(type)
-	{
-		case SOUND_PCM:
-            voice = GetFirstUnusedVoice();
-            if(voice > 0)
-            {
-                ASND_SetVoice(voice, format, frequency, 0,
-                              (u8 *)sound, length, volume, volume, NULL);
-                VoiceUsed[voice] = true;
-            }
-            break;
+    if(decoder->IsEOF())
+    {
+        ASND_StopVoice(voice);
+        decoder->ClearBuffer();
+        decoder->Rewind();
+        decoder->Decode();
+    }
 
-		case SOUND_OGG:
-            PlayOgg(sound, length, 0, loop ? OGG_INFINITE_TIME : OGG_ONE_TIME);
-            break;
+    u8 * curbuffer = decoder->GetBuffer();
+    int bufsize = decoder->GetBufferSize();
+    decoder->LoadNext();
+    SoundHandler::Instance()->ThreadSignal();
 
-		case SOUND_MP3:
-            MP3Player_PlayBuffer(sound, length, NULL);
-            break;
-	}
-
-	SetVolume(volume);
+    ASND_SetVoice(voice, VOICE_STEREO_16BIT, 48000, 0, curbuffer, bufsize, volume, volume, SoundCallback);
 }
 
 void GuiSound::Stop()
 {
-	if(voice < 0)
+	if(voice < 0 || voice >= 16)
 		return;
 
-    if(voice > 1)
-        VoiceUsed[voice] = false;
+	ASND_StopVoice(voice);
 
-	switch(type)
-	{
-		case SOUND_PCM:
-            ASND_StopVoice(voice);
-            break;
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return;
 
-		case SOUND_OGG:
-            StopOgg();
-            break;
-
-		case SOUND_MP3:
-            MP3Player_Stop();
-            break;
-	}
+    decoder->ClearBuffer();
+    Rewind();
+    SoundHandler::Instance()->ThreadSignal();
 }
 
 void GuiSound::Pause()
 {
-	if(voice < 0)
+	if(voice < 0 || voice >= 16)
 		return;
 
-    if(type == SOUND_MP3)
-        return;             //coming soon
-
-	switch(type)
-	{
-		case SOUND_PCM:
-		ASND_PauseVoice(voice, 1);
-		break;
-
-		case SOUND_OGG:
-		PauseOgg(1);
-		break;
-	}
+    ASND_StopVoice(voice);
 }
 
 void GuiSound::Resume()
 {
-	if(voice < 0)
-		return;
-
-    if(type == SOUND_MP3)
-        return;             //coming soon
-
-	switch(type)
-	{
-		case SOUND_PCM:
-            ASND_PauseVoice(voice, 0);
-            break;
-
-		case SOUND_OGG:
-            PauseOgg(0);
-            break;
-	}
+    Play();
 }
 
 bool GuiSound::IsPlaying()
 {
-	if(ASND_StatusVoice(voice) == SND_WORKING || ASND_StatusVoice(voice) == SND_WAITING)
-		return true;
-	else
+	if(voice < 0 || voice >= 16)
 		return false;
+
+    int result = ASND_StatusVoice(voice);
+
+	if(result == SND_WORKING || result == SND_WAITING)
+		return true;
+
+	return false;
 }
 
 void GuiSound::SetVolume(int vol)
 {
-	volume = vol;
-
-	if(voice < 0)
+	if(voice < 0 || voice >= 16)
 		return;
 
-	int newvol = 255*(volume/100.0);
+	if(vol < 0)
+		return;
 
-	switch(type)
-	{
-		case SOUND_PCM:
-            ASND_ChangeVolumeVoice(voice, newvol, newvol);
-            break;
-
-		case SOUND_OGG:
-            SetVolumeOgg(newvol);
-            break;
-
-		case SOUND_MP3:
-            MP3Player_Volume(newvol);
-            break;
-	}
+    volume = 255*(vol/100.0);
+    ASND_ChangeVolumeVoice(voice, volume, volume);
 }
 
 void GuiSound::SetLoop(u8 l)
 {
 	loop = l;
+
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return;
+
+    decoder->SetLoop(l == 1);
 }
 
-static bool CheckMP3Signature(const u8 * buffer)
+void GuiSound::Rewind()
 {
-    const char MP3_Magic[][3] =
-    {
-        {'I', 'D', '3'},    //'ID3'
-        {0xff, 0xfe},       //'MPEG ADTS, layer III, v1.0 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xff},       //'MPEG ADTS, layer III, v1.0', 'mp3', 'audio/mpeg'),
-        {0xff, 0xfa},       //'MPEG ADTS, layer III, v1.0 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xfb},       //'MPEG ADTS, layer III, v1.0', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf2},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf3},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf4},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf5},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf6},       //'MPEG ADTS, layer III, v2.0 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xf7},       //'MPEG ADTS, layer III, v2.0', 'mp3', 'audio/mpeg'),
-        {0xff, 0xe2},       //'MPEG ADTS, layer III, v2.5 [protected]', 'mp3', 'audio/mpeg'),
-        {0xff, 0xe3},       //'MPEG ADTS, layer III, v2.5', 'mp3', 'audio/mpeg'),
-    };
+    SoundDecoder * decoder = SoundHandler::Instance()->Decoder(voice);
+    if(!decoder)
+        return;
 
-    if(buffer[0] == MP3_Magic[0][0] && buffer[1] == MP3_Magic[0][1] &&
-       buffer[2] == MP3_Magic[0][2])
-    {
-        return true;
-    }
-
-    for(int i = 1; i < 13; i++)
-    {
-        if(buffer[0] == MP3_Magic[i][0] && buffer[1] == MP3_Magic[i][1])
-            return true;
-    }
-
-    return false;
+    decoder->Rewind();
 }
 
-int GuiSound::GetType()
+void GuiSound::UncompressSoundbin(const u8 * snd, int len, bool isallocated)
 {
-    int MusicType = -1;
-
-    const u8 * check = sound;
-    int cnt = 0;
-
-    //!Skip 0 ... whysoever some files have
-    while(check[0] == 0 && cnt < length)
+    const u8 * file = snd+32;
+    if(*((u32 *) file) == 'LZ77')
     {
-        check++;
-        cnt++;
-    }
-
-    if(cnt >= length)
-        return MusicType;
-
-    if(*((u32*) check) == 'OggS')
-    {
-        MusicType = SOUND_OGG;
-    }
-    else if(*((u32*) check) == 'RIFF')
-    {
-        SoundBlock Block = DecodefromWAV(sound, length);
-
-        if(allocated)
-            free(sound);
-
-        sound = NULL;
-        length = 0;
-
-        if(!Block.buffer)
-            return SOUND_PCM;
-
-        length = Block.size;
-        sound = Block.buffer;
-        format = Block.format;
-        frequency = Block.frequency;
-
-        allocated = true;
-        MusicType = SOUND_PCM;
-    }
-    else if(*((u32*) check) == 'BNS ')
-    {
-        SoundBlock Block = DecodefromBNS(sound, length);
-
-        if(allocated)
-            free(sound);
-
-        sound = NULL;
-        length = 0;
-
-        if(!Block.buffer)
-            return SOUND_PCM;
-
-        length = Block.size;
-        sound = Block.buffer;
-        format = Block.format;
-        frequency = Block.frequency;
-        MusicType = SOUND_PCM;
-
-        allocated = true;
-    }
-    else if(*((u32*) check) == 'FORM')
-    {
-        SoundBlock Block = DecodefromAIFF(sound, length);
-
-        if(allocated)
-            free(sound);
-
-        sound = NULL;
-        length = 0;
-
-        if(!Block.buffer)
-            return SOUND_PCM;
-
-        length = Block.size;
-        sound = Block.buffer;
-        format = Block.format;
-        frequency = Block.frequency;
-        MusicType = SOUND_PCM;
-
-        allocated = true;
-    }
-    else if(CheckMP3Signature(check) == true)
-    {
-        MusicType = SOUND_MP3;
+        u32 size = 0;
+        sound = uncompressLZ77(file, len-32, &size);
+        length = size;
     }
     else
     {
-        //! If no type found than take it as raw.
-        MusicType = SOUND_PCM;
+        length = len-32;
+        sound = (u8 *) malloc(length);
+        memcpy(sound, file, length);
     }
 
-    return MusicType;
+    if(isallocated)
+        free((u8 *) snd);
+
+    allocated = true;
 }

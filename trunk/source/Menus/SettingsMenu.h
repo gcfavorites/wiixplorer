@@ -49,7 +49,7 @@ class SettingsMenu : public GuiWindow
         GuiImageData * btnOutline;
         GuiImageData * btnOutlineOver;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigB;
 
         OptionList * Options;

@@ -39,7 +39,7 @@
 #include "svnrev.h"
 #include "main.h"
 #include "sys.h"
-#include "URL_List.h"
+#include "HTML_Stream.h"
 
 /****************************************************************************
  * UpdateApp from a given url. The dol is downloaded and overwrites the old one.
@@ -91,15 +91,16 @@ int CheckForUpdate()
     int revnumber = 0;
     int currentrev = atoi(SvnRev());
 
-    URL_List URLs("http://code.google.com/p/wiixplorer/downloads/list");
+    HTML_Stream HTML("http://code.google.com/p/wiixplorer/downloads/list");
 
-    int urlcount = URLs.GetURLCount();
+    const char * HTML_Pos = NULL;
+    char DownloadLink[300];
+    memset(DownloadLink, 0, sizeof(DownloadLink));
 
-    char *DownloadLink = NULL;
-
-    for(int i = 0; i < urlcount; i++)
+    do
     {
-        char *tmpLink = URLs.GetURL(i);
+        HTML_Pos = HTML.FindStringEnd("href='");
+        char * tmpLink = HTML.CopyString("'\"");
         if(tmpLink)
         {
             char *fileext = strrchr(tmpLink, '.');
@@ -118,12 +119,14 @@ int CheckForUpdate()
                     if(fileRev > revnumber)
                     {
                         revnumber = fileRev;
-                        DownloadLink = URLs.GetURL(i);
+                        snprintf(DownloadLink, sizeof(DownloadLink), "%s", tmpLink);
                     }
                 }
             }
+            free(tmpLink);
         }
     }
+    while(HTML_Pos != NULL);
 
     if (revnumber > currentrev)
     {

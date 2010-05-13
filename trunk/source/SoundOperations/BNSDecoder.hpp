@@ -2,8 +2,6 @@
  * Copyright (C) 2010
  * by Dimok
  *
- * Decoding functions by Hibernatus.
- *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
@@ -25,8 +23,10 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef SOUND_DECODER_H_
-#define SOUND_DECODER_H_
+#ifndef BNSDECODER_HPP_
+#define BNSDECODER_HPP_
+
+#include "SoundDecoder.hpp"
 
 typedef struct _SoundBlock
 {
@@ -36,8 +36,21 @@ typedef struct _SoundBlock
 	u32 frequency;
 } SoundBlock;
 
-SoundBlock DecodefromWAV(const u8 *buffer, u32 size);
-SoundBlock DecodefromAIFF(const u8 *buffer, u32 size);
+class BNSDecoder : public SoundDecoder
+{
+    public:
+        BNSDecoder(const char * filepath);
+        BNSDecoder(const u8 * snd, int len);
+        ~BNSDecoder();
+        int GetFormat() { return SoundData.format; };
+        int GetSampleRate() { return SoundData.frequency; };
+        int Read(u8 * buffer, int buffer_size, int pos);
+    protected:
+        void OpenFile();
+        void CloseFile();
+        SoundBlock SoundData;
+};
+
 SoundBlock DecodefromBNS(const u8 *buffer, u32 size);
 
 #endif

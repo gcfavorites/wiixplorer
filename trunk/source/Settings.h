@@ -30,6 +30,7 @@
 #define _SETTINGS_H_
 
 #include <stdio.h>
+#include <gctypes.h>
 
 #define MAXSMBUSERS         4
 #define MAXFTPUSERS         4
@@ -114,31 +115,39 @@ class Settings
         //!BootDevice determines from which devices to load the config
         char	BootDevice[10];
         //!Current selected device to browse
-        short	MountMethod;
+        short   MountMethod;
         //!Current selected SMB user
-        short	CurrentSMBUser;
+        short  	CurrentSMBUser;
         //!Current selected FTP user
-        short	CurrentFTPUser;
+        short  	CurrentFTPUser;
         //!Music Volume.
-        short	MusicVolume;
+        short  	MusicVolume;
         //!Option to mount or not mount the NTFS volumes
-        short	MountNTFS;
+        short  	MountNTFS;
         //!BGM Loop Mode
-        short	BGMLoopMode;
+        short  	BGMLoopMode;
         //!AutoConnect Network on StartUp
-        short	AutoConnect;
+        short  	AutoConnect;
         //!Update the meta.xml
-        short	UpdateMetaxml;
+        short  	UpdateMetaxml;
         //!Update the icon.png
-        short	UpdateIconpng;
+        short  	UpdateIconpng;
         //!Clock mode
-        short	ClockMode;
+        short  	ClockMode;
         //!Scrolling speed
-        short	ScrollSpeed;
+        short  	ScrollSpeed;
         //!Browser mode
-        short	BrowserMode;
+        short  	BrowserMode;
+        //!SoundblockCount
+        short   SoundblockCount;
+        //!SoundblockSize
+        int     SoundblockSize;
         //!Screenshot image format
-        short	ScreenshotFormat;
+        short  	ScreenshotFormat;
+        //!Load music to memory or play it from device
+        short  	LoadMusicToMem;
+		//!Slideshow time between images
+		short   SlideshowDelay;
         //!Path to mplayer_ce
         char	MPlayerPath[150];
         //!Languagefile path
@@ -152,8 +161,6 @@ class Settings
         char	UpdatePath[150];
         //!Path to where the homebrew apps are
         char	AppPath[150];
-		//!Slideshow time between images
-		int SlideshowDelay;
 		//!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations

@@ -41,7 +41,6 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	browser = filebrowser;
 	listChanged = true; // trigger an initial list update
 	triggerupdate = true; // trigger disable
-	focus = 1;
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -451,7 +450,4 @@ void IconFileBrowser::Update(GuiTrigger * t)
     scrollbar->SetSelectedIndex(browser->GetPageIndex());
 
 	listChanged = false;
-
-	if(updateCB)
-		updateCB(this);
 }

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 20:58+0200\n"
+"POT-Creation-Date: 2010-05-13 16:39+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -166,6 +166,9 @@ msgid "Could not download file."
 msgstr ""
 
 msgid "Could not extract file:"
+msgstr ""
+
+msgid "Could not load file."
 msgstr ""
 
 msgid "Could not load image."
@@ -504,6 +507,9 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
+msgid "Load Music to Memory"
+msgstr ""
+
 msgid "Loading file:"
 msgstr "Laddar fil:"
 
@@ -517,6 +523,9 @@ msgid "MPlayerCE Path"
 msgstr ""
 
 msgid "MPlayerPath changed"
+msgstr ""
+
+msgid "Memory Buffer"
 msgstr ""
 
 msgid "Menu"
@@ -643,6 +652,9 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Vänligen vänta:"
 
+msgid "Possible unsupported format."
+msgstr ""
+
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -736,6 +748,12 @@ msgstr ""
 msgid "Sound Settings"
 msgstr ""
 
+msgid "Soundblock Size"
+msgstr ""
+
+msgid "Soundblocks"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr ""
 
@@ -743,6 +761,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
+msgstr ""
+
+msgid "The effect will take with next music load. It might break music playback."
 msgstr ""
 
 msgid "The new font could not be loaded."
@@ -832,6 +856,12 @@ msgid "Username:"
 msgstr "Användarnamn:"
 
 msgid "Vertical"
+msgstr ""
+
+msgid "WARNING:"
+msgstr ""
+
+msgid "Warning:"
 msgstr ""
 
 msgid "Yes"

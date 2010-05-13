@@ -37,8 +37,6 @@ GuiElement::GuiElement()
 	clickable = false;
 	holdable = false;
 	visible = true;
-	focus = -1; // cannot be focused
-	updateCB = NULL;
 	yoffsetDyn = 0;
 	xoffsetDyn = 0;
 	alphaDyn = -1;
@@ -411,18 +409,6 @@ bool GuiElement::IsHoldable()
 		return holdable;
 }
 
-void GuiElement::SetFocus(int f)
-{
-    LOCK(this);
-	focus = f;
-	FocusChanged(this, focus);
-}
-
-int GuiElement::IsFocused()
-{
-	return focus;
-}
-
 void GuiElement::SetTrigger(GuiTrigger * t)
 {
     LOCK(this);
@@ -616,13 +602,6 @@ void GuiElement::UpdateEffects()
 
 void GuiElement::Update(GuiTrigger * t)
 {
-	if(updateCB)
-		updateCB(this);
-}
-
-void GuiElement::SetUpdateCallback(UpdateCallback u)
-{
-	updateCB = u;
 }
 
 void GuiElement::SetPosition(int xoff, int yoff)

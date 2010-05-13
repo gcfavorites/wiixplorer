@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 20:58+0200\n"
+"POT-Creation-Date: 2010-05-13 16:39+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -167,6 +167,9 @@ msgstr "Não foi possível descarregar o ficheiro."
 
 msgid "Could not extract file:"
 msgstr "Não foi possível extrair o ficheiro:"
+
+msgid "Could not load file."
+msgstr ""
 
 msgid "Could not load image."
 msgstr ""
@@ -504,6 +507,9 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr ""
 
+msgid "Load Music to Memory"
+msgstr ""
+
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
 
@@ -517,6 +523,9 @@ msgid "MPlayerCE Path"
 msgstr ""
 
 msgid "MPlayerPath changed"
+msgstr ""
+
+msgid "Memory Buffer"
 msgstr ""
 
 msgid "Menu"
@@ -643,6 +652,9 @@ msgstr ""
 msgid "Please wait:"
 msgstr "Por favor aguarde:"
 
+msgid "Possible unsupported format."
+msgstr ""
+
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
@@ -736,6 +748,12 @@ msgstr ""
 msgid "Sound Settings"
 msgstr ""
 
+msgid "Soundblock Size"
+msgstr ""
+
+msgid "Soundblocks"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Agradecimentos especiais a:"
 
@@ -743,6 +761,12 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
+msgstr ""
+
+msgid "The effect will take with next music load. It might break music playback."
 msgstr ""
 
 msgid "The new font could not be loaded."
@@ -832,6 +856,12 @@ msgid "Username:"
 msgstr "Nome de utilizador:"
 
 msgid "Vertical"
+msgstr ""
+
+msgid "WARNING:"
+msgstr ""
+
+msgid "Warning:"
 msgstr ""
 
 msgid "Yes"

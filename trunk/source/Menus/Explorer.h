@@ -106,7 +106,7 @@ class Explorer : public GuiWindow
         GuiButton * Adressbar;
         GuiButton * clickmenuBtn;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigPlus;
         GuiTrigger * trigMinus;
 };

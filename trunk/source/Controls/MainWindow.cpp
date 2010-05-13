@@ -30,6 +30,7 @@
 
 #include "MainWindow.h"
 #include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/SoundHandler.hpp"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Launcher/Channels.h"
@@ -113,6 +114,7 @@ MainWindow::~MainWindow()
 
 	Taskbar::Instance()->DestroyInstance();
 	GuiBGM::Instance()->DestroyInstance();
+	SoundHandler::Instance()->DestroyInstance();
 	Channels::Instance()->DestroyInstance();
 	Applications::Instance()->DestroyInstance();
 

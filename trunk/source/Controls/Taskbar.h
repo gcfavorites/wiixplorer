@@ -72,9 +72,10 @@ class Taskbar : public GuiWindow
 		GuiImage *taskbarImg;
 		GuiText *timeTxt;
 		PictureButton *startBtn;
-		GuiTrigger *trigA;
+		SimpleGuiTrigger *trigA;
 		GuiTrigger *trigHome;
-		GuiSound *soundClick, *soundOver;
+		GuiSound *soundClick;
+		GuiSound *soundOver;
 		GuiButton *homeBtn;
 };
 

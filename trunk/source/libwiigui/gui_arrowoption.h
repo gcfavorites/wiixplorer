@@ -65,7 +65,7 @@ class GuiArrowOption : public GuiWindow
         vector<GuiImage *> OptionsImgLeft;
         vector<GuiImage *> OptionsImgRight;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
 };
 
 #endif

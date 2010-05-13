@@ -43,7 +43,6 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 	browser = filebrowser;
 	listChanged = true; // trigger an initial list update
 	triggerupdate = true; // trigger disable
-	focus = 1; // allow focus
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
@@ -352,7 +351,7 @@ void ListFileBrowser::Update(GuiTrigger * t)
 
 		if(i != selectedItem && fileList[i]->GetState() == STATE_SELECTED)
 			fileList[i]->ResetState();
-		else if(focus && i == selectedItem && fileList[i]->GetState() == STATE_DEFAULT)
+		else if(i == selectedItem && fileList[i]->GetState() == STATE_DEFAULT)
 			fileList[selectedItem]->SetState(STATE_SELECTED, t->chan);
 
 		int currChan = t->chan;
@@ -387,7 +386,4 @@ void ListFileBrowser::Update(GuiTrigger * t)
     scrollbar->SetSelectedIndex(browser->GetPageIndex());
 
 	listChanged = false;
-
-	if(updateCB)
-		updateCB(this);
 }

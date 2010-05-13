@@ -5,10 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 13:09+0200\n"
+"POT-Creation-Date: 2010-05-13 16:39+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: Romenek (berouncin@seznam.cz)\n"
-"Language-Team: For r157\n"
+"Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
+"Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,312 +23,315 @@ msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr "7z chyba dekomprese:"
+msgstr ""
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr "Akce zrusena"
+msgstr "Akce zrušena"
 
 msgid "Alpha Blending"
 msgstr ""
 
 msgid "App Default"
-msgstr "Vychozi nastaveni"
+msgstr "Původní nastavení"
 
 msgid "App Path"
-msgstr "Cesta aplikace"
+msgstr ""
 
 msgid "AppPath changed"
-msgstr "Cesta aplikace zmenena"
+msgstr ""
 
 msgid "Apps"
-msgstr "Aplikace"
+msgstr ""
 
 msgid "Auto Connect"
-msgstr "Automaticke pripojeni"
+msgstr "Automatické připojení"
 
 msgid "Auto Start:"
 msgstr ""
 
 msgid "BMP Compression"
-msgstr "BMP Komprese"
-
-msgid "Back"
-msgstr "Zpet"
-
-msgid "Boot Settings"
-msgstr "Boot nastaveni"
-
-msgid "Bootup Mount"
-msgstr "Pripojeni po startu"
-
-msgid "Both"
-msgstr "Obe"
-
-msgid "Browser Mode"
-msgstr "Browser mod"
-
-msgid "Can not open the file."
-msgstr "Nelze otevrit soubor."
-
-msgid "Can't browse that path."
-msgstr "Nelze prochazet tuto cestu."
-
-msgid "Can't load file"
-msgstr "Nelze nacist soubor"
-
-msgid "Can't open file."
-msgstr "Nelze otevrit soubor."
-
-msgid "Can't read file:"
-msgstr "Nelze precist soubor:"
-
-msgid "Cancel"
-msgstr "Zrusit"
-
-msgid "Cannot create directory: "
-msgstr "Nemohu vytvorit adresar: "
-
-msgid "Cannot open image"
-msgstr "Nelze otevrit obrazek"
-
-msgid "Cannot write to destination."
-msgstr "Nelze zapsat do cile."
-
-msgid "Cannot write to the file."
-msgstr "Nelze zapsat do souboru"
-
-msgid "Caps"
 msgstr ""
 
+msgid "Back"
+msgstr "Zpět"
+
+msgid "Boot Settings"
+msgstr ""
+
+msgid "Bootup Mount"
+msgstr ""
+
+msgid "Both"
+msgstr ""
+
+msgid "Browser Mode"
+msgstr ""
+
+msgid "Can not open the file."
+msgstr ""
+
+msgid "Can't browse that path."
+msgstr ""
+
+msgid "Can't load file"
+msgstr ""
+
+msgid "Can't open file."
+msgstr ""
+
+msgid "Can't read file:"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Zpět"
+
+msgid "Cannot create directory: "
+msgstr ""
+
+msgid "Cannot open image"
+msgstr "Nelze otevřít obrázek"
+
+msgid "Cannot write to destination."
+msgstr ""
+
+msgid "Cannot write to the file."
+msgstr ""
+
+msgid "Caps"
+msgstr "Velká písmena"
+
 msgid "Change"
-msgstr "Zmena"
+msgstr ""
 
 msgid "Change Language Path?"
-msgstr "Zmenit cestu k jazykum?"
+msgstr ""
 
 msgid "Channels"
-msgstr "Kanaly"
+msgstr ""
 
 msgid "Clear"
-msgstr "Smazat"
+msgstr ""
 
 msgid "Clock Mode"
-msgstr "Mod hodin"
+msgstr ""
 
 msgid "Close"
-msgstr "Zavrit"
+msgstr ""
 
 msgid "Coders:"
-msgstr "Program vytvari:"
+msgstr "Programátoři"
 
 msgid "Compressed Size:"
-msgstr "Komprimovana velikost:"
+msgstr ""
 
 msgid "Console Default"
-msgstr "Nastaveni Konzole"
+msgstr "Původní nastavení konzole"
 
 msgid "Continue"
-msgstr "Pokracovat"
+msgstr ""
 
 msgid "Convert"
-msgstr "Konvertovat"
+msgstr ""
 
 msgid "Converting image..."
 msgstr ""
 
 msgid "Copy"
-msgstr "Kopirovat"
+msgstr "Kopie"
 
 msgid "Copy current marked item(s)?"
-msgstr "Kopirovat tyto oznacene polozky?"
+msgstr ""
 
 msgid "Copy of"
 msgstr ""
 
 msgid "Copying item(s):"
-msgstr "Kopiruji polozky:"
+msgstr ""
 
 msgid "Could not connect to the network"
-msgstr "Nelze se pripojit k siti"
+msgstr ""
 
 msgid "Could not connect to the server."
-msgstr "Nelze se spojit se serverem"
+msgstr ""
 
 msgid "Could not convert image."
-msgstr "Nelze prevest obrazek."
+msgstr ""
 
 msgid "Could not decompress the file."
-msgstr "Nelze dekompresovat soubor."
+msgstr ""
 
 msgid "Could not download file."
-msgstr "Nelze stahnout soubor."
+msgstr ""
 
 msgid "Could not extract file:"
-msgstr "Nelze rozbalit sobor:"
+msgstr ""
+
+msgid "Could not load file."
+msgstr ""
 
 msgid "Could not load image."
-msgstr "Nelze nacist obrazek."
+msgstr ""
 
 msgid "Could not load text file."
-msgstr "Nelze nacist textovy soubor."
+msgstr ""
 
 msgid "Credits"
-msgstr "Zasluhy"
+msgstr "Zásluhy"
 
 msgid "Customfont Path"
-msgstr "Vlastni cesta k fontum"
+msgstr "Cesta pro vlatní font"
 
 msgid "Cut"
 msgstr "Vyjmout"
 
 msgid "Cut current marked item(s)?"
-msgstr "Vyjmout tyto oznacene polozky?"
+msgstr ""
 
 msgid "Default"
-msgstr "Vychozi"
+msgstr ""
 
 msgid "Delete"
 msgstr "Smazat"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr "Smazat oznacene polozky a jejich obsah?"
+msgstr ""
 
 msgid "Deleting files:"
-msgstr "Mazani souboru:"
+msgstr "Mazání souborů:"
 
 msgid "Designer:"
 msgstr ""
 
 msgid "Directory .."
-msgstr "Adresar .."
+msgstr "Adresář .."
 
 msgid "Directory couldn't be deleted."
-msgstr "Adresar nemuze byt smazan."
+msgstr "Adresář nemůže být smazán."
 
 msgid "Do you want to boot file now?"
-msgstr "Chcete nyni spustit?"
+msgstr ""
 
 msgid "Do you want to boot:"
-msgstr "Chcete nabootovat:"
+msgstr "Přejete si nabootovat:"
 
 msgid "Do you want to change the font?"
-msgstr "Chcete zmenit font?"
+msgstr ""
 
 msgid "Do you want to download new language files?"
-msgstr "Chcete stahnout nove soubory jazyku?"
+msgstr ""
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "Chcete opustit WiiXplorer?"
+msgstr ""
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr "Chcete spustit soubor pomoci MPlayerCE?"
+msgstr ""
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr "Chcete nacist soubor z: %s ?"
+msgstr ""
 
 msgid "Do you want to load the default language."
-msgstr "Chcete nacist vychozi jazyk"
+msgstr ""
 
 msgid "Do you want to load this language ?"
-msgstr "Chcete nacist teno jazyk ?"
+msgstr "Přejete si spustit tento jazyk?"
 
 msgid "Do you want to load this language file?"
-msgstr "Chcete nacist tento soubor jazyku?"
+msgstr ""
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr "Chcete otevrit tento soubor v TextEditoru?"
+msgstr ""
 
 msgid "Do you want to playback this file?"
-msgstr "Chcete prehrat tento soubor?"
+msgstr "Přejete si přehrát tento soubor?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "Chcete restartovat WiiXplorer?"
+msgstr ""
 
 msgid "Do you want to reboot now ?"
-msgstr "Chcete nyni restartovat?"
+msgstr ""
 
 msgid "Do you want to reconnect the SMB?"
-msgstr "Chcete opet pripojit SMB?"
+msgstr "Přejete si znovu připojit SMB"
 
 msgid "Do you want to reconnect to FTP server?"
-msgstr "Chcete opet pripojit k FTP serveru?"
+msgstr ""
 
 msgid "Do you want to remount the devices?"
-msgstr "Chcete opet pripojit zarizeni?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
-msgstr "Chcete nahradit tento soubor?"
+msgstr ""
 
 msgid "Do you want to save changes?"
-msgstr "Chcete ulozit zmeny?"
+msgstr ""
 
 msgid "Do you want to start the app?"
-msgstr "Chcete spustit aplikaci?"
+msgstr ""
 
 msgid "Do you want to start the channel?"
-msgstr "Chcete spustit kanal?"
+msgstr ""
 
 msgid "Do you want to update now ?"
-msgstr "Chcete nyni aktualizovat ?"
+msgstr ""
 
 msgid "Download Files"
-msgstr "Stazeni jazyku"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr "Stazeno %d souboru."
+msgstr ""
 
 msgid "Downloading file..."
-msgstr "Stahovani souboru..."
+msgstr ""
 
 msgid "Downloading files..."
-msgstr "Stahovani souboru..."
+msgstr ""
 
 msgid "Error while reading file."
-msgstr "Chyba pri cteni souboru."
+msgstr ""
 
 msgid "Error:"
 msgstr "Chyba:"
 
 msgid "Exit"
-msgstr "Konec"
+msgstr ""
 
 msgid "Exit WiiXplorer?"
-msgstr "Ukoncit WiiXplorer?"
+msgstr ""
 
 msgid "Explorer Settings"
-msgstr "Nastaveni zobrazeni"
+msgstr ""
 
 msgid "Extract"
-msgstr "Rozbalit"
+msgstr ""
 
 msgid "Extract All"
-msgstr "Rozbalit vse"
+msgstr ""
 
 msgid "Extract first and open than."
-msgstr "Rozbal prvni a otevri jej."
+msgstr ""
 
 msgid "Extract full archive?"
-msgstr "Rozbalit cely archiv?"
+msgstr ""
 
 msgid "Extract the selected item(s)?"
-msgstr "Rozbalit oznacene polozky?"
+msgstr ""
 
 msgid "Extracting files..."
-msgstr "Rozbaluji soubory..."
+msgstr "Rozbaluji soubory ..."
 
 msgid "Extracting item(s):"
-msgstr "Rozbaluji polozky..."
+msgstr ""
 
 msgid "FTP Client Settings"
-msgstr "Nastaveni FTP klienta"
+msgstr ""
 
 msgid "FTP Path:"
-msgstr "FTP cesta:"
+msgstr ""
 
 msgid "FTP Port:"
 msgstr ""
@@ -337,128 +340,128 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr "Nastaveni FTP Serveru"
+msgstr ""
 
 msgid "FTP Server is running and listening on port"
-msgstr "FTP Server bezi a posloucha na portu"
+msgstr ""
 
 msgid "FTP Started.\n"
-msgstr "FTP startuje.\n"
+msgstr ""
 
 msgid "Failed copying item(s)."
-msgstr "Chyba pri kopirovani polozek."
+msgstr ""
 
 msgid "Failed extracting the archive."
-msgstr "Chyba pri extrakci archivu."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
-msgstr "Chyba pri extrakci polozek."
+msgstr ""
 
 msgid "Failed moving item(s)."
-msgstr "Chyba pri presouvani polozek."
+msgstr ""
 
 msgid "Failed renaming item"
-msgstr "Chyba pri prejmenovani polozek"
+msgstr ""
 
 msgid "Failed to get the Changelog."
-msgstr "Chyba pri prijmani Changelogu."
+msgstr ""
 
 msgid "Failed to read file data."
-msgstr "Chyba pri cteni dat souboru."
+msgstr ""
 
 msgid "File already exists:"
-msgstr "Soubor jiz existuje:"
+msgstr ""
 
 msgid "File couldn't be deleted."
-msgstr "Soubor nelze smazat."
+msgstr "Soubor nemůže být smazán."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "Soubor je poskozen (CRC nesouhlasi)."
+msgstr ""
 
 msgid "File is corrupt."
-msgstr "Soubor je poskozen."
+msgstr ""
 
 msgid "File is too big."
-msgstr "Soubor je prilis velky."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr ""
 
 msgid "File uses unsupported compression settings."
-msgstr "Soubor pouziva nepodporovane nastaveni komprese."
+msgstr ""
 
 msgid "File was edited."
-msgstr "Soubor je upravovan."
+msgstr ""
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "Cesta k souboru:  %s"
+msgstr "Cesta:  %s"
 
 msgid "Files:"
-msgstr "Soboru:"
+msgstr "Soubory:"
 
 msgid "Filesize doesn't match."
-msgstr "Velikost souboru neodpovida."
+msgstr ""
 
 msgid "Filesize is 0 Byte."
-msgstr "Velikost souboru je 0 Byte."
+msgstr ""
 
 msgid "Filetype:"
-msgstr "Typ souboru:"
+msgstr "Typ:"
 
 msgid "Flip Mode"
 msgstr ""
 
 msgid "Folder"
-msgstr "Adresar"
+msgstr "Adresář"
 
 msgid "Fontpath changed."
-msgstr "Cesta k fontum zmenena."
+msgstr ""
 
 msgid "Free Space:"
-msgstr "Volne misto:"
+msgstr ""
 
 msgid "GD2 Compression"
-msgstr "GD2 komprese"
+msgstr ""
 
 msgid "Getting Changelog..."
-msgstr "Zobrazuji Changelog..."
+msgstr ""
 
 msgid "Go Back"
-msgstr "Jdi zpet"
+msgstr "Jdi Zpět"
 
 msgid "Home Menu"
 msgstr ""
 
 msgid "Horizontal"
-msgstr "Horizontalne"
-
-msgid "Host:"
 msgstr ""
 
+msgid "Host:"
+msgstr "Hostitel:"
+
 msgid "How do you want to open the file?"
-msgstr "Jak chcete otevrit soubor?"
+msgstr ""
 
 msgid "Icon Mode"
-msgstr "Ikony"
+msgstr ""
 
 msgid "Image Converter"
-msgstr "Konverze obrazku"
+msgstr ""
 
 msgid "Image Heigth"
-msgstr "Vyska obrazku"
+msgstr ""
 
 msgid "Image Settings"
-msgstr "Nastaveni obrazku"
+msgstr ""
 
 msgid "Image Viewer"
-msgstr "Prohlizec obrazku"
+msgstr ""
 
 msgid "Image Width"
-msgstr "Sirka obrazku"
+msgstr ""
 
 msgid "Image successfully converted."
-msgstr "Obrazek vporadku preveden."
+msgstr ""
 
 msgid "ImageConverter"
 msgstr ""
@@ -467,188 +470,197 @@ msgid "ImageViewer"
 msgstr ""
 
 msgid "Incomming connection."
-msgstr "Prichozi pripojeni"
+msgstr ""
 
 msgid "Input File"
-msgstr "Zdrojovy soubor"
+msgstr ""
 
 msgid "Interlace"
-msgstr "Prokladane"
+msgstr ""
 
 msgid "JPEG Quality"
-msgstr "JPEG kvalita"
+msgstr ""
 
 msgid "Language"
 msgstr "Jazyk"
 
 msgid "Language Path changed."
-msgstr "Cesta k jazykum zmenena."
+msgstr ""
 
 msgid "Language Settings"
-msgstr "Nastaveni jazyku"
+msgstr ""
 
 msgid "Last access:"
-msgstr "Posledni pristup:"
+msgstr "Poslední přístup:"
 
 msgid "Last change:"
-msgstr "Posledni zmena:"
+msgstr ""
 
 msgid "Last modified:"
-msgstr "Posledni modifikace:"
+msgstr "Poslední změna:"
 
 msgid "Linebreak"
-msgstr "Enter"
+msgstr ""
 
 msgid "List Mode"
-msgstr "List mod"
+msgstr ""
 
 msgid "Listening on TCP port"
 msgstr ""
 
+msgid "Load Music to Memory"
+msgstr ""
+
 msgid "Loading file:"
-msgstr "Nacitam soubor:"
+msgstr "nahrávám soubor:"
 
 msgid "Loading image..."
-msgstr "Nacitam obrazek..."
+msgstr ""
 
 msgid "Loop"
-msgstr "Smycka"
+msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr "MPlayerCE cesta"
+msgstr ""
 
 msgid "MPlayerPath changed"
-msgstr "MPlayerPath zmenena"
+msgstr ""
+
+msgid "Memory Buffer"
+msgstr ""
 
 msgid "Menu"
 msgstr ""
 
 msgid "Mount NTFS"
-msgstr "Pripojeni NTFS"
+msgstr "Připojení NTFS"
 
 msgid "Moving item(s):"
-msgstr "Presunuji polozky:"
+msgstr ""
 
 msgid "Music Loop Mode"
-msgstr "Hudba do smycky"
+msgstr ""
 
 msgid "Music Volume"
 msgstr "Hlasitost hudby"
 
 msgid "NONE"
-msgstr "NENI"
+msgstr ""
 
 msgid "Name might already exists."
 msgstr ""
 
 msgid "Network Settings"
-msgstr "Nastaveni site"
+msgstr ""
 
 msgid "Network initialising..."
-msgstr "Inicializace site..."
+msgstr "Inicializace sítě ..."
 
 msgid "New Folder"
-msgstr "Novy adresar"
+msgstr "Nový adresář"
 
 msgid "No"
 msgstr "Ne"
 
 msgid "No files found."
-msgstr "Soubory nenalezeny."
+msgstr ""
 
 msgid "No homebrew in the zip."
-msgstr "Homebrew neni v zipu."
+msgstr ""
 
 #, c-format
 msgid "No image found at index %d."
-msgstr "Obrazek nenalezen v indexu %d."
+msgstr "Nebyl nalezen obrázek na indexu %d."
 
 msgid "No language files found."
-msgstr "Nenalezen jazykovy soubor."
+msgstr "Nebyly nalezeny jazykové soubory."
 
 msgid "No network connection."
-msgstr "Neni sitove pripojeni."
+msgstr ""
 
 msgid "No new updates available"
-msgstr "Nove aktualizace nejsou k dispozici"
+msgstr ""
 
 msgid "No to all"
-msgstr "Ne pro vsechny"
+msgstr ""
 
 msgid "Not a valid URL"
-msgstr "Neni platna URL"
+msgstr ""
 
 msgid "Not a valid URL path"
-msgstr "Neni platna URL cesta"
+msgstr ""
 
 msgid "Not a valid domain"
-msgstr "Neni platna domena"
+msgstr ""
 
 msgid "Not enough memory to resize."
-msgstr "Neni pamet pro zmenu velikosti"
+msgstr ""
 
 msgid "Not enough memory to rotate."
-msgstr "Neni pamet pro rotaci"
+msgstr ""
 
 msgid "Not enough memory."
-msgstr "Neni dostupna pamet."
+msgstr "Nedostatek paměti."
 
 msgid "OFF"
-msgstr ""
+msgstr "Vypnuto"
 
 msgid "OK"
 msgstr ""
 
 msgid "ON"
-msgstr ""
+msgstr "Zapnuto"
 
 msgid "Open"
-msgstr "Otevrit"
+msgstr ""
 
 msgid "Opening is not yet implemented"
-msgstr "Otevreni neni implementovano"
+msgstr ""
 
 msgid "Out of memory: too many files!"
-msgstr "Neni pamet: mnoho souboru!"
+msgstr "Mimo paměť: příliš mnoho souborů"
 
 msgid "Output File"
-msgstr "Cilovy soubor"
+msgstr ""
 
 msgid "Output Type"
-msgstr "Cilovy typ"
+msgstr ""
 
 msgid "Passive Mode:"
-msgstr "Pasivni mod:"
+msgstr ""
 
 msgid "Password:"
 msgstr "Heslo:"
 
 msgid "Paste"
-msgstr "Vlozit"
+msgstr "Vložit"
 
 msgid "Paste item(s) into current directory?"
-msgstr "Vlozit polozky do aktualniho adresare?"
+msgstr ""
 
 msgid "Path Setup"
-msgstr "Nastaveni adresaru"
+msgstr ""
 
 msgid "Play Directory"
-msgstr "Prehraj adresar"
+msgstr ""
 
 msgid "Play Once"
-msgstr "Prehraj jednou"
+msgstr ""
 
 msgid "Please wait..."
-msgstr "Prosim vyckejte..."
+msgstr ""
 
 msgid "Please wait:"
-msgstr "Prosim vyckejte:"
+msgstr "Čekejte prosím:"
+
+msgid "Possible unsupported format."
+msgstr ""
 
 msgid "Press Startup FTP to start the server on port"
-msgstr "Zmackni Spustit FTP pro start serveru na portu"
+msgstr ""
 
 msgid "Process canceled."
-msgstr "Proces zrusen."
+msgstr ""
 
 msgid "Properties"
 msgstr "Vlastnosti"
@@ -657,25 +669,25 @@ msgid "QWERTYUIOP{}|"
 msgstr ""
 
 msgid "Random"
-msgstr "Nahodne"
+msgstr ""
 
 msgid "Reboot failed"
-msgstr "Reboot se nezdaril"
+msgstr ""
 
 msgid "Receiving file..."
-msgstr "Prijmani souboru..."
+msgstr ""
 
 msgid "Reconnect FTP"
-msgstr "Obnovit pripojeni FTP"
+msgstr ""
 
 msgid "Reconnect SMB"
-msgstr "Obnovit pripojeni SMB"
+msgstr "Znovu připojit SMB"
 
 msgid "Reload"
-msgstr "Obnovit"
+msgstr ""
 
 msgid "Rename"
-msgstr "Prejmenovat"
+msgstr "Přejmenovat"
 
 msgid "Reset"
 msgstr ""
@@ -687,16 +699,16 @@ msgid "Retry"
 msgstr "Opakovat"
 
 msgid "Rotate"
-msgstr "Natocit"
+msgstr ""
 
 msgid "SMB Name:"
-msgstr "SMB nazev:"
+msgstr "SMB Název:"
 
 msgid "SMB Settings"
-msgstr "SMB nastaveni"
+msgstr "SMB nastavení"
 
 msgid "SMB is connecting..."
-msgstr "SMB se pripojuje..."
+msgstr "SMB se připojuje ..."
 
 msgid "Save Alpha"
 msgstr ""
@@ -705,147 +717,165 @@ msgid "Screenshot Format"
 msgstr ""
 
 msgid "Scrolling Speed"
-msgstr "Rychlost scrolovani"
+msgstr ""
 
 msgid "Server was shutdown...\n"
-msgstr "Server byl vypnut...\n"
+msgstr ""
 
 msgid "Settings"
-msgstr "Nastaveni"
+msgstr ""
 
 msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr "Ukazat Changelog"
+msgstr ""
 
 msgid "Shutdown"
-msgstr "Vypnout"
+msgstr ""
 
 msgid "Shutdown FTP"
-msgstr "Vypnout FTP"
+msgstr ""
 
 msgid "Shutdown the Wii?"
-msgstr "Vypnout Wii?"
+msgstr ""
 
 msgid "Size:"
 msgstr "Velikost:"
 
 msgid "Slideshow Delay"
-msgstr "Prodleva Prezentace"
+msgstr ""
 
 msgid "Sound Settings"
-msgstr "Nastaveni zvuku"
+msgstr ""
+
+msgid "Soundblock Size"
+msgstr ""
+
+msgid "Soundblocks"
+msgstr ""
 
 msgid "Special thanks to:"
-msgstr "Vyznamne podekovani:"
+msgstr "Speciální poděkování pro:"
 
 msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
-msgstr "Spustit FTP"
+msgstr ""
+
+msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
+msgstr ""
+
+msgid "The effect will take with next music load. It might break music playback."
+msgstr ""
 
 msgid "The new font could not be loaded."
-msgstr "Novy font nelze nacist."
+msgstr ""
 
 msgid "The new font is loaded."
-msgstr "Novy font je nacten."
+msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr "Cely tym DevkitPro & libogc."
+msgstr "Celý tým DevkitPro & libogc"
 
 msgid "To Idle"
 msgstr ""
 
 msgid "To Loader"
-msgstr "Do Loaderu"
+msgstr ""
 
 msgid "To Menu"
-msgstr "Do menu"
+msgstr ""
 
 msgid "To Standby"
-msgstr "Do Standby"
+msgstr ""
 
 msgid "Total Space:"
-msgstr "Celkovy prostor:"
+msgstr ""
 
 msgid "Transfer cancelled."
-msgstr "Prenos zrusen"
+msgstr ""
 
 msgid "Transfer failed"
-msgstr "Prenos selhal"
+msgstr ""
 
 msgid "Transfer failed."
-msgstr "Prenos selhal."
+msgstr ""
 
 msgid "Transfering files:"
-msgstr "Prenaseni souboru:"
+msgstr "Přenáším soubory:"
 
 msgid "URL is empty."
-msgstr "URL je prazdna."
+msgstr ""
 
 msgid "Unable to create folder."
-msgstr "Nelze vytvorit adresar."
+msgstr "Nelze vytvořit adresář."
 
 msgid "Unable to load path."
-msgstr "Nelze nacist cestu"
+msgstr ""
 
 msgid "Unable to load the device."
-msgstr "Nelze nacist zarizeni."
+msgstr ""
 
 msgid "Unsupported format!"
-msgstr "Nepodporovany format!"
+msgstr ""
 
 msgid "Update (App) Path"
 msgstr ""
 
 msgid "Update App"
-msgstr "Aktualizace"
+msgstr ""
 
 msgid "Update Icon.png"
-msgstr "Aktualizace Icon.png"
+msgstr ""
 
 msgid "Update Meta.xml"
-msgstr "Aktualizace Meta.xml"
+msgstr ""
 
 msgid "Update Path changed."
-msgstr "Cesta k aktualizaci zmenena."
+msgstr ""
 
 msgid "Update failed"
-msgstr "Chyba aktualizace"
+msgstr ""
 
 msgid "Update successfully finished"
-msgstr "Aktualizace vporadku dokoncena"
+msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr "Aktualizace na Rev%i dostupna"
+msgstr ""
 
 #, c-format
 msgid "User %i"
-msgstr ""
+msgstr "Uživatel %i"
 
 msgid "User:"
-msgstr ""
+msgstr "Uživatel:"
 
 msgid "Username:"
-msgstr ""
+msgstr "Jméno uživatele:"
 
 msgid "Vertical"
-msgstr "Vertikal"
+msgstr ""
+
+msgid "WARNING:"
+msgstr ""
+
+msgid "Warning:"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ano"
 
 msgid "Yes to all"
-msgstr "Ano pro vsechny"
+msgstr ""
 
 msgid "You can not cut into the directory itself."
-msgstr "Nelze vyjmout do stejneho adresare."
+msgstr "Nelze vložit adresář sám do sebe."
 
 msgid "You cant use this operation on:"
-msgstr "Nelze pouzit tuto operaci:"
+msgstr "Nelze použít tuto operaci na:"
 
 msgid "ZXCVBNM<>?"
 msgstr ""
@@ -863,7 +893,7 @@ msgid "for his FTP Server source."
 msgstr ""
 
 msgid "for his great tool LibWiiGui."
-msgstr ""
+msgstr "za jeho výborný nástroj LibWiiGui"
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -875,4 +905,118 @@ msgid "~!@#$%^&*()_"
 msgstr ""
 
 #~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "Chcete otevrit tento soubor v TextVieweru?"
+#~ msgstr "Přejete si otevřít tento soubor v TextViewer"
+
+#~ msgid "Do you want to load app default language ?"
+#~ msgstr "Přejete si spustit aplikaci v původním jazyce?"
+
+#~ msgid "Do you want to load console default language."
+#~ msgstr "Přejete si spustit aplikaci v jazyce konzole?"
+
+#~ msgid "Fontpath changed"
+#~ msgstr "Cesta k fontu změněna"
+
+#~ msgid "Restart the app to load the new font."
+#~ msgstr "Spustit znovu aplikaci pro načtení nového fontu."
+
+#~ msgid "Do you want to open this file with ImageViewer?"
+#~ msgstr "Přejete si otevřít tento soubor v ImageViewer?"
+
+#~ msgid "You cannot read/write from/to the same file."
+#~ msgstr "Nelze číst/psát z/do samého souboru."
+
+#~ msgid "Failed copying file."
+#~ msgstr "Nepodařilo se zkopírovat soubor."
+
+#~ msgid "Failed copying files."
+#~ msgstr "Nepodařilo se zkopírovat soubory."
+
+#~ msgid "Directory successfully deleted."
+#~ msgstr "Adresář úspěšně smazán."
+
+#~ msgid "Copy directory?"
+#~ msgstr "Kopírovat adresář"
+
+#~ msgid "Copy file?"
+#~ msgstr "Kopírovat soubor?"
+
+#~ msgid "Copying file:"
+#~ msgstr "Kopíruji soubor:"
+
+#~ msgid "Copying files:"
+#~ msgstr "Kopíruji soubory:"
+
+#~ msgid "Cut directory?"
+#~ msgstr "Vyjmout adresář?"
+
+#~ msgid "Cut file?"
+#~ msgstr "Vyjmout soubor?"
+
+#~ msgid "Delete directory and its content?"
+#~ msgstr "Smazat adresář a jeho obsah?"
+
+#~ msgid "Delete this file?"
+#~ msgstr "Smazat tento soubor?"
+
+#~ msgid "Directory successfully copied."
+#~ msgstr "Adresář úspěšně zkopírován."
+
+#~ msgid "Directory successfully moved."
+#~ msgstr "Adresář úspěšně přesunut."
+
+#~ msgid "Failed renaming file"
+#~ msgstr "Nepodařilo se přejmenovat soubor."
+
+#~ msgid "File does not exist anymore!"
+#~ msgstr "Soubor již neexistuje"
+
+#~ msgid "File successfully copied."
+#~ msgstr "Soubor úspěšně zkopírován."
+
+#~ msgid "File successfully moved."
+#~ msgstr "Soubor úspěšně přesunut."
+
+#~ msgid "Moving files:"
+#~ msgstr "Přesouvám soubory:"
+
+#~ msgid "Name already exists."
+#~ msgstr "Jméno již existuje."
+
+#~ msgid "Paste into current directory?"
+#~ msgstr "Vložit do aktuálního adresáře?"
+
+#~ msgid "Last status change:"
+#~ msgstr "Poslední změna stavu:"
+
+#~ msgid "Can not open the file"
+#~ msgstr "Nelze otevřít soubor"
+
+#~ msgid "Error"
+#~ msgstr "Chyba"
+
+#~ msgid "An error occured."
+#~ msgstr "Došlo k chybě."
+
+#~ msgid "ERROR"
+#~ msgstr "CHYBA"
+
+#~ msgid "This is no OGG/MP3 file"
+#~ msgstr "Toto není OGG/MP3 soubor"
+
+#~ msgid "Connect SMB"
+#~ msgstr "Připojení SMSB"
+
+#~ msgid "Failed to extract files."
+#~ msgstr "Nepodařilo se rozbalit soubory."
+
+#~ msgid "Files successfully extracted."
+#~ msgstr "Soubory úspěšně rozbaleny."
+
+#~ msgid "Enter a directory where to extract the files to."
+#~ msgstr "zadejte adresář, kam chcete rozbalit soubory."
+
+#~ msgid "Change Settings"
+#~ msgstr "Změna nastavení"
+
+#~ msgid "Unable to load device."
+#~ msgstr "Nelze připojit zařízení."

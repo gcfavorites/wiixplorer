@@ -40,7 +40,6 @@
  */
 TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 {
-	focus = 0; // allow focus
 	triggerupdate = true;
 	ExitEditor = false;
 	LineEditing = false;
@@ -259,7 +258,7 @@ int TextEditor::GetState()
     if(LineEditing)
     {
         SetTriggerUpdate(false);
-        if(TextPointerBtn->EditLine() > 0)
+        if(EditLine() > 0)
         {
             FileEdited = true;
         }
@@ -267,7 +266,6 @@ int TextEditor::GetState()
 
         MainWindow::Instance()->SetState(STATE_DISABLED);
         MainWindow::Instance()->SetDim(true);
-        MainWindow::Instance()->ChangeFocus(this);
         this->SetDim(false);
         this->SetState(STATE_DEFAULT);
         LineEditing = false;
@@ -290,13 +288,48 @@ int TextEditor::GetState()
         {
             MainWindow::Instance()->SetState(STATE_DISABLED);
             MainWindow::Instance()->SetDim(true);
-            MainWindow::Instance()->ChangeFocus(this);
             this->SetDim(false);
             this->SetState(STATE_DEFAULT);
         }
     }
 
     return GuiWindow::GetState();
+}
+
+int TextEditor::EditLine()
+{
+    u32 currentline = TextPointerBtn->GetCurrentLine();
+
+    if(currentline < 0 || currentline >= (u32) linestodraw)
+        return -1;
+
+    u32 LetterNumInLine = TextPointerBtn->GetCurrentLetter();
+
+    wString * wText = MainFileTxt->GetwString();
+    if(!wText)
+        return -1;
+
+    const wchar_t * lineText = MainFileTxt->GetTextLine(currentline);
+    if(!lineText)
+        return -1;
+
+    wchar_t temptxt[150];
+    memset(temptxt, 0, sizeof(temptxt));
+
+    int LineOffset = MainFileTxt->GetLineOffset(currentline+MainFileTxt->GetCurrPos());
+
+    wcsncpy(temptxt, lineText, LetterNumInLine);
+    temptxt[LetterNumInLine] = 0;
+
+    int result = OnScreenKeyboard(temptxt, 150);
+    if(result == 1)
+    {
+        wText->replace(LineOffset, LetterNumInLine, temptxt);
+        MainFileTxt->Refresh();
+        return 1;
+    }
+
+    return -1;
 }
 
 void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
@@ -361,7 +394,4 @@ void TextEditor::Update(GuiTrigger * t)
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(0);
     scrollbar->SetSelectedIndex(MainFileTxt->GetCurrPos());
-
-	if(updateCB)
-		updateCB(this);
 }
