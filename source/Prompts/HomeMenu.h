@@ -77,7 +77,7 @@ class HomeMenu : public GuiWindow
 		GuiButton * WiimoteBtn;
 		GuiButton * BatteryBtn[4];
 
-		GuiTrigger * trigA;
+		SimpleGuiTrigger * trigA;
 		GuiTrigger * trigHome;
 
 		GuiSound * ButtonOverSnd;

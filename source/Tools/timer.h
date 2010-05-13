@@ -58,7 +58,7 @@ class Timer
         ~Timer() { };
         float elapsed() { return (float) (gettime()-starttick)/(1000.0f*TB_TIMER_CLOCK); };
         float elapsed_millisecs() { return 1000.0f*elapsed(); };
-        void reset() { starttick = gettime(); }
+        void reset() { starttick = gettime(); };
     protected:
         u64 starttick;
 };

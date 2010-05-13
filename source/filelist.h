@@ -364,6 +364,15 @@ extern const u32	homemenu_close_png_size;
 extern const u8		wiimote_png[];
 extern const u32	wiimote_png_size;
 
+extern const u8		tooltip_left_png[];
+extern const u32	tooltip_left_png_size;
+
+extern const u8		tooltip_tile_png[];
+extern const u32	tooltip_tile_png_size;
+
+extern const u8		tooltip_right_png[];
+extern const u32	tooltip_right_png_size;
+
 extern const u8		battery_bar_png[];
 extern const u32	battery_bar_png_size;
 

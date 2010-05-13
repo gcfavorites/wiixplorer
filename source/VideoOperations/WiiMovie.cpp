@@ -45,6 +45,8 @@ WiiMovie::WiiMovie(const char * filepath)
     ExitRequested = false;
     Playing = false;
     volume = 255*Settings.MusicVolume/100;
+    ReadThread = LWP_THREAD_NULL;
+    mutex = LWP_MUTEX_NULL;
 
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
 
@@ -55,7 +57,7 @@ WiiMovie::WiiMovie(const char * filepath)
     exitBtn->SetTrigger(trigB);
 	exitBtn->Clicked.connect(this, &WiiMovie::OnExitClick);
 
-    GuiBGM::Instance()->Stop();
+    GuiBGM::Instance()->Pause();
 
     string file(filepath);
     Video = openVideo(file);
@@ -63,6 +65,7 @@ WiiMovie::WiiMovie(const char * filepath)
     {
         ShowError(tr("Unsupported format!"));
         ExitRequested = true;
+        return;
     }
 
     SndChannels = (Video->getNumChannels() == 2) ? VOICE_STEREO_16BIT : VOICE_MONO_16BIT;
@@ -70,7 +73,7 @@ WiiMovie::WiiMovie(const char * filepath)
     MaxSoundSize = Video->getMaxAudioSamples()*2;
 
     LWP_MutexInit(&mutex, true);
-	LWP_CreateThread (&ReadThread, UpdateThread, this, NULL, 0, LWP_PRIO_HIGHEST);
+	LWP_CreateThread (&ReadThread, UpdateThread, this, NULL, 32768, LWP_PRIO_HIGHEST);
 }
 
 WiiMovie::~WiiMovie()
@@ -81,9 +84,13 @@ WiiMovie::~WiiMovie()
     Playing = true;
     ExitRequested = true;
 
-    LWP_ResumeThread(ReadThread);
-    LWP_JoinThread(ReadThread, NULL);
-    LWP_MutexDestroy(mutex);
+    if(ReadThread != LWP_THREAD_NULL)
+    {
+        LWP_ResumeThread(ReadThread);
+        LWP_JoinThread(ReadThread, NULL);
+    }
+    if(mutex != LWP_MUTEX_NULL)
+        LWP_MutexDestroy(mutex);
 
     ASND_StopVoice(0);
     GuiBGM::Instance()->Play();

@@ -14,7 +14,6 @@ GuiWindow::GuiWindow()
 {
 	width = 0;
 	height = 0;
-	focus = 0; // allow focus
 	dim = false;
 }
 
@@ -22,7 +21,6 @@ GuiWindow::GuiWindow(int w, int h)
 {
 	width = w;
 	height = h;
-	focus = 0; // allow focus
 	dim = false;
 }
 
@@ -143,107 +141,6 @@ void GuiWindow::SetVisible(bool v)
 	}
 }
 
-void GuiWindow::SetFocus(int f)
-{
-	focus = f;
-
-	if(f == 1)
-		this->MoveSelectionVert(1);
-	else
-		this->ResetState();
-}
-
-void GuiWindow::ChangeFocus(GuiElement* e)
-{
-	if(parentElement)
-		return; // this is only intended for the main window
-
-	for (u8 i = 0; i < _elements.size(); i++)
-	{
-		if(e == _elements.at(i))
-			_elements.at(i)->SetFocus(1);
-		else if(_elements.at(i)->IsFocused() == 1)
-			_elements.at(i)->SetFocus(0);
-	}
-}
-
-void GuiWindow::ToggleFocus(GuiTrigger * t)
-{
-	if(parentElement)
-		return; // this is only intended for the main window
-
-	int found = -1;
-	int newfocus = -1;
-	u8 i;
-
-	// look for currently in focus element
-	for (i = 0; i < _elements.size(); i++)
-	{
-		try
-		{
-			if(_elements.at(i)->IsFocused() == 1)
-			{
-				found = i;
-				break;
-			}
-		}
-		catch (const std::exception& e) { }
-	}
-
-	// element with focus not found, try to give focus
-	if(found == -1)
-	{
-		for (i = 0; i < _elements.size(); i++)
-		{
-			try
-			{
-				if(_elements.at(i)->IsFocused() == 0 && _elements.at(i)->GetState() != STATE_DISABLED) // focus is possible (but not set)
-				{
-					_elements.at(i)->SetFocus(1); // give this element focus
-					break;
-				}
-			}
-			catch (const std::exception& e) { }
-		}
-	}
-	// change focus
-	else if(t->wpad->btns_d & (WPAD_BUTTON_2)
-		|| t->pad.btns_d & PAD_BUTTON_B)
-	{
-		for (i = found; i < _elements.size(); i++)
-		{
-			try
-			{
-				if(_elements.at(i)->IsFocused() == 0 && _elements.at(i)->GetState() != STATE_DISABLED) // focus is possible (but not set)
-				{
-					newfocus = i;
-					_elements.at(i)->SetFocus(1); // give this element focus
-					_elements.at(found)->SetFocus(0); // disable focus on other element
-					break;
-				}
-			}
-			catch (const std::exception& e) { }
-		}
-
-		if(newfocus == -1)
-		{
-			for (i = 0; i < found; i++)
-			{
-				try
-				{
-					if(_elements.at(i)->IsFocused() == 0 && _elements.at(i)->GetState() != STATE_DISABLED) // focus is possible (but not set)
-					{
-						_elements.at(i)->SetFocus(1); // give this element focus
-						_elements.at(found)->SetFocus(0); // disable focus on other element
-						break;
-					}
-				}
-				catch (const std::exception& e) { }
-			}
-		}
-	}
-}
-
 int GuiWindow::GetSelected()
 {
 	// find selected element
@@ -263,128 +160,6 @@ int GuiWindow::GetSelected()
 	return found;
 }
 
-// set element to left/right as selected
-// there's probably a more clever way to do this, but this way works
-void GuiWindow::MoveSelectionHor(int dir)
-{
-	int found = -1;
-	u16 left = 0;
-	u16 top = 0;
-	u8 i = 0;
-
-	int selected = this->GetSelected();
-
-	if(selected >= 0)
-	{
-		left = _elements.at(selected)->GetLeft();
-		top = _elements.at(selected)->GetTop();
-	}
-
-	// look for a button on the same row, to the left/right
-	for (i = 0; i < _elements.size(); i++)
-	{
-		try
-		{
-			if(_elements.at(i)->IsSelectable())
-			{
-				if(_elements.at(i)->GetLeft()*dir > left*dir && _elements.at(i)->GetTop() == top)
-				{
-					if(found == -1)
-						found = i;
-					else if(_elements.at(i)->GetLeft()*dir < _elements.at(found)->GetLeft()*dir)
-						found = i; // this is a better match
-				}
-			}
-		}
-		catch (const std::exception& e) { }
-	}
-	if(found >= 0)
-		goto matchfound;
-
-	// match still not found, let's try the first button in the next row
-	for (i = 0; i < _elements.size(); i++)
-	{
-		try
-		{
-			if(_elements.at(i)->IsSelectable())
-			{
-				if(_elements.at(i)->GetTop()*dir > top*dir)
-				{
-					if(found == -1)
-						found = i;
-					else if(_elements.at(i)->GetTop()*dir < _elements.at(found)->GetTop()*dir)
-						found = i; // this is a better match
-					else if(_elements.at(i)->GetTop()*dir == _elements.at(found)->GetTop()*dir
-						&&
-						_elements.at(i)->GetLeft()*dir < _elements.at(found)->GetLeft()*dir)
-						found = i; // this is a better match
-				}
-			}
-		}
-		catch (const std::exception& e) { }
-	}
-
-	// match found
-	matchfound:
-	if(found >= 0)
-	{
-		_elements.at(found)->SetState(STATE_SELECTED);
-		if(selected >= 0)
-			_elements.at(selected)->ResetState();
-	}
-}
-
-void GuiWindow::MoveSelectionVert(int dir)
-{
-	int found = -1;
-	u16 left = 0;
-	u16 top = 0;
-	u8 i = 0;
-
-	int selected = this->GetSelected();
-
-	if(selected >= 0)
-	{
-		left = _elements.at(selected)->GetLeft();
-		top = _elements.at(selected)->GetTop();
-	}
-
-	// look for a button above/below, with the least horizontal difference
-	for (i = 0; i < _elements.size(); i++)
-	{
-		try
-		{
-			if(_elements.at(i)->IsSelectable())
-			{
-				if(_elements.at(i)->GetTop()*dir > top*dir)
-				{
-					if(found == -1)
-						found = i;
-					else if(_elements.at(i)->GetTop()*dir < _elements.at(found)->GetTop()*dir)
-						found = i; // this is a better match
-					else if(_elements.at(i)->GetTop()*dir == _elements.at(found)->GetTop()*dir
-							&&
-							abs(_elements.at(i)->GetLeft() - left) <
-							abs(_elements.at(found)->GetLeft() - left))
-						found = i;
-				}
-			}
-		}
-		catch (const std::exception& e) { }
-	}
-	if(found >= 0)
-		goto matchfound;
-
-	// match found
-	matchfound:
-	if(found >= 0)
-	{
-		_elements.at(found)->SetState(STATE_SELECTED);
-		if(selected >= 0)
-			_elements.at(selected)->ResetState();
-	}
-}
-
 void GuiWindow::Update(GuiTrigger * t)
 {
 	if(_elements.size() == 0 || (state == STATE_DISABLED && parentElement))
@@ -395,22 +170,4 @@ void GuiWindow::Update(GuiTrigger * t)
 		try	{ _elements.at(i)->Update(t); }
 		catch (const std::exception& e) { }
 	}
-
-	this->ToggleFocus(t);
-
-	if(focus) // only send actions to this window if it's in focus
-	{
-		// pad/joystick navigation
-		if(t->Right())
-			this->MoveSelectionHor(1);
-		else if(t->Left())
-			this->MoveSelectionHor(-1);
-		else if(t->Down())
-			this->MoveSelectionVert(1);
-		else if(t->Up())
-			this->MoveSelectionVert(-1);
-	}
-
-	if(updateCB)
-		updateCB(this);
 }

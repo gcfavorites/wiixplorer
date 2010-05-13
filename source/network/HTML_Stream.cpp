@@ -107,13 +107,12 @@ const char * HTML_Stream::FindStringEnd(const char * string)
         position++;
     }
 
-    position += strlen(string);
-
     if((u32) position >= filesize)
     {
-        position -= strlen(string);
         return NULL;
     }
+
+    position += strlen(string);
 
     return &HTML_File[position];
 }

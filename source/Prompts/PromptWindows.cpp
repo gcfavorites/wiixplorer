@@ -58,7 +58,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	GuiKeyboard keyboard(var, maxlen);
 
-	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
+	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
@@ -75,7 +75,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	okBtn.SetLabel(&okBtnTxt);
 	okBtn.SetImage(&okBtnImg);
 	okBtn.SetImageOver(&okBtnImgOver);
-	okBtn.SetSoundOver(&btnSoundOver);
+	okBtn.SetSoundOver(btnSoundOver);
 	okBtn.SetTrigger(&trigA);
 	okBtn.SetEffectGrow();
 
@@ -88,7 +88,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	cancelBtn.SetLabel(&cancelBtnTxt);
 	cancelBtn.SetImage(&cancelBtnImg);
 	cancelBtn.SetImageOver(&cancelBtnImgOver);
-	cancelBtn.SetSoundOver(&btnSoundOver);
+	cancelBtn.SetSoundOver(btnSoundOver);
 	cancelBtn.SetTrigger(&trigA);
 	cancelBtn.SetEffectGrow();
 
@@ -99,7 +99,6 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&keyboard);
-	MainWindow::Instance()->ChangeFocus(&keyboard);
 	ResumeGui();
 
 	while(save == -1)
@@ -126,6 +125,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	MainWindow::Instance()->Remove(&keyboard);
     MainWindow::Instance()->SetDim(false);
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
+	Resources::Remove(btnSoundOver);
 	ResumeGui();
 	return save;
 }
@@ -136,7 +136,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 
 	GuiKeyboard keyboard(var, maxlen);
 
-	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
+	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
@@ -153,7 +153,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	okBtn.SetLabel(&okBtnTxt);
 	okBtn.SetImage(&okBtnImg);
 	okBtn.SetImageOver(&okBtnImgOver);
-	okBtn.SetSoundOver(&btnSoundOver);
+	okBtn.SetSoundOver(btnSoundOver);
 	okBtn.SetTrigger(&trigA);
 	okBtn.SetEffectGrow();
 
@@ -166,7 +166,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	cancelBtn.SetLabel(&cancelBtnTxt);
 	cancelBtn.SetImage(&cancelBtnImg);
 	cancelBtn.SetImageOver(&cancelBtnImgOver);
-	cancelBtn.SetSoundOver(&btnSoundOver);
+	cancelBtn.SetSoundOver(btnSoundOver);
 	cancelBtn.SetTrigger(&trigA);
 	cancelBtn.SetEffectGrow();
 
@@ -177,7 +177,6 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&keyboard);
-	MainWindow::Instance()->ChangeFocus(&keyboard);
 	ResumeGui();
 
 	while(save == -1)
@@ -204,6 +203,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	MainWindow::Instance()->Remove(&keyboard);
     MainWindow::Instance()->SetDim(false);
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
+	Resources::Remove(btnSoundOver);
 	ResumeGui();
 	return save;
 }

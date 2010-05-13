@@ -103,7 +103,6 @@ void TextPointer::PositionChanged(int chan, int x, int y)
     Position_X = 0;
     Position_Y = 0;
     LetterNumInLine = 0;
-    LineOffset = 0;
     Marking = false;
 
     int linenumber = 0;
@@ -203,43 +202,6 @@ void TextPointer::TextWidthChanged()
     width = TextPtr->GetTextMaxWidth();
     if(width == 0)
         width = TextPtr->GetTextWidth();
-}
-
-int TextPointer::GetCurrentLetter()
-{
-    return LetterNumInLine;
-}
-
-int TextPointer::EditLine()
-{
-    if(currentline < 0)
-        PositionChanged(0, 0, 0);
-
-    wString * wText = ((Text *) TextPtr)->GetwString();
-    if(!wText)
-        return -1;
-
-    const wchar_t * lineText = TextPtr->GetTextLine(currentline);
-    if(!lineText)
-        return -1;
-
-    wchar_t temptxt[150];
-    memset(temptxt, 0, sizeof(temptxt));
-
-    LineOffset = ((Text *) TextPtr)->GetLineOffset(currentline+((Text *) TextPtr)->GetCurrPos());
-
-    wcsncpy(temptxt, lineText, LetterNumInLine);
-    temptxt[LetterNumInLine] = 0;
-
-    int result = OnScreenKeyboard(temptxt, 150);
-    if(result == 1)
-    {
-        wText->replace(LineOffset, LetterNumInLine, temptxt);
-        ((Text *) TextPtr)->Refresh();
-        return 1;
-    }
-
-    return -1;
 }
 
 void TextPointer::Draw()

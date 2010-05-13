@@ -68,19 +68,6 @@ void GuiTrigger::SetButtonOnlyTrigger(s32 ch, u32 wiibtns, u16 gcbtns)
 	pad.btns_d = gcbtns;
 }
 
-/**
- * Sets a button trigger. Requires:
- * - Trigger button is pressed
- * - Parent window is in focus
- */
-void GuiTrigger::SetButtonOnlyInFocusTrigger(s32 ch, u32 wiibtns, u16 gcbtns)
-{
-	type = TRIGGER_BUTTON_ONLY_IN_FOCUS;
-	chan = ch;
-	wpaddata.btns_d = wiibtns;
-	pad.btns_d = gcbtns;
-}
-
 /****************************************************************************
  * WPAD_Stick
  *
@@ -248,10 +235,3 @@ bool GuiTrigger::Down()
 	}
 	return false;
 }
-
-
-SimpleGuiTrigger::SimpleGuiTrigger(s32 ch, u32 wiibtns, u16 gcbtns)
-{
-	SetSimpleTrigger(ch, wiibtns, gcbtns);
-}
-

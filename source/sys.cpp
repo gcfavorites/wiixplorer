@@ -126,9 +126,6 @@ void Sys_Reboot(void)
 static void _Sys_Shutdown(int SHUTDOWN_MODE)
 {
 	ExitApp();
-	WPAD_Flush(0);
-	WPAD_Disconnect(0);
-	WPAD_Shutdown();
 
 	if((CONF_GetShutdownMode() == CONF_SHUTDOWN_IDLE &&  SHUTDOWN_MODE != ShutdownToStandby) || SHUTDOWN_MODE == ShutdownToIdle) {
 		s32 ret;

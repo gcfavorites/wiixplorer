@@ -25,6 +25,7 @@ GuiButton::GuiButton(int w, int h)
 	iconOver = NULL;
 	iconHold = NULL;
 	iconClick = NULL;
+	tooltip = NULL;
 
 	for(int i=0; i < 3; i++)
 	{
@@ -137,10 +138,19 @@ void GuiButton::SetSoundHold(GuiSound * snd)
     LOCK(this);
 	soundHold = snd;
 }
+
 void GuiButton::SetSoundClick(GuiSound * snd)
 {
     LOCK(this);
 	soundClick = snd;
+}
+
+void GuiButton::SetTooltip(GuiTooltip * t)
+{
+    LOCK(this);
+    tooltip = t;
+	if(t)
+		tooltip->SetParent(this);
 }
 
 /**
@@ -170,6 +180,24 @@ void GuiButton::Draw()
 			label[i]->Draw();
 	}
 
+	if(state == STATE_SELECTED && tooltip)
+	{
+	    if(!tooltip->IsVisible() && SelectTimer.elapsed() > tooltip->GetElapseTime())
+	    {
+            tooltip->SetEffect(EFFECT_FADE, 20);
+            tooltip->SetVisible(true);
+	    }
+
+	}
+	else if(tooltip)
+	{
+	    if(tooltip->IsVisible())
+	    {
+            tooltip->SetEffect(EFFECT_FADE, -20);
+            tooltip->SetVisible(false);
+	    }
+	}
+
 	this->UpdateEffects();
 }
 
@@ -197,6 +225,9 @@ void GuiButton::Update(GuiTrigger * t)
 
 				if(soundOver)
 					soundOver->Play();
+
+				if(tooltip)
+                    SelectTimer.reset();
 
 				if(effectsOver && !effects)
 				{
@@ -258,11 +289,6 @@ void GuiButton::Update(GuiTrigger * t)
 							}
 						}
 						else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
-						{
-							this->SetState(STATE_CLICKED, t->chan);
-						}
-						else if(trigger[i]->type == TRIGGER_BUTTON_ONLY_IN_FOCUS &&
-								parentElement->IsFocused())
 						{
 							this->SetState(STATE_CLICKED, t->chan);
 						}
@@ -337,7 +363,4 @@ void GuiButton::Update(GuiTrigger * t)
 			}
 		}
 	}
-
-	if(updateCB)
-		updateCB(this);
 }

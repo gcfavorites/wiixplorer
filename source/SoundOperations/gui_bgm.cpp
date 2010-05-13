@@ -32,12 +32,14 @@
 #include "filelist.h"
 #include "Language/gettext.h"
 #include "FileOperations/fileops.h"
+#include "FileStartUp/FileExtensions.h"
+#include "Tools/StringTools.h"
 #include "main.h"
 
 GuiBGM *GuiBGM::instance = NULL;
 
 GuiBGM::GuiBGM()
-    :GuiSound(bg_music_ogg, bg_music_ogg_size, false)
+    : GuiSound(bg_music_ogg, bg_music_ogg_size, false, 0)
 {
     loop = 0;
     currentPath = NULL;
@@ -45,22 +47,22 @@ GuiBGM::GuiBGM()
     voice = 0;
     Stopped = true;
     ExitRequested = false;
-	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 0, 0);
+	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 16384, 0);
 }
 
 GuiBGM::~GuiBGM()
 {
     ExitRequested = true;
 
+    ResumeThread();
+    LWP_JoinThread(bgmthread, NULL);
+    bgmthread = LWP_THREAD_NULL;
+
     if(currentPath)
         delete [] currentPath;
 
     ClearList();
-
-    LWP_JoinThread(bgmthread, NULL);
-    bgmthread = LWP_THREAD_NULL;
 };
-
 
 GuiBGM * GuiBGM::Instance()
 {
@@ -69,6 +71,16 @@ GuiBGM * GuiBGM::Instance()
 		instance = new GuiBGM();
 	}
 	return instance;
+}
+
+void GuiBGM::ResumeThread()
+{
+    LWP_ResumeThread(bgmthread);
+}
+
+void GuiBGM::HaltThread()
+{
+    LWP_SuspendThread(bgmthread);
 }
 
 void GuiBGM::DestroyInstance()
@@ -111,26 +123,38 @@ bool GuiBGM::Load(const char * path, bool silent)
         return false;
     }
 
-	u64 filesize;
-	u8 * file = NULL;
-
-	int ret = -1;
-	if(silent)
-        ret = LoadFileToMem(path, &file, &filesize);
-    else
-        ret = LoadFileToMemWithProgress(tr("Loading file:"), path, &file, &filesize);
-
-	if (ret < 0)
-	{
-        LoadStandard();
-		return false;
-	}
-
-    if(!GuiSound::Load(file, (u32) filesize, true))
+    if(Settings.LoadMusicToMem)
     {
-        free(file);
-        LoadStandard();
-        return false;
+        u64 filesize;
+        u8 * file = NULL;
+
+        int ret = -1;
+        if(silent)
+            ret = LoadFileToMem(path, &file, &filesize);
+        else
+            ret = LoadFileToMemWithProgress(tr("Loading file:"), path, &file, &filesize);
+
+        if (ret < 0)
+        {
+            LoadStandard();
+            return false;
+        }
+
+        if(!GuiSound::Load(file, (u32) filesize, true))
+        {
+            if(file)
+                free(file);
+            LoadStandard();
+            return false;
+        }
+    }
+    else
+    {
+        if(!GuiSound::Load(path))
+        {
+            LoadStandard();
+            return false;
+        }
     }
 
     Play();
@@ -145,7 +169,7 @@ bool GuiBGM::ParsePath(const char * filepath)
     if(currentPath)
         delete [] currentPath;
 
-    currentPath = new char[strlen(filepath)+1];
+    currentPath = new (std::nothrow) char[strlen(filepath)+1];
 
     if(!currentPath)
         return false;
@@ -179,9 +203,7 @@ bool GuiBGM::ParsePath(const char * filepath)
         char * fileext = strrchr(filename, '.');
         if(fileext)
         {
-            if(strcasecmp(fileext, ".mp3") == 0 || strcasecmp(fileext, ".ogg") == 0
-               || strcasecmp(fileext, ".pcm") == 0 || strcasecmp(fileext, ".bin") == 0
-               || strcasecmp(fileext, ".wav") == 0 || strcasecmp(fileext, ".aiff") == 0)
+            if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
             {
                 AddEntrie(filename);
 
@@ -297,13 +319,10 @@ void * GuiBGM::UpdateBMG(void * arg)
 
 void GuiBGM::UpdateState()
 {
-    //wait for first playing
-    while(!IsPlaying())
-        usleep(100);
-
     while(!ExitRequested)
     {
-        usleep(500000);
+        usleep(100);
+        HaltThread();
 
         if(!IsPlaying() && !Stopped)
         {
@@ -312,11 +331,7 @@ void GuiBGM::UpdateState()
                 //!Standard Music is always looped except on loop = 0
                 Play();
             }
-            else if(loop == LOOP)
-            {
-                Play();
-            }
-            else if(loop == DIR_LOOP)
+            if(loop == DIR_LOOP)
             {
                 PlayNext();
             }

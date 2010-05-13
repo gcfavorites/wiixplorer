@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r157
+# r154
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 21:29+0100\n"
+"POT-Creation-Date: 2010-05-13 16:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -88,7 +88,7 @@ msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Cannot create directory: "
-msgstr "Impossible de créer le répertoire: "
+msgstr ""
 
 msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
@@ -97,13 +97,13 @@ msgid "Cannot write to destination."
 msgstr "Ecriture impossible."
 
 msgid "Cannot write to the file."
-msgstr "Impossible d'écrire dans le fichier."
+msgstr ""
 
 msgid "Caps"
 msgstr "Verr"
 
 msgid "Change"
-msgstr "Modifier"
+msgstr ""
 
 msgid "Change Language Path?"
 msgstr "Modifier le dossier Language?"
@@ -130,7 +130,7 @@ msgid "Console Default"
 msgstr "Wii Défaut"
 
 msgid "Continue"
-msgstr "Continuer"
+msgstr ""
 
 msgid "Convert"
 msgstr "Convertir"
@@ -168,6 +168,9 @@ msgstr "Impossible de télécharger le fichier."
 msgid "Could not extract file:"
 msgstr "Impossible d'extraire le fichier:"
 
+msgid "Could not load file."
+msgstr ""
+
 msgid "Could not load image."
 msgstr "Impossible de charger l'image."
 
@@ -187,7 +190,7 @@ msgid "Cut current marked item(s)?"
 msgstr "Couper le(s) élement(s) marqué(s)?"
 
 msgid "Default"
-msgstr "Par défaut"
+msgstr ""
 
 msgid "Delete"
 msgstr "Supprimer"
@@ -217,7 +220,7 @@ msgid "Do you want to change the font?"
 msgstr "Voulez-vous changer de police?"
 
 msgid "Do you want to download new language files?"
-msgstr "Voulez-vous télécharger les nouveaux fichiers de langue?"
+msgstr ""
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Voulez-vous quitter Wiixplorer?"
@@ -230,7 +233,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "Voulez-vous charger le fichier depuis: %s?"
 
 msgid "Do you want to load the default language."
-msgstr "Voulez-vous charger la langue par défaut?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language?"
@@ -239,7 +242,7 @@ msgid "Do you want to load this language file?"
 msgstr "Voulez-vous charger ce fichier language?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr "Voulez-vous éditer ce fichier texte?"
+msgstr ""
 
 msgid "Do you want to playback this file?"
 msgstr "Voulez-vous jouer ce fichier?"
@@ -275,17 +278,17 @@ msgid "Do you want to update now ?"
 msgstr "Voulez-vous mettre à jour maintenant?"
 
 msgid "Download Files"
-msgstr "Télécharger"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr "%d fichiers téléchargés."
+msgstr ""
 
 msgid "Downloading file..."
-msgstr "Téléchargement du fichier..."
+msgstr "Téléchargement..."
 
 msgid "Downloading files..."
-msgstr "Téléchargement des fichiers..."
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -297,7 +300,7 @@ msgid "Exit"
 msgstr "Quitter"
 
 msgid "Exit WiiXplorer?"
-msgstr "Voulez-vous quitter WiiXplorer?"
+msgstr ""
 
 msgid "Explorer Settings"
 msgstr "Options d'exploration"
@@ -378,7 +381,7 @@ msgid "File is corrupt."
 msgstr "Le fichier est corrompu."
 
 msgid "File is too big."
-msgstr "Le fichier est trop gros."
+msgstr ""
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "Les paramètres de compression sont trop élevés (taille du dictionaire excessive)."
@@ -504,6 +507,9 @@ msgstr "Mode Liste"
 msgid "Listening on TCP port"
 msgstr "Ecoute sur le port TCP"
 
+msgid "Load Music to Memory"
+msgstr ""
+
 msgid "Loading file:"
 msgstr "Chargement de:"
 
@@ -518,6 +524,9 @@ msgstr "Chemin pour MPlayerCE"
 
 msgid "MPlayerPath changed"
 msgstr "Chemin de MPlayerCE modifié"
+
+msgid "Memory Buffer"
+msgstr ""
 
 msgid "Menu"
 msgstr ""
@@ -553,7 +562,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No files found."
-msgstr "Aucun fichier trouvé."
+msgstr ""
 
 msgid "No homebrew in the zip."
 msgstr "Pas de homebrew dans le zip."
@@ -643,6 +652,9 @@ msgstr "Veuillez patienter..."
 msgid "Please wait:"
 msgstr "Patientez:"
 
+msgid "Possible unsupported format."
+msgstr ""
+
 msgid "Press Startup FTP to start the server on port"
 msgstr "Appuyez sur Démarrer FTP pour lancer le serveur sur le port"
 
@@ -704,7 +716,7 @@ msgid "Screenshot Format"
 msgstr "Format de copie d'écran"
 
 msgid "Scrolling Speed"
-msgstr "Vitesse de défilement"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "Le serveur a été arrêté"
@@ -719,13 +731,13 @@ msgid "Show Changelog"
 msgstr "Voir le Changelog"
 
 msgid "Shutdown"
-msgstr "Eteindre"
+msgstr ""
 
 msgid "Shutdown FTP"
 msgstr "Arrêter FTP"
 
 msgid "Shutdown the Wii?"
-msgstr "Eteindre la Wii?"
+msgstr ""
 
 msgid "Size:"
 msgstr "Taille:"
@@ -736,6 +748,12 @@ msgstr "Delai diaporama"
 msgid "Sound Settings"
 msgstr "Options audio"
 
+msgid "Soundblock Size"
+msgstr ""
+
+msgid "Soundblocks"
+msgstr ""
+
 msgid "Special thanks to:"
 msgstr "Remerciements:"
 
@@ -744,6 +762,12 @@ msgstr ""
 
 msgid "Startup FTP"
 msgstr "Démarrer FTP"
+
+msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
+msgstr ""
+
+msgid "The effect will take with next music load. It might break music playback."
+msgstr ""
 
 msgid "The new font could not be loaded."
 msgstr "Le chargement de la nouvelle police a échoué."
@@ -755,16 +779,16 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
 
 msgid "To Idle"
-msgstr "Mettre en veille"
+msgstr ""
 
 msgid "To Loader"
-msgstr "Vers le chargeur"
+msgstr ""
 
 msgid "To Menu"
-msgstr "Vers le menu"
+msgstr ""
 
 msgid "To Standby"
-msgstr "Eteindre"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Espace total:"
@@ -832,6 +856,12 @@ msgid "Username:"
 msgstr "Nom d'utilisateur:"
 
 msgid "Vertical"
+msgstr ""
+
+msgid "WARNING:"
+msgstr ""
+
+msgid "Warning:"
 msgstr ""
 
 msgid "Yes"

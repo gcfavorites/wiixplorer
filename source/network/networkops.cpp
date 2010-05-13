@@ -543,7 +543,7 @@ static void * networkinitcallback(void *arg)
  ***************************************************************************/
 void InitNetworkThread()
 {
-	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 0, 30);
+	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 16384, 30);
 	ResumeNetworkThread();
 }
 

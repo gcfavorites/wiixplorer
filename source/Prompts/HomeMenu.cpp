@@ -148,7 +148,7 @@ HomeMenu::HomeMenu()
 		Append(BatteryBtn[i]);
 	}
 
-	GuiBGM::Instance()->Stop();
+	GuiBGM::Instance()->Pause();
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 }

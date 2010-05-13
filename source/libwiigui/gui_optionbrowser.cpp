@@ -309,7 +309,4 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(selectedItem);
     scrollbar->SetSelectedIndex(listOffset);
-
-	if(updateCB)
-		updateCB(this);
 }

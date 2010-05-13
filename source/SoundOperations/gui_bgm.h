@@ -52,6 +52,8 @@ class GuiBGM : public GuiSound
         bool PlayNext();
         bool PlayPrevious();
         bool PlayRandom();
+        void ResumeThread();
+        void HaltThread();
     protected:
         GuiBGM();
         ~GuiBGM();

@@ -77,7 +77,7 @@ class ArchiveProperties : public GuiWindow
 
         GuiButton * CloseBtn;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigB;
 };
 

@@ -422,7 +422,7 @@ void Properties::StartGetFolderSizeThread()
     sizegainrunning = true;
 
     //!Initialize GetSizeThread for Properties
-	LWP_CreateThread(&foldersizethread, FolderSizeThread, this, NULL, 0, 60);
+	LWP_CreateThread(&foldersizethread, FolderSizeThread, this, NULL, 32768, 60);
 }
 
 void Properties::StopSizeThread()

@@ -51,7 +51,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	shift = 0;
 	caps = 0;
 	selectable = true;
-	focus = 0; // allow focus
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
 	kbtextstr = new wString(t);
@@ -494,21 +493,6 @@ void GuiKeyboard::Update(GuiTrigger * t)
 				}
 			}
 		}
-	}
-
-	this->ToggleFocus(t);
-
-	if(focus) // only send actions to this window if it's in focus
-	{
-		// pad/joystick navigation
-		if(t->Right())
-			this->MoveSelectionHor(1);
-		else if(t->Left())
-			this->MoveSelectionHor(-1);
-		else if(t->Down())
-			this->MoveSelectionVert(1);
-		else if(t->Up())
-			this->MoveSelectionVert(-1);
 	}
 }
 

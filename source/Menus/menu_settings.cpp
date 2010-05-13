@@ -218,11 +218,15 @@ int MenuSoundSettings()
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
+	char entered[150];
 	bool firstRun = true;
 
 	OptionList options;
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Music Loop Mode"));
+	options.SetName(i++, tr("Load Music to Memory"));
+	options.SetName(i++, tr("Soundblocks"));
+	options.SetName(i++, tr("Soundblock Size"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Sound Settings"), &options, MENU_SETTINGS);
 
@@ -257,6 +261,29 @@ int MenuSoundSettings()
                     Settings.BGMLoopMode = 0;
                 GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
 				break;
+            case 2:
+                Settings.LoadMusicToMem = (Settings.LoadMusicToMem+1) % 2;
+				break;
+            case 3:
+                snprintf(entered, sizeof(entered), "%i", Settings.SoundblockCount);
+                if(Settings.LoadMusicToMem != on && OnScreenKeyboard(entered, 149))
+                {
+					Settings.SoundblockCount = atoi(entered);
+					WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
+					if(Settings.SoundblockSize*Settings.SoundblockCount > 512*1024)
+                        WindowPrompt(tr("WARNING:"), tr("The buffer size is really high. If the app doesn't start after this delete your config files."), tr("OK"));
+                }
+				break;
+            case 4:
+                snprintf(entered, sizeof(entered), "%i", Settings.SoundblockSize);
+                if(Settings.LoadMusicToMem != on && OnScreenKeyboard(entered, 149))
+                {
+					Settings.SoundblockSize = atoi(entered);
+					WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
+					if(Settings.SoundblockSize*Settings.SoundblockCount > 512*1024)
+                        WindowPrompt(tr("WARNING:"), tr("The buffer size is really high. If the app doesn't start after this delete your config files."), tr("OK"));
+                }
+				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -264,15 +291,24 @@ int MenuSoundSettings()
             i = 0;
             firstRun = false;
 
-            if (Settings.MusicVolume > 0)
+            if(Settings.MusicVolume > 0)
                 options.SetValue(i++, "%i", Settings.MusicVolume);
             else
                 options.SetValue(i++, tr("OFF"));
 
-            if (Settings.BGMLoopMode == ONCE) options.SetValue(i++,tr("Play Once"));
+            if(Settings.BGMLoopMode == ONCE) options.SetValue(i++,tr("Play Once"));
             else if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
             else if (Settings.BGMLoopMode == RANDOM_BGM) options.SetValue(i++,tr("Random"));
             else if (Settings.BGMLoopMode == DIR_LOOP) options.SetValue(i++,tr("Play Directory"));
+
+            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("ON"));
+            else options.SetValue(i++, tr("OFF"));
+
+            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("Memory Buffer"));
+            else options.SetValue(i++, "%i (%0.1f KB)", Settings.SoundblockCount, Settings.SoundblockCount*Settings.SoundblockSize/1024.0f);
+
+            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("Memory Buffer"));
+            else options.SetValue(i++, "%i Bytes", Settings.SoundblockSize);
         }
 	}
 

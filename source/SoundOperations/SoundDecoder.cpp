@@ -2,7 +2,7 @@
  * Copyright (C) 2010
  * by Dimok
  *
- * Decoding functions by Hibernatus.
+ * 3Band resampling thanks to libmad
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -25,470 +25,298 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <stdio.h>
-#include <ogcsys.h>
-#include <unistd.h>
+#include <gccore.h>
 #include <malloc.h>
 #include <string.h>
-#include <math.h>
-#include <asndlib.h>
-#include <vector>
-#include "SoundDecoder.h"
+#include <unistd.h>
+#include "SoundDecoder.hpp"
+#include "main.h"
 
-struct SWaveHdr
-{
-	u32 fccRIFF;
-	u32 size;
-	u32 fccWAVE;
-} __attribute__((packed));
+static const f32 VSA = (1.0F/4294967295.0F);
 
-struct SWaveFmtChunk
+static inline s16 Do3Band(EQState *es, s16 sample)
 {
-	u32 fccFMT;
-	u32 size;
-	u16 format;
-	u16 channels;
-	u32 freq;
-	u32 avgBps;
-	u16 alignment;
-	u16 bps;
-} __attribute__((packed));
+	f32 l,m,h;
 
-struct SWaveChunk
-{
-	u32 fcc;
-	u32 size;
-	u8 data;
-} __attribute__((packed));
+	es->f1p0 += (es->lf*((f32)sample - es->f1p0))+VSA;
+	es->f1p1 += (es->lf*(es->f1p0 - es->f1p1));
+	es->f1p2 += (es->lf*(es->f1p1 - es->f1p2));
+	es->f1p3 += (es->lf*(es->f1p2 - es->f1p3));
+	l = es->f1p3;
 
-struct SAIFFCommChunk
-{
-	u32 fccCOMM;
-	u32 size;
-	u16 channels;
-	u32 samples;
-	u16 bps;
-	u8 freq[10];
-} __attribute__((packed));
+	es->f2p0 += (es->hf*((f32)sample - es->f2p0))+VSA;
+	es->f2p1 += (es->hf*(es->f2p0 - es->f2p1));
+	es->f2p2 += (es->hf*(es->f2p1 - es->f2p2));
+	es->f2p3 += (es->hf*(es->f2p2 - es->f2p3));
+	h = es->sdm3 - es->f2p3;
 
-struct SAIFFSSndChunk
-{
-	u32 fccSSND;
-	u32 size;
-	u32 offset;
-	u32 blockSize;
-	u8 data;
-} __attribute__((packed));
+	m = es->sdm3 - (h+l);
 
-inline u32 le32(u32 i)
-{
-	return ((i & 0xFF) << 24) | ((i & 0xFF00) << 8) | ((i & 0xFF0000) >> 8) | ((i & 0xFF000000) >> 24);
+	l *= es->lg;
+	m *= es->mg;
+	h *= es->hg;
+
+	es->sdm3 = es->sdm2;
+	es->sdm2 = es->sdm1;
+	es->sdm1 = (f32)sample;
+
+	return (s16)(l+m+h);
 }
 
-inline u16 le16(u16 i)
+SoundDecoder::SoundDecoder()
 {
-	return ((i & 0xFF) << 8) | ((i & 0xFF00) >> 8);
+    file_fd = NULL;
+    Init();
 }
 
-SoundBlock DecodefromWAV(const u8 *buffer, u32 size)
+SoundDecoder::SoundDecoder(const char * filepath)
 {
-    SoundBlock OutBlock;
-    memset(&OutBlock, 0, sizeof(SoundBlock));
+    file_fd = new File(filepath, "rb");
+    Init();
+}
 
-	const u8 *bufEnd = buffer + size;
-	const SWaveHdr &hdr = *(SWaveHdr *)buffer;
-	if (size < sizeof hdr)
-	{
-		return OutBlock;
-	}
-	if (hdr.fccRIFF != 'RIFF')
-	{
-		return OutBlock;
-	}
-	if (size < le32(hdr.size) + sizeof hdr.fccRIFF + sizeof hdr.size)
+SoundDecoder::SoundDecoder(const u8 * buffer, int size)
+{
+    file_fd = new File(buffer, size);
+    Init();
+}
+
+SoundDecoder::~SoundDecoder()
+{
+    ExitRequested = true;
+    while(Decoding)
+        usleep(100);
+
+    if(file_fd)
+        delete file_fd;
+    file_fd = NULL;
+
+    if(RawBuffer)
+        free(RawBuffer);
+}
+
+void SoundDecoder::Init()
+{
+    SoundType = SOUND_RAW;
+    SoundBlocks = Settings.SoundblockCount;
+    SoundBlockSize = Settings.SoundblockSize;
+    CurPos = 0;
+    Loop = false;
+    EndOfFile = false;
+    Decoding = false;
+    ExitRequested = false;
+    SoundBuffer.SetBufferBlockSize(SoundBlockSize);
+    SoundBuffer.Resize(SoundBlocks);
+    RawBuffer = (u8 *) memalign(32, SoundBlocks*SoundBlockSize);
+	Init3BandState(&eqs[0],880,5000,48000);
+	Init3BandState(&eqs[1],880,5000,48000);
+    RawSamples = 0;
+    RawSamplePos.adword = 0;
+}
+
+int SoundDecoder::Rewind()
+{
+    CurPos = 0;
+    EndOfFile = false;
+    file_fd->rewind();
+
+    return 0;
+}
+
+int SoundDecoder::Read(u8 * buffer, int buffer_size, int pos)
+{
+    int ret = file_fd->read(buffer, buffer_size);
+    CurPos += ret;
+
+    return ret;
+}
+
+void SoundDecoder::Decode()
+{
+    if(!file_fd || ExitRequested || EndOfFile)
+        return;
+
+    u16 newWhich = SoundBuffer.Which();
+    u16 i = 0;
+    for (i = 0; i < SoundBuffer.Size()-1; i++)
     {
-		return OutBlock;
+        if(!SoundBuffer.IsBufferReady(newWhich))
+            break;
+
+        newWhich = (newWhich+1) % SoundBuffer.Size();
     }
-	if (hdr.fccWAVE != 'WAVE')
-	{
-		return OutBlock;
-	}
-	// Find fmt
-	const SWaveChunk *chunk = (const SWaveChunk *)(buffer + sizeof hdr);
-	while (&chunk->data < bufEnd && chunk->fcc != 'fmt ')
-		chunk = (const SWaveChunk *)(&chunk->data + le32(chunk->size));
-	if (&chunk->data >= bufEnd)
-	{
-		return OutBlock;
-    }
-	const SWaveFmtChunk &fmtChunk = *(const SWaveFmtChunk *)chunk;
-	// Check format
-	if (le16(fmtChunk.format) != 1)
-	{
-		return OutBlock;
-	}
-	u8 format = (u8)-1;
-	if (le16(fmtChunk.channels) == 1 && le16(fmtChunk.bps) == 8 && le16(fmtChunk.alignment) <= 1)
-		format = VOICE_MONO_8BIT;
-	else if (le16(fmtChunk.channels) == 1 && le16(fmtChunk.bps) == 16 && le16(fmtChunk.alignment) <= 2)
-		format = VOICE_MONO_16BIT;
-	else if (le16(fmtChunk.channels) == 2 && le16(fmtChunk.bps) == 8 && le16(fmtChunk.alignment) <= 2)
-		format = VOICE_STEREO_8BIT;
-	else if (le16(fmtChunk.channels) == 2 && le16(fmtChunk.bps) == 16 && le16(fmtChunk.alignment) <= 4)
-		format = VOICE_STEREO_16BIT;
-	if (format == (u8)-1)
-	{
-		return OutBlock;
-	}
-	u32 freq = le32(fmtChunk.freq);
-	// Find data
-	chunk = (const SWaveChunk *)(&chunk->data + le32(chunk->size));
-	while (&chunk->data < bufEnd && chunk->fcc != 'data')
-		chunk = (const SWaveChunk *)(&chunk->data + le32(chunk->size));
-	if (chunk->fcc != 'data' || &chunk->data + le32(chunk->size) > bufEnd)
+
+    if(i == SoundBuffer.Size()-1)
+        return;
+
+    Decoding = true;
+
+    int read_size = 0;
+    u8 * write_buf = SoundBuffer.GetBuffer(newWhich);
+    if(!write_buf)
     {
-		return OutBlock;
-    }
-	// Data found
-	OutBlock.buffer = (u8 *) malloc(le32(chunk->size));
-	if (!OutBlock.buffer)
-	{
-		return OutBlock;
-	}
-	memcpy(OutBlock.buffer, &chunk->data, le32(chunk->size));
-	u32 length = le32(chunk->size);
-	// Endianness
-	if (le16(fmtChunk.bps) == 16)
-		for (u32 i = 0; i < length / sizeof (u16); ++i)
-			((u16 *) OutBlock.buffer)[i] = le16(((u16 *) OutBlock.buffer)[i]);
-
-	OutBlock.frequency = freq;
-	OutBlock.format = format;
-	OutBlock.size = length;
-
-	return OutBlock;
-}
-
-// ------
-// Copyright (C) 1988-1991 Apple Computer, Inc.
-#ifndef HUGE_VAL
-# define HUGE_VAL HUGE
-#endif
-
-# define UnsignedToFloat(u)         (((double)((long)(u - 2147483647L - 1))) + 2147483648.0)
-
-double ConvertFromIeeeExtended(const unsigned char* bytes)
-{
-    double    f;
-    int    expon;
-    unsigned long hiMant, loMant;
-
-    expon = ((bytes[0] & 0x7F) << 8) | (bytes[1] & 0xFF);
-    hiMant    =    ((unsigned long)(bytes[2] & 0xFF) << 24)
-            |    ((unsigned long)(bytes[3] & 0xFF) << 16)
-            |    ((unsigned long)(bytes[4] & 0xFF) << 8)
-            |    ((unsigned long)(bytes[5] & 0xFF));
-    loMant    =    ((unsigned long)(bytes[6] & 0xFF) << 24)
-            |    ((unsigned long)(bytes[7] & 0xFF) << 16)
-            |    ((unsigned long)(bytes[8] & 0xFF) << 8)
-            |    ((unsigned long)(bytes[9] & 0xFF));
-
-    if (expon == 0 && hiMant == 0 && loMant == 0) {
-        f = 0;
-    }
-    else {
-        if (expon == 0x7FFF) {
-            f = HUGE_VAL;
-        }
-        else {
-            expon -= 16383;
-            f  = ldexp(UnsignedToFloat(hiMant), expon-=31);
-            f += ldexp(UnsignedToFloat(loMant), expon-=32);
-        }
+        ExitRequested = true;
+        Decoding = false;
+        return;
     }
 
-    if (bytes[0] & 0x80)
-        return -f;
+    if(GetSampleRate() != 48000)
+    {
+        read_size = Resample16Bit(write_buf, SoundBlockSize, GetSampleRate(), true);
+    }
     else
-        return f;
-}
-// ------
+    {
+        read_size = CopyRaw16BitData(write_buf, SoundBlockSize, true);
+    }
 
-SoundBlock DecodefromAIFF(const u8 *buffer, u32 size)
-{
-    SoundBlock OutBlock;
-    memset(&OutBlock, 0, sizeof(SoundBlock));
+    if(read_size > 0)
+    {
+        SoundBuffer.SetBufferSize(newWhich, read_size);
+        SoundBuffer.SetBufferReady(newWhich, true);
+    }
 
-	const u8 *bufEnd = buffer + size;
-	const SWaveHdr &hdr = *(SWaveHdr *)buffer;
-	if (size < sizeof hdr)
-		return OutBlock;
-	if (hdr.fccRIFF != 'FORM')
-		return OutBlock;
-	if (size < hdr.size + sizeof hdr.fccRIFF + sizeof hdr.size)
-		return OutBlock;
-	if (hdr.fccWAVE != 'AIFF')
-		return OutBlock;
-	// Find fmt
-	const SWaveChunk *chunk = (const SWaveChunk *)(buffer + sizeof hdr);
-	while (&chunk->data < bufEnd && chunk->fcc != 'COMM')
-		chunk = (const SWaveChunk *)(&chunk->data + chunk->size);
-	if (&chunk->data >= bufEnd)
-		return OutBlock;
-	const SAIFFCommChunk &fmtChunk = *(const SAIFFCommChunk *)chunk;
-	// Check format
-	u8 format = (u8)-1;
-	if (le16(fmtChunk.channels) == 1 && fmtChunk.bps == 8)
-		format = VOICE_MONO_8BIT;
-	else if (fmtChunk.channels == 1 && fmtChunk.bps == 16)
-		format = VOICE_MONO_16BIT;
-	else if (fmtChunk.channels == 2 && fmtChunk.bps == 8)
-		format = VOICE_STEREO_8BIT;
-	else if (fmtChunk.channels == 2 && fmtChunk.bps == 16)
-		format = VOICE_STEREO_16BIT;
-	if (format == (u8)-1)
-		return OutBlock;
-	u32 freq = (u32)ConvertFromIeeeExtended(fmtChunk.freq);
-	// Find data
-	chunk = (const SWaveChunk *)(&chunk->data + chunk->size);
-	while (&chunk->data < bufEnd && chunk->fcc != 'SSND')
-		chunk = (const SWaveChunk *)(&chunk->data + chunk->size);
-	if (chunk->fcc != 'SSND' || &chunk->data + chunk->size > bufEnd)
-		return OutBlock;
-	// Data found
-	const SAIFFSSndChunk &dataChunk = *(const SAIFFSSndChunk *)chunk;
+	if(!SoundBuffer.IsBufferReady((newWhich+1) % SoundBuffer.Size()))
+        Decode();
 
-	OutBlock.buffer = (u8 *) malloc(dataChunk.size - 8);
-	if (!OutBlock.buffer)
-		return OutBlock;
-
-	memcpy(OutBlock.buffer, &dataChunk.data, dataChunk.size - 8);
-	u32 length = dataChunk.size - 8;
-
-	OutBlock.frequency = freq;
-	OutBlock.format = format;
-	OutBlock.size = length;
-
-	return OutBlock;
+    Decoding = false;
 }
 
-struct BNSHeader
+void SoundDecoder::ReadDecodedData()
 {
-	u32 fccBNS;
-	u32 magic;
-	u32 size;
-	u16 unk1;
-	u16 unk2;
-	u32 infoOffset;
-	u32 infoSize;
-	u32 dataOffset;
-	u32 dataSize;
-} __attribute__((packed));
+    u32 readsize = SoundBlocks*SoundBlockSize;
+    u32 done = 0;
+    RawSamples = 0;
+    RawSamplePos.adword = 0;
 
-struct BNSInfo
-{
-	u32 fccINFO;
-	u32 size;
-	u8 codecNum;
-	u8 loopFlag;
-	u8 chanCount;
-	u8 zero;
-	u16 freq;
-	u8 pad1[2];
-	u32 loopStart;
-	u32 loopEnd;
-	u32 offsetToChanStarts;
-	u8 pad2[4];
-	u32 chan1StartOffset;
-	u32 chan2StartOffset;
-	u32 chan1Start;
-	u32 coeff1Offset;
-	u8 pad3[4];
-	u32 chan2Start;
-	u32 coeff2Offset;
-	u8 pad4[4];
-	s16 coefficients1[8][2];
-	u16 chan1Gain;
-	u16 chan1PredictiveScale;
-	s16 chan1PrevSamples[2];
-	u16 chan1LoopPredictiveScale;
-	s16 chan1LoopPrevSamples[2];
-	u16 chan1LoopPadding;
-	s16 coefficients2[8][2];
-	u16 chan2Gain;
-	u16 chan2PredictiveScale;
-	s16 chan2PrevSamples[2];
-	u16 chan2LoopPredictiveScale;
-	s16 chan2LoopPrevSamples[2];
-	u16 chan2LoopPadding;
-} __attribute__((packed));
+    if(!Is16Bit())
+        readsize /= 2;
+    if(!IsStereo())
+        readsize /= 2;
 
-struct BNSData
-{
-	u32 fccDATA;
-	u32 size;
-	u8 data;
-} __attribute__((packed));
-
-struct ADPCMByte
-{
-	s8 sample1 : 4;
-	s8 sample2 : 4;
-} __attribute__((packed));
-
-struct BNSADPCMBlock
-{
-	u8 pad : 1;
-	u8 coeffIndex : 3;
-	u8 lshift : 4;
-	ADPCMByte samples[7];
-} __attribute__((packed));
-
-struct BNSDecObj
-{
-	s16 prevSamples[2];
-	s16 coeff[8][2];
-};
-
-static void loadBNSInfo(BNSInfo &bnsInfo, const u8 *buffer)
-{
-	const u8 *ptr = buffer + 8;
-	bnsInfo = *(const BNSInfo *)buffer;
-	if (bnsInfo.offsetToChanStarts == 0x18 && bnsInfo.chan1StartOffset == 0x20 && bnsInfo.chan2StartOffset == 0x2C
-		&& bnsInfo.coeff1Offset == 0x38 && bnsInfo.coeff2Offset == 0x68)
-		return;
-	bnsInfo.chan1StartOffset = *(const u32 *)(ptr + bnsInfo.offsetToChanStarts);
-	bnsInfo.chan1Start = *(const u32 *)(ptr + bnsInfo.chan1StartOffset);
-	bnsInfo.coeff1Offset = *(const u32 *)(ptr + bnsInfo.chan1StartOffset + 4);
-	if ((u8 *)bnsInfo.coefficients1 != ptr + bnsInfo.coeff1Offset)
-		memcpy(bnsInfo.coefficients1, ptr + bnsInfo.coeff1Offset, (u8 *)bnsInfo.coefficients2 - (u8 *)&bnsInfo.coefficients1);
-	if (bnsInfo.chanCount == 2)
+	while(done < readsize)
 	{
-		bnsInfo.chan2StartOffset = *(const u32 *)(ptr + bnsInfo.offsetToChanStarts + 4);
-		bnsInfo.chan2Start = *(const u32 *)(ptr + bnsInfo.chan2StartOffset);
-		bnsInfo.coeff2Offset = *(const u32 *)(ptr + bnsInfo.chan2StartOffset + 4);
-		if ((u8 *)bnsInfo.coefficients2 != ptr + bnsInfo.coeff2Offset)
-			memcpy(bnsInfo.coefficients2, ptr + bnsInfo.coeff2Offset, (u8 *)bnsInfo.coefficients2 - (u8 *)&bnsInfo.coefficients1);
+        int ret = Read(&RawBuffer[done], readsize-done, Tell());
+
+        if(ret <= 0)
+            break;
+
+        done += ret;
 	}
+
+    if(!Is16Bit())
+    {
+        u8 * BuffCpy = (u8 *) malloc(done);
+        if(!BuffCpy)
+            return;
+
+        memcpy(BuffCpy, RawBuffer, done);
+        done = Convert8BitTo16Bit(BuffCpy, RawBuffer, done, SoundBlocks*SoundBlockSize);
+        free(BuffCpy);
+    }
+    if(!IsStereo())
+    {
+        u8 * BuffCpy = (u8 *) malloc(done);
+        if(!BuffCpy)
+            return;
+
+        memcpy(BuffCpy, RawBuffer, done);
+        done = ConvertMonoToStereo(BuffCpy, RawBuffer, done, SoundBlocks*SoundBlockSize);
+        free(BuffCpy);
+    }
+
+	RawSamples = done/4;
 }
 
-static void decodeADPCMBlock(s16 *buffer, const BNSADPCMBlock &block, BNSDecObj &bnsDec)
+int SoundDecoder::CopyRaw16BitData(u8 * write_buf, u32 bufsize, bool stereo)
 {
-	int h1 = bnsDec.prevSamples[0];
-	int h2 = bnsDec.prevSamples[1];
-	int c1 = bnsDec.coeff[block.coeffIndex][0];
-	int c2 = bnsDec.coeff[block.coeffIndex][1];
-	for (int i = 0; i < 14; ++i)
+    u32 done = 0;
+    u32 RawSize = RawSamples*4;
+    s16 * src = (s16 *) (RawBuffer+RawSamplePos.adword);
+    s16 * dst = (s16 *) write_buf;
+
+    if(stereo)
+        bufsize &= ~0x0003;
+    else
+        bufsize &= ~0x0001;
+
+	while(done < bufsize)
 	{
-		int nibSample = ((i & 1) == 0) ? block.samples[i / 2].sample1 : block.samples[i / 2].sample2;
-		int sampleDeltaHP = (nibSample << block.lshift) << 11;
-		int predictedSampleHP = c1 * h1 + c2 * h2;
-		int sampleHP = predictedSampleHP + sampleDeltaHP;
-		buffer[i] = std::min(std::max(-32768, (sampleHP + 1024) >> 11), 32767);
-		h2 = h1;
-		h1 = buffer[i];
+        if(RawSamplePos.adword >= RawSize)
+        {
+            ReadDecodedData();
+
+            if(RawSamples <= 0)
+            {
+                if(Loop)
+                {
+                    Rewind();
+                    continue;
+                }
+                else
+                {
+                    EndOfFile = true;
+                    break;
+                }
+            }
+
+            src = (s16 *) RawBuffer;
+            RawSize = RawSamples*4;
+            RawSamplePos.adword = 0;
+        }
+
+        *dst++ = *src++;
+        RawSamplePos.adword += 2;
+        done += 2;
 	}
-	bnsDec.prevSamples[0] = h1;
-	bnsDec.prevSamples[1] = h2;
+
+	return done;
 }
 
-static u8 * decodeBNS(u32 &size, const BNSInfo &bnsInfo, const BNSData &bnsData)
+int SoundDecoder::Resample16Bit(u8 * write_buf, u32 bufsize, u32 SmplRate, bool stereo)
 {
-	static s16 smplBlock[14];
-	BNSDecObj decObj;
-	int numBlocks = (bnsData.size - 8) / 8;
-	int numSamples = numBlocks * 14;
-	const BNSADPCMBlock *inputBuf = (const BNSADPCMBlock *)&bnsData.data;
-	u8 * buffer = (u8 *) malloc(numSamples * sizeof (s16));
-	s16 *outputBuf;
+    u32 incr = (u32)(((f32)SmplRate/48000.0F)*65536.0F);
+    s16 * dst = (s16 *) write_buf;
+    s16 * src = (s16 *) RawBuffer;
+    u32 done = 0;
 
-	if (!buffer)
-		return buffer;
-	memcpy(decObj.coeff, bnsInfo.coefficients1, sizeof decObj.coeff);
-	memcpy(decObj.prevSamples, bnsInfo.chan1PrevSamples, sizeof decObj.prevSamples);
-	outputBuf = (s16 *)buffer;
-	if (bnsInfo.chanCount == 1)
-		for (int i = 0; i < numBlocks; ++i)
-		{
-			decodeADPCMBlock(smplBlock, inputBuf[i], decObj);
-			memcpy(outputBuf, smplBlock, sizeof smplBlock);
-			outputBuf += 14;
-		}
-	else
-	{
-		numBlocks /= 2;
-		for (int i = 0; i < numBlocks; ++i)
-		{
-			decodeADPCMBlock(smplBlock, inputBuf[i], decObj);
-			for (int j = 0; j < 14; ++j)
-				outputBuf[j * 2] = smplBlock[j];
-			outputBuf += 2 * 14;
-		}
-		outputBuf = (s16 *)buffer + 1;
-		memcpy(decObj.coeff, bnsInfo.coefficients2, sizeof decObj.coeff);
-		memcpy(decObj.prevSamples, bnsInfo.chan2PrevSamples, sizeof decObj.prevSamples);
-		for (int i = 0; i < numBlocks; ++i)
-		{
-			decodeADPCMBlock(smplBlock, inputBuf[numBlocks + i], decObj);
-			for (int j = 0; j < 14; ++j)
-				outputBuf[j * 2] = smplBlock[j];
-			outputBuf += 2 * 14;
-		}
-	}
-	size = numSamples * sizeof (s16);
-	return buffer;
-}
+    if(stereo)
+        bufsize &= ~0x0003;
+    else
+        bufsize &= ~0x0001;
 
-SoundBlock DecodefromBNS(const u8 *buffer, u32 size)
-{
-    SoundBlock OutBlock;
-    memset(&OutBlock, 0, sizeof(SoundBlock));
+	while(done < bufsize)
+	{
+	    if(RawSamplePos.aword.hi >= RawSamples)
+	    {
+            ReadDecodedData();
+            if(RawSamples <= 0)
+            {
+                if(Loop)
+                {
+                    Rewind();
+                    continue;
+                }
+                else
+                {
+                    EndOfFile = true;
+                    break;
+                }
+            }
+	    }
 
-	const BNSHeader &hdr = *(BNSHeader *)buffer;
-	if (size < sizeof hdr)
-		return OutBlock;
-	if (hdr.fccBNS != 'BNS ')
-		return OutBlock;
-	// Find info and data
-	BNSInfo infoChunk;
-	loadBNSInfo(infoChunk, buffer + hdr.infoOffset);
-	const BNSData &dataChunk = *(const BNSData *)(buffer + hdr.dataOffset);
-	// Check sizes
-	if (size < hdr.size || size < hdr.infoOffset + hdr.infoSize || size < hdr.dataOffset + hdr.dataSize
-		|| hdr.infoSize < 0x60 || hdr.dataSize < sizeof dataChunk
-		|| infoChunk.size != hdr.infoSize || dataChunk.size != hdr.dataSize)
-		return OutBlock;
-	// Check format
-	if (infoChunk.codecNum != 0)	// Only codec i've found : 0 = ADPCM. Maybe there's also 1 and 2 for PCM 8 or 16 bits ?
-		return OutBlock;
-	u8 format = (u8)-1;
-	if (infoChunk.chanCount == 1 && infoChunk.codecNum == 0)
-		format = VOICE_MONO_16BIT;
-	else if (infoChunk.chanCount == 2 && infoChunk.codecNum == 0)
-		format = VOICE_STEREO_16BIT;
-	if (format == (u8)-1)
-		return OutBlock;
-	u32 freq = (u32) infoChunk.freq;
-	u32 length = 0;
-	// Copy data
-	if (infoChunk.codecNum == 0)
-	{
-		OutBlock.buffer = decodeBNS(length, infoChunk, dataChunk);
-		if (!OutBlock.buffer)
-			return OutBlock;
-	}
-	else
-	{
-		OutBlock.buffer = (u8*) malloc(dataChunk.size);
-		if (!OutBlock.buffer)
-			return OutBlock;
-		memcpy(OutBlock.buffer, &dataChunk.data, dataChunk.size);
-		length = dataChunk.size;
+        if(stereo)
+        {
+            *dst++ = Do3Band(&eqs[0], src[RawSamplePos.aword.hi*2]);
+            *dst++ = Do3Band(&eqs[1], src[RawSamplePos.aword.hi*2+1]);
+            done += 4;
+        }
+        else
+        {
+            *dst++ = Do3Band(&eqs[0], src[RawSamplePos.aword.hi]);
+            done += 2;
+        }
+        RawSamplePos.adword += incr;
 	}
 
-	OutBlock.frequency = freq;
-	OutBlock.format = format;
-	OutBlock.size = length;
-
-	return OutBlock;
+	return done;
 }

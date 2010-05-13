@@ -82,7 +82,7 @@ class ImageConverterGui : public GuiWindow, ImageConverter
         GuiImageData * CloseImgOverData;
         GuiImageData * AdressBarData;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigB;
 
         GuiArrowOption Options;

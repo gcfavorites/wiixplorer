@@ -60,7 +60,7 @@ void Settings::SetDefault()
     CurrentSMBUser = 0;
 	CurrentFTPUser = 0;
     BGMLoopMode = 1;
-	SlideshowDelay = 5;
+	SlideshowDelay = 4;
     AutoConnect = 0;
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
@@ -68,6 +68,9 @@ void Settings::SetDefault()
     ScrollSpeed = 5;
     BrowserMode = 0;
     ScreenshotFormat = 0;
+    SoundblockCount = 8;
+    SoundblockSize = 8192;
+    LoadMusicToMem = 0;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
@@ -149,6 +152,9 @@ bool Settings::Save()
 	fprintf(file, "ClockMode = %d\n", ClockMode);
 	fprintf(file, "ScrollSpeed = %d\n", ScrollSpeed);
 	fprintf(file, "BrowserMode = %d\n", BrowserMode);
+	fprintf(file, "SoundblockCount = %d\n", SoundblockCount);
+	fprintf(file, "SoundblockSize = %d\n", SoundblockSize);
+	fprintf(file, "LoadMusicToMem = %d\n", LoadMusicToMem);
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
@@ -303,8 +309,8 @@ bool Settings::Load()
         return false;
 	}
 
-	while (fgets(line, sizeof(line), file)) {
-
+	while (fgets(line, sizeof(line), file))
+	{
 		if (line[0] == '#') continue;
 
         this->ParseLine(line);
@@ -499,6 +505,23 @@ bool Settings::SetSetting(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "SoundblockCount") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			SoundblockCount = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "SoundblockSize") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			SoundblockSize = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "LoadMusicToMem") == 0) {
+		if (sscanf(value, "%d", &i) == 1)
+			LoadMusicToMem = i;
+		return true;
+	}
 	else if (strcmp(name, "CustomFontPath") == 0) {
         strncpy(CustomFontPath, value, sizeof(CustomFontPath));
 		return true;
@@ -525,6 +548,24 @@ bool Settings::SetSetting(char *name, char *value)
 		}
 		return true;
 	}
+    else if (strcmp(name, "FTPServer.AutoStart") == 0) {
+        if (sscanf(value, "%d", &i) == 1) {
+            FTPServer.AutoStart = i;
+        }
+        return true;
+    }
+    else if (strcmp(name, "FTPServer.CPassword") == 0) {
+        if (strcmp(value, "") != 0)
+            DecryptString(value, password);
+        strncpy(FTPServer.Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPServer.Password));
+        return true;
+    }
+    else if (strcmp(name, "FTPServer.Port") == 0) {
+        if (sscanf(value, "%d", &i) == 1) {
+            FTPServer.Port = i;
+        }
+        return true;
+    }
 	else {
 	    char temp[80];
 	    int n = 0;
@@ -592,24 +633,6 @@ bool Settings::SetSetting(char *name, char *value)
                 return true;
             }
 		}
-        if (stricmp(name, "FTPServer.AutoStart") == 0) {
-			if (sscanf(value, "%d", &i) == 1) {
-				FTPServer.AutoStart = i;
-			}
-            return true;
-        }
-        if (stricmp(name, "FTPServer.CPassword") == 0) {
-            if (strcmp(value, "") != 0)
-                DecryptString(value, password);
-            strncpy(FTPServer.Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPServer.Password));
-            return true;
-        }
-        if (stricmp(name, "FTPServer.Port") == 0) {
-			if (sscanf(value, "%d", &i) == 1) {
-				FTPServer.Port = i;
-			}
-            return true;
-        }
 	}
 
     return false;

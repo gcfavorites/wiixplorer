@@ -70,7 +70,7 @@ class PromptWindow : public GuiWindow
         GuiButton * btn3;
         GuiButton * btn4;
 
-        GuiTrigger * trigA;
+        SimpleGuiTrigger * trigA;
         GuiTrigger * trigB;
 };
 

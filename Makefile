@@ -198,13 +198,12 @@ export PATH		:=	$(PROJECTDIR)/gettext-bin:$(PATH)
 
 %.pot: $(CFILES) $(CPPFILES)
 	@echo Updating Languagefiles ...
-	@xgettext -C -cTRANSLATORS --from-code=utf-8 --sort-output --no-wrap --no-location -k -ktr -ktrNOOP -o $@ $^
+	@touch $(PROJECTDIR)/Languages/$(TARGET).pot
+	@xgettext -C -cTRANSLATORS --from-code=utf-8 --sort-output --no-wrap --no-location -ktr -o$(PROJECTDIR)/Languages/$(TARGET).pot -p $@ $^
 
 %.lang: $(PROJECTDIR)/Languages/$(TARGET).pot
 	@msgmerge -U -N --no-wrap --no-location --backup=none -q $@ $<
 	@touch $@
-
-
 
 -include $(DEPENDS)
 

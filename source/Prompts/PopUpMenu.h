@@ -140,7 +140,7 @@ class PopUpMenu : public GuiWindow
 		GuiButton * ScrollUpBtn;
 		GuiButton * ScrollDownBtn;
 
-		GuiTrigger * trigA;
+		SimpleGuiTrigger * trigA;
 		GuiTrigger * trigB;
 		GuiTrigger * trigUp;
 		GuiTrigger * trigDown;

@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2009
- * by r-win
+ * by Dimok & r-win
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,7 +23,7 @@
  *
  * Resources.h
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #ifndef _RESOURCES_H
