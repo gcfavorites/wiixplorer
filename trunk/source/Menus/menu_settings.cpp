@@ -164,6 +164,7 @@ int MenuExplorerSettings()
 	OptionList options;
 	options.SetName(i++, tr("Browser Mode"));
 	options.SetName(i++, tr("Scrolling Speed"));
+	options.SetName(i++, tr("PDF Processing Zoom"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
@@ -192,6 +193,15 @@ int MenuExplorerSettings()
             case 1:
                 Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
                 break;
+            case 2:
+                char entered[150];
+                snprintf(entered, sizeof(entered), "%0.2f X", Settings.PDFLoadZoom);
+                if(OnScreenKeyboard(entered, 149))
+                {
+					Settings.PDFLoadZoom = atof(entered);
+					WindowPrompt(tr("Warning:"), tr("This option could mess up the pdf view."), tr("OK"));
+                }
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -205,6 +215,8 @@ int MenuExplorerSettings()
                 options.SetValue(i++, tr("List Mode"));
 
             options.SetValue(i++, "%i", Settings.ScrollSpeed);
+
+            options.SetValue(i++, "%0.2f", Settings.PDFLoadZoom);
         }
 	}
 

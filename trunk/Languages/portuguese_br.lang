@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 16:39+0200\n"
+"POT-Creation-Date: 2010-05-15 21:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -76,6 +76,9 @@ msgid "Can't browse that path."
 msgstr ""
 
 msgid "Can't load file"
+msgstr ""
+
+msgid "Can't load page."
 msgstr ""
 
 msgid "Can't open file."
@@ -613,6 +616,9 @@ msgstr "Ligado"
 msgid "Open"
 msgstr ""
 
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
 msgid "Opening is not yet implemented"
 msgstr ""
 
@@ -623,6 +629,9 @@ msgid "Output File"
 msgstr ""
 
 msgid "Output Type"
+msgstr ""
+
+msgid "PDF Processing Zoom"
 msgstr ""
 
 msgid "Passive Mode:"
@@ -776,6 +785,9 @@ msgid "The new font is loaded."
 msgstr ""
 
 msgid "The whole DevkitPro & libogc staff."
+msgstr ""
+
+msgid "This option could mess up the pdf view."
 msgstr ""
 
 msgid "To Idle"

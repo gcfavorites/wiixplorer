@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 16:39+0200\n"
+"POT-Creation-Date: 2010-05-15 21:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -77,6 +77,9 @@ msgstr "無法瀏覽那個路徑"
 
 msgid "Can't load file"
 msgstr "無法讀取這個檔案"
+
+msgid "Can't load page."
+msgstr ""
 
 msgid "Can't open file."
 msgstr "無法打開文件"
@@ -613,6 +616,9 @@ msgstr "開"
 msgid "Open"
 msgstr "開啟"
 
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
 msgid "Opening is not yet implemented"
 msgstr "啟動時尚未啟用"
 
@@ -624,6 +630,9 @@ msgstr "輸出檔案"
 
 msgid "Output Type"
 msgstr "輸出類型"
+
+msgid "PDF Processing Zoom"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "被動式模式"
@@ -777,6 +786,9 @@ msgstr "新的字型被載入"
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "完整的DevkitPro & libogc staff"
+
+msgid "This option could mess up the pdf view."
+msgstr ""
 
 msgid "To Idle"
 msgstr ""

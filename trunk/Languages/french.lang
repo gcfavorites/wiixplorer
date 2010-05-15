@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 16:39+0200\n"
+"POT-Creation-Date: 2010-05-15 21:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -77,6 +77,9 @@ msgstr "Parcours du chemin impossible"
 
 msgid "Can't load file"
 msgstr "Chargement du fichier impossible."
+
+msgid "Can't load page."
+msgstr ""
 
 msgid "Can't open file."
 msgstr "Ouverture du fichier impossible."
@@ -613,6 +616,9 @@ msgstr "Actif"
 msgid "Open"
 msgstr "Ouvrir"
 
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
 msgid "Opening is not yet implemented"
 msgstr "L'ouverture n'est pas implémentée."
 
@@ -624,6 +630,9 @@ msgstr "Fichier de sortie"
 
 msgid "Output Type"
 msgstr "Format"
+
+msgid "PDF Processing Zoom"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Mode passif:"
@@ -777,6 +786,9 @@ msgstr "La nouvelle police est chargée."
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "L'équipe DevkitPro & libogc."
+
+msgid "This option could mess up the pdf view."
+msgstr ""
 
 msgid "To Idle"
 msgstr ""

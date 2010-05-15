@@ -71,6 +71,7 @@ void Settings::SetDefault()
     SoundblockCount = 8;
     SoundblockSize = 8192;
     LoadMusicToMem = 0;
+    PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
@@ -155,6 +156,7 @@ bool Settings::Save()
 	fprintf(file, "SoundblockCount = %d\n", SoundblockCount);
 	fprintf(file, "SoundblockSize = %d\n", SoundblockSize);
 	fprintf(file, "LoadMusicToMem = %d\n", LoadMusicToMem);
+	fprintf(file, "PDFLoadZoom = %0.2f\n", PDFLoadZoom);
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "MusicPath = %s\n", MusicPath);
 	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
@@ -520,6 +522,10 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "LoadMusicToMem") == 0) {
 		if (sscanf(value, "%d", &i) == 1)
 			LoadMusicToMem = i;
+		return true;
+	}
+	else if (strcmp(name, "PDFLoadZoom") == 0) {
+		PDFLoadZoom = atof(value);
 		return true;
 	}
 	else if (strcmp(name, "CustomFontPath") == 0) {

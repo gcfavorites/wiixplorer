@@ -47,6 +47,7 @@
 extern "C"
 {
     extern void __exception_setreload(int t);
+    extern void SetupPDFFontPath(const char * path);
 }
 
 Settings Settings;
@@ -76,6 +77,7 @@ int main(int argc, char *argv[])
 	Settings.Load(argc, argv);
 	Settings.LoadLanguage(Settings.LanguagePath);
 	LoadCustomFont(Settings.CustomFontPath);
+	SetupPDFFontPath(Settings.UpdatePath);
 
 	if(Settings.MountNTFS)
 	{
