@@ -76,6 +76,7 @@ Features:
  * Rar browsing
  * Properties of archive files
  * Textediting support
+ * PDF Viewing support
  * Integrated FTP Server and FTP Client
  * Auto-Update feature
 

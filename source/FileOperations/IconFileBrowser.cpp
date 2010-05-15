@@ -58,6 +58,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	fileTXT = Resources::GetImageData(icon_txt_png, icon_txt_png_size);
 	fileXML = Resources::GetImageData(icon_xml_png, icon_xml_png_size);
 	fileVID = Resources::GetImageData(icon_video_png, icon_video_png_size);
+	filePDF = Resources::GetImageData(icon_pdf_png, icon_pdf_png_size);
 
 	scrollbar = new Scrollbar(245, ICONMODE);
 	scrollbar->SetParent(this);
@@ -87,6 +88,7 @@ IconFileBrowser::~IconFileBrowser()
 	Resources::Remove(fileTXT);
 	Resources::Remove(fileXML);
 	Resources::Remove(fileVID);
+	Resources::Remove(filePDF);
 
     delete scrollbar;
 
@@ -144,6 +146,10 @@ GuiImage * IconFileBrowser::GetIconFromExt(const char * fileext, bool dir)
         else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
         {
             return (new GuiImage(fileVID));
+        }
+        else if(strtokcmp(fileext, ".pdf", ",") == 0)
+        {
+            return (new GuiImage(filePDF));
         }
     }
 

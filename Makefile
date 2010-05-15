@@ -32,6 +32,7 @@ SOURCES		:=	source \
 				source/SoundOperations \
 				source/ImageOperations \
 				source/TextOperations \
+				source/TextOperations/mupdf \
 				source/Language \
 				source/usbstorage \
 				source/mload \
@@ -50,7 +51,7 @@ DATA		:=	data/images data/sounds data/fonts data/binary
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H \
+CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DNOCJK \
 				-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)

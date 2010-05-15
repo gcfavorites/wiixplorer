@@ -60,6 +60,7 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 	fileTXT = Resources::GetImageData(icon_txt_png, icon_txt_png_size);
 	fileXML = Resources::GetImageData(icon_xml_png, icon_xml_png_size);
 	fileVID = Resources::GetImageData(icon_video_png, icon_video_png_size);
+	filePDF = Resources::GetImageData(icon_pdf_png, icon_pdf_png_size);
 
 	scrollbar = new Scrollbar(245);
 	scrollbar->SetParent(this);
@@ -89,6 +90,7 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 		fileListTXT[i] = new GuiImage(fileTXT);
 		fileListXML[i] = new GuiImage(fileXML);
 		fileListVID[i] = new GuiImage(fileVID);
+		fileListPDF[i] = new GuiImage(filePDF);
 
 		fileList[i] = new GuiButton(507,30);
 		fileList[i]->SetParent(this);
@@ -121,6 +123,7 @@ ListFileBrowser::~ListFileBrowser()
 	Resources::Remove(fileTXT);
 	Resources::Remove(fileXML);
 	Resources::Remove(fileVID);
+	Resources::Remove(filePDF);
 
 	delete trigA;
 
@@ -141,6 +144,7 @@ ListFileBrowser::~ListFileBrowser()
 		delete fileListTXT[i];
 		delete fileListXML[i];
 		delete fileListVID[i];
+		delete fileListPDF[i];
 	}
 }
 
@@ -330,6 +334,10 @@ void ListFileBrowser::Update(GuiTrigger * t)
                         else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
                         {
                             fileList[i]->SetIcon(fileListVID[i]);
+                        }
+                        else if(strtokcmp(fileext, ".pdf", ",") == 0)
+                        {
+                            fileList[i]->SetIcon(fileListPDF[i]);
                         }
                         else
                         {

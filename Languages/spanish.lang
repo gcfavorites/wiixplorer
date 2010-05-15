@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 16:39+0200\n"
+"POT-Creation-Date: 2010-05-15 21:39+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: SirPalax\n"
@@ -77,6 +77,9 @@ msgstr "No se puede navegar por esa ruta"
 
 msgid "Can't load file"
 msgstr "No se cargó el archivo"
+
+msgid "Can't load page."
+msgstr ""
 
 msgid "Can't open file."
 msgstr "No se abrió el archivo"
@@ -613,6 +616,9 @@ msgstr "SI"
 msgid "Open"
 msgstr "Abrir"
 
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
 msgid "Opening is not yet implemented"
 msgstr "Apertura no está aún implementada"
 
@@ -624,6 +630,9 @@ msgstr "Archivo de salida"
 
 msgid "Output Type"
 msgstr "Tipo de salida"
+
+msgid "PDF Processing Zoom"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Modo Pasivo:"
@@ -777,6 +786,9 @@ msgstr "Se ha cargado la nueva Fuente."
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Todo el staff de Devkitpro & liboc."
+
+msgid "This option could mess up the pdf view."
+msgstr ""
 
 msgid "To Idle"
 msgstr "WiiConnect24"

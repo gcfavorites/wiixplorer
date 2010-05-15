@@ -154,6 +154,9 @@ extern const u32	icon_default_png_size;
 extern const u8		icon_folder_png[];
 extern const u32	icon_folder_png_size;
 
+extern const u8		icon_pdf_png[];
+extern const u32	icon_pdf_png_size;
+
 extern const u8		icon_gfx_png[];
 extern const u32	icon_gfx_png_size;
 

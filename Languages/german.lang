@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-13 16:39+0200\n"
+"POT-Creation-Date: 2010-05-15 21:39+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -77,6 +77,9 @@ msgstr "Dieser Pfad kann nicht durchsucht werden."
 
 msgid "Can't load file"
 msgstr "Datei kann nicht geladen werden."
+
+msgid "Can't load page."
+msgstr ""
 
 msgid "Can't open file."
 msgstr "Datei kann nicht geöffnet werden."
@@ -613,6 +616,9 @@ msgstr "AN"
 msgid "Open"
 msgstr "Öffnen"
 
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
 msgid "Opening is not yet implemented"
 msgstr "Öffnen noch nicht implementiert"
 
@@ -624,6 +630,9 @@ msgstr "Ausgabe Datei"
 
 msgid "Output Type"
 msgstr "Ausgabe Typ"
+
+msgid "PDF Processing Zoom"
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr ""
@@ -777,6 +786,9 @@ msgstr "Die neue Schriftart wurde geladen."
 
 msgid "The whole DevkitPro & libogc staff."
 msgstr "Das ganze DevkitPro & libogc Team."
+
+msgid "This option could mess up the pdf view."
+msgstr ""
 
 msgid "To Idle"
 msgstr ""

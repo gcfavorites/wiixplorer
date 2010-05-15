@@ -40,36 +40,36 @@ class ImageViewer : public GuiWindow
         //!Destructor
         ~ImageViewer();
         //!Zoom into the image (currently 20% till a limit of screenwidth or screenheight)
-        void ZoomIn();
+        virtual void ZoomIn();
         //!Zoom out of the image (currently 20% till a limit of MIN_IMAGE_WIDTH or MIN_IMAGE_HEIGHT)
-        void ZoomOut();
+        virtual void ZoomOut();
         //!Set image size  (limits described above)
         //!\param scale of the image (%/100)
-        void SetImageSize(float scale);
+        virtual void SetImageSize(float scale);
         //!Set the startup image size when loading an image
         //!Sets up imagesize at 1.0 scale and limits it to screenwidth/screenheight if it's over size
-        void SetStartUpImageSize();
+        virtual void SetStartUpImageSize();
         //!Load NextImage in the Directory
-        bool NextImage(bool silent = false);
+        virtual bool NextImage(bool silent = false);
         //!Load PreviousImage in the directory
-        bool PreviousImage(bool silent = false);
+        virtual bool PreviousImage(bool silent = false);
         //!Start a Slideshow of the images in the directory (slidespeed: TIME_BETWEEN_IMAGES)
-        void StartSlideShow();
+        virtual void StartSlideShow();
         //!Stop a Slideshow
-        void StopSlideShow();
+        virtual void StopSlideShow();
         //!MainUpdate function. Callback for the main thread.
-        int MainUpdate();
+        virtual int MainUpdate();
     protected:
         //!Setup the needed images/buttons/texts for the ImageViewer
-        void Setup();
+        virtual void Setup();
         //!Intern image loading funtion.
         //!\param index of image in the directory
-        bool LoadImage(int index, bool silent = false);
+        virtual bool LoadImage(int index, bool silent = false);
         //!Intern function to seperate from constuctor
         //!\param path Path from where to load the filelist of all images or the image itself
-        bool LoadImageList(const char * filepath);
+        virtual bool LoadImageList(const char * filepath);
         //!OnButtonClick intern callback for buttonclicks.
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        virtual void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 		//!Variables of the ImageViewer
         DirList * imageDir;
         int currentImage;

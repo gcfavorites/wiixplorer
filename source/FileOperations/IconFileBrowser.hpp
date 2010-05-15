@@ -73,6 +73,7 @@ class IconFileBrowser : public GuiFileBrowser
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
         GuiImageData * fileVID;
+        GuiImageData * filePDF;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;

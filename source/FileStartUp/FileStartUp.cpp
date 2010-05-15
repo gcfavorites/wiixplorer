@@ -1,15 +1,41 @@
+
+/****************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
+ ***************************************************************************/
 #include <gctypes.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <malloc.h>
-
 #include "SoundOperations/gui_bgm.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
+#include "TextOperations/PDFLoader.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/MainWindow.h"
@@ -40,6 +66,14 @@ int FileStartUp(const char *filepath)
         }
 
         return 0;
+    }
+    else if(strtokcmp(fileext, ".pdf", ",") == 0)
+    {
+		int choice = WindowPrompt(filename, tr("Open the file in the PDF Viewer?"), tr("Yes"), tr("Cancel"));
+		if (choice == 1)
+		{
+			PDFLoader(filepath);
+		}
     }
     else if(strtokcmp(fileext, IMAGEFILES, ",") == 0)
     {

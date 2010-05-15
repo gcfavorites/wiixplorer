@@ -62,6 +62,7 @@ class ListFileBrowser : public GuiFileBrowser
 		GuiImage * fileListTXT[PAGESIZE];
 		GuiImage * fileListXML[PAGESIZE];
 		GuiImage * fileListVID[PAGESIZE];
+		GuiImage * fileListPDF[PAGESIZE];
 		GuiButton * fileList[PAGESIZE];
 
 		Scrollbar * scrollbar;
@@ -76,6 +77,7 @@ class ListFileBrowser : public GuiFileBrowser
         GuiImageData * fileTXT;
         GuiImageData * fileXML;
         GuiImageData * fileVID;
+        GuiImageData * filePDF;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
