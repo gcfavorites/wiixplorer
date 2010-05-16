@@ -195,7 +195,7 @@ int MenuExplorerSettings()
                 break;
             case 2:
                 char entered[150];
-                snprintf(entered, sizeof(entered), "%0.2f X", Settings.PDFLoadZoom);
+                snprintf(entered, sizeof(entered), "%0.2f", Settings.PDFLoadZoom);
                 if(OnScreenKeyboard(entered, 149))
                 {
 					Settings.PDFLoadZoom = atof(entered);

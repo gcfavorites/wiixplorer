@@ -26,6 +26,10 @@
 #ifndef _SYS_H_
 #define _SYS_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 void wiilight(int enable);
 
@@ -42,5 +46,9 @@ void Sys_BackToLoader(void);
 bool IsFromHBC();
 void LoadCIOS();
 int GetIOS_Rev(u32 ios);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

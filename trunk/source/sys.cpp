@@ -51,7 +51,7 @@ bool reset = false;
 
 extern bool boothomebrew;
 
-bool RebootApp()
+extern "C" bool RebootApp()
 {
     char filepath[MAXPATHLEN];
     snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
@@ -71,7 +71,7 @@ bool RebootApp()
     return true;
 }
 
-void ExitApp()
+extern "C" void ExitApp()
 {
     Settings.Save();
 	Clipboard::Instance()->DestroyInstance();
@@ -107,13 +107,13 @@ extern "C" void __Sys_PowerCallback(void)
 }
 
 
-void Sys_Init(void)
+extern "C" void Sys_Init(void)
 {
 	SYS_SetResetCallback(__Sys_ResetCallback);
 	SYS_SetPowerCallback(__Sys_PowerCallback);
 }
 
-void Sys_Reboot(void)
+extern "C" void Sys_Reboot(void)
 {
 	ExitApp();
 	STM_RebootSystem();
@@ -140,29 +140,29 @@ static void _Sys_Shutdown(int SHUTDOWN_MODE)
 	}
 }
 
-void Sys_Shutdown(void)
+extern "C" void Sys_Shutdown(void)
 {
 	_Sys_Shutdown(ShutdownToDefault);
 }
 
-void Sys_ShutdownToIdle(void)
+extern "C" void Sys_ShutdownToIdle(void)
 {
 	_Sys_Shutdown(ShutdownToIdle);
 }
 
-void Sys_ShutdownToStandby(void)
+extern "C" void Sys_ShutdownToStandby(void)
 {
 	_Sys_Shutdown(ShutdownToStandby);
 }
 
-void Sys_LoadMenu(void)
+extern "C" void Sys_LoadMenu(void)
 {
 	ExitApp();
 	/* Return to the Wii system menu */
 	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
 
-void Sys_BackToLoader(void)
+extern "C" void Sys_BackToLoader(void)
 {
 	if (IsFromHBC())
 	{
@@ -173,7 +173,7 @@ void Sys_BackToLoader(void)
 	Sys_LoadMenu();
 }
 
-bool IsFromHBC()
+extern "C" bool IsFromHBC()
 {
     if(!(*((u32*) 0x80001800)))
         return false;
@@ -187,7 +187,7 @@ bool IsFromHBC()
     return false;
 }
 
-void LoadCIOS()
+extern "C" void LoadCIOS()
 {
     int IOS_Rev = GetIOS_Rev(202);
 
@@ -199,7 +199,7 @@ void LoadCIOS()
     }
 }
 
-int GetIOS_Rev(u32 ios)
+extern "C" int GetIOS_Rev(u32 ios)
 {
 	u32 num_titles = 0, i = 0;
 	u64 tid = 0;
