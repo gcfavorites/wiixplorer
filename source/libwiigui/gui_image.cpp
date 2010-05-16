@@ -22,6 +22,7 @@ GuiImage::GuiImage()
 	tileVertical = -1;
 	stripe = 0;
 	format = GX_TF_RGBA8;
+	color = (GXColor){0, 0, 0, 255};
 	widescreen = false;
 	imgType = IMAGE_DATA;
 }
@@ -44,6 +45,7 @@ GuiImage::GuiImage(GuiImageData * img)
 	tileHorizontal = -1;
 	tileVertical = -1;
 	stripe = 0;
+	color = (GXColor){0, 0, 0, 255};
 	imgType = IMAGE_DATA;
 }
 
@@ -57,17 +59,14 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 	tileVertical = -1;
 	stripe = 0;
 	format = GX_TF_RGBA8;
+	color = (GXColor){0, 0, 0, 255};
 	widescreen = false;
 	imgType = IMAGE_TEXTURE;
 }
 
 GuiImage::GuiImage(int w, int h, GXColor c)
 {
-	int len = w*h*4;
-	if(len%32)
-        len += (32-len%32);
-
-	image = (u8 *)memalign (32, len);
+	image = NULL;
 	width = w;
 	height = h;
 	imageangle = 0;
@@ -77,20 +76,7 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 	format = GX_TF_RGBA8;
 	imgType = IMAGE_COLOR;
 	widescreen = false;
-
-	if(!image)
-		return;
-
-	int x, y;
-
-	for(y=0; y < h; y++)
-	{
-		for(x=0; x < w; x++)
-		{
-			this->SetPixel(x, y, c);
-		}
-	}
-	DCFlushRange(image, len);
+	color = c;
 }
 
 /**
@@ -98,8 +84,6 @@ GuiImage::GuiImage(int w, int h, GXColor c)
  */
 GuiImage::~GuiImage()
 {
-	if(imgType == IMAGE_COLOR && image)
-		free(image);
 }
 
 u8 * GuiImage::GetImage()
@@ -255,35 +239,38 @@ void GuiImage::ColorStripe(int shift)
  */
 void GuiImage::Draw()
 {
-	if(!image || !this->IsVisible() || tileVertical == 0 || tileHorizontal == 0)
+	if(!this->IsVisible() || tileVertical == 0 || tileHorizontal == 0)
 		return;
-
-    LOCK(this);
 
 	float currScaleX = (widescreen) ? (GetScaleX()*screenwidth/VI_MAX_WIDTH_PAL) : GetScaleX();
 	float currScaleY = this->GetScaleY();
 	int currLeft = this->GetLeft();
 	int currTop = this->GetTop();
 
-    if(tileHorizontal > 0 && tileVertical > 0)
+    if(image && tileHorizontal > 0 && tileVertical > 0)
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
                 Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
-    else if(tileHorizontal > 0)
+    else if(image && tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
             Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
-    else if(tileVertical > 0)
+    else if(image && tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
             Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
+    else if(imgType == IMAGE_COLOR)
+    {
+        Menu_DrawRectangle(currLeft,currTop,width,height,color,1);
+    }
 	else
 	{
-		Menu_DrawImg(image, width, height, format, currLeft, currTop, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
+	    if(image)
+            Menu_DrawImg(image, width, height, format, currLeft, currTop, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
 	}
 
 	if(stripe > 0)

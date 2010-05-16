@@ -57,6 +57,15 @@ static const struct
 	{ nil, nil }
 };
 
+static const u8 * fallbackfont = NULL;
+static int fallbackfont_size = 0;
+
+void SetupPDFFallbackFont(const u8 * font, int size)
+{
+    fallbackfont = font;
+    fallbackfont_size = size;
+}
+
 void SetupPDFFontPath(const char * path)
 {
     configpath = path;
@@ -99,8 +108,8 @@ loadsystemcidfont(pdf_fontdesc *fontdesc, int ros, int kind)
 	 */
 	pdf_logfont("loading builtin CJK font\n");
 	error = fz_newfontfrombuffer(&fontdesc->font,
-		(unsigned char *)font_ttf,
-		font_ttf_size, 0);
+		fallbackfont,
+		fallbackfont_size, 0);
 	if (error)
 		return fz_rethrow(error, "cannot load builtin CJK font");
 	fontdesc->font->ftsubstitute = 1; /* substitute font */

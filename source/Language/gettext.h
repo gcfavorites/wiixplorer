@@ -6,6 +6,7 @@ extern "C"
 {
 #endif
 
+#include <gctypes.h>
 
 bool gettextLoadLanguage(const char* langFile);
 void gettextCleanUp(void);

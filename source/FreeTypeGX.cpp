@@ -141,14 +141,25 @@ FreeTypeGX::~FreeTypeGX()
 	this->unloadFont();
 }
 
+//!Default fallback font for PDFs
+extern "C"
+{
+    extern void SetupPDFFallbackFont(const u8 * font, int size);
+}
 
 void FreeTypeGX::InitFreeType(uint8_t* fontBuffer, FT_Long bufferSize, bool loadcustomfont)
 {
 	FT_Init_FreeType(&ftLibrary);
 	if(customfontbuffer && cstfontfilesize > 0 && loadcustomfont)
+	{
         FT_New_Memory_Face(ftLibrary, customfontbuffer, cstfontfilesize, 0,&ftFace);
+	    SetupPDFFallbackFont(customfontbuffer, cstfontfilesize);
+	}
     else
+    {
         FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, 0, &ftFace);
+	    SetupPDFFallbackFont(fontBuffer, bufferSize);
+    }
 	ftSlot = ftFace->glyph;
 }
 

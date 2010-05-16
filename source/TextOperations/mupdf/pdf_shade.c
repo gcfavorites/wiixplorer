@@ -1030,7 +1030,8 @@ pdf_loadtype6shade(fz_shade *shade, pdf_xref *xref,
 	int i, k;
 	int haspatch, hasprevpatch;
 	float prevc[4][FZ_MAXCOLORS];
-	fz_point prevp[12];
+	fz_point prevp[13];
+	memset(&prevp, 0, sizeof(prevp));
 
 	pdf_logshade("load type6 shade {\n");
 

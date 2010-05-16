@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-15 21:39+0200\n"
+"POT-Creation-Date: 2010-05-16 09:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -370,6 +370,10 @@ msgid "Failed to get the Changelog."
 msgstr ""
 
 msgid "Failed to read file data."
+msgstr ""
+
+#, c-format
+msgid "Fatal Error: Out of memory. Requested %0.2fKB memory. Must shutdown app."
 msgstr ""
 
 msgid "File already exists:"

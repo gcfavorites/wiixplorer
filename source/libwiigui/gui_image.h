@@ -110,6 +110,7 @@ class GuiImage : public GuiElement
 		int tileVertical; //!< Number of times to draw (tile) the image vertically
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
 		u8 format; //!< Texture format
+		GXColor color;
 		bool widescreen;
 };
 
