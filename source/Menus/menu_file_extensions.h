@@ -1,5 +1,5 @@
-/***************************************************************************
- * Copyright (C) 2009
+ /****************************************************************************
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,42 +21,11 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * RarFile.cpp
- *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _RARFILE_H_
-#define _RARFILE_H_
+#ifndef MENU_FILE_EXTENSIONS_H_
+#define MENU_FILE_EXTENSIONS_H_
 
-#include <vector>
-#include <algorithm>
-
-#include <unrarlib.h>
-#include "7ZipFile.h"
-
-
-class RarFile
-{
-    public:
-		//!Constructor
-        RarFile(const char *filepath);
-		//!Destructor
-		~RarFile();
-		//!Get the archive file structure
-        ArchiveFileStruct * GetFileStruct(int fileIndx);
-		//!Extract file from a 7zip to file
-        int ExtractFile(int fileindex, const char * outpath, bool withpath = false);
-		//!Extract all files from the RAR to a path
-        int ExtractAll(const char * destpath);
-		//!Get the total amount of items inside the archive
-        u32 GetItemCount();
-
-    private:
-        bool LoadList(const char * filepath);
-        void ClearList();
-
-        ArchiveList_struct * ArcList;
-        std::vector<ArchiveFileStruct *> RarStructure;
-};
+int MenuFileExtensions();
 
 #endif

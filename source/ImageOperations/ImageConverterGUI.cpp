@@ -28,6 +28,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "ImageConverterGUI.hpp"
+#include "main.h"
 
 
 ImageConverterGui::ImageConverterGui(const char * filepath)
@@ -118,9 +119,9 @@ void ImageConverterGui::Setup()
     CloseImgData = Resources::GetImageData(close_png, close_png_size);
     CloseImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     TitleTxt = new GuiText(tr("Image Converter"), 20, (GXColor){0, 0, 0, 255});
     TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);

@@ -28,7 +28,7 @@
 #ifndef _ZIPFILE_H_
 #define _ZIPFILE_H_
 
-#include "unzip/unzip.h"
+#include <unzip/unzip.h>
 #include "7ZipFile.h"
 
 class ZipFile

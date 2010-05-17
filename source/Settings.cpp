@@ -98,6 +98,9 @@ void Settings::SetDefault()
     FTPServer.AutoStart = 0;
 	strcpy(FTPServer.Password, "");
 	FTPServer.Port = 21;
+
+    FileExtensions.SetDefault();
+    Controls.SetDefault();
 }
 
 bool Settings::Save()
@@ -165,6 +168,18 @@ bool Settings::Save()
 	fprintf(file, "AppPath = %s\n", AppPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 
+	fprintf(file, "\n# Fileextensions assignment.\n\n");
+	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
+	fprintf(file, "FileExtensions.AudioFiles = %s\n", FileExtensions.GetAudio());
+	fprintf(file, "FileExtensions.ImageFiles = %s\n", FileExtensions.GetImage());
+	fprintf(file, "FileExtensions.ArchiveFiles = %s\n", FileExtensions.GetArchive());
+	fprintf(file, "FileExtensions.HomebrewFiles = %s\n", FileExtensions.GetHomebrew());
+	fprintf(file, "FileExtensions.FontFiles = %s\n", FileExtensions.GetFont());
+	fprintf(file, "FileExtensions.LanguageFiles = %s\n", FileExtensions.GetLanguageFiles());
+	fprintf(file, "FileExtensions.WiiBinaryFiles = %s\n", FileExtensions.GetWiiBinary());
+	fprintf(file, "FileExtensions.PDFFiles = %s\n", FileExtensions.GetPDF());
+	fprintf(file, "FileExtensions.WiiXplorerMovies = %s\n", FileExtensions.GetWiiXplorerMovies());
+
 	fprintf(file, "\n# SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
         fprintf(file, "SMBUser[%d].Host = %s\n", i+1, SMBUser[i].Host);
@@ -196,8 +211,9 @@ bool Settings::Save()
         EncryptString(FTPServer.Password, password);
 	fprintf(file, "FTPServer.CPassword = %s\n", password);
 	fprintf(file, "FTPServer.Port = %d\n", FTPServer.Port);
-
 	fclose(file);
+
+	Controls.Save();
 
 	return true;
 }
@@ -297,7 +313,7 @@ bool Settings::Load(int argc, char *argv[])
 
 bool Settings::Load()
 {
-	char line[300];
+	char line[1024];
     char filepath[300];
     snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
 
@@ -318,6 +334,12 @@ bool Settings::Load()
         this->ParseLine(line);
 	}
 	fclose(file);
+
+	char * ptr = strrchr(filepath, '/');
+	if(ptr)
+        ptr[0] = '\0';
+
+	Controls.Load(filepath);
 
 	return true;
 
@@ -552,6 +574,46 @@ bool Settings::SetSetting(char *name, char *value)
 		if (sscanf(value, "%d", &i) == 1) {
 			SlideshowDelay = i;
 		}
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.VideoFiles") == 0) {
+        FileExtensions.SetVideo(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.AudioFiles") == 0) {
+        FileExtensions.SetAudio(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.ImageFiles") == 0) {
+        FileExtensions.SetImage(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.ArchiveFiles") == 0) {
+        FileExtensions.SetArchive(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.HomebrewFiles") == 0) {
+        FileExtensions.SetHomebrew(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.FontFiles") == 0) {
+        FileExtensions.SetFont(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.WiiBinaryFiles") == 0) {
+        FileExtensions.SetWiiBinary(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.LanguageFiles") == 0) {
+        FileExtensions.SetLanguageFiles(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.PDFFiles") == 0) {
+        FileExtensions.SetPDF(value);
+		return true;
+	}
+	else if (strcmp(name, "FileExtensions.WiiXplorerMovies") == 0) {
+        FileExtensions.SetWiiXplorerMovies(value);
 		return true;
 	}
     else if (strcmp(name, "FTPServer.AutoStart") == 0) {

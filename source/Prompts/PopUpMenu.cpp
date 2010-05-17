@@ -31,6 +31,7 @@
 
 #include "PopUpMenu.h"
 #include "Controls/MainWindow.h"
+#include "main.h"
 
 const int ButtonX = 20;
 const u32 ButtonHeight = 32;
@@ -63,15 +64,15 @@ PopUpMenu::PopUpMenu(int x, int y)
 	PopUpMenuScrollUpImg = new GuiImage(PopUpMenuScrollUp);
 	PopUpMenuScrollDownImg = new GuiImage(PopUpMenuScrollDown);
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
 	trigUp = new GuiTrigger();
 	trigDown = new GuiTrigger();
 	trigHome = new GuiTrigger();
-	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-	trigUp->SetButtonOnlyTrigger(-1, WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP, PAD_BUTTON_UP);
-	trigDown->SetButtonOnlyTrigger(-1, WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN, PAD_BUTTON_DOWN);
-	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigUp->SetButtonOnlyTrigger(-1, WiiControls.UpButton | ClassicControls.UpButton << 16, GCControls.UpButton);
+	trigDown->SetButtonOnlyTrigger(-1, WiiControls.DownButton | ClassicControls.DownButton << 16, GCControls.DownButton);
+	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
 	NoBtn = new GuiButton(screenwidth, screenheight);
 	NoBtn->SetPosition(-x, -y);

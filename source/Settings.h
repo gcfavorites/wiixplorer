@@ -31,6 +31,8 @@
 
 #include <stdio.h>
 #include <gctypes.h>
+#include "Controls/AppControls.hpp"
+#include "FileStartUp/FileExtensions.h"
 
 #define MAXSMBUSERS         4
 #define MAXFTPUSERS         4
@@ -53,20 +55,12 @@ typedef struct _FTPData
 	short	Passive;
 } FTPData;
 
-
 typedef struct _FTPServerData
 {
-    short    AutoStart;
+    short   AutoStart;
 	char    Password[50];
     unsigned short	Port;
 } FTPServerData;
-
-enum
-{
-    off,
-    on,
-    on_off_max
-};
 
 enum {
     APP_DEFAULT = 0,
@@ -169,7 +163,10 @@ class Settings
         FTPData FTPUser[MAXFTPUSERS];
 		//!FTP server informations
 		FTPServerData FTPServer;
-
+		//!Internal WiiXplorer FileExtensions
+		FilesExtensions FileExtensions;
+		//!The controls of the App
+        AppControls Controls;
     protected:
         //!Path to the configuration file
         //!only for internal use

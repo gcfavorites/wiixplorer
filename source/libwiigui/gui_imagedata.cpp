@@ -111,26 +111,6 @@ GuiImageData::~GuiImageData()
 	}
 }
 
-u8 * GuiImageData::GetImage()
-{
-	return data;
-}
-
-int GuiImageData::GetWidth()
-{
-	return width;
-}
-
-int GuiImageData::GetHeight()
-{
-	return height;
-}
-
-u8 GuiImageData::GetTextureFormat()
-{
-	return format;
-}
-
 void GuiImageData::LoadPNG(const u8 *img, int imgSize)
 {
     gdImagePtr gdImg = gdImageCreateFromPngPtr(imgSize, (u8*) img);

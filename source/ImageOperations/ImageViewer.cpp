@@ -172,7 +172,7 @@ bool ImageViewer::LoadImageList(const char * filepath)
     if(imageDir)
         delete imageDir;
 
-    imageDir = new DirList(path, IMAGEFILES);
+    imageDir = new DirList(path, Settings.FileExtensions.GetImage());
 
     char * filename = strrchr(filepath, '/');
     if(filename)
@@ -206,7 +206,9 @@ int ImageViewer::MainUpdate()
  			pointerY = userInput[i].wpad->ir.y;
 		}
 
-		if ((userInput[i].wpad->btns_u & WPAD_BUTTON_A) && isAButtonPressed[i])
+		if ((userInput[i].wpad->btns_u & WiiControls.ClickButton ||
+             userInput[i].wpad->btns_u & (ClassicControls.ClickButton << 16))
+             && isAButtonPressed[i])
 		{
 			MainWindow::Instance()->ResetPointer(i);
 			isAButtonPressed[i] = false;
@@ -455,7 +457,9 @@ void ImageViewer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if ((userInput[i].wpad->btns_h & WPAD_BUTTON_A) && !isAButtonPressed[i])
+			if ((userInput[i].wpad->btns_h & WiiControls.ClickButton ||
+                 userInput[i].wpad->btns_h & (ClassicControls.ClickButton << 16))
+                 && !isAButtonPressed[i])
 			{
 				MainWindow::Instance()->SetGrabPointer(i);
 				isAButtonPressed[i] = true;
@@ -594,14 +598,14 @@ void ImageViewer::Setup()
 	trigRotateR = new GuiTrigger();
 	trigSlideshow = new GuiTrigger();
 
-	trigA_Held->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-	trigger->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
-	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
-	trigPrev->SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, PAD_BUTTON_LEFT);
-	trigNext->SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, PAD_BUTTON_RIGHT);
-	trigRotateL->SetButtonOnlyTrigger(-1, WPAD_BUTTON_UP | WPAD_CLASSIC_BUTTON_UP, PAD_BUTTON_UP);
-	trigRotateR->SetButtonOnlyTrigger(-1, WPAD_BUTTON_DOWN | WPAD_CLASSIC_BUTTON_DOWN, PAD_BUTTON_DOWN);
-	trigSlideshow->SetButtonOnlyTrigger(-1, WPAD_BUTTON_1 | WPAD_CLASSIC_BUTTON_X, PAD_BUTTON_X);
+	trigA_Held->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigger->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigPrev->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
+	trigNext->SetButtonOnlyTrigger(-1, WiiControls.RightButton | ClassicControls.RightButton << 16, GCControls.RightButton);
+	trigRotateL->SetButtonOnlyTrigger(-1, WiiControls.UpButton | ClassicControls.UpButton << 16, GCControls.UpButton);
+	trigRotateR->SetButtonOnlyTrigger(-1, WiiControls.DownButton | ClassicControls.DownButton << 16, GCControls.DownButton);
+	trigSlideshow->SetButtonOnlyTrigger(-1, WiiControls.SlideShowButton | ClassicControls.SlideShowButton << 16, GCControls.SlideShowButton);
 
 	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 0x50});
 

@@ -1,4 +1,3 @@
-
 /****************************************************************************
  * Copyright (C) 2010
  * by Dimok
@@ -52,7 +51,7 @@ int FileStartUp(const char *filepath)
     char *fileext = strrchr(filepath, '.');
 	char *filename = strrchr(filepath, '/')+1;
 
-    if(strtokcmp(fileext, HOMEBREWFILES, ",") == 0 && (strcasestr(filepath, "dol") != 0 || strcasestr(filepath, "elf") != 0))
+    if(Settings.FileExtensions.CompareHomebrew(fileext) == 0)
     {
         int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -67,7 +66,7 @@ int FileStartUp(const char *filepath)
 
         return 0;
     }
-    else if(strtokcmp(fileext, ".pdf", ",") == 0)
+    else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
     {
 		int choice = WindowPrompt(filename, tr("Open the file in the PDF Viewer?"), tr("Yes"), tr("Cancel"));
 		if (choice == 1)
@@ -75,7 +74,7 @@ int FileStartUp(const char *filepath)
 			PDFLoader(filepath);
 		}
     }
-    else if(strtokcmp(fileext, IMAGEFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareImage(fileext) == 0)
     {
 		int choice = WindowPrompt(filename, tr("How do you want to open the file?"), tr("ImageViewer"), tr("ImageConverter"), tr("Cancel"));
 		if (choice == 1)
@@ -88,7 +87,7 @@ int FileStartUp(const char *filepath)
             return REFRESH_BROWSER;
         }
     }
-    else if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
     {
         loadMusic:
 
@@ -103,7 +102,7 @@ int FileStartUp(const char *filepath)
                 WindowPrompt(tr("Could not load file."), tr("Possible unsupported format."), tr("OK"));
         }
     }
-    else if(strtokcmp(fileext, BINARYFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0)
     {
         FILE * f = fopen(filepath, "rb");
         if(!f)
@@ -134,13 +133,15 @@ int FileStartUp(const char *filepath)
             return ARCHIVE;
         }
 
-        goto loadtext;
+        int choice = WindowPrompt(filename, tr("Uknown format. Open this file in the TextEditor?"), tr("Yes"), tr("No"));
+        if(choice)
+            TextViewer(filepath);
     }
-    else if(strtokcmp(fileext, ARCHIVEFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareArchive(fileext) == 0)
     {
         return ARCHIVE;
     }
-    else if(strtokcmp(fileext, LANGUAGEFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareLanguageFiles(fileext) == 0)
     {
         int choice = WindowPrompt(tr("Do you want to load this language file?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -149,7 +150,7 @@ int FileStartUp(const char *filepath)
             return RELOAD_BROWSER;
         }
     }
-    else if(strtokcmp(fileext, FONTFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareFont(fileext) == 0)
     {
         int choice = WindowPrompt(tr("Do you want to change the font?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -167,7 +168,7 @@ int FileStartUp(const char *filepath)
     }
     //! Those have to be made extra and put before MPlayerCE launch
     //! to launch them inside WiiXplorer.
-    else if(strtokcmp(fileext, ".thp,.mth", ",") == 0)
+    else if(Settings.FileExtensions.CompareWiiXplorerMovies(fileext) == 0)
     {
         WiiMovie * Video = new WiiMovie(filepath);
         Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
@@ -177,7 +178,7 @@ int FileStartUp(const char *filepath)
         delete Video;
         Video = NULL;
     }
-    else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
+    else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
     {
         int choice = WindowPrompt(tr("Do you want to launch file with MPlayerCE?"), filename, tr("Yes"), tr("No"));
         if(choice)
@@ -198,8 +199,6 @@ int FileStartUp(const char *filepath)
     }
     else
     {
-        loadtext:
-
         int choice = WindowPrompt(filename, tr("Do you want to open this file in TextEditor?"), tr("Yes"), tr("No"));
         if(choice)
             TextViewer(filepath);

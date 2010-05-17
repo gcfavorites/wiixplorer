@@ -29,12 +29,12 @@
 #define _7ZIPFILE_H_
 
 extern "C" {
-#include "sevenzip/7zCrc.h"
-#include "sevenzip/7zFile.h"
-#include "sevenzip/7zIn.h"
-#include "sevenzip/7zExtract.h"
-#include "sevenzip/7zAlloc.h"
-#include "sevenzip/7zHeader.h"
+#include <sevenzip/7zCrc.h>
+#include <sevenzip/7zFile.h>
+#include <sevenzip/7zIn.h>
+#include <sevenzip/7zExtract.h>
+#include <sevenzip/7zAlloc.h>
+#include <sevenzip/7zHeader.h>
 }
 
 typedef struct

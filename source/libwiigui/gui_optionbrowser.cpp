@@ -30,7 +30,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	selectedItem = 0;
 
 	trigA = new GuiTrigger;
-	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 

@@ -51,7 +51,7 @@ WiiMovie::WiiMovie(const char * filepath)
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
 
     trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     exitBtn = new GuiButton(1, 1);
     exitBtn->SetTrigger(trigB);

@@ -84,9 +84,9 @@ Properties::Properties(const char * filepath)
     width = dialogBox->GetWidth();
     height = dialogBox->GetHeight();
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     char * filename = strrchr(filepath, '/')+1;
     TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});

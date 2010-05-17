@@ -46,7 +46,7 @@ FTPServerMenu::FTPServerMenu()
 {
 	menu = MENU_NONE;
 
-    trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);

@@ -20,6 +20,7 @@
 #include "ImageOperations/Screenshot.h"
 #include "input.h"
 #include "sys.h"
+#include "main.h"
 #include "libwiigui/gui.h"
 
 int rumbleRequest[4] = {0,0,0,0};
@@ -48,7 +49,7 @@ void UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 
-        if(userInput[i].wpad->btns_h & WPAD_BUTTON_1 && userInput[i].wpad->btns_d & WPAD_BUTTON_B)
+        if(userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton && userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton)
         {
             Screenshot();
         }

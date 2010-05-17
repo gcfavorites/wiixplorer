@@ -4,9 +4,10 @@
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "SoundOperations/gui_bgm.h"
+#include "Memory/Resources.h"
+#include "main.h"
 #include "sys.h"
 
-#include "Memory/Resources.h"
 
 HomeMenu::HomeMenu()
 	: GuiWindow(0, 0)
@@ -16,9 +17,9 @@ HomeMenu::HomeMenu()
 	this->SetPosition(0, 0);
 	this->SetSize(screenwidth, screenheight);
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigHome = new GuiTrigger();
-	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
+	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
 	ButtonClickSnd = Resources::GetSound(button_click_wav, button_click_wav_size);
 	ButtonOverSnd = Resources::GetSound(button_over_wav, button_over_wav_size);

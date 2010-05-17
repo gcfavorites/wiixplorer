@@ -12,4 +12,8 @@
 
 extern Settings Settings;
 
+#define WiiControls         Settings.Controls.WiiControls
+#define ClassicControls     Settings.Controls.ClassicControls
+#define GCControls          Settings.Controls.GCControls
+
 #endif

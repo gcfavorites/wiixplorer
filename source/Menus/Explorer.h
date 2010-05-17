@@ -108,7 +108,6 @@ class Explorer : public GuiWindow
 
         SimpleGuiTrigger * trigA;
         GuiTrigger * trigPlus;
-        GuiTrigger * trigMinus;
 };
 
 #endif

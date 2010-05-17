@@ -45,6 +45,8 @@
 #include "Menus/menu_ftpserver.h"
 #include "Menus/menu_settings.h"
 #include "Menus/menu_browsedevice.h"
+#include "Menus/menu_controls_settings.h"
+#include "Menus/menu_file_extensions.h"
 #include "menu.h"
 #include "sys.h"
 
@@ -129,6 +131,12 @@ void MainMenu(int menu)
                 break;
             case MENU_FTPSERVER_SETTINGS:
                 currentMenu = MenuFTPServerSettings();
+                break;
+            case MENU_CONTROLS_SETTINGS:
+                currentMenu = MenuControlsSettings();
+                break;
+            case MENU_FILE_EXTENSIONS:
+                currentMenu = MenuFileExtensions();
                 break;
             default: // unrecognized menu
                 currentMenu = MenuBrowseDevice();
