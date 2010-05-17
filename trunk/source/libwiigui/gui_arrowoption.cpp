@@ -25,6 +25,7 @@
  ***************************************************************************/
 #include "Memory/Resources.h"
 #include "gui_arrowoption.h"
+#include "main.h"
 
 GuiArrowOption::GuiArrowOption()
     : GuiWindow(440, 338)
@@ -33,7 +34,7 @@ GuiArrowOption::GuiArrowOption()
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
     ArrowImgData = Resources::GetImageData(arrow_right_png, arrow_right_png_size);
-    trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 }
 
 GuiArrowOption::~GuiArrowOption()

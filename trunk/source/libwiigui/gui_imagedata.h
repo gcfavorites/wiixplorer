@@ -29,12 +29,10 @@
 #include <gctypes.h>
 #include <gd.h>
 
-//!Converts image data into GX-useable RGBA8. Currently designed for use only with PNG files
 class GuiImageData
 {
 	public:
 		//!Constructor
-		//!Converts the image data to RGBA8 - expects PNG format
 		//!\param img Image data
 		//!\param imgSize The image size
 		GuiImageData(const u8 * img, int imgSize);
@@ -42,15 +40,15 @@ class GuiImageData
 		~GuiImageData();
 		//!Gets a pointer to the image data
 		//!\return pointer to image data
-		u8 * GetImage();
+		u8 * GetImage() { return data; };
 		//!Gets the image width
 		//!\return image width
-		int GetWidth();
+		int GetWidth() { return width; };
 		//!Gets the image height
 		//!\return image height
-		int GetHeight();
+		int GetHeight() { return height; };
 		//!Gets the texture format
-		u8 GetTextureFormat();
+		u8 GetTextureFormat() { return format; };
 	protected:
 		void LoadPNG(const u8 *img, int imgSize);
 		void LoadBMP(const u8 *img, int imgSize);
@@ -61,7 +59,7 @@ class GuiImageData
         void LoadTIFF(const u8 *img, int imgSize);
 		void LoadTGA(const u8 *img, int imgSize);
 		void LoadTPL(const u8 *img, int imgSize);
-        void GDImageToRGBA8(gdImagePtr & gdImg);
+		void GDImageToRGBA8(gdImagePtr & gdImg);
 
 		u8 * data; //!< Image data
 		int height; //!< Height of image

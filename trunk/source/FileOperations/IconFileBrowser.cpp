@@ -43,7 +43,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	triggerupdate = true; // trigger disable
 
 	trigA = new GuiTrigger;
-	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
@@ -119,11 +119,11 @@ GuiImage * IconFileBrowser::GetIconFromExt(const char * fileext, bool dir)
 
     if(fileext)
     {
-        if(strtokcmp(fileext, IMAGEFILES, ",") == 0)
+        if(Settings.FileExtensions.CompareImage(fileext) == 0)
         {
             return (new GuiImage(fileGFX));
         }
-        else if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
+        else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
         {
             return (new GuiImage(fileSFX));
         }
@@ -139,15 +139,15 @@ GuiImage * IconFileBrowser::GetIconFromExt(const char * fileext, bool dir)
         {
             return (new GuiImage(fileXML));
         }
-        else if(strcasecmp(fileext, ".bin") == 0 || strtokcmp(fileext, ARCHIVEFILES, ",") == 0)
+        else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0 || Settings.FileExtensions.CompareArchive(fileext) == 0)
         {
             return (new GuiImage(fileArchives));
         }
-        else if(strtokcmp(fileext, VIDEOFILES, ",") == 0)
+        else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
         {
             return (new GuiImage(fileVID));
         }
-        else if(strtokcmp(fileext, ".pdf", ",") == 0)
+        else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
         {
             return (new GuiImage(filePDF));
         }
@@ -296,15 +296,21 @@ void IconFileBrowser::Update(GuiTrigger * t)
         listChanged = true;
     }
 
-	if(t->wpad->btns_d & WPAD_BUTTON_B)
+	if(t->wpad->btns_d & WiiControls.DeMarkAllButton ||
+       t->wpad->btns_d & (ClassicControls.DeMarkAllButton << 16) ||
+       t->pad.btns_d & GCControls.DeMarkAllButton)
 	{
         browser->ResetMarker();
 	}
-	else if(t->wpad->btns_d & WPAD_BUTTON_1)
+	else if(t->wpad->btns_d & WiiControls.MarkItemButton ||
+            t->wpad->btns_d & (ClassicControls.MarkItemButton << 16) ||
+            t->pad.btns_d & GCControls.MarkItemButton)
 	{
 	    browser->MarkCurrentItem();
 	}
-	else if(t->wpad->btns_d & WPAD_BUTTON_MINUS)
+	else if(t->wpad->btns_d & WiiControls.DeMarkItemButton ||
+            t->wpad->btns_d & (ClassicControls.DeMarkItemButton << 16) ||
+            t->pad.btns_d & GCControls.DeMarkItemButton)
 	{
 	    browser->UnMarkCurrentItem();
 	}

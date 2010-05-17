@@ -53,13 +53,13 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	char * filename = strrchr(filepath, '/')+1;
 
 	trigA = new GuiTrigger;
-	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger;
-	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 	trigPlus = new GuiTrigger;
-	trigPlus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
+	trigPlus->SetButtonOnlyTrigger(-1, WiiControls.EditTextLine | ClassicControls.EditTextLine << 16, GCControls.EditTextLine);
 
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);

@@ -42,9 +42,9 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
     btnOutline = Resources::GetImageData(button_png, button_png_size);
     btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
 
-    trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	backBtnTxt = new GuiText(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);

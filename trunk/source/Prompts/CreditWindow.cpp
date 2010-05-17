@@ -27,6 +27,7 @@
  ***************************************************************************/
 #include "Controls/MainWindow.h"
 #include "CreditWindow.h"
+#include "main.h"
 #include "svnrev.h"
 
 
@@ -44,9 +45,9 @@ CreditWindow::CreditWindow()
     SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
     trigA = new GuiTrigger();
-    trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
     trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 

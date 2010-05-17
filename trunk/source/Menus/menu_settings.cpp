@@ -55,11 +55,31 @@ int MenuSettings()
 	options.SetName(i++, tr("Image Settings"));
 	options.SetName(i++, tr("Sound Settings"));
 	options.SetName(i++, tr("Network Settings"));
+	options.SetName(i++, tr("File Extensions"));
+	options.SetName(i++, tr("Controls Settings"));
 	options.SetName(i++, tr("Path Setup"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Settings"), &options, MENU_BROWSE_DEVICE);
 
 	MainWindow::Instance()->Append(Menu);
+
+    GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
+	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+
+    SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+
+	GuiText resetBtnTxt(tr("Reset"), 22, (GXColor){0, 0, 0, 255});
+	GuiImage resetBtnImg(btnOutline);
+	GuiButton resetBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
+	resetBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	resetBtn.SetPosition(-50, -65);
+	resetBtn.SetLabel(&resetBtnTxt);
+	resetBtn.SetImage(&resetBtnImg);
+	resetBtn.SetSoundOver(btnSoundOver);
+	resetBtn.SetTrigger(&trigA);
+	resetBtn.SetEffectGrow();
+
+	MainWindow::Instance()->Append(&resetBtn);
 
 	while(menu == MENU_NONE)
 	{
@@ -72,6 +92,16 @@ int MenuSettings()
         else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
         {
 			menu = Taskbar::Instance()->GetMenu();
+        }
+        else if(resetBtn.GetState() == STATE_CLICKED)
+        {
+			resetBtn.ResetState();
+			int choice = WindowPrompt(tr("Do you want to reset the settings?"), 0, tr("Yes"), tr("Cancel"));
+			if(choice)
+			{
+                Settings.Reset();
+                firstRun = true;
+			}
         }
 
 		ret = Menu->GetClickedOption();
@@ -100,6 +130,12 @@ int MenuSettings()
                 menu = MENU_NETWORK_SETTINGS;
 				break;
             case 7:
+                menu = MENU_FILE_EXTENSIONS;
+				break;
+            case 8:
+                menu = MENU_CONTROLS_SETTINGS;
+				break;
+            case 9:
                 menu = MENU_PATH_SETUP;
 				break;
 		}
@@ -144,10 +180,18 @@ int MenuSettings()
             options.SetValue(i++, " ");
 
             options.SetValue(i++, " ");
+
+            options.SetValue(i++, " ");
+
+            options.SetValue(i++, " ");
         }
 	}
-
+	MainWindow::Instance()->HaltGui();
+	MainWindow::Instance()->Remove(&resetBtn);
+	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnOutline);
     delete Menu;
+	MainWindow::Instance()->ResumeGui();
 
     Settings.Save();
 
@@ -278,7 +322,7 @@ int MenuSoundSettings()
 				break;
             case 3:
                 snprintf(entered, sizeof(entered), "%i", Settings.SoundblockCount);
-                if(Settings.LoadMusicToMem != on && OnScreenKeyboard(entered, 149))
+                if(Settings.LoadMusicToMem != 1 && OnScreenKeyboard(entered, 149))
                 {
 					Settings.SoundblockCount = atoi(entered);
 					WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
@@ -288,7 +332,7 @@ int MenuSoundSettings()
 				break;
             case 4:
                 snprintf(entered, sizeof(entered), "%i", Settings.SoundblockSize);
-                if(Settings.LoadMusicToMem != on && OnScreenKeyboard(entered, 149))
+                if(Settings.LoadMusicToMem != 1 && OnScreenKeyboard(entered, 149))
                 {
 					Settings.SoundblockSize = atoi(entered);
 					WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
@@ -313,13 +357,13 @@ int MenuSoundSettings()
             else if (Settings.BGMLoopMode == RANDOM_BGM) options.SetValue(i++,tr("Random"));
             else if (Settings.BGMLoopMode == DIR_LOOP) options.SetValue(i++,tr("Play Directory"));
 
-            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("ON"));
+            if(Settings.LoadMusicToMem == 1) options.SetValue(i++, tr("ON"));
             else options.SetValue(i++, tr("OFF"));
 
-            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("Memory Buffer"));
+            if(Settings.LoadMusicToMem == 1) options.SetValue(i++, tr("Memory Buffer"));
             else options.SetValue(i++, "%i (%0.1f KB)", Settings.SoundblockCount, Settings.SoundblockCount*Settings.SoundblockSize/1024.0f);
 
-            if(Settings.LoadMusicToMem == on) options.SetValue(i++, tr("Memory Buffer"));
+            if(Settings.LoadMusicToMem == 1) options.SetValue(i++, tr("Memory Buffer"));
             else options.SetValue(i++, "%i Bytes", Settings.SoundblockSize);
         }
 	}
@@ -445,8 +489,8 @@ int MenuBootSettings()
 				break;
 			case 1:
 				Settings.MountNTFS++;
-				if(Settings.MountNTFS >= on_off_max)
-                    Settings.MountNTFS = off;
+				if(Settings.MountNTFS > 1)
+                    Settings.MountNTFS = 0;
 				break;
 		}
 
@@ -457,8 +501,8 @@ int MenuBootSettings()
 
             options.SetValue(i++,DeviceName[Settings.MountMethod]);
 
-            if (Settings.MountNTFS == on) options.SetValue(i++,tr("ON"));
-            else if (Settings.MountNTFS == off) options.SetValue(i++,tr("OFF"));
+            if (Settings.MountNTFS == 1) options.SetValue(i++,tr("ON"));
+            else if (Settings.MountNTFS == 0) options.SetValue(i++,tr("OFF"));
         }
 	}
 
@@ -589,7 +633,7 @@ int MenuNetworkSettings()
     GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
 	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
-    SimpleGuiTrigger trigA(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText updateBtnTxt(tr("Update App"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage updateBtnImg(btnOutline);
@@ -674,14 +718,14 @@ int MenuNetworkSettings()
             i = 0;
             firstRun = false;
 
-            if(Settings.AutoConnect == on) options.SetValue(i++, tr("ON"));
-            else if(Settings.AutoConnect == off) options.SetValue(i++, tr("OFF"));
+            if(Settings.AutoConnect == 1) options.SetValue(i++, tr("ON"));
+            else if(Settings.AutoConnect == 0) options.SetValue(i++, tr("OFF"));
 
-            if(Settings.UpdateMetaxml == on) options.SetValue(i++, tr("ON"));
-            else if(Settings.UpdateMetaxml == off) options.SetValue(i++, tr("OFF"));
+            if(Settings.UpdateMetaxml == 1) options.SetValue(i++, tr("ON"));
+            else if(Settings.UpdateMetaxml == 0) options.SetValue(i++, tr("OFF"));
 
-            if(Settings.UpdateIconpng == on) options.SetValue(i++, tr("ON"));
-            else if(Settings.UpdateIconpng == off) options.SetValue(i++, tr("OFF"));
+            if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
+            else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
 
             options.SetValue(i++, "%s", Settings.UpdatePath);
 
@@ -892,8 +936,8 @@ int MenuFTPClientSettings()
                 break;
             case 6:
 				Settings.FTPUser[Settings.CurrentFTPUser].Passive++;
-				if(Settings.FTPUser[Settings.CurrentFTPUser].Passive >= on_off_max)
-                    Settings.FTPUser[Settings.CurrentFTPUser].Passive = off;
+				if(Settings.FTPUser[Settings.CurrentFTPUser].Passive > 1)
+                    Settings.FTPUser[Settings.CurrentFTPUser].Passive = 0;
 				break;
 			case 7:
                 result = WindowPrompt(tr("Do you want to reconnect to FTP server?"),0,tr("OK"),tr("Cancel"));
@@ -919,8 +963,8 @@ int MenuFTPClientSettings()
 				options.SetValue(i++," ");
             options.SetValue(i++,"%i", Settings.FTPUser[Settings.CurrentFTPUser].Port);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
-			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == on) options.SetValue(i++,tr("ON"));
-			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == off) options.SetValue(i++,tr("OFF"));
+			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == 1) options.SetValue(i++,tr("ON"));
+			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == 0) options.SetValue(i++,tr("OFF"));
             options.SetValue(i++," ");
         }
 	}

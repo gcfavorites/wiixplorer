@@ -25,9 +25,9 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-
-#include "Window.h"
 #include "Memory/Resources.h"
+#include "Window.h"
+#include "main.h"
 
 bool Window::busyMoving = false;
 
@@ -64,10 +64,10 @@ Window::Window(int w, int h)
 	titleBar -> SetPosition(9, 10);
 
 	trigA = new GuiTrigger();
-	trigA -> SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA -> SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	trigHeldA = new GuiTrigger();
-	trigHeldA -> SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHeldA -> SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	titleBarButton = new GuiButton(565, 45);
 	titleBarButton -> SetPosition(0, 0);

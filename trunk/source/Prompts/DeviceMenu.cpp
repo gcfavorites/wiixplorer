@@ -33,6 +33,7 @@
 #include "devicemounter.h"
 #include "Settings.h"
 #include "FileOperations/filebrowser.h"
+#include "main.h"
 
 DeviceMenu::DeviceMenu(int x, int y)
     :GuiWindow(0, 0)
@@ -58,9 +59,9 @@ DeviceMenu::DeviceMenu(int x, int y)
     leftImg = new GuiImage(device_choose_left_Data);
     rightImg = new GuiImage(device_choose_right_Data);
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 

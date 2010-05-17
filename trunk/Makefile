@@ -32,7 +32,6 @@ SOURCES		:=	source \
 				source/SoundOperations \
 				source/ImageOperations \
 				source/TextOperations \
-				source/TextOperations/mupdf \
 				source/Language \
 				source/usbstorage \
 				source/mload \
@@ -41,17 +40,17 @@ SOURCES		:=	source \
 				source/libftp \
 				source/libftp/ftpii \
 				source/ArchiveOperations \
-				source/ArchiveOperations/unzip \
-				source/ArchiveOperations/sevenzip \
-				source/ArchiveOperations/unrarlib \
 				source/Launcher
 INCLUDES	:=	source
-DATA		:=	data/images data/sounds data/fonts data/binary
+DATA		:=	data/images \
+				data/sounds \
+				data/fonts \
+				data/binary
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DNOCJK \
+CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H \
 				-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
@@ -59,8 +58,8 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ldi -lgd -ltiff -ljpeg -lpng -lz -lfat -lntfs -lmad -lwiiuse -lbte -lasnd -logc \
-		-lvorbisidec -lfreetype -lmxml
+LIBS := -lmupdf -lunzip -lunrar -lsevenzip -ldi -lgd -ltiff -ljpeg -lpng -lz -lfat \
+		-lntfs -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

@@ -31,8 +31,8 @@
 #include <vector>
 #include <algorithm>
 
+#include <unrarlib.h>
 #include "7ZipFile.h"
-#include "unrarlib/unrarlib.h"
 
 
 class RarFile

@@ -66,9 +66,9 @@ Taskbar::Taskbar()
 
 	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 	soundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigHome = new GuiTrigger();
-	trigHome->SetButtonOnlyTrigger(-1, WPAD_BUTTON_HOME | WPAD_CLASSIC_BUTTON_HOME, PAD_TRIGGER_L);
+	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
 	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);

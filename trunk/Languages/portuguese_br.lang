@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-16 09:16+0200\n"
+"POT-Creation-Date: 2010-05-17 16:58+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -45,6 +45,12 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
+msgid "Archive Files"
+msgstr ""
+
+msgid "Audio Files"
+msgstr ""
+
 msgid "Auto Connect"
 msgstr "Auto Conexão"
 
@@ -55,6 +61,9 @@ msgid "BMP Compression"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Back Button"
 msgstr ""
 
 msgid "Boot Settings"
@@ -117,6 +126,9 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
+msgid "Click Button"
+msgstr ""
+
 msgid "Clock Mode"
 msgstr ""
 
@@ -132,7 +144,13 @@ msgstr ""
 msgid "Console Default"
 msgstr "Padrão do Console"
 
+msgid "Context Menu Button"
+msgstr ""
+
 msgid "Continue"
+msgstr ""
+
+msgid "Controls Settings"
 msgstr ""
 
 msgid "Convert"
@@ -204,6 +222,12 @@ msgstr ""
 msgid "Deleting files:"
 msgstr "Apagando arquivo:"
 
+msgid "Demark All Items Button"
+msgstr ""
+
+msgid "Demark Item Button"
+msgstr ""
+
 msgid "Designer:"
 msgstr ""
 
@@ -268,6 +292,12 @@ msgstr ""
 msgid "Do you want to replace this file?"
 msgstr ""
 
+msgid "Do you want to reset the control settings?"
+msgstr ""
+
+msgid "Do you want to reset the settings?"
+msgstr ""
+
 msgid "Do you want to save changes?"
 msgstr ""
 
@@ -278,6 +308,9 @@ msgid "Do you want to start the channel?"
 msgstr ""
 
 msgid "Do you want to update now ?"
+msgstr ""
+
+msgid "Down Button"
 msgstr ""
 
 msgid "Download Files"
@@ -291,6 +324,9 @@ msgid "Downloading file..."
 msgstr ""
 
 msgid "Downloading files..."
+msgstr ""
+
+msgid "Edit Textline Button"
 msgstr ""
 
 msgid "Error while reading file."
@@ -371,8 +407,10 @@ msgstr ""
 msgid "Failed to read file data."
 msgstr ""
 
-#, c-format
-msgid "Fatal Error: Out of memory. Requested %0.2fKB memory. Must shutdown app."
+msgid "File Extensions"
+msgstr ""
+
+msgid "File Extensions Assignment"
 msgstr ""
 
 msgid "File already exists:"
@@ -421,10 +459,52 @@ msgstr ""
 msgid "Folder"
 msgstr "Pasta"
 
+msgid "Font Files"
+msgstr ""
+
 msgid "Fontpath changed."
 msgstr ""
 
 msgid "Free Space:"
+msgstr ""
+
+msgid "GC PAD BUTTON A"
+msgstr ""
+
+msgid "GC PAD BUTTON B"
+msgstr ""
+
+msgid "GC PAD BUTTON DOWN"
+msgstr ""
+
+msgid "GC PAD BUTTON LEFT"
+msgstr ""
+
+msgid "GC PAD BUTTON NONE"
+msgstr ""
+
+msgid "GC PAD BUTTON RIGHT"
+msgstr ""
+
+msgid "GC PAD BUTTON START"
+msgstr ""
+
+msgid "GC PAD BUTTON UP"
+msgstr ""
+
+msgid "GC PAD BUTTON X"
+msgstr ""
+
+msgid "GC PAD BUTTON Y"
+msgstr ""
+
+msgid "GC PAD TRIGGER L"
+msgstr ""
+
+msgid "GC PAD TRIGGER R"
+msgstr ""
+
+msgid "GC PAD TRIGGER Z"
 msgstr ""
 
 msgid "GD2 Compression"
@@ -436,7 +516,13 @@ msgstr ""
 msgid "Go Back"
 msgstr "Voltar"
 
+msgid "Home Button"
+msgstr ""
+
 msgid "Home Menu"
+msgstr ""
+
+msgid "Homebrew Files"
 msgstr ""
 
 msgid "Horizontal"
@@ -452,6 +538,9 @@ msgid "Icon Mode"
 msgstr ""
 
 msgid "Image Converter"
+msgstr ""
+
+msgid "Image Files"
 msgstr ""
 
 msgid "Image Heigth"
@@ -490,6 +579,9 @@ msgstr ""
 msgid "Language"
 msgstr "Língua"
 
+msgid "Language Files"
+msgstr ""
+
 msgid "Language Path changed."
 msgstr ""
 
@@ -504,6 +596,9 @@ msgstr ""
 
 msgid "Last modified:"
 msgstr "Última modificação:"
+
+msgid "Left Button"
+msgstr ""
 
 msgid "Linebreak"
 msgstr ""
@@ -530,6 +625,9 @@ msgid "MPlayerCE Path"
 msgstr ""
 
 msgid "MPlayerPath changed"
+msgstr ""
+
+msgid "Mark Item Button"
 msgstr ""
 
 msgid "Memory Buffer"
@@ -635,6 +733,9 @@ msgstr ""
 msgid "Output Type"
 msgstr ""
 
+msgid "PDF Files"
+msgstr ""
+
 msgid "PDF Processing Zoom"
 msgstr ""
 
@@ -710,6 +811,9 @@ msgstr ""
 msgid "Retry"
 msgstr "Tentar Novamente"
 
+msgid "Right Button"
+msgstr ""
+
 msgid "Rotate"
 msgstr ""
 
@@ -726,6 +830,12 @@ msgid "Save Alpha"
 msgstr ""
 
 msgid "Screenshot Format"
+msgstr ""
+
+msgid "Screenshot Hold Button"
+msgstr ""
+
+msgid "Screenshot Press Button"
 msgstr ""
 
 msgid "Scrolling Speed"
@@ -754,6 +864,9 @@ msgstr ""
 
 msgid "Size:"
 msgstr "Tamanho:"
+
+msgid "Slide Show Button"
+msgstr ""
 
 msgid "Slideshow Delay"
 msgstr ""
@@ -824,6 +937,9 @@ msgstr "Transferindo arquivos:"
 msgid "URL is empty."
 msgstr ""
 
+msgid "Uknown format. Open this file in the TextEditor?"
+msgstr ""
+
 msgid "Unable to create folder."
 msgstr "Impossível criar pasta."
 
@@ -834,6 +950,9 @@ msgid "Unable to load the device."
 msgstr ""
 
 msgid "Unsupported format!"
+msgstr ""
+
+msgid "Up Button"
 msgstr ""
 
 msgid "Update (App) Path"
@@ -874,10 +993,103 @@ msgstr "Nome de Usuário:"
 msgid "Vertical"
 msgstr ""
 
+msgid "Video Files"
+msgstr ""
+
 msgid "WARNING:"
 msgstr ""
 
+msgid "WPAD BUTTON 1"
+msgstr ""
+
+msgid "WPAD BUTTON 2"
+msgstr ""
+
+msgid "WPAD BUTTON A"
+msgstr ""
+
+msgid "WPAD BUTTON B"
+msgstr ""
+
+msgid "WPAD BUTTON DOWN"
+msgstr ""
+
+msgid "WPAD BUTTON HOME"
+msgstr ""
+
+msgid "WPAD BUTTON LEFT"
+msgstr ""
+
+msgid "WPAD BUTTON MINUS"
+msgstr ""
+
+msgid "WPAD BUTTON PLUS"
+msgstr ""
+
+msgid "WPAD BUTTON RIGHT"
+msgstr ""
+
+msgid "WPAD BUTTON UP"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON A"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON B"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON DOWN"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON FULL L"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON FULL R"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON HOME"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON LEFT"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON MINUS"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON PLUS"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON RIGHT"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON UP"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON X"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON Y"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON ZL"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON ZR"
+msgstr ""
+
+msgid "WPAD CLASSIC NONE BUTTON"
+msgstr ""
+
+msgid "WPAD NONE BUTTON"
+msgstr ""
+
 msgid "Warning:"
+msgstr ""
+
+msgid "Wii Binary Files"
+msgstr ""
+
+msgid "WiiXplorer Movies"
 msgstr ""
 
 msgid "Yes"

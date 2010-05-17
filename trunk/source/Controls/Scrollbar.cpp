@@ -25,6 +25,7 @@
  ***************************************************************************/
 #include "Memory/Resources.h"
 #include "Scrollbar.hpp"
+#include "main.h"
 
 Scrollbar::Scrollbar(int h, u8 m)
 {
@@ -58,7 +59,7 @@ Scrollbar::Scrollbar(int h, u8 m)
     MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight()/2-7;
 
 	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
     int Tiles = (height-40-scrollbarTop->GetHeight()-scrollbarButtom->GetHeight())/4;
     int PositionY = 25;

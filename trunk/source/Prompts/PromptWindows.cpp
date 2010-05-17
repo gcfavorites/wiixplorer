@@ -62,7 +62,7 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage okBtnImg(&btnOutline);
@@ -140,7 +140,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	GuiImageData btnOutline(button_png, button_png_size);
 	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage okBtnImg(&btnOutline);
@@ -219,7 +219,7 @@ bool NetworkInitPrompt()
     PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."));
     MainWindow::Instance()->Append(Prompt);
 
-    if(Settings.AutoConnect == off)
+    if(Settings.AutoConnect == 0)
         Initialize_Network();
 
     delete Prompt;

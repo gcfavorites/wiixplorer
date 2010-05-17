@@ -28,6 +28,7 @@
  ***************************************************************************/
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
+#include "main.h"
 
 static wchar_t tmptxt[MAX_KEYBOARD_DISPLAY];
 
@@ -83,7 +84,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	this->Append(keyTextboxImg);
 
 	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	kbText = new GuiText(GetDisplayText(kbtextstr), 20, (GXColor){0, 0, 0, 0xff});
 
@@ -111,15 +112,15 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keySoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 
 	trigA = new GuiTrigger;
-	trigA->SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
     trigB = new GuiTrigger;
-	trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     trigLeft = new GuiTrigger;
-	trigLeft->SetButtonOnlyTrigger(-1, WPAD_BUTTON_LEFT | WPAD_CLASSIC_BUTTON_LEFT, PAD_BUTTON_LEFT);
+	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
     trigRight = new GuiTrigger;
-	trigRight->SetButtonOnlyTrigger(-1, WPAD_BUTTON_RIGHT | WPAD_CLASSIC_BUTTON_RIGHT, PAD_BUTTON_RIGHT);
+	trigRight->SetButtonOnlyTrigger(-1, WiiControls.RightButton | ClassicControls.RightButton << 16, GCControls.RightButton);
 
 	GoRight = new GuiButton(1, 1);
 	GoRight->SetSoundClick(keySoundClick);

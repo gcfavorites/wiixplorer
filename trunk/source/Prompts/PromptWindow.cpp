@@ -33,6 +33,7 @@
 #include "Memory/Resources.h"
 #include "filelist.h"
 #include "Controls/MainWindow.h"
+#include "main.h"
 #include "sys.h"
 
 /****************************************************************************
@@ -56,9 +57,9 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
-	trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WPAD_BUTTON_B | WPAD_CLASSIC_BUTTON_B, PAD_BUTTON_B);
+    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
     bgWindow = Resources::GetImageData(dialogue_box_png, dialogue_box_png_size);
     bgWindowImg = new GuiImage(bgWindow);

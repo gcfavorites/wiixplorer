@@ -36,6 +36,7 @@
 #include "libwiigui/gui_optionbrowser.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
+#include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "LanguageUpdater.h"
 #include "devicemounter.h"
@@ -99,43 +100,42 @@ int LanguageBrowser()
         options.SetValue(i, " ");
 	}
 
-	GuiSound btnSoundOver(button_over_wav, button_over_wav_size);
-	GuiImageData btnOutline(button_png, button_png_size);
-	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
 
 	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage backBtnImg(&btnOutline);
-	GuiButton backBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage backBtnImg(btnOutline);
+	GuiButton backBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	backBtn.SetPosition(50, -90);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
-	backBtn.SetSoundOver(&btnSoundOver);
+	backBtn.SetSoundOver(btnSoundOver);
 	backBtn.SetTrigger(&trigA);
 	backBtn.SetEffectGrow();
 
 	GuiText DefaultBtnTxt(tr("Default"), 18, (GXColor){0, 0, 0, 255});
-	GuiImage DefaultBtnImg(&btnOutline);
-	GuiButton DefaultBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage DefaultBtnImg(btnOutline);
+	GuiButton DefaultBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 	DefaultBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
 	DefaultBtn.SetPosition(-50, -90);
 	DefaultBtn.SetLabel(&DefaultBtnTxt);
 	DefaultBtn.SetImage(&DefaultBtnImg);
-	DefaultBtn.SetSoundOver(&btnSoundOver);
+	DefaultBtn.SetSoundOver(btnSoundOver);
 	DefaultBtn.SetTrigger(&trigA);
 	DefaultBtn.SetEffectGrow();
 
 	GuiText DownloadBtnTxt(tr("Download Files"), 18, (GXColor){0, 0, 0, 255});
-	GuiImage DownloadBtnImg(&btnOutline);
-	GuiButton DownloadBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage DownloadBtnImg(btnOutline);
+	GuiButton DownloadBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 	DownloadBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	DownloadBtn.SetPosition(0, -65);
 	DownloadBtn.SetLabel(&DownloadBtnTxt);
 	DownloadBtn.SetImage(&DownloadBtnImg);
-	DownloadBtn.SetSoundOver(&btnSoundOver);
+	DownloadBtn.SetSoundOver(btnSoundOver);
 	DownloadBtn.SetTrigger(&trigA);
 	DownloadBtn.SetEffectGrow();
 
@@ -237,6 +237,8 @@ int LanguageBrowser()
 
 	HaltGui();
 	MainWindow::Instance()->Remove(&w);
+	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnOutline);
 	ResumeGui();
 
 	return menu;

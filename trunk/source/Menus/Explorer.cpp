@@ -106,7 +106,6 @@ Explorer::~Explorer()
 
     delete trigA;
     delete trigPlus;
-    delete trigMinus;
 
     if(Credits)
         delete Credits;
@@ -143,11 +142,9 @@ void Explorer::Setup()
 	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	SetPosition(28, 50);
 
-    trigA = new SimpleGuiTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigPlus = new GuiTrigger();
-    trigPlus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_PLUS | WPAD_CLASSIC_BUTTON_PLUS, 0);
-	trigMinus = new GuiTrigger();
-    trigMinus->SetButtonOnlyTrigger(-1, WPAD_BUTTON_MINUS | WPAD_CLASSIC_BUTTON_MINUS, 0);
+    trigPlus->SetButtonOnlyTrigger(-1, WiiControls.ContextMenuButton | ClassicControls.ContextMenuButton << 16, GCControls.ContextMenuButton);
 
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);

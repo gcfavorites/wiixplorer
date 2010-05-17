@@ -46,7 +46,7 @@ bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
 bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
 bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
 bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im);
-u8 * GDImageToRGBA8(gdImagePtr gdImg);
+u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h);
 u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height);
 
 #ifdef __cplusplus

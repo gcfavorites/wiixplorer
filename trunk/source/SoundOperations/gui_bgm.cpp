@@ -203,7 +203,7 @@ bool GuiBGM::ParsePath(const char * filepath)
         char * fileext = strrchr(filename, '.');
         if(fileext)
         {
-            if(strtokcmp(fileext, AUDIOFILES, ",") == 0)
+            if(Settings.FileExtensions.CompareAudio(fileext) == 0)
             {
                 AddEntrie(filename);
 

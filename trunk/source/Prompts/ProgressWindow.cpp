@@ -107,7 +107,7 @@ void ProgressWindow()
 	GuiImage dialogBoxImg(&dialogBox);
 
 	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiImageData progressbarOutline(progressbar_outline_png, progressbar_outline_png_size);
 	GuiImage progressbarOutlineImg(&progressbarOutline);
