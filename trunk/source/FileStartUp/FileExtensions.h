@@ -46,10 +46,10 @@ class FilesExtensions
         //!< Get the extensions
         const char * GetVideo() { return VideoFiles; };
         const char * GetAudio() { return AudioFiles; };
-        const char * GetImage() { return ArchiveFiles; };
-        const char * GetArchive() { return VideoFiles; };
+        const char * GetImage() { return ImageFiles; };
+        const char * GetArchive() { return ArchiveFiles; };
         const char * GetHomebrew() { return HomebrewFiles; };
-        const char * GetFont() { return LanguageFiles; };
+        const char * GetFont() { return FontFiles; };
         const char * GetLanguageFiles() { return LanguageFiles; };
         const char * GetWiiBinary() { return WiiBinaryFiles; };
         const char * GetPDF() { return PDFFiles; };
