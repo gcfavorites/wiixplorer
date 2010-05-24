@@ -187,6 +187,7 @@ void GuiButton::Draw()
             tooltip->SetEffect(EFFECT_FADE, 20);
             tooltip->SetVisible(true);
 	    }
+	    tooltip->Draw();
 
 	}
 	else if(tooltip)
@@ -196,6 +197,7 @@ void GuiButton::Draw()
             tooltip->SetEffect(EFFECT_FADE, -20);
             tooltip->SetVisible(false);
 	    }
+	    tooltip->Draw();
 	}
 
 	this->UpdateEffects();

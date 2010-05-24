@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -325,6 +325,8 @@ int MenuSoundSettings()
                 if(Settings.LoadMusicToMem != 1 && OnScreenKeyboard(entered, 149))
                 {
 					Settings.SoundblockCount = atoi(entered);
+					if(Settings.SoundblockCount < 3)
+                        Settings.SoundblockCount = 3;
 					WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
 					if(Settings.SoundblockSize*Settings.SoundblockCount > 512*1024)
                         WindowPrompt(tr("WARNING:"), tr("The buffer size is really high. If the app doesn't start after this delete your config files."), tr("OK"));
@@ -522,9 +524,11 @@ int MenuPathSetup()
     char entered[150];
 
 	OptionList options;
-	options.SetName(i++, tr("App Path"));
+	options.SetName(i++, tr("Update (App) Path"));
+	options.SetName(i++, tr("Apps Path"));
 	options.SetName(i++, tr("MPlayerCE Path"));
 	options.SetName(i++, tr("Customfont Path"));
+	options.SetName(i++, tr("Screenshot Path"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Path Setup"), &options, MENU_SETTINGS);
 
@@ -548,6 +552,13 @@ int MenuPathSetup()
 		switch (ret)
 		{
             case 0:
+                snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
+                if(OnScreenKeyboard(entered, 149)) {
+                    snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
+                    WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
+                }
+				break;
+            case 1:
                 snprintf(entered, sizeof(entered), "%s", Settings.AppPath);
                 if(OnScreenKeyboard(entered, 149))
                 {
@@ -557,7 +568,7 @@ int MenuPathSetup()
                     WindowPrompt(tr("AppPath changed"), 0, tr("OK"));
                 }
 				break;
-            case 1:
+            case 2:
                 snprintf(entered, sizeof(entered), "%s", Settings.MPlayerPath);
                 if(OnScreenKeyboard(entered, 149))
                 {
@@ -569,7 +580,7 @@ int MenuPathSetup()
                     WindowPrompt(tr("MPlayerPath changed"), 0, tr("OK"));
                 }
 				break;
-            case 2:
+            case 3:
                 snprintf(entered, sizeof(entered), "%s", Settings.CustomFontPath);
                 if(OnScreenKeyboard(entered, 149))
                 {
@@ -584,6 +595,13 @@ int MenuPathSetup()
                         WindowPrompt(tr("Fontpath changed."), tr("The new font could not be loaded."), tr("OK"));
                 }
 				break;
+            case 4:
+                snprintf(entered, sizeof(entered), "%s", Settings.ScreenshotPath);
+                if(OnScreenKeyboard(entered, 149))
+                {
+                    snprintf(Settings.ScreenshotPath, sizeof(Settings.ScreenshotPath), "%s", entered);
+                }
+				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -591,11 +609,15 @@ int MenuPathSetup()
             i = 0;
             firstRun = false;
 
+            options.SetValue(i++, "%s", Settings.UpdatePath);
+
             options.SetValue(i++, "%s", Settings.AppPath);
 
             options.SetValue(i++, "%s", Settings.MPlayerPath);
 
             options.SetValue(i++, "%s", Settings.CustomFontPath);
+
+            options.SetValue(i++, "%s", Settings.ScreenshotPath);
         }
 	}
 
@@ -614,14 +636,12 @@ int MenuNetworkSettings()
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
-    char entered[150];
     bool firstRun = true;
 
 	OptionList options;
 	options.SetName(i++, tr("Auto Connect"));
 	options.SetName(i++, tr("Update Meta.xml"));
 	options.SetName(i++, tr("Update Icon.png"));
-	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("SMB Settings"));
 	options.SetName(i++, tr("FTP Client Settings"));
 	options.SetName(i++, tr("FTP Server Settings"));
@@ -696,19 +716,12 @@ int MenuNetworkSettings()
                     Settings.UpdateIconpng = 0;
 				break;
             case 3:
-                snprintf(entered, sizeof(entered), "%s", Settings.UpdatePath);
-                if(OnScreenKeyboard(entered, 149)) {
-                    snprintf(Settings.UpdatePath, sizeof(Settings.UpdatePath), "%s", entered);
-                    WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
-                }
-				break;
-            case 4:
                 menu = MENU_SMB_SETTINGS;
                 break;
-            case 5:
+            case 4:
                 menu = MENU_FTPCLIENT_SETTINGS;
                 break;
-            case 6:
+            case 5:
                 menu = MENU_FTPSERVER_SETTINGS;
                 break;
 		}
@@ -726,8 +739,6 @@ int MenuNetworkSettings()
 
             if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
             else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
-
-            options.SetValue(i++, "%s", Settings.UpdatePath);
 
             options.SetValue(i++, " ");
         }

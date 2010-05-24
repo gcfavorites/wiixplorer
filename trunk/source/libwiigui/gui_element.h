@@ -92,6 +92,9 @@ class GuiElement : public sigslot::has_slots<>
 		//!Considers vertical alignment, y offset, height, and parent element's GetTop() / GetHeight() values
 		//!\return top coordinate
 		int GetTop();
+		//!Gets the current Z coordinate of the element
+		//!\return Z coordinate
+		int GetZPosition();
 		//!Sets the minimum y offset of the element
 		//!\param y Y offset
 		void SetMinY(int y);
@@ -215,6 +218,11 @@ class GuiElement : public sigslot::has_slots<>
 		//!\param x X coordinate
 		//!\param y Y coordinate
 		void SetPosition(int x, int y);
+		//!Sets the element's position
+		//!\param x X coordinate
+		//!\param y Y coordinate
+		//!\param z Z coordinate
+		void SetPosition(int x, int y, int z);
 		//!Updates the element's effects (dynamic values)
 		//!Called by Draw(), used for animation purposes
 		void UpdateEffects();
@@ -261,6 +269,7 @@ class GuiElement : public sigslot::has_slots<>
 		int height; //!< Element height
 		int xoffset; //!< Element X offset
 		int yoffset; //!< Element Y offset
+		int zoffset; //!< Element Z offset
 		int ymin; //!< Element's min Y offset allowed
 		int ymax; //!< Element's max Y offset allowed
 		int xmin; //!< Element's min X offset allowed

@@ -157,6 +157,8 @@ class Settings
         char	UpdatePath[150];
         //!Path to where the homebrew apps are
         char	AppPath[150];
+        //!Path to where the screenshots are written
+        char	ScreenshotPath[150];
 		//!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations

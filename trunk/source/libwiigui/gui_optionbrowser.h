@@ -16,8 +16,8 @@ class GuiOptionBrowser : public GuiElement
 		void Draw();
 		void TriggerUpdate();
 		void Update(GuiTrigger * t);
-		GuiText * optionVal[PAGESIZE];
 	protected:
+        void OnStateChange(GuiElement *sender, int state, int chan);
 		int selectedItem;
 		int listOffset;
 		int coL2;
@@ -28,6 +28,7 @@ class GuiOptionBrowser : public GuiElement
 		GuiButton * optionBtn[PAGESIZE];
 		GuiText * optionTxt[PAGESIZE];
 		GuiImage * optionBg[PAGESIZE];
+		GuiText * optionVal[PAGESIZE];
 
         Scrollbar * scrollbar;
 

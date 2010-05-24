@@ -231,11 +231,11 @@ void Explorer::Setup()
 
 	Append(BackgroundImg);
 	Append(clickmenuBtn);
-	Append(fileBrowser);
 	Append(CreditsBtn);
 	Append(Adressbar);
 	Append(RefreshBtn);
 	Append(deviceSwitchBtn);
+	Append(fileBrowser);
 
     SetEffect(EFFECT_FADE, 50);
 }

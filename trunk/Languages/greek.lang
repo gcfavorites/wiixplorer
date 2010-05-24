@@ -1,0 +1,1144 @@
+# WiiXplorer language source file.
+# 
+# don't delete this line (é).
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-24 16:09+0200\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Έκδοση-id-προγράμματος: WiiXplorer\n"
+"Αναφέρετε-Msgid-Λάθοι-στο: \n"
+"POT-κατασκευής-ημερομηνία: 2010-04-11 20:58+0200\n"
+"PO-Revision-ημερομηνία: 2009-07-18 15:18+0200\n"
+"Τελευταία-μετάφραση: \n"
+"Ομάδα γλώσσας: \n"
+"MIME-Έκδοση: 1.0\n"
+"Content-Τύπος: text/plain; charset=utf-8\n"
+
+msgid "1"
+msgstr ""
+
+msgid "12H"
+msgstr "12άωρο"
+
+msgid "24H"
+msgstr "24άωρο"
+
+msgid "7z decompression failed:"
+msgstr "Η αποσυμπίεση 7z αρχείου απέτυχε:"
+
+msgid "ASDFGHJKL:\"+"
+msgstr ""
+
+msgid "Action cancelled."
+msgstr "Η ενέργεια ακυρώθηκε"
+
+msgid "Alpha Blending"
+msgstr "Alpha ανάμειξη"
+
+msgid "App Default"
+msgstr "Προεπιλογή για τα Προγράμματα"
+
+msgid "AppPath changed"
+msgstr "Η διαδρομή προγραμμάτων άλλαξε"
+
+msgid "Apps"
+msgstr "Προγράμματα"
+
+msgid "Apps Path"
+msgstr ""
+
+msgid "Archive Files"
+msgstr ""
+
+msgid "Audio Files"
+msgstr ""
+
+msgid "Auto Connect"
+msgstr "Αυτόματη σύνδεση"
+
+msgid "Auto Start:"
+msgstr "Αυτόματη έναρξη:"
+
+msgid "BMP Compression"
+msgstr "Συμπίεση BMP"
+
+msgid "Back"
+msgstr "Πίσω"
+
+msgid "Back Button"
+msgstr ""
+
+msgid "Boot Settings"
+msgstr "Ρυθμίσεις εκκίνησης"
+
+msgid "Bootup Mount"
+msgstr "Ξεκίνημα από:"
+
+msgid "Both"
+msgstr "Και τα δύο"
+
+msgid "Browser Mode"
+msgstr "Τρόπος περιήγησης"
+
+msgid "Can not open the file."
+msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
+
+msgid "Can't browse that path."
+msgstr "Δεν μπορώ να περιηγηθώ αυτή τη διαδρομή."
+
+msgid "Can't load file"
+msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"
+
+msgid "Can't load page."
+msgstr ""
+
+msgid "Can't open file."
+msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
+
+msgid "Can't read file:"
+msgstr "Δεν μπορώ να διαβάσω αυτό το αρχείο:"
+
+msgid "Cancel"
+msgstr "Άκυρο"
+
+msgid "Cannot create directory: "
+msgstr "Δεν μπορώ να διμιουργήσω διαδρομή:"
+
+msgid "Cannot open image"
+msgstr "Δεν μπορώ να ανοίξω την εικόνα"
+
+msgid "Cannot write to destination."
+msgstr "Δεν μπορώ να γράψω στον προορισμό."
+
+msgid "Cannot write to the file."
+msgstr "Δεν μπορώ να γράψω στο αρχείο."
+
+msgid "Caps"
+msgstr ""
+
+msgid "Change"
+msgstr "Αλλαγή"
+
+msgid "Change Language Path?"
+msgstr "Να αλλάξω την διαδρομή για την γλώσσα;"
+
+msgid "Channels"
+msgstr "Κανάλια"
+
+msgid "Clear"
+msgstr ""
+
+msgid "Click Button"
+msgstr ""
+
+msgid "Clock Mode"
+msgstr "Είδος ώρας"
+
+msgid "Close"
+msgstr "Κλείσε"
+
+msgid "Coders:"
+msgstr "Δημιουργοί:"
+
+msgid "Compressed Size:"
+msgstr "Συμπιεσμένο Μέγεθος:"
+
+msgid "Console Default"
+msgstr "Προεπιλογή από την Κονσόλα"
+
+msgid "Context Menu Button"
+msgstr ""
+
+msgid "Continue"
+msgstr "Συνέχισε"
+
+msgid "Controls Settings"
+msgstr ""
+
+msgid "Convert"
+msgstr "Μετάτρεψε"
+
+msgid "Converting image..."
+msgstr "Μετατροπή εικόνας..."
+
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+msgid "Copy current marked item(s)?"
+msgstr "Να αντιγραφεί το(α) αρχείο(α) που είναι υπό σήμανση;"
+
+msgid "Copy of"
+msgstr "Αντιγραφή από"
+
+msgid "Copying item(s):"
+msgstr "Αντιγραφή αρχείου(ων):"
+
+msgid "Could not connect to the network"
+msgstr "Δεν μπορώ να συνδεθώ στο δύκτιο"
+
+msgid "Could not connect to the server."
+msgstr "Δεν μπορώ να συνδεθώ στον server."
+
+msgid "Could not convert image."
+msgstr "Δεν μπορώ να μετατρέψω την εικόνα."
+
+msgid "Could not decompress the file."
+msgstr "Δεν μπορώ να αποσυμπιέσω αύτο το αρχείο."
+
+msgid "Could not download file."
+msgstr "Δεν μπορώ να κατεβάσω το αρχείο."
+
+msgid "Could not extract file:"
+msgstr "Δεν μπορώ να εξάγω το αρχείο:"
+
+msgid "Could not load file."
+msgstr ""
+
+msgid "Could not load image."
+msgstr "Δεν μπορώ να φορτώσω την εικόνα."
+
+msgid "Could not load text file."
+msgstr "Δεν μπορώ να φορτώσω το αρχείο κειμένου."
+
+msgid "Credits"
+msgstr "Συντελεστές"
+
+msgid "Customfont Path"
+msgstr "Διαδρομή για γραμματοσειρές σας"
+
+msgid "Cut"
+msgstr "Αποκοπή"
+
+msgid "Cut current marked item(s)?"
+msgstr "Να αποκόψω το(α) αρχείο(α) που είναι υπό σήμανση;"
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Delete the selected item(s) and its content?"
+msgstr "Διαγραφή επιλεγμένου(ων) αρχείου(ων) και των περιεχωμένων;"
+
+msgid "Deleting files:"
+msgstr "Διαγραφή αρχείων:"
+
+msgid "Demark All Items Button"
+msgstr ""
+
+msgid "Demark Item Button"
+msgstr ""
+
+msgid "Designer:"
+msgstr "Σχεδιαστής:"
+
+msgid "Directory .."
+msgstr ""
+
+msgid "Directory couldn't be deleted."
+msgstr "Η διαδρομή δεν μπορεί να διαγραφεί."
+
+msgid "Do you want to boot file now?"
+msgstr "Θέλεις να ξεκινήσω το αρχείο τώρα;"
+
+msgid "Do you want to boot:"
+msgstr "Θέλεις να εκκινήσω την εφαρμογή:"
+
+msgid "Do you want to change the font?"
+msgstr "Θέλεις να αλλάξεις την γραμματοσειρά;"
+
+msgid "Do you want to download new language files?"
+msgstr "Θέλεις να κατεβάσω καινόυργια αρχεία γλωσσών;"
+
+msgid "Do you want to exit WiiXplorer?"
+msgstr "Θέλεις να βγείς από το πρόγραμμα;"
+
+msgid "Do you want to launch file with MPlayerCE?"
+msgstr "θέλεις να παίξω το αρχείο με τον MPlayerCE;"
+
+#, c-format
+msgid "Do you want to load file from: %s ?"
+msgstr "Θέλεις να φορτώσω αρχείο από: %s ;"
+
+msgid "Do you want to load the default language."
+msgstr "Θέλεις να φορτώσω την προεπιλεγμένη γλώσσα;"
+
+msgid "Do you want to load this language ?"
+msgstr "Θέλεις να φορτώσω αυτήν την γλώσσα;"
+
+msgid "Do you want to load this language file?"
+msgstr "Θέλεις να φορτώσω το αρχείο αυτής της γλώσσας;"
+
+msgid "Do you want to open this file in TextEditor?"
+msgstr "Θέλεις να ανοίξω το αρχείο με τον κειμενογράφο;"
+
+msgid "Do you want to playback this file?"
+msgstr "Θέλεις να αναπαράγω αυτό το αρχείο;"
+
+msgid "Do you want to reboot WiiXplorer?"
+msgstr "Θέλεις να κάνω επανεκκίνηση;"
+
+msgid "Do you want to reboot now ?"
+msgstr "Θέλεις να γίνει επανεκκίνηση τώρα;"
+
+msgid "Do you want to reconnect the SMB?"
+msgstr "Θέλεις να επανασυνδεθείς στο SMB;"
+
+msgid "Do you want to reconnect to FTP server?"
+msgstr "Θέλεις να επανασυνδεθείς στον FTP server;"
+
+msgid "Do you want to remount the devices?"
+msgstr "Θέλεις να ξανανεβάσω τις συσκευές;"
+
+msgid "Do you want to replace this file?"
+msgstr "Θέλεις να αντικαταστήσω αυτό το αρχείο;"
+
+msgid "Do you want to reset the control settings?"
+msgstr ""
+
+msgid "Do you want to reset the settings?"
+msgstr ""
+
+msgid "Do you want to save changes?"
+msgstr "Θέλεις να σώσεις τις αλλαγές;"
+
+msgid "Do you want to start the app?"
+msgstr "Θέλεις να αρχίσω την εφαρμογή;"
+
+msgid "Do you want to start the channel?"
+msgstr "Θέλεις να αρχίσω το κανάλι;"
+
+msgid "Do you want to update now ?"
+msgstr "Θέλεις να κάνω αναβάθμιση τώρα;"
+
+msgid "Down Button"
+msgstr ""
+
+msgid "Download Files"
+msgstr "Κατεβάζω τα αρχεία"
+
+#, c-format
+msgid "Downloaded %d files."
+msgstr "Κατεβήκανε %d αρχεία."
+
+msgid "Downloading file..."
+msgstr "Κατέβασμα αρχείου..."
+
+msgid "Downloading files..."
+msgstr "Κατέβασμα αρχείων..."
+
+msgid "Edit Textline Button"
+msgstr ""
+
+msgid "Error while reading file."
+msgstr "Λάθος καθώς διαβαζα το αρχείο."
+
+msgid "Error:"
+msgstr "Λάθος:"
+
+msgid "Exit"
+msgstr "Έξοδος"
+
+msgid "Exit WiiXplorer?"
+msgstr "Έξοδος από το WiiXplorer;"
+
+msgid "Explorer Settings"
+msgstr "Ρυθμίσεις WiiXplorer"
+
+msgid "Extract"
+msgstr "Εξαγωγή"
+
+msgid "Extract All"
+msgstr "Εξαγωγή όλων"
+
+msgid "Extract first and open than."
+msgstr "Εξαγωγή πρώτα και μετά ανοιξέτο."
+
+msgid "Extract full archive?"
+msgstr "Εξαγωγή όλου του αρχείου;"
+
+msgid "Extract the selected item(s)?"
+msgstr "Εξαγωγή επιλεγμένου(ων) αρχείου(ων);"
+
+msgid "Extracting files..."
+msgstr "Εξάγω αρχεία..."
+
+msgid "Extracting item(s):"
+msgstr "Εξάγω αρχείο(α)..."
+
+msgid "FTP Client Settings"
+msgstr "Ρυθμίσεις πελάτη για το FTP"
+
+msgid "FTP Path:"
+msgstr "Διαδρομή FTP:"
+
+msgid "FTP Port:"
+msgstr "Πορτα FTP:"
+
+msgid "FTP Server"
+msgstr "FTP Server"
+
+msgid "FTP Server Settings"
+msgstr "Ρυθμίσεις FTP Server"
+
+msgid "FTP Server is running and listening on port"
+msgstr "O FTP Server τρέχει και ακούει στην πόρτα"
+
+msgid "FTP Started.\n"
+msgstr "Ο FTP ξεκινάει.\n"
+
+msgid "Failed copying item(s)."
+msgstr "Απέτυχα να αντιγράψω το(α) αρχείο(α)."
+
+msgid "Failed extracting the archive."
+msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
+
+msgid "Failed extracting the item(s)."
+msgstr "Απέτυχα να εξάγω το(α) συγκεκριμένο(α) αρχείο(α)."
+
+msgid "Failed moving item(s)."
+msgstr "Απέτυχα να μετακινήσω το(α) αρχείο(α)."
+
+msgid "Failed renaming item"
+msgstr "Απέτυχα να μεταονομάσω το αρχείο"
+
+msgid "Failed to get the Changelog."
+msgstr "Απέτυχα να πάρω την αλλαγή ημερολογίου."
+
+msgid "Failed to read file data."
+msgstr "Απέτυχα να διαβάσω τα δεδομένα του αρχείου."
+
+msgid "File Extensions"
+msgstr ""
+
+msgid "File Extensions Assignment"
+msgstr ""
+
+msgid "File already exists:"
+msgstr "Το αρχείο ήδη υπάρχει:"
+
+msgid "File couldn't be deleted."
+msgstr "Αυτό το αρχείο δεν μπορεί να διεγραφεί."
+
+msgid "File is corrupt (CRC mismatch)."
+msgstr "Το αρχείο είναι διεφθαρμένο (CRC αναντιστοιχία)."
+
+msgid "File is corrupt."
+msgstr "Το αρχείο είναι διεφθαρμένο."
+
+msgid "File is too big."
+msgstr "Το αρχείο είναι πολύ μεγάλο."
+
+msgid "File uses too high of compression settings (dictionary size is too large)."
+msgstr "Το αρχείο χρησιμοποιεί πολύ υψηλή συμπίεση."
+
+msgid "File uses unsupported compression settings."
+msgstr "Το αρχείο χρησιμοποιεί συμπίεση που δεν γνωρίζω."
+
+msgid "File was edited."
+msgstr "Το αρχείο επεξεργάστηκε."
+
+#, c-format
+msgid "Filepath:  %s"
+msgstr "Διαδρομή αρχείου:  %s"
+
+msgid "Files:"
+msgstr "Αρχεία:"
+
+msgid "Filesize doesn't match."
+msgstr "Το μέγεθος του αρχείου δεν ταιριάζει."
+
+msgid "Filesize is 0 Byte."
+msgstr "Το μέγεθος του αρχείου είνι 0 byte."
+
+msgid "Filetype:"
+msgstr "Τύπος αρχείου:"
+
+msgid "Flip Mode"
+msgstr "Τύπος ενναλαγή"
+
+msgid "Folder"
+msgstr "Φάκελος"
+
+msgid "Font Files"
+msgstr ""
+
+msgid "Fontpath changed."
+msgstr "Η διαδρομή της γραματοσειράς άλλαξε."
+
+msgid "Free Space:"
+msgstr "Ελεύθερος χώρος:"
+
+msgid "GC PAD BUTTON A"
+msgstr ""
+
+msgid "GC PAD BUTTON B"
+msgstr ""
+
+msgid "GC PAD BUTTON DOWN"
+msgstr ""
+
+msgid "GC PAD BUTTON LEFT"
+msgstr ""
+
+msgid "GC PAD BUTTON NONE"
+msgstr ""
+
+msgid "GC PAD BUTTON RIGHT"
+msgstr ""
+
+msgid "GC PAD BUTTON START"
+msgstr ""
+
+msgid "GC PAD BUTTON UP"
+msgstr ""
+
+msgid "GC PAD BUTTON X"
+msgstr ""
+
+msgid "GC PAD BUTTON Y"
+msgstr ""
+
+msgid "GC PAD TRIGGER L"
+msgstr ""
+
+msgid "GC PAD TRIGGER R"
+msgstr ""
+
+msgid "GC PAD TRIGGER Z"
+msgstr ""
+
+msgid "GD2 Compression"
+msgstr "Συμπίεση GD2"
+
+msgid "Getting Changelog..."
+msgstr "Παίρνω την αλλαγή καταγραφής..."
+
+msgid "Go Back"
+msgstr "Πίσω"
+
+msgid "Home Button"
+msgstr ""
+
+msgid "Home Menu"
+msgstr "Κεντρικό μενού"
+
+msgid "Homebrew Files"
+msgstr ""
+
+msgid "Horizontal"
+msgstr "Οριζόντια"
+
+msgid "Host:"
+msgstr "Οικοδεσπότης:"
+
+msgid "How do you want to open the file?"
+msgstr "Πώς θέλεις να ανοίξω αυτό το αρχείο;"
+
+msgid "Icon Mode"
+msgstr "Τρόπος με εικονίδια"
+
+msgid "Image Converter"
+msgstr "Μετατροπέας εικόνων"
+
+msgid "Image Files"
+msgstr ""
+
+msgid "Image Heigth"
+msgstr "Υψος εικόνας"
+
+msgid "Image Settings"
+msgstr "Ρυθμίσεις εικόνας"
+
+msgid "Image Viewer"
+msgstr "Θεατής εικόνας"
+
+msgid "Image Width"
+msgstr "Πλάτος εικόνας"
+
+msgid "Image successfully converted."
+msgstr "Η εικόνα μετατράπηκε επιτυχώς."
+
+msgid "ImageConverter"
+msgstr "Μετατροπέας εικόνας"
+
+msgid "ImageViewer"
+msgstr "Θεατής εικόνας."
+
+msgid "Incomming connection."
+msgstr "Εισερχόμενη σύνδεση."
+
+msgid "Input File"
+msgstr "Εισάχθηκε ως:"
+
+msgid "Interlace"
+msgstr "Συνυφαίνω"
+
+msgid "JPEG Quality"
+msgstr "Ποιότητα JPEG"
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "Language Files"
+msgstr ""
+
+msgid "Language Path changed."
+msgstr "Η διαδρομή της γλώσσας άλλαξε."
+
+msgid "Language Settings"
+msgstr "Ρυθμίσεις Γλώσσας"
+
+msgid "Last access:"
+msgstr "Προσπελάθηκε:"
+
+msgid "Last change:"
+msgstr "Τελευταία αλλαγή:"
+
+msgid "Last modified:"
+msgstr "Μετατράπηκε:"
+
+msgid "Left Button"
+msgstr ""
+
+msgid "Linebreak"
+msgstr ""
+
+msgid "List Mode"
+msgstr "Τρόπος με λίστα"
+
+msgid "Listening on TCP port"
+msgstr "Ακούει στην πόρτα TCP"
+
+msgid "Load Music to Memory"
+msgstr ""
+
+msgid "Loading file:"
+msgstr "Φορτώνω αρχείο:"
+
+msgid "Loading image..."
+msgstr "Φορτώνω την εικόνα..."
+
+msgid "Loop"
+msgstr "Βρόχος"
+
+msgid "MPlayerCE Path"
+msgstr "Διαδρομή για το MPlayerCE"
+
+msgid "MPlayerPath changed"
+msgstr "Η διαδρομή για το MPlayerCE άλλαξε."
+
+msgid "Mark Item Button"
+msgstr ""
+
+msgid "Memory Buffer"
+msgstr ""
+
+msgid "Menu"
+msgstr "Μενού"
+
+msgid "Mount NTFS"
+msgstr "Ανεβάσε το NTFS"
+
+msgid "Moving item(s):"
+msgstr "Μετακίνηση αρχείου(α):"
+
+msgid "Music Loop Mode"
+msgstr "Τρόπος μουσικής"
+
+msgid "Music Volume"
+msgstr "Ένταση ήχου"
+
+msgid "NONE"
+msgstr "Τίποτα"
+
+msgid "Name might already exists."
+msgstr "Το όνομα ενδέχετε να υπάρχει ήδη."
+
+msgid "Network Settings"
+msgstr "Ρυθμίσεις δικτύου"
+
+msgid "Network initialising..."
+msgstr "Το δύκτιο αρχικοποίητε..."
+
+msgid "New Folder"
+msgstr "Καινούριος φάκελος"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "No files found."
+msgstr "Δεν βρεθήκανε αρχεία."
+
+msgid "No homebrew in the zip."
+msgstr "Δεν υπάρχει homebrew στο αρχείο zip."
+
+#, c-format
+msgid "No image found at index %d."
+msgstr "Δεν βρέθηκε εικόνα στον δείκτη %d."
+
+msgid "No language files found."
+msgstr "Δεν βρεθήκανε αρχεία γλώσσας."
+
+msgid "No network connection."
+msgstr "Δεν υπάρχει σύνδεση στο δύκτιο."
+
+msgid "No new updates available"
+msgstr "Δεν υπάρχουνε νέες αναβαθμίσεις"
+
+msgid "No to all"
+msgstr "Όχι σε όλα"
+
+msgid "Not a valid URL"
+msgstr "Δεν είναι σωστή η URL"
+
+msgid "Not a valid URL path"
+msgstr "Δεν είναι σωστή η διαδρομή URL"
+
+msgid "Not a valid domain"
+msgstr "Δεν είναι σωστό το domain"
+
+msgid "Not enough memory to resize."
+msgstr "Δεν έχω πολύ μνήμη για άλλαγή μεγέθους."
+
+msgid "Not enough memory to rotate."
+msgstr "Δεν έχω πολύ μνήμη για περιστροφή."
+
+msgid "Not enough memory."
+msgstr "Δεν υπάρχει αρκετή μνήμη."
+
+msgid "OFF"
+msgstr "Κλειστό"
+
+msgid "OK"
+msgstr "Εντάξει"
+
+msgid "ON"
+msgstr "Ανοιχτό"
+
+msgid "Open"
+msgstr "Άνοιξε"
+
+msgid "Open the file in the PDF Viewer?"
+msgstr ""
+
+msgid "Opening is not yet implemented"
+msgstr "Το άνοιγμά δεν έχει γίνει εφικτό ακόμη"
+
+msgid "Out of memory: too many files!"
+msgstr "Εκτός μνήμης: Πάρα πολλά αρχεία!"
+
+msgid "Output File"
+msgstr "Απόδοση ως"
+
+msgid "Output Type"
+msgstr "Τύπος"
+
+msgid "PDF Files"
+msgstr ""
+
+msgid "PDF Processing Zoom"
+msgstr ""
+
+msgid "Passive Mode:"
+msgstr "Τρόπος passive:"
+
+msgid "Password:"
+msgstr "Κωδικός:"
+
+msgid "Paste"
+msgstr "Επικόλληση"
+
+msgid "Paste item(s) into current directory?"
+msgstr "Να επικόλλησω αρχείο(α) σε αυτή την διαδρομή?"
+
+msgid "Path Setup"
+msgstr "Διαδρομή εγκατάστασης"
+
+msgid "Play Directory"
+msgstr "Παίξε την διαδρομή"
+
+msgid "Play Once"
+msgstr "Παίξε μία φορά"
+
+msgid "Please wait..."
+msgstr "Παρακαλώ περιμένετε..."
+
+msgid "Please wait:"
+msgstr "Παρακαλώ περιμένετε:"
+
+msgid "Possible unsupported format."
+msgstr ""
+
+msgid "Press Startup FTP to start the server on port"
+msgstr "Πάτησε εκκίνηση για να αρχίσεις τον server στην πόρτα"
+
+msgid "Process canceled."
+msgstr "Η διαδικασία ακυρώθηκε."
+
+msgid "Properties"
+msgstr "Ιδιότητες"
+
+msgid "QWERTYUIOP{}|"
+msgstr ""
+
+msgid "Random"
+msgstr "Τυχαία"
+
+msgid "Reboot failed"
+msgstr "Η επανεκκίνηση απέτυχε"
+
+msgid "Receiving file..."
+msgstr "Λάμβάνω αρχείο..."
+
+msgid "Reconnect FTP"
+msgstr "Επανασύνδεση FTP"
+
+msgid "Reconnect SMB"
+msgstr "Επανασύνδεση SMB"
+
+msgid "Reload"
+msgstr "Ανανέωση"
+
+msgid "Rename"
+msgstr "Μετονομασία"
+
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgid "Restart"
+msgstr "Επανεκκίνηση"
+
+msgid "Retry"
+msgstr "Δοκιμή ξανά"
+
+msgid "Right Button"
+msgstr ""
+
+msgid "Rotate"
+msgstr "Περιστροφή"
+
+msgid "SMB Name:"
+msgstr "Όνομα SMB:"
+
+msgid "SMB Settings"
+msgstr "Ρυθμίσεις SMB"
+
+msgid "SMB is connecting..."
+msgstr "Γίνεται σύνδεση SMB..."
+
+msgid "Save Alpha"
+msgstr "Σώσε σε Alpha"
+
+msgid "Screenshot Format"
+msgstr "Φορμάτ εικόνας"
+
+msgid "Screenshot Hold Button"
+msgstr ""
+
+msgid "Screenshot Path"
+msgstr ""
+
+msgid "Screenshot Press Button"
+msgstr ""
+
+msgid "Scrolling Speed"
+msgstr "Ταχύτητα κύλισης"
+
+msgid "Server was shutdown...\n"
+msgstr "Ο server κλείνει...\n"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+msgid "Shift"
+msgstr ""
+
+msgid "Show Changelog"
+msgstr "Aλλαγή κατάθεσης"
+
+msgid "Shutdown"
+msgstr "Κλείσιμο"
+
+msgid "Shutdown FTP"
+msgstr "Κλείσιμο το FTP"
+
+msgid "Shutdown the Wii?"
+msgstr "Να κλείσω το Wii;"
+
+msgid "Size:"
+msgstr "Μέγεθος:"
+
+msgid "Slide Show Button"
+msgstr ""
+
+msgid "Slideshow Delay"
+msgstr "Καθηστέρηση εμφάνισης εικόνας"
+
+msgid "Sound Settings"
+msgstr "Ρυθμίσεις ήχου"
+
+msgid "Soundblock Size"
+msgstr ""
+
+msgid "Soundblocks"
+msgstr ""
+
+msgid "Special thanks to:"
+msgstr "Ευχαριστώ τους:"
+
+msgid "Standard"
+msgstr "Πρότυπο"
+
+msgid "Startup FTP"
+msgstr "Εκκίνηση FTP"
+
+msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
+msgstr ""
+
+msgid "The effect will take with next music load. It might break music playback."
+msgstr ""
+
+msgid "The new font could not be loaded."
+msgstr "Η νέα γραμματοσειρά δεν μπορεί να φορτωθεί."
+
+msgid "The new font is loaded."
+msgstr "Η νέα γραμματοσειρά φορτώθηκε."
+
+msgid "The whole DevkitPro & libogc staff."
+msgstr "Και όλη την ομάδα DevkitPro & libogc"
+
+msgid "This option could mess up the pdf view."
+msgstr ""
+
+msgid "To Idle"
+msgstr "Στην αδράνεια"
+
+msgid "To Loader"
+msgstr "Στον φορτωτή"
+
+msgid "To Menu"
+msgstr "Στο μενού"
+
+msgid "To Standby"
+msgstr "Στην αναμονή"
+
+msgid "Total Space:"
+msgstr "Συνολικό μέγεθος:"
+
+msgid "Transfer cancelled."
+msgstr "Η μεταφορά ακυρώθηκε."
+
+msgid "Transfer failed"
+msgstr "Η μεταφορά απέτυχε"
+
+msgid "Transfer failed."
+msgstr "Η μεταφορά απέτυχε."
+
+msgid "Transfering files:"
+msgstr "Μεταφέρω αρχεία:"
+
+msgid "URL is empty."
+msgstr "Η URL είναι άδεια."
+
+msgid "Uknown format. Open this file in the TextEditor?"
+msgstr ""
+
+msgid "Unable to create folder."
+msgstr "Δεν μπορώ να δημιουργήσω φάκελο."
+
+msgid "Unable to load path."
+msgstr "Δεν μπορώ να φορτώσω την διαδρομή."
+
+msgid "Unable to load the device."
+msgstr "Δεν μπορώ να φορτώσω την συσκευή."
+
+msgid "Unsupported format!"
+msgstr "Μη υποστηριζόμενω φορμάτ!"
+
+msgid "Up Button"
+msgstr ""
+
+msgid "Update (App) Path"
+msgstr "Αναβάθμηση διαδρομής"
+
+msgid "Update App"
+msgstr "Αναβάθμισή"
+
+msgid "Update Icon.png"
+msgstr "Αναβάθμιση Icon.png"
+
+msgid "Update Meta.xml"
+msgstr "Αναβάθμιση Meta.xml"
+
+msgid "Update Path changed."
+msgstr "Η διαδρομή της αναβάθμισης άλλαξε."
+
+msgid "Update failed"
+msgstr "Η αναβάθμηση απέτυχε"
+
+msgid "Update successfully finished"
+msgstr "Η αναβάθμηση τελείωσε επιτυχώς"
+
+#, c-format
+msgid "Update to Rev%i available"
+msgstr "Υπάρχει διαθέσημη αναβάθμηση έκδοση %i"
+
+#, c-format
+msgid "User %i"
+msgstr "Χρήστης: %i"
+
+msgid "User:"
+msgstr "Χρήστης:"
+
+msgid "Username:"
+msgstr "Ονομα χρήστη"
+
+msgid "Vertical"
+msgstr "Κάθετα"
+
+msgid "Video Files"
+msgstr ""
+
+msgid "WARNING:"
+msgstr ""
+
+msgid "WPAD BUTTON 1"
+msgstr ""
+
+msgid "WPAD BUTTON 2"
+msgstr ""
+
+msgid "WPAD BUTTON A"
+msgstr ""
+
+msgid "WPAD BUTTON B"
+msgstr ""
+
+msgid "WPAD BUTTON DOWN"
+msgstr ""
+
+msgid "WPAD BUTTON HOME"
+msgstr ""
+
+msgid "WPAD BUTTON LEFT"
+msgstr ""
+
+msgid "WPAD BUTTON MINUS"
+msgstr ""
+
+msgid "WPAD BUTTON PLUS"
+msgstr ""
+
+msgid "WPAD BUTTON RIGHT"
+msgstr ""
+
+msgid "WPAD BUTTON UP"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON A"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON B"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON DOWN"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON FULL L"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON FULL R"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON HOME"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON LEFT"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON MINUS"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON PLUS"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON RIGHT"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON UP"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON X"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON Y"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON ZL"
+msgstr ""
+
+msgid "WPAD CLASSIC BUTTON ZR"
+msgstr ""
+
+msgid "WPAD CLASSIC NONE BUTTON"
+msgstr ""
+
+msgid "WPAD NONE BUTTON"
+msgstr ""
+
+msgid "Warning:"
+msgstr ""
+
+msgid "Wii Binary Files"
+msgstr ""
+
+msgid "WiiXplorer Movies"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "Yes to all"
+msgstr "Ναι σε όλα"
+
+msgid "You can not cut into the directory itself."
+msgstr "Δεν μπόρεις να κάνεις απόκοπή στην ίδια διαδρομή."
+
+msgid "You cant use this operation on:"
+msgstr "Δεν μπορείς να χρησιμοποιήσεις αυτήν την διαδικασία:"
+
+msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "`1234567890-"
+msgstr ""
+
+msgid "and all the translators."
+msgstr "και όλους τους μεταφραστές."
+
+msgid "asdfghjkl;'="
+msgstr ""
+
+msgid "for his FTP Server source."
+msgstr "για τον FTP Server κώδικα."
+
+msgid "for his great tool LibWiiGui."
+msgstr "για την βιβλιοθήκη LibWiiGui."
+
+msgid "qwertyuiop[]\\"
+msgstr ""
+
+msgid "zxcvbnm,./"
+msgstr ""
+
+msgid "~!@#$%^&*()_"
+msgstr ""
+
+#~ msgid "App Path"
+#~ msgstr "Διαδρομή προγραμμάτων"
+
+#~ msgid "Directory ..."
+#~ msgstr "Διαδρομή ..."

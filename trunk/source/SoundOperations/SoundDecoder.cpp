@@ -32,37 +32,6 @@
 #include "SoundDecoder.hpp"
 #include "main.h"
 
-static const f32 VSA = (1.0F/4294967295.0F);
-
-static inline s16 Do3Band(EQState *es, s16 sample)
-{
-	f32 l,m,h;
-
-	es->f1p0 += (es->lf*((f32)sample - es->f1p0))+VSA;
-	es->f1p1 += (es->lf*(es->f1p0 - es->f1p1));
-	es->f1p2 += (es->lf*(es->f1p1 - es->f1p2));
-	es->f1p3 += (es->lf*(es->f1p2 - es->f1p3));
-	l = es->f1p3;
-
-	es->f2p0 += (es->hf*((f32)sample - es->f2p0))+VSA;
-	es->f2p1 += (es->hf*(es->f2p0 - es->f2p1));
-	es->f2p2 += (es->hf*(es->f2p1 - es->f2p2));
-	es->f2p3 += (es->hf*(es->f2p2 - es->f2p3));
-	h = es->sdm3 - es->f2p3;
-
-	m = es->sdm3 - (h+l);
-
-	l *= es->lg;
-	m *= es->mg;
-	h *= es->hg;
-
-	es->sdm3 = es->sdm2;
-	es->sdm2 = es->sdm1;
-	es->sdm1 = (f32)sample;
-
-	return (s16)(l+m+h);
-}
-
 SoundDecoder::SoundDecoder()
 {
     file_fd = NULL;
@@ -90,9 +59,6 @@ SoundDecoder::~SoundDecoder()
     if(file_fd)
         delete file_fd;
     file_fd = NULL;
-
-    if(RawBuffer)
-        free(RawBuffer);
 }
 
 void SoundDecoder::Init()
@@ -107,11 +73,6 @@ void SoundDecoder::Init()
     ExitRequested = false;
     SoundBuffer.SetBufferBlockSize(SoundBlockSize);
     SoundBuffer.Resize(SoundBlocks);
-    RawBuffer = (u8 *) memalign(32, SoundBlocks*SoundBlockSize);
-	Init3BandState(&eqs[0],880,5000,48000);
-	Init3BandState(&eqs[1],880,5000,48000);
-    RawSamples = 0;
-    RawSamplePos.adword = 0;
 }
 
 int SoundDecoder::Rewind()
@@ -138,7 +99,7 @@ void SoundDecoder::Decode()
 
     u16 newWhich = SoundBuffer.Which();
     u16 i = 0;
-    for (i = 0; i < SoundBuffer.Size()-1; i++)
+    for (i = 0; i < SoundBuffer.Size()-2; i++)
     {
         if(!SoundBuffer.IsBufferReady(newWhich))
             break;
@@ -146,12 +107,12 @@ void SoundDecoder::Decode()
         newWhich = (newWhich+1) % SoundBuffer.Size();
     }
 
-    if(i == SoundBuffer.Size()-1)
+    if(i == SoundBuffer.Size()-2)
         return;
 
     Decoding = true;
 
-    int read_size = 0;
+    int done  = 0;
     u8 * write_buf = SoundBuffer.GetBuffer(newWhich);
     if(!write_buf)
     {
@@ -160,18 +121,30 @@ void SoundDecoder::Decode()
         return;
     }
 
-    if(GetSampleRate() != 48000)
+    while(done < SoundBlockSize)
     {
-        read_size = Resample16Bit(write_buf, SoundBlockSize, GetSampleRate(), true);
-    }
-    else
-    {
-        read_size = CopyRaw16BitData(write_buf, SoundBlockSize, true);
+        int ret = Read(&write_buf[done], SoundBlockSize-done, Tell());
+
+        if(ret <= 0)
+        {
+            if(Loop)
+            {
+                Rewind();
+                continue;
+            }
+            else
+            {
+                EndOfFile = true;
+                break;
+            }
+        }
+
+        done += ret;
     }
 
-    if(read_size > 0)
+    if(done > 0)
     {
-        SoundBuffer.SetBufferSize(newWhich, read_size);
+        SoundBuffer.SetBufferSize(newWhich, done);
         SoundBuffer.SetBufferReady(newWhich, true);
     }
 
@@ -181,142 +154,3 @@ void SoundDecoder::Decode()
     Decoding = false;
 }
 
-void SoundDecoder::ReadDecodedData()
-{
-    u32 readsize = SoundBlocks*SoundBlockSize;
-    u32 done = 0;
-    RawSamples = 0;
-    RawSamplePos.adword = 0;
-
-    if(!Is16Bit())
-        readsize /= 2;
-    if(!IsStereo())
-        readsize /= 2;
-
-	while(done < readsize)
-	{
-        int ret = Read(&RawBuffer[done], readsize-done, Tell());
-
-        if(ret <= 0)
-            break;
-
-        done += ret;
-	}
-
-    if(!Is16Bit())
-    {
-        u8 * BuffCpy = (u8 *) malloc(done);
-        if(!BuffCpy)
-            return;
-
-        memcpy(BuffCpy, RawBuffer, done);
-        done = Convert8BitTo16Bit(BuffCpy, RawBuffer, done, SoundBlocks*SoundBlockSize);
-        free(BuffCpy);
-    }
-    if(!IsStereo())
-    {
-        u8 * BuffCpy = (u8 *) malloc(done);
-        if(!BuffCpy)
-            return;
-
-        memcpy(BuffCpy, RawBuffer, done);
-        done = ConvertMonoToStereo(BuffCpy, RawBuffer, done, SoundBlocks*SoundBlockSize);
-        free(BuffCpy);
-    }
-
-	RawSamples = done/4;
-}
-
-int SoundDecoder::CopyRaw16BitData(u8 * write_buf, u32 bufsize, bool stereo)
-{
-    u32 done = 0;
-    u32 RawSize = RawSamples*4;
-    s16 * src = (s16 *) (RawBuffer+RawSamplePos.adword);
-    s16 * dst = (s16 *) write_buf;
-
-    if(stereo)
-        bufsize &= ~0x0003;
-    else
-        bufsize &= ~0x0001;
-
-	while(done < bufsize)
-	{
-        if(RawSamplePos.adword >= RawSize)
-        {
-            ReadDecodedData();
-
-            if(RawSamples <= 0)
-            {
-                if(Loop)
-                {
-                    Rewind();
-                    continue;
-                }
-                else
-                {
-                    EndOfFile = true;
-                    break;
-                }
-            }
-
-            src = (s16 *) RawBuffer;
-            RawSize = RawSamples*4;
-            RawSamplePos.adword = 0;
-        }
-
-        *dst++ = *src++;
-        RawSamplePos.adword += 2;
-        done += 2;
-	}
-
-	return done;
-}
-
-int SoundDecoder::Resample16Bit(u8 * write_buf, u32 bufsize, u32 SmplRate, bool stereo)
-{
-    u32 incr = (u32)(((f32)SmplRate/48000.0F)*65536.0F);
-    s16 * dst = (s16 *) write_buf;
-    s16 * src = (s16 *) RawBuffer;
-    u32 done = 0;
-
-    if(stereo)
-        bufsize &= ~0x0003;
-    else
-        bufsize &= ~0x0001;
-
-	while(done < bufsize)
-	{
-	    if(RawSamplePos.aword.hi >= RawSamples)
-	    {
-            ReadDecodedData();
-            if(RawSamples <= 0)
-            {
-                if(Loop)
-                {
-                    Rewind();
-                    continue;
-                }
-                else
-                {
-                    EndOfFile = true;
-                    break;
-                }
-            }
-	    }
-
-        if(stereo)
-        {
-            *dst++ = Do3Band(&eqs[0], src[RawSamplePos.aword.hi*2]);
-            *dst++ = Do3Band(&eqs[1], src[RawSamplePos.aword.hi*2+1]);
-            done += 4;
-        }
-        else
-        {
-            *dst++ = Do3Band(&eqs[0], src[RawSamplePos.aword.hi]);
-            done += 2;
-        }
-        RawSamplePos.adword += incr;
-	}
-
-	return done;
-}

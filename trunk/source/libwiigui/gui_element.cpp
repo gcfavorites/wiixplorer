@@ -18,6 +18,7 @@ GuiElement::GuiElement()
 {
 	xoffset = 0;
 	yoffset = 0;
+	zoffset = 0;
 	xmin = 0;
 	xmax = 0;
 	ymin = 0;
@@ -611,6 +612,14 @@ void GuiElement::SetPosition(int xoff, int yoff)
 	yoffset = yoff;
 }
 
+void GuiElement::SetPosition(int xoff, int yoff, int zoff)
+{
+    LOCK(this);
+	xoffset = xoff;
+	yoffset = yoff;
+	zoffset = zoff;
+}
+
 void GuiElement::SetAlignment(int hor, int vert)
 {
     LOCK(this);
@@ -621,6 +630,16 @@ void GuiElement::SetAlignment(int hor, int vert)
 int GuiElement::GetSelected()
 {
 	return -1;
+}
+
+int GuiElement::GetZPosition()
+{
+    int zParent = 0;
+
+	if(parentElement)
+        zParent = parentElement->GetZPosition();
+
+	return zParent+zoffset;
 }
 
 /**

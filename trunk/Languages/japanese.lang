@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 16:58+0200\n"
+"POT-Creation-Date: 2010-05-24 16:09+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,20 +36,20 @@ msgstr "アルファ合成"
 msgid "App Default"
 msgstr "英語"
 
-msgid "App Path"
-msgstr "アプリのパス"
-
 msgid "AppPath changed"
 msgstr "アプリのパスを変更しました"
 
 msgid "Apps"
 msgstr "アプリ"
 
-msgid "Archive Files"
+msgid "Apps Path"
 msgstr ""
 
+msgid "Archive Files"
+msgstr "書庫ファイル"
+
 msgid "Audio Files"
-msgstr ""
+msgstr "音楽ファイル"
 
 msgid "Auto Connect"
 msgstr "自動接続"
@@ -64,7 +64,7 @@ msgid "Back"
 msgstr ""
 
 msgid "Back Button"
-msgstr ""
+msgstr "戻るボタン"
 
 msgid "Boot Settings"
 msgstr "起動設定"
@@ -88,7 +88,7 @@ msgid "Can't load file"
 msgstr "ファイルを読めません"
 
 msgid "Can't load page."
-msgstr ""
+msgstr "ページを読み込めません"
 
 msgid "Can't open file."
 msgstr "ファイルを開けません"
@@ -100,7 +100,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "フォルダを作成できませんでした"
 
 msgid "Cannot open image"
 msgstr "画像を開けません"
@@ -109,13 +109,13 @@ msgid "Cannot write to destination."
 msgstr "書き込めません"
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "ファイルに書き込めませんでした"
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 msgid "Change Language Path?"
 msgstr "言語のパスを変更しますか?"
@@ -127,7 +127,7 @@ msgid "Clear"
 msgstr "クリア"
 
 msgid "Click Button"
-msgstr ""
+msgstr "クリックボタン"
 
 msgid "Clock Mode"
 msgstr "時計の表示形式"
@@ -145,13 +145,13 @@ msgid "Console Default"
 msgstr "日本語"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "コンテキストメニューボタン"
 
 msgid "Continue"
-msgstr ""
+msgstr "続行"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "操作設定"
 
 msgid "Convert"
 msgstr "変換"
@@ -190,7 +190,7 @@ msgid "Could not extract file:"
 msgstr "解凍できませんでした"
 
 msgid "Could not load file."
-msgstr ""
+msgstr "ファイルを読み込めませんでした"
 
 msgid "Could not load image."
 msgstr "画像を読み込めませんでした"
@@ -211,7 +211,7 @@ msgid "Cut current marked item(s)?"
 msgstr "選択されたアイテムを切り取りますか?"
 
 msgid "Default"
-msgstr ""
+msgstr "スタンバイ"
 
 msgid "Delete"
 msgstr "削除"
@@ -223,10 +223,10 @@ msgid "Deleting files:"
 msgstr "削除しています:"
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "すべて選択を解除するボタン"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "選択を解除するボタン"
 
 msgid "Designer:"
 msgstr "デザイナー:"
@@ -247,7 +247,7 @@ msgid "Do you want to change the font?"
 msgstr "フォントを変更しますか?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "新しい言語ファイルをダウンロードしますか?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorerを終了しますか?"
@@ -260,7 +260,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "%sからファイルを読み込みますか?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "デフォルトの言語を読み込みますか?"
 
 msgid "Do you want to load this language ?"
 msgstr "この言語に設定しますか?"
@@ -269,7 +269,7 @@ msgid "Do you want to load this language file?"
 msgstr "この言語ファイルを読み込みますか?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "テキストエディタで開きますか?"
 
 msgid "Do you want to playback this file?"
 msgstr "このファイルを再生しますか?"
@@ -293,10 +293,10 @@ msgid "Do you want to replace this file?"
 msgstr "このファイルを置き換えますか?"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "操作設定を初期化しますか?"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "設定を初期化しますか?"
 
 msgid "Do you want to save changes?"
 msgstr "変更を保存しますか?"
@@ -311,23 +311,23 @@ msgid "Do you want to update now ?"
 msgstr "更新しますか?"
 
 msgid "Down Button"
-msgstr ""
+msgstr "下ボタン"
 
 msgid "Download Files"
-msgstr ""
+msgstr "ファイルをダウンロード"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "%d個のファイルをダウンロードしました"
 
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "ダウンロード中…"
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "テキストの行編集ボタン"
 
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
@@ -339,7 +339,7 @@ msgid "Exit"
 msgstr "終了"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "WiiXplorerを終了しますか?"
 
 msgid "Explorer Settings"
 msgstr "エクスプローラの設定"
@@ -408,10 +408,10 @@ msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
 
 msgid "File Extensions"
-msgstr ""
+msgstr "拡張子"
 
 msgid "File Extensions Assignment"
-msgstr ""
+msgstr "拡張子の割り当て"
 
 msgid "File already exists:"
 msgstr "ファイルが既に存在します"
@@ -426,7 +426,7 @@ msgid "File is corrupt."
 msgstr "ファイルが破損しています"
 
 msgid "File is too big."
-msgstr ""
+msgstr "ファイルが大きすぎです"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "書庫のサイズが大きすぎです"
@@ -460,7 +460,7 @@ msgid "Folder"
 msgstr "フォルダ"
 
 msgid "Font Files"
-msgstr ""
+msgstr "フォントファイル"
 
 msgid "Fontpath changed."
 msgstr "フォントのパスを変更しました"
@@ -469,43 +469,43 @@ msgid "Free Space:"
 msgstr "空き領域:"
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "GCコンのAボタン"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "GCコンのBボタン"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "GCコンの下ボタン"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "GCコンの左ボタン"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "GCコンのボタン無し"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "GCコンの右ボタン"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "GCコンのSTARTボタン"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "GCコンの上ボタン"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "GCコンのXボタン"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "GCコンのYボタン"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "GCコンのLトリガー"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "GCコンのRトリガー"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "GCコンのZトリガー"
 
 msgid "GD2 Compression"
 msgstr "GD2圧縮"
@@ -517,13 +517,13 @@ msgid "Go Back"
 msgstr "戻る"
 
 msgid "Home Button"
-msgstr ""
+msgstr "HOMEボタン"
 
 msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "Homebrewファイル"
 
 msgid "Horizontal"
 msgstr "左右反転"
@@ -541,7 +541,7 @@ msgid "Image Converter"
 msgstr "画像を変換"
 
 msgid "Image Files"
-msgstr ""
+msgstr "画像ファイル"
 
 msgid "Image Heigth"
 msgstr "画像の高さ"
@@ -580,7 +580,7 @@ msgid "Language"
 msgstr "言語"
 
 msgid "Language Files"
-msgstr ""
+msgstr "言語ファイル"
 
 msgid "Language Path changed."
 msgstr "言語のパスを変更しました"
@@ -598,7 +598,7 @@ msgid "Last modified:"
 msgstr "更新日時:"
 
 msgid "Left Button"
-msgstr ""
+msgstr "左ボタン"
 
 msgid "Linebreak"
 msgstr "改行"
@@ -610,7 +610,7 @@ msgid "Listening on TCP port"
 msgstr "TCPポートを待ち受け中"
 
 msgid "Load Music to Memory"
-msgstr ""
+msgstr "メモリに読み込む"
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
@@ -628,10 +628,10 @@ msgid "MPlayerPath changed"
 msgstr "MPlayerCEのパスを変更しました"
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "選択するボタン"
 
 msgid "Memory Buffer"
-msgstr ""
+msgstr "メモリバッファ"
 
 msgid "Menu"
 msgstr "Wiiメニューへ"
@@ -667,7 +667,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No files found."
-msgstr ""
+msgstr "ファイルが見つかりません"
 
 msgid "No homebrew in the zip."
 msgstr "zip内にhomebrewが何もありません"
@@ -719,7 +719,7 @@ msgid "Open"
 msgstr "開く"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr ""
+msgstr "PDFビューアで開きますか?"
 
 msgid "Opening is not yet implemented"
 msgstr "まだ実装されていません"
@@ -734,10 +734,10 @@ msgid "Output Type"
 msgstr "出力形式"
 
 msgid "PDF Files"
-msgstr ""
+msgstr "PDFファイル"
 
 msgid "PDF Processing Zoom"
-msgstr ""
+msgstr "PDFの拡大処理"
 
 msgid "Passive Mode:"
 msgstr "受信モード:"
@@ -767,7 +767,7 @@ msgid "Please wait:"
 msgstr "お待ちください"
 
 msgid "Possible unsupported format."
-msgstr ""
+msgstr "対応していない形式です"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "ポートのサーバーを開始するためFTPを開始してください"
@@ -812,7 +812,7 @@ msgid "Retry"
 msgstr "再試行"
 
 msgid "Right Button"
-msgstr ""
+msgstr "右ボタン"
 
 msgid "Rotate"
 msgstr "回転"
@@ -833,13 +833,16 @@ msgid "Screenshot Format"
 msgstr "画面写真の形式"
 
 msgid "Screenshot Hold Button"
+msgstr "画面写真の押しっぱなしのボタン"
+
+msgid "Screenshot Path"
 msgstr ""
 
 msgid "Screenshot Press Button"
-msgstr ""
+msgstr "画面写真の押すボタン"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "スクロール速度"
 
 msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
@@ -854,19 +857,19 @@ msgid "Show Changelog"
 msgstr "更新履歴を見る"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "シャットダウン"
 
 msgid "Shutdown FTP"
 msgstr "FTPを終了"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Wiiをシャットダウンしますか?"
 
 msgid "Size:"
 msgstr "サイズ"
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "スライドショーボタン"
 
 msgid "Slideshow Delay"
 msgstr "スライドショーの間隔"
@@ -875,10 +878,10 @@ msgid "Sound Settings"
 msgstr "音の設定"
 
 msgid "Soundblock Size"
-msgstr ""
+msgstr "サウンドブロックサイズ"
 
 msgid "Soundblocks"
-msgstr ""
+msgstr "サウンドブロック"
 
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
@@ -890,10 +893,10 @@ msgid "Startup FTP"
 msgstr "FTPを開始"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr ""
+msgstr "バッファサイズが大きすぎです。この後このアプリが起動しなければ設定ファイルを削除してください。"
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr ""
+msgstr "次に音楽を読み込んだときに反映します。音楽の再生は中止されるでしょう。"
 
 msgid "The new font could not be loaded."
 msgstr "フォントを読み込めませんでした"
@@ -905,19 +908,19 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "DevkitPro&libogcの制作者の方々"
 
 msgid "This option could mess up the pdf view."
-msgstr ""
+msgstr "この設定ではPDFの表示が崩れる場合があります"
 
 msgid "To Idle"
-msgstr ""
+msgstr "休止状態"
 
 msgid "To Loader"
-msgstr ""
+msgstr "ローダーへ"
 
 msgid "To Menu"
-msgstr ""
+msgstr "メニューへ"
 
 msgid "To Standby"
-msgstr ""
+msgstr "シャットダウン"
 
 msgid "Total Space:"
 msgstr "使用領域:"
@@ -938,7 +941,7 @@ msgid "URL is empty."
 msgstr "URLが空です"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "不明な形式です。テキストエディタで開きますか?"
 
 msgid "Unable to create folder."
 msgstr "フォルダを作成できませんでした"
@@ -953,7 +956,7 @@ msgid "Unsupported format!"
 msgstr "対応していない形式です!"
 
 msgid "Up Button"
-msgstr ""
+msgstr "上ボタン"
 
 msgid "Update (App) Path"
 msgstr "WiiXplorerのパス"
@@ -994,103 +997,103 @@ msgid "Vertical"
 msgstr "上下反転"
 
 msgid "Video Files"
-msgstr ""
+msgstr "映像ファイル"
 
 msgid "WARNING:"
-msgstr ""
+msgstr "警告:"
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "Wiiリモコンの1ボタン"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "Wiiリモコンの2ボタン"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "WiiリモコンのAボタン"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "WiiリモコンのBボタン"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "Wiiリモコンの下ボタン"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "WiiリモコンのHOMEボタン"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "Wiiリモコンの左ボタン"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "Wiiリモコンのマイナスボタン"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "Wiiリモコンのプラスボタン"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "Wiiリモコンの右ボタン"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "Wiiリモコンの上ボタン"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "クラコンのAボタン"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "クラコンのBボタン"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "クラコンの下ボタン"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "クラコンのLボタン"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "クラコンのRボタン"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "クラコンのHOMEボタン"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "クラコンの左ボタン"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "クラコンのマイナスボタン"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "クラコンのプラスボタン"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "クラコンの右ボタン"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "クラコンの上ボタン"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "クラコンのXボタン"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "クラコンのYボタン"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "クラコンのZLボタン"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "クラコンのZRボタン"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "クラコンのボタン無し"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "クラコンのボタン無し"
 
 msgid "Warning:"
-msgstr ""
+msgstr "警告:"
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Wiiバイナリファイル"
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "WiiXplorer動画"
 
 msgid "Yes"
 msgstr "はい"
@@ -1130,6 +1133,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "App Path"
+#~ msgstr "アプリのパス"
 
 #~ msgid "Do you want to open this file in TextViewer?"
 #~ msgstr "テキストビューワで開きますか?"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 16:58+0200\n"
+"POT-Creation-Date: 2010-05-24 16:30+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -36,14 +36,14 @@ msgstr "透明光影效果"
 msgid "App Default"
 msgstr "程序缺省"
 
-msgid "App Path"
-msgstr "程序路径"
-
 msgid "AppPath changed"
 msgstr "程序路径已更改"
 
 msgid "Apps"
 msgstr "程序"
+
+msgid "Apps Path"
+msgstr ""
 
 msgid "Archive Files"
 msgstr ""
@@ -835,6 +835,9 @@ msgstr "截屏格式"
 msgid "Screenshot Hold Button"
 msgstr ""
 
+msgid "Screenshot Path"
+msgstr ""
+
 msgid "Screenshot Press Button"
 msgstr ""
 
@@ -1130,6 +1133,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "App Path"
+#~ msgstr "程序路径"
 
 #~ msgid "Do you want to open this file in TextViewer?"
 #~ msgstr "是否用文本查看器打开此文件吗？"

@@ -28,6 +28,7 @@
 
 #include "Controls/Scrollbar.hpp"
 #include "GuiFileBrowser.hpp"
+#include "libwiigui/gui_tooltip.h"
 
 using namespace std;
 
@@ -60,6 +61,7 @@ class IconFileBrowser : public GuiFileBrowser
 		vector<GuiImage *> FileSelectionImg;
 		vector<GuiImage *> ButtonImg;
 		vector<GuiButton *> Buttons;
+		vector<GuiTooltip *> Tooltip;
 
 		Scrollbar * scrollbar;
 

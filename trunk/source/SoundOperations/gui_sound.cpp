@@ -280,7 +280,7 @@ void GuiSound::Play()
     decoder->LoadNext();
     SoundHandler::Instance()->ThreadSignal();
 
-    ASND_SetVoice(voice, VOICE_STEREO_16BIT, 48000, 0, curbuffer, bufsize, volume, volume, SoundCallback);
+    ASND_SetVoice(voice, decoder->GetFormat(), decoder->GetSampleRate(), 0, curbuffer, bufsize, volume, volume, SoundCallback);
 }
 
 void GuiSound::Stop()

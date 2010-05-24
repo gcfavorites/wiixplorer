@@ -42,7 +42,7 @@ SoundHandler::SoundHandler()
 	for(u32 i = 0; i < DecoderList.size(); i++)
         DecoderList[i] = NULL;
 
-	LWP_CreateThread(&SoundThread, UpdateThread, this, NULL, 32768, 80);
+	LWP_CreateThread(&SoundThread, UpdateThread, this, NULL, 16384, 80);
 }
 
 SoundHandler::~SoundHandler()
@@ -260,6 +260,9 @@ void SoundHandler::InternalSoundUpdates()
 	LWP_InitQueue(&ThreadQueue);
 	while (!ExitRequested)
 	{
+	    Decoding = false;
+        LWP_ThreadSleep(ThreadQueue);
+
 	    for(i = 0; i < DecoderList.size(); i++)
 	    {
 	        if(DecoderList[i] == NULL)
@@ -268,8 +271,6 @@ void SoundHandler::InternalSoundUpdates()
             Decoding = true;
             DecoderList[i]->Decode();
 	    }
-	    Decoding = false;
-        LWP_ThreadSleep(ThreadQueue);
 	}
     LWP_CloseQueue(ThreadQueue);
     ThreadQueue = LWP_TQUEUE_NULL;

@@ -32,9 +32,6 @@
 #include "Tools/timer.h"
 #include "FileOperations/File.hpp"
 #include "Tools/BufferCircle.hpp"
-#include "Resample.h"
-
-#define BUFFER_SIZE 8192
 
 enum
 {
@@ -76,15 +73,9 @@ class SoundDecoder
         virtual bool Is16Bit() { return (GetFormat() == VOICE_STEREO_16BIT || GetFormat() == VOICE_MONO_16BIT); };
     protected:
         void Init();
-        void ReadDecodedData();
-        int CopyRaw16BitData(u8 * write_buf, u32 bufsize, bool stereo);
-        int Resample16Bit(u8 * write_buf, u32 bufsize, u32 SmplRate, bool stereo);
 
         File * file_fd;
         BufferCircle SoundBuffer;
-        u8 * RawBuffer;
-        u32 RawSamples;
-        dword RawSamplePos;
         u8 SoundType;
         u16 SoundBlocks;
         int SoundBlockSize;
@@ -93,7 +84,6 @@ class SoundDecoder
         bool EndOfFile;
         bool Decoding;
         bool ExitRequested;
-        EQState eqs[2];
 };
 
 #endif

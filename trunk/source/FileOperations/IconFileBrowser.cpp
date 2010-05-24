@@ -104,12 +104,15 @@ IconFileBrowser::~IconFileBrowser()
             delete FileSelectionImg[i];
 	    if(ButtonImg[i])
             delete ButtonImg[i];
+	    if(Tooltip[i])
+            delete Tooltip[i];
 	}
 
 	Buttons.clear();
 	FileSelectionImg.clear();
 	ButtonText.clear();
 	ButtonImg.clear();
+	Tooltip.clear();
 }
 
 GuiImage * IconFileBrowser::GetIconFromExt(const char * fileext, bool dir)
@@ -173,6 +176,10 @@ void IconFileBrowser::AddButton()
     Marker->SetPosition(0, -17);
     FileSelectionImg.push_back(Marker);
 
+    GuiTooltip * tmpToolTip = new GuiTooltip((char *) NULL);
+    tmpToolTip->SetPosition(0, 0);
+    Tooltip.push_back(tmpToolTip);
+
     GuiButton * Btn = new GuiButton(fileDefault->GetWidth()+40, fileDefault->GetHeight()+32);
     Btn->SetParent(this);
     Btn->SetLabel(BtnTxt);
@@ -180,6 +187,7 @@ void IconFileBrowser::AddButton()
     Btn->SetImageOver(Marker);
     Btn->SetTrigger(trigA);
     Btn->SetSoundClick(btnSoundClick);
+    Btn->SetTooltip(tmpToolTip);
     Btn->Clicked.connect(this, &IconFileBrowser::OnButtonClicked);
     Buttons.push_back(Btn);
 }
@@ -207,6 +215,20 @@ void IconFileBrowser::SetButton(int i, const char * name, bool dir, bool enable,
     ButtonImg[i] = GetIconFromExt((name ? strrchr(name, '.') : NULL), dir);
     ButtonImg[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     ButtonText[i]->SetText(name);
+    Tooltip[i]->SetText(name);
+    if(40+x+Tooltip[i]->GetWidth() > width)
+    {
+        Tooltip[i]->SetPosition(width-(40+x+Tooltip[i]->GetWidth()), -30);
+    }
+    else
+    {
+        Tooltip[i]->SetPosition(40, -30);
+    }
+
+    if(Tooltip[i]->GetLeft() < 0)
+    {
+        Tooltip[i]->SetPosition(10-x-GetLeft(), -30);
+    }
 
     Buttons[i]->SetIcon(ButtonImg[i]);
     Buttons[i]->SetVisible(true);
@@ -272,12 +294,18 @@ void IconFileBrowser::Draw()
 	if(!IsVisible())
 		return;
 
+	scrollbar->Draw();
+
 	for(u32 i = 0; i < Buttons.size(); i++)
 	{
 	    Buttons[i]->Draw();
 	}
 
-	scrollbar->Draw();
+    //needs a redraw for overrendering
+	for(u32 i = 0; i < Buttons.size(); i++)
+	{
+        Tooltip[i]->Draw();
+	}
 
 	UpdateEffects();
 }

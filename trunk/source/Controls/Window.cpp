@@ -155,7 +155,7 @@ void Window::Draw()
 		}
 	}
 
-    Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, (GXColor){226, 230, 237, 255},1);
+    Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, (GXColor){226, 230, 237, 255},1);
 
 	GuiWindow::Draw();
 }

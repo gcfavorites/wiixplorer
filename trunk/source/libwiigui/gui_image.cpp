@@ -251,31 +251,31 @@ void GuiImage::Draw()
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
-                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
+                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(image && tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
-            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(image && tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
     }
     else if(imgType == IMAGE_COLOR)
     {
-        Menu_DrawRectangle(currLeft,currTop,width,height,color,1);
+        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, color,1);
     }
 	else
 	{
 	    if(image)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop, 0.0f, imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
 	}
 
 	if(stripe > 0)
 		for(int y=0; y < this->GetHeight(); y+=6)
-			Menu_DrawRectangle(currLeft,this->GetTop()+y,this->GetWidth(),3,(GXColor){0, 0, 0, stripe},1);
+			Menu_DrawRectangle(currLeft, this->GetTop()+y, GetZPosition(), this->GetWidth(), 3, (GXColor){0, 0, 0, stripe}, 1);
 
 	this->UpdateEffects();
 }
