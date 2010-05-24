@@ -76,6 +76,7 @@ void Settings::SetDefault()
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
     sprintf(AppPath, "%sapps/", BootDevice);
+    sprintf(ScreenshotPath, "%s", UpdatePath);
     strcpy(MusicPath, "");
     sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
 
@@ -166,6 +167,7 @@ bool Settings::Save()
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
 	fprintf(file, "AppPath = %s\n", AppPath);
+	fprintf(file, "ScreenshotPath = %s\n", ScreenshotPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
@@ -568,6 +570,10 @@ bool Settings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "AppPath") == 0) {
         strncpy(AppPath, value, sizeof(AppPath));
+		return true;
+	}
+	else if (strcmp(name, "ScreenshotPath") == 0) {
+        strncpy(ScreenshotPath, value, sizeof(ScreenshotPath));
 		return true;
 	}
 	else if (strcmp(name, "SlideshowDelay") == 0) {

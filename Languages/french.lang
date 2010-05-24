@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 16:58+0200\n"
+"POT-Creation-Date: 2010-05-24 16:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -36,14 +36,14 @@ msgstr "Transparence"
 msgid "App Default"
 msgstr "WiiXplorer Défaut"
 
-msgid "App Path"
-msgstr "Dossier WiiXplorer"
-
 msgid "AppPath changed"
 msgstr "Dossier WiiXplorer modifié"
 
 msgid "Apps"
 msgstr "Applis"
+
+msgid "Apps Path"
+msgstr ""
 
 msgid "Archive Files"
 msgstr ""
@@ -835,6 +835,9 @@ msgstr "Format de copie d'écran"
 msgid "Screenshot Hold Button"
 msgstr ""
 
+msgid "Screenshot Path"
+msgstr ""
+
 msgid "Screenshot Press Button"
 msgstr ""
 
@@ -1130,6 +1133,9 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "App Path"
+#~ msgstr "Dossier WiiXplorer"
 
 #~ msgid "Do you want to open this file in TextViewer?"
 #~ msgstr "Voulez-vous ouvrir ce fichier texte?"

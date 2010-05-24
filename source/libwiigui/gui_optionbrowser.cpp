@@ -68,6 +68,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 		optionBtn[i]->SetPosition(2,30*i+3);
 		optionBtn[i]->SetTrigger(trigA);
 		optionBtn[i]->SetSoundClick(btnSoundClick);
+        optionBtn[i]->StateChanged.connect(this, &GuiOptionBrowser::OnStateChange);
 	}
 }
 
@@ -147,6 +148,21 @@ int GuiOptionBrowser::FindMenuItem(int currentItem, int direction)
 		return nextItem;
 	else
 		return FindMenuItem(nextItem, direction);
+}
+
+void GuiOptionBrowser::OnStateChange(GuiElement *sender, int s, int chan)
+{
+    for(int i = 0; i < PAGESIZE; i++)
+    {
+        if(sender == optionBtn[i])
+        {
+            if(s == STATE_SELECTED)
+            {
+                optionVal[i]->SetMaxWidth(width-coL2-80, SCROLL_HORIZONTAL);
+            }
+            break;
+        }
+    }
 }
 
 /**
@@ -236,20 +252,23 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 				optionBtn[i]->SetVisible(false);
 				optionBtn[i]->SetState(STATE_DISABLED);
 			}
-		}
-
-		for(int i = 0; i < PAGESIZE; i++) {
             optionVal[i]->SetPosition(coL2,0);
-            optionVal[i]->SetMaxWidth(width-coL2-50,DOTTED);
+            optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
 		}
 	}
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
 		if(i != selectedItem && optionBtn[i]->GetState() == STATE_SELECTED)
+        {
 			optionBtn[i]->ResetState();
+            optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
+        }
 		else if(i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
+		{
 			optionBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
+            optionVal[selectedItem]->SetMaxWidth(width-coL2-80, SCROLL_HORIZONTAL);
+		}
 
 		int currChan = t->chan;
 
@@ -277,8 +296,6 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			}
 			else if(optionBtn[selectedItem+1]->IsVisible())
 			{
-				optionBtn[selectedItem]->ResetState();
-				optionBtn[selectedItem+1]->SetState(STATE_SELECTED, t->chan);
 				selectedItem++;
 			}
 		}
@@ -297,8 +314,6 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			}
 			else
 			{
-				optionBtn[selectedItem]->ResetState();
-				optionBtn[selectedItem-1]->SetState(STATE_SELECTED, t->chan);
 				selectedItem--;
 			}
 		}

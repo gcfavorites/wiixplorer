@@ -276,9 +276,9 @@ class FreeTypeGX {
 
 		void setDefaultMode();
 
-		void drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color);
-		void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, GXColor color);
-		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY,  GXColor color);
+		void drawTextFeature(int16_t x, int16_t y, int16_t z, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color);
+		void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color);
+		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color);
 
 	public:
 		FreeTypeGX(FT_UInt pixelSize, uint8_t textureFormat, uint8_t vertexIndex);
@@ -292,8 +292,8 @@ class FreeTypeGX {
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);
 
-		uint16_t drawText(int16_t x, int16_t y, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
-		uint16_t drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
+		uint16_t drawText(int16_t x, int16_t y, int16_t z, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
+		uint16_t drawText(int16_t x, int16_t y, int16_t z, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
 
 		uint16_t getWidth(wchar_t *text);
 		uint16_t getWidth(wchar_t const *text);

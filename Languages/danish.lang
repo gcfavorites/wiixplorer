@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 16:58+0200\n"
+"POT-Creation-Date: 2010-05-24 16:09+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: dorf[dk]\n"
-"Language-Team: \n"
+"Last-Translator: Fox888[dk]\n"
+"Language-Team: Fox888 Translators\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,13 +16,13 @@ msgid "1"
 msgstr ""
 
 msgid "12H"
-msgstr ""
+msgstr "12T"
 
 msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "7z dekomprition Fejlede:"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -36,20 +36,20 @@ msgstr ""
 msgid "App Default"
 msgstr "Programstandard"
 
-msgid "App Path"
-msgstr "Prg. Sti"
-
 msgid "AppPath changed"
 msgstr "Prg.Sti Ændret"
 
 msgid "Apps"
 msgstr "Programmer"
 
-msgid "Archive Files"
+msgid "Apps Path"
 msgstr ""
 
+msgid "Archive Files"
+msgstr "Arkiv Filer"
+
 msgid "Audio Files"
-msgstr ""
+msgstr "Lyd Filer"
 
 msgid "Auto Connect"
 msgstr "Auto-forbind"
@@ -58,19 +58,19 @@ msgid "Auto Start:"
 msgstr ""
 
 msgid "BMP Compression"
-msgstr ""
+msgstr "BMP Komprition"
 
 msgid "Back"
 msgstr "Tilbage"
 
 msgid "Back Button"
-msgstr ""
+msgstr "Tilbage Knap"
 
 msgid "Boot Settings"
 msgstr "Boot Indstillinger"
 
 msgid "Bootup Mount"
-msgstr ""
+msgstr "Opstarts Indlæsning"
 
 msgid "Both"
 msgstr "Begge"
@@ -88,7 +88,7 @@ msgid "Can't load file"
 msgstr "Kan Ikke Indlæse Fil"
 
 msgid "Can't load page."
-msgstr ""
+msgstr "Kan ikke indlæse side."
 
 msgid "Can't open file."
 msgstr "Kan Ikke Åbne Fil."
@@ -100,7 +100,7 @@ msgid "Cancel"
 msgstr "Annuller"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Kan ikke skabe mappe:"
 
 msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
@@ -109,13 +109,13 @@ msgid "Cannot write to destination."
 msgstr "Kan ikke skrive til destinationen."
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Kan ikke skrive til fil."
 
 msgid "Caps"
 msgstr ""
 
 msgid "Change"
-msgstr ""
+msgstr "Ændre"
 
 msgid "Change Language Path?"
 msgstr "Ændre Sprog Sti?"
@@ -127,7 +127,7 @@ msgid "Clear"
 msgstr "Ryd"
 
 msgid "Click Button"
-msgstr ""
+msgstr "Klik Knap"
 
 msgid "Clock Mode"
 msgstr "Ur"
@@ -145,13 +145,13 @@ msgid "Console Default"
 msgstr "Konsolstandard"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "Context Menu Knap"
 
 msgid "Continue"
-msgstr ""
+msgstr "Fortsæt"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "Kontrol Indstillinger"
 
 msgid "Convert"
 msgstr "Konventer"
@@ -190,7 +190,7 @@ msgid "Could not extract file:"
 msgstr "Kunne Ikke Udpakke Filen:"
 
 msgid "Could not load file."
-msgstr ""
+msgstr "Kunne ikke indlæse fil."
 
 msgid "Could not load image."
 msgstr "Kunne Ikke Indlæse Billede."
@@ -199,7 +199,7 @@ msgid "Could not load text file."
 msgstr "Kunne Ikke Indlæse Tekst Fil"
 
 msgid "Credits"
-msgstr ""
+msgstr "Tak Til"
 
 msgid "Customfont Path"
 msgstr "Sti til custom-fonte"
@@ -211,7 +211,7 @@ msgid "Cut current marked item(s)?"
 msgstr "Klip Markerede Emne(r)?"
 
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 msgid "Delete"
 msgstr "Slet"
@@ -223,10 +223,10 @@ msgid "Deleting files:"
 msgstr "Sletter filer:"
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "Demaker Alle Emner Kanp"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "Demarker Emne Knap"
 
 msgid "Designer:"
 msgstr ""
@@ -247,7 +247,7 @@ msgid "Do you want to change the font?"
 msgstr "Vil Du Ændre Font?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "Vil du downloader ny sprog fil?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Vil Du Lukke WiiXplorer?"
@@ -257,10 +257,10 @@ msgstr "Vil Du Køre Filen Med MPlayerCE?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "Vil du indlæse fil fra: %s ?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "Vil du indlæse standard sprog."
 
 msgid "Do you want to load this language ?"
 msgstr "Vil du indlæse dette sprog?"
@@ -269,7 +269,7 @@ msgid "Do you want to load this language file?"
 msgstr "Vil Du IndLæse Denne Sprogfil?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "Vil du åbne denne fil med TextEditor?"
 
 msgid "Do you want to playback this file?"
 msgstr "Vil du afspille filen?"
@@ -293,10 +293,10 @@ msgid "Do you want to replace this file?"
 msgstr "Vil Du Erstatte Denne Fil?"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "Vil du nulstille kontrol indstillinger?"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "Vil du nulstille indstillinger?"
 
 msgid "Do you want to save changes?"
 msgstr "Vil Du Gemme Ændringer?"
@@ -311,23 +311,23 @@ msgid "Do you want to update now ?"
 msgstr "Vil du opdatere nu?"
 
 msgid "Down Button"
-msgstr ""
+msgstr "Ned Knap"
 
 msgid "Download Files"
-msgstr ""
+msgstr "Download Filer"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "Downloadet %d filer."
 
 msgid "Downloading file..."
 msgstr "Downloader fil..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "Downloader filer..."
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "Edit Tekstlinje Knap"
 
 msgid "Error while reading file."
 msgstr "Fejl Under Indlæsning Af Fil."
@@ -339,7 +339,7 @@ msgid "Exit"
 msgstr "Luk"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "Luk WiiXplorer?"
 
 msgid "Explorer Settings"
 msgstr "Explorer Indstillinger"
@@ -384,7 +384,7 @@ msgid "FTP Server is running and listening on port"
 msgstr "FTP Server Kører Og Lytter På Port"
 
 msgid "FTP Started.\n"
-msgstr ""
+msgstr "FTP Startet.\n"
 
 msgid "Failed copying item(s)."
 msgstr "Fejlede At Kopier Emne(r)."
@@ -408,10 +408,10 @@ msgid "Failed to read file data."
 msgstr "Fejlede At Læse Fil Data."
 
 msgid "File Extensions"
-msgstr ""
+msgstr "Fil Udvidelser"
 
 msgid "File Extensions Assignment"
-msgstr ""
+msgstr "Fil Udvidelser Tildeling"
 
 msgid "File already exists:"
 msgstr "Filen Eksister Allerede."
@@ -426,10 +426,10 @@ msgid "File is corrupt."
 msgstr "Fil Er Istykker."
 
 msgid "File is too big."
-msgstr ""
+msgstr "Fil er for stor."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "Fil bruger for stor kompritions indstillinger (folder størrelse er for stor)."
 
 msgid "File uses unsupported compression settings."
 msgstr "Fil Er Ikke Understøttet Kompritions Indstillinger."
@@ -460,7 +460,7 @@ msgid "Folder"
 msgstr "Mappe"
 
 msgid "Font Files"
-msgstr ""
+msgstr "Font Filer"
 
 msgid "Fontpath changed."
 msgstr "Fontsti Ændret."
@@ -469,34 +469,34 @@ msgid "Free Space:"
 msgstr "Fri Plads:"
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "GC PAD KNAP A"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "GC PAD KNAP B"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "PC PAD KNAP NED"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "GC PAD KNAP VENSTRE"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "GC PAD KNAP INGEN"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "GC PAD KNAP HØJRE"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "GC PAD KNAP START"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "GC PAD KNAP OP"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "GC PAD KNAP X"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "GC PAD KNAP Y"
 
 msgid "GC PAD TRIGGER L"
 msgstr ""
@@ -508,7 +508,7 @@ msgid "GC PAD TRIGGER Z"
 msgstr ""
 
 msgid "GD2 Compression"
-msgstr ""
+msgstr "GD2 Komprition"
 
 msgid "Getting Changelog..."
 msgstr "Henter Changelog..."
@@ -517,13 +517,13 @@ msgid "Go Back"
 msgstr "Tilbage"
 
 msgid "Home Button"
-msgstr ""
+msgstr "Hjem Knap"
 
 msgid "Home Menu"
 msgstr ""
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "Homebrew Filer"
 
 msgid "Horizontal"
 msgstr ""
@@ -541,7 +541,7 @@ msgid "Image Converter"
 msgstr ""
 
 msgid "Image Files"
-msgstr ""
+msgstr "Image filer"
 
 msgid "Image Heigth"
 msgstr "Billed Højde"
@@ -580,7 +580,7 @@ msgid "Language"
 msgstr "Sprog"
 
 msgid "Language Files"
-msgstr ""
+msgstr "Sprog Filer"
 
 msgid "Language Path changed."
 msgstr "Sprogsti Ændret."
@@ -598,7 +598,7 @@ msgid "Last modified:"
 msgstr "Sidst Modifiseret:"
 
 msgid "Left Button"
-msgstr ""
+msgstr "Venstre Kanp"
 
 msgid "Linebreak"
 msgstr ""
@@ -610,7 +610,7 @@ msgid "Listening on TCP port"
 msgstr "Lytter På TCP Port"
 
 msgid "Load Music to Memory"
-msgstr ""
+msgstr "Indlæs Musik til Hukommelse"
 
 msgid "Loading file:"
 msgstr "Indlæser fil:"
@@ -628,10 +628,10 @@ msgid "MPlayerPath changed"
 msgstr "MPlayersti Ændret"
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "Marker Emne Knap"
 
 msgid "Memory Buffer"
-msgstr ""
+msgstr "Hukommelses Knap"
 
 msgid "Menu"
 msgstr ""
@@ -667,7 +667,7 @@ msgid "No"
 msgstr "Nej"
 
 msgid "No files found."
-msgstr ""
+msgstr "Ingen filer fundet."
 
 msgid "No homebrew in the zip."
 msgstr "Ingen Homebrew I Zip."
@@ -719,25 +719,25 @@ msgid "Open"
 msgstr "Åben"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr ""
+msgstr "Åben filen i PDF Viewer?"
 
 msgid "Opening is not yet implemented"
-msgstr ""
+msgstr "Åbning er ikke mulig endnu"
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
 
 msgid "Output File"
-msgstr ""
+msgstr "Output Fil"
 
 msgid "Output Type"
 msgstr ""
 
 msgid "PDF Files"
-msgstr ""
+msgstr "PDF Filer"
 
 msgid "PDF Processing Zoom"
-msgstr ""
+msgstr "PDF Behandlings Zoom"
 
 msgid "Passive Mode:"
 msgstr ""
@@ -767,7 +767,7 @@ msgid "Please wait:"
 msgstr "Vent venligst:"
 
 msgid "Possible unsupported format."
-msgstr ""
+msgstr "Format muligvis ikke understøttet"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pres Startup FTP Få At Starte Server På Port"
@@ -812,7 +812,7 @@ msgid "Retry"
 msgstr "Forsøg igen"
 
 msgid "Right Button"
-msgstr ""
+msgstr "Højre Knap"
 
 msgid "Rotate"
 msgstr "Roter"
@@ -833,16 +833,19 @@ msgid "Screenshot Format"
 msgstr ""
 
 msgid "Screenshot Hold Button"
+msgstr "Screenshot Hold Knap"
+
+msgid "Screenshot Path"
 msgstr ""
 
 msgid "Screenshot Press Button"
-msgstr ""
+msgstr "Screenshot Pres Knap"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "Scrolling Hastighed"
 
 msgid "Server was shutdown...\n"
-msgstr ""
+msgstr "Server var lukket ned...\n"
 
 msgid "Settings"
 msgstr "Indstillinger"
@@ -854,19 +857,19 @@ msgid "Show Changelog"
 msgstr "Vis Changelog"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Luk Ned"
 
 msgid "Shutdown FTP"
 msgstr "Luk FTP Ned"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "Luk Wiién Ned?"
 
 msgid "Size:"
 msgstr "Størrelse:"
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "Slide Show Knap"
 
 msgid "Slideshow Delay"
 msgstr "Slideshow Forsinkelse"
@@ -875,10 +878,10 @@ msgid "Sound Settings"
 msgstr "Lyd Indstillinger"
 
 msgid "Soundblock Size"
-msgstr ""
+msgstr "Lydblock Størrelse"
 
 msgid "Soundblocks"
-msgstr ""
+msgstr "Lydblocke"
 
 msgid "Special thanks to:"
 msgstr "Især tak til:"
@@ -890,10 +893,10 @@ msgid "Startup FTP"
 msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr ""
+msgstr "Buffer størrelse er meget høj. Hvis Prg. ikke starter efter dette slet din config fil."
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr ""
+msgstr "Effekten vil virke ved næste musik afspilling. Det ødelægger muligvis musik afspilling."
 
 msgid "The new font could not be loaded."
 msgstr "Den Nye Font Kunne Ikke Loades."
@@ -905,19 +908,19 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Hele DevkitPro- & libogc-staben."
 
 msgid "This option could mess up the pdf view."
-msgstr ""
+msgstr "Denne mulighed kan ødelægge pdf view."
 
 msgid "To Idle"
-msgstr ""
+msgstr "Til Idle"
 
 msgid "To Loader"
-msgstr ""
+msgstr "Til Loader"
 
 msgid "To Menu"
-msgstr ""
+msgstr "Til Menu"
 
 msgid "To Standby"
-msgstr ""
+msgstr "Til Pause"
 
 msgid "Total Space:"
 msgstr "Total Plads:"
@@ -938,7 +941,7 @@ msgid "URL is empty."
 msgstr "URL'en er tom."
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "Ukendt format. Åben denne fil med TextEditor?"
 
 msgid "Unable to create folder."
 msgstr "Kan ikke oprette mappe."
@@ -953,7 +956,7 @@ msgid "Unsupported format!"
 msgstr "Format Ikke Understøttet!"
 
 msgid "Up Button"
-msgstr ""
+msgstr "Op Knap"
 
 msgid "Update (App) Path"
 msgstr "Opdateringssti til programmet"
@@ -994,103 +997,103 @@ msgid "Vertical"
 msgstr ""
 
 msgid "Video Files"
-msgstr ""
+msgstr "Video Filer"
 
 msgid "WARNING:"
-msgstr ""
+msgstr "ADVARSEL:"
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "WPAD KNAP 1"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "WPAD KNAP 2"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "WPAD KNAP A"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "WPAD KNAP B"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "WPAD KNAP NED"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "WPAD KNAP HJEM"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "WPAD KNAP VENSTRE"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "WPAD KNAP MINUS"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "WPAD KNAP PLUS"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD KNAP HØJRE"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "WPAD KNAP OP"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP A"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP B"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP NED"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP FULD L"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP FULD R"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP HJEM"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP VENSTRE"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP MINUS"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP PLUS"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP HØJRE"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP OP"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP X"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP Y"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP ZL"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "WPAD KLASSISK KNAP ZR"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "WPAD KLASSISK INGEN KNAP"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "WPAD INGEN KNAP"
 
 msgid "Warning:"
-msgstr ""
+msgstr "Advarsel:"
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Wii Binary Filer"
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "WiiXplorer Film"
 
 msgid "Yes"
 msgstr "Ja"
@@ -1131,6 +1134,9 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "App Path"
+#~ msgstr "Prg. Sti"
+
 #~ msgid "Do you want to open this file in TextViewer?"
 #~ msgstr "Vil du åbne filen i TextViewer?"
 
@@ -1159,7 +1165,7 @@ msgstr ""
 #~ msgstr "FTP Stoppet"
 
 #~ msgid "Internal error"
-#~ msgstr "Indtern Fejel"
+#~ msgstr "Indtern Fejl"
 
 #~ msgid "Server started"
 #~ msgstr "Server Startet"

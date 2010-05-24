@@ -243,10 +243,11 @@ void GXConsole::Draw()
 
     int PositionX = GetLeft();
     int PositionY = GetTop();
+    int PositionZ = GetZPosition();
 
     for(u32 i = 0; i < ConsoleRow.size(); i++)
     {
-        fontSystem[fontSize]->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), ConsoleRow.at(i)->c_str(), color, style);
+        fontSystem[fontSize]->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), PositionZ, ConsoleRow.at(i)->c_str(), color, style);
     }
 }
 

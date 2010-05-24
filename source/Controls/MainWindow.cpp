@@ -171,7 +171,7 @@ void MainWindow::Quit()
 		for(int i = 0; i <= 255; i += 15)
 		{
 			Draw();
-			Menu_DrawRectangle(0,0,screenwidth,screenheight,(GXColor){0, 0, 0, i},1);
+			Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, (GXColor){0, 0, 0, i},1);
 			Menu_Render();
 		}
 

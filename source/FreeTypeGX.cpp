@@ -185,7 +185,7 @@ uint8_t FreeTypeGX::GetMaxCharWidth()
 void FreeTypeGX::setVertexFormat(uint8_t vertexIndex)
 {
 	this->vertexIndex = vertexIndex;
-	GX_SetVtxAttrFmt(this->vertexIndex, GX_VA_POS, GX_POS_XY, GX_S16, 0);
+	GX_SetVtxAttrFmt(this->vertexIndex, GX_VA_POS, GX_POS_XYZ, GX_S16, 0);
 	GX_SetVtxAttrFmt(this->vertexIndex, GX_VA_TEX0, GX_TEX_ST, GX_F32, 0);
 	GX_SetVtxAttrFmt(this->vertexIndex, GX_VA_CLR0, GX_CLR_RGBA, GX_RGBA8, 0);
 }
@@ -517,7 +517,7 @@ int16_t FreeTypeGX::getStyleOffsetHeight(ftgxDataOffset *offset, uint16_t format
  * @param textStyle	Flags which specify any styling which should be applied to the rendered string.
  * @return The number of characters printed.
  */
-uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color, uint16_t textStyle, uint16_t textWidth, uint16_t widthLimit)
+uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, int16_t z, wchar_t *text, GXColor color, uint16_t textStyle, uint16_t textWidth, uint16_t widthLimit)
 {
     if(!text)
         return 0;
@@ -563,7 +563,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 			}
 
 			GX_InitTexObj(&glyphTexture, glyphData->glyphDataTexture, glyphData->textureWidth, glyphData->textureHeight, this->textureFormat, GX_CLAMP, GX_CLAMP, GX_FALSE);
-			this->copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos + glyphData->renderOffsetX + x_offset, y - glyphData->renderOffsetY + y_offset, color);
+			this->copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos + glyphData->renderOffsetX + x_offset, y - glyphData->renderOffsetY + y_offset, z, color);
 
 			x_pos += glyphData->glyphAdvanceX;
 			currWidth += glyphData->glyphAdvanceX;
@@ -581,7 +581,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 	    if(!(textStyle & FTGX_ALIGN_MASK))
             this->getOffset(text, &offset);
 
-		this->drawTextFeature(x + x_offset, y + y_offset, fullTextWidth, &offset, textStyle, color);
+		this->drawTextFeature(x + x_offset, y + y_offset, z, fullTextWidth, &offset, textStyle, color);
 	}
 
 	return printed;
@@ -590,20 +590,20 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 /**
  * \overload
  */
-uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t const *text, GXColor color, uint16_t textStyle, uint16_t textWidth, uint16_t widthLimit)
+uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, int16_t z, wchar_t const *text, GXColor color, uint16_t textStyle, uint16_t textWidth, uint16_t widthLimit)
 {
-	return this->drawText(x, y, (wchar_t *)text, color, textStyle, textWidth, widthLimit);
+	return this->drawText(x, y, z, (wchar_t *)text, color, textStyle, textWidth, widthLimit);
 }
 
-void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color)
+void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, int16_t z, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color)
 {
 	uint16_t featureHeight = this->ftPointSize >> 4 > 0 ? this->ftPointSize >> 4 : 1;
 
 	if (format & FTGX_STYLE_UNDERLINE)
-		this->copyFeatureToFramebuffer(width, featureHeight, x, y + 1, color);
+		this->copyFeatureToFramebuffer(width, featureHeight, x, y + 1, z, color);
 
 	if (format & FTGX_STYLE_STRIKE)
-		this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData->max) >> 1), color);
+		this->copyFeatureToFramebuffer(width, featureHeight, x, y - ((offsetData->max) >> 1), z, color);
 }
 
 /**
@@ -772,7 +772,7 @@ void FreeTypeGX::getOffset(wchar_t const *text, ftgxDataOffset* offset, uint16_t
  * @param screenY	The screen Y coordinate at which to output the rendered texture.
  * @param color	Color to apply to the texture.
  */
-void FreeTypeGX::copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, GXColor color)
+void FreeTypeGX::copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color)
 {
 	GX_LoadTexObj(texObj, GX_TEXMAP0);
 	GX_InvalidateTexAll();
@@ -781,19 +781,19 @@ void FreeTypeGX::copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 te
 	GX_SetVtxDesc (GX_VA_TEX0, GX_DIRECT);
 
 	GX_Begin(GX_QUADS, this->vertexIndex, 4);
-	GX_Position2s16(screenX, screenY);
+	GX_Position3s16(screenX, screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 	GX_TexCoord2f32(0.0f, 0.0f);
 
-	GX_Position2s16(texWidth + screenX, screenY);
+	GX_Position3s16(texWidth + screenX, screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 	GX_TexCoord2f32(1.0f, 0.0f);
 
-	GX_Position2s16(texWidth + screenX, texHeight + screenY);
+	GX_Position3s16(texWidth + screenX, texHeight + screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 	GX_TexCoord2f32(1.0f, 1.0f);
 
-	GX_Position2s16(screenX, texHeight + screenY);
+	GX_Position3s16(screenX, texHeight + screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 	GX_TexCoord2f32(0.0f, 1.0f);
 	GX_End();
@@ -812,22 +812,22 @@ void FreeTypeGX::copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 te
  * @param screenY	The screen Y coordinate at which to output the quad.
  * @param color	Color to apply to the texture.
  */
-void FreeTypeGX::copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY, GXColor color)
+void FreeTypeGX::copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color)
 {
 	GX_SetTevOp (GX_TEVSTAGE0, GX_PASSCLR);
 	GX_SetVtxDesc (GX_VA_TEX0, GX_NONE);
 
 	GX_Begin(GX_QUADS, this->vertexIndex, 4);
-	GX_Position2s16(screenX, screenY);
+	GX_Position3s16(screenX, screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 
-	GX_Position2s16(featureWidth + screenX, screenY);
+	GX_Position3s16(featureWidth + screenX, screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 
-	GX_Position2s16(featureWidth + screenX, featureHeight + screenY);
+	GX_Position3s16(featureWidth + screenX, featureHeight + screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 
-	GX_Position2s16(screenX, featureHeight + screenY);
+	GX_Position3s16(screenX, featureHeight + screenY, screenZ);
 	GX_Color4u8(color.r, color.g, color.b, color.a);
 	GX_End();
 

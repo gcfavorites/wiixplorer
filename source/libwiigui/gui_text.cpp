@@ -530,7 +530,7 @@ void GuiText::Draw()
                 }
 		    }
 		    if(textDyn)
-                (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), textDyn, c, style);
+                (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn, c, style);
 		}
 
 		else if(wrapMode == SCROLL_HORIZONTAL)
@@ -598,7 +598,7 @@ void GuiText::Draw()
 				}
 			}
 			if(textDyn)
-				(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), textDyn, c, style);
+				(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn, c, style);
         }
 		else if(wrapMode == WRAP)
 		{
@@ -668,17 +668,17 @@ void GuiText::Draw()
             for(int i=0; i < linestodraw; i++)
             {
                 if(textDynRow[i])
-                    (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+voffset+i*lineheight, textDynRow[i], c, style);
+                    (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+voffset+i*lineheight, GetZPosition(), textDynRow[i], c, style);
             }
 		}
 		else
 		{
-			(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), text, c, style);
+			(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), text, c, style);
 		}
 	}
 	else
 	{
-		(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), text, c, style);
+		(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), text, c, style);
 	}
 	this->UpdateEffects();
 }

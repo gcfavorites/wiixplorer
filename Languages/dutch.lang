@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 16:58+0200\n"
+"POT-Creation-Date: 2010-05-24 16:09+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,13 +37,13 @@ msgstr ""
 msgid "App Default"
 msgstr "Standaard"
 
-msgid "App Path"
-msgstr ""
-
 msgid "AppPath changed"
 msgstr ""
 
 msgid "Apps"
+msgstr ""
+
+msgid "Apps Path"
 msgstr ""
 
 msgid "Archive Files"
@@ -834,6 +834,9 @@ msgid "Screenshot Format"
 msgstr ""
 
 msgid "Screenshot Hold Button"
+msgstr ""
+
+msgid "Screenshot Path"
 msgstr ""
 
 msgid "Screenshot Press Button"

@@ -352,6 +352,6 @@ void Text::Draw()
     for(int i = 0; i < linestodraw; i++)
     {
         if(textDynRow[i] && !filling)
-            (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+i*lineheight, textDynRow[i], c, style, 0, maxWidth);
+            (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+i*lineheight, GetZPosition(), textDynRow[i], c, style, 0, maxWidth);
     }
 }

@@ -294,7 +294,7 @@ void Scrollbar::SetPageSize(int size)
         return;
 
     PageSize = size;
-    listchanged = true;
+	SetScrollboxPosition();
 }
 
 void Scrollbar::SetRowSize(int size)
@@ -303,7 +303,7 @@ void Scrollbar::SetRowSize(int size)
         return;
 
     RowSize = size;
-    listchanged = true;
+	SetScrollboxPosition();
 }
 
 void Scrollbar::SetSelectedItem(int pos)
@@ -312,7 +312,7 @@ void Scrollbar::SetSelectedItem(int pos)
         return;
 
     SelItem = pos;
-    listchanged = true;
+	SetScrollboxPosition();
 }
 
 void Scrollbar::SetSelectedIndex(int pos)
@@ -321,7 +321,7 @@ void Scrollbar::SetSelectedIndex(int pos)
         return;
 
     SelInd = pos;
-    listchanged = true;
+	SetScrollboxPosition();
 }
 
 void Scrollbar::SetEntrieCount(int cnt)
@@ -330,7 +330,7 @@ void Scrollbar::SetEntrieCount(int cnt)
         return;
 
     EntrieCount = cnt;
-    listchanged = true;
+	SetScrollboxPosition();
 }
 
 bool Scrollbar::ListChanged()
@@ -343,9 +343,6 @@ bool Scrollbar::ListChanged()
 
 void Scrollbar::SetScrollboxPosition()
 {
-    if(!listchanged)
-        return;
-
     if(Mode == ICONMODE)
     {
         u8 row = (u8) floor((float) SelItem / (float) RowSize);
@@ -391,5 +388,7 @@ void Scrollbar::Update(GuiTrigger * t)
 	arrowUpBtn->Update(t);
 	arrowDownBtn->Update(t);
 	scrollbarBoxBtn->Update(t);
-	SetScrollboxPosition();
+
+    if(listchanged)
+        SetScrollboxPosition();
 }
