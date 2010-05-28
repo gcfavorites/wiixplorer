@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 16:09+0200\n"
+"POT-Creation-Date: 2010-05-27 22:27+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -29,6 +29,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Handling afbrudt."
+
+msgid "Add to Playlist"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr ""
@@ -126,8 +129,18 @@ msgstr "Kanaler"
 msgid "Clear"
 msgstr "Ryd"
 
+msgid "Clear List"
+msgstr ""
+
 msgid "Click Button"
 msgstr "Klik Knap"
+
+#, c-format
+msgid "Client %i"
+msgstr ""
+
+msgid "Client:"
+msgstr ""
 
 msgid "Clock Mode"
 msgstr "Ur"
@@ -237,6 +250,12 @@ msgstr "Mappe .."
 msgid "Directory couldn't be deleted."
 msgstr "Mappen kunne ikke slettes."
 
+msgid "Disconnect Client"
+msgstr ""
+
+msgid "Disconnect SMB"
+msgstr ""
+
 msgid "Do you want to boot file now?"
 msgstr "Vil Du Boote Filen Nu?"
 
@@ -245,6 +264,12 @@ msgstr "Vil du boote:"
 
 msgid "Do you want to change the font?"
 msgstr "Vil Du Ændre Font?"
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr ""
+
+msgid "Do you want to disconnect this SMB?"
+msgstr ""
 
 msgid "Do you want to download new language files?"
 msgstr "Vil du downloader ny sprog fil?"
@@ -280,11 +305,11 @@ msgstr "Vil Du Genstarte Wiixplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "Vil Du Genstarte Nu?"
 
-msgid "Do you want to reconnect the SMB?"
-msgstr "Vil du Genforbinde til SMB?"
+msgid "Do you want to reconnect this SMB?"
+msgstr ""
 
-msgid "Do you want to reconnect to FTP server?"
-msgstr "Vil Du Genforbinde Til FTP Server?"
+msgid "Do you want to reconnect to the FTP client?"
+msgstr ""
 
 msgid "Do you want to remount the devices?"
 msgstr "Vil Du Genindlæse Enheder?"
@@ -534,6 +559,9 @@ msgstr "Vært:"
 msgid "How do you want to open the file?"
 msgstr "Hvordan Vil Du Åbne Filen?"
 
+msgid "How do you want to proceed?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr ""
 
@@ -619,6 +647,9 @@ msgid "Loading image..."
 msgstr "Indlæser Billed..."
 
 msgid "Loop"
+msgstr ""
+
+msgid "Loop Playlist"
 msgstr ""
 
 msgid "MPlayerCE Path"
@@ -739,6 +770,9 @@ msgstr "PDF Filer"
 msgid "PDF Processing Zoom"
 msgstr "PDF Behandlings Zoom"
 
+msgid "Parse Directory"
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr ""
 
@@ -754,8 +788,8 @@ msgstr "Indsæt Emne(r) I Denne Mappe?"
 msgid "Path Setup"
 msgstr "Sti Indstillinger"
 
-msgid "Play Directory"
-msgstr "Afspil Mappe"
+msgid "Play File"
+msgstr ""
 
 msgid "Play Once"
 msgstr "Afspil En Gang"
@@ -798,6 +832,9 @@ msgstr "Genforbind SMB"
 
 msgid "Reload"
 msgstr "Genindlæs"
+
+msgid "Remove from list"
+msgstr ""
 
 msgid "Rename"
 msgstr "Omdøb"
@@ -849,6 +886,13 @@ msgstr "Server var lukket ned...\n"
 
 msgid "Settings"
 msgstr "Indstillinger"
+
+#, c-format
+msgid "Share %i"
+msgstr ""
+
+msgid "Share:"
+msgstr ""
 
 msgid "Shift"
 msgstr "Skift"
@@ -983,13 +1027,6 @@ msgstr "Opdateringen gennemført"
 msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
 
-#, c-format
-msgid "User %i"
-msgstr "Bruger %i"
-
-msgid "User:"
-msgstr "Bruger:"
-
 msgid "Username:"
 msgstr "Brugernavn:"
 
@@ -1092,6 +1129,9 @@ msgstr "Advarsel:"
 msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
 
+msgid "WiiXplorer Default Music"
+msgstr ""
+
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer Film"
 
@@ -1133,6 +1173,21 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "User %i"
+#~ msgstr "Bruger %i"
+
+#~ msgid "Play Directory"
+#~ msgstr "Afspil Mappe"
+
+#~ msgid "User:"
+#~ msgstr "Bruger:"
+
+#~ msgid "Do you want to reconnect the SMB?"
+#~ msgstr "Vil du Genforbinde til SMB?"
+
+#~ msgid "Do you want to reconnect to FTP server?"
+#~ msgstr "Vil Du Genforbinde Til FTP Server?"
 
 #~ msgid "App Path"
 #~ msgstr "Prg. Sti"

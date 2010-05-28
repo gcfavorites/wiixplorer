@@ -61,6 +61,7 @@ class Taskbar : public GuiWindow
 		int CheckStartMenu();
 		void CheckAppsMenu();
 		void CheckChannelsMenu();
+		void ShowMusicPlayer();
 
 		static Taskbar *instance;
 
@@ -69,7 +70,9 @@ class Taskbar : public GuiWindow
         bool triggerupdate;
 
 		GuiImageData *taskbarImgData;
+		GuiImageData *HeadPhonesData;
 		GuiImage *taskbarImg;
+		GuiImage *HeadPhonesImg;
 		GuiText *timeTxt;
 		PictureButton *startBtn;
 		SimpleGuiTrigger *trigA;
@@ -77,6 +80,7 @@ class Taskbar : public GuiWindow
 		GuiSound *soundClick;
 		GuiSound *soundOver;
 		GuiButton *homeBtn;
+		GuiButton *Musicplayer;
 };
 
 #endif // _TASKBAR_H

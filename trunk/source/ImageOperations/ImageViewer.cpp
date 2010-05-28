@@ -314,37 +314,10 @@ void ImageViewer::SetImageSize(float scale)
     if(!image)
         return;
 
-    float imgwidth = (float) image->GetWidth() * 1.0f;
-    float imgheight = (float) image->GetHeight() * 1.0f;
+    if(scale < 0.0f)
+        scale = 0.000001f;
 
-    float newscale = scale;
-
-    int retries = 100;
-
-    while(imgheight * newscale > MAX_IMAGE_HEIGHT || imgwidth * newscale > MAX_IMAGE_WIDTH ||
-          imgheight * newscale < MIN_IMAGE_HEIGHT ||  imgwidth * newscale < MIN_IMAGE_WIDTH)
-    {
-        if(imgheight * newscale > MAX_IMAGE_HEIGHT)
-            newscale = MAX_IMAGE_HEIGHT/imgheight;
-        if(imgwidth * newscale > MAX_IMAGE_WIDTH)
-            newscale = MAX_IMAGE_WIDTH/imgwidth;
-        if(imgheight * newscale < MIN_IMAGE_HEIGHT)
-            newscale = MIN_IMAGE_HEIGHT/imgheight;
-        if(imgwidth * newscale < MIN_IMAGE_WIDTH)
-            newscale = MIN_IMAGE_WIDTH/imgwidth;
-
-        retries--;
-        if(retries == 0)
-        {
-            newscale = 1.0f;
-            break;
-        }
-    }
-
-    if(newscale < 0.05f)
-        newscale = 0.05f;
-
-    image->SetScale(newscale);
+    image->SetScale(scale);
 }
 
 void ImageViewer::SetStartUpImageSize()

@@ -23,53 +23,54 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _BGM_H_
-#define _BGM_H_
+#ifndef PLAYLIST_HPP_
+#define PLAYLIST_HPP_
 
 #include <vector>
-#include "gui_sound.h"
+#include "libwiigui/gui.h"
 
-enum
-{
-    ONCE = 0,
-    LOOP,
-    RANDOM_BGM,
-    DIR_LOOP,
-    MAX_LOOP_MODES
-};
-
-class GuiBGM : public GuiSound
+class PlayList : public GuiWindow
 {
     public:
-		static GuiBGM * Instance();
-		static void DestroyInstance();
-
-        bool Load(const char *path, bool silent = true);
-        bool LoadStandard();
+        PlayList();
+        ~PlayList();
+        int GetChoice();
+        const char * at(int pos);
+        int size() { return FileList.size(); };
         bool ParsePath(const char * filepath);
-        void Play();
-        void Stop();
-        bool PlayNext();
-        bool PlayPrevious();
-        bool PlayRandom();
-        void ResumeThread();
-        void HaltThread();
-    protected:
-        GuiBGM();
-        ~GuiBGM();
-        void AddEntrie(const char * filename);
+        void AddEntrie(const char * filepath);
+        void RemoveEntrie(int pos);
         void ClearList();
+        void Show();
+        void Hide();
+        bool Save();
+        bool LoadList();
+        int GetCurrentPlaying(const char * filepath);
+        int GetSelectedItem() { return listOffset+selectedItem; };
+        void Update(GuiTrigger * t);
+    protected:
+        void OnListStateChange(GuiElement *sender, int s, int c);
 
-		static void * UpdateBMG(void *arg);
-        void UpdateState();
-		lwp_t bgmthread;
-		bool Stopped;
-		bool ExitRequested;
+        int listOffset;
+        int selectedItem;
+        bool Hidden;
+        bool listChanged;
 
-		static GuiBGM *instance;
-        int currentPlaying;
-        char * currentPath;
-        std::vector<char *> PlayList;
+        std::vector<char *> FileList;
+
+        //!Gui stuff
+
+        std::vector<GuiButton *> ListBtn;
+        std::vector<GuiText *> ListBtnTxt;
+        std::vector<GuiImage *> ListBtnImgOver;
+
+        GuiImageData * menu_selectionData;
+        GuiImageData * playlistImgData;
+        GuiImage * playlistImg;
+
+        GuiSound * btnSoundClick;
+
+        GuiTrigger * trigA;
 };
 
 #endif

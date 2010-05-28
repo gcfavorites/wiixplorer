@@ -304,6 +304,20 @@ void CloseSMBShare()
     }
 }
 
+void CloseSMBShare(int connection)
+{
+    if(connection < 0 || connection >= MAXSMBUSERS)
+        return;
+
+    char mountname[10];
+    sprintf(mountname, "smb%i", connection+1);
+
+    if(SMB_Mounted[connection])
+        smbClose(mountname);
+
+    SMB_Mounted[connection] = false;
+}
+
 /****************************************************************************
  * Reconnect SMB Connection
  ****************************************************************************/
@@ -418,6 +432,13 @@ void CloseFTP()
 		sprintf(name, "ftp%i", i+1);
 		ftpClose(name);
     }
+}
+
+void CloseFTP(int client)
+{
+    char name[10];
+    sprintf(name, "ftp%i", client+1);
+    ftpClose(name);
 }
 
 bool IsFTPConnected(int ftp)

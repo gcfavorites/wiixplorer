@@ -95,19 +95,6 @@ int PDFViewer::MainUpdate()
     return ImageViewer::MainUpdate();
 }
 
-void PDFViewer::SetImageSize(float scale)
-{
-    if(!image)
-        return;
-
-    if(scale < 0.05f)
-        scale = 0.05f;
-    else if(scale > 2.5f)
-        scale = 2.5f;
-
-    image->SetScale(scale);
-}
-
 int PDFViewer::PreparePage(int pagenum)
 {
 	fz_error error;

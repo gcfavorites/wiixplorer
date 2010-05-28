@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <malloc.h>
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "BootHomebrew/BootHomebrew.h"
@@ -91,14 +91,24 @@ int FileStartUp(const char *filepath)
     {
         loadMusic:
 
-        int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("No"));
-        if(choice)
+        int choice = WindowPrompt(filename, tr("Do you want to playback this file?"), tr("Yes"), tr("Add to Playlist"), tr("Parse Directory"), tr("Cancel"));
+        if(choice == 1)
         {
-            bool result = GuiBGM::Instance()->Load(filepath, false);
-
-            if(result)
-                GuiBGM::Instance()->ParsePath(filepath);
-            else
+            MusicPlayer::Instance()->ClearList();
+            MusicPlayer::Instance()->AddEntrie(filepath);
+            if(!MusicPlayer::Instance()->Play(0))
+                WindowPrompt(tr("Could not load file."), tr("Possible unsupported format."), tr("OK"));
+        }
+        else if(choice == 2)
+        {
+            MusicPlayer::Instance()->AddEntrie(filepath);
+        }
+        else if(choice == 3)
+        {
+            MusicPlayer::Instance()->ClearList();
+            bool result = MusicPlayer::Instance()->Load(filepath, false);
+            MusicPlayer::Instance()->ParsePath(filepath);
+            if(!result)
                 WindowPrompt(tr("Could not load file."), tr("Possible unsupported format."), tr("OK"));
         }
     }

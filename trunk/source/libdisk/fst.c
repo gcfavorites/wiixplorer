@@ -707,11 +707,11 @@ static bool read_disc() {
         if (count > 0) {
             PARTITION_ENTRY entries[count];
             u32 table_size = sizeof(PARTITION_ENTRY) * count;
-            if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != table_size) return false;
+            if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != table_size) { free(root); root = NULL; return false; }
             u32 partition_index;
             for (partition_index = 0; partition_index < count; partition_index++) {
                 PARTITION *newPartitions = realloc(partitions, sizeof(PARTITION) * (partition_count + 1));
-                if (!newPartitions) return false;
+                if (!newPartitions) { free(root); root = NULL; return false; }
                 partitions = newPartitions;
                 bzero(partitions + partition_count, sizeof(PARTITION));
                 PARTITION *partition = partitions + partition_count;
@@ -743,13 +743,20 @@ static bool read_disc() {
                     if (!read_partition(partition_entry)) goto error;
                 }
 
-                if (DI2_ClosePartition()) return false;
+                if (DI2_ClosePartition())
+                {
+                    free(root);
+                    root = NULL;
+                    return false;
+                }
                 partition_count++;
             }
         }
     }
     return true;
     error:
+    free(root);
+    root = NULL;
     DI2_ClosePartition();
     return false;
 }

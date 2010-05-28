@@ -25,7 +25,7 @@
  ***************************************************************************/
  #include <unistd.h>
 #include "Prompts/PromptWindows.h"
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "ImageOperations/ImageWrite.h"
 #include "Prompts/DeviceMenu.h"
 #include "Controls/MainWindow.h"
@@ -309,13 +309,13 @@ int MenuSoundSettings()
 				Settings.MusicVolume += 10;
 				if(Settings.MusicVolume > 100)
                     Settings.MusicVolume = 0;
-                GuiBGM::Instance()->SetVolume(Settings.MusicVolume);
+                MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
 				break;
             case 1:
                 Settings.BGMLoopMode++;
                 if(Settings.BGMLoopMode >= MAX_LOOP_MODES)
                     Settings.BGMLoopMode = 0;
-                GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
+                MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
 				break;
             case 2:
                 Settings.LoadMusicToMem = (Settings.LoadMusicToMem+1) % 2;
@@ -356,8 +356,8 @@ int MenuSoundSettings()
 
             if(Settings.BGMLoopMode == ONCE) options.SetValue(i++,tr("Play Once"));
             else if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
-            else if (Settings.BGMLoopMode == RANDOM_BGM) options.SetValue(i++,tr("Random"));
-            else if (Settings.BGMLoopMode == DIR_LOOP) options.SetValue(i++,tr("Play Directory"));
+            else if (Settings.BGMLoopMode == RANDOM_MUSIC) options.SetValue(i++,tr("Random"));
+            else if (Settings.BGMLoopMode == PLAYLIST_LOOP) options.SetValue(i++,tr("Loop Playlist"));
 
             if(Settings.LoadMusicToMem == 1) options.SetValue(i++, tr("ON"));
             else options.SetValue(i++, tr("OFF"));
@@ -599,6 +599,8 @@ int MenuPathSetup()
                 snprintf(entered, sizeof(entered), "%s", Settings.ScreenshotPath);
                 if(OnScreenKeyboard(entered, 149))
                 {
+					if (entered[strlen(entered)-1] != '/')
+						strcat(entered, "/");
                     snprintf(Settings.ScreenshotPath, sizeof(Settings.ScreenshotPath), "%s", entered);
                 }
 				break;
@@ -770,12 +772,13 @@ int MenuSMBSettings()
     bool firstRun = true;
 
 	OptionList options;
-	options.SetName(i++, tr("User:"));
+	options.SetName(i++, tr("Share:"));
 	options.SetName(i++, tr("Host:"));
 	options.SetName(i++, tr("Username:"));
 	options.SetName(i++, tr("Password:"));
 	options.SetName(i++, tr("SMB Name:"));
 	options.SetName(i++, tr("Reconnect SMB"));
+	options.SetName(i++, tr("Disconnect SMB"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("SMB Settings"), &options, MENU_NETWORK_SETTINGS);
 
@@ -832,9 +835,15 @@ int MenuSMBSettings()
                 }
                 break;
             case 5:
-                result = WindowPrompt(tr("Do you want to reconnect the SMB?"),0,tr("OK"),tr("Cancel"));
+                result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
                 if(result) {
                     SMB_Reconnect();
+                }
+                break;
+            case 6:
+                result = WindowPrompt(tr("Do you want to disconnect this SMB?"),0,tr("OK"),tr("Cancel"));
+                if(result) {
+                    CloseSMBShare(Settings.CurrentSMBUser);
                 }
                 break;
 		}
@@ -844,7 +853,7 @@ int MenuSMBSettings()
             i = 0;
             firstRun = false;
 
-            options.SetValue(i++,tr("User %i"), Settings.CurrentSMBUser+1);
+            options.SetValue(i++,tr("Share %i"), Settings.CurrentSMBUser+1);
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
 			if (strcmp(Settings.SMBUser[Settings.CurrentSMBUser].Password, "") != 0)
@@ -852,6 +861,7 @@ int MenuSMBSettings()
 			else
 				options.SetValue(i++," ");
             options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
+            options.SetValue(i++," ");
             options.SetValue(i++," ");
         }
 	}
@@ -875,7 +885,7 @@ int MenuFTPClientSettings()
     bool firstRun = true;
 
 	OptionList options;
-	options.SetName(i++, tr("User:"));
+	options.SetName(i++, tr("Client:"));
 	options.SetName(i++, tr("Host:"));
 	options.SetName(i++, tr("Username:"));
 	options.SetName(i++, tr("Password:"));
@@ -883,6 +893,7 @@ int MenuFTPClientSettings()
 	options.SetName(i++, tr("FTP Path:"));
 	options.SetName(i++, tr("Passive Mode:"));
 	options.SetName(i++, tr("Reconnect FTP"));
+	options.SetName(i++, tr("Disconnect Client"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("FTP Client Settings"), &options, MENU_NETWORK_SETTINGS);
 
@@ -951,11 +962,17 @@ int MenuFTPClientSettings()
                     Settings.FTPUser[Settings.CurrentFTPUser].Passive = 0;
 				break;
 			case 7:
-                result = WindowPrompt(tr("Do you want to reconnect to FTP server?"),0,tr("OK"),tr("Cancel"));
+                result = WindowPrompt(tr("Do you want to reconnect to the FTP client?"),0,tr("OK"),tr("Cancel"));
                 if(result) {
                      CloseFTP();
                      sleep(1);
                      ConnectFTP();
+                }
+                break;
+			case 8:
+                result = WindowPrompt(tr("Do you want to disconnect the FTP client?"),0,tr("OK"),tr("Cancel"));
+                if(result) {
+                     CloseFTP(Settings.CurrentFTPUser);
                 }
                 break;
 		}
@@ -965,7 +982,7 @@ int MenuFTPClientSettings()
             i = 0;
             firstRun = false;
 
-            options.SetValue(i++,tr("User %i"), Settings.CurrentFTPUser+1);
+            options.SetValue(i++,tr("Client %i"), Settings.CurrentFTPUser+1);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
 			if (strcmp(Settings.FTPUser[Settings.CurrentFTPUser].Password, "") != 0)
@@ -976,6 +993,7 @@ int MenuFTPClientSettings()
             options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
 			if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == 1) options.SetValue(i++,tr("ON"));
 			else if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == 0) options.SetValue(i++,tr("OFF"));
+            options.SetValue(i++," ");
             options.SetValue(i++," ");
         }
 	}

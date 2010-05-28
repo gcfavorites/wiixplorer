@@ -36,7 +36,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "Controls/Clipboard.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"

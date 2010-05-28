@@ -39,6 +39,7 @@
 #include "Prompts/PopUpMenu.h"
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "devicemounter.h"
 #include "sys.h"
 
@@ -80,9 +81,19 @@ Taskbar::Taskbar()
 	homeBtn->SetSelectable(false);
 	homeBtn->SetTrigger(trigHome);
 
+	HeadPhonesData = Resources::GetImageData(player_icon_png, player_icon_png_size);
+	HeadPhonesImg = new GuiImage(HeadPhonesData);
+	Musicplayer = new GuiButton(HeadPhonesData->GetWidth(), HeadPhonesData->GetHeight());
+	Musicplayer->SetImage(HeadPhonesImg);
+	Musicplayer->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	Musicplayer->SetTrigger(trigA);
+	Musicplayer->SetPosition(470, 0);
+	Musicplayer->SetEffectGrow();
+
 	Append(homeBtn);
 	Append(taskbarImg);
 	Append(startBtn);
+	Append(Musicplayer);
 	Append(timeTxt);
 
 	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -91,11 +102,16 @@ Taskbar::Taskbar()
 
 Taskbar::~Taskbar()
 {
+    RemoveAll();
+
 	delete taskbarImg;
+	delete HeadPhonesImg;
 	Resources::Remove(taskbarImgData);
+	Resources::Remove(HeadPhonesData);
 
 	delete homeBtn;
 	delete startBtn;
+	delete Musicplayer;
 	delete timeTxt;
 
 	delete trigA;
@@ -178,8 +194,22 @@ int Taskbar::GetMenu()
 	{
 		menu = CheckHomeButton();
 	}
+	else if(Musicplayer->GetState() == STATE_CLICKED)
+	{
+	    ShowMusicPlayer();
+		Musicplayer->ResetState();
+	}
 
     return menu;
+}
+
+void Taskbar::ShowMusicPlayer()
+{
+	SetState(STATE_DISABLED);
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+    MusicPlayer::Instance()->Show();
+	SetState(STATE_DEFAULT);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 }
 
 int Taskbar::CheckHomeButton()

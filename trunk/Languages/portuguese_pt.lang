@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 16:09+0200\n"
+"POT-Creation-Date: 2010-05-27 22:27+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -29,6 +29,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Operação cancelada"
+
+msgid "Add to Playlist"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr ""
@@ -126,7 +129,17 @@ msgstr ""
 msgid "Clear"
 msgstr "Limpar"
 
+msgid "Clear List"
+msgstr ""
+
 msgid "Click Button"
+msgstr ""
+
+#, c-format
+msgid "Client %i"
+msgstr ""
+
+msgid "Client:"
 msgstr ""
 
 msgid "Clock Mode"
@@ -237,6 +250,12 @@ msgstr "Pasta .."
 msgid "Directory couldn't be deleted."
 msgstr "A pasta não pode ser apagada."
 
+msgid "Disconnect Client"
+msgstr ""
+
+msgid "Disconnect SMB"
+msgstr ""
+
 msgid "Do you want to boot file now?"
 msgstr ""
 
@@ -244,6 +263,12 @@ msgid "Do you want to boot:"
 msgstr "Pretende executar:"
 
 msgid "Do you want to change the font?"
+msgstr ""
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr ""
+
+msgid "Do you want to disconnect this SMB?"
 msgstr ""
 
 msgid "Do you want to download new language files?"
@@ -280,10 +305,10 @@ msgstr ""
 msgid "Do you want to reboot now ?"
 msgstr "Deseja reiniciar agora ?"
 
-msgid "Do you want to reconnect the SMB?"
-msgstr "Pretende voltar a ligar-se ao SMB?"
+msgid "Do you want to reconnect this SMB?"
+msgstr ""
 
-msgid "Do you want to reconnect to FTP server?"
+msgid "Do you want to reconnect to the FTP client?"
 msgstr ""
 
 msgid "Do you want to remount the devices?"
@@ -534,6 +559,9 @@ msgstr "Servidor:"
 msgid "How do you want to open the file?"
 msgstr ""
 
+msgid "How do you want to proceed?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr ""
 
@@ -619,6 +647,9 @@ msgid "Loading image..."
 msgstr ""
 
 msgid "Loop"
+msgstr ""
+
+msgid "Loop Playlist"
 msgstr ""
 
 msgid "MPlayerCE Path"
@@ -739,6 +770,9 @@ msgstr ""
 msgid "PDF Processing Zoom"
 msgstr ""
 
+msgid "Parse Directory"
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr ""
 
@@ -754,7 +788,7 @@ msgstr ""
 msgid "Path Setup"
 msgstr ""
 
-msgid "Play Directory"
+msgid "Play File"
 msgstr ""
 
 msgid "Play Once"
@@ -797,6 +831,9 @@ msgid "Reconnect SMB"
 msgstr "Ligar SMB"
 
 msgid "Reload"
+msgstr ""
+
+msgid "Remove from list"
 msgstr ""
 
 msgid "Rename"
@@ -848,6 +885,13 @@ msgid "Server was shutdown...\n"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+#, c-format
+msgid "Share %i"
+msgstr ""
+
+msgid "Share:"
 msgstr ""
 
 msgid "Shift"
@@ -983,13 +1027,6 @@ msgstr "Actualização terminada com sucesso"
 msgid "Update to Rev%i available"
 msgstr "Nova Rev%i disponível"
 
-#, c-format
-msgid "User %i"
-msgstr "Utilizador %i"
-
-msgid "User:"
-msgstr "Utilizador:"
-
 msgid "Username:"
 msgstr "Nome de utilizador:"
 
@@ -1092,6 +1129,9 @@ msgstr ""
 msgid "Wii Binary Files"
 msgstr ""
 
+msgid "WiiXplorer Default Music"
+msgstr ""
+
 msgid "WiiXplorer Movies"
 msgstr ""
 
@@ -1133,6 +1173,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "User %i"
+#~ msgstr "Utilizador %i"
+
+#~ msgid "User:"
+#~ msgstr "Utilizador:"
+
+#~ msgid "Do you want to reconnect the SMB?"
+#~ msgstr "Pretende voltar a ligar-se ao SMB?"
 
 #~ msgid "Do you want to open this file in TextViewer?"
 #~ msgstr "Pretende abrir este ficheiro no TextViewer?"

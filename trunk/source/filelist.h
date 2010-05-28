@@ -382,6 +382,30 @@ extern const u32	battery_bar_png_size;
 extern const u8		battery_png[];
 extern const u32	battery_png_size;
 
+extern const u8		player_png[];
+extern const u32	player_png_size;
+
+extern const u8		player_icon_png[];
+extern const u32	player_icon_png_size;
+
+extern const u8		playlist_png[];
+extern const u32	playlist_png_size;
+
+extern const u8		navi_default_png[];
+extern const u32	navi_default_png_size;
+
+extern const u8		navi_up_png[];
+extern const u32	navi_up_png_size;
+
+extern const u8		navi_down_png[];
+extern const u32	navi_down_png_size;
+
+extern const u8		navi_left_png[];
+extern const u32	navi_left_png_size;
+
+extern const u8		navi_right_png[];
+extern const u32	navi_right_png_size;
+
 extern const u8		app_booter_dol[];
 extern const u32	app_booter_dol_size;
 

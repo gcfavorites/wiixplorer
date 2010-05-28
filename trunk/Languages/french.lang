@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 16:09+0200\n"
+"POT-Creation-Date: 2010-05-27 22:27+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -29,6 +29,9 @@ msgstr "QSDFGHJKLM\"+"
 
 msgid "Action cancelled."
 msgstr "Action annulée."
+
+msgid "Add to Playlist"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr "Transparence"
@@ -126,7 +129,17 @@ msgstr "Chaînes"
 msgid "Clear"
 msgstr "Vider"
 
+msgid "Clear List"
+msgstr ""
+
 msgid "Click Button"
+msgstr ""
+
+#, c-format
+msgid "Client %i"
+msgstr ""
+
+msgid "Client:"
 msgstr ""
 
 msgid "Clock Mode"
@@ -237,6 +250,12 @@ msgstr "Dossier .."
 msgid "Directory couldn't be deleted."
 msgstr "Suppression du dossier impossible."
 
+msgid "Disconnect Client"
+msgstr ""
+
+msgid "Disconnect SMB"
+msgstr ""
+
 msgid "Do you want to boot file now?"
 msgstr "Voulez-vous lancer le fichier maintenant?"
 
@@ -245,6 +264,12 @@ msgstr "Voulez-vous lancer:"
 
 msgid "Do you want to change the font?"
 msgstr "Voulez-vous changer de police?"
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr ""
+
+msgid "Do you want to disconnect this SMB?"
+msgstr ""
 
 msgid "Do you want to download new language files?"
 msgstr ""
@@ -280,11 +305,11 @@ msgstr "Voulez-vous redémarrer Wiixplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "Voulez-vous redémarrer maintenant?"
 
-msgid "Do you want to reconnect the SMB?"
-msgstr "Voulez-vous reconnecter le SMB?"
+msgid "Do you want to reconnect this SMB?"
+msgstr ""
 
-msgid "Do you want to reconnect to FTP server?"
-msgstr "Voulez-vous reconnecter le serveur FTP?"
+msgid "Do you want to reconnect to the FTP client?"
+msgstr ""
 
 msgid "Do you want to remount the devices?"
 msgstr "Voulez-vous remonter les périphériques?"
@@ -534,6 +559,9 @@ msgstr "Hébergeur:"
 msgid "How do you want to open the file?"
 msgstr "Comment voulez-vous ouvrir le fichier?"
 
+msgid "How do you want to proceed?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Mode Icone"
 
@@ -620,6 +648,9 @@ msgstr "Chargement de l'image..."
 
 msgid "Loop"
 msgstr "Boucle"
+
+msgid "Loop Playlist"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "Chemin pour MPlayerCE"
@@ -739,6 +770,9 @@ msgstr ""
 msgid "PDF Processing Zoom"
 msgstr ""
 
+msgid "Parse Directory"
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr "Mode passif:"
 
@@ -754,8 +788,8 @@ msgstr "Coller le(s) fichier(s) dans ce dossier?"
 msgid "Path Setup"
 msgstr "Options dossiers"
 
-msgid "Play Directory"
-msgstr "Lire Dossier"
+msgid "Play File"
+msgstr ""
 
 msgid "Play Once"
 msgstr "Lire"
@@ -798,6 +832,9 @@ msgstr "Reconnecter SMB"
 
 msgid "Reload"
 msgstr "Recharger"
+
+msgid "Remove from list"
+msgstr ""
 
 msgid "Rename"
 msgstr "Renommer"
@@ -849,6 +886,13 @@ msgstr "Le serveur a été arrêté"
 
 msgid "Settings"
 msgstr "Paramètres"
+
+#, c-format
+msgid "Share %i"
+msgstr ""
+
+msgid "Share:"
+msgstr ""
 
 msgid "Shift"
 msgstr "Maj"
@@ -983,13 +1027,6 @@ msgstr "Mise à jour réussie"
 msgid "Update to Rev%i available"
 msgstr "Révision %i disponible"
 
-#, c-format
-msgid "User %i"
-msgstr "Utilisateur %i"
-
-msgid "User:"
-msgstr "Utilisateur:"
-
 msgid "Username:"
 msgstr "Nom d'utilisateur:"
 
@@ -1092,6 +1129,9 @@ msgstr ""
 msgid "Wii Binary Files"
 msgstr ""
 
+msgid "WiiXplorer Default Music"
+msgstr ""
+
 msgid "WiiXplorer Movies"
 msgstr ""
 
@@ -1133,6 +1173,21 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "User %i"
+#~ msgstr "Utilisateur %i"
+
+#~ msgid "Play Directory"
+#~ msgstr "Lire Dossier"
+
+#~ msgid "User:"
+#~ msgstr "Utilisateur:"
+
+#~ msgid "Do you want to reconnect the SMB?"
+#~ msgstr "Voulez-vous reconnecter le SMB?"
+
+#~ msgid "Do you want to reconnect to FTP server?"
+#~ msgstr "Voulez-vous reconnecter le serveur FTP?"
 
 #~ msgid "App Path"
 #~ msgstr "Dossier WiiXplorer"

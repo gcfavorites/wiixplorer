@@ -169,10 +169,10 @@ class Settings
 		FilesExtensions FileExtensions;
 		//!The controls of the App
         AppControls Controls;
-    protected:
         //!Path to the configuration file
         //!only for internal use
         char    ConfigPath[50];
+    protected:
 
         void ParseLine(char *line);
         void TrimLine(char *dest, char *src, int size);

@@ -25,7 +25,7 @@
  ***************************************************************************/
 #include <unistd.h>
 #include "libwiigui/gui.h"
-#include "gui_bgm.h"
+#include "MusicPlayer.h"
 #include "FileOperations/fileops.h"
 #include "SoundHandler.hpp"
 #include "WavDecoder.hpp"
@@ -68,7 +68,7 @@ extern "C" void SoundCallback(s32 voice)
     {
         ASND_StopVoice(voice);
         if(voice == 0)
-            GuiBGM::Instance()->ResumeThread(); //see if next music must be played
+            MusicPlayer::Instance()->ResumeThread(); //see if next music must be played
     }
     else
     {

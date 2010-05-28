@@ -3,7 +3,7 @@
 #include "HomeMenu.h"
 #include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "Memory/Resources.h"
 #include "main.h"
 #include "sys.h"
@@ -149,7 +149,8 @@ HomeMenu::HomeMenu()
 		Append(BatteryBtn[i]);
 	}
 
-	GuiBGM::Instance()->Pause();
+    if(!MusicPlayer::Instance()->IsStopped())
+        MusicPlayer::Instance()->Pause();
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 }
@@ -211,7 +212,7 @@ HomeMenu::~HomeMenu()
 	Resources::Remove(ButtonClickSnd);
 	Resources::Remove(ButtonOverSnd);
 
-	GuiBGM::Instance()->Play();
+    MusicPlayer::Instance()->Resume();
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	MainWindow::Instance()->SetDim(false);
 	MainWindow::Instance()->ResumeGui();
