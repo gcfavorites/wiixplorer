@@ -302,10 +302,21 @@ void IconFileBrowser::Draw()
 	}
 
     //needs a redraw for overrendering
-	for(u32 i = 0; i < Buttons.size(); i++)
-	{
-        Tooltip[i]->Draw();
-	}
+    if(parentElement && parentElement->GetState() != STATE_DISABLED)
+    {
+        if(state == STATE_DISABLED)
+            state = STATE_DEFAULT;
+
+        for(u32 i = 0; i < Buttons.size(); i++)
+        {
+            Tooltip[i]->Draw();
+        }
+    }
+    else
+    {
+        if(state == STATE_DEFAULT)
+            state = STATE_DISABLED;
+    }
 
 	UpdateEffects();
 }

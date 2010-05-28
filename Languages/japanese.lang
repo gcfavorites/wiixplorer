@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 16:09+0200\n"
+"POT-Creation-Date: 2010-05-27 22:27+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,6 +29,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
+
+msgid "Add to Playlist"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr "アルファ合成"
@@ -126,8 +129,18 @@ msgstr "チャンネル"
 msgid "Clear"
 msgstr "クリア"
 
+msgid "Clear List"
+msgstr ""
+
 msgid "Click Button"
 msgstr "クリックボタン"
+
+#, c-format
+msgid "Client %i"
+msgstr ""
+
+msgid "Client:"
+msgstr ""
 
 msgid "Clock Mode"
 msgstr "時計の表示形式"
@@ -237,6 +250,12 @@ msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 msgid "Directory couldn't be deleted."
 msgstr "フォルダを削除できませんでした"
 
+msgid "Disconnect Client"
+msgstr ""
+
+msgid "Disconnect SMB"
+msgstr ""
+
 msgid "Do you want to boot file now?"
 msgstr "今すぐ起動しますか?"
 
@@ -245,6 +264,12 @@ msgstr "起動しますか?"
 
 msgid "Do you want to change the font?"
 msgstr "フォントを変更しますか?"
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr ""
+
+msgid "Do you want to disconnect this SMB?"
+msgstr ""
 
 msgid "Do you want to download new language files?"
 msgstr "新しい言語ファイルをダウンロードしますか?"
@@ -280,11 +305,11 @@ msgstr "WiiXplorerを再起動しますか?"
 msgid "Do you want to reboot now ?"
 msgstr "今すぐ再起動しますか?"
 
-msgid "Do you want to reconnect the SMB?"
-msgstr "再接続しますか?"
+msgid "Do you want to reconnect this SMB?"
+msgstr ""
 
-msgid "Do you want to reconnect to FTP server?"
-msgstr "FTPサーバーに再接続しますか?"
+msgid "Do you want to reconnect to the FTP client?"
+msgstr ""
 
 msgid "Do you want to remount the devices?"
 msgstr "デバイスをリマウントしますか?"
@@ -534,6 +559,9 @@ msgstr "ホスト"
 msgid "How do you want to open the file?"
 msgstr "どのようにファイルを開きますか?"
 
+msgid "How do you want to proceed?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "アイコン表示"
 
@@ -620,6 +648,9 @@ msgstr "画像を読み込んでいます･･･"
 
 msgid "Loop"
 msgstr "ループ"
+
+msgid "Loop Playlist"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCEのパス"
@@ -739,6 +770,9 @@ msgstr "PDFファイル"
 msgid "PDF Processing Zoom"
 msgstr "PDFの拡大処理"
 
+msgid "Parse Directory"
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr "受信モード:"
 
@@ -754,8 +788,8 @@ msgstr "このフォルダに貼り付けますか?"
 msgid "Path Setup"
 msgstr "パスの設定"
 
-msgid "Play Directory"
-msgstr "フォルダを再生"
+msgid "Play File"
+msgstr ""
 
 msgid "Play Once"
 msgstr "一度だけ再生"
@@ -798,6 +832,9 @@ msgstr "SMBに再接続"
 
 msgid "Reload"
 msgstr "再読み込み"
+
+msgid "Remove from list"
+msgstr ""
 
 msgid "Rename"
 msgstr "名前の変更"
@@ -849,6 +886,13 @@ msgstr "サーバーは終了しました…\n"
 
 msgid "Settings"
 msgstr "設定"
+
+#, c-format
+msgid "Share %i"
+msgstr ""
+
+msgid "Share:"
+msgstr ""
 
 msgid "Shift"
 msgstr ""
@@ -983,13 +1027,6 @@ msgstr "更新が完了しました"
 msgid "Update to Rev%i available"
 msgstr "更新があります:Rev%i"
 
-#, c-format
-msgid "User %i"
-msgstr "ユーザー%i"
-
-msgid "User:"
-msgstr "ユーザー"
-
 msgid "Username:"
 msgstr "ユーザー名"
 
@@ -1092,6 +1129,9 @@ msgstr "警告:"
 msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
+msgid "WiiXplorer Default Music"
+msgstr ""
+
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer動画"
 
@@ -1133,6 +1173,21 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "User %i"
+#~ msgstr "ユーザー%i"
+
+#~ msgid "Play Directory"
+#~ msgstr "フォルダを再生"
+
+#~ msgid "User:"
+#~ msgstr "ユーザー"
+
+#~ msgid "Do you want to reconnect the SMB?"
+#~ msgstr "再接続しますか?"
+
+#~ msgid "Do you want to reconnect to FTP server?"
+#~ msgstr "FTPサーバーに再接続しますか?"
 
 #~ msgid "App Path"
 #~ msgstr "アプリのパス"

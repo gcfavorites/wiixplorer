@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-24 16:30+0200\n"
+"POT-Creation-Date: 2010-05-27 22:27+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -29,6 +29,9 @@ msgstr "ASDFGHJKL:\"+"
 
 msgid "Action cancelled."
 msgstr "动作取消。"
+
+msgid "Add to Playlist"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr "透明光影效果"
@@ -126,7 +129,17 @@ msgstr "频道"
 msgid "Clear"
 msgstr "清除"
 
+msgid "Clear List"
+msgstr ""
+
 msgid "Click Button"
+msgstr ""
+
+#, c-format
+msgid "Client %i"
+msgstr ""
+
+msgid "Client:"
 msgstr ""
 
 msgid "Clock Mode"
@@ -237,6 +250,12 @@ msgstr "目录.."
 msgid "Directory couldn't be deleted."
 msgstr "不能删除目录。"
 
+msgid "Disconnect Client"
+msgstr ""
+
+msgid "Disconnect SMB"
+msgstr ""
+
 msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
 
@@ -245,6 +264,12 @@ msgstr "是否重新启动:"
 
 msgid "Do you want to change the font?"
 msgstr "是否要更改字体？"
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr ""
+
+msgid "Do you want to disconnect this SMB?"
+msgstr ""
 
 msgid "Do you want to download new language files?"
 msgstr ""
@@ -280,11 +305,11 @@ msgstr "是否重新启动WiiXplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "是否现在重新启动？"
 
-msgid "Do you want to reconnect the SMB?"
-msgstr "再次连接到网络共享？"
+msgid "Do you want to reconnect this SMB?"
+msgstr ""
 
-msgid "Do you want to reconnect to FTP server?"
-msgstr "再次开启FTP服务器？"
+msgid "Do you want to reconnect to the FTP client?"
+msgstr ""
 
 msgid "Do you want to remount the devices?"
 msgstr "是否再次加载设备？"
@@ -534,6 +559,9 @@ msgstr "主机："
 msgid "How do you want to open the file?"
 msgstr "你想要采取哪种方式打开此文件？"
 
+msgid "How do you want to proceed?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "图标模式"
 
@@ -620,6 +648,9 @@ msgstr "读取图片中..."
 
 msgid "Loop"
 msgstr "循环"
+
+msgid "Loop Playlist"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
@@ -739,6 +770,9 @@ msgstr ""
 msgid "PDF Processing Zoom"
 msgstr ""
 
+msgid "Parse Directory"
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr "被动模式"
 
@@ -754,8 +788,8 @@ msgstr "是否在当前目录中粘贴项目"
 msgid "Path Setup"
 msgstr "路径设置"
 
-msgid "Play Directory"
-msgstr "播放目录"
+msgid "Play File"
+msgstr ""
 
 msgid "Play Once"
 msgstr "只播放一次"
@@ -798,6 +832,9 @@ msgstr "重新连接网络共享"
 
 msgid "Reload"
 msgstr "重新运行"
+
+msgid "Remove from list"
+msgstr ""
 
 msgid "Rename"
 msgstr "重命名"
@@ -849,6 +886,13 @@ msgstr "服务已关闭...\n"
 
 msgid "Settings"
 msgstr "设置"
+
+#, c-format
+msgid "Share %i"
+msgstr ""
+
+msgid "Share:"
+msgstr ""
 
 msgid "Shift"
 msgstr "Shift键"
@@ -983,13 +1027,6 @@ msgstr "更新成功！"
 msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
 
-#, c-format
-msgid "User %i"
-msgstr "用户 %i"
-
-msgid "User:"
-msgstr "用户："
-
 msgid "Username:"
 msgstr "用户名"
 
@@ -1092,6 +1129,9 @@ msgstr ""
 msgid "Wii Binary Files"
 msgstr ""
 
+msgid "WiiXplorer Default Music"
+msgstr ""
+
 msgid "WiiXplorer Movies"
 msgstr ""
 
@@ -1133,6 +1173,21 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "User %i"
+#~ msgstr "用户 %i"
+
+#~ msgid "Play Directory"
+#~ msgstr "播放目录"
+
+#~ msgid "User:"
+#~ msgstr "用户："
+
+#~ msgid "Do you want to reconnect the SMB?"
+#~ msgstr "再次连接到网络共享？"
+
+#~ msgid "Do you want to reconnect to FTP server?"
+#~ msgstr "再次开启FTP服务器？"
 
 #~ msgid "App Path"
 #~ msgstr "程序路径"

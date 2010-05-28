@@ -29,7 +29,7 @@
 #include "Controls/MainWindow.h"
 #include "WiiMovie.hpp"
 #include "ImageOperations/TextureConverter.h"
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "menu.h"
 
 #define SND_BUFFERS     20
@@ -57,7 +57,8 @@ WiiMovie::WiiMovie(const char * filepath)
     exitBtn->SetTrigger(trigB);
 	exitBtn->Clicked.connect(this, &WiiMovie::OnExitClick);
 
-    GuiBGM::Instance()->Pause();
+    if(!MusicPlayer::Instance()->IsStopped())
+        MusicPlayer::Instance()->Pause();
 
     string file(filepath);
     Video = openVideo(file);
@@ -93,7 +94,7 @@ WiiMovie::~WiiMovie()
         LWP_MutexDestroy(mutex);
 
     ASND_StopVoice(0);
-    GuiBGM::Instance()->Play();
+    MusicPlayer::Instance()->Resume();
 
     for(u32 i = 0; i < Frames.size(); i++)
     {

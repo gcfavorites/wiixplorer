@@ -25,7 +25,6 @@
  ***************************************************************************/
  #include <unistd.h>
 #include "Prompts/PromptWindows.h"
-#include "SoundOperations/gui_bgm.h"
 #include "ImageOperations/ImageWrite.h"
 #include "Prompts/DeviceMenu.h"
 #include "Controls/MainWindow.h"

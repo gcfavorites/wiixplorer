@@ -187,7 +187,8 @@ void GuiButton::Draw()
             tooltip->SetEffect(EFFECT_FADE, 20);
             tooltip->SetVisible(true);
 	    }
-	    tooltip->Draw();
+        if(parentElement && parentElement->GetState() != STATE_DISABLED)
+            tooltip->Draw();
 
 	}
 	else if(tooltip)
@@ -197,7 +198,8 @@ void GuiButton::Draw()
             tooltip->SetEffect(EFFECT_FADE, -20);
             tooltip->SetVisible(false);
 	    }
-	    tooltip->Draw();
+        if(state != STATE_DISABLED && parentElement && parentElement->GetState() != STATE_DISABLED)
+            tooltip->Draw();
 	}
 
 	this->UpdateEffects();
@@ -209,8 +211,6 @@ void GuiButton::Update(GuiTrigger * t)
 		return;
 	else if(parentElement && parentElement->GetState() == STATE_DISABLED)
 		return;
-
-    LOCK(this);
 
 	#ifdef HW_RVL
 	// cursor

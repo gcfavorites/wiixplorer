@@ -29,7 +29,7 @@
 #include <unistd.h>
 
 #include "MainWindow.h"
-#include "SoundOperations/gui_bgm.h"
+#include "SoundOperations/MusicPlayer.h"
 #include "SoundOperations/SoundHandler.hpp"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
@@ -78,13 +78,9 @@ MainWindow::MainWindow()
     bgImg = new GuiImage(bgImgData);
 	Append(bgImg);
 
-	if(GuiBGM::Instance()->Load(Settings.MusicPath, true))
-	{
-	    GuiBGM::Instance()->ParsePath(Settings.MusicPath);
-	}
-	GuiBGM::Instance()->SetVolume(Settings.MusicVolume);
-	GuiBGM::Instance()->SetLoop(Settings.BGMLoopMode);
-	GuiBGM::Instance()->Play(); // startup music
+	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
+	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
+	MusicPlayer::Instance()->SetPosition(165, 230);
 
 	standardPointer[0] = new GuiImageData(player1_point_png, player1_point_png_size);
 	standardPointer[1] = new GuiImageData(player2_point_png, player2_point_png_size);
@@ -113,7 +109,7 @@ MainWindow::~MainWindow()
 	Resources::Remove(bgImgData);
 
 	Taskbar::Instance()->DestroyInstance();
-	GuiBGM::Instance()->DestroyInstance();
+	MusicPlayer::Instance()->DestroyInstance();
 	SoundHandler::Instance()->DestroyInstance();
 	Channels::Instance()->DestroyInstance();
 	Applications::Instance()->DestroyInstance();

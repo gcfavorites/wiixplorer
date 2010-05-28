@@ -39,7 +39,6 @@ class PDFViewer : public ImageViewer
         bool LoadPage(int pagenum);
         bool NextPage();
         bool PreviousPage();
-        void SetImageSize(float scale);
         int MainUpdate();
         //! Virtual overloads to adjust to imageviewer
         bool NextImage(bool silent = false) { return NextPage(); };
@@ -56,6 +55,7 @@ class PDFViewer : public ImageViewer
         fz_glyphcache *drawcache;
         pdf_page *drawpage;
         float drawzoom;
+        int LoopMode;
         int currentPage;
         int PageCount;
         int drawrotate;

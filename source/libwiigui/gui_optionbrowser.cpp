@@ -252,6 +252,10 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 				optionBtn[i]->SetVisible(false);
 				optionBtn[i]->SetState(STATE_DISABLED);
 			}
+		}
+
+		for(int i = 0; i < PAGESIZE; i++)
+		{
             optionVal[i]->SetPosition(coL2,0);
             optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
 		}

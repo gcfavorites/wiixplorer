@@ -29,6 +29,7 @@
 #include <gd.h>
 #include "VideoOperations/video.h"
 #include "ImageOperations/ImageWrite.h"
+#include "FileOperations/fileops.h"
 #include "TextureConverter.h"
 #include "menu.h"
 
@@ -103,7 +104,8 @@ bool Screenshot()
     strftime (text, sizeof(text), "WiiXplorer_%H%M%S", curtime);
 
     char filepath[400];
-    snprintf(filepath, sizeof(filepath), "%s/%s%s", Settings.UpdatePath, text, Extension);
+    snprintf(filepath, sizeof(filepath), "%s/%s%s", Settings.ScreenshotPath, text, Extension);
+    CreateSubfolder(Settings.ScreenshotPath);
 
     return Screenshot(filepath, Settings.ScreenshotFormat);
 }
