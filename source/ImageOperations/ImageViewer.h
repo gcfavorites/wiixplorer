@@ -99,6 +99,7 @@ class ImageViewer : public GuiWindow
         GuiButton * rotateRButton;
         GuiButton * backButton;
 		GuiButton * moveButton;
+		GuiButton * trashButton;
 
         GuiImage * image;
         GuiImageData *imageData;
@@ -119,6 +120,7 @@ class ImageViewer : public GuiWindow
         GuiImageData * rotateRButtonOverData;
         GuiImageData * rotateLButtonData;
         GuiImageData * rotateLButtonOverData;
+        GuiImageData * trashImgData;
 
         GuiImage * backGround;
         GuiImage * nextButtonImage;
@@ -137,6 +139,7 @@ class ImageViewer : public GuiWindow
         GuiImage * rotateRButtonOverImage;
         GuiImage * rotateLButtonImage;
         GuiImage * rotateLButtonOverImage;
+        GuiImage * trashImg;
 
         GuiTrigger * trigger;
         GuiTrigger * trigNext;

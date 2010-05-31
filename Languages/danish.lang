@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-31 10:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -19,7 +19,7 @@ msgid "12H"
 msgstr "12T"
 
 msgid "24H"
-msgstr ""
+msgstr "24T"
 
 msgid "7z decompression failed:"
 msgstr "7z dekomprition Fejlede:"
@@ -31,7 +31,7 @@ msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Tilføj Til Playlist"
 
 msgid "Alpha Blending"
 msgstr ""
@@ -46,7 +46,7 @@ msgid "Apps"
 msgstr "Programmer"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "Prg. Sti"
 
 msgid "Archive Files"
 msgstr "Arkiv Filer"
@@ -130,17 +130,17 @@ msgid "Clear"
 msgstr "Ryd"
 
 msgid "Clear List"
-msgstr ""
+msgstr "Ryd List"
 
 msgid "Click Button"
 msgstr "Klik Knap"
 
 #, c-format
 msgid "Client %i"
-msgstr ""
+msgstr "Klient %i"
 
 msgid "Client:"
-msgstr ""
+msgstr "Klient:"
 
 msgid "Clock Mode"
 msgstr "Ur"
@@ -251,10 +251,10 @@ msgid "Directory couldn't be deleted."
 msgstr "Mappen kunne ikke slettes."
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "Afbryd Klient"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "Afbryd SMB"
 
 msgid "Do you want to boot file now?"
 msgstr "Vil Du Boote Filen Nu?"
@@ -265,11 +265,14 @@ msgstr "Vil du boote:"
 msgid "Do you want to change the font?"
 msgstr "Vil Du Ændre Font?"
 
-msgid "Do you want to disconnect the FTP client?"
+msgid "Do you want to delete this file:"
 msgstr ""
 
+msgid "Do you want to disconnect the FTP client?"
+msgstr "Vil Du Afbryde FTP Klienten?"
+
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "Vil Du Afbryde Denne SMB?"
 
 msgid "Do you want to download new language files?"
 msgstr "Vil du downloader ny sprog fil?"
@@ -306,10 +309,10 @@ msgid "Do you want to reboot now ?"
 msgstr "Vil Du Genstarte Nu?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "Vil Du Genforbinde Denne SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "Vil Du Genforbinde Denne FTP Klient?"
 
 msgid "Do you want to remount the devices?"
 msgstr "Vil Du Genindlæse Enheder?"
@@ -411,6 +414,9 @@ msgstr "FTP Server Kører Og Lytter På Port"
 msgid "FTP Started.\n"
 msgstr "FTP Startet.\n"
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr "Fejlede At Kopier Emne(r)."
 
@@ -440,6 +446,9 @@ msgstr "Fil Udvidelser Tildeling"
 
 msgid "File already exists:"
 msgstr "Filen Eksister Allerede."
+
+msgid "File could not be deleted."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Filen kunne ikke slettes."
@@ -560,7 +569,7 @@ msgid "How do you want to open the file?"
 msgstr "Hvordan Vil Du Åbne Filen?"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "Hvordan Vil Du Fortsætte?"
 
 msgid "Icon Mode"
 msgstr ""
@@ -771,10 +780,10 @@ msgid "PDF Processing Zoom"
 msgstr "PDF Behandlings Zoom"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "Analyser Mappe"
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "Passiv Mode:"
 
 msgid "Password:"
 msgstr "Kodeord:"
@@ -789,7 +798,7 @@ msgid "Path Setup"
 msgstr "Sti Indstillinger"
 
 msgid "Play File"
-msgstr ""
+msgstr "Afspil Fil"
 
 msgid "Play Once"
 msgstr "Afspil En Gang"
@@ -834,7 +843,7 @@ msgid "Reload"
 msgstr "Genindlæs"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "Fjern Fra Liste"
 
 msgid "Rename"
 msgstr "Omdøb"
@@ -873,7 +882,7 @@ msgid "Screenshot Hold Button"
 msgstr "Screenshot Hold Knap"
 
 msgid "Screenshot Path"
-msgstr ""
+msgstr "Screenshot Sti"
 
 msgid "Screenshot Press Button"
 msgstr "Screenshot Pres Knap"
@@ -889,10 +898,10 @@ msgstr "Indstillinger"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "Del %i"
 
 msgid "Share:"
-msgstr ""
+msgstr "Del:"
 
 msgid "Shift"
 msgstr "Skift"
@@ -925,7 +934,7 @@ msgid "Soundblock Size"
 msgstr "Lydblock Størrelse"
 
 msgid "Soundblocks"
-msgstr "Lydblocke"
+msgstr "Lydbloke"
 
 msgid "Special thanks to:"
 msgstr "Især tak til:"
@@ -1130,7 +1139,7 @@ msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "WiiXplorer Standard Musik"
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer Film"

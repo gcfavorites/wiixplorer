@@ -28,6 +28,10 @@ GuiElement::GuiElement()
 	alpha = 255;
 	scaleX = 1.0f;
 	scaleY = 1.0f;
+	minwidth = -100;
+	maxwidth = (screenwidth+100);
+	minheight = -100;
+	maxheight = (screenheight+100);
 	state = STATE_DEFAULT;
 	stateChan = -1;
 	trigger[0] = NULL;
@@ -454,13 +458,33 @@ void GuiElement::SetEffect(int eff, int amount, int target)
 	{
 		// these calculations overcompensate a little
 		if(eff & EFFECT_SLIDE_TOP)
-			yoffsetDyn = -screenheight;
+		{
+		    if(eff & EFFECT_SLIDE_FROM)
+                yoffsetDyn = (int) -GetHeight()*scaleY;
+		    else
+                yoffsetDyn = -screenheight;
+		}
 		else if(eff & EFFECT_SLIDE_LEFT)
-			xoffsetDyn = -screenwidth;
+		{
+		    if(eff & EFFECT_SLIDE_FROM)
+                xoffsetDyn = (int) -GetWidth()*scaleX;
+		    else
+                xoffsetDyn = -screenwidth;
+		}
 		else if(eff & EFFECT_SLIDE_BOTTOM)
-			yoffsetDyn = screenheight;
+		{
+		    if(eff & EFFECT_SLIDE_FROM)
+                yoffsetDyn = (int) GetHeight()*scaleY;
+		    else
+                yoffsetDyn = screenheight;
+		}
 		else if(eff & EFFECT_SLIDE_RIGHT)
-			xoffsetDyn = screenwidth;
+		{
+		    if(eff & EFFECT_SLIDE_FROM)
+                xoffsetDyn = (int) GetWidth()*scaleX;
+		    else
+                xoffsetDyn = screenwidth;
+		}
 	}
 	if(eff & EFFECT_FADE && amount > 0)
 	{
@@ -496,7 +520,7 @@ void GuiElement::SetDim(bool d)
 
 void GuiElement::UpdateEffects()
 {
-	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT))
+	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT | EFFECT_SLIDE_FROM))
 	{
 		if(effects & EFFECT_SLIDE_IN)
 		{
@@ -549,6 +573,8 @@ void GuiElement::UpdateEffects()
 
 				if(xoffsetDyn <= -screenwidth)
 					effects = 0; // shut off effect
+                else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn <= -GetWidth())
+                    effects = 0; // shut off effect
 			}
 			else if(effects & EFFECT_SLIDE_RIGHT)
 			{
@@ -556,6 +582,8 @@ void GuiElement::UpdateEffects()
 
 				if(xoffsetDyn >= screenwidth)
 					effects = 0; // shut off effect
+                else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn >= GetWidth()*scaleX)
+                    effects = 0; // shut off effect
 			}
 			else if(effects & EFFECT_SLIDE_TOP)
 			{
@@ -563,6 +591,8 @@ void GuiElement::UpdateEffects()
 
 				if(yoffsetDyn <= -screenheight)
 					effects = 0; // shut off effect
+                else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn <= -GetHeight())
+                    effects = 0; // shut off effect
 			}
 			else if(effects & EFFECT_SLIDE_BOTTOM)
 			{
@@ -570,6 +600,8 @@ void GuiElement::UpdateEffects()
 
 				if(yoffsetDyn >= screenheight)
 					effects = 0; // shut off effect
+                else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn >= GetHeight())
+                    effects = 0; // shut off effect
 			}
 		}
 	}

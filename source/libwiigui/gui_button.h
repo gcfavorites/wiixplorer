@@ -93,6 +93,11 @@ class GuiButton : public GuiElement
 		void SetSoundClick(GuiSound * s);
 		//!Sets a tooltip that should popup after a few seconds
 		void SetTooltip(GuiTooltip * t);
+		//!Image cutoffs
+		void SetMinWidth(int w);
+		void SetMaxWidth(int w);
+		void SetMinHeight(int h);
+		void SetMaxHeight(int h);
 		//!Constantly called to draw the GuiButton
 		void Draw();
 		//!Constantly called to allow the GuiButton to respond to updated input data

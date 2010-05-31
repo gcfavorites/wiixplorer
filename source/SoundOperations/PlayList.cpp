@@ -29,7 +29,7 @@
 #include "PlayList.hpp"
 #include "main.h"
 
-#define PAGE_SIZE    7
+#define PAGE_SIZE    8
 
 PlayList::PlayList()
     : GuiWindow(0, 0)
@@ -38,14 +38,18 @@ PlayList::PlayList()
     selectedItem = 0;
     listChanged = true;
     Hidden = true;
+    Minimized = true;
     width = 332;
     height = 352;
 
     btnSoundClick = NULL;
+    btnSoundOver = NULL;
     menu_selectionData = NULL;
     playlistImgData = NULL;
     trigA = NULL;
     playlistImg = NULL;
+    PlayListBtn = NULL;
+    scrollbar = NULL;
 }
 
 PlayList::~PlayList()
@@ -142,12 +146,50 @@ int PlayList::GetChoice()
             return listOffset+i;
         }
     }
+
+    if(PlayListBtn && PlayListBtn->GetState() == STATE_CLICKED)
+    {
+        SwitchMinimized();
+        PlayListBtn->ResetState();
+    }
+
     return -1;
+}
+
+void PlayList::SwitchMinimized()
+{
+    if(Minimized && parentElement)
+    {
+        int PositionX = this->GetLeft()-parentElement->GetLeft();
+        int PositionY = this->GetTop()-parentElement->GetTop();
+        int PosDyn = 0;
+        while(PosDyn < GetHeight()/2+93)
+        {
+            PosDyn += 15;
+            SetPosition(PositionX, PositionY-PosDyn);
+            VIDEO_WaitVSync();
+        }
+        Minimized = false;
+    }
+    else if(parentElement)
+    {
+        Minimized = true;
+        int PositionX = this->GetLeft()-parentElement->GetLeft();
+        int PositionY = this->GetTop()-parentElement->GetTop();
+        int PosDyn = 0;
+        while(PosDyn < GetHeight()/2+93)
+        {
+            PosDyn += 15;
+            SetPosition(PositionX, PositionY+PosDyn);
+            VIDEO_WaitVSync();
+        }
+    }
 }
 
 void PlayList::Show()
 {
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -156,7 +198,22 @@ void PlayList::Show()
 
     playlistImgData = Resources::GetImageData(playlist_png, playlist_png_size);
     playlistImg = new GuiImage(playlistImgData);
+    playlistImg->SetMaxHeight(maxheight);
     Append(playlistImg);
+
+	scrollbar = new Scrollbar(240);
+	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetPosition(-17, 50);
+	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	scrollbar->SetMaxHeight(maxheight);
+	Append(scrollbar);
+
+	PlayListBtn = new GuiButton(50, 33);
+	PlayListBtn->SetPosition(115, 10);
+    PlayListBtn->SetSoundClick(btnSoundClick);
+    PlayListBtn->SetSoundOver(btnSoundOver);
+	PlayListBtn->SetTrigger(trigA);
+	Append(PlayListBtn);
 
     width = playlistImgData->GetWidth();
     height = playlistImgData->GetHeight();
@@ -165,7 +222,7 @@ void PlayList::Show()
 	{
 	    GuiImage * TmpImg = new GuiImage(menu_selectionData);
 	    TmpImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	    TmpImg->SetScaleX(0.6);
+	    TmpImg->SetScaleX(0.5);
 		ListBtnImgOver.push_back(TmpImg);
 
 	    GuiText * TmpTxt = new GuiText((char*) NULL, 18, (GXColor){0, 0, 0, 255});
@@ -173,10 +230,10 @@ void PlayList::Show()
 		TmpTxt->SetMaxWidth(width - 95, DOTTED);
 		ListBtnTxt.push_back(TmpTxt);
 
-		GuiButton * TmpButton = new GuiButton(width-60, 20);
+		GuiButton * TmpButton = new GuiButton(width-100, 20);
 		TmpButton->SetLabel(TmpTxt);
 		TmpButton->SetImageOver(TmpImg);
-		TmpButton->SetPosition(40, 62+28*i+3);
+		TmpButton->SetPosition(40, 62+30*i+3);
 		TmpButton->SetTrigger(trigA);
 		TmpButton->SetSoundClick(btnSoundClick);
 		TmpButton->SetState(STATE_DISABLED);
@@ -188,6 +245,7 @@ void PlayList::Show()
 	}
 
 	Hidden = false;
+	Minimized = true;
 	listChanged = true;
 }
 
@@ -199,6 +257,7 @@ void PlayList::Hide()
     RemoveAll();
 
     Resources::Remove(btnSoundClick);
+    Resources::Remove(btnSoundOver);
     Resources::Remove(menu_selectionData);
     Resources::Remove(playlistImgData);
 
@@ -216,12 +275,19 @@ void PlayList::Hide()
         delete trigA;
     if(playlistImg)
         delete playlistImg;
+    if(PlayListBtn)
+        delete PlayListBtn;
+    if(scrollbar)
+        delete scrollbar;
 
+    btnSoundOver = NULL;
     btnSoundClick = NULL;
     menu_selectionData = NULL;
     playlistImgData = NULL;
     trigA = NULL;
     playlistImg = NULL;
+    PlayListBtn = NULL;
+    scrollbar = NULL;
 }
 
 void PlayList::AddEntrie(const char * filepath)
@@ -297,8 +363,6 @@ const char * PlayList::at(int pos)
 
 bool PlayList::ParsePath(const char * filepath)
 {
-    ClearList();
-
     char currentPath[1024];
     sprintf(currentPath, "%s", filepath);
 
@@ -360,10 +424,37 @@ void PlayList::OnListStateChange(GuiElement *sender, int s, int c)
     }
 }
 
+void PlayList::Draw()
+{
+    if(Hidden)
+        return;
+
+    playlistImg->Draw();
+    scrollbar->Draw();
+
+    if(Minimized)
+        return;
+
+    for(u32 i = 0; i < ListBtn.size(); i++)
+    {
+        ListBtn[i]->Draw();
+    }
+}
+
 void PlayList::Update(GuiTrigger * t)
 {
     if(Hidden)
         return;
+
+    PlayListBtn->Update(t);
+    scrollbar->Update(t);
+
+    if(scrollbar->ListChanged())
+    {
+        selectedItem = scrollbar->GetSelectedItem();
+        listOffset = scrollbar->GetSelectedIndex();
+        listChanged = true;
+    }
 
 	if(t->Up())
 	{
@@ -447,6 +538,12 @@ void PlayList::Update(GuiTrigger * t)
 		if(ListBtn[i]->GetState() == STATE_SELECTED)
 			selectedItem = i;
 	}
+
+    scrollbar->SetPageSize(PAGE_SIZE);
+    scrollbar->SetRowSize(0);
+    scrollbar->SetSelectedItem(selectedItem);
+    scrollbar->SetSelectedIndex(listOffset);
+    scrollbar->SetEntrieCount(FileList.size());
 
     listChanged = false;
 }

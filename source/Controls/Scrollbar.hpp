@@ -48,6 +48,10 @@ class Scrollbar : public GuiElement
         int GetSelectedIndex() { return SelInd; };
         bool ListChanged();
         void SetScrollSpeed(u16 speed) { ScrollSpeed = speed; };
+        void SetMinWidth(int w);
+        void SetMaxWidth(int w);
+        void SetMinHeight(int h);
+        void SetMaxHeight(int h);
         void Draw();
         void Update(GuiTrigger * t);
     protected:

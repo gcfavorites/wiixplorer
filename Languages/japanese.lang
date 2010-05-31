@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-31 10:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "再生リストに追加"
 
 msgid "Alpha Blending"
 msgstr "アルファ合成"
@@ -46,7 +46,7 @@ msgid "Apps"
 msgstr "アプリ"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "アプリのパス"
 
 msgid "Archive Files"
 msgstr "書庫ファイル"
@@ -130,17 +130,17 @@ msgid "Clear"
 msgstr "クリア"
 
 msgid "Clear List"
-msgstr ""
+msgstr "リストを消去"
 
 msgid "Click Button"
 msgstr "クリックボタン"
 
 #, c-format
 msgid "Client %i"
-msgstr ""
+msgstr "クライアント:%i"
 
 msgid "Client:"
-msgstr ""
+msgstr "クライアント:%i"
 
 msgid "Clock Mode"
 msgstr "時計の表示形式"
@@ -251,10 +251,10 @@ msgid "Directory couldn't be deleted."
 msgstr "フォルダを削除できませんでした"
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "クライアントを切断"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "SMBを切断"
 
 msgid "Do you want to boot file now?"
 msgstr "今すぐ起動しますか?"
@@ -265,11 +265,14 @@ msgstr "起動しますか?"
 msgid "Do you want to change the font?"
 msgstr "フォントを変更しますか?"
 
-msgid "Do you want to disconnect the FTP client?"
+msgid "Do you want to delete this file:"
 msgstr ""
 
+msgid "Do you want to disconnect the FTP client?"
+msgstr "FTPクライアントを切断しますか?"
+
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "SMBを切断しますか?"
 
 msgid "Do you want to download new language files?"
 msgstr "新しい言語ファイルをダウンロードしますか?"
@@ -306,10 +309,10 @@ msgid "Do you want to reboot now ?"
 msgstr "今すぐ再起動しますか?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "再接続しますか?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "FTPクライアントに再接続しますか?"
 
 msgid "Do you want to remount the devices?"
 msgstr "デバイスをリマウントしますか?"
@@ -411,6 +414,9 @@ msgstr "FTPサーバーは起動中でポートを待ち受けています"
 msgid "FTP Started.\n"
 msgstr "FTPを開始しました\n"
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr "コピーに失敗しました"
 
@@ -440,6 +446,9 @@ msgstr "拡張子の割り当て"
 
 msgid "File already exists:"
 msgstr "ファイルが既に存在します"
+
+msgid "File could not be deleted."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "ファイルを削除できませんでした"
@@ -560,7 +569,7 @@ msgid "How do you want to open the file?"
 msgstr "どのようにファイルを開きますか?"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "何をしますか?"
 
 msgid "Icon Mode"
 msgstr "アイコン表示"
@@ -650,7 +659,7 @@ msgid "Loop"
 msgstr "ループ"
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "再生リストをループ"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCEのパス"
@@ -771,7 +780,7 @@ msgid "PDF Processing Zoom"
 msgstr "PDFの拡大処理"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "フォルダを追加"
 
 msgid "Passive Mode:"
 msgstr "受信モード:"
@@ -789,7 +798,7 @@ msgid "Path Setup"
 msgstr "パスの設定"
 
 msgid "Play File"
-msgstr ""
+msgstr "ファイルを再生"
 
 msgid "Play Once"
 msgstr "一度だけ再生"
@@ -834,7 +843,7 @@ msgid "Reload"
 msgstr "再読み込み"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "リストから外す"
 
 msgid "Rename"
 msgstr "名前の変更"
@@ -873,7 +882,7 @@ msgid "Screenshot Hold Button"
 msgstr "画面写真の押しっぱなしのボタン"
 
 msgid "Screenshot Path"
-msgstr ""
+msgstr "画面写真を保存するパス"
 
 msgid "Screenshot Press Button"
 msgstr "画面写真の押すボタン"
@@ -889,10 +898,10 @@ msgstr "設定"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "共有:%i"
 
 msgid "Share:"
-msgstr ""
+msgstr "共有:"
 
 msgid "Shift"
 msgstr ""
@@ -1130,10 +1139,10 @@ msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "WiiXplorerのBGM"
 
 msgid "WiiXplorer Movies"
-msgstr "WiiXplorer動画"
+msgstr "Wii動画"
 
 msgid "Yes"
 msgstr "はい"
@@ -1173,36 +1182,3 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
-
-#~ msgid "User %i"
-#~ msgstr "ユーザー%i"
-
-#~ msgid "Play Directory"
-#~ msgstr "フォルダを再生"
-
-#~ msgid "User:"
-#~ msgstr "ユーザー"
-
-#~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "再接続しますか?"
-
-#~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "FTPサーバーに再接続しますか?"
-
-#~ msgid "App Path"
-#~ msgstr "アプリのパス"
-
-#~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "テキストビューワで開きますか?"
-
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "Wiiメニューにもどりますか?"
-
-#~ msgid "Do you want to load app default language ?"
-#~ msgstr "英語に変更しますか?"
-
-#~ msgid "Do you want to load console default language."
-#~ msgstr "日本語に変更しますか?"
-
-#~ msgid "Loader"
-#~ msgstr "ローダーへ"

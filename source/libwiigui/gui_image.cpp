@@ -251,17 +251,17 @@ void GuiImage::Draw()
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
-                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
+                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(image && tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
-            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(image && tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(imgType == IMAGE_COLOR)
     {
@@ -270,7 +270,7 @@ void GuiImage::Draw()
 	else
 	{
 	    if(image)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha());
+            Menu_DrawImg(image, width, height, format, currLeft, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
 	}
 
 	if(stripe > 0)

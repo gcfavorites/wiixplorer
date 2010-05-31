@@ -45,6 +45,7 @@ MusicPlayer * MusicPlayer::instance = NULL;
 MusicPlayer::MusicPlayer()
     : GuiWindow(0, 0)
 {
+    btnSoundOver = NULL;
     playerImgData = NULL;
     navi_defaultImgData = NULL;
     navi_upImgData = NULL;
@@ -53,7 +54,7 @@ MusicPlayer::MusicPlayer()
     navi_rightImgData = NULL;
     trigA = NULL;
     trigB = NULL;
-    NoButton = NULL;
+    BackButton = NULL;
     PlayBtn = NULL;
     StopBtn = NULL;
     NextBtn = NULL;
@@ -380,6 +381,7 @@ void MusicPlayer::Hide()
     if(trigB)
         delete trigB;
 
+    Resources::Remove(btnSoundOver);
     Resources::Remove(playerImgData);
     Resources::Remove(navi_defaultImgData);
     Resources::Remove(navi_upImgData);
@@ -387,8 +389,8 @@ void MusicPlayer::Hide()
     Resources::Remove(navi_leftImgData);
     Resources::Remove(navi_rightImgData);
 
-    if(NoButton)
-        delete NoButton;
+    if(BackButton)
+        delete BackButton;
     if(PlayBtn)
         delete PlayBtn;
     if(StopBtn)
@@ -406,6 +408,8 @@ void MusicPlayer::Hide()
     if(PlayTitle)
         delete PlayTitle;
 
+    btnSoundOver = NULL;
+
     playerImgData = NULL;
     navi_defaultImgData = NULL;
     navi_upImgData = NULL;
@@ -416,7 +420,7 @@ void MusicPlayer::Hide()
     trigA = NULL;
     trigB = NULL;
 
-    NoButton = NULL;
+    BackButton = NULL;
     PlayBtn = NULL;
     StopBtn = NULL;
     NextBtn = NULL;
@@ -432,7 +436,7 @@ void MusicPlayer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 {
     sender->ResetState();
 
-    if(sender == NoButton)
+    if(sender == BackButton)
     {
         DisplayGUI = false;
     }
@@ -444,6 +448,7 @@ void MusicPlayer::Setup()
     trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
+	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
     playerImgData = Resources::GetImageData(player_png, player_png_size);
     navi_defaultImgData = Resources::GetImageData(navi_default_png, navi_default_png_size);
     navi_upImgData = Resources::GetImageData(navi_up_png, navi_up_png_size);
@@ -451,41 +456,45 @@ void MusicPlayer::Setup()
     navi_leftImgData = Resources::GetImageData(navi_left_png, navi_left_png_size);
     navi_rightImgData = Resources::GetImageData(navi_right_png, navi_right_png_size);
 
-    NoButton = new GuiButton(1, 1);
-    NoButton->SetTrigger(trigB);
-    NoButton->Clicked.connect(this, &MusicPlayer::OnButtonClick);
+    BackButton = new GuiButton(35, 40);
+    BackButton->SetPosition(404, 115);
+    BackButton->SetSoundOver(btnSoundOver);
+    BackButton->SetTrigger(trigA);
+    BackButton->SetTrigger(trigB);
+    BackButton->Clicked.connect(this, &MusicPlayer::OnButtonClick);
 
     PlayBtn = new GuiButton(68, 40);
-    PlayBtn->SetPosition(78, 40);
+    PlayBtn->SetPosition(77, 39);
     PlayBtn->SetTrigger(trigA);
 
     StopBtn = new GuiButton(68, 40);
-    StopBtn->SetPosition(78, 125);
+    StopBtn->SetPosition(77, 124);
     StopBtn->SetTrigger(trigA);
 
     PreviousBtn = new GuiButton(38, 60);
-    PreviousBtn->SetPosition(45, 75);
+    PreviousBtn->SetPosition(44, 74);
     PreviousBtn->SetTrigger(trigA);
 
     NextBtn = new GuiButton(38, 60);
-    NextBtn->SetPosition(138, 75);
+    NextBtn->SetPosition(137, 74);
     NextBtn->SetTrigger(trigA);
 
     BackgroundImg = new GuiImage(playerImgData);
     CircleImg = new GuiImage(navi_defaultImgData);
-    CircleImg->SetPosition(40, 35);
+    CircleImg->SetPosition(39, 34);
 
     PlayTitle = new GuiText(Title.c_str(), 22, (GXColor) {0, 0, 0, 255});
     PlayTitle->SetPosition(220, 126);
     PlayTitle->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     PlayTitle->SetMaxWidth(155, SCROLL_HORIZONTAL);
 
-    TitleList.SetPosition(160, -170);
+    TitleList.SetPosition(90, 56);
+	TitleList.SetMaxHeight(GetTop()-170+TitleList.GetHeight());
 
-    Append(NoButton);
     Append(&TitleList);
     Append(BackgroundImg);
     Append(CircleImg);
+    Append(BackButton);
     Append(PlayBtn);
     Append(StopBtn);
     Append(NextBtn);

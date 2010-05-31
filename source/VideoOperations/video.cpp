@@ -242,9 +242,9 @@ u8 * Video_GetFrame(int * width, int * height)
     if(width)
         *width = vmode->fbWidth;
     if(height)
-        *height = vmode->efbHeight;
+        *height = vmode->xfbHeight;
 
-    int size = 2 * vmode->fbWidth * vmode->efbHeight;
+    int size = 2 * vmode->fbWidth * vmode->xfbHeight;
 
     u8 * buffer = (u8 *) memalign(32, size);
     if(!buffer)
@@ -503,7 +503,8 @@ void CalculateCutoff(f32 realwidth, f32 realheight, f32 minwidth, f32 maxwidth,
  * Draws the specified image on screen using GX
  ***************************************************************************/
 void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos,
-                  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha)
+                  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth,
+                  f32 minheight, f32 maxheight)
 {
 	if(data == NULL)
 		return;
@@ -532,10 +533,6 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 
 	f32 realwidth = (f32) (width << 1);
 	f32 realheight = (f32) (height << 1);
-	f32 minwidth = (f32) -100.0f;
-	f32 maxwidth = (f32) (screenwidth+100);
-	f32 minheight = (f32) -100.0f;
-	f32 maxheight = (f32) (screenheight+100);
 
 	f32 w1 = (f32) -width, h1 = (f32) -height;
 	f32 w2 = (f32) width, h2 = (f32) -height;

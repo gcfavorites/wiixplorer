@@ -89,6 +89,7 @@ class MusicPlayer : public GuiWindow
         int CircleImageDelay;
         PlayList TitleList;
 
+        GuiSound * btnSoundOver;
         GuiImageData * playerImgData;
         GuiImageData * navi_defaultImgData;
         GuiImageData * navi_upImgData;
@@ -99,7 +100,7 @@ class MusicPlayer : public GuiWindow
         GuiImage * BackgroundImg;
         GuiImage * CircleImg;
 
-        GuiButton * NoButton;
+        GuiButton * BackButton;
         GuiButton * PlayBtn;
         GuiButton * StopBtn;
         GuiButton * NextBtn;

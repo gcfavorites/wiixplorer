@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-30 21:13+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -265,6 +265,9 @@ msgstr "Vill du starta:"
 msgid "Do you want to change the font?"
 msgstr ""
 
+msgid "Do you want to delete this file:"
+msgstr ""
+
 msgid "Do you want to disconnect the FTP client?"
 msgstr ""
 
@@ -411,6 +414,9 @@ msgstr ""
 msgid "FTP Started.\n"
 msgstr ""
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr ""
 
@@ -439,6 +445,9 @@ msgid "File Extensions Assignment"
 msgstr ""
 
 msgid "File already exists:"
+msgstr ""
+
+msgid "File could not be deleted."
 msgstr ""
 
 msgid "File couldn't be deleted."

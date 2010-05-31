@@ -369,6 +369,58 @@ void Scrollbar::SetScrollboxPosition()
     }
 }
 
+void Scrollbar::SetMinWidth(int w)
+{
+    scrollbarTopImg->SetMinWidth(w);
+	scrollbarButtomImg->SetMinWidth(w);
+	scrollbarTileImg->SetMinWidth(w);
+	arrowDownImg->SetMinWidth(w);
+	arrowDownOverImg->SetMinWidth(w);
+	arrowUpImg->SetMinWidth(w);
+	arrowUpOverImg->SetMinWidth(w);
+	scrollbarBoxImg->SetMinWidth(w);
+	scrollbarBoxOverImg->SetMinWidth(w);
+}
+
+void Scrollbar::SetMaxWidth(int w)
+{
+    scrollbarTopImg->SetMaxWidth(w);
+	scrollbarButtomImg->SetMaxWidth(w);
+	scrollbarTileImg->SetMaxWidth(w);
+	arrowDownImg->SetMaxWidth(w);
+	arrowDownOverImg->SetMaxWidth(w);
+	arrowUpImg->SetMaxWidth(w);
+	arrowUpOverImg->SetMaxWidth(w);
+	scrollbarBoxImg->SetMaxWidth(w);
+	scrollbarBoxOverImg->SetMaxWidth(w);
+}
+
+void Scrollbar::SetMinHeight(int h)
+{
+    scrollbarTopImg->SetMinHeight(h);
+	scrollbarButtomImg->SetMinHeight(h);
+	scrollbarTileImg->SetMinHeight(h);
+	arrowDownImg->SetMinHeight(h);
+	arrowDownOverImg->SetMinHeight(h);
+	arrowUpImg->SetMinHeight(h);
+	arrowUpOverImg->SetMinHeight(h);
+	scrollbarBoxImg->SetMinHeight(h);
+	scrollbarBoxOverImg->SetMinHeight(h);
+}
+
+void Scrollbar::SetMaxHeight(int h)
+{
+    scrollbarTopImg->SetMaxHeight(h);
+	scrollbarButtomImg->SetMaxHeight(h);
+	scrollbarTileImg->SetMaxHeight(h);
+	arrowDownImg->SetMaxHeight(h);
+	arrowDownOverImg->SetMaxHeight(h);
+	arrowUpImg->SetMaxHeight(h);
+	arrowUpOverImg->SetMaxHeight(h);
+	scrollbarBoxImg->SetMaxHeight(h);
+	scrollbarBoxOverImg->SetMaxHeight(h);
+}
+
 void Scrollbar::Draw()
 {
 	scrollbarTileImg->Draw();

@@ -71,6 +71,11 @@ class GuiWindow : public GuiElement
 		//!Gets the index of the GuiElement inside the window that is currently selected
 		//!\return index of selected GuiElement
 		int GetSelected();
+		//!Window cutoff bounds
+		void SetMinWidth(int w);
+		void SetMaxWidth(int w);
+		void SetMinHeight(int h);
+		void SetMaxHeight(int h);
 		//!Dim the Window and its elements
 		void SetDim(bool d);
 		//!Draws all the elements in this GuiWindow

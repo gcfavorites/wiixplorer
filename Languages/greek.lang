@@ -4,14 +4,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-31 10:13+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
 "POT-κατασκευής-ημερομηνία: 2010-04-11 20:58+0200\n"
 "PO-Revision-ημερομηνία: 2009-07-18 15:18+0200\n"
-"Τελευταία-μετάφραση: \n"
-"Ομάδα γλώσσας: \n"
+"Τελευταία-μετάφραση: Rev.165 \n"
+"Ομάδα γλώσσας: Azrael11\n"
 "MIME-Έκδοση: 1.0\n"
 "Content-Τύπος: text/plain; charset=utf-8\n"
 
@@ -34,7 +34,7 @@ msgid "Action cancelled."
 msgstr "Η ενέργεια ακυρώθηκε"
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Προσθήκη στην λίστα"
 
 msgid "Alpha Blending"
 msgstr "Alpha ανάμειξη"
@@ -49,13 +49,13 @@ msgid "Apps"
 msgstr "Προγράμματα"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "Διαδρομή Προγραμμάτων"
 
 msgid "Archive Files"
-msgstr ""
+msgstr "Αρχεία"
 
 msgid "Audio Files"
-msgstr ""
+msgstr "Αρχεία Ήχου"
 
 msgid "Auto Connect"
 msgstr "Αυτόματη σύνδεση"
@@ -70,7 +70,7 @@ msgid "Back"
 msgstr "Πίσω"
 
 msgid "Back Button"
-msgstr ""
+msgstr "Πίσω πλήκτρο"
 
 msgid "Boot Settings"
 msgstr "Ρυθμίσεις εκκίνησης"
@@ -94,7 +94,7 @@ msgid "Can't load file"
 msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"
 
 msgid "Can't load page."
-msgstr ""
+msgstr "Δεν μπορώ να φορτώσω την σελίδα."
 
 msgid "Can't open file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
@@ -133,17 +133,17 @@ msgid "Clear"
 msgstr ""
 
 msgid "Clear List"
-msgstr ""
+msgstr "Εκκαθάρηση λίστας"
 
 msgid "Click Button"
-msgstr ""
+msgstr "Πλήτρο κλίκ"
 
 #, c-format
 msgid "Client %i"
-msgstr ""
+msgstr "Πελάτης %i"
 
 msgid "Client:"
-msgstr ""
+msgstr "Πελάτης:"
 
 msgid "Clock Mode"
 msgstr "Είδος ώρας"
@@ -161,13 +161,13 @@ msgid "Console Default"
 msgstr "Προεπιλογή από την Κονσόλα"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "Πλήκτρο μενού πλαισίου"
 
 msgid "Continue"
 msgstr "Συνέχισε"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "Ρυθμίσεις χειρισμού"
 
 msgid "Convert"
 msgstr "Μετάτρεψε"
@@ -206,7 +206,7 @@ msgid "Could not extract file:"
 msgstr "Δεν μπορώ να εξάγω το αρχείο:"
 
 msgid "Could not load file."
-msgstr ""
+msgstr "Δεν μπορώ να φορτώσω το αρχείο."
 
 msgid "Could not load image."
 msgstr "Δεν μπορώ να φορτώσω την εικόνα."
@@ -239,25 +239,25 @@ msgid "Deleting files:"
 msgstr "Διαγραφή αρχείων:"
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "Ξεμαρκάρισμα όλως των στοιχείων των πλήκτρων"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "Ξεμαρκάρισμα στοιχείου πλήκτρου"
 
 msgid "Designer:"
 msgstr "Σχεδιαστής:"
 
 msgid "Directory .."
-msgstr ""
+msgstr "Διαδρομή..."
 
 msgid "Directory couldn't be deleted."
 msgstr "Η διαδρομή δεν μπορεί να διαγραφεί."
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "Αποσύνδεση πελάτη"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "Αποσύνδεση SMB"
 
 msgid "Do you want to boot file now?"
 msgstr "Θέλεις να ξεκινήσω το αρχείο τώρα;"
@@ -268,11 +268,14 @@ msgstr "Θέλεις να εκκινήσω την εφαρμογή:"
 msgid "Do you want to change the font?"
 msgstr "Θέλεις να αλλάξεις την γραμματοσειρά;"
 
-msgid "Do you want to disconnect the FTP client?"
+msgid "Do you want to delete this file:"
 msgstr ""
 
+msgid "Do you want to disconnect the FTP client?"
+msgstr "Θέλεις να αποσυνδέσω τον πελάτη FTP;"
+
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "Θέλεις να αποσυνδέσω την SMB;"
 
 msgid "Do you want to download new language files?"
 msgstr "Θέλεις να κατεβάσω καινόυργια αρχεία γλωσσών;"
@@ -309,10 +312,10 @@ msgid "Do you want to reboot now ?"
 msgstr "Θέλεις να γίνει επανεκκίνηση τώρα;"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "Θέλεις να επανεκκινήσω την SMB;"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "Θέλεις να επανεκκινήσω τον πελάτη FTP;"
 
 msgid "Do you want to remount the devices?"
 msgstr "Θέλεις να ξανανεβάσω τις συσκευές;"
@@ -321,10 +324,10 @@ msgid "Do you want to replace this file?"
 msgstr "Θέλεις να αντικαταστήσω αυτό το αρχείο;"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "Θέλεις να επαναφέρω τις αρχικές ρυθμίσεις ελέγχου;"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "Θέλεις να επαναφέρω τις αρχικές ρυθμίσεις;"
 
 msgid "Do you want to save changes?"
 msgstr "Θέλεις να σώσεις τις αλλαγές;"
@@ -339,7 +342,7 @@ msgid "Do you want to update now ?"
 msgstr "Θέλεις να κάνω αναβάθμιση τώρα;"
 
 msgid "Down Button"
-msgstr ""
+msgstr "Κάτω πλήκτρο"
 
 msgid "Download Files"
 msgstr "Κατεβάζω τα αρχεία"
@@ -355,7 +358,7 @@ msgid "Downloading files..."
 msgstr "Κατέβασμα αρχείων..."
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "Επιξεργασία πλήκτρου κειμένου γραμμής"
 
 msgid "Error while reading file."
 msgstr "Λάθος καθώς διαβαζα το αρχείο."
@@ -414,6 +417,9 @@ msgstr "O FTP Server τρέχει και ακούει στην πόρτα"
 msgid "FTP Started.\n"
 msgstr "Ο FTP ξεκινάει.\n"
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr "Απέτυχα να αντιγράψω το(α) αρχείο(α)."
 
@@ -430,19 +436,22 @@ msgid "Failed renaming item"
 msgstr "Απέτυχα να μεταονομάσω το αρχείο"
 
 msgid "Failed to get the Changelog."
-msgstr "Απέτυχα να πάρω την αλλαγή ημερολογίου."
+msgstr "Απέτυχα να πάρω το ιστορικό."
 
 msgid "Failed to read file data."
 msgstr "Απέτυχα να διαβάσω τα δεδομένα του αρχείου."
 
 msgid "File Extensions"
-msgstr ""
+msgstr "Επεκτάσεις αρχείου"
 
 msgid "File Extensions Assignment"
-msgstr ""
+msgstr "Εκχώρηση Επεκτάση αρχείου"
 
 msgid "File already exists:"
 msgstr "Το αρχείο ήδη υπάρχει:"
+
+msgid "File could not be deleted."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Αυτό το αρχείο δεν μπορεί να διεγραφεί."
@@ -488,7 +497,7 @@ msgid "Folder"
 msgstr "Φάκελος"
 
 msgid "Font Files"
-msgstr ""
+msgstr "Αρχεία γραμματοσειρών"
 
 msgid "Fontpath changed."
 msgstr "Η διαδρομή της γραματοσειράς άλλαξε."
@@ -497,61 +506,61 @@ msgid "Free Space:"
 msgstr "Ελεύθερος χώρος:"
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "GC PAD ΠΛΗΚΤΡΟ A"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "GC PAD ΠΛΗΚΤΡΟ Β"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "GC PAD ΚΑΤΩ ΠΛΗΚΤΡΟ"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "GC PAD ΑΡΙΣΤΕΡΟ ΠΛΗΚΤΡΟ"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "GC PAD ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "GC PAD ΔΕΞΙ ΠΛΗΚΤΡΟ"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "GC PAD ΠΛΗΚΤΡΟ ΕΚΚΙΝΗΣΗΣ"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "GC PAD ΠΑΝΩ ΠΛΗΚΤΡΟ"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "GC PAD ΠΛΗΚΤΡΟ Χ"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "GC PAD ΠΛΗΚΤΡΟ Υ"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "GC PAD ΣΚΑΝΔΑΛΗ L"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "GC PAD ΣΚΑΝΔΑΛΗ R"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "GC PAD ΣΚΑΝΔΑΛΗ Z"
 
 msgid "GD2 Compression"
 msgstr "Συμπίεση GD2"
 
 msgid "Getting Changelog..."
-msgstr "Παίρνω την αλλαγή καταγραφής..."
+msgstr "Παίρνω το ιστορικό..."
 
 msgid "Go Back"
 msgstr "Πίσω"
 
 msgid "Home Button"
-msgstr ""
+msgstr "Πλήκτρο Κεντρικό"
 
 msgid "Home Menu"
 msgstr "Κεντρικό μενού"
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "Αρχεία Homebrew"
 
 msgid "Horizontal"
 msgstr "Οριζόντια"
@@ -563,7 +572,7 @@ msgid "How do you want to open the file?"
 msgstr "Πώς θέλεις να ανοίξω αυτό το αρχείο;"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "Πως θέλεις να προχωρήσω;"
 
 msgid "Icon Mode"
 msgstr "Τρόπος με εικονίδια"
@@ -572,7 +581,7 @@ msgid "Image Converter"
 msgstr "Μετατροπέας εικόνων"
 
 msgid "Image Files"
-msgstr ""
+msgstr "Αρχεία εικόνας"
 
 msgid "Image Heigth"
 msgstr "Υψος εικόνας"
@@ -611,7 +620,7 @@ msgid "Language"
 msgstr "Γλώσσα"
 
 msgid "Language Files"
-msgstr ""
+msgstr "Αρχεία γλωσσών"
 
 msgid "Language Path changed."
 msgstr "Η διαδρομή της γλώσσας άλλαξε."
@@ -629,7 +638,7 @@ msgid "Last modified:"
 msgstr "Μετατράπηκε:"
 
 msgid "Left Button"
-msgstr ""
+msgstr "Αριστερό πλήκτρο"
 
 msgid "Linebreak"
 msgstr ""
@@ -641,7 +650,7 @@ msgid "Listening on TCP port"
 msgstr "Ακούει στην πόρτα TCP"
 
 msgid "Load Music to Memory"
-msgstr ""
+msgstr "Φόρτωσε την μουσική στην μνήμη"
 
 msgid "Loading file:"
 msgstr "Φορτώνω αρχείο:"
@@ -653,7 +662,7 @@ msgid "Loop"
 msgstr "Βρόχος"
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "Επανάληψη της λίστας"
 
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
@@ -662,10 +671,10 @@ msgid "MPlayerPath changed"
 msgstr "Η διαδρομή για το MPlayerCE άλλαξε."
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "Μάρκαρε πλήκτρο αντικειμένου"
 
 msgid "Memory Buffer"
-msgstr ""
+msgstr "Ρυθμιστής μνήμης"
 
 msgid "Menu"
 msgstr "Μενού"
@@ -753,7 +762,7 @@ msgid "Open"
 msgstr "Άνοιξε"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr ""
+msgstr "Να ανοίξω το αρχείο με τον θεατή PDF;"
 
 msgid "Opening is not yet implemented"
 msgstr "Το άνοιγμά δεν έχει γίνει εφικτό ακόμη"
@@ -768,13 +777,13 @@ msgid "Output Type"
 msgstr "Τύπος"
 
 msgid "PDF Files"
-msgstr ""
+msgstr "Αρχεία PDF"
 
 msgid "PDF Processing Zoom"
-msgstr ""
+msgstr "Μεταποίηση μεγένθησης PDF"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "Ανάλυση διαδρομής"
 
 msgid "Passive Mode:"
 msgstr "Τρόπος passive:"
@@ -792,7 +801,7 @@ msgid "Path Setup"
 msgstr "Διαδρομή εγκατάστασης"
 
 msgid "Play File"
-msgstr ""
+msgstr "Παίξε αρχείο"
 
 msgid "Play Once"
 msgstr "Παίξε μία φορά"
@@ -804,7 +813,7 @@ msgid "Please wait:"
 msgstr "Παρακαλώ περιμένετε:"
 
 msgid "Possible unsupported format."
-msgstr ""
+msgstr "Πιθανών μη υποστηριζόμενη μορφή."
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Πάτησε εκκίνηση για να αρχίσεις τον server στην πόρτα"
@@ -837,7 +846,7 @@ msgid "Reload"
 msgstr "Ανανέωση"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "Αφαίρεση από την λίστα"
 
 msgid "Rename"
 msgstr "Μετονομασία"
@@ -852,7 +861,7 @@ msgid "Retry"
 msgstr "Δοκιμή ξανά"
 
 msgid "Right Button"
-msgstr ""
+msgstr "Δεξί πλήκτρο"
 
 msgid "Rotate"
 msgstr "Περιστροφή"
@@ -870,16 +879,16 @@ msgid "Save Alpha"
 msgstr "Σώσε σε Alpha"
 
 msgid "Screenshot Format"
-msgstr "Φορμάτ εικόνας"
+msgstr "Screenshot Φορμάτ"
 
 msgid "Screenshot Hold Button"
-msgstr ""
+msgstr "Screenshot Πλήτρο κρατήματος"
 
 msgid "Screenshot Path"
-msgstr ""
+msgstr "Διαδρομή για την Screenshot "
 
 msgid "Screenshot Press Button"
-msgstr ""
+msgstr "Screenshot πλήκτρο πίεσης"
 
 msgid "Scrolling Speed"
 msgstr "Ταχύτητα κύλισης"
@@ -892,16 +901,16 @@ msgstr "Ρυθμίσεις"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "Μετοχή %i"
 
 msgid "Share:"
-msgstr ""
+msgstr "Μετοχή:"
 
 msgid "Shift"
 msgstr ""
 
 msgid "Show Changelog"
-msgstr "Aλλαγή κατάθεσης"
+msgstr "Εμφάνιση ιστορικόύ"
 
 msgid "Shutdown"
 msgstr "Κλείσιμο"
@@ -916,19 +925,19 @@ msgid "Size:"
 msgstr "Μέγεθος:"
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "Πλήτρο για την προβολή ολίσθησης εικόνων"
 
 msgid "Slideshow Delay"
-msgstr "Καθηστέρηση εμφάνισης εικόνας"
+msgstr "Καθηστέρηση για την προβολή ολίσθησης εικόνων"
 
 msgid "Sound Settings"
 msgstr "Ρυθμίσεις ήχου"
 
 msgid "Soundblock Size"
-msgstr ""
+msgstr "Μέγεθος φραγμού ήχου"
 
 msgid "Soundblocks"
-msgstr ""
+msgstr "Φραγμοί ήχων"
 
 msgid "Special thanks to:"
 msgstr "Ευχαριστώ τους:"
@@ -940,10 +949,10 @@ msgid "Startup FTP"
 msgstr "Εκκίνηση FTP"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr ""
+msgstr "Το μέγεθος της ρυθμισόμενης μνήμης είναι πολύ μεγάλο.Αν δεν αρχίσει η εφαρμογή σβήσε τα αρχεία ρύθμισης."
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr ""
+msgstr "Το αποτέλεσμα θα λάβει χώρα όταν φορτωθεί η επόμενη μουσική. Μπορεί να σταματήσει απότομα την μουσική που ήδη παίζει."
 
 msgid "The new font could not be loaded."
 msgstr "Η νέα γραμματοσειρά δεν μπορεί να φορτωθεί."
@@ -955,7 +964,7 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "Και όλη την ομάδα DevkitPro & libogc"
 
 msgid "This option could mess up the pdf view."
-msgstr ""
+msgstr "Αυτή η επιλογή μπορεί να κάνει ανω κάτω την εμφάνιση ενός pdf."
 
 msgid "To Idle"
 msgstr "Στην αδράνεια"
@@ -988,7 +997,7 @@ msgid "URL is empty."
 msgstr "Η URL είναι άδεια."
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "Άγνωστη μορφή. Θέλεις να ανοίξω αυτό το αρχείο με τον κειμενογράφω;"
 
 msgid "Unable to create folder."
 msgstr "Δεν μπορώ να δημιουργήσω φάκελο."
@@ -1003,13 +1012,13 @@ msgid "Unsupported format!"
 msgstr "Μη υποστηριζόμενω φορμάτ!"
 
 msgid "Up Button"
-msgstr ""
+msgstr "Πάνω πλήκτρο"
 
 msgid "Update (App) Path"
 msgstr "Αναβάθμηση διαδρομής"
 
 msgid "Update App"
-msgstr "Αναβάθμισή"
+msgstr "Αναβάθμιση"
 
 msgid "Update Icon.png"
 msgstr "Αναβάθμιση Icon.png"
@@ -1037,106 +1046,106 @@ msgid "Vertical"
 msgstr "Κάθετα"
 
 msgid "Video Files"
-msgstr ""
+msgstr "Αρχεία βίντεου"
 
 msgid "WARNING:"
-msgstr ""
+msgstr "ΠΡΟΣΟΧΗ:"
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ 1"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ 2"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ Α"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ Β"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "WPAD ΚΑΤΩ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ ΚΕΝΤΡΙΚΟ ΜΕΝΟΥ"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "WPAD ΑΡΙΣΤΕΡΟ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "WPAD ΠΛΗΤΡΟ ΜΕΙΟΝ"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "WPAD ΠΛΗΚΤΡΟ ΣΥΝ"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD ΔΕΞΙ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "WPAD ΠΑΝΩ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ Α"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ Β"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "WPAD CLASSIC ΚΑΤΩ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "WPAD CLASSIC ΓΕΜΑΤΟ ΠΛΗΚΤΡΟ L"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "WPAD CLASSIC ΓΕΜΑΤΟ ΠΛΗΚΤΡΟ R"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ ΚΕΝΤΡΙΚΟ ΜΕΝΟΥ"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "WPAD CLASSIC ΑΡΙΣΤΕΡΟ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ ΜΕΙΟΝ"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ ΣΥΝ"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD CLASSIC ΔΕΞΙ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΑΝΩ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ Χ"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ Υ"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ ZL"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "WPAD CLASSIC ΠΛΗΚΤΡΟ ZR"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "WPAD CLASSIC ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "WPAD ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
 msgid "Warning:"
-msgstr ""
+msgstr "Προσοχνή:"
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Διαδικά αρχεία Wii"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "WiiXplorer προεπιλεγμένη μουσική"
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "WiiXplorer ταινείες"
 
 msgid "Yes"
 msgstr "Ναι"
