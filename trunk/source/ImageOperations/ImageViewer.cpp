@@ -109,6 +109,7 @@ ImageViewer::~ImageViewer()
     delete rotateRButton;
     delete backButton;
 	delete moveButton;
+	delete trashButton;
 
     delete trigger;
     delete trigNext;
@@ -153,6 +154,8 @@ ImageViewer::~ImageViewer()
     Resources::Remove(slideshowButtonOverData);
     delete slideshowButtonImage;
     delete slideshowButtonOverImage;
+    Resources::Remove(trashImgData);
+    delete trashImg;
 
     MainWindow::Instance()->ResumeGui();
 }
@@ -250,6 +253,29 @@ int ImageViewer::MainUpdate()
 			image->SetPosition(pointerX-clickPosX, pointerY-clickPosY);
 		}
 	}
+	else if (trashButton->GetState() == STATE_CLICKED)
+	{
+	    if(imageDir && image)
+	    {
+            SetState(STATE_DISABLED);
+            int choice = WindowPrompt(tr("Do you want to delete this file:"), imageDir->GetFilename(currentImage), tr("Yes"), tr("Cancel"), 0, 0, false);
+            if (choice)
+            {
+                char filepath[1024];
+                snprintf(filepath, sizeof(filepath), "%s/%s", imageDir->GetFilepath(currentImage), imageDir->GetFilename(currentImage));
+                if(!RemoveFile(filepath))
+                    ShowError(tr("File could not be deleted."));
+                else
+                {
+                    NextImage(false);
+                    snprintf(filepath, sizeof(filepath), "%s/%s", imageDir->GetFilepath(currentImage), imageDir->GetFilename(currentImage));
+                    LoadImageList(filepath);
+                }
+            }
+            SetState(STATE_DEFAULT);
+	    }
+		trashButton->ResetState();
+	}
 
 	if (wasPointerVisible != isPointerVisible)
 	{
@@ -267,6 +293,7 @@ int ImageViewer::MainUpdate()
 		slideshowButton->SetAlpha(buttonAlpha);
 		rotateLButton->SetAlpha(buttonAlpha);
 		rotateRButton->SetAlpha(buttonAlpha);
+		trashButton->SetAlpha(buttonAlpha);
 
 		if (isPointerVisible)
 		{
@@ -525,6 +552,12 @@ bool ImageViewer::LoadImage(int index, bool silent)
 		return false;
 	}
 
+    if(image && SlideShowStart > 0)
+    {
+        image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+        while(image->GetEffect() > 0) usleep(100);
+    }
+
 	MainWindow::Instance()->HaltGui();
 
 	if(image != NULL)
@@ -547,6 +580,9 @@ bool ImageViewer::LoadImage(int index, bool silent)
 
     //!Insert after background image and before Buttons
 	Insert(image, 1);
+
+    if(SlideShowStart > 0)
+        image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 
 	MainWindow::Instance()->ResumeGui();
 
@@ -727,6 +763,19 @@ void ImageViewer::Setup()
 	moveButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
 	Append(moveButton);
+
+    trashImgData = Resources::GetImageData(trash_png, trash_png_size);
+    trashImg = new GuiImage(trashImgData);
+    trashImg->SetAlpha(120);
+    trashImg->SetScale(1.1);
+    trashButton = new GuiButton(trashImgData->GetWidth(), trashImgData->GetHeight());
+    trashButton->SetImage(trashImg);
+    trashButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+    trashButton->SetPosition(-30, 30);
+    trashButton->SetTrigger(trigger);
+    trashButton->SetEffectGrow();
+
+    Append(trashButton);
 
     SetEffect(EFFECT_FADE, 50);
 }

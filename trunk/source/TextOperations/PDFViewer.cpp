@@ -40,11 +40,12 @@ PDFViewer::PDFViewer(const char * filepath, const char * password)
 	drawrotate = 0;
     drawcache = (fz_glyphcache*) nil;
     drawpage = (pdf_page*) nil;
+    //!the TrashButton from imageviewer isn't needed
+    Remove(trashButton);
 
 	fz_cpudetect();
 	fz_accelerate();
     closexref();
-    Setup();
 
     OpenFile(filepath, password);
     LoadPage(currentPage);
@@ -134,6 +135,8 @@ bool PDFViewer::LoadPage(int pagenum)
 	RemoveAll();
 	image = new GuiImage(OutputImage, imagewidth, imageheight);
 	image->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	if(SlideShowStart > 0)
+        image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 
 	Append(backGround);
 	Append(image);
@@ -172,6 +175,12 @@ bool PDFViewer::PreviousPage()
 
 void PDFViewer::FreePage()
 {
+    if(image && SlideShowStart > 0)
+    {
+        image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+        while(image->GetEffect() > 0) usleep(100);
+    }
+
 	MainWindow::Instance()->HaltGui();
 	Remove(image);
 	if(image)

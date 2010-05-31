@@ -28,6 +28,7 @@
 
 #include <vector>
 #include "libwiigui/gui.h"
+#include "Controls/Scrollbar.hpp"
 
 class PlayList : public GuiWindow
 {
@@ -47,12 +48,15 @@ class PlayList : public GuiWindow
         bool LoadList();
         int GetCurrentPlaying(const char * filepath);
         int GetSelectedItem() { return listOffset+selectedItem; };
+        void Draw();
         void Update(GuiTrigger * t);
     protected:
+        void SwitchMinimized();
         void OnListStateChange(GuiElement *sender, int s, int c);
 
         int listOffset;
         int selectedItem;
+        bool Minimized;
         bool Hidden;
         bool listChanged;
 
@@ -64,11 +68,15 @@ class PlayList : public GuiWindow
         std::vector<GuiText *> ListBtnTxt;
         std::vector<GuiImage *> ListBtnImgOver;
 
+        GuiButton * PlayListBtn;
         GuiImageData * menu_selectionData;
         GuiImageData * playlistImgData;
         GuiImage * playlistImg;
 
         GuiSound * btnSoundClick;
+        GuiSound * btnSoundOver;
+
+        Scrollbar * scrollbar;
 
         GuiTrigger * trigA;
 };

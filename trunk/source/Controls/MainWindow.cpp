@@ -80,7 +80,7 @@ MainWindow::MainWindow()
 
 	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
 	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
-	MusicPlayer::Instance()->SetPosition(165, 230);
+	MusicPlayer::Instance()->SetPosition(195, 230);
 
 	standardPointer[0] = new GuiImageData(player1_point_png, player1_point_png_size);
 	standardPointer[1] = new GuiImageData(player2_point_png, player2_point_png_size);
@@ -244,7 +244,7 @@ void MainWindow::InternalUpdateGUI()
 							 pointer[i]->GetHeight(), GX_TF_RGBA8,
 							 userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
 							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2, 100.0f,
-							 userInput[i].wpad->ir.angle, 1, 1, 255);
+							 userInput[i].wpad->ir.angle, 1, 1, 255, -100, screenwidth, -100, screenheight);
 			}
 		}
 		#endif

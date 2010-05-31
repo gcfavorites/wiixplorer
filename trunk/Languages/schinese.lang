@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-31 10:19+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgid "Action cancelled."
 msgstr "动作取消。"
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "添加播放列表"
 
 msgid "Alpha Blending"
 msgstr "透明光影效果"
@@ -46,13 +46,13 @@ msgid "Apps"
 msgstr "程序"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "程序路径"
 
 msgid "Archive Files"
-msgstr ""
+msgstr "档案文件"
 
 msgid "Audio Files"
-msgstr ""
+msgstr "音频文件"
 
 msgid "Auto Connect"
 msgstr "自动连接"
@@ -67,7 +67,7 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Back Button"
-msgstr ""
+msgstr "返回按钮"
 
 msgid "Boot Settings"
 msgstr "运行设置"
@@ -91,7 +91,7 @@ msgid "Can't load file"
 msgstr "无法读取文件"
 
 msgid "Can't load page."
-msgstr ""
+msgstr "无法读取页码。"
 
 msgid "Can't open file."
 msgstr "文件无法打开。"
@@ -103,7 +103,7 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "无法创建目录："
 
 msgid "Cannot open image"
 msgstr "无法打开图片程序"
@@ -112,13 +112,13 @@ msgid "Cannot write to destination."
 msgstr "目的地址无法写入"
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "无法写入文件。"
 
 msgid "Caps"
 msgstr "大写"
 
 msgid "Change"
-msgstr ""
+msgstr "更改"
 
 msgid "Change Language Path?"
 msgstr "更改语言文件路径？"
@@ -130,17 +130,17 @@ msgid "Clear"
 msgstr "清除"
 
 msgid "Clear List"
-msgstr ""
+msgstr "清楚列表"
 
 msgid "Click Button"
-msgstr ""
+msgstr "点击按钮"
 
 #, c-format
 msgid "Client %i"
-msgstr ""
+msgstr "客户端 %i"
 
 msgid "Client:"
-msgstr ""
+msgstr "客户端"
 
 msgid "Clock Mode"
 msgstr "时钟模式"
@@ -158,13 +158,13 @@ msgid "Console Default"
 msgstr "主机缺省"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "右键菜单按钮"
 
 msgid "Continue"
-msgstr ""
+msgstr "继续"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "主机设置"
 
 msgid "Convert"
 msgstr "转换"
@@ -203,7 +203,7 @@ msgid "Could not extract file:"
 msgstr "文件无法提取。"
 
 msgid "Could not load file."
-msgstr ""
+msgstr "文件无法读取。"
 
 msgid "Could not load image."
 msgstr "图片无法读取。"
@@ -224,7 +224,7 @@ msgid "Cut current marked item(s)?"
 msgstr "是否剪切已标记项目？"
 
 msgid "Default"
-msgstr ""
+msgstr "缺省"
 
 msgid "Delete"
 msgstr "删除"
@@ -236,10 +236,10 @@ msgid "Deleting files:"
 msgstr "文件删除中..."
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "取消全部标记选项按钮"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "取消选项按钮"
 
 msgid "Designer:"
 msgstr "设计者："
@@ -251,10 +251,10 @@ msgid "Directory couldn't be deleted."
 msgstr "不能删除目录。"
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "断开客户端"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "断开网络共享"
 
 msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
@@ -265,14 +265,17 @@ msgstr "是否重新启动:"
 msgid "Do you want to change the font?"
 msgstr "是否要更改字体？"
 
-msgid "Do you want to disconnect the FTP client?"
+msgid "Do you want to delete this file:"
 msgstr ""
+
+msgid "Do you want to disconnect the FTP client?"
+msgstr "是否断开FTP客户端"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "是否断开网络共享"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "是否下载新语言文件？"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "是否退出WiiXplorer?"
@@ -285,7 +288,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "是否想要运行文件来自:%s ?"
 
 msgid "Do you want to load the default language."
-msgstr ""
+msgstr "是否读取缺省语言。"
 
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
@@ -294,7 +297,7 @@ msgid "Do you want to load this language file?"
 msgstr "是否读取此语言文件？"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "是否用文本编辑器打开此文件？"
 
 msgid "Do you want to playback this file?"
 msgstr "是否播放此文件？"
@@ -306,10 +309,10 @@ msgid "Do you want to reboot now ?"
 msgstr "是否现在重新启动？"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "是否重新连接网络共享"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "是否重新连接FTP客户端"
 
 msgid "Do you want to remount the devices?"
 msgstr "是否再次加载设备？"
@@ -318,10 +321,10 @@ msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "是否复位控制设置？"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "是否复位此设置？"
 
 msgid "Do you want to save changes?"
 msgstr "是否保存更改？"
@@ -336,23 +339,23 @@ msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
 
 msgid "Down Button"
-msgstr ""
+msgstr "下载按钮"
 
 msgid "Download Files"
-msgstr ""
+msgstr "下载文件"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr ""
+msgstr "下载%d 文件。"
 
 msgid "Downloading file..."
-msgstr "正在下载文件"
+msgstr "正在下载文件..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "正在下载文件..."
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "编辑文本行按钮"
 
 msgid "Error while reading file."
 msgstr "错误"
@@ -364,7 +367,7 @@ msgid "Exit"
 msgstr "退出"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "退出WiiXplorer？"
 
 msgid "Explorer Settings"
 msgstr "浏览器设置"
@@ -411,6 +414,9 @@ msgstr "FTP服务器正在运行并侦听端口"
 msgid "FTP Started.\n"
 msgstr "FTP已开启。\n"
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
 
@@ -433,13 +439,16 @@ msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
 
 msgid "File Extensions"
-msgstr ""
+msgstr "文件扩展"
 
 msgid "File Extensions Assignment"
-msgstr ""
+msgstr "文件扩展排列"
 
 msgid "File already exists:"
 msgstr "文件已存在："
+
+msgid "File could not be deleted."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
@@ -451,7 +460,7 @@ msgid "File is corrupt."
 msgstr "文件已损坏"
 
 msgid "File is too big."
-msgstr ""
+msgstr "文件过大。"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
 msgstr "文件使用了高压缩比设置（字典尺寸过大。）"
@@ -485,7 +494,7 @@ msgid "Folder"
 msgstr "文件夹"
 
 msgid "Font Files"
-msgstr ""
+msgstr "字体文件"
 
 msgid "Fontpath changed."
 msgstr "字体路径已更改"
@@ -494,43 +503,43 @@ msgid "Free Space:"
 msgstr "空余空间："
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "GC手柄A键"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "GC手柄B键"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "GC手柄下键"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "GC手柄左键"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "GC手柄空键"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "GC手柄右键"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "GC手柄开始键"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "GC手柄上键"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "GC手柄X键"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "GC手柄Y键"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "GC手柄L键"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "GC手柄R键"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "GC手柄Z键"
 
 msgid "GD2 Compression"
 msgstr "GD2压缩"
@@ -542,13 +551,13 @@ msgid "Go Back"
 msgstr "返回"
 
 msgid "Home Button"
-msgstr ""
+msgstr "Home键"
 
 msgid "Home Menu"
 msgstr "Home菜单"
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "自制文件"
 
 msgid "Horizontal"
 msgstr "水平"
@@ -560,7 +569,7 @@ msgid "How do you want to open the file?"
 msgstr "你想要采取哪种方式打开此文件？"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "你想要如何执行？"
 
 msgid "Icon Mode"
 msgstr "图标模式"
@@ -569,7 +578,7 @@ msgid "Image Converter"
 msgstr "图片转换器"
 
 msgid "Image Files"
-msgstr ""
+msgstr "图片文件"
 
 msgid "Image Heigth"
 msgstr "图片高度"
@@ -608,7 +617,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Language Files"
-msgstr ""
+msgstr "语言文件"
 
 msgid "Language Path changed."
 msgstr "语言文件路径已更改"
@@ -626,7 +635,7 @@ msgid "Last modified:"
 msgstr "最近修改："
 
 msgid "Left Button"
-msgstr ""
+msgstr "左键"
 
 msgid "Linebreak"
 msgstr "换行符"
@@ -638,7 +647,7 @@ msgid "Listening on TCP port"
 msgstr "监听TCP端口"
 
 msgid "Load Music to Memory"
-msgstr ""
+msgstr "音乐载入内存中"
 
 msgid "Loading file:"
 msgstr "正在读取文件:"
@@ -650,7 +659,7 @@ msgid "Loop"
 msgstr "循环"
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "循环播放列表"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
@@ -659,10 +668,10 @@ msgid "MPlayerPath changed"
 msgstr "MPlayerCE路径已更改"
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "标记项目按钮"
 
 msgid "Memory Buffer"
-msgstr ""
+msgstr "内存缓冲"
 
 msgid "Menu"
 msgstr "菜单"
@@ -698,7 +707,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No files found."
-msgstr ""
+msgstr "没有找到任何文件。"
 
 msgid "No homebrew in the zip."
 msgstr "Zip压缩包中无自制程序。"
@@ -750,7 +759,7 @@ msgid "Open"
 msgstr "打开"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr ""
+msgstr "是否用PDF查看器？"
 
 msgid "Opening is not yet implemented"
 msgstr "开启还没有提供"
@@ -765,13 +774,13 @@ msgid "Output Type"
 msgstr "输出类型"
 
 msgid "PDF Files"
-msgstr ""
+msgstr "PDF文件"
 
 msgid "PDF Processing Zoom"
-msgstr ""
+msgstr "PDF缩放中"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "解析目录"
 
 msgid "Passive Mode:"
 msgstr "被动模式"
@@ -789,7 +798,7 @@ msgid "Path Setup"
 msgstr "路径设置"
 
 msgid "Play File"
-msgstr ""
+msgstr "播放文件"
 
 msgid "Play Once"
 msgstr "只播放一次"
@@ -801,7 +810,7 @@ msgid "Please wait:"
 msgstr "请等待："
 
 msgid "Possible unsupported format."
-msgstr ""
+msgstr "可能不支持此文件格式。"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
@@ -834,7 +843,7 @@ msgid "Reload"
 msgstr "重新运行"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "删除列表"
 
 msgid "Rename"
 msgstr "重命名"
@@ -849,7 +858,7 @@ msgid "Retry"
 msgstr "重试"
 
 msgid "Right Button"
-msgstr ""
+msgstr "右键"
 
 msgid "Rotate"
 msgstr "旋转"
@@ -870,16 +879,16 @@ msgid "Screenshot Format"
 msgstr "截屏格式"
 
 msgid "Screenshot Hold Button"
-msgstr ""
+msgstr "截屏按住键"
 
 msgid "Screenshot Path"
-msgstr ""
+msgstr "截屏保存路径"
 
 msgid "Screenshot Press Button"
-msgstr ""
+msgstr "截屏按键"
 
 msgid "Scrolling Speed"
-msgstr ""
+msgstr "滑动速度"
 
 msgid "Server was shutdown...\n"
 msgstr "服务已关闭...\n"
@@ -889,10 +898,10 @@ msgstr "设置"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "共享 %i"
 
 msgid "Share:"
-msgstr ""
+msgstr "共享："
 
 msgid "Shift"
 msgstr "Shift键"
@@ -901,19 +910,19 @@ msgid "Show Changelog"
 msgstr "显示更新日志"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "关闭"
 
 msgid "Shutdown FTP"
 msgstr "关闭FTP"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "关闭Wii？"
 
 msgid "Size:"
 msgstr "尺寸："
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "幻灯片按钮"
 
 msgid "Slideshow Delay"
 msgstr "幻灯片延时"
@@ -922,10 +931,10 @@ msgid "Sound Settings"
 msgstr "声音设置"
 
 msgid "Soundblock Size"
-msgstr ""
+msgstr "声音锁大小"
 
 msgid "Soundblocks"
-msgstr ""
+msgstr "声音锁"
 
 msgid "Special thanks to:"
 msgstr "特别感谢：Kavid"
@@ -937,10 +946,10 @@ msgid "Startup FTP"
 msgstr "开启FTP"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr ""
+msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr ""
+msgstr "此次设置将会在下次生效。可能会终止音乐播放。"
 
 msgid "The new font could not be loaded."
 msgstr "无法读取新字库。"
@@ -952,19 +961,19 @@ msgid "The whole DevkitPro & libogc staff."
 msgstr "基于Devkitpro和libogc开发"
 
 msgid "This option could mess up the pdf view."
-msgstr ""
+msgstr "此选项会造成pdf查看混乱。"
 
 msgid "To Idle"
-msgstr ""
+msgstr "到空闲"
 
 msgid "To Loader"
-msgstr ""
+msgstr "到HBC"
 
 msgid "To Menu"
-msgstr ""
+msgstr "到菜单"
 
 msgid "To Standby"
-msgstr ""
+msgstr "到待机"
 
 msgid "Total Space:"
 msgstr "总计空间："
@@ -985,7 +994,7 @@ msgid "URL is empty."
 msgstr "URL是空"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "无法识别格式。是否用文本编辑器打开此文件？"
 
 msgid "Unable to create folder."
 msgstr "不能建立文件夹"
@@ -1000,7 +1009,7 @@ msgid "Unsupported format!"
 msgstr "不支持的格式！"
 
 msgid "Up Button"
-msgstr ""
+msgstr "向上按钮"
 
 msgid "Update (App) Path"
 msgstr "更新程序路径"
@@ -1034,106 +1043,106 @@ msgid "Vertical"
 msgstr "垂直"
 
 msgid "Video Files"
-msgstr ""
+msgstr "视频文件"
 
 msgid "WARNING:"
-msgstr ""
+msgstr "警告："
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "Wiimote 1键"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "Wiimote 2键"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "Wiimote A键"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "Wiimote B键"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "Wiimote 下键"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "Wiimote Home键"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "Wiimote 左键"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "Wiimote 减号键"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "Wiimote 加号键"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "Wiimote 1又键"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "Wiimote 上键"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "Wii经典手柄 A键"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "Wii经典手柄 B键"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "Wii经典手柄 下键"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "Wii经典手柄 L键"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "Wii经典手柄 R键"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "Wii经典手柄 Home键"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "Wii经典手柄 左键"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "Wii经典手柄 减号键"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "Wii经典手柄 加号键"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "Wii经典手柄 右键"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "Wii经典手柄 上键"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "Wii经典手柄 X键"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "Wii经典手柄 Y键"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "Wii经典手柄 ZL键"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "Wii经典手柄 ZR键"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "Wii经典手柄 无键"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "Wiimote 无键"
 
 msgid "Warning:"
-msgstr ""
+msgstr "警告："
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Wii程序文件"
 
 msgid "WiiXplorer Default Music"
 msgstr ""
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "Wiixplorer电影"
 
 msgid "Yes"
 msgstr "确定"

@@ -141,6 +141,50 @@ void GuiWindow::SetVisible(bool v)
 	}
 }
 
+void GuiWindow::SetMinWidth(int w)
+{
+	minwidth = w;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try { _elements.at(i)->SetMinWidth(w); }
+		catch (const std::exception& e) { }
+	}
+}
+
+void GuiWindow::SetMaxWidth(int w)
+{
+	maxwidth = w;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try { _elements.at(i)->SetMaxWidth(w); }
+		catch (const std::exception& e) { }
+	}
+}
+
+void GuiWindow::SetMinHeight(int h)
+{
+	minheight = h;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try { _elements.at(i)->SetMinHeight(h); }
+		catch (const std::exception& e) { }
+	}
+}
+
+void GuiWindow::SetMaxHeight(int h)
+{
+	maxheight = h;
+
+	for (u8 i = 0; i < _elements.size(); i++)
+	{
+		try { _elements.at(i)->SetMaxHeight(h); }
+		catch (const std::exception& e) { }
+	}
+}
+
 int GuiWindow::GetSelected()
 {
 	// find selected element

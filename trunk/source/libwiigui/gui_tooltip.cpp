@@ -111,7 +111,7 @@ void GuiTooltip::SetElapseTime(float t)
 
 void GuiTooltip::Draw()
 {
-	if(!IsVisible() && !GetEffect())
+	if((!IsVisible() && !GetEffect()) || state == STATE_DISABLED)
         return;
 
 	leftImage->Draw();

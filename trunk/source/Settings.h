@@ -142,7 +142,9 @@ class Settings
         short  	LoadMusicToMem;
 		//!Slideshow time between images
 		short   SlideshowDelay;
-		//!Slideshow time between images
+		//!Fade speed between images
+		short   ImageFadeSpeed;
+		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce
         char	MPlayerPath[150];

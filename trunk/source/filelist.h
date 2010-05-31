@@ -406,6 +406,9 @@ extern const u32	navi_left_png_size;
 extern const u8		navi_right_png[];
 extern const u32	navi_right_png_size;
 
+extern const u8		trash_png[];
+extern const u32	trash_png_size;
+
 extern const u8		app_booter_dol[];
 extern const u32	app_booter_dol_size;
 

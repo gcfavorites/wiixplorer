@@ -207,7 +207,9 @@ void Taskbar::ShowMusicPlayer()
 {
 	SetState(STATE_DISABLED);
 	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->SetDim(true);
     MusicPlayer::Instance()->Show();
+	MainWindow::Instance()->SetDim(false);
 	SetState(STATE_DEFAULT);
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
 }

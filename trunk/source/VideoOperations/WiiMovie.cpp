@@ -309,7 +309,7 @@ void WiiMovie::Draw()
 
     if(Frames.at(3))
     {
-        Menu_DrawImg(Frames.at(3), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha());
+        Menu_DrawImg(Frames.at(3), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
 
     if(Frames.size() > 4)

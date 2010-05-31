@@ -153,6 +153,94 @@ void GuiButton::SetTooltip(GuiTooltip * t)
 		tooltip->SetParent(this);
 }
 
+void GuiButton::SetMinWidth(int w)
+{
+    if(image)
+        image->SetMinWidth(w);
+    if(imageOver)
+        imageOver->SetMinWidth(w);
+    if(imageHold)
+        imageHold->SetMinWidth(w);
+    if(imageClick)
+        imageClick->SetMinWidth(w);
+    if(icon)
+        icon->SetMinWidth(w);
+    if(iconOver)
+        iconOver->SetMinWidth(w);
+    if(iconHold)
+        iconHold->SetMinWidth(w);
+    if(iconClick)
+        iconClick->SetMinWidth(w);
+    if(tooltip)
+        tooltip->SetMinWidth(w);
+}
+
+void GuiButton::SetMaxWidth(int w)
+{
+    if(image)
+        image->SetMaxWidth(w);
+    if(imageOver)
+        imageOver->SetMaxWidth(w);
+    if(imageHold)
+        imageHold->SetMaxWidth(w);
+    if(imageClick)
+        imageClick->SetMaxWidth(w);
+    if(icon)
+        icon->SetMaxWidth(w);
+    if(iconOver)
+        iconOver->SetMaxWidth(w);
+    if(iconHold)
+        iconHold->SetMaxWidth(w);
+    if(iconClick)
+        iconClick->SetMaxWidth(w);
+    if(tooltip)
+        tooltip->SetMaxWidth(w);
+}
+
+void GuiButton::SetMinHeight(int h)
+{
+    if(image)
+        image->SetMinHeight(h);
+    if(imageOver)
+        imageOver->SetMinHeight(h);
+    if(imageHold)
+        imageHold->SetMinHeight(h);
+    if(imageClick)
+        imageClick->SetMinHeight(h);
+    if(icon)
+        icon->SetMinHeight(h);
+    if(iconOver)
+        iconOver->SetMinHeight(h);
+    if(iconHold)
+        iconHold->SetMinHeight(h);
+    if(iconClick)
+        iconClick->SetMinHeight(h);
+    if(tooltip)
+        tooltip->SetMinHeight(h);
+}
+
+void GuiButton::SetMaxHeight(int h)
+{
+    if(image)
+        image->SetMaxHeight(h);
+    if(imageOver)
+        imageOver->SetMaxHeight(h);
+    if(imageHold)
+        imageHold->SetMaxHeight(h);
+    if(imageClick)
+        imageClick->SetMaxHeight(h);
+    if(icon)
+        icon->SetMaxHeight(h);
+    if(iconOver)
+        iconOver->SetMaxHeight(h);
+    if(iconHold)
+        iconHold->SetMaxHeight(h);
+    if(iconClick)
+        iconClick->SetMaxHeight(h);
+    if(tooltip)
+        tooltip->SetMaxHeight(h);
+}
+
 /**
  * Draw the button on screen
  */

@@ -33,9 +33,10 @@
 #define EFFECT_SLIDE_LEFT			8
 #define EFFECT_SLIDE_IN				16
 #define EFFECT_SLIDE_OUT			32
-#define EFFECT_FADE					64
-#define EFFECT_SCALE				128
-#define EFFECT_COLOR_TRANSITION		256
+#define EFFECT_SLIDE_FROM			64
+#define EFFECT_FADE					128
+#define EFFECT_SCALE				256
+#define EFFECT_COLOR_TRANSITION		512
 
 enum
 {
@@ -209,6 +210,11 @@ class GuiElement : public sigslot::has_slots<>
 		//!Gets the current element effects
 		//!\return element effects
 		int GetEffect();
+		//!The Element's cutoff bounds
+		virtual void SetMinWidth(int w) { minwidth = w; };
+		virtual void SetMaxWidth(int w) { maxwidth = w; };
+		virtual void SetMinHeight(int h) { minheight = h; };
+		virtual void SetMaxHeight(int h) { maxheight = h; };
 		//!Checks whether the specified coordinates are within the element's boundaries
 		//!\param x X coordinate
 		//!\param y Y coordinate
@@ -276,10 +282,14 @@ class GuiElement : public sigslot::has_slots<>
 		int xmax; //!< Element's max X offset allowed
 		int xoffsetDyn; //!< Element X offset, dynamic (added to xoffset value for animation effects)
 		int yoffsetDyn; //!< Element Y offset, dynamic (added to yoffset value for animation effects)
+		int minwidth; //!< Element's minwidth cutoff limit
+		int minheight; //!< Element's minheight cutoff limit
+		int maxwidth; //!< Element's maxwidth cutoff limit
+		int maxheight; //!< Element's maxheight cutoff limit
 		int alpha; //!< Element alpha value (0-255)
+		int alphaDyn; //!< Element alpha, dynamic (multiplied by alpha value for blending/fading effects)
 		f32 scaleX; //!< Element scale (1 = 100%)
 		f32 scaleY; //!< Element scale (1 = 100%)
-		int alphaDyn; //!< Element alpha, dynamic (multiplied by alpha value for blending/fading effects)
 		f32 scaleDyn; //!< Element scale, dynamic (multiplied by alpha value for blending/fading effects)
 		bool rumble; //!< Wiimote rumble (on/off) - set to on when this element requests a rumble event
 		int effects; //!< Currently enabled effect(s). 0 when no effects are enabled

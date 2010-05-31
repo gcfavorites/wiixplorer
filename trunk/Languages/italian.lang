@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# italian.lang - r161
+# italian.lang - r164
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:27+0200\n"
+"POT-Creation-Date: 2010-05-31 10:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -47,13 +47,13 @@ msgid "Apps"
 msgstr "Applicazioni"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "Percorso applicazioni"
 
 msgid "Archive Files"
-msgstr ""
+msgstr "Files Archivio"
 
 msgid "Audio Files"
-msgstr ""
+msgstr "Files Audio"
 
 msgid "Auto Connect"
 msgstr "Connessione automatica"
@@ -68,7 +68,7 @@ msgid "Back"
 msgstr "Indietro"
 
 msgid "Back Button"
-msgstr ""
+msgstr "Pulsante Indietro"
 
 msgid "Boot Settings"
 msgstr "Impostazioni avvio"
@@ -134,7 +134,7 @@ msgid "Clear List"
 msgstr ""
 
 msgid "Click Button"
-msgstr ""
+msgstr "Pulsante Click"
 
 #, c-format
 msgid "Client %i"
@@ -159,13 +159,13 @@ msgid "Console Default"
 msgstr "Default console"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "Pulsante Menu' Contestuale"
 
 msgid "Continue"
 msgstr "Continua"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "Impostazioni Controlli"
 
 msgid "Convert"
 msgstr "Converti"
@@ -237,10 +237,10 @@ msgid "Deleting files:"
 msgstr "Sto eliminando i file:"
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "Pulsante Smarca Tutti"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "Pulsante Smarca Oggetto"
 
 msgid "Designer:"
 msgstr "Grafica:"
@@ -265,6 +265,9 @@ msgstr "Vuoi caricare:"
 
 msgid "Do you want to change the font?"
 msgstr "Vuoi cambiare il font?"
+
+msgid "Do you want to delete this file:"
+msgstr ""
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr ""
@@ -319,10 +322,10 @@ msgid "Do you want to replace this file?"
 msgstr "Vuoi rimpiazzare questo file?"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "Vuoi resettare le impostazioni di controllo?"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "Vuoi resettare le impostazioni?"
 
 msgid "Do you want to save changes?"
 msgstr "Vuoi salvare le modifiche?"
@@ -337,7 +340,7 @@ msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento?"
 
 msgid "Down Button"
-msgstr ""
+msgstr "Pulsante Giu'"
 
 msgid "Download Files"
 msgstr "Scarica file"
@@ -353,7 +356,7 @@ msgid "Downloading files..."
 msgstr "Scaricamento file..."
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "Pulsante Modifica Riga di Testo"
 
 msgid "Error while reading file."
 msgstr "Errore durante lettura file."
@@ -412,6 +415,9 @@ msgstr "Il Server FTP e' attivo e in ascolto sulla porta"
 msgid "FTP Started.\n"
 msgstr "FTP avviato"
 
+msgid "Fade Speed"
+msgstr ""
+
 msgid "Failed copying item(s)."
 msgstr "Errore nella copia degli elementi."
 
@@ -434,13 +440,16 @@ msgid "Failed to read file data."
 msgstr "Errore nella lettura del file dati."
 
 msgid "File Extensions"
-msgstr ""
+msgstr "Estensioni File"
 
 msgid "File Extensions Assignment"
-msgstr ""
+msgstr "Assegnazione estensioni file"
 
 msgid "File already exists:"
 msgstr "Il file esiste gia':"
+
+msgid "File could not be deleted."
+msgstr ""
 
 msgid "File couldn't be deleted."
 msgstr "Impossibile eliminare il file."
@@ -486,7 +495,7 @@ msgid "Folder"
 msgstr "Cartella"
 
 msgid "Font Files"
-msgstr ""
+msgstr "Files Carattere"
 
 msgid "Fontpath changed."
 msgstr "Percorso font cambiato."
@@ -495,43 +504,43 @@ msgid "Free Space:"
 msgstr "Spazio Libero:"
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "Pulsante Pad GC A"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "Pulsante Pad GC B"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "Pulsante Pad GC Giu'"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "Pulsante Pad GC Sinistra"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "Pulsante Pad GC Nessuno"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "Pulsante Pad GC Destra"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "Pulsante Pad GC Start"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "Pulsante Pad GC Su"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "Pulsante Pad GC X"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "Pulsante Pad GC Y"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "Levetta Pad GC L"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "Levetta Pad GC R"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "Levetta Pad GC Z"
 
 msgid "GD2 Compression"
 msgstr "Compress. GD2"
@@ -543,13 +552,13 @@ msgid "Go Back"
 msgstr "Indietro"
 
 msgid "Home Button"
-msgstr ""
+msgstr "Pulsante Home"
 
 msgid "Home Menu"
 msgstr "Menu Home"
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "Files Homebrew"
 
 msgid "Horizontal"
 msgstr "Orizzontale"
@@ -570,7 +579,7 @@ msgid "Image Converter"
 msgstr "Convertitore immagine"
 
 msgid "Image Files"
-msgstr ""
+msgstr "Files Immagine"
 
 msgid "Image Heigth"
 msgstr "Altezza imm."
@@ -609,7 +618,7 @@ msgid "Language"
 msgstr "Lingua"
 
 msgid "Language Files"
-msgstr ""
+msgstr "Files Lingua"
 
 msgid "Language Path changed."
 msgstr "Percorso lingua modificato."
@@ -627,10 +636,10 @@ msgid "Last modified:"
 msgstr "Ultima modifica:"
 
 msgid "Left Button"
-msgstr ""
+msgstr "Pulsante Sinistra"
 
 msgid "Linebreak"
-msgstr "Inter. riga"
+msgstr "A capo"
 
 msgid "List Mode"
 msgstr "Lista"
@@ -660,7 +669,7 @@ msgid "MPlayerPath changed"
 msgstr "Percorso MPlayer_CE cambiato."
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "Pulsante Marca Oggetto"
 
 msgid "Memory Buffer"
 msgstr "Buffer in memoria"
@@ -766,7 +775,7 @@ msgid "Output Type"
 msgstr "Formato"
 
 msgid "PDF Files"
-msgstr ""
+msgstr "Files PDF"
 
 msgid "PDF Processing Zoom"
 msgstr "Elaborazione zoom PDF"
@@ -850,7 +859,7 @@ msgid "Retry"
 msgstr "Riprova"
 
 msgid "Right Button"
-msgstr ""
+msgstr "Pulsante Destra"
 
 msgid "Rotate"
 msgstr "Ruota"
@@ -871,13 +880,13 @@ msgid "Screenshot Format"
 msgstr "Formato Screenshot"
 
 msgid "Screenshot Hold Button"
-msgstr ""
+msgstr "Pulsante Trattieni Screenshot"
 
 msgid "Screenshot Path"
-msgstr ""
+msgstr "Percorso Screenshot"
 
 msgid "Screenshot Press Button"
-msgstr ""
+msgstr "Pulsante Premi Screenshot"
 
 msgid "Scrolling Speed"
 msgstr "Velocita' scrolling"
@@ -914,7 +923,7 @@ msgid "Size:"
 msgstr "Dimensione:"
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "Pulsante Presentazione"
 
 msgid "Slideshow Delay"
 msgstr "Ritardo presentazione"
@@ -986,7 +995,7 @@ msgid "URL is empty."
 msgstr "L'URL e' vuoto."
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "Formato sconosciuto. Aprire il file con il TextEditor?"
 
 msgid "Unable to create folder."
 msgstr "Impossibile creare la cartella."
@@ -1001,7 +1010,7 @@ msgid "Unsupported format!"
 msgstr "Formato non supportato!"
 
 msgid "Up Button"
-msgstr ""
+msgstr "Pulsante Su"
 
 msgid "Update (App) Path"
 msgstr "Percorso aggiorn. appl."
@@ -1035,106 +1044,106 @@ msgid "Vertical"
 msgstr "Verticale"
 
 msgid "Video Files"
-msgstr ""
+msgstr "Files Video"
 
 msgid "WARNING:"
 msgstr "ATTENZIONE:"
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "Pulsante WiiMote 1"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "Pulsante WiiMote 2"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "Pulsante WiiMote A"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "Pulsante WiiMote B"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "Pulsante WiiMote Giu'"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "Pulsante WiiMote Home"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "Pulsante WiiMote Sinistra"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "Pulsante WiiMote Meno"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "Pulsante WiiMote Piu'"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "Pulsante WiiMote Destra"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "Pulsante WiiMote Su"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "Pulsante Classic A"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "Pulsante Classic B"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "Pulsante Classic Giu'"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "Pulsante Classic L"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "Pulsante Classic R"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "Pulsante Classic Home"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "Pulsante Classic Sinistra"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "Pulsante Classic Meno"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "Pulsante Classic Piu'"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "Pulsante Classic Destra"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "Pulsante Classic Su"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "Pulsante Classic X"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "Pulsante Classic Y"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "Pulsante Classic ZL"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "Pulsante Classic ZR"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "Pulsante Classic Nessuno"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "Pulsante WiiMote Nessuno"
 
 msgid "Warning:"
 msgstr "Attenzione:"
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Files Binari Wii"
 
 msgid "WiiXplorer Default Music"
 msgstr ""
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "Filmati WiiXplorer"
 
 msgid "Yes"
 msgstr "Si"
@@ -1175,23 +1184,17 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
-#~ msgid "User %i"
-#~ msgstr "Utente %i"
-
-#~ msgid "Play Directory"
-#~ msgstr "Riproduci Cartella"
-
-#~ msgid "User:"
-#~ msgstr "Utente:"
-
 #~ msgid "Do you want to reconnect the SMB?"
 #~ msgstr "Vuoi riconnettere la SMB?"
 
 #~ msgid "Do you want to reconnect to FTP server?"
 #~ msgstr "Vuoi riconnetterti al server FTP?"
 
-#~ msgid "App Path"
-#~ msgstr "Percorso programma"
+#~ msgid "Play Directory"
+#~ msgstr "Riproduci Cartella"
 
-#~ msgid "Fatal Error: Out of memory. Requested %0.2fKB memory. Must shutdown app."
-#~ msgstr "Errore Fatale: Memoria Esaurita. Richiesti %0.2fKB di memoria. Chiudere il programma."
+#~ msgid "User %i"
+#~ msgstr "Utente %i"
+
+#~ msgid "User:"
+#~ msgstr "Utente:"

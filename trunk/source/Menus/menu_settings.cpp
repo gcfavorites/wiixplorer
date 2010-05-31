@@ -387,6 +387,7 @@ int MenuImageSettings()
 	OptionList options;
 	options.SetName(i++, tr("Slideshow Delay"));
 	options.SetName(i++, tr("Screenshot Format"));
+	options.SetName(i++, tr("Fade Speed"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Image Settings"), &options, MENU_SETTINGS);
 
@@ -417,6 +418,18 @@ int MenuImageSettings()
             case 1:
                 Settings.ScreenshotFormat = (Settings.ScreenshotFormat+1) % 6;
 				break;
+            case 2:
+                char entered[150];
+                snprintf(entered, sizeof(entered), "%i", Settings.ImageFadeSpeed);
+                if(OnScreenKeyboard(entered, sizeof(entered)))
+                {
+                    Settings.ImageFadeSpeed = atoi(entered);
+                    if(Settings.ImageFadeSpeed < 1)
+                        Settings.ImageFadeSpeed = 1;
+                    else if(Settings.ImageFadeSpeed > 255)
+                        Settings.ImageFadeSpeed = 255;
+                }
+				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -440,6 +453,8 @@ int MenuImageSettings()
                 options.SetValue(i++, "GD");
             else if(Settings.ScreenshotFormat == IMAGE_GD2)
                 options.SetValue(i++, "GD2");
+
+			options.SetValue(i++, "%i", Settings.ImageFadeSpeed);
         }
 	}
 
