@@ -79,7 +79,7 @@ MusicPlayer::MusicPlayer()
     }
     else if(TitleList.size() > 0)
     {
-        currentPlaying = TitleList.GetCurrentPlaying(Settings.MusicPath);
+        currentPlaying = TitleList.FindFile(Settings.MusicPath);
         Play(currentPlaying);
     }
 
@@ -318,7 +318,7 @@ void MusicPlayer::Show()
             else if(ret == 2)
             {
                 TitleList.RemoveEntrie(choice);
-                currentPlaying = TitleList.GetCurrentPlaying(Settings.MusicPath);
+                currentPlaying = TitleList.FindFile(Settings.MusicPath);
             }
             else if(ret == 3)
             {
@@ -488,8 +488,11 @@ void MusicPlayer::Setup()
     PlayTitle->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     PlayTitle->SetMaxWidth(155, SCROLL_HORIZONTAL);
 
-    TitleList.SetPosition(90, 56);
-	TitleList.SetMaxHeight(GetTop()-170+TitleList.GetHeight());
+    if(TitleList.IsMinimized())
+        TitleList.SetPosition(90, 56);
+    else
+        TitleList.SetPosition(90, 56-18*15);
+	TitleList.SetMaxHeight(GetTop()-175+TitleList.GetHeight());
 
     Append(&TitleList);
     Append(BackgroundImg);

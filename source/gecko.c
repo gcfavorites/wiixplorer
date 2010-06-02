@@ -34,7 +34,7 @@ void gprintf(const char * format, ...)
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va) >= 0) && tmp)
 	{
-        usb_sendbuffer_safe(1, tmp, strlen(tmp));
+        usb_sendbuffer(1, tmp, strlen(tmp));
 		free(tmp);
 	}
 	va_end(va);
@@ -47,17 +47,17 @@ void gsenddata(const u8 *data, int length, const char *filename)
 	// First, send a "\x1b[2B]" line (this will tell geckoreader that binary data is comming up next)
 	const char *binary_data = "\x1b[2B]\n";
 
-	usb_sendbuffer_safe(1, binary_data, strlen(binary_data));
+	usb_sendbuffer(1, binary_data, strlen(binary_data));
 
 	u8 filenamelength = filename == NULL ? 0 : strlen(filename);
 
 	// Send the length
-	usb_sendbuffer_safe(1, (u8 *) &length, 4);
-	usb_sendbuffer_safe(1, (u8 *) &filenamelength, 1);
-	usb_sendbuffer_safe(1, data, length);
+	usb_sendbuffer(1, (u8 *) &length, 4);
+	usb_sendbuffer(1, (u8 *) &filenamelength, 1);
+	usb_sendbuffer(1, data, length);
 	if (filename != NULL)
 	{
-		usb_sendbuffer_safe(1, filename, strlen(filename));
+		usb_sendbuffer(1, filename, strlen(filename));
 	}
 }
 

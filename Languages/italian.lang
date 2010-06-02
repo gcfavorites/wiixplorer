@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-31 10:13+0200\n"
+"POT-Creation-Date: 2010-06-02 21:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -211,6 +211,9 @@ msgstr "Impossibile caricare l'immagine."
 
 msgid "Could not load text file."
 msgstr "Impossibile caricare il file di testo."
+
+msgid "Could not parse directory."
+msgstr ""
 
 msgid "Credits"
 msgstr "Riconoscimenti"

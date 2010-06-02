@@ -37,6 +37,7 @@ class PlayList : public GuiWindow
         ~PlayList();
         int GetChoice();
         const char * at(int pos);
+        const char * operator[](int pos) { return at(pos); };
         int size() { return FileList.size(); };
         bool ParsePath(const char * filepath);
         void AddEntrie(const char * filepath);
@@ -46,8 +47,9 @@ class PlayList : public GuiWindow
         void Hide();
         bool Save();
         bool LoadList();
-        int GetCurrentPlaying(const char * filepath);
+        int FindFile(const char * filepath);
         int GetSelectedItem() { return listOffset+selectedItem; };
+        bool IsMinimized() { return Minimized; };
         void Draw();
         void Update(GuiTrigger * t);
     protected:

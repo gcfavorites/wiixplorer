@@ -48,7 +48,7 @@ class MusicPlayer : public GuiWindow
 
         bool Load(const char *path, bool silent = true);
         bool LoadStandard();
-        bool ParsePath(const char * filepath) { bool ret = TitleList.ParsePath(filepath); currentPlaying = TitleList.GetCurrentPlaying(filepath); return ret; };
+        bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); };
         void Resume();
         bool Play();
         bool Play(int pos);
