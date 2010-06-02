@@ -105,11 +105,9 @@ int FileStartUp(const char *filepath)
         }
         else if(choice == 3)
         {
-            MusicPlayer::Instance()->ClearList();
-            bool result = MusicPlayer::Instance()->Load(filepath, false);
-            MusicPlayer::Instance()->ParsePath(filepath);
+            bool result = MusicPlayer::Instance()->ParsePath(filepath);
             if(!result)
-                WindowPrompt(tr("Could not load file."), tr("Possible unsupported format."), tr("OK"));
+                ShowError(tr("Could not parse directory."));
         }
     }
     else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0)

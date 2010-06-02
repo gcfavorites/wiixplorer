@@ -14,7 +14,7 @@
 #include "libdisk/di2.h"
 
 //these are the only stable and speed is good
-#define CACHE 8
+#define CACHE 32
 #define SECTORS 64
 
 static ntfs_md *ntfs_mounts = NULL;

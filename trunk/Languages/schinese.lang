@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-31 10:19+0200\n"
+"POT-Creation-Date: 2010-06-02 21:16+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -210,6 +210,9 @@ msgstr "图片无法读取。"
 
 msgid "Could not load text file."
 msgstr "文本文件无法读取。"
+
+msgid "Could not parse directory."
+msgstr ""
 
 msgid "Credits"
 msgstr "感谢"

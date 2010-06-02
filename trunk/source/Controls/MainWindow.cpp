@@ -108,11 +108,11 @@ MainWindow::~MainWindow()
 
 	Resources::Remove(bgImgData);
 
-	Taskbar::Instance()->DestroyInstance();
-	MusicPlayer::Instance()->DestroyInstance();
-	SoundHandler::Instance()->DestroyInstance();
-	Channels::Instance()->DestroyInstance();
-	Applications::Instance()->DestroyInstance();
+	Taskbar::DestroyInstance();
+	MusicPlayer::DestroyInstance();
+	SoundHandler::DestroyInstance();
+	Channels::DestroyInstance();
+	Applications::DestroyInstance();
 
 	for (int i = 0; i < 4; i++)
 	{

@@ -74,13 +74,13 @@ extern "C" bool RebootApp()
 extern "C" void ExitApp()
 {
     Settings.Save();
-	Clipboard::Instance()->DestroyInstance();
-	MainWindow::Instance()->DestroyInstance();
+	Clipboard::DestroyInstance();
+	MainWindow::DestroyInstance();
 	StopGX();
 	ShutdownAudio();
 	ClearFontData();
 	Resources::DestroyInstance();
-	FTPServer::Instance()->DestroyInstance();
+	FTPServer::DestroyInstance();
 	CloseFTP();
 	CloseSMBShare();
     NTFS_UnMount();

@@ -245,7 +245,6 @@ void PlayList::Show()
 	}
 
 	Hidden = false;
-	Minimized = true;
 	listChanged = true;
 }
 
@@ -339,7 +338,7 @@ void PlayList::ClearList()
     listChanged = true;
 }
 
-int PlayList::GetCurrentPlaying(const char * filepath)
+int PlayList::FindFile(const char * filepath)
 {
     if(!filepath)
         return 0;
@@ -399,8 +398,6 @@ bool PlayList::ParsePath(const char * filepath)
     }
 
     dirclose(dir);
-
-    snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s", filepath);
 
     return true;
 }
