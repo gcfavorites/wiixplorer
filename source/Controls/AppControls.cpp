@@ -60,6 +60,8 @@ void AppControls::SetDefault()
     WiiControls.HomeButton = WPAD_BUTTON_HOME;
     WiiControls.EditTextLine = WPAD_BUTTON_PLUS;
     WiiControls.SlideShowButton = WPAD_BUTTON_1;
+    WiiControls.KeyShiftButton = 0x0000;
+    WiiControls.KeyBackspaceButton = WPAD_BUTTON_B;
 
     ClassicControls.ClickButton = WPAD_CLASSIC_BUTTON_A >> 16;
     ClassicControls.BackButton = WPAD_CLASSIC_BUTTON_B >> 16;
@@ -74,6 +76,8 @@ void AppControls::SetDefault()
     ClassicControls.HomeButton = WPAD_CLASSIC_BUTTON_HOME >> 16;
     ClassicControls.EditTextLine = WPAD_CLASSIC_BUTTON_PLUS >> 16;
     ClassicControls.SlideShowButton = WPAD_CLASSIC_BUTTON_X >> 16;
+    ClassicControls.KeyShiftButton = 0x0000;
+    ClassicControls.KeyBackspaceButton = WPAD_CLASSIC_BUTTON_B >> 16;
 
     GCControls.ClickButton = PAD_BUTTON_A;
     GCControls.BackButton = PAD_BUTTON_B;
@@ -88,6 +92,8 @@ void AppControls::SetDefault()
     GCControls.HomeButton = PAD_BUTTON_MENU;
     GCControls.EditTextLine = PAD_TRIGGER_Z;
     GCControls.SlideShowButton = PAD_BUTTON_X;
+    GCControls.KeyShiftButton = 0x0000;
+    GCControls.KeyBackspaceButton = PAD_BUTTON_B;
 }
 
 bool AppControls::Load(const char * filepath)
@@ -157,6 +163,8 @@ bool AppControls::Save()
 	fprintf(file, "WiiControls.HomeButton = %d\n", WiiControls.HomeButton);
 	fprintf(file, "WiiControls.EditTextLine = %d\n", WiiControls.EditTextLine);
 	fprintf(file, "WiiControls.SlideShowButton = %d\n", WiiControls.SlideShowButton);
+	fprintf(file, "WiiControls.KeyShiftButton = %d\n", WiiControls.KeyShiftButton);
+	fprintf(file, "WiiControls.KeyBackspaceButton = %d\n", WiiControls.KeyBackspaceButton);
 
 	fprintf(file, "\n# Wii Classic Controls\n\n");
 	fprintf(file, "ClassicControls.ClickButton = %d\n", ClassicControls.ClickButton);
@@ -172,6 +180,8 @@ bool AppControls::Save()
 	fprintf(file, "ClassicControls.HomeButton = %d\n", ClassicControls.HomeButton);
 	fprintf(file, "ClassicControls.EditTextLine = %d\n", ClassicControls.EditTextLine);
 	fprintf(file, "ClassicControls.SlideShowButton = %d\n", ClassicControls.SlideShowButton);
+	fprintf(file, "ClassicControls.KeyShiftButton = %d\n", ClassicControls.KeyShiftButton);
+	fprintf(file, "ClassicControls.KeyBackspaceButton = %d\n", ClassicControls.KeyBackspaceButton);
 
 	fprintf(file, "\n# GC Controls\n\n");
 	fprintf(file, "GCControls.ClickButton = %d\n", GCControls.ClickButton);
@@ -187,6 +197,8 @@ bool AppControls::Save()
 	fprintf(file, "GCControls.HomeButton = %d\n", GCControls.HomeButton);
 	fprintf(file, "GCControls.EditTextLine = %d\n", GCControls.EditTextLine);
 	fprintf(file, "GCControls.SlideShowButton = %d\n", GCControls.SlideShowButton);
+	fprintf(file, "GCControls.KeyShiftButton = %d\n", GCControls.KeyShiftButton);
+	fprintf(file, "GCControls.KeyBackspaceButton = %d\n", GCControls.KeyBackspaceButton);
 
 	fprintf(file, "\n# Screenshot combination buttons\n\n");
 	fprintf(file, "ScreenshotHoldButton = %d\n", ScreenshotHoldButton);
@@ -291,6 +303,18 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "WiiControls.KeyShiftButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			WiiControls.KeyShiftButton = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "WiiControls.KeyBackspaceButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			WiiControls.KeyBackspaceButton = i;
+		}
+		return true;
+	}
     else if (strcmp(name, "ClassicControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ClassicControls.ClickButton = i;
@@ -369,6 +393,18 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "ClassicControls.KeyShiftButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClassicControls.KeyShiftButton = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ClassicControls.KeyBackspaceButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClassicControls.KeyBackspaceButton = i;
+		}
+		return true;
+	}
     else if (strcmp(name, "GCControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			GCControls.ClickButton = i;
@@ -444,6 +480,18 @@ bool AppControls::SetControl(char *name, char *value)
 	else if (strcmp(name, "GCControls.SlideShowButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			GCControls.SlideShowButton = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "GCControls.KeyShiftButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			GCControls.KeyShiftButton = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "GCControls.KeyBackspaceButton") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			GCControls.KeyBackspaceButton = i;
 		}
 		return true;
 	}

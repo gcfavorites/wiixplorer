@@ -266,6 +266,12 @@ int MenuControlsSettings()
 	options.SetName(i++, tr("Slide Show Button"));
 	options.SetName(i++, tr("Slide Show Button"));
 	options.SetName(i++, tr("Slide Show Button"));
+	options.SetName(i++, tr("Keyboard Backspace Button"));
+	options.SetName(i++, tr("Keyboard Backspace Button"));
+	options.SetName(i++, tr("Keyboard Backspace Button"));
+	options.SetName(i++, tr("Keyboard Shift Button"));
+	options.SetName(i++, tr("Keyboard Shift Button"));
+	options.SetName(i++, tr("Keyboard Shift Button"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Controls Settings"), &options, MENU_SETTINGS);
 
@@ -439,6 +445,24 @@ int MenuControlsSettings()
 			case 40:
 				GCControls.SlideShowButton = NextPAD_Button(GCControls.SlideShowButton);
 				break;
+			case 41:
+				WiiControls.KeyBackspaceButton = NextWPAD_Button(WiiControls.KeyBackspaceButton);
+				break;
+            case 42:
+				ClassicControls.KeyBackspaceButton = NextClassic_Button(ClassicControls.KeyBackspaceButton);
+				break;
+			case 43:
+				GCControls.KeyBackspaceButton = NextPAD_Button(GCControls.KeyBackspaceButton);
+				break;
+			case 44:
+				WiiControls.KeyShiftButton = NextWPAD_Button(WiiControls.KeyShiftButton);
+				break;
+            case 45:
+				ClassicControls.KeyShiftButton = NextClassic_Button(ClassicControls.KeyShiftButton);
+				break;
+			case 46:
+				GCControls.KeyShiftButton = NextPAD_Button(GCControls.KeyShiftButton);
+				break;
             default:
                 break;
 		}
@@ -502,6 +526,14 @@ int MenuControlsSettings()
             options.SetValue(i++, GetWPAD_ButtonName(WiiControls.SlideShowButton));
             options.SetValue(i++, GetClassic_ButtonName(ClassicControls.SlideShowButton));
             options.SetValue(i++, GetPAD_ButtonName(GCControls.SlideShowButton));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.KeyBackspaceButton));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.KeyBackspaceButton));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.KeyBackspaceButton));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.KeyShiftButton));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.KeyShiftButton));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.KeyShiftButton));
         }
 	}
 	MainWindow::Instance()->HaltGui();

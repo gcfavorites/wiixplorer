@@ -73,15 +73,8 @@ MusicPlayer::MusicPlayer()
 
     TitleList.LoadList();
 
-    if(strcmp(Settings.MusicPath, "") == 0 || TitleList.size() == 0)
-    {
-        LoadStandard();
-    }
-    else if(TitleList.size() > 0)
-    {
-        currentPlaying = TitleList.FindFile(Settings.MusicPath);
-        Play(currentPlaying);
-    }
+    currentPlaying = TitleList.FindFile(Settings.MusicPath);
+    Play(currentPlaying);
 
 	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 16384, 0);
 }
@@ -95,6 +88,9 @@ MusicPlayer::~MusicPlayer()
     bgmthread = LWP_THREAD_NULL;
 
     Hide();
+
+    if(MainSound)
+        delete MainSound;
 };
 
 MusicPlayer * MusicPlayer::Instance()
@@ -104,6 +100,15 @@ MusicPlayer * MusicPlayer::Instance()
 		instance = new MusicPlayer();
 	}
 	return instance;
+}
+
+void MusicPlayer::DestroyInstance()
+{
+    if(instance)
+    {
+        delete instance;
+    }
+    instance = NULL;
 }
 
 void MusicPlayer::ResumeThread()
@@ -116,20 +121,11 @@ void MusicPlayer::HaltThread()
     LWP_SuspendThread(bgmthread);
 }
 
-void MusicPlayer::DestroyInstance()
-{
-    if(instance)
-    {
-        delete instance;
-    }
-    instance = NULL;
-}
-
 bool MusicPlayer::LoadStandard()
 {
     strcpy(Settings.MusicPath, "");
 
-    currentPlaying = 0;
+    currentPlaying = -1;
 
     Title.assign(tr("WiiXplorer Default Music"));
 
@@ -138,6 +134,8 @@ bool MusicPlayer::LoadStandard()
 
     MainSound->Load(bg_music_ogg, bg_music_ogg_size, false);
     MainSound->Play();
+    Stopped = false;
+    Paused = false;
 
     return true;
 }
@@ -206,8 +204,10 @@ bool MusicPlayer::Load(const char * path, bool silent)
 
 void MusicPlayer::Resume()
 {
+    if(IsStopped())
+        return;
+
     MainSound->Play();
-    Stopped = false;
     Paused = false;
 }
 

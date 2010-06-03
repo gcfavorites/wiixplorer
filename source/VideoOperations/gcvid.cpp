@@ -697,7 +697,7 @@ void decodeRealJpeg(const u8* data, int size, VideoFrame& dest);
 void decodeJpeg(const u8* data, int size, VideoFrame& dest)
 {
   //convert format so jpeglib understands it...
-  int start, end;
+  int start = 0, end = 0;
   int newSize = countRequiredSize(data, size, start, end);
   u8* buff = new u8[newSize];
   convertToRealJpeg(buff, data, size, start, end);

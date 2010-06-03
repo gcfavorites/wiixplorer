@@ -1,4 +1,4 @@
- /****************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,9 +23,10 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef MENU_CONTROLS_SETTINGS_H_
-#define MENU_CONTROLS_SETTINGS_H_
+#ifndef FILE_DOWNLOADER_H_
+#define FILE_DOWNLOADER_H_
 
-int MenuControlsSettings();
+int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
+int DownloadFileToPath(const char *url, const char *dest);
 
 #endif

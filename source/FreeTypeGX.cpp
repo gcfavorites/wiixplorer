@@ -530,6 +530,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, int16_t z, wchar_t *text, GX
 	GXTexObj glyphTexture;
 	FT_Vector pairDelta;
 	ftgxDataOffset offset;
+	offset.max = 0;
 
 	if(textStyle & FTGX_JUSTIFY_MASK)
 	{

@@ -102,11 +102,14 @@ Properties::Properties(const char * filepath)
     TitleImg->SetPosition(IconPosition, Position_Y);
     Position_Y += 50;
 
-    sprintf(temp, tr("Filepath:  %s"), filepath);
-    filepathTxt =  new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
+    filepathTxt =  new GuiText(tr("Filepath:"), 20, (GXColor){0, 0, 0, 255});
     filepathTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filepathTxt->SetPosition(Position_X, Position_Y);
-    filepathTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-10, DOTTED);
+
+    filepathvalTxt =  new GuiText(filepath, 20, (GXColor){0, 0, 0, 255});
+    filepathvalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    filepathvalTxt->SetPosition(Position_X+80, Position_Y);
+    filepathvalTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-120, SCROLL_HORIZONTAL);
     Position_Y += 30;
 
     filecountTxt = new GuiText(tr("Files:"), 20, (GXColor){0, 0, 0, 255});
@@ -234,6 +237,7 @@ Properties::Properties(const char * filepath)
     if(folder)
         Append(TitleImg);
     Append(filepathTxt);
+    Append(filepathvalTxt);
     Append(filecountTxt);
     Append(filecountTxtVal);
     Append(filesizeTxt);
@@ -289,6 +293,7 @@ Properties::~Properties()
 	delete arrowUpImgOver;
 	delete TitleTxt;
 	delete filepathTxt;
+	delete filepathvalTxt;
 	delete filecountTxt;
 	delete filecountTxtVal;
 	delete filesizeTxt;

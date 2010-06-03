@@ -1,6 +1,6 @@
-/***************************************************************************
+ /***************************************************************************
  * Copyright (C) 2010
- * by Dimok
+ * by dude
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,31 +21,16 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
+ * netreceiver.cpp
+ *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <mad.h>
+#ifndef _FTP_CLIENT_H_
+#define _FTP_CLIENT_H_
 
-#include "SoundDecoder.hpp"
+bool ConnectFTP();
+void CloseFTP(int client);
+void CloseFTP();
+bool IsFTPConnected(int ftp);
 
-class Mp3Decoder : public SoundDecoder
-{
-    public:
-        Mp3Decoder(const char * filepath);
-        Mp3Decoder(const u8 * sound, int len);
-        ~Mp3Decoder();
-        int GetFormat() { return Format; };
-        int GetSampleRate() { return SampleRate; };
-        int Rewind();
-        int Read(u8 * buffer, int buffer_size, int pos);
-    protected:
-        void OpenFile();
-        struct mad_stream Stream;
-        struct mad_frame Frame;
-        struct mad_synth Synth;
-        mad_timer_t Timer;
-        u8 * GuardPtr;
-        u8 * ReadBuffer;
-        u8 Format;
-        u32 SampleRate;
-        u32 SynthPos;
-};
+#endif

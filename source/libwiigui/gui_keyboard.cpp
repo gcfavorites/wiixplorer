@@ -56,6 +56,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	alignmentVert = ALIGN_MIDDLE;
 	kbtextstr = new wString(t);
 	kbtextmaxlen = max;
+	DeleteDelay = 0;
 	CurrentFirstLetter = 0;
 	if(t)
 	{
@@ -114,8 +115,8 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-    trigB = new GuiTrigger;
-	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigShift = new GuiTrigger;
+	trigShift->SetButtonOnlyTrigger(-1, WiiControls.KeyShiftButton | ClassicControls.KeyShiftButton << 16, GCControls.KeyShiftButton);
 
     trigLeft = new GuiTrigger;
 	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
@@ -144,7 +145,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyBack->SetSoundOver(keySoundOver);
 	keyBack->SetSoundClick(keySoundClick);
 	keyBack->SetTrigger(trigA);
-	keyBack->SetTrigger(trigB);
 	keyBack->SetPosition(11*42+40+KeyboardPosition, 0*42+80);
 	keyBack->SetEffectGrow();
 	this->Append(keyBack);
@@ -173,6 +173,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyShift->SetSoundOver(keySoundOver);
 	keyShift->SetSoundClick(keySoundClick);
 	keyShift->SetTrigger(trigA);
+	keyShift->SetTrigger(trigShift);
 	keyShift->SetPosition(0+KeyboardPosition, 3*42+80);
 	keyShift->SetEffectGrow();
 	this->Append(keyShift);
@@ -286,10 +287,10 @@ GuiKeyboard::~GuiKeyboard()
 	delete keyClearOverImg;
 	delete keyClear;
 	delete trigA;
-	delete trigB;
 	delete trigHeldA;
 	delete trigLeft;
 	delete trigRight;
+	delete trigShift;
 	delete kbtextstr;
 	Resources::Remove(keyTextbox);
 	Resources::Remove(key);
@@ -410,6 +411,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
     GuiWindow::Update(t);
 
 	bool update = false;
+	++DeleteDelay;
 
 	if(keySpace->GetState() == STATE_CLICKED)
 	{
@@ -423,6 +425,13 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	{
         RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
 		keyBack->SetState(STATE_SELECTED, t->chan);
+	}
+	else if((t->wpad->btns_h & WiiControls.KeyBackspaceButton ||
+            t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16) ||
+            t->pad.btns_h & GCControls.KeyBackspaceButton) && DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
+	{
+        RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
+        DeleteDelay = 0;
 	}
 	else if(keyLineBreak->GetState() == STATE_CLICKED)
 	{

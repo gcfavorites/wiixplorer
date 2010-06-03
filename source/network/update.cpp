@@ -32,6 +32,7 @@
 
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
+#include "FileDownloader.h"
 #include "http.h"
 #include "ChangeLog.h"
 #include "networkops.h"
@@ -97,36 +98,38 @@ int CheckForUpdate()
     char DownloadLink[300];
     memset(DownloadLink, 0, sizeof(DownloadLink));
 
-    do
+    while(1)
     {
         HTML_Pos = HTML.FindStringEnd("href='");
-        char * tmpLink = HTML.CopyString("'\"");
-        if(tmpLink)
-        {
-            char *fileext = strrchr(tmpLink, '.');
-            if(fileext)
-            {
-                if(strcasecmp(fileext, ".dol") == 0)
-                {
-                    char revtxt[80];
-                    char *filename = strrchr(tmpLink, '/')+2;
-                    u8 n = 0;
-                    for (n = 0; n < strlen(filename)-2; n++)
-                        revtxt[n] = filename[n];
-                    revtxt[n] = 0;
-                    int fileRev = atoi(revtxt);
+        if(!HTML_Pos)
+            break;
 
-                    if(fileRev > revnumber)
-                    {
-                        revnumber = fileRev;
-                        snprintf(DownloadLink, sizeof(DownloadLink), "%s", tmpLink);
-                    }
+        char * tmpLink = HTML.CopyString("'\"");
+        if(!tmpLink)
+            continue;
+
+        char *fileext = strrchr(tmpLink, '.');
+        if(fileext)
+        {
+            if(strcasecmp(fileext, ".dol") == 0)
+            {
+                char revtxt[80];
+                char *filename = strrchr(tmpLink, '/')+2;
+                u8 n = 0;
+                for (n = 0; n < strlen(filename)-2; n++)
+                    revtxt[n] = filename[n];
+                revtxt[n] = 0;
+                int fileRev = atoi(revtxt);
+
+                if(fileRev > revnumber)
+                {
+                    revnumber = fileRev;
+                    snprintf(DownloadLink, sizeof(DownloadLink), "%s", tmpLink);
                 }
             }
-            free(tmpLink);
         }
+        free(tmpLink);
     }
-    while(HTML_Pos != NULL);
 
     if (revnumber > currentrev)
     {
@@ -173,7 +176,7 @@ bool UpdateMetaXml()
         Initialize_Network();
 
     struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/meta.xml");
-    if(!file.data || !file.data)
+    if(!file.data)
         return false;
 
     CreateSubfolder(Settings.UpdatePath);
@@ -186,6 +189,7 @@ bool UpdateMetaXml()
 
     fwrite(file.data, 1, file.size, pFile);
     fclose(pFile);
+    free(file.data);
 
     return true;
 }
@@ -199,7 +203,7 @@ bool UpdateIconPNG()
         Initialize_Network();
 
     struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/icon.png");
-    if(!file.data || !file.data)
+    if(!file.data)
         return false;
 
     CreateSubfolder(Settings.UpdatePath);
@@ -212,6 +216,7 @@ bool UpdateIconPNG()
 
     fwrite(file.data, 1, file.size, pFile);
     fclose(pFile);
+    free(file.data);
 
     return true;
 }

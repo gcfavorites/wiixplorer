@@ -44,7 +44,7 @@
 
 /*** Extern variables ***/
 extern bool boothomebrew;
-extern int curDevice;
+extern std::string LastUsedPath;
 
 Explorer::Explorer()
     :GuiWindow(0, 0)
@@ -68,6 +68,8 @@ Explorer::Explorer(const char *path)
 
 Explorer::~Explorer()
 {
+    LastUsedPath = DeviceBrowser->GetCurrentPath();
+
     MainWindow::Instance()->ResumeGui();
     SetEffect(EFFECT_FADE, -50);
     while(this->GetEffect() > 0) usleep(100);
@@ -267,6 +269,7 @@ int Explorer::LoadPath(const char * path)
 	SetDeviceImage();
 	return filecount;
 }
+
 int Explorer::LoadDevice(int device)
 {
     if(CurBrowser != DeviceBrowser)
@@ -293,7 +296,6 @@ int Explorer::LoadDevice(int device)
 
     AdressText->SetText(DeviceBrowser->GetCurrentPath());
 	SetDeviceImage();
-	curDevice = device;
 
 	return filecount;
 }

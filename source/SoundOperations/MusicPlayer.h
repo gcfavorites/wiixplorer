@@ -55,7 +55,7 @@ class MusicPlayer : public GuiWindow
         bool PlayNext();
         bool PlayPrevious();
         bool PlayRandom();
-        void Pause() { MainSound->Pause(); Paused = true; };
+        void Pause() { if(IsStopped()) return; MainSound->Pause(); Paused = true; };
         void Stop();
         void SetLoop(u8 mode) { LoopMode = mode; MainSound->SetLoop(LoopMode); };
         void SetVolume(int volume) { MainSound->SetVolume(volume); };

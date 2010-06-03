@@ -144,6 +144,8 @@ class Settings
 		short   SlideshowDelay;
 		//!Fade speed between images
 		short   ImageFadeSpeed;
+		//!Keyboard delete delay
+		short   KeyboardDeleteDelay;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce

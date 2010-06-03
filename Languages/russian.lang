@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 21:16+0200\n"
+"POT-Creation-Date: 2010-06-03 18:03+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -79,7 +79,13 @@ msgstr ""
 msgid "Both"
 msgstr ""
 
+msgid "Browse"
+msgstr ""
+
 msgid "Browser Mode"
+msgstr ""
+
+msgid "Browsing for font files must be done in the main browser."
 msgstr ""
 
 msgid "Can not open the file."
@@ -342,6 +348,9 @@ msgstr ""
 msgid "Do you want to update now ?"
 msgstr "Ð’Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¾Ð±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ ÑÐµÐ¹Ñ‡Ð°Ñ ?"
 
+msgid "Done"
+msgstr ""
+
 msgid "Down Button"
 msgstr ""
 
@@ -359,6 +368,9 @@ msgid "Downloading files..."
 msgstr ""
 
 msgid "Edit Textline Button"
+msgstr ""
+
+msgid "Enter"
 msgstr ""
 
 msgid "Error while reading file."
@@ -475,6 +487,9 @@ msgstr ""
 msgid "File was edited."
 msgstr ""
 
+msgid "Filepath:"
+msgstr ""
+
 #, c-format
 msgid "Filepath:  %s"
 msgstr "ÐŸÑƒÑ‚ÑŒ: %s"
@@ -569,6 +584,9 @@ msgstr ""
 msgid "Host:"
 msgstr "Ð¥Ð¾ÑÑ‚:"
 
+msgid "How do you want to change the path?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr ""
 
@@ -615,6 +633,15 @@ msgid "Interlace"
 msgstr ""
 
 msgid "JPEG Quality"
+msgstr ""
+
+msgid "Keyboard Backspace Button"
+msgstr ""
+
+msgid "Keyboard Delete Delay"
+msgstr ""
+
+msgid "Keyboard Shift Button"
 msgstr ""
 
 msgid "Language"
@@ -748,6 +775,9 @@ msgid "Not enough memory to rotate."
 msgstr ""
 
 msgid "Not enough memory."
+msgstr ""
+
+msgid "Notice:"
 msgstr ""
 
 msgid "OFF"

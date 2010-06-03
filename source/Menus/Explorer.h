@@ -58,6 +58,8 @@ class Explorer : public GuiWindow
         int LoadDevice(int device);
         int GetMenuChoice();
         void SetState(int s);
+        void SetFilter(u8 filtermode) { DeviceBrowser->SetFilter(filtermode); };
+        const char * GetCurrectPath() {  if(!CurBrowser) return NULL; return CurBrowser->GetCurrentPath(); };
     protected:
 		void CheckBrowserChanges();
 		void CheckDeviceMenu();

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 21:16+0200\n"
+"POT-Creation-Date: 2010-06-03 18:03+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -79,8 +79,14 @@ msgstr "Mount all'avvio"
 msgid "Both"
 msgstr "Entrambi"
 
+msgid "Browse"
+msgstr ""
+
 msgid "Browser Mode"
 msgstr "Modo browser"
+
+msgid "Browsing for font files must be done in the main browser."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Impossibile aprire il file."
@@ -342,6 +348,9 @@ msgstr "Vuoi avviare il canale?"
 msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento?"
 
+msgid "Done"
+msgstr ""
+
 msgid "Down Button"
 msgstr "Pulsante Giu'"
 
@@ -360,6 +369,9 @@ msgstr "Scaricamento file..."
 
 msgid "Edit Textline Button"
 msgstr "Pulsante Modifica Riga di Testo"
+
+msgid "Enter"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Errore durante lettura file."
@@ -475,6 +487,9 @@ msgstr "Il file usa impostazioni di compressione non supportati."
 msgid "File was edited."
 msgstr "Il file e' stato modificato."
 
+msgid "Filepath:"
+msgstr ""
+
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Percorso file: %s"
@@ -569,6 +584,9 @@ msgstr "Orizzontale"
 msgid "Host:"
 msgstr "Host:"
 
+msgid "How do you want to change the path?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "Come vuoi aprire il file?"
 
@@ -616,6 +634,15 @@ msgstr "Interlaccia"
 
 msgid "JPEG Quality"
 msgstr "Qualita' JPEG"
+
+msgid "Keyboard Backspace Button"
+msgstr ""
+
+msgid "Keyboard Delete Delay"
+msgstr ""
+
+msgid "Keyboard Shift Button"
+msgstr ""
 
 msgid "Language"
 msgstr "Lingua"
@@ -749,6 +776,9 @@ msgstr "Memoria insufficiente per ruotare."
 
 msgid "Not enough memory."
 msgstr "Memoria insufficiente."
+
+msgid "Notice:"
+msgstr ""
 
 msgid "OFF"
 msgstr ""

@@ -43,15 +43,12 @@
 #include "Controls/Taskbar.h"
 #include "Language/LanguageBrowser.h"
 #include "Menus/menu_ftpserver.h"
-#include "Menus/menu_settings.h"
 #include "Menus/menu_browsedevice.h"
-#include "Menus/menu_controls_settings.h"
-#include "Menus/menu_file_extensions.h"
+#include "Menus/Settings/menu_settings.h"
 #include "menu.h"
 #include "sys.h"
 
 bool boothomebrew = false;
-int curDevice = 0;
 
 /****************************************************************************
  * ResumeGui
@@ -84,8 +81,6 @@ void HaltGui()
 void MainMenu(int menu)
 {
 	int currentMenu = menu;
-
-	curDevice = Settings.MountMethod;
 
 	while(currentMenu != MENU_EXIT)
 	{

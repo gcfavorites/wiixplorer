@@ -43,6 +43,8 @@ typedef struct _Controls
     u16     HomeButton;
     u16     EditTextLine;
     u16     SlideShowButton;
+    u16     KeyShiftButton;
+    u16     KeyBackspaceButton;
 } ControlItems;
 
 class AppControls

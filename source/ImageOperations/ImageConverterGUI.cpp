@@ -185,7 +185,7 @@ void ImageConverterGui::Setup()
     AdressBarInput->SetSoundClick(btnClick);
     AdressBarInput->SetTrigger(trigA);
     AdressBarInput->SetPosition(150, 10);
-    AdressBarInputText->SetMaxWidth(AdressBarInputImg->GetWidth()-20, DOTTED);
+    AdressBarInputText->SetMaxWidth(AdressBarInputImg->GetWidth()-40, SCROLL_HORIZONTAL);
 	AdressBarInput->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
     Append(AdressBarInput);
 
@@ -204,7 +204,7 @@ void ImageConverterGui::Setup()
     AdressBarOutput->SetSoundClick(btnClick);
     AdressBarOutput->SetTrigger(trigA);
     AdressBarOutput->SetPosition(150, 60);
-    AdressBarOutputText->SetMaxWidth(AdressBarOutputImg->GetWidth()-20, DOTTED);
+    AdressBarOutputText->SetMaxWidth(AdressBarOutputImg->GetWidth()-40, SCROLL_HORIZONTAL);
 	AdressBarOutput->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
     Append(AdressBarOutput);
 

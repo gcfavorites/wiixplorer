@@ -73,6 +73,7 @@ class Properties : public GuiWindow
 
         GuiText * TitleTxt;
         GuiText * filepathTxt;
+        GuiText * filepathvalTxt;
         GuiText * filecountTxt;
         GuiText * filecountTxtVal;
         GuiText * filesizeTxt;

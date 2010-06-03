@@ -341,7 +341,7 @@ void PlayList::ClearList()
 int PlayList::FindFile(const char * filepath)
 {
     if(!filepath)
-        return 0;
+        return -1;
 
     for(u32 i = 0; i < FileList.size(); i++)
     {
@@ -349,7 +349,7 @@ int PlayList::FindFile(const char * filepath)
             return i;
     }
 
-    return 0;
+    return -1;
 }
 
 const char * PlayList::at(int pos)

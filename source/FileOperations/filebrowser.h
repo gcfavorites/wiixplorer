@@ -35,6 +35,9 @@
 #include <gccore.h>
 #include <sys/dir.h>
 
+#define FILTER_DIRECTORIES  0x01
+#define FILTER_FILES        0x02
+
 #define MAXJOLIET 255
 #define MAXDISPLAY MAXPATHLEN
 
@@ -84,6 +87,7 @@ class FileBrowser : public Browser
         ItemStruct GetCurrentItemStruct() const;
         int ChangeDirectory();
         void Refresh();
+        void SetFilter(u8 filtermode) { Filter = filtermode; };
     private:
         int ParseDirectory(bool ResetPosition = true);
         int UpdateDirName();
@@ -100,6 +104,7 @@ class FileBrowser : public Browser
         BROWSERENTRY * browserList;
         // folder parsing thread
         lwp_t parsethread;
+        u8 Filter;
         bool parseHalt;
         bool exit_Requested;
         DIR_ITER *dirIter;

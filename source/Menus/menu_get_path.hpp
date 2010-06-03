@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,9 +23,11 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef MENU_FILE_EXTENSIONS_H_
-#define MENU_FILE_EXTENSIONS_H_
+#ifndef MENU_GETPATH_HPP_
+#define MENU_GETPATH_HPP_
 
-int MenuFileExtensions();
+#include <string>
+
+int MenuGetPath(std::string & Path);
 
 #endif
