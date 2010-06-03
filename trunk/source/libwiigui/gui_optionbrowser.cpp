@@ -286,6 +286,33 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			selectedItem = i;
 	}
 
+	if(t->Left())
+	{
+		if(listOffset-PAGESIZE >= 0)
+		{
+            listOffset -= PAGESIZE;
+        }
+        else
+        {
+            listOffset = 0;
+        }
+        listChanged = true;
+	}
+	if(t->Right())
+	{
+		if(listOffset+PAGESIZE*2 < optionslength)
+		{
+            listOffset += PAGESIZE;
+        }
+        else
+        {
+            listOffset = optionslength-PAGESIZE;
+            if(listOffset < 0)
+                listOffset = 0;
+        }
+        listChanged = true;
+	}
+
 	if(t->Down())
 	{
 		next = this->FindMenuItem(optionIndex[selectedItem], 1);

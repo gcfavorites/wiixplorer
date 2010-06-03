@@ -36,5 +36,7 @@ int MenuNetworkSettings();
 int MenuSMBSettings();
 int MenuFTPClientSettings();
 int MenuFTPServerSettings();
+int MenuFileExtensions();
+int MenuControlsSettings();
 
 #endif

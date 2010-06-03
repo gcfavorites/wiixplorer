@@ -33,7 +33,7 @@
 #include "sys.h"
 
 static bool firsttimestart = true;
-extern int curDevice;
+std::string LastUsedPath;
 
 int MenuBrowseDevice()
 {
@@ -45,8 +45,12 @@ int MenuBrowseDevice()
     }
 
 	int menu = MENU_NONE;
+	Explorer * Explorer_1 = NULL;
 
-    Explorer * Explorer_1 = new Explorer(curDevice);
+    if(LastUsedPath.length() == 0)
+        Explorer_1 = new Explorer(Settings.MountMethod);
+    else
+        Explorer_1 = new Explorer(LastUsedPath.c_str());
 
     MainWindow::Instance()->Append(Explorer_1);
     ResumeGui();

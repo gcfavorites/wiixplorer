@@ -45,6 +45,7 @@
 FileBrowser::FileBrowser()
     :Browser()
 {
+    Filter = 0;
     browserList = NULL;
     parsethread = LWP_THREAD_NULL;
     dirIter = NULL;
@@ -81,8 +82,7 @@ int FileBrowser::BrowsePath(const char *path)
 	int length = strlen(path)+1;
 
 	char *device = strchr(path, ':');
-	int position = device-path+1;
-
+	int position = device-path+2;
 
 	if(!device || position < 0)
         return -1;
@@ -93,9 +93,9 @@ int FileBrowser::BrowsePath(const char *path)
 	for(int i = position; i < length; i++)
 	{
 	    browser.dir[n] = path[i];
-	    browser.dir[n+1] = '\0';
 	    n++;
 	}
+    browser.dir[n] = '\0';
 
 	ParseDirectory(); // Parse root directory
 	return browser.numEntries;
@@ -300,6 +300,17 @@ bool FileBrowser::ParseDirEntries()
 			break;
 
 		if(strcmp(filename,".") == 0)
+		{
+			i--;
+			continue;
+		}
+
+		if((Filter & FILTER_DIRECTORIES) && (filestat.st_mode & S_IFDIR))
+		{
+			i--;
+			continue;
+		}
+		if((Filter & FILTER_FILES) && !(filestat.st_mode & S_IFDIR))
 		{
 			i--;
 			continue;

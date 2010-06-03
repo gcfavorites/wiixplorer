@@ -21,6 +21,7 @@ SOURCES		:=	source \
 				source/libwiigui \
 				source/Tools \
 				source/Menus \
+				source/Menus/Settings \
 				source/network \
 				source/Prompts \
 				source/BootHomebrew \
@@ -35,7 +36,6 @@ SOURCES		:=	source \
 				source/Language \
 				source/usbstorage \
 				source/mload \
-				source/libtinysmb \
 				source/libdisk \
 				source/libftp \
 				source/libftp/ftpii \
@@ -50,7 +50,7 @@ DATA		:=	data/images \
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O2 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H \
+CFLAGS		=	-ggdb -O3 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H \
 				-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
@@ -59,7 +59,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
 LIBS := -lmupdf -lunzip -lunrar -lsevenzip -ldi -lgd -ltiff -ljpeg -lpng -lz -lfat \
-		-lntfs -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
+		-lntfs -ltinysmb -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

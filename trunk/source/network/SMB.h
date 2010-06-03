@@ -1,9 +1,6 @@
-/***************************************************************************
+ /***************************************************************************
  * Copyright (C) 2010
  * by Dimok
- *
- * The functions from this files are taken from libmad.
- * All credits goes to the guys from libmad.
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -24,55 +21,17 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
+ * netreceiver.cpp
+ *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef RESAMPLE_H_
-#define RESAMPLE_H_
+#ifndef _SMB_H_
+#define _SMB_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <gccore.h>
-
-typedef struct _eqstate_s
-{
-	f32 lf;
-	f32 f1p0;
-	f32 f1p1;
-	f32 f1p2;
-	f32 f1p3;
-
-	f32 hf;
-	f32 f2p0;
-	f32 f2p1;
-	f32 f2p2;
-	f32 f2p3;
-
-	f32 sdm1;
-	f32 sdm2;
-	f32 sdm3;
-
-	f32 lg;
-	f32 mg;
-	f32 hg;
-} EQState;
-
-typedef union
-{
-	struct {
-		u16 hi;
-		u16 lo;
-	} aword;
-	u32 adword;
-} dword;
-
-void Init3BandState(EQState * es, s32 lowfreq, s32 highfreq, s32 mixfreq);
-int Convert8BitTo16Bit(const u8 * source, u8 * dest, int size, int maxsize);
-int ConvertMonoToStereo(const u8 * source, u8 * dest, int size, int maxsize);
-
-#ifdef __cplusplus
-}
-#endif
+bool ConnectSMBShare();
+void SMB_Reconnect();
+void CloseSMBShare();
+void CloseSMBShare(int connection);
+bool IsSMB_Mounted(int smb);
 
 #endif

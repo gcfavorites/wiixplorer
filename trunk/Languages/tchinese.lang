@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 22:06+0200\n"
+"POT-Creation-Date: 2010-06-03 18:03+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -78,8 +78,14 @@ msgstr "預設載入裝置"
 msgid "Both"
 msgstr "全部"
 
+msgid "Browse"
+msgstr ""
+
 msgid "Browser Mode"
 msgstr "瀏覽模式"
+
+msgid "Browsing for font files must be done in the main browser."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "無法開啟這個檔案"
@@ -341,6 +347,9 @@ msgstr "你確定要啟動頻道嗎?"
 msgid "Do you want to update now ?"
 msgstr "是否要立即更新？"
 
+msgid "Done"
+msgstr ""
+
 msgid "Down Button"
 msgstr "向下按鈕"
 
@@ -359,6 +368,9 @@ msgstr "下載檔案..."
 
 msgid "Edit Textline Button"
 msgstr "編輯 Textline 按鈕"
+
+msgid "Enter"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
@@ -474,6 +486,9 @@ msgstr "檔案使用不被支援的壓縮設定"
 msgid "File was edited."
 msgstr "檔案已修改"
 
+msgid "Filepath:"
+msgstr ""
+
 #, c-format
 msgid "Filepath:  %s"
 msgstr "檔案路徑：  %s"
@@ -568,6 +583,9 @@ msgstr "水平"
 msgid "Host:"
 msgstr "主機："
 
+msgid "How do you want to change the path?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "你要如何開啟檔案?"
 
@@ -615,6 +633,15 @@ msgstr "交錯"
 
 msgid "JPEG Quality"
 msgstr "JPEG影像品質"
+
+msgid "Keyboard Backspace Button"
+msgstr ""
+
+msgid "Keyboard Delete Delay"
+msgstr ""
+
+msgid "Keyboard Shift Button"
+msgstr ""
 
 msgid "Language"
 msgstr "語言"
@@ -748,6 +775,9 @@ msgstr "沒有足夠記憶體旋轉"
 
 msgid "Not enough memory."
 msgstr "記憶體空間不足"
+
+msgid "Notice:"
+msgstr ""
 
 msgid "OFF"
 msgstr "關"

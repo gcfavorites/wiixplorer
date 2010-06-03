@@ -33,6 +33,7 @@ class GuiKeyboard : public GuiWindow
         void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
         void OnPositionMoved(GuiElement *sender, int pointer, POINT p);
 
+        u32 DeleteDelay;
         int CurrentFirstLetter;
 		wString * kbtextstr;
 		u32 kbtextmaxlen;
@@ -82,9 +83,9 @@ class GuiKeyboard : public GuiWindow
 		GuiSound * keySoundClick;
 		GuiTrigger * trigA;
 		GuiTrigger * trigHeldA;
-		GuiTrigger * trigB;
 		GuiTrigger * trigLeft;
 		GuiTrigger * trigRight;
+		GuiTrigger * trigShift;
 };
 
 #endif

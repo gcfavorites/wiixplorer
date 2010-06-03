@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 21:16+0200\n"
+"POT-Creation-Date: 2010-06-03 18:03+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -78,8 +78,14 @@ msgstr "Startgerät"
 msgid "Both"
 msgstr "Beides"
 
+msgid "Browse"
+msgstr ""
+
 msgid "Browser Mode"
 msgstr "Browsermodus"
+
+msgid "Browsing for font files must be done in the main browser."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
@@ -341,6 +347,9 @@ msgstr "Diesen Kanal starten?"
 msgid "Do you want to update now ?"
 msgstr "Jetzt updaten?"
 
+msgid "Done"
+msgstr ""
+
 msgid "Down Button"
 msgstr "Runter"
 
@@ -359,6 +368,9 @@ msgstr "Dateien werden heruntergeladen..."
 
 msgid "Edit Textline Button"
 msgstr "Textzeile bearbeiten"
+
+msgid "Enter"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -474,6 +486,9 @@ msgstr "Kompressionseinstellungen der Datei werden nicht unterstützt."
 msgid "File was edited."
 msgstr "Datei wurde geändert."
 
+msgid "Filepath:"
+msgstr ""
+
 #, c-format
 msgid "Filepath:  %s"
 msgstr "Pfad: %s"
@@ -568,6 +583,9 @@ msgstr ""
 msgid "Host:"
 msgstr ""
 
+msgid "How do you want to change the path?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "Womit soll die Datei geöffnet werden?"
 
@@ -615,6 +633,15 @@ msgstr ""
 
 msgid "JPEG Quality"
 msgstr "JPEG Qualität"
+
+msgid "Keyboard Backspace Button"
+msgstr ""
+
+msgid "Keyboard Delete Delay"
+msgstr ""
+
+msgid "Keyboard Shift Button"
+msgstr ""
 
 msgid "Language"
 msgstr "Sprache"
@@ -748,6 +775,9 @@ msgstr "Nicht genug Speicher zum drehen."
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
+
+msgid "Notice:"
+msgstr ""
 
 msgid "OFF"
 msgstr "AUS"

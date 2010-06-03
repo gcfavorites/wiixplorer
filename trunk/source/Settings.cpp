@@ -62,6 +62,7 @@ void Settings::SetDefault()
     BGMLoopMode = 1;
 	SlideshowDelay = 4;
 	ImageFadeSpeed = 20;
+	KeyboardDeleteDelay = 15;
     AutoConnect = 0;
     UpdateMetaxml = 1;
     UpdateIconpng = 1;
@@ -171,6 +172,7 @@ bool Settings::Save()
 	fprintf(file, "ScreenshotPath = %s\n", ScreenshotPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 	fprintf(file, "ImageFadeSpeed = %d\n", ImageFadeSpeed);
+	fprintf(file, "KeyboardDeleteDelay = %d\n", KeyboardDeleteDelay);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -587,6 +589,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "ImageFadeSpeed") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ImageFadeSpeed = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "KeyboardDeleteDelay") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			KeyboardDeleteDelay = i;
 		}
 		return true;
 	}

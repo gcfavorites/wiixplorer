@@ -57,8 +57,7 @@ WiiMovie::WiiMovie(const char * filepath)
     exitBtn->SetTrigger(trigB);
 	exitBtn->Clicked.connect(this, &WiiMovie::OnExitClick);
 
-    if(!MusicPlayer::Instance()->IsStopped())
-        MusicPlayer::Instance()->Pause();
+    MusicPlayer::Instance()->Pause();
 
     string file(filepath);
     Video = openVideo(file);
@@ -79,10 +78,12 @@ WiiMovie::WiiMovie(const char * filepath)
 
 WiiMovie::~WiiMovie()
 {
+    MainWindow::Instance()->HaltGui();
     if(parentElement)
         ((GuiWindow *) parentElement)->Remove(this);
+    MainWindow::Instance()->ResumeGui();
 
-    Playing = true;
+    Playing = false;
     ExitRequested = true;
 
     if(ReadThread != LWP_THREAD_NULL)
