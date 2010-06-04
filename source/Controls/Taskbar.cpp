@@ -308,10 +308,14 @@ int Taskbar::CheckStartMenu()
 		if (WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel")))
 		{
 			SDCard_deInit();
+            SDGeckoA_deInit();
+            SDGeckoB_deInit();
 			NTFS_UnMount();
-			//don't need to shutdown the device
+			//don't need to shutdown the usb device
 			fatUnmount("usb:/");
 			SDCard_Init();
+			SDGeckoA_Init();
+			SDGeckoB_Init();
 			USBDevice_Init();
 			NTFS_Mount();
 			Applications::Instance()->Reload();

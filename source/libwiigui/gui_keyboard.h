@@ -38,8 +38,10 @@ class GuiKeyboard : public GuiWindow
 		wString * kbtextstr;
 		u32 kbtextmaxlen;
 		KeyboardRow keys[MAXROWS];
-		int shift;
-		int caps;
+		int ShiftChan;
+		bool shift;
+		bool caps;
+		bool UpdateKeys;
 		TextPointer * TextPointerBtn;
 		GuiButton * GoLeft;
 		GuiButton * GoRight;
@@ -85,7 +87,6 @@ class GuiKeyboard : public GuiWindow
 		GuiTrigger * trigHeldA;
 		GuiTrigger * trigLeft;
 		GuiTrigger * trigRight;
-		GuiTrigger * trigShift;
 };
 
 #endif

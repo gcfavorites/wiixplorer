@@ -33,9 +33,10 @@
 #include <gctypes.h>
 #include "Controls/AppControls.hpp"
 #include "FileStartUp/FileExtensions.h"
+#include "libftp/ftp_devoptab.h"
 
-#define MAXSMBUSERS         4
-#define MAXFTPUSERS         4
+#define MAXSMBUSERS         10
+#define MAXFTPUSERS         MAX_FTP_MOUNTED
 
 typedef struct _SMBData
 {

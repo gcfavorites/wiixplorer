@@ -7,6 +7,7 @@
 
 #include "usbstorage/usbstorage.h"
 #include <ntfs.h>   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
+#include <sdcard/gcsd.h>
 
 #include "devicemounter.h"
 #include "libdisk/fst.h"
@@ -14,7 +15,7 @@
 #include "libdisk/di2.h"
 
 //these are the only stable and speed is good
-#define CACHE 32
+#define CACHE 8
 #define SECTORS 64
 
 static ntfs_md *ntfs_mounts = NULL;
@@ -113,6 +114,52 @@ void SDCard_deInit()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
 	sd->shutdown();
+}
+
+int SDGeckoA_Init()
+{
+	//closing all open Files write back the cache and then shutdown em!
+	fatUnmount("gca:/");
+	//right now mounts first FAT-partition
+	if (fatMount("gca", &__io_gcsda, 0, CACHE, SECTORS))
+		return 1;
+
+	return -1;
+}
+
+bool SDGeckoA_Inserted()
+{
+    return __io_gcsda.isInserted();
+}
+
+void SDGeckoA_deInit()
+{
+	//closing all open Files write back the cache and then shutdown em!
+	fatUnmount("gca:/");
+	__io_gcsda.shutdown();
+}
+
+int SDGeckoB_Init()
+{
+	//closing all open Files write back the cache and then shutdown em!
+	fatUnmount("gcb:/");
+	//right now mounts first FAT-partition
+	if (fatMount("gcb", &__io_gcsdb, 0, CACHE, SECTORS))
+		return 1;
+
+	return -1;
+}
+
+bool SDGeckoB_Inserted()
+{
+    return __io_gcsdb.isInserted();
+}
+
+void SDGeckoB_deInit()
+{
+	//closing all open Files write back the cache and then shutdown em!
+	fatUnmount("gcb:/");
+	__io_gcsdb.shutdown();
 }
 
 int DiskDrive_Init(bool have_dvdx)
