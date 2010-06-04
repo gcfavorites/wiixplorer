@@ -85,6 +85,8 @@ extern "C" void ExitApp()
 	CloseSMBShare();
     NTFS_UnMount();
     SDCard_deInit();
+    SDGeckoA_deInit();
+    SDGeckoB_deInit();
     USBDevice_deInit();
     DiskDrive_deInit();
 	DeInit_Network();

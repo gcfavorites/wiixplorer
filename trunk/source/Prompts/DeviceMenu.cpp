@@ -38,6 +38,8 @@
 DeviceMenu::DeviceMenu(int x, int y)
     :GuiWindow(0, 0)
 {
+    int PositionY = 19;
+    int FontSize = 17;
     deviceCount = 0;
     choice = -1;
 
@@ -97,6 +99,56 @@ DeviceMenu::DeviceMenu(int x, int y)
         PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
         deviceSelection[deviceCount] = SD;
+
+        deviceCount++;
+    }
+
+    if(SDGeckoA_Inserted())
+    {
+        deviceText[deviceCount] = new GuiText(DeviceName[GCSDA], FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+        deviceSelection[deviceCount] = GCSDA;
+
+        deviceCount++;
+    }
+
+    if(SDGeckoB_Inserted())
+    {
+        deviceText[deviceCount] = new GuiText(DeviceName[GCSDB], FontSize, (GXColor){0, 0, 0, 255});
+        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+        deviceText[deviceCount]->SetPosition(0, 2);
+        deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
+        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+        deviceImgOver[deviceCount] = new GuiImage(menu_select);
+        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+        deviceBtn[deviceCount]->SetSoundClick(btnClick);
+        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+        deviceBtn[deviceCount]->SetTrigger(trigA);
+        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+        deviceSelection[deviceCount] = GCSDB;
 
         deviceCount++;
     }

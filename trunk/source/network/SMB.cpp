@@ -30,8 +30,6 @@
 #include <smb.h>
 #include "main.h"
 
-static bool SMB_Mounted[MAXSMBUSERS] = {false, false, false, false};
-
 /****************************************************************************
  * Mount SMB Share
  ****************************************************************************/
@@ -44,27 +42,15 @@ bool ConnectSMBShare()
         char mountname[10];
         sprintf(mountname, "smb%i", i+1);
 
-        if(!SMB_Mounted[i])
+        if(strcmp(Settings.SMBUser[i].Host, "") != 0)
         {
-            if(strcmp(Settings.SMBUser[i].Host, "") != 0)
+            if(smbInitDevice(mountname,
+                Settings.SMBUser[i].User,
+                Settings.SMBUser[i].Password,
+                Settings.SMBUser[i].SMBName,
+                Settings.SMBUser[i].Host))
             {
-                if(smbInitDevice(mountname,
-                    Settings.SMBUser[i].User,
-                    Settings.SMBUser[i].Password,
-                    Settings.SMBUser[i].SMBName,
-                    Settings.SMBUser[i].Host))
-                {
-                    SMB_Mounted[i] = true;
-                    result = true;
-                }
-                else
-                {
-                    SMB_Mounted[i] = false;
-                }
-            }
-            else
-            {
-                SMB_Mounted[i] = false;
+                result = true;
             }
         }
     }
@@ -79,7 +65,10 @@ bool IsSMB_Mounted(int smb)
     if(smb < 0 || smb >= MAXSMBUSERS)
         return false;
 
-    return SMB_Mounted[smb];
+    char mountname[10];
+    sprintf(mountname, "smb%i", smb+1);
+
+    return smbCheckConnection(mountname);
 }
 
 /****************************************************************************
@@ -87,15 +76,13 @@ bool IsSMB_Mounted(int smb)
  ****************************************************************************/
 void CloseSMBShare()
 {
-    for(int i = 0; i < MAXSMBUSERS; i++) {
-
+    for(int i = 0; i < MAXSMBUSERS; i++)
+    {
         char mountname[10];
         sprintf(mountname, "smb%i", i+1);
 
-        if(SMB_Mounted[i])
+        if(IsSMB_Mounted(i))
             smbClose(mountname);
-
-        SMB_Mounted[i] = false;
     }
 }
 
@@ -107,10 +94,8 @@ void CloseSMBShare(int connection)
     char mountname[10];
     sprintf(mountname, "smb%i", connection+1);
 
-    if(SMB_Mounted[connection])
+    if(IsSMB_Mounted(connection))
         smbClose(mountname);
-
-    SMB_Mounted[connection] = false;
 }
 
 /****************************************************************************
@@ -119,6 +104,6 @@ void CloseSMBShare(int connection)
 void SMB_Reconnect()
 {
     CloseSMBShare();
-    sleep(1);
+    usleep(200000);
     ConnectSMBShare();
 }

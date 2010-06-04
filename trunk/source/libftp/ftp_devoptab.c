@@ -90,10 +90,10 @@ typedef struct
 // FTP connection
 typedef struct
 {
-	char* hostname;			//'ftp.host.com', can't be NULL
-	char* user;				//'anonymous', can't be NULL
-	char* password;			//'anonymous', can't be NULL
-	char* share;			//share name without terminating  '/', with starting '/', can't be NULL
+	char * hostname;			//'ftp.host.com', can't be NULL
+	char * user;				//'anonymous', can't be NULL
+	char * password;			//'anonymous', can't be NULL
+	char * share;			//share name without terminating  '/', with starting '/', can't be NULL
     unsigned short port;	//FTP port, standard 21
 
 	bool ftp_passive;		//use PASV connection
@@ -101,15 +101,15 @@ typedef struct
 	SOCKET ctrl_socket;
 	SOCKET data_socket;
 
-	char *name;             //'ftp1', NULL means free item
+	char * name;             //'ftp1', NULL means free item
 	int envIndex;           //position if this item in FTPEnv array
 
-	char currentpath[FTP_MAXPATH];  //Always terminated by '/'. '/' for share root. Always contains'/', not '\'.
+	char * currentpath;  //Always terminated by '/'. '/' for share root. Always contains'/', not '\'.
 
-	devoptab_t *devoptab;
+	devoptab_t * devoptab;
 
-	char 					dir_cache[FTP_MAXPATH];  //the following to mombers store directory contents
-	FTPDIRENTRYLISTITEM* 	dir_cache_list;				//dir_cache_list = NULL means cache not filled
+	char 				  * dir_cache;  //the following to mombers store directory contents
+	FTPDIRENTRYLISTITEM   *	dir_cache_list;				//dir_cache_list = NULL means cache not filled
 
 } ftp_env;
 
@@ -1268,6 +1268,15 @@ static void FTP_Close( ftp_env* env )
 	free(env->share);
 	free(env->user);
 	free(env->password);
+	free(env->currentpath);
+	free(env->dir_cache);
+	env->name = NULL;
+	env->hostname = NULL;
+	env->share = NULL;
+	env->user = NULL;
+	env->password = NULL;
+	env->currentpath = NULL;
+	env->dir_cache = NULL;
 
 	if ( env->dir_cache_list != NULL )
 	{
@@ -1286,8 +1295,6 @@ static void FTP_Close( ftp_env* env )
 		net_close_blocking(env->data_socket);
 		env->data_socket = INVALID_SOCKET;
 	}
-
-	env->name = NULL;  //tag free item
 }
 
 //==============================================================================
@@ -1310,6 +1317,11 @@ static bool FTP_Connect(ftp_env* env, const char* name, const char* user, const 
 	env->port = (unsigned short) port;
 	env->ftp_passive = ftp_passive;
 
+	env->currentpath = (char *) malloc(FTP_MAXPATH);
+    env->currentpath[0]='\\';
+    env->currentpath[1]='\0';
+
+	env->dir_cache = (char *) malloc(FTP_MAXPATH);
 	env->dir_cache_list = NULL;
 
 	//form share name:
@@ -2797,8 +2809,6 @@ bool ftpInitDevice(const char* name, const char *user, const char *password, con
 		for(i=0;i<MAX_FTP_MOUNTED;i++)
 		{
 			FTPEnv[i].name= NULL;
-			FTPEnv[i].currentpath[0]='\\';
-			FTPEnv[i].currentpath[1]='\0';
 			FTPEnv[i].envIndex=i;
 		}
 

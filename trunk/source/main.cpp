@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
 	SDCard_Init(); // Initialize file system
+	SDGeckoA_Init(); // Initialize file system
+	SDGeckoB_Init(); // Initialize file system
 	USBDevice_Init(); // Initialize file system
     DiskDrive_Init(false); //Init DVD Driver
 

@@ -35,6 +35,14 @@ extern "C" void MountVirtualDevices()
     {
         VirtualMountDevice(fmt("%s:/", DeviceName[SD]));
     }
+    if(SDGeckoA_Inserted())
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[GCSDA]));
+    }
+    if(SDGeckoB_Inserted())
+    {
+        VirtualMountDevice(fmt("%s:/", DeviceName[GCSDB]));
+    }
     if(USBDevice_Inserted())
     {
         VirtualMountDevice(fmt("%s:/", DeviceName[USB]));

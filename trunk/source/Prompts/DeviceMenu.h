@@ -30,14 +30,13 @@
 
 #include <gctypes.h>
 #include <unistd.h>
-
 #include "libwiigui/gui.h"
 
-#define PositionY   19
-#define FontSize    17
-
-enum {
+enum
+{
     SD = 0,
+    GCSDA,
+    GCSDB,
     USB,
     NTFS0,
     NTFS1,
@@ -48,20 +47,31 @@ enum {
     SMB2,
     SMB3,
     SMB4,
+    SMB5,
+    SMB6,
+    SMB7,
+    SMB8,
+    SMB9,
+    SMB10,
     FTP1,
     FTP2,
     FTP3,
     FTP4,
+    FTP5,
+    FTP6,
+    FTP7,
+    FTP8,
+    FTP9,
+    FTP10,
 	DVD,
-//	ISFS,
-//	NAND,
     MAXDEVICES
 };
-
 
 const char DeviceName[MAXDEVICES][6] =
 {
     "sd",
+    "gca",
+    "gcb",
     "usb",
     "ntfs0",
     "ntfs1",
@@ -72,13 +82,24 @@ const char DeviceName[MAXDEVICES][6] =
     "smb2",
     "smb3",
     "smb4",
+    "smb5",
+    "smb6",
+    "smb7",
+    "smb8",
+    "smb9",
+    "smb10",
     "ftp1",
     "ftp2",
     "ftp3",
     "ftp4",
+    "ftp5",
+    "ftp6",
+    "ftp7",
+    "ftp8",
+    "ftp9",
+    "ftp10",
 	"dvd",
 };
-
 
 class DeviceMenu : public GuiWindow
 {
@@ -121,4 +142,4 @@ class DeviceMenu : public GuiWindow
         GuiTrigger * trigB;
 };
 
-#endif
+#endif //__DEVICE_MENU_H_

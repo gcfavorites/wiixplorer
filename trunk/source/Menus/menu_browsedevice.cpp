@@ -37,7 +37,7 @@ std::string LastUsedPath;
 
 int MenuBrowseDevice()
 {
-    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= SMB4 && !IsNetworkInit())
+    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= FTP10 && !IsNetworkInit())
     {
         if(WaitSMBConnect() < 2)
             ShowError(tr("Could not connect to the network"));

@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#define MAX_FTP_MOUNTED 5
+#define MAX_FTP_MOUNTED 10
 
 #ifdef DEBUG
 #define NET_PRINTF(fmt, args...)  net_printf(fmt, ##args)

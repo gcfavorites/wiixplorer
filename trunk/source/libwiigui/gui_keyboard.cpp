@@ -49,9 +49,11 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 {
 	width = 540;
 	height = 400;
-	shift = 0;
-	caps = 0;
+	shift = false;
+	caps = false;
+	UpdateKeys = false;
 	selectable = true;
+	ShiftChan = -1;
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
 	kbtextstr = new wString(t);
@@ -115,9 +117,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-	trigShift = new GuiTrigger;
-	trigShift->SetButtonOnlyTrigger(-1, WiiControls.KeyShiftButton | ClassicControls.KeyShiftButton << 16, GCControls.KeyShiftButton);
-
     trigLeft = new GuiTrigger;
 	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
     trigRight = new GuiTrigger;
@@ -173,7 +172,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyShift->SetSoundOver(keySoundOver);
 	keyShift->SetSoundClick(keySoundClick);
 	keyShift->SetTrigger(trigA);
-	keyShift->SetTrigger(trigShift);
 	keyShift->SetPosition(0+KeyboardPosition, 3*42+80);
 	keyShift->SetEffectGrow();
 	this->Append(keyShift);
@@ -290,7 +288,6 @@ GuiKeyboard::~GuiKeyboard()
 	delete trigHeldA;
 	delete trigLeft;
 	delete trigRight;
-	delete trigShift;
 	delete kbtextstr;
 	Resources::Remove(keyTextbox);
 	Resources::Remove(key);
@@ -410,7 +407,6 @@ void GuiKeyboard::Update(GuiTrigger * t)
 {
     GuiWindow::Update(t);
 
-	bool update = false;
 	++DeleteDelay;
 
 	if(keySpace->GetState() == STATE_CLICKED)
@@ -427,8 +423,9 @@ void GuiKeyboard::Update(GuiTrigger * t)
 		keyBack->SetState(STATE_SELECTED, t->chan);
 	}
 	else if((t->wpad->btns_h & WiiControls.KeyBackspaceButton ||
-            t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16) ||
-            t->pad.btns_h & GCControls.KeyBackspaceButton) && DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
+             t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16) ||
+             t->pad.btns_h & GCControls.KeyBackspaceButton) &&
+             DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
 	{
         RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
         DeleteDelay = 0;
@@ -448,20 +445,40 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	}
 	else if(keyShift->GetState() == STATE_CLICKED)
 	{
-		shift ^= 1;
+		shift = !shift;
 		keyShift->SetState(STATE_SELECTED, t->chan);
-		update = true;
+		UpdateKeys = true;
 	}
 	else if(keyCaps->GetState() == STATE_CLICKED)
 	{
-		caps ^= 1;
+		caps = !caps;
 		keyCaps->SetState(STATE_SELECTED, t->chan);
-		update = true;
+		UpdateKeys = true;
+	}
+
+	if(t->wpad->btns_h & WiiControls.KeyShiftButton ||
+       t->wpad->btns_h & (ClassicControls.KeyShiftButton << 16) ||
+       t->pad.btns_h & GCControls.KeyShiftButton)
+	{
+	    caps = true;
+
+	    if(ShiftChan < 0)
+            UpdateKeys = true;
+
+        ShiftChan = t->chan;
+	}
+	else
+	{
+        if(t->chan == ShiftChan)
+        {
+            caps = false;
+            shift = false;
+            UpdateKeys = true;
+            ShiftChan = -1;
+        }
 	}
 
 	wchar_t txt[2] = { 0, 0 };
-
-	startloop:
 
 	for(int i = 0; i < MAXROWS; i++)
 	{
@@ -469,7 +486,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 		{
 			if(keys[i].ch[j] != '\0')
 			{
-				if(update)
+				if(UpdateKeys)
 				{
 					if(shift || caps)
 						txt[0] = keys[i].chShift[j];
@@ -477,6 +494,8 @@ void GuiKeyboard::Update(GuiTrigger * t)
 						txt[0] = keys[i].ch[j];
 
 					keyTxt[i][j]->SetText(txt);
+
+					UpdateKeys = false;
 				}
 
 				if(keyBtn[i][j]->GetState() == STATE_CLICKED)
@@ -496,9 +515,8 @@ void GuiKeyboard::Update(GuiTrigger * t)
 
 					if(shift)
 					{
-						shift ^= 1;
-						update = true;
-						goto startloop;
+						shift = false;
+						UpdateKeys = true;
 					}
 				}
 			}
