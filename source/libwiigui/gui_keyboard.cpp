@@ -479,6 +479,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	}
 
 	wchar_t txt[2] = { 0, 0 };
+	bool resetupdate = true;
 
 	for(int i = 0; i < MAXROWS; i++)
 	{
@@ -494,8 +495,6 @@ void GuiKeyboard::Update(GuiTrigger * t)
 						txt[0] = keys[i].ch[j];
 
 					keyTxt[i][j]->SetText(txt);
-
-					UpdateKeys = false;
 				}
 
 				if(keyBtn[i][j]->GetState() == STATE_CLICKED)
@@ -516,12 +515,16 @@ void GuiKeyboard::Update(GuiTrigger * t)
 					if(shift)
 					{
 						shift = false;
+						resetupdate = false;
 						UpdateKeys = true;
 					}
 				}
 			}
 		}
 	}
+
+	if(resetupdate && UpdateKeys)
+        UpdateKeys = false;
 }
 
 const wchar_t * GuiKeyboard::GetDisplayText(const wString * text)

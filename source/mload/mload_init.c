@@ -1,5 +1,6 @@
 #include "mload/mload.h"
 #include "filelist.h"
+#include "usb2storage.h"
 
 
 static int mload_thread_id = -1;
@@ -14,6 +15,7 @@ int mload_Init()
         data_elf my_data_elf;
         mload_elf((void *) ehcmodule_elf, &my_data_elf);
         mload_thread_id = mload_run_thread(my_data_elf.start, my_data_elf.stack, my_data_elf.size_stack, 0x47);
+        USB2Enable(true);
     }
 
     return mload_thread_id;
