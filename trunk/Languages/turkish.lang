@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 18:52+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -101,9 +101,6 @@ msgid "Can't load page."
 msgstr ""
 
 msgid "Can't open file."
-msgstr ""
-
-msgid "Can't read file:"
 msgstr ""
 
 msgid "Cancel"
@@ -819,6 +816,9 @@ msgstr ""
 msgid "Passive Mode:"
 msgstr ""
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr ""
 
@@ -835,6 +835,9 @@ msgid "Play File"
 msgstr ""
 
 msgid "Play Once"
+msgstr ""
+
+msgid "Please enter the password."
 msgstr ""
 
 msgid "Please wait..."

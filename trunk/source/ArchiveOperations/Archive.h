@@ -38,13 +38,13 @@
 #include "U8Archive.h"
 #include "RarcFile.h"
 
-class Archive
+class ArchiveHandle
 {
     public:
 		//!Constructor
-        Archive(const char  * filepath);
+        ArchiveHandle(const char  * filepath);
 		//!Destructor
-        ~Archive();
+        ~ArchiveHandle();
 		//!Get the archive file structure
         ArchiveFileStruct * GetFileStruct(int fileIndx);
 		//!Extract a files from a zip file to a path

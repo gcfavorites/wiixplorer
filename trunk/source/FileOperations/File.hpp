@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <gctypes.h>
 
-class File
+class CFile
 {
     public:
-        File();
-        File(const char * filepath, const char * mode);
-        File(const u8 * memory, int memsize);
-        ~File();
+        CFile();
+        CFile(const char * filepath, const char * mode);
+        CFile(const u8 * memory, int memsize);
+        ~CFile();
         int open(const char * filepath, const char * mode);
         int open(const u8 * memory, int memsize);
         void close();

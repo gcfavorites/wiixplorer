@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# italian.lang - r164
+# italian.lang - r168
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 20:42+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -32,13 +32,13 @@ msgid "Action cancelled."
 msgstr "Operazione annullata."
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Aggiungi alla Playlist"
 
 msgid "Alpha Blending"
 msgstr ""
 
 msgid "App Default"
-msgstr "Default Appl."
+msgstr "Applicazione Default"
 
 msgid "AppPath changed"
 msgstr "Percorso programma cambiato."
@@ -80,13 +80,13 @@ msgid "Both"
 msgstr "Entrambi"
 
 msgid "Browse"
-msgstr ""
+msgstr "Sfoglia"
 
 msgid "Browser Mode"
 msgstr "Modo browser"
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr ""
+msgstr "La ricerca di file caratteri dev'essere fatta nel browser principale."
 
 msgid "Can not open the file."
 msgstr "Impossibile aprire il file."
@@ -102,9 +102,6 @@ msgstr "Impossibile caricare la pagina."
 
 msgid "Can't open file."
 msgstr "Impossibile aprire il file."
-
-msgid "Can't read file:"
-msgstr "Impossibile leggere il file:"
 
 msgid "Cancel"
 msgstr "Annulla"
@@ -137,7 +134,7 @@ msgid "Clear"
 msgstr "Reset"
 
 msgid "Clear List"
-msgstr ""
+msgstr "Pulisci Lista"
 
 msgid "Click Button"
 msgstr "Pulsante Click"
@@ -219,7 +216,7 @@ msgid "Could not load text file."
 msgstr "Impossibile caricare il file di testo."
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "Impossibile analizzare la cartella."
 
 msgid "Credits"
 msgstr "Riconoscimenti"
@@ -261,28 +258,28 @@ msgid "Directory couldn't be deleted."
 msgstr "La cartella non si puo' eliminare."
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "Disconnetti Client"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "Disconnetti SMB"
 
 msgid "Do you want to boot file now?"
-msgstr "Vuoi caricare il file ora?"
+msgstr "Vuoi avviare il file ora?"
 
 msgid "Do you want to boot:"
-msgstr "Vuoi caricare:"
+msgstr "Vuoi avviare:"
 
 msgid "Do you want to change the font?"
 msgstr "Vuoi cambiare il font?"
 
 msgid "Do you want to delete this file:"
-msgstr ""
+msgstr "Vuoi cancellare il file:"
 
 msgid "Do you want to disconnect the FTP client?"
-msgstr ""
+msgstr "Vuoi disconnettere il client FTP?"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "Vuoi disconnettere questo SMB?"
 
 msgid "Do you want to download new language files?"
 msgstr "Vuoi scaricare le nuove lingue?"
@@ -319,10 +316,10 @@ msgid "Do you want to reboot now ?"
 msgstr "Vuoi riavviare adesso?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "Vuoi riconnettere la SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "Vuoi riconnetterti al server FTP?"
 
 msgid "Do you want to remount the devices?"
 msgstr "Vuoi ricaricare le periferiche?"
@@ -349,7 +346,7 @@ msgid "Do you want to update now ?"
 msgstr "Vuoi eseguire l'aggiornamento?"
 
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 msgid "Down Button"
 msgstr "Pulsante Giu'"
@@ -371,7 +368,7 @@ msgid "Edit Textline Button"
 msgstr "Pulsante Modifica Riga di Testo"
 
 msgid "Enter"
-msgstr ""
+msgstr "Invio"
 
 msgid "Error while reading file."
 msgstr "Errore durante lettura file."
@@ -428,10 +425,10 @@ msgid "FTP Server is running and listening on port"
 msgstr "Il Server FTP e' attivo e in ascolto sulla porta"
 
 msgid "FTP Started.\n"
-msgstr "FTP avviato"
+msgstr "FTP avviato.\n"
 
 msgid "Fade Speed"
-msgstr ""
+msgstr "Velocita' Dissolvenza"
 
 msgid "Failed copying item(s)."
 msgstr "Errore nella copia degli elementi."
@@ -464,7 +461,7 @@ msgid "File already exists:"
 msgstr "Il file esiste gia':"
 
 msgid "File could not be deleted."
-msgstr ""
+msgstr "Il file non puo' essere eliminato."
 
 msgid "File couldn't be deleted."
 msgstr "Impossibile eliminare il file."
@@ -488,7 +485,7 @@ msgid "File was edited."
 msgstr "Il file e' stato modificato."
 
 msgid "Filepath:"
-msgstr ""
+msgstr "Percorso:"
 
 #, c-format
 msgid "Filepath:  %s"
@@ -585,13 +582,13 @@ msgid "Host:"
 msgstr "Host:"
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "Come vuoi cambiare il percorso?"
 
 msgid "How do you want to open the file?"
 msgstr "Come vuoi aprire il file?"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "Come vuoi procedere?"
 
 msgid "Icon Mode"
 msgstr "Icone"
@@ -636,13 +633,13 @@ msgid "JPEG Quality"
 msgstr "Qualita' JPEG"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "Pulsante Tastiera Backspace"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "Ritardo cancellazione tastiera"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "Pulsante Tastiera Shift"
 
 msgid "Language"
 msgstr "Lingua"
@@ -690,7 +687,7 @@ msgid "Loop"
 msgstr "Ciclo"
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "Cicla Playlist"
 
 msgid "MPlayerCE Path"
 msgstr "Percorso MPlayer_CE"
@@ -778,7 +775,7 @@ msgid "Not enough memory."
 msgstr "Memoria insufficiente."
 
 msgid "Notice:"
-msgstr ""
+msgstr "Notifica:"
 
 msgid "OFF"
 msgstr ""
@@ -814,10 +811,13 @@ msgid "PDF Processing Zoom"
 msgstr "Elaborazione zoom PDF"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "Analizza Directory"
 
 msgid "Passive Mode:"
 msgstr "Modalita' Passiva:"
+
+msgid "Password is needed."
+msgstr ""
 
 msgid "Password:"
 msgstr ""
@@ -832,10 +832,13 @@ msgid "Path Setup"
 msgstr "Percorso setup"
 
 msgid "Play File"
-msgstr ""
+msgstr "Riproduci File"
 
 msgid "Play Once"
 msgstr "Riproduci una volta"
+
+msgid "Please enter the password."
+msgstr ""
 
 msgid "Please wait..."
 msgstr "Attendere prego..."
@@ -877,7 +880,7 @@ msgid "Reload"
 msgstr "Ricarica"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "Rimuoi dalla lista"
 
 msgid "Rename"
 msgstr "Rinomina"
@@ -932,10 +935,10 @@ msgstr "Impostazioni"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "Condividi %i"
 
 msgid "Share:"
-msgstr ""
+msgstr "Condividi:"
 
 msgid "Shift"
 msgstr "Maiuscole"
@@ -1173,7 +1176,7 @@ msgid "Wii Binary Files"
 msgstr "Files Binari Wii"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "Musica di Default WiiXplorer"
 
 msgid "WiiXplorer Movies"
 msgstr "Filmati WiiXplorer"
@@ -1217,17 +1220,5 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
-#~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "Vuoi riconnettere la SMB?"
-
-#~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "Vuoi riconnetterti al server FTP?"
-
-#~ msgid "Play Directory"
-#~ msgstr "Riproduci Cartella"
-
-#~ msgid "User %i"
-#~ msgstr "Utente %i"
-
-#~ msgid "User:"
-#~ msgstr "Utente:"
+#~ msgid "Can't read file:"
+#~ msgstr "Impossibile leggere il file:"

@@ -41,7 +41,7 @@ class ArchiveBrowser : public Browser
     public:
         //!Constructor
         ArchiveBrowser(const char * filepath);
-        ArchiveBrowser(Archive * archive);
+        ArchiveBrowser(ArchiveHandle * archive);
         //!Destructor
         ~ArchiveBrowser();
         //!Extract item (folder or file) into a destination path
@@ -91,7 +91,7 @@ class ArchiveBrowser : public Browser
         void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 archiveType);
         bool InDirectoryTree(const char * Path, const char * itemFullFilename, bool firstpage);
 
-        Archive * archive;
+        ArchiveHandle * archive;
         bool ExternalArchive;
         int PageIndex;
         int SelIndex;

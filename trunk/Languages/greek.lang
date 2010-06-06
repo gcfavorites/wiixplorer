@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 18:52+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -104,9 +104,6 @@ msgstr "Δεν μπορώ να φορτώσω την σελίδα."
 
 msgid "Can't open file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
-
-msgid "Can't read file:"
-msgstr "Δεν μπορώ να διαβάσω αυτό το αρχείο:"
 
 msgid "Cancel"
 msgstr "Άκυρο"
@@ -821,6 +818,9 @@ msgstr "Ανάλυση διαδρομής"
 msgid "Passive Mode:"
 msgstr "Τρόπος passive:"
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr "Κωδικός:"
 
@@ -838,6 +838,9 @@ msgstr "Παίξε αρχείο"
 
 msgid "Play Once"
 msgstr "Παίξε μία φορά"
+
+msgid "Please enter the password."
+msgstr ""
 
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
@@ -1218,6 +1221,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Can't read file:"
+#~ msgstr "Δεν μπορώ να διαβάσω αυτό το αρχείο:"
 
 #~ msgid "User %i"
 #~ msgstr "Χρήστης: %i"

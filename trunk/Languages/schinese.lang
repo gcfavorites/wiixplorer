@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 20:42+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -79,13 +79,13 @@ msgid "Both"
 msgstr "全部"
 
 msgid "Browse"
-msgstr ""
+msgstr "浏览"
 
 msgid "Browser Mode"
 msgstr "浏览模式"
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr ""
+msgstr "在主浏览器中必须查找字体文件。"
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -101,9 +101,6 @@ msgstr "无法读取页码。"
 
 msgid "Can't open file."
 msgstr "文件无法打开。"
-
-msgid "Can't read file:"
-msgstr "文件无法读取"
 
 msgid "Cancel"
 msgstr "取消"
@@ -218,7 +215,7 @@ msgid "Could not load text file."
 msgstr "文本文件无法读取。"
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "无法解析目录。"
 
 msgid "Credits"
 msgstr "感谢"
@@ -275,7 +272,7 @@ msgid "Do you want to change the font?"
 msgstr "是否要更改字体？"
 
 msgid "Do you want to delete this file:"
-msgstr ""
+msgstr "是否要删除此文件："
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "是否断开FTP客户端"
@@ -348,7 +345,7 @@ msgid "Do you want to update now ?"
 msgstr "是否现在更新？"
 
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 msgid "Down Button"
 msgstr "下载按钮"
@@ -370,7 +367,7 @@ msgid "Edit Textline Button"
 msgstr "编辑文本行按钮"
 
 msgid "Enter"
-msgstr ""
+msgstr "进入"
 
 msgid "Error while reading file."
 msgstr "错误"
@@ -430,7 +427,7 @@ msgid "FTP Started.\n"
 msgstr "FTP已开启。\n"
 
 msgid "Fade Speed"
-msgstr ""
+msgstr "减速"
 
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
@@ -463,7 +460,7 @@ msgid "File already exists:"
 msgstr "文件已存在："
 
 msgid "File could not be deleted."
-msgstr ""
+msgstr "文件无法删除。"
 
 msgid "File couldn't be deleted."
 msgstr "文件不能删除"
@@ -487,7 +484,7 @@ msgid "File was edited."
 msgstr "文件被编辑。"
 
 msgid "Filepath:"
-msgstr ""
+msgstr "文件路径："
 
 #, c-format
 msgid "Filepath:  %s"
@@ -584,7 +581,7 @@ msgid "Host:"
 msgstr "主机："
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "是否要更改路径？"
 
 msgid "How do you want to open the file?"
 msgstr "你想要采取哪种方式打开此文件？"
@@ -635,13 +632,13 @@ msgid "JPEG Quality"
 msgstr "JPEG图片质量"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "键盘退格按钮"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "键盘删除延迟"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "键盘上档按钮"
 
 msgid "Language"
 msgstr "语言"
@@ -777,7 +774,7 @@ msgid "Not enough memory."
 msgstr "内存不足"
 
 msgid "Notice:"
-msgstr ""
+msgstr "注意："
 
 msgid "OFF"
 msgstr "关闭"
@@ -818,6 +815,9 @@ msgstr "解析目录"
 msgid "Passive Mode:"
 msgstr "被动模式"
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr "密码："
 
@@ -835,6 +835,9 @@ msgstr "播放文件"
 
 msgid "Play Once"
 msgstr "只播放一次"
+
+msgid "Please enter the password."
+msgstr ""
 
 msgid "Please wait..."
 msgstr "请等待..."
@@ -1172,7 +1175,7 @@ msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "WiiXplorer缺省音乐"
 
 msgid "WiiXplorer Movies"
 msgstr "Wiixplorer电影"
@@ -1215,6 +1218,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Can't read file:"
+#~ msgstr "文件无法读取"
 
 #~ msgid "User %i"
 #~ msgstr "用户 %i"

@@ -28,6 +28,7 @@
 #ifndef _ZIPFILE_H_
 #define _ZIPFILE_H_
 
+#include <vector>
 #include <unzip/unzip.h>
 #include "7ZipFile.h"
 
@@ -47,19 +48,16 @@ class ZipFile
 		//!Extract all files from a zip file to a directory
 		int ExtractAll(const char *dest);
 		//!Get the total amount of items inside the archive
-        u32 GetItemCount() { return ItemCount; };
-
+        u32 GetItemCount() { return ZipStructure.size(); };
     private:
+        bool SeekFile(int ind);
+        void PathControl();
+        void CheckMissingPath(const char * path);
         bool LoadList();
-        void ResetOffsets();
 
-        char filename[MAXPATHLEN];
-        ArchiveFileStruct CurArcFile;
-        int curFileIndex;
-        int ItemCount;
-        unz_file_pos * unzPosition;
         unzFile File;
-        unz_file_info cur_file_info;
+        int RealArchiveItemCount;
+        std::vector<ArchiveFileStruct *> ZipStructure;
 };
 
 #endif

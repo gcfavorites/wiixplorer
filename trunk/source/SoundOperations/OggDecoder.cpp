@@ -29,23 +29,23 @@
 
 extern "C"  int ogg_read(void * punt, int bytes, int blocks, int *f)
 {
-    return ((File *) f)->read((u8 *) punt, bytes*blocks);
+    return ((CFile *) f)->read((u8 *) punt, bytes*blocks);
 }
 
 extern "C" int ogg_seek(int *f, ogg_int64_t offset, int mode)
 {
-	return ((File *) f)->seek((u64) offset, mode);
+	return ((CFile *) f)->seek((u64) offset, mode);
 }
 
 extern "C" int ogg_close(int *f)
 {
-    ((File *) f)->close();
+    ((CFile *) f)->close();
 	return 0;
 }
 
 extern "C" long ogg_tell(int *f)
 {
-	return (long) ((File *) f)->tell();
+	return (long) ((CFile *) f)->tell();
 }
 
 static ov_callbacks callbacks = {

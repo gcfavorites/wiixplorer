@@ -74,7 +74,7 @@ class SoundDecoder
     protected:
         void Init();
 
-        File * file_fd;
+        CFile * file_fd;
         BufferCircle SoundBuffer;
         u8 SoundType;
         u16 SoundBlocks;

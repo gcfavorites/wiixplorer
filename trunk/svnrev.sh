@@ -63,6 +63,7 @@ Features:
  * Multilanguage with custom font support
  * Boot .dol/.elf files
  * Playback Wii/GC Game Videos
+ * Stylish Music Player
  * Open TXT/XML/MP3/OGG/WAV/BNS/AIFF files
  * Supported Image Formats:
    PNG/JPEG/GIF/BMP/TPL/TGA/TIFF/GD/GD2
@@ -72,8 +73,7 @@ Features:
    PNG/JPEG/GIF/BMP/TIFF/GD/GD2
  * Screenshot support at any point of the app
    in different formats
- * ZIP/7zip/BNR/U8Archive/RARC browsing and decompressing
- * Rar browsing
+ * ZIP/7zip/RAR/BNR/U8Archive/RARC browsing and decompressing
  * Properties of archive files
  * Textediting support
  * PDF Viewing support

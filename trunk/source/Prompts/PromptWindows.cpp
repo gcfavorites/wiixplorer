@@ -59,15 +59,15 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	GuiKeyboard keyboard(var, maxlen);
 
 	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	GuiImageData btnOutline(button_png, button_png_size);
-	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
+	GuiImageData * btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage okBtnImg(&btnOutline);
-	GuiImage okBtnImgOver(&btnOutlineOver);
-	GuiButton okBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage okBtnImg(btnOutline);
+	GuiImage okBtnImgOver(btnOutlineOver);
+	GuiButton okBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 
 	okBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	okBtn.SetPosition(25, -25);
@@ -80,9 +80,9 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	okBtn.SetEffectGrow();
 
 	GuiText cancelBtnTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage cancelBtnImg(&btnOutline);
-	GuiImage cancelBtnImgOver(&btnOutlineOver);
-	GuiButton cancelBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage cancelBtnImg(btnOutline);
+	GuiImage cancelBtnImgOver(btnOutlineOver);
+	GuiButton cancelBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 	cancelBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
 	cancelBtn.SetPosition(-25, -25);
 	cancelBtn.SetLabel(&cancelBtnTxt);
@@ -126,6 +126,8 @@ int OnScreenKeyboard(char * var, u16 maxlen)
     MainWindow::Instance()->SetDim(false);
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnOutline);
+	Resources::Remove(btnOutlineOver);
 	ResumeGui();
 	return save;
 }
@@ -137,15 +139,15 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	GuiKeyboard keyboard(var, maxlen);
 
 	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	GuiImageData btnOutline(button_png, button_png_size);
-	GuiImageData btnOutlineOver(button_over_png, button_over_png_size);
+	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
+	GuiImageData * btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage okBtnImg(&btnOutline);
-	GuiImage okBtnImgOver(&btnOutlineOver);
-	GuiButton okBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage okBtnImg(btnOutline);
+	GuiImage okBtnImgOver(btnOutlineOver);
+	GuiButton okBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 
 	okBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	okBtn.SetPosition(25, -25);
@@ -158,9 +160,9 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	okBtn.SetEffectGrow();
 
 	GuiText cancelBtnTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage cancelBtnImg(&btnOutline);
-	GuiImage cancelBtnImgOver(&btnOutlineOver);
-	GuiButton cancelBtn(btnOutline.GetWidth(), btnOutline.GetHeight());
+	GuiImage cancelBtnImg(btnOutline);
+	GuiImage cancelBtnImgOver(btnOutlineOver);
+	GuiButton cancelBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
 	cancelBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
 	cancelBtn.SetPosition(-25, -25);
 	cancelBtn.SetLabel(&cancelBtnTxt);
@@ -204,6 +206,8 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
     MainWindow::Instance()->SetDim(false);
 	MainWindow::Instance()->SetState(STATE_DEFAULT);
 	Resources::Remove(btnSoundOver);
+	Resources::Remove(btnOutline);
+	Resources::Remove(btnOutlineOver);
 	ResumeGui();
 	return save;
 }

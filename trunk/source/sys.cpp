@@ -166,9 +166,10 @@ extern "C" void Sys_LoadMenu(void)
 
 extern "C" void Sys_BackToLoader(void)
 {
+    ExitApp();
+
 	if (IsFromHBC())
 	{
-		ExitApp();
 		exit(0);
 	}
 	// Channel Version

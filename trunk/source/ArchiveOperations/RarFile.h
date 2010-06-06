@@ -29,9 +29,9 @@
 #define _RARFILE_H_
 
 #include <vector>
-#include <algorithm>
+#include <string>
 
-#include <unrarlib.h>
+#include <libunrar/rar.hpp>
 #include "7ZipFile.h"
 
 
@@ -54,9 +54,14 @@ class RarFile
     private:
         bool LoadList(const char * filepath);
         void ClearList();
+        bool CheckPassword();
+        bool SeekFile(int index);
+        void UnstoreFile(ComprDataIO &DataIO, int64 DestUnpSize);
+        int InternalExtractFile(const char * outpath, bool withpath);
+        Archive RarArc;
 
-        ArchiveList_struct * ArcList;
         std::vector<ArchiveFileStruct *> RarStructure;
+        std::string Password;
 };
 
 #endif

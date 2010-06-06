@@ -1,7 +1,7 @@
 #include <cstring>
 #include "File.hpp"
 
-File::File()
+CFile::CFile()
 {
     file_fd = NULL;
     mem_file = NULL;
@@ -9,24 +9,24 @@ File::File()
     Pos = 0;
 }
 
-File::File(const char * filepath, const char * mode)
+CFile::CFile(const char * filepath, const char * mode)
 {
     file_fd = NULL;
     open(filepath, mode);
 }
 
-File::File(const u8 * mem, int size)
+CFile::CFile(const u8 * mem, int size)
 {
     file_fd = NULL;
     open(mem, size);
 }
 
-File::~File()
+CFile::~CFile()
 {
     close();
 }
 
-int File::open(const char * filepath, const char * mode)
+int CFile::open(const char * filepath, const char * mode)
 {
     close();
 
@@ -41,7 +41,7 @@ int File::open(const char * filepath, const char * mode)
     return 0;
 }
 
-int File::open(const u8 * mem, int size)
+int CFile::open(const u8 * mem, int size)
 {
     close();
 
@@ -51,7 +51,7 @@ int File::open(const u8 * mem, int size)
     return 0;
 }
 
-void File::close()
+void CFile::close()
 {
     if(file_fd)
         fclose(file_fd);
@@ -62,7 +62,7 @@ void File::close()
     Pos = 0;
 }
 
-int File::read(u8 * ptr, size_t size)
+int CFile::read(u8 * ptr, size_t size)
 {
     if(file_fd)
     {
@@ -90,7 +90,7 @@ int File::read(u8 * ptr, size_t size)
     return -1;
 }
 
-int File::write(const u8 * ptr, size_t size)
+int CFile::write(const u8 * ptr, size_t size)
 {
     if(size < 0)
         return size;
@@ -106,7 +106,7 @@ int File::write(const u8 * ptr, size_t size)
     return -1;
 }
 
-int File::seek(long int offset, int origin)
+int CFile::seek(long int offset, int origin)
 {
 	int ret = 0;
 
