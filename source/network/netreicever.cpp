@@ -28,15 +28,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <ogcsys.h>
+#include <zlib.h>
 #include <fcntl.h>
 #include <ogc/machine/processor.h>
+#include "ArchiveOperations/Archive.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 
 #include "http.h"
 #include "networkops.h"
 #include "FileOperations/fileops.h"
-#include "ArchiveOperations/Archive.h"
 #include "DirList.h"
 #include "main.h"
 #include "netreceiver.h"
@@ -273,7 +274,7 @@ const u8 * NetReceiver::UncompressData()
 
         FreeData();
 
-        Archive * Zip = new Archive(tempfilepath);
+        ArchiveHandle * Zip = new ArchiveHandle(tempfilepath);
         if(!Zip->ExtractAll(temppath))
         {
             delete Zip;

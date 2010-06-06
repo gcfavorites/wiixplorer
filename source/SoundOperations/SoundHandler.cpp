@@ -167,7 +167,7 @@ static inline bool CheckMP3Signature(const u8 * buffer)
 SoundDecoder * SoundHandler::GetSoundDecoder(const char * filepath)
 {
     u32 magic;
-    File f(filepath, "rb");
+    CFile f(filepath, "rb");
     if(f.size() == 0)
         return NULL;
 

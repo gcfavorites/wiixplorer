@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 20:42+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -34,7 +34,7 @@ msgid "Add to Playlist"
 msgstr "Tilføj Til Playlist"
 
 msgid "Alpha Blending"
-msgstr ""
+msgstr "Alfa Blanding"
 
 msgid "App Default"
 msgstr "Programstandard"
@@ -85,7 +85,7 @@ msgid "Browser Mode"
 msgstr ""
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr ""
+msgstr "browsing for Font Filer Skal Gøres I Hovedbrowser."
 
 msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
@@ -101,9 +101,6 @@ msgstr "Kan ikke indlæse side."
 
 msgid "Can't open file."
 msgstr "Kan Ikke Åbne Fil."
-
-msgid "Can't read file:"
-msgstr "Kan Ikke Læse Fil:"
 
 msgid "Cancel"
 msgstr "Annuller"
@@ -218,7 +215,7 @@ msgid "Could not load text file."
 msgstr "Kunne Ikke Indlæse Tekst Fil"
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "Kunne Ikke Analysere Mappe."
 
 msgid "Credits"
 msgstr "Tak Til"
@@ -348,7 +345,7 @@ msgid "Do you want to update now ?"
 msgstr "Vil du opdatere nu?"
 
 msgid "Done"
-msgstr ""
+msgstr "Gjort"
 
 msgid "Down Button"
 msgstr "Ned Knap"
@@ -487,7 +484,7 @@ msgid "File was edited."
 msgstr "Fil Var Ændret."
 
 msgid "Filepath:"
-msgstr ""
+msgstr "Fil sti:"
 
 #, c-format
 msgid "Filepath:  %s"
@@ -584,7 +581,7 @@ msgid "Host:"
 msgstr "Vært:"
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "Hvordan Vil Du Ændre Denne Sti?"
 
 msgid "How do you want to open the file?"
 msgstr "Hvordan Vil Du Åbne Filen?"
@@ -635,13 +632,13 @@ msgid "JPEG Quality"
 msgstr "JPEG Kvalitet"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "Tastetur Backspace Knap"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "Tastetur Slet Forsinkelse"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "Tastetur Skift Knap"
 
 msgid "Language"
 msgstr "Sprog"
@@ -689,7 +686,7 @@ msgid "Loop"
 msgstr ""
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "Loop Afspilningsliste"
 
 msgid "MPlayerCE Path"
 msgstr "MplayerCE Sti"
@@ -777,7 +774,7 @@ msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
 
 msgid "Notice:"
-msgstr ""
+msgstr "Bemærk:"
 
 msgid "OFF"
 msgstr "Fra"
@@ -818,6 +815,9 @@ msgstr "Analyser Mappe"
 msgid "Passive Mode:"
 msgstr "Passiv Mode:"
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr "Kodeord:"
 
@@ -835,6 +835,9 @@ msgstr "Afspil Fil"
 
 msgid "Play Once"
 msgstr "Afspil En Gang"
+
+msgid "Please enter the password."
+msgstr ""
 
 msgid "Please wait..."
 msgstr "Vent Venligst..."
@@ -906,7 +909,7 @@ msgid "SMB is connecting..."
 msgstr "SMB forbinder..."
 
 msgid "Save Alpha"
-msgstr ""
+msgstr "Gem Alfa"
 
 msgid "Screenshot Format"
 msgstr ""
@@ -967,7 +970,7 @@ msgid "Soundblock Size"
 msgstr "Lydblock Størrelse"
 
 msgid "Soundblocks"
-msgstr "Lydbloke"
+msgstr "Lydblokke"
 
 msgid "Special thanks to:"
 msgstr "Især tak til:"
@@ -1215,6 +1218,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Can't read file:"
+#~ msgstr "Kan Ikke Læse Fil:"
 
 #~ msgid "User %i"
 #~ msgstr "Bruger %i"

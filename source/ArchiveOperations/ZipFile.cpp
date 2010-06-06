@@ -41,10 +41,6 @@ extern bool actioncanceled;
 
 ZipFile::ZipFile(const char *filepath)
 {
-    curFileIndex = 0;
-    ItemCount = 0;
-    unzPosition = NULL;
-
     File = unzOpen(filepath);
     if(File)
         this->LoadList();
@@ -52,9 +48,16 @@ ZipFile::ZipFile(const char *filepath)
 
 ZipFile::~ZipFile()
 {
-    if(unzPosition)
-        free(unzPosition);
-    unzPosition = NULL;
+    for(u32 i = 0; i < ZipStructure.size(); i++)
+    {
+        if(ZipStructure[i]->filename)
+            delete [] ZipStructure[i]->filename;
+
+        if(ZipStructure[i])
+            delete ZipStructure[i];
+    }
+
+    ZipStructure.clear();
 
     unzClose(File);
 }
@@ -68,117 +71,119 @@ bool ZipFile::LoadList()
     if(ret != UNZ_OK)
         return false;
 
-    u32 cnt = 0;
+    char filename[1024];
+    unz_file_info cur_file_info;
+    RealArchiveItemCount = 0;
 
     do
     {
         if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, NULL, NULL, NULL) == UNZ_OK)
         {
-            if(!unzPosition)
-                unzPosition = (unz_file_pos *) malloc(sizeof(unz_file_pos));
-
-            unz_file_pos * temp = (unz_file_pos *) realloc(unzPosition, (cnt+1)*sizeof(unz_file_pos));
-            if(!temp)
+            bool isDir = false;
+            if(filename[strlen(filename)-1] == '/')
             {
-                //out of memory
-                free(unzPosition);
-                unzPosition = NULL;
-                ItemCount = 0;
-                return false;
-            }
-            else
-            {
-                unzPosition = temp;
+                isDir = true;
+                filename[strlen(filename)-1] = '\0';
             }
 
-            memset(&(unzPosition[cnt]), 0, sizeof(unz_file_pos));
-            ret = unzGetFilePos(File, &unzPosition[cnt]);
+            int strlength = strlen(filename)+1;
 
-            if(ret != UNZ_OK)
-                WindowPrompt(tr("Can't read file:"), filename, tr("OK"));
+            ArchiveFileStruct * CurArcFile = new ArchiveFileStruct;
+            CurArcFile->filename = new char[strlength];
+            strcpy(CurArcFile->filename, filename);
+            CurArcFile->length = cur_file_info.uncompressed_size;
+            CurArcFile->comp_length = cur_file_info.compressed_size;
+            CurArcFile->isdir = isDir;
+            CurArcFile->fileindex = RealArchiveItemCount;
+            CurArcFile->ModTime = (u64) cur_file_info.dosDate;
+            CurArcFile->archiveType = ZIP;
 
-            cnt++;
+            ZipStructure.push_back(CurArcFile);
         }
-    } while(unzGoToNextFile(File) == UNZ_OK);
+        ++RealArchiveItemCount;
+    }
+    while(unzGoToNextFile(File) == UNZ_OK);
 
-    ItemCount = cnt;
-
-    ResetOffsets();
+    PathControl();
 
     return true;
 }
 
-void ZipFile::ResetOffsets()
+ArchiveFileStruct * ZipFile::GetFileStruct(int ind)
 {
-    memset(&CurArcFile, 0, sizeof(ArchiveFileStruct));
+    if(ind < 0 || ind >= (int) ZipStructure.size())
+        return NULL;
+
+    return ZipStructure[ind];
+}
+
+bool ZipFile::SeekFile(int ind)
+{
+    if(ind < 0 || ind >= (int) ZipStructure.size())
+        return false;
 
     int ret = unzGoToFirstFile(File);
     if(ret != UNZ_OK)
-        return;
+        return false;
 
-    ret = unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, NULL, NULL, NULL);
-    if(ret != UNZ_OK)
-        return;
-
-    curFileIndex = 0;
-
-    if(filename[strlen(filename)-1] == '/')
+    while(ind > 0)
     {
-        CurArcFile.isdir = true;
-        filename[strlen(filename)-1] = '\0';
+        if(unzGoToNextFile(File) != UNZ_OK)
+            return false;
+
+        --ind;
     }
-    else
-    {
-        CurArcFile.isdir = false;
-    }
-    CurArcFile.filename = filename;
-    CurArcFile.length = cur_file_info.uncompressed_size;
-    CurArcFile.comp_length = cur_file_info.compressed_size;
-    CurArcFile.fileindex = 0;
-    CurArcFile.ModTime = 0;
-    CurArcFile.archiveType = ZIP;
+
+    return true;
 }
 
-ArchiveFileStruct * ZipFile::GetFileStruct(int ind)
+void ZipFile::CheckMissingPath(const char * path)
 {
-    if(ind < 0 || ind > ItemCount)
-        return NULL;
+    if(!path)
+        return;
 
-    else if(ind != curFileIndex)
+    u32 i = 0;
+    for(i = 0; i < ZipStructure.size(); i++)
     {
-        curFileIndex = ind;
-        int ret = unzGoToFilePos(File, &unzPosition[ind]);
-        if(ret != UNZ_OK)
-            return NULL;
-    }
-    else if(ind == curFileIndex)
-    {
-        return &CurArcFile;
+        if(strcasecmp(ZipStructure[i]->filename, path) == 0)
+            break;
     }
 
-    if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, NULL, NULL, NULL) == UNZ_OK)
+    if(i == ZipStructure.size())
     {
-        //Cut off the '/' if its a directory
-        if(filename[strlen(filename)-1] == '/')
+        int strlength = strlen(path)+1;
+        ArchiveFileStruct * CurArcFile = new ArchiveFileStruct;
+        CurArcFile->filename = new char[strlength];
+        strcpy(CurArcFile->filename, path);
+        CurArcFile->length = 0;
+        CurArcFile->comp_length = 0;
+        CurArcFile->isdir = true;
+        CurArcFile->fileindex = ZipStructure.size();
+        CurArcFile->ModTime = 0;
+        CurArcFile->archiveType = ZIP;
+
+        ZipStructure.push_back(CurArcFile);
+    }
+}
+
+void ZipFile::PathControl()
+{
+    char missingpath[1024];
+
+    for(u32 n = 0; n < ZipStructure.size(); n++)
+    {
+        const char * filepath = ZipStructure[n]->filename;
+        int strlength = strlen(filepath);
+
+        for(int i = 0; i < strlength; i++)
         {
-            CurArcFile.isdir = true;
-            filename[strlen(filename)-1] = '\0';
-        }
-        else
-        {
-            CurArcFile.isdir = false;
-        }
-        CurArcFile.filename = filename;
-        CurArcFile.length = cur_file_info.uncompressed_size;
-        CurArcFile.comp_length = cur_file_info.compressed_size;
-        CurArcFile.fileindex = ind;
-        CurArcFile.ModTime = (u64) cur_file_info.dosDate;
-        CurArcFile.archiveType = ZIP;
+            if(filepath[i] == '/')
+                CheckMissingPath(missingpath);
 
-        return &CurArcFile;
+            missingpath[i] = filepath[i];
+            missingpath[i+1] = '\0';
+        }
     }
-
-    return NULL;
 }
 
 int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
@@ -186,25 +191,28 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
     if(!File)
         return -1;
 
-    GetFileStruct(ind);
+    if(!SeekFile(ind) && ind < RealArchiveItemCount)
+        return -1;
+
+    ArchiveFileStruct * CurArcFile = GetFileStruct(ind);
 
     u32 done = 0;
 
-	char * RealFilename = strrchr(CurArcFile.filename, '/');
+	char * RealFilename = strrchr(CurArcFile->filename, '/');
 	if(RealFilename)
         RealFilename += 1;
     else
-        RealFilename = CurArcFile.filename;
+        RealFilename = CurArcFile->filename;
 
 	char writepath[MAXPATHLEN];
 	if(withpath)
-        snprintf(writepath, sizeof(writepath), "%s/%s", dest, CurArcFile.filename);
+        snprintf(writepath, sizeof(writepath), "%s/%s", dest, CurArcFile->filename);
     else
         snprintf(writepath, sizeof(writepath), "%s/%s", dest, RealFilename);
 
-	u32 filesize = CurArcFile.length;
+	u32 filesize = CurArcFile->length;
 
-    if(CurArcFile.isdir)
+    if(CurArcFile->isdir)
     {
         strncat(writepath, "/", sizeof(writepath));
         CreateSubfolder(writepath);
@@ -239,7 +247,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
         StopProgress();
         free(buffer);
         fclose(pfile);
-        WindowPrompt(tr("Could not extract file:"), CurArcFile.filename, "OK");
+        WindowPrompt(tr("Could not extract file:"), CurArcFile->filename, "OK");
         return -3;
     }
 
@@ -298,13 +306,16 @@ int ZipFile::ExtractAll(const char *dest)
         return -5;
 
     char writepath[MAXPATHLEN];
+    char filename[MAXPATHLEN];
+    memset(writepath, 0, sizeof(writepath));
     memset(filename, 0, sizeof(filename));
+
+    unz_file_info cur_file_info;
 
     int ret = unzGoToFirstFile(File);
     if(ret != UNZ_OK)
     {
         free(buffer);
-        ResetOffsets();
         return -6;
     }
 
@@ -345,7 +356,6 @@ int ZipFile::ExtractAll(const char *dest)
                     fclose(pfile);
                     unzCloseCurrentFile(File);
                     StopProgress();
-                    ResetOffsets();
                     return -8;
                 }
 
@@ -390,8 +400,6 @@ int ZipFile::ExtractAll(const char *dest)
     buffer = NULL;
 
     StopProgress();
-
-    ResetOffsets();
 
     return 1;
 }

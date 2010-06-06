@@ -58,12 +58,12 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
     OrigArchiveFilename = new char[strlen(tmp)+1];
     sprintf(OrigArchiveFilename, "%s", tmp);
 
-    archive = new Archive(filepath);
+    archive = new ArchiveHandle(filepath);
     ItemNumber = archive->GetItemCount();
     ParseArchiveDirectory(NULL);
 }
 
-ArchiveBrowser::ArchiveBrowser(Archive * a)
+ArchiveBrowser::ArchiveBrowser(ArchiveHandle * a)
     :Browser()
 {
     PageIndex = 0;

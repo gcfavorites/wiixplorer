@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 18:52+0200\n"
 "PO-Revision-Date: 2010-02-01 18:34-0000\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -101,9 +101,6 @@ msgstr ""
 
 msgid "Can't open file."
 msgstr "Impossível abrir ficheiro."
-
-msgid "Can't read file:"
-msgstr "Impossível lêr ficheiro:"
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -818,6 +815,9 @@ msgstr ""
 msgid "Passive Mode:"
 msgstr ""
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr "Palavra-chave:"
 
@@ -834,6 +834,9 @@ msgid "Play File"
 msgstr ""
 
 msgid "Play Once"
+msgstr ""
+
+msgid "Please enter the password."
 msgstr ""
 
 msgid "Please wait..."
@@ -1215,6 +1218,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Can't read file:"
+#~ msgstr "Impossível lêr ficheiro:"
 
 #~ msgid "User %i"
 #~ msgstr "Utilizador %i"

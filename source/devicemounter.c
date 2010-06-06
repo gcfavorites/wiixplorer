@@ -4,6 +4,8 @@
 #include <ogc/mutex.h>
 #include <ogc/system.h>
 #include <sdcard/wiisd_io.h>
+
+#include "usbstorage/usbstorage.h"
 #include <ntfs.h>   //has to be after usbstorage.h so our usbstorage.h is loaded and not the libogc one
 #include <sdcard/gcsd.h>
 
@@ -18,6 +20,8 @@
 
 static ntfs_md *ntfs_mounts = NULL;
 static int ntfs_mountCount = 0;
+static DISC_INTERFACE * sd = (DISC_INTERFACE *) &__io_wiisd;
+static DISC_INTERFACE * usb = NULL;
 
 int NTFS_Mount()
 {
@@ -54,32 +58,45 @@ const char *NTFS_GetMountName(int mountIndex)
 
 int USBDevice_Init()
 {
+    int ret = -1;
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
 
-    if (fatMount("usb", &__io_usbstorage, 0, CACHE, SECTORS))
+    if (fatMount("usb", &__io_usb2storage, 0, CACHE, SECTORS))
     {
-        return 1;
+        usb = (DISC_INTERFACE *) &__io_usb2storage;
+		ret = 1;
+	}
+	else if (fatMount("usb", &__io_usb1storage, 0, CACHE, SECTORS))
+	{
+        usb = (DISC_INTERFACE *) &__io_usb1storage;
+		ret = 1;
 	}
 
-	return -1;
+	return ret;
 }
 
 void USBDevice_deInit()
 {
+    if(!usb)
+        return;
+
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("usb:/");
-	__io_usbstorage.shutdown();
+	usb->shutdown();
 }
 
 bool USBDevice_Inserted()
 {
-	return __io_usbstorage.isInserted();
+    if(!usb)
+        return false;
+
+	return usb->isInserted();
 }
 
 bool SDCard_Inserted()
 {
-    return __io_wiisd.isInserted();
+    return sd->isInserted();
 }
 
 int SDCard_Init()
@@ -87,7 +104,7 @@ int SDCard_Init()
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
 	//right now mounts first FAT-partition
-	if (fatMount("sd", &__io_wiisd, 0, CACHE, SECTORS))
+	if (fatMount("sd", sd, 0, CACHE, SECTORS))
 		return 1;
 	return -1;
 }
@@ -96,7 +113,7 @@ void SDCard_deInit()
 {
 	//closing all open Files write back the cache and then shutdown em!
 	fatUnmount("sd:/");
-	__io_wiisd.shutdown();
+	sd->shutdown();
 }
 
 int SDGeckoA_Init()

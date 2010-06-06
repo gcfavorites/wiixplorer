@@ -31,7 +31,7 @@
 
 #include "Archive.h"
 
-Archive::Archive(const char  * filepath)
+ArchiveHandle::ArchiveHandle(const char  * filepath)
 {
     szFile = NULL;
     zipFile = NULL;
@@ -70,7 +70,7 @@ Archive::Archive(const char  * filepath)
         rarcFile = new RarcFile(filepath);
 }
 
-Archive::~Archive()
+ArchiveHandle::~ArchiveHandle()
 {
     if(zipFile)
         delete zipFile;
@@ -94,7 +94,7 @@ Archive::~Archive()
     rarcFile = NULL;
 }
 
-ArchiveFileStruct * Archive::GetFileStruct(int ind)
+ArchiveFileStruct * ArchiveHandle::GetFileStruct(int ind)
 {
     if(zipFile)
         return zipFile->GetFileStruct(ind);
@@ -114,7 +114,7 @@ ArchiveFileStruct * Archive::GetFileStruct(int ind)
     return NULL;
 }
 
-u32 Archive::GetItemCount()
+u32 ArchiveHandle::GetItemCount()
 {
     if(zipFile)
         return zipFile->GetItemCount();
@@ -134,7 +134,7 @@ u32 Archive::GetItemCount()
     return 0;
 }
 
-int Archive::ExtractFile(int ind, const char *destpath, bool withpath)
+int ArchiveHandle::ExtractFile(int ind, const char *destpath, bool withpath)
 {
     if(zipFile)
         return zipFile->ExtractFile(ind, destpath, withpath);
@@ -154,7 +154,7 @@ int Archive::ExtractFile(int ind, const char *destpath, bool withpath)
     return 0;
 }
 
-int Archive::ExtractAll(const char * destpath)
+int ArchiveHandle::ExtractAll(const char * destpath)
 {
     if(zipFile)
         return zipFile->ExtractAll(destpath);
@@ -174,7 +174,7 @@ int Archive::ExtractAll(const char * destpath)
 	return 0;
 }
 
-bool Archive::IsZipFile (const char *buffer)
+bool ArchiveHandle::IsZipFile (const char *buffer)
 {
 	unsigned int *check;
 
@@ -186,7 +186,7 @@ bool Archive::IsZipFile (const char *buffer)
 	return false;
 }
 
-bool Archive::Is7ZipFile(const char *buffer)
+bool ArchiveHandle::Is7ZipFile(const char *buffer)
 {
 	// 7z signature
 	int i;
@@ -197,7 +197,7 @@ bool Archive::Is7ZipFile(const char *buffer)
 	return true; // 7z archive found
 }
 
-bool Archive::IsRarFile(const char *buffer)
+bool ArchiveHandle::IsRarFile(const char *buffer)
 {
 	// Rar signature    Rar!\x1A\a\0
 	Byte Signature[6] = {'R', 'a', 'r', 0x21, 0x1a, 0x07};
@@ -210,7 +210,7 @@ bool Archive::IsRarFile(const char *buffer)
 	return true; // RAR archive found
 }
 
-bool Archive::IsU8ArchiveFile(const char *buffer)
+bool ArchiveHandle::IsU8ArchiveFile(const char *buffer)
 {
 	char SignatureIMET[4] = {'I', 'M', 'E', 'T'};
 	char SignatureIMD5[4] = {'I', 'M', 'D', '5'};
@@ -242,7 +242,7 @@ bool Archive::IsU8ArchiveFile(const char *buffer)
     return sign_passed;
 }
 
-bool Archive::IsRarcFile(const char *buffer)
+bool ArchiveHandle::IsRarcFile(const char *buffer)
 {
 	char SignatureYaz0[4] = {'Y', 'a', 'z', '0'};
 	char SignatureRARC[4] = {'R', 'A', 'R', 'C'};

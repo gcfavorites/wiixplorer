@@ -28,7 +28,6 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <fat.h>
 #include <time.h>
 
 #include "menu.h"
@@ -307,12 +306,8 @@ int Taskbar::CheckStartMenu()
 	{
 		if (WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel")))
 		{
-			SDCard_deInit();
-            SDGeckoA_deInit();
-            SDGeckoB_deInit();
 			NTFS_UnMount();
-			//don't need to shutdown the usb device
-			fatUnmount("usb:/");
+			//don't need to shutdown the devices
 			SDCard_Init();
 			SDGeckoA_Init();
 			SDGeckoB_Init();

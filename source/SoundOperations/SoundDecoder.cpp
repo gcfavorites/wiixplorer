@@ -40,13 +40,13 @@ SoundDecoder::SoundDecoder()
 
 SoundDecoder::SoundDecoder(const char * filepath)
 {
-    file_fd = new File(filepath, "rb");
+    file_fd = new CFile(filepath, "rb");
     Init();
 }
 
 SoundDecoder::SoundDecoder(const u8 * buffer, int size)
 {
-    file_fd = new File(buffer, size);
+    file_fd = new CFile(buffer, size);
     Init();
 }
 

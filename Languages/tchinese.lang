@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 18:03+0200\n"
+"POT-Creation-Date: 2010-06-06 18:52+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -101,9 +101,6 @@ msgstr "無法載入頁面"
 
 msgid "Can't open file."
 msgstr "無法打開文件"
-
-msgid "Can't read file:"
-msgstr "無法讀取文件："
 
 msgid "Cancel"
 msgstr "取消"
@@ -818,6 +815,9 @@ msgstr "解析路徑"
 msgid "Passive Mode:"
 msgstr "被動式模式："
 
+msgid "Password is needed."
+msgstr ""
+
 msgid "Password:"
 msgstr "密碼："
 
@@ -835,6 +835,9 @@ msgstr "播放檔案"
 
 msgid "Play Once"
 msgstr "播放單曲"
+
+msgid "Please enter the password."
+msgstr ""
 
 msgid "Please wait..."
 msgstr "請稍候..."
@@ -1215,6 +1218,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Can't read file:"
+#~ msgstr "無法讀取文件："
 
 #~ msgid "User %i"
 #~ msgstr "使用者 %i"
