@@ -21,7 +21,8 @@ enum
 enum
 {
     PROGRESSBAR = 1,
-    THROBBER = 2
+    THROBBER,     //! Rotate throbber image only when calling ShowProgress
+    AUTO_THROBBER //! Rotating throbber image without calling ShowProgress
 };
 
 void InitProgressThread();

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 18:52+0200\n"
+"POT-Creation-Date: 2010-06-10 21:24+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "12H"
 msgstr "12小時制"
@@ -28,7 +28,7 @@ msgid "ASDFGHJKL:\"+"
 msgstr "ASDFGHJKL：\"+"
 
 msgid "Action cancelled."
-msgstr "動作取消"
+msgstr "動作已取消。"
 
 msgid "Add to Playlist"
 msgstr "加入播放清單"
@@ -79,28 +79,31 @@ msgid "Both"
 msgstr "全部"
 
 msgid "Browse"
-msgstr ""
+msgstr "瀏覽"
 
 msgid "Browser Mode"
 msgstr "瀏覽模式"
 
 msgid "Browsing for font files must be done in the main browser."
+msgstr "在主瀏覽器中必須有瀏覽所需字型檔。"
+
+msgid "CRC of extracted file does not match. Wrong password?"
 msgstr ""
 
 msgid "Can not open the file."
-msgstr "無法開啟這個檔案"
+msgstr "無法開啟這個檔案。"
 
 msgid "Can't browse that path."
-msgstr "無法瀏覽那個路徑"
+msgstr "無法瀏覽那個路徑。"
 
 msgid "Can't load file"
 msgstr "無法讀取這個檔案"
 
 msgid "Can't load page."
-msgstr "無法載入頁面"
+msgstr "無法載入頁面。"
 
 msgid "Can't open file."
-msgstr "無法打開文件"
+msgstr "無法開啟檔案。"
 
 msgid "Cancel"
 msgstr "取消"
@@ -109,13 +112,13 @@ msgid "Cannot create directory: "
 msgstr "無法建立目錄："
 
 msgid "Cannot open image"
-msgstr "圖片無法開啟"
+msgstr "無法開啟圖片"
 
 msgid "Cannot write to destination."
-msgstr "無法寫入目的地"
+msgstr "無法寫入目的地。"
 
 msgid "Cannot write to the file."
-msgstr "無法寫入文件"
+msgstr "無法寫入檔案。"
 
 msgid "Caps"
 msgstr "Caps鍵"
@@ -136,14 +139,14 @@ msgid "Clear List"
 msgstr "移除清單"
 
 msgid "Click Button"
-msgstr ""
+msgstr "點選按鈕"
 
 #, c-format
 msgid "Client %i"
-msgstr "連接 %i"
+msgstr "用戶端 %i"
 
 msgid "Client:"
-msgstr "連接："
+msgstr "用戶端："
 
 msgid "Clock Mode"
 msgstr "時間格式"
@@ -173,49 +176,49 @@ msgid "Convert"
 msgstr "轉換"
 
 msgid "Converting image..."
-msgstr "正在轉換影像中..."
+msgstr "轉換圖片中..."
 
 msgid "Copy"
 msgstr "複製"
 
 msgid "Copy current marked item(s)?"
-msgstr "複製現在所選取項目"
+msgstr "複製現正所選項目嗎？"
 
 msgid "Copy of"
 msgstr "複製其中"
 
 msgid "Copying item(s):"
-msgstr "正在複製項目中："
+msgstr "複製項目中："
 
 msgid "Could not connect to the network"
 msgstr "無法連接到網路"
 
 msgid "Could not connect to the server."
-msgstr "無法連接到伺服器"
+msgstr "無法連接到伺服器。"
 
 msgid "Could not convert image."
-msgstr "無法轉換圖片"
+msgstr "無法轉換圖片。"
 
 msgid "Could not decompress the file."
-msgstr "無法解壓縮檔案"
+msgstr "無法解壓縮檔案。"
 
 msgid "Could not download file."
-msgstr "無法下載檔案"
+msgstr "無法下載檔案。"
 
 msgid "Could not extract file:"
-msgstr "無法解壓縮文件："
+msgstr "無法解壓縮檔案："
 
 msgid "Could not load file."
-msgstr "無法載入文件"
+msgstr "無法載入檔案。"
 
 msgid "Could not load image."
-msgstr "無法載入圖片"
+msgstr "無法載入圖片。"
 
 msgid "Could not load text file."
-msgstr "無法載入文字檔"
+msgstr "無法載入文字檔。"
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "無法解析目錄。"
 
 msgid "Credits"
 msgstr "作者信息"
@@ -227,7 +230,7 @@ msgid "Cut"
 msgstr "剪下"
 
 msgid "Cut current marked item(s)?"
-msgstr "剪下現在所選取項目嗎?"
+msgstr "剪下現正所選項目嗎？"
 
 msgid "Default"
 msgstr "預設"
@@ -235,11 +238,14 @@ msgstr "預設"
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Delete Temp Path on Exit"
+msgstr ""
+
 msgid "Delete the selected item(s) and its content?"
-msgstr "刪除已選取項目及其內容嗎?"
+msgstr "刪除已選取項目及其內容嗎？"
 
 msgid "Deleting files:"
-msgstr "正在刪除檔案："
+msgstr "刪除檔案中："
 
 msgid "Demark All Items Button"
 msgstr "選取所有項目按鈕"
@@ -254,98 +260,98 @@ msgid "Directory .."
 msgstr "目錄.."
 
 msgid "Directory couldn't be deleted."
-msgstr "無法刪除目錄"
+msgstr "無法刪除目錄。"
 
 msgid "Disconnect Client"
-msgstr "中斷已連結使用者"
+msgstr "中斷連結用戶端"
 
 msgid "Disconnect SMB"
-msgstr "中斷連結 SMB"
+msgstr "中斷連結 SMB網路共享"
 
 msgid "Do you want to boot file now?"
-msgstr "現在你確定要啟動檔案嗎?"
+msgstr "是否要立刻啟動檔案？"
 
 msgid "Do you want to boot:"
-msgstr "是否啟動："
+msgstr "是否要啟動："
 
 msgid "Do you want to change the font?"
-msgstr "你確定要改變字型嗎?"
+msgstr "是否要改變字型？"
 
 msgid "Do you want to delete this file:"
-msgstr ""
+msgstr "是否要刪除此檔案："
 
 msgid "Do you want to disconnect the FTP client?"
-msgstr "是否中斷FTP的連結？"
+msgstr "是否中斷FTP用戶端的連結？"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr "是否中斷SMB的連結？"
+msgstr "是否中斷SMB網路共享的連結？"
 
 msgid "Do you want to download new language files?"
-msgstr "你要下載新的語系文件嗎？"
+msgstr "是否要下載新的語言檔？"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "你確定要退出WiiXplorer嗎?"
+msgstr "是否要退出WiiXplorer？"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr "你確定要用MPlayerCE啟動檔案嗎?"
+msgstr "是否要用MPlayerCE啟動檔案？"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr "你確定要從： %s 載入檔案嗎?"
+msgstr "是否要從：%s載入檔案？"
 
 msgid "Do you want to load the default language."
-msgstr "你將載入預設的語言"
+msgstr "是否要載入預設語言。"
 
 msgid "Do you want to load this language ?"
-msgstr "是否載入此語言 ?"
+msgstr "是否要載入此語言？"
 
 msgid "Do you want to load this language file?"
-msgstr "您確定要載入這個語言檔案？"
+msgstr "是否要載入這語言檔？"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr "是否使用 TextEditor 開啟？"
+msgstr "是否要用 TextEditor 開啟此檔案？"
 
 msgid "Do you want to playback this file?"
-msgstr "是否撥放此檔案?"
+msgstr "是否撥放此檔案？"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "你確定要重新啟動WiiXplorer嗎?"
+msgstr "是否要重新啟動WiiXplorer？"
 
 msgid "Do you want to reboot now ?"
-msgstr "你要重新啟動嗎？"
+msgstr "是否要立刻重新啟動？"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr "是否重新連接區域網路？"
+msgstr "是否要重新連接SMB網路共享？"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr "是否要重新連接 FTP 伺服器嗎？"
+msgstr "是否要重新連接 FTP 用戶端？"
 
 msgid "Do you want to remount the devices?"
-msgstr "你確定要重新掛載裝置嗎?"
+msgstr "是否要重新掛載這裝置？"
 
 msgid "Do you want to replace this file?"
-msgstr "你確定要取代這個檔案嗎?"
+msgstr "是否要取代這檔案？"
 
 msgid "Do you want to reset the control settings?"
-msgstr "重置控制台預設設定值？"
+msgstr "是否要重置控制台設定值？"
 
 msgid "Do you want to reset the settings?"
-msgstr "是否要重置設定值？"
+msgstr "是否要重置這設定值？"
 
 msgid "Do you want to save changes?"
-msgstr "你想保存更改？"
+msgstr "是否要儲存變更？"
 
 msgid "Do you want to start the app?"
-msgstr "你確定要啟動程式嗎?"
+msgstr "是否要啟動這程式？"
 
 msgid "Do you want to start the channel?"
-msgstr "你確定要啟動頻道嗎?"
+msgstr "是否要啟動這頻道？"
 
 msgid "Do you want to update now ?"
-msgstr "是否要立即更新？"
+msgstr "是否要立刻更新？"
 
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 msgid "Down Button"
 msgstr "向下按鈕"
@@ -355,7 +361,7 @@ msgstr "下載檔案"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr "下載 %d 檔案"
+msgstr "下載 %d 檔案。"
 
 msgid "Downloading file..."
 msgstr "下載檔案..."
@@ -367,7 +373,7 @@ msgid "Edit Textline Button"
 msgstr "編輯 Textline 按鈕"
 
 msgid "Enter"
-msgstr ""
+msgstr "輸入"
 
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
@@ -390,23 +396,23 @@ msgstr "匯出"
 msgid "Extract All"
 msgstr "匯出所有"
 
-msgid "Extract first and open than."
-msgstr "匯出第一個開啟項目"
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
-msgstr "匯出所有壓縮檔"
+msgstr "匯出所有壓縮檔？"
 
 msgid "Extract the selected item(s)?"
-msgstr "匯出選擇項目嗎?"
+msgstr "匯出選擇項目嗎？"
 
 msgid "Extracting files..."
-msgstr "正在輸出檔案..."
+msgstr "輸出檔案中..."
 
 msgid "Extracting item(s):"
-msgstr "正在輸出項目中："
+msgstr "輸出項目中："
 
 msgid "FTP Client Settings"
-msgstr "FTP客戶端設定"
+msgstr "FTP用戶端設定"
 
 msgid "FTP Path:"
 msgstr "FTP路徑："
@@ -421,34 +427,34 @@ msgid "FTP Server Settings"
 msgstr "FTP伺服器設定"
 
 msgid "FTP Server is running and listening on port"
-msgstr "FTP伺服器正在執行並傾聽通訊埠中"
+msgstr "FTP伺服器正在執行並傾聽通訊埠"
 
 msgid "FTP Started.\n"
 msgstr "FTP已啟動.\n"
 
 msgid "Fade Speed"
-msgstr ""
+msgstr "減速"
 
 msgid "Failed copying item(s)."
-msgstr "無法複製項目"
+msgstr "無法複製項目。"
 
 msgid "Failed extracting the archive."
-msgstr "匯出檔案失敗"
+msgstr "匯出檔案失敗。"
 
 msgid "Failed extracting the item(s)."
-msgstr "無法匯出項目"
+msgstr "無法匯出項目。"
 
 msgid "Failed moving item(s)."
-msgstr "無法移動項目"
+msgstr "無法移動項目。"
 
 msgid "Failed renaming item"
 msgstr "無法重新命名項目"
 
 msgid "Failed to get the Changelog."
-msgstr "無法取得更新日誌"
+msgstr "無法取得更新日誌。"
 
 msgid "Failed to read file data."
-msgstr "無法讀取檔案資料"
+msgstr "無法讀取檔案資料。"
 
 msgid "File Extensions"
 msgstr "檔案類型"
@@ -460,44 +466,44 @@ msgid "File already exists:"
 msgstr "檔案已存在："
 
 msgid "File could not be deleted."
-msgstr ""
+msgstr "無法刪除該檔案。"
 
 msgid "File couldn't be deleted."
-msgstr "無法刪除該檔案"
+msgstr "無法刪除該檔案。"
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "檔案已損壞（CRC不相同）"
+msgstr "檔案已損壞（CRC不相同）。"
 
 msgid "File is corrupt."
-msgstr "檔案已損壞"
+msgstr "檔案已損壞。"
 
 msgid "File is too big."
-msgstr "檔案過大"
+msgstr "檔案過大。"
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr "檔案使用過高的壓縮設定（字典大小太大）"
+msgstr "檔案使用過高的壓縮設定（字典大小太大）。"
 
 msgid "File uses unsupported compression settings."
-msgstr "檔案使用不被支援的壓縮設定"
+msgstr "檔案使用不被支援的壓縮設定。"
 
 msgid "File was edited."
-msgstr "檔案已修改"
+msgstr "檔案已修改。"
 
 msgid "Filepath:"
-msgstr ""
+msgstr "檔案路徑："
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "檔案路徑：  %s"
+msgstr ""
 
 msgid "Files:"
 msgstr "檔案："
 
 msgid "Filesize doesn't match."
-msgstr "檔案大小不相配"
+msgstr "檔案大小不相配。"
 
 msgid "Filesize is 0 Byte."
-msgstr "檔案大小為 0 Byte"
+msgstr "檔案大小為 0 Byte。"
 
 msgid "Filetype:"
 msgstr "檔案類型："
@@ -512,7 +518,7 @@ msgid "Font Files"
 msgstr "字型檔案"
 
 msgid "Fontpath changed."
-msgstr "字型路徑已變更"
+msgstr "字型路徑已變更。"
 
 msgid "Free Space:"
 msgstr "可用空間："
@@ -581,10 +587,10 @@ msgid "Host:"
 msgstr "主機："
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "你要如何變更路徑？"
 
 msgid "How do you want to open the file?"
-msgstr "你要如何開啟檔案?"
+msgstr "你要如何開啟檔案？"
 
 msgid "How do you want to proceed?"
 msgstr "您希望如何進行？"
@@ -593,34 +599,34 @@ msgid "Icon Mode"
 msgstr "圖示模式"
 
 msgid "Image Converter"
-msgstr "影像轉換"
+msgstr "圖片轉換"
 
 msgid "Image Files"
-msgstr "影像檔案"
+msgstr "圖片檔案"
 
 msgid "Image Heigth"
-msgstr "影像高度"
+msgstr "圖片高度"
 
 msgid "Image Settings"
-msgstr "影像設定"
+msgstr "圖片設定"
 
 msgid "Image Viewer"
-msgstr "檢視影像"
+msgstr "檢視圖片"
 
 msgid "Image Width"
-msgstr "影像寬度"
+msgstr "圖片寬度"
 
 msgid "Image successfully converted."
-msgstr "影像已成功轉換"
+msgstr "圖片已成功轉換。"
 
 msgid "ImageConverter"
-msgstr "轉換影像"
+msgstr "轉換圖片"
 
 msgid "ImageViewer"
-msgstr "檢視影像"
+msgstr "檢視圖片"
 
 msgid "Incomming connection."
-msgstr "接入連接"
+msgstr "接入連接。"
 
 msgid "Input File"
 msgstr "輸入檔案"
@@ -629,16 +635,16 @@ msgid "Interlace"
 msgstr "交錯"
 
 msgid "JPEG Quality"
-msgstr "JPEG影像品質"
+msgstr "JPEG圖片品質"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "鍵盤空白鍵"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "鍵盤刪除延遲"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "鍵盤Shift鍵"
 
 msgid "Language"
 msgstr "語言"
@@ -671,16 +677,19 @@ msgid "List Mode"
 msgstr "清單模式"
 
 msgid "Listening on TCP port"
-msgstr "正在傾聽TCP通訊埠"
+msgstr "傾聽TCP通訊埠中"
+
+msgid "Listing files in"
+msgstr ""
 
 msgid "Load Music to Memory"
 msgstr "讀取音樂到記憶體"
 
 msgid "Loading file:"
-msgstr "正在載入檔案："
+msgstr "載入檔案中："
 
 msgid "Loading image..."
-msgstr "正在載入影像中..."
+msgstr "載入圖片中..."
 
 msgid "Loop"
 msgstr "重複播放"
@@ -707,7 +716,7 @@ msgid "Mount NTFS"
 msgstr "掛載NTFS"
 
 msgid "Moving item(s):"
-msgstr "正在移動項目："
+msgstr "移動項目中："
 
 msgid "Music Loop Mode"
 msgstr "音樂播放模式"
@@ -719,13 +728,13 @@ msgid "NONE"
 msgstr "沒有"
 
 msgid "Name might already exists."
-msgstr "名稱可能已存在"
+msgstr "名稱可能已存在。"
 
 msgid "Network Settings"
 msgstr "更新及區網設定"
 
 msgid "Network initialising..."
-msgstr "正在啟動網路"
+msgstr "網路初始化中..."
 
 msgid "New Folder"
 msgstr "新資料夾"
@@ -734,20 +743,20 @@ msgid "No"
 msgstr "否"
 
 msgid "No files found."
-msgstr "找不到檔案"
+msgstr "找不到檔案。"
 
 msgid "No homebrew in the zip."
-msgstr "zip檔中無自製程式"
+msgstr "zip檔中無自製程式。"
 
 #, c-format
 msgid "No image found at index %d."
-msgstr "index %d 中無圖片"
+msgstr "index %d 中無圖片。"
 
 msgid "No language files found."
-msgstr "找不到語言檔案"
+msgstr "找不到語言檔案。"
 
 msgid "No network connection."
-msgstr "沒有網路連接"
+msgstr "沒有網路連接。"
 
 msgid "No new updates available"
 msgstr "沒有新的更新可用"
@@ -765,16 +774,16 @@ msgid "Not a valid domain"
 msgstr "不是有效的網域名稱"
 
 msgid "Not enough memory to resize."
-msgstr "沒有足夠記憶體改變大小"
+msgstr "沒有足夠記憶體改變大小。"
 
 msgid "Not enough memory to rotate."
-msgstr "沒有足夠記憶體旋轉"
+msgstr "沒有足夠記憶體旋轉。"
 
 msgid "Not enough memory."
-msgstr "記憶體空間不足"
+msgstr "記憶體空間不足。"
 
 msgid "Notice:"
-msgstr ""
+msgstr "注意："
 
 msgid "OFF"
 msgstr "關"
@@ -785,14 +794,8 @@ msgstr "確定"
 msgid "ON"
 msgstr "開"
 
-msgid "Open"
-msgstr "開啟"
-
 msgid "Open the file in the PDF Viewer?"
-msgstr "使用 PDF 格式檢視？"
-
-msgid "Opening is not yet implemented"
-msgstr "啟動時尚未啟用"
+msgstr "以 PDF檢視器開啟檔案嗎？"
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足： 太多檔案!"
@@ -807,7 +810,7 @@ msgid "PDF Files"
 msgstr "PDF 檔案"
 
 msgid "PDF Processing Zoom"
-msgstr "PDF處理放大"
+msgstr "PDF缩放處理中"
 
 msgid "Parse Directory"
 msgstr "解析路徑"
@@ -816,7 +819,7 @@ msgid "Passive Mode:"
 msgstr "被動式模式："
 
 msgid "Password is needed."
-msgstr ""
+msgstr "需要密碼。"
 
 msgid "Password:"
 msgstr "密碼："
@@ -825,7 +828,7 @@ msgid "Paste"
 msgstr "貼上"
 
 msgid "Paste item(s) into current directory?"
-msgstr "項目貼入現在的目錄嗎?"
+msgstr "項目貼入現在的目錄嗎？"
 
 msgid "Path Setup"
 msgstr "路徑安裝"
@@ -837,22 +840,22 @@ msgid "Play Once"
 msgstr "播放單曲"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "請輸入密碼。"
 
 msgid "Please wait..."
 msgstr "請稍候..."
 
 msgid "Please wait:"
-msgstr "請稍候"
+msgstr "請稍候："
 
 msgid "Possible unsupported format."
-msgstr "無法支援的格式"
+msgstr "無法支援的格式。"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
 
 msgid "Process canceled."
-msgstr "內容取消"
+msgstr "內容取消。"
 
 msgid "Properties"
 msgstr "內容"
@@ -867,13 +870,13 @@ msgid "Reboot failed"
 msgstr "重新啟動失敗"
 
 msgid "Receiving file..."
-msgstr "正在接收檔案中..."
+msgstr "接收檔案中..."
 
 msgid "Reconnect FTP"
 msgstr "重新連接FTP"
 
 msgid "Reconnect SMB"
-msgstr "重新連接區域網路"
+msgstr "重新連接SMB網路共享"
 
 msgid "Reload"
 msgstr "重新載入"
@@ -900,19 +903,19 @@ msgid "Rotate"
 msgstr "旋轉"
 
 msgid "SMB Name:"
-msgstr "連接資料夾名稱："
+msgstr "SMB網路共享名稱："
 
 msgid "SMB Settings"
-msgstr "區域網路設定"
+msgstr "SMB網路共享設定"
 
 msgid "SMB is connecting..."
-msgstr "正在連接區域網路..."
+msgstr "連接SMB網路共享中..."
 
 msgid "Save Alpha"
 msgstr "儲存Alpha"
 
 msgid "Screenshot Format"
-msgstr "擷取影像格式"
+msgstr "擷取圖片格式"
 
 msgid "Screenshot Hold Button"
 msgstr "螢幕截圖按鈕"
@@ -952,13 +955,13 @@ msgid "Shutdown FTP"
 msgstr "關閉FTP"
 
 msgid "Shutdown the Wii?"
-msgstr "Wii 關機"
+msgstr "關閉Wii主機嗎？"
 
 msgid "Size:"
 msgstr "檔案大小："
 
 msgid "Slide Show Button"
-msgstr "幻燈片按鈕"
+msgstr "幻燈片顯示按鈕"
 
 msgid "Slideshow Delay"
 msgstr "投影片顯示延遲"
@@ -981,23 +984,26 @@ msgstr "標準"
 msgid "Startup FTP"
 msgstr "啟動 FTP"
 
+msgid "Temporary Path"
+msgstr ""
+
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr "緩衝區大小非常高。如果應用程式變成無法啟動，請刪除您的設定文件。"
+msgstr "緩衝區大小非常高。如果應用程式變成無法啟動，請刪除您的設定檔。"
 
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "這個特效將預讀下一個音樂檔案。它可能無法讓音樂連續播放。"
 
 msgid "The new font could not be loaded."
-msgstr "新的字型無法被載入"
+msgstr "新的字型無法被載入。"
 
 msgid "The new font is loaded."
-msgstr "新的字型已載入"
+msgstr "新的字型已載入。"
 
 msgid "The whole DevkitPro & libogc staff."
-msgstr "完整的DevkitPro & libogc staff"
+msgstr "完整的DevkitPro & libogc staff。"
 
 msgid "This option could mess up the pdf view."
-msgstr "此選項可能弄亂 PDF 的檢視"
+msgstr "此選項可能弄亂 PDF 的檢視。"
 
 msgid "To Idle"
 msgstr "到閒置"
@@ -1015,31 +1021,31 @@ msgid "Total Space:"
 msgstr "全部容量："
 
 msgid "Transfer cancelled."
-msgstr "傳輸取消"
+msgstr "傳輸已取消。"
 
 msgid "Transfer failed"
 msgstr "傳輸失敗"
 
 msgid "Transfer failed."
-msgstr "傳輸失敗"
+msgstr "傳輸失敗。"
 
 msgid "Transfering files:"
-msgstr "正在傳輸檔案："
+msgstr "傳輸檔案中："
 
 msgid "URL is empty."
-msgstr "網址是空的"
+msgstr "網址是空的。"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr "不知名格式。使用 TextEditor 打開此文件？"
+msgstr "不知名格式。以TextEditor開啟此檔案？"
 
 msgid "Unable to create folder."
-msgstr "無法建立資料夾"
+msgstr "無法建立資料夾。"
 
 msgid "Unable to load path."
-msgstr "無法載入路徑"
+msgstr "無法載入路徑。"
 
 msgid "Unable to load the device."
-msgstr "無法載入設備"
+msgstr "無法載入設備。"
 
 msgid "Unsupported format!"
 msgstr "未支援格式!"
@@ -1048,7 +1054,7 @@ msgid "Up Button"
 msgstr "向上按鈕"
 
 msgid "Update (App) Path"
-msgstr "更新(APP)的路徑"
+msgstr "更新(程式)的路徑"
 
 msgid "Update App"
 msgstr "更新程式"
@@ -1060,7 +1066,7 @@ msgid "Update Meta.xml"
 msgstr "更新 Meta.xml"
 
 msgid "Update Path changed."
-msgstr "路徑已改變"
+msgstr "路徑已改變。"
 
 msgid "Update failed"
 msgstr "路徑變更失敗"
@@ -1187,7 +1193,7 @@ msgid "Yes to all"
 msgstr "全部都是"
 
 msgid "You can not cut into the directory itself."
-msgstr "無法在目錄中刪除該目錄"
+msgstr "無法在目錄中刪除該目錄。"
 
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
@@ -1199,16 +1205,16 @@ msgid "`1234567890-"
 msgstr "`1234567890-"
 
 msgid "and all the translators."
-msgstr "和所有的翻譯"
+msgstr "和所有的翻譯。"
 
 msgid "asdfghjkl;'="
 msgstr "asdfghjkl;'="
 
 msgid "for his FTP Server source."
-msgstr "FTP伺服器來源"
+msgstr "FTP伺服器來源。"
 
 msgid "for his great tool LibWiiGui."
-msgstr "偉大的工具LibWiiGui"
+msgstr "用LibWiiGui很棒的工具。"
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"
@@ -1219,158 +1225,14 @@ msgstr "zxcvbnm,./"
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
 
-#~ msgid "Can't read file:"
-#~ msgstr "無法讀取文件："
-
-#~ msgid "User %i"
-#~ msgstr "使用者 %i"
-
-#~ msgid "Play Directory"
-#~ msgstr "播放整個目錄"
-
-#~ msgid "User:"
-#~ msgstr "使用者："
-
-#~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "是否重新連接區域網路"
-
-#~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "你確定要重新連接FTP伺服器嗎?"
-
-#~ msgid "App Path"
-#~ msgstr "程式路徑"
-
-#~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "是否在TextViewer開啟此檔案?"
-
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "你確定要退出系統選單嗎?"
-
-#~ msgid "Do you want to load app default language ?"
-#~ msgstr "是否載入程式預設語言 ?"
-
-#~ msgid "Do you want to load console default language."
-#~ msgstr "是否載入控制台預設語言 ?"
+#~ msgid "Extract first and open than."
+#~ msgstr "匯出第一個開啟項目。"
 
 #~ msgid "Filepath: %s"
-#~ msgstr "檔案路徑：  %s"
+#~ msgstr "檔案路徑： %s"
 
-#~ msgid "Loader"
-#~ msgstr "載入"
+#~ msgid "Open"
+#~ msgstr "開啟"
 
-#~ msgid "Fontpath changed"
-#~ msgstr "字型路徑已變更"
-
-#~ msgid "Restart the app to load the new font."
-#~ msgstr "重新啟動程式以載入新字型"
-
-#~ msgid "Do you want to open this file with ImageViewer?"
-#~ msgstr "是否在ImageViewer中開啟此檔案?"
-
-#~ msgid "Update Settings"
-#~ msgstr "更新設定"
-
-#~ msgid "You cannot read/write from/to the same file."
-#~ msgstr "無法讀/寫相同檔案"
-
-#~ msgid "NewFolder"
-#~ msgstr "新資料夾"
-
-#~ msgid "Failed copying file."
-#~ msgstr "檔案複製失敗"
-
-#~ msgid "Failed copying files."
-#~ msgstr "檔案複製失敗"
-
-#~ msgid "Archive successfully extracted."
-#~ msgstr "檔案成功提取"
-
-#~ msgid "Extract this file?"
-#~ msgstr "匯出這個檔案？"
-
-#~ msgid "Extract this folder?"
-#~ msgstr "匯出這個資料夾？"
-
-#~ msgid "Extracting file:"
-#~ msgstr "解壓文件："
-
-#~ msgid "Extracting folder:"
-#~ msgstr "解壓縮資料夾："
-
-#~ msgid "Failed extracting file."
-#~ msgstr "解壓縮失敗"
-
-#~ msgid "Failed extracting the folder."
-#~ msgstr "匯出資料夾失敗"
-
-#~ msgid "File successfully extracted."
-#~ msgstr "成功提取檔案"
-
-#~ msgid "Folder successfully extracted."
-#~ msgstr "成功提取資料夾"
-
-#~ msgid "Directory successfully deleted."
-#~ msgstr "目錄已刪除"
-
-#~ msgid "Copy directory?"
-#~ msgstr "複製目錄?"
-
-#~ msgid "Copy file?"
-#~ msgstr "複製檔案?"
-
-#~ msgid "Copying file:"
-#~ msgstr "正在複製檔案："
-
-#~ msgid "Copying files:"
-#~ msgstr "正在複製檔案："
-
-#~ msgid "Cut directory?"
-#~ msgstr "剪下目錄?"
-
-#~ msgid "Cut file?"
-#~ msgstr "剪下檔案?"
-
-#~ msgid "Delete directory and its content?"
-#~ msgstr "刪除目錄與內容?"
-
-#~ msgid "Delete this file?"
-#~ msgstr "刪除此檔案?"
-
-#~ msgid "Directory successfully copied."
-#~ msgstr "目錄已複製"
-
-#~ msgid "Directory successfully moved."
-#~ msgstr "目錄已移動"
-
-#~ msgid "Failed renaming file"
-#~ msgstr "檔案更名失敗"
-
-#~ msgid "File does not exist anymore!"
-#~ msgstr "該檔案不存在"
-
-#~ msgid "File successfully copied."
-#~ msgstr "檔案已複製"
-
-#~ msgid "File successfully moved."
-#~ msgstr "檔案已移動"
-
-#~ msgid "Moving files:"
-#~ msgstr "正在移動檔案："
-
-#~ msgid "Name already exists."
-#~ msgstr "名稱已存在"
-
-#~ msgid "Paste into current directory?"
-#~ msgstr "貼上至目前目錄位置?"
-
-#~ msgid "Device Free Space:"
-#~ msgstr "磁碟可用空間："
-
-#~ msgid "Device Total Space:"
-#~ msgstr "磁碟大小：："
-
-#~ msgid "Last status change:"
-#~ msgstr "最近狀態變更："
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "非OGG/MP3檔案"
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "啟動時尚未啟用"

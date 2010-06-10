@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 20:42+0200\n"
+"POT-Creation-Date: 2010-06-10 15:42+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -86,6 +86,9 @@ msgstr "Browsermodus"
 
 msgid "Browsing for font files must be done in the main browser."
 msgstr "Schriftarten müssen im normalen Explorer ausgewählt werden."
+
+msgid "CRC of extracted file does not match. Wrong password?"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
@@ -234,6 +237,9 @@ msgstr "Standard"
 
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "Delete Temp Path on Exit"
+msgstr ""
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Markierte(s) Element(e) und den Inhalt löschen?"
@@ -390,8 +396,8 @@ msgstr "Enpacken"
 msgid "Extract All"
 msgstr "Alles entpacken"
 
-msgid "Extract first and open than."
-msgstr "Erst entpacken, dann öffnen."
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
 msgstr "Ganzes Archiv entpacken?"
@@ -673,6 +679,9 @@ msgstr "Liste"
 msgid "Listening on TCP port"
 msgstr "Lausche an TCP Port"
 
+msgid "Listing files in"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "Musik in den Speicher laden"
 
@@ -785,14 +794,8 @@ msgstr ""
 msgid "ON"
 msgstr "AN"
 
-msgid "Open"
-msgstr "Öffnen"
-
 msgid "Open the file in the PDF Viewer?"
 msgstr "Datei mit dem PDF Betrachter öffnen?"
-
-msgid "Opening is not yet implemented"
-msgstr "Öffnen noch nicht implementiert"
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
@@ -980,6 +983,9 @@ msgstr ""
 
 msgid "Startup FTP"
 msgstr "FTP starten"
+
+msgid "Temporary Path"
+msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Die Puffergröße ist sehr hoch. Wenn die App nicht startet, lösche deine Konfigurationsdateien."
@@ -1218,6 +1224,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Extract first and open than."
+#~ msgstr "Erst entpacken, dann öffnen."
+
+#~ msgid "Open"
+#~ msgstr "Öffnen"
+
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "Öffnen noch nicht implementiert"
 
 #~ msgid "Can't read file:"
 #~ msgstr "Datei kann nicht gelesen werden:"

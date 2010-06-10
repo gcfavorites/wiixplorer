@@ -42,11 +42,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
     if(!browser)
         return;
 
-    if(choice == ArcOpen)
-    {
-        WindowPrompt(tr("Opening is not yet implemented"), tr("Extract first and open than."), tr("OK"));
-    }
-    else if(choice == ArcExtractFile)
+    if(choice == ArcExtractFile)
     {
         int ret = WindowPrompt(tr("Extract the selected item(s)?"), browser->GetCurrentDisplayname(), tr("Yes"), tr("Cancel"));
         if(ret <= 0)
@@ -54,6 +50,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 
         char dest[MAXPATHLEN];
         snprintf(dest, sizeof(dest), "%s", destCandidat);
+
         int result = OnScreenKeyboard(dest, sizeof(dest));
         if(result)
         {
@@ -84,7 +81,12 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             return;
 
         char dest[MAXPATHLEN];
-        snprintf(dest, sizeof(dest), "%s", destCandidat);
+        snprintf(dest, sizeof(dest), "%s%s", destCandidat, browser->GetArchiveName());
+        char * ext = strrchr(dest, '.');
+        if(ext)
+            ext[0] = 0;
+        strcat(dest, "/");
+
         int result = OnScreenKeyboard(dest, sizeof(dest));
         if(result)
         {
@@ -166,8 +168,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(result == 1)
             {
                 snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), entered);
-                int ret = rename(srcpath, destdir);
-                if(ret != 0)
+                if(!RenameFile(srcpath, destdir))
                     WindowPrompt(tr("Failed renaming item"), tr("Name might already exists."), tr("OK"));
             }
         }

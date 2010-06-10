@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 18:52+0200\n"
+"POT-Creation-Date: 2010-06-10 15:42+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -88,6 +88,9 @@ msgid "Browser Mode"
 msgstr "Τρόπος περιήγησης"
 
 msgid "Browsing for font files must be done in the main browser."
+msgstr ""
+
+msgid "CRC of extracted file does not match. Wrong password?"
 msgstr ""
 
 msgid "Can not open the file."
@@ -237,6 +240,9 @@ msgstr "Προεπιλογή"
 
 msgid "Delete"
 msgstr "Διαγραφή"
+
+msgid "Delete Temp Path on Exit"
+msgstr ""
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Διαγραφή επιλεγμένου(ων) αρχείου(ων) και των περιεχωμένων;"
@@ -393,8 +399,8 @@ msgstr "Εξαγωγή"
 msgid "Extract All"
 msgstr "Εξαγωγή όλων"
 
-msgid "Extract first and open than."
-msgstr "Εξαγωγή πρώτα και μετά ανοιξέτο."
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
 msgstr "Εξαγωγή όλου του αρχείου;"
@@ -676,6 +682,9 @@ msgstr "Τρόπος με λίστα"
 msgid "Listening on TCP port"
 msgstr "Ακούει στην πόρτα TCP"
 
+msgid "Listing files in"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "Φόρτωσε την μουσική στην μνήμη"
 
@@ -788,14 +797,8 @@ msgstr "Εντάξει"
 msgid "ON"
 msgstr "Ανοιχτό"
 
-msgid "Open"
-msgstr "Άνοιξε"
-
 msgid "Open the file in the PDF Viewer?"
 msgstr "Να ανοίξω το αρχείο με τον θεατή PDF;"
-
-msgid "Opening is not yet implemented"
-msgstr "Το άνοιγμά δεν έχει γίνει εφικτό ακόμη"
 
 msgid "Out of memory: too many files!"
 msgstr "Εκτός μνήμης: Πάρα πολλά αρχεία!"
@@ -983,6 +986,9 @@ msgstr "Πρότυπο"
 
 msgid "Startup FTP"
 msgstr "Εκκίνηση FTP"
+
+msgid "Temporary Path"
+msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Το μέγεθος της ρυθμισόμενης μνήμης είναι πολύ μεγάλο.Αν δεν αρχίσει η εφαρμογή σβήσε τα αρχεία ρύθμισης."
@@ -1221,6 +1227,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Extract first and open than."
+#~ msgstr "Εξαγωγή πρώτα και μετά ανοιξέτο."
+
+#~ msgid "Open"
+#~ msgstr "Άνοιξε"
+
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "Το άνοιγμά δεν έχει γίνει εφικτό ακόμη"
 
 #~ msgid "Can't read file:"
 #~ msgstr "Δεν μπορώ να διαβάσω αυτό το αρχείο:"

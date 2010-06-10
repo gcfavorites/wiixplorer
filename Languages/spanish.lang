@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r168
+# r171
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 20:20+0200\n"
+"POT-Creation-Date: 2010-06-10 21:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: SirPalax\n"
@@ -86,6 +86,9 @@ msgstr "Modo de Navegación"
 
 msgid "Browsing for font files must be done in the main browser."
 msgstr "Para buscar archivos de fuentes se debe hacer desde el navegador principal."
+
+msgid "CRC of extracted file does not match. Wrong password?"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "No se puede abrir el archivo."
@@ -234,6 +237,9 @@ msgstr "Por defecto"
 
 msgid "Delete"
 msgstr "Eliminar"
+
+msgid "Delete Temp Path on Exit"
+msgstr ""
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "¿Borrar elemento(s) seleccionado(s) y su contenido?"
@@ -390,8 +396,8 @@ msgstr "Extraer"
 msgid "Extract All"
 msgstr "Extraer todo"
 
-msgid "Extract first and open than."
-msgstr "Extraer primero y luego abrir"
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
 msgstr "¿Extraer archivo completo?"
@@ -673,6 +679,9 @@ msgstr "Modo Lista"
 msgid "Listening on TCP port"
 msgstr "Escuchando por el puerto TCP"
 
+msgid "Listing files in"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "Cargar Música en Memoria"
 
@@ -785,14 +794,8 @@ msgstr "Aceptar"
 msgid "ON"
 msgstr "SI"
 
-msgid "Open"
-msgstr "Abrir"
-
 msgid "Open the file in the PDF Viewer?"
 msgstr "¿Abrir el archivo en el visor de PDF?"
-
-msgid "Opening is not yet implemented"
-msgstr "Apertura no está aún implementada"
 
 msgid "Out of memory: too many files!"
 msgstr "Fuera de memoria: ¡demasiados archivos!"
@@ -816,7 +819,7 @@ msgid "Passive Mode:"
 msgstr "Modo Pasivo:"
 
 msgid "Password is needed."
-msgstr ""
+msgstr "Se necesita la contraseña."
 
 msgid "Password:"
 msgstr "Contraseña:"
@@ -837,7 +840,7 @@ msgid "Play Once"
 msgstr "Oir una vez"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "Por favor, introduce la contraseña."
 
 msgid "Please wait..."
 msgstr "Espera por favor..."
@@ -980,6 +983,9 @@ msgstr "Estándar"
 
 msgid "Startup FTP"
 msgstr "Arrancar FTP"
+
+msgid "Temporary Path"
+msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "El tamaño del búfer es muy alto. Si la aplicación no arranca después de esto, borra los archivos de configuración."
@@ -1218,6 +1224,15 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "!\"·$%&/()=?¿"
+
+#~ msgid "Extract first and open than."
+#~ msgstr "Extraer primero y luego abrir"
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "Apertura no está aún implementada"
 
 #~ msgid "Can't read file:"
 #~ msgstr "No se leyó el archivo:"

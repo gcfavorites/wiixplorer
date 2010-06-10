@@ -376,21 +376,21 @@ void Explorer::CheckBrowserChanges()
         }
         else
         {
-            if(CurBrowser == ArcBrowser)
-                return;
-
             char filepath[MAXPATHLEN];
-            int result = -1;
+            int result = 0;
 
             SetState(STATE_DISABLED);
             fileBrowser->SetTriggerUpdate(false);
             Taskbar::Instance()->SetTriggerUpdate(false);
 
-            if(CurBrowser == DeviceBrowser)
-            {
+            if(CurBrowser == ArcBrowser)
+                result = ArcBrowser->ExecuteCurrent(filepath);
+
+            else if(CurBrowser == DeviceBrowser)
                 snprintf(filepath, sizeof(filepath), "%s", CurBrowser->GetCurrentSelectedFilepath());
+
+            if(result >= 0)
                 result = FileStartUp(filepath);
-            }
 
             SetState(STATE_DEFAULT);
             fileBrowser->SetTriggerUpdate(true);
@@ -403,6 +403,9 @@ void Explorer::CheckBrowserChanges()
             }
             else if(result == ARCHIVE)
             {
+                if(ArcBrowser)
+                    delete ArcBrowser;
+
                 ArcBrowser = new ArchiveBrowser(filepath);
                 CurBrowser = ArcBrowser;
                 fileBrowser->SetBrowser(CurBrowser);
@@ -564,24 +567,23 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
         {
             if(ArcBrowser)
             {
-                 RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
-                 RightClick->AddItem(tr("Open"));
-                 RightClick->AddItem(tr("Extract"));
-                 RightClick->AddItem(tr("Extract All"));
-                 RightClick->AddItem(tr("Properties"));
-                 RightClick->Finish();
+                RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
+                RightClick->AddItem(tr("Extract"));
+                RightClick->AddItem(tr("Extract All"));
+                RightClick->AddItem(tr("Properties"));
+                RightClick->Finish();
             }
             else
             {
-                 RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
-                 RightClick->AddItem(tr("Cut"));
-                 RightClick->AddItem(tr("Copy"));
-                 RightClick->AddItem(tr("Paste"));
-                 RightClick->AddItem(tr("Rename"));
-                 RightClick->AddItem(tr("Delete"));
-                 RightClick->AddItem(tr("New Folder"));
-				 RightClick->AddItem(tr("Properties"));
-                 RightClick->Finish();
+                RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
+                RightClick->AddItem(tr("Cut"));
+                RightClick->AddItem(tr("Copy"));
+                RightClick->AddItem(tr("Paste"));
+                RightClick->AddItem(tr("Rename"));
+                RightClick->AddItem(tr("Delete"));
+                RightClick->AddItem(tr("New Folder"));
+                RightClick->AddItem(tr("Properties"));
+                RightClick->Finish();
             }
         }
     }
