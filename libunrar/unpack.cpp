@@ -548,7 +548,7 @@ bool Unpack::AddVMCode(unsigned int FirstByte,byte *Code,int CodeSize)
   int StackPos=(int)(PrgStack.Size()-EmptyCount);
   PrgStack[StackPos]=StackFilter;
   StackFilter->ExecCount=Filter->ExecCount;
- 
+
   uint BlockStart=RarVM::ReadData(Inp);
   if (FirstByte & 0x40)
     BlockStart+=258;
@@ -638,12 +638,19 @@ bool Unpack::AddVMCode(unsigned int FirstByte,byte *Code,int CodeSize)
   return(true);
 }
 
+/** WiiXplorer abort call **/
+extern bool actioncanceled;
 
 bool Unpack::UnpReadBuf()
 {
   int DataSize=ReadTop-InAddr; // Data left to process.
   if (DataSize<0)
     return(false);
+
+/** WiiXplorer abort call **/
+  if(actioncanceled)
+    return(false);
+
   if (InAddr>BitInput::MAX_SIZE/2)
   {
     // If we already processed more than half of buffer, let's move
@@ -790,7 +797,7 @@ void Unpack::UnpWriteBuf()
       }
     }
   }
-      
+
   UnpWriteArea(WrittenBorder,UnpPtr);
   WrPtr=UnpPtr;
 }
@@ -851,7 +858,7 @@ bool Unpack::ReadTables()
     return(PPM.DecodeInit(this,PPMEscChar));
   }
   UnpBlockType=BLOCK_LZ;
-  
+
   PrevLowDist=0;
   LowDistRepCount=0;
 
