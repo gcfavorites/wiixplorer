@@ -17,14 +17,14 @@ void SubAllocator::Clean()
 }
 
 
-inline void SubAllocator::InsertNode(void* p,int indx) 
+inline void SubAllocator::InsertNode(void* p,int indx)
 {
   ((RAR_NODE*) p)->next=FreeList[indx].next;
   FreeList[indx].next=(RAR_NODE*) p;
 }
 
 
-inline void* SubAllocator::RemoveNode(int indx) 
+inline void* SubAllocator::RemoveNode(int indx)
 {
   RAR_NODE* RetVal=FreeList[indx].next;
   FreeList[indx].next=RetVal->next;
@@ -32,8 +32,8 @@ inline void* SubAllocator::RemoveNode(int indx)
 }
 
 
-inline uint SubAllocator::U2B(int NU) 
-{ 
+inline uint SubAllocator::U2B(int NU)
+{
   // We calculate the size of units in bytes based on real UNIT_SIZE.
   // In original implementation it was 8*NU+4*NU.
   return UNIT_SIZE*NU;
@@ -53,7 +53,7 @@ inline void SubAllocator::SplitBlock(void* pv,int OldIndx,int NewIndx)
 {
   int i, UDiff=Indx2Units[OldIndx]-Indx2Units[NewIndx];
   byte* p=((byte*) pv)+U2B(Indx2Units[NewIndx]);
-  if (Indx2Units[i=Units2Indx[UDiff-1]] != UDiff) 
+  if (Indx2Units[i=Units2Indx[UDiff-1]] != UDiff)
   {
     InsertNode(p,--i);
     p += U2B(i=Indx2Units[i]);
@@ -67,7 +67,7 @@ inline void SubAllocator::SplitBlock(void* pv,int OldIndx,int NewIndx)
 
 void SubAllocator::StopSubAllocator()
 {
-  if ( SubAllocatorSize ) 
+  if ( SubAllocatorSize )
   {
     SubAllocatorSize=0;
     rarfree(HeapStart);
@@ -130,7 +130,7 @@ void SubAllocator::InitSubAllocator()
   // Real size of this area. We correct it according to UNIT_SIZE vs
   // FIXED_UNIT_SIZE difference. Also we add one more UNIT_SIZE
   // to compensate a possible reminder from Size1/FIXED_UNIT_SIZE,
-  // which would be lost otherwise. We add UNIT_SIZE instead of 
+  // which would be lost otherwise. We add UNIT_SIZE instead of
   // this Size1%FIXED_UNIT_SIZE reminder, because it allows to align
   // UnitsStart easily and adding more than reminder is ok for algorithm.
   uint RealSize1=Size1/FIXED_UNIT_SIZE*UNIT_SIZE+UNIT_SIZE;
@@ -259,7 +259,7 @@ void* SubAllocator::ExpandUnits(void* OldPtr,int OldNU)
   if (i0 == i1)
     return OldPtr;
   void* ptr=AllocUnits(OldNU+1);
-  if ( ptr ) 
+  if ( ptr )
   {
     memcpy(ptr,OldPtr,U2B(OldNU));
     InsertNode(OldPtr,i0);
@@ -279,8 +279,8 @@ void* SubAllocator::ShrinkUnits(void* OldPtr,int OldNU,int NewNU)
     memcpy(ptr,OldPtr,U2B(NewNU));
     InsertNode(OldPtr,i0);
     return ptr;
-  } 
-  else 
+  }
+  else
   {
     SplitBlock(OldPtr,i0,i1);
     return OldPtr;
