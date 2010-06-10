@@ -33,6 +33,7 @@
 #include <sys/dir.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <vector>
 
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
@@ -40,11 +41,6 @@
 #include "filebrowser.h"
 
 #define BLOCKSIZE               70*1024      //70KB
-
-
-typedef struct {
-    char    *name;
-} SubDirList;
 
 bool replaceall = false;
 bool replacenone = false;
@@ -231,21 +227,18 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 	if(filename)
         filename++;
 
+    *inbuffer = NULL;
+    *size = 0;
+
     FILE *file = fopen(filepath, "rb");
 
     if (file == NULL)
-    {
-        *inbuffer = NULL;
-        *size = 0;
         return -1;
-    }
 
     u8 *buffer = (u8 *) malloc(filesize);
     if (buffer == NULL)
     {
         fclose(file);
-        *inbuffer = NULL;
-        *size = 0;
         return -2;
     }
 
@@ -258,8 +251,6 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
         {
             free(buffer);
             fclose(file);
-            *inbuffer = NULL;
-            *size = 0;
             return -10;
         }
 
@@ -272,8 +263,6 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
         {
             free(buffer);
             fclose(file);
-            *inbuffer = NULL;
-            *size = 0;
             return -3;
         }
         else if(ret == 0)
@@ -284,15 +273,14 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 
         done += ret;
 
-    } while(done < filesize);
+    }
+    while(done < filesize);
 
     fclose(file);
 
     if (done != filesize)
     {
         free(buffer);
-        *inbuffer = NULL;
-        *size = 0;
         return -3;
     }
 
@@ -397,11 +385,12 @@ int CopyFile(const char * src, const char * dest)
 {
 	u32 read = 1;
 	u32 wrote = 1;
-    u64 sizesrc = FileSize(src);
 
 	char * filename = strrchr(src, '/');
 	if(filename)
         filename++;
+    else
+        return -1;
 
     bool fileexist = CheckFile(dest);
 
@@ -424,6 +413,11 @@ int CopyFile(const char * src, const char * dest)
 
 	if(!source)
 		return -2;
+
+    fseek(source, 0, SEEK_END);
+
+    u64 sizesrc = ftell(source);
+    fseek(source, 0, SEEK_SET);
 
     u32 blksize = BLOCKSIZE;
 
@@ -483,8 +477,8 @@ int CopyFile(const char * src, const char * dest)
         }
 
         done += wrote;
-
-    } while (read > 0);
+    }
+    while (read > 0);
 
     free(buffer);
     fclose(source);
@@ -497,6 +491,22 @@ int CopyFile(const char * src, const char * dest)
 }
 
 /****************************************************************************
+* ClearList
+*
+* Clearing a vector list
+****************************************************************************/
+static inline void ClearList(std::vector<char *> &List)
+{
+    for(u32 i = 0; i < List.size(); i++)
+    {
+        if(List[i])
+            free(List[i]);
+        List[i] = NULL;
+    }
+    List.clear();
+}
+
+/****************************************************************************
  * CopyDirectory
  *
  * Copy recursive a complete source path to destination path
@@ -506,233 +516,83 @@ int CopyDirectory(const char * src, const char * dest)
     struct stat st;
     DIR_ITER *dir = NULL;
 
-    char *filename = (char *) malloc(MAXPATHLEN);
-
-    if(!filename)
-        return -2;
-
-    SubDirList *dirlist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!dirlist) {
-        free(filename);
-        filename = NULL;
-        return -3;
-    }
-
-    u32 dircount = 0;
-
-    memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-    SubDirList *filelist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!filelist) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filename);
-        filename = NULL;
-        return -3;
-    }
-
-    u32 filecount = 0;
-
-    memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
     dir = diropen(src);
-    if(dir == NULL) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filelist);
-        filelist = NULL;
-        free(filename);
-        filename = NULL;
+    if(dir == NULL)
         return -1;
+
+    char *filename = (char *) malloc(MAXPATHLEN);
+    if(!filename)
+    {
+        dirclose(dir);
+        return -2;
     }
 
-    CreateSubfolder(dest);
+    std::vector<char *> DirList;
+    std::vector<char *> FileList;
 
     while (dirnext(dir,filename,&st) == 0)
 	{
-        if(actioncanceled) {
-            for(u32 i = 0; i < dircount; i++) {
-                if(dirlist[i].name) {
-                    free(dirlist[i].name);
-                    dirlist[i].name = NULL;
-                }
-            }
-            for(u32 i = 0; i < filecount; i++) {
-                if(filelist[i].name) {
-                    free(filelist[i].name);
-                    filelist[i].name = NULL;
-                }
-            }
-            free(dirlist);
-            dirlist = NULL;
-            free(filelist);
-            filelist = NULL;
-            dirclose(dir);
+        if(actioncanceled)
+        {
             free(filename);
-            filename = NULL;
+            ClearList(DirList);
+            ClearList(FileList);
+            dirclose(dir);
             return -10;
         }
 
-        if((st.st_mode & S_IFDIR) != 0) {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
-                SubDirList *newdirlist = (SubDirList*) realloc(dirlist, (dircount+1)* sizeof(SubDirList));
-
-                if(!newdirlist) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(newdirlist);
-                    newdirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -4;
-
-                } else
-                    dirlist = newdirlist;
-
-                memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-                dirlist[dircount].name = (char*) malloc(strlen(filename)+2);
-                if(!dirlist[dircount].name) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -5;
-                }
-                sprintf(dirlist[dircount].name, "%s/", filename);
-                dircount++;
+        if(st.st_mode & S_IFDIR)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                DirList.push_back(strdup(filename));
             }
-        } else {
-
-            SubDirList *newfilelist = (SubDirList*) realloc(filelist, (filecount+1)* sizeof(SubDirList));
-
-            if(!newfilelist) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(newfilelist);
-                newfilelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -4;
-
-            } else
-                filelist = newfilelist;
-
-            memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
-            filelist[filecount].name = (char*) malloc(strlen(filename)+2);
-            if(!filelist[filecount].name) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -5;
-            }
-            sprintf(filelist[filecount].name, "%s", filename);
-            filecount++;
+        }
+        else
+        {
+            FileList.push_back(strdup(filename));
         }
 	}
 	dirclose(dir);
     free(filename);
     filename = NULL;
 
-    for(u32 i = 0; i < filecount; i++) {
-        char currentname[strlen(src)+strlen(filelist[i].name)+2];
-        char destname[strlen(dest)+strlen(filelist[i].name)+2];
-        snprintf(currentname, sizeof(currentname), "%s%s", src, filelist[i].name);
-        snprintf(destname, sizeof(destname), "%s%s", dest, filelist[i].name);
-        CopyFile(currentname, destname);
-        if(filelist[i].name) {
-            free(filelist[i].name);
-            filelist[i].name = NULL;
+    //! Ensure that empty directories are created
+    CreateSubfolder(dest);
+
+    for(u32 i = 0; i < FileList.size(); i++)
+    {
+        if(FileList[i])
+        {
+            u32 strsize = strlen(src)+strlen(FileList[i])+1;
+            char currentname[strsize];
+            char destname[strsize];
+            sprintf(currentname, "%s%s", src, FileList[i]);
+            sprintf(destname, "%s%s", dest, FileList[i]);
+            free(FileList[i]);
+            FileList[i] = NULL;
+            CopyFile(currentname, destname);
         }
     }
 
-    if(filelist) {
-        free(filelist);
-        filelist = NULL;
-    }
+    FileList.clear();
 
-    for(u32 i = 0; i < dircount; i++) {
-        char currentname[strlen(src)+strlen(dirlist[i].name)+2];
-        char destname[strlen(dest)+strlen(dirlist[i].name)+2];
-        snprintf(currentname, sizeof(currentname), "%s%s", src, dirlist[i].name);
-        snprintf(destname, sizeof(destname), "%s%s", dest, dirlist[i].name);
-        CopyDirectory(currentname, destname);
-
-        //done free entry memory now
-        if(dirlist[i].name) {
-            free(dirlist[i].name);
-            dirlist[i].name = NULL;
+    for(u32 i = 0; i < DirList.size(); i++)
+    {
+        if(DirList[i])
+        {
+            u32 strsize = strlen(src)+strlen(DirList[i])+2;
+            char currentname[strsize];
+            char destname[strsize];
+            sprintf(currentname, "%s%s/", src, DirList[i]);
+            sprintf(destname, "%s%s/", dest, DirList[i]);
+            free(DirList[i]);
+            DirList[i] = NULL;
+            CopyDirectory(currentname, destname);
         }
 	}
 
-    if(dirlist) {
-        free(dirlist);
-        dirlist = NULL;
-    }
+	DirList.clear();
 
     if(actioncanceled)
         return -10;
@@ -752,239 +612,91 @@ int MoveDirectory(char * src, const char * dest)
     struct stat st;
     DIR_ITER *dir = NULL;
 
+    dir = diropen(src);
+    if(dir == NULL)
+        return -1;
+
     char *filename = (char *) malloc(MAXPATHLEN);
 
     if(!filename)
+    {
+        dirclose(dir);
         return -2;
-
-    SubDirList *dirlist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!dirlist) {
-        free(filename);
-        filename = NULL;
-        return -3;
     }
 
-    u32 dircount = 0;
-
-    memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-    SubDirList *filelist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!filelist) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filename);
-        filename = NULL;
-        return -3;
-    }
-
-    u32 filecount = 0;
-
-    memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
-    dir = diropen(src);
-    if(dir == NULL) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filelist);
-        filelist = NULL;
-        free(filename);
-        filename = NULL;
-        return -1;
-    }
-
-    CreateSubfolder(dest);
+    std::vector<char *> DirList;
+    std::vector<char *> FileList;
 
     while (dirnext(dir,filename,&st) == 0)
 	{
-        if(actioncanceled) {
-            for(u32 i = 0; i < dircount; i++) {
-                if(dirlist[i].name) {
-                    free(dirlist[i].name);
-                    dirlist[i].name = NULL;
-                }
-            }
-            for(u32 i = 0; i < filecount; i++) {
-                if(filelist[i].name) {
-                    free(filelist[i].name);
-                    filelist[i].name = NULL;
-                }
-            }
-            free(dirlist);
-            dirlist = NULL;
-            free(filelist);
-            filelist = NULL;
-            dirclose(dir);
+        if(actioncanceled)
+        {
             free(filename);
-            filename = NULL;
+            ClearList(DirList);
+            ClearList(FileList);
+            dirclose(dir);
             return -10;
         }
 
-        if((st.st_mode & S_IFDIR) != 0) {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
-                SubDirList *newdirlist = (SubDirList*) realloc(dirlist, (dircount+1)* sizeof(SubDirList));
-
-                if(!newdirlist) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(newdirlist);
-                    newdirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -4;
-
-                } else
-                    dirlist = newdirlist;
-
-                memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-                dirlist[dircount].name = (char*) malloc(strlen(filename)+2);
-                if(!dirlist[dircount].name) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -5;
-                }
-                sprintf(dirlist[dircount].name, "%s/", filename);
-                dircount++;
+        if(st.st_mode & S_IFDIR)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                DirList.push_back(strdup(filename));
             }
-        } else {
-
-            SubDirList *newfilelist = (SubDirList*) realloc(filelist, (filecount+1)* sizeof(SubDirList));
-
-            if(!newfilelist) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(newfilelist);
-                newfilelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -4;
-
-            } else
-                filelist = newfilelist;
-
-            memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
-            filelist[filecount].name = (char*) malloc(strlen(filename)+2);
-            if(!filelist[filecount].name) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -5;
-            }
-            sprintf(filelist[filecount].name, "%s", filename);
-            filecount++;
+        }
+        else
+        {
+            FileList.push_back(strdup(filename));
         }
 	}
 	dirclose(dir);
     free(filename);
     filename = NULL;
 
-    for(u32 i = 0; i < filecount; i++)
+    //! Ensure that empty directories are created
+    CreateSubfolder(dest);
+
+    for(u32 i = 0; i < FileList.size(); i++)
     {
-        char currentname[strlen(src)+strlen(filelist[i].name)+2];
-        char destname[strlen(dest)+strlen(filelist[i].name)+2];
-        snprintf(currentname, sizeof(currentname), "%s%s", src, filelist[i].name);
-        snprintf(destname, sizeof(destname), "%s%s", dest, filelist[i].name);
-        MoveFile(currentname, destname);
+        if(FileList[i])
+        {
+            u32 strsize = strlen(src)+strlen(FileList[i])+2;
+            char currentname[strsize];
+            char destname[strsize];
+            sprintf(currentname, "%s%s", src, FileList[i]);
+            sprintf(destname, "%s%s", dest, FileList[i]);
 
-        if(samedevices)
-            ShowProgress(0, 1, filelist[i].name);
+            MoveFile(currentname, destname);
+            if(samedevices)
+                ShowProgress(0, 1, FileList[i]);
 
-        if(filelist[i].name) {
-            free(filelist[i].name);
-            filelist[i].name = NULL;
+            free(FileList[i]);
+            FileList[i] = NULL;
         }
     }
 
-    if(filelist) {
-        free(filelist);
-        filelist = NULL;
-    }
+    FileList.clear();
 
-    for(u32 i = 0; i < dircount; i++) {
-        char currentname[strlen(src)+strlen(dirlist[i].name)+2];
-        char destname[strlen(dest)+strlen(dirlist[i].name)+2];
-        snprintf(currentname, sizeof(currentname), "%s%s", src, dirlist[i].name);
-        snprintf(destname, sizeof(destname), "%s%s", dest, dirlist[i].name);
-        MoveDirectory(currentname, destname);
+    for(u32 i = 0; i < DirList.size(); i++)
+    {
+        if(DirList[i])
+        {
+            u32 strsize = strlen(src)+strlen(DirList[i])+2;
+            char currentname[strsize];
+            char destname[strsize];
+            sprintf(currentname, "%s%s/", src, DirList[i]);
+            sprintf(destname, "%s%s/", dest, DirList[i]);
+            free(DirList[i]);
+            DirList[i] = NULL;
 
-        //done free entry memory now
-        if(dirlist[i].name) {
-            free(dirlist[i].name);
-            dirlist[i].name = NULL;
+            MoveDirectory(currentname, destname);
         }
 	}
 
-	free(dirlist);
-    dirlist = NULL;
+	DirList.clear();
 
-	int pos = strlen(src)-1;
-	src[pos] = '\0';
+	src[strlen(src)-1] = '\0';
 
     if(actioncanceled)
         return -10;
@@ -1004,7 +716,7 @@ int MoveFile(const char *srcpath, char *destdir)
 {
     if(CompareDevices(srcpath, destdir))
     {
-        if(rename(srcpath, destdir) == 0)
+        if(RenameFile(srcpath, destdir))
             return 1;
         else
             return -1;
@@ -1030,224 +742,80 @@ int RemoveDirectory(char * dirpath)
     struct stat st;
     DIR_ITER *dir = NULL;
 
-    char *filename = (char *) malloc(MAXPATHLEN);
+    dir = diropen(dirpath);
+    if(dir == NULL)
+        return -1;
+
+    char * filename = (char *) malloc(MAXPATHLEN);
 
     if(!filename)
+    {
+        dirclose(dir);
         return -2;
-
-    SubDirList *dirlist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!dirlist) {
-        free(filename);
-        filename = NULL;
-        return -3;
     }
 
-    u32 dircount = 0;
-
-    if(dirpath[strlen(dirpath)-1] != '/')
-        strcat(dirpath, "/");
-
-    memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-    SubDirList *filelist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!filelist) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filename);
-        filename = NULL;
-        return -3;
-    }
-
-    u32 filecount = 0;
-
-    memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
-    dir = diropen(dirpath);
-    if(dir == NULL) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filename);
-        filename = NULL;
-        return -1;
-    }
+    std::vector<char *> DirList;
+    std::vector<char *> FileList;
 
     while (dirnext(dir,filename,&st) == 0)
 	{
-        if(actioncanceled) {
-            for(u32 i = 0; i < dircount; i++) {
-                if(dirlist[i].name) {
-                    free(dirlist[i].name);
-                    dirlist[i].name = NULL;
-                }
-            }
-            for(u32 i = 0; i < filecount; i++) {
-                if(filelist[i].name) {
-                    free(filelist[i].name);
-                    filelist[i].name = NULL;
-                }
-            }
-            free(dirlist);
-            dirlist = NULL;
-            free(filelist);
-            filelist = NULL;
-            dirclose(dir);
+        if(actioncanceled)
+        {
             free(filename);
-            filename = NULL;
+            ClearList(DirList);
+            ClearList(FileList);
+            dirclose(dir);
             return -10;
         }
 
-        if((st.st_mode & S_IFDIR) != 0) {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
-                SubDirList *newdirlist = (SubDirList*) realloc(dirlist, (dircount+1)* sizeof(SubDirList));
-
-                if(!newdirlist) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(newdirlist);
-                    newdirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -4;
-
-                } else
-                    dirlist = newdirlist;
-
-                memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-                dirlist[dircount].name = (char*) malloc(strlen(filename)+2);
-                if(!dirlist[dircount].name) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    for(u32 i = 0; i < filecount; i++) {
-                        if(filelist[i].name) {
-                            free(filelist[i].name);
-                            filelist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(filelist);
-                    filelist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return -5;
-                }
-                sprintf(dirlist[dircount].name, "%s/", filename);
-                dircount++;
+        if(st.st_mode & S_IFDIR)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                DirList.push_back(strdup(filename));
             }
-        } else {
-
-            SubDirList *newfilelist = (SubDirList*) realloc(filelist, (filecount+1)* sizeof(SubDirList));
-
-            if(!newfilelist) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(newfilelist);
-                newfilelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -4;
-
-            } else
-                filelist = newfilelist;
-
-            memset(&(filelist[filecount]), 0, sizeof(SubDirList));
-
-            filelist[filecount].name = (char*) malloc(strlen(filename)+2);
-            if(!filelist[filecount].name) {
-                for(u32 i = 0; i < dircount; i++) {
-                    if(dirlist[i].name) {
-                        free(dirlist[i].name);
-                        dirlist[i].name = NULL;
-                    }
-                }
-                for(u32 i = 0; i < filecount; i++) {
-                    if(filelist[i].name) {
-                        free(filelist[i].name);
-                        filelist[i].name = NULL;
-                    }
-                }
-                free(dirlist);
-                dirlist = NULL;
-                free(filelist);
-                filelist = NULL;
-                free(filename);
-                filename = NULL;
-                dirclose(dir);
-                return -5;
-            }
-            sprintf(filelist[filecount].name, "%s", filename);
-            filecount++;
+        }
+        else
+        {
+            FileList.push_back(strdup(filename));
         }
 	}
-
 	dirclose(dir);
+	free(filename);
+	filename = NULL;
 
-    for(u32 i = 0; i < filecount; i++) {
-        char fullpath[strlen(dirpath)+strlen(filelist[i].name)+2];
-        snprintf(fullpath, sizeof(fullpath), "%s%s", dirpath, filelist[i].name);
-        RemoveFile(fullpath);
-        //Display Throbber rotating
-        ShowProgress(0, 1, filelist[i].name);
-        if(filelist[i].name) {
-            free(filelist[i].name);
-            filelist[i].name = NULL;
+    for(u32 i = 0; i < FileList.size(); i++)
+    {
+        if(FileList[i])
+        {
+            u32 strsize = strlen(dirpath)+strlen(FileList[i])+2;
+            char fullpath[strsize];
+            sprintf(fullpath, "%s%s", dirpath, FileList[i]);
+            RemoveFile(fullpath);
+
+            //!Display Throbber rotating
+            ShowProgress(0, 1, FileList[i]);
+            free(FileList[i]);
+            FileList[i] = NULL;
         }
     }
-    if(filelist) {
-        free(filelist);
-        filelist = NULL;
-    }
+    FileList.clear();
 
-    for(u32 i = 0; i < dircount; i++) {
-        char fullpath[strlen(dirpath)+strlen(dirlist[i].name)+2];
-        snprintf(fullpath, sizeof(fullpath), "%s%s", dirpath, dirlist[i].name);
-        RemoveDirectory(fullpath);
-        if(dirlist[i].name) {
-            free(dirlist[i].name);
-            dirlist[i].name = NULL;
+    for(u32 i = 0; i < DirList.size(); i++)
+    {
+        if(DirList[i])
+        {
+            char fullpath[strlen(dirpath)+strlen(DirList[i])+2];
+            sprintf(fullpath, "%s%s/", dirpath, DirList[i]);
+            free(DirList[i]);
+            DirList[i] = NULL;
+
+            RemoveDirectory(fullpath);
         }
     }
+    DirList.clear();
 
-	int pos = strlen(dirpath)-1;
-	dirpath[pos] = '\0';
+	dirpath[strlen(dirpath)-1] = '\0';
 
     if(actioncanceled)
         return -10;
@@ -1265,10 +833,17 @@ int RemoveDirectory(char * dirpath)
  ***************************************************************************/
 bool RemoveFile(const char * filepath)
 {
-    if(remove(filepath) != 0)
-        return false;
+    return (remove(filepath) == 0);
+}
 
-    return true;
+/****************************************************************************
+ * RenameFile
+ *
+ * Rename the file from a given srcpath to a given destpath
+ ***************************************************************************/
+bool RenameFile(const char * srcpath, const char * destpath)
+{
+    return (rename(srcpath, destpath) == 0);
 }
 
 /****************************************************************************
@@ -1279,117 +854,63 @@ bool RemoveFile(const char * filepath)
 void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 {
     struct stat st;
-    DIR_ITER *dir = NULL;
+    DIR_ITER *dir = diropen(folderpath);
+
+    if(dir == NULL)
+        return;
 
     char *filename = (char *) malloc(MAXPATHLEN);
 
     if(!filename)
-        return;
-
-    SubDirList *dirlist = (SubDirList *) malloc(sizeof(SubDirList));
-
-    if(!dirlist) {
-        free(filename);
-        filename = NULL;
+    {
+        dirclose(dir);
         return;
     }
 
-    u32 dircount = 0;
-
-    memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-    dir = diropen(folderpath);
-    if(dir == NULL) {
-        free(dirlist);
-        dirlist = NULL;
-        free(filename);
-        filename = NULL;
-        return;
-    }
+    std::vector<char *> DirList;
+    std::vector<char *> FileList;
 
     while (dirnext(dir,filename,&st) == 0)
 	{
-        if(!sizegainrunning) {
-            for(u32 i = 0; i < dircount; i++) {
-                if(dirlist[i].name) {
-                    free(dirlist[i].name);
-                    dirlist[i].name = NULL;
-                }
-            }
-            free(dirlist);
-            dirlist = NULL;
-            dirclose(dir);
+        if(!sizegainrunning)
+        {
             free(filename);
-            filename = NULL;
+            ClearList(DirList);
+            ClearList(FileList);
+            dirclose(dir);
             return;
         }
 
-        if((st.st_mode & S_IFDIR) != 0) {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0) {
-                SubDirList *newdirlist = (SubDirList*) realloc(dirlist, (dircount+1)* sizeof(SubDirList));
-
-                if(!newdirlist) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(newdirlist);
-                    newdirlist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return;
-
-                } else
-                    dirlist = newdirlist;
-
-                memset(&(dirlist[dircount]), 0, sizeof(SubDirList));
-
-                dirlist[dircount].name = (char*) malloc(strlen(filename)+2);
-                if(!dirlist[dircount].name) {
-                    for(u32 i = 0; i < dircount; i++) {
-                        if(dirlist[i].name) {
-                            free(dirlist[i].name);
-                            dirlist[i].name = NULL;
-                        }
-                    }
-                    free(dirlist);
-                    dirlist = NULL;
-                    free(filename);
-                    filename = NULL;
-                    dirclose(dir);
-                    return;
-                }
-                sprintf(dirlist[dircount].name, "%s/", filename);
-                dircount++;
+        if((st.st_mode & S_IFDIR) != 0)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                DirList.push_back(strdup(filename));
             }
-        } else {
-            filecount = filecount + 1;
-            foldersize = foldersize + st.st_size;
+        }
+        else
+        {
+            ++filecount;
+            foldersize += st.st_size;
         }
 	}
 	dirclose(dir);
 	free(filename);
     filename = NULL;
 
-	for(u32 i = 0; i < dircount; i++) {
-        char currentname[strlen(folderpath)+strlen(dirlist[i].name)+2];
-        snprintf(currentname, sizeof(currentname), "%s%s", folderpath, dirlist[i].name);
-        GetFolderSize(currentname, foldersize, filecount);
+	for(u32 i = 0; i < DirList.size(); i++)
+	{
+	    if(DirList[i])
+	    {
+            char currentname[strlen(folderpath)+strlen(DirList[i])+2];
+            sprintf(currentname, "%s%s/", folderpath, DirList[i]);
+            free(DirList[i]);
+            DirList[i] = NULL;
 
-        //done free entry memory now
-        if(dirlist[i].name) {
-            free(dirlist[i].name);
-            dirlist[i].name = NULL;
-        }
+            GetFolderSize(currentname, foldersize, filecount);
+	    }
 	}
-
-	free(dirlist);
-    dirlist = NULL;
+    DirList.clear();
 }
 
 /****************************************************************************

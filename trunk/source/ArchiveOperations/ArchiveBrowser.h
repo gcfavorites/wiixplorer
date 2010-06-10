@@ -44,6 +44,8 @@ class ArchiveBrowser : public Browser
         ArchiveBrowser(ArchiveHandle * archive);
         //!Destructor
         ~ArchiveBrowser();
+        //!Execute the current selected item
+        int ExecuteCurrent(char * filepath);
         //!Extract item (folder or file) into a destination path
         int ExtractItem(int ind, const char * dest);
         int ExtractCurrentItem(const char * dest) { return ExtractItem(SelIndex, dest); };
@@ -78,6 +80,8 @@ class ArchiveBrowser : public Browser
         ItemStruct GetCurrentItemStruct() const;
         //!Get the current archive path
         const char * GetCurrentPath();
+        //!Get the archive filename
+        const char * GetArchiveName() { return OrigArchiveFilename; };
         //!Refresh current directory
         void Refresh();
 

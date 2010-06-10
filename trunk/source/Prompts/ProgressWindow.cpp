@@ -52,6 +52,7 @@ static u64      progressDone = 0;
 static u64      progressTotal = 100;
 static time_t   start = 0;
 static bool     changed = false;
+static bool     AutoThrobber = false;
 static bool     ShutDownThread = false;
 
 /*** Variables used outside of this file ***/
@@ -203,18 +204,20 @@ void ProgressWindow()
 	{
 	    VIDEO_WaitVSync();
 
-	    if(changed) {
-
+	    if(changed)
+	    {
             UpdateProgressValues();
-
             msgTxt.SetText(progressMsg);
 
-            if(showProgress == PROGRESSBAR) {
+            if(showProgress == PROGRESSBAR)
+            {
                 progressbarImg.SetTileHorizontal(100*progressDone/progressTotal);
                 prTxt.SetTextf("%0.2f", (float) (100.0f*progressDone/progressTotal));
                 speedTxt.SetTextf("%iKB/s", progressSpeed);
                 sizeTxt.SetTextf("%s", progressSizeLeft);
-            } else {
+            }
+            else if(showProgress == THROBBER)
+            {
                 angle += 5;
                 if(angle > 360)
                     angle = 0 + (angle - 360);
@@ -223,18 +226,29 @@ void ProgressWindow()
             changed = false;
 	    }
 
-        if(shutdown) {
+	    if(AutoThrobber)
+	    {
+            angle += 5;
+            if(angle > 360)
+                angle = 0 + (angle - 360);
+            throbberImg.SetAngle(angle);
+	    }
+
+        if(shutdown)
+        {
             actioncanceled = true;
             sleep(1);
             Sys_Shutdown();
         }
-        else if(reset) {
+        else if(reset)
+        {
             actioncanceled = true;
             sleep(1);
             Sys_Reboot();
         }
 
-        else if(AbortBtn.GetState() == STATE_CLICKED) {
+        else if(AbortBtn.GetState() == STATE_CLICKED)
+        {
             actioncanceled = true;
             AbortBtn.ResetState();
         }
@@ -297,6 +311,8 @@ void StartProgress(const char *title, int progressmode)
     strncpy(progressTitle, title, sizeof(progressTitle));
 
 	showProgress = progressmode;
+
+    AutoThrobber = (showProgress == AUTO_THROBBER);
 
 	LWP_ResumeThread(progressthread);
 }

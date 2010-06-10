@@ -34,6 +34,8 @@
 
 #include "ArchiveBrowser.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
+#include "FileOperations/fileops.h"
 #include "menu.h"
 
 /****************************************************************************
@@ -58,7 +60,13 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
     OrigArchiveFilename = new char[strlen(tmp)+1];
     sprintf(OrigArchiveFilename, "%s", tmp);
 
+    StartProgress(tr("Please wait..."), AUTO_THROBBER);
+    ShowProgress(0, 1, fmt("%s %s", tr("Listing files in"), OrigArchiveFilename));
+
     archive = new ArchiveHandle(filepath);
+
+    StopProgress();
+
     ItemNumber = archive->GetItemCount();
     ParseArchiveDirectory(NULL);
 }
@@ -97,6 +105,35 @@ ArchiveBrowser::~ArchiveBrowser()
 
     if(!ExternalArchive)
         delete archive;
+}
+
+int ArchiveBrowser::ExecuteCurrent(char * filepath)
+{
+    int choice = WindowPrompt(tr("Extract file to temp path and execute?"), PathStructure.at(SelIndex)->filename, tr("Yes"), tr("Cancel"));
+    if(choice == 0)
+        return -1;
+
+    if(Settings.TempPath[strlen(Settings.TempPath)-1] != '/')
+        strcat(Settings.TempPath, "/");
+
+    if(!CreateSubfolder(Settings.TempPath))
+    {
+        ShowError("Can't create temp directory.");
+        return -1;
+    }
+
+    StartProgress(tr("Extracting item(s):"));
+    int result = ExtractItem(SelIndex, Settings.TempPath);
+    StopProgress();
+    if(result < 0)
+    {
+        ShowError(tr("Failed extracting the item(s)."));
+        return -1;
+    }
+
+    sprintf(filepath, "%s%s", Settings.TempPath, PathStructure.at(SelIndex)->filename);
+
+    return result;
 }
 
 int ArchiveBrowser::ExtractItem(int ind, const char * dest)

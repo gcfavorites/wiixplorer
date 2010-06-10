@@ -70,7 +70,6 @@ enum
 
 enum
 {
-    ArcOpen = 0,
     ArcExtractFile,
     ArcExtractAll,
     ArcProperties

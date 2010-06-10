@@ -39,6 +39,7 @@
 #include "libftp/FTPServer.h"
 #include "Memory/mem2.hpp"
 #include "VideoOperations/video.h"
+#include "FileOperations/fileops.h"
 #include "mload/mload_init.h"
 #include "audio.h"
 #include "main.h"
@@ -73,6 +74,12 @@ extern "C" bool RebootApp()
 
 extern "C" void ExitApp()
 {
+    if(Settings.DeleteTempPath)
+    {
+        char path[sizeof(Settings.TempPath)];
+        strcpy(path, Settings.TempPath);
+        RemoveDirectory(path);
+    }
     Settings.Save();
 	Clipboard::DestroyInstance();
 	MainWindow::DestroyInstance();

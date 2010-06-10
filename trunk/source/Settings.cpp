@@ -73,11 +73,13 @@ void Settings::SetDefault()
     SoundblockCount = 8;
     SoundblockSize = 8192;
     LoadMusicToMem = 0;
+    DeleteTempPath = 1;
     PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
     sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
     sprintf(AppPath, "%sapps/", BootDevice);
+    sprintf(TempPath, "%s/Temp/", UpdatePath);
     sprintf(ScreenshotPath, "%s", UpdatePath);
     strcpy(MusicPath, "");
     sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
@@ -169,10 +171,12 @@ bool Settings::Save()
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
 	fprintf(file, "AppPath = %s\n", AppPath);
+	fprintf(file, "TempPath = %s\n", TempPath);
 	fprintf(file, "ScreenshotPath = %s\n", ScreenshotPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 	fprintf(file, "ImageFadeSpeed = %d\n", ImageFadeSpeed);
 	fprintf(file, "KeyboardDeleteDelay = %d\n", KeyboardDeleteDelay);
+	fprintf(file, "DeleteTempPath = %d\n", DeleteTempPath);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -576,6 +580,10 @@ bool Settings::SetSetting(char *name, char *value)
         strncpy(AppPath, value, sizeof(AppPath));
 		return true;
 	}
+	else if (strcmp(name, "TempPath") == 0) {
+        strncpy(TempPath, value, sizeof(TempPath));
+		return true;
+	}
 	else if (strcmp(name, "ScreenshotPath") == 0) {
         strncpy(ScreenshotPath, value, sizeof(ScreenshotPath));
 		return true;
@@ -595,6 +603,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "KeyboardDeleteDelay") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			KeyboardDeleteDelay = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "DeleteTempPath") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			DeleteTempPath = i;
 		}
 		return true;
 	}
@@ -730,7 +744,7 @@ bool Settings::SetSetting(char *name, char *value)
 
 void Settings::ParseLine(char *line)
 {
-    char temp[200], name[200], value[200];
+    char temp[1024], name[1024], value[1024];
 
     strncpy(temp, line, sizeof(temp));
 

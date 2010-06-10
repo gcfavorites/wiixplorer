@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 20:42+0200\n"
+"POT-Creation-Date: 2010-06-10 21:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -86,6 +86,9 @@ msgstr "浏览模式"
 
 msgid "Browsing for font files must be done in the main browser."
 msgstr "在主浏览器中必须查找字体文件。"
+
+msgid "CRC of extracted file does not match. Wrong password?"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -234,6 +237,9 @@ msgstr "缺省"
 
 msgid "Delete"
 msgstr "删除"
+
+msgid "Delete Temp Path on Exit"
+msgstr ""
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "删除已选择的项目和内容？"
@@ -390,8 +396,8 @@ msgstr "提取"
 msgid "Extract All"
 msgstr "提取全部"
 
-msgid "Extract first and open than."
-msgstr "提取并打开"
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
 msgstr "提取所有文件？"
@@ -673,6 +679,9 @@ msgstr "列表模式"
 msgid "Listening on TCP port"
 msgstr "监听TCP端口"
 
+msgid "Listing files in"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "音乐载入内存中"
 
@@ -785,14 +794,8 @@ msgstr "确定"
 msgid "ON"
 msgstr "打开"
 
-msgid "Open"
-msgstr "打开"
-
 msgid "Open the file in the PDF Viewer?"
 msgstr "是否用PDF查看器？"
-
-msgid "Opening is not yet implemented"
-msgstr "开启还没有提供"
 
 msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
@@ -816,7 +819,7 @@ msgid "Passive Mode:"
 msgstr "被动模式"
 
 msgid "Password is needed."
-msgstr ""
+msgstr "必须要密码。"
 
 msgid "Password:"
 msgstr "密码："
@@ -837,7 +840,7 @@ msgid "Play Once"
 msgstr "只播放一次"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "请输入密码。"
 
 msgid "Please wait..."
 msgstr "请等待..."
@@ -980,6 +983,9 @@ msgstr "标准"
 
 msgid "Startup FTP"
 msgstr "开启FTP"
+
+msgid "Temporary Path"
+msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
@@ -1218,6 +1224,15 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Extract first and open than."
+#~ msgstr "提取并打开"
+
+#~ msgid "Open"
+#~ msgstr "打开"
+
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "开启还没有提供"
 
 #~ msgid "Can't read file:"
 #~ msgstr "文件无法读取"

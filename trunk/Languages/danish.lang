@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-06 20:42+0200\n"
+"POT-Creation-Date: 2010-06-10 21:13+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -86,6 +86,9 @@ msgstr ""
 
 msgid "Browsing for font files must be done in the main browser."
 msgstr "browsing for Font Filer Skal Gøres I Hovedbrowser."
+
+msgid "CRC of extracted file does not match. Wrong password?"
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
@@ -234,6 +237,9 @@ msgstr "Standard"
 
 msgid "Delete"
 msgstr "Slet"
+
+msgid "Delete Temp Path on Exit"
+msgstr ""
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Slet Valgte Emne(r) Og Dens Indhold?"
@@ -390,8 +396,8 @@ msgstr "Udpak"
 msgid "Extract All"
 msgstr "Udpak Alle"
 
-msgid "Extract first and open than."
-msgstr "Udpak Først Og Åben Bagefter."
+msgid "Extract file to temp path and execute?"
+msgstr ""
 
 msgid "Extract full archive?"
 msgstr "Udpak Hele Arkivet?"
@@ -673,6 +679,9 @@ msgstr ""
 msgid "Listening on TCP port"
 msgstr "Lytter På TCP Port"
 
+msgid "Listing files in"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "Indlæs Musik til Hukommelse"
 
@@ -785,14 +794,8 @@ msgstr ""
 msgid "ON"
 msgstr "Til"
 
-msgid "Open"
-msgstr "Åben"
-
 msgid "Open the file in the PDF Viewer?"
 msgstr "Åben filen i PDF Viewer?"
-
-msgid "Opening is not yet implemented"
-msgstr "Åbning er ikke mulig endnu"
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
@@ -816,7 +819,7 @@ msgid "Passive Mode:"
 msgstr "Passiv Mode:"
 
 msgid "Password is needed."
-msgstr ""
+msgstr "Kodeord Er Påkrævet"
 
 msgid "Password:"
 msgstr "Kodeord:"
@@ -837,7 +840,7 @@ msgid "Play Once"
 msgstr "Afspil En Gang"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "Skriv Venligst Kodeordet."
 
 msgid "Please wait..."
 msgstr "Vent Venligst..."
@@ -979,6 +982,9 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
+msgstr ""
+
+msgid "Temporary Path"
 msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
@@ -1218,6 +1224,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Extract first and open than."
+#~ msgstr "Udpak Først Og Åben Bagefter."
+
+#~ msgid "Open"
+#~ msgstr "Åben"
+
+#~ msgid "Opening is not yet implemented"
+#~ msgstr "Åbning er ikke mulig endnu"
 
 #~ msgid "Can't read file:"
 #~ msgstr "Kan Ikke Læse Fil:"

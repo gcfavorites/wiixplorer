@@ -147,6 +147,8 @@ class Settings
 		short   ImageFadeSpeed;
 		//!Keyboard delete delay
 		short   KeyboardDeleteDelay;
+		//!Delete temporary path on exit
+		short   DeleteTempPath;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce
@@ -157,6 +159,8 @@ class Settings
         char	LanguagePath[150];
         //!Path to the customfont file.
         char	CustomFontPath[150];
+        //!Temporary path for file extraction
+        char	TempPath[150];
         //!Path to where the app is located
         //!Default is sd:/apps/WiiExplorer/
         char	UpdatePath[150];
