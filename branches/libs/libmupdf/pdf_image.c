@@ -411,6 +411,11 @@ pdf_loadimage(pdf_image **imgp, pdf_xref *xref, fz_obj *dict)
 		fill the rest with 0 */
 		fz_buffer *buf;
 		buf = fz_newbuffer(expectedsize);
+		if(!buf)
+		{
+            fz_free(img);
+            return fz_throw("Out of Memory.");
+		}
 		memset(buf->bp, 0, expectedsize);
 		memmove(buf->bp, img->samples->bp, realsize);
 		buf->wp = buf->bp + expectedsize;
@@ -517,6 +522,8 @@ pdf_loadtile(pdf_image *src, fz_pixmap *tile)
 		int bpcfact = 1;
 
 		tmp = fz_newpixmap(nil, tile->x, tile->y, tile->w, tile->h);
+		if(!tmp)
+            return fz_throw("Out of memory");
 
 		switch (src->bpc)
 		{

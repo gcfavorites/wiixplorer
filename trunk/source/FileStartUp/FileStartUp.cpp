@@ -38,6 +38,7 @@
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/MainWindow.h"
+#include "Controls/IOHandler.hpp"
 #include "VideoOperations/WiiMovie.hpp"
 #include "FileExtensions.h"
 #include "MPlayerPath.h"
@@ -178,6 +179,12 @@ int FileStartUp(const char *filepath)
     //! to launch them inside WiiXplorer.
     else if(Settings.FileExtensions.CompareWiiXplorerMovies(fileext) == 0)
     {
+		if(IOHandler::Instance()->IsRunning())
+		{
+			int choice = WindowPrompt(tr("Currently a process is running."), tr("Running a Video could slowdown the process or freeze the app. Do you want to continue?"), tr("Yes"), tr("Cancel"));
+			if(choice == 0)
+			    return 0;
+		}
         WiiMovie * Video = new WiiMovie(filepath);
         Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
         Video->SetVolume(Settings.MusicVolume);

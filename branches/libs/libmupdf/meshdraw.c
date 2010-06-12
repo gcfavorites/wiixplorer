@@ -329,6 +329,8 @@ fz_rendershade(fz_shade *shade, fz_matrix ctm, fz_pixmap *dest)
 	{
 		n = 3;
 		temp = fz_newpixmap(pdf_devicegray, dest->x, dest->y, dest->w, dest->h);
+		if(!temp)
+            return;
 	}
 	else
 	{

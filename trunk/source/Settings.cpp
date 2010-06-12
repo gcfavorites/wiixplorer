@@ -74,6 +74,8 @@ void Settings::SetDefault()
     SoundblockSize = 8192;
     LoadMusicToMem = 0;
     DeleteTempPath = 1;
+    CopyThreadPrio = 100;
+    CopyThreadBackPrio = 30;
     PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
@@ -177,6 +179,8 @@ bool Settings::Save()
 	fprintf(file, "ImageFadeSpeed = %d\n", ImageFadeSpeed);
 	fprintf(file, "KeyboardDeleteDelay = %d\n", KeyboardDeleteDelay);
 	fprintf(file, "DeleteTempPath = %d\n", DeleteTempPath);
+	fprintf(file, "CopyThreadPrio = %d\n", CopyThreadPrio);
+	fprintf(file, "CopyThreadBackPrio = %d\n", CopyThreadBackPrio);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -609,6 +613,18 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "DeleteTempPath") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			DeleteTempPath = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "CopyThreadPrio") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			CopyThreadPrio = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "CopyThreadBackPrio") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			CopyThreadBackPrio = i;
 		}
 		return true;
 	}

@@ -227,8 +227,25 @@ int PDFViewer::PageToRGBA8(int pagenum)
         h += 4 - h % 4;
 
 	pix = fz_newpixmap(pdf_devicergb, bbox.x0, bbox.y0, w, h);
+	if(!pix)
+	{
+        FreePage();
+        ShowError(tr("Not enough memory."));
+        return -1;
+	}
+
 	fz_clearpixmap(pix, 0xFF);
 	memset(pix->samples, 0xff, pix->h * pix->w * pix->n);
+
+    fz_device *dev = fz_newdrawdevice(drawcache, pix);
+    error = pdf_runcontentstream(dev, ctm, xref, drawpage->resources, drawpage->contents);
+    fz_freedevice(dev);
+    if (error)
+    {
+        fz_droppixmap(pix);
+        FreePage();
+        return -1;
+    }
 
     int len =  ((pix->w+3)>>2)*((pix->h+3)>>2)*32*2;
     if(len%32)
@@ -244,16 +261,6 @@ int PDFViewer::PageToRGBA8(int pagenum)
     }
 
     u8 * dst = OutputImage;
-
-    fz_device *dev = fz_newdrawdevice(drawcache, pix);
-    error = pdf_runcontentstream(dev, ctm, xref, drawpage->resources, drawpage->contents);
-    fz_freedevice(dev);
-    if (error)
-    {
-        fz_droppixmap(pix);
-        FreePage();
-        return -1;
-    }
 
     imagewidth = pix->w;
     imageheight = pix->h;

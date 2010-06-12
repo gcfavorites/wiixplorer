@@ -45,5 +45,6 @@ bool RenameFile(const char * srcpath, const char * destpath);
 bool RemoveFile(const char * filepath);
 void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filenumber);
 bool CompareDevices(const char *src, const char *dest);
+void ResetReplaceChoice();
 
 #endif

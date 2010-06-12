@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 15:42+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -181,6 +181,12 @@ msgstr "Bild wird konvertiert..."
 msgid "Copy"
 msgstr "Kopieren"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "Markierte(s) Element(e) kopieren?"
 
@@ -221,6 +227,9 @@ msgid "Could not parse directory."
 msgstr "Verzeichnis konnte nicht analysiert werden."
 
 msgid "Credits"
+msgstr ""
+
+msgid "Currently a process is running."
 msgstr ""
 
 msgid "Customfont Path"
@@ -267,6 +276,9 @@ msgstr "Verbindung zum Client trennen"
 
 msgid "Disconnect SMB"
 msgstr "Verbindung zum SMB trennen"
+
+msgid "Do you want to append this paste to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Die Datei/App jetzt starten?"
@@ -712,6 +724,9 @@ msgstr "Zwischenspeicher"
 msgid "Menu"
 msgstr "Menü"
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "NTFS mounten"
 
@@ -772,6 +787,9 @@ msgstr "Kein gültiger URL Pfad"
 
 msgid "Not a valid domain"
 msgstr "Keine gültige Domain"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Nicht genug Speicher um die Größe zu ändern."
@@ -854,6 +872,21 @@ msgstr "Mögliches nicht unterstüztes Format."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Drücke 'FTP starten' zum Starten des Servers an Port"
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "Vorgang abgebrochen."
 
@@ -901,6 +934,9 @@ msgstr "Rechts"
 
 msgid "Rotate"
 msgstr "Drehen"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr ""

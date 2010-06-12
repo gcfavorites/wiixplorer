@@ -149,6 +149,10 @@ class Settings
 		short   KeyboardDeleteDelay;
 		//!Delete temporary path on exit
 		short   DeleteTempPath;
+		//!CopyThread priority
+		short   CopyThreadPrio;
+		//!CopyThread background priority
+		short   CopyThreadBackPrio;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce

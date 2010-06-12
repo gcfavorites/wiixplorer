@@ -35,6 +35,8 @@
 
 #include "libwiigui/gui.h"
 #include "Controls/MainWindow.h"
+#include "Controls/Taskbar.h"
+#include "Controls/IOHandler.hpp"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/filebrowser.h"
 #include "menu.h"
@@ -54,6 +56,8 @@ static time_t   start = 0;
 static bool     changed = false;
 static bool     AutoThrobber = false;
 static bool     ShutDownThread = false;
+static bool     Minimized = false;
+static bool     EnableMinimize = false;
 
 /*** Variables used outside of this file ***/
 bool            actioncanceled = false;
@@ -97,7 +101,7 @@ void UpdateProgressValues()
  ***************************************************************************/
 void ProgressWindow()
 {
-	if(!showProgress)
+	if(!showProgress || Minimized)
         return;
 
 	GuiWindow promptWindow(472,320);
@@ -168,11 +172,28 @@ void ProgressWindow()
 	AbortBtn.SetTrigger(&trigA);
 	AbortBtn.SetEffectGrow();
 
+	GuiImage MinimizeImg(&btnOutline);
+    GuiText MinimizeTxt(tr("Minimize"), 22, (GXColor){0, 0, 0, 255});
+	GuiButton MinimizeBtn(MinimizeImg.GetWidth(), MinimizeImg.GetHeight());
+	MinimizeBtn.SetLabel(&MinimizeTxt);
+	MinimizeBtn.SetImage(&MinimizeImg);
+	MinimizeBtn.SetTrigger(&trigA);
+	MinimizeBtn.SetEffectGrow();
+
 	promptWindow.Append(&dialogBoxImg);
 	promptWindow.Append(&titleTxt);
 	promptWindow.Append(&msgTxt);
     promptWindow.Append(&AbortBtn);
-    if(showProgress == PROGRESSBAR) {
+    if(EnableMinimize)
+    {
+        AbortBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+        AbortBtn.SetPosition(-60, -48);
+        MinimizeBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+        MinimizeBtn.SetPosition(60, -48);
+        promptWindow.Append(&MinimizeBtn);
+    }
+    if(showProgress == PROGRESSBAR)
+    {
         promptWindow.Append(&progressbarEmptyImg);
         promptWindow.Append(&progressbarImg);
         promptWindow.Append(&progressbarOutlineImg);
@@ -180,9 +201,9 @@ void ProgressWindow()
         promptWindow.Append(&prsTxt);
         promptWindow.Append(&speedTxt);
         promptWindow.Append(&sizeTxt);
-	} else {
-	    promptWindow.Append(&throbberImg);
 	}
+	else
+	    promptWindow.Append(&throbberImg);
 
     //! To skip progressbar for fast processes
 	usleep(500000);
@@ -190,7 +211,7 @@ void ProgressWindow()
         return;
 
 	HaltGui();
-	promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+    promptWindow.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 	MainWindow::Instance()->SetState(STATE_DISABLED);
 	MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&promptWindow);
@@ -252,9 +273,20 @@ void ProgressWindow()
             actioncanceled = true;
             AbortBtn.ResetState();
         }
+        else if(EnableMinimize && MinimizeBtn.GetState() == STATE_CLICKED)
+        {
+            Minimized = true;
+            IOHandler::Instance()->SetMinimized(showProgress);
+            showProgress = 0;
+            MinimizeBtn.ResetState();
+        }
 	}
 
-	promptWindow.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+    if(Minimized)
+        promptWindow.SetEffect(EFFECT_FADE, -20);
+	else
+        promptWindow.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+
 	while(promptWindow.GetEffect() > 0) usleep(100);
 
 	HaltGui();
@@ -298,17 +330,34 @@ void StopProgress()
 /****************************************************************************
  * GetProgressTitle()
  ***************************************************************************/
- const char * GetProgressTitle()
- {
-     return progressTitle;
- }
+const char * GetProgressTitle()
+{
+    return progressTitle;
+}
+
+/****************************************************************************
+ * ProgressSetMinimizable()
+ ***************************************************************************/
+void ProgressSetMinimizable(bool m)
+{
+    EnableMinimize = m;
+}
+
+/****************************************************************************
+ * ProgressSetMinimized()
+ ***************************************************************************/
+void ProgressSetMinimized(bool m)
+{
+    Minimized = m;
+}
 
 /****************************************************************************
  * StartProgress
  ***************************************************************************/
 void StartProgress(const char *title, int progressmode)
 {
-    strncpy(progressTitle, title, sizeof(progressTitle));
+    if(title)
+        strncpy(progressTitle, title, sizeof(progressTitle));
 
 	showProgress = progressmode;
 
@@ -352,7 +401,7 @@ void ShowProgress(u64 done, u64 total, const char *msg)
  ***************************************************************************/
 void InitProgressThread()
 {
-	LWP_CreateThread(&progressthread, ProgressThread, NULL, NULL, 0, 70);
+	LWP_CreateThread(&progressthread, ProgressThread, NULL, NULL, 16384, 70);
 }
 
 /****************************************************************************

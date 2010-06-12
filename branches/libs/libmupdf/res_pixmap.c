@@ -5,7 +5,10 @@ fz_newpixmap(fz_colorspace *colorspace, int x, int y, int w, int h)
 {
 	fz_pixmap *pix;
 
-	pix = fz_malloc(sizeof(fz_pixmap));
+	pix = malloc(sizeof(fz_pixmap));
+	if(!pix)
+        return pix;
+
 	pix->refs = 1;
 	pix->x = x;
 	pix->y = y;
@@ -20,7 +23,12 @@ fz_newpixmap(fz_colorspace *colorspace, int x, int y, int w, int h)
 		pix->n = 1 + colorspace->n;
 	}
 
-	pix->samples = fz_malloc(pix->w * pix->h * pix->n);
+	pix->samples = malloc(pix->w * pix->h * pix->n);
+	if(!pix->samples)
+    {
+        free(pix);
+        return NULL;
+    }
 
 	return pix;
 }

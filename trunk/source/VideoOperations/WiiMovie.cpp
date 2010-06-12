@@ -86,16 +86,19 @@ WiiMovie::~WiiMovie()
     Playing = false;
     ExitRequested = true;
 
+    ASND_StopVoice(0);
+    MusicPlayer::Instance()->Resume();
+
     if(ReadThread != LWP_THREAD_NULL)
     {
         LWP_ResumeThread(ReadThread);
         LWP_JoinThread(ReadThread, NULL);
     }
     if(mutex != LWP_MUTEX_NULL)
+    {
+        LWP_MutexUnlock(mutex);
         LWP_MutexDestroy(mutex);
-
-    ASND_StopVoice(0);
-    MusicPlayer::Instance()->Resume();
+    }
 
     for(u32 i = 0; i < Frames.size(); i++)
     {

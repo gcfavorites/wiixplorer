@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 21:13+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -181,6 +181,12 @@ msgstr "Convertendo imagem..."
 msgid "Copy"
 msgstr "Copiar"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "Copiar o(s) item(s) marcado(s)?"
 
@@ -222,6 +228,9 @@ msgstr "Não foi possível analisar a pasta."
 
 msgid "Credits"
 msgstr "Créditos"
+
+msgid "Currently a process is running."
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "Pasta Fontes Person."
@@ -267,6 +276,9 @@ msgstr "Desligar Cliente"
 
 msgid "Disconnect SMB"
 msgstr "Desligar SMB"
+
+msgid "Do you want to append this paste to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Pretende executar o ficheiro agora?"
@@ -712,6 +724,9 @@ msgstr "Buffer de Memória"
 msgid "Menu"
 msgstr "Menu"
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "Montar NTFS"
 
@@ -772,6 +787,9 @@ msgstr "Caminho URL inválido"
 
 msgid "Not a valid domain"
 msgstr "Domínio inválido"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Memória insuficiente para redimensionar."
@@ -854,6 +872,21 @@ msgstr "É possível que o formato não seja suportado."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pressione Iniciar FTP para arrancar o servidor na porta "
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "Processo cancelado."
 
@@ -901,6 +934,9 @@ msgstr "Botão Direita"
 
 msgid "Rotate"
 msgstr "Rodar"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Nome SMB:"

@@ -42,8 +42,8 @@
 
 #define BLOCKSIZE               70*1024      //70KB
 
-bool replaceall = false;
-bool replacenone = false;
+static bool replaceall = false;
+static bool replacenone = false;
 
 extern bool sizegainrunning;
 extern bool actioncanceled;
@@ -53,7 +53,7 @@ extern bool actioncanceled;
  *
  * Get the user choice if he wants to replace a file or not
  ***************************************************************************/
-int GetReplaceChoice(const char * filename)
+static int GetReplaceChoice(const char * filename)
 {
     const char * progressText = GetProgressTitle();
     StopProgress();
@@ -80,6 +80,17 @@ int GetReplaceChoice(const char * filename)
         return choice;
     }
 }
+
+/****************************************************************************
+ * ResetReplaceChoice
+ *
+ * This should be called after the process is done
+ ***************************************************************************/
+ void ResetReplaceChoice()
+ {
+    replaceall = false;
+    replacenone = false;
+ }
 
 /****************************************************************************
  * FindFile
@@ -409,15 +420,12 @@ int CopyFile(const char * src, const char * dest)
         }
     }
 
+    u64 sizesrc = FileSize(src);
+
 	FILE * source = fopen(src, "rb");
 
 	if(!source)
 		return -2;
-
-    fseek(source, 0, SEEK_END);
-
-    u64 sizesrc = ftell(source);
-    fseek(source, 0, SEEK_SET);
 
     u32 blksize = BLOCKSIZE;
 

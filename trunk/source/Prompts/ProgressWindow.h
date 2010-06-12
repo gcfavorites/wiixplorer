@@ -31,5 +31,7 @@ void ShowProgress(u64 done, u64 total, const char *filename);
 void StartProgress(const char *title, int display = PROGRESSBAR);
 void StopProgress();
 const char * GetProgressTitle();
+void ProgressSetMinimizable(bool m);
+void ProgressSetMinimized(bool m);
 
 #endif
