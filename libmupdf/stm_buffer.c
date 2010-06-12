@@ -8,7 +8,12 @@ fz_newbuffer(int size)
 	b = fz_malloc(sizeof(fz_buffer));
 	b->refs = 1;
 	b->ownsdata = 1;
-	b->bp = fz_malloc(size);
+	b->bp = malloc(size);
+	if(!b->bp)
+    {
+        fz_free(b);
+        return 0;
+    }
 	b->rp = b->bp;
 	b->wp = b->bp;
 	b->ep = b->bp + size;

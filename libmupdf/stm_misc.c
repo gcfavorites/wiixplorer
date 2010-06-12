@@ -84,7 +84,29 @@ fz_readall(fz_stream *stm, int sizehint)
 	while (fz_fillbuf(stm, buf) != EOF)
 	{
 		if (buf->wp == buf->ep)
-			fz_growbuffer(buf);
+		{
+            int rp = buf->rp - buf->bp;
+            int wp = buf->wp - buf->bp;
+            int ep = buf->ep - buf->bp;
+
+            if (!buf->ownsdata)
+            {
+                fz_warn("assert: grow borrowed memory");
+                return;
+            }
+
+            unsigned char * tmp = realloc(buf->bp, (ep * 3) / 2);
+            if(!tmp)
+            {
+                free(buf->bp);
+                free(buf);
+                return NULL;
+            }
+            buf->bp = tmp;
+            buf->rp = buf->bp + rp;
+            buf->wp = buf->bp + wp;
+            buf->ep = buf->bp + (ep * 3) / 2;
+		}
 	}
 
 	return buf;

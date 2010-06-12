@@ -396,6 +396,11 @@ pdf_loadrawstream(fz_buffer **bufp, pdf_xref *xref, int num, int gen)
 		fz_dropstream(stm);
 		return fz_rethrow(error, "cannot read raw stream (%d %d R)", num, gen);
 	}
+	else if(*bufp == NULL)
+	{
+		fz_dropstream(stm);
+		return fz_rethrow(-1, "Not enougth memory");
+	}
 
 	fz_dropstream(stm);
 	return fz_okay;
@@ -420,6 +425,11 @@ pdf_loadstream(fz_buffer **bufp, pdf_xref *xref, int num, int gen)
 	{
 		fz_dropstream(stm);
 		return fz_rethrow(error, "cannot read raw stream (%d %d R)", num, gen);
+	}
+	else if(*bufp == NULL)
+	{
+		fz_dropstream(stm);
+		return fz_rethrow(-1, "Not enougth memory");
 	}
 
 	fz_dropstream(stm);

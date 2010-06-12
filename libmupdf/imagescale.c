@@ -193,9 +193,20 @@ fz_scalepixmap(fz_pixmap *src, int xdenom, int ydenom)
 	oh = (src->h + ydenom - 1) / ydenom;
 	n = src->n;
 
-	buf = fz_malloc(ow * n * ydenom);
+	buf = malloc(ow * n * ydenom);
+	if(!buf)
+	{
+	    ShowError("Not enough memory to rescale.");
+        return src;
+	}
 
 	dst = fz_newpixmap(src->colorspace, 0, 0, ow, oh);
+	if(!dst)
+	{
+	    free(buf);
+	    ShowError("Not enough memory to rescale.");
+	    return src;
+	}
 
 	switch (n)
 	{

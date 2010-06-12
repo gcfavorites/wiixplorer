@@ -7,7 +7,7 @@ include $(DEVKITPPC)/wii_rules
 LIBOGC_INC      :=      $(DEVKITPRO)/libogc/include
 LIBOGC_LIB      :=      $(DEVKITPRO)/libogc/lib/wii
 
-CFLAGS  := -O2 $(MACHDEP) -I$(LIBOGC_INC) -DHAVE_LIBZ -DNOCJK
+CFLAGS  := -Os $(MACHDEP) -I$(LIBOGC_INC) -DHAVE_LIBZ -DNOCJK
 
 LIB     := mupdf
 CFILES  := $(wildcard *.c)
