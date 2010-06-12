@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 21:13+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -181,6 +181,12 @@ msgstr "画像を変換しています･･･"
 msgid "Copy"
 msgstr "コピー"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "選択されたアイテムをコピーしますか?"
 
@@ -222,6 +228,9 @@ msgstr "ディレクトリをリストに追加出来ませんでした"
 
 msgid "Credits"
 msgstr "提供･協力"
+
+msgid "Currently a process is running."
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "フォントのパス"
@@ -267,6 +276,9 @@ msgstr "クライアントを切断"
 
 msgid "Disconnect SMB"
 msgstr "SMBを切断"
+
+msgid "Do you want to append this paste to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "今すぐ起動しますか?"
@@ -712,6 +724,9 @@ msgstr "メモリバッファ"
 msgid "Menu"
 msgstr "Wiiメニューへ"
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "NTFSのマウント"
 
@@ -772,6 +787,9 @@ msgstr "URLのパスが正しくありません"
 
 msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "リサイズするためのメモリが足りません"
@@ -854,6 +872,21 @@ msgstr "対応していない形式です"
 msgid "Press Startup FTP to start the server on port"
 msgstr "ポートのサーバーを開始するためFTPを開始してください"
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "キャンセルしました"
 
@@ -901,6 +934,9 @@ msgstr "右ボタン"
 
 msgid "Rotate"
 msgstr "回転"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "SMB名"

@@ -33,9 +33,7 @@
 #include "FileStartUp/FileStartUp.h"
 #include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"
-
-extern bool replaceall;
-extern bool replacenone;
+#include "Controls/IOHandler.hpp"
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
 {
@@ -65,8 +63,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
                 result = browser->ExtractItem(IMarker->GetItemIndex(i), dest);
             }
             StopProgress();
-            replaceall = false;
-            replacenone = false;
+            ResetReplaceChoice();
             if(result <= 0)
             {
                 ShowError(tr("Failed extracting the item(s)."));
@@ -92,8 +89,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
         {
             result = browser->ExtractAll(dest);
             StopProgress();
-            replaceall = false;
-            replacenone = false;
+            ResetReplaceChoice();
             if(result <= 0)
             {
                 ShowError(tr("Failed extracting the archive."));
@@ -228,89 +224,14 @@ void ProcessChoice(FileBrowser * browser, int choice)
         choice = WindowPrompt(Clipboard::Instance()->GetItemName(Clipboard::Instance()->GetItemcount()-1), tr("Paste item(s) into current directory?"), tr("Yes"), tr("Cancel"));
         if(choice == 1)
         {
-            char srcpath[MAXPATHLEN];
-            char destdir[MAXPATHLEN];
-            int res = 0;
-            bool Cutted = Clipboard::Instance()->Cutted;
-            if(Cutted)
+            if(IOHandler::Instance()->IsRunning())
             {
-                if(Clipboard::Instance()->GetItemcount() > 0)
-                {
-                    snprintf(srcpath, sizeof(srcpath), "%s/", Clipboard::Instance()->GetItemPath(0));
-                    snprintf(destdir, sizeof(destdir), "%s/%s/", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(0));
-                    if(CompareDevices(srcpath, destdir))
-                        StartProgress(tr("Moving item(s):"), THROBBER);
-                    else
-                        StartProgress(tr("Moving item(s):"));
-                }
+                choice = WindowPrompt(tr("Currently a process is running."), tr("Do you want to append this paste to the queue?"), tr("Yes"), tr("Cancel"));
             }
-            else
+            if(choice == 1)
             {
-                StartProgress(tr("Copying item(s):"));
-            }
-            for(int i = 0; i < Clipboard::Instance()->GetItemcount(); i++)
-            {
-                if(Clipboard::Instance()->IsItemDir(i) == true)
-                {
-                    snprintf(srcpath, sizeof(srcpath), "%s/", Clipboard::Instance()->GetItemPath(i));
-                    snprintf(destdir, sizeof(destdir), "%s/%s/", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(i));
-                    if(Cutted == false)
-                    {
-                        res = CopyDirectory(srcpath, destdir);
-                    }
-                    else
-                    {
-                        if(strcmp(srcpath, destdir) != 0)
-                        {
-                            res = MoveDirectory(srcpath, destdir);
-                        }
-                        else
-                        {
-                            StopProgress();
-                            ShowError(tr("You can not cut into the directory itself."));
-                            res =  -1;
-                        }
-                    }
-
-                    if(res == -10)
-                    {
-                        StopProgress();
-                        WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
-                        break;
-                    }
-                }
-                else
-                {
-                    snprintf(srcpath, sizeof(srcpath), "%s", Clipboard::Instance()->GetItemPath(i));
-                    snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), Clipboard::Instance()->GetItemName(i));
-                    if(Cutted == false)
-                    {
-                        if(strcmp(srcpath, destdir) == 0)
-                        {
-                            snprintf(destdir, sizeof(destdir), "%s/%s %s", browser->GetCurrentPath(), tr("Copy of"), Clipboard::Instance()->GetItemName(i));
-                        }
-                        res = CopyFile(srcpath, destdir);
-                    }
-                    else
-                    {
-                        if(strcmp(srcpath, destdir) == 0)
-                        {
-                            res = 1;
-                            continue;
-                        }
-                        res = MoveFile(srcpath, destdir);
-                    }
-                }
-            }
-            StopProgress();
-            replaceall = false;
-            replacenone = false;
-            if(res < 0 && res != 10)
-            {
-                if(Cutted)
-                    ShowError(tr("Failed moving item(s)."));
-                else
-                    ShowError(tr("Failed copying item(s)."));
+                IOHandler::Instance()->AddProcess(Clipboard::Instance(), browser->GetCurrentPath(), Clipboard::Instance()->Cutted);
+                IOHandler::Instance()->StartProcess(!IOHandler::Instance()->IsRunning());
             }
         }
     }

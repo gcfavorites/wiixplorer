@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 15:42+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -181,6 +181,12 @@ msgstr "Conversion de l'image..."
 msgid "Copy"
 msgstr "Copier"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "Copier le(s) élement(s) marqué(s)?"
 
@@ -222,6 +228,9 @@ msgstr ""
 
 msgid "Credits"
 msgstr "Crédits"
+
+msgid "Currently a process is running."
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "Dossier police"
@@ -266,6 +275,9 @@ msgid "Disconnect Client"
 msgstr ""
 
 msgid "Disconnect SMB"
+msgstr ""
+
+msgid "Do you want to append this paste to the queue?"
 msgstr ""
 
 msgid "Do you want to boot file now?"
@@ -712,6 +724,9 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "NTFS"
 
@@ -772,6 +787,9 @@ msgstr "localisation URL invalide"
 
 msgid "Not a valid domain"
 msgstr "Domaine invalide"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Pas assez de mémoire pour redimensionner."
@@ -854,6 +872,21 @@ msgstr ""
 msgid "Press Startup FTP to start the server on port"
 msgstr "Appuyez sur Démarrer FTP pour lancer le serveur sur le port"
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "Procédure annulée."
 
@@ -901,6 +934,9 @@ msgstr ""
 
 msgid "Rotate"
 msgstr "Deg. de rotation"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Nom du SMB:"

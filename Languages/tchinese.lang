@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 21:24+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -181,6 +181,12 @@ msgstr "轉換圖片中..."
 msgid "Copy"
 msgstr "複製"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "複製現正所選項目嗎？"
 
@@ -222,6 +228,9 @@ msgstr "無法解析目錄。"
 
 msgid "Credits"
 msgstr "作者信息"
+
+msgid "Currently a process is running."
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "字型路徑"
@@ -267,6 +276,9 @@ msgstr "中斷連結用戶端"
 
 msgid "Disconnect SMB"
 msgstr "中斷連結 SMB網路共享"
+
+msgid "Do you want to append this paste to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "是否要立刻啟動檔案？"
@@ -712,6 +724,9 @@ msgstr "記憶體緩衝區"
 msgid "Menu"
 msgstr "選單"
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr "掛載NTFS"
 
@@ -772,6 +787,9 @@ msgstr "不是有效的URL路徑"
 
 msgid "Not a valid domain"
 msgstr "不是有效的網域名稱"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "沒有足夠記憶體改變大小。"
@@ -854,6 +872,21 @@ msgstr "無法支援的格式。"
 msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "內容取消。"
 
@@ -901,6 +934,9 @@ msgstr "向右按鈕"
 
 msgid "Rotate"
 msgstr "旋轉"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "SMB網路共享名稱："

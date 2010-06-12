@@ -35,6 +35,7 @@
 #include "Controls/MainWindow.h"
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "Prompts/PopUpMenu.h"
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
@@ -118,6 +119,11 @@ Taskbar::~Taskbar()
 
 	Resources::Remove(soundClick);
 	Resources::Remove(soundOver);
+
+	for(u32 i = 0; i < Tasks.size(); i++)
+	{
+	    delete Tasks[i];
+	}
 }
 
 Taskbar * Taskbar::Instance()
@@ -131,7 +137,8 @@ Taskbar * Taskbar::Instance()
 
 void Taskbar::DestroyInstance()
 {
-	delete instance;
+    if(instance)
+        delete instance;
 	instance = NULL;
 }
 
@@ -141,6 +148,28 @@ void Taskbar::SetState(int s, int c)
 
 void Taskbar::SetDim(bool d)
 {
+}
+
+void Taskbar::AddTask(Task * t)
+{
+    t->SetPosition(120+Tasks.size()*100, 0);
+    t->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    Tasks.push_back(t);
+	Append(t);
+}
+
+void Taskbar::RemoveTask(Task * t)
+{
+    for(u32 i = 0; i < Tasks.size(); i++)
+    {
+        if(Tasks[i] == t)
+        {
+            Remove(Tasks[i]);
+            Tasks.erase(Tasks.begin()+i);
+            TasksDeleteQueue.push(Tasks[i]);
+            break;
+        }
+    }
 }
 
 void Taskbar::Draw()
@@ -197,6 +226,14 @@ int Taskbar::GetMenu()
 	{
 	    ShowMusicPlayer();
 		Musicplayer->ResetState();
+	}
+	else if(TasksDeleteQueue.size() > 0)
+	{
+        while(!TasksDeleteQueue.empty())
+        {
+            delete TasksDeleteQueue.front();
+            TasksDeleteQueue.pop();
+        }
 	}
 
     return menu;
@@ -308,6 +345,9 @@ int Taskbar::CheckStartMenu()
 		{
 			NTFS_UnMount();
 			//don't need to shutdown the devices
+            SDCard_deInit();
+            SDGeckoA_deInit();
+            SDGeckoB_deInit();
 			SDCard_Init();
 			SDGeckoA_Init();
 			SDGeckoB_Init();

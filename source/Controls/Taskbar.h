@@ -32,9 +32,12 @@
 #ifndef _TASKBAR_H
 #define _TASKBAR_H
 
+#include <queue>
 #include "libwiigui/gui.h"
 #include "libwiigui/PictureButton.h"
 #include "Prompts/PopUpMenu.h"
+#include "Controls/Callback.hpp"
+#include "Controls/Task.hpp"
 
 class Taskbar : public GuiWindow
 {
@@ -49,6 +52,8 @@ class Taskbar : public GuiWindow
         void ResetState();
         void SetTriggerUpdate(bool b) { triggerupdate = b; };
 		virtual void SetDim(bool d);
+		void AddTask(Task * t);
+		void RemoveTask(Task * t);
 	protected:
         void Update(GuiTrigger * t);
 		void Draw();
@@ -81,6 +86,8 @@ class Taskbar : public GuiWindow
 		GuiSound *soundOver;
 		GuiButton *homeBtn;
 		GuiButton *Musicplayer;
+        std::vector<Task *> Tasks;
+        std::queue<Task *> TasksDeleteQueue;
 };
 
 #endif // _TASKBAR_H

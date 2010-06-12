@@ -2,11 +2,53 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/iosupport.h>
 
 #ifdef GEKKO
 #include <stdarg.h>
 
 static bool geckoinit = false;
+
+static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
+{
+	if (!geckoinit || !ptr || len <= 0)
+		return -1;
+
+	u32 level;
+	level = IRQ_Disable();
+	usb_sendbuffer(1, ptr, len);
+	IRQ_Restore(level);
+	return len;
+}
+
+static const devoptab_t gecko_out = {
+	"stdout",	// device name
+	0,			// size of file structure
+	NULL,		// device open
+	NULL,		// device close
+	__out_write,// device write
+	NULL,		// device read
+	NULL,		// device seek
+	NULL,		// device fstat
+	NULL,		// device stat
+	NULL,		// device link
+	NULL,		// device unlink
+	NULL,		// device chdir
+	NULL,		// device rename
+	NULL,		// device mkdir
+	0,			// dirStateSize
+	NULL,		// device diropen_r
+	NULL,		// device dirreset_r
+	NULL,		// device dirnext_r
+	NULL,		// device dirclose_r
+	NULL		// device statvfs_r
+};
+
+static void USBGeckoOutput()
+{
+	devoptab_list[STD_OUT] = &gecko_out;
+	devoptab_list[STD_ERR] = &gecko_out;
+}
 
 bool InitGecko()
 {
@@ -17,6 +59,7 @@ bool InitGecko()
 	if (geckoattached)
 	{
 		usb_flush(EXI_CHANNEL_1);
+		USBGeckoOutput();
 		geckoinit = true;
 		return true;
 	}

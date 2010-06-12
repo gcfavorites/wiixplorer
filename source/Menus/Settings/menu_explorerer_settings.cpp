@@ -29,6 +29,44 @@
 #include "Prompts/PromptWindows.h"
 #include "Menus/Explorer.h"
 
+static inline int NextPriority(int prio)
+{
+    switch(prio)
+    {
+        case 0:
+            return 30;
+        case 30:
+            return 70;
+        case 70:
+            return 100;
+        case 100:
+            return 127;
+        case 127:
+            return 0;
+        default:
+            return 30;
+    }
+}
+
+static inline const char * PrioritySynonym(int prio)
+{
+    switch(prio)
+    {
+        case 0:
+            return tr("Idle");
+        case 30:
+            return tr("Low");
+        case 70:
+            return tr("Normal");
+        case 100:
+            return tr("High");
+        case 127:
+            return tr("Highest");
+        default:
+            return NULL;
+    }
+}
+
 int MenuExplorerSettings()
 {
 	int menu = MENU_NONE;
@@ -41,6 +79,8 @@ int MenuExplorerSettings()
 	options.SetName(i++, tr("Scrolling Speed"));
 	options.SetName(i++, tr("PDF Processing Zoom"));
 	options.SetName(i++, tr("Keyboard Delete Delay"));
+	options.SetName(i++, tr("Copy Thread Priority"));
+	options.SetName(i++, tr("Copy Thread Background Priority"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
@@ -85,6 +125,12 @@ int MenuExplorerSettings()
 					Settings.KeyboardDeleteDelay = atoi(entered);
                 }
                 break;
+            case 4:
+                Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
+                break;
+            case 5:
+                Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -102,6 +148,10 @@ int MenuExplorerSettings()
             options.SetValue(i++, "%0.2f", Settings.PDFLoadZoom);
 
             options.SetValue(i++, "%i", Settings.KeyboardDeleteDelay);
+
+            options.SetValue(i++, PrioritySynonym(Settings.CopyThreadPrio));
+
+            options.SetValue(i++, PrioritySynonym(Settings.CopyThreadBackPrio));
         }
 	}
 

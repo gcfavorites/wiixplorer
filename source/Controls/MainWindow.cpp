@@ -38,6 +38,7 @@
 #include "network/networkops.h"
 #include "libftp/FTPServer.h"
 #include "FileOperations/filebrowser.h"
+#include "Controls/IOHandler.hpp"
 #include "filelist.h"
 #include "Settings.h"
 #include "menu.h"
@@ -46,6 +47,8 @@
 
 #include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
+
+#define GUI_STACK_SIZE  (32*1024)
 
 MainWindow *MainWindow::instance = NULL;
 
@@ -56,12 +59,17 @@ MainWindow::MainWindow()
 	exitApplication = false;
 	guithread = LWP_THREAD_NULL;
 
-	//!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 32768, LWP_PRIO_HIGHEST);
+	StackBuffer = (u8 *) memalign(32, GUI_STACK_SIZE);
 
-	//!Initalize the progress thread
+	//!Initialize main GUI handling thread
+	LWP_CreateThread (&guithread, UpdateGUI, this, StackBuffer, GUI_STACK_SIZE, LWP_PRIO_HIGHEST);
+
+	//!Initialize the progress thread
 	InitProgressThread();
 	StopProgress();
+
+	//!Initialize the i/o hanlde thread
+	IOHandler::Instance();
 
     //!FTP Server thread
     if(Settings.FTPServer.AutoStart)
@@ -113,6 +121,7 @@ MainWindow::~MainWindow()
 	SoundHandler::DestroyInstance();
 	Channels::DestroyInstance();
 	Applications::DestroyInstance();
+	IOHandler::DestroyInstance();
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -162,6 +171,9 @@ void MainWindow::Quit()
 		ResumeGui(); // Resume the gui, or the thread won't exit
 		LWP_JoinThread(guithread, NULL);
 		guithread = LWP_THREAD_NULL;
+
+        if(StackBuffer)
+            free(StackBuffer);
 
 		// Fade out...
 		for(int i = 0; i <= 255; i += 15)

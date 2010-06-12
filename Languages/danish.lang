@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-10 21:13+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -181,6 +181,12 @@ msgstr "Konventere Billede..."
 msgid "Copy"
 msgstr "Kopiér"
 
+msgid "Copy Thread Background Priority"
+msgstr ""
+
+msgid "Copy Thread Priority"
+msgstr ""
+
 msgid "Copy current marked item(s)?"
 msgstr "Kopier Markere Emne(r)?"
 
@@ -222,6 +228,9 @@ msgstr "Kunne Ikke Analysere Mappe."
 
 msgid "Credits"
 msgstr "Tak Til"
+
+msgid "Currently a process is running."
+msgstr ""
 
 msgid "Customfont Path"
 msgstr "Sti til custom-fonte"
@@ -267,6 +276,9 @@ msgstr "Afbryd Klient"
 
 msgid "Disconnect SMB"
 msgstr "Afbryd SMB"
+
+msgid "Do you want to append this paste to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Vil Du Boote Filen Nu?"
@@ -712,6 +724,9 @@ msgstr "Hukommelses Knap"
 msgid "Menu"
 msgstr ""
 
+msgid "Minimize"
+msgstr ""
+
 msgid "Mount NTFS"
 msgstr ""
 
@@ -772,6 +787,9 @@ msgstr "Ikke en gyldig URL sti"
 
 msgid "Not a valid domain"
 msgstr "Ikke et gyldigt domæne"
+
+msgid "Not enough memory 2."
+msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Ikke Nok Hukommelse Til At Ændre Størrelse."
@@ -854,6 +872,21 @@ msgstr "Format muligvis ikke understøttet"
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pres Startup FTP Få At Starte Server På Port"
 
+msgid "Priority High"
+msgstr ""
+
+msgid "Priority Highest"
+msgstr ""
+
+msgid "Priority Idle"
+msgstr ""
+
+msgid "Priority Low"
+msgstr ""
+
+msgid "Priority Normal"
+msgstr ""
+
 msgid "Process canceled."
 msgstr "Handling Afbrudt."
 
@@ -901,6 +934,9 @@ msgstr "Højre Knap"
 
 msgid "Rotate"
 msgstr "Roter"
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "SMB-navn:"
