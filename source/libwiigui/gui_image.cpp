@@ -22,7 +22,7 @@ GuiImage::GuiImage()
 	tileVertical = -1;
 	stripe = 0;
 	format = GX_TF_RGBA8;
-	color = (GXColor){0, 0, 0, 255};
+	color[0] = (GXColor){0, 0, 0, 255};
 	widescreen = false;
 	imgType = IMAGE_DATA;
 }
@@ -45,7 +45,7 @@ GuiImage::GuiImage(GuiImageData * img)
 	tileHorizontal = -1;
 	tileVertical = -1;
 	stripe = 0;
-	color = (GXColor){0, 0, 0, 255};
+	color[0] = (GXColor){0, 0, 0, 255};
 	imgType = IMAGE_DATA;
 }
 
@@ -59,7 +59,7 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 	tileVertical = -1;
 	stripe = 0;
 	format = GX_TF_RGBA8;
-	color = (GXColor){0, 0, 0, 255};
+	color[0] = (GXColor){0, 0, 0, 255};
 	widescreen = false;
 	imgType = IMAGE_TEXTURE;
 }
@@ -76,7 +76,26 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 	format = GX_TF_RGBA8;
 	imgType = IMAGE_COLOR;
 	widescreen = false;
-	color = c;
+	color[0] = c;
+}
+
+GuiImage::GuiImage(int w, int h, GXColor * c)
+{
+	image = NULL;
+	width = w;
+	height = h;
+	imageangle = 0;
+	tileHorizontal = -1;
+	tileVertical = -1;
+	stripe = 0;
+	format = GX_TF_RGBA8;
+	imgType = IMAGE_MULTICOLOR;
+	widescreen = false;
+
+	for(int i = 0; i < 4; i++)
+        color[i] = c[i];
+
+    color[4] = (GXColor){0, 0, 0, 0};
 }
 
 /**
@@ -174,6 +193,24 @@ void GuiImage::SetStripe(int s)
 	stripe = s;
 }
 
+void GuiImage::SetImageColor(GXColor * c, int colorCount)
+{
+    LOCK(this);
+
+    for(int i = 0; i < colorCount; i++)
+        color[i] = c[i];
+}
+
+void GuiImage::SetSize(int w, int h)
+{
+    if(imgType != IMAGE_COLOR && imgType != IMAGE_MULTICOLOR)
+        return;
+
+    LOCK(this);
+    width = w;
+    height = h;
+}
+
 void GuiImage::SetWidescreen(bool w)
 {
     LOCK(this);
@@ -265,7 +302,11 @@ void GuiImage::Draw()
     }
     else if(imgType == IMAGE_COLOR)
     {
-        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, color,1);
+        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, (GXColor *) &color, false, true);
+    }
+    else if(imgType == IMAGE_MULTICOLOR)
+    {
+        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, (GXColor *) &color, true, true);
     }
 	else
 	{
@@ -274,8 +315,11 @@ void GuiImage::Draw()
 	}
 
 	if(stripe > 0)
+	{
+		GXColor stripeColor = (GXColor) {0, 0, 0, stripe};
 		for(int y=0; y < this->GetHeight(); y+=6)
-			Menu_DrawRectangle(currLeft, this->GetTop()+y, GetZPosition(), this->GetWidth(), 3, (GXColor){0, 0, 0, stripe}, 1);
+			Menu_DrawRectangle(currLeft, this->GetTop()+y, GetZPosition(), this->GetWidth(), 3, &stripeColor, false, true);
+	}
 
 	this->UpdateEffects();
 }

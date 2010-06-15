@@ -61,8 +61,8 @@ int MenuNetworkSettings()
 	GuiText updateBtnTxt(tr("Update App"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage updateBtnImg(btnOutline);
 	GuiButton updateBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	updateBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	updateBtn.SetPosition(-50, -65);
+	updateBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	updateBtn.SetPosition(100+btnOutline->GetWidth()/2, -65);
 	updateBtn.SetLabel(&updateBtnTxt);
 	updateBtn.SetImage(&updateBtnImg);
 	updateBtn.SetSoundOver(btnSoundOver);

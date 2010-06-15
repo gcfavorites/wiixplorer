@@ -76,6 +76,8 @@ void Settings::SetDefault()
     DeleteTempPath = 1;
     CopyThreadPrio = 100;
     CopyThreadBackPrio = 30;
+    Rumble = 1;
+    HideSystemFiles = 1;
     PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
@@ -108,6 +110,24 @@ void Settings::SetDefault()
 
     FileExtensions.SetDefault();
     Controls.SetDefault();
+
+    DefaultColors();
+}
+
+void Settings::DefaultColors()
+{
+    BackgroundUL = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
+    BackgroundUR = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
+    BackgroundBR = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
+    BackgroundBL = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
+    ProgressUL = GXCOLORTORGBA(((GXColor){239, 28, 28, 255}));
+    ProgressUR = GXCOLORTORGBA(((GXColor){79, 153, 239, 255}));
+    ProgressBR = GXCOLORTORGBA(((GXColor){59, 159, 223, 255}));
+    ProgressBL = GXCOLORTORGBA(((GXColor){199, 71, 99, 255}));
+    ProgressEmptyUL = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
+    ProgressEmptyUR = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
+    ProgressEmptyBR = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
+    ProgressEmptyBL = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
 }
 
 bool Settings::Save()
@@ -181,6 +201,8 @@ bool Settings::Save()
 	fprintf(file, "DeleteTempPath = %d\n", DeleteTempPath);
 	fprintf(file, "CopyThreadPrio = %d\n", CopyThreadPrio);
 	fprintf(file, "CopyThreadBackPrio = %d\n", CopyThreadBackPrio);
+	fprintf(file, "Rumble = %d\n", Rumble);
+	fprintf(file, "HideSystemFiles = %d\n", HideSystemFiles);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -193,6 +215,20 @@ bool Settings::Save()
 	fprintf(file, "FileExtensions.WiiBinaryFiles = %s\n", FileExtensions.GetWiiBinary());
 	fprintf(file, "FileExtensions.PDFFiles = %s\n", FileExtensions.GetPDF());
 	fprintf(file, "FileExtensions.WiiXplorerMovies = %s\n", FileExtensions.GetWiiXplorerMovies());
+
+	fprintf(file, "\n# Color Settings.\n\n");
+	fprintf(file, "BackgroundUL = %u\n", BackgroundUL);
+	fprintf(file, "BackgroundUR = %u\n", BackgroundUR);
+	fprintf(file, "BackgroundBR = %u\n", BackgroundBR);
+	fprintf(file, "BackgroundBL = %u\n", BackgroundBL);
+	fprintf(file, "ProgressUL = %u\n", ProgressUL);
+	fprintf(file, "ProgressUR = %u\n", ProgressUR);
+	fprintf(file, "ProgressBR = %u\n", ProgressBR);
+	fprintf(file, "ProgressBL = %u\n", ProgressBL);
+	fprintf(file, "ProgressEmptyUL = %u\n", ProgressEmptyUL);
+	fprintf(file, "ProgressEmptyUR = %u\n", ProgressEmptyUR);
+	fprintf(file, "ProgressEmptyBR = %u\n", ProgressEmptyBR);
+	fprintf(file, "ProgressEmptyBL = %u\n", ProgressEmptyBL);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -626,6 +662,66 @@ bool Settings::SetSetting(char *name, char *value)
 		if (sscanf(value, "%d", &i) == 1) {
 			CopyThreadBackPrio = i;
 		}
+		return true;
+	}
+	else if (strcmp(name, "Rumble") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			Rumble = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "HideSystemFiles") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			HideSystemFiles = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "BackgroundUL") == 0) {
+		sscanf(value, "%u", &BackgroundUL);
+		return true;
+	}
+	else if (strcmp(name, "BackgroundUR") == 0) {
+		sscanf(value, "%u", &BackgroundUR);
+		return true;
+	}
+	else if (strcmp(name, "BackgroundBR") == 0) {
+		sscanf(value, "%u", &BackgroundBR);
+		return true;
+	}
+	else if (strcmp(name, "BackgroundBL") == 0) {
+		sscanf(value, "%u", &BackgroundBL);
+		return true;
+	}
+	else if (strcmp(name, "ProgressUL") == 0) {
+		sscanf(value, "%u", &ProgressUL);
+		return true;
+	}
+	else if (strcmp(name, "ProgressUR") == 0) {
+		sscanf(value, "%u", &ProgressUR);
+		return true;
+	}
+	else if (strcmp(name, "ProgressBR") == 0) {
+		sscanf(value, "%u", &ProgressBR);
+		return true;
+	}
+	else if (strcmp(name, "ProgressLR") == 0) {
+		sscanf(value, "%u", &ProgressBL);
+		return true;
+	}
+	else if (strcmp(name, "ProgressEmptyUL") == 0) {
+		sscanf(value, "%u", &ProgressEmptyUL);
+		return true;
+	}
+	else if (strcmp(name, "ProgressEmptyUR") == 0) {
+		sscanf(value, "%u", &ProgressEmptyUR);
+		return true;
+	}
+	else if (strcmp(name, "ProgressEmptyBR") == 0) {
+		sscanf(value, "%u", &ProgressEmptyBR);
+		return true;
+	}
+	else if (strcmp(name, "ProgressEmptyBL") == 0) {
+		sscanf(value, "%u", &ProgressEmptyBL);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.VideoFiles") == 0) {

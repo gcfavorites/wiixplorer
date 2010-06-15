@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 09:17+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -68,6 +68,21 @@ msgstr "返回"
 
 msgid "Back Button"
 msgstr "退後按鈕"
+
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "啟動設定"
@@ -156,6 +171,9 @@ msgstr "關閉"
 
 msgid "Coders:"
 msgstr "程式設計師："
+
+msgid "Color Settings"
+msgstr ""
 
 msgid "Compressed Size:"
 msgstr "壓縮大小："
@@ -344,6 +362,9 @@ msgstr "是否要重新掛載這裝置？"
 msgid "Do you want to replace this file?"
 msgstr "是否要取代這檔案？"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "是否要重置控制台設定值？"
 
@@ -367,9 +388,6 @@ msgstr "完成"
 
 msgid "Down Button"
 msgstr "向下按鈕"
-
-msgid "Download Files"
-msgstr "下載檔案"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -583,6 +601,18 @@ msgstr "使用更新日誌 ..."
 msgid "Go Back"
 msgstr "返回"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr "Homebrew 按鈕"
 
@@ -609,6 +639,9 @@ msgstr "您希望如何進行？"
 
 msgid "Icon Mode"
 msgstr "圖示模式"
+
+msgid "Idle"
+msgstr ""
 
 msgid "Image Converter"
 msgstr "圖片轉換"
@@ -709,6 +742,9 @@ msgstr "重複播放"
 msgid "Loop Playlist"
 msgstr "重複播放清單"
 
+msgid "Low"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路徑"
 
@@ -779,6 +815,9 @@ msgstr "沒有新的更新可用"
 msgid "No to all"
 msgstr "全部都否"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "不是有效的URL"
 
@@ -787,9 +826,6 @@ msgstr "不是有效的URL路徑"
 
 msgid "Not a valid domain"
 msgstr "不是有效的網域名稱"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "沒有足夠記憶體改變大小。"
@@ -872,29 +908,42 @@ msgstr "無法支援的格式。"
 msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "內容取消。"
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "內容"
 
 msgid "QWERTYUIOP{}|"
 msgstr "QWERTYUIOP{}|"
+
+#, c-format
+msgid "R: %i G: %i B: %i"
+msgstr ""
 
 msgid "Random"
 msgstr "隨機播放"
@@ -910,6 +959,9 @@ msgstr "重新連接FTP"
 
 msgid "Reconnect SMB"
 msgstr "重新連接SMB網路共享"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "重新載入"
@@ -934,6 +986,9 @@ msgstr "向右按鈕"
 
 msgid "Rotate"
 msgstr "旋轉"
+
+msgid "Rumble"
+msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr ""
@@ -1114,6 +1169,9 @@ msgstr "路徑變更完成"
 msgid "Update to Rev%i available"
 msgstr "更新到 Rev%i 可用的"
 
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
+
 msgid "Username:"
 msgstr "使用者名稱："
 
@@ -1260,6 +1318,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Download Files"
+#~ msgstr "下載檔案"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "匯出第一個開啟項目。"

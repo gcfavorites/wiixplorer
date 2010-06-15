@@ -136,6 +136,7 @@ InitVideo ()
 
     if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
     {
+		screenwidth = 768;
         vmode->fbWidth = 640;
         vmode->efbHeight = 456;
         vmode->viWidth = 686;
@@ -575,7 +576,7 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
  *
  * Draws a rectangle at the specified coordinates using GX
  ***************************************************************************/
-void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor color, u8 filled)
+void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * color, bool multicolor, bool filled)
 {
     u8 fmt = GX_TRIANGLEFAN;
 	long n = 4;
@@ -593,7 +594,11 @@ void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor colo
 	for(long i=0; i<n; ++i)
 	{
 		GX_Position3f32(v[i].x, v[i].y,  v[i].z);
-		GX_Color4u8(color.r, color.g, color.b, color.a);
+
+		if(multicolor)
+            GX_Color4u8(color[i].r, color[i].g, color[i].b, color[i].a);
+        else
+            GX_Color4u8(color[0].r, color[0].g, color[0].b, color[0].a);
 	}
 	GX_End();
 }

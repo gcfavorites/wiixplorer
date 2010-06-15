@@ -66,7 +66,6 @@ class Taskbar : public GuiWindow
 		int CheckStartMenu();
 		void CheckAppsMenu();
 		void CheckChannelsMenu();
-		void ShowMusicPlayer();
 
 		static Taskbar *instance;
 

@@ -40,7 +40,7 @@ class PromptWindow : public GuiWindow
         int GetChoice();
         void SetTitle(const char *title);
         void SetMessage(const char *msg);
-    private:
+    protected:
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
         int choice;

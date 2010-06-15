@@ -1,4 +1,4 @@
- /****************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,21 +23,28 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef MENU_SETTINGS_H_
-#define MENU_SETTINGS_H_
+#ifndef COLORSETPROMPT_H
+#define COLORSETPROMPT_H
 
-int MenuSettings();
-int MenuExplorerSettings();
-int MenuSoundSettings();
-int MenuImageSettings();
-int MenuBootSettings();
-int MenuPathSetup();
-int MenuNetworkSettings();
-int MenuSMBSettings();
-int MenuFTPClientSettings();
-int MenuFTPServerSettings();
-int MenuFileExtensions();
-int MenuControlsSettings();
-int MenuColorSettings();
+#include "Prompts/PromptWindows.h"
+#include "libwiigui/gui_arrowoption.h"
+
+class ColorSetPrompt : public PromptWindow
+{
+    public:
+        ColorSetPrompt(const char * title, GXColor * c, int pos);
+        void ShowPrompt();
+    protected:
+        void UpdateOptionValues();
+        void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
+        void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
+        void OnOptionButtonClick(GuiElement *sender, int pointer, POINT p);
+
+        int ColorPos;
+        int ColorChange;
+        GXColor OrigColor[4];
+        GXColor * color;
+        GuiArrowOption arrowOption;
+};
 
 #endif

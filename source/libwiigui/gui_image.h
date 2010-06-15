@@ -33,6 +33,7 @@ enum
 {
 	IMAGE_TEXTURE,
 	IMAGE_COLOR,
+	IMAGE_MULTICOLOR,
 	IMAGE_DATA
 };
 
@@ -57,6 +58,12 @@ class GuiImage : public GuiElement
 		//!\param h Image height
 		//!\param c Image color
 		GuiImage(int w, int h, GXColor c);
+		//!\overload
+		//!Creates an image filled with multiple colors
+		//!\param w Image width
+		//!\param h Image height
+		//!\param c Image color
+		GuiImage(int w, int h, GXColor * c);
 		//!Destructor
 		~GuiImage();
 		//!Gets the image rotation angle for drawing
@@ -100,6 +107,12 @@ class GuiImage : public GuiElement
 		//!Does not alter the image data
 		//!\param s Alpha amount to draw over the image
 		void SetStripe(int s);
+		//!Change ImageColor
+		void SetImageColor(GXColor * c, int colorCount = 1);
+		//!Change ImageColor
+		void SetSize(int w, int h);
+		//!Get the color pointer
+		GXColor * GetColorPtr() { return (GXColor *) &color; };
 		//!Set widescreenfix
 		void SetWidescreen(bool w);
 	protected:
@@ -110,7 +123,7 @@ class GuiImage : public GuiElement
 		int tileVertical; //!< Number of times to draw (tile) the image vertically
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
 		u8 format; //!< Texture format
-		GXColor color;
+		GXColor color[5];
 		bool widescreen;
 };
 

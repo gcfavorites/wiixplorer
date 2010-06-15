@@ -46,9 +46,6 @@ extern const u32	apps_png_size;
 extern const u8		channels_png[];
 extern const u32	channels_png_size;
 
-extern const u8		ftpserver_png[];
-extern const u32	ftpserver_png_size;
-
 extern const u8		settings_png[];
 extern const u32	settings_png_size;
 
@@ -60,9 +57,6 @@ extern const u32	start_over_png_size;
 
 extern const u8		WiiXplorer_png[];
 extern const u32	WiiXplorer_png_size;
-
-extern const u8		background_png[];
-extern const u32	background_png_size;
 
 extern const u8		network_png[];
 extern const u32	network_png_size;
@@ -195,12 +189,6 @@ extern const u32	maximize_dis_png_size;
 
 extern const u8		menu_selection_png[];
 extern const u32	menu_selection_png_size;
-
-extern const u8		progressbar_png[];
-extern const u32	progressbar_png_size;
-
-extern const u8		progressbar_empty_png[];
-extern const u32	progressbar_empty_png_size;
 
 extern const u8		progressbar_outline_png[];
 extern const u32	progressbar_outline_png_size;

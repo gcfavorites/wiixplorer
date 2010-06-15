@@ -43,7 +43,7 @@
 MusicPlayer * MusicPlayer::instance = NULL;
 
 MusicPlayer::MusicPlayer()
-    : GuiWindow(0, 0)
+    : GuiWindow(480, 216)
 {
     btnSoundOver = NULL;
     playerImgData = NULL;
@@ -68,6 +68,7 @@ MusicPlayer::MusicPlayer()
     CircleImageDelay = 0;
     DisplayGUI = false;
     Stopped = false;
+    PlaybackFinished = false;
     ExitRequested = false;
     MainSound = new GuiSound(bg_music_ogg, bg_music_ogg_size, false, 0);
 
@@ -75,18 +76,13 @@ MusicPlayer::MusicPlayer()
 
     currentPlaying = TitleList.FindFile(Settings.MusicPath);
     Play(currentPlaying);
-
-	LWP_CreateThread (&bgmthread, UpdateBMG, this, NULL, 16384, 0);
 }
 
 MusicPlayer::~MusicPlayer()
 {
     ExitRequested = true;
-
-    ResumeThread();
-    LWP_JoinThread(bgmthread, NULL);
-    bgmthread = LWP_THREAD_NULL;
-
+    if(parentElement)
+        ((GuiWindow *) parentElement)->Remove(this);
     Hide();
 
     if(MainSound)
@@ -109,16 +105,6 @@ void MusicPlayer::DestroyInstance()
         delete instance;
     }
     instance = NULL;
-}
-
-void MusicPlayer::ResumeThread()
-{
-    LWP_ResumeThread(bgmthread);
-}
-
-void MusicPlayer::HaltThread()
-{
-    LWP_SuspendThread(bgmthread);
 }
 
 bool MusicPlayer::LoadStandard()
@@ -285,10 +271,16 @@ bool MusicPlayer::PlayRandom()
 
 void MusicPlayer::Show()
 {
-    Setup();
-    TitleList.Show();
+    //!To append on top let's put it out of the list first
+    MainWindow::Instance()->HaltGui();
+    MainWindow::Instance()->Remove(this);
+    MainWindow::Instance()->ResumeGui();
+	MainWindow::Instance()->SetState(STATE_DISABLED);
+	MainWindow::Instance()->SetDim(true);
+    InternalSetup();
     SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_IN, 40);
     MainWindow::Instance()->Append(this);
+
     DisplayGUI = true;
     int choice = -1;
 
@@ -358,6 +350,8 @@ void MusicPlayer::Show()
 
     Hide();
     TitleList.Hide();
+	MainWindow::Instance()->SetDim(false);
+	MainWindow::Instance()->SetState(STATE_DEFAULT);
 }
 
 void MusicPlayer::Hide()
@@ -369,12 +363,9 @@ void MusicPlayer::Hide()
         while(this->GetEffect() > 0) usleep(100);
 
         MainWindow::Instance()->HaltGui();
-        if(parentElement)
-            ((GuiWindow *) parentElement)->Remove(this);
+        RemoveAll();
         MainWindow::Instance()->ResumeGui();
     }
-
-    RemoveAll();
 
     if(trigA)
         delete trigA;
@@ -442,7 +433,7 @@ void MusicPlayer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
 }
 
-void MusicPlayer::Setup()
+void MusicPlayer::InternalSetup()
 {
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
     trigB = new GuiTrigger();
@@ -455,6 +446,9 @@ void MusicPlayer::Setup()
     navi_downImgData = Resources::GetImageData(navi_down_png, navi_down_png_size);
     navi_leftImgData = Resources::GetImageData(navi_left_png, navi_left_png_size);
     navi_rightImgData = Resources::GetImageData(navi_right_png, navi_right_png_size);
+
+    width = playerImgData->GetWidth();
+    height = playerImgData->GetHeight();
 
     BackButton = new GuiButton(35, 40);
     BackButton->SetPosition(404, 115);
@@ -493,6 +487,7 @@ void MusicPlayer::Setup()
     else
         TitleList.SetPosition(90, 56-18*15);
 	TitleList.SetMaxHeight(GetTop()-175+TitleList.GetHeight());
+    TitleList.Show();
 
     Append(&TitleList);
     Append(BackgroundImg);
@@ -503,6 +498,9 @@ void MusicPlayer::Setup()
     Append(NextBtn);
     Append(PreviousBtn);
     Append(PlayTitle);
+
+    SetState(STATE_DEFAULT);
+    SetDim(false);
 }
 
 void MusicPlayer::Update(GuiTrigger * t)
@@ -515,36 +513,26 @@ void MusicPlayer::Update(GuiTrigger * t)
     }
 
     GuiWindow::Update(t);
-}
 
-void * MusicPlayer::UpdateBMG(void * arg)
-{
-	((MusicPlayer *) arg)->UpdateState();
-	return NULL;
-}
+    if(!PlaybackFinished)
+        return;
 
-void MusicPlayer::UpdateState()
-{
-    while(!ExitRequested)
+    if(!MainSound->IsPlaying() && !Stopped && !Paused)
     {
-        usleep(100);
-        HaltThread();
-
-        if(!MainSound->IsPlaying() && !Stopped && !Paused)
+        if(LoopMode > 0 && strcmp(Settings.MusicPath, "") == 0)
         {
-            if(LoopMode > 0 && strcmp(Settings.MusicPath, "") == 0)
-            {
-                //!Standard Music is always looped except on loop = 0
-                Play();
-            }
-            else if(LoopMode == PLAYLIST_LOOP)
-            {
-                PlayNext();
-            }
-            else if(LoopMode == RANDOM_MUSIC)
-            {
-                PlayRandom();
-            }
+            //!Standard Music is always looped except on loop = 0
+            Play();
         }
+        else if(LoopMode == PLAYLIST_LOOP)
+        {
+            PlayNext();
+        }
+        else if(LoopMode == RANDOM_MUSIC)
+        {
+            PlayRandom();
+        }
+
+        PlaybackFinished = false;
     }
 }

@@ -102,6 +102,7 @@ int LanguageBrowser()
 
 	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
 	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
+	GuiImageData * btnNetworkData = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -109,8 +110,8 @@ int LanguageBrowser()
 	GuiText backBtnTxt(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage backBtnImg(btnOutline);
 	GuiButton backBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	backBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backBtn.SetPosition(50, -90);
+	backBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	backBtn.SetPosition(-105-btnOutline->GetWidth()/2, -65);
 	backBtn.SetLabel(&backBtnTxt);
 	backBtn.SetImage(&backBtnImg);
 	backBtn.SetSoundOver(btnSoundOver);
@@ -120,39 +121,37 @@ int LanguageBrowser()
 	GuiText DefaultBtnTxt(tr("Default"), 18, (GXColor){0, 0, 0, 255});
 	GuiImage DefaultBtnImg(btnOutline);
 	GuiButton DefaultBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	DefaultBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	DefaultBtn.SetPosition(-50, -90);
+	DefaultBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	DefaultBtn.SetPosition(100+btnOutline->GetWidth()/2, -65);
 	DefaultBtn.SetLabel(&DefaultBtnTxt);
 	DefaultBtn.SetImage(&DefaultBtnImg);
 	DefaultBtn.SetSoundOver(btnSoundOver);
 	DefaultBtn.SetTrigger(&trigA);
 	DefaultBtn.SetEffectGrow();
 
-	GuiText DownloadBtnTxt(tr("Download Files"), 18, (GXColor){0, 0, 0, 255});
-	GuiImage DownloadBtnImg(btnOutline);
-	GuiButton DownloadBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	DownloadBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-	DownloadBtn.SetPosition(0, -65);
-	DownloadBtn.SetLabel(&DownloadBtnTxt);
+	GuiOptionBrowser optionBrowser(584, 248, &options);
+	optionBrowser.SetPosition(0, 100);
+	optionBrowser.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+
+	GuiText titleTxt(tr("Language Settings"), 24, (GXColor){0, 0, 0, 255});
+	titleTxt.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	titleTxt.SetPosition(-optionBrowser.GetWidth()/2+titleTxt.GetTextWidth()/2+20, optionBrowser.GetTop()-35);
+
+	GuiImage DownloadBtnImg(btnNetworkData);
+	GuiButton DownloadBtn(btnNetworkData->GetWidth(), btnNetworkData->GetHeight());
+	DownloadBtn.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	DownloadBtn.SetPosition(optionBrowser.GetWidth()/2-60, optionBrowser.GetTop()-40);
 	DownloadBtn.SetImage(&DownloadBtnImg);
 	DownloadBtn.SetSoundOver(btnSoundOver);
 	DownloadBtn.SetTrigger(&trigA);
 	DownloadBtn.SetEffectGrow();
 
-	GuiOptionBrowser optionBrowser(584, 248, &options);
-	optionBrowser.SetPosition(30, 60);
-	optionBrowser.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-
-	GuiText titleTxt(tr("Language Settings"), 24, (GXColor){0, 0, 0, 255});
-	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt.SetPosition(50, optionBrowser.GetTop()-35);
-
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&DefaultBtn);
-	w.Append(&DownloadBtn);
 	w.Append(&optionBrowser);
+	w.Append(&DownloadBtn);
 	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
@@ -181,7 +180,7 @@ int LanguageBrowser()
 		else if(DefaultBtn.GetState() == STATE_CLICKED)
 		{
 			DefaultBtn.ResetState();
-			int choice = WindowPrompt(0, tr("Do you want to load the default language."), tr("Console Default"), tr("App Default"), tr("Cancel"));
+			int choice = WindowPrompt(tr("Updating/Downloading Languagefiles."), tr("Do you want to load the default language."), tr("Console Default"), tr("App Default"), tr("Cancel"));
             if(choice)
             {
                 if(choice == 1)
@@ -239,6 +238,7 @@ int LanguageBrowser()
 	MainWindow::Instance()->Remove(&w);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
+	Resources::Remove(btnNetworkData);
 	ResumeGui();
 
 	return menu;

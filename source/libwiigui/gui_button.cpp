@@ -306,7 +306,7 @@ void GuiButton::Update(GuiTrigger * t)
 	{
 		if(this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
 		{
-			if(state == STATE_DEFAULT) // we weren't on the button before!
+			if(state == STATE_DEFAULT || (state == STATE_SELECTED && t->chan != stateChan)) // we weren't on the button before!
 			{
 				this->SetState(STATE_SELECTED, t->chan);
 
@@ -333,13 +333,13 @@ void GuiButton::Update(GuiTrigger * t)
 			if(state == STATE_SELECTED && (stateChan == t->chan || stateChan == -1))
 				this->ResetState();
 
-			if(effectTarget == effectTargetOver && effectAmount == effectAmountOver)
-			{
-				// initiate effects (in reverse)
-				effects = effectsOver;
-				effectAmount = -effectAmountOver;
-				effectTarget = 100;
-			}
+            if(effectTarget == effectTargetOver && effectAmount == effectAmountOver)
+            {
+                // initiate effects (in reverse)
+                effects = effectsOver;
+                effectAmount = -effectAmountOver;
+                effectTarget = 100;
+            }
 		}
 	}
 	#endif
@@ -348,7 +348,7 @@ void GuiButton::Update(GuiTrigger * t)
 	if(this->IsClickable())
 	{
 		s32 wm_btns, wm_btns_trig, cc_btns, cc_btns_trig;
-		for(int i=0; i<2; i++)
+		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
@@ -360,8 +360,7 @@ void GuiButton::Update(GuiTrigger * t)
 				cc_btns = t->wpad->btns_d >> 16;
 				cc_btns_trig = trigger[i]->wpad->btns_d >> 16;
 
-				if(
-					(t->wpad->btns_d > 0 &&
+				if( (t->wpad->btns_d > 0 &&
 					(wm_btns == wm_btns_trig ||
 					(cc_btns == cc_btns_trig && t->wpad->exp.type == EXP_CLASSIC))) ||
 					(t->pad.btns_d == trigger[i]->pad.btns_d && t->pad.btns_d > 0))
@@ -370,7 +369,7 @@ void GuiButton::Update(GuiTrigger * t)
 					{
 						if(state == STATE_SELECTED)
 						{
-							if(!t->wpad->ir.valid ||	this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+							if(!t->wpad->ir.valid || this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
 							{
 								this->SetState(STATE_CLICKED, t->chan);
 
@@ -393,7 +392,7 @@ void GuiButton::Update(GuiTrigger * t)
 		bool held = false;
 		s32 wm_btns, wm_btns_h, wm_btns_trig, cc_btns, cc_btns_h, cc_btns_trig;
 
-		for(int i=0; i<2; i++)
+		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{

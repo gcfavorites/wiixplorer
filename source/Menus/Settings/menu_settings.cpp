@@ -50,6 +50,7 @@ int MenuSettings()
 	options.SetName(i++, tr("File Extensions"));
 	options.SetName(i++, tr("Controls Settings"));
 	options.SetName(i++, tr("Path Setup"));
+	options.SetName(i++, tr("Color Settings"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Settings"), &options, MENU_BROWSE_DEVICE);
 
@@ -63,8 +64,8 @@ int MenuSettings()
 	GuiText resetBtnTxt(tr("Reset"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(btnOutline);
 	GuiButton resetBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	resetBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	resetBtn.SetPosition(-50, -65);
+	resetBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	resetBtn.SetPosition(100+btnOutline->GetWidth()/2, -65);
 	resetBtn.SetLabel(&resetBtnTxt);
 	resetBtn.SetImage(&resetBtnImg);
 	resetBtn.SetSoundOver(btnSoundOver);
@@ -130,6 +131,9 @@ int MenuSettings()
             case 9:
                 menu = MENU_PATH_SETUP;
 				break;
+            case 10:
+                menu = MENU_COLOR_SETTINGS;
+				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -160,6 +164,8 @@ int MenuSettings()
                 options.SetValue(i++, tr("12H"));
             else
                 options.SetValue(i++, tr("24H"));
+
+            options.SetValue(i++, " ");
 
             options.SetValue(i++, " ");
 

@@ -87,7 +87,7 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
     btn1->SetSoundOver(btnSoundOver);
     btn1->SetSoundClick(btnClick);
     btn1->SetTrigger(trigA);
-    btn1->SetState(STATE_SELECTED);
+    btn1->SetState(STATE_SELECTED, -1);
     btn1->SetEffectGrow();
 	btn1->Clicked.connect(this, &PromptWindow::OnButtonClick);
 
@@ -206,7 +206,6 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 		MainWindow::Instance()->SetState(STATE_DISABLED);
 		MainWindow::Instance()->SetDim(true);
 	}
-	this->SetState(STATE_DEFAULT);
 }
 
 PromptWindow::~PromptWindow()

@@ -48,8 +48,6 @@
 #include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
 
-#define GUI_STACK_SIZE  (32*1024)
-
 MainWindow *MainWindow::instance = NULL;
 
 MainWindow::MainWindow()
@@ -59,14 +57,8 @@ MainWindow::MainWindow()
 	exitApplication = false;
 	guithread = LWP_THREAD_NULL;
 
-	StackBuffer = (u8 *) memalign(32, GUI_STACK_SIZE);
-
 	//!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, this, StackBuffer, GUI_STACK_SIZE, LWP_PRIO_HIGHEST);
-
-	//!Initialize the progress thread
-	InitProgressThread();
-	StopProgress();
+	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 32*1024, LWP_PRIO_HIGHEST);
 
 	//!Initialize the i/o hanlde thread
 	IOHandler::Instance();
@@ -82,26 +74,31 @@ MainWindow::MainWindow()
         ResumeNetworkThread();
     }
 
-	bgImgData = Resources::GetImageData(background_png, background_png_size);
-    bgImg = new GuiImage(bgImgData);
+    GXColor ImgColor[4];
+    ImgColor[0] = RGBATOGXCOLOR(Settings.BackgroundUL);
+    ImgColor[1] = RGBATOGXCOLOR(Settings.BackgroundUR);
+    ImgColor[2] = RGBATOGXCOLOR(Settings.BackgroundBR);
+    ImgColor[3] = RGBATOGXCOLOR(Settings.BackgroundBL);
+
+    bgImg = new GuiImage(screenwidth, screenheight, (GXColor *) &ImgColor);
 	Append(bgImg);
 
 	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
 	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
-	MusicPlayer::Instance()->SetPosition(195, 230);
+	MusicPlayer::Instance()->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	MusicPlayer::Instance()->SetPosition(30, 230);
+	Append(MusicPlayer::Instance());
 
 	standardPointer[0] = new GuiImageData(player1_point_png, player1_point_png_size);
 	standardPointer[1] = new GuiImageData(player2_point_png, player2_point_png_size);
 	standardPointer[2] = new GuiImageData(player3_point_png, player3_point_png_size);
 	standardPointer[3] = new GuiImageData(player4_point_png, player4_point_png_size);
 
-	grabPointer[0] = new GuiImageData(player1_grab_png, player1_grab_png_size);
-	grabPointer[1] = new GuiImageData(player2_grab_png, player2_grab_png_size);
-	grabPointer[2] = new GuiImageData(player3_grab_png, player3_grab_png_size);
-	grabPointer[3] = new GuiImageData(player4_grab_png, player4_grab_png_size);
-
 	for (int i = 0; i < 4; i++)
+	{
+		grabPointer[i] = NULL;
 		pointer[i] = standardPointer[i];
+	}
 
 	Append(Taskbar::Instance());
 }
@@ -109,12 +106,7 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow()
 {
 	Quit();
-
 	RemoveAll();
-
-	delete bgImg;
-
-	Resources::Remove(bgImgData);
 
 	Taskbar::DestroyInstance();
 	MusicPlayer::DestroyInstance();
@@ -122,10 +114,14 @@ MainWindow::~MainWindow()
 	Channels::DestroyInstance();
 	Applications::DestroyInstance();
 	IOHandler::DestroyInstance();
+    ProgressWindow::DestroyInstance();
+
+	delete bgImg;
 
 	for (int i = 0; i < 4; i++)
 	{
-		delete grabPointer[i];
+	    if(grabPointer[i])
+            delete grabPointer[i];
 		delete standardPointer[i];
 	}
 }
@@ -148,23 +144,10 @@ void MainWindow::DestroyInstance()
     instance = NULL;
 }
 
-void MainWindow::Append(GuiElement *e)
-{
-    GuiWindow::Append(e);
-}
-
-void MainWindow::Append(GuiWindow *w)
-{
-    GuiWindow::Append(w);
-}
-
 void MainWindow::Quit()
 {
 	if (!exitApplication)
 	{
-	    //shutdown progress thread
-	    ExitProgressThread();
-
 		// Exit the application if this function is called...
 		exitApplication = true;
 
@@ -172,25 +155,14 @@ void MainWindow::Quit()
 		LWP_JoinThread(guithread, NULL);
 		guithread = LWP_THREAD_NULL;
 
-        if(StackBuffer)
-            free(StackBuffer);
-
 		// Fade out...
 		for(int i = 0; i <= 255; i += 15)
 		{
 			Draw();
-			Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, (GXColor){0, 0, 0, i},1);
+            GXColor fadeoutColor = (GXColor){0, 0, 0, i};
+			Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, &fadeoutColor, false, true);
 			Menu_Render();
 		}
-
-		// Close all windows
-		for (std::list<GuiWindow *>::iterator itr = windows.begin(); itr != windows.end(); itr++)
-		{
-			if (*itr != NULL) {
-				Remove(*itr);
-			}
-		}
-		windows.clear();
 	}
 }
 
@@ -198,11 +170,6 @@ void MainWindow::Show()
 {
     ResumeGui();
     MainMenu(MENU_BROWSE_DEVICE);
-}
-
-void MainWindow::AddWindow(GuiWindow *window)
-{
-	Append(window);
 }
 
 void MainWindow::SetGuiPriority(int prio)
@@ -247,7 +214,6 @@ void MainWindow::InternalUpdateGUI()
         UpdatePads();
 		Draw();
 
-		#ifdef HW_RVL
 		for (int i = 3; i >= 0; i--)
 		{
 			if (userInput[i].wpad->ir.valid)
@@ -259,7 +225,6 @@ void MainWindow::InternalUpdateGUI()
 							 userInput[i].wpad->ir.angle, 1, 1, 255, -100, screenwidth, -100, screenheight);
 			}
 		}
-		#endif
 
 		Menu_Render();
 
@@ -275,6 +240,18 @@ void MainWindow::SetGrabPointer(int i)
 	if (i < 0 || i > 3)
 		return;
 
+    if(!grabPointer[i])
+    {
+        if(i == 0)
+            grabPointer[i] = new GuiImageData(player1_grab_png, player1_grab_png_size);
+        else if(i == 1)
+            grabPointer[i] = new GuiImageData(player2_grab_png, player2_grab_png_size);
+        else if(i == 2)
+            grabPointer[i] = new GuiImageData(player3_grab_png, player3_grab_png_size);
+        else
+            grabPointer[i] = new GuiImageData(player4_grab_png, player4_grab_png_size);
+    }
+
 	pointer[i] = grabPointer[i];
 }
 
@@ -284,4 +261,8 @@ void MainWindow::ResetPointer(int i)
 		return;
 
 	pointer[i] = standardPointer[i];
+
+    if(grabPointer[i])
+        delete grabPointer[i];
+	grabPointer[i] = NULL;
 }

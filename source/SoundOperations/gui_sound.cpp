@@ -68,7 +68,7 @@ extern "C" void SoundCallback(s32 voice)
     {
         ASND_StopVoice(voice);
         if(voice == 0)
-            MusicPlayer::Instance()->ResumeThread(); //see if next music must be played
+            MusicPlayer::Instance()->SetPlaybackFinished(true); //see if next music must be played
     }
     else
     {

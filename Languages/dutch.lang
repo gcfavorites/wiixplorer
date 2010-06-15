@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 09:17+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -68,6 +68,21 @@ msgid "Back"
 msgstr ""
 
 msgid "Back Button"
+msgstr ""
+
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
 msgstr ""
 
 msgid "Boot Settings"
@@ -157,6 +172,9 @@ msgstr ""
 
 msgid "Coders:"
 msgstr "Codering:"
+
+msgid "Color Settings"
+msgstr ""
 
 msgid "Compressed Size:"
 msgstr ""
@@ -345,6 +363,9 @@ msgstr ""
 msgid "Do you want to replace this file?"
 msgstr ""
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr ""
 
@@ -367,9 +388,6 @@ msgid "Done"
 msgstr ""
 
 msgid "Down Button"
-msgstr ""
-
-msgid "Download Files"
 msgstr ""
 
 #, c-format
@@ -584,6 +602,18 @@ msgstr ""
 msgid "Go Back"
 msgstr "Terug"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr ""
 
@@ -609,6 +639,9 @@ msgid "How do you want to proceed?"
 msgstr ""
 
 msgid "Icon Mode"
+msgstr ""
+
+msgid "Idle"
 msgstr ""
 
 msgid "Image Converter"
@@ -710,6 +743,9 @@ msgstr ""
 msgid "Loop Playlist"
 msgstr ""
 
+msgid "Low"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr ""
 
@@ -780,6 +816,9 @@ msgstr ""
 msgid "No to all"
 msgstr ""
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr ""
 
@@ -787,9 +826,6 @@ msgid "Not a valid URL path"
 msgstr ""
 
 msgid "Not a valid domain"
-msgstr ""
-
-msgid "Not enough memory 2."
 msgstr ""
 
 msgid "Not enough memory to resize."
@@ -873,28 +909,41 @@ msgstr ""
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
+msgstr ""
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
 msgstr ""
 
 msgid "Properties"
 msgstr "Eigenschappen"
 
 msgid "QWERTYUIOP{}|"
+msgstr ""
+
+#, c-format
+msgid "R: %i G: %i B: %i"
 msgstr ""
 
 msgid "Random"
@@ -911,6 +960,9 @@ msgstr ""
 
 msgid "Reconnect SMB"
 msgstr "SMB Herverbinden"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr ""
@@ -934,6 +986,9 @@ msgid "Right Button"
 msgstr ""
 
 msgid "Rotate"
+msgstr ""
+
+msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
@@ -1113,6 +1168,9 @@ msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
+msgstr ""
+
+msgid "Updating/Downloading Languagefiles."
 msgstr ""
 
 msgid "Username:"

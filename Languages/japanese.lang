@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 10:57+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -69,6 +69,21 @@ msgstr ""
 msgid "Back Button"
 msgstr "戻るボタン"
 
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
 msgid "Boot Settings"
 msgstr "起動設定"
 
@@ -88,7 +103,7 @@ msgid "Browsing for font files must be done in the main browser."
 msgstr "メインブラウザでフォントを選択してください"
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "ファイルのCRCが一致しません(パスワードが間違っています)"
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
@@ -157,6 +172,9 @@ msgstr "とじる"
 msgid "Coders:"
 msgstr "制作:"
 
+msgid "Color Settings"
+msgstr ""
+
 msgid "Compressed Size:"
 msgstr "圧縮サイズ:"
 
@@ -182,10 +200,10 @@ msgid "Copy"
 msgstr "コピー"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "背景コピーのスレッドの優先度"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "コピーのスレッドの優先度"
 
 msgid "Copy current marked item(s)?"
 msgstr "選択されたアイテムをコピーしますか?"
@@ -230,7 +248,7 @@ msgid "Credits"
 msgstr "提供･協力"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "プロセスが動作中です"
 
 msgid "Customfont Path"
 msgstr "フォントのパス"
@@ -248,7 +266,7 @@ msgid "Delete"
 msgstr "削除"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "終了時に一時フォルダを削除する"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "選択されたアイテムと中身を削除しますか?"
@@ -278,7 +296,7 @@ msgid "Disconnect SMB"
 msgstr "SMBを切断"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "キューにこの貼り付けを追加しますか?"
 
 msgid "Do you want to boot file now?"
 msgstr "今すぐ起動しますか?"
@@ -344,6 +362,9 @@ msgstr "デバイスをリマウントしますか?"
 msgid "Do you want to replace this file?"
 msgstr "このファイルを置き換えますか?"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "操作設定を初期化しますか?"
 
@@ -367,9 +388,6 @@ msgstr "完了"
 
 msgid "Down Button"
 msgstr "下ボタン"
-
-msgid "Download Files"
-msgstr "ファイルをダウンロード"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -409,7 +427,7 @@ msgid "Extract All"
 msgstr "すべて解凍"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "一時フォルダに解凍して実行しますか?"
 
 msgid "Extract full archive?"
 msgstr "すべて解凍しますか?"
@@ -583,6 +601,18 @@ msgstr "更新履歴を受信しています･･･"
 msgid "Go Back"
 msgstr "戻る"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr "高"
+
+msgid "Highest"
+msgstr "最高"
+
 msgid "Home Button"
 msgstr "HOMEボタン"
 
@@ -609,6 +639,9 @@ msgstr "何をしますか?"
 
 msgid "Icon Mode"
 msgstr "アイコン表示"
+
+msgid "Idle"
+msgstr "アイドル"
 
 msgid "Image Converter"
 msgstr "画像を変換"
@@ -692,7 +725,7 @@ msgid "Listening on TCP port"
 msgstr "TCPポートを待ち受け中"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "ファイルをリスト化中:"
 
 msgid "Load Music to Memory"
 msgstr "メモリに読み込む"
@@ -708,6 +741,9 @@ msgstr "ループ"
 
 msgid "Loop Playlist"
 msgstr "再生リストをループ"
+
+msgid "Low"
+msgstr "低"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCEのパス"
@@ -725,7 +761,7 @@ msgid "Menu"
 msgstr "Wiiメニューへ"
 
 msgid "Minimize"
-msgstr ""
+msgstr "最小化"
 
 msgid "Mount NTFS"
 msgstr "NTFSのマウント"
@@ -779,6 +815,9 @@ msgstr "更新はありません"
 msgid "No to all"
 msgstr "全ていいえ"
 
+msgid "Normal"
+msgstr "普通"
+
 msgid "Not a valid URL"
 msgstr "URLが正しくありません"
 
@@ -787,9 +826,6 @@ msgstr "URLのパスが正しくありません"
 
 msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "リサイズするためのメモリが足りません"
@@ -872,28 +908,41 @@ msgstr "対応していない形式です"
 msgid "Press Startup FTP to start the server on port"
 msgstr "ポートのサーバーを開始するためFTPを開始してください"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "キャンセルしました"
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "プロパティ"
 
 msgid "QWERTYUIOP{}|"
+msgstr ""
+
+#, c-format
+msgid "R: %i G: %i B: %i"
 msgstr ""
 
 msgid "Random"
@@ -910,6 +959,9 @@ msgstr "FTPに再接続"
 
 msgid "Reconnect SMB"
 msgstr "SMBに再接続"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "再読み込み"
@@ -935,8 +987,11 @@ msgstr "右ボタン"
 msgid "Rotate"
 msgstr "回転"
 
-msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgid "Rumble"
 msgstr ""
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr "映像の再生はアプリに負荷がかかりますが続行しますか?"
 
 msgid "SMB Name:"
 msgstr "SMB名"
@@ -1021,7 +1076,7 @@ msgid "Startup FTP"
 msgstr "FTPを開始"
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "一時フォルダパス"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "バッファサイズが大きすぎです。この後このアプリが起動しなければ設定ファイルを削除してください。"
@@ -1113,6 +1168,9 @@ msgstr "更新が完了しました"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新があります:Rev%i"
+
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
 
 msgid "Username:"
 msgstr "ユーザー名"
@@ -1260,6 +1318,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Download Files"
+#~ msgstr "ファイルをダウンロード"
+
+#~ msgid "Not enough memory 2."
+#~ msgstr "メモリ2が足りません"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "解凍してから開いてください"

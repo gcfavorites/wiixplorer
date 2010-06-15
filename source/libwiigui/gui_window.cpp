@@ -104,7 +104,10 @@ void GuiWindow::Draw()
 	this->UpdateEffects();
 
 	if(parentElement && dim == true)
-		Menu_DrawRectangle(0, 0, GetZPosition(), screenwidth,screenheight, (GXColor){0, 0, 0, 0x70},1);
+	{
+		GXColor dimColor = (GXColor){0, 0, 0, 0x70};
+		Menu_DrawRectangle(0, 0, GetZPosition(), screenwidth,screenheight, &dimColor, false, true);
+	}
 }
 
 void GuiWindow::ResetState()

@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# r168
+# r174
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
-"PO-Revision-Date: 2009-08-10 15:18+0200\n"
+"POT-Creation-Date: 2010-06-15 10:57+0200\n"
+"PO-Revision-Date: 2010-006-13 13:48+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -43,10 +43,10 @@ msgid "AppPath changed"
 msgstr "Pfad geändert"
 
 msgid "Apps"
-msgstr ""
+msgstr "Anwendungen"
 
 msgid "Apps Path"
-msgstr "Apps"
+msgstr "Anwendungspfad"
 
 msgid "Archive Files"
 msgstr "Archive"
@@ -69,6 +69,21 @@ msgstr "Zurück"
 msgid "Back Button"
 msgstr "Zurück"
 
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
 msgid "Boot Settings"
 msgstr "Bootvorgang"
 
@@ -88,7 +103,7 @@ msgid "Browsing for font files must be done in the main browser."
 msgstr "Schriftarten müssen im normalen Explorer ausgewählt werden."
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "CRC der entpackten Datei passt nicht. Falsches Passwort?"
 
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
@@ -121,7 +136,7 @@ msgid "Cannot write to the file."
 msgstr "Die Datei kann nicht geschrieben werden."
 
 msgid "Caps"
-msgstr ""
+msgstr "Großbuchstaben"
 
 msgid "Change"
 msgstr "Ändern"
@@ -152,10 +167,13 @@ msgid "Clock Mode"
 msgstr "Uhrformat"
 
 msgid "Close"
-msgstr "   Schließen"
+msgstr "Schließen"
 
 msgid "Coders:"
 msgstr "Programmierer:"
+
+msgid "Color Settings"
+msgstr ""
 
 msgid "Compressed Size:"
 msgstr "Komprimierte Größe:"
@@ -182,10 +200,10 @@ msgid "Copy"
 msgstr "Kopieren"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "Kopiere Thread-Hintergrundpriorität"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "Kopiere Threadpriorität"
 
 msgid "Copy current marked item(s)?"
 msgstr "Markierte(s) Element(e) kopieren?"
@@ -230,7 +248,7 @@ msgid "Credits"
 msgstr ""
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "Derzeit läuft schon ein Prozess."
 
 msgid "Customfont Path"
 msgstr "Schriftart"
@@ -248,7 +266,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "Lösche Temporärenordner beim verlassen"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Markierte(s) Element(e) und den Inhalt löschen?"
@@ -344,6 +362,9 @@ msgstr "Laufwerke erneut mounten?"
 msgid "Do you want to replace this file?"
 msgstr "Diese Datei ersetzen?"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "Steuerung zurücksetzen?"
 
@@ -367,9 +388,6 @@ msgstr "Fertig"
 
 msgid "Down Button"
 msgstr "Runter"
-
-msgid "Download Files"
-msgstr "Herunterladen"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -583,6 +601,18 @@ msgstr "Lade ChangeLog..."
 msgid "Go Back"
 msgstr "Zurück"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr "HOME"
 
@@ -609,6 +639,9 @@ msgstr "Wie soll fortgefahren werden?"
 
 msgid "Icon Mode"
 msgstr "Symbole"
+
+msgid "Idle"
+msgstr ""
 
 msgid "Image Converter"
 msgstr "Bildkonverter"
@@ -644,7 +677,7 @@ msgid "Input File"
 msgstr "Quelldatei"
 
 msgid "Interlace"
-msgstr ""
+msgstr "Halbbildverfahren/Interlace"
 
 msgid "JPEG Quality"
 msgstr "JPEG Qualität"
@@ -692,7 +725,7 @@ msgid "Listening on TCP port"
 msgstr "Lausche an TCP Port"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "Liste Dateien in"
 
 msgid "Load Music to Memory"
 msgstr "Musik in den Speicher laden"
@@ -708,6 +741,9 @@ msgstr "Scheife"
 
 msgid "Loop Playlist"
 msgstr "Wiedergabeliste wiederholen"
+
+msgid "Low"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MPlayer CE"
@@ -725,7 +761,7 @@ msgid "Menu"
 msgstr "Menü"
 
 msgid "Minimize"
-msgstr ""
+msgstr "Minimieren"
 
 msgid "Mount NTFS"
 msgstr "NTFS mounten"
@@ -779,6 +815,9 @@ msgstr "Keine Updates verfügbar."
 msgid "No to all"
 msgstr "Nein für alle"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "Keine gültige URL"
 
@@ -787,9 +826,6 @@ msgstr "Kein gültiger URL Pfad"
 
 msgid "Not a valid domain"
 msgstr "Keine gültige Domain"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Nicht genug Speicher um die Größe zu ändern."
@@ -837,7 +873,7 @@ msgid "Passive Mode:"
 msgstr ""
 
 msgid "Password is needed."
-msgstr ""
+msgstr "Passwort wird benötigt"
 
 msgid "Password:"
 msgstr "Kennwort:"
@@ -858,7 +894,7 @@ msgid "Play Once"
 msgstr "Einmal abspielen"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "Bitte Passwort eingeben."
 
 msgid "Please wait..."
 msgstr "Bitte warten..."
@@ -872,28 +908,41 @@ msgstr "Mögliches nicht unterstüztes Format."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Drücke 'FTP starten' zum Starten des Servers an Port"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "Vorgang abgebrochen."
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "Eigenschaften"
 
 msgid "QWERTYUIOP{}|"
+msgstr ""
+
+#, c-format
+msgid "R: %i G: %i B: %i"
 msgstr ""
 
 msgid "Random"
@@ -910,6 +959,9 @@ msgstr "Client wiederverbinden"
 
 msgid "Reconnect SMB"
 msgstr "SMB wiederverbinden"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "Erneut mounten"
@@ -935,8 +987,11 @@ msgstr "Rechts"
 msgid "Rotate"
 msgstr "Drehen"
 
-msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgid "Rumble"
 msgstr ""
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr "Das Abspielen eines Vidoes kann das Programm verlangsamen oder einfrieren lassen. Möchten Sie fortfahren?"
 
 msgid "SMB Name:"
 msgstr ""
@@ -1021,7 +1076,7 @@ msgid "Startup FTP"
 msgstr "FTP starten"
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "Temporärer Ordner"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Die Puffergröße ist sehr hoch. Wenn die App nicht startet, lösche deine Konfigurationsdateien."
@@ -1113,6 +1168,9 @@ msgstr "Update erfolgreich abgeschlossen"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Update auf Revision %i verfügbar."
+
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
 
 msgid "Username:"
 msgstr "Benutzername:"
@@ -1260,6 +1318,27 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Download Files"
+#~ msgstr "Herunterladen"
+
+#~ msgid "Not enough memory 2."
+#~ msgstr "Nicht genügend Speicher 2."
+
+#~ msgid "Priority High"
+#~ msgstr "Priorität Hoch"
+
+#~ msgid "Priority Highest"
+#~ msgstr "Priorität höchste"
+
+#~ msgid "Priority Idle"
+#~ msgstr "Priorität Leerlauf"
+
+#~ msgid "Priority Low"
+#~ msgstr "Priorität niedrig"
+
+#~ msgid "Priority Normal"
+#~ msgstr "Priorität normal"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "Erst entpacken, dann öffnen."

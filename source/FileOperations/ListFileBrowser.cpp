@@ -99,7 +99,6 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 		fileList[i]->SetImageOver(fileListBg[i]);
 		fileList[i]->SetPosition(7,30*i+3);
 		fileList[i]->SetTrigger(trigA);
-		fileList[i]->SetRumble(false);
 		fileList[i]->SetSoundClick(btnSoundClick);
 		fileList[i]->Clicked.connect(this, &ListFileBrowser::OnClicked);
 	}

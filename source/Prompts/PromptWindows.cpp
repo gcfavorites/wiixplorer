@@ -96,6 +96,8 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 	keyboard.Append(&cancelBtn);
 
 	HaltGui();
+	int oldState = MainWindow::Instance()->GetState();
+	bool oldDim = MainWindow::Instance()->IsDimmed();
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&keyboard);
@@ -123,8 +125,8 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 
 	HaltGui();
 	MainWindow::Instance()->Remove(&keyboard);
-    MainWindow::Instance()->SetDim(false);
-	MainWindow::Instance()->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetDim(oldDim);
+	MainWindow::Instance()->SetState(oldState);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnOutlineOver);
@@ -176,6 +178,8 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	keyboard.Append(&cancelBtn);
 
 	HaltGui();
+	int oldState = MainWindow::Instance()->GetState();
+	bool oldDim = MainWindow::Instance()->IsDimmed();
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&keyboard);
@@ -203,8 +207,8 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 
 	HaltGui();
 	MainWindow::Instance()->Remove(&keyboard);
-    MainWindow::Instance()->SetDim(false);
-	MainWindow::Instance()->SetState(STATE_DEFAULT);
+    MainWindow::Instance()->SetDim(oldDim);
+	MainWindow::Instance()->SetState(oldState);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnOutlineOver);

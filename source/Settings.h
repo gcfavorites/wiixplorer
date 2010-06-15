@@ -104,8 +104,26 @@ class Settings
 		//!Load a languagefile
 		//!\param language
         bool LoadLanguage(const char *path, int language = -1);
+		//!Set the default ColorSettings
+        void DefaultColors();
+
+        /**************** Color Variables ************************/
+
+        u32 BackgroundUL;
+        u32 BackgroundUR;
+        u32 BackgroundBR;
+        u32 BackgroundBL;
+        u32 ProgressUL;
+        u32 ProgressUR;
+        u32 ProgressBR;
+        u32 ProgressBL;
+        u32 ProgressEmptyUL;
+        u32 ProgressEmptyUR;
+        u32 ProgressEmptyBR;
+        u32 ProgressEmptyBL;
 
         /**************** Settings Variables ************************/
+
 
         //!BootDevice determines from which devices to load the config
         char	BootDevice[10];
@@ -153,6 +171,10 @@ class Settings
 		short   CopyThreadPrio;
 		//!CopyThread background priority
 		short   CopyThreadBackPrio;
+		//!Rumble of WiiMotes
+		short   Rumble;
+		//!Should system files be hidden or not
+		short   HideSystemFiles;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce

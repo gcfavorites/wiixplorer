@@ -1,6 +1,6 @@
 /***************************************************************************
- * Copyright (C) 2009
- * by r-win
+ * Copyright (C) 2010
+ * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,8 +23,9 @@
  *
  * Window.h
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
+#if 0 //currently not used
 
 #ifndef _WINDOW_H
 #define _WINDOW_H
@@ -84,3 +85,5 @@ class Window : public GuiWindow
 };
 
 #endif //_WINDOW_H
+
+#endif

@@ -175,7 +175,7 @@ bool RarFile::CheckPassword()
 {
     if((RarArc.NewLhd.Flags & LHD_PASSWORD) && Password.length() == 0)
     {
-        const char * Title = GetProgressTitle();
+        const char * Title = ProgressWindow::Instance()->GetTitle();
         StopProgress();
         int choice = WindowPrompt(tr("Password is needed."), tr("Please enter the password."), tr("OK"), tr("Cancel"));
         if(!choice)

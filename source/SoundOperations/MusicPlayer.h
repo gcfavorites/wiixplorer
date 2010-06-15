@@ -64,21 +64,18 @@ class MusicPlayer : public GuiWindow
         void AddEntrie(const char * filename) { TitleList.AddEntrie(filename); };
         void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); };
         bool IsStopped() { return Stopped; };
-        void ResumeThread();
-        void HaltThread();
+        void SetPlaybackFinished(bool b) { PlaybackFinished = b; };
         void Update(GuiTrigger * t);
     protected:
         MusicPlayer();
         ~MusicPlayer();
-        void Setup();
-		static void * UpdateBMG(void *arg);
-        void UpdateState();
+        void InternalSetup();
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
-		lwp_t bgmthread;
 		bool Paused;
 		bool Stopped;
 		bool DisplayGUI;
+		bool PlaybackFinished;
 		bool ExitRequested;
 
 		GuiSound * MainSound;

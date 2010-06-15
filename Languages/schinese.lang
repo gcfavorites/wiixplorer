@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 10:59+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -69,6 +69,21 @@ msgstr "返回"
 msgid "Back Button"
 msgstr "返回按钮"
 
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
 msgid "Boot Settings"
 msgstr "运行设置"
 
@@ -88,7 +103,7 @@ msgid "Browsing for font files must be done in the main browser."
 msgstr "在主浏览器中必须查找字体文件。"
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "CRC校验文件错误。密码错误？"
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -157,6 +172,9 @@ msgstr "关闭"
 msgid "Coders:"
 msgstr "作者"
 
+msgid "Color Settings"
+msgstr ""
+
 msgid "Compressed Size:"
 msgstr "已压缩大小"
 
@@ -182,10 +200,10 @@ msgid "Copy"
 msgstr "复制"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "复制线程后台优先级"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "复制线程优先级"
 
 msgid "Copy current marked item(s)?"
 msgstr "是否复制已标记的项目？"
@@ -230,7 +248,7 @@ msgid "Credits"
 msgstr "感谢"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "当前已有一进程运行中。"
 
 msgid "Customfont Path"
 msgstr "自定义字体路径"
@@ -248,7 +266,7 @@ msgid "Delete"
 msgstr "删除"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "退出时删除临时路径"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "删除已选择的项目和内容？"
@@ -278,7 +296,7 @@ msgid "Disconnect SMB"
 msgstr "断开网络共享"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "是否要增加粘贴项目到队列中？"
 
 msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
@@ -344,6 +362,9 @@ msgstr "是否再次加载设备？"
 msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "是否复位控制设置？"
 
@@ -367,9 +388,6 @@ msgstr "完成"
 
 msgid "Down Button"
 msgstr "下载按钮"
-
-msgid "Download Files"
-msgstr "下载文件"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -409,7 +427,7 @@ msgid "Extract All"
 msgstr "提取全部"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "提取文件到临时路径并执行？"
 
 msgid "Extract full archive?"
 msgstr "提取所有文件？"
@@ -583,6 +601,18 @@ msgstr "正在提取更新日志信息......"
 msgid "Go Back"
 msgstr "返回"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr "Home键"
 
@@ -609,6 +639,9 @@ msgstr "你想要如何执行？"
 
 msgid "Icon Mode"
 msgstr "图标模式"
+
+msgid "Idle"
+msgstr ""
 
 msgid "Image Converter"
 msgstr "图片转换器"
@@ -692,7 +725,7 @@ msgid "Listening on TCP port"
 msgstr "监听TCP端口"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "监听文件在"
 
 msgid "Load Music to Memory"
 msgstr "音乐载入内存中"
@@ -708,6 +741,9 @@ msgstr "循环"
 
 msgid "Loop Playlist"
 msgstr "循环播放列表"
+
+msgid "Low"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
@@ -725,7 +761,7 @@ msgid "Menu"
 msgstr "菜单"
 
 msgid "Minimize"
-msgstr ""
+msgstr "最小化"
 
 msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
@@ -779,6 +815,9 @@ msgstr "没有新的可用更新"
 msgid "No to all"
 msgstr "全选否"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "无效的URL"
 
@@ -787,9 +826,6 @@ msgstr "无线电URL路径"
 
 msgid "Not a valid domain"
 msgstr "无效的域名"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "内存不足以修正图片尺寸"
@@ -872,29 +908,42 @@ msgstr "可能不支持此文件格式。"
 msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "进程已取消"
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "属性"
 
 msgid "QWERTYUIOP{}|"
 msgstr "QWERTYUIOP{}|"
+
+#, c-format
+msgid "R: %i G: %i B: %i"
+msgstr ""
 
 msgid "Random"
 msgstr "随机"
@@ -910,6 +959,9 @@ msgstr "重连FTP"
 
 msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "重新运行"
@@ -935,8 +987,11 @@ msgstr "右键"
 msgid "Rotate"
 msgstr "旋转"
 
-msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgid "Rumble"
 msgstr ""
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr "正在播放的视频将会降低运行速度或使此程序死机。是否要继续？"
 
 msgid "SMB Name:"
 msgstr "网络共享名"
@@ -1021,7 +1076,7 @@ msgid "Startup FTP"
 msgstr "开启FTP"
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "临时路径"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
@@ -1113,6 +1168,9 @@ msgstr "更新成功！"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
+
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
 
 msgid "Username:"
 msgstr "用户名"
@@ -1260,6 +1318,27 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Download Files"
+#~ msgstr "下载文件"
+
+#~ msgid "Not enough memory 2."
+#~ msgstr "内存不足2."
+
+#~ msgid "Priority High"
+#~ msgstr "高优先级"
+
+#~ msgid "Priority Highest"
+#~ msgstr "最高优先级"
+
+#~ msgid "Priority Idle"
+#~ msgstr "空闲优先级"
+
+#~ msgid "Priority Low"
+#~ msgstr "低优先级"
+
+#~ msgid "Priority Normal"
+#~ msgstr "正常优先级"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "提取并打开"

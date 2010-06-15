@@ -33,7 +33,6 @@
 
 #include "FileOperations/ListFileBrowser.hpp"
 #include "FileOperations/IconFileBrowser.hpp"
-#include "Controls/Window.h"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"

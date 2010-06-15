@@ -84,7 +84,7 @@ class GuiElement : public sigslot::has_slots<>
 		void SetParent(GuiElement * e);
 		//!Gets the element's parent
 		//!\return Pointer to parent element
-		GuiElement * GetParent();
+		GuiElement * GetParent() { return parentElement; };
 		//!Gets the current leftmost coordinate of the element
 		//!Considers horizontal alignment, x offset, width, and parent element's GetLeft() / GetWidth() values
 		//!\return left coordinate
@@ -101,38 +101,38 @@ class GuiElement : public sigslot::has_slots<>
 		void SetMinY(int y);
 		//!Gets the minimum y offset of the element
 		//!\return Minimum Y offset
-		int GetMinY();
+		int GetMinY() { return ymin; };
 		//!Sets the maximum y offset of the element
 		//!\param y Y offset
 		void SetMaxY(int y);
 		//!Gets the maximum y offset of the element
 		//!\return Maximum Y offset
-		int GetMaxY();
+		int GetMaxY() { return ymax; };
 		//!Sets the minimum x offset of the element
 		//!\param x X offset
 		void SetMinX(int x);
 		//!Gets the minimum x offset of the element
 		//!\return Minimum X offset
-		int GetMinX();
+		int GetMinX() { return xmin; };
 		//!Sets the maximum x offset of the element
 		//!\param x X offset
 		void SetMaxX(int x);
 		//!Gets the maximum x offset of the element
 		//!\return Maximum X offset
-		int GetMaxX();
+		int GetMaxX() { return xmax; };
 		//!Gets the current width of the element. Does not currently consider the scale
 		//!\return width
-		int GetWidth();
+		int GetWidth() { return width; };
 		//!Gets the height of the element. Does not currently consider the scale
 		//!\return height
-		int GetHeight();
+		int GetHeight() { return height; };
 		//!Sets the size (width/height) of the element
 		//!\param w Width of element
 		//!\param h Height of element
 		void SetSize(int w, int h);
 		//!Checks whether or not the element is visible
 		//!\return true if visible, false otherwise
-		bool IsVisible();
+		bool IsVisible() { return visible; };
 		//!Checks whether or not the element is selectable
 		//!\return true if selectable, false otherwise
 		bool IsSelectable();
@@ -153,10 +153,10 @@ class GuiElement : public sigslot::has_slots<>
 		void SetHoldable(bool d);
 		//!Gets the element's current state
 		//!\return state
-		int GetState();
+		int GetState() { return state; };
 		//!Gets the controller channel that last changed the element's state
 		//!\return Channel number (0-3, -1 = no channel)
-		int GetStateChan();
+		int GetStateChan() { return stateChan; };
 		//!Sets the element's alpha value
 		//!\param a alpha value
 		void SetAlpha(int a);
@@ -191,7 +191,7 @@ class GuiElement : public sigslot::has_slots<>
 		void SetTrigger(u8 i, GuiTrigger * t);
 		//!Checks whether rumble was requested by the element
 		//!\return true is rumble was requested, false otherwise
-		bool Rumble();
+		bool Rumble() { return rumble; };
 		//!Sets whether or not the element is requesting a rumble event
 		//!\param r true if requesting rumble, false if not
 		void SetRumble(bool r);
@@ -207,9 +207,11 @@ class GuiElement : public sigslot::has_slots<>
 		void SetEffectOnOver(int e, int a, int t=0);
 		//!Shortcut to SetEffectOnOver(EFFECT_SCALE, 4, 110)
 		void SetEffectGrow();
+		//!Reset all applied effects
+		void ResetEffects();
 		//!Gets the current element effects
 		//!\return element effects
-		int GetEffect();
+		int GetEffect() { return effects; };
 		//!The Element's cutoff bounds
 		virtual void SetMinWidth(int w) { minwidth = w; };
 		virtual void SetMaxWidth(int w) { maxwidth = w; };
@@ -243,18 +245,20 @@ class GuiElement : public sigslot::has_slots<>
 		virtual void ResetState();
 		//!Gets whether or not the element is in STATE_SELECTED
 		//!\return true if selected, false otherwise
-		virtual int GetSelected();
+		virtual int GetSelected() { return -1; };
 		//!Sets the element's alignment respective to its parent element
 		//!\param hor Horizontal alignment (ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTRE)
 		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
 		virtual void SetAlignment(int hor, int vert);
 		//!Dim the Element and its child elements
-		virtual void SetDim(bool d);
+		virtual void SetDim(bool d) { };
+		//!Check if element is already
+		virtual bool IsDimmed() { return dim; };
 		//!Called constantly to allow the element to respond to the current input data
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
-		virtual void Update(GuiTrigger * t);
+		virtual void Update(GuiTrigger * t) { };
 		//!Called constantly to redraw the element
-		virtual void Draw();
+		virtual void Draw() { };
 
 		POINT PtrToScreen(POINT p);
 		POINT PtrToControl(POINT p);
@@ -319,6 +323,6 @@ class SimpleLock
         GuiElement *element;
 };
 
-#define LOCK(e) SimpleLock LOCK(e)
+#define LOCK(e) SimpleLock MutexLock(e)
 
 #endif

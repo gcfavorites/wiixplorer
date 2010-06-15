@@ -78,7 +78,12 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             return;
 
         char dest[MAXPATHLEN];
-        snprintf(dest, sizeof(dest), "%s%s", destCandidat, browser->GetArchiveName());
+        snprintf(dest, sizeof(dest), "%s", destCandidat);
+        if(dest[strlen(dest)-1] != '/')
+            strcat(dest, "/");
+
+        strncat(dest, browser->GetArchiveName(), sizeof(dest));
+
         char * ext = strrchr(dest, '.');
         if(ext)
             ext[0] = 0;
