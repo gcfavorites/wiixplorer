@@ -55,14 +55,13 @@ Taskbar::Taskbar()
 
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);
-	taskbarImg->SetWidescreen(true);
 
 	width = taskbarImg->GetWidth();
 	height = taskbarImg->GetHeight();
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
-	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	timeTxt->SetPosition(517, -1);
+	timeTxt->SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
+	timeTxt->SetPosition(-22, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
 	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
@@ -73,7 +72,7 @@ Taskbar::Taskbar()
 
 	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	startBtn->SetPosition(58, -2);
+	startBtn->SetPosition(27, -2);
 	startBtn->SetSelectable(false);
 	startBtn->SetTrigger(trigA);
 
@@ -87,7 +86,7 @@ Taskbar::Taskbar()
 	Musicplayer->SetImage(HeadPhonesImg);
 	Musicplayer->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	Musicplayer->SetTrigger(trigA);
-	Musicplayer->SetPosition(470, 0);
+	Musicplayer->SetPosition(490, 0);
 	Musicplayer->SetEffectGrow();
 
 	Append(homeBtn);
@@ -224,7 +223,7 @@ int Taskbar::GetMenu()
 	}
 	else if(Musicplayer->GetState() == STATE_CLICKED)
 	{
-	    ShowMusicPlayer();
+        MusicPlayer::Instance()->Show();
 		Musicplayer->ResetState();
 	}
 	else if(TasksDeleteQueue.size() > 0)
@@ -237,17 +236,6 @@ int Taskbar::GetMenu()
 	}
 
     return menu;
-}
-
-void Taskbar::ShowMusicPlayer()
-{
-	SetState(STATE_DISABLED);
-	MainWindow::Instance()->SetState(STATE_DISABLED);
-	MainWindow::Instance()->SetDim(true);
-    MusicPlayer::Instance()->Show();
-	MainWindow::Instance()->SetDim(false);
-	SetState(STATE_DEFAULT);
-	MainWindow::Instance()->SetState(STATE_DEFAULT);
 }
 
 int Taskbar::CheckHomeButton()
@@ -280,7 +268,7 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(45, 164);
+	PopUpMenu *StartMenu = new PopUpMenu(65, 164);
 
 	if (!StartMenu)
 		return menu;
@@ -288,7 +276,7 @@ int Taskbar::CheckStartMenu()
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
-	StartMenu->AddItem(tr("FTP Server"), ftpserver_png, ftpserver_png_size);
+	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
 	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
 	StartMenu->AddItem(tr("Restart"), system_restart_png, system_restart_png_size);
 	StartMenu->AddItem(tr("Exit"), system_log_out_png, system_log_out_png_size);
@@ -377,7 +365,7 @@ int Taskbar::CheckStartMenu()
 void Taskbar::CheckAppsMenu()
 {
 	int choice = -1;
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+30, 100);
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+50, 100);
 
 	if (!AppsMenu)
 		return;
@@ -417,7 +405,7 @@ void Taskbar::CheckAppsMenu()
 void Taskbar::CheckChannelsMenu()
 {
 	int choice = -1;
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+30, 100);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+50, 100);
 
 	if (!ChannelsMenu)
 		return;

@@ -34,6 +34,7 @@
 #include "FreeTypeGX.h"
 #include "Controls/MainWindow.h"
 #include "VideoOperations/video.h"
+#include "BootHomebrew/BootHomebrew.h"
 #include "audio.h"
 #include "libwiigui/gui.h"
 #include "input.h"
@@ -50,10 +51,13 @@ extern "C"
     extern void SetupPDFFontPath(const char * path);
 }
 
+bool boothomebrew = false;
 Settings Settings;
 
 int main(int argc, char *argv[])
 {
+    u8 EntraceIOS = (u8) IOS_GetVersion();
+
 	MEM2_init(48); // Initialize 48 MB
 	MEM2_takeBigOnes(true);
     InitGecko();
@@ -62,9 +66,6 @@ int main(int argc, char *argv[])
 
     if(IOS_ReloadIOS(202) >= 0)
         mload_Init();
-
-    //for later purpose
-    //LWP_SetThreadPriority(LWP_GetSelf(), 60);
 
 	Sys_Init();
 	InitVideo(); // Initialise video
@@ -96,6 +97,12 @@ int main(int argc, char *argv[])
 	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	MainWindow::Instance()->Show();
+
+    if(boothomebrew)
+    {
+        IOS_ReloadIOS(EntraceIOS);
+        BootHomebrew();
+    }
 
 	/* Return to the Wii system menu  if not from HBC*/
     if(!IsFromHBC())

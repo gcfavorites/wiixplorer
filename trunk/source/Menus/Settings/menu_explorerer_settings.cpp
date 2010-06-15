@@ -81,6 +81,8 @@ int MenuExplorerSettings()
 	options.SetName(i++, tr("Keyboard Delete Delay"));
 	options.SetName(i++, tr("Copy Thread Priority"));
 	options.SetName(i++, tr("Copy Thread Background Priority"));
+	options.SetName(i++, tr("Rumble"));
+	options.SetName(i++, tr("Hide System Files/Folders"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
@@ -131,6 +133,12 @@ int MenuExplorerSettings()
             case 5:
                 Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
                 break;
+            case 6:
+                Settings.Rumble = (Settings.Rumble+1) % 2;
+                break;
+            case 7:
+                Settings.HideSystemFiles = (Settings.HideSystemFiles+1) % 2;
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -152,6 +160,12 @@ int MenuExplorerSettings()
             options.SetValue(i++, PrioritySynonym(Settings.CopyThreadPrio));
 
             options.SetValue(i++, PrioritySynonym(Settings.CopyThreadBackPrio));
+
+            if(Settings.Rumble) options.SetValue(i++, tr("ON"));
+            else options.SetValue(i++, tr("OFF"));
+
+            if(Settings.HideSystemFiles) options.SetValue(i++, tr("ON"));
+            else options.SetValue(i++, tr("OFF"));
         }
 	}
 

@@ -65,7 +65,6 @@ class IOHandler
 		bool ProcessLocked;
 		lwp_t IOThread;
 		lwp_t RequestThread;
-		u8 * ThreadStack;
 		Task * TaskbarSlot;
 		TCallback<IOHandler> MinimizeCallback;
 };

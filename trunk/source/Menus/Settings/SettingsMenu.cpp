@@ -49,8 +49,8 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
 	backBtnTxt = new GuiText(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);
 	backBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	backBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backBtn->SetPosition(50, -65);
+	backBtn->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	backBtn->SetPosition(-105-btnOutline->GetWidth()/2, -65);
 	backBtn->SetLabel(backBtnTxt);
 	backBtn->SetImage(backBtnImg);
 	backBtn->SetSoundClick(btnSoundOver);
@@ -61,12 +61,12 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
     backBtn->Clicked.connect(this, &SettingsMenu::OnButtonClick);
 
 	optionBrowser = new GuiOptionBrowser(584, 248, Options);
-	optionBrowser->SetPosition(30, 100);
-	optionBrowser->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	optionBrowser->SetPosition(0, 100);
+	optionBrowser->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 
 	titleTxt = new GuiText(title, 24, (GXColor){0, 0, 0, 255});
-	titleTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	titleTxt->SetPosition(50, optionBrowser->GetTop()-35);
+	titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	titleTxt->SetPosition(-optionBrowser->GetWidth()/2+titleTxt->GetTextWidth()/2+20, optionBrowser->GetTop()-35);
 
 	Append(backBtn);
 	Append(optionBrowser);

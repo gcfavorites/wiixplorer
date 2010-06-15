@@ -19,6 +19,7 @@ extern int rumbleRequest[4];
 
 void UpdatePads();
 void SetupPads();
+void ShutdownPads();
 void ShutoffRumble();
 void DoRumble(int i);
 int Wpad_Init(void);

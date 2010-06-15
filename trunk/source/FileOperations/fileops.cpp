@@ -55,7 +55,7 @@ extern bool actioncanceled;
  ***************************************************************************/
 static int GetReplaceChoice(const char * filename)
 {
-    const char * progressText = GetProgressTitle();
+    const char * progressText = ProgressWindow::Instance()->GetTitle();
     StopProgress();
 
     int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));

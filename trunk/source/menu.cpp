@@ -38,7 +38,6 @@
 
 #include "SoundOperations/MusicPlayer.h"
 #include "Controls/Clipboard.h"
-#include "BootHomebrew/BootHomebrew.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
 #include "Language/LanguageBrowser.h"
@@ -47,8 +46,6 @@
 #include "Menus/Settings/menu_settings.h"
 #include "menu.h"
 #include "sys.h"
-
-bool boothomebrew = false;
 
 /****************************************************************************
  * ResumeGui
@@ -133,6 +130,9 @@ void MainMenu(int menu)
             case MENU_FILE_EXTENSIONS:
                 currentMenu = MenuFileExtensions();
                 break;
+            case MENU_COLOR_SETTINGS:
+                currentMenu = MenuColorSettings();
+                break;
             default: // unrecognized menu
                 currentMenu = MenuBrowseDevice();
                 break;
@@ -142,7 +142,4 @@ void MainMenu(int menu)
 	ResumeGui();
 
 	ExitApp();
-
-    if(boothomebrew)
-        BootHomebrew();
 }

@@ -32,6 +32,15 @@
 #include "FileOperations/filebrowser.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
 
+enum
+{
+    COPYFILE,
+    COPYDIR,
+    MOVEDIR,
+    DELETEFILE,
+    DELETEDIR
+};
+
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);
 void ProcessChoice(FileBrowser * browser, int choice);
 

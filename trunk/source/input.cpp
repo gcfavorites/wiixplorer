@@ -49,6 +49,9 @@ void UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 
+        if(Settings.Rumble)
+            DoRumble(i);
+
         if(userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton && userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton)
         {
             Screenshot();
@@ -90,25 +93,36 @@ void ShutoffRumble()
 }
 
 /****************************************************************************
+ * Shutdown Pads
+ ***************************************************************************/
+void ShutdownPads()
+{
+    ShutoffRumble();
+	WPAD_Flush(0);
+    WPAD_Disconnect(0);
+    WPAD_Shutdown();
+}
+
+/****************************************************************************
  * DoRumble
  ***************************************************************************/
 void DoRumble(int i)
 {
-	if(rumbleRequest[i] && rumbleCount[i] < 3)
+	if(rumbleRequest[i] && rumbleCount[i] == 0)
 	{
 		WPAD_Rumble(i, 1); // rumble on
-		rumbleCount[i]++;
-	}
-	else if(rumbleRequest[i])
-	{
-		rumbleCount[i] = 12;
 		rumbleRequest[i] = 0;
+		rumbleCount[i] = 8;
 	}
 	else
 	{
-		if(rumbleCount[i])
-			rumbleCount[i]--;
-		WPAD_Rumble(i, 0); // rumble off
+		if(rumbleCount[i] > 0)
+			--rumbleCount[i];
+
+        if(rumbleCount[i] < 4)
+            WPAD_Rumble(i, 0); // rumble off
+
+	    rumbleRequest[i] = 0;
 	}
 }
 

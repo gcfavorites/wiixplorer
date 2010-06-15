@@ -595,6 +595,8 @@ bool ImageViewer::LoadImage(int index, bool silent)
 
 void ImageViewer::Setup()
 {
+    int DefaultButtonWidth = 96;
+
 	width = MainWindow::Instance()->GetWidth();
 	height = MainWindow::Instance()->GetHeight();
 
@@ -628,12 +630,11 @@ void ImageViewer::Setup()
 	backButton = new GuiButton(backButtonImage->GetWidth(), backButtonImage->GetHeight());
 	backButton->SetImage(backButtonImage);
 	backButton->SetImageOver(backButtonOverImage);
-	backButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	backButton->SetPosition(24, -16);
+	backButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	backButton->SetPosition(-2*DefaultButtonWidth-DefaultButtonWidth/2-2, -16);
 	backButton->SetTrigger(trigger);
 	backButton->SetTrigger(trigB);
     backButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
-
 	Append(backButton);
 
 	zoominButtonData = Resources::GetImageData(zoomin_png, zoomin_png_size);
@@ -644,13 +645,12 @@ void ImageViewer::Setup()
 	zoominButton = new GuiButton(zoominButtonImage->GetWidth(), zoominButtonImage->GetHeight());
 	zoominButton->SetImage(zoominButtonImage);
 	zoominButton->SetImageOver(zoominButtonOverImage);
-	zoominButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	zoominButton->SetPosition(224, -16);
+	zoominButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	zoominButton->SetPosition(-DefaultButtonWidth/2, -16);
 	zoominButton->SetSelectable(false);
 	zoominButton->SetClickable(false);
 	zoominButton->SetHoldable(true);
 	zoominButton->SetTrigger(trigA_Held);
-
 	Append(zoominButton);
 
 	zoomoutButtonData = Resources::GetImageData(zoomout_png, zoomout_png_size);
@@ -661,13 +661,12 @@ void ImageViewer::Setup()
 	zoomoutButton = new GuiButton(zoomoutButtonImage->GetWidth(), zoomoutButtonImage->GetHeight());
 	zoomoutButton->SetImage(zoomoutButtonImage);
 	zoomoutButton->SetImageOver(zoomoutButtonOverImage);
-	zoomoutButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	zoomoutButton->SetPosition(320, -16);
+	zoomoutButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	zoomoutButton->SetPosition(DefaultButtonWidth/2, -16);
 	zoomoutButton->SetSelectable(false);
 	zoomoutButton->SetClickable(false);
 	zoomoutButton->SetHoldable(true);
 	zoomoutButton->SetTrigger(trigA_Held);
-
 	Append(zoomoutButton);
 
 	rotateRButtonData = Resources::GetImageData(rotateR_png, rotateR_png_size);
@@ -678,8 +677,8 @@ void ImageViewer::Setup()
 	rotateRButton = new GuiButton(rotateRButtonImage->GetWidth(), rotateRButtonImage->GetHeight());
 	rotateRButton->SetImage(rotateRButtonImage);
 	rotateRButton->SetImageOver(rotateRButtonOverImage);
-	rotateRButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	rotateRButton->SetPosition(416, -16);
+	rotateRButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	rotateRButton->SetPosition(DefaultButtonWidth+DefaultButtonWidth/2, -16);
 	rotateRButton->SetTrigger(trigger);
 	rotateRButton->SetTrigger(trigRotateR);
     rotateRButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
@@ -694,12 +693,11 @@ void ImageViewer::Setup()
 	rotateLButton = new GuiButton(rotateLButtonImage->GetWidth(), rotateLButtonImage->GetHeight());
 	rotateLButton->SetImage(rotateLButtonImage);
 	rotateLButton->SetImageOver(rotateLButtonOverImage);
-	rotateLButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	rotateLButton->SetPosition(512, -16);
+	rotateLButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	rotateLButton->SetPosition(2*DefaultButtonWidth+DefaultButtonWidth/2+2, -16);
 	rotateLButton->SetTrigger(trigger);
 	rotateLButton->SetTrigger(trigRotateL);
     rotateLButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
-
 	Append(rotateLButton);
 
     nextButtonData = Resources::GetImageData(next_png, next_png_size);
@@ -714,7 +712,6 @@ void ImageViewer::Setup()
     nextButton->SetPosition(-16, 198);
     nextButton->SetTrigger(trigger);
     nextButton->SetTrigger(trigNext);
-
     Append(nextButton);
 
     prevButtonData = Resources::GetImageData(prev_png, prev_png_size);
@@ -729,7 +726,6 @@ void ImageViewer::Setup()
     prevButton->SetPosition(16, 198);
     prevButton->SetTrigger(trigger);
     prevButton->SetTrigger(trigPrev);
-
     Append(prevButton);
 
     slideshowButtonData = Resources::GetImageData(slideshow_png, slideshow_png_size);
@@ -740,8 +736,8 @@ void ImageViewer::Setup()
     slideshowButton = new GuiButton(slideshowButtonImage->GetWidth(), slideshowButtonImage->GetHeight());
     slideshowButton->SetImage(slideshowButtonImage);
     slideshowButton->SetImageOver(slideshowButtonOverImage);
-    slideshowButton->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-    slideshowButton->SetPosition(128, -16);
+    slideshowButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+    slideshowButton->SetPosition(-DefaultButtonWidth-DefaultButtonWidth/2, -16);
     slideshowButton->SetTrigger(trigger);
 	slideshowButton->SetTrigger(trigSlideshow);
     slideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);

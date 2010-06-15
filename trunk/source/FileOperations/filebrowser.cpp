@@ -299,11 +299,30 @@ bool FileBrowser::ParseDirEntries()
 		if(res != 0)
 			break;
 
-		if(strcmp(filename,".") == 0)
-		{
-			i--;
-			continue;
-		}
+        if(strcmp(filename,".") == 0)
+        {
+            i--;
+            continue;
+        }
+
+        if(Settings.HideSystemFiles)
+        {
+            if(filename[0] == '.' && strcmp(filename,"..") != 0)
+            {
+                i--;
+                continue;
+            }
+            else if(filename[0] == '$')
+            {
+                i--;
+                continue;
+            }
+            else if(strcasecmp(filename,"thumb.db") == 0)
+            {
+                i--;
+                continue;
+            }
+        }
 
 		if((Filter & FILTER_DIRECTORIES) && (filestat.st_mode & S_IFDIR))
 		{

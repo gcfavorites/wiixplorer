@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 09:17+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -68,6 +68,21 @@ msgstr "Voltar"
 
 msgid "Back Button"
 msgstr "Botão Voltar"
+
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "Definições de Arranque"
@@ -156,6 +171,9 @@ msgstr "Fechar"
 
 msgid "Coders:"
 msgstr "Programadores:"
+
+msgid "Color Settings"
+msgstr ""
 
 msgid "Compressed Size:"
 msgstr "Tamanho Comprimido:"
@@ -344,6 +362,9 @@ msgstr "Montar novamente os dispositivos?"
 msgid "Do you want to replace this file?"
 msgstr "Substituir este ficheiro?"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "Repor predefinições das Configurações de Controle?"
 
@@ -367,9 +388,6 @@ msgstr "Feito"
 
 msgid "Down Button"
 msgstr "Botão Baixo"
-
-msgid "Download Files"
-msgstr "Descarregar Ficheiros"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -583,6 +601,18 @@ msgstr "Obtendo Changelog..."
 msgid "Go Back"
 msgstr "Voltar"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr "Botão Início"
 
@@ -609,6 +639,9 @@ msgstr "Como avançar?"
 
 msgid "Icon Mode"
 msgstr "Modo Icones"
+
+msgid "Idle"
+msgstr ""
 
 msgid "Image Converter"
 msgstr "Conversor de Imagem"
@@ -709,6 +742,9 @@ msgstr "Repetir"
 msgid "Loop Playlist"
 msgstr "Repetir Lista"
 
+msgid "Low"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "Caminho MPlayerCE"
 
@@ -779,6 +815,9 @@ msgstr "Não existem novas actualizações"
 msgid "No to all"
 msgstr "Não para todos"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "URL inválido"
 
@@ -787,9 +826,6 @@ msgstr "Caminho URL inválido"
 
 msgid "Not a valid domain"
 msgstr "Domínio inválido"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Memória insuficiente para redimensionar."
@@ -872,29 +908,42 @@ msgstr "É possível que o formato não seja suportado."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pressione Iniciar FTP para arrancar o servidor na porta "
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "Processo cancelado."
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "Propriedades"
 
 msgid "QWERTYUIOP{}|"
 msgstr "QWERTYUIOP*`"
+
+#, c-format
+msgid "R: %i G: %i B: %i"
+msgstr ""
 
 msgid "Random"
 msgstr "Aleatório"
@@ -910,6 +959,9 @@ msgstr "Re-ligar FTP"
 
 msgid "Reconnect SMB"
 msgstr "Ligar SMB"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "Actualizar"
@@ -934,6 +986,9 @@ msgstr "Botão Direita"
 
 msgid "Rotate"
 msgstr "Rodar"
+
+msgid "Rumble"
+msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr ""
@@ -1114,6 +1169,9 @@ msgstr "Actualização terminada com sucesso"
 msgid "Update to Rev%i available"
 msgstr "Nova Rev%i disponível"
 
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
+
 msgid "Username:"
 msgstr "Nome de utilizador:"
 
@@ -1260,6 +1318,9 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Download Files"
+#~ msgstr "Descarregar Ficheiros"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "Extrair primeiro e abrir depois."

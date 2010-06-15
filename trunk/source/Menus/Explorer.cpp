@@ -141,8 +141,8 @@ void Explorer::Setup()
     DeviceBrowser = new FileBrowser();
     CurBrowser = DeviceBrowser;
 
-	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	SetPosition(28, 50);
+	SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	SetPosition(0, 50);
 
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigPlus = new GuiTrigger();
@@ -212,6 +212,7 @@ void Explorer::Setup()
 	Adressbar->SetPosition(fileBrowser->GetLeft()+62, fileBrowser->GetTop()-38);
 	Adressbar->SetImage(AdressbarImg);
 	Adressbar->SetLabel(AdressText);
+	Adressbar->SetRumble(false);
     Adressbar->Clicked.connect(this, &Explorer::OnButtonClick);
 
     RefreshImg = new GuiImage(Refresh);

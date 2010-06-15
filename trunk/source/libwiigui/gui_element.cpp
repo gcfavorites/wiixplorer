@@ -36,6 +36,8 @@ GuiElement::GuiElement()
 	stateChan = -1;
 	trigger[0] = NULL;
 	trigger[1] = NULL;
+	trigger[2] = NULL;
+	trigger[3] = NULL;
 	parentElement = NULL;
 	rumble = true;
 	selectable = false;
@@ -72,12 +74,6 @@ void GuiElement::SetParent(GuiElement * e)
 {
     LOCK(this);
 	parentElement = e;
-}
-
-GuiElement * GuiElement::GetParent()
-{
-    LOCK(this);
-	return parentElement;
 }
 
 /**
@@ -156,20 +152,10 @@ void GuiElement::SetMinX(int x)
 	xmin = x;
 }
 
-int GuiElement::GetMinX()
-{
-	return xmin;
-}
-
 void GuiElement::SetMaxX(int x)
 {
     LOCK(this);
 	xmax = x;
-}
-
-int GuiElement::GetMaxX()
-{
-	return xmax;
 }
 
 void GuiElement::SetMinY(int y)
@@ -178,42 +164,12 @@ void GuiElement::SetMinY(int y)
 	ymin = y;
 }
 
-int GuiElement::GetMinY()
-{
-	return ymin;
-}
-
 void GuiElement::SetMaxY(int y)
 {
     LOCK(this);
 	ymax = y;
 }
 
-int GuiElement::GetMaxY()
-{
-	return ymax;
-}
-
-/**
- * Get the width of the GuiElement.
- * @see SetWidth()
- * @return Width of the GuiElement.
- */
-int GuiElement::GetWidth()
-{
-	return width;
-}
-
-/**
- * Get the height of the GuiElement.
- * @see SetHeight()
- * @return Height of the GuiElement.
- */
-int GuiElement::GetHeight()
-{
-    LOCK(this);
-	return height;
-}
 
 /**
  * Set the width and height of the GuiElement.
@@ -227,16 +183,6 @@ void GuiElement::SetSize(int w, int h)
     LOCK(this);
 	width = w;
 	height = h;
-}
-
-/**
- * Get visible.
- * @see SetVisible()
- * @return true if visible, false otherwise.
- */
-bool GuiElement::IsVisible()
-{
-	return visible;
 }
 
 /**
@@ -321,22 +267,15 @@ float GuiElement::GetScaleY()
 	return s;
 }
 
-int GuiElement::GetState()
-{
-	return state;
-}
-
-int GuiElement::GetStateChan()
-{
-	return stateChan;
-}
-
 void GuiElement::SetState(int s, int c)
 {
     LOCK(this);
 	state = s;
 	stateChan = c;
 	StateChanged(this, s, c);
+
+	if(c < 0 || c > 3)
+        return;
 
 	POINT p = {0, 0};
 
@@ -357,6 +296,7 @@ void GuiElement::SetState(int s, int c)
 
 void GuiElement::ResetState()
 {
+    LOCK(this);
 	int prevState = state;
 	int prevStateChan = stateChan;
 
@@ -435,20 +375,10 @@ void GuiElement::SetTrigger(u8 i, GuiTrigger * t)
 	trigger[i] = t;
 }
 
-bool GuiElement::Rumble()
-{
-	return rumble;
-}
-
 void GuiElement::SetRumble(bool r)
 {
     LOCK(this);
 	rumble = r;
-}
-
-int GuiElement::GetEffect()
-{
-	return effects;
 }
 
 void GuiElement::SetEffect(int eff, int amount, int target)
@@ -514,8 +444,18 @@ void GuiElement::SetEffectGrow()
 	SetEffectOnOver(EFFECT_SCALE, 4, 110);
 }
 
-void GuiElement::SetDim(bool d)
+void GuiElement::ResetEffects()
 {
+	yoffsetDyn = 0;
+	xoffsetDyn = 0;
+	alphaDyn = -1;
+	scaleDyn = 1;
+	effects = 0;
+	effectAmount = 0;
+	effectTarget = 0;
+	effectsOver = 0;
+	effectAmountOver = 0;
+	effectTargetOver = 0;
 }
 
 void GuiElement::UpdateEffects()
@@ -633,10 +573,6 @@ void GuiElement::UpdateEffects()
 	}
 }
 
-void GuiElement::Update(GuiTrigger * t)
-{
-}
-
 void GuiElement::SetPosition(int xoff, int yoff)
 {
     LOCK(this);
@@ -659,11 +595,6 @@ void GuiElement::SetAlignment(int hor, int vert)
 	alignmentVert = vert;
 }
 
-int GuiElement::GetSelected()
-{
-	return -1;
-}
-
 int GuiElement::GetZPosition()
 {
     int zParent = 0;
@@ -672,13 +603,6 @@ int GuiElement::GetZPosition()
         zParent = parentElement->GetZPosition();
 
 	return zParent+zoffset;
-}
-
-/**
- * Draw an element on screen.
- */
-void GuiElement::Draw()
-{
 }
 
 /**

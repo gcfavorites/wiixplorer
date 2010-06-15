@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 09:17+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -71,6 +71,21 @@ msgstr "Πίσω"
 
 msgid "Back Button"
 msgstr "Πίσω πλήκτρο"
+
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "Ρυθμίσεις εκκίνησης"
@@ -159,6 +174,9 @@ msgstr "Κλείσε"
 
 msgid "Coders:"
 msgstr "Δημιουργοί:"
+
+msgid "Color Settings"
+msgstr ""
 
 msgid "Compressed Size:"
 msgstr "Συμπιεσμένο Μέγεθος:"
@@ -347,6 +365,9 @@ msgstr "Θέλεις να ξανανεβάσω τις συσκευές;"
 msgid "Do you want to replace this file?"
 msgstr "Θέλεις να αντικαταστήσω αυτό το αρχείο;"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "Θέλεις να επαναφέρω τις αρχικές ρυθμίσεις ελέγχου;"
 
@@ -370,9 +391,6 @@ msgstr ""
 
 msgid "Down Button"
 msgstr "Κάτω πλήκτρο"
-
-msgid "Download Files"
-msgstr "Κατεβάζω τα αρχεία"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -586,6 +604,18 @@ msgstr "Παίρνω το ιστορικό..."
 msgid "Go Back"
 msgstr "Πίσω"
 
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Home Button"
 msgstr "Πλήκτρο Κεντρικό"
 
@@ -612,6 +642,9 @@ msgstr "Πως θέλεις να προχωρήσω;"
 
 msgid "Icon Mode"
 msgstr "Τρόπος με εικονίδια"
+
+msgid "Idle"
+msgstr ""
 
 msgid "Image Converter"
 msgstr "Μετατροπέας εικόνων"
@@ -712,6 +745,9 @@ msgstr "Βρόχος"
 msgid "Loop Playlist"
 msgstr "Επανάληψη της λίστας"
 
+msgid "Low"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
 
@@ -782,6 +818,9 @@ msgstr "Δεν υπάρχουνε νέες αναβαθμίσεις"
 msgid "No to all"
 msgstr "Όχι σε όλα"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "Δεν είναι σωστή η URL"
 
@@ -790,9 +829,6 @@ msgstr "Δεν είναι σωστή η διαδρομή URL"
 
 msgid "Not a valid domain"
 msgstr "Δεν είναι σωστό το domain"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Δεν έχω πολύ μνήμη για άλλαγή μεγέθους."
@@ -875,28 +911,41 @@ msgstr "Πιθανών μη υποστηριζόμενη μορφή."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Πάτησε εκκίνηση για να αρχίσεις τον server στην πόρτα"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "Η διαδικασία ακυρώθηκε."
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "Ιδιότητες"
 
 msgid "QWERTYUIOP{}|"
+msgstr ""
+
+#, c-format
+msgid "R: %i G: %i B: %i"
 msgstr ""
 
 msgid "Random"
@@ -913,6 +962,9 @@ msgstr "Επανασύνδεση FTP"
 
 msgid "Reconnect SMB"
 msgstr "Επανασύνδεση SMB"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "Ανανέωση"
@@ -937,6 +989,9 @@ msgstr "Δεξί πλήκτρο"
 
 msgid "Rotate"
 msgstr "Περιστροφή"
+
+msgid "Rumble"
+msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr ""
@@ -1117,6 +1172,9 @@ msgstr "Η αναβάθμηση τελείωσε επιτυχώς"
 msgid "Update to Rev%i available"
 msgstr "Υπάρχει διαθέσημη αναβάθμηση έκδοση %i"
 
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
+
 msgid "Username:"
 msgstr "Ονομα χρήστη"
 
@@ -1263,6 +1321,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Download Files"
+#~ msgstr "Κατεβάζω τα αρχεία"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "Εξαγωγή πρώτα και μετά ανοιξέτο."

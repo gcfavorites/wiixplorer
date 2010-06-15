@@ -99,10 +99,7 @@ extern "C" void ExitApp()
 	DeInit_Network();
 	MEM2_cleanup();
     mload_DeInit();
-
-	WPAD_Flush(0);
-    WPAD_Disconnect(0);
-    WPAD_Shutdown();
+    ShutdownPads();
 }
 
 extern "C" void __Sys_ResetCallback(void)

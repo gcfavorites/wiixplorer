@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-12 15:58+0200\n"
+"POT-Creation-Date: 2010-06-15 10:55+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -69,6 +69,21 @@ msgstr "Tilbage"
 msgid "Back Button"
 msgstr "Tilbage Knap"
 
+msgid "Background Bottom/Left"
+msgstr ""
+
+msgid "Background Bottom/Right"
+msgstr ""
+
+msgid "Background Upper/Left"
+msgstr ""
+
+msgid "Background Upper/Right"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
 msgid "Boot Settings"
 msgstr "Boot Indstillinger"
 
@@ -79,7 +94,7 @@ msgid "Both"
 msgstr "Begge"
 
 msgid "Browse"
-msgstr ""
+msgstr "Gennemse"
 
 msgid "Browser Mode"
 msgstr ""
@@ -88,7 +103,7 @@ msgid "Browsing for font files must be done in the main browser."
 msgstr "browsing for Font Filer Skal Gøres I Hovedbrowser."
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "CRC Af Den Udpakkede Fil Matcher Ikke. Forkert Kodeord?"
 
 msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
@@ -157,6 +172,9 @@ msgstr "Luk"
 msgid "Coders:"
 msgstr "Programmører:"
 
+msgid "Color Settings"
+msgstr ""
+
 msgid "Compressed Size:"
 msgstr "Komprimeret Størrelse:"
 
@@ -182,10 +200,10 @@ msgid "Copy"
 msgstr "Kopiér"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "Kopier Tråd Baggrunds Prioritet"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "Kopier Tråd Prioritet"
 
 msgid "Copy current marked item(s)?"
 msgstr "Kopier Markere Emne(r)?"
@@ -230,7 +248,7 @@ msgid "Credits"
 msgstr "Tak Til"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "En Proces Kører"
 
 msgid "Customfont Path"
 msgstr "Sti til custom-fonte"
@@ -248,7 +266,7 @@ msgid "Delete"
 msgstr "Slet"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "Slet Midlertidig Sti På Nedlukning"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Slet Valgte Emne(r) Og Dens Indhold?"
@@ -278,7 +296,7 @@ msgid "Disconnect SMB"
 msgstr "Afbryd SMB"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "Vil Du Vedhæfte Denne Paste Til Køen?"
 
 msgid "Do you want to boot file now?"
 msgstr "Vil Du Boote Filen Nu?"
@@ -344,6 +362,9 @@ msgstr "Vil Du Genindlæse Enheder?"
 msgid "Do you want to replace this file?"
 msgstr "Vil Du Erstatte Denne Fil?"
 
+msgid "Do you want to reset the color settings?"
+msgstr ""
+
 msgid "Do you want to reset the control settings?"
 msgstr "Vil du nulstille kontrol indstillinger?"
 
@@ -363,13 +384,10 @@ msgid "Do you want to update now ?"
 msgstr "Vil du opdatere nu?"
 
 msgid "Done"
-msgstr "Gjort"
+msgstr "Færdig"
 
 msgid "Down Button"
 msgstr "Ned Knap"
-
-msgid "Download Files"
-msgstr "Download Filer"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -385,7 +403,7 @@ msgid "Edit Textline Button"
 msgstr "Edit Tekstlinje Knap"
 
 msgid "Enter"
-msgstr ""
+msgstr "Skriv"
 
 msgid "Error while reading file."
 msgstr "Fejl Under Indlæsning Af Fil."
@@ -409,7 +427,7 @@ msgid "Extract All"
 msgstr "Udpak Alle"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "Udpak Fil til Midlertidig Sti Og Udføre?"
 
 msgid "Extract full archive?"
 msgstr "Udpak Hele Arkivet?"
@@ -566,13 +584,13 @@ msgid "GC PAD BUTTON Y"
 msgstr "GC PAD KNAP Y"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "GC PAD AFTRÆKKER L"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "GC PAD AFTRÆKKER R"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "GC PAD AFTRÆKKER Z"
 
 msgid "GD2 Compression"
 msgstr "GD2 Komprition"
@@ -582,6 +600,18 @@ msgstr "Henter Changelog..."
 
 msgid "Go Back"
 msgstr "Tilbage"
+
+msgid "Green"
+msgstr ""
+
+msgid "Hide System Files/Folders"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
 
 msgid "Home Button"
 msgstr "Hjem Knap"
@@ -608,6 +638,9 @@ msgid "How do you want to proceed?"
 msgstr "Hvordan Vil Du Fortsætte?"
 
 msgid "Icon Mode"
+msgstr ""
+
+msgid "Idle"
 msgstr ""
 
 msgid "Image Converter"
@@ -692,7 +725,7 @@ msgid "Listening on TCP port"
 msgstr "Lytter På TCP Port"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "List Filer I"
 
 msgid "Load Music to Memory"
 msgstr "Indlæs Musik til Hukommelse"
@@ -708,6 +741,9 @@ msgstr ""
 
 msgid "Loop Playlist"
 msgstr "Loop Afspilningsliste"
+
+msgid "Low"
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MplayerCE Sti"
@@ -725,7 +761,7 @@ msgid "Menu"
 msgstr ""
 
 msgid "Minimize"
-msgstr ""
+msgstr "Minimer"
 
 msgid "Mount NTFS"
 msgstr ""
@@ -779,6 +815,9 @@ msgstr "Der er ingen ny opdateringer"
 msgid "No to all"
 msgstr "Nej Til Alle"
 
+msgid "Normal"
+msgstr ""
+
 msgid "Not a valid URL"
 msgstr "Ikke en gyldig URL"
 
@@ -787,9 +826,6 @@ msgstr "Ikke en gyldig URL sti"
 
 msgid "Not a valid domain"
 msgstr "Ikke et gyldigt domæne"
-
-msgid "Not enough memory 2."
-msgstr ""
 
 msgid "Not enough memory to resize."
 msgstr "Ikke Nok Hukommelse Til At Ændre Størrelse."
@@ -872,28 +908,41 @@ msgstr "Format muligvis ikke understøttet"
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pres Startup FTP Få At Starte Server På Port"
 
-msgid "Priority High"
-msgstr ""
-
-msgid "Priority Highest"
-msgstr ""
-
-msgid "Priority Idle"
-msgstr ""
-
-msgid "Priority Low"
-msgstr ""
-
-msgid "Priority Normal"
-msgstr ""
-
 msgid "Process canceled."
 msgstr "Handling Afbrudt."
+
+msgid "ProgressBar Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Bottom/Right"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Empty Upper/Right"
+msgstr ""
+
+msgid "ProgressBar Upper/Left"
+msgstr ""
+
+msgid "ProgressBar Upper/Right"
+msgstr ""
 
 msgid "Properties"
 msgstr "Egenskaber"
 
 msgid "QWERTYUIOP{}|"
+msgstr ""
+
+#, c-format
+msgid "R: %i G: %i B: %i"
 msgstr ""
 
 msgid "Random"
@@ -910,6 +959,9 @@ msgstr "Genforbind FTP"
 
 msgid "Reconnect SMB"
 msgstr "Genforbind SMB"
+
+msgid "Red"
+msgstr ""
 
 msgid "Reload"
 msgstr "Genindlæs"
@@ -935,8 +987,11 @@ msgstr "Højre Knap"
 msgid "Rotate"
 msgstr "Roter"
 
-msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgid "Rumble"
 msgstr ""
+
+msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr "Afspilling Af Video Kan Nedsætte Farten På Processen Eller Fryse Prg. Vil Du Fortsætte?"
 
 msgid "SMB Name:"
 msgstr "SMB-navn:"
@@ -1021,7 +1076,7 @@ msgid "Startup FTP"
 msgstr ""
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "Midlertidig Sti"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Buffer størrelse er meget høj. Hvis Prg. ikke starter efter dette slet din config fil."
@@ -1113,6 +1168,9 @@ msgstr "Opdateringen gennemført"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
+
+msgid "Updating/Downloading Languagefiles."
+msgstr ""
 
 msgid "Username:"
 msgstr "Brugernavn:"
@@ -1260,6 +1318,27 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Download Files"
+#~ msgstr "Download Filer"
+
+#~ msgid "Not enough memory 2."
+#~ msgstr "Ikke Nok Hukommelse 2."
+
+#~ msgid "Priority High"
+#~ msgstr "Prioritet Høj"
+
+#~ msgid "Priority Highest"
+#~ msgstr "Prioritet Højest"
+
+#~ msgid "Priority Idle"
+#~ msgstr "Prioritet Idle"
+
+#~ msgid "Priority Low"
+#~ msgstr "Prioritet Lav"
+
+#~ msgid "Priority Normal"
+#~ msgstr "Prioritet Normal"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "Udpak Først Og Åben Bagefter."

@@ -1,6 +1,6 @@
 /***************************************************************************
- * Copyright (C) 2009
- * by r-win
+ * Copyright (C) 2010
+ * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,8 +23,10 @@
  *
  * Window.cpp
  *
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
+#if 0  //currently not used
+
 #include "Memory/Resources.h"
 #include "Window.h"
 #include "main.h"
@@ -155,7 +157,9 @@ void Window::Draw()
 		}
 	}
 
-    Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, (GXColor){226, 230, 237, 255},1);
+	GXColor backgroundColor = (GXColor){226, 230, 237, 255};
+
+    Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, &backgroundColor, false, true);
 
 	GuiWindow::Draw();
 }
@@ -223,3 +227,5 @@ void Window::SizeChanged()
     window_tile_vertical_left->SetPosition(0, window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
     window_tile_vertical_right->SetPosition(window_corner_right_top->GetLeft()+window_corner_right_top->GetWidth()-window_tile_vertical_right->GetWidth(), window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
 }
+
+#endif

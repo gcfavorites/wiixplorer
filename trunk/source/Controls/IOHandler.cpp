@@ -46,11 +46,7 @@ IOHandler::IOHandler()
     Running = false;
     MinimizeCallback.SetCallback(this, &IOHandler::SetMaximized);
 
-    ThreadStack = (u8 *) memalign(32, 32768);
-    if(!ThreadStack)
-        return;
-
-	LWP_CreateThread(&IOThread, ThreadCallback, this, ThreadStack, 32768, Settings.CopyThreadPrio);
+	LWP_CreateThread(&IOThread, ThreadCallback, this, NULL, 32768, Settings.CopyThreadPrio);
 }
 
 IOHandler::~IOHandler()
@@ -64,9 +60,6 @@ IOHandler::~IOHandler()
         LWP_ResumeThread(IOThread);
         LWP_JoinThread(IOThread, NULL);
     }
-
-    if(ThreadStack)
-        free(ThreadStack);
 
     while(!ProcessQueue.empty())
     {
@@ -136,8 +129,8 @@ void IOHandler::ProcessNext()
     char srcpath[MAXPATHLEN];
     char destdir[MAXPATHLEN];
     int res = 0;
-    ProgressSetMinimizable(true);
-    ProgressSetMinimized(!ProcessLocked);
+    ProgressWindow::Instance()->SetMinimizable(true);
+    ProgressWindow::Instance()->SetMinimized(!ProcessLocked);
 
     bool Cutted = ProcessQueue.front()->Cutted;
     if(Cutted)
@@ -183,7 +176,8 @@ void IOHandler::ProcessNext()
             if(res == -10)
             {
                 StopProgress();
-                WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
+                if(!DestroyRequested)
+                    WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
                 break;
             }
         }
@@ -211,10 +205,10 @@ void IOHandler::ProcessNext()
         }
     }
     StopProgress();
-    ProgressSetMinimized(false);
-    ProgressSetMinimizable(false);
+    ProgressWindow::Instance()->SetMinimized(false);
+    ProgressWindow::Instance()->SetMinimizable(false);
     ResetReplaceChoice();
-    if(res < 0 && res != 10)
+    if(res < 0 && res != 10 && !DestroyRequested)
     {
         if(Cutted)
             ShowError(tr("Failed moving item(s)."));
@@ -229,7 +223,7 @@ void IOHandler::ProcessNext()
 
 void IOHandler::SetMinimized(int mode)
 {
-    ProgressText.assign(GetProgressTitle());
+    ProgressText.assign(ProgressWindow::Instance()->GetTitle());
     TaskbarSlot = new Task(ProgressText.c_str());
     TaskbarSlot->SetCallback(&MinimizeCallback);
     TaskbarSlot->SetParameter(mode);
@@ -249,7 +243,7 @@ void IOHandler::SetMaximized(int Param)
     Taskbar::Instance()->RemoveTask(TaskbarSlot);
     TaskbarSlot = NULL;
 
-    ProgressSetMinimized(false);
+    ProgressWindow::Instance()->SetMinimized(false);
     StartProgress(ProgressText.c_str(), Param);
 
     ProcessLocked = true;
@@ -270,7 +264,7 @@ void IOHandler::InternalThreadHandle()
         if(!Running)
             LWP_SuspendThread(IOThread);
 
-        while(!ProcessQueue.empty())
+        while(!ProcessQueue.empty() && Running)
             ProcessNext();
 
         if(TaskbarSlot)

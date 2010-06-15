@@ -285,8 +285,8 @@ int MenuControlsSettings()
 	GuiText resetBtnTxt(tr("Reset"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(btnOutline);
 	GuiButton resetBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	resetBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	resetBtn.SetPosition(-50, -65);
+	resetBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	resetBtn.SetPosition(100+btnOutline->GetWidth()/2, -65);
 	resetBtn.SetLabel(&resetBtnTxt);
 	resetBtn.SetImage(&resetBtnImg);
 	resetBtn.SetSoundOver(btnSoundOver);

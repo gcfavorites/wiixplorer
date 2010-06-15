@@ -36,11 +36,8 @@ class MainWindow : public GuiWindow
 {
 	public:
 		static MainWindow * Instance();
-
 		static void DestroyInstance();
 
-		void Append(GuiElement *w);
-		void Append(GuiWindow *w);
 		void HaltGui();
 		void ResumeGui();
 
@@ -50,28 +47,23 @@ class MainWindow : public GuiWindow
 
 		void Quit();
 		void Show();
+		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); };
 	private:
 		MainWindow();
 		~MainWindow();
 		static void * UpdateGUI(void *arg);
 		void InternalUpdateGUI();
 
-		void AddWindow(GuiWindow *window);
-
 		static MainWindow *instance;
 
 		bool guihalt;
 		bool exitApplication;
 		lwp_t guithread;
-		u8 * StackBuffer;
 
 		GuiImage *bgImg;
-		GuiImageData *bgImgData;
 		GuiImageData *pointer[4];
 		GuiImageData *standardPointer[4];
 		GuiImageData *grabPointer[4];
-
-		std::list<GuiWindow *> windows;
 };
 
 #endif //_MAINWINDOW_H

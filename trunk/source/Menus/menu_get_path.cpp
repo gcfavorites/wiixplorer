@@ -53,8 +53,8 @@ int MenuGetPath(std::string & Path)
 	GuiText doneBtnTxt(tr("Done"), 20, (GXColor){0, 0, 0, 255});
 	GuiImage doneBtnImg(btnOutline);
 	GuiButton doneBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	doneBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	doneBtn.SetPosition(-50, -65);
+	doneBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	doneBtn.SetPosition(100+btnOutline->GetWidth()/2, -65);
 	doneBtn.SetLabel(&doneBtnTxt);
 	doneBtn.SetImage(&doneBtnImg);
 	doneBtn.SetSoundClick(btnSoundOver);
@@ -65,8 +65,8 @@ int MenuGetPath(std::string & Path)
 	GuiText CancelBtnTxt(tr("Cancel"), 20, (GXColor){0, 0, 0, 255});
 	GuiImage CancelBtnImg(btnOutline);
 	GuiButton CancelBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	CancelBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	CancelBtn.SetPosition(50, -65);
+	CancelBtn.SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	CancelBtn.SetPosition(-105-btnOutline->GetWidth()/2, -65);
 	CancelBtn.SetLabel(&CancelBtnTxt);
 	CancelBtn.SetImage(&CancelBtnImg);
 	CancelBtn.SetSoundOver(btnSoundOver);
