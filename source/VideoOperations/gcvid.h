@@ -191,11 +191,11 @@ class VideoFrame
 
   void resize(int width, int height);
 
-  int getWidth() const;
-  int getHeight() const;
-  int getPitch() const;
-  u8* getData();
-  const u8* getData() const;
+  int getWidth() const { return _w; };
+  int getHeight() const { return _h; };
+  int getPitch() const { return _p; };
+  u8* getData() { return _data; };
+  const u8* getData() const { return _data; };
 
   void dealloc();
 
@@ -221,22 +221,22 @@ class VideoFile
   virtual ~VideoFile();
 
 
-  virtual int getWidth() const;
-  virtual int getHeight() const;
-  virtual float getFps() const;
-  virtual int getFrameCount() const;
-  virtual int getCurrentFrameNr() const;
+  virtual int getWidth() const { return 0; };
+  virtual int getHeight() const { return 0; };
+  virtual float getFps() const { return 50.0f; };
+  virtual int getFrameCount() const { return 0; };
+  virtual int getCurrentFrameNr() const { return 0; };
 
-  virtual void loadNextFrame();
+  virtual void loadNextFrame() { };
 
-  virtual void getCurrentFrame(VideoFrame& frame) const;
+  virtual void getCurrentFrame(VideoFrame& frame) const { };
 
   //sound support:
-  virtual bool hasSound() const;
-  virtual int getNumChannels() const;
-  virtual int getFrequency() const;
-  virtual int getMaxAudioSamples() const;
-  virtual int getCurrentBuffer(s16* data) const;
+  virtual bool hasSound() const { return false; };
+  virtual int getNumChannels() const { return 0; };
+  virtual int getFrequency() const { return 0; };
+  virtual int getMaxAudioSamples() const { return 0; };
+  virtual int getCurrentBuffer(s16* data) const { return 0; };
 
  protected:
 
@@ -256,21 +256,21 @@ class ThpVideoFile : public VideoFile
  public:
   ThpVideoFile(FILE* f);
 
-  virtual int getWidth() const;
-  virtual int getHeight() const;
-  virtual float getFps() const;
-  virtual int getFrameCount() const;
+  virtual int getWidth() const { return _videoInfo.width; };
+  virtual int getHeight() const { return _videoInfo.height; };
+  virtual float getFps() const { return _head.fps; };
+  virtual int getFrameCount() const { return _head.numFrames; };
 
-  virtual int getCurrentFrameNr() const;
+  virtual int getCurrentFrameNr() const { return _currFrameNr; };
 
   virtual void loadNextFrame();
 
   virtual void getCurrentFrame(VideoFrame& frame) const;
 
-  virtual bool hasSound() const;
+  virtual bool hasSound() const { return _head.maxAudioSamples != 0; };
   virtual int getNumChannels() const;
   virtual int getFrequency() const;
-  virtual int getMaxAudioSamples() const;
+  virtual int getMaxAudioSamples() const { return _head.maxAudioSamples; };
   virtual int getCurrentBuffer(s16* data) const;
 
 
@@ -292,12 +292,12 @@ class MthVideoFile : public VideoFile
  public:
   MthVideoFile(FILE* f);
 
-  virtual int getWidth() const;
-  virtual int getHeight() const;
-  virtual float getFps() const;
-  virtual int getFrameCount() const;
+  virtual int getWidth() const { return _head.width; };
+  virtual int getHeight() const { return _head.height; };
+  virtual float getFps() const { return (float) 1.0f*_head.fps; };
+  virtual int getFrameCount() const { return _head.numFrames; };
 
-  virtual int getCurrentFrameNr() const;
+  virtual int getCurrentFrameNr() const { return _currFrameNr; };
 
   virtual void loadNextFrame();
 
@@ -318,9 +318,9 @@ class JpgVideoFile : public VideoFile
  public:
   JpgVideoFile(FILE* f);
 
-  virtual int getWidth() const;
-  virtual int getHeight() const;
-  virtual int getFrameCount() const;
+  virtual int getWidth() const { return _currFrame.getWidth(); };
+  virtual int getHeight() const { return _currFrame.getHeight(); };
+  virtual int getFrameCount() const { return 1; };
 
   virtual void getCurrentFrame(VideoFrame& frame) const;
 

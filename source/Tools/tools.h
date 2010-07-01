@@ -36,8 +36,8 @@ extern "C" {
 #include "StringTools.h"
 #include "ConvertUTF.h"
 
-#define GXCOLORTORGBA(x) (u32) (x.r << 24 | x.g << 16 | x.b << 8 | x.a)
-#define RGBATOGXCOLOR(x) (GXColor) {(x & 0xFF000000) >> 24, (x & 0x00FF0000) >> 16, (x & 0x0000FF00) >> 8, (x & 0x000000FF)}
+#define GXCOLORTORGBA(x) ((u32) (x.r << 24 | x.g << 16 | x.b << 8 | x.a))
+#define RGBATOGXCOLOR(x) ((GXColor) {(x & 0xFF000000) >> 24, (x & 0x00FF0000) >> 16, (x & 0x0000FF00) >> 8, (x & 0x000000FF)})
 
 void ShowError(const char * format, ...);
 int cut_bounds(int val, int min, int max);

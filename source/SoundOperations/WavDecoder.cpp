@@ -25,16 +25,7 @@
  ***************************************************************************/
 #include <string.h>
 #include "WavDecoder.hpp"
-
-inline u16 le16(u16 i)
-{
-	return ((i & 0xFF) << 8) | ((i & 0xFF00) >> 8);
-}
-
-inline u32 le32(u32 i)
-{
-	return ((i & 0xFF) << 24) | ((i & 0xFF00) << 8) | ((i & 0xFF0000) >> 8) | ((i & 0xFF000000) >> 24);
-}
+#include "Tools/uncompress.h"
 
 WavDecoder::WavDecoder(const char * filepath)
     : SoundDecoder(filepath)

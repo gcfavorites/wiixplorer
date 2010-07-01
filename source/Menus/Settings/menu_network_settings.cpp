@@ -149,9 +149,9 @@ int MenuNetworkSettings()
 
     delete Menu;
 
-	HaltGui();
+	MainWindow::Instance()->HaltGui();
 	MainWindow::Instance()->Remove(&updateBtn);
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnSoundOver);

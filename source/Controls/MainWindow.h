@@ -58,6 +58,7 @@ class MainWindow : public GuiWindow
 
 		bool guihalt;
 		bool exitApplication;
+		u8 * ThreadStack;
 		lwp_t guithread;
 
 		GuiImage *bgImg;

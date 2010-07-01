@@ -51,12 +51,16 @@ ProgressWindow::ProgressWindow()
 {
     ProgressThread = LWP_THREAD_NULL;
     showProgress = 0;
+    TotalFileCount = 0;
+    TotalDone = 0;
+    TotalSize = 0;
     progressDone = 0;
     progressTotal = 100;
     Changed = false;
     ExitRequested = false;
     Minimized = false;
     Minimizable = false;
+    ValuesResetable = true;
     ProgressMsg[0] = '\0';
 
     dialogBox = NULL;
@@ -84,7 +88,8 @@ ProgressWindow::ProgressWindow()
     soundClick = NULL;
     soundOver = NULL;
 
-	LWP_CreateThread(&ProgressThread, ThreadCallback, this, NULL, 32768, 70);
+    ThreadStack = (u8 *) memalign(32, 32768);
+	LWP_CreateThread(&ProgressThread, ThreadCallback, this, ThreadStack, 32768, 70);
 }
 
 ProgressWindow::~ProgressWindow()
@@ -95,6 +100,8 @@ ProgressWindow::~ProgressWindow()
     LWP_ResumeThread(ProgressThread);
 	LWP_JoinThread(ProgressThread, NULL);
 	ProgressThread = LWP_THREAD_NULL;
+	if(ThreadStack)
+        free(ThreadStack);
 
 	ClearMemory();
 }
@@ -366,6 +373,28 @@ void ProgressWindow::UpdateValues()
         sizeTxt->SetTextf("%0.2fGB/%0.2fGB", progressDone/GBSIZE, progressTotal/GBSIZE);
     else
         sizeTxt->SetTextf("%lldB/%lldB", progressDone, progressTotal);
+
+//    float TotalPercent = 0.0f
+//    if(TotalSize > 0)
+//        TotalPercent = 100.0f*(TotalDone+progressDone)/TotalSize;
+//
+//    progressbarImg->SetSize((int) (TotalPercent*4.0f), 36);
+//
+//    if(TotalPercent >= 100.0f)
+//        prTxt->SetTextf("%0.0f", TotalPercent);
+//    else
+//        prTxt->SetTextf("%0.2f", TotalPercent);
+//
+//    speedTxt->SetTextf("%iKB/s", (int) (progressDone/(ProgressTimer.elapsed() * KBSIZE)));
+//
+//    if(TotalSize > KBSIZE && TotalSize < MBSIZE)
+//        sizeTxt->SetTextf("%0.2fKB/%0.2fKB", (TotalDone+progressDone)/KBSIZE, TotalSize/KBSIZE);
+//    else if(TotalSize > MBSIZE && TotalSize < GBSIZE)
+//        sizeTxt->SetTextf("%0.2fMB/%0.2fMB", (TotalDone+progressDone)/MBSIZE, TotalSize/MBSIZE);
+//    else if(TotalSize > GBSIZE)
+//        sizeTxt->SetTextf("%0.2fGB/%0.2fGB", (TotalDone+progressDone)/GBSIZE, TotalSize/GBSIZE);
+//    else
+//        sizeTxt->SetTextf("%lldB/%lldB", (TotalDone+progressDone), TotalSize);
 }
 
 void * ProgressWindow::ThreadCallback(void *arg)
@@ -390,10 +419,12 @@ void ProgressWindow::StartProgress(const char *title, int progressmode)
 {
     if(title)
         ProgressTitle.assign(title);
+    if(titleTxt)
+        titleTxt->SetText(title);
 
 	showProgress = progressmode;
 
-	LWP_ResumeThread(ProgressThread);
+    LWP_ResumeThread(ProgressThread);
 }
 
 void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
@@ -411,7 +442,13 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 
     //progress start for this file
     if(!done)
+    {
+	    TotalDone += progressTotal;
+	    if(TotalSize == 0)
+            TotalSize = total;
+
         ProgressTimer.reset();
+    }
 
     progressDone = done;
     progressTotal = total;
@@ -422,6 +459,13 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 void ProgressWindow::StopProgress()
 {
 	showProgress = 0;
+	if(ValuesResetable)
+	{
+        progressTotal = 0;
+        TotalDone = 0;
+        TotalSize = 0;
+        TotalFileCount = 0;
+	}
 
 	while(!LWP_ThreadIsSuspended(ProgressThread) && !ExitRequested)
         usleep(100);

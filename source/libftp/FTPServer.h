@@ -45,6 +45,7 @@ class FTPServer
 
 		static FTPServer *instance;
 
+        u8 * ThreadStack;
 		lwp_t ftpthread;
         bool ftp_running;
         s32 server;

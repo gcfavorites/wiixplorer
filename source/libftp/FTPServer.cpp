@@ -43,7 +43,8 @@ FTPServer::FTPServer()
     server = -1;
     ExitRequested = false;
 
-	LWP_CreateThread (&ftpthread, UpdateFTP, this, NULL, 32768, 30);
+    ThreadStack = (u8 *) memalign(32, 32768);
+	LWP_CreateThread (&ftpthread, UpdateFTP, this, ThreadStack, 32768, 30);
 }
 
 FTPServer::~FTPServer()
@@ -54,6 +55,7 @@ FTPServer::~FTPServer()
     LWP_ResumeThread(ftpthread);
     LWP_JoinThread(ftpthread, NULL);
     ftpthread = LWP_THREAD_NULL;
+    free(ThreadStack);
 }
 
 FTPServer * FTPServer::Instance()

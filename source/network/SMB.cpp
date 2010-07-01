@@ -28,7 +28,11 @@
 #include <ogcsys.h>
 #include <unistd.h>
 #include <smb.h>
+#include "Tools/StringTools.h"
 #include "main.h"
+
+static bool SMB_Mounted[MAXSMBUSERS];
+static bool firstRun = true;
 
 /****************************************************************************
  * Mount SMB Share
@@ -36,21 +40,35 @@
 bool ConnectSMBShare()
 {
     bool result = false;
+    char mountname[10];
+    char User[50];
+    char Password[50];
+    char SMBName[50];
+    char Host[50];
+
+    if(firstRun)
+    {
+        for(int i = 0; i < MAXSMBUSERS; i++)
+            SMB_Mounted[i] = false;
+
+        firstRun = false;
+    }
 
     for(int i = 0; i < MAXSMBUSERS; i++)
     {
-        char mountname[10];
+        //don't let tinysmb modify the settings strings
         sprintf(mountname, "smb%i", i+1);
+        strcpy(Host, Settings.SMBUser[i].Host);
+        strcpy(User, Settings.SMBUser[i].User);
+        strcpy(Password, Settings.SMBUser[i].Password);
+        strcpy(SMBName, Settings.SMBUser[i].SMBName);
 
-        if(strcmp(Settings.SMBUser[i].Host, "") != 0)
+        if(strcmp(Host, "") != 0)
         {
-            if(smbInitDevice(mountname,
-                Settings.SMBUser[i].User,
-                Settings.SMBUser[i].Password,
-                Settings.SMBUser[i].SMBName,
-                Settings.SMBUser[i].Host))
+            if(smbInitDevice(mountname, User, Password, SMBName, Host))
             {
                 result = true;
+                SMB_Mounted[i] = true;
             }
         }
     }
@@ -65,10 +83,7 @@ bool IsSMB_Mounted(int smb)
     if(smb < 0 || smb >= MAXSMBUSERS)
         return false;
 
-    char mountname[10];
-    sprintf(mountname, "smb%i", smb+1);
-
-    return smbCheckConnection(mountname);
+    return SMB_Mounted[smb];
 }
 
 /****************************************************************************
@@ -83,6 +98,8 @@ void CloseSMBShare()
 
         if(IsSMB_Mounted(i))
             smbClose(mountname);
+
+        SMB_Mounted[i] = false;
     }
 }
 
@@ -96,6 +113,8 @@ void CloseSMBShare(int connection)
 
     if(IsSMB_Mounted(connection))
         smbClose(mountname);
+
+    SMB_Mounted[connection] = false;
 }
 
 /****************************************************************************

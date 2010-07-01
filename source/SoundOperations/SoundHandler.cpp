@@ -42,7 +42,11 @@ SoundHandler::SoundHandler()
 	for(u32 i = 0; i < DecoderList.size(); i++)
         DecoderList[i] = NULL;
 
-	LWP_CreateThread(&SoundThread, UpdateThread, this, NULL, 16384, 80);
+    ThreadStack = (u8 *) memalign(32, 16384);
+	if(!ThreadStack)
+        return;
+
+	LWP_CreateThread(&SoundThread, UpdateThread, this, ThreadStack, 16384, 80);
 }
 
 SoundHandler::~SoundHandler()
@@ -51,6 +55,8 @@ SoundHandler::~SoundHandler()
 	ThreadSignal();
 	LWP_JoinThread(SoundThread, NULL);
 	SoundThread = LWP_THREAD_NULL;
+	if(ThreadStack)
+        free(ThreadStack);
 
 	ClearDecoderList();
     DecoderList.clear();

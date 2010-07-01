@@ -28,6 +28,7 @@
 
 #include <gctypes.h>
 #include <gd.h>
+#include "ImageOperations/GifImage.hpp"
 
 class GuiImageData
 {
@@ -40,7 +41,7 @@ class GuiImageData
 		~GuiImageData();
 		//!Gets a pointer to the image data
 		//!\return pointer to image data
-		u8 * GetImage() { return data; };
+		u8 * GetImage() { return data ? data : AnimGif ? AnimGif->GetFrameImage(0) : NULL; };
 		//!Gets the image width
 		//!\return image width
 		int GetWidth() { return width; };
@@ -49,6 +50,8 @@ class GuiImageData
 		int GetHeight() { return height; };
 		//!Gets the texture format
 		u8 GetTextureFormat() { return format; };
+		//!Gets animated gif if present
+		GifImage * GetAnimGif() { return AnimGif; };
 	protected:
 		void LoadPNG(const u8 *img, int imgSize);
 		void LoadBMP(const u8 *img, int imgSize);
@@ -65,6 +68,7 @@ class GuiImageData
 		int height; //!< Height of image
 		int width; //!< Width of image
 		u8 format; //!< Texture format
+		GifImage * AnimGif;
 };
 
 #endif

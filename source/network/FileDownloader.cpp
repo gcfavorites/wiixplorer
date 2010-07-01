@@ -70,8 +70,15 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
         return -4;
     }
 
-    char header[strlen(path)+strlen(domain)*2+100];
-    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nReferer: %s\r\nUser-Agent: WiiXplorer\r\nConnection: close\r\n\r\n", path, domain, domain);
+    char header[1024];
+    char * ptr = header;
+    ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
+    ptr += sprintf(ptr, "Host: %s\r\n", domain);
+    ptr += sprintf(ptr, "Referer: %s\r\n", domain);
+    ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
+    ptr += sprintf(ptr, "Pragma: no-cache\r\n");
+    ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
+    ptr += sprintf(ptr, "Connection: close\r\n\r\n");
 
     char filename[255];
     memset(filename, 0, sizeof(filename));
@@ -85,7 +92,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
         return -5;
     }
 
-    u32 blocksize = 5*1024;
+    u32 blocksize = 10*1024;
 
     u8 * buffer = (u8 *) malloc(filesize);
     if(!buffer)
@@ -179,8 +186,15 @@ int DownloadFileToPath(const char *url, const char *dest)
         return -4;
     }
 
-    char header[strlen(path)+strlen(domain)*2+100];
-    sprintf(header, "GET %s HTTP/1.1\r\nHost: %s\r\nReferer: %s\r\nUser-Agent: WiiXplorer\r\nConnection: close\r\n\r\n", path, domain, domain);
+    char header[1024];
+    char * ptr = header;
+    ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
+    ptr += sprintf(ptr, "Host: %s\r\n", domain);
+    ptr += sprintf(ptr, "Referer: %s\r\n", domain);
+    ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
+    ptr += sprintf(ptr, "Pragma: no-cache\r\n");
+    ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
+    ptr += sprintf(ptr, "Connection: close\r\n\r\n");
 
     char filename[255];
     memset(filename, 0, sizeof(filename));
@@ -194,7 +208,7 @@ int DownloadFileToPath(const char *url, const char *dest)
         return -5;
     }
 
-    u32 blocksize = 5*1024;
+    u32 blocksize = 10*1024;
 
     u8 *buffer = (u8 *) malloc(blocksize);
     if(!buffer)

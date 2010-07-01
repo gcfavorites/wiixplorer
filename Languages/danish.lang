@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-15 10:55+0200\n"
+"POT-Creation-Date: 2010-07-01 23:44+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
@@ -70,19 +70,19 @@ msgid "Back Button"
 msgstr "Tilbage Knap"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "Baggrund Bund/Venstre"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Baggrund Bund/Højre"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Baggrund Øverst/Venstre"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Baggrund Øverst/Højre"
 
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 msgid "Boot Settings"
 msgstr "Boot Indstillinger"
@@ -173,7 +173,7 @@ msgid "Coders:"
 msgstr "Programmører:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Farve Indstillinger"
 
 msgid "Compressed Size:"
 msgstr "Komprimeret Størrelse:"
@@ -363,7 +363,7 @@ msgid "Do you want to replace this file?"
 msgstr "Vil Du Erstatte Denne Fil?"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "Vil Du Nulstille Farve Indstilinger?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Vil du nulstille kontrol indstillinger?"
@@ -602,16 +602,16 @@ msgid "Go Back"
 msgstr "Tilbage"
 
 msgid "Green"
-msgstr ""
+msgstr "Grøn"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Skjul System Filer/Folder"
 
 msgid "High"
-msgstr ""
+msgstr "Høj"
 
 msgid "Highest"
-msgstr ""
+msgstr "Højest"
 
 msgid "Home Button"
 msgstr "Hjem Knap"
@@ -743,7 +743,7 @@ msgid "Loop Playlist"
 msgstr "Loop Afspilningsliste"
 
 msgid "Low"
-msgstr ""
+msgstr "Lav"
 
 msgid "MPlayerCE Path"
 msgstr "MplayerCE Sti"
@@ -764,6 +764,9 @@ msgid "Minimize"
 msgstr "Minimer"
 
 msgid "Mount NTFS"
+msgstr ""
+
+msgid "Mounting disc"
 msgstr ""
 
 msgid "Moving item(s):"
@@ -816,7 +819,7 @@ msgid "No to all"
 msgstr "Nej Til Alle"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 msgid "Not a valid URL"
 msgstr "Ikke en gyldig URL"
@@ -912,28 +915,28 @@ msgid "Process canceled."
 msgstr "Handling Afbrudt."
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "ProgresBar Bund/Venstre"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "ProgresBar Bund/Højre"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "ProgresBar Tom Bund/Venstre"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "ProgresBar Tom Bund/Højre"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "ProgresBar Tom Øverst/Venstre"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "ProgresBar Tom Øverst/Højre"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "ProgresBar Øverst/Venstre"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "ProgresBar Øverst/Højre"
 
 msgid "Properties"
 msgstr "Egenskaber"
@@ -961,7 +964,7 @@ msgid "Reconnect SMB"
 msgstr "Genforbind SMB"
 
 msgid "Red"
-msgstr ""
+msgstr "Rød"
 
 msgid "Reload"
 msgstr "Genindlæs"
@@ -1170,7 +1173,7 @@ msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "Opdatere/Downloader Sprogfiler."
 
 msgid "Username:"
 msgstr "Brugernavn:"

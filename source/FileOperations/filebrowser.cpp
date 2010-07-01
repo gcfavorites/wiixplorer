@@ -486,7 +486,11 @@ void FileBrowser::InternalThreadUpdate()
  ***************************************************************************/
 void FileBrowser::InitParseThread()
 {
-	LWP_CreateThread(&parsethread, UpdateThread, this, NULL, 0, 60);
+    ThreadStack = (u8 *) memalign(32, 16384);
+    if(!ThreadStack)
+        return;
+
+	LWP_CreateThread(&parsethread, UpdateThread, this, ThreadStack, 16384, 60);
 }
 
 /****************************************************************************
@@ -501,4 +505,7 @@ void FileBrowser::ShutdownParseThread()
         LWP_JoinThread(parsethread, NULL);
         parsethread = LWP_THREAD_NULL;
 	}
+	if(ThreadStack)
+        free(ThreadStack);
+    ThreadStack = NULL;
 }

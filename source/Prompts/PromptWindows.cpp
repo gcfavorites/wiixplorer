@@ -43,6 +43,8 @@
 #include "main.h"
 #include "filelist.h"
 #include "Controls/MainWindow.h"
+#include "Tools/StringTools.h"
+#include "TextOperations/wstring.hpp"
 #include "sys.h"
 #include "svnrev.h"
 
@@ -54,83 +56,18 @@
  ***************************************************************************/
 int OnScreenKeyboard(char * var, u16 maxlen)
 {
-	int save = -1;
+    wString Converter;
+    Converter.resize(maxlen+2);
 
-	GuiKeyboard keyboard(var, maxlen);
+    char2wchar_t(var, &Converter[0]);
 
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-	GuiImageData * btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
-	GuiTrigger trigA;
-	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
-
-	GuiText okBtnTxt(tr("OK"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage okBtnImg(btnOutline);
-	GuiImage okBtnImgOver(btnOutlineOver);
-	GuiButton okBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-
-	okBtn.SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	okBtn.SetPosition(25, -25);
-
-	okBtn.SetLabel(&okBtnTxt);
-	okBtn.SetImage(&okBtnImg);
-	okBtn.SetImageOver(&okBtnImgOver);
-	okBtn.SetSoundOver(btnSoundOver);
-	okBtn.SetTrigger(&trigA);
-	okBtn.SetEffectGrow();
-
-	GuiText cancelBtnTxt(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
-	GuiImage cancelBtnImg(btnOutline);
-	GuiImage cancelBtnImgOver(btnOutlineOver);
-	GuiButton cancelBtn(btnOutline->GetWidth(), btnOutline->GetHeight());
-	cancelBtn.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	cancelBtn.SetPosition(-25, -25);
-	cancelBtn.SetLabel(&cancelBtnTxt);
-	cancelBtn.SetImage(&cancelBtnImg);
-	cancelBtn.SetImageOver(&cancelBtnImgOver);
-	cancelBtn.SetSoundOver(btnSoundOver);
-	cancelBtn.SetTrigger(&trigA);
-	cancelBtn.SetEffectGrow();
-
-	keyboard.Append(&okBtn);
-	keyboard.Append(&cancelBtn);
-
-	HaltGui();
-	int oldState = MainWindow::Instance()->GetState();
-	bool oldDim = MainWindow::Instance()->IsDimmed();
-	MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
-	MainWindow::Instance()->Append(&keyboard);
-	ResumeGui();
-
-	while(save == -1)
-	{
-		usleep(100);
-
-        if(shutdown)
-            Sys_Shutdown();
-        else if(reset)
-            Sys_Reboot();
-
-		if(okBtn.GetState() == STATE_CLICKED)
-			save = 1;
-		else if(cancelBtn.GetState() == STATE_CLICKED)
-			save = 0;
-	}
+	int save = OnScreenKeyboard(&Converter[0], maxlen);
 
 	if(save)
 	{
-	    snprintf(var, maxlen, "%s", keyboard.GetUTF8String().c_str());
+	    snprintf(var, maxlen, "%s", Converter.toUTF8().c_str());
 	}
 
-	HaltGui();
-	MainWindow::Instance()->Remove(&keyboard);
-    MainWindow::Instance()->SetDim(oldDim);
-	MainWindow::Instance()->SetState(oldState);
-	Resources::Remove(btnSoundOver);
-	Resources::Remove(btnOutline);
-	Resources::Remove(btnOutlineOver);
-	ResumeGui();
 	return save;
 }
 
@@ -177,13 +114,13 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	keyboard.Append(&okBtn);
 	keyboard.Append(&cancelBtn);
 
-	HaltGui();
+	MainWindow::Instance()->HaltGui();
 	int oldState = MainWindow::Instance()->GetState();
 	bool oldDim = MainWindow::Instance()->IsDimmed();
 	MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
 	MainWindow::Instance()->Append(&keyboard);
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 
 	while(save == -1)
 	{
@@ -205,14 +142,14 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 		wcsncpy(var, keyboard.GetString(), maxlen);
 	}
 
-	HaltGui();
+	MainWindow::Instance()->HaltGui();
 	MainWindow::Instance()->Remove(&keyboard);
     MainWindow::Instance()->SetDim(oldDim);
 	MainWindow::Instance()->SetState(oldState);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnOutlineOver);
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 	return save;
 }
 

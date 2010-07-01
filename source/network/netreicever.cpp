@@ -189,6 +189,8 @@ const u8 * NetReceiver::ReceiveData()
     char tmptxt[200];
     snprintf(tmptxt, sizeof(tmptxt), "Incomming from: %s", incommingIP);
 
+    int retries = 5;
+
     do
     {
         if(actioncanceled)
@@ -207,13 +209,21 @@ const u8 * NetReceiver::ReceiveData()
         int result = network_read(connection, filebuffer+done, blocksize);
         if(result < 0)
         {
-            FreeData();
-            StopProgress();
-            ShowError(tr("Transfer failed."));
-            return NULL;
+            --retries;
+            if(retries == 0)
+            {
+                FreeData();
+                StopProgress();
+                ShowError(tr("Transfer failed."));
+                return NULL;
+            }
         }
         if(!result)
-            break;
+        {
+            --retries;
+            if(!retries)
+                break;
+        }
 
         done += result;
 

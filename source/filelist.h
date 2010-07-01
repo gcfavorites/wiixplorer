@@ -91,12 +91,6 @@ extern const u32	small_button_png_size;
 extern const u8		button_over_png[];
 extern const u32	button_over_png_size;
 
-extern const u8		button_large_png[];
-extern const u32	button_large_png_size;
-
-extern const u8		button_large_over_png[];
-extern const u32	button_large_over_png_size;
-
 extern const u8		dialogue_box_png[];
 extern const u32	dialogue_box_png_size;
 

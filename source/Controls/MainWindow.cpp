@@ -35,6 +35,12 @@
 #include "Prompts/PromptWindows.h"
 #include "Launcher/Channels.h"
 #include "Launcher/Applications.h"
+#include "Memory/Resources.h"
+#include "Controls/Taskbar.h"
+#include "Menus/menu_ftpserver.h"
+#include "Menus/menu_browsedevice.h"
+#include "Menus/Settings/menu_settings.h"
+#include "Language/LanguageBrowser.h"
 #include "network/networkops.h"
 #include "libftp/FTPServer.h"
 #include "FileOperations/filebrowser.h"
@@ -45,9 +51,6 @@
 #include "VideoOperations/video.h"
 #include "sys.h"
 
-#include "Memory/Resources.h"
-#include "Controls/Taskbar.h"
-
 MainWindow *MainWindow::instance = NULL;
 
 MainWindow::MainWindow()
@@ -57,8 +60,10 @@ MainWindow::MainWindow()
 	exitApplication = false;
 	guithread = LWP_THREAD_NULL;
 
+	ThreadStack = (u8 *) memalign(32, 32768);
+
 	//!Initialize main GUI handling thread
-	LWP_CreateThread (&guithread, UpdateGUI, this, NULL, 32*1024, LWP_PRIO_HIGHEST);
+	LWP_CreateThread (&guithread, UpdateGUI, this, ThreadStack, 32768, LWP_PRIO_HIGHEST);
 
 	//!Initialize the i/o hanlde thread
 	IOHandler::Instance();
@@ -80,7 +85,7 @@ MainWindow::MainWindow()
     ImgColor[2] = RGBATOGXCOLOR(Settings.BackgroundBR);
     ImgColor[3] = RGBATOGXCOLOR(Settings.BackgroundBL);
 
-    bgImg = new GuiImage(screenwidth, screenheight, (GXColor *) &ImgColor);
+    bgImg = new GuiImage(screenwidth, screenheight, &ImgColor[0]);
 	Append(bgImg);
 
 	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
@@ -124,6 +129,8 @@ MainWindow::~MainWindow()
             delete grabPointer[i];
 		delete standardPointer[i];
 	}
+	if(ThreadStack)
+        free(ThreadStack);
 }
 
 MainWindow * MainWindow::Instance()
@@ -169,7 +176,71 @@ void MainWindow::Quit()
 void MainWindow::Show()
 {
     ResumeGui();
-    MainMenu(MENU_BROWSE_DEVICE);
+	int currentMenu = MENU_BROWSE_DEVICE;
+
+	while(currentMenu != MENU_EXIT)
+	{
+	    Taskbar::Instance()->ResetState();
+
+        switch(currentMenu)
+        {
+            case MENU_BROWSE_DEVICE:
+                currentMenu = MenuBrowseDevice();
+                break;
+            case MENU_SETTINGS:
+                currentMenu = MenuSettings();
+                break;
+            case MENU_LANGUAGE_BROWSE:
+                currentMenu = LanguageBrowser();
+                break;
+            case MENU_NETWORK_SETTINGS:
+                currentMenu = MenuNetworkSettings();
+                break;
+            case MENU_FTP:
+                currentMenu = MenuFTPServer();
+                break;
+            case MENU_EXPLORER_SETTINGS:
+                currentMenu = MenuExplorerSettings();
+                break;
+            case MENU_IMAGE_SETTINGS:
+                currentMenu = MenuImageSettings();
+                break;
+            case MENU_SOUND_SETTINGS:
+                currentMenu = MenuSoundSettings();
+                break;
+            case MENU_BOOT_SETTINGS:
+                currentMenu = MenuBootSettings();
+                break;
+            case MENU_PATH_SETUP:
+                currentMenu = MenuPathSetup();
+                break;
+            case MENU_SMB_SETTINGS:
+                currentMenu = MenuSMBSettings();
+                break;
+            case MENU_FTPCLIENT_SETTINGS:
+                currentMenu = MenuFTPClientSettings();
+                break;
+            case MENU_FTPSERVER_SETTINGS:
+                currentMenu = MenuFTPServerSettings();
+                break;
+            case MENU_CONTROLS_SETTINGS:
+                currentMenu = MenuControlsSettings();
+                break;
+            case MENU_FILE_EXTENSIONS:
+                currentMenu = MenuFileExtensions();
+                break;
+            case MENU_COLOR_SETTINGS:
+                currentMenu = MenuColorSettings();
+                break;
+            default: // unrecognized menu
+                currentMenu = MenuBrowseDevice();
+                break;
+        }
+	}
+
+	ResumeGui();
+
+	ExitApp();
 }
 
 void MainWindow::SetGuiPriority(int prio)

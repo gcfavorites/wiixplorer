@@ -53,7 +53,7 @@ int MenuBrowseDevice()
         Explorer_1 = new Explorer(LastUsedPath.c_str());
 
     MainWindow::Instance()->Append(Explorer_1);
-    ResumeGui();
+    MainWindow::Instance()->ResumeGui();
 
     while(menu == MENU_NONE)
     {
@@ -73,7 +73,7 @@ int MenuBrowseDevice()
 
     delete Explorer_1;
     Explorer_1 = NULL;
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 
 	return menu;
 }

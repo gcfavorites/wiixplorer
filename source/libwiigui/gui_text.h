@@ -87,8 +87,6 @@ class GuiText : public GuiElement
 		//!\param f Font
 		void SetFont(FreeTypeGX *f);
 		//!Get the original text as char
-        const char * GetOrigText();
-		//!Get the original text as char
         virtual const wchar_t * GetText();
 		//!Get the Horizontal Size of Text
 		int GetTextWidth();
@@ -102,8 +100,8 @@ class GuiText : public GuiElement
 		//!Set max lines to draw
         void SetLinesToDraw(int l);
 		//!Get current Textline (for position calculation)
-        const wchar_t * GetDynText();
-        virtual const wchar_t * GetTextLine(int ind);
+        const wchar_t * GetDynText(int ind = 0);
+        virtual const wchar_t * GetTextLine(int ind) { return GetDynText(ind); };
 		//!Change the font
 		//!\param font bufferblock
 		//!\param font filesize
@@ -111,10 +109,17 @@ class GuiText : public GuiElement
 		//!Constantly called to draw the text
 		void Draw();
 	protected:
+        //!Clear the dynamic text
+        void ClearDynamicText();
+        //!Create a dynamic dotted text if the text is too long
+        void MakeDottedText();
+        //!Scroll the text once
+        void ScrollText();
+        //!Wrap the text to several lines
+        void WrapText();
+
         wchar_t *text;
-        wchar_t *textDyn;
-		wchar_t *textDynRow[MAX_LINES_TO_DRAW]; //!< Wrapped lines text values
-		char *origText; //!< Original text data
+        std::vector<wchar_t *> textDyn;
 		int wrapMode; //!< Wrapping toggle
 		int textScrollPos; //!< Current starting index of text string for scrolling
 		int textScrollInitialDelay; //!< Delay to wait before starting to scroll
@@ -124,7 +129,6 @@ class GuiText : public GuiElement
 		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
-		bool widescreen;
 		int textWidth;
 		int currentSize;
 		int linestodraw;

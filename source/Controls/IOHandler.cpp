@@ -35,6 +35,7 @@
 IOHandler * IOHandler::instance = NULL;
 
 extern bool actioncanceled;
+extern bool sizegainrunning;
 
 IOHandler::IOHandler()
 {
@@ -44,9 +45,15 @@ IOHandler::IOHandler()
     DestroyRequested = false;
     ProcessLocked = false;
     Running = false;
+    TotalFileCount = 0;
+    TotalSize = 0;
     MinimizeCallback.SetCallback(this, &IOHandler::SetMaximized);
 
-	LWP_CreateThread(&IOThread, ThreadCallback, this, NULL, 32768, Settings.CopyThreadPrio);
+    ThreadStack = (u8 *) memalign(32, 32768);
+    if(!ThreadStack)
+        return;
+
+	LWP_CreateThread(&IOThread, ThreadCallback, this, ThreadStack, 32768, Settings.CopyThreadPrio);
 }
 
 IOHandler::~IOHandler()
@@ -60,6 +67,8 @@ IOHandler::~IOHandler()
         LWP_ResumeThread(IOThread);
         LWP_JoinThread(IOThread, NULL);
     }
+	if(ThreadStack)
+        free(ThreadStack);
 
     while(!ProcessQueue.empty())
     {
@@ -91,9 +100,11 @@ void IOHandler::StartProcess(bool lock)
     Running = true;
     ProcessLocked = lock;
 
-    if(LWP_ThreadIsSuspended(IOThread))
-        LWP_ResumeThread(IOThread);
+    LWP_ResumeThread(IOThread);
     RequestThread = LWP_GetSelf();
+
+//    if(!ProcessQueue.back()->Cutted)
+//        CalcTotalSize();
 
     if(ProcessLocked)
     {
@@ -115,6 +126,15 @@ void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
     TmpItem->Cutted = Cutted;
 
     ProcessQueue.push(TmpItem);
+
+//    if(Cutted)
+//    {
+//        if(!Running)
+//            StartProgress(tr("Calculating total size..."));
+//        CalcTotalSize();
+//    }
+
+    IOHandler::Instance()->StartProcess(!Running);
 }
 
 void IOHandler::ProcessNext()
@@ -204,12 +224,9 @@ void IOHandler::ProcessNext()
             }
         }
     }
-    StopProgress();
-    ProgressWindow::Instance()->SetMinimized(false);
-    ProgressWindow::Instance()->SetMinimizable(false);
-    ResetReplaceChoice();
     if(res < 0 && res != 10 && !DestroyRequested)
     {
+        StopProgress();
         if(Cutted)
             ShowError(tr("Failed moving item(s)."));
         else
@@ -231,11 +248,8 @@ void IOHandler::SetMinimized(int mode)
 
     LWP_SetThreadPriority(IOThread, Settings.CopyThreadBackPrio);
 
-    if(LWP_ThreadIsSuspended(RequestThread))
-    {
-        LWP_ResumeThread(RequestThread);
-        ProcessLocked = false;
-    }
+    LWP_ResumeThread(RequestThread);
+    ProcessLocked = false;
 }
 
 void IOHandler::SetMaximized(int Param)
@@ -249,6 +263,32 @@ void IOHandler::SetMaximized(int Param)
     ProcessLocked = true;
     LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
     LWP_SuspendThread(RequestThread);
+}
+
+void IOHandler::CalcTotalSize()
+{
+    ItemMarker * Process = (ItemMarker *) &ProcessQueue.back()->ItemList;
+
+    char filepath[1024];
+    sizegainrunning = true;
+
+    for(int i = 0; i < Process->GetItemcount(); i++)
+    {
+        if(Process->IsItemDir(i) == true)
+        {
+            snprintf(filepath, sizeof(filepath), "%s/", Process->GetItemPath(i));
+            GetFolderSize(filepath, TotalSize, TotalFileCount);
+        }
+        else
+        {
+            TotalSize += FileSize(Process->GetItemPath(i));
+            ++TotalFileCount;
+        }
+    }
+
+    sizegainrunning = false;
+
+    ProgressWindow::Instance()->SetTotalValues(TotalSize, TotalFileCount);
 }
 
 void * IOHandler::ThreadCallback(void *arg)
@@ -273,12 +313,15 @@ void IOHandler::InternalThreadHandle()
             TaskbarSlot = NULL;
         }
 
-        Running = false;
+        StopProgress();
+        ProgressWindow::Instance()->SetMinimized(false);
+        ProgressWindow::Instance()->SetMinimizable(false);
+        ResetReplaceChoice();
 
-        if(LWP_ThreadIsSuspended(RequestThread))
-        {
-            ProcessLocked = false;
-            LWP_ResumeThread(RequestThread);
-        }
+        LWP_ResumeThread(RequestThread);
+        TotalFileCount = 0;
+        TotalSize = 0;
+        ProcessLocked = false;
+        Running = false;
     }
 }

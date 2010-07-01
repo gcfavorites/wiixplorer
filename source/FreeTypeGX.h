@@ -155,8 +155,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_BITMAP_H
-#include "Metaphrasis.h"
-#include "filelist.h"
 
 #include <malloc.h>
 #include <string.h>
@@ -236,8 +234,8 @@ typedef struct ftgxDataOffset_ ftgxDataOffset;
 
 const GXColor ftgxWhite = (GXColor){0xff, 0xff, 0xff, 0xff}; /**< Constant color value used only to sanitize Doxygen documentation. */
 
+bool SetupDefaultFont(const char * customfontpath);
 wchar_t* charToWideChar(const char* p);
-bool LoadCustomFont(const char *path);
 void ClearFontData();
 
 /*! \class FreeTypeGX
@@ -257,14 +255,9 @@ class FreeTypeGX {
         FT_GlyphSlot ftSlot;    /**< FreeType reusable FT_GlyphSlot glyph container object. */
 		FT_UInt ftPointSize;	/**< Requested size of the rendered font. */
 		bool ftKerningEnabled;	/**< Flag indicating the availability of font kerning data. */
-
-		uint8_t textureFormat;	/**< Defined texture format of the target EFB. */
 		uint8_t vertexIndex;	/**< Vertex format descriptor index. */
 		uint32_t compatibilityMode;	/**< Compatibility mode for default tev operations and vertex descriptors. */
 		std::map<wchar_t, ftgxCharData> fontData; /**< Map which holds the glyph data structures for the corresponding characters. */
-
-		static uint16_t adjustTextureWidth(uint16_t textureWidth, uint8_t textureFormat);
-		static uint16_t adjustTextureHeight(uint16_t textureHeight, uint8_t textureFormat);
 
 		static int16_t getStyleOffsetWidth(uint16_t width, uint16_t format);
 		static int16_t getStyleOffsetHeight(ftgxDataOffset *offset, uint16_t format);
@@ -276,32 +269,24 @@ class FreeTypeGX {
 
 		void setDefaultMode();
 
-		void drawTextFeature(int16_t x, int16_t y, int16_t z, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color);
+		void drawTextFeature(int16_t x, int16_t y,int16_t z, uint16_t width, ftgxDataOffset *offsetData, uint16_t format, GXColor color);
 		void copyTextureToFramebuffer(GXTexObj *texObj, f32 texWidth, f32 texHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color);
 		void copyFeatureToFramebuffer(f32 featureWidth, f32 featureHeight, int16_t screenX, int16_t screenY, int16_t screenZ, GXColor color);
 
 	public:
-		FreeTypeGX(FT_UInt pixelSize, uint8_t textureFormat, uint8_t vertexIndex);
-		FreeTypeGX(FT_UInt pixelSize, bool loadcustomfont = true, uint8_t* fontBuffer = (u8*)font_ttf, FT_Long bufferSize = font_ttf_size, uint8_t textureFormat = GX_TF_RGBA8, uint8_t vertexIndex = GX_VTXFMT1);
+		FreeTypeGX(FT_UInt pixelSize, const uint8_t* fontBuffer = NULL, FT_Long bufferSize = 0);
 		~FreeTypeGX();
 
-		void InitFreeType(uint8_t* fontBuffer, FT_Long bufferSize, bool loadcustomfont);
         void ChangeFontSize(FT_UInt pixelSize);
-        uint8_t GetMaxCharWidth();
-
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);
 
-		uint16_t drawText(int16_t x, int16_t y, int16_t z, wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
-		uint16_t drawText(int16_t x, int16_t y, int16_t z, wchar_t const *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
+		uint16_t drawText(int16_t x, int16_t y, int16_t z, const wchar_t *text, GXColor color = ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
 
-		uint16_t getWidth(wchar_t *text);
-		uint16_t getWidth(wchar_t const *text);
+		uint16_t getWidth(const wchar_t *text);
         uint16_t getCharWidth(const wchar_t wChar);
-		uint16_t getHeight(wchar_t *text);
-		uint16_t getHeight(wchar_t const *text);
-		void getOffset(wchar_t *text, ftgxDataOffset* offset, uint16_t widthLimit = 0);
-		void getOffset(wchar_t const *text, ftgxDataOffset* offset, uint16_t widthLimit = 0);
+		uint16_t getHeight(const wchar_t *text);
+		void getOffset(const wchar_t *text, ftgxDataOffset* offset, uint16_t widthLimit = 0);
 };
 
 #endif /* FREETYPEGX_H_ */

@@ -32,21 +32,21 @@
 #include "SoundOperations/MusicPlayer.h"
 #include "menu.h"
 
-#define SND_BUFFERS     20
+#define SND_BUFFERS     8
+#define FRAME_BUFFERS     8
 
-static u8 which = 0;
-static vector<s16> soundbuffer[2];
-static u16 sndsize[2] = {0, 0};
-static u16 MaxSoundSize = 0;
+static BufferCircle * soundbuffer = NULL;
 
 WiiMovie::WiiMovie(const char * filepath)
 {
     VideoFrameCount = 0;
+    fps = 0.0f;
     ExitRequested = false;
     Playing = false;
     volume = 255*Settings.MusicVolume/100;
     ReadThread = LWP_THREAD_NULL;
     mutex = LWP_MUTEX_NULL;
+    ThreadStack = NULL;
 
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
 
@@ -68,12 +68,24 @@ WiiMovie::WiiMovie(const char * filepath)
         return;
     }
 
-    SndChannels = (Video->getNumChannels() == 2) ? VOICE_STEREO_16BIT : VOICE_MONO_16BIT;
+    SndChannels = Video->getNumChannels();
     SndFrequence = Video->getFrequency();
-    MaxSoundSize = Video->getMaxAudioSamples()*2;
+    fps = Video->getFps();
+    maxSoundSize = Video->getMaxAudioSamples()*Video->getNumChannels()*2;
+
+    if(Video->hasSound())
+    {
+        soundbuffer = &SoundBuffer;
+        SoundBuffer.Resize(SND_BUFFERS);
+        SoundBuffer.SetBufferBlockSize(maxSoundSize*FRAME_BUFFERS);
+    }
+
+    ThreadStack = (u8 *) memalign(32, 32768);
+    if(!ThreadStack)
+        return;
 
     LWP_MutexInit(&mutex, true);
-	LWP_CreateThread (&ReadThread, UpdateThread, this, NULL, 32768, LWP_PRIO_HIGHEST);
+	LWP_CreateThread (&ReadThread, UpdateThread, this, ThreadStack, 32768, LWP_PRIO_HIGHEST);
 }
 
 WiiMovie::~WiiMovie()
@@ -99,6 +111,8 @@ WiiMovie::~WiiMovie()
         LWP_MutexUnlock(mutex);
         LWP_MutexDestroy(mutex);
     }
+    if(ThreadStack)
+        free(ThreadStack);
 
     for(u32 i = 0; i < Frames.size(); i++)
     {
@@ -108,12 +122,7 @@ WiiMovie::~WiiMovie()
         Frames.at(i) = NULL;
     }
 
-    for(u8 i = 0; i < 2; i++)
-    {
-        soundbuffer[i].clear();
-        sndsize[i] = 0;
-    }
-    which = 0;
+    soundbuffer = NULL;
 
     Frames.clear();
 
@@ -132,9 +141,9 @@ bool WiiMovie::Play()
 
     Playing = true;
     PlayTime.reset();
-    LWP_ResumeThread(ReadThread);
 
-    InternalUpdate();
+    LWP_ResumeThread(ReadThread);
+    FrameLoadLoop();
 
 	return true;
 }
@@ -206,34 +215,48 @@ void WiiMovie::SetAspectRatio(float Aspect)
 
 extern "C" void THPSoundCallback(int voice)
 {
-    if(soundbuffer[which].size() == 0 || sndsize[which] < MaxSoundSize*(SND_BUFFERS-1))
+    if(!soundbuffer || !soundbuffer->IsBufferReady())
         return;
 
-    if(ASND_AddVoice(0, (u8*) &soundbuffer[which][0], sndsize[which]) != SND_OK)
+    if(ASND_AddVoice(0, soundbuffer->GetBuffer(), soundbuffer->GetBufferSize()) != SND_OK)
     {
         return;
     }
 
-    which ^= 1;
+    soundbuffer->LoadNext();
+}
 
-    sndsize[which] = 0;
+void WiiMovie::FrameLoadLoop()
+{
+    while(!ExitRequested)
+    {
+        LoadNextFrame();
+
+        while(Frames.size() > FRAME_BUFFERS && !ExitRequested)
+            usleep(100);
+    }
 }
 
 void * WiiMovie::UpdateThread(void *arg)
 {
-	while(!((WiiMovie *) arg)->ExitRequested)
+    WiiMovie * Movie = static_cast<WiiMovie *>(arg);
+
+	while(!Movie->ExitRequested)
 	{
-        ((WiiMovie *) arg)->InternalThreadUpdate();
+        Movie->ReadNextFrame();
+
+        usleep(100);
 	}
+
 	return NULL;
 }
 
-void WiiMovie::InternalThreadUpdate()
+void WiiMovie::ReadNextFrame()
 {
     if(!Playing)
         LWP_SuspendThread(ReadThread);
 
-    u32 FramesNeeded = (u32) (PlayTime.elapsed()*Video->getFps());
+    u32 FramesNeeded = (u32) (PlayTime.elapsed()*fps);
 
     while(VideoFrameCount < FramesNeeded)
     {
@@ -245,35 +268,43 @@ void WiiMovie::InternalThreadUpdate()
 
         if(Video->hasSound())
         {
-            if(sndsize[which] > MaxSoundSize*(SND_BUFFERS-1))
+            u32 newWhich = SoundBuffer.Which();
+            int i = 0;
+            for (i = 0; i < SoundBuffer.Size()-2; ++i)
+            {
+                if(!SoundBuffer.IsBufferReady(newWhich))
+                    break;
+
+                newWhich = (newWhich+1) % SoundBuffer.Size();
+            }
+
+            if(i == SoundBuffer.Size()-2)
                 return;
 
-            if(soundbuffer[which].size() == 0)
-                soundbuffer[which].resize(Video->getMaxAudioSamples()*2*SND_BUFFERS);
+            int currentSize = SoundBuffer.GetBufferSize(newWhich);
 
-            sndsize[which] += Video->getCurrentBuffer(&soundbuffer[which][sndsize[which]/2])*2*2;
+            currentSize += Video->getCurrentBuffer((s16 *) (&SoundBuffer.GetBuffer(newWhich)[currentSize]))*SndChannels*2;
+            SoundBuffer.SetBufferSize(newWhich, currentSize);
 
-            if(ASND_StatusVoice(0) == SND_UNUSED && sndsize[which] >= MaxSoundSize*(SND_BUFFERS-1))
+            if(currentSize >= (FRAME_BUFFERS-1)*maxSoundSize)
+                SoundBuffer.SetBufferReady(newWhich, true);
+
+            if(ASND_StatusVoice(0) == SND_UNUSED && SoundBuffer.IsBufferReady())
             {
                 ASND_StopVoice(0);
-                ASND_SetVoice(0, SndChannels, SndFrequence, 0, (u8 *) &soundbuffer[which][0], sndsize[which], volume, volume, THPSoundCallback);
-                which ^= 1;
+                ASND_SetVoice(0, (SndChannels == 2) ? VOICE_STEREO_16BIT : VOICE_MONO_16BIT, SndFrequence, 0,
+                              SoundBuffer.GetBuffer(), SoundBuffer.GetBufferSize(), volume, volume, THPSoundCallback);
+                SoundBuffer.LoadNext();
             }
         }
     }
-
-    usleep(100);
 }
 
 void WiiMovie::LoadNextFrame()
 {
     if(!Video || !Playing)
-    {
-        usleep(100);
         return;
-    }
 
-    VideoFrame VideoF;
     LWP_MutexLock(mutex);
     Video->getCurrentFrame(VideoF);
     LWP_MutexUnlock(mutex);
@@ -288,39 +319,25 @@ void WiiMovie::LoadNextFrame()
         SetFullscreen();
     }
 
-    u8 * videobuffer = ConvertToFlippedRGBA(VideoF.getData(), VideoF.getWidth(), VideoF.getHeight());
-
-    Frames.push_back(videobuffer);
-}
-
-void WiiMovie::InternalUpdate()
-{
-    while(!ExitRequested)
-    {
-        LoadNextFrame();
-
-        while(Frames.size() > 10 && !ExitRequested)
-            usleep(100);
-    }
+    Frames.push_back(ConvertToRGBA(VideoF.getData(), width, height));
 }
 
 void WiiMovie::Draw()
 {
-    if(!Video || Frames.size() == 0)
+    if(!Video)
         return;
 
     background->Draw();
 
-    if(Frames.at(3))
+    if(Frames.size() > FRAME_BUFFERS-2)
     {
-        Menu_DrawImg(Frames.at(3), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+        Menu_DrawImg(Frames.at(FRAME_BUFFERS-2), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
 
-    if(Frames.size() > 4)
+    if(Frames.size() > FRAME_BUFFERS-1)
     {
         if(Frames.at(0))
             free(Frames.at(0));
-        Frames.at(0) = NULL;
         Frames.erase(Frames.begin());
     }
 }
@@ -330,9 +347,9 @@ void WiiMovie::Update(GuiTrigger * t)
     exitBtn->Update(t);
 }
 
-u8 * WiiMovie::ConvertToFlippedRGBA(const u8 * src, u32 width, u32 height)
+u8 * WiiMovie::ConvertToRGBA(const u8 * src, u32 width, u32 height)
 {
-    u32 block, i, c, ar, gb;
+    u32 block, i, c, ar, gb, x, y, offset;
 
     int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
     if(len%32)
@@ -351,9 +368,9 @@ u8 * WiiMovie::ConvertToFlippedRGBA(const u8 * src, u32 width, u32 height)
             {
                 for (ar = 0; ar < 4; ++ar)
                 {
-                    u32 y = height - 1 - (c + block);
-                    u32 x = ar + i;
-                    u32 offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+                    y = c + block;
+                    x = ar + i;
+                    offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
                     /* Alpha pixels */
                     dst[offset] = 255;
                     /* Red pixels */
@@ -366,9 +383,9 @@ u8 * WiiMovie::ConvertToFlippedRGBA(const u8 * src, u32 width, u32 height)
             {
                 for (gb = 0; gb < 4; ++gb)
                 {
-                    u32 y = height - 1 - (c + block);
-                    u32 x = gb + i;
-                    u32 offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+                    y = c + block;
+                    x = gb + i;
+                    offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
                     /* Green pixels */
                     dst[offset+32] = src[(((i + gb) + ((block + c) * width)) * 3) + 1];
                     /* Blue pixels */

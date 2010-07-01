@@ -41,6 +41,7 @@
 static NetReceiver Receiver;
 static bool networkinit = false;
 static char IP[16];
+static u8 ThreadStack[16384] ATTRIBUTE_ALIGN(32);
 static bool firstRun = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
@@ -159,7 +160,7 @@ static void * networkinitcallback(void *arg)
  ***************************************************************************/
 void InitNetworkThread()
 {
-	LWP_CreateThread (&networkthread, networkinitcallback, NULL, NULL, 16384, 30);
+	LWP_CreateThread (&networkthread, networkinitcallback, NULL, ThreadStack, 16384, 30);
 	ResumeNetworkThread();
 }
 

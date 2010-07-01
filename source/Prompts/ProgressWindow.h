@@ -30,6 +30,8 @@ class ProgressWindow : public GuiWindow
         const char * GetTitle() { return ProgressTitle.c_str(); };
         void SetMinimized(bool m) { Minimized = m; };
         void SetMinimizable(bool m) { Minimizable = m; };
+        void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; TotalFileCount = FileCount; };
+        void SetValuesResetable(bool s) { ValuesResetable = s; };
     protected:
         ProgressWindow();
         ~ProgressWindow();
@@ -45,10 +47,15 @@ class ProgressWindow : public GuiWindow
 
         u64 progressDone;
         u64 progressTotal;
+        u32 TotalFileCount;
+        u64 TotalDone;
+        u64 TotalSize;
         int showProgress;
         bool Changed;
         bool Minimized;
         bool Minimizable;
+        bool ValuesResetable;
+        u8 * ThreadStack;
         lwp_t ProgressThread;
 		bool ExitRequested;
 

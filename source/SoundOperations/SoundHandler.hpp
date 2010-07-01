@@ -55,6 +55,7 @@ class SoundHandler
         SoundDecoder * GetSoundDecoder(const u8 * sound, int length);
 
 		static SoundHandler * instance;
+		u8 * ThreadStack;
 		lwp_t SoundThread;
         lwpq_t ThreadQueue;
 		bool Decoding;

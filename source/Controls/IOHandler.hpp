@@ -56,13 +56,17 @@ class IOHandler
 		static void * ThreadCallback(void *arg);
 		void InternalThreadHandle();
         void ProcessNext();
+        void CalcTotalSize();
 		static IOHandler * instance;
 
         std::string ProgressText;
         std::queue<ClipboardItem *> ProcessQueue;
+        u32 TotalFileCount;
+        u64 TotalSize;
         bool Running;
 		bool DestroyRequested;
 		bool ProcessLocked;
+		u8 * ThreadStack;
 		lwp_t IOThread;
 		lwp_t RequestThread;
 		Task * TaskbarSlot;

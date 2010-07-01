@@ -26,11 +26,15 @@
 #ifndef __UNCOMPRESS_H
 #define __UNCOMPRESS_H
 
+#include <gctypes.h>
+
+#define le16(i) (((((u16) i) & 0xFF) << 8) | ((((u16) i) & 0xFF00) >> 8))
+#define le32(i) (((((u32) i) & 0xFF) << 24) | ((((u32) i) & 0xFF00) << 8) | \
+                ((((u32) i) & 0xFF0000) >> 8) | ((((u32) i) & 0xFF000000) >> 24))
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <gctypes.h>
 
 typedef struct
 {

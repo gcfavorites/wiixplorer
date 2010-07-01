@@ -25,6 +25,7 @@
  ***************************************************************************/
 #include "gui.h"
 #include "Memory/Resources.h"
+#include "TextOperations/wstring.hpp"
 
 GuiTooltip::GuiTooltip(const char *t)
 {
@@ -93,7 +94,10 @@ void GuiTooltip::SetFontSize(int size)
     FontSize = size;
 
     if(text)
-        SetText(text->GetOrigText());
+    {
+        wString wText(text->GetText());
+        SetText(wText.toUTF8().c_str());
+    }
 }
 
 void GuiTooltip::SetColor(GXColor c)
@@ -101,7 +105,10 @@ void GuiTooltip::SetColor(GXColor c)
     color = c;
 
     if(text)
-        SetText(text->GetOrigText());
+    {
+        wString wText(text->GetText());
+        SetText(wText.toUTF8().c_str());
+    }
 }
 
 void GuiTooltip::SetElapseTime(float t)

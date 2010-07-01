@@ -146,7 +146,7 @@ int LanguageBrowser()
 	DownloadBtn.SetTrigger(&trigA);
 	DownloadBtn.SetEffectGrow();
 
-	HaltGui();
+	MainWindow::Instance()->HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&backBtn);
 	w.Append(&DefaultBtn);
@@ -155,7 +155,7 @@ int LanguageBrowser()
 	w.Append(&titleTxt);
 	MainWindow::Instance()->Append(&w);
     w.SetEffect(EFFECT_FADE, 50);
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
@@ -234,12 +234,12 @@ int LanguageBrowser()
     w.SetEffect(EFFECT_FADE, -50);
 	while(w.GetEffect() > 0) usleep(THREAD_SLEEP);
 
-	HaltGui();
+	MainWindow::Instance()->HaltGui();
 	MainWindow::Instance()->Remove(&w);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnNetworkData);
-	ResumeGui();
+	MainWindow::Instance()->ResumeGui();
 
 	return menu;
 }

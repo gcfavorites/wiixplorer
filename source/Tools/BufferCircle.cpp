@@ -118,24 +118,11 @@ void BufferCircle::FreeBuffer()
 
 void BufferCircle::LoadNext()
 {
-    BufferReady[(which+Size()-1) % Size()] = false;
+    int pos = (which+Size()-1) % Size();
+    BufferReady[pos] = false;
+    BufferSize[pos] = 0;
+
     which = (which+1) % Size();
-}
-
-u8 * BufferCircle::GetBuffer(int pos)
-{
-    if(!Valid(pos))
-        return NULL;
-
-    return SoundBuffer[pos];
-}
-
-bool BufferCircle::IsBufferReady(int pos)
-{
-    if(!Valid(pos))
-        return false;
-
-    return BufferReady[pos];
 }
 
 void BufferCircle::SetBufferReady(int pos, bool state)

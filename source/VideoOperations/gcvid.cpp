@@ -280,21 +280,6 @@ void VideoFrame::resize(int width, int height)
   _data = new u8[_p*_h];
 }
 
-int VideoFrame::getWidth() const
-{ return _w; }
-
-int VideoFrame::getHeight() const
-{ return _h; }
-
-int VideoFrame::getPitch() const
-{ return _p; }
-
-u8* VideoFrame::getData()
-{ return _data; }
-
-const u8* VideoFrame::getData() const
-{ return _data; }
-
 void VideoFrame::dealloc()
 {
   if(_data != NULL)
@@ -372,42 +357,6 @@ VideoFile::~VideoFile()
   _f = NULL;
 }
 
-int VideoFile::getWidth() const
-{ return 0; }
-
-int VideoFile::getHeight() const
-{ return 0; }
-
-float VideoFile::getFps() const
-{ return 0.f; }
-
-int VideoFile::getFrameCount() const
-{ return 0; }
-
-int VideoFile::getCurrentFrameNr() const
-{ return 0; }
-
-void VideoFile::loadNextFrame()
-{}
-
-void VideoFile::getCurrentFrame(VideoFrame& f) const
-{}
-
-bool VideoFile::hasSound() const
-{ return false; }
-
-int VideoFile::getNumChannels() const
-{ return 0; }
-
-int VideoFile::getFrequency() const
-{ return 0; }
-
-int VideoFile::getMaxAudioSamples() const
-{ return 0; }
-
-int VideoFile::getCurrentBuffer(s16* data) const
-{ return 0; }
-
 void VideoFile::loadFrame(VideoFrame& frame, const u8* data, int size) const
 {
   decodeJpeg(data, size, frame);
@@ -446,21 +395,6 @@ ThpVideoFile::ThpVideoFile(FILE* f)
   loadNextFrame();
 }
 
-int ThpVideoFile::getWidth() const
-{ return _videoInfo.width; }
-
-int ThpVideoFile::getHeight() const
-{ return _videoInfo.height; }
-
-float ThpVideoFile::getFps() const
-{ return _head.fps; }
-
-int ThpVideoFile::getFrameCount() const
-{ return _head.numFrames; }
-
-int ThpVideoFile::getCurrentFrameNr() const
-{ return _currFrameNr; }
-
 void ThpVideoFile::loadNextFrame()
 {
   ++_currFrameNr;
@@ -484,9 +418,6 @@ void ThpVideoFile::getCurrentFrame(VideoFrame& f) const
   loadFrame(f, &_currFrameData[0] + 4*_numInts, size);
 }
 
-bool ThpVideoFile::hasSound() const
-{ return _head.maxAudioSamples != 0; }
-
 int ThpVideoFile::getNumChannels() const
 {
   if(hasSound())
@@ -502,9 +433,6 @@ int ThpVideoFile::getFrequency() const
   else
     return 0;
 }
-
-int ThpVideoFile::getMaxAudioSamples() const
-{ return _head.maxAudioSamples; }
 
 int ThpVideoFile::getCurrentBuffer(s16* data) const
 {
@@ -530,26 +458,6 @@ MthVideoFile::MthVideoFile(FILE* f)
   _currFrameData.resize(_head.maxFrameSize);
   loadNextFrame();
 }
-
-
-int MthVideoFile::getWidth() const
-{ return _head.width; }
-
-int MthVideoFile::getHeight() const
-{ return _head.height; }
-
-float MthVideoFile::getFps() const
-{
-  return (float) 1.0f*_head.fps; //TODO: This has to be in there somewhere
-}
-
-int MthVideoFile::getFrameCount() const
-{
-  return _head.numFrames;
-}
-
-int MthVideoFile::getCurrentFrameNr() const
-{ return _currFrameNr; }
 
 void MthVideoFile::loadNextFrame()
 {
@@ -588,15 +496,6 @@ JpgVideoFile::JpgVideoFile(FILE* f)
 
   loadFrame(_currFrame, &data[0], getFilesize(f));
 }
-
-int JpgVideoFile::getWidth() const
-{ return _currFrame.getWidth(); }
-
-int JpgVideoFile::getHeight() const
-{ return _currFrame.getHeight(); }
-
-int JpgVideoFile::getFrameCount() const
-{ return 1; }
 
 void JpgVideoFile::getCurrentFrame(VideoFrame& f) const
 {
@@ -811,7 +710,7 @@ void decodeRealJpeg(const u8* data, int size, VideoFrame& dest)
     while(cinfo.output_scanline < cinfo.output_height)
     {
       //invert image because windows wants it downside up
-      u8* destBuffer =  &dest.getData()[(dest.getHeight() - y - 1)*dest.getPitch()];
+      u8* destBuffer =  &dest.getData()[y*dest.getPitch()];
 
       //NO idea why jpeglib wants a pointer to a pointer
       jpeg_read_scanlines(&cinfo, &destBuffer, 1);

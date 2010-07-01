@@ -33,6 +33,7 @@
 #include "devicemounter.h"
 #include "Settings.h"
 #include "FileOperations/filebrowser.h"
+#include "Prompts/ProgressWindow.h"
 #include "main.h"
 
 DeviceMenu::DeviceMenu(int x, int y)
@@ -377,6 +378,14 @@ DeviceMenu::~DeviceMenu()
 
 int DeviceMenu::GetChoice()
 {
+    if(choice == DVD)
+    {
+        StartProgress(tr("Mounting disc"), AUTO_THROBBER);
+        ShowProgress(0, 1, tr("Please wait..."));
+        DiskDrive_Mount();
+        StopProgress();
+    }
+
     return choice;
 }
 
@@ -396,9 +405,6 @@ void DeviceMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
         if(sender == deviceBtn[i])
         {
             choice = deviceSelection[i];
-
-            if(deviceSelection[i] == DVD)
-                DiskDrive_Mount();
             break;
         }
     }

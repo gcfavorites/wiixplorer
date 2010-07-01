@@ -27,6 +27,7 @@
 #include "Memory/Resources.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
+#include "TextOperations/wstring.hpp"
 #include "ImageConverterGUI.hpp"
 #include "main.h"
 
@@ -242,12 +243,15 @@ int ImageConverterGui::MainUpdate()
     {
         ElemPointer = NULL;
 
-        const char * currentPath = AdressBarInputText->GetOrigText();
         char newpath[200];
         memset(newpath, 0, sizeof(newpath));
 
-        if(currentPath)
-            snprintf(newpath, sizeof(newpath), "%s", currentPath);
+        const wchar_t * wText = AdressBarInputText->GetText();
+        if(wText)
+        {
+            wString currentPath(wText);
+            snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
+        }
 
         int result = OnScreenKeyboard(newpath, 150);
         if(result)
@@ -260,12 +264,15 @@ int ImageConverterGui::MainUpdate()
     {
         ElemPointer = NULL;
 
-        const char * currentPath = AdressBarOutputText->GetOrigText();
         char newpath[200];
         memset(newpath, 0, sizeof(newpath));
 
-        if(currentPath)
-            snprintf(newpath, sizeof(newpath), "%s", currentPath);
+        const wchar_t * wText = AdressBarOutputText->GetText();
+        if(wText)
+        {
+            wString currentPath(wText);
+            snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
+        }
 
         int result = OnScreenKeyboard(newpath, 150);
         if(result)

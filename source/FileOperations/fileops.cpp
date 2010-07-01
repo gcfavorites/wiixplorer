@@ -56,7 +56,9 @@ extern bool actioncanceled;
 static int GetReplaceChoice(const char * filename)
 {
     const char * progressText = ProgressWindow::Instance()->GetTitle();
+    ProgressWindow::Instance()->SetValuesResetable(false);
     StopProgress();
+    ProgressWindow::Instance()->SetValuesResetable(true);
 
     int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
 
@@ -889,7 +891,7 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
             return;
         }
 
-        if((st.st_mode & S_IFDIR) != 0)
+        if(st.st_mode & S_IFDIR)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
