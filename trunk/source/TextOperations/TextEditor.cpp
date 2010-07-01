@@ -372,12 +372,12 @@ void TextEditor::Update(GuiTrigger * t)
 
 	if(t->Right())
 	{
-	    for(int i = 0; i < 8; i++)
+	    for(int i = 0; i < linestodraw; i++)
             MainFileTxt->NextLine();
 	}
 	else if(t->Left())
 	{
-	    for(int i = 0; i < 8; i++)
+	    for(int i = 0; i < linestodraw; i++)
             MainFileTxt->PreviousLine();
 	}
 	else if(t->Down())
@@ -389,7 +389,9 @@ void TextEditor::Update(GuiTrigger * t)
         MainFileTxt->PreviousLine();
 	}
 
-    scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
+	int EntrieCount = (MainFileTxt->GetTotalLinesCount()-linestodraw);
+
+    scrollbar->SetEntrieCount(EntrieCount > 0 ? EntrieCount : 0);
     scrollbar->SetPageSize(linestodraw);
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(0);

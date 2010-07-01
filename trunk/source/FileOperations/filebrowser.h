@@ -104,6 +104,7 @@ class FileBrowser : public Browser
         BROWSERENTRY * browserList;
         // folder parsing thread
         lwp_t parsethread;
+        u8 * ThreadStack;
         u8 Filter;
         bool parseHalt;
         bool exit_Requested;

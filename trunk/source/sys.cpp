@@ -81,6 +81,7 @@ extern "C" void ExitApp()
         RemoveDirectory(path);
     }
     Settings.Save();
+    ShutdownPads();
 	Clipboard::DestroyInstance();
 	MainWindow::DestroyInstance();
 	StopGX();
@@ -99,7 +100,6 @@ extern "C" void ExitApp()
 	DeInit_Network();
 	MEM2_cleanup();
     mload_DeInit();
-    ShutdownPads();
 }
 
 extern "C" void __Sys_ResetCallback(void)

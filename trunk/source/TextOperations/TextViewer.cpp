@@ -72,7 +72,7 @@ void TextViewer(const char *filepath)
         return;
     }
     file = tmp;
-    file[filesize] = '\0';
+    file[filesize] = 0;
     filesize++;
 
     wString * filetext = NULL;
@@ -95,25 +95,23 @@ void TextViewer(const char *filepath)
     }
     else
     {
-        wchar_t * tmptext = new (std::nothrow) wchar_t[strlen((char *) file)+1];
+        wchar_t * tmptext = charToWideChar((char*) file);
+
+        free(file);
+        file = NULL;
+
         if(!tmptext)
         {
-            free(file);
-            file = NULL;
             ShowError(tr("Not enough memory."));
             return;
         }
 
-        char2wchar_t((char*) file, tmptext);
-        free(file);
-        file = NULL;
-
         filetext = new (std::nothrow) wString(tmptext);
+
         delete [] tmptext;
+
         if(!filetext)
         {
-            free(file);
-            file = NULL;
             ShowError(tr("Not enough memory."));
             return;
         }
@@ -129,7 +127,7 @@ void TextViewer(const char *filepath)
     MainWindow::Instance()->SetState(STATE_DISABLED);
     MainWindow::Instance()->SetDim(true);
     MainWindow::Instance()->Append(Editor);
-    
+
     while(!exitwindow)
     {
         usleep(100);
@@ -148,5 +146,5 @@ void TextViewer(const char *filepath)
 
     MainWindow::Instance()->SetState(STATE_DEFAULT);
     MainWindow::Instance()->SetDim(false);
-    ResumeGui();
+    MainWindow::Instance()->ResumeGui();
 }

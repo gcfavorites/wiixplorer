@@ -112,9 +112,7 @@ class GuiImage : public GuiElement
 		//!Change ImageColor
 		void SetSize(int w, int h);
 		//!Get the color pointer
-		GXColor * GetColorPtr() { return (GXColor *) &color; };
-		//!Set widescreenfix
-		void SetWidescreen(bool w);
+		GXColor * GetColorPtr() { return (GXColor *) &color; };;
 	protected:
 		int imgType; //!< Type of image data (IMAGE_TEXTURE, IMAGE_COLOR, IMAGE_DATA)
 		u8 * image; //!< Poiner to image data. May be shared with GuiImageData data
@@ -124,7 +122,7 @@ class GuiImage : public GuiElement
 		int stripe; //!< Alpha value (0-255) to apply a stripe effect to the texture
 		u8 format; //!< Texture format
 		GXColor color[5];
-		bool widescreen;
+		GifImage * AnimGif;
 };
 
 #endif

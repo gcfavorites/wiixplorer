@@ -47,8 +47,8 @@
 
 extern "C"
 {
-    extern void __exception_setreload(int t);
-    extern void SetupPDFFontPath(const char * path);
+    void __exception_setreload(int t);
+    void SetupPDFFontPath(const char * path);
 }
 
 bool boothomebrew = false;
@@ -56,13 +56,12 @@ Settings Settings;
 
 int main(int argc, char *argv[])
 {
-    u8 EntraceIOS = (u8) IOS_GetVersion();
-
 	MEM2_init(48); // Initialize 48 MB
 	MEM2_takeBigOnes(true);
     InitGecko();
-
     __exception_setreload(20);
+
+    u8 EntraceIOS = (u8) IOS_GetVersion();
 
     if(IOS_ReloadIOS(202) >= 0)
         mload_Init();
@@ -79,19 +78,14 @@ int main(int argc, char *argv[])
 
 	Settings.Load(argc, argv);
 	Settings.LoadLanguage(Settings.LanguagePath);
-	LoadCustomFont(Settings.CustomFontPath);
+	SetupDefaultFont(Settings.CustomFontPath);
 	SetupPDFFontPath(Settings.UpdatePath);
 
 	if(Settings.MountNTFS)
-	{
         NTFS_Mount();
-	}
 
 	for(int i = 0; i < MAX_FONT_SIZE+1; i++)
-	{
-        // Initialize font system
-        fontSystem[i] = NULL;
-	}
+        fontSystem[i] = NULL; // Initialize font system
 
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");

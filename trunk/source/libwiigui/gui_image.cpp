@@ -23,7 +23,7 @@ GuiImage::GuiImage()
 	stripe = 0;
 	format = GX_TF_RGBA8;
 	color[0] = (GXColor){0, 0, 0, 255};
-	widescreen = false;
+	AnimGif = NULL;
 	imgType = IMAGE_DATA;
 }
 
@@ -32,7 +32,7 @@ GuiImage::GuiImage(GuiImageData * img)
 	image = NULL;
 	width = 0;
 	height = 0;
-	widescreen = false;
+	AnimGif = NULL;
 	format = GX_TF_RGBA8;
 	if(img)
 	{
@@ -40,6 +40,13 @@ GuiImage::GuiImage(GuiImageData * img)
 		width = img->GetWidth();
 		height = img->GetHeight();
         format = img->GetTextureFormat();
+        AnimGif = img->GetAnimGif();
+        if(AnimGif)
+        {
+            image = NULL;
+            width = AnimGif->GetWidth();
+            height = AnimGif->GetHeight();
+        }
 	}
 	imageangle = 0;
 	tileHorizontal = -1;
@@ -60,7 +67,7 @@ GuiImage::GuiImage(u8 * img, int w, int h)
 	stripe = 0;
 	format = GX_TF_RGBA8;
 	color[0] = (GXColor){0, 0, 0, 255};
-	widescreen = false;
+	AnimGif = NULL;
 	imgType = IMAGE_TEXTURE;
 }
 
@@ -75,7 +82,7 @@ GuiImage::GuiImage(int w, int h, GXColor c)
 	stripe = 0;
 	format = GX_TF_RGBA8;
 	imgType = IMAGE_COLOR;
-	widescreen = false;
+	AnimGif = NULL;
 	color[0] = c;
 }
 
@@ -90,7 +97,7 @@ GuiImage::GuiImage(int w, int h, GXColor * c)
 	stripe = 0;
 	format = GX_TF_RGBA8;
 	imgType = IMAGE_MULTICOLOR;
-	widescreen = false;
+	AnimGif = NULL;
 
 	for(int i = 0; i < 4; i++)
         color[i] = c[i];
@@ -107,7 +114,7 @@ GuiImage::~GuiImage()
 
 u8 * GuiImage::GetImage()
 {
-	return image;
+    return image ? image : AnimGif ? AnimGif->GetFrameImage(0) : NULL;
 }
 
 void GuiImage::SetImage(GuiImageData * img)
@@ -123,6 +130,13 @@ void GuiImage::SetImage(GuiImageData * img)
 		width = img->GetWidth();
 		height = img->GetHeight();
         format = img->GetTextureFormat();
+        AnimGif = img->GetAnimGif();
+        if(AnimGif)
+        {
+            image = NULL;
+            width = AnimGif->GetWidth();
+            height = AnimGif->GetHeight();
+        }
 	}
 	imgType = IMAGE_DATA;
 }
@@ -135,6 +149,7 @@ void GuiImage::SetImage(u8 * img, int w, int h)
 	height = h;
 	format = GX_TF_RGBA8;
 	imgType = IMAGE_TEXTURE;
+	AnimGif = NULL;
 }
 
 float GuiImage::GetAngle()
@@ -211,12 +226,6 @@ void GuiImage::SetSize(int w, int h)
     height = h;
 }
 
-void GuiImage::SetWidescreen(bool w)
-{
-    LOCK(this);
-    widescreen = w;
-}
-
 void GuiImage::ColorStripe(int shift)
 {
 	int x, y;
@@ -279,8 +288,6 @@ void GuiImage::Draw()
 	if(!this->IsVisible() || tileVertical == 0 || tileHorizontal == 0)
 		return;
 
-	float currScaleX = (widescreen) ? (GetScaleX()*screenwidth/VI_MAX_WIDTH_PAL) : GetScaleX();
-	float currScaleY = this->GetScaleY();
 	int currLeft = this->GetLeft();
 	int currTop = this->GetTop();
 
@@ -288,30 +295,34 @@ void GuiImage::Draw()
     {
         for(int n=0; n<tileVertical; n++)
             for(int i=0; i<tileHorizontal; i++)
-                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+                Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, GetZPosition(), imageangle, GetScaleX(), GetScaleY(), this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(image && tileHorizontal > 0)
     {
         for(int i=0; i<tileHorizontal; i++)
-            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+            Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, GetZPosition(), imageangle, GetScaleX(), GetScaleY(), this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(image && tileVertical > 0)
     {
         for(int i=0; i<tileVertical; i++)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+            Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, GetZPosition(), imageangle, GetScaleX(), GetScaleY(), this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
     }
     else if(imgType == IMAGE_COLOR)
     {
-        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, (GXColor *) &color, false, true);
+        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, &color[0], false, true);
     }
     else if(imgType == IMAGE_MULTICOLOR)
     {
-        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, (GXColor *) &color, true, true);
+        Menu_DrawRectangle(currLeft,currTop, GetZPosition(), width, height, &color[0], true, true);
     }
-	else
+    else if(AnimGif)
+    {
+        AnimGif->Draw(currLeft, currTop, GetZPosition(), imageangle, GetScaleX(), GetScaleY(),
+                      GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+    }
+	else if(image)
 	{
-	    if(image)
-            Menu_DrawImg(image, width, height, format, currLeft, currTop, GetZPosition(), imageangle, currScaleX, currScaleY, this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+        Menu_DrawImg(image, width, height, format, currLeft, currTop, GetZPosition(), imageangle, GetScaleX(), GetScaleY(), this->GetAlpha(), minwidth, maxwidth, minheight, maxheight);
 	}
 
 	if(stripe > 0)

@@ -6,9 +6,9 @@
 
 typedef struct
 {
-    u32 LineOffset;
-    u32 CharCount;
-    u32 width;
+    int LineOffset;
+    int CharCount;
+    int width;
 } TextLine;
 
 class Text : public GuiText
@@ -40,7 +40,7 @@ class Text : public GuiText
 		//!Refresh the rows to draw
         int GetCurrPos() { return curLineStart; };
 		//!Get  the count of loaded lines
-        int GetLinesCount() { return curLinesCount-1; };
+        int GetLinesCount() { return textDyn.size(); };
 		//!Get the total count of lines
         int GetTotalLinesCount() { return TextLines.size(); };
         //!Get the original full Text
@@ -60,11 +60,9 @@ class Text : public GuiText
     protected:
         void CalcLineOffsets();
         void FillRows();
-        void ClearRows();
 
 		wString * wText;
 		std::vector<TextLine> TextLines;
-		int curLinesCount;
 		int curLineStart;
 		int FirstLineOffset;
 		bool filling;

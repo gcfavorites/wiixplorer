@@ -36,11 +36,6 @@ struct _LZ77Info
 
 typedef struct _LZ77Info LZ77Info;
 
-static inline u32 le32(u32 i)
-{
-	return ((i & 0xFF) << 24) | ((i & 0xFF00) << 8) | ((i & 0xFF0000) >> 8) | ((i & 0xFF000000) >> 24);
-}
-
 u8 * uncompressLZ77(const u8 *inBuf, u32 inLength, u32 * size)
 {
 	u8 *buffer = NULL;

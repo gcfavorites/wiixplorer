@@ -167,7 +167,7 @@ int FileStartUp(const char *filepath)
             snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", filepath);
             MainWindow::Instance()->HaltGui();
             ClearFontData();
-            bool result = LoadCustomFont(Settings.CustomFontPath);
+            bool result = SetupDefaultFont(Settings.CustomFontPath);
             MainWindow::Instance()->ResumeGui();
             if(result)
                 WindowPrompt(tr("Fontpath changed."), tr("The new font is loaded."), tr("OK"));

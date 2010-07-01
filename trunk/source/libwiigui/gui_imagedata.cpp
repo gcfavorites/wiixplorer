@@ -35,6 +35,7 @@
 GuiImageData::GuiImageData(const u8 * img, int imgSize)
 {
 	data = NULL;
+    AnimGif = NULL;
 	width = 0;
 	height = 0;
 	format = GX_TF_RGBA8;
@@ -109,6 +110,9 @@ GuiImageData::~GuiImageData()
 		free(data);
 		data = NULL;
 	}
+
+	if(AnimGif)
+        delete AnimGif;
 }
 
 void GuiImageData::LoadPNG(const u8 *img, int imgSize)
@@ -133,6 +137,13 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
 
 void GuiImageData::LoadGIF(const u8 *img, int imgSize)
 {
+    AnimGif = new GifImage(img, imgSize);
+    if(AnimGif->GetFrameCount() > 1)
+        return;
+
+    delete AnimGif;
+    AnimGif = NULL;
+
     gdImagePtr gdImg = gdImageCreateFromGifPtr(imgSize, (u8*) img);
     if(gdImg == 0)
         return;

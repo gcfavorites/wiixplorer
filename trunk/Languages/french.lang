@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r174
+# r175
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-15 10:57+0200\n"
+"POT-Creation-Date: 2010-07-01 23:47+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -70,19 +70,19 @@ msgid "Back Button"
 msgstr "Bouton Retour"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "Arrière-plan Inférieur/Gauche"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Arrière-plan Inférieur/Droit"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Arrière-plan Supérieur/Gauche"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Arrière-plan Supérieur/Droit"
 
 msgid "Blue"
-msgstr ""
+msgstr "Bleu"
 
 msgid "Boot Settings"
 msgstr "Options de démarrage"
@@ -173,7 +173,7 @@ msgid "Coders:"
 msgstr "Développeurs:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Paramétrage des couleurs"
 
 msgid "Compressed Size:"
 msgstr "Taille Compressée:"
@@ -351,10 +351,10 @@ msgid "Do you want to reboot now ?"
 msgstr "Voulez-vous redémarrer maintenant?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "Voulez-vous reconnecter à ce partage SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "Voulez-vous reconnecter au client FTP?"
 
 msgid "Do you want to remount the devices?"
 msgstr "Voulez-vous remonter les périphériques?"
@@ -363,7 +363,7 @@ msgid "Do you want to replace this file?"
 msgstr "Voulez-vous remplacer ce fichier?"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "Voulez-vous réinitialiser le paramétrage des couleurs ?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Voulez-vous réinitialiser le paramétrage des manettes ?"
@@ -403,7 +403,7 @@ msgid "Edit Textline Button"
 msgstr "Editer le libellé du bouton"
 
 msgid "Enter"
-msgstr ""
+msgstr "Entrée"
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -427,7 +427,7 @@ msgid "Extract All"
 msgstr "Extraire tout"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "Extraire le fichier dans le chemin temp et l'exécuter?"
 
 msgid "Extract full archive?"
 msgstr "Extraire l'archive complete?"
@@ -602,16 +602,16 @@ msgid "Go Back"
 msgstr "Retour"
 
 msgid "Green"
-msgstr ""
+msgstr "Vert"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Cacher les dossiers et fichiers système"
 
 msgid "High"
-msgstr ""
+msgstr "Haut"
 
 msgid "Highest"
-msgstr ""
+msgstr "Maxi"
 
 msgid "Home Button"
 msgstr "Bouton Menu système"
@@ -641,7 +641,7 @@ msgid "Icon Mode"
 msgstr "Mode Icone"
 
 msgid "Idle"
-msgstr ""
+msgstr "Mini"
 
 msgid "Image Converter"
 msgstr "Convertisseur d'image"
@@ -743,7 +743,7 @@ msgid "Loop Playlist"
 msgstr "Jouer la liste de lecture en boucle"
 
 msgid "Low"
-msgstr ""
+msgstr "Faible"
 
 msgid "MPlayerCE Path"
 msgstr "Chemin pour MPlayerCE"
@@ -765,6 +765,9 @@ msgstr "Réduire"
 
 msgid "Mount NTFS"
 msgstr "NTFS"
+
+msgid "Mounting disc"
+msgstr ""
 
 msgid "Moving item(s):"
 msgstr "Déplacement:"
@@ -912,28 +915,28 @@ msgid "Process canceled."
 msgstr "Procédure annulée."
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "Barre de progression Inférieur/Gauche"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "Barre de progression Inférieur/Droit"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "Barre de progression vide Inférieur/Gauche"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "Barre de progression vide Inférieur/Droit"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "Barre de progression vide Supérieur/Gauche"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "Barre de progression vide Supérieur/Droit"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "Barre de progression Supérieur/Gauche"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "Barre de progression Supérieur/Droit"
 
 msgid "Properties"
 msgstr "Propriétés"
@@ -943,7 +946,7 @@ msgstr "AZERTYUIOP{}|"
 
 #, c-format
 msgid "R: %i G: %i B: %i"
-msgstr ""
+msgstr "R: %i V: %i B: %i"
 
 msgid "Random"
 msgstr "Aléatoire"
@@ -961,7 +964,7 @@ msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
 
 msgid "Red"
-msgstr ""
+msgstr "Rouge"
 
 msgid "Reload"
 msgstr "Recharger"
@@ -988,7 +991,7 @@ msgid "Rotate"
 msgstr "Deg. de rotation"
 
 msgid "Rumble"
-msgstr ""
+msgstr "Vibration"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "Lancer une vidéo peut ralentir le processus ou ralentir l'application. Voulez-vous continuer?"
@@ -1170,7 +1173,7 @@ msgid "Update to Rev%i available"
 msgstr "Révision %i disponible"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "Mise à jour/Téléchargement des fichiers de langue."
 
 msgid "Username:"
 msgstr "Nom d'utilisateur:"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-15 10:59+0200\n"
+"POT-Creation-Date: 2010-07-01 23:47+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -70,19 +70,19 @@ msgid "Back Button"
 msgstr "返回按钮"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "背景按钮下或左"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "背景按钮下或右"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "背景按钮上或左"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "背景按钮上或右"
 
 msgid "Blue"
-msgstr ""
+msgstr "蓝色"
 
 msgid "Boot Settings"
 msgstr "运行设置"
@@ -173,7 +173,7 @@ msgid "Coders:"
 msgstr "作者"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "颜色设置"
 
 msgid "Compressed Size:"
 msgstr "已压缩大小"
@@ -363,7 +363,7 @@ msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "是否要还原默认颜色设置？"
 
 msgid "Do you want to reset the control settings?"
 msgstr "是否复位控制设置？"
@@ -602,16 +602,16 @@ msgid "Go Back"
 msgstr "返回"
 
 msgid "Green"
-msgstr ""
+msgstr "绿色"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "隐藏系统文件或者文件夹"
 
 msgid "High"
-msgstr ""
+msgstr "高"
 
 msgid "Highest"
-msgstr ""
+msgstr "最高"
 
 msgid "Home Button"
 msgstr "Home键"
@@ -641,7 +641,7 @@ msgid "Icon Mode"
 msgstr "图标模式"
 
 msgid "Idle"
-msgstr ""
+msgstr "空闲"
 
 msgid "Image Converter"
 msgstr "图片转换器"
@@ -743,7 +743,7 @@ msgid "Loop Playlist"
 msgstr "循环播放列表"
 
 msgid "Low"
-msgstr ""
+msgstr "低"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
@@ -765,6 +765,9 @@ msgstr "最小化"
 
 msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
+
+msgid "Mounting disc"
+msgstr ""
 
 msgid "Moving item(s):"
 msgstr "正在移动项目："
@@ -816,7 +819,7 @@ msgid "No to all"
 msgstr "全选否"
 
 msgid "Normal"
-msgstr ""
+msgstr "正常"
 
 msgid "Not a valid URL"
 msgstr "无效的URL"
@@ -912,28 +915,28 @@ msgid "Process canceled."
 msgstr "进程已取消"
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "程序条下或左"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "程序条下或右"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "程序条空按钮或左"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "程序条空按钮或右"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "程序条空上或左"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "程序条空上或右"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "程序条上或左"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "程序条上或右"
 
 msgid "Properties"
 msgstr "属性"
@@ -943,7 +946,7 @@ msgstr "QWERTYUIOP{}|"
 
 #, c-format
 msgid "R: %i G: %i B: %i"
-msgstr ""
+msgstr "红: %i 绿: %i 蓝: %i"
 
 msgid "Random"
 msgstr "随机"
@@ -961,7 +964,7 @@ msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
 
 msgid "Red"
-msgstr ""
+msgstr "红"
 
 msgid "Reload"
 msgstr "重新运行"
@@ -988,7 +991,7 @@ msgid "Rotate"
 msgstr "旋转"
 
 msgid "Rumble"
-msgstr ""
+msgstr "震动"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "正在播放的视频将会降低运行速度或使此程序死机。是否要继续？"
@@ -1170,7 +1173,7 @@ msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "更新或下载语言文件中。"
 
 msgid "Username:"
 msgstr "用户名"

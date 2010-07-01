@@ -41,11 +41,6 @@
 #include "DirList.h"
 #include "menu.h"
 
-#define MIN_IMAGE_WIDTH         4.0f
-#define MIN_IMAGE_HEIGHT        4.0f
-#define MAX_IMAGE_WIDTH         1024.0f
-#define MAX_IMAGE_HEIGHT        768.0f
-
 ImageViewer::ImageViewer(const char *filepath)
     : GuiWindow(0, 0)
 {

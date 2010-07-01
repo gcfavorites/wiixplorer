@@ -236,7 +236,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(choice == 1)
             {
                 IOHandler::Instance()->AddProcess(Clipboard::Instance(), browser->GetCurrentPath(), Clipboard::Instance()->Cutted);
-                IOHandler::Instance()->StartProcess(!IOHandler::Instance()->IsRunning());
             }
         }
     }

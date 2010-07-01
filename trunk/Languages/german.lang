@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# r174
+# r175
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-15 10:57+0200\n"
-"PO-Revision-Date: 2010-006-13 13:48+0200\n"
+"POT-Creation-Date: 2010-07-01 23:47+0200\n"
+"PO-Revision-Date: 2010-06-15 02:03+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -43,10 +43,10 @@ msgid "AppPath changed"
 msgstr "Pfad geändert"
 
 msgid "Apps"
-msgstr "Anwendungen"
+msgstr ""
 
 msgid "Apps Path"
-msgstr "Anwendungspfad"
+msgstr "Apps"
 
 msgid "Archive Files"
 msgstr "Archive"
@@ -70,19 +70,19 @@ msgid "Back Button"
 msgstr "Zurück"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "Hintergrund Unten/Links"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Hintergrund Unten/Rechts"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Hintergrund Oben/Links"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Hintergrund Oben/Rechts"
 
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 msgid "Boot Settings"
 msgstr "Bootvorgang"
@@ -136,7 +136,7 @@ msgid "Cannot write to the file."
 msgstr "Die Datei kann nicht geschrieben werden."
 
 msgid "Caps"
-msgstr "Großbuchstaben"
+msgstr ""
 
 msgid "Change"
 msgstr "Ändern"
@@ -167,13 +167,13 @@ msgid "Clock Mode"
 msgstr "Uhrformat"
 
 msgid "Close"
-msgstr "Schließen"
+msgstr "    Schließen"
 
 msgid "Coders:"
 msgstr "Programmierer:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Farben"
 
 msgid "Compressed Size:"
 msgstr "Komprimierte Größe:"
@@ -200,10 +200,10 @@ msgid "Copy"
 msgstr "Kopieren"
 
 msgid "Copy Thread Background Priority"
-msgstr "Kopiere Thread-Hintergrundpriorität"
+msgstr "Kopieren-Thread Hintergrundpriorität"
 
 msgid "Copy Thread Priority"
-msgstr "Kopiere Threadpriorität"
+msgstr "Kopieren-Thread Priorität"
 
 msgid "Copy current marked item(s)?"
 msgstr "Markierte(s) Element(e) kopieren?"
@@ -248,7 +248,7 @@ msgid "Credits"
 msgstr ""
 
 msgid "Currently a process is running."
-msgstr "Derzeit läuft schon ein Prozess."
+msgstr "Es läuft bereits ein Prozess."
 
 msgid "Customfont Path"
 msgstr "Schriftart"
@@ -266,7 +266,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete Temp Path on Exit"
-msgstr "Lösche Temporärenordner beim verlassen"
+msgstr "Temp. Verzeichnis beim Beenden löschen"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Markierte(s) Element(e) und den Inhalt löschen?"
@@ -296,7 +296,7 @@ msgid "Disconnect SMB"
 msgstr "Verbindung zum SMB trennen"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "Das Einzufügende zur Warteschlange hinzufügen?"
 
 msgid "Do you want to boot file now?"
 msgstr "Die Datei/App jetzt starten?"
@@ -363,7 +363,7 @@ msgid "Do you want to replace this file?"
 msgstr "Diese Datei ersetzen?"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "Die Farben zurücksetzen?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Steuerung zurücksetzen?"
@@ -427,7 +427,7 @@ msgid "Extract All"
 msgstr "Alles entpacken"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "Datei ins temp. Verzeichnis entpacken und ausführen?"
 
 msgid "Extract full archive?"
 msgstr "Ganzes Archiv entpacken?"
@@ -602,16 +602,16 @@ msgid "Go Back"
 msgstr "Zurück"
 
 msgid "Green"
-msgstr ""
+msgstr "Grün"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Systemdateien/-ordner verstecken"
 
 msgid "High"
-msgstr ""
+msgstr "Hoch"
 
 msgid "Highest"
-msgstr ""
+msgstr "Höchste"
 
 msgid "Home Button"
 msgstr "HOME"
@@ -641,7 +641,7 @@ msgid "Icon Mode"
 msgstr "Symbole"
 
 msgid "Idle"
-msgstr ""
+msgstr "Leerlauf"
 
 msgid "Image Converter"
 msgstr "Bildkonverter"
@@ -743,7 +743,7 @@ msgid "Loop Playlist"
 msgstr "Wiedergabeliste wiederholen"
 
 msgid "Low"
-msgstr ""
+msgstr "Niedrig"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayer CE"
@@ -765,6 +765,9 @@ msgstr "Minimieren"
 
 msgid "Mount NTFS"
 msgstr "NTFS mounten"
+
+msgid "Mounting disc"
+msgstr ""
 
 msgid "Moving item(s):"
 msgstr "Verschiebe Element(e):"
@@ -873,7 +876,7 @@ msgid "Passive Mode:"
 msgstr ""
 
 msgid "Password is needed."
-msgstr "Passwort wird benötigt"
+msgstr "Passwort wird benötigt."
 
 msgid "Password:"
 msgstr "Kennwort:"
@@ -894,7 +897,7 @@ msgid "Play Once"
 msgstr "Einmal abspielen"
 
 msgid "Please enter the password."
-msgstr "Bitte Passwort eingeben."
+msgstr "Bitte das Passwort eingeben."
 
 msgid "Please wait..."
 msgstr "Bitte warten..."
@@ -912,28 +915,28 @@ msgid "Process canceled."
 msgstr "Vorgang abgebrochen."
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "Fortschrittsbalken Unten/Links"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "Fortschrittsbalken Unten/Rechts"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "Leerer Fortschrittsbalken Unten/Links"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "Leerer Fortschrittsbalken Unten/Rechts"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "Leerer Fortschrittsbalken Oben/Links"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "Leerer Fortschrittsbalken Oben/Rechts"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "Fortschrittsbalken Oben/Links"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "Fortschrittsbalken Oben/Rechts"
 
 msgid "Properties"
 msgstr "Eigenschaften"
@@ -961,7 +964,7 @@ msgid "Reconnect SMB"
 msgstr "SMB wiederverbinden"
 
 msgid "Red"
-msgstr ""
+msgstr "Rot"
 
 msgid "Reload"
 msgstr "Erneut mounten"
@@ -991,7 +994,7 @@ msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr "Das Abspielen eines Vidoes kann das Programm verlangsamen oder einfrieren lassen. Möchten Sie fortfahren?"
+msgstr "Das Abspielen eines Videos könnte das Programm verlangsamen oder einfrieren. Fortfahren?"
 
 msgid "SMB Name:"
 msgstr ""
@@ -1076,7 +1079,7 @@ msgid "Startup FTP"
 msgstr "FTP starten"
 
 msgid "Temporary Path"
-msgstr "Temporärer Ordner"
+msgstr "Temporäres Verzeichnis"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Die Puffergröße ist sehr hoch. Wenn die App nicht startet, lösche deine Konfigurationsdateien."
@@ -1170,7 +1173,7 @@ msgid "Update to Rev%i available"
 msgstr "Update auf Revision %i verfügbar."
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "Sprachdateien werden gerade aktualisiert."
 
 msgid "Username:"
 msgstr "Benutzername:"
