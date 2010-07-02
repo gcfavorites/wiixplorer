@@ -1,0 +1,31 @@
+Well I think Ill just make it a Q&A.
+
+Q: What does PDF Processing Zoom do?
+
+A:
+
+Q: What are the color settings for?
+
+A:
+
+Q: What are sound blocks?
+
+A:
+
+Q: What is sound block size?
+
+A:
+
+Q: What is the temporary path for?
+
+A:
+
+Q: What is delete temp path for?
+
+A:
+
+Q: What does hide my system files/folders do?
+
+A:
+
+Any further questions feel free to comment on this wiki. :)
