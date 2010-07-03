@@ -31,13 +31,20 @@ A: If enabled, the temp path is completely removed on exiting WiiXplorer.
 
 A: This filters files and folders starting with $ and (period). This also filters the thumb.db from windows.
 ----
-=== Q: What is copy thread priority? ===
+=== Copy thread priority ===
 
-A: The priority of the transfer thread when the process is not minimized.
+The priority of the transfer thread when the process is not minimized.
+  * IDLE =
+  * LOW =
+  * HIGH =
+  * HIGHEST =
 ----
-=== Q: What is copy thread background priority? ===
+=== Copy thread background priority ===
 
-A: The priority of the transfer thread when the process is minimized.
-  * Setting this to idle allows you to do other things while copying things from SMB (e.g. listen to music or view images).
+The priority of the transfer thread when the process is minimized.
+  * IDLE = allows you to do other things while copying things from SMB (e.g. listen to music or view images).
+  * LOW =
+  * HIGH =
+  * HIGHEST =
 ----
 Any further questions feel free to comment on this wiki. :)
