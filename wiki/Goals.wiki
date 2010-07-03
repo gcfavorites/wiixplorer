@@ -1,8 +1,12 @@
 = List of Things To-Do =
-  * USB keyboard support (Text Viewer Mode)
+  * After renaming/deleting a file/folder. It takes me all the way back to the top of the directory. It would be nice if it didn't do that.
+  * (PLUS) and (MINUS) buttons on Wiimote make image zoom in/out (Image Viewer)
+  * Wiimote LED lights
+  * Be able to edit 2 lines like Wii Internet Channel
+  * USB keyboard support (Text Viewer Mode Only)
   * Ability to scroll through app/channel list
   * App/Channel viewer
-  * Moveable and resizable windows
+  * Resizable windows
   * Map Music Player buttons to D-PAD (Music Browser minimized)
   * Image Cover Mode
   * Cut/Copy/Paste/Find in Text Viewer (Use [minus] button to open context menu)
@@ -11,3 +15,4 @@
   * Before I can edit text in a txt file I first have to move the flashing cursor with the wiimote cursor or the onscreen keyboard (plus button) wont come up
   * When you open the onscreen keyboard on an empty line. After you finish editing and you press ok the line you were editing is deleted and your text ends up in the beginning of the next line down
   * Flashing cursor doesn't recognize text when scrolling with the D-PAD, what I mean is that the cursor ends up in the middle of letters or in the middle of an empty line (where you can't edit). Meaning the cursor does not care where the letters are or if it is an empty line.
+  * When copying and pasting  a group of files i got a code dump.
