@@ -1,31 +1,43 @@
-== Here are the answers to most of your unsolved questions ==
+= Introduction =
+Here's a helpful guide to the more advanced settings.
 
-Q: What does PDF Processing Zoom do?
+=== Q: What is PDF Processing Zoom? ===
 
-A:
+A: It increases the quality of the PDF image, but uses more memory to do so.
+  * Anything above 1.3 causes images to become distorted (unconfirmed)
+----
+=== Q: What are the color settings for? ===
 
-Q: What are the color settings for?
+A: This is used for setting different colors for the Background ProgressBar and the Empty ProgressBar. It's based on 4 colors which are in the corners and those 4 colors are mixed into each other (blended)
+----
+=== Q: What are sound blocks? ===
 
-A:
+A: The amount of blocks that should be used for sound playback.
+  * Increasing this will make sound playback "more smoother" without clipping.
+----
+=== Q: What is sound block size? ===
 
-Q: What are sound blocks?
+A: The size of one sound block.
+----
+=== Q: What is the temp path? ===
 
-A:
+A: It's the path used for archive file's execution. The files from the archive are extracted to that path and executed afterwards.
+----
+=== Q: What is the delete temp path option for? ===
 
-Q: What is sound block size?
+A: If enabled, the temp path is completely removed on exiting WiiXplorer.
+----
+=== Q: What is hide system files/folders for? ===
 
-A:
+A: This filters files and folders starting with $ and (period). This also filters the thumb.db from windows.
+----
+=== Q: What is copy thread priority? ===
 
-Q: What is the temporary path for?
+A: The priority of the transfer thread when the process is not minimized.
+----
+=== Q: What is copy thread background priority? ===
 
-A:
-
-Q: What is delete temp path for?
-
-A:
-
-Q: What does hide my system files/folders do?
-
-A:
-
+A: The priority of the transfer thread when the process is minimized.
+  * Setting this to idle allows you to do other things while copying things from SMB (e.g. listen to music or view images).
+----
 Any further questions feel free to comment on this wiki. :)
