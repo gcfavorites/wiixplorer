@@ -1,0 +1,13 @@
+= List of Things To-Do =
+  * USB keyboard support (Text Viewer Mode)
+  * Ability to scroll through app/channel list
+  * App/Channel viewer
+  * Moveable and resizable windows
+  * Map Music Player buttons to D-PAD (Music Browser minimized)
+  * Image Cover Mode
+  * Cut/Copy/Paste/Find in Text Viewer (Use [minus] button to open context menu)
+=== Bugs ===
+  * Random characters in empty TXT files
+  * Before I can edit text in a txt file I first have to move the flashing cursor with the wiimote cursor or the onscreen keyboard (plus button) wont come up
+  * When you open the onscreen keyboard on an empty line. After you finish editing and you press ok the line you were editing is deleted and your text ends up in the beginning of the next line down
+  * Flashing cursor doest follow text when scrolling down with the D-PAD, what i mean is that the cursor ends up in the middle of letters or in the middle of an empty line. Meaning the cursor does not care where the letters are or if it is an empty line
