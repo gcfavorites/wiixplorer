@@ -45,6 +45,9 @@ typedef struct _Controls
     u16     SlideShowButton;
     u16     KeyShiftButton;
     u16     KeyBackspaceButton;
+    u16     ZoomIn;
+    u16     ZoomOut;
+    u16     UpInDirectory;
 } ControlItems;
 
 class AppControls

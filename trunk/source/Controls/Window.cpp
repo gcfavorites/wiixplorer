@@ -75,7 +75,6 @@ Window::Window(int w, int h)
 	titleBarButton -> SetPosition(0, 0);
 	titleBarButton -> SetTrigger(trigHeldA);
 	titleBarButton -> SetHoldable(true);
-	titleBarButton -> SetClickable(false);
 	titleBarButton -> Held.connect(this, &Window::OnTitleHeld);
 	titleBarButton -> Released.connect(this, &Window::OnTitleReleased);
 

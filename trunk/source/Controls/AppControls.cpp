@@ -55,13 +55,16 @@ void AppControls::SetDefault()
     WiiControls.RightButton = WPAD_BUTTON_RIGHT;
     WiiControls.ContextMenuButton = WPAD_BUTTON_PLUS;
     WiiControls.MarkItemButton = WPAD_BUTTON_1;
-    WiiControls.DeMarkItemButton = WPAD_BUTTON_MINUS;
-    WiiControls.DeMarkAllButton = WPAD_BUTTON_B;
+    WiiControls.DeMarkItemButton = WPAD_BUTTON_2;
+    WiiControls.DeMarkAllButton = WPAD_BUTTON_MINUS;
     WiiControls.HomeButton = WPAD_BUTTON_HOME;
     WiiControls.EditTextLine = WPAD_BUTTON_PLUS;
     WiiControls.SlideShowButton = WPAD_BUTTON_1;
     WiiControls.KeyShiftButton = 0x0000;
     WiiControls.KeyBackspaceButton = WPAD_BUTTON_B;
+    WiiControls.ZoomIn = WPAD_BUTTON_PLUS;
+    WiiControls.ZoomOut = WPAD_BUTTON_MINUS;
+    WiiControls.UpInDirectory = WPAD_BUTTON_B;
 
     ClassicControls.ClickButton = WPAD_CLASSIC_BUTTON_A >> 16;
     ClassicControls.BackButton = WPAD_CLASSIC_BUTTON_B >> 16;
@@ -78,6 +81,9 @@ void AppControls::SetDefault()
     ClassicControls.SlideShowButton = WPAD_CLASSIC_BUTTON_X >> 16;
     ClassicControls.KeyShiftButton = 0x0000;
     ClassicControls.KeyBackspaceButton = WPAD_CLASSIC_BUTTON_B >> 16;
+    ClassicControls.ZoomIn = WPAD_CLASSIC_BUTTON_PLUS >> 16;
+    ClassicControls.ZoomOut = WPAD_CLASSIC_BUTTON_MINUS >> 16;
+    ClassicControls.UpInDirectory = WPAD_CLASSIC_BUTTON_B >> 16;
 
     GCControls.ClickButton = PAD_BUTTON_A;
     GCControls.BackButton = PAD_BUTTON_B;
@@ -94,6 +100,9 @@ void AppControls::SetDefault()
     GCControls.SlideShowButton = PAD_BUTTON_X;
     GCControls.KeyShiftButton = 0x0000;
     GCControls.KeyBackspaceButton = PAD_BUTTON_B;
+    GCControls.ZoomIn = PAD_TRIGGER_R;
+    GCControls.ZoomOut = PAD_TRIGGER_L;
+    GCControls.UpInDirectory = PAD_BUTTON_B;
 }
 
 bool AppControls::Load(const char * filepath)
@@ -165,6 +174,9 @@ bool AppControls::Save()
 	fprintf(file, "WiiControls.SlideShowButton = %d\n", WiiControls.SlideShowButton);
 	fprintf(file, "WiiControls.KeyShiftButton = %d\n", WiiControls.KeyShiftButton);
 	fprintf(file, "WiiControls.KeyBackspaceButton = %d\n", WiiControls.KeyBackspaceButton);
+	fprintf(file, "WiiControls.ZoomIn = %d\n", WiiControls.ZoomIn);
+	fprintf(file, "WiiControls.ZoomOut = %d\n", WiiControls.ZoomOut);
+	fprintf(file, "WiiControls.UpInDirectory = %d\n", WiiControls.UpInDirectory);
 
 	fprintf(file, "\n# Wii Classic Controls\n\n");
 	fprintf(file, "ClassicControls.ClickButton = %d\n", ClassicControls.ClickButton);
@@ -182,6 +194,9 @@ bool AppControls::Save()
 	fprintf(file, "ClassicControls.SlideShowButton = %d\n", ClassicControls.SlideShowButton);
 	fprintf(file, "ClassicControls.KeyShiftButton = %d\n", ClassicControls.KeyShiftButton);
 	fprintf(file, "ClassicControls.KeyBackspaceButton = %d\n", ClassicControls.KeyBackspaceButton);
+	fprintf(file, "ClassicControls.ZoomIn = %d\n", ClassicControls.ZoomIn);
+	fprintf(file, "ClassicControls.ZoomOut = %d\n", ClassicControls.ZoomOut);
+	fprintf(file, "ClassicControls.UpInDirectory = %d\n", ClassicControls.UpInDirectory);
 
 	fprintf(file, "\n# GC Controls\n\n");
 	fprintf(file, "GCControls.ClickButton = %d\n", GCControls.ClickButton);
@@ -199,6 +214,9 @@ bool AppControls::Save()
 	fprintf(file, "GCControls.SlideShowButton = %d\n", GCControls.SlideShowButton);
 	fprintf(file, "GCControls.KeyShiftButton = %d\n", GCControls.KeyShiftButton);
 	fprintf(file, "GCControls.KeyBackspaceButton = %d\n", GCControls.KeyBackspaceButton);
+	fprintf(file, "GCControls.ZoomIn = %d\n", GCControls.ZoomIn);
+	fprintf(file, "GCControls.ZoomOut = %d\n", GCControls.ZoomOut);
+	fprintf(file, "GCControls.UpInDirectory = %d\n", GCControls.UpInDirectory);
 
 	fprintf(file, "\n# Screenshot combination buttons\n\n");
 	fprintf(file, "ScreenshotHoldButton = %d\n", ScreenshotHoldButton);
@@ -315,6 +333,24 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "WiiControls.ZoomIn") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			WiiControls.ZoomIn = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "WiiControls.ZoomOut") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			WiiControls.ZoomOut = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "WiiControls.UpInDirectory") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			WiiControls.UpInDirectory = i;
+		}
+		return true;
+	}
     else if (strcmp(name, "ClassicControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ClassicControls.ClickButton = i;
@@ -405,6 +441,24 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
+	else if (strcmp(name, "ClassicControls.ZoomIn") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClassicControls.ZoomIn = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ClassicControls.ZoomOut") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClassicControls.ZoomOut = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ClassicControls.UpInDirectory") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ClassicControls.UpInDirectory = i;
+		}
+		return true;
+	}
     else if (strcmp(name, "GCControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			GCControls.ClickButton = i;
@@ -492,6 +546,24 @@ bool AppControls::SetControl(char *name, char *value)
 	else if (strcmp(name, "GCControls.KeyBackspaceButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			GCControls.KeyBackspaceButton = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "GCControls.ZoomIn") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			GCControls.ZoomIn = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "GCControls.ZoomOut") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			GCControls.ZoomOut = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "GCControls.UpInDirectory") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			GCControls.UpInDirectory = i;
 		}
 		return true;
 	}

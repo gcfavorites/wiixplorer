@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# italian.lang - r174
+# italian.lang - r176
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-01 21:15+0200\n"
+"POT-Creation-Date: 2010-07-07 14:35+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -70,20 +70,23 @@ msgstr "Indietro"
 msgid "Back Button"
 msgstr "Pulsante Indietro"
 
-msgid "Background Bottom/Left"
+msgid "Back in Directory Button"
 msgstr ""
+
+msgid "Background Bottom/Left"
+msgstr "Sfondo Basso/Sinistra"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Sfondo Basso/Destra"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Sfondo Alto/Sinistra"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Sfondo Alto/Destra"
 
 msgid "Blue"
-msgstr ""
+msgstr "Blu"
 
 msgid "Boot Settings"
 msgstr "Impostazioni avvio"
@@ -174,7 +177,7 @@ msgid "Coders:"
 msgstr "Sviluppatori:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Impostazioni Colori"
 
 msgid "Compressed Size:"
 msgstr "Dimensione dopo compressione:"
@@ -364,7 +367,7 @@ msgid "Do you want to replace this file?"
 msgstr "Vuoi rimpiazzare questo file?"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "Vuoi resettare le impostazioni sui colori?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Vuoi resettare le impostazioni di controllo?"
@@ -603,16 +606,16 @@ msgid "Go Back"
 msgstr "Indietro"
 
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Nascondi File/Cartelle di Sistema"
 
 msgid "High"
-msgstr ""
+msgstr "Alta"
 
 msgid "Highest"
-msgstr ""
+msgstr "Piu' Alta"
 
 msgid "Home Button"
 msgstr "Pulsante Home"
@@ -642,7 +645,7 @@ msgid "Icon Mode"
 msgstr "Icone"
 
 msgid "Idle"
-msgstr ""
+msgstr "Inattivo"
 
 msgid "Image Converter"
 msgstr "Convertitore immagine"
@@ -744,7 +747,7 @@ msgid "Loop Playlist"
 msgstr "Cicla Playlist"
 
 msgid "Low"
-msgstr ""
+msgstr "Bassa"
 
 msgid "MPlayerCE Path"
 msgstr "Percorso MPlayer_CE"
@@ -768,7 +771,7 @@ msgid "Mount NTFS"
 msgstr "Monta NTFS"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Sto montando il disco..."
 
 msgid "Moving item(s):"
 msgstr "Sto trasferendo gli elementi:"
@@ -820,7 +823,7 @@ msgid "No to all"
 msgstr "No a tutti"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 msgid "Not a valid URL"
 msgstr "Non e' un URL valido"
@@ -916,28 +919,28 @@ msgid "Process canceled."
 msgstr "Il processo e' stato annullato."
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "Barra Progresso Basso/Sinistra"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "Barra Progresso Basso/Destra"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "Barra Progresso Vuota Basso/Sinistra"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "Barra Progresso Vuota Basso/Destra"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "Barra Progresso Vuota Alto/Sinistra"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "Barra Progresso Vuota Alto/Destra"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "Barra Progresso Vuota Alto/Sinistra"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "Barra Progresso Alto/Destra"
 
 msgid "Properties"
 msgstr "Proprieta'"
@@ -965,7 +968,7 @@ msgid "Reconnect SMB"
 msgstr "Riconnessione SMB"
 
 msgid "Red"
-msgstr ""
+msgstr "Rosso"
 
 msgid "Reload"
 msgstr "Ricarica"
@@ -1174,7 +1177,7 @@ msgid "Update to Rev%i available"
 msgstr "Disponibile aggiorn. alla Rev%i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "Aggiornamento/Download File di Lingua"
 
 msgid "Username:"
 msgstr "Nome utente:"
@@ -1299,6 +1302,12 @@ msgstr "Non puoi eseguire questa operazione su:"
 msgid "ZXCVBNM<>?"
 msgstr ""
 
+msgid "ZoomIn Button"
+msgstr ""
+
+msgid "ZoomOut Button"
+msgstr ""
+
 msgid "`1234567890-"
 msgstr ""
 
@@ -1322,24 +1331,3 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
-
-#~ msgid "Download Files"
-#~ msgstr "Scarica file"
-
-#~ msgid "Not enough memory 2."
-#~ msgstr "Memoria 2 insufficiente."
-
-#~ msgid "Priority High"
-#~ msgstr "Alta"
-
-#~ msgid "Priority Highest"
-#~ msgstr "Piu' alta"
-
-#~ msgid "Priority Idle"
-#~ msgstr "Idle"
-
-#~ msgid "Priority Low"
-#~ msgstr "Bassa"
-
-#~ msgid "Priority Normal"
-#~ msgstr "Normale"

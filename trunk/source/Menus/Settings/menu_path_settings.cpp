@@ -26,6 +26,7 @@
 #include "SettingsMenu.h"
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
+#include "TextOperations/FontSystem.h"
 #include "Prompts/PromptWindows.h"
 #include "Menus/menu_get_path.hpp"
 

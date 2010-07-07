@@ -65,6 +65,7 @@ class Explorer : public GuiWindow
 		void CheckRightClick();
         void SetDeviceImage();
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void BackInDirectory(GuiElement *sender, int pointer, POINT p);
 
         int menu;
 
@@ -106,9 +107,11 @@ class Explorer : public GuiWindow
         GuiButton * deviceSwitchBtn;
         GuiButton * Adressbar;
         GuiButton * clickmenuBtn;
+        GuiButton * BackInDirBtn;
 
         SimpleGuiTrigger * trigA;
         GuiTrigger * trigPlus;
+        GuiTrigger * trigBackInDir;
 };
 
 #endif

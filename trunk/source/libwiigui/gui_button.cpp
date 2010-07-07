@@ -347,41 +347,28 @@ void GuiButton::Update(GuiTrigger * t)
 	// button triggers
 	if(this->IsClickable())
 	{
-		s32 wm_btns, wm_btns_trig, cc_btns, cc_btns_trig;
+		u32 wm_btns = t->wpad->btns_d;
+
 		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
-				// higher 16 bits only (wiimote)
-				wm_btns = t->wpad->btns_d << 16;
-				wm_btns_trig = trigger[i]->wpad->btns_d << 16;
-
-				// lower 16 bits only (classic controller)
-				cc_btns = t->wpad->btns_d >> 16;
-				cc_btns_trig = trigger[i]->wpad->btns_d >> 16;
-
-				if( (t->wpad->btns_d > 0 &&
-					(wm_btns == wm_btns_trig ||
-					(cc_btns == cc_btns_trig && t->wpad->exp.type == EXP_CLASSIC))) ||
-					(t->pad.btns_d == trigger[i]->pad.btns_d && t->pad.btns_d > 0))
+				if((wm_btns & trigger[i]->wpad->btns_d) || (t->pad.btns_d & trigger[i]->pad.btns_d))
 				{
-					if(t->chan == stateChan || stateChan == -1)
-					{
-						if(state == STATE_SELECTED)
-						{
-							if(!t->wpad->ir.valid || this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
-							{
-								this->SetState(STATE_CLICKED, t->chan);
+                    if(state == STATE_SELECTED)
+                    {
+                        if(!t->wpad->ir.valid || this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+                        {
+                            this->SetState(STATE_CLICKED, t->chan);
 
-								if(soundClick)
-									soundClick->Play();
-							}
-						}
-						else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
-						{
-							this->SetState(STATE_CLICKED, t->chan);
-						}
-					}
+                            if(soundClick)
+                                soundClick->Play();
+                        }
+                    }
+                    else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
+                    {
+                        this->SetState(STATE_CLICKED, t->chan);
+                    }
 				}
 			}
 		}
@@ -389,49 +376,25 @@ void GuiButton::Update(GuiTrigger * t)
 
 	if(this->IsHoldable())
 	{
-		bool held = false;
-		s32 wm_btns, wm_btns_h, wm_btns_trig, cc_btns, cc_btns_h, cc_btns_trig;
+        bool held = false;
 
 		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
-				// higher 16 bits only (wiimote)
-				wm_btns = t->wpad->btns_d << 16;
-				wm_btns_h = t->wpad->btns_h << 16;
-				wm_btns_trig = trigger[i]->wpad->btns_h << 16;
-
-				// lower 16 bits only (classic controller)
-				cc_btns = t->wpad->btns_d >> 16;
-				cc_btns_h = t->wpad->btns_h >> 16;
-				cc_btns_trig = trigger[i]->wpad->btns_h >> 16;
-
-				if(
-					(t->wpad->btns_d > 0 &&
-					(wm_btns == wm_btns_trig ||
-					(cc_btns == cc_btns_trig && t->wpad->exp.type == EXP_CLASSIC))) ||
-					(t->pad.btns_d == trigger[i]->pad.btns_h && t->pad.btns_d > 0))
+				if(t->wpad->btns_h & trigger[i]->wpad->btns_h || t->pad.btns_h & trigger[i]->pad.btns_h)
 				{
-					if(trigger[i]->type == TRIGGER_HELD && state == STATE_SELECTED &&
-						(t->chan == stateChan || stateChan == -1))
-						this->SetState(STATE_CLICKED, t->chan);
-				}
-
-				if(
-					(t->wpad->btns_h > 0 &&
-					(wm_btns_h == wm_btns_trig ||
-					(cc_btns_h == cc_btns_trig && t->wpad->exp.type == EXP_CLASSIC))) ||
-					(t->pad.btns_h == trigger[i]->pad.btns_h && t->pad.btns_h > 0))
-				{
-					if(trigger[i]->type == TRIGGER_HELD)
+					if(trigger[i]->type == TRIGGER_HELD && (state == STATE_CLICKED || state == STATE_HELD) && stateChan == t->chan)
+					{
 						held = true;
+					}
+					else if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
+					{
+						held = true;
+					}
 				}
 
-				if(!held && state == STATE_HELD && stateChan == t->chan)
-				{
-					this->ResetState();
-				}
-				else if(held && state == STATE_CLICKED && stateChan == t->chan)
+				if(held && state != STATE_HELD)
 				{
 					this->SetState(STATE_HELD, t->chan);
 				}
@@ -439,15 +402,16 @@ void GuiButton::Update(GuiTrigger * t)
 				{
                     POINT p = {0, 0};
 
-                    if (userInput[stateChan].wpad)
+                    if (userInput[stateChan].wpad && userInput[stateChan].wpad->ir.valid)
                     {
-                        if (userInput[stateChan].wpad->ir.valid)
-                        {
-                            p.x = userInput[stateChan].wpad->ir.x;
-                            p.y = userInput[stateChan].wpad->ir.y;
-                        }
+                        p.x = userInput[stateChan].wpad->ir.x;
+                        p.y = userInput[stateChan].wpad->ir.y;
                     }
                     Held(this, stateChan, PtrToControl(p));
+				}
+				else if(!held && state == STATE_HELD && stateChan == t->chan)
+				{
+					this->ResetState();
 				}
 			}
 		}

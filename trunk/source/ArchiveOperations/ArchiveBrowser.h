@@ -77,11 +77,14 @@ class ArchiveBrowser : public Browser
         //!Parse the archive directory into an archive structure
         int ParseArchiveDirectory(const char * ArcPath);
         //!Returns a ItemStruct for the file marker
-        ItemStruct GetCurrentItemStruct() const;
+        ItemStruct GetItemStruct(int pos) const;
+        ItemStruct GetCurrentItemStruct() const { return GetItemStruct(SelIndex); };
         //!Get the current archive path
         const char * GetCurrentPath();
         //!Get the archive filename
         const char * GetArchiveName() { return OrigArchiveFilename; };
+        //!Return one time in directory tree
+        int BackInDirectory() { return LeaveCurDir(); };
         //!Refresh current directory
         void Refresh();
 

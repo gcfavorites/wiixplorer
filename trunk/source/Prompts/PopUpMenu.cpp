@@ -35,7 +35,7 @@
 
 const int ButtonX = 20;
 const u32 ButtonHeight = 32;
-const u32 MaxVisible = 12;
+const u32 MaxVisible = 10;
 
 PopUpMenu::PopUpMenu(int x, int y)
     :GuiWindow(0, 0)
@@ -62,7 +62,9 @@ PopUpMenu::PopUpMenu(int x, int y)
 	PopUpMenuMiddleImg = new GuiImage(PopUpMenuMiddle);
 	PopUpMenuLowerImg = new GuiImage(PopUpMenuLower);
 	PopUpMenuScrollUpImg = new GuiImage(PopUpMenuScrollUp);
+	PopUpMenuScrollUpImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	PopUpMenuScrollDownImg = new GuiImage(PopUpMenuScrollDown);
+	PopUpMenuScrollDownImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
@@ -84,7 +86,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	HomeBtn->SetTrigger(trigHome);
 	HomeBtn->Clicked.connect(this, &PopUpMenu::OnClick);
 
-	ScrollUpBtn = new GuiButton(16, 16);
+	ScrollUpBtn = new GuiButton(PopUpMenuUpperImg->GetWidth(), PopUpMenuScrollUpImg->GetHeight()+5);
 	ScrollUpBtn->SetImage(PopUpMenuScrollUpImg);
 	ScrollUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	ScrollUpBtn->SetTrigger(trigA);
@@ -93,7 +95,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	ScrollUpBtn->SetTrigger(trigUp);
 	ScrollUpBtn->Clicked.connect(this, &PopUpMenu::OnScrollUp);
 
-	ScrollDownBtn = new GuiButton(16, 16);
+	ScrollDownBtn = new GuiButton(PopUpMenuLowerImg->GetWidth(), PopUpMenuScrollDownImg->GetHeight()+5);
 	ScrollDownBtn->SetImage(PopUpMenuScrollDownImg);
 	ScrollDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	ScrollDownBtn->SetTrigger(trigA);
@@ -233,13 +235,17 @@ void PopUpMenu::Finish()
 	int leftmargin = (hasIcons ? ButtonX+40 : ButtonX);
 	int rightmargin = (hasSubmenus ? 40 : 20);
 	float scale = 1.0f;
+    int ButtonsOffset = 0;
 
-	if (Item.size() > MaxVisible)
+	if(Item.size() > MaxVisible)
 	{
 		ScrollDownBtn->SetVisible(true);
 		ScrollDownBtn->SetState(STATE_DEFAULT);
 
 		middleheight = ButtonHeight*MaxVisible;
+
+        middleheight += PopUpMenuScrollUpImg->GetHeight()+PopUpMenuScrollDownImg->GetHeight()-10;
+        ButtonsOffset += PopUpMenuScrollUpImg->GetHeight();
 
 		for (u32 i = MaxVisible; i < Item.size(); i++)
 		{
@@ -255,7 +261,7 @@ void PopUpMenu::Finish()
 	}
 
 	width  = maxTxtWidth+leftmargin+rightmargin;
-	height = PopUpMenuUpperImg->GetHeight()+middleheight+PopUpMenuLowerImg->GetHeight();
+	height = PopUpMenuLowerImg->GetHeight()+middleheight+PopUpMenuUpperImg->GetHeight();
 
 	PopUpMenuMiddleImg->SetTileVertical(middleheight/PopUpMenuMiddleImg->GetHeight());
 
@@ -272,25 +278,25 @@ void PopUpMenu::Finish()
 	PopUpMenuMiddleImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight());
 	PopUpMenuLowerImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight()+middleheight);
 
-	ScrollUpBtn->SetPosition(width/2, 0);
-	ScrollDownBtn->SetPosition(width/2, PopUpMenuLowerImg->GetTop());
+	ScrollUpBtn->SetPosition(width/2-ScrollUpBtn->GetWidth()/2, 10);
+	ScrollDownBtn->SetPosition(width/2-ScrollDownBtn->GetWidth()/2, PopUpMenuLowerImg->GetTop()-ScrollDownBtn->GetHeight()/2);
 
 	if (x + width + 15 > (u32)screenwidth)
 		x = screenwidth - width - 15;
 
 	if (y + height + 25 > (u32)screenheight)
-		y = screenheight - height - 25;
+		y = screenheight - height - 35;
 
 	for (u32 i = 0; i < Item.size(); i++)
 	{
 		Item[i].Button->SetSize(maxTxtWidth, ButtonHeight);
-		Item[i].Button->SetPosition(leftmargin, i*ButtonHeight+20);
+		Item[i].Button->SetPosition(leftmargin, i*ButtonHeight+20+ButtonsOffset);
 
 		Item[i].ButtonMenuSelect->SetScaleX(scale);
 		Item[i].ButtonMenuSelect->SetPosition(scaledX, -4);
 
 		if (Item[i].ExpandImg)
-			Item[i].ExpandImg->SetPosition(width-32, i*ButtonHeight+22);
+			Item[i].ExpandImg->SetPosition(width-32, i*ButtonHeight+22+ButtonsOffset);
 	}
 
 	SetPosition(x, y);

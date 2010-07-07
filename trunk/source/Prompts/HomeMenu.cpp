@@ -89,7 +89,6 @@ HomeMenu::HomeMenu()
 	ExitBtn->SetSoundClick(ButtonClickSnd);
 	ExitBtn->SetSoundOver(ButtonOverSnd);
 	ExitBtn->SetTrigger(trigA);
-	ExitBtn->SetClickable(true);
 	ExitBtn->SetEffectGrow();
 	ExitBtn->SetEffect(EFFECT_FADE, 50);
 
@@ -102,7 +101,6 @@ HomeMenu::HomeMenu()
 	ShutdownBtn->SetLabel(ShutdownBtnText);
 	ShutdownBtn->SetSoundClick(ButtonClickSnd);
 	ShutdownBtn->SetSoundOver(ButtonOverSnd);
-	ShutdownBtn->SetClickable(true);
 	ShutdownBtn->SetTrigger(trigA);
 	ShutdownBtn->SetEffectGrow();
 	ShutdownBtn->SetEffect(EFFECT_FADE, 50);

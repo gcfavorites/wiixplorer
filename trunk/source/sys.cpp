@@ -39,6 +39,7 @@
 #include "libftp/FTPServer.h"
 #include "Memory/mem2.hpp"
 #include "VideoOperations/video.h"
+#include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "mload/mload_init.h"
 #include "audio.h"

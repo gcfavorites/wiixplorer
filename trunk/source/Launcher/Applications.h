@@ -25,7 +25,7 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
- 
+
 #ifndef _APPLICATIONS_H_
 #define _APPLICATIONS_H_
 
@@ -47,10 +47,12 @@ class Applications
 		int Count() { return applications.size(); }
 		char *GetName(int index) { return applications.at(index).name; }
 		void Reload();
+        void Sort();
 
 	private:
         Applications();
         ~Applications();
+        static bool FileSortCallback(const Application & f1, const Application & f2);
 
 		static Applications *instance;
 

@@ -341,6 +341,7 @@ DeviceMenu::~DeviceMenu()
     Resources::Remove(smb_ImgData);
 	Resources::Remove(ftp_ImgData);
     Resources::Remove(dvd_ImgData);
+    Resources::Remove(menu_select);
 
 	Resources::Remove(btnClick);
 

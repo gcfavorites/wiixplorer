@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-01 21:15+0200\n"
+"POT-Creation-Date: 2010-07-07 14:35+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -72,20 +72,23 @@ msgstr "Πίσω"
 msgid "Back Button"
 msgstr "Πίσω πλήκτρο"
 
-msgid "Background Bottom/Left"
+msgid "Back in Directory Button"
 msgstr ""
+
+msgid "Background Bottom/Left"
+msgstr "Φόντο κάτω αριστερά"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Φόντο κάτω δεξιά"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Φόντο πάνω αριστερά"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Φόντο πάνω δεξιά"
 
 msgid "Blue"
-msgstr ""
+msgstr "Μπλέ"
 
 msgid "Boot Settings"
 msgstr "Ρυθμίσεις εκκίνησης"
@@ -97,16 +100,16 @@ msgid "Both"
 msgstr "Και τα δύο"
 
 msgid "Browse"
-msgstr ""
+msgstr "Περιήγηση"
 
 msgid "Browser Mode"
 msgstr "Τρόπος περιήγησης"
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr ""
+msgstr "Η περιήγηση για αρχεία γραμματοσειρών πρέπει να γίνετε στον κεντρικό περιηγητή."
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "Το CRC από το εξαγώμενο αρχείο δεν τεριάζει. Λάθος κωδικός;"
 
 msgid "Can not open the file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
@@ -176,7 +179,7 @@ msgid "Coders:"
 msgstr "Δημιουργοί:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Χρώματος"
 
 msgid "Compressed Size:"
 msgstr "Συμπιεσμένο Μέγεθος:"
@@ -203,10 +206,10 @@ msgid "Copy"
 msgstr "Αντιγραφή"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "Αντέγραφή προτεραιότητας νήμα φόντου"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "Αντέγραφή προτεραιότητας νήματος"
 
 msgid "Copy current marked item(s)?"
 msgstr "Να αντιγραφεί το(α) αρχείο(α) που είναι υπό σήμανση;"
@@ -245,13 +248,13 @@ msgid "Could not load text file."
 msgstr "Δεν μπορώ να φορτώσω το αρχείο κειμένου."
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "Δεν μπορώ να αναλύσω τη διαδρομή."
 
 msgid "Credits"
 msgstr "Συντελεστές"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "Επι του παρόντος, μια διαδικασία τρέχει."
 
 msgid "Customfont Path"
 msgstr "Διαδρομή για γραμματοσειρές σας"
@@ -269,7 +272,7 @@ msgid "Delete"
 msgstr "Διαγραφή"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "Διέγραψε τον προσορινό φάκελο(Temp) κατά την έξοδο"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Διαγραφή επιλεγμένου(ων) αρχείου(ων) και των περιεχωμένων;"
@@ -299,7 +302,7 @@ msgid "Disconnect SMB"
 msgstr "Αποσύνδεση SMB"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "Θέλετε να προσαρτίσετε αυτήν την επικόλληση στην ουρά;"
 
 msgid "Do you want to boot file now?"
 msgstr "Θέλεις να ξεκινήσω το αρχείο τώρα;"
@@ -311,7 +314,7 @@ msgid "Do you want to change the font?"
 msgstr "Θέλεις να αλλάξεις την γραμματοσειρά;"
 
 msgid "Do you want to delete this file:"
-msgstr ""
+msgstr "Θέλεις να διαγράψω αυτό το αρχείο:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "Θέλεις να αποσυνδέσω τον πελάτη FTP;"
@@ -366,7 +369,7 @@ msgid "Do you want to replace this file?"
 msgstr "Θέλεις να αντικαταστήσω αυτό το αρχείο;"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "Θέλετε να επαναφέρετε τις ρυθμίσεις χρώματος;"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Θέλεις να επαναφέρω τις αρχικές ρυθμίσεις ελέγχου;"
@@ -387,7 +390,7 @@ msgid "Do you want to update now ?"
 msgstr "Θέλεις να κάνω αναβάθμιση τώρα;"
 
 msgid "Done"
-msgstr ""
+msgstr "Έγινε"
 
 msgid "Down Button"
 msgstr "Κάτω πλήκτρο"
@@ -430,7 +433,7 @@ msgid "Extract All"
 msgstr "Εξαγωγή όλων"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "Να κάνω εξαγωγή αρχείου στον προσορινό φάκελο και να το τρέξω;"
 
 msgid "Extract full archive?"
 msgstr "Εξαγωγή όλου του αρχείου;"
@@ -466,7 +469,7 @@ msgid "FTP Started.\n"
 msgstr "Ο FTP ξεκινάει.\n"
 
 msgid "Fade Speed"
-msgstr ""
+msgstr "Ταχύτητα ξεθωρίασεις"
 
 msgid "Failed copying item(s)."
 msgstr "Απέτυχα να αντιγράψω το(α) αρχείο(α)."
@@ -499,7 +502,7 @@ msgid "File already exists:"
 msgstr "Το αρχείο ήδη υπάρχει:"
 
 msgid "File could not be deleted."
-msgstr ""
+msgstr "Το αρχείο δεν μπορεί να διαγραφεί."
 
 msgid "File couldn't be deleted."
 msgstr "Αυτό το αρχείο δεν μπορεί να διεγραφεί."
@@ -523,7 +526,7 @@ msgid "File was edited."
 msgstr "Το αρχείο επεξεργάστηκε."
 
 msgid "Filepath:"
-msgstr ""
+msgstr "Διαδρομή αρχείου:"
 
 #, c-format
 msgid "Filepath:  %s"
@@ -605,16 +608,16 @@ msgid "Go Back"
 msgstr "Πίσω"
 
 msgid "Green"
-msgstr ""
+msgstr "Πράσινο"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Κρύψε αρχεία και φακέλους συστήματος"
 
 msgid "High"
-msgstr ""
+msgstr "Υψηλός"
 
 msgid "Highest"
-msgstr ""
+msgstr "Υψηλότερος"
 
 msgid "Home Button"
 msgstr "Πλήκτρο Κεντρικό"
@@ -632,7 +635,7 @@ msgid "Host:"
 msgstr "Οικοδεσπότης:"
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "Πώς θέλεις να αλλάξω την διαδρομή;"
 
 msgid "How do you want to open the file?"
 msgstr "Πώς θέλεις να ανοίξω αυτό το αρχείο;"
@@ -644,7 +647,7 @@ msgid "Icon Mode"
 msgstr "Τρόπος με εικονίδια"
 
 msgid "Idle"
-msgstr ""
+msgstr "Ανενεργία"
 
 msgid "Image Converter"
 msgstr "Μετατροπέας εικόνων"
@@ -686,13 +689,13 @@ msgid "JPEG Quality"
 msgstr "Ποιότητα JPEG"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "Πληκτρολόγιο πλήκτρο Backspace"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "Πληκτρολόγιο καθηστέρηση του πλήκτου Delete"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "Πληκτρολόγιο πλήκτρο Shift"
 
 msgid "Language"
 msgstr "Γλώσσα"
@@ -728,7 +731,7 @@ msgid "Listening on TCP port"
 msgstr "Ακούει στην πόρτα TCP"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "Λίστα αρχείων σε"
 
 msgid "Load Music to Memory"
 msgstr "Φόρτωσε την μουσική στην μνήμη"
@@ -746,7 +749,7 @@ msgid "Loop Playlist"
 msgstr "Επανάληψη της λίστας"
 
 msgid "Low"
-msgstr ""
+msgstr "Χαμηλός"
 
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
@@ -764,13 +767,13 @@ msgid "Menu"
 msgstr "Μενού"
 
 msgid "Minimize"
-msgstr ""
+msgstr "Ελαχιστοποίηση"
 
 msgid "Mount NTFS"
 msgstr "Ανεβάσε το NTFS"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Ανέβασμα δίσκου"
 
 msgid "Moving item(s):"
 msgstr "Μετακίνηση αρχείου(α):"
@@ -822,7 +825,7 @@ msgid "No to all"
 msgstr "Όχι σε όλα"
 
 msgid "Normal"
-msgstr ""
+msgstr "Κανονικό"
 
 msgid "Not a valid URL"
 msgstr "Δεν είναι σωστή η URL"
@@ -843,7 +846,7 @@ msgid "Not enough memory."
 msgstr "Δεν υπάρχει αρκετή μνήμη."
 
 msgid "Notice:"
-msgstr ""
+msgstr "Ειδοποίηση:"
 
 msgid "OFF"
 msgstr "Κλειστό"
@@ -879,7 +882,7 @@ msgid "Passive Mode:"
 msgstr "Τρόπος passive:"
 
 msgid "Password is needed."
-msgstr ""
+msgstr "Χρειάζετε κωδικός."
 
 msgid "Password:"
 msgstr "Κωδικός:"
@@ -900,7 +903,7 @@ msgid "Play Once"
 msgstr "Παίξε μία φορά"
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "Παρακαλώ δώστε κωδικό."
 
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
@@ -918,28 +921,28 @@ msgid "Process canceled."
 msgstr "Η διαδικασία ακυρώθηκε."
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "Μπάρα προόδου κάτω αριστερά"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "Μπάρα προόδου κάτω δεξιά"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "Άδεια μπάρα προόδου κάτω αριστερά"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "Άδεια μπάρα προόδου κάτω δεξιά"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "Άδεια μπάρα προόδου πάνω αριστερά"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "Άδεια μπάρα προόδου πάνω δεξιά"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "Μπάρα προόδου πάνω αριστερά"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "Μπάρα προόδου πάνω δεξιά"
 
 msgid "Properties"
 msgstr "Ιδιότητες"
@@ -967,7 +970,7 @@ msgid "Reconnect SMB"
 msgstr "Επανασύνδεση SMB"
 
 msgid "Red"
-msgstr ""
+msgstr "Κόκκινο"
 
 msgid "Reload"
 msgstr "Ανανέωση"
@@ -994,10 +997,10 @@ msgid "Rotate"
 msgstr "Περιστροφή"
 
 msgid "Rumble"
-msgstr ""
+msgstr "Δόνηση"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr ""
+msgstr "Βλέποντας ένα βίντεο μπορεί να επιβράδυνη την διαδικασία και να παγώσει την εφαρμογή. Θέλεις να συνεχείσω;"
 
 msgid "SMB Name:"
 msgstr "Όνομα SMB:"
@@ -1082,7 +1085,7 @@ msgid "Startup FTP"
 msgstr "Εκκίνηση FTP"
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "Προσορινή διαδρομή"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Το μέγεθος της ρυθμισόμενης μνήμης είναι πολύ μεγάλο.Αν δεν αρχίσει η εφαρμογή σβήσε τα αρχεία ρύθμισης."
@@ -1176,7 +1179,7 @@ msgid "Update to Rev%i available"
 msgstr "Υπάρχει διαθέσημη αναβάθμηση έκδοση %i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "Αναβάθμηση/Κατέβασμα αρχείων γλωσσών."
 
 msgid "Username:"
 msgstr "Ονομα χρήστη"
@@ -1275,7 +1278,7 @@ msgid "WPAD NONE BUTTON"
 msgstr "WPAD ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
 msgid "Warning:"
-msgstr "Προσοχνή:"
+msgstr "Προσοχή:"
 
 msgid "Wii Binary Files"
 msgstr "Διαδικά αρχεία Wii"
@@ -1299,6 +1302,12 @@ msgid "You cant use this operation on:"
 msgstr "Δεν μπορείς να χρησιμοποιήσεις αυτήν την διαδικασία:"
 
 msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "ZoomIn Button"
+msgstr ""
+
+msgid "ZoomOut Button"
 msgstr ""
 
 msgid "`1234567890-"

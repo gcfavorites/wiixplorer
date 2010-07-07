@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-01 21:15+0200\n"
+"POT-Creation-Date: 2010-07-07 14:41+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -68,6 +68,9 @@ msgstr "返回"
 
 msgid "Back Button"
 msgstr "退後按鈕"
+
+msgid "Back in Directory Button"
+msgstr ""
 
 msgid "Background Bottom/Left"
 msgstr ""
@@ -1297,6 +1300,12 @@ msgstr "無法使用此功能在："
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
+
+msgid "ZoomIn Button"
+msgstr ""
+
+msgid "ZoomOut Button"
+msgstr ""
 
 msgid "`1234567890-"
 msgstr "`1234567890-"

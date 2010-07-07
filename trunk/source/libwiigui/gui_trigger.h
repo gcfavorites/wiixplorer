@@ -33,7 +33,8 @@ enum
 {
 	TRIGGER_SIMPLE,
 	TRIGGER_HELD,
-	TRIGGER_BUTTON_ONLY
+	TRIGGER_BUTTON_ONLY,
+	TRIGGER_BUTTON_ONLY_HELD
 };
 
 typedef struct _paddata {
@@ -71,6 +72,7 @@ class GuiTrigger
 		//!\param wiibtns Wii controller trigger button(s) - classic controller buttons are considered separately
 		//!\param gcbtns GameCube controller trigger button(s)
 		void SetButtonOnlyTrigger(s32 ch, u32 wiibtns, u16 gcbtns);
+		void SetButtonOnlyHeldTrigger(s32 ch, u32 wiibtns, u16 gcbtns);
 		//!Get X/Y value from Wii Joystick (classic, nunchuk) input
 		//!\param right Controller stick (left = 0, right = 1)
 		//!\param axis Controller stick axis (x-axis = 0, y-axis = 1)

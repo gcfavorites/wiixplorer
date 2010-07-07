@@ -95,8 +95,6 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowUpBtn->SetImageOver(arrowUpOverImg);
 	arrowUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	arrowUpBtn->SetPosition(0, 0);
-	arrowUpBtn->SetSelectable(false);
-	arrowUpBtn->SetClickable(false);
 	arrowUpBtn->SetHoldable(true);
 	arrowUpBtn->SetTrigger(trigHeldA);
 	arrowUpBtn->SetSoundOver(btnSoundOver);
@@ -109,8 +107,6 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowDownBtn->SetImageOver(arrowDownOverImg);
 	arrowDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 	arrowDownBtn->SetPosition(0, 0);
-	arrowDownBtn->SetSelectable(false);
-	arrowDownBtn->SetClickable(false);
 	arrowDownBtn->SetHoldable(true);
 	arrowDownBtn->SetTrigger(trigHeldA);
 	arrowDownBtn->SetSoundOver(btnSoundOver);
@@ -125,8 +121,6 @@ Scrollbar::Scrollbar(int h, u8 m)
 	scrollbarBoxBtn->SetPosition(0, MinHeight);
 	scrollbarBoxBtn->SetMinY(MinHeight);
 	scrollbarBoxBtn->SetMaxY(MaxHeight);
-	scrollbarBoxBtn->SetSelectable(false);
-	scrollbarBoxBtn->SetClickable(false);
 	scrollbarBoxBtn->SetHoldable(true);
 	scrollbarBoxBtn->SetTrigger(trigHeldA);
     scrollbarBoxBtn->Held.connect(this, &Scrollbar::OnBoxButtonHold);

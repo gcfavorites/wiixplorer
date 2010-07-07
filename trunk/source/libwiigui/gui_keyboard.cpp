@@ -95,7 +95,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	TextPointerBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	kbText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	TextPointerBtn->SetPosition(0, 11);
-    TextPointerBtn->SetClickable(false);
     TextPointerBtn->SetHoldable(true);
     TextPointerBtn->SetTrigger(trigHeldA);
     TextPointerBtn->Held.connect(this, &GuiKeyboard::OnPointerHeld);

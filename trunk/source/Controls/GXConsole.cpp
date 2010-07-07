@@ -36,11 +36,6 @@ GXConsole::GXConsole(int w, int h)
     color = (GXColor) {0, 0, 0, 255};
 	style = FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
 	LWP_MutexInit(&mutex, true);
-
-    if(!fontSystem[fontSize])
-    {
-        fontSystem[fontSize] = new FreeTypeGX(fontSize);
-    }
 }
 
 GXConsole::~GXConsole()
@@ -149,7 +144,7 @@ void GXConsole::AddText(const wchar_t * inText)
 
 bool GXConsole::IsMaxWidth(const wString * text)
 {
-    int currWidth = fontSystem[fontSize]->getWidth(text->c_str());
+    int currWidth = fontSystem->getWidth(text->c_str(), fontSize);
 
     if(currWidth >= width)
     {
@@ -220,11 +215,6 @@ void GXConsole::SetFontSize(int size)
 {
     fontSize = size;
     RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
-
-    if(!fontSystem[fontSize])
-    {
-        fontSystem[fontSize] = new FreeTypeGX(fontSize);
-    }
 }
 
 void GXConsole::SetHeightBetweenLines(int h)
@@ -238,16 +228,13 @@ void GXConsole::Draw()
     if(Background)
         Background->Draw();
 
-    if(!fontSystem[fontSize])
-        fontSystem[fontSize] = new FreeTypeGX(fontSize);
-
     int PositionX = GetLeft();
     int PositionY = GetTop();
     int PositionZ = GetZPosition();
 
     for(u32 i = 0; i < ConsoleRow.size(); i++)
     {
-        fontSystem[fontSize]->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), PositionZ, ConsoleRow.at(i)->c_str(), color, style);
+        fontSystem->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), PositionZ, ConsoleRow.at(i)->c_str(), fontSize, color, style);
     }
 }
 

@@ -147,14 +147,7 @@ void SDGeckoB_deInit()
 
 int DiskDrive_Init(bool have_dvdx)
 {
-    int result = -1;
-
-	if(have_dvdx)
-        result = DI2_Init();
-	else
-        result = DI2_InitNoDVDx();
-
-	return result; //Init DVD Driver
+	return DI2_Init(have_dvdx); //Init DVD Driver
 }
 
 void DiskDrive_deInit()

@@ -27,6 +27,7 @@
  ***************************************************************************/
 
 #include <mxml.h>
+#include <algorithm>
 
 #include "Applications.h"
 #include "DirList.h"
@@ -42,6 +43,9 @@ Applications *Applications::instance = NULL;
 Applications::Applications()
 {
 	Search();
+
+	if(applications.size() > 1)
+        Sort();
 }
 
 Applications::~Applications()
@@ -179,4 +183,17 @@ void Applications::Search()
             }
         }
     }
+}
+
+void Applications::Sort()
+{
+    std::sort(applications.begin(), applications.end(), FileSortCallback);
+}
+
+bool Applications::FileSortCallback(const Application & f1, const Application & f2)
+{
+    if(stricmp(f1.name, f2.name) > 0)
+        return false;
+    else
+        return true;
 }

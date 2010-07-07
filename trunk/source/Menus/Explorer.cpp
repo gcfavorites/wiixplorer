@@ -105,9 +105,11 @@ Explorer::~Explorer()
     delete deviceSwitchBtn;
     delete Adressbar;
     delete clickmenuBtn;
+    delete BackInDirBtn;
 
     delete trigA;
     delete trigPlus;
+    delete trigBackInDir;
 
     if(Credits)
         delete Credits;
@@ -147,6 +149,8 @@ void Explorer::Setup()
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigPlus = new GuiTrigger();
     trigPlus->SetButtonOnlyTrigger(-1, WiiControls.ContextMenuButton | ClassicControls.ContextMenuButton << 16, GCControls.ContextMenuButton);
+	trigBackInDir = new GuiTrigger();
+    trigBackInDir->SetButtonOnlyTrigger(-1, WiiControls.UpInDirectory | ClassicControls.UpInDirectory << 16, GCControls.UpInDirectory);
 
 	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
 	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
@@ -232,6 +236,10 @@ void Explorer::Setup()
 	clickmenuBtn->SetTrigger(trigPlus);
     clickmenuBtn->Clicked.connect(this, &Explorer::OnButtonClick);
 
+    BackInDirBtn = new GuiButton(0, 0);
+    BackInDirBtn->SetTrigger(trigBackInDir);
+    BackInDirBtn->Clicked.connect(this, &Explorer::BackInDirectory);
+
 	Append(BackgroundImg);
 	Append(clickmenuBtn);
 	Append(CreditsBtn);
@@ -239,6 +247,7 @@ void Explorer::Setup()
 	Append(RefreshBtn);
 	Append(deviceSwitchBtn);
 	Append(fileBrowser);
+	Append(BackInDirBtn);
 
     SetEffect(EFFECT_FADE, 50);
 }
@@ -550,8 +559,6 @@ void Explorer::CheckRightClick()
 
 void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 {
-    sender->ResetState();
-
     if(sender == CreditsBtn)
     {
         Credits = new CreditWindow();
@@ -593,6 +600,8 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
         CurBrowser->Refresh();
         fileBrowser->TriggerUpdate();
     }
+
+    sender->ResetState();
 }
 
 void Explorer::SetState(int s)
@@ -602,4 +611,16 @@ void Explorer::SetState(int s)
 		try { _elements.at(i)->SetState(s); }
 		catch (const std::exception& e) { }
 	}
+}
+
+void Explorer::BackInDirectory(GuiElement *sender, int pointer, POINT p)
+{
+    CurBrowser->BackInDirectory();
+    fileBrowser->SetSelected(0);
+    CurBrowser->ResetMarker();
+    CurBrowser->Refresh();
+    fileBrowser->TriggerUpdate();
+    AdressText->SetText(CurBrowser->GetCurrentPath());
+
+    sender->ResetState();
 }
