@@ -53,11 +53,7 @@ GuiText::GuiText(const char * t, int s, GXColor c)
         if(currentSize > MAX_FONT_SIZE)
             currentSize = MAX_FONT_SIZE;
 
-        if(!fontSystem[currentSize])
-        {
-            fontSystem[currentSize] = new FreeTypeGX(currentSize);
-        }
-		textWidth = fontSystem[currentSize]->getWidth(text);
+		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
 
@@ -91,11 +87,7 @@ GuiText::GuiText(const wchar_t * t, int s, GXColor c)
         if(currentSize > MAX_FONT_SIZE)
             currentSize = MAX_FONT_SIZE;
 
-        if(!fontSystem[currentSize])
-        {
-            fontSystem[currentSize] = new FreeTypeGX(currentSize);
-        }
-		textWidth = fontSystem[currentSize]->getWidth(text);
+		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
 
@@ -130,11 +122,7 @@ GuiText::GuiText(const char * t)
         if(currentSize > MAX_FONT_SIZE)
             currentSize = MAX_FONT_SIZE;
 
-        if(!fontSystem[currentSize])
-        {
-            fontSystem[currentSize] = new FreeTypeGX(currentSize);
-        }
-		textWidth = fontSystem[currentSize]->getWidth(text);
+		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
 
@@ -176,10 +164,7 @@ void GuiText::SetText(const char * t)
 		if(!text)
 		    return;
 
-		if(!fontSystem[currentSize])
-            fontSystem[currentSize] = new FreeTypeGX(currentSize);
-
-		textWidth = fontSystem[currentSize]->getWidth(text);
+		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
 
@@ -219,10 +204,7 @@ void GuiText::SetText(const wchar_t * t)
 
 		wcscpy(text, t);
 
-		if(!fontSystem[currentSize])
-            fontSystem[currentSize] = new FreeTypeGX(currentSize);
-
-		textWidth = fontSystem[currentSize]->getWidth(text);
+		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
 
@@ -329,7 +311,7 @@ int GuiText::GetTextWidth()
 	if(!text)
 		return 0;
 
-	return fontSystem[currentSize]->getWidth(text);
+	return fontSystem->getWidth(text, currentSize);
 }
 
 int GuiText::GetTextWidth(int ind)
@@ -337,7 +319,7 @@ int GuiText::GetTextWidth(int ind)
 	if(ind < 0 || ind >= (int) textDyn.size())
 		return this->GetTextWidth();
 
-	return fontSystem[currentSize]->getWidth(textDyn[ind]);
+	return fontSystem->getWidth(textDyn[ind], currentSize);
 }
 
 int GuiText::GetTextMaxWidth()
@@ -372,8 +354,8 @@ bool GuiText::SetFont(const u8 *fontbuffer, const u32 filesize)
         delete font;
         font = NULL;
     }
-	font = new FreeTypeGX(currentSize, fontbuffer, filesize);
-	textWidth = font->getWidth(text);
+	font = new FreeTypeGX(fontbuffer, filesize);
+	textWidth = font->getWidth(text, currentSize);
 
 	return true;
 }
@@ -388,7 +370,7 @@ void GuiText::MakeDottedText()
 
     while(text[i])
     {
-        currentWidth += (font ? font : fontSystem[currentSize])->getCharWidth(text[i]);
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i-1] : 0x0000);
         if(currentWidth >= maxWidth)
         {
             if(i > 3)
@@ -421,7 +403,7 @@ void GuiText::ScrollText()
         {
             textDyn[pos][i] = text[i];
 
-            currentWidth += (font ? font : fontSystem[currentSize])->getCharWidth(text[i]);
+            currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i-1] : 0x0000);
 
             ++i;
         }
@@ -474,7 +456,7 @@ void GuiText::ScrollText()
         ++ch;
         ++i;
 
-        currentWidth += (font ? font : fontSystem[currentSize])->getCharWidth(text[ch]);
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0x0000);
     }
     textDyn[pos][i] = 0;
 }
@@ -502,7 +484,7 @@ void GuiText::WrapText()
         textDyn[linenum][i] = text[ch];
         textDyn[linenum][i+1] = 0;
 
-        currentWidth += (font ? font : fontSystem[currentSize])->getCharWidth(text[ch]);
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0x0000);
 
         if(currentWidth >= maxWidth)
         {
@@ -555,22 +537,12 @@ void GuiText::Draw()
 	if(newSize > MAX_FONT_SIZE)
 		newSize = MAX_FONT_SIZE;
 
-    if(!fontSystem[newSize])
-    {
-        fontSystem[newSize] = new FreeTypeGX(newSize);
-        if(text)
-            textWidth = (font ? font : fontSystem[newSize])->getWidth(text);
-    }
-
 	if(newSize != currentSize)
 	{
-	    if(font)
-	    {
-	        font->ChangeFontSize(newSize);
-	    }
-        if(text)
-            textWidth = (font ? font : fontSystem[newSize])->getWidth(text);
 		currentSize = newSize;
+
+        if(text)
+            textWidth = (font ? font : fontSystem)->getWidth(text, currentSize);
 	}
 
 	if(maxWidth > 0 && maxWidth <= textWidth)
@@ -581,7 +553,7 @@ void GuiText::Draw()
 		        MakeDottedText();
 
 		    if(textDyn.size() > 0)
-                (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn[textDyn.size()-1], c, style);
+                (font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn[textDyn.size()-1], currentSize, c, style);
 		}
 
 		else if(wrapMode == SCROLL_HORIZONTAL)
@@ -589,7 +561,7 @@ void GuiText::Draw()
 		    ScrollText();
 
 			if(textDyn.size() > 0)
-				(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn[textDyn.size()-1], c, style);
+				(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), textDyn[textDyn.size()-1], currentSize, c, style);
         }
 		else if(wrapMode == WRAP)
 		{
@@ -603,13 +575,13 @@ void GuiText::Draw()
 
             for(u32 i = 0; i < textDyn.size(); i++)
             {
-                (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+voffset+i*lineheight, GetZPosition(), textDyn[i], c, style);
+                (font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+voffset+i*lineheight, GetZPosition(), textDyn[i], currentSize, c, style);
             }
 		}
 	}
 	else
 	{
-		(font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), text, c, style, textWidth);
+		(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop(), GetZPosition(), text, currentSize, c, style, textWidth);
 	}
 	this->UpdateEffects();
 }

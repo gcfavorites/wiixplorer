@@ -111,6 +111,8 @@ ImageViewer::~ImageViewer()
     delete trigPrev;
     delete trigB;
     delete trigA_Held;
+    delete trigPlus_Held;
+    delete trigMinus_Held;
 	delete trigRotateL;
 	delete trigRotateR;
 	delete trigSlideshow;
@@ -597,6 +599,8 @@ void ImageViewer::Setup()
 
 	trigger = new GuiTrigger();
 	trigA_Held = new GuiTrigger();
+	trigPlus_Held = new GuiTrigger();
+	trigMinus_Held = new GuiTrigger();
 	trigNext = new GuiTrigger();
 	trigPrev = new GuiTrigger();
 	trigB = new GuiTrigger();
@@ -605,6 +609,8 @@ void ImageViewer::Setup()
 	trigSlideshow = new GuiTrigger();
 
 	trigA_Held->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigPlus_Held->SetButtonOnlyHeldTrigger(-1, WiiControls.ZoomIn | ClassicControls.ZoomIn << 16, GCControls.ZoomIn);
+	trigMinus_Held->SetButtonOnlyHeldTrigger(-1, WiiControls.ZoomOut | ClassicControls.ZoomOut << 16, GCControls.ZoomOut);
 	trigger->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 	trigPrev->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
@@ -642,10 +648,9 @@ void ImageViewer::Setup()
 	zoominButton->SetImageOver(zoominButtonOverImage);
 	zoominButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	zoominButton->SetPosition(-DefaultButtonWidth/2, -16);
-	zoominButton->SetSelectable(false);
-	zoominButton->SetClickable(false);
 	zoominButton->SetHoldable(true);
 	zoominButton->SetTrigger(trigA_Held);
+	zoominButton->SetTrigger(trigPlus_Held);
 	Append(zoominButton);
 
 	zoomoutButtonData = Resources::GetImageData(zoomout_png, zoomout_png_size);
@@ -658,10 +663,9 @@ void ImageViewer::Setup()
 	zoomoutButton->SetImageOver(zoomoutButtonOverImage);
 	zoomoutButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	zoomoutButton->SetPosition(DefaultButtonWidth/2, -16);
-	zoomoutButton->SetSelectable(false);
-	zoomoutButton->SetClickable(false);
 	zoomoutButton->SetHoldable(true);
 	zoomoutButton->SetTrigger(trigA_Held);
+	zoomoutButton->SetTrigger(trigMinus_Held);
 	Append(zoomoutButton);
 
 	rotateRButtonData = Resources::GetImageData(rotateR_png, rotateR_png_size);
@@ -747,8 +751,6 @@ void ImageViewer::Setup()
 	moveButton = new GuiButton(screenwidth-(prevButton->GetLeft()+prevButton->GetWidth())*2, screenheight-backButton->GetHeight()-16);
 	moveButton->SetPosition(prevButton->GetLeft()+prevButton->GetWidth(), 0);
 	moveButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	moveButton->SetSelectable(false);
-	moveButton->SetClickable(false);
 	moveButton->SetHoldable(true);
 	moveButton->SetTrigger(trigA_Held);
 	moveButton->Clicked.connect(this, &ImageViewer::OnButtonClick);

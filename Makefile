@@ -34,7 +34,6 @@ SOURCES		:=	source \
 				source/ImageOperations \
 				source/TextOperations \
 				source/Language \
-				source/usbstorage \
 				source/mload \
 				source/libdisk \
 				source/libftp \

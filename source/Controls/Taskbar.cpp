@@ -60,8 +60,8 @@ Taskbar::Taskbar()
 	height = taskbarImg->GetHeight();
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
-	timeTxt->SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
-	timeTxt->SetPosition(-22, -1);
+	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	timeTxt->SetPosition(width-87, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
 	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);

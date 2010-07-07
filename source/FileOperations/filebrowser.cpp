@@ -216,15 +216,18 @@ const char * FileBrowser::GetCurrentSelectedFilepath()
 /****************************************************************************
  * Get the current item structure
  ***************************************************************************/
-ItemStruct FileBrowser::GetCurrentItemStruct() const
+ItemStruct FileBrowser::GetItemStruct(int pos) const
 {
     ItemStruct Item;
     memset(&Item, 0, sizeof(ItemStruct));
 
-    snprintf(Item.itempath, sizeof(Item.itempath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
-    Item.itemsize = browserList[browser.selIndex].length;
-    Item.isdir = browserList[browser.selIndex].isdir;
-    Item.itemindex = browser.selIndex;
+    if(pos < 0 || pos >= browser.numEntries)
+        return Item;
+
+    snprintf(Item.itempath, sizeof(Item.itempath), "%s%s/%s", browser.rootdir, browser.dir, browserList[pos].filename);
+    Item.itemsize = browserList[pos].length;
+    Item.isdir = browserList[pos].isdir;
+    Item.itemindex = pos;
 
     return Item;
 }

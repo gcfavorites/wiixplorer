@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# r175
+# r176
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-01 23:47+0200\n"
-"PO-Revision-Date: 2010-06-15 02:03+0200\n"
+"POT-Creation-Date: 2010-07-07 14:35+0200\n"
+"PO-Revision-Date: 2010-07-01 14:48+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,9 @@ msgstr "Zurück"
 
 msgid "Back Button"
 msgstr "Zurück"
+
+msgid "Back in Directory Button"
+msgstr ""
 
 msgid "Background Bottom/Left"
 msgstr "Hintergrund Unten/Links"
@@ -167,7 +170,7 @@ msgid "Clock Mode"
 msgstr "Uhrformat"
 
 msgid "Close"
-msgstr "    Schließen"
+msgstr "Schließen"
 
 msgid "Coders:"
 msgstr "Programmierer:"
@@ -764,10 +767,10 @@ msgid "Minimize"
 msgstr "Minimieren"
 
 msgid "Mount NTFS"
-msgstr "NTFS mounten"
+msgstr "NTFS benutzen"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Disc wird geladen"
 
 msgid "Moving item(s):"
 msgstr "Verschiebe Element(e):"
@@ -1296,6 +1299,12 @@ msgid "You cant use this operation on:"
 msgstr "Diese Aktion kann nicht auf folgendem angewendet werden:"
 
 msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "ZoomIn Button"
+msgstr ""
+
+msgid "ZoomOut Button"
 msgstr ""
 
 msgid "`1234567890-"

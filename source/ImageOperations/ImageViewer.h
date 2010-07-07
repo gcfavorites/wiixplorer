@@ -146,6 +146,8 @@ class ImageViewer : public GuiWindow
         GuiTrigger * trigPrev;
         GuiTrigger * trigB;
         GuiTrigger * trigA_Held;
+        GuiTrigger * trigPlus_Held;
+        GuiTrigger * trigMinus_Held;
 		GuiTrigger * trigRotateL;
 		GuiTrigger * trigRotateR;
 		GuiTrigger * trigSlideshow;

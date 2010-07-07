@@ -35,6 +35,7 @@
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextViewer.h"
 #include "TextOperations/PDFLoader.h"
+#include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/MainWindow.h"

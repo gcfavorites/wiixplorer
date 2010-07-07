@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-01 23:47+0200\n"
+"POT-Creation-Date: 2010-07-07 14:35+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -68,6 +68,9 @@ msgstr ""
 
 msgid "Back Button"
 msgstr "戻るボタン"
+
+msgid "Back in Directory Button"
+msgstr ""
 
 msgid "Background Bottom/Left"
 msgstr "背景の左下"
@@ -242,7 +245,7 @@ msgid "Could not load text file."
 msgstr "テキストファイルを読み込めませんでした"
 
 msgid "Could not parse directory."
-msgstr "ディレクトリをリストに追加出来ませんでした"
+msgstr "フォルダをリストに追加出来ませんでした"
 
 msgid "Credits"
 msgstr "提供･協力"
@@ -260,7 +263,7 @@ msgid "Cut current marked item(s)?"
 msgstr "選択されたアイテムを切り取りますか?"
 
 msgid "Default"
-msgstr "スタンバイ"
+msgstr "デフォルト"
 
 msgid "Delete"
 msgstr "削除"
@@ -457,7 +460,7 @@ msgid "FTP Server Settings"
 msgstr "FTPのサーバー設定"
 
 msgid "FTP Server is running and listening on port"
-msgstr "FTPサーバーは起動中でポートを待ち受けています"
+msgstr "FTPサーバーは起動中で待ち受けています ポート:"
 
 msgid "FTP Started.\n"
 msgstr "FTPを開始しました\n"
@@ -722,7 +725,7 @@ msgid "List Mode"
 msgstr "リスト表示"
 
 msgid "Listening on TCP port"
-msgstr "TCPポートを待ち受け中"
+msgstr "待ち受け中 TCPポート:"
 
 msgid "Listing files in"
 msgstr "ファイルをリスト化中:"
@@ -767,7 +770,7 @@ msgid "Mount NTFS"
 msgstr "NTFSのマウント"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "マウント中です"
 
 msgid "Moving item(s):"
 msgstr "移動しています"
@@ -909,7 +912,7 @@ msgid "Possible unsupported format."
 msgstr "対応していない形式です"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr "ポートのサーバーを開始するためFTPを開始してください"
+msgstr "サーバーを開始するためFTPを開始してください ポート:"
 
 msgid "Process canceled."
 msgstr "キャンセルしました"
@@ -1031,7 +1034,7 @@ msgstr "設定"
 
 #, c-format
 msgid "Share %i"
-msgstr "共有:%i"
+msgstr "共有%i"
 
 msgid "Share:"
 msgstr "共有:"
@@ -1100,7 +1103,7 @@ msgid "This option could mess up the pdf view."
 msgstr "この設定ではPDFの表示が崩れる場合があります"
 
 msgid "To Idle"
-msgstr "休止状態"
+msgstr "スタンバイ"
 
 msgid "To Loader"
 msgstr "ローダーへ"
@@ -1130,7 +1133,7 @@ msgid "URL is empty."
 msgstr "URLが空です"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr "不明な形式です。テキストエディタで開きますか?"
+msgstr "テキストエディタで開きますか?"
 
 msgid "Unable to create folder."
 msgstr "フォルダを作成できませんでした"
@@ -1281,7 +1284,7 @@ msgid "WiiXplorer Default Music"
 msgstr "WiiXplorerのBGM"
 
 msgid "WiiXplorer Movies"
-msgstr "Wii動画"
+msgstr "WiiXplorer動画"
 
 msgid "Yes"
 msgstr "はい"
@@ -1296,6 +1299,12 @@ msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
 msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "ZoomIn Button"
+msgstr ""
+
+msgid "ZoomOut Button"
 msgstr ""
 
 msgid "`1234567890-"

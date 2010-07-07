@@ -136,7 +136,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
     {
         temp[i] = line[i];
 
-        int w = fontSystem[fontsize]->getWidth(temp);
+        int w = fontSystem->getWidth(temp, fontsize);
 
         if(differenz > abs(x-w))
         {
@@ -192,7 +192,7 @@ void TextPointer::SetPointerPosition(int LetterPos)
             break;
     }
 
-    Position_X = fontSystem[fontsize]->getWidth(temp);
+    Position_X = fontSystem->getWidth(temp, fontsize);
     LetterNumInLine = LetterPos;
     Marking = false;
 }

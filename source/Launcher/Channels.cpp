@@ -33,6 +33,7 @@
 #include <ogc/conf.h>
 #include <ogc/isfs.h>
 #include <ogc/wiilaunch.h>
+#include <algorithm>
 
 #include "certs.h"
 #include "Channels.h"
@@ -75,6 +76,9 @@ Channels *Channels::instance = NULL;
 Channels::Channels()
 {
 	Search();
+
+	if(channels.size() > 1)
+        Sort();
 }
 
 Channels::~Channels()
@@ -305,4 +309,17 @@ void Channels::Search()
 	ISFS_Deinitialize();
 
 	free(list);
+}
+
+void Channels::Sort()
+{
+    std::sort(channels.begin(), channels.end(), FileSortCallback);
+}
+
+bool Channels::FileSortCallback(const Channel & f1, const Channel & f2)
+{
+    if(stricmp(f1.name, f2.name) > 0)
+        return false;
+    else
+        return true;
 }

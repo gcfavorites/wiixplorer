@@ -119,7 +119,6 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 
     TextPointerBtn = new TextPointer(MainFileTxt, linestodraw);
     TextPointerBtn->SetPosition(43, 75);
-    TextPointerBtn->SetClickable(false);
     TextPointerBtn->SetHoldable(true);
     TextPointerBtn->SetTrigger(trigHeldA);
     TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
@@ -214,7 +213,6 @@ void TextEditor::SetText(const wchar_t *intext)
 
     TextPointerBtn = new TextPointer(MainFileTxt, 0);
     TextPointerBtn->SetPosition(43, 75);
-    TextPointerBtn->SetClickable(false);
     TextPointerBtn->SetHoldable(true);
     TextPointerBtn->SetTrigger(trigHeldA);
     TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
@@ -391,7 +389,7 @@ void TextEditor::Update(GuiTrigger * t)
 
 	int EntrieCount = (MainFileTxt->GetTotalLinesCount()-linestodraw);
 
-    scrollbar->SetEntrieCount(EntrieCount > 0 ? EntrieCount : 0);
+    scrollbar->SetEntrieCount(EntrieCount > 0 ? EntrieCount+1 : 0);
     scrollbar->SetPageSize(linestodraw);
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(0);

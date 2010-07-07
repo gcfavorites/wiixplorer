@@ -25,7 +25,7 @@ Text::Text(const char * t, int s, GXColor c)
         wText->push_back(0);
     }
 
-    textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
+    textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
     delete [] text;
     text = NULL;
 
@@ -58,11 +58,7 @@ Text::Text(const wchar_t * t, int s, GXColor c)
         wText->push_back(0);
     }
 
-    if(!fontSystem[currentSize])
-    {
-        fontSystem[currentSize] = new FreeTypeGX(currentSize);
-    }
-    textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
+    textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
 
     SetMaxWidth(400);
 }
@@ -99,7 +95,7 @@ void Text::SetText(const char * t)
         wText->push_back(0);
     }
 
-    textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
+    textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
 
     delete [] tmp;
 
@@ -116,7 +112,7 @@ void Text::SetText(const wchar_t * t)
         delete wText;
 
     wText = new wString(t);
-    textWidth = (font ? font : fontSystem[currentSize])->getWidth(wText->data());
+    textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
     CalcLineOffsets();
 }
 
@@ -210,7 +206,7 @@ void Text::Refresh()
 
 void Text::NextLine()
 {
-    if(!wText || (curLineStart+1 > ((int) TextLines.size()-linestodraw-1)))
+    if(!wText || (curLineStart+1 > ((int) TextLines.size()-linestodraw)))
         return;
 
     ++curLineStart;
@@ -279,7 +275,7 @@ void Text::CalcLineOffsets()
 
     while(origTxt[ch])
     {
-        currWidth += fontSystem[currentSize]->getCharWidth(origTxt[ch]);
+        currWidth += fontSystem->getCharWidth(origTxt[ch], currentSize, ch > 0 ? origTxt[ch-1] : 0x0000);
 
         if(currWidth >= maxWidth)
         {
@@ -340,16 +336,10 @@ void Text::Draw()
 
 	if(newSize != currentSize)
 	{
-	    if(font)
-	    {
-	        font->ChangeFontSize(newSize);
-	    }
-        else if(!fontSystem[newSize])
-            fontSystem[newSize] = new FreeTypeGX(newSize);
+		currentSize = newSize;
 
         if(wText)
-            textWidth = (font ? font : fontSystem[newSize])->getWidth(wText->data());
-		currentSize = newSize;
+            textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
 	}
 
     u16 lineheight = newSize + 6;
@@ -357,6 +347,6 @@ void Text::Draw()
     for(u32 i = 0; i < textDyn.size(); i++)
     {
         if(!filling)
-            (font ? font : fontSystem[currentSize])->drawText(this->GetLeft(), this->GetTop()+i*lineheight, GetZPosition(), textDyn[i], c, style, 0, maxWidth);
+            (font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+i*lineheight, GetZPosition(), textDyn[i], currentSize, c, style, 0, maxWidth);
     }
 }

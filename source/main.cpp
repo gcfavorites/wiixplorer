@@ -35,6 +35,7 @@
 #include "Controls/MainWindow.h"
 #include "VideoOperations/video.h"
 #include "BootHomebrew/BootHomebrew.h"
+#include "TextOperations/FontSystem.h"
 #include "audio.h"
 #include "libwiigui/gui.h"
 #include "input.h"
@@ -59,7 +60,7 @@ int main(int argc, char *argv[])
 	MEM2_init(48); // Initialize 48 MB
 	MEM2_takeBigOnes(true);
     InitGecko();
-    __exception_setreload(20);
+    __exception_setreload(40);
 
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
@@ -83,9 +84,6 @@ int main(int argc, char *argv[])
 
 	if(Settings.MountNTFS)
         NTFS_Mount();
-
-	for(int i = 0; i < MAX_FONT_SIZE+1; i++)
-        fontSystem[i] = NULL; // Initialize font system
 
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");

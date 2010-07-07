@@ -205,25 +205,8 @@ void ListFileBrowser::Update(GuiTrigger * t)
         listChanged = true;
     }
 
-
-	if(t->wpad->btns_d & WiiControls.DeMarkAllButton ||
-       t->wpad->btns_d & (ClassicControls.DeMarkAllButton << 16) ||
-       t->pad.btns_d & GCControls.DeMarkAllButton)
-	{
-        browser->ResetMarker();
-	}
-	else if(t->wpad->btns_d & WiiControls.MarkItemButton ||
-            t->wpad->btns_d & (ClassicControls.MarkItemButton << 16) ||
-            t->pad.btns_d & GCControls.MarkItemButton)
-	{
-	    browser->MarkCurrentItem();
-	}
-	else if(t->wpad->btns_d & WiiControls.DeMarkItemButton ||
-            t->wpad->btns_d & (ClassicControls.DeMarkItemButton << 16) ||
-            t->pad.btns_d & GCControls.DeMarkItemButton)
-	{
-	    browser->UnMarkCurrentItem();
-	}
+    if(browser)
+        browser->UpdateMarker(t);
 
 	if(t->Right())
 	{

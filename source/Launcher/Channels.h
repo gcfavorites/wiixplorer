@@ -46,12 +46,14 @@ class Channels
 		static void DestroyInstance();
 
 		void Launch(int index);
-		int Count() { return channels.size(); }
-		char *GetName(int index) { return channels.at(index).name; }
+		int Count() { return channels.size(); };
+		char *GetName(int index) { return channels.at(index).name; };
+        void Sort();
 
 	private:
 		Channels();
 		~Channels();
+		static bool FileSortCallback(const Channel & f1, const Channel & f2);
 
 		static Channels *instance;
 

@@ -60,7 +60,7 @@
 #define MAX_KEYBOARD_DISPLAY	40
 #define MAX_LINES_TO_DRAW	    12
 
-extern FreeTypeGX *fontSystem[];
+extern FreeTypeGX * fontSystem;
 extern GuiTrigger userInput[4];
 extern bool shutdown;
 extern bool reset;

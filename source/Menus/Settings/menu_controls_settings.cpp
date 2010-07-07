@@ -272,6 +272,15 @@ int MenuControlsSettings()
 	options.SetName(i++, tr("Keyboard Shift Button"));
 	options.SetName(i++, tr("Keyboard Shift Button"));
 	options.SetName(i++, tr("Keyboard Shift Button"));
+	options.SetName(i++, tr("ZoomIn Button"));
+	options.SetName(i++, tr("ZoomIn Button"));
+	options.SetName(i++, tr("ZoomIn Button"));
+	options.SetName(i++, tr("ZoomOut Button"));
+	options.SetName(i++, tr("ZoomOut Button"));
+	options.SetName(i++, tr("ZoomOut Button"));
+	options.SetName(i++, tr("Back in Directory Button"));
+	options.SetName(i++, tr("Back in Directory Button"));
+	options.SetName(i++, tr("Back in Directory Button"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Controls Settings"), &options, MENU_SETTINGS);
 
@@ -463,6 +472,33 @@ int MenuControlsSettings()
 			case 46:
 				GCControls.KeyShiftButton = NextPAD_Button(GCControls.KeyShiftButton);
 				break;
+			case 47:
+				WiiControls.ZoomIn = NextWPAD_Button(WiiControls.ZoomIn);
+				break;
+            case 48:
+				ClassicControls.ZoomIn = NextClassic_Button(ClassicControls.ZoomIn);
+				break;
+			case 49:
+				GCControls.ZoomIn = NextPAD_Button(GCControls.ZoomIn);
+				break;
+			case 50:
+				WiiControls.ZoomOut = NextWPAD_Button(WiiControls.ZoomOut);
+				break;
+            case 51:
+				ClassicControls.ZoomOut = NextClassic_Button(ClassicControls.ZoomOut);
+				break;
+			case 52:
+				GCControls.ZoomOut = NextPAD_Button(GCControls.ZoomOut);
+				break;
+			case 53:
+				WiiControls.UpInDirectory = NextWPAD_Button(WiiControls.UpInDirectory);
+				break;
+            case 54:
+				ClassicControls.UpInDirectory = NextClassic_Button(ClassicControls.UpInDirectory);
+				break;
+			case 55:
+				GCControls.UpInDirectory = NextPAD_Button(GCControls.UpInDirectory);
+				break;
             default:
                 break;
 		}
@@ -534,6 +570,18 @@ int MenuControlsSettings()
             options.SetValue(i++, GetWPAD_ButtonName(WiiControls.KeyShiftButton));
             options.SetValue(i++, GetClassic_ButtonName(ClassicControls.KeyShiftButton));
             options.SetValue(i++, GetPAD_ButtonName(GCControls.KeyShiftButton));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ZoomIn));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ZoomIn));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.ZoomIn));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ZoomOut));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ZoomOut));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.ZoomOut));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.UpInDirectory));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.UpInDirectory));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.UpInDirectory));
         }
 	}
 	MainWindow::Instance()->HaltGui();
