@@ -36,8 +36,6 @@
 #include "FileOperations/fileops.h"
 #include "U8Archive.h"
 
-extern bool actioncanceled;
-
 U8Archive::U8Archive(const char *filepath)
     : WiiArchive(filepath)
 {

@@ -53,11 +53,18 @@ void IncommingConnection(NetReceiver & Receiver)
             {
                 CopyHomebrewMemory((u8*) buffer, 0, Receiver.GetFilesize());
 
-                ItemStruct Item;
+                ItemStruct * Item = new ItemStruct;
                 memset(&Item, 0, sizeof(ItemStruct));
 
-                snprintf(Item.itempath, sizeof(Item.itempath), "WiiLoad");
-                Clipboard::Instance()->AddItem(&Item);
+                Item->itempath = strdup("WiiLoad");
+                Item->itemsize = Receiver.GetFilesize();
+                Item->isdir = false;
+
+                Clipboard::Instance()->AddItem(Item);
+
+                if(Item->itempath)
+                    free(Item->itempath);
+                delete Item;
 
                 boothomebrew = true;
                 Taskbar::Instance()->SetMenu(MENU_EXIT);

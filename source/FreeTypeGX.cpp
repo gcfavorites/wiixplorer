@@ -153,7 +153,7 @@ ftgxCharData * FreeTypeGX::cacheGlyphData(wchar_t charCode, int16_t pixelSize)
         FT_Set_Pixel_Sizes(ftFace, 0, ftPointSize);
 
         //!Cache ascender and decender as well
-        std::map<int16_t, ftgxDataOffset>::iterator itrAlign = ftgxAlign.find(ftPointSize);
+        map<int16_t, ftgxDataOffset>::iterator itrAlign = ftgxAlign.find(ftPointSize);
         if(itrAlign == ftgxAlign.end())
         {
             ftgxAlign[ftPointSize].ascender = (int16_t) ftFace->size->metrics.ascender>>6;
@@ -286,7 +286,7 @@ int16_t FreeTypeGX::getStyleOffsetWidth(uint16_t width, uint16_t format)
  */
 int16_t FreeTypeGX::getStyleOffsetHeight(int16_t format, uint16_t pixelSize)
 {
-    std::map<int16_t, ftgxDataOffset>::iterator itrAlign = ftgxAlign.find(pixelSize);
+    map<int16_t, ftgxDataOffset>::iterator itrAlign = ftgxAlign.find(pixelSize);
     if(itrAlign == ftgxAlign.end())
         return 0;
 
@@ -468,11 +468,7 @@ uint16_t FreeTypeGX::getHeight(const wchar_t *text, int16_t pixelSize)
 {
 	getOffset(text, pixelSize);
 
-    std::map<int16_t, ftgxDataOffset>::iterator itrAlign = ftgxAlign.find(pixelSize);
-    if(itrAlign == ftgxAlign.end())
-        return 0;
-
-	return itrAlign->second.max - itrAlign->second.min;
+	return ftgxAlign[pixelSize].max - ftgxAlign[pixelSize].min;
 }
 
 /**
@@ -487,6 +483,9 @@ uint16_t FreeTypeGX::getHeight(const wchar_t *text, int16_t pixelSize)
  */
 void FreeTypeGX::getOffset(const wchar_t *text, int16_t pixelSize, uint16_t widthLimit)
 {
+    if(ftgxAlign.find(pixelSize) != ftgxAlign.end())
+        return;
+
 	int16_t strMax = 0, strMin = 9999;
 	uint16_t currWidth = 0;
 

@@ -11,6 +11,8 @@
 
 #include "libwiigui/gui.h"
 
+extern bool actioncanceled;
+
 enum
 {
     PROGRESSBAR = 1,
@@ -30,7 +32,7 @@ class ProgressWindow : public GuiWindow
         const char * GetTitle() { return ProgressTitle.c_str(); };
         void SetMinimized(bool m) { Minimized = m; };
         void SetMinimizable(bool m) { Minimizable = m; };
-        void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; TotalFileCount = FileCount; };
+        void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; };
         void SetValuesResetable(bool s) { ValuesResetable = s; };
     protected:
         ProgressWindow();
@@ -47,9 +49,9 @@ class ProgressWindow : public GuiWindow
 
         u64 progressDone;
         u64 progressTotal;
-        u32 TotalFileCount;
         u64 TotalDone;
         u64 TotalSize;
+        u64 TimerSize;
         int showProgress;
         bool Changed;
         bool Minimized;
@@ -73,6 +75,9 @@ class ProgressWindow : public GuiWindow
 		GuiImage * progressbarOutlineImg;
 		GuiImage * progressbarEmptyImg;
 		GuiImage * progressbarImg;
+		GuiImage * progressbarTotalOutlineImg;
+		GuiImage * progressbarTotalEmptyImg;
+		GuiImage * progressbarTotalImg;
 		GuiImage * throbberImg;
 		GuiImage * buttonImg;
 		GuiImage * MinimizeImg;
@@ -80,9 +85,12 @@ class ProgressWindow : public GuiWindow
         GuiText * titleTxt;
         GuiText * msgTxt;
         GuiText * prTxt;
+        GuiText * prTotalTxt;
         GuiText * prsTxt;
+        GuiText * prsTotalTxt;
         GuiText * speedTxt;
         GuiText * sizeTxt;
+        GuiText * sizeTotalTxt;
         GuiText * AbortTxt;
         GuiText * MinimizeTxt;
 

@@ -33,8 +33,6 @@
 
 static const char * UpdateURL = "http://wiixplorer.googlecode.com/svn/trunk/Languages/";
 
-extern bool actioncanceled;
-
 int UpdateLanguageFiles()
 {
     if(!NetworkInitPrompt())

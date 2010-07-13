@@ -49,7 +49,7 @@ fi
   <release_date>$rev_date</release_date>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
-The GUI is done with LibWiiGui by Tantric and graphics by NeoRame.
+The GUI is done with libwiigui as base and graphics by NeoRame.
 
 Features:
  * USB2 support with cIOS202 installed

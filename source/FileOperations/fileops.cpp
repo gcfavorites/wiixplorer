@@ -46,7 +46,6 @@ static bool replaceall = false;
 static bool replacenone = false;
 
 extern bool sizegainrunning;
-extern bool actioncanceled;
 
 /****************************************************************************
  * GetReplaceChoice
@@ -878,7 +877,6 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
     }
 
     std::vector<char *> DirList;
-    std::vector<char *> FileList;
 
     while (dirnext(dir,filename,&st) == 0)
 	{
@@ -886,7 +884,6 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
         {
             free(filename);
             ClearList(DirList);
-            ClearList(FileList);
             dirclose(dir);
             return;
         }

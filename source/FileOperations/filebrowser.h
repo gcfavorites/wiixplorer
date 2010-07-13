@@ -84,8 +84,7 @@ class FileBrowser : public Browser
         const char * GetDir() { return browser.dir; };
         const char * GetCurrentPath();
         const char * GetCurrentSelectedFilepath();
-        ItemStruct GetItemStruct(int pos) const;
-        ItemStruct GetCurrentItemStruct() const { return GetItemStruct(browser.selIndex); };
+        ItemStruct * GetItemStruct(int pos);
         int ChangeDirectory();
         int BackInDirectory() { return LeaveCurDir(); };
         void Refresh();

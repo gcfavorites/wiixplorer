@@ -65,6 +65,7 @@ enum
     RENAME,
     DELETE,
     NEWFOLDER,
+    CHECK_MD5,
     PROPERTIES,
 };
 

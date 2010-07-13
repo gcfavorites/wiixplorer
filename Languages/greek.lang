@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-07 14:35+0200\n"
+"POT-Creation-Date: 2010-07-13 13:00+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -14,6 +14,18 @@ msgstr ""
 "Ομάδα γλώσσας: Azrael11\n"
 "MIME-Έκδοση: 1.0\n"
 "Content-Τύπος: text/plain; charset=utf-8\n"
+
+#, c-format
+msgid "%i error(s) encountered. Check MD5.log for more details."
+msgstr ""
+
+msgid "--------------------------------------------------\n"
+msgstr ""
+
+msgid ""
+"--------------------------------------------------\n"
+"\n"
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -111,6 +123,12 @@ msgstr "Η περιήγηση για αρχεία γραμματοσειρών �
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "Το CRC από το εξαγώμενο αρχείο δεν τεριάζει. Λάθος κωδικός;"
 
+msgid "Calculating MD5..."
+msgstr ""
+
+msgid "Calculating total size..."
+msgstr ""
+
 msgid "Can not open the file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
 
@@ -152,6 +170,22 @@ msgstr "Να αλλάξω την διαδρομή για την γλώσσα;"
 
 msgid "Channels"
 msgstr "Κανάλια"
+
+#, c-format
+msgid "Checked %i file(s) in %i folder(s).\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Checking directory: %s\n"
+"\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Checking file: %s\n"
+"\n"
+msgstr ""
 
 msgid "Clear"
 msgstr ""
@@ -408,7 +442,27 @@ msgstr "Κατέβασμα αρχείων..."
 msgid "Edit Textline Button"
 msgstr "Επιξεργασία πλήκτρου κειμένου γραμμής"
 
+#, c-format
+msgid "Encountered %i error(s).\n"
+msgstr ""
+
 msgid "Enter"
+msgstr ""
+
+#, c-format
+msgid "Error - %s is not a file\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Could not open directory: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Could not open file: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Not enough memory on: %s\n"
 msgstr ""
 
 msgid "Error while reading file."
@@ -550,6 +604,9 @@ msgstr "Τύπος ενναλαγή"
 msgid "Folder"
 msgstr "Φάκελος"
 
+msgid "Folder(s)"
+msgstr ""
+
 msgid "Font Files"
 msgstr "Αρχεία γραμματοσειρών"
 
@@ -609,6 +666,12 @@ msgstr "Πίσω"
 
 msgid "Green"
 msgstr "Πράσινο"
+
+msgid "Hashing complete."
+msgstr ""
+
+msgid "Hashing successfully finished."
+msgstr ""
 
 msgid "Hide System Files/Folders"
 msgstr "Κρύψε αρχεία και φακέλους συστήματος"
@@ -742,6 +805,9 @@ msgstr "Φορτώνω αρχείο:"
 msgid "Loading image..."
 msgstr "Φορτώνω την εικόνα..."
 
+msgid "Log was saved in MD5.log"
+msgstr ""
+
 msgid "Loop"
 msgstr "Βρόχος"
 
@@ -750,6 +816,12 @@ msgstr "Επανάληψη της λίστας"
 
 msgid "Low"
 msgstr "Χαμηλός"
+
+msgid "MD5 Check"
+msgstr ""
+
+msgid "MD5 log file can't be created."
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
@@ -777,6 +849,9 @@ msgstr "Ανέβασμα δίσκου"
 
 msgid "Moving item(s):"
 msgstr "Μετακίνηση αρχείου(α):"
+
+msgid "Multiple Items"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr "Τρόπος μουσικής"
@@ -1285,6 +1360,9 @@ msgstr "Διαδικά αρχεία Wii"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer προεπιλεγμένη μουσική"
+
+msgid "WiiXplorer MD5 Calculator\n"
+msgstr ""
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer ταινείες"

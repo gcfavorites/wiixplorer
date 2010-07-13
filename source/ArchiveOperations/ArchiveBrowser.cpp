@@ -391,20 +391,20 @@ void ArchiveBrowser::AddListEntrie(const char * filename, size_t length, size_t 
     TempStruct = NULL;
 }
 
-ItemStruct ArchiveBrowser::GetItemStruct(int pos) const
+ItemStruct * ArchiveBrowser::GetItemStruct(int pos)
 {
-    ItemStruct Item;
-    memset(&Item, 0, sizeof(ItemStruct));
-
     if(pos < 0 || pos >= (int) PathStructure.size())
-    return Item;
+        return NULL;
+
+    ItemStruct * Item = new ItemStruct;
+    memset(Item, 0, sizeof(ItemStruct));
 
     ArchiveFileStruct * CurArchive = archive->GetFileStruct(PathStructure.at(pos)->fileindex);
 
-    snprintf(Item.itempath, sizeof(Item.itempath), "%s", CurArchive->filename);
-    Item.itemsize = CurArchive->length;
-    Item.isdir = CurArchive->isdir;
-    Item.itemindex = pos;
+    Item->itempath = strdup(CurArchive->filename);
+    Item->itemsize = CurArchive->length;
+    Item->isdir = CurArchive->isdir;
+    Item->itemindex = pos;
 
     return Item;
 }

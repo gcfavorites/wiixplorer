@@ -37,8 +37,6 @@
 #include "ZipFile.h"
 #include "FileOperations/fileops.h"
 
-extern bool actioncanceled;
-
 ZipFile::ZipFile(const char *filepath)
 {
     File = unzOpen(filepath);

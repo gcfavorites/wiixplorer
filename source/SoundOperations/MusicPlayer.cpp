@@ -477,10 +477,10 @@ void MusicPlayer::InternalSetup()
     CircleImg = new GuiImage(navi_defaultImgData);
     CircleImg->SetPosition(39, 34);
 
-    PlayTitle = new GuiText(Title.c_str(), 22, (GXColor) {0, 0, 0, 255});
+    PlayTitle = new GuiText(Title.c_str(), 20, (GXColor) {0, 0, 0, 255});
     PlayTitle->SetPosition(220, 126);
     PlayTitle->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    PlayTitle->SetMaxWidth(155, SCROLL_HORIZONTAL);
+    PlayTitle->SetMaxWidth(135, SCROLL_HORIZONTAL);
 
     if(TitleList.IsMinimized())
         TitleList.SetPosition(90, 56);

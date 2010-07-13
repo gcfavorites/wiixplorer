@@ -34,7 +34,6 @@
 
 IOHandler * IOHandler::instance = NULL;
 
-extern bool actioncanceled;
 extern bool sizegainrunning;
 
 IOHandler::IOHandler()
@@ -103,8 +102,8 @@ void IOHandler::StartProcess(bool lock)
     LWP_ResumeThread(IOThread);
     RequestThread = LWP_GetSelf();
 
-//    if(!ProcessQueue.back()->Cutted)
-//        CalcTotalSize();
+    if(!ProcessQueue.back()->Cutted)
+        CalcTotalSize();
 
     if(ProcessLocked)
     {
@@ -127,12 +126,12 @@ void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
 
     ProcessQueue.push(TmpItem);
 
-//    if(Cutted)
-//    {
-//        if(!Running)
-//            StartProgress(tr("Calculating total size..."));
-//        CalcTotalSize();
-//    }
+    if(Cutted)
+    {
+        if(!Running)
+            StartProgress(tr("Calculating total size..."));
+        CalcTotalSize();
+    }
 
     IOHandler::Instance()->StartProcess(!Running);
 }

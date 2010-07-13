@@ -30,8 +30,6 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 
-extern bool actioncanceled;
-
 /****************************************************************************
  * Download a file from a given url with a Progressbar
  ****************************************************************************/
