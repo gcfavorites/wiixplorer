@@ -23,7 +23,7 @@
  *
  * ItemMarker.h
  *
- * for Wii-FileXplorer 2010
+ * for WiiXplorer 2010
  ***************************************************************************/
 #ifndef _ITEMMARKER_H_
 #define _ITEMMARKER_H_
@@ -36,7 +36,7 @@
 
 typedef struct _ItemStruct
 {
-	char    itempath[MAXPATHLEN];
+	char *  itempath;
 	u64     itemsize;
 	bool    isdir;
 	int     itemindex;
@@ -45,9 +45,9 @@ typedef struct _ItemStruct
 class ItemMarker
 {
     public:
-        ItemMarker();
-        ~ItemMarker();
-        void AddItem(const ItemStruct * file);
+        ItemMarker() { };
+        ~ItemMarker() { Reset(); };
+        void AddItem(const ItemStruct * Item);
         int FindItem(const ItemStruct * Item);
         void RemoveItem(const ItemStruct * Item);
         ItemStruct * GetItem(int ind);
@@ -59,7 +59,7 @@ class ItemMarker
         int GetItemcount() { return Items.size(); };
         void Reset();
     protected:
-        std::vector<ItemStruct> Items;
+        std::vector<ItemStruct *> Items;
 };
 
 #endif

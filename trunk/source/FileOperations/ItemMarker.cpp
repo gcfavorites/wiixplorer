@@ -23,23 +23,14 @@
  *
  * ItemMarker Class
  *
- * for Wii-FileXplorer 2010
+ * for WiiXplorer 2010
  ***************************************************************************/
+#include <malloc.h>
 #include "ItemMarker.h"
-
-ItemMarker::ItemMarker()
-{
-    Reset();
-}
-
-ItemMarker::~ItemMarker()
-{
-    Reset();
-}
 
 void ItemMarker::AddItem(const ItemStruct * file)
 {
-    if(!file)
+    if(!file || !file->itempath)
         return;
 
     else if(strlen(file->itempath) == 0)
@@ -57,10 +48,28 @@ void ItemMarker::AddItem(const ItemStruct * file)
             return;
     }
 
-    ItemStruct tmpClip;
-    memcpy(&tmpClip, file, sizeof(ItemStruct));
+    ItemStruct * newItem = new ItemStruct;
+    newItem->itempath = (char *) malloc(strlen(file->itempath)+1);
+    newItem->itemsize = file->itemsize;
+    newItem->isdir = file->isdir;
+    newItem->itemindex = file->itemindex;
 
-    Items.push_back(tmpClip);
+    //! Skip double '/'
+    int j, n = 0;
+    char * srcpath = file->itempath;
+    char * dstpath = newItem->itempath;
+
+    for(j = 0; srcpath[j] != 0; ++j)
+    {
+        if(srcpath[j] == '/' && srcpath[j+1] == '/')
+            continue;
+
+        dstpath[n] = srcpath[j];
+        ++n;
+    }
+    dstpath[n] = 0;
+
+    Items.push_back(newItem);
 }
 
 ItemStruct * ItemMarker::GetItem(int ind)
@@ -68,7 +77,7 @@ ItemStruct * ItemMarker::GetItem(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return NULL;
 
-    return (ItemStruct *) &Items.at(ind);
+    return Items.at(ind);
 }
 
 const char * ItemMarker::GetItemName(int ind)
@@ -76,7 +85,7 @@ const char * ItemMarker::GetItemName(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return NULL;
 
-    char * filename = strrchr(Items.at(ind).itempath, '/');
+    char * filename = strrchr(Items.at(ind)->itempath, '/');
 
     if(!filename)
         return NULL;
@@ -89,7 +98,7 @@ const char * ItemMarker::GetItemPath(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return NULL;
 
-    return (const char *) &Items.at(ind).itempath;
+    return (const char *) Items.at(ind)->itempath;
 }
 
 u64 ItemMarker::GetItemSize(int ind)
@@ -97,7 +106,7 @@ u64 ItemMarker::GetItemSize(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return 0;
 
-    return Items.at(ind).itemsize;
+    return Items.at(ind)->itemsize;
 }
 
 bool ItemMarker::IsItemDir(int ind)
@@ -105,7 +114,7 @@ bool ItemMarker::IsItemDir(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return false;
 
-    return Items.at(ind).isdir;
+    return Items.at(ind)->isdir;
 }
 
 int ItemMarker::GetItemIndex(int ind)
@@ -113,7 +122,7 @@ int ItemMarker::GetItemIndex(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return -1;
 
-    return Items.at(ind).itemindex;
+    return Items.at(ind)->itemindex;
 }
 
 int ItemMarker::FindItem(const ItemStruct * Item)
@@ -121,9 +130,9 @@ int ItemMarker::FindItem(const ItemStruct * Item)
     if(!Item)
         return -1;
 
-    for(int i = 0; i < (int) Items.size(); i++)
+    for(u32 i = 0; i < Items.size(); i++)
     {
-        if(strcasecmp(Item->itempath, Items.at(i).itempath) == 0)
+        if(strcasecmp(Item->itempath, Items.at(i)->itempath) == 0)
         {
             return i;
         }
@@ -142,10 +151,19 @@ void ItemMarker::RemoveItem(const ItemStruct * Item)
     if(num < 0)
         return;
 
+    free(Items.at(num)->itempath);
+    delete Items.at(num);
+
     Items.erase(Items.begin()+num);
 }
 
 void ItemMarker::Reset()
 {
+    for(u32 i = 0; i < Items.size(); i++)
+    {
+        free(Items.at(i)->itempath);
+        delete Items.at(i);
+    }
+
     Items.clear();
 }

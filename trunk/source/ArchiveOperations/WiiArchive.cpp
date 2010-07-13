@@ -36,8 +36,6 @@
 #include "FileOperations/fileops.h"
 #include "WiiArchive.h"
 
-extern bool actioncanceled;
-
 WiiArchive::WiiArchive(const char *filepath)
 {
     File = NULL;

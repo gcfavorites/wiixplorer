@@ -21,25 +21,34 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * Clipboard Class
- *
- * for Wii-FileXplorer 2010
+ * for WiiXplorer 2010
  ***************************************************************************/
-#include "Clipboard.h"
+#ifndef MD5LOGGER_HPP_
+#define MD5LOGGER_HPP_
 
-Clipboard * Clipboard::instance = NULL;
+#include <vector>
+#include "ItemMarker.h"
 
-Clipboard * Clipboard::Instance()
+class MD5Logger
 {
-	if (instance == NULL)
-	{
-		instance = new Clipboard();
-	}
-	return instance;
-}
+    public:
+        MD5Logger();
+        ~MD5Logger();
+        bool LogMD5(const char * logpath, ItemMarker * Marker, bool showprogress = true);
+    private:
+        bool OpenLog(const char * path);
+        void CloseLog();
+        bool CalculateFile(const char * filepath, bool showprogress);
+        bool CalculateDirectory(const char * path, bool showprogress);
+        void SortList(std::vector<char *> & List);
+        static bool SortCallback(const char * path1, const char * path2);
+        void ClearList(std::vector<char *> & List);
+        void CalcTotalSize(ItemMarker * Process);
 
-void Clipboard::DestroyInstance()
-{
-	delete instance;
-	instance = NULL;
-}
+        FILE * LogFile;
+        int FolderCounter;
+        int FileCounter;
+        int ErrorCounter;
+};
+
+#endif

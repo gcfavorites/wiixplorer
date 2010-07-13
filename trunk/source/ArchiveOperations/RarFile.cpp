@@ -36,7 +36,6 @@
 #include "RarFile.h"
 #include "FileOperations/fileops.h"
 
-extern bool actioncanceled;
 extern int RarErrorCode;
 
 RarFile::RarFile(const char *filepath)

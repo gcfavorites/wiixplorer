@@ -33,11 +33,12 @@
 
 #include "libwiigui/gui.h"
 #include "Memory/Resources.h"
+#include "FileOperations/ItemMarker.h"
 
 class Properties : public GuiWindow
 {
     public:
-        Properties(const char * path);
+        Properties(ItemMarker * IMarker);
         ~Properties();
         int GetChoice();
     private:
@@ -48,13 +49,12 @@ class Properties : public GuiWindow
 		static void * FolderSizeThread(void *arg);
         void OnButtonClick(GuiElement *sender, int pointer, POINT p);
 
+        ItemMarker * Marker;
         int choice;
-        char * folderpath;
         bool folder;
-        u64 foldersize;
-        u64 oldfoldersize;
-        u64 filesize;
-        u32 filecount;
+        u64 TotalSize;
+        u32 FileCount;
+        u64 OldSize;
         u64 devicefree;
         u64 devicesize;
         lwp_t foldersizethread;

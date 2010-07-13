@@ -704,7 +704,7 @@ bool Settings::SetSetting(char *name, char *value)
 		sscanf(value, "%u", &ProgressBR);
 		return true;
 	}
-	else if (strcmp(name, "ProgressLR") == 0) {
+	else if (strcmp(name, "ProgressBL") == 0) {
 		sscanf(value, "%u", &ProgressBL);
 		return true;
 	}

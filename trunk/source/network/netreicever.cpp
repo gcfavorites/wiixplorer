@@ -44,8 +44,6 @@
 
 #define PORT    4299
 
-extern bool actioncanceled;
-
 NetReceiver::NetReceiver()
 {
     connection = -1;

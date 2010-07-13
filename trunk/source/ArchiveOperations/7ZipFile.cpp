@@ -35,8 +35,6 @@
 #include "FileOperations/fileops.h"
 #include "7ZipFile.h"
 
-extern bool actioncanceled;
-
 // 7zip error list
 static const char * szerrormsg[10] = {
    tr("File is corrupt."), // 7z: Data error

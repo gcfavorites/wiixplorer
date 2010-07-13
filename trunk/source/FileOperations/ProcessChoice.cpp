@@ -33,7 +33,11 @@
 #include "FileStartUp/FileStartUp.h"
 #include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"
+#include "FileOperations/MD5Logger.hpp"
 #include "Controls/IOHandler.hpp"
+#include "Controls/MainWindow.h"
+#include "Prompts/Properties.h"
+#include "Prompts/ArchiveProperties.h"
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
 {
@@ -102,6 +106,20 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
             browser->GetItemMarker()->Reset();
         }
     }
+    else if(choice == ArcProperties)
+    {
+        ArchiveProperties * Prompt = new ArchiveProperties(browser->GetCurrentItemStructure());
+        Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        MainWindow::Instance()->SetDim(true);
+        MainWindow::Instance()->Append(Prompt);
+
+        while(Prompt->GetChoice() == -1)
+            usleep(100);
+
+        delete Prompt;
+        Prompt = NULL;
+        MainWindow::Instance()->SetDim(false);
+    }
 }
 
 void ProcessChoice(FileBrowser * browser, int choice)
@@ -125,8 +143,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 {
                     for(int i = 0; i < IMarker->GetItemcount(); i++)
                     {
-                        ItemStruct * Item = IMarker->GetItem(i);
-                        Clipboard::Instance()->AddItem(Item);
+                        Clipboard::Instance()->AddItem(IMarker->GetItem(i));
                     }
                 }
                 IMarker->Reset();
@@ -149,8 +166,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 {
                     for(int i = 0; i < IMarker->GetItemcount(); i++)
                     {
-                        ItemStruct * Item = IMarker->GetItem(i);
-                        Clipboard::Instance()->AddItem(Item);
+                        Clipboard::Instance()->AddItem(IMarker->GetItem(i));
                     }
                 }
                 IMarker->Reset();
@@ -240,6 +256,17 @@ void ProcessChoice(FileBrowser * browser, int choice)
         }
     }
 
+    else if(choice == CHECK_MD5)
+    {
+        MD5Logger Logger;
+        char LogPath[1024];
+        snprintf(LogPath, sizeof(LogPath), "%s/MD5.log", browser->GetCurrentPath());
+
+        browser->MarkCurrentItem();
+        Logger.LogMD5(LogPath, browser->GetItemMarker());
+        browser->GetItemMarker()->Reset();
+    }
+
     else if(choice == NEWFOLDER)
     {
         char entered[151];
@@ -253,5 +280,22 @@ void ProcessChoice(FileBrowser * browser, int choice)
             if(ret == false)
                 ShowError(tr("Unable to create folder."));
         }
+    }
+    else if(choice == PROPERTIES)
+    {
+        browser->UnMarkCurrentItem();
+        browser->MarkCurrentItem();
+        Properties * Prompt = new Properties(browser->GetItemMarker());
+        Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        MainWindow::Instance()->SetDim(true);
+        MainWindow::Instance()->Append(Prompt);
+
+        while(Prompt->GetChoice() == -1)
+            usleep(100);
+
+        delete Prompt;
+        Prompt = NULL;
+        MainWindow::Instance()->SetDim(false);
+        browser->GetItemMarker()->Reset();
     }
 }

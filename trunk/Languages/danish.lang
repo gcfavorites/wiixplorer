@@ -4,13 +4,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-07 13:02+0200\n"
+"POT-Creation-Date: 2010-07-13 13:00+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: Fox888 Translators\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%i error(s) encountered. Check MD5.log for more details."
+msgstr ""
+
+msgid "--------------------------------------------------\n"
+msgstr ""
+
+msgid ""
+"--------------------------------------------------\n"
+"\n"
+msgstr ""
 
 msgid "1"
 msgstr ""
@@ -108,6 +120,12 @@ msgstr "browsing for Font Filer Skal Gøres I Hovedbrowser."
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC Af Den Udpakkede Fil Matcher Ikke. Forkert Kodeord?"
 
+msgid "Calculating MD5..."
+msgstr ""
+
+msgid "Calculating total size..."
+msgstr ""
+
 msgid "Can not open the file."
 msgstr "Kan Ikke Åbne Filen."
 
@@ -149,6 +167,22 @@ msgstr "Ændre Sprog Sti?"
 
 msgid "Channels"
 msgstr "Kanaler"
+
+#, c-format
+msgid "Checked %i file(s) in %i folder(s).\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Checking directory: %s\n"
+"\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"Checking file: %s\n"
+"\n"
+msgstr ""
 
 msgid "Clear"
 msgstr "Ryd"
@@ -405,8 +439,28 @@ msgstr "Downloader filer..."
 msgid "Edit Textline Button"
 msgstr "Edit Tekstlinje Knap"
 
+#, c-format
+msgid "Encountered %i error(s).\n"
+msgstr ""
+
 msgid "Enter"
 msgstr "Skriv"
+
+#, c-format
+msgid "Error - %s is not a file\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Could not open directory: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Could not open file: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error - Not enough memory on: %s\n"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Fejl Under Indlæsning Af Fil."
@@ -547,6 +601,9 @@ msgstr ""
 msgid "Folder"
 msgstr "Mappe"
 
+msgid "Folder(s)"
+msgstr ""
+
 msgid "Font Files"
 msgstr "Font Filer"
 
@@ -606,6 +663,12 @@ msgstr "Tilbage"
 
 msgid "Green"
 msgstr "Grøn"
+
+msgid "Hashing complete."
+msgstr ""
+
+msgid "Hashing successfully finished."
+msgstr ""
 
 msgid "Hide System Files/Folders"
 msgstr "Skjul System Filer/Folder"
@@ -739,6 +802,9 @@ msgstr "Indlæser fil:"
 msgid "Loading image..."
 msgstr "Indlæser Billed..."
 
+msgid "Log was saved in MD5.log"
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -747,6 +813,12 @@ msgstr "Loop Afspilningsliste"
 
 msgid "Low"
 msgstr "Lav"
+
+msgid "MD5 Check"
+msgstr ""
+
+msgid "MD5 log file can't be created."
+msgstr ""
 
 msgid "MPlayerCE Path"
 msgstr "MplayerCE Sti"
@@ -774,6 +846,9 @@ msgstr ""
 
 msgid "Moving item(s):"
 msgstr "Flyt Emne(r):"
+
+msgid "Multiple Items"
+msgstr ""
 
 msgid "Music Loop Mode"
 msgstr "Musik Loop Mode"
@@ -1282,6 +1357,9 @@ msgstr "Wii Binary Filer"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer Standard Musik"
+
+msgid "WiiXplorer MD5 Calculator\n"
+msgstr ""
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer Film"

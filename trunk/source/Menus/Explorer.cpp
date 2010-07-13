@@ -34,8 +34,6 @@
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
-#include "Prompts/Properties.h"
-#include "Prompts/ArchiveProperties.h"
 #include "FileStartUp/FileStartUp.h"
 #include "devicemounter.h"
 #include "FileOperations/filebrowser.h"
@@ -505,20 +503,7 @@ void Explorer::CheckRightClick()
 
         if(ArcBrowser)
         {
-            if(RightClick_choice == ArcProperties)
-            {
-                ArchiveProperties * Prompt = new ArchiveProperties(ArcBrowser->GetCurrentItemStructure());
-                Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-                MainWindow::Instance()->SetDim(true);
-                MainWindow::Instance()->Append(Prompt);
-
-                while(Prompt->GetChoice() == -1) usleep(THREAD_SLEEP);
-
-                delete Prompt;
-                Prompt = NULL;
-                MainWindow::Instance()->SetDim(false);
-            }
-            else if(RightClick_choice >= 0)
+            if(RightClick_choice >= 0)
             {
                 ProcessArcChoice(ArcBrowser, RightClick_choice, DeviceBrowser->GetCurrentPath());
                 CurBrowser->Refresh();
@@ -528,20 +513,7 @@ void Explorer::CheckRightClick()
 
         else if(!ArcBrowser && RightClick_choice >= 0)
         {
-            if(RightClick_choice == PROPERTIES)
-            {
-                Properties * Prompt = new Properties(CurBrowser->GetCurrentSelectedFilepath());
-                Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-                MainWindow::Instance()->SetDim(true);
-                MainWindow::Instance()->Append(Prompt);
-
-                while(Prompt->GetChoice() == -1) usleep(THREAD_SLEEP);
-
-                delete Prompt;
-                Prompt = NULL;
-                MainWindow::Instance()->SetDim(false);
-            }
-            else if(RightClick_choice >= 0)
+            if(RightClick_choice >= 0)
             {
                 ProcessChoice(DeviceBrowser, RightClick_choice);
                 if(RightClick_choice >= PASTE)
@@ -590,6 +562,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
                 RightClick->AddItem(tr("Rename"));
                 RightClick->AddItem(tr("Delete"));
                 RightClick->AddItem(tr("New Folder"));
+                RightClick->AddItem(tr("MD5 Check"));
                 RightClick->AddItem(tr("Properties"));
                 RightClick->Finish();
             }

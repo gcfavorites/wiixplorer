@@ -77,8 +77,7 @@ class ArchiveBrowser : public Browser
         //!Parse the archive directory into an archive structure
         int ParseArchiveDirectory(const char * ArcPath);
         //!Returns a ItemStruct for the file marker
-        ItemStruct GetItemStruct(int pos) const;
-        ItemStruct GetCurrentItemStruct() const { return GetItemStruct(SelIndex); };
+        ItemStruct * GetItemStruct(int pos);
         //!Get the current archive path
         const char * GetCurrentPath();
         //!Get the archive filename

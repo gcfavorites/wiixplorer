@@ -187,6 +187,9 @@ extern const u32	menu_selection_png_size;
 extern const u8		progressbar_outline_png[];
 extern const u32	progressbar_outline_png_size;
 
+extern const u8		progress_window_png[];
+extern const u32	progress_window_png_size;
+
 extern const u8		throbber_png[];
 extern const u32	throbber_png_size;
 

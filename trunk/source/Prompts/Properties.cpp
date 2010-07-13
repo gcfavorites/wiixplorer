@@ -39,38 +39,39 @@
 
 bool sizegainrunning = false;
 
-Properties::Properties(const char * filepath)
-    :GuiWindow(0,0)
+Properties::Properties(ItemMarker * IMarker)
+    : GuiWindow(0,0)
 {
     int Position_X = 40;
     int Position_Y = 40;
 
     choice = -1;
     folder = false;
-    foldersize = 0;
-    oldfoldersize = 0;
-    filecount = 0;
+    FileCount = 0;
+    OldSize = 0;
+    TotalSize = 0;
     devicefree = 0;
     devicesize = 0;
-
-    if(!filepath)
-        return;
-
-    char temp[MAXPATHLEN];
+    Marker = IMarker;
     foldersizethread = LWP_THREAD_NULL;
-    folderpath = new char[strlen(filepath)+2];
-    sprintf(folderpath, "%s/", filepath);
 
-    struct stat filestat;
-    stat(filepath, &filestat);
+    for(int i = 0; i < Marker->GetItemcount(); i++)
+    {
+        if(Marker->IsItemDir(i))
+        {
+            folder = true;
+        }
+        else
+        {
+            TotalSize += Marker->GetItemSize(i);
+            ++FileCount;
+        }
+    }
 
-    filesize = filestat.st_size;
-    folder = (filestat.st_mode & _IFDIR) == 0 ? false : true;
+    OldSize = TotalSize;
 
     if(folder)
-    {
         StartGetFolderSizeThread();
-    }
 
     dialogBox = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
     titleData = Resources::GetImageData(icon_folder_png, icon_folder_png_size);
@@ -88,7 +89,8 @@ Properties::Properties(const char * filepath)
 	trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-    char * filename = strrchr(filepath, '/')+1;
+    const char * filename = Marker->GetItemName(Marker->GetItemcount()-1);
+
     TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
     TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
     TitleTxt->SetPosition(0, Position_Y);
@@ -106,29 +108,31 @@ Properties::Properties(const char * filepath)
     filepathTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filepathTxt->SetPosition(Position_X, Position_Y);
 
-    filepathvalTxt =  new GuiText(filepath, 20, (GXColor){0, 0, 0, 255});
+    filepathvalTxt =  new GuiText(Marker->GetItemPath(Marker->GetItemcount()-1), 20, (GXColor){0, 0, 0, 255});
     filepathvalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filepathvalTxt->SetPosition(Position_X+80, Position_Y);
-    filepathvalTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-120, SCROLL_HORIZONTAL);
+    filepathvalTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-130, SCROLL_HORIZONTAL);
     Position_Y += 30;
 
     filecountTxt = new GuiText(tr("Files:"), 20, (GXColor){0, 0, 0, 255});
     filecountTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filecountTxt->SetPosition(Position_X, Position_Y);
 
-    filecountTxtVal = new GuiText(tr("1"), 20, (GXColor){0, 0, 0, 255});
+    filecountTxtVal = new GuiText(fmt("%i", FileCount), 20, (GXColor){0, 0, 0, 255});
     filecountTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     filecountTxtVal->SetPosition(Position_X+180, Position_Y);
     Position_Y += 30;
 
-    if(filesize > KBSIZE && filesize < MBSIZE)
-        sprintf(temp, "%0.2fKB", filesize/KBSIZE);
-    else if(filesize > MBSIZE && filesize < GBSIZE)
-        sprintf(temp, "%0.2fMB", filesize/MBSIZE);
-    else if(filesize > GBSIZE)
-        sprintf(temp, "%0.2fGB", filesize/GBSIZE);
+    char temp[MAXPATHLEN];
+
+    if(OldSize > KBSIZE && OldSize < MBSIZE)
+        sprintf(temp, "%0.2fKB", OldSize/KBSIZE);
+    else if(OldSize > MBSIZE && OldSize < GBSIZE)
+        sprintf(temp, "%0.2fMB", OldSize/MBSIZE);
+    else if(OldSize > GBSIZE)
+        sprintf(temp, "%0.2fGB", OldSize/GBSIZE);
     else
-        sprintf(temp, "%LiB", filesize);
+        sprintf(temp, "%LiB", OldSize);
 
     filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
     filesizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -140,9 +144,13 @@ Properties::Properties(const char * filepath)
     Position_Y += 30;
 
     char * pch = NULL;
-    if(folder)
+    if(Marker->GetItemcount() > 1)
     {
-        snprintf(temp, sizeof(temp), tr("Folder"));
+        snprintf(temp, sizeof(temp), tr("Multiple Items"));
+    }
+    else if(folder)
+    {
+        snprintf(temp, sizeof(temp), tr("Folder(s)"));
         TitleTxt->SetMaxWidth(dialogBox->GetWidth()-75, DOTTED);
     }
     else
@@ -151,7 +159,7 @@ Properties::Properties(const char * filepath)
         if(pch)
             pch += 1;
         else
-            pch = filename;
+            pch = (char *) filename;
         snprintf(temp, sizeof(temp), "%s", pch);
     }
 
@@ -189,6 +197,9 @@ Properties::Properties(const char * filepath)
         devicetotalTxtVal->SetPosition(Position_X+180, Position_Y);
         Position_Y += 30;
     }
+
+    struct stat filestat;
+    stat(Marker->GetItemPath(Marker->GetItemcount()-1), &filestat);
 
     last_accessTxt = new GuiText(tr("Last access:"), 20, (GXColor){0, 0, 0, 255});
     last_accessTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
@@ -234,7 +245,7 @@ Properties::Properties(const char * filepath)
 
     Append(dialogBoxImg);
     Append(TitleTxt);
-    if(folder)
+    if(Marker->IsItemDir(Marker->GetItemcount()-1))
         Append(TitleImg);
     Append(filepathTxt);
     Append(filepathvalTxt);
@@ -278,8 +289,6 @@ Properties::~Properties()
 
     if(foldersizethread != LWP_THREAD_NULL)
         StopSizeThread();
-    if(folderpath)
-        delete [] folderpath;
 
 	Resources::Remove(dialogBox);
 	Resources::Remove(titleData);
@@ -333,7 +342,7 @@ int Properties::GetChoice()
 
     if(folder)
     {
-        if(oldfoldersize != foldersize)
+        if(OldSize != TotalSize)
         {
             UpdateSizeValue();
         }
@@ -354,21 +363,21 @@ void Properties::OnButtonClick(GuiElement *sender, int pointer, POINT p)
 
 void Properties::UpdateSizeValue()
 {
-    oldfoldersize = foldersize;
+    OldSize = TotalSize;
     char sizetext[20];
     char filecounttext[20];
 
-    if(foldersize > KBSIZE && foldersize < MBSIZE)
-        snprintf(sizetext, sizeof(sizetext), "%0.2fKB", foldersize/KBSIZE);
-    else if(foldersize > MBSIZE && foldersize < GBSIZE)
-        snprintf(sizetext, sizeof(sizetext), "%0.2fMB", foldersize/MBSIZE);
-    else if(foldersize > GBSIZE)
-        snprintf(sizetext, sizeof(sizetext), "%0.2fGB", foldersize/GBSIZE);
+    if(OldSize > KBSIZE && OldSize < MBSIZE)
+        snprintf(sizetext, sizeof(sizetext), "%0.2fKB", OldSize/KBSIZE);
+    else if(OldSize > MBSIZE && OldSize < GBSIZE)
+        snprintf(sizetext, sizeof(sizetext), "%0.2fMB", OldSize/MBSIZE);
+    else if(OldSize > GBSIZE)
+        snprintf(sizetext, sizeof(sizetext), "%0.2fGB", OldSize/GBSIZE);
     else
-        snprintf(sizetext, sizeof(sizetext), "%LiB", foldersize);
+        snprintf(sizetext, sizeof(sizetext), "%LiB", OldSize);
 
     filesizeTxtVal->SetText(sizetext);
-    snprintf(filecounttext, sizeof(filecounttext), "%i", filecount);
+    snprintf(filecounttext, sizeof(filecounttext), "%i", FileCount);
     filecountTxtVal->SetText(filecounttext);
 
     if(devicefree > 0 && devicesize > 0)
@@ -402,14 +411,31 @@ void Properties::UpdateSizeValue()
  ***************************************************************************/
 void Properties::InternalFolderSizeGain()
 {
-    //background capacity getting because it is very slow
-    struct statvfs stats;
-    statvfs(folderpath, &stats);
+    bool gotDeviceSize = false;
 
-    devicefree = (u64)stats.f_frsize * (u64)stats.f_bfree;
-	devicesize = (u64)stats.f_frsize * (u64)stats.f_blocks;
+    for(int i = 0; i < Marker->GetItemcount(); i++)
+    {
+        if(!Marker->IsItemDir(i))
+            continue;
 
-    GetFolderSize(folderpath, foldersize, filecount);
+        char folderpath[1024];
+        snprintf(folderpath, sizeof(folderpath), "%s/", Marker->GetItemPath(i));
+
+        if(!gotDeviceSize)
+        {
+            //background capacity getting because it is very slow
+            struct statvfs stats;
+            statvfs(folderpath, &stats);
+
+            devicefree = (u64)stats.f_frsize * (u64)stats.f_bfree;
+            devicesize = (u64)stats.f_frsize * (u64)stats.f_blocks;
+
+            gotDeviceSize = true;
+        }
+
+        GetFolderSize(folderpath, TotalSize, FileCount);
+    }
+
     UpdateSizeValue();
 }
 
@@ -421,9 +447,6 @@ void * Properties::FolderSizeThread(void *arg)
 
 void Properties::StartGetFolderSizeThread()
 {
-    foldersize = 0;
-    oldfoldersize = 0;
-    filecount = 0;
     sizegainrunning = true;
 
     //!Initialize GetSizeThread for Properties

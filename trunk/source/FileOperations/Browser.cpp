@@ -33,31 +33,48 @@
 #include "Browser.hpp"
 #include "main.h"
 
-ItemStruct Browser::GetItemStruct(int pos) const
-{
-    ItemStruct Item;
-    memset(&Item, 0, sizeof(ItemStruct));
-    return Item;
-}
-
 void Browser::MarkCurrentItem()
 {
-    ItemStruct Item = GetCurrentItemStruct();
-    IMarker.AddItem(&Item);
+    ItemStruct * Item = GetCurrentItemStruct();
+
+    if(Item)
+    {
+        IMarker.AddItem(Item);
+
+        if(Item->itempath)
+            free(Item->itempath);
+        delete Item;
+    }
 }
 
 void Browser::UnMarkCurrentItem()
 {
-    ItemStruct Item = GetCurrentItemStruct();
-    IMarker.RemoveItem(&Item);
+    ItemStruct * Item = GetCurrentItemStruct();
+
+    if(Item)
+    {
+        IMarker.RemoveItem(Item);
+
+        if(Item->itempath)
+            free(Item->itempath);
+        delete Item;
+    }
 }
 
 void Browser::MarkAllItems()
 {
     for(int i = 0; i < GetEntrieCount(); i++)
     {
-        ItemStruct Item = GetItemStruct(i);
-        IMarker.AddItem(&Item);
+        ItemStruct * Item = GetItemStruct(i);
+
+        if(Item)
+        {
+            IMarker.AddItem(Item);
+
+            if(Item->itempath)
+                free(Item->itempath);
+            delete Item;
+        }
     }
 }
 

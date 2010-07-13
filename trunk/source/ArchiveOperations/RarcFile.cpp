@@ -36,8 +36,6 @@
 #include "FileOperations/fileops.h"
 #include "RarcFile.h"
 
-extern bool actioncanceled;
-
 RarcFile::RarcFile(const char *filepath)
     : WiiArchive(filepath)
 {

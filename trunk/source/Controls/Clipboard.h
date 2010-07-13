@@ -23,7 +23,7 @@
  *
  * Clipboard.h
  *
- * for Wii-FileXplorer 2010
+ * for WiiXplorer 2010
  ***************************************************************************/
 #ifndef _CLIPBOARD_H_
 #define _CLIPBOARD_H_
@@ -40,8 +40,7 @@ class Clipboard : public ItemMarker
 
         bool Cutted;
     private:
-        Clipboard();
-        ~Clipboard();
+        Clipboard() { Cutted = false; };
 		static Clipboard *instance;
 
 };

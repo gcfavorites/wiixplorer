@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include <string.h>
 #include "VideoOperations/video.h"
+#include "Language/gettext.h"
 #include "GifImage.hpp"
 
 #define LZW_BUFF_SIZE   (17*1024)
@@ -306,7 +307,12 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 
             BytesPerRow += (4 - BytesPerRow % 4) % 4;
 
-            u8 * Raster = new u8 [BytesPerRow*GifID.Height];
+            u8 * Raster = new (std::nothrow) u8 [BytesPerRow*GifID.Height];
+            if(!Raster)
+            {
+                ShowError(tr("Not enough memory."));
+                break;
+            }
 
 			bool Transparent = false;
 			int Transparency = -1;
@@ -316,7 +322,14 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 				Transparency = Transparent ? GifGCE.Transparent : -1;
 			}
 
-            GIFCOLOR * CurrentColorMap = new GIFCOLOR[sizeof(GIFCOLOR)*(1<<BPP)];
+            GIFCOLOR * CurrentColorMap = new (std::nothrow) GIFCOLOR[sizeof(GIFCOLOR)*(1<<BPP)];
+            if(!CurrentColorMap)
+            {
+                delete [] Raster;
+                ShowError(tr("Not enough memory."));
+                break;
+            }
+
 			if (LocalColorMap)
 			{
 			    memcpy(CurrentColorMap, &img[pos], sizeof(GIFCOLOR)*(1<<BPP));
@@ -339,7 +352,15 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			}
             pos = ImgStart;
 
-			char * pCompressedImage = new char [ImgEnd-ImgStart+4];
+			char * pCompressedImage = new  (std::nothrow) char [ImgEnd-ImgStart+4];
+			if(!pCompressedImage)
+            {
+                delete [] Raster;
+                delete [] CurrentColorMap;
+                ShowError(tr("Not enough memory."));
+                break;
+            }
+
 			char * pTemp = pCompressedImage;
 			while (int nBlockLength = img[pos++])
 			{
@@ -358,6 +379,15 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
                     len += (32-len%32);
 
                 NextImage.image = (u8 *) memalign(32, len);
+
+                if(!NextImage.image)
+                {
+                    delete [] pCompressedImage;
+                    delete [] Raster;
+                    delete [] CurrentColorMap;
+                    ShowError(tr("Not enough memory."));
+                    break;
+                }
 
                 u32 offset;
                 u8 r, g, b;
