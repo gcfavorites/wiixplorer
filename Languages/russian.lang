@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:36+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -1172,10 +1172,13 @@ msgstr ""
 msgid "The new font is loaded."
 msgstr "Новый шрифт загружен"
 
-msgid "The whole DevkitPro & libogc staff."
+msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
 msgid "This option could mess up the pdf view."
+msgstr ""
+
+msgid "Time left:"
 msgstr ""
 
 msgid "To Idle"
@@ -1398,7 +1401,7 @@ msgstr ""
 msgid "for his FTP Server source."
 msgstr ""
 
-msgid "for his great tool LibWiiGui."
+msgid "for his great tool libwiigui."
 msgstr ""
 
 msgid "qwertyuiop[]\\"

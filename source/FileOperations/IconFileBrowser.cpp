@@ -431,7 +431,7 @@ void IconFileBrowser::Update(GuiTrigger * t)
 		{
 			if(browser->GetPageIndex()+i < browser->GetEntrieCount())
 			{
-                const char * name = browser->GetItemDisplayname(browser->GetPageIndex()+i);
+                const char * name = browser->GetItemName(browser->GetPageIndex()+i);
                 bool dir = browser->IsDir(browser->GetPageIndex()+i);
 
                 SetButton(i, name, dir, true, x, y);

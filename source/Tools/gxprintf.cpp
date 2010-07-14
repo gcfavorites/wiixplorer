@@ -13,9 +13,11 @@ extern "C" void gxprintf(const char * format, ...)
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
 		Console->printf(tmp);
-		free(tmp);
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
 
 extern "C" void SetGXConsole(void * console)

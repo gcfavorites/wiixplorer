@@ -39,7 +39,6 @@
 #define FILTER_FILES        0x02
 
 #define MAXJOLIET 255
-#define MAXDISPLAY MAXPATHLEN
 
 #include "Prompts/DeviceMenu.h"
 #include "Browser.hpp"
@@ -58,8 +57,7 @@ typedef struct
 	u64 offset; // DVD offset
 	u64 length; // file length in 64 bytes for sizes higher than 4GB
 	bool isdir; // 0 - file, 1 - directory
-	char filename[MAXJOLIET + 1]; // full filename
-	char displayname[MAXDISPLAY + 1]; // name for browser display
+	char filename[MAXJOLIET]; // full filename
 } BROWSERENTRY;
 
 class FileBrowser : public Browser
@@ -77,8 +75,7 @@ class FileBrowser : public Browser
         bool IsDir(int ind) { return browserList[ind].isdir; };
         u64 GetFilesize(int ind) { return browserList[ind].length; };
         u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
-        const char * GetItemDisplayname(int ind) { return browserList[ind].displayname; };
-        const char * GetItemFilename(int ind) { return browserList[ind].filename; };
+        const char * GetItemName(int ind) { return browserList[ind].filename; };
         const char * GetCurrentFilename() { return browserList[browser.selIndex].filename; };
         const char * GetRootDir() { return browser.rootdir; };
         const char * GetDir() { return browser.dir; };

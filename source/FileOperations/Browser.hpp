@@ -48,11 +48,12 @@ class Browser
         virtual void SetSelectedIndex(int ind) { };
         virtual bool IsDir(int ind) { return true; };
         virtual bool IsCurrentDir() { return IsDir(GetSelIndex()); };
-        virtual const char * GetItemDisplayname(int ind) { return NULL; };
+        virtual const char * GetItemName(int ind) { return NULL; };
         virtual int BrowsePath(const char * path) { return 0; };
         virtual int ChangeDirectory() { return 0; };
         virtual const char * GetCurrentPath() { return NULL; };
         virtual const char * GetCurrentSelectedFilepath() { return NULL; };
+        virtual u64 GetFilesize(int ind) { return 0; };
         virtual void Refresh() { };
         virtual int BackInDirectory() { return -1; };
         virtual ItemStruct * GetItemStruct(int pos) { return NULL; };

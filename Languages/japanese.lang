@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:54+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i個のエラーが発生しました。MD5.logに詳しい情報があります。"
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -79,10 +79,10 @@ msgid "Back"
 msgstr ""
 
 msgid "Back Button"
-msgstr "戻るボタン"
+msgstr "戻る"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "フォルダでの戻る"
 
 msgid "Background Bottom/Left"
 msgstr "背景の左下"
@@ -121,10 +121,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "ファイルのCRCが一致しません(パスワードが間違っています)"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "MD5を計算中です…"
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "合計サイズを計算中です…"
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
@@ -170,19 +170,23 @@ msgstr "チャンネル"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "%i個のファイルをチェックしました(%i個のフォルダ内)\n"
 
 #, c-format
 msgid ""
 "Checking directory: %s\n"
 "\n"
 msgstr ""
+"チェックしたディレクトリ: %s\n"
+"\n"
 
 #, c-format
 msgid ""
 "Checking file: %s\n"
 "\n"
 msgstr ""
+"チェックしたファイル: %s\n"
+"\n"
 
 msgid "Clear"
 msgstr "クリア"
@@ -219,7 +223,7 @@ msgid "Console Default"
 msgstr "日本語"
 
 msgid "Context Menu Button"
-msgstr "コンテキストメニューボタン"
+msgstr "コンテキストメニュー"
 
 msgid "Continue"
 msgstr "続行"
@@ -315,7 +319,7 @@ msgid "Demark All Items Button"
 msgstr "すべて選択を解除するボタン"
 
 msgid "Demark Item Button"
-msgstr "選択を解除するボタン"
+msgstr "選択を解除する"
 
 msgid "Designer:"
 msgstr "デザイナー:"
@@ -424,7 +428,7 @@ msgid "Done"
 msgstr "完了"
 
 msgid "Down Button"
-msgstr "下ボタン"
+msgstr "下"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -437,30 +441,30 @@ msgid "Downloading files..."
 msgstr "ダウンロード中…"
 
 msgid "Edit Textline Button"
-msgstr "テキストの行編集ボタン"
+msgstr "テキストの行編集"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "%i個のエラーが発生しました\n"
 
 msgid "Enter"
 msgstr "手入力"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "エラー: %sはファイルではありません\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "エラー: ディレクトリを開けません: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "エラー: ファイルを開けません: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "エラー: メモリが足りません: %s\n"
 
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
@@ -602,7 +606,7 @@ msgid "Folder"
 msgstr "フォルダ"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "フォルダ"
 
 msgid "Font Files"
 msgstr "フォントファイル"
@@ -665,10 +669,10 @@ msgid "Green"
 msgstr "緑"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "計算が完了しました"
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "計算に成功しました"
 
 msgid "Hide System Files/Folders"
 msgstr "システムファイル/フォルダを非表示"
@@ -680,7 +684,7 @@ msgid "Highest"
 msgstr "最高"
 
 msgid "Home Button"
-msgstr "HOMEボタン"
+msgstr "HOME"
 
 msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
@@ -749,13 +753,13 @@ msgid "JPEG Quality"
 msgstr "JPEGの品質"
 
 msgid "Keyboard Backspace Button"
-msgstr "キーボードのバックスペースキー"
+msgstr "キーボードのバックスペース"
 
 msgid "Keyboard Delete Delay"
 msgstr "キーボードの削除間隔"
 
 msgid "Keyboard Shift Button"
-msgstr "キーボードのシフトキー"
+msgstr "キーボードのシフト"
 
 msgid "Language"
 msgstr "言語"
@@ -779,7 +783,7 @@ msgid "Last modified:"
 msgstr "更新日時:"
 
 msgid "Left Button"
-msgstr "左ボタン"
+msgstr "左"
 
 msgid "Linebreak"
 msgstr "改行"
@@ -803,7 +807,7 @@ msgid "Loading image..."
 msgstr "画像を読み込んでいます･･･"
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "MD5.logに保存されました"
 
 msgid "Loop"
 msgstr "ループ"
@@ -815,10 +819,10 @@ msgid "Low"
 msgstr "低"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "MD5チェック"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "MD5.logが作成できませんでした"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCEのパス"
@@ -827,7 +831,7 @@ msgid "MPlayerPath changed"
 msgstr "MPlayerCEのパスを変更しました"
 
 msgid "Mark Item Button"
-msgstr "選択するボタン"
+msgstr "選択する"
 
 msgid "Memory Buffer"
 msgstr "メモリバッファ"
@@ -848,7 +852,7 @@ msgid "Moving item(s):"
 msgstr "移動しています"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "複数のアイテム"
 
 msgid "Music Loop Mode"
 msgstr "音楽の再生"
@@ -1063,7 +1067,7 @@ msgid "Retry"
 msgstr "再試行"
 
 msgid "Right Button"
-msgstr "右ボタン"
+msgstr "右"
 
 msgid "Rotate"
 msgstr "回転"
@@ -1090,13 +1094,13 @@ msgid "Screenshot Format"
 msgstr "画面写真の形式"
 
 msgid "Screenshot Hold Button"
-msgstr "画面写真の押しっぱなしのボタン"
+msgstr "画面写真を撮る時の固定ボタン"
 
 msgid "Screenshot Path"
 msgstr "画面写真を保存するパス"
 
 msgid "Screenshot Press Button"
-msgstr "画面写真の押すボタン"
+msgstr "画面写真を撮るときに押すボタン"
 
 msgid "Scrolling Speed"
 msgstr "スクロール速度"
@@ -1133,7 +1137,7 @@ msgid "Size:"
 msgstr "サイズ"
 
 msgid "Slide Show Button"
-msgstr "スライドショーボタン"
+msgstr "スライドショー"
 
 msgid "Slideshow Delay"
 msgstr "スライドショーの間隔"
@@ -1171,11 +1175,14 @@ msgstr "フォントを読み込めませんでした"
 msgid "The new font is loaded."
 msgstr "フォントを読み込みました"
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "DevkitPro&libogcの制作者の方々"
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
-msgstr "この設定ではPDFの表示が崩れる場合があります"
+msgstr "PDFの表示が崩れる場合があります"
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "スタンバイ"
@@ -1223,7 +1230,7 @@ msgid "Unsupported format!"
 msgstr "対応していない形式です!"
 
 msgid "Up Button"
-msgstr "上ボタン"
+msgstr "上"
 
 msgid "Update (App) Path"
 msgstr "WiiXplorerのパス"
@@ -1359,7 +1366,7 @@ msgid "WiiXplorer Default Music"
 msgstr "WiiXplorerのBGM"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "WiiXplorer MD5チェック結果\n"
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer動画"
@@ -1380,10 +1387,10 @@ msgid "ZXCVBNM<>?"
 msgstr ""
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "拡大"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "縮小"
 
 msgid "`1234567890-"
 msgstr ""
@@ -1397,8 +1404,8 @@ msgstr ""
 msgid "for his FTP Server source."
 msgstr "…FTPのソースを制作"
 
-msgid "for his great tool LibWiiGui."
-msgstr "…LibWiiGuiの制作者様"
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1408,6 +1415,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "DevkitPro&libogcの制作者の方々"
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "…LibWiiGuiの制作者様"
 
 #~ msgid "Download Files"
 #~ msgstr "ファイルをダウンロード"

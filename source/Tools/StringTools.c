@@ -42,9 +42,13 @@ const char * fmt(const char * format, ...)
 	{
         snprintf(strChar, sizeof(strChar), tmp);
 		free(tmp);
+        va_end(va);
 		return (const char *) strChar;
 	}
 	va_end(va);
+
+    if(tmp)
+        free(tmp);
 
 	return NULL;
 }
@@ -70,11 +74,18 @@ const wchar_t * wfmt(const char * format, ...)
         int strlength = strlen(tmp);
         bt = mbstowcs(strWChar, tmp, (strlength < 512) ? strlength : 512 );
         free(tmp);
+        tmp = 0;
 
         if(bt > 0)
+        {
+            strWChar[bt] = 0;
             return (const wchar_t *) &strWChar;
+        }
 	}
 	va_end(va);
+
+    if(tmp)
+        free(tmp);
 
 	return NULL;
 }

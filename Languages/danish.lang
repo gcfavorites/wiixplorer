@@ -4,25 +4,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:54+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
-"Language-Team: Fox888 Translators\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i fejl(e) opstået. Check MD5.log for flere detaljer."
 
 msgid "--------------------------------------------------\n"
-msgstr ""
+msgstr "--------------------------------------------------\n"
 
 msgid ""
 "--------------------------------------------------\n"
 "\n"
 msgstr ""
+"--------------------------------------------------\n"
+"\n"
 
 msgid "1"
 msgstr ""
@@ -34,7 +36,7 @@ msgid "24H"
 msgstr "24T"
 
 msgid "7z decompression failed:"
-msgstr "7z dekomprition Fejlede:"
+msgstr "7z dekomprition fejlede:"
 
 msgid "ASDFGHJKL:\"+"
 msgstr ""
@@ -43,7 +45,7 @@ msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
 msgid "Add to Playlist"
-msgstr "Tilføj Til Playlist"
+msgstr "Tilføj til playliste"
 
 msgid "Alpha Blending"
 msgstr "Alfa Blanding"
@@ -52,19 +54,19 @@ msgid "App Default"
 msgstr "Programstandard"
 
 msgid "AppPath changed"
-msgstr "Prg.Sti Ændret"
+msgstr "Prg.Sti ændret"
 
 msgid "Apps"
 msgstr "Programmer"
 
 msgid "Apps Path"
-msgstr "Prg. Sti"
+msgstr "Sti til homebrew programmer"
 
 msgid "Archive Files"
-msgstr "Arkiv Filer"
+msgstr "Arkiv filer"
 
 msgid "Audio Files"
-msgstr "Lyd Filer"
+msgstr "Lyd filer"
 
 msgid "Auto Connect"
 msgstr "Auto-forbind"
@@ -73,16 +75,16 @@ msgid "Auto Start:"
 msgstr ""
 
 msgid "BMP Compression"
-msgstr "BMP Komprition"
+msgstr "BMP komprition"
 
 msgid "Back"
 msgstr "Tilbage"
 
 msgid "Back Button"
-msgstr "Tilbage Knap"
+msgstr "Tilbage knap"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Tilbage til directory knap"
 
 msgid "Background Bottom/Left"
 msgstr "Baggrund Bund/Venstre"
@@ -100,10 +102,10 @@ msgid "Blue"
 msgstr "Blå"
 
 msgid "Boot Settings"
-msgstr "Boot Indstillinger"
+msgstr "Boot indstillinger"
 
 msgid "Bootup Mount"
-msgstr "Opstarts Indlæsning"
+msgstr "Opstarts indlæsning"
 
 msgid "Both"
 msgstr "Begge"
@@ -112,40 +114,40 @@ msgid "Browse"
 msgstr "Gennemse"
 
 msgid "Browser Mode"
-msgstr ""
+msgstr "Browser måde"
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr "browsing for Font Filer Skal Gøres I Hovedbrowser."
+msgstr "browsing for font filer skal gøres i hovedbrowser."
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr "CRC Af Den Udpakkede Fil Matcher Ikke. Forkert Kodeord?"
+msgstr "CRC af den udpakkede fil matcher ikke. forkert kodeord?"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "Udregner MD5..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Udregner total størrelse..."
 
 msgid "Can not open the file."
-msgstr "Kan Ikke Åbne Filen."
+msgstr "Kan ikke åbne filen."
 
 msgid "Can't browse that path."
-msgstr "Kan Ikke Åbne Denne Sti"
+msgstr "Kan ikke åbne denne sti"
 
 msgid "Can't load file"
-msgstr "Kan Ikke Indlæse Fil"
+msgstr "Kan ikke indlæse fil"
 
 msgid "Can't load page."
 msgstr "Kan ikke indlæse side."
 
 msgid "Can't open file."
-msgstr "Kan Ikke Åbne Fil."
+msgstr "Kan ikke åbne fil."
 
 msgid "Cancel"
 msgstr "Annuller"
 
 msgid "Cannot create directory: "
-msgstr "Kan ikke skabe mappe:"
+msgstr "Kan ikke skabe bibliotek:"
 
 msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
@@ -163,35 +165,39 @@ msgid "Change"
 msgstr "Ændre"
 
 msgid "Change Language Path?"
-msgstr "Ændre Sprog Sti?"
+msgstr "Ændre sprog sti?"
 
 msgid "Channels"
 msgstr "Kanaler"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "kontrolleret %i fil(er) i %i folder(e).\n"
 
 #, c-format
 msgid ""
 "Checking directory: %s\n"
 "\n"
 msgstr ""
+"Kontroller bibliotek: %s\n"
+"\n"
 
 #, c-format
 msgid ""
 "Checking file: %s\n"
 "\n"
 msgstr ""
+"Kontroller fil: %s\n"
+"\n"
 
 msgid "Clear"
 msgstr "Ryd"
 
 msgid "Clear List"
-msgstr "Ryd List"
+msgstr "Ryd list"
 
 msgid "Click Button"
-msgstr "Klik Knap"
+msgstr "Klik knap"
 
 #, c-format
 msgid "Client %i"
@@ -210,91 +216,91 @@ msgid "Coders:"
 msgstr "Programmører:"
 
 msgid "Color Settings"
-msgstr "Farve Indstillinger"
+msgstr "Farve indstillinger"
 
 msgid "Compressed Size:"
-msgstr "Komprimeret Størrelse:"
+msgstr "Komprimeret størrelse:"
 
 msgid "Console Default"
 msgstr "Konsolstandard"
 
 msgid "Context Menu Button"
-msgstr "Context Menu Knap"
+msgstr "Context menu knap"
 
 msgid "Continue"
 msgstr "Fortsæt"
 
 msgid "Controls Settings"
-msgstr "Kontrol Indstillinger"
+msgstr "Kontrol indstillinger"
 
 msgid "Convert"
 msgstr "Konventer"
 
 msgid "Converting image..."
-msgstr "Konventere Billede..."
+msgstr "Konventere billede..."
 
 msgid "Copy"
 msgstr "Kopiér"
 
 msgid "Copy Thread Background Priority"
-msgstr "Kopier Tråd Baggrunds Prioritet"
+msgstr "Kopier tråd baggrunds prioritet"
 
 msgid "Copy Thread Priority"
-msgstr "Kopier Tråd Prioritet"
+msgstr "Kopier tråd prioritet"
 
 msgid "Copy current marked item(s)?"
-msgstr "Kopier Markere Emne(r)?"
+msgstr "Kopier markere emne(r)?"
 
 msgid "Copy of"
-msgstr "Kopi Af"
+msgstr "Kopi af"
 
 msgid "Copying item(s):"
-msgstr "Kopier Emne(r):"
+msgstr "Kopier emne(r):"
 
 msgid "Could not connect to the network"
-msgstr "Kunne Ikke Forbinde Til Netværk"
+msgstr "Kunne ikke forbinde til netværk"
 
 msgid "Could not connect to the server."
 msgstr "Kunne ikke forbinde til serveren."
 
 msgid "Could not convert image."
-msgstr "Kunne Ikke Konventer Billede."
+msgstr "Kunne ikke konventer billede."
 
 msgid "Could not decompress the file."
-msgstr "Kunne Ikke Dekomprimer Filen."
+msgstr "Kunne ikke dekomprimer filen."
 
 msgid "Could not download file."
-msgstr "Kunne Ikke Downloade Filen."
+msgstr "Kunne ikke downloade filen."
 
 msgid "Could not extract file:"
-msgstr "Kunne Ikke Udpakke Filen:"
+msgstr "Kunne ikke udpakke filen:"
 
 msgid "Could not load file."
 msgstr "Kunne ikke indlæse fil."
 
 msgid "Could not load image."
-msgstr "Kunne Ikke Indlæse Billede."
+msgstr "Kunne ikke indlæse billede."
 
 msgid "Could not load text file."
-msgstr "Kunne Ikke Indlæse Tekst Fil"
+msgstr "Kunne ikke indlæse tekst fil"
 
 msgid "Could not parse directory."
-msgstr "Kunne Ikke Analysere Mappe."
+msgstr "Kunne ikke Analysere mappe."
 
 msgid "Credits"
-msgstr "Tak Til"
+msgstr "Tak til"
 
 msgid "Currently a process is running."
-msgstr "En Proces Kører"
+msgstr "En proces kører allerede."
 
 msgid "Customfont Path"
-msgstr "Sti til custom-fonte"
+msgstr "Sti til brugerdefineret fonte"
 
 msgid "Cut"
 msgstr "Klip"
 
 msgid "Cut current marked item(s)?"
-msgstr "Klip Markerede Emne(r)?"
+msgstr "Klip markerede emne(r)?"
 
 msgid "Default"
 msgstr "Standard"
@@ -303,19 +309,19 @@ msgid "Delete"
 msgstr "Slet"
 
 msgid "Delete Temp Path on Exit"
-msgstr "Slet Midlertidig Sti På Nedlukning"
+msgstr "Slet midlertidig sti på nedlukning"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr "Slet Valgte Emne(r) Og Dens Indhold?"
+msgstr "Slet valgte emne(r) og dens indhold?"
 
 msgid "Deleting files:"
 msgstr "Sletter filer:"
 
 msgid "Demark All Items Button"
-msgstr "Demaker Alle Emner Kanp"
+msgstr "Demaker alle emner knap"
 
 msgid "Demark Item Button"
-msgstr "Demarker Emne Knap"
+msgstr "Demarker emne knap"
 
 msgid "Designer:"
 msgstr ""
@@ -327,40 +333,40 @@ msgid "Directory couldn't be deleted."
 msgstr "Mappen kunne ikke slettes."
 
 msgid "Disconnect Client"
-msgstr "Afbryd Klient"
+msgstr "Afbryd klient"
 
 msgid "Disconnect SMB"
 msgstr "Afbryd SMB"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr "Vil Du Vedhæfte Denne Paste Til Køen?"
+msgstr "Vil du vedhæfte denne paste til køen?"
 
 msgid "Do you want to boot file now?"
-msgstr "Vil Du Boote Filen Nu?"
+msgstr "Vil du boote filen nu?"
 
 msgid "Do you want to boot:"
 msgstr "Vil du boote:"
 
 msgid "Do you want to change the font?"
-msgstr "Vil Du Ændre Font?"
+msgstr "Vil du ændre font?"
 
 msgid "Do you want to delete this file:"
-msgstr "Vi Du Slette Denne Fil:"
+msgstr "Vil du slette denne fil:"
 
 msgid "Do you want to disconnect the FTP client?"
-msgstr "Vil Du Afbryde FTP Klienten?"
+msgstr "Vil du afbryde FTP klienten?"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr "Vil Du Afbryde Denne SMB?"
+msgstr "Vil du afbryde denne SMB?"
 
 msgid "Do you want to download new language files?"
-msgstr "Vil du downloader ny sprog fil?"
+msgstr "Vil du downloade nye sprogfiler?"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr "Vil Du Lukke WiiXplorer?"
+msgstr "Vil du lukke WiiXplorer?"
 
 msgid "Do you want to launch file with MPlayerCE?"
-msgstr "Vil Du Køre Filen Med MPlayerCE?"
+msgstr "Vil du køre filen med MPlayerCE?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
@@ -373,7 +379,7 @@ msgid "Do you want to load this language ?"
 msgstr "Vil du indlæse dette sprog?"
 
 msgid "Do you want to load this language file?"
-msgstr "Vil Du IndLæse Denne Sprogfil?"
+msgstr "Vil du indLæse denne sprogfil?"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Vil du åbne denne fil med TextEditor?"
@@ -382,25 +388,25 @@ msgid "Do you want to playback this file?"
 msgstr "Vil du afspille filen?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "Vil Du Genstarte Wiixplorer?"
+msgstr "Vil du genstarte Wiixplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr "Vil Du Genstarte Nu?"
+msgstr "Vil du genstarte nu?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr "Vil Du Genforbinde Denne SMB?"
+msgstr "Vil du genforbinde denne SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr "Vil Du Genforbinde Denne FTP Klient?"
+msgstr "Vil du genforbinde til FTP klient?"
 
 msgid "Do you want to remount the devices?"
-msgstr "Vil Du Genindlæse Enheder?"
+msgstr "Vil du genindlæse enheder?"
 
 msgid "Do you want to replace this file?"
-msgstr "Vil Du Erstatte Denne Fil?"
+msgstr "Vil du erstatte denne fil?"
 
 msgid "Do you want to reset the color settings?"
-msgstr "Vil Du Nulstille Farve Indstilinger?"
+msgstr "Vil du nulstille farve indstilinger?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Vil du nulstille kontrol indstillinger?"
@@ -409,16 +415,16 @@ msgid "Do you want to reset the settings?"
 msgstr "Vil du nulstille indstillinger?"
 
 msgid "Do you want to save changes?"
-msgstr "Vil Du Gemme Ændringer?"
+msgstr "Vil du gemme ændringer?"
 
 msgid "Do you want to start the app?"
-msgstr "Vil Du Starte Dette Prg?"
+msgstr "Vil du starte dette prg?"
 
 msgid "Do you want to start the channel?"
-msgstr "Vil Du Starte Denne Kanal?"
+msgstr "Vil du starte denne kanal?"
 
 msgid "Do you want to update now ?"
-msgstr "Vil du opdatere nu?"
+msgstr "Vil du opdater nu?"
 
 msgid "Done"
 msgstr "Færdig"
@@ -437,33 +443,33 @@ msgid "Downloading files..."
 msgstr "Downloader filer..."
 
 msgid "Edit Textline Button"
-msgstr "Edit Tekstlinje Knap"
+msgstr "Edit tekstlinje knap"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "Stødte på %i Fejl(e).\n"
 
 msgid "Enter"
 msgstr "Skriv"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Fejl - %s er ikke en fil\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "Fejl - Kunne ikke skabe mappe: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Fejl - Kunne ikke åbne fil: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Fejl - Ikke nok hukommelse på: %s\n"
 
 msgid "Error while reading file."
-msgstr "Fejl Under Indlæsning Af Fil."
+msgstr "Fejl under indlæsning af fil."
 
 msgid "Error:"
 msgstr "Fejl:"
@@ -475,31 +481,31 @@ msgid "Exit WiiXplorer?"
 msgstr "Luk WiiXplorer?"
 
 msgid "Explorer Settings"
-msgstr "Explorer Indstillinger"
+msgstr "Explorer indstillinger"
 
 msgid "Extract"
 msgstr "Udpak"
 
 msgid "Extract All"
-msgstr "Udpak Alle"
+msgstr "Udpak alle"
 
 msgid "Extract file to temp path and execute?"
-msgstr "Udpak Fil til Midlertidig Sti Og Udføre?"
+msgstr "Udpak fil til midlertidig sti og udføre?"
 
 msgid "Extract full archive?"
-msgstr "Udpak Hele Arkivet?"
+msgstr "Udpak hele arkivet?"
 
 msgid "Extract the selected item(s)?"
-msgstr "Udpak Valgt Emne(r)?"
+msgstr "Udpak valgt emne(r)?"
 
 msgid "Extracting files..."
 msgstr "Udpakker filer..."
 
 msgid "Extracting item(s):"
-msgstr "Udpakker Emne(r)."
+msgstr "Udpakker emne(r)."
 
 msgid "FTP Client Settings"
-msgstr "FTP Klient Indstillinger"
+msgstr "FTP klient indstillinger"
 
 msgid "FTP Path:"
 msgstr "FTP Sti:"
@@ -511,58 +517,58 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr "FTP Server Indstillinger"
+msgstr "FTP server indstillinger"
 
 msgid "FTP Server is running and listening on port"
-msgstr "FTP Server Kører Og Lytter På Port"
+msgstr "FTP server kører og lytter på port"
 
 msgid "FTP Started.\n"
-msgstr "FTP Startet.\n"
+msgstr "FTP startet.\n"
 
 msgid "Fade Speed"
-msgstr "Fade Hastighed"
+msgstr "Fade hastighed"
 
 msgid "Failed copying item(s)."
-msgstr "Fejlede At Kopier Emne(r)."
+msgstr "Fejlede at kopier emne(r)."
 
 msgid "Failed extracting the archive."
-msgstr "Fejlede At Udpakke Arkivet."
+msgstr "Fejlede at udpakke arkivet."
 
 msgid "Failed extracting the item(s)."
-msgstr "Fejlede At Udpakke Emne(r)."
+msgstr "Fejlede at udpakke emne(r)."
 
 msgid "Failed moving item(s)."
-msgstr "Fejlede At Flytte Emne(r)."
+msgstr "Fejlede at flytte emne(r)."
 
 msgid "Failed renaming item"
-msgstr "Fejlede At Omdøbe Emne"
+msgstr "Fejlede at omdøbe emne"
 
 msgid "Failed to get the Changelog."
-msgstr "Fejlede At Få Changelog."
+msgstr "Fejlede at få Changelog."
 
 msgid "Failed to read file data."
-msgstr "Fejlede At Læse Fil Data."
+msgstr "Fejlede at læse fil data."
 
 msgid "File Extensions"
-msgstr "Fil Udvidelser"
+msgstr "Fil udvidelser"
 
 msgid "File Extensions Assignment"
-msgstr "Fil Udvidelser Tildeling"
+msgstr "Fil udvidelser tildeling"
 
 msgid "File already exists:"
-msgstr "Filen Eksister Allerede."
+msgstr "Filen eksister allerede."
 
 msgid "File could not be deleted."
-msgstr "Fil Kunne Ikke Slettes."
+msgstr "Fil kunne ikke slettes."
 
 msgid "File couldn't be deleted."
 msgstr "Filen kunne ikke slettes."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "Fil Er Istykker (CRC Mismatch)."
+msgstr "Fil er istykker (CRC Mismatch)."
 
 msgid "File is corrupt."
-msgstr "Fil Er Istykker."
+msgstr "Fil er istykker."
 
 msgid "File is too big."
 msgstr "Fil er for stor."
@@ -571,13 +577,13 @@ msgid "File uses too high of compression settings (dictionary size is too large)
 msgstr "Fil bruger for stor kompritions indstillinger (folder størrelse er for stor)."
 
 msgid "File uses unsupported compression settings."
-msgstr "Fil Er Ikke Understøttet Kompritions Indstillinger."
+msgstr "Fil er ikke understøttet kompritions indstillinger."
 
 msgid "File was edited."
-msgstr "Fil Var Ændret."
+msgstr "Fil var ændret."
 
 msgid "Filepath:"
-msgstr "Fil sti:"
+msgstr "Sti til filer:"
 
 #, c-format
 msgid "Filepath:  %s"
@@ -587,10 +593,10 @@ msgid "Files:"
 msgstr "Filer:"
 
 msgid "Filesize doesn't match."
-msgstr "Filstørrelse Passer Ikke."
+msgstr "Filstørrelse passer ikke."
 
 msgid "Filesize is 0 Byte."
-msgstr "Filstørrelse Er 0 Byte."
+msgstr "Filstørrelse er 0 byte."
 
 msgid "Filetype:"
 msgstr "Filtype:"
@@ -602,16 +608,16 @@ msgid "Folder"
 msgstr "Mappe"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Mappe(r)"
 
 msgid "Font Files"
-msgstr "Font Filer"
+msgstr "Font filer"
 
 msgid "Fontpath changed."
-msgstr "Fontsti Ændret."
+msgstr "Fontsti ændret."
 
 msgid "Free Space:"
-msgstr "Fri Plads:"
+msgstr "Fri plads:"
 
 msgid "GC PAD BUTTON A"
 msgstr "GC PAD KNAP A"
@@ -665,13 +671,13 @@ msgid "Green"
 msgstr "Grøn"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Hashing fuldført."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Lykkedes at gennemføre hashing "
 
 msgid "Hide System Files/Folders"
-msgstr "Skjul System Filer/Folder"
+msgstr "Skjul system filer/folder"
 
 msgid "High"
 msgstr "Høj"
@@ -680,13 +686,13 @@ msgid "Highest"
 msgstr "Højest"
 
 msgid "Home Button"
-msgstr "Hjem Knap"
+msgstr "Hjem knap"
 
 msgid "Home Menu"
 msgstr ""
 
 msgid "Homebrew Files"
-msgstr "Homebrew Filer"
+msgstr "Homebrew filer"
 
 msgid "Horizontal"
 msgstr "Vandret"
@@ -695,40 +701,40 @@ msgid "Host:"
 msgstr "Vært:"
 
 msgid "How do you want to change the path?"
-msgstr "Hvordan Vil Du Ændre Denne Sti?"
+msgstr "Hvordan vil du ændre denne sti?"
 
 msgid "How do you want to open the file?"
-msgstr "Hvordan Vil Du Åbne Filen?"
+msgstr "Hvordan vil du åbne filen?"
 
 msgid "How do you want to proceed?"
-msgstr "Hvordan Vil Du Fortsætte?"
+msgstr "Hvordan vil du fortsætte?"
 
 msgid "Icon Mode"
-msgstr ""
+msgstr "Ikon måde"
 
 msgid "Idle"
-msgstr ""
+msgstr "Pause"
 
 msgid "Image Converter"
 msgstr ""
 
 msgid "Image Files"
-msgstr "Image filer"
+msgstr "Billed filer"
 
 msgid "Image Heigth"
-msgstr "Billed Højde"
+msgstr "Billed højde"
 
 msgid "Image Settings"
-msgstr "Billed Indstillinger"
+msgstr "Billed indstillinger"
 
 msgid "Image Viewer"
 msgstr ""
 
 msgid "Image Width"
-msgstr "Billed Bredde"
+msgstr "Billed bredde"
 
 msgid "Image successfully converted."
-msgstr "Billedkonventering Lykkedes."
+msgstr "Billedkonventering lykkedes."
 
 msgid "ImageConverter"
 msgstr ""
@@ -737,79 +743,79 @@ msgid "ImageViewer"
 msgstr ""
 
 msgid "Incomming connection."
-msgstr "Indkommen Forbindelse."
+msgstr "Indkommen forbindelse."
 
 msgid "Input File"
-msgstr "Input Fil"
+msgstr "Input fil"
 
 msgid "Interlace"
 msgstr "Sammenflette"
 
 msgid "JPEG Quality"
-msgstr "JPEG Kvalitet"
+msgstr "JPEG kvalitet"
 
 msgid "Keyboard Backspace Button"
-msgstr "Tastetur Backspace Knap"
+msgstr "Tastetur backspace knap"
 
 msgid "Keyboard Delete Delay"
-msgstr "Tastetur Slet Forsinkelse"
+msgstr "Tastetur slet forsinkelse"
 
 msgid "Keyboard Shift Button"
-msgstr "Tastetur Skift Knap"
+msgstr "Tastetur skift knap"
 
 msgid "Language"
 msgstr "Sprog"
 
 msgid "Language Files"
-msgstr "Sprog Filer"
+msgstr "Sprogfiler"
 
 msgid "Language Path changed."
-msgstr "Sprogsti Ændret."
+msgstr "Sprogsti ændret."
 
 msgid "Language Settings"
-msgstr "Sprog Indstillinger"
+msgstr "Sprog indstillinger"
 
 msgid "Last access:"
 msgstr "Sidst tilgået:"
 
 msgid "Last change:"
-msgstr "Sidst Ændret:"
+msgstr "Sidst ændret:"
 
 msgid "Last modified:"
-msgstr "Sidst Modifiseret:"
+msgstr "Sidst modifiseret:"
 
 msgid "Left Button"
-msgstr "Venstre Kanp"
+msgstr "Venstre knap"
 
 msgid "Linebreak"
 msgstr ""
 
 msgid "List Mode"
-msgstr ""
+msgstr "List måde"
 
 msgid "Listening on TCP port"
-msgstr "Lytter På TCP Port"
+msgstr "Lytter på TCP port"
 
 msgid "Listing files in"
-msgstr "List Filer I"
+msgstr "List filer i"
 
 msgid "Load Music to Memory"
-msgstr "Indlæs Musik til Hukommelse"
+msgstr "Indlæs musik til hukommelse"
 
 msgid "Loading file:"
 msgstr "Indlæser fil:"
 
 msgid "Loading image..."
-msgstr "Indlæser Billed..."
+msgstr "Indlæser billed..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "Log var gemt i MD5.log"
 
 msgid "Loop"
 msgstr ""
 
 msgid "Loop Playlist"
-msgstr "Loop Afspilningsliste"
+msgstr "Loop afspilningsliste"
 
 msgid "Low"
 msgstr "Lav"
@@ -821,16 +827,16 @@ msgid "MD5 log file can't be created."
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr "MplayerCE Sti"
+msgstr "Sti til MplayerCE"
 
 msgid "MPlayerPath changed"
-msgstr "MPlayersti Ændret"
+msgstr "MPlayersti ændret"
 
 msgid "Mark Item Button"
-msgstr "Marker Emne Knap"
+msgstr "Marker emne knap"
 
 msgid "Memory Buffer"
-msgstr "Hukommelses Knap"
+msgstr "Hukommelses knap"
 
 msgid "Menu"
 msgstr ""
@@ -845,13 +851,13 @@ msgid "Mounting disc"
 msgstr ""
 
 msgid "Moving item(s):"
-msgstr "Flyt Emne(r):"
+msgstr "Flyt emne(r):"
 
 msgid "Multiple Items"
 msgstr ""
 
 msgid "Music Loop Mode"
-msgstr "Musik Loop Mode"
+msgstr "Musik loop måde"
 
 msgid "Music Volume"
 msgstr "Musiklydstyrke"
@@ -860,10 +866,10 @@ msgid "NONE"
 msgstr "Ingen"
 
 msgid "Name might already exists."
-msgstr "Navn Eksister Måske Allerede."
+msgstr "Navn eksister måske allerede."
 
 msgid "Network Settings"
-msgstr "Netværks Indstillinger"
+msgstr "Netværks indstillinger"
 
 msgid "Network initialising..."
 msgstr "Initialiserer netforbindelse..."
@@ -878,7 +884,7 @@ msgid "No files found."
 msgstr "Ingen filer fundet."
 
 msgid "No homebrew in the zip."
-msgstr "Ingen Homebrew I Zip."
+msgstr "Ingen homebrew i zip."
 
 #, c-format
 msgid "No image found at index %d."
@@ -888,13 +894,13 @@ msgid "No language files found."
 msgstr "Fandt ingen sprogfiler."
 
 msgid "No network connection."
-msgstr "Ingen Netværksforbindelse."
+msgstr "Ingen netværksforbindelse."
 
 msgid "No new updates available"
 msgstr "Der er ingen ny opdateringer"
 
 msgid "No to all"
-msgstr "Nej Til Alle"
+msgstr "Nej til alle"
 
 msgid "Normal"
 msgstr "Normal"
@@ -909,10 +915,10 @@ msgid "Not a valid domain"
 msgstr "Ikke et gyldigt domæne"
 
 msgid "Not enough memory to resize."
-msgstr "Ikke Nok Hukommelse Til At Ændre Størrelse."
+msgstr "Ikke nok hukommelse til at ændre størrelse."
 
 msgid "Not enough memory to rotate."
-msgstr "Ikke Nok Hukommelse Til At Roter."
+msgstr "Ikke nok hukommelse til at roter."
 
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
@@ -945,16 +951,16 @@ msgid "PDF Files"
 msgstr "PDF Filer"
 
 msgid "PDF Processing Zoom"
-msgstr "PDF Behandlings Zoom"
+msgstr "PDF behandlings zoom"
 
 msgid "Parse Directory"
-msgstr "Analyser Mappe"
+msgstr "Analyser mappe"
 
 msgid "Passive Mode:"
 msgstr "Passiv Mode:"
 
 msgid "Password is needed."
-msgstr "Kodeord Er Påkrævet"
+msgstr "Kodeord er påkrævet"
 
 msgid "Password:"
 msgstr "Kodeord:"
@@ -963,22 +969,22 @@ msgid "Paste"
 msgstr "Sæt ind"
 
 msgid "Paste item(s) into current directory?"
-msgstr "Indsæt Emne(r) I Denne Mappe?"
+msgstr "Indsæt emne(r) i denne mappe?"
 
 msgid "Path Setup"
-msgstr "Sti Indstillinger"
+msgstr "Sti indstillinger"
 
 msgid "Play File"
-msgstr "Afspil Fil"
+msgstr "Afspil fil"
 
 msgid "Play Once"
-msgstr "Afspil En Gang"
+msgstr "Afspil en gang"
 
 msgid "Please enter the password."
-msgstr "Skriv Venligst Kodeordet."
+msgstr "Skriv venligst kodeordet."
 
 msgid "Please wait..."
-msgstr "Vent Venligst..."
+msgstr "Vent venligst..."
 
 msgid "Please wait:"
 msgstr "Vent venligst:"
@@ -987,10 +993,10 @@ msgid "Possible unsupported format."
 msgstr "Format muligvis ikke understøttet"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr "Pres Startup FTP Få At Starte Server På Port"
+msgstr "Pres Startup FTP få at starte server på port"
 
 msgid "Process canceled."
-msgstr "Handling Afbrudt."
+msgstr "Handling annulleret."
 
 msgid "ProgressBar Bottom/Left"
 msgstr "ProgresBar Bund/Venstre"
@@ -1030,10 +1036,10 @@ msgid "Random"
 msgstr "Tilfældig"
 
 msgid "Reboot failed"
-msgstr "Reboot Fejlede"
+msgstr "Reboot fejlede"
 
 msgid "Receiving file..."
-msgstr "Modtager Fil..."
+msgstr "Modtager fil..."
 
 msgid "Reconnect FTP"
 msgstr "Genforbind FTP"
@@ -1048,7 +1054,7 @@ msgid "Reload"
 msgstr "Genindlæs"
 
 msgid "Remove from list"
-msgstr "Fjern Fra Liste"
+msgstr "Fjern fra liste"
 
 msgid "Rename"
 msgstr "Omdøb"
@@ -1063,7 +1069,7 @@ msgid "Retry"
 msgstr "Forsøg igen"
 
 msgid "Right Button"
-msgstr "Højre Knap"
+msgstr "Højre knap"
 
 msgid "Rotate"
 msgstr "Roter"
@@ -1072,7 +1078,7 @@ msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr "Afspilling Af Video Kan Nedsætte Farten På Processen Eller Fryse Prg. Vil Du Fortsætte?"
+msgstr "Afspilling af video kan nedsætte farten på processen eller fryse dette prg. Vil du fortsætte?"
 
 msgid "SMB Name:"
 msgstr "SMB-navn:"
@@ -1090,16 +1096,16 @@ msgid "Screenshot Format"
 msgstr ""
 
 msgid "Screenshot Hold Button"
-msgstr "Screenshot Hold Knap"
+msgstr "Screenshot hold knap"
 
 msgid "Screenshot Path"
-msgstr "Screenshot Sti"
+msgstr "Screenshot sti"
 
 msgid "Screenshot Press Button"
-msgstr "Screenshot Pres Knap"
+msgstr "Screenshot pres knap"
 
 msgid "Scrolling Speed"
-msgstr "Scrolling Hastighed"
+msgstr "Scrolling hastighed"
 
 msgid "Server was shutdown...\n"
 msgstr "Server var lukket ned...\n"
@@ -1121,28 +1127,28 @@ msgid "Show Changelog"
 msgstr "Vis Changelog"
 
 msgid "Shutdown"
-msgstr "Luk Ned"
+msgstr "Luk ned"
 
 msgid "Shutdown FTP"
-msgstr "Luk FTP Ned"
+msgstr "Luk FTP ned"
 
 msgid "Shutdown the Wii?"
-msgstr "Luk Wiién Ned?"
+msgstr "Luk Wiien ned?"
 
 msgid "Size:"
 msgstr "Størrelse:"
 
 msgid "Slide Show Button"
-msgstr "Slide Show Knap"
+msgstr "Slide show knap"
 
 msgid "Slideshow Delay"
-msgstr "Slideshow Forsinkelse"
+msgstr "Slideshow forsinkelse"
 
 msgid "Sound Settings"
-msgstr "Lyd Indstillinger"
+msgstr "Lyd indstillinger"
 
 msgid "Soundblock Size"
-msgstr "Lydblock Størrelse"
+msgstr "Lydblock størrelse"
 
 msgid "Soundblocks"
 msgstr "Lydblokke"
@@ -1157,7 +1163,7 @@ msgid "Startup FTP"
 msgstr ""
 
 msgid "Temporary Path"
-msgstr "Midlertidig Sti"
+msgstr "Midlertidig sti"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Buffer størrelse er meget høj. Hvis Prg. ikke starter efter dette slet din config fil."
@@ -1166,40 +1172,43 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "Effekten vil virke ved næste musik afspilling. Det ødelægger muligvis musik afspilling."
 
 msgid "The new font could not be loaded."
-msgstr "Den Nye Font Kunne Ikke Loades."
+msgstr "Den nye font kunne ikke indlæses."
 
 msgid "The new font is loaded."
-msgstr "Den Nye Font Er Loadet."
+msgstr "Den nye font er indlæst."
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "Hele DevkitPro- & libogc-staben."
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "Denne mulighed kan ødelægge pdf view."
 
+msgid "Time left:"
+msgstr ""
+
 msgid "To Idle"
-msgstr "Til Idle"
+msgstr "Til idle"
 
 msgid "To Loader"
-msgstr "Til Loader"
+msgstr "Til loader"
 
 msgid "To Menu"
-msgstr "Til Menu"
+msgstr "Til menu"
 
 msgid "To Standby"
-msgstr "Til Pause"
+msgstr "Til pause"
 
 msgid "Total Space:"
-msgstr "Total Plads:"
+msgstr "Total plads:"
 
 msgid "Transfer cancelled."
-msgstr "Overførsel afbrudt."
+msgstr "Overførsel annulleret."
 
 msgid "Transfer failed"
 msgstr "Overførslen mislykkedes"
 
 msgid "Transfer failed."
-msgstr "Overførslen Mislykkedes."
+msgstr "Overførslen mislykkedes."
 
 msgid "Transfering files:"
 msgstr "Overfører filer:"
@@ -1214,19 +1223,19 @@ msgid "Unable to create folder."
 msgstr "Kan ikke oprette mappe."
 
 msgid "Unable to load path."
-msgstr "Kan Ikke Indlæse Sti."
+msgstr "Kan ikke indlæse sti."
 
 msgid "Unable to load the device."
-msgstr "Kan Ikke Indlæse Enhed."
+msgstr "Kan ikke indlæse enhed."
 
 msgid "Unsupported format!"
-msgstr "Format Ikke Understøttet!"
+msgstr "Format ikke understøttet!"
 
 msgid "Up Button"
-msgstr "Op Knap"
+msgstr "Op knap"
 
 msgid "Update (App) Path"
-msgstr "Opdateringssti til programmet"
+msgstr "Opdateringssti til WiiExplorer"
 
 msgid "Update App"
 msgstr "Opdatér prg."
@@ -1241,7 +1250,7 @@ msgid "Update Path changed."
 msgstr "Opdateringsstien ændret."
 
 msgid "Update failed"
-msgstr "Opdatering Fejlede"
+msgstr "Opdatering mislykkedes"
 
 msgid "Update successfully finished"
 msgstr "Opdateringen gennemført"
@@ -1251,7 +1260,7 @@ msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr "Opdatere/Downloader Sprogfiler."
+msgstr "Opdatere/Downloader sprogfiler."
 
 msgid "Username:"
 msgstr "Brugernavn:"
@@ -1260,7 +1269,7 @@ msgid "Vertical"
 msgstr "Lodret"
 
 msgid "Video Files"
-msgstr "Video Filer"
+msgstr "Video filer"
 
 msgid "WARNING:"
 msgstr "ADVARSEL:"
@@ -1356,19 +1365,19 @@ msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
 
 msgid "WiiXplorer Default Music"
-msgstr "WiiXplorer Standard Musik"
+msgstr "WiiXplorer standard musikafspiller"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "WiiXplorer MD5 regnemaskine\n"
 
 msgid "WiiXplorer Movies"
-msgstr "WiiXplorer Film"
+msgstr "WiiXplorer film"
 
 msgid "Yes"
 msgstr "Ja"
 
 msgid "Yes to all"
-msgstr "Ja Til Alle"
+msgstr "Ja til alle"
 
 msgid "You can not cut into the directory itself."
 msgstr "Du kan ikke sætte ind i samme mappe."
@@ -1380,25 +1389,25 @@ msgid "ZXCVBNM<>?"
 msgstr ""
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "Zoom ind knap"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "Zoom ud knap"
 
 msgid "`1234567890-"
 msgstr ""
 
 msgid "and all the translators."
-msgstr "Og Alle Hans Oversætter."
+msgstr "Og alle hans oversættere."
 
 msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "for his FTP Server source."
-msgstr "For Hans FTP Server Source."
+msgstr "For hans FTP server source."
 
-msgid "for his great tool LibWiiGui."
-msgstr "for hans fantastiske LibWiiGui."
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1409,11 +1418,17 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "Hele DevkitPro- & libogc-staben."
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "for hans fantastiske LibWiiGui."
+
 #~ msgid "Download Files"
-#~ msgstr "Download Filer"
+#~ msgstr "Download filer"
 
 #~ msgid "Not enough memory 2."
-#~ msgstr "Ikke Nok Hukommelse 2."
+#~ msgstr "Ikke nok hukommelse 2."
 
 #~ msgid "Priority High"
 #~ msgstr "Prioritet Høj"
@@ -1431,7 +1446,7 @@ msgstr ""
 #~ msgstr "Prioritet Normal"
 
 #~ msgid "Extract first and open than."
-#~ msgstr "Udpak Først Og Åben Bagefter."
+#~ msgstr "Udpak først og åben bagefter."
 
 #~ msgid "Open"
 #~ msgstr "Åben"
@@ -1440,22 +1455,22 @@ msgstr ""
 #~ msgstr "Åbning er ikke mulig endnu"
 
 #~ msgid "Can't read file:"
-#~ msgstr "Kan Ikke Læse Fil:"
+#~ msgstr "Kan ikke læse fil:"
 
 #~ msgid "User %i"
 #~ msgstr "Bruger %i"
 
 #~ msgid "Play Directory"
-#~ msgstr "Afspil Mappe"
+#~ msgstr "Afspil mappe"
 
 #~ msgid "User:"
 #~ msgstr "Bruger:"
 
 #~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "Vil du Genforbinde til SMB?"
+#~ msgstr "Vil du genforbinde til SMB?"
 
 #~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "Vil Du Genforbinde Til FTP Server?"
+#~ msgstr "Vil du genforbinde til FTP server?"
 
 #~ msgid "App Path"
 #~ msgstr "Prg. Sti"
@@ -1464,7 +1479,7 @@ msgstr ""
 #~ msgstr "Vil du åbne filen i TextViewer?"
 
 #~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "Vil Du Gå Til System Menuen?"
+#~ msgstr "Vil du gå til system menuen?"
 
 #~ msgid "Do you want to load app default language ?"
 #~ msgstr "Vil du indlæse programmets standardsprog?"
@@ -1488,16 +1503,16 @@ msgstr ""
 #~ msgstr "FTP Stoppet"
 
 #~ msgid "Internal error"
-#~ msgstr "Indtern Fejl"
+#~ msgstr "Indtern fejl"
 
 #~ msgid "Server started"
-#~ msgstr "Server Startet"
+#~ msgstr "Server startet"
 
 #~ msgid "Server stopped"
-#~ msgstr "Server Stoppet"
+#~ msgstr "Server stoppet"
 
 #~ msgid "Server waits for client"
-#~ msgstr "Sever Venter På Klient"
+#~ msgstr "Server venter på klient"
 
 #~ msgid "Do you want to open this file with ImageViewer?"
 #~ msgstr "Vil du åbne filen i ImageViewer?"
@@ -1605,7 +1620,7 @@ msgstr ""
 #~ msgstr "Ingen netforbindelse"
 
 #~ msgid "Can't load any device"
-#~ msgstr "Kan ikke indlæse nogle enheder"
+#~ msgstr "Kan ikke indlæse enheder"
 
 #~ msgid "Change Settings"
 #~ msgstr "Skift indstillinger"

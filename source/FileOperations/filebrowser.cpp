@@ -355,21 +355,9 @@ bool FileBrowser::ParseDirEntries()
 
 		memset(&(browserList[browser.numEntries+i]), 0, sizeof(BROWSERENTRY)); // clear the new entry
 
-		strncpy(browserList[browser.numEntries+i].filename, filename, MAXJOLIET);
+		snprintf(browserList[browser.numEntries+i].filename, MAXJOLIET, filename);
 		browserList[browser.numEntries+i].length = filestat.st_size;
 		browserList[browser.numEntries+i].isdir = (filestat.st_mode & S_IFDIR) ? true : false; // flag this as a dir
-
-		if(browserList[browser.numEntries+i].isdir)
-		{
-			if(strcmp(filename, "..") == 0)
-				sprintf(browserList[browser.numEntries+i].displayname, "..");
-			else
-				strncpy(browserList[browser.numEntries+i].displayname, browserList[browser.numEntries+i].filename, MAXJOLIET);
-		}
-		else
-		{
-		    strncpy(browserList[browser.numEntries+i].displayname, browserList[browser.numEntries+i].filename, MAXJOLIET);
-        }
 	}
 
 	// Sort the file list

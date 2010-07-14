@@ -109,7 +109,7 @@ CreditWindow::CreditWindow()
     i++;
     y += 28;
 
-    snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool LibWiiGui."));
+    snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool libwiigui."));
     Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Entrie[i]->SetPosition(x,y);
@@ -123,7 +123,7 @@ CreditWindow::CreditWindow()
     i++;
     y += 28;
 
-    Entrie[i] = new GuiText(tr("The whole DevkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
+    Entrie[i] = new GuiText(tr("The whole devkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
     Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Entrie[i]->SetPosition(x,y);
     i++;

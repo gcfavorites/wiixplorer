@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:54+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -14,15 +14,17 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i 错误冲突。关于更多信息检查MD5.log。"
 
 msgid "--------------------------------------------------\n"
-msgstr ""
+msgstr "--------------------------------------------------\n"
 
 msgid ""
 "--------------------------------------------------\n"
 "\n"
 msgstr ""
+"--------------------------------------------------\n"
+"\n"
 
 msgid "1"
 msgstr ""
@@ -82,7 +84,7 @@ msgid "Back Button"
 msgstr "返回按钮"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "目录返回按钮"
 
 msgid "Background Bottom/Left"
 msgstr "背景按钮下或左"
@@ -121,10 +123,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC校验文件错误。密码错误？"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "正在计算MD5.。。"
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "正在计算全部大小。。。"
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -170,19 +172,23 @@ msgstr "频道"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "已检查到 %i 个文件在 %i 文件夹中。\n"
 
 #, c-format
 msgid ""
 "Checking directory: %s\n"
 "\n"
 msgstr ""
+"正在检查目录：%s\n"
+"\n"
 
 #, c-format
 msgid ""
 "Checking file: %s\n"
 "\n"
 msgstr ""
+"正在检查文件：%s\n"
+"\n"
 
 msgid "Clear"
 msgstr "清除"
@@ -442,28 +448,30 @@ msgstr "编辑文本行按钮"
 #, c-format
 msgid "Encountered %i error(s).\n"
 msgstr ""
+"冲突%i个错误。\n"
+" "
 
 msgid "Enter"
 msgstr "进入"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "错误 - %s 不是一个文件\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "错误 - 无法打开目录：%s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "错误 - 无法打开文件：%s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "错误 - 内存不足： %s\n"
 
 msgid "Error while reading file."
-msgstr "错误"
+msgstr "读取文件错误"
 
 msgid "Error:"
 msgstr "错误"
@@ -602,7 +610,7 @@ msgid "Folder"
 msgstr "文件夹"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "文件夹"
 
 msgid "Font Files"
 msgstr "字体文件"
@@ -665,10 +673,10 @@ msgid "Green"
 msgstr "绿色"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "校验完成。"
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "哈希校验成功完成。"
 
 msgid "Hide System Files/Folders"
 msgstr "隐藏系统文件或者文件夹"
@@ -803,7 +811,7 @@ msgid "Loading image..."
 msgstr "读取图片中..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "日志保存在md5.log文件中"
 
 msgid "Loop"
 msgstr "循环"
@@ -815,10 +823,10 @@ msgid "Low"
 msgstr "低"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "MD5 检查"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "无法创建MD5 日志文件。"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
@@ -842,13 +850,13 @@ msgid "Mount NTFS"
 msgstr "挂载NTFS分区"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "正在挂载光盘"
 
 msgid "Moving item(s):"
 msgstr "正在移动项目："
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "多选项"
 
 msgid "Music Loop Mode"
 msgstr "音乐循环模式"
@@ -1171,11 +1179,14 @@ msgstr "无法读取新字库。"
 msgid "The new font is loaded."
 msgstr "新字库已读取"
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "基于Devkitpro和libogc开发"
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "此选项会造成pdf查看混乱。"
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "到空闲"
@@ -1380,10 +1391,10 @@ msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "缩小按钮"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "放大按钮"
 
 msgid "`1234567890-"
 msgstr "`1234567890-"
@@ -1397,8 +1408,8 @@ msgstr "asdfghjkl;'="
 msgid "for his FTP Server source."
 msgstr "用于FTP服务资源"
 
-msgid "for his great tool LibWiiGui."
-msgstr "使用了LibWiiGui这个图形工具"
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"
@@ -1408,6 +1419,12 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "基于Devkitpro和libogc开发"
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "使用了LibWiiGui这个图形工具"
 
 #~ msgid "Download Files"
 #~ msgstr "下载文件"

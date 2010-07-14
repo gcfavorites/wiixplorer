@@ -78,6 +78,7 @@ Features:
  * Textediting support
  * PDF Viewing support
  * Integrated FTP Server and FTP Client
+ * MD5 Calculator and Logger
  * Auto-Update feature
 
 Credits:

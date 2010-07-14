@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:36+0200\n"
 "PO-Revision-Date: 2010-07-01 14:48+0200\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: Screemer, ilduderino, ZEN.13\n"
@@ -1171,11 +1171,14 @@ msgstr "Die neue Schriftart konnte nicht geladen werden."
 msgid "The new font is loaded."
 msgstr "Die neue Schriftart wurde geladen."
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "Das ganze DevkitPro & libogc Team."
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "Diese Option kann die PDF Ansicht versauen."
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "WiiConnect24 an"
@@ -1397,8 +1400,8 @@ msgstr ""
 msgid "for his FTP Server source."
 msgstr "für seinen FTP Server Quellcode."
 
-msgid "for his great tool LibWiiGui."
-msgstr "für sein großartiges Tool LibWiiGui."
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1408,6 +1411,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "Das ganze DevkitPro & libogc Team."
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "für sein großartiges Tool LibWiiGui."
 
 #~ msgid "Download Files"
 #~ msgstr "Herunterladen"

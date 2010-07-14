@@ -46,7 +46,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 
     if(choice == ArcExtractFile)
     {
-        int ret = WindowPrompt(tr("Extract the selected item(s)?"), browser->GetCurrentDisplayname(), tr("Yes"), tr("Cancel"));
+        int ret = WindowPrompt(tr("Extract the selected item(s)?"), browser->GetCurrentName(), tr("Yes"), tr("Cancel"));
         if(ret <= 0)
             return;
 
@@ -237,7 +237,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
             }
         }
     }
-    else if(choice >= 0 && choice != PASTE && choice != NEWFOLDER)
+    else if(choice >= 0 && choice != PASTE && choice != NEWFOLDER && choice != PROPERTIES)
         WindowPrompt(tr("You cant use this operation on:"), tr("Directory .."), tr("OK"));
 
     if(choice == PASTE)
@@ -285,7 +285,18 @@ void ProcessChoice(FileBrowser * browser, int choice)
     {
         browser->UnMarkCurrentItem();
         browser->MarkCurrentItem();
-        Properties * Prompt = new Properties(browser->GetItemMarker());
+        ItemMarker * Marker = browser->GetItemMarker();
+
+        if(Marker->GetItemcount() == 0)
+        {
+            ItemStruct * Item = new ItemStruct;
+            memset(Item, 0, sizeof(ItemStruct));
+            Item->itempath = strdup(browser->GetCurrentPath());
+            Item->isdir = true;
+            Marker->AddItem(Item);
+        }
+
+        Properties * Prompt = new Properties(Marker);
         Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
         MainWindow::Instance()->SetDim(true);
         MainWindow::Instance()->Append(Prompt);
@@ -296,6 +307,6 @@ void ProcessChoice(FileBrowser * browser, int choice)
         delete Prompt;
         Prompt = NULL;
         MainWindow::Instance()->SetDim(false);
-        browser->GetItemMarker()->Reset();
+        Marker->Reset();
     }
 }

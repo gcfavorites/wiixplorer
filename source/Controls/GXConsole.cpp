@@ -68,10 +68,11 @@ void GXConsole::printf(const char *format, ...)
             AddText(wtext);
             delete [] wtext;
 	    }
-
-		free(tmp);
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
 
 void GXConsole::AddText(const wchar_t * inText)
