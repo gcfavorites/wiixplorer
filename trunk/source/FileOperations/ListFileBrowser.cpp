@@ -67,41 +67,6 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
-
-	for(int i=0; i<PAGESIZE; i++)
-	{
-		fileListText[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-		fileListText[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-		fileListText[i]->SetPosition(10,0);
-		fileListText[i]->SetMaxWidth(this->GetWidth() - (90), DOTTED);
-
-		fileListTextOver[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-		fileListTextOver[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-		fileListTextOver[i]->SetPosition(10,0);
-		fileListTextOver[i]->SetMaxWidth(this->GetWidth() - (100), SCROLL_HORIZONTAL);
-
-		fileListBg[i] = new GuiImage(bgFileSelectionEntry);
-		fileListArchives[i] = new GuiImage(fileArchives);
-		fileListDefault[i] = new GuiImage(fileDefault);
-		fileListFolder[i] = new GuiImage(fileFolder);
-		fileListGFX[i] = new GuiImage(fileGFX);
-		fileListPLS[i] = new GuiImage(filePLS);
-		fileListSFX[i] = new GuiImage(fileSFX);
-		fileListTXT[i] = new GuiImage(fileTXT);
-		fileListXML[i] = new GuiImage(fileXML);
-		fileListVID[i] = new GuiImage(fileVID);
-		fileListPDF[i] = new GuiImage(filePDF);
-
-		fileList[i] = new GuiButton(507,30);
-		fileList[i]->SetParent(this);
-		fileList[i]->SetLabel(fileListText[i]);
-		fileList[i]->SetLabelOver(fileListTextOver[i]);
-		fileList[i]->SetImageOver(fileListBg[i]);
-		fileList[i]->SetPosition(7,30*i+3);
-		fileList[i]->SetTrigger(trigA);
-		fileList[i]->SetSoundClick(btnSoundClick);
-		fileList[i]->Clicked.connect(this, &ListFileBrowser::OnClicked);
-	}
 }
 
 /**
@@ -128,23 +93,169 @@ ListFileBrowser::~ListFileBrowser()
 
 	delete scrollbar;
 
-	for(int i=0; i<PAGESIZE; i++)
-	{
-		delete fileListText[i];
-		delete fileListTextOver[i];
-		delete fileList[i];
-		delete fileListBg[i];
-		delete fileListArchives[i];
-		delete fileListDefault[i];
-		delete fileListFolder[i];
-		delete fileListGFX[i];
-		delete fileListPLS[i];
-		delete fileListSFX[i];
-		delete fileListTXT[i];
-		delete fileListXML[i];
-		delete fileListVID[i];
-		delete fileListPDF[i];
-	}
+	while(fileBtn.size() > 0)
+        RemoveButton(0);
+}
+
+void ListFileBrowser::AddButton()
+{
+    int size = fileBtn.size();
+
+    fileBtnText.resize(size+1);
+    fileBtnText[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+    fileBtnText[size]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+    fileBtnText[size]->SetPosition(32,0);
+    fileBtnText[size]->SetMaxWidth(this->GetWidth() - 200, DOTTED);
+
+    fileBtnTextOver.resize(size+1);
+    fileBtnTextOver[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+    fileBtnTextOver[size]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+    fileBtnTextOver[size]->SetPosition(32,0);
+    fileBtnTextOver[size]->SetMaxWidth(this->GetWidth() - 220, SCROLL_HORIZONTAL);
+
+    fileSizeText.resize(size+1);
+    fileSizeText[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+    fileSizeText[size]->SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
+    fileSizeText[size]->SetPosition(0,0);
+
+    fileSelectionImg.resize(size+1);
+    fileSelectionImg[size] = new GuiImage(bgFileSelectionEntry);
+
+    fileBtnIcon.resize(size+1);
+    fileBtnIcon[size] = NULL;
+
+    fileBtn.resize(size+1);
+    fileBtn[size] = new GuiButton(507,30);
+    fileBtn[size]->SetParent(this);
+    fileBtn[size]->SetLabel(fileBtnText[size], 0);
+    fileBtn[size]->SetLabel(fileSizeText[size], 1);
+    fileBtn[size]->SetLabelOver(fileBtnTextOver[size]);
+    fileBtn[size]->SetImageOver(fileSelectionImg[size]);
+    fileBtn[size]->SetPosition(15,30*size+3);
+    fileBtn[size]->SetTrigger(trigA);
+    fileBtn[size]->SetSoundClick(btnSoundClick);
+    fileBtn[size]->Clicked.connect(this, &ListFileBrowser::OnClicked);
+}
+
+void ListFileBrowser::RemoveButton(int i)
+{
+    if(i < 0 || i >= (int) fileBtn.size())
+        return;
+
+    if(fileBtnText[i])
+        delete fileBtnText[i];
+    if(fileBtnTextOver[i])
+        delete fileBtnTextOver[i];
+    if(fileSizeText[i])
+        delete fileSizeText[i];
+    if(fileSelectionImg[i])
+        delete fileSelectionImg[i];
+    if(fileBtnIcon[i])
+        delete fileBtnIcon[i];
+    if(fileBtn[i])
+        delete fileBtn[i];
+
+    fileBtnText.erase(fileBtnText.begin()+i);
+    fileBtnTextOver.erase(fileBtnTextOver.begin()+i);
+    fileSizeText.erase(fileSizeText.begin()+i);
+    fileSelectionImg.erase(fileSelectionImg.begin()+i);
+    fileBtnIcon.erase(fileBtnIcon.begin()+i);
+    fileBtn.erase(fileBtn.begin()+i);
+}
+
+void ListFileBrowser::SetButton(int i, const char * name, u64 filesize, bool dir, bool enable)
+{
+    if(i < 0)
+        return;
+
+    else if(i >= (int) fileBtn.size())
+    {
+        AddButton();
+    }
+
+    if(!enable)
+    {
+        fileBtn[i]->SetVisible(false);
+        fileBtn[i]->SetState(STATE_DISABLED);
+        return;
+    }
+
+    if(fileBtnIcon[i])
+        delete fileBtnIcon[i];
+
+    fileBtnIcon[i] = GetIconFromExt((name ? strrchr(name, '.') : NULL), dir);
+
+    fileBtnText[i]->SetText(name);
+    fileBtnTextOver[i]->SetText(name);
+
+    if(!dir)
+    {
+        char temp[100];
+        if(filesize > KBSIZE && filesize < MBSIZE)
+            sprintf(temp, "%0.1fKB", filesize/KBSIZE);
+        else if(filesize > MBSIZE && filesize < GBSIZE)
+            sprintf(temp, "%0.1fMB", filesize/MBSIZE);
+        else if(filesize > GBSIZE)
+            sprintf(temp, "%0.1fGB", filesize/GBSIZE);
+        else
+            sprintf(temp, "%LiB", filesize);
+
+        fileSizeText[i]->SetText(temp);
+    }
+    else
+    {
+        fileSizeText[i]->SetText((char *) NULL);
+    }
+
+    fileBtn[i]->SetIcon(fileBtnIcon[i]);
+    fileBtn[i]->SetVisible(true);
+
+    if(fileBtn[i]->GetState() == STATE_DISABLED)
+        fileBtn[i]->SetState(STATE_DEFAULT);
+}
+
+GuiImage * ListFileBrowser::GetIconFromExt(const char * fileext, bool dir)
+{
+    if(dir)
+        return (new GuiImage(fileFolder));
+
+    if(fileext)
+    {
+        if(Settings.FileExtensions.CompareImage(fileext) == 0)
+        {
+            return (new GuiImage(fileGFX));
+        }
+        else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
+        {
+            return (new GuiImage(fileSFX));
+        }
+        else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0)
+        {
+            return (new GuiImage(filePLS));
+        }
+        else if(strcasecmp(fileext, ".txt") == 0)
+        {
+            return (new GuiImage(fileTXT));
+        }
+        else if(strcasecmp(fileext, ".xml") == 0)
+        {
+            return (new GuiImage(fileXML));
+        }
+        else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0 || Settings.FileExtensions.CompareArchive(fileext) == 0)
+        {
+            return (new GuiImage(fileArchives));
+        }
+        else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
+        {
+            return (new GuiImage(fileVID));
+        }
+        else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
+        {
+            return (new GuiImage(filePDF));
+        }
+    }
+
+    return (new GuiImage(fileDefault));
 }
 
 void ListFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
@@ -154,11 +265,11 @@ void ListFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
 
 void ListFileBrowser::SetSelected(int i)
 {
-    if(i < 0 || i >= PAGESIZE)
+    if(i < 0 || i >= (int) fileBtn.size())
         return;
 
     selectedItem = i;
-    fileList[selectedItem]->SetState(STATE_SELECTED);
+    fileBtn[selectedItem]->SetState(STATE_SELECTED);
 }
 
 void ListFileBrowser::ResetState()
@@ -167,9 +278,9 @@ void ListFileBrowser::ResetState()
 	stateChan = -1;
 	selectedItem = 0;
 
-	for(int i=0; i<PAGESIZE; i++)
+	for(u32 i = 0; i< fileBtn.size(); i++)
 	{
-		fileList[i]->ResetState();
+		fileBtn[i]->ResetState();
 	}
 }
 
@@ -181,9 +292,9 @@ void ListFileBrowser::Draw()
 	if(!this->IsVisible())
 		return;
 
-	for(int i=0; i<PAGESIZE; i++)
+	for(u32 i = 0; i < fileBtn.size(); i++)
 	{
-		fileList[i]->Draw();
+		fileBtn[i]->Draw();
 	}
 
 	scrollbar->Draw();
@@ -234,16 +345,16 @@ void ListFileBrowser::Update(GuiTrigger * t)
 	{
 		if(browser->GetPageIndex() + selectedItem + 1 < browser->GetEntrieCount())
 		{
-			if(selectedItem == PAGESIZE-1)
+			if(selectedItem == (int) fileBtn.size()-1)
 			{
 				// move list down by 1
 				browser->SetPageIndex(browser->GetPageIndex()+1);
 				listChanged = true;
 			}
-			else if(fileList[selectedItem+1]->IsVisible())
+			else if((int) fileBtn.size() > selectedItem+1 && fileBtn[selectedItem+1]->IsVisible())
 			{
-				fileList[selectedItem]->ResetState();
-				fileList[++selectedItem]->SetState(STATE_SELECTED, t->chan);
+				fileBtn[selectedItem]->ResetState();
+				fileBtn[++selectedItem]->SetState(STATE_SELECTED, t->chan);
 			}
 		}
 	}
@@ -255,10 +366,10 @@ void ListFileBrowser::Update(GuiTrigger * t)
 			browser->SetPageIndex(browser->GetPageIndex()-1);
 			listChanged = true;
 		}
-		else if(selectedItem > 0)
+		else if((int) fileBtn.size() > selectedItem && selectedItem > 0)
 		{
-			fileList[selectedItem]->ResetState();
-			fileList[--selectedItem]->SetState(STATE_SELECTED, t->chan);
+			fileBtn[selectedItem]->ResetState();
+			fileBtn[--selectedItem]->SetState(STATE_SELECTED, t->chan);
 		}
 	}
 
@@ -269,97 +380,34 @@ void ListFileBrowser::Update(GuiTrigger * t)
         listChanged = true;
 	}
 
-	for(int i=0; i<PAGESIZE; i++)
+	for(int i = 0; i < PAGESIZE; i++)
 	{
 		if(listChanged)
 		{
 			if(browser->GetPageIndex()+i < browser->GetEntrieCount())
 			{
-				if(fileList[i]->GetState() == STATE_DISABLED)
-					fileList[i]->SetState(STATE_DEFAULT);
-
-				fileList[i]->SetVisible(true);
-
-				fileListText[i]->SetText(browser->GetItemDisplayname(browser->GetPageIndex()+i));
-				fileListTextOver[i]->SetText(browser->GetItemDisplayname(browser->GetPageIndex()+i));
-
-				if(browser->IsDir(browser->GetPageIndex()+i)) // directory
-				{
-					fileList[i]->SetIcon(fileListFolder[i]);
-					fileListText[i]->SetPosition(30,0);
-					fileListTextOver[i]->SetPosition(30,0);
-				}
-				else
-				{
-				    char *fileext = strrchr(browser->GetItemDisplayname(browser->GetPageIndex()+i), '.');
-					fileListText[i]->SetPosition(32,0);
-					fileListTextOver[i]->SetPosition(32,0);
-				    if(fileext)
-				    {
-                        if(Settings.FileExtensions.CompareImage(fileext) == 0)
-                        {
-                            fileList[i]->SetIcon(fileListGFX[i]);
-                        }
-                        else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
-                        {
-                            fileList[i]->SetIcon(fileListSFX[i]);
-                        }
-                        else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0)
-                        {
-                            fileList[i]->SetIcon(fileListPLS[i]);
-                        }
-                        else if(strcasecmp(fileext, ".txt") == 0)
-                        {
-                            fileList[i]->SetIcon(fileListTXT[i]);
-                        }
-                        else if(strcasecmp(fileext, ".xml") == 0)
-                        {
-                            fileList[i]->SetIcon(fileListXML[i]);
-                        }
-                        else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0 || Settings.FileExtensions.CompareArchive(fileext) == 0)
-                        {
-                            fileList[i]->SetIcon(fileListArchives[i]);
-                        }
-                        else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
-                        {
-                            fileList[i]->SetIcon(fileListVID[i]);
-                        }
-                        else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
-                        {
-                            fileList[i]->SetIcon(fileListPDF[i]);
-                        }
-                        else
-                        {
-                            fileList[i]->SetIcon(fileListDefault[i]);
-                        }
-				    }
-				    else
-				    {
-                        fileList[i]->SetIcon(fileListDefault[i]);
-				    }
-				}
+				SetButton(i, browser->GetItemName(browser->GetPageIndex()+i), browser->GetFilesize(browser->GetPageIndex()+i), browser->IsDir(browser->GetPageIndex()+i), true);
 			}
 			else
 			{
-				fileList[i]->SetVisible(false);
-				fileList[i]->SetState(STATE_DISABLED);
+				SetButton(i, NULL, 0, false, false);
 			}
 		}
 
-		if(i != selectedItem && fileList[i]->GetState() == STATE_SELECTED)
-			fileList[i]->ResetState();
-		else if(i == selectedItem && fileList[i]->GetState() == STATE_DEFAULT)
-			fileList[selectedItem]->SetState(STATE_SELECTED, t->chan);
+		if(i != selectedItem && fileBtn[i]->GetState() == STATE_SELECTED)
+			fileBtn[i]->ResetState();
+		else if(i == selectedItem && fileBtn[i]->GetState() == STATE_DEFAULT)
+			fileBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
 
 		int currChan = t->chan;
 
-		if(t->wpad->ir.valid && !fileList[i]->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+		if(t->wpad->ir.valid && !fileBtn[i]->IsInside(t->wpad->ir.x, t->wpad->ir.y))
 			t->chan = -1;
 
-		fileList[i]->Update(t);
+		fileBtn[i]->Update(t);
 		t->chan = currChan;
 
-		if(fileList[i]->GetState() == STATE_SELECTED)
+		if(fileBtn[i]->GetState() == STATE_SELECTED)
 		{
 			selectedItem = i;
 			browser->SetSelectedIndex(browser->GetPageIndex() + i);
@@ -372,7 +420,7 @@ void ListFileBrowser::Update(GuiTrigger * t)
 		{
 		    if(browser->GetPageIndex() + i == IMarker->GetItemIndex(n))
 		    {
-		        fileList[i]->SetState(STATE_SELECTED);
+		        fileBtn[i]->SetState(STATE_SELECTED);
 		    }
 		}
 	}

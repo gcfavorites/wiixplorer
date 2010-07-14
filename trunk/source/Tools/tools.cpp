@@ -37,18 +37,24 @@ extern "C" void ShowError(const char * format, ...)
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
 		WindowPrompt(tr("Error:"), tmp, tr("OK"));
-		free(tmp);
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
 
-extern "C" int cut_bounds(int val, int min, int max)
+extern "C" void ShowMsg(const char * title, const char * format, ...)
 {
-    if(val < min)
-        return min;
+	char *tmp=0;
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va)>=0) && tmp)
+	{
+		WindowPrompt(title, tmp, tr("OK"));
+	}
+	va_end(va);
 
-    else if(val > max)
-        return max;
-
-    return val;
+	if(tmp)
+        free(tmp);
 }

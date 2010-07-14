@@ -30,8 +30,7 @@
 
 #include <gccore.h>
 #include <gd.h>
-
-#define MAX_TPL_TEXTURES    255
+#include <vector>
 
 typedef struct
 {
@@ -91,9 +90,9 @@ class TplImage
         u8 * TPLBuffer;
         u32 TPLSize;
         const TPL_Header * TPLHeader;
-        const TPL_Texture * Texture[MAX_TPL_TEXTURES];
-        const TPL_Texture_Header * TextureHeader[MAX_TPL_TEXTURES];
-        const u8 * TplTextureBuffer[MAX_TPL_TEXTURES];
+        std::vector<const TPL_Texture *> Texture;
+        std::vector<const TPL_Texture_Header *> TextureHeader;
+        std::vector<const u8 *> TplTextureBuffer;
 };
 
 #endif

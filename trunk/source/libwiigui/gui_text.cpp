@@ -134,7 +134,6 @@ GuiText::~GuiText()
 {
 	if(text)
 		delete [] text;
-
 	text = NULL;
 
 	if(font)
@@ -152,6 +151,7 @@ void GuiText::SetText(const char * t)
 
 	if(text)
 		delete [] text;
+    text = NULL;
 
     ClearDynamicText();
 
@@ -170,17 +170,20 @@ void GuiText::SetText(const char * t)
 
 void GuiText::SetTextf(const char *format, ...)
 {
-    LOCK(this);
+    if(!format)
+        SetText((char *) NULL);
 
 	char *tmp=0;
 	va_list va;
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
-		this->SetText(tmp);
-		free(tmp);
+		SetText(tmp);
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
 
 
@@ -190,6 +193,7 @@ void GuiText::SetText(const wchar_t * t)
 
 	if(text)
 		delete [] text;
+    text = NULL;
 
     ClearDynamicText();
 

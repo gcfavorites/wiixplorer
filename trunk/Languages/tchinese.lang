@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:36+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -1171,11 +1171,14 @@ msgstr "新的字型無法被載入。"
 msgid "The new font is loaded."
 msgstr "新的字型已載入。"
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "完整的DevkitPro & libogc staff。"
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "此選項可能弄亂 PDF 的檢視。"
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "到閒置"
@@ -1397,8 +1400,8 @@ msgstr "asdfghjkl;'="
 msgid "for his FTP Server source."
 msgstr "FTP伺服器來源。"
 
-msgid "for his great tool LibWiiGui."
-msgstr "用LibWiiGui很棒的工具。"
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"
@@ -1408,6 +1411,12 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "完整的DevkitPro & libogc staff。"
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "用LibWiiGui很棒的工具。"
 
 #~ msgid "Download Files"
 #~ msgstr "下載檔案"

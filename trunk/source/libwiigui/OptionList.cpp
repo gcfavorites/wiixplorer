@@ -60,13 +60,16 @@ void OptionList::SetName(int i, const char *format, ...)
 	    }
 
 		name.at(i) = new char[strlen(tmp)+1];
-		sprintf(name.at(i), tmp);
-		free(tmp);
+		strcpy(name.at(i), tmp);
 
         listChanged = true;
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
+
 void OptionList::SetValue(int i, const char *format, ...)
 {
     if(i < (int) value.size())
@@ -88,12 +91,14 @@ void OptionList::SetValue(int i, const char *format, ...)
 	    }
 
 		value.at(i) = new char[strlen(tmp)+1];
-		sprintf(value.at(i), tmp);
-		free(tmp);
+		strcpy(value.at(i), tmp);
 
         listChanged = true;
 	}
 	va_end(va);
+
+	if(tmp)
+		free(tmp);
 }
 
 const char * OptionList::GetName(int i)

@@ -28,6 +28,7 @@
 #ifndef __LISTBROWSER_HPP_
 #define __LISTBROWSER_HPP_
 
+#include <vector>
 #include "GuiFileBrowser.hpp"
 #include "Controls/Scrollbar.hpp"
 
@@ -44,26 +45,22 @@ class ListFileBrowser : public GuiFileBrowser
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
+        void AddButton();
+        void SetButton(int i, const char * name, u64 filesize, bool dir, bool enable);
+        void RemoveButton(int i);
+        GuiImage * GetIconFromExt(const char * fileext, bool dir);
         void OnClicked(GuiElement *sender, int pointer, POINT p);
 		int selectedItem;
 		int numEntries;
 		bool listChanged;
 		bool triggerupdate;
 
-		GuiText * fileListText[PAGESIZE];
-		GuiText * fileListTextOver[PAGESIZE];
-		GuiImage * fileListBg[PAGESIZE];
-		GuiImage * fileListArchives[PAGESIZE];
-		GuiImage * fileListDefault[PAGESIZE];
-		GuiImage * fileListFolder[PAGESIZE];
-		GuiImage * fileListGFX[PAGESIZE];
-		GuiImage * fileListPLS[PAGESIZE];
-		GuiImage * fileListSFX[PAGESIZE];
-		GuiImage * fileListTXT[PAGESIZE];
-		GuiImage * fileListXML[PAGESIZE];
-		GuiImage * fileListVID[PAGESIZE];
-		GuiImage * fileListPDF[PAGESIZE];
-		GuiButton * fileList[PAGESIZE];
+		std::vector<GuiText *> fileBtnText;
+		std::vector<GuiText *> fileBtnTextOver;
+		std::vector<GuiText *> fileSizeText;
+		std::vector<GuiImage *> fileSelectionImg;
+		std::vector<GuiImage *> fileBtnIcon;
+		std::vector<GuiButton *> fileBtn;
 
 		Scrollbar * scrollbar;
 

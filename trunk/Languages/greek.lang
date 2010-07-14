@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:36+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -1174,11 +1174,14 @@ msgstr "Η νέα γραμματοσειρά δεν μπορεί να φορτω
 msgid "The new font is loaded."
 msgstr "Η νέα γραμματοσειρά φορτώθηκε."
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "Και όλη την ομάδα DevkitPro & libogc"
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "Αυτή η επιλογή μπορεί να κάνει ανω κάτω την εμφάνιση ενός pdf."
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "Στην αδράνεια"
@@ -1400,8 +1403,8 @@ msgstr ""
 msgid "for his FTP Server source."
 msgstr "για τον FTP Server κώδικα."
 
-msgid "for his great tool LibWiiGui."
-msgstr "για την βιβλιοθήκη LibWiiGui."
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1411,6 +1414,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "Και όλη την ομάδα DevkitPro & libogc"
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "για την βιβλιοθήκη LibWiiGui."
 
 #~ msgid "Download Files"
 #~ msgstr "Κατεβάζω τα αρχεία"

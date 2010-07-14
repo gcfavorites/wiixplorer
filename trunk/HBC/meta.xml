@@ -2,8 +2,8 @@
 <app version="1">
   <name>WiiXplorer</name>
   <coder>Dimok/r-win/dude</coder>
-  <version>r186</version>
-  <release_date>201007131517</release_date>
+  <version>r187</version>
+  <release_date>201007141953</release_date>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
 The GUI is done with libwiigui as base and graphics by NeoRame.
@@ -35,6 +35,7 @@ Features:
  * Textediting support
  * PDF Viewing support
  * Integrated FTP Server and FTP Client
+ * MD5 Calculator and Logger
  * Auto-Update feature
 
 Credits:

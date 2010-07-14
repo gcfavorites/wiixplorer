@@ -91,6 +91,7 @@ class ProgressWindow : public GuiWindow
         GuiText * speedTxt;
         GuiText * sizeTxt;
         GuiText * sizeTotalTxt;
+        GuiText * TimeTxt;;
         GuiText * AbortTxt;
         GuiText * MinimizeTxt;
 

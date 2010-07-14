@@ -210,13 +210,19 @@ void ArchiveBrowser::SetSelectedIndex(int ind)
     SelIndex = ind;
 }
 
-const char * ArchiveBrowser::GetItemDisplayname(int ind)
+const char * ArchiveBrowser::GetItemName(int ind)
 {
+    if(ind < 0 || ind >= (int) PathStructure.size())
+        return NULL;
+
     return PathStructure.at(ind)->filename;
 }
 
 bool ArchiveBrowser::IsDir(int ind)
 {
+    if(ind < 0 || ind >= (int) PathStructure.size())
+        return false;
+
     return PathStructure.at(ind)->isdir;
 }
 
@@ -284,6 +290,14 @@ const char * ArchiveBrowser::GetCurrentPath()
     sprintf(displayPath, "%s/%s", OrigArchiveFilename, currentPath);
 
     return displayPath;
+}
+
+u64 ArchiveBrowser::GetFilesize(int ind)
+{
+    if(ind < 0 || ind > (int) PathStructure.size())
+        return 0;
+
+    return PathStructure.at(ind)->length;
 }
 
 ArchiveFileStruct * ArchiveBrowser::GetItemStructure(int ind)

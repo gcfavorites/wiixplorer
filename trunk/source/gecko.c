@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/iosupport.h>
+#include "Language/gettext.h"
+#include "Tools/tools.h"
 
 #ifdef GEKKO
 #include <stdarg.h>
@@ -11,13 +13,14 @@ static bool geckoinit = false;
 
 static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
 {
-	if (!geckoinit || !ptr || len <= 0)
-		return -1;
+    if(geckoinit && ptr)
+	{
+	    u32 level;
+        level = IRQ_Disable();
+        usb_sendbuffer(1, ptr, len);
+        IRQ_Restore(level);
+	}
 
-	u32 level;
-	level = IRQ_Disable();
-	usb_sendbuffer(1, ptr, len);
-	IRQ_Restore(level);
 	return len;
 }
 
@@ -55,11 +58,12 @@ bool InitGecko()
     if(geckoinit)
         return true;
 
+    USBGeckoOutput();
+
 	u32 geckoattached = usb_isgeckoalive(EXI_CHANNEL_1);
 	if (geckoattached)
 	{
 		usb_flush(EXI_CHANNEL_1);
-		USBGeckoOutput();
 		geckoinit = true;
 		return true;
 	}
@@ -78,9 +82,11 @@ void gprintf(const char * format, ...)
 	if((vasprintf(&tmp, format, va) >= 0) && tmp)
 	{
         usb_sendbuffer(1, tmp, strlen(tmp));
-		free(tmp);
 	}
 	va_end(va);
+
+	if(tmp)
+        free(tmp);
 }
 
 void gsenddata(const u8 *data, int length, const char *filename)

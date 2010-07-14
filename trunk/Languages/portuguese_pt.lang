@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-13 13:00+0200\n"
+"POT-Creation-Date: 2010-07-14 21:36+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -1171,11 +1171,14 @@ msgstr "A nova fonte não pôde ser carregada."
 msgid "The new font is loaded."
 msgstr "A nova fonte foi carregada."
 
-msgid "The whole DevkitPro & libogc staff."
-msgstr "Toda a equipda do DevkitPro e do libogc."
+msgid "The whole devkitPro & libogc staff."
+msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "Esta opção poderá impedir a correcta visualização de ficheiros pdf."
+
+msgid "Time left:"
+msgstr ""
 
 msgid "To Idle"
 msgstr "WiiConnect24"
@@ -1397,8 +1400,8 @@ msgstr "asdfghjklçº~"
 msgid "for his FTP Server source."
 msgstr "pelo código de Servidor FTP."
 
-msgid "for his great tool LibWiiGui."
-msgstr "pela sua excelente ferramenta LibWiiGui."
+msgid "for his great tool libwiigui."
+msgstr ""
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop+'"
@@ -1408,6 +1411,12 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "Toda a equipda do DevkitPro e do libogc."
+
+#~ msgid "for his great tool LibWiiGui."
+#~ msgstr "pela sua excelente ferramenta LibWiiGui."
 
 #~ msgid "Download Files"
 #~ msgstr "Descarregar Ficheiros"

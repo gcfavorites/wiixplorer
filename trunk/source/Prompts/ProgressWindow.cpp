@@ -85,6 +85,7 @@ ProgressWindow::ProgressWindow()
     speedTxt = NULL;
     sizeTxt = NULL;
     sizeTotalTxt = NULL;
+    TimeTxt = NULL;
     AbortTxt = NULL;
     MinimizeTxt = NULL;
     AbortBtn = NULL;
@@ -346,6 +347,11 @@ void ProgressWindow::SetupProgressbar()
 	sizeTxt->SetPosition(50, 155+50);
 	Append(sizeTxt);
 
+    TimeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+    TimeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	TimeTxt->SetPosition(250, 155+50);
+	Append(TimeTxt);
+
 	//! Total progress
     ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
     ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
@@ -408,7 +414,7 @@ void ProgressWindow::UpdateValues()
         return;
 
     //! File progress
-    float Percent = 100.0f*progressDone/progressTotal;
+    float Percent = progressTotal > 0 ? 100.0f*progressDone/progressTotal : 0.0f;
 
     progressbarImg->SetSize((int) (Percent*3.6f), 36);
 
@@ -417,8 +423,22 @@ void ProgressWindow::UpdateValues()
     else
         prTxt->SetTextf("%0.2f", Percent);
 
+    int speed = 0;
+
     if(TimerSize > 0)
-        speedTxt->SetTextf("%iKB/s", (int) (TimerSize/(ProgressTimer.elapsed() * KBSIZE)));
+        speed = (int) (TimerSize/ProgressTimer.elapsed());
+
+    speedTxt->SetTextf("%iKB/s", (int) (speed/KBSIZE));
+
+    int TimeLeft = 0;
+    if(speed > 0)
+        TimeLeft = (TotalSize-(TotalDone+progressDone))/speed;
+
+    u32 h =  TimeLeft / 3600;
+    u32 m = (TimeLeft / 60) % 60;
+    u32 s =  TimeLeft % 60;
+
+    TimeTxt->SetTextf("%s %02i:%02i:%02i", tr("Time left:"), h, m, s);
 
     if(progressTotal > KBSIZE && progressTotal < MBSIZE)
         sizeTxt->SetTextf("%0.2fKB/%0.2fKB", progressDone/KBSIZE, progressTotal/KBSIZE);
@@ -589,6 +609,8 @@ void ProgressWindow::ClearMemory()
         delete sizeTxt;
     if(sizeTotalTxt)
         delete sizeTotalTxt;
+    if(TimeTxt)
+        delete TimeTxt;
     if(AbortTxt)
         delete AbortTxt;
     if(MinimizeTxt)
@@ -625,6 +647,7 @@ void ProgressWindow::ClearMemory()
     speedTxt = NULL;
     sizeTxt = NULL;
     sizeTotalTxt = NULL;
+    TimeTxt = NULL;
     AbortTxt = NULL;
     MinimizeTxt = NULL;
     AbortBtn = NULL;

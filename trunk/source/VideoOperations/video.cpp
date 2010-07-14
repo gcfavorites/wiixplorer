@@ -177,9 +177,6 @@ InitVideo ()
 
 	VIDEO_Configure (vmode);
 
-	// A console is always useful while debugging
-	console_init (xfb[0], 20, 64, vmode->fbWidth, vmode->xfbHeight, vmode->fbWidth * 2);
-
 	// Clear framebuffers etc.
 	VIDEO_ClearFrameBuffer (vmode, xfb[0], COLOR_BLACK);
 	VIDEO_ClearFrameBuffer (vmode, xfb[1], COLOR_BLACK);
@@ -210,11 +207,19 @@ InitVideo ()
  ***************************************************************************/
 void StopGX()
 {
+	GX_DrawDone();
 	GX_AbortFrame();
 	GX_Flush();
 
 	VIDEO_SetBlack(TRUE);
 	VIDEO_Flush();
+
+	for(int i = 0; i < 2; i++)
+	{
+        if(xfb[i])
+            free(xfb[i]);
+        xfb[i] = NULL;
+	}
 }
 
 /****************************************************************************

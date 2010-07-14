@@ -69,9 +69,11 @@ class ArchiveBrowser : public Browser
         ArchiveFileStruct * GetItemStructure(int ind);
         ArchiveFileStruct * GetCurrentItemStructure() { return GetItemStructure(SelIndex); };
         //!Get the name to display in the explorer
-        const char * GetItemDisplayname(int ind);
+        const char * GetItemName(int ind);
         //!Get the name to display in the explorer
-        const char * GetCurrentDisplayname() { return GetItemDisplayname(SelIndex); };
+        const char * GetCurrentName() { return GetItemName(SelIndex); };
+        //!Get the uncompressed size of the item
+        u64 GetFilesize(int ind);
         //!Change the folder
         int ChangeDirectory();
         //!Parse the archive directory into an archive structure

@@ -155,7 +155,8 @@ Properties::Properties(ItemMarker * IMarker)
     }
     else
     {
-        pch = strrchr(filename, '.');
+        if(filename)
+            pch = strrchr(filename, '.');
         if(pch)
             pch += 1;
         else
@@ -199,7 +200,9 @@ Properties::Properties(ItemMarker * IMarker)
     }
 
     struct stat filestat;
-    stat(Marker->GetItemPath(Marker->GetItemcount()-1), &filestat);
+    memset(&filestat, 0, sizeof(struct stat));
+    if(Marker->GetItemcount() > 0)
+        stat(Marker->GetItemPath(Marker->GetItemcount()-1), &filestat);
 
     last_accessTxt = new GuiText(tr("Last access:"), 20, (GXColor){0, 0, 0, 255});
     last_accessTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
