@@ -216,8 +216,7 @@ void StopGX()
 
 	for(int i = 0; i < 2; i++)
 	{
-        if(xfb[i])
-            free(xfb[i]);
+        free(MEM_K1_TO_K0(xfb[i]));
         xfb[i] = NULL;
 	}
 }

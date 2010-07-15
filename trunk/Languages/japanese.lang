@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-14 21:54+0200\n"
+"POT-Creation-Date: 2010-07-15 09:10+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -172,21 +172,11 @@ msgstr "チャンネル"
 msgid "Checked %i file(s) in %i folder(s).\n"
 msgstr "%i個のファイルをチェックしました(%i個のフォルダ内)\n"
 
-#, c-format
-msgid ""
-"Checking directory: %s\n"
-"\n"
+msgid "Checking directory:"
 msgstr ""
-"チェックしたディレクトリ: %s\n"
-"\n"
 
-#, c-format
-msgid ""
-"Checking file: %s\n"
-"\n"
+msgid "Checking file:"
 msgstr ""
-"チェックしたファイル: %s\n"
-"\n"
 
 msgid "Clear"
 msgstr "クリア"
@@ -1176,13 +1166,13 @@ msgid "The new font is loaded."
 msgstr "フォントを読み込みました"
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "devkitPro&libogcの制作者の方々"
 
 msgid "This option could mess up the pdf view."
 msgstr "PDFの表示が崩れる場合があります"
 
 msgid "Time left:"
-msgstr ""
+msgstr "残り時間:"
 
 msgid "To Idle"
 msgstr "スタンバイ"
@@ -1405,7 +1395,7 @@ msgid "for his FTP Server source."
 msgstr "…FTPのソースを制作"
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "…LibWiiGuiの制作者様"
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1415,6 +1405,20 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid ""
+#~ "Checking directory: %s\n"
+#~ "\n"
+#~ msgstr ""
+#~ "チェックしたディレクトリ: %s\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "Checking file: %s\n"
+#~ "\n"
+#~ msgstr ""
+#~ "チェックしたファイル: %s\n"
+#~ "\n"
 
 #~ msgid "The whole DevkitPro & libogc staff."
 #~ msgstr "DevkitPro&libogcの制作者の方々"

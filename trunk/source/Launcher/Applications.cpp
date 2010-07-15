@@ -183,6 +183,8 @@ void Applications::Search()
             }
         }
     }
+
+    std::vector<Application>(applications).swap(applications);
 }
 
 void Applications::Sort()
