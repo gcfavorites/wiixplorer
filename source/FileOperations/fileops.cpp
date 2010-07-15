@@ -41,6 +41,7 @@
 #include "filebrowser.h"
 
 #define BLOCKSIZE               70*1024      //70KB
+#define VectorResize(List) if(List.capacity()-List.size() == 0) List.reserve(List.size()+100)
 
 static bool replaceall = false;
 static bool replacenone = false;
@@ -506,13 +507,14 @@ int CopyFile(const char * src, const char * dest)
 ****************************************************************************/
 static inline void ClearList(std::vector<char *> &List)
 {
-    for(u32 i = 0; i < List.size(); i++)
+    for(u32 i = 0; i < List.size(); ++i)
     {
         if(List[i])
             free(List[i]);
         List[i] = NULL;
     }
     List.clear();
+    std::vector<char *>().swap(List);
 }
 
 /****************************************************************************
@@ -554,11 +556,13 @@ int CopyDirectory(const char * src, const char * dest)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
+                VectorResize(DirList);
                 DirList.push_back(strdup(filename));
             }
         }
         else
         {
+            VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
 	}
@@ -569,8 +573,15 @@ int CopyDirectory(const char * src, const char * dest)
     //! Ensure that empty directories are created
     CreateSubfolder(dest);
 
-    for(u32 i = 0; i < FileList.size(); i++)
+    for(u32 i = 0; i < FileList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
+
         if(FileList[i])
         {
             u32 strsize = strlen(src)+strlen(FileList[i])+1;
@@ -585,9 +596,17 @@ int CopyDirectory(const char * src, const char * dest)
     }
 
     FileList.clear();
+    ClearList(FileList);
 
-    for(u32 i = 0; i < DirList.size(); i++)
+    for(u32 i = 0; i < DirList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
+
         if(DirList[i])
         {
             u32 strsize = strlen(src)+strlen(DirList[i])+2;
@@ -602,6 +621,7 @@ int CopyDirectory(const char * src, const char * dest)
 	}
 
 	DirList.clear();
+    ClearList(DirList);
 
     if(actioncanceled)
         return -10;
@@ -651,11 +671,13 @@ int MoveDirectory(char * src, const char * dest)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
+                VectorResize(DirList);
                 DirList.push_back(strdup(filename));
             }
         }
         else
         {
+            VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
 	}
@@ -666,8 +688,15 @@ int MoveDirectory(char * src, const char * dest)
     //! Ensure that empty directories are created
     CreateSubfolder(dest);
 
-    for(u32 i = 0; i < FileList.size(); i++)
+    for(u32 i = 0; i < FileList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
+
         if(FileList[i])
         {
             u32 strsize = strlen(src)+strlen(FileList[i])+2;
@@ -686,9 +715,17 @@ int MoveDirectory(char * src, const char * dest)
     }
 
     FileList.clear();
+    ClearList(FileList);
 
-    for(u32 i = 0; i < DirList.size(); i++)
+    for(u32 i = 0; i < DirList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
+
         if(DirList[i])
         {
             u32 strsize = strlen(src)+strlen(DirList[i])+2;
@@ -704,6 +741,7 @@ int MoveDirectory(char * src, const char * dest)
 	}
 
 	DirList.clear();
+    ClearList(DirList);
 
 	src[strlen(src)-1] = '\0';
 
@@ -781,11 +819,13 @@ int RemoveDirectory(char * dirpath)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
+                VectorResize(DirList);
                 DirList.push_back(strdup(filename));
             }
         }
         else
         {
+            VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
 	}
@@ -793,8 +833,15 @@ int RemoveDirectory(char * dirpath)
 	free(filename);
 	filename = NULL;
 
-    for(u32 i = 0; i < FileList.size(); i++)
+    for(u32 i = 0; i < FileList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
+
         if(FileList[i])
         {
             u32 strsize = strlen(dirpath)+strlen(FileList[i])+2;
@@ -809,9 +856,16 @@ int RemoveDirectory(char * dirpath)
         }
     }
     FileList.clear();
+    ClearList(FileList);
 
-    for(u32 i = 0; i < DirList.size(); i++)
+    for(u32 i = 0; i < DirList.size(); ++i)
     {
+        if(actioncanceled)
+        {
+            ClearList(DirList);
+            ClearList(FileList);
+            return -10;
+        }
         if(DirList[i])
         {
             char fullpath[strlen(dirpath)+strlen(DirList[i])+2];
@@ -823,6 +877,7 @@ int RemoveDirectory(char * dirpath)
         }
     }
     DirList.clear();
+    ClearList(DirList);
 
 	dirpath[strlen(dirpath)-1] = '\0';
 
@@ -892,6 +947,7 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
+                VectorResize(DirList);
                 DirList.push_back(strdup(filename));
             }
         }
@@ -905,7 +961,7 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 	free(filename);
     filename = NULL;
 
-	for(u32 i = 0; i < DirList.size(); i++)
+	for(u32 i = 0; i < DirList.size(); ++i)
 	{
 	    if(DirList[i])
 	    {
@@ -918,6 +974,7 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 	    }
 	}
     DirList.clear();
+    ClearList(DirList);
 }
 
 /****************************************************************************

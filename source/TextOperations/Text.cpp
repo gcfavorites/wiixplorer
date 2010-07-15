@@ -125,7 +125,7 @@ void Text::SetMaxWidth(int w)
 
 void Text::SetTextLine(int line)
 {
-    curLineStart = cut_bounds(line, 0, TextLines.size()-1);
+    curLineStart = cut_bounds(line, 0, (int) TextLines.size()-1);
 
     FillRows();
 

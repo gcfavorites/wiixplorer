@@ -398,6 +398,7 @@ bool PlayList::ParsePath(const char * filepath)
     }
 
     dirclose(dir);
+    std::vector<char *>(FileList).swap(FileList);
 
     return true;
 }

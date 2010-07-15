@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-14 21:36+0200\n"
+"POT-Creation-Date: 2010-07-15 09:10+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -173,16 +173,10 @@ msgstr ""
 msgid "Checked %i file(s) in %i folder(s).\n"
 msgstr ""
 
-#, c-format
-msgid ""
-"Checking directory: %s\n"
-"\n"
+msgid "Checking directory:"
 msgstr ""
 
-#, c-format
-msgid ""
-"Checking file: %s\n"
-"\n"
+msgid "Checking file:"
 msgstr ""
 
 msgid "Clear"

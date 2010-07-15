@@ -95,13 +95,13 @@ bool MD5Logger::LogMD5(const char * logpath, ItemMarker * Marker, bool showprogr
         if(Marker->IsItemDir(i))
         {
             snprintf(currentpath, sizeof(currentpath), "%s/", Marker->GetItemPath(i));
-            fprintf(LogFile, tr("Checking directory: %s\n\n"), currentpath);
+            fprintf(LogFile, "%s %s\n\n", tr("Checking directory:"), currentpath);
             CalculateDirectory(currentpath, showprogress);
         }
         else
         {
             snprintf(currentpath, sizeof(currentpath), "%s", Marker->GetItemPath(i));
-            fprintf(LogFile, tr("Checking file: %s\n\n"), currentpath);
+            fprintf(LogFile, "%s %s\n\n", tr("Checking file:"), currentpath);
             CalculateFile(currentpath, showprogress);
         }
     }
@@ -253,11 +253,17 @@ bool MD5Logger::CalculateDirectory(const char * path, bool showprogress)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
+                if(DirList.capacity()-DirList.size() == 0)
+                    DirList.reserve(DirList.size()+100);
+
                 DirList.push_back(strdup(filename));
             }
         }
         else
         {
+            if(FileList.capacity()-FileList.size() == 0)
+                FileList.reserve(FileList.size()+100);
+
             FileList.push_back(strdup(filename));
         }
 	}
@@ -283,6 +289,7 @@ bool MD5Logger::CalculateDirectory(const char * path, bool showprogress)
 	    }
 	}
     FileList.clear();
+    ClearList(FileList);
 
 	for(u32 i = 0; i < DirList.size(); i++)
 	{
@@ -297,6 +304,7 @@ bool MD5Logger::CalculateDirectory(const char * path, bool showprogress)
 	    }
 	}
     DirList.clear();
+    ClearList(DirList);
 
     ++FolderCounter;
 
@@ -312,6 +320,7 @@ void MD5Logger::ClearList(std::vector<char *> &List)
         List[i] = NULL;
     }
     List.clear();
+    std::vector<char *>().swap(List);
 }
 
 void MD5Logger::SortList(std::vector<char *> & List)

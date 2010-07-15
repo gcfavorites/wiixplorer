@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-14 21:36+0200\n"
+"POT-Creation-Date: 2010-07-15 09:10+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -175,16 +175,10 @@ msgstr "Κανάλια"
 msgid "Checked %i file(s) in %i folder(s).\n"
 msgstr ""
 
-#, c-format
-msgid ""
-"Checking directory: %s\n"
-"\n"
+msgid "Checking directory:"
 msgstr ""
 
-#, c-format
-msgid ""
-"Checking file: %s\n"
-"\n"
+msgid "Checking file:"
 msgstr ""
 
 msgid "Clear"

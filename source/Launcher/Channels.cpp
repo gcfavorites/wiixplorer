@@ -309,6 +309,8 @@ void Channels::Search()
 	ISFS_Deinitialize();
 
 	free(list);
+
+    std::vector<Channel>(channels).swap(channels);
 }
 
 void Channels::Sort()
