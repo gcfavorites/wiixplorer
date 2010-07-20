@@ -130,12 +130,13 @@ char * HTML_Stream::CopyString(const char * stopat)
     if(!outtext)
         return NULL;
 
+    u32 stopatLength = strlen(stopat);
     allocatedsize = blocksize;
     memset(outtext, 0, blocksize);
 
-    while ((htmlstringcompare(HTML_File, stopat, position) != 0) && (position+strlen(stopat) < filesize))
+    while ((htmlstringcompare(HTML_File, stopat, position) != 0) && (position+stopatLength < filesize))
     {
-        if(counter > blocksize)
+        if(counter >= blocksize)
         {
             blocksize += 1024;
             char * tmpblock = (char*) realloc(outtext, blocksize);

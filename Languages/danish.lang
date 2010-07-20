@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr "%i fejl(e) opstået. Check MD5.log for flere detaljer."
+msgstr "%i fejl opstået. Tjek MD5.log for flere detaljer."
 
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
@@ -175,10 +175,10 @@ msgid "Checked %i file(s) in %i folder(s).\n"
 msgstr "kontrolleret %i fil(er) i %i folder(e).\n"
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "Kontroller bibliotek:"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "Kontroller fil:"
 
 msgid "Clear"
 msgstr "Ryd"
@@ -437,7 +437,7 @@ msgstr "Edit tekstlinje knap"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr "Stødte på %i Fejl(e).\n"
+msgstr "Stødte på %i Fejl.\n"
 
 msgid "Enter"
 msgstr "Skriv"
@@ -661,10 +661,10 @@ msgid "Green"
 msgstr "Grøn"
 
 msgid "Hashing complete."
-msgstr "Hashing fuldført."
+msgstr "Hash tjek fuldført."
 
 msgid "Hashing successfully finished."
-msgstr "Lykkedes at gennemføre hashing "
+msgstr "Hash tjek gennemført med succes."
 
 msgid "Hide System Files/Folders"
 msgstr "Skjul system filer/folder"
@@ -753,6 +753,9 @@ msgstr "Tastetur slet forsinkelse"
 msgid "Keyboard Shift Button"
 msgstr "Tastetur skift knap"
 
+msgid "Lang."
+msgstr ""
+
 msgid "Language"
 msgstr "Sprog"
 
@@ -811,10 +814,10 @@ msgid "Low"
 msgstr "Lav"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "Tjek MD5"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "MD5 logfil kan ikke skabes."
 
 msgid "MPlayerCE Path"
 msgstr "Sti til MplayerCE"
@@ -844,7 +847,7 @@ msgid "Moving item(s):"
 msgstr "Flyt emne(r):"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Multiple dele"
 
 msgid "Music Loop Mode"
 msgstr "Musik loop måde"
@@ -1138,7 +1141,7 @@ msgid "Sound Settings"
 msgstr "Lyd indstillinger"
 
 msgid "Soundblock Size"
-msgstr "Lydblock størrelse"
+msgstr "Lydblok størrelse"
 
 msgid "Soundblocks"
 msgstr "Lydblokke"
@@ -1168,13 +1171,13 @@ msgid "The new font is loaded."
 msgstr "Den nye font er indlæst."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "Hele devkitPro & libogc staben."
 
 msgid "This option could mess up the pdf view."
 msgstr "Denne mulighed kan ødelægge pdf view."
 
 msgid "Time left:"
-msgstr ""
+msgstr "Tid tilbage:"
 
 msgid "To Idle"
 msgstr "Til idle"
@@ -1397,7 +1400,7 @@ msgid "for his FTP Server source."
 msgstr "For hans FTP server source."
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "for hans fantastiske værktøj libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr ""

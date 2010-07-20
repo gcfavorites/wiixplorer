@@ -104,7 +104,7 @@ int CheckForUpdate()
         if(!HTML_Pos)
             break;
 
-        char * tmpLink = HTML.CopyString("'\"");
+        char * tmpLink = HTML.CopyString("'");
         if(!tmpLink)
             continue;
 

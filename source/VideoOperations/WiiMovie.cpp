@@ -349,7 +349,7 @@ void WiiMovie::Update(GuiTrigger * t)
 
 u8 * WiiMovie::ConvertToRGBA(const u8 * src, u32 width, u32 height)
 {
-    u32 block, i, c, ar, gb, x, y, offset;
+    u32 x, y, offset;
 
     int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
     if(len%32)
@@ -359,39 +359,15 @@ u8 * WiiMovie::ConvertToRGBA(const u8 * src, u32 width, u32 height)
     if(!dst)
         return NULL;
 
-    for (block = 0; block < height; block += 4)
+    for (y = 0; y < height; ++y)
     {
-        for (i = 0; i < width; i += 4)
+        for (x = 0; x < width; ++x)
         {
-            /* Alpha and Red */
-            for (c = 0; c < 4; ++c)
-            {
-                for (ar = 0; ar < 4; ++ar)
-                {
-                    y = c + block;
-                    x = ar + i;
-                    offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
-                    /* Alpha pixels */
-                    dst[offset] = 255;
-                    /* Red pixels */
-                    dst[offset+1] = src[((i + ar) + ((block + c) * width)) * 3];
-                }
-            }
-
-            /* Green and Blue */
-            for (c = 0; c < 4; ++c)
-            {
-                for (gb = 0; gb < 4; ++gb)
-                {
-                    y = c + block;
-                    x = gb + i;
-                    offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
-                    /* Green pixels */
-                    dst[offset+32] = src[(((i + gb) + ((block + c) * width)) * 3) + 1];
-                    /* Blue pixels */
-                    dst[offset+33] = src[(((i + gb) + ((block + c) * width)) * 3) + 2];
-                }
-            }
+            offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+            dst[offset] = 0xFF;
+            dst[offset+1] = src[(y*width+x)*3];
+            dst[offset+32] = src[(y*width+x)*3+1];
+            dst[offset+33] = src[(y*width+x)*3+2];
         }
     }
 

@@ -30,8 +30,6 @@
 #include "Memory/Resources.h"
 #include "main.h"
 
-static wchar_t tmptxt[MAX_KEYBOARD_DISPLAY];
-
 /**
  * Constructor for the GuiKeyboard class.
  */
@@ -52,6 +50,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	shift = false;
 	caps = false;
 	UpdateKeys = false;
+	DefaultKeys = false;
 	selectable = true;
 	ShiftChan = -1;
 	alignmentHor = ALIGN_CENTRE;
@@ -175,6 +174,20 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyShift->SetEffectGrow();
 	this->Append(keyShift);
 
+	keyLangImg = new GuiImage(keyMedium);
+	keyLangOverImg = new GuiImage(keyMediumOver);
+	keyLangText = new GuiText(tr("Lang."), 20, (GXColor){0, 0, 0, 0xff});
+	keyLang = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
+	keyLang->SetImage(keyLangImg);
+	keyLang->SetImageOver(keyLangOverImg);
+	keyLang->SetLabel(keyLangText);
+	keyLang->SetSoundOver(keySoundOver);
+	keyLang->SetSoundClick(keySoundClick);
+	keyLang->SetTrigger(trigA);
+	keyLang->SetPosition(0+KeyboardPosition, 4*42+80);
+	keyLang->SetEffectGrow();
+	this->Append(keyLang);
+
 	keyLineBreakText = new GuiText(tr("Linebreak"), 18, (GXColor){0, 0, 0, 0xff});
 	keyLineBreakImg = new GuiImage(keyMedium);
 	keyLineBreakOverImg = new GuiImage(keyMediumOver);
@@ -283,6 +296,10 @@ GuiKeyboard::~GuiKeyboard()
 	delete keyClearImg;
 	delete keyClearOverImg;
 	delete keyClear;
+	delete keyLangText;
+	delete keyLangImg;
+	delete keyLangOverImg;
+	delete keyLang;
 	delete trigA;
 	delete trigHeldA;
 	delete trigLeft;
@@ -323,17 +340,49 @@ const wchar_t * GuiKeyboard::GetString()
     return kbtextstr->c_str();
 }
 
+void GuiKeyboard::SwitchKeyLanguage()
+{
+    DefaultKeys = !DefaultKeys;
+
+    memset(keys, 0, MAXROWS*sizeof(KeyboardRow));
+
+    if(DefaultKeys)
+    {
+        wcsncpy(keys[0].ch,       L"`1234567890-", MAXKEYS);
+        wcsncpy(keys[0].chShift,  L"~!@#$%^&*()_", MAXKEYS);
+        wcsncpy(keys[1].ch,       L"qwertyuiop[]\\", MAXKEYS);
+        wcsncpy(keys[1].chShift,  L"QWERTYUIOP{}|", MAXKEYS);
+        wcsncpy(keys[2].ch,       L"asdfghjkl;'=", MAXKEYS);
+        wcsncpy(keys[2].chShift,  L"ASDFGHJKL:\"+", MAXKEYS);
+        wcsncpy(keys[3].ch,       L"zxcvbnm,./", MAXKEYS);
+        wcsncpy(keys[3].chShift,  L"ZXCVBNM<>?", MAXKEYS);
+    }
+    else
+    {
+        wcsncpy(keys[0].ch,       wfmt("%s", tr("`1234567890-")), MAXKEYS);
+        wcsncpy(keys[0].chShift,  wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
+        wcsncpy(keys[1].ch,       wfmt("%s", tr("qwertyuiop[]\\")), MAXKEYS);
+        wcsncpy(keys[1].chShift,  wfmt("%s", tr("QWERTYUIOP{}|")), MAXKEYS);
+        wcsncpy(keys[2].ch,       wfmt("%s", tr("asdfghjkl;'=")), MAXKEYS);
+        wcsncpy(keys[2].chShift,  wfmt("%s", tr("ASDFGHJKL:\"+")), MAXKEYS);
+        wcsncpy(keys[3].ch,       wfmt("%s", tr("zxcvbnm,./")), MAXKEYS);
+        wcsncpy(keys[3].chShift,  wfmt("%s", tr("ZXCVBNM<>?")), MAXKEYS);
+    }
+}
+
 void GuiKeyboard::AddChar(int pos, wchar_t Char)
 {
-    wchar_t txt[2] = { Char, 0 };
-    kbtextstr->insert(pos, txt);
+    if(pos < 0)
+        return;
+
+    kbtextstr->insert(pos, 1, Char);
 
     MoveText(1);
 }
 
 void GuiKeyboard::RemoveChar(int pos)
 {
-	if (pos < 0)
+	if (pos < 0 || pos >= (int) kbtextstr->size())
 		return;
 
     kbtextstr->erase(pos, 1);
@@ -342,19 +391,21 @@ void GuiKeyboard::RemoveChar(int pos)
 
 void GuiKeyboard::MoveText(int n)
 {
-    int strlength = wcslen(kbText->GetText());
+    int strlength = kbtextstr->size();
 
-    if(strlength > MAX_KEYBOARD_DISPLAY-1)
+    if(strlength > MAX_KEYBOARD_DISPLAY)
     {
         CurrentFirstLetter += n;
         if(CurrentFirstLetter < 0)
             CurrentFirstLetter = 0;
     }
+    else
+        CurrentFirstLetter = 0;
 
     kbText->SetText(GetDisplayText(kbtextstr));
     TextPointerBtn->TextWidthChanged();
 
-    if(strlength > MAX_KEYBOARD_DISPLAY-1)
+    if(strlength > MAX_KEYBOARD_DISPLAY-2)
         TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter());
     else
         TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()+n);
@@ -436,6 +487,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	}
 	else if(keyClear->GetState() == STATE_CLICKED)
 	{
+        CurrentFirstLetter = 0;
 	    kbtextstr->clear();
         kbText->SetText(GetDisplayText(kbtextstr));
         TextPointerBtn->TextWidthChanged();
@@ -452,6 +504,12 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	{
 		caps = !caps;
 		keyCaps->SetState(STATE_SELECTED, t->chan);
+		UpdateKeys = true;
+	}
+	else if(keyLang->GetState() == STATE_CLICKED)
+	{
+		SwitchKeyLanguage();
+		keyLang->SetState(STATE_SELECTED, t->chan);
 		UpdateKeys = true;
 	}
 
@@ -484,7 +542,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	{
 		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i].ch[j] != '\0')
+			if(keys[i].ch[j] != 0)
 			{
 				if(UpdateKeys)
 				{
@@ -531,22 +589,22 @@ const wchar_t * GuiKeyboard::GetDisplayText(const wString * text)
 	if(!text)
 		return NULL;
 
-	const wchar_t * t = text->data();
-
-	int len = wcslen(t);
+	int len = text->size();
 
 	if(len < MAX_KEYBOARD_DISPLAY)
-		return t;
+		return text->c_str();
 
     int n = 0;
     int startPos = CurrentFirstLetter;
-    int endPos = startPos+MAX_KEYBOARD_DISPLAY-1;
-    for(int i = startPos; i < endPos && i < len; i++)
-    {
-        tmptxt[n] = t[i];
-        n++;
-    }
-    tmptxt[n] = '\0';
+    int endPos = startPos+MAX_KEYBOARD_DISPLAY;
 
-	return tmptxt;
+    for(int i = startPos; i < endPos && i < len; ++i)
+    {
+        displayTxt[n] = text->at(i);
+        ++n;
+    }
+
+    displayTxt[n] = 0;
+
+	return displayTxt;
 }

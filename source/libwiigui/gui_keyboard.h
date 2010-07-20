@@ -27,6 +27,7 @@ class GuiKeyboard : public GuiWindow
         void RemoveChar(int pos);
 		void Update(GuiTrigger * t);
 	protected:
+        void SwitchKeyLanguage();
         void SetupKeyboard(const wchar_t * t, u32 max);
         void MoveText(int n);
         const wchar_t * GetDisplayText(const wString * ws);
@@ -36,12 +37,14 @@ class GuiKeyboard : public GuiWindow
         u32 DeleteDelay;
         int CurrentFirstLetter;
 		wString * kbtextstr;
+		wchar_t displayTxt[MAX_KEYBOARD_DISPLAY];
 		u32 kbtextmaxlen;
 		KeyboardRow keys[MAXROWS];
 		int ShiftChan;
 		bool shift;
 		bool caps;
 		bool UpdateKeys;
+		bool DefaultKeys;
 		TextPointer * TextPointerBtn;
 		GuiButton * GoLeft;
 		GuiButton * GoRight;
@@ -70,6 +73,10 @@ class GuiKeyboard : public GuiWindow
 		GuiImage * keyClearImg;
 		GuiImage * keyClearOverImg;
 		GuiButton * keyClear;
+		GuiText * keyLangText;
+		GuiImage * keyLangImg;
+		GuiImage * keyLangOverImg;
+		GuiButton * keyLang;
 		GuiButton * keyBtn[MAXROWS][MAXKEYS];
 		GuiImage * keyImg[MAXROWS][MAXKEYS];
 		GuiImage * keyImgOver[MAXROWS][MAXKEYS];

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -23,6 +23,8 @@ msgid ""
 "--------------------------------------------------\n"
 "\n"
 msgstr ""
+"--------------------------------------------------\n"
+"\n"
 "--------------------------------------------------\n"
 "\n"
 
@@ -176,9 +178,13 @@ msgstr "已检查到 %i 个文件在 %i 文件夹中。\n"
 
 msgid "Checking directory:"
 msgstr ""
+"正在检查目录：%s\n"
+"\n"
 
 msgid "Checking file:"
 msgstr ""
+"正在检查文件：%s\n"
+"\n"
 
 msgid "Clear"
 msgstr "清除"
@@ -439,6 +445,7 @@ msgstr "编辑文本行按钮"
 msgid "Encountered %i error(s).\n"
 msgstr ""
 "冲突%i个错误。\n"
+" 冲突%i个错误。\n"
 " "
 
 msgid "Enter"
@@ -754,6 +761,9 @@ msgstr "键盘删除延迟"
 
 msgid "Keyboard Shift Button"
 msgstr "键盘上档按钮"
+
+msgid "Lang."
+msgstr ""
 
 msgid "Language"
 msgstr "语言"
@@ -1170,13 +1180,13 @@ msgid "The new font is loaded."
 msgstr "新字库已读取"
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "此程序是由Devkitpro和libogc开发。"
 
 msgid "This option could mess up the pdf view."
 msgstr "此选项会造成pdf查看混乱。"
 
 msgid "Time left:"
-msgstr ""
+msgstr "时间剩余："
 
 msgid "To Idle"
 msgstr "到空闲"
@@ -1360,7 +1370,7 @@ msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer缺省音乐"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "WiiXplorer MD5 计算器\n"
 
 msgid "WiiXplorer Movies"
 msgstr "Wiixplorer电影"
@@ -1399,7 +1409,7 @@ msgid "for his FTP Server source."
 msgstr "用于FTP服务资源"
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "他的伟大的工具libwiigui。"
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"

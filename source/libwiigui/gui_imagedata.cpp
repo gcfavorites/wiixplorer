@@ -255,14 +255,8 @@ void GuiImageData::GDImageToRGBA8(gdImagePtr & gdImg)
             break;
     }
 
-    newwidth = (int) newwidth * scale;
-    newheight = (int) newheight * scale;
-
-    if(newwidth % 4)
-        newwidth -= newwidth % 4;
-
-    if(newheight % 4)
-        newheight -= newheight % 4;
+    newwidth = ALIGN((int) (newwidth * scale));
+    newheight = ALIGN((int) (newheight * scale));
 
     if(newwidth != width || newheight != height)
     {
