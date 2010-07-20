@@ -289,15 +289,12 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 
 			NextImage.offsetx = GifID.xPos;
 			NextImage.offsety = GifID.yPos;
-			NextImage.width = GifID.Width;
-			NextImage.height = GifID.Height;
+			NextImage.width = ALIGN(GifID.Width);
+			NextImage.height = ALIGN(GifID.Height);
 			NextImage.Delay = GifGCE.Delay;
 			NextImage.Disposal = (GifGCE.PackedFields & 0x1c) >> 2;
 			NextImage.Transparent = (GifID.PackedFields & 0x01) != 0;
 			NextImage.image = NULL;
-
-            NextImage.width += (4 - NextImage.width % 4) % 4;
-            NextImage.height += (4 - NextImage.height % 4) % 4;
 
 			int LocalColorMap = (GifID.PackedFields & 0x08)? 1 : 0;
 			int BPP = LocalColorMap ? (GifID.PackedFields & 7) + 1 : GlobalBPP;
@@ -305,7 +302,7 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			if(BPP == 24)
                 BytesPerRow *= 3;
 
-            BytesPerRow += (4 - BytesPerRow % 4) % 4;
+            BytesPerRow = ALIGN(BytesPerRow);
 
             u8 * Raster = new (std::nothrow) u8 [BytesPerRow*GifID.Height];
             if(!Raster)

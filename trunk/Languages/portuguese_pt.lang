@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -750,6 +750,9 @@ msgstr "Atraso do Teclado ao Eliminar"
 
 msgid "Keyboard Shift Button"
 msgstr "Shift"
+
+msgid "Lang."
+msgstr ""
 
 msgid "Language"
 msgstr "Idioma"

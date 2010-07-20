@@ -49,7 +49,7 @@ DATA		:=	data/images \
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-ggdb -O4 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
+CFLAGS		=	-ggdb -O5 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size

@@ -15,8 +15,8 @@ AR		:=	$(PREFIX)ar
 LIBOGC_INC	:=	$(DEVKITPRO)/libogc/include
 LIBOGC_LIB	:=	$(DEVKITPRO)/libogc/lib/wii
 
-MACHDEP := -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float
-CFLAGS  := -O2 -Wall $(MACHDEP) -I $(LIBOGC_INC)
+MACHDEP := -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -DPNG_CONFIGURE_LIBPNG -DHAVE_CONFIG_H
+CFLAGS  := -O5 -Wall $(MACHDEP) -I $(LIBOGC_INC)
 
 LIB 	:= png
 CFILES	:= $(wildcard *.c)
@@ -36,4 +36,5 @@ install :
 	cp -f $(HDR) $(LIBOGC_INC)/
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo $(notdir $<)
+	@$(CC) $(CFLAGS) -c $< -o $@

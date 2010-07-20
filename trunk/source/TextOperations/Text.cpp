@@ -29,8 +29,7 @@ Text::Text(const char * t, int s, GXColor c)
     delete [] text;
     text = NULL;
 
-
-    SetMaxWidth(400);
+    SetMaxWidth(maxWidth);
 }
 
 Text::Text(const wchar_t * t, int s, GXColor c)
@@ -60,7 +59,7 @@ Text::Text(const wchar_t * t, int s, GXColor c)
 
     textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
 
-    SetMaxWidth(400);
+    SetMaxWidth(maxWidth);
 }
 
 Text::~Text()

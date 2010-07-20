@@ -45,7 +45,7 @@ class PDFViewer : public ImageViewer
         bool PreviousImage(bool silent = false) { return PreviousPage(); };
     protected:
         int PreparePage(int pagenum);
-        int PageToRGBA8(int pagenum);
+        int PageToRGBA8();
         void FreePage();
         //! Virtual overloads which are not needed
         bool LoadImage(int index, bool silent = false) { return LoadPage(index); };

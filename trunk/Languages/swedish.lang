@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -749,6 +749,9 @@ msgid "Keyboard Delete Delay"
 msgstr ""
 
 msgid "Keyboard Shift Button"
+msgstr ""
+
+msgid "Lang."
 msgstr ""
 
 msgid "Language"

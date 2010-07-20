@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r175
+# r188
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: SirPalax\n"
@@ -14,7 +14,7 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i error(es) encontrado(s). Comprueba MD5.log para más detalles."
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -82,7 +82,7 @@ msgid "Back Button"
 msgstr "Suprimir"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Atrás desde una Carpeta"
 
 msgid "Background Bottom/Left"
 msgstr "Fondo de Pantalla Abajo/Izquierda"
@@ -121,10 +121,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "El CRC del archivo extraído no coincide. ¿Contraseña incorrecta?"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "Calculando MD5..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Calculando el tamaño total..."
 
 msgid "Can not open the file."
 msgstr "No se puede abrir el archivo."
@@ -170,13 +170,13 @@ msgstr "Canales"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "Comprobado %i archivo(s) en %i carpeta(s).\n"
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "Comprobado carpeta:"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "Comprobado archivo:"
 
 msgid "Clear"
 msgstr "Borrar"
@@ -435,26 +435,26 @@ msgstr "Editar Línea de Texto"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "Encontrado(s) %i error(es).\n"
 
 msgid "Enter"
 msgstr "Introducir"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Error - %s no es un archivo\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "Error - No se pudo abrir la carpeta: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Error - No se pudo abrir el archivo: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Error - No hay suficiente memoria en: %s\n"
 
 msgid "Error while reading file."
 msgstr "Error al leer el archivo."
@@ -596,7 +596,7 @@ msgid "Folder"
 msgstr "Carpeta"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Carpeta(s)"
 
 msgid "Font Files"
 msgstr "Archivos de Fuentes"
@@ -659,10 +659,10 @@ msgid "Green"
 msgstr "Verde"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Hashing completado."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Hashing finalizado con éxito."
 
 msgid "Hide System Files/Folders"
 msgstr "Ocultar Archivos/Carpetas del Sistema"
@@ -751,6 +751,9 @@ msgstr "Retardo al Eliminar en el Teclado"
 msgid "Keyboard Shift Button"
 msgstr "Mayúsculas en el Teclado"
 
+msgid "Lang."
+msgstr ""
+
 msgid "Language"
 msgstr "Idioma"
 
@@ -797,7 +800,7 @@ msgid "Loading image..."
 msgstr "Cargando imagen..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "Registro guardado en MD5.log"
 
 msgid "Loop"
 msgstr "Bucle"
@@ -809,10 +812,10 @@ msgid "Low"
 msgstr "Baja"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "Verificar MD5"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "El archivo de registro MD5 no se puede crear."
 
 msgid "MPlayerCE Path"
 msgstr "Ruta del MPlayerCE"
@@ -836,13 +839,13 @@ msgid "Mount NTFS"
 msgstr "Montar NTFS"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Montando disco"
 
 msgid "Moving item(s):"
 msgstr "Moviendo elemento(s):"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Múltiples Elementos"
 
 msgid "Music Loop Mode"
 msgstr "Modo bucle musical"
@@ -939,7 +942,7 @@ msgid "PDF Files"
 msgstr "Archivos PDF"
 
 msgid "PDF Processing Zoom"
-msgstr "Procesado de Zoom del PDF"
+msgstr "Procesado de Zum del PDF"
 
 msgid "Parse Directory"
 msgstr "Analizar Carpeta"
@@ -1166,13 +1169,13 @@ msgid "The new font is loaded."
 msgstr "Se ha cargado la nueva Fuente."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "Todo el staff de devkitPro y libogc."
 
 msgid "This option could mess up the pdf view."
 msgstr "Esta opción podría dañar la visualización del pdf."
 
 msgid "Time left:"
-msgstr ""
+msgstr "Tiempo restante:"
 
 msgid "To Idle"
 msgstr "WiiConnect24"
@@ -1356,7 +1359,7 @@ msgid "WiiXplorer Default Music"
 msgstr "Música por defecto de WiiXplorer"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "Calculadora MD5 WiiXplorer\n"
 
 msgid "WiiXplorer Movies"
 msgstr "Películas WiiXplorer"
@@ -1377,10 +1380,10 @@ msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM;:_"
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "Ampliar Zum"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "Disminuir Zum"
 
 msgid "`1234567890-"
 msgstr "1234567890'¡"
@@ -1395,7 +1398,7 @@ msgid "for his FTP Server source."
 msgstr "por el código de su Servidor FTP"
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "por su gran utilidad libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop#+\\"

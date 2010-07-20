@@ -4,20 +4,20 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
 "POT-κατασκευής-ημερομηνία: 2010-04-11 20:58+0200\n"
 "PO-Revision-ημερομηνία: 2009-07-18 15:18+0200\n"
-"Τελευταία-μετάφραση: Rev.165 \n"
+"Τελευταία-μετάφραση: Rev.188 \n"
 "Ομάδα γλώσσας: Azrael11\n"
 "MIME-Έκδοση: 1.0\n"
 "Content-Τύπος: text/plain; charset=utf-8\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i λάθη βρεθήκανε. Τσεκαρε το  MD5.log αρχείο για περισότερες λεπτομέριες "
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -85,7 +85,7 @@ msgid "Back Button"
 msgstr "Πίσω πλήκτρο"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Πλήκτρο για πίσω στην διαδρομή"
 
 msgid "Background Bottom/Left"
 msgstr "Φόντο κάτω αριστερά"
@@ -124,10 +124,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "Το CRC από το εξαγώμενο αρχείο δεν τεριάζει. Λάθος κωδικός;"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "Υπολογίζω το MD5..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Υπολογίζω το τελικό μέγεθος..."
 
 msgid "Can not open the file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
@@ -173,13 +173,13 @@ msgstr "Κανάλια"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "Επέλεξες %i αρχείο(α) σε %i φάκελο(ους).\n"
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "Επέλεξε την διαδρομή:"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "Επέλεξε το αρχείο:"
 
 msgid "Clear"
 msgstr ""
@@ -438,26 +438,28 @@ msgstr "Επιξεργασία πλήκτρου κειμένου γραμμής"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "Αντιμετώπισα %i λάθη.\n"
 
 msgid "Enter"
 msgstr ""
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Λάθος - Το %s δεν είναι αρχείο"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
 msgstr ""
+"Λάθος - Δεν μπορώ να ανοίξω την διαδρομή: %s\n"
+" "
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Λάθος - Δέν μπορώ να ανοίξω το αρχείο: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Λάθος - Δεν υπάρχει αρκετή μνήμη στο: %s\n"
 
 msgid "Error while reading file."
 msgstr "Λάθος καθώς διαβαζα το αρχείο."
@@ -599,7 +601,7 @@ msgid "Folder"
 msgstr "Φάκελος"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Φάκελος(οι)"
 
 msgid "Font Files"
 msgstr "Αρχεία γραμματοσειρών"
@@ -662,10 +664,10 @@ msgid "Green"
 msgstr "Πράσινο"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Το Hashing ολοκληρώθηκε."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Το Hashing τελείωσε επιτυχώς."
 
 msgid "Hide System Files/Folders"
 msgstr "Κρύψε αρχεία και φακέλους συστήματος"
@@ -754,6 +756,9 @@ msgstr "Πληκτρολόγιο καθηστέρηση του πλήκτου De
 msgid "Keyboard Shift Button"
 msgstr "Πληκτρολόγιο πλήκτρο Shift"
 
+msgid "Lang."
+msgstr ""
+
 msgid "Language"
 msgstr "Γλώσσα"
 
@@ -812,10 +817,10 @@ msgid "Low"
 msgstr "Χαμηλός"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "Επέλεξε MD5"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "Το MD5.log αρχείο δεν μπορεί να διμιουργηθεί."
 
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
@@ -845,7 +850,7 @@ msgid "Moving item(s):"
 msgstr "Μετακίνηση αρχείου(α):"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Πολλαπλά αντικείμενα"
 
 msgid "Music Loop Mode"
 msgstr "Τρόπος μουσικής"
@@ -1021,7 +1026,7 @@ msgstr ""
 
 #, c-format
 msgid "R: %i G: %i B: %i"
-msgstr ""
+msgstr "Κ: %i Π: %i Μ: %i"
 
 msgid "Random"
 msgstr "Τυχαία"
@@ -1248,7 +1253,7 @@ msgstr "Η αναβάθμηση τελείωσε επιτυχώς"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr "Υπάρχει διαθέσημη αναβάθμηση έκδοση %i"
+msgstr "Διαθέσημη αναβάθμηση έκδοση %i"
 
 msgid "Updating/Downloading Languagefiles."
 msgstr "Αναβάθμηση/Κατέβασμα αρχείων γλωσσών."

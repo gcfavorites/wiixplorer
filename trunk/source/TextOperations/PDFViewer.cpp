@@ -124,7 +124,7 @@ bool PDFViewer::LoadPage(int pagenum)
         return false;
     }
 
-    ret = PageToRGBA8(pagenum);
+    ret = PageToRGBA8();
     if(ret <= 0)
     {
         CloseFile();
@@ -203,7 +203,7 @@ void PDFViewer::FreePage()
     }
 }
 
-int PDFViewer::PageToRGBA8(int pagenum)
+int PDFViewer::PageToRGBA8()
 {
     fz_error error;
 	fz_matrix ctm;
@@ -217,14 +217,8 @@ int PDFViewer::PageToRGBA8(int pagenum)
 	ctm = fz_concat(ctm, fz_rotate(drawrotate + drawpage->rotate));
 
 	bbox = fz_roundrect(fz_transformrect(ctm, drawpage->mediabox));
-	w = bbox.x1 - bbox.x0;
-	h = bbox.y1 - bbox.y0;
-
-    if(w % 4)
-        w += 4 - w % 4;
-
-    if(h % 4)
-        h += 4 - h % 4;
+	w = ALIGN(bbox.x1 - bbox.x0);
+	h = ALIGN(bbox.y1 - bbox.y0);
 
 	pix = fz_newpixmap(pdf_devicergb, bbox.x0, bbox.y0, w, h);
 	if(!pix)
@@ -260,8 +254,7 @@ int PDFViewer::PageToRGBA8(int pagenum)
         return -1;
     }
 
-    u8 * dst = OutputImage;
-
+    u32 offset;
     imagewidth = pix->w;
     imageheight = pix->h;
 
@@ -271,15 +264,15 @@ int PDFViewer::PageToRGBA8(int pagenum)
 
         for (x = 0; x < pix->w; x++)
         {
-            u32 offset = ((((y >> 2) * (pix->w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+            offset = ((((y >> 2) * (pix->w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
 
-            dst[offset] = src[x * 4 + 0];
-            dst[offset+1] = src[x * 4 + 1];
-            dst[offset+32] = src[x * 4 + 2];
-            dst[offset+33] = src[x * 4 + 3];
+            OutputImage[offset] = src[x * 4 + 0];
+            OutputImage[offset+1] = src[x * 4 + 1];
+            OutputImage[offset+32] = src[x * 4 + 2];
+            OutputImage[offset+33] = src[x * 4 + 3];
         }
     }
-    DCFlushRange(dst, len);
+    DCFlushRange(OutputImage, len);
 
 	fz_droppixmap(pix);
 

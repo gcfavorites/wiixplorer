@@ -310,6 +310,9 @@ void PlayList::RemoveEntrie(int pos)
     if(pos < 0 || pos >= (int) FileList.size())
         return;
 
+    if(FileList.at(pos) != NULL)
+        delete [] FileList.at(pos);
+
     FileList.erase(FileList.begin()+pos);
     listChanged = true;
 }
@@ -326,6 +329,7 @@ void PlayList::ClearList()
     }
 
     FileList.clear();
+    std::vector<char *>().swap(FileList);
     listOffset = 0;
     selectedItem = 0;
 

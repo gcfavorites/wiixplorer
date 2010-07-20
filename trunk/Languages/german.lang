@@ -1,20 +1,20 @@
-# WiiXplorer language source file.
-# r176
+# WiiXplorer
+# german language source file - r188
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 09:10+0200\n"
-"PO-Revision-Date: 2010-07-01 14:48+0200\n"
+"POT-Creation-Date: 2010-07-20 21:59+0200\n"
+"PO-Revision-Date: 2010-07-15 00:11-0800\n"
 "Last-Translator: ZEN.13\n"
-"Language-Team: Screemer, ilduderino, ZEN.13\n"
+"Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i Fehler gefunden. Prüfe die MD5.log für mehr Details."
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -64,7 +64,7 @@ msgid "Archive Files"
 msgstr "Archive"
 
 msgid "Audio Files"
-msgstr "Musik/Audio"
+msgstr "Audio"
 
 msgid "Auto Connect"
 msgstr "Automatisch verbinden"
@@ -82,7 +82,7 @@ msgid "Back Button"
 msgstr "Zurück"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Zurück ins Verzeichnis"
 
 msgid "Background Bottom/Left"
 msgstr "Hintergrund Unten/Links"
@@ -121,10 +121,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC der entpackten Datei passt nicht. Falsches Passwort?"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "Berechne MD5..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Berechne Gesamtgröße..."
 
 msgid "Can not open the file."
 msgstr "Die Datei kann nicht geöffnet werden."
@@ -133,7 +133,7 @@ msgid "Can't browse that path."
 msgstr "Dieser Pfad kann nicht durchsucht werden."
 
 msgid "Can't load file"
-msgstr "Datei kann nicht geladen werden."
+msgstr "Datei kann nicht geladen werden"
 
 msgid "Can't load page."
 msgstr "Seite kann nicht geladen werden."
@@ -145,7 +145,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgid "Cannot create directory: "
-msgstr "Verzeichnis kann nicht erstellt werden:"
+msgstr "Verzeichnis kann nicht erstellt werden: "
 
 msgid "Cannot open image"
 msgstr "Bild kann nicht geöffnet werden."
@@ -154,7 +154,7 @@ msgid "Cannot write to destination."
 msgstr "Zielverzeichnis ist nicht beschreibbar."
 
 msgid "Cannot write to the file."
-msgstr "Die Datei kann nicht geschrieben werden."
+msgstr "In die Datei kann nicht geschrieben werden."
 
 msgid "Caps"
 msgstr ""
@@ -170,13 +170,13 @@ msgstr "Kanäle"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "%i Datei(en) in %i Ordner(n) geprüft.\n"
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "Prüfe Verzeichnis:"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "Prüfe Datei:"
 
 msgid "Clear"
 msgstr "Löschen"
@@ -195,7 +195,7 @@ msgid "Client:"
 msgstr ""
 
 msgid "Clock Mode"
-msgstr "Uhrformat"
+msgstr "Uhr"
 
 msgid "Close"
 msgstr "Schließen"
@@ -231,10 +231,10 @@ msgid "Copy"
 msgstr "Kopieren"
 
 msgid "Copy Thread Background Priority"
-msgstr "Kopieren-Thread Hintergrundpriorität"
+msgstr "Kopieren-Thread Priorität: Hintergrund"
 
 msgid "Copy Thread Priority"
-msgstr "Kopieren-Thread Priorität"
+msgstr "Kopieren-Thread Priorität: Normal"
 
 msgid "Copy current marked item(s)?"
 msgstr "Markierte(s) Element(e) kopieren?"
@@ -276,7 +276,7 @@ msgid "Could not parse directory."
 msgstr "Verzeichnis konnte nicht analysiert werden."
 
 msgid "Credits"
-msgstr ""
+msgstr "Danksagungen"
 
 msgid "Currently a process is running."
 msgstr "Es läuft bereits ein Prozess."
@@ -330,13 +330,13 @@ msgid "Do you want to append this paste to the queue?"
 msgstr "Das Einzufügende zur Warteschlange hinzufügen?"
 
 msgid "Do you want to boot file now?"
-msgstr "Die Datei/App jetzt starten?"
+msgstr "Die Datei jetzt starten?"
 
 msgid "Do you want to boot:"
-msgstr "Diese Datei laden:"
+msgstr "Starten:"
 
 msgid "Do you want to change the font?"
-msgstr "Schriftart ändern?"
+msgstr "Die Schriftart ändern?"
 
 msgid "Do you want to delete this file:"
 msgstr "Diese Datei löschen:"
@@ -345,7 +345,7 @@ msgid "Do you want to disconnect the FTP client?"
 msgstr "Verbindung zum FTP Client trennen?"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr "Verbindung zur Netzwerkfreigabe trennen?"
+msgstr "Verbindung zur diesem SMB trennen?"
 
 msgid "Do you want to download new language files?"
 msgstr "Neue Sprachdateien herunterladen?"
@@ -382,25 +382,25 @@ msgid "Do you want to reboot now ?"
 msgstr "Jetzt neu starten?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr "Mit dieser Netzwerkfreigabe wieder verbinden?"
+msgstr "Mit diesem SMB wieder verbinden?"
 
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Mit dem FTP Client wieder verbinden?"
 
 msgid "Do you want to remount the devices?"
-msgstr "Laufwerke erneut mounten?"
+msgstr "Laufwerke erneut einbinden?"
 
 msgid "Do you want to replace this file?"
 msgstr "Diese Datei ersetzen?"
 
 msgid "Do you want to reset the color settings?"
-msgstr "Die Farben zurücksetzen?"
+msgstr "Farben zurücksetzen?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Steuerung zurücksetzen?"
 
 msgid "Do you want to reset the settings?"
-msgstr "Alle Einstellungen zurücksetzen?"
+msgstr "Einstellungen zurücksetzen?"
 
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
@@ -435,26 +435,26 @@ msgstr "Textzeile bearbeiten"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "%i gefundene Fehler.\n"
 
 msgid "Enter"
 msgstr "Eingeben"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Fehler - %s ist keine Datei\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "Fehler - Konnte Verzeichnis nicht öffnen: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Fehler - Konnte Datei nicht öffnen: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Fehler - Nicht genug Speicher auf: %s\n"
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -493,7 +493,7 @@ msgid "Extracting item(s):"
 msgstr "Entpacke Element(e):"
 
 msgid "FTP Client Settings"
-msgstr "FTP Client Einstellungen"
+msgstr "Einstellungen: FTP Client"
 
 msgid "FTP Path:"
 msgstr "FTP Pfad:"
@@ -505,7 +505,7 @@ msgid "FTP Server"
 msgstr ""
 
 msgid "FTP Server Settings"
-msgstr "FTP Server Einstellungen"
+msgstr "Einstellungen: FTP Server"
 
 msgid "FTP Server is running and listening on port"
 msgstr "FTP Server läuft und lauscht an Port"
@@ -553,7 +553,7 @@ msgid "File couldn't be deleted."
 msgstr "Datei konnte nicht gelöscht werden."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "Datei beschädigt (CRC-Fehler)."
+msgstr "Datei ist beschädigt (CRC-Fehler)."
 
 msgid "File is corrupt."
 msgstr "Datei ist beschädigt."
@@ -596,7 +596,7 @@ msgid "Folder"
 msgstr "Ordner"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Ordner"
 
 msgid "Font Files"
 msgstr "Schriftarten"
@@ -659,10 +659,10 @@ msgid "Green"
 msgstr "Grün"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Hashing komplett."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Hashing erfolgreich beendet."
 
 msgid "Hide System Files/Folders"
 msgstr "Systemdateien/-ordner verstecken"
@@ -751,6 +751,9 @@ msgstr "Tastatur: Verzögerung der Rücktaste"
 msgid "Keyboard Shift Button"
 msgstr "Tastatur: Shift"
 
+msgid "Lang."
+msgstr ""
+
 msgid "Language"
 msgstr "Sprache"
 
@@ -797,7 +800,7 @@ msgid "Loading image..."
 msgstr "Bild wird geladen..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "Log wurde in MD5.log gespeichert."
 
 msgid "Loop"
 msgstr "Scheife"
@@ -812,7 +815,7 @@ msgid "MD5 Check"
 msgstr ""
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "MD5.log kann nicht erstellt werden."
 
 msgid "MPlayerCE Path"
 msgstr "MPlayer CE"
@@ -842,7 +845,7 @@ msgid "Moving item(s):"
 msgstr "Verschiebe Element(e):"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Mehrere Elemente"
 
 msgid "Music Loop Mode"
 msgstr "Wiederholung"
@@ -951,7 +954,7 @@ msgid "Password is needed."
 msgstr "Passwort wird benötigt."
 
 msgid "Password:"
-msgstr "Kennwort:"
+msgstr "Passwort:"
 
 msgid "Paste"
 msgstr "Einfügen"
@@ -978,7 +981,7 @@ msgid "Please wait:"
 msgstr "Bitte warten:"
 
 msgid "Possible unsupported format."
-msgstr "Mögliches nicht unterstüztes Format."
+msgstr "Möglicherweise nicht unterstüztes Format."
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Drücke 'FTP starten' zum Starten des Servers an Port"
@@ -1072,7 +1075,7 @@ msgid "SMB Name:"
 msgstr ""
 
 msgid "SMB Settings"
-msgstr "SMB (Netzwerkfreigabe) Einstellungen"
+msgstr "Einstellungen: SMB"
 
 msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
@@ -1103,10 +1106,10 @@ msgstr "Einstellungen"
 
 #, c-format
 msgid "Share %i"
-msgstr "Netzwerkfreigabe %i"
+msgstr "Freigabe %i"
 
 msgid "Share:"
-msgstr "Netzwerkfreigabe:"
+msgstr "Freigabe:"
 
 msgid "Shift"
 msgstr ""
@@ -1121,7 +1124,7 @@ msgid "Shutdown FTP"
 msgstr "FTP stoppen"
 
 msgid "Shutdown the Wii?"
-msgstr "Wii herunterfahren?"
+msgstr "Wii ausschalten?"
 
 msgid "Size:"
 msgstr "Größe:"
@@ -1166,13 +1169,13 @@ msgid "The new font is loaded."
 msgstr "Die neue Schriftart wurde geladen."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "Das ganze devkitPro & libogc Team."
 
 msgid "This option could mess up the pdf view."
 msgstr "Diese Option kann die PDF Ansicht versauen."
 
 msgid "Time left:"
-msgstr ""
+msgstr "Verbleibende Zeit:"
 
 msgid "To Idle"
 msgstr "WiiConnect24 an"
@@ -1245,10 +1248,10 @@ msgstr "Update erfolgreich abgeschlossen"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr "Update auf Revision %i verfügbar."
+msgstr "Update auf Revision %i verfügbar"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr "Sprachdateien werden gerade aktualisiert."
+msgstr "Sprachdateien werden aktualisiert."
 
 msgid "Username:"
 msgstr "Benutzername:"
@@ -1356,7 +1359,7 @@ msgid "WiiXplorer Default Music"
 msgstr "Standardmusik"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "WiiXplorer MD5 Kalkulator\n"
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer Filme"
@@ -1377,10 +1380,10 @@ msgid "ZXCVBNM<>?"
 msgstr ""
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "Hereinzoomen"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "Herauszoomen"
 
 msgid "`1234567890-"
 msgstr ""
@@ -1406,11 +1409,11 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
-#~ msgid "The whole DevkitPro & libogc staff."
-#~ msgstr "Das ganze DevkitPro & libogc Team."
-
 #~ msgid "for his great tool LibWiiGui."
 #~ msgstr "für sein großartiges Tool LibWiiGui."
+
+#~ msgid "The whole DevkitPro & libogc staff."
+#~ msgstr "Das ganze DevkitPro & libogc Team."
 
 #~ msgid "Download Files"
 #~ msgstr "Herunterladen"

@@ -174,25 +174,20 @@ void TextPointer::SetPointerPosition(int LetterPos)
     if(!line)
         return;
 
-    lineLength = wcslen(line)+1;
+    lineLength = wcslen(line);
 
     if(LetterPos < 0)
         LetterPos = 0;
-    else if(LetterPos > lineLength-1)
-        LetterPos = lineLength-1;
+    else if(LetterPos > lineLength)
+        LetterPos = lineLength;
 
-    wchar_t temp[lineLength];
-    memset(temp, 0, sizeof(temp));
+    Position_X = 0;
 
-    for(int i = 0; i < LetterPos; i++)
+    for(int i = 0; i < LetterPos; ++i)
     {
-        temp[i] = line[i];
-
-        if(line[i] == 0)
-            break;
+        Position_X += fontSystem->getCharWidth(line[i], fontsize, i > 0 ? line[i-1] : 0);
     }
 
-    Position_X = fontSystem->getWidth(temp, fontsize);
     LetterNumInLine = LetterPos;
     Marking = false;
 }
