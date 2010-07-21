@@ -1,4 +1,4 @@
- /****************************************************************************
+/***************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -23,33 +23,43 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _SYS_H_
-#define _SYS_H_
+#ifndef BOOTOPERA_HPP_
+#define BOOTOPERA_HPP_
 
-#ifdef __cplusplus
-extern "C"
+#include <vector>
+#include <gccore.h>
+#include <mxml.h>
+
+typedef struct
 {
-#endif
+    char * name;
+    char * addr;
+} Link;
 
-void wiilight(int enable);
+class OperaBooter
+{
+    public:
+        OperaBooter(const char * xmlfile);
+        ~OperaBooter();
+        bool Launch(int pos);
+        bool SaveXML();
+        bool AddLink();
+        bool AddLink(const char * name, const char * addr);
+        void RemoveLink(int pos);
+        const char * GetName(int pos);
+        const char * GetLink(int pos);
+        int GetCount() { return LinkList.size(); };
+    private:
+        bool ParseXML();
+        void ClearList();
+        void Sort();
+        static bool SortCallback(const Link & f1, const Link & f2);
 
-bool RebootApp();
-void ExitApp();
-
-void Sys_Init(void);
-void Sys_Reboot(void);
-void Sys_Shutdown(void);
-void Sys_ShutdownToIdle(void);
-void Sys_ShutdownToStandby(void);
-void Sys_LoadMenu(void);
-void Sys_BackToLoader(void);
-bool IsFromHBC();
-void LoadCIOS();
-int GetIOS_Rev(u32 ios);
-bool FindTitle(u64 titleid);
-
-#ifdef __cplusplus
-}
-#endif
+        std::vector<Link> LinkList;
+        std::string FilePath;
+        u8 * xmlbuffer;
+        mxml_node_t * xmlfile;
+        u64 OperaID;
+};
 
 #endif

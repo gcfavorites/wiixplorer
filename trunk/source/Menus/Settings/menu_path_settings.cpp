@@ -48,6 +48,7 @@ int MenuPathSetup()
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Screenshot Path"));
 	options.SetName(i++, tr("Temporary Path"));
+	options.SetName(i++, tr("URL List Path"));
 	options.SetName(i++, tr("Delete Temp Path on Exit"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Path Setup"), &options, MENU_SETTINGS);
@@ -237,6 +238,39 @@ int MenuPathSetup()
                 }
 				break;
             case 6:
+                choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
+                if(choice == 1)
+                {
+                    Menu->SetState(STATE_DISABLED);
+                    string Path;
+                    menu = MenuGetPath(Path);
+                    Menu->SetState(STATE_DEFAULT);
+
+                    if(Path.length() > 0)
+                    {
+                        if (Path[Path.length()-1] != '/')
+                            Path.append("/");
+                        snprintf(Settings.LinkListPath, sizeof(Settings.LinkListPath), "%sURL_List.xml", Path.c_str());
+                    }
+                }
+                else if(choice == 2)
+                {
+                    snprintf(entered, sizeof(entered), "%s", Settings.LinkListPath);
+                    if(OnScreenKeyboard(entered, 149))
+                    {
+                        if (entered[strlen(entered)-1] == '/')
+                            strcat(entered, "URL_List.xml");
+                        else if(entered[strlen(entered)-1] != 'l' ||
+                                entered[strlen(entered)-1] != 'm' ||
+                                entered[strlen(entered)-1] != 'x')
+                            strcat(entered, ".xml");
+
+                        snprintf(Settings.LinkListPath, sizeof(Settings.LinkListPath), "%s", entered);
+                        WindowPrompt(tr("Update Path changed."), 0, tr("OK"));
+                    }
+                }
+				break;
+            case 7:
                 Settings.DeleteTempPath = (Settings.DeleteTempPath+1) % 2;
                 break;
 		}
@@ -257,6 +291,8 @@ int MenuPathSetup()
             options.SetValue(i++, "%s", Settings.ScreenshotPath);
 
             options.SetValue(i++, "%s", Settings.TempPath);
+
+            options.SetValue(i++, "%s", Settings.LinkListPath);
 
             if(Settings.DeleteTempPath == 1) options.SetValue(i++, tr("ON"));
             else options.SetValue(i++, tr("OFF"));

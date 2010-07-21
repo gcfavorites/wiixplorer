@@ -272,3 +272,42 @@ extern "C" int GetIOS_Rev(u32 ios)
 
 	return ret;
 }
+
+extern "C" bool FindTitle(u64 titleid)
+{
+    bool found = false;
+	u32 num_titles = 0, i = 0;
+	u64 * titles = NULL;
+	s32 ret = 0;
+
+	ret = ES_GetNumTitles(&num_titles);
+	if(ret < 0)
+		return found;
+
+	if(num_titles < 1)
+        return found;
+
+	titles = (u64 *) memalign(32, num_titles * sizeof(u64) + 32);
+	if(!titles)
+	    return found;
+
+	ret = ES_GetTitles(titles, num_titles);
+	if(ret < 0)
+	{
+		free(titles);
+		return found;
+	}
+
+	for(i=0; i < num_titles; i++)
+	{
+		if (titles[i] == titleid)
+		{
+		    found = true;
+			break;
+		}
+	}
+
+	free(titles);
+
+	return found;
+}

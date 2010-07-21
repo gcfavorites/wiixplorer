@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 21:59+0200\n"
+"POT-Creation-Date: 2010-07-21 03:48+0200\n"
 "PO-Revision-Date: 2010-07-15 00:11-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
@@ -41,6 +41,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
+
+msgid "Add Link"
+msgstr ""
 
 msgid "Add to Playlist"
 msgstr "Zur Wiedergabeliste hinzufügen"
@@ -155,6 +158,9 @@ msgstr "Zielverzeichnis ist nicht beschreibbar."
 
 msgid "Cannot write to the file."
 msgstr "In die Datei kann nicht geschrieben werden."
+
+msgid "Cannot write to this path:"
+msgstr ""
 
 msgid "Caps"
 msgstr ""
@@ -326,6 +332,9 @@ msgstr "Verbindung zum Client trennen"
 msgid "Disconnect SMB"
 msgstr "Verbindung zum SMB trennen"
 
+msgid "Do you want to add an URL?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "Das Einzufügende zur Warteschlange hinzufügen?"
 
@@ -404,6 +413,9 @@ msgstr "Einstellungen zurücksetzen?"
 
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
+
+msgid "Do you want to start Opera with this URL?"
+msgstr ""
 
 msgid "Do you want to start the app?"
 msgstr "Diese App starten?"
@@ -533,6 +545,9 @@ msgstr "Umbenennen des Elementes fehlgeschlagen"
 
 msgid "Failed to get the Changelog."
 msgstr "Laden des ChangeLog fehlgeschlagen."
+
+msgid "Failed to load the channel."
+msgstr ""
 
 msgid "Failed to read file data."
 msgstr "Lesen der Dateidaten fehlgeschlagen."
@@ -929,6 +944,9 @@ msgstr "AN"
 msgid "Open the file in the PDF Viewer?"
 msgstr "Datei mit dem PDF Betrachter öffnen?"
 
+msgid "Opera Channel not found on the system."
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
 
@@ -970,6 +988,12 @@ msgstr "Datei abspielen"
 
 msgid "Play Once"
 msgstr "Einmal abspielen"
+
+msgid "Please enter first the URL-Name."
+msgstr ""
+
+msgid "Please enter now the URL."
+msgstr ""
 
 msgid "Please enter the password."
 msgstr "Bitte das Passwort eingeben."
@@ -1043,6 +1067,9 @@ msgstr "Rot"
 
 msgid "Reload"
 msgstr "Erneut mounten"
+
+msgid "Remove Link"
+msgstr ""
 
 msgid "Remove from list"
 msgstr "Aus der Liste entfernen"
@@ -1171,6 +1198,12 @@ msgstr "Die neue Schriftart wurde geladen."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Das ganze devkitPro & libogc Team."
 
+msgid "This link will be used in Opera."
+msgstr ""
+
+msgid "This name will be shown in the Start Menu"
+msgstr ""
+
 msgid "This option could mess up the pdf view."
 msgstr "Diese Option kann die PDF Ansicht versauen."
 
@@ -1203,6 +1236,12 @@ msgstr "Übertragung fehlgeschlagen"
 
 msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
+
+msgid "URL List"
+msgstr ""
+
+msgid "URL List Path"
+msgstr ""
 
 msgid "URL is empty."
 msgstr "URL ist leer."
