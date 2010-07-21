@@ -194,6 +194,8 @@ class Settings
         char	AppPath[150];
         //!Path to where the screenshots are written
         char	ScreenshotPath[150];
+        //!Path to where the url list in xml form is
+        char	LinkListPath[150];
 		//!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations

@@ -50,6 +50,7 @@ enum
 {
     APPS = 0,
     CHANNELS,
+    URLS,
     SETTINGS,
     FTPSERVER,
     RELOAD,

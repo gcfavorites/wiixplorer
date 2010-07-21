@@ -85,6 +85,7 @@ void Settings::SetDefault()
     sprintf(AppPath, "%sapps/", BootDevice);
     sprintf(TempPath, "%s/Temp/", UpdatePath);
     sprintf(ScreenshotPath, "%s", UpdatePath);
+    sprintf(LinkListPath, "%s/URL_List.xml", UpdatePath);
     strcpy(MusicPath, "");
     sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
 
@@ -195,6 +196,7 @@ bool Settings::Save()
 	fprintf(file, "AppPath = %s\n", AppPath);
 	fprintf(file, "TempPath = %s\n", TempPath);
 	fprintf(file, "ScreenshotPath = %s\n", ScreenshotPath);
+	fprintf(file, "LinkListPath = %s\n", LinkListPath);
 	fprintf(file, "SlideshowDelay = %d\n", SlideshowDelay);
 	fprintf(file, "ImageFadeSpeed = %d\n", ImageFadeSpeed);
 	fprintf(file, "KeyboardDeleteDelay = %d\n", KeyboardDeleteDelay);
@@ -626,6 +628,10 @@ bool Settings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "ScreenshotPath") == 0) {
         strncpy(ScreenshotPath, value, sizeof(ScreenshotPath));
+		return true;
+	}
+	else if (strcmp(name, "LinkListPath") == 0) {
+        strncpy(LinkListPath, value, sizeof(LinkListPath));
 		return true;
 	}
 	else if (strcmp(name, "SlideshowDelay") == 0) {

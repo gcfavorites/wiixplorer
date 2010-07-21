@@ -39,6 +39,7 @@
 #include "Prompts/PopUpMenu.h"
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
+#include "Launcher/OperaBooter.hpp"
 #include "SoundOperations/MusicPlayer.h"
 #include "devicemounter.h"
 #include "sys.h"
@@ -268,13 +269,14 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(65, 164);
+	PopUpMenu *StartMenu = new PopUpMenu(65, 134);
 
 	if (!StartMenu)
 		return menu;
 
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
+	StartMenu->AddItem(tr("URL List"), channels_png, channels_png_size, true);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
 	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
 	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
@@ -309,6 +311,11 @@ int Taskbar::CheckStartMenu()
 		else if (choice == CHANNELS)
 		{
 			CheckChannelsMenu();
+			choice = -1;
+		}
+		else if (choice == URLS)
+		{
+			OpenLinksMenu();
 			choice = -1;
 		}
 	}
@@ -365,10 +372,7 @@ int Taskbar::CheckStartMenu()
 void Taskbar::CheckAppsMenu()
 {
 	int choice = -1;
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+50, 100);
-
-	if (!AppsMenu)
-		return;
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+50, 140);
 
 	int count = Applications::Instance()->Count();
 
@@ -405,10 +409,7 @@ void Taskbar::CheckAppsMenu()
 void Taskbar::CheckChannelsMenu()
 {
 	int choice = -1;
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+50, 100);
-
-	if (!ChannelsMenu)
-		return;
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+50, 170);
 
 	int count = Channels::Instance()->Count();
 
@@ -439,5 +440,52 @@ void Taskbar::CheckChannelsMenu()
 	if (choice >= 0 && WindowPrompt(tr("Do you want to start the channel?"), Channels::Instance()->GetName(choice), tr("Yes"), tr("Cancel")))
 	{
 		Channels::Instance()->Launch(choice);
+	}
+}
+
+void Taskbar::OpenLinksMenu()
+{
+	int choice = -1;
+	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+50, 200);
+
+    OperaBooter Booter(Settings.LinkListPath);
+
+    LinksMenu->AddItem(tr("Add Link"));
+
+    for (int i = 0; i < Booter.GetCount(); i++)
+    {
+        const char * name = Booter.GetName(i);
+        if(name)
+            LinksMenu->AddItem(name);
+    }
+
+    LinksMenu->Finish();
+
+    MainWindow::Instance()->Append(LinksMenu);
+
+    while (choice == -1)
+    {
+        usleep(100);
+
+        if (shutdown)
+            Sys_Shutdown();
+        else if (reset)
+            Sys_Reboot();
+
+        choice = LinksMenu->GetChoice();
+    }
+
+	delete LinksMenu;
+
+	if(choice == 0)
+        Booter.AddLink();
+
+	else if (choice > 0)
+	{
+	    int res = WindowPrompt(tr("Do you want to start Opera with this URL?"), Booter.GetLink(choice-1), tr("Yes"), tr("Remove Link"), tr("Cancel"));
+	    if(res == 1)
+            Booter.Launch(choice-1);
+        else if(res == 2)
+            Booter.RemoveLink(choice-1);
 	}
 }

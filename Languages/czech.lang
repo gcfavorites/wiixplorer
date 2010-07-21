@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 21:59+0200\n"
+"POT-Creation-Date: 2010-07-21 03:48+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -42,6 +42,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Akce zrušena"
+
+msgid "Add Link"
+msgstr ""
 
 msgid "Add to Playlist"
 msgstr ""
@@ -155,6 +158,9 @@ msgid "Cannot write to destination."
 msgstr ""
 
 msgid "Cannot write to the file."
+msgstr ""
+
+msgid "Cannot write to this path:"
 msgstr ""
 
 msgid "Caps"
@@ -327,6 +333,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr ""
 
+msgid "Do you want to add an URL?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr ""
 
@@ -404,6 +413,9 @@ msgid "Do you want to reset the settings?"
 msgstr ""
 
 msgid "Do you want to save changes?"
+msgstr ""
+
+msgid "Do you want to start Opera with this URL?"
 msgstr ""
 
 msgid "Do you want to start the app?"
@@ -533,6 +545,9 @@ msgid "Failed renaming item"
 msgstr ""
 
 msgid "Failed to get the Changelog."
+msgstr ""
+
+msgid "Failed to load the channel."
 msgstr ""
 
 msgid "Failed to read file data."
@@ -930,6 +945,9 @@ msgstr "Zapnuto"
 msgid "Open the file in the PDF Viewer?"
 msgstr ""
 
+msgid "Opera Channel not found on the system."
+msgstr ""
+
 msgid "Out of memory: too many files!"
 msgstr "Mimo paměť: příliš mnoho souborů"
 
@@ -970,6 +988,12 @@ msgid "Play File"
 msgstr ""
 
 msgid "Play Once"
+msgstr ""
+
+msgid "Please enter first the URL-Name."
+msgstr ""
+
+msgid "Please enter now the URL."
 msgstr ""
 
 msgid "Please enter the password."
@@ -1043,6 +1067,9 @@ msgid "Red"
 msgstr ""
 
 msgid "Reload"
+msgstr ""
+
+msgid "Remove Link"
 msgstr ""
 
 msgid "Remove from list"
@@ -1172,6 +1199,12 @@ msgstr ""
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
+msgid "This link will be used in Opera."
+msgstr ""
+
+msgid "This name will be shown in the Start Menu"
+msgstr ""
+
 msgid "This option could mess up the pdf view."
 msgstr ""
 
@@ -1204,6 +1237,12 @@ msgstr ""
 
 msgid "Transfering files:"
 msgstr "Přenáším soubory:"
+
+msgid "URL List"
+msgstr ""
+
+msgid "URL List Path"
+msgstr ""
 
 msgid "URL is empty."
 msgstr ""
