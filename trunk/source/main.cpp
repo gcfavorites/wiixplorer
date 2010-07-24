@@ -66,9 +66,6 @@ int main(int argc, char *argv[])
     if(IOS_ReloadIOS(202) >= 0)
         mload_Init();
 
-	setlocale(LC_CTYPE, "C-UTF-8");
-	setlocale(LC_MESSAGES, "C-UTF-8");
-
 	Sys_Init();
 	InitVideo(); // Initialise video
 	SetupPads(); // Initialize input
@@ -86,6 +83,9 @@ int main(int argc, char *argv[])
 
 	if(Settings.MountNTFS)
         NTFS_Mount();
+
+	setlocale(LC_CTYPE, "C-UTF-8");
+	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	MainWindow::Instance()->Show();
 
