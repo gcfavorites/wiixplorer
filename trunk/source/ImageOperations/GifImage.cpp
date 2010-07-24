@@ -71,12 +71,12 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 	short OutCode;					// Code to output
 
 	// Translation Table:
-	short Prefix[LZW_BUFF_SIZE];				// Prefix: index of another Code
-	unsigned char Suffix[LZW_BUFF_SIZE];		// Suffix: terminating character
+	short *Prefix = new short[LZW_BUFF_SIZE+1];				// Prefix: index of another Code
+	unsigned char *Suffix = new unsigned char[LZW_BUFF_SIZE+1];		// Suffix: terminating character
 	short FirstEntry;				// Index of first free entry in table
 	short NextEntry;				// Index of next free entry in table
 
-	unsigned char OutStack[LZW_BUFF_SIZE+1];	// Output buffer
+	unsigned char *OutStack = new unsigned char[LZW_BUFF_SIZE+1];	// Output buffer
 	int OutIndex;					// Characters in OutStack
 
 	int RowOffset;					// Offset in output buffer for current row
@@ -126,14 +126,27 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 		// - Elements up to FirstEntry are Raw-Codes and are not expanded
 		// - Table Prefices contain indexes to other codes
 		// - Table Suffices contain the raw codes to be output
-		while (OutCode >= FirstEntry) {
-			if (OutIndex > LZW_BUFF_SIZE) return 0;
+		while (OutCode >= FirstEntry)
+		{
+			if (OutIndex > LZW_BUFF_SIZE)
+			{
+			    delete [] OutStack;
+			    delete [] Suffix;
+			    delete [] Prefix;
+			    return 0;
+			}
 			OutStack[OutIndex++] = Suffix[OutCode];	// Add suffix to Output Stack
 			OutCode = Prefix[OutCode];				// Loop with preffix
 		}
 
 		// NOW OutCode IS A RAW CODE, ADD IT TO OUTPUT STACK.
-		if (OutIndex > LZW_BUFF_SIZE) return 0;
+		if (OutIndex > LZW_BUFF_SIZE)
+        {
+            delete [] OutStack;
+            delete [] Suffix;
+            delete [] Prefix;
+            return 0;
+        }
 		OutStack[OutIndex++] = (unsigned char) OutCode;
 
 		// ADD NEW ENTRY TO TABLE (PrevCode + OutCode)
@@ -144,7 +157,13 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 			NextEntry++;
 
 			// Prevent Translation table overflow:
-			if (NextEntry>=LZW_BUFF_SIZE) return 0;
+			if (NextEntry>=LZW_BUFF_SIZE)
+			{
+			    delete [] OutStack;
+			    delete [] Suffix;
+			    delete [] Prefix;
+			    return 0;
+			}
 
 			// INCREASE CodeSize IF NextEntry IS INVALID WITH CURRENT CodeSize
 			if (NextEntry >= (1<<CodeSize)) {
@@ -180,6 +199,10 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 
 	}	// while (main decompressor loop)
 
+    delete [] OutStack;
+    delete [] Suffix;
+    delete [] Prefix;
+
 	return whichBit;
 }
 
@@ -211,7 +234,12 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 	MainWidth = GifLSD.ScreenWidth;
 	MainHeight = GifLSD.ScreenHeight;
 
-    GIFCOLOR * GlobalColorMap = new GIFCOLOR[1 << GlobalBPP];
+    GIFCOLOR * GlobalColorMap = new (std::nothrow) GIFCOLOR[1 << GlobalBPP];
+    if(!GlobalColorMap)
+    {
+        ShowError(tr("Not enough memory."));
+        return;
+    }
 
 	if (GifLSD.PackedFields & 0x80)	// File has global color map?
 	{

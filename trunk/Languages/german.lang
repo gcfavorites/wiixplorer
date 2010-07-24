@@ -1,11 +1,12 @@
 # WiiXplorer
-# german language source file - r188
+# german language source file - r190
+
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-21 03:48+0200\n"
-"PO-Revision-Date: 2010-07-15 00:11-0800\n"
+"POT-Creation-Date: 2010-07-15 14:51+0200\n"
+"PO-Revision-Date: 2010-07-20 19:01-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +44,7 @@ msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
 
 msgid "Add Link"
-msgstr ""
+msgstr "Link hinzufügen"
 
 msgid "Add to Playlist"
 msgstr "Zur Wiedergabeliste hinzufügen"
@@ -160,7 +161,7 @@ msgid "Cannot write to the file."
 msgstr "In die Datei kann nicht geschrieben werden."
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "In diesen Pfad kann nicht geschrieben werden:"
 
 msgid "Caps"
 msgstr ""
@@ -333,7 +334,7 @@ msgid "Disconnect SMB"
 msgstr "Verbindung zum SMB trennen"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "Eine URL hinzufügen?"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "Das Einzufügende zur Warteschlange hinzufügen?"
@@ -415,7 +416,7 @@ msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
 
 msgid "Do you want to start Opera with this URL?"
-msgstr ""
+msgstr "Internet-Kanal mit dieser URL starten?"
 
 msgid "Do you want to start the app?"
 msgstr "Diese App starten?"
@@ -547,7 +548,7 @@ msgid "Failed to get the Changelog."
 msgstr "Laden des ChangeLog fehlgeschlagen."
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "Laden des Kanals fehlgeschlagen."
 
 msgid "Failed to read file data."
 msgstr "Lesen der Dateidaten fehlgeschlagen."
@@ -767,7 +768,7 @@ msgid "Keyboard Shift Button"
 msgstr "Tastatur: Shift"
 
 msgid "Lang."
-msgstr ""
+msgstr "Sprache"
 
 msgid "Language"
 msgstr "Sprache"
@@ -945,7 +946,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "Datei mit dem PDF Betrachter öffnen?"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Internet-Kanal wurde nicht gefunden."
 
 msgid "Out of memory: too many files!"
 msgstr "Speicher voll: Zu viele Dateien!"
@@ -990,10 +991,10 @@ msgid "Play Once"
 msgstr "Einmal abspielen"
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "Bitte erst dem Namen der URL eingeben."
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "Jetzt die URL eingeben."
 
 msgid "Please enter the password."
 msgstr "Bitte das Passwort eingeben."
@@ -1069,7 +1070,7 @@ msgid "Reload"
 msgstr "Erneut mounten"
 
 msgid "Remove Link"
-msgstr ""
+msgstr "Link entfernen"
 
 msgid "Remove from list"
 msgstr "Aus der Liste entfernen"
@@ -1199,10 +1200,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "Das ganze devkitPro & libogc Team."
 
 msgid "This link will be used in Opera."
-msgstr ""
+msgstr "Dieser Link wird dann von Internet-Kanal verwendet."
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "Dieser Name wird dann im Startmenü angezeigt."
 
 msgid "This option could mess up the pdf view."
 msgstr "Diese Option kann die PDF Ansicht versauen."
@@ -1238,10 +1239,10 @@ msgid "Transfering files:"
 msgstr "Übertrage Dateien:"
 
 msgid "URL List"
-msgstr ""
+msgstr "URL Liste"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "URL Liste"
 
 msgid "URL is empty."
 msgstr "URL ist leer."
@@ -1437,7 +1438,7 @@ msgid "for his FTP Server source."
 msgstr "für seinen FTP Server Quellcode."
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "für sein großartiges Tool libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr ""

@@ -276,7 +276,7 @@ int Taskbar::CheckStartMenu()
 
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
-	StartMenu->AddItem(tr("URL List"), channels_png, channels_png_size, true);
+	StartMenu->AddItem(tr("URL List"), opera_icon_png, opera_icon_png_size, true);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
 	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
 	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);

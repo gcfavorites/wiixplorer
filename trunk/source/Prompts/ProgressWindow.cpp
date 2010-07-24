@@ -310,7 +310,7 @@ void ProgressWindow::SetupProgressbar()
 
 	progressbarEmptyImg = new GuiImage(360, 36, (GXColor *) &ImgColor);
 	progressbarEmptyImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarEmptyImg->SetPosition(55, 155);
+	progressbarEmptyImg->SetPosition(58, 155);
 	Append(progressbarEmptyImg);
 
     ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
@@ -324,32 +324,32 @@ void ProgressWindow::SetupProgressbar()
 
     progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
     progressbarImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarImg->SetPosition(55, 155);
+	progressbarImg->SetPosition(58, 155);
 	Append(progressbarImg);
 
 	progressbarOutlineImg = new GuiImage(progressbarOutline);
 	progressbarOutlineImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarOutlineImg->SetPosition(55, 155);
+	progressbarOutlineImg->SetPosition(58, 155);
 	Append(progressbarOutlineImg);
 
     prTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 	prTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	prTxt->SetPosition(230, 155+OutLineMiddle-9);
+	prTxt->SetPosition(219, 155+OutLineMiddle-9);
 	Append(prTxt);
 
 	prsTxt = new GuiText("%", 20, (GXColor){0, 0, 0, 255});
 	prsTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	prsTxt->SetPosition(285, 155+OutLineMiddle-9);
+	prsTxt->SetPosition(273, 155+OutLineMiddle-9);
 	Append(prsTxt);
 
     sizeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
     sizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	sizeTxt->SetPosition(50, 155+50);
+	sizeTxt->SetPosition(55, 155+50);
 	Append(sizeTxt);
 
     TimeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
     TimeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	TimeTxt->SetPosition(250, 155+50);
+	TimeTxt->SetPosition(255, 155+50);
 	Append(TimeTxt);
 
 	//! Total progress
@@ -360,7 +360,7 @@ void ProgressWindow::SetupProgressbar()
 
 	progressbarTotalEmptyImg = new GuiImage(360, 36, (GXColor *) &ImgColor);
 	progressbarTotalEmptyImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarTotalEmptyImg->SetPosition(55, 235);
+	progressbarTotalEmptyImg->SetPosition(58, 235);
 	Append(progressbarTotalEmptyImg);
 
     ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
@@ -370,32 +370,32 @@ void ProgressWindow::SetupProgressbar()
 
     progressbarTotalImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
     progressbarTotalImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarTotalImg->SetPosition(55, 235);
+	progressbarTotalImg->SetPosition(58, 235);
 	Append(progressbarTotalImg);
 
 	progressbarTotalOutlineImg = new GuiImage(progressbarOutline);
 	progressbarTotalOutlineImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	progressbarTotalOutlineImg->SetPosition(55, 235);
+	progressbarTotalOutlineImg->SetPosition(58, 235);
 	Append(progressbarTotalOutlineImg);
 
     prTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 	prTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	prTotalTxt->SetPosition(230, 235+OutLineMiddle-9);
+	prTotalTxt->SetPosition(219, 235+OutLineMiddle-9);
 	Append(prTotalTxt);
 
 	prsTotalTxt = new GuiText("%", 20, (GXColor){0, 0, 0, 255});
 	prsTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	prsTotalTxt->SetPosition(285, 235+OutLineMiddle-9);
+	prsTotalTxt->SetPosition(273, 235+OutLineMiddle-9);
 	Append(prsTotalTxt);
 
     sizeTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
     sizeTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	sizeTotalTxt->SetPosition(50, 235+50);
+	sizeTotalTxt->SetPosition(55, 235+50);
 	Append(sizeTotalTxt);
 
     speedTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
     speedTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	speedTxt->SetPosition(350, 235+50);
+	speedTxt->SetPosition(345, 235+50);
 	Append(speedTxt);
 }
 

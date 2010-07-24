@@ -3,28 +3,29 @@
  * usb2storage.c -- USB mass storage support, inside starlet
  * Copyright (C) 2008 Kwiirk
  * Improved for homebrew by rodries and Tantric
- * 
+ * Modified by Dimok
+ *
  * IOS 202 and the ehcmodule must be loaded before using this!
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
  * damages arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any
  * purpose, including commercial applications, and to alter it and
  * redistribute it freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you
  * must not claim that you wrote the original software. If you use
  * this software in a product, an acknowledgment in the product
  * documentation would be appreciated but is not required.
- * 
+ *
  * 2. Altered source versions must be plainly marked as such, and
  * must not be misrepresented as being the original software.
- * 
+ *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- * 
+ *
  ***************************************************************************/
 
 #include <gccore.h>
@@ -36,7 +37,7 @@
 #include <ogc/mutex.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include <ogc/machine/processor.h>
 
 //#define DEBUG_USB2
@@ -63,7 +64,6 @@
 #define USB_IOCTL_UMS_EXIT			(UMS_BASE+0x16)
 
 #define UMS_HEAPSIZE					2*1024
-#define UMS_MAXPATH 16
 
 static s32 hId = -1;
 static s32 __usb2fd = -1;
@@ -72,73 +72,46 @@ static mutex_t usb2_mutex = LWP_MUTEX_NULL;
 static u8 *fixed_buffer = NULL;
 
 #define ROUNDDOWN32(v)				(((u32)(v)-0x1f)&~0x1f)
-#define USB2_BUFFER 128*1024
-static heap_cntrl usb2_heap;
-static u8 __usb2_heap_created = 0;
+#define is_MEM2_buffer(buffer) (((u32)buffer & 0x10000000) != 0)
 
-static DISC_INTERFACE __io_usb1storage;
+#define USB2_BUFFER 128*1024
+
 static int usb1disc_inited = 0;
+static DISC_INTERFACE __io_usb1storage;
 extern const DISC_INTERFACE __io_usb2storage;
 static int currentMode = 2; // 1 = use USB1 interface, 2 = use USB2 interface
 
-static s32 USB2CreateHeap()
+static u8 * USB2AllocFixedBuffer()
 {
-	u32 level;
-	void *usb2_heap_ptr;
-
-	if (__usb2_heap_created != 0)
-		return IPC_OK;
-
-	_CPU_ISR_Disable(level);
-
-	usb2_heap_ptr = (void *) ROUNDDOWN32(((u32)SYS_GetArena2Hi() - (USB2_BUFFER+(4*1024))));
-	if ((u32) usb2_heap_ptr < (u32) SYS_GetArena2Lo())
+	u8 * usb2_buffer_ptr = (u8 *) ROUNDDOWN32(((u32)SYS_GetArena2Hi() - USB2_BUFFER));
+	if ((u32) usb2_buffer_ptr < (u32) SYS_GetArena2Lo())
 	{
-		_CPU_ISR_Restore(level);
-		return IPC_ENOMEM;
+		return NULL;
 	}
-	SYS_SetArena2Hi(usb2_heap_ptr);
-	__lwp_heap_init(&usb2_heap, usb2_heap_ptr, (USB2_BUFFER + (4 * 1024)), 32);
-	__usb2_heap_created = 1;
-	_CPU_ISR_Restore(level);
-	return IPC_OK;
+	SYS_SetArena2Hi(usb2_buffer_ptr);
+
+	return usb2_buffer_ptr;
 }
 
 static s32 USB2Storage_Initialize()
-{	
-	static bool inited = false;
-
-	if(inited)
-		return 0;
-
-	if (usb2_mutex == LWP_MUTEX_NULL)
+{
+	if(usb2_mutex == LWP_MUTEX_NULL)
 		LWP_MutexInit(&usb2_mutex, false);
 
-	if (hId == -1)
+    if(fixed_buffer == NULL)
+        fixed_buffer = USB2AllocFixedBuffer();
+
+	if(fixed_buffer == NULL)
+		return -1;
+
+	if(hId < 0)
 		hId = iosCreateHeap(UMS_HEAPSIZE);
 
-	if (hId < 0)
-	{
-		debug_printf("error IPC_ENOMEM\n");
-		return IPC_ENOMEM;
-	}
-
-	if (USB2CreateHeap() != IPC_OK)
-	{
-		debug_printf("error USB2 IPC_ENOMEM\n");
-		return IPC_ENOMEM;
-	}
-
-	if (fixed_buffer == NULL)
-		fixed_buffer = __lwp_heap_allocate(&usb2_heap, USB2_BUFFER);
-
-	inited = true;
-	return 0;
+	return hId < 0 ? hId : 0;
 }
 
 static s32 USB2Storage_Open(int verbose)
 {
-	char *devicepath = NULL;
 	s32 ret = USB_OK;
 	u32 size = 0;
 
@@ -151,21 +124,13 @@ static s32 USB2Storage_Open(int verbose)
 	LWP_MutexLock(usb2_mutex);
 
 	if (__usb2fd <= 0)
-	{
-		devicepath = iosAlloc(hId, UMS_MAXPATH);
-		if (devicepath == NULL)
-		{
-			LWP_MutexUnlock(usb2_mutex);
-			return IPC_ENOMEM;
-		}
-
-		snprintf(devicepath, USB_MAXPATH, "/dev/usb2");
-		__usb2fd = IOS_Open(devicepath, 0);
-		iosFree(hId, devicepath);
-	}
+		__usb2fd = IOS_Open("/dev/usb2", 0);
 
 	if(__usb2fd <= 0)
+	{
+        LWP_MutexUnlock(usb2_mutex);
 		return -1;
+	}
 
 	if (verbose)
 		ret = IOS_IoctlvFormat(hId, __usb2fd, USB_IOCTL_UMS_SET_VERBOSE, ":");
@@ -178,6 +143,8 @@ static s32 USB2Storage_Open(int verbose)
 		size = IOS_IoctlvFormat(hId, __usb2fd, USB_IOCTL_UMS_GET_CAPACITY, ":i",
 				&sector_size);
 	debug_printf("usb2 GET_CAPACITY: %d\n", size);
+
+    LWP_MutexUnlock(usb2_mutex);
 
 	if (size == 0)
 		ret = -2012;
@@ -194,12 +161,6 @@ static void USB2Storage_Close()
 
 	IOS_Close(__usb2fd);
 	__usb2fd = -1;
-}
-
-static inline int is_MEM2_buffer(const void *buffer)
-{
-	u32 high_addr = ((u32) buffer) >> 24;
-	return (high_addr == 0x90) || (high_addr == 0xD0);
 }
 
 void USB2Enable(bool enable)
@@ -367,12 +328,36 @@ static bool __usb2storage_Shutdown(void)
 	if (currentMode == 1)
 		return __io_usb1storage.shutdown();
 
+	if (usb2_mutex != LWP_MUTEX_NULL)
+        LWP_MutexLock(usb2_mutex);
+
+    if(fixed_buffer != NULL)
+    {
+        fixed_buffer = NULL;
+        SYS_SetArena2Hi((void*)((u32)SYS_GetArena2Hi() + USB2_BUFFER));
+    }
+
+	USB2Storage_Close();
+
+    if(hId > 0)
+    {
+        iosDestroyHeap(hId);
+        hId = -1;
+    }
+
+	if (usb2_mutex != LWP_MUTEX_NULL)
+	{
+        LWP_MutexUnlock(usb2_mutex);
+        LWP_MutexDestroy(usb2_mutex);
+        usb2_mutex = LWP_MUTEX_NULL;
+	}
+
 	return true;
 }
 
-const DISC_INTERFACE __io_usb2storage = { 
-	DEVICE_TYPE_WII_USB, 
-	FEATURE_MEDIUM_CANREAD | FEATURE_MEDIUM_CANWRITE | FEATURE_WII_USB, 
+const DISC_INTERFACE __io_usb2storage = {
+	DEVICE_TYPE_WII_USB,
+	FEATURE_MEDIUM_CANREAD | FEATURE_MEDIUM_CANWRITE | FEATURE_WII_USB,
 	(FN_MEDIUM_STARTUP) & __usb2storage_Startup,
 	(FN_MEDIUM_ISINSERTED) & __usb2storage_IsInserted,
 	(FN_MEDIUM_READSECTORS) & __usb2storage_ReadSectors,

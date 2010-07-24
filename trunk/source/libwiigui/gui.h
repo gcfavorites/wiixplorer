@@ -50,7 +50,8 @@
 #include "filelist.h"
 #include "input.h"
 #include "sigslot.h"
-#include "gecko.h"
+#include "Tools/gecko.h"
+#include "Tools/wifi_gecko.h"
 #include "Tools/tools.h"
 #include "gui_trigger.h"
 
