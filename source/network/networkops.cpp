@@ -41,7 +41,7 @@
 static NetReceiver Receiver;
 static bool networkinit = false;
 static char IP[16];
-static u8 ThreadStack[16384] ATTRIBUTE_ALIGN(32);
+static u8 * ThreadStack = NULL;
 static bool firstRun = false;
 
 static lwp_t networkthread = LWP_THREAD_NULL;
@@ -141,7 +141,7 @@ static void * networkinitcallback(void *arg)
 			ConnectFTP();
             CheckForUpdate();
 
-            LWP_SetThreadPriority(LWP_GetSelf(), 0);
+            LWP_SetThreadPriority(networkthread, 0);
             firstRun = true;
         }
 
@@ -160,6 +160,10 @@ static void * networkinitcallback(void *arg)
  ***************************************************************************/
 void InitNetworkThread()
 {
+    ThreadStack = (u8 *) memalign(32, 16384);
+    if(!ThreadStack)
+        return;
+
 	LWP_CreateThread (&networkthread, networkinitcallback, NULL, ThreadStack, 16384, 30);
 	ResumeNetworkThread();
 }
@@ -172,7 +176,15 @@ void ShutdownNetworkThread()
     Receiver.FreeData();
     Receiver.CloseConnection();
     exitRequested = true;
-    ResumeNetworkThread();
-	LWP_JoinThread (networkthread, NULL);
-	networkthread = LWP_THREAD_NULL;
+
+    if(networkthread != LWP_THREAD_NULL)
+    {
+        ResumeNetworkThread();
+        LWP_JoinThread (networkthread, NULL);
+        networkthread = LWP_THREAD_NULL;
+    }
+
+	if(ThreadStack)
+        free(ThreadStack);
+    ThreadStack = NULL;
 }

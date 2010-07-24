@@ -46,6 +46,9 @@ extern const u32	apps_png_size;
 extern const u8		channels_png[];
 extern const u32	channels_png_size;
 
+extern const u8		opera_icon_png[];
+extern const u32	opera_icon_png_size;
+
 extern const u8		settings_png[];
 extern const u32	settings_png_size;
 

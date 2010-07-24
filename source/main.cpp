@@ -1,4 +1,4 @@
- /****************************************************************************
+/****************************************************************************
  * Copyright (C) 2010
  * by Dimok
  *
@@ -43,7 +43,7 @@
 #include "Settings.h"
 #include "devicemounter.h"
 #include "sys.h"
-#include "Memory/mem2.hpp"
+#include "Memory/mem2.h"
 #include "mload/mload_init.h"
 
 extern "C"
@@ -57,15 +57,17 @@ Settings Settings;
 
 int main(int argc, char *argv[])
 {
-	MEM2_init(48); // Initialize 48 MB
-	MEM2_takeBigOnes(true);
+	MEM2_init(52); // Initialize 52 MB (max is 53469152 bytes though)
     InitGecko();
-    __exception_setreload(40);
+    __exception_setreload(30);
 
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
     if(IOS_ReloadIOS(202) >= 0)
         mload_Init();
+
+	setlocale(LC_CTYPE, "C-UTF-8");
+	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	Sys_Init();
 	InitVideo(); // Initialise video
@@ -79,14 +81,11 @@ int main(int argc, char *argv[])
 
 	Settings.Load(argc, argv);
 	Settings.LoadLanguage(Settings.LanguagePath);
-	SetupDefaultFont(Settings.CustomFontPath);
 	SetupPDFFontPath(Settings.UpdatePath);
+	SetupDefaultFont(Settings.CustomFontPath);
 
 	if(Settings.MountNTFS)
         NTFS_Mount();
-
-	setlocale(LC_CTYPE, "C-UTF-8");
-	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	MainWindow::Instance()->Show();
 

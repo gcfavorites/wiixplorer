@@ -45,7 +45,7 @@ msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
 msgid "Add Link"
-msgstr ""
+msgstr "Tilføj link"
 
 msgid "Add to Playlist"
 msgstr "Tilføj til playliste"
@@ -162,7 +162,7 @@ msgid "Cannot write to the file."
 msgstr "Kan ikke skrive til fil."
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "Kan ikke skrive til denne sti:"
 
 msgid "Caps"
 msgstr ""
@@ -335,7 +335,7 @@ msgid "Disconnect SMB"
 msgstr "Afbryd SMB"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "Vil du tilføje en URL?"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "Vil du vedhæfte denne paste til køen?"
@@ -417,7 +417,7 @@ msgid "Do you want to save changes?"
 msgstr "Vil du gemme ændringer?"
 
 msgid "Do you want to start Opera with this URL?"
-msgstr ""
+msgstr "Vil du starte Opera med denne URL?"
 
 msgid "Do you want to start the app?"
 msgstr "Vil du starte dette prg?"
@@ -549,7 +549,7 @@ msgid "Failed to get the Changelog."
 msgstr "Fejlede at få Changelog."
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "Fejlede at indlæse kanal."
 
 msgid "Failed to read file data."
 msgstr "Fejlede at læse fil data."
@@ -769,7 +769,7 @@ msgid "Keyboard Shift Button"
 msgstr "Tastetur skift knap"
 
 msgid "Lang."
-msgstr ""
+msgstr "Sprog."
 
 msgid "Language"
 msgstr "Sprog"
@@ -817,7 +817,7 @@ msgid "Loading image..."
 msgstr "Indlæser billed..."
 
 msgid "Log was saved in MD5.log"
-msgstr "Log var gemt i MD5.log"
+msgstr "Log er gemt i MD5.log"
 
 msgid "Loop"
 msgstr ""
@@ -947,7 +947,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "Åben filen i PDF Viewer?"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Opera kanal, ikke fundet i systemet."
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
@@ -992,10 +992,10 @@ msgid "Play Once"
 msgstr "Afspil en gang"
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "Skriv venligst det første URL-Navn."
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "Skriv venligst URL nu."
 
 msgid "Please enter the password."
 msgstr "Skriv venligst kodeordet."
@@ -1071,7 +1071,7 @@ msgid "Reload"
 msgstr "Genindlæs"
 
 msgid "Remove Link"
-msgstr ""
+msgstr "Fjern link"
 
 msgid "Remove from list"
 msgstr "Fjern fra liste"
@@ -1201,10 +1201,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "Hele devkitPro & libogc staben."
 
 msgid "This link will be used in Opera."
-msgstr ""
+msgstr "Dette link vil blive brugt i Opera"
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "Dette navn vil blive vist i start menuen"
 
 msgid "This option could mess up the pdf view."
 msgstr "Denne mulighed kan ødelægge pdf view."
@@ -1243,7 +1243,7 @@ msgid "URL List"
 msgstr ""
 
 msgid "URL List Path"
-msgstr ""
+msgstr "Sti til URL List"
 
 msgid "URL is empty."
 msgstr "URL'en er tom."
@@ -1270,7 +1270,7 @@ msgid "Update (App) Path"
 msgstr "Opdateringssti til WiiExplorer"
 
 msgid "Update App"
-msgstr "Opdatér prg."
+msgstr "Opdater prg."
 
 msgid "Update Icon.png"
 msgstr "Opdater Icon.png"

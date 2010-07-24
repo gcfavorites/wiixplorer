@@ -1,5 +1,5 @@
 
-#include "mem2.hpp"
+#include "mem2.h"
 #include "mem2alloc.hpp"
 
 #include <malloc.h>
@@ -12,6 +12,16 @@ u32 MALLOC_MEM2 = 0;
 
 static CMEM2Alloc g_mem2gp;
 
+static bool g_bigGoesToMem2 = false;
+
+extern "C"
+{
+
+void MEM2_takeBigOnes(bool b)
+{
+	g_bigGoesToMem2 = b;
+}
+
 void MEM2_init(unsigned int mem2Size)
 {
 	g_mem2gp.init(mem2Size);
@@ -22,35 +32,30 @@ void MEM2_cleanup(void)
 	g_mem2gp.cleanup();
 }
 
-extern "C" void *MEM2_alloc(unsigned int s)
+void *MEM2_alloc(unsigned int s)
 {
 	return g_mem2gp.allocate(s);
 }
 
-extern "C" void MEM2_free(void *p)
+void MEM2_free(void *p)
 {
 	g_mem2gp.release(p);
 }
 
-extern "C" void *MEM2_realloc(void *p, unsigned int s)
+void *MEM2_realloc(void *p, unsigned int s)
 {
 	return g_mem2gp.reallocate(p, s);
 }
 
-extern "C" unsigned int MEM2_usableSize(void *p)
+unsigned int MEM2_usableSize(void *p)
 {
 	return CMEM2Alloc::usableSize(p);
 }
 
-bool g_bigGoesToMem2 = false;
-
-void MEM2_takeBigOnes(bool b)
+unsigned int MEM2_freesize()
 {
-	g_bigGoesToMem2 = b;
+    return g_mem2gp.FreeSize();
 }
-
-extern "C"
-{
 
 extern __typeof(malloc) __real_malloc;
 extern __typeof(calloc) __real_calloc;

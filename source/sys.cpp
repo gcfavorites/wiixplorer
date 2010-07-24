@@ -37,7 +37,7 @@
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "libftp/FTPServer.h"
-#include "Memory/mem2.hpp"
+#include "Memory/mem2.h"
 #include "VideoOperations/video.h"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"

@@ -32,6 +32,10 @@
 #include "sys.h"
 #include "OperaBooter.hpp"
 
+#define OPERA_USA   0x0001000148414445LL
+#define OPERA_JAP   0x000100014841444ALL
+#define OPERA_PAL   0x0001000148414450LL
+
 OperaBooter::OperaBooter(const char * xml)
 {
     xmlfile = NULL;
@@ -60,17 +64,17 @@ OperaBooter::OperaBooter(const char * xml)
 
     ParseXML();
 
-    if(FindTitle(0x0001000148414445LL))
+    if(FindTitle(OPERA_USA))
     {
-        OperaID = 0x0001000148414445LL;
+        OperaID = OPERA_USA;
     }
-    else if(FindTitle(0x000100014841444ALL))
+    else if(FindTitle(OPERA_PAL))
     {
-        OperaID = 0x000100014841444ALL;
+        OperaID = OPERA_PAL;
     }
-    else if(FindTitle(0x0001000148414450LL))
+    else if(FindTitle(OPERA_JAP))
     {
-        OperaID = 0x0001000148414450LL;
+        OperaID = OPERA_JAP;
     }
 }
 

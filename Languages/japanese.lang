@@ -1,5 +1,5 @@
 # WiiXplorer language source file.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
@@ -37,13 +37,13 @@ msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
 
 msgid "ASDFGHJKL:\"+"
-msgstr ""
+msgstr "ぱぴぷぺぽがぎぐげごゑゐ"
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "Add Link"
-msgstr ""
+msgstr "リンクを追加"
 
 msgid "Add to Playlist"
 msgstr "再生リストに追加"
@@ -160,7 +160,7 @@ msgid "Cannot write to the file."
 msgstr "ファイルに書き込めませんでした"
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "このパスに書き込めませんでした:"
 
 msgid "Caps"
 msgstr ""
@@ -333,7 +333,7 @@ msgid "Disconnect SMB"
 msgstr "SMBを切断"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "URLを追加しますか?"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "キューにこの貼り付けを追加しますか?"
@@ -415,7 +415,7 @@ msgid "Do you want to save changes?"
 msgstr "変更を保存しますか?"
 
 msgid "Do you want to start Opera with this URL?"
-msgstr ""
+msgstr "Operaで開きますか?"
 
 msgid "Do you want to start the app?"
 msgstr "アプリを始めますか?"
@@ -547,7 +547,7 @@ msgid "Failed to get the Changelog."
 msgstr "更新履歴を受信できませんでした"
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "チャンネルを読み込めませんでした"
 
 msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
@@ -767,7 +767,7 @@ msgid "Keyboard Shift Button"
 msgstr "キーボードのシフト"
 
 msgid "Lang."
-msgstr ""
+msgstr "英語"
 
 msgid "Language"
 msgstr "言語"
@@ -945,7 +945,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "PDFビューアで開きますか?"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Operaチャネルが見つかりません"
 
 msgid "Out of memory: too many files!"
 msgstr "ファイルが多いためメモリ不足です"
@@ -990,10 +990,10 @@ msgid "Play Once"
 msgstr "一度だけ再生"
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "URLの名前を入力してください"
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "URLを入力してください"
 
 msgid "Please enter the password."
 msgstr "パスワードを入力してください"
@@ -1041,7 +1041,7 @@ msgid "Properties"
 msgstr "プロパティ"
 
 msgid "QWERTYUIOP{}|"
-msgstr ""
+msgstr "ぁぃぅぇぉっゃゅょゎ!、。"
 
 #, c-format
 msgid "R: %i G: %i B: %i"
@@ -1069,7 +1069,7 @@ msgid "Reload"
 msgstr "再読み込み"
 
 msgid "Remove Link"
-msgstr ""
+msgstr "リンクを削除"
 
 msgid "Remove from list"
 msgstr "リストから外す"
@@ -1181,13 +1181,13 @@ msgid "Startup FTP"
 msgstr "FTPを開始"
 
 msgid "Temporary Path"
-msgstr "一時フォルダパス"
+msgstr "一時フォルダのパス"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "バッファサイズが大きすぎです。この後このアプリが起動しなければ設定ファイルを削除してください。"
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr "次に音楽を読み込んだときに反映します。音楽の再生は中止されるでしょう。"
+msgstr "次に音楽を読み込んだときに反映します。"
 
 msgid "The new font could not be loaded."
 msgstr "フォントを読み込めませんでした"
@@ -1199,16 +1199,16 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "devkitPro&libogcの制作者の方々"
 
 msgid "This link will be used in Opera."
-msgstr ""
+msgstr "このリンクはOperaで使われます"
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "この名前はスタートメニューで表示されます"
 
 msgid "This option could mess up the pdf view."
 msgstr "PDFの表示が崩れる場合があります"
 
 msgid "Time left:"
-msgstr "残り時間:"
+msgstr "残り:"
 
 msgid "To Idle"
 msgstr "スタンバイ"
@@ -1238,10 +1238,10 @@ msgid "Transfering files:"
 msgstr "転送中です:"
 
 msgid "URL List"
-msgstr ""
+msgstr "URLリスト"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "URLリストのパス"
 
 msgid "URL is empty."
 msgstr "URLが空です"
@@ -1416,7 +1416,7 @@ msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
 msgid "ZXCVBNM<>?"
-msgstr ""
+msgstr "ざじずぜぞだぢづでどをー"
 
 msgid "ZoomIn Button"
 msgstr "拡大"
@@ -1425,13 +1425,13 @@ msgid "ZoomOut Button"
 msgstr "縮小"
 
 msgid "`1234567890-"
-msgstr ""
+msgstr "ぬふあうえおやゆよわほへ"
 
 msgid "and all the translators."
 msgstr ", K-M…日本語への翻訳"
 
 msgid "asdfghjkl;'="
-msgstr ""
+msgstr "ちとしはきくまのりれけむ"
 
 msgid "for his FTP Server source."
 msgstr "…FTPのソースを制作"
@@ -1440,13 +1440,13 @@ msgid "for his great tool libwiigui."
 msgstr "…LibWiiGuiの制作者様"
 
 msgid "qwertyuiop[]\\"
-msgstr ""
+msgstr "たていすかんなにらせろん_"
 
 msgid "zxcvbnm,./"
-msgstr ""
+msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
-msgstr ""
+msgstr "ばびぶべぼ\\=!?#～ー"
 
 #~ msgid ""
 #~ "Checking directory: %s\n"
