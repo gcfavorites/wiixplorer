@@ -8,15 +8,6 @@
 extern "C" {
 #endif
 
-void MEM1_init();
-void MEM1_cleanup(void);
-void MEM1_takeBigOnes(bool b);
-void *MEM1_alloc(unsigned int s);
-void *MEM1_realloc(void *p, unsigned int s);
-void MEM1_free(void *p);
-unsigned int MEM1_usableSize(void *p);
-unsigned int MEM1_freesize();
-
 void MEM2_init(unsigned int mem2Size);
 void MEM2_cleanup(void);
 void MEM2_takeBigOnes(bool b);
