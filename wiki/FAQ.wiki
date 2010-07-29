@@ -18,8 +18,6 @@ This is the amount of blocks that should be used for sound playback. Increasing 
 This is the size of one sound block.
 
 === Temporary Path ===
-NOTE: I wouldnt mess with the path. Because you can end up not being able to load your apps. If this happens you can fix it without a computer.
-First, Delete WiiXplorer with HBC. Then, Hard reset your console on and off. after that you should be able to load your apps. Then, Download SD explorer from Homebrew Browser. Run SD Explorer and Delete the Wiixplorer config file. Then, all you have to do is download WiiXplorer from Homebrew Browser and auto update WiiXplorer.
 
 It's the path used for archive file's execution. The files from the archive are extracted to that path and executed afterwards.
 
