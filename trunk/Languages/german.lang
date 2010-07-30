@@ -1,11 +1,10 @@
 # WiiXplorer
 # german language source file - r190
-
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 14:51+0200\n"
+"POT-Creation-Date: 2010-07-30 13:20+0200\n"
 "PO-Revision-Date: 2010-07-20 19:01-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
@@ -105,9 +104,6 @@ msgstr "Blau"
 
 msgid "Boot Settings"
 msgstr "Bootvorgang"
-
-msgid "Bootup Mount"
-msgstr "Startgerät"
 
 msgid "Both"
 msgstr "Beides"
@@ -379,6 +375,9 @@ msgstr "Diese Sprache laden?"
 msgid "Do you want to load this language file?"
 msgstr "Diese Sprachdatei laden?"
 
+msgid "Do you want to open this URL?"
+msgstr ""
+
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Diese Datei im TextEditor öffnen?"
 
@@ -415,9 +414,6 @@ msgstr "Einstellungen zurücksetzen?"
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
 
-msgid "Do you want to start Opera with this URL?"
-msgstr "Internet-Kanal mit dieser URL starten?"
-
 msgid "Do you want to start the app?"
 msgstr "Diese App starten?"
 
@@ -432,6 +428,9 @@ msgstr "Fertig"
 
 msgid "Down Button"
 msgstr "Runter"
+
+msgid "Download Link"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
@@ -996,6 +995,9 @@ msgstr "Bitte erst dem Namen der URL eingeben."
 msgid "Please enter now the URL."
 msgstr "Jetzt die URL eingeben."
 
+msgid "Please enter the a path."
+msgstr ""
+
 msgid "Please enter the password."
 msgstr "Bitte das Passwort eingeben."
 
@@ -1190,6 +1192,9 @@ msgstr "Die Puffergröße ist sehr hoch. Wenn die App nicht startet, lösche dei
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "Der Effekt wird beim nächsten Laden der Musik übernommen. Es könnte die Musikwiedergabe unterbrechen."
 
+msgid "The file will be downloaded to this path."
+msgstr ""
+
 msgid "The new font could not be loaded."
 msgstr "Die neue Schriftart konnte nicht geladen werden."
 
@@ -1255,9 +1260,6 @@ msgstr "Ordner konnte nicht erstellt werden."
 
 msgid "Unable to load path."
 msgstr "Pfad konnte nicht geöffnet werden."
-
-msgid "Unable to load the device."
-msgstr "Das Gerät konnte nicht geladen werden."
 
 msgid "Unsupported format!"
 msgstr "Nicht unterstütztes Format!"
@@ -1392,6 +1394,12 @@ msgstr "kein FB BUTTON"
 msgid "Warning:"
 msgstr "Warnung:"
 
+msgid "Website Link"
+msgstr ""
+
+msgid "What kind of URL did you enter?"
+msgstr ""
+
 msgid "Wii Binary Files"
 msgstr "Wii Binär Dateien"
 
@@ -1448,6 +1456,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to start Opera with this URL?"
+#~ msgstr "Internet-Kanal mit dieser URL starten?"
+
+#~ msgid "Bootup Mount"
+#~ msgstr "Startgerät"
+
+#~ msgid "Unable to load the device."
+#~ msgstr "Das Gerät konnte nicht geladen werden."
 
 #~ msgid "for his great tool LibWiiGui."
 #~ msgstr "für sein großartiges Tool LibWiiGui."

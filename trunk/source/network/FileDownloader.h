@@ -27,6 +27,6 @@
 #define FILE_DOWNLOADER_H_
 
 int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest);
+int DownloadFileToPath(const char *url, const char *dest, bool UseFilename = true);
 
 #endif

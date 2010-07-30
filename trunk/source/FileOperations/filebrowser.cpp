@@ -363,8 +363,8 @@ bool FileBrowser::ParseDirEntries()
 	// Sort the file list
 	if(i >= 0)
 	{
-		browser.numEntries += i;
-		qsort(browserList, browser.numEntries, sizeof(BROWSERENTRY), FileSortCallback);
+		qsort(browserList, browser.numEntries+i, sizeof(BROWSERENTRY), FileSortCallback);
+		browser.numEntries += i;    //make sure reload is after the sort
 	}
 
 	if(res != 0 || parseHalt)

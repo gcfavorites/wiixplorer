@@ -30,8 +30,6 @@
 #include "menu.h"
 #include "sys.h"
 
-extern std::string LastUsedPath;
-
 int MenuGetPath(std::string & Path)
 {
     int menu = MENU_NONE;
@@ -74,13 +72,10 @@ int MenuGetPath(std::string & Path)
 	CancelBtn.SetTrigger(&trigB);
 	CancelBtn.SetEffectGrow();
 
-    Explorer_1 = new Explorer(Settings.MountMethod);
+    Explorer_1 = new Explorer(Settings.LastUsedPath.c_str());
     Explorer_1->SetFilter(FILTER_FILES);
-
-    if(LastUsedPath.length() == 0)
-        Explorer_1->LoadDevice(Settings.MountMethod);
-    else
-        Explorer_1->LoadPath(LastUsedPath.c_str());
+	//! Reload path with filter turned on
+    Explorer_1->LoadPath(Settings.LastUsedPath.c_str());
 
     MainWindow::Instance()->HaltGui();
     MainWindow::Instance()->Append(Explorer_1);

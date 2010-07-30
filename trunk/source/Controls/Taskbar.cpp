@@ -482,7 +482,7 @@ void Taskbar::OpenLinksMenu()
 
 	else if (choice > 0)
 	{
-	    int res = WindowPrompt(tr("Do you want to start Opera with this URL?"), Booter.GetLink(choice-1), tr("Yes"), tr("Remove Link"), tr("Cancel"));
+	    int res = WindowPrompt(tr("Do you want to open this URL?"), Booter.GetLink(choice-1), tr("Yes"), tr("Remove Link"), tr("Cancel"));
 	    if(res == 1)
             Booter.Launch(choice-1);
         else if(res == 2)

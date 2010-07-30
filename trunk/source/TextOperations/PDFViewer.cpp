@@ -241,9 +241,7 @@ int PDFViewer::PageToRGBA8()
         return -1;
     }
 
-    int len =  ((pix->w+3)>>2)*((pix->h+3)>>2)*32*2;
-    if(len%32)
-        len += (32-len%32);
+    int len = datasizeRGBA8(width, height);
 
     OutputImage = (u8 *) memalign(32, len);
     if(!OutputImage)
@@ -264,7 +262,7 @@ int PDFViewer::PageToRGBA8()
 
         for (x = 0; x < pix->w; x++)
         {
-            offset = ((((y >> 2) * (pix->w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+            offset = coordsRGBA8(x, y, pix->w);
 
             OutputImage[offset] = src[x * 4 + 0];
             OutputImage[offset+1] = src[x * 4 + 1];

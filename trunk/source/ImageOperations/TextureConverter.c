@@ -33,11 +33,6 @@
 #define MAXWIDTH 1024.0f
 #define MAXHEIGHT 768.0f
 
-static inline u32 coordsRGBA8(u32 x, u32 y, u32 w)
-{
-	return ((((y >> 2) * (w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
-}
-
 static u16 avg(u16 w0, u16 w1, u16 c0, u16 c1)
 {
 	u16 a0, a1;
@@ -398,7 +393,7 @@ bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 
 bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 {
-	u32 x, y;
+	u32 x, y, offset;
 	u8 r, g, b, a;
 
 	if(!buffer)
@@ -415,7 +410,7 @@ bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 	{
 		for(x = 0; x < width; x++)
 		{
-		    u32 offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+		    offset = coordsRGBA8(x, y, width);
             a = *(buffer+offset);
             r = *(buffer+offset+1);
             g = *(buffer+offset+32);
@@ -477,44 +472,40 @@ bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 
 u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 {
-    if(!gdImg || !(*gdImg))
-        return NULL;
+	int width = gdImageSX(*gdImg);
+	int height = gdImageSY(*gdImg);
+    float scale = 1.0f;
+    int retries = 100;  //shouldn't need that long but to be sure
 
     gdImageAlphaBlending(*gdImg, 0);
     gdImageSaveAlpha(*gdImg, 1);
-	int width = gdImageSX(*gdImg);
-	int height = gdImageSY(*gdImg);
-    int newwidth = width;
-    int newheight = height;
-    float scale = 1.0f;
-    int retries = 20;  //shouldn't need that long but to be sure
 
-    while(newwidth*scale > MAXWIDTH || newheight*scale > MAXHEIGHT)
+    while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
     {
-        if(newwidth*scale > MAXWIDTH)
-            scale = MAXWIDTH/newwidth;
-        if(newheight*scale > MAXHEIGHT)
-            scale = MAXHEIGHT/newheight;
+        if(width*scale > MAXWIDTH)
+            scale = MAXWIDTH/width;
+        if(height*scale > MAXHEIGHT)
+            scale = MAXHEIGHT/height;
 
         retries--;
 
         if(!retries)
         {
-            while(newwidth*scale > MAXWIDTH || newheight*scale > MAXHEIGHT)
+            while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
                 scale -= 0.02;
             break;
         }
     }
 
-    newwidth = ALIGN((int) (newwidth * scale));
-    newheight = ALIGN((int) (newheight * scale));
+    width = ALIGN((int) (width * scale));
+    height = ALIGN((int) (height * scale));
 
-    if(newwidth != width || newheight != height)
+    if(width != gdImageSX(*gdImg) || height != gdImageSY(*gdImg))
     {
-        gdImagePtr dst = gdImageCreateTrueColor(newwidth, newheight);
+        gdImagePtr dst = gdImageCreateTrueColor(width, height);
         gdImageAlphaBlending(dst, 0);
         gdImageSaveAlpha(dst, 1);
-        gdImageCopyResized(dst, *gdImg, 0, 0, 0, 0, newwidth, newheight, width, height);
+        gdImageCopyResized(dst, *gdImg, 0, 0, 0, 0, width, height, gdImageSX(*gdImg), gdImageSY(*gdImg));
 
         gdImageDestroy(*gdImg);
         *gdImg = dst;
@@ -523,37 +514,29 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
         height = gdImageSY(*gdImg);
     }
 
-    int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
-    if(len%32)
-        len += (32-len%32);
+    int len =  datasizeRGBA8(width, height);
 
-    u8 * data = (u8 *) memalign (32, len);
+    u8 * data = (u8 *) memalign(32, len);
     if(!data)
         return NULL;
 
-	int x, y;
+	u8 a;
+    u32 x, y, pixel, offset;
 
-    for(y = 0; y < height; y++)
+    for(y = 0; y < height; ++y)
     {
-        for(x = 0; x < width; x++)
+        for(x = 0; x < width; ++x)
         {
-            u32 p;
-            if(x >= width || y >= height)
-                p = 0;
-            else
-                p = gdImageGetPixel(*gdImg, x, y);
+            pixel = gdImageGetPixel(*gdImg, x, y);
 
-            u8 a = 254 - 2*((u8)gdImageAlpha(*gdImg, p));
+            a = 254 - 2*((u8)gdImageAlpha(*gdImg, pixel));
             if(a == 254) a++;
-            u8 r = (u8)gdImageRed(*gdImg, p);
-            u8 g = (u8)gdImageGreen(*gdImg, p);
-            u8 b = (u8)gdImageBlue(*gdImg, p);
 
-            u32 offset = coordsRGBA8(x, y, width);
+            offset = coordsRGBA8(x, y, width);
             data[offset] = a;
-            data[offset+1] = r;
-            data[offset+32] = g;
-            data[offset+33] = b;
+            data[offset+1] = (u8)gdImageRed(*gdImg, pixel);
+            data[offset+32] = (u8)gdImageGreen(*gdImg, pixel);
+            data[offset+33] = (u8)gdImageBlue(*gdImg, pixel);
         }
     }
 
@@ -571,9 +554,7 @@ u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
 {
     int x, y;
 
-    int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
-    if(len%32)
-        len += (32-len%32);
+    int len =  datasizeRGBA8(width, height);
 
     u8 * data = memalign(32, len);
     if(!data)
@@ -583,13 +564,13 @@ u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
     {
         for (x = 0; x < width; x++)
         {
-            u32 offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+            u32 offset = coordsRGBA8(x, y, width);
             u8 a = src[offset];
             u8 r = src[offset+1];
             u8 g = src[offset+32];
             u8 b = src[offset+33];
 
-            u32 offset2 = (((((height-y-1) >> 2) * (width >> 2) + ((width-x-1) >> 2)) << 5) + (((height-y-1) & 3) << 2) + ((width-x-1) & 3)) << 1;
+            u32 offset2 = coordsRGBA8((width-x-1), (height-y-1), width);
             data[offset2] = a;
             data[offset2+1] = r;
             data[offset2+32] = g;
@@ -600,4 +581,31 @@ u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
     DCFlushRange(data, len);
 
     return data;
+}
+
+u8 * RGB8ToRGBA8(const u8 *src, u32 width, u32 height)
+{
+    u32 x, y, offset;
+
+    int len = datasizeRGBA8(width, height);
+
+    u8 * dst = (u8 *) memalign(32, len);
+    if(!dst)
+        return NULL;
+
+    for (y = 0; y < height; ++y)
+    {
+        for (x = 0; x < width; ++x)
+        {
+            offset = coordsRGBA8(x, y, width);
+            dst[offset] = 0xFF;
+            dst[offset+1] = src[(y*width+x)*3];
+            dst[offset+32] = src[(y*width+x)*3+1];
+            dst[offset+33] = src[(y*width+x)*3+2];
+        }
+    }
+
+    DCFlushRange(dst, len);
+
+    return dst;
 }

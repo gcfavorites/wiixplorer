@@ -213,12 +213,6 @@ void StopGX()
 
 	VIDEO_SetBlack(TRUE);
 	VIDEO_Flush();
-
-	for(int i = 0; i < 2; i++)
-	{
-        free(MEM_K1_TO_K0(xfb[i]));
-        xfb[i] = NULL;
-	}
 }
 
 /****************************************************************************

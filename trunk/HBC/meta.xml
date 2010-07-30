@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <app version="1">
   <name>WiiXplorer</name>
-  <coder>Dimok/r-win/dude</coder>
-  <version>r192</version>
-  <release_date>201007241412</release_date>
+  <coder>Dimok</coder>
+  <contributors>r-win/dude</contributors>
+  <version>r195</version>
+  <release_date>201007301319</release_date>
+  <no_ios_reload/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
 The GUI is done with libwiigui as base and graphics by NeoRame.

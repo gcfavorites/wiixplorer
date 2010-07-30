@@ -1,3 +1,28 @@
+/***************************************************************************
+ * Copyright (C) 2010
+ * by Dimok
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ *
+ * for WiiXplorer 2010
+ ***************************************************************************/
 #include <gccore.h>
 #include <malloc.h>
 #include <string.h>
@@ -399,9 +424,7 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 
 			if (ret)
 			{
-                int len =  ((NextImage.width+3)>>2)*((NextImage.height+3)>>2)*32*2;
-                if(len%32)
-                    len += (32-len%32);
+                int len =  datasizeRGBA8(NextImage.width, NextImage.height);
 
                 NextImage.image = (u8 *) memalign(32, len);
 
@@ -421,7 +444,7 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 				{
 				    for(int y = 0; y < NextImage.height; ++y)
                     {
-                        offset = ((((y >> 2) * (NextImage.width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
+                        offset = coordsRGBA8(x, y, NextImage.width);
 
                         if(x < GifID.Width && y < GifID.Height)
                         {

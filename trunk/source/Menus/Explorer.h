@@ -49,12 +49,10 @@ class Explorer : public GuiWindow
 {
     public:
         Explorer();
-        Explorer(int device);
         Explorer(const char * path);
         ~Explorer();
         void Setup();
         int LoadPath(const char * path);
-        int LoadDevice(int device);
         int GetMenuChoice();
         void SetState(int s);
         void SetFilter(u8 filtermode) { DeviceBrowser->SetFilter(filtermode); };

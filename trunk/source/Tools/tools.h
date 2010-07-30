@@ -39,7 +39,10 @@ extern "C" {
 #define GXCOLORTORGBA(x) ((u32) (x.r << 24 | x.g << 16 | x.b << 8 | x.a))
 #define RGBATOGXCOLOR(x) ((GXColor) {(x & 0xFF000000) >> 24, (x & 0x00FF0000) >> 16, (x & 0x0000FF00) >> 8, (x & 0x000000FF)})
 #define cut_bounds(x, min, max) ( (x < min) ? min : (x > max) ? max : x )
-#define ALIGN(x) (x + ((4 - x % 4) % 4))
+#define ALIGN(x) ((x + 3) & ~3)
+#define ALIGN32(x) ((x + 31) & ~31)
+#define coordsRGBA8(x, y, w) (((((y >> 2) * (w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1)
+#define datasizeRGBA8(w, h) ALIGN32(((w+3)>>2)*((h+3)>>2)*32*2)
 
 void ShowError(const char * format, ...);
 void ShowMsg(const char * title, const char * format, ...);

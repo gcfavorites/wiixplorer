@@ -319,7 +319,7 @@ void WiiMovie::LoadNextFrame()
         SetFullscreen();
     }
 
-    Frames.push_back(ConvertToRGBA(VideoF.getData(), width, height));
+    Frames.push_back(RGB8ToRGBA8(VideoF.getData(), width, height));
 }
 
 void WiiMovie::Draw()
@@ -345,33 +345,4 @@ void WiiMovie::Draw()
 void WiiMovie::Update(GuiTrigger * t)
 {
     exitBtn->Update(t);
-}
-
-u8 * WiiMovie::ConvertToRGBA(const u8 * src, u32 width, u32 height)
-{
-    u32 x, y, offset;
-
-    int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
-    if(len%32)
-        len += (32-len%32);
-
-    u8 * dst = (u8 *) memalign(32, len);
-    if(!dst)
-        return NULL;
-
-    for (y = 0; y < height; ++y)
-    {
-        for (x = 0; x < width; ++x)
-        {
-            offset = ((((y >> 2) * (width >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
-            dst[offset] = 0xFF;
-            dst[offset+1] = src[(y*width+x)*3];
-            dst[offset+32] = src[(y*width+x)*3+1];
-            dst[offset+33] = src[(y*width+x)*3+2];
-        }
-    }
-
-    DCFlushRange(dst, len);
-
-    return dst;
 }

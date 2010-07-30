@@ -1,4 +1,6 @@
-#include "usbstorage.h"
+#include <ogc/mutex.h>
+#include <ogc/system.h>
+#include <ogc/usbstorage.h>
 #include <fat.h>
 #include <sdcard/wiisd_io.h>
 

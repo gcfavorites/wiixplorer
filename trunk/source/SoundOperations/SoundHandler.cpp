@@ -38,15 +38,14 @@ SoundHandler::SoundHandler()
 {
     Decoding = false;
     ExitRequested = false;
-	DecoderList.resize(16);
-	for(u32 i = 0; i < DecoderList.size(); i++)
+	for(u32 i = 0; i < MAX_DECODERS; ++i)
         DecoderList[i] = NULL;
 
-    ThreadStack = (u8 *) memalign(32, 16384);
+    ThreadStack = (u8 *) memalign(32, 32768);
 	if(!ThreadStack)
         return;
 
-	LWP_CreateThread(&SoundThread, UpdateThread, this, ThreadStack, 16384, 80);
+	LWP_CreateThread(&SoundThread, UpdateThread, this, ThreadStack, 32768, 80);
 }
 
 SoundHandler::~SoundHandler()
@@ -59,7 +58,6 @@ SoundHandler::~SoundHandler()
         free(ThreadStack);
 
 	ClearDecoderList();
-    DecoderList.clear();
 }
 
 SoundHandler * SoundHandler::Instance()
@@ -82,7 +80,7 @@ void SoundHandler::DestroyInstance()
 
 void SoundHandler::AddDecoder(int voice, const char * filepath)
 {
-    if(voice < 0 || voice >= size())
+    if(voice < 0 || voice >= MAX_DECODERS)
         return;
 
     if(DecoderList[voice] != NULL)
@@ -93,7 +91,7 @@ void SoundHandler::AddDecoder(int voice, const char * filepath)
 
 void SoundHandler::AddDecoder(int voice, const u8 * snd, int len)
 {
-    if(voice < 0 || voice >= size())
+    if(voice < 0 || voice >= MAX_DECODERS)
         return;
 
     if(DecoderList[voice] != NULL)
@@ -104,7 +102,7 @@ void SoundHandler::AddDecoder(int voice, const u8 * snd, int len)
 
 void SoundHandler::RemoveDecoder(int voice)
 {
-    if(voice < 0 || voice >= size())
+    if(voice < 0 || voice >= MAX_DECODERS)
         return;
 
     if(DecoderList[voice] != NULL)
@@ -120,20 +118,10 @@ void SoundHandler::RemoveDecoder(int voice)
     DecoderList[voice] = NULL;
 }
 
-SoundDecoder * SoundHandler::Decoder(int i)
-{
-    if(i < 0 || i >= size())
-        return NULL;
-
-    return DecoderList[i];
-}
-
 void SoundHandler::ClearDecoderList()
 {
-    for(u32 i = 0; i < DecoderList.size(); i++)
-    {
+    for(u32 i = 0; i < MAX_DECODERS; ++i)
         RemoveDecoder(i);
-    }
 }
 
 static inline bool CheckMP3Signature(const u8 * buffer)
@@ -268,7 +256,7 @@ void SoundHandler::InternalSoundUpdates()
 	{
         LWP_ThreadSleep(ThreadQueue);
 
-	    for(i = 0; i < DecoderList.size(); i++)
+	    for(i = 0; i < MAX_DECODERS; ++i)
 	    {
 	        if(DecoderList[i] == NULL)
                 continue;

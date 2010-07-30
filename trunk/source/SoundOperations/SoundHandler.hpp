@@ -30,6 +30,8 @@
 #include <gccore.h>
 #include "SoundDecoder.hpp"
 
+#define MAX_DECODERS    16
+
 class SoundHandler
 {
     public:
@@ -41,9 +43,8 @@ class SoundHandler
 		void RemoveDecoder(int voice);
 		void DestroyDecoder(SoundDecoder * decoder);
 
-        SoundDecoder * Decoder(int i);
+        SoundDecoder * Decoder(int i) { return ((i < 0 || i >= MAX_DECODERS) ? NULL : DecoderList[i]); };
         void ThreadSignal() { LWP_ThreadSignal(ThreadQueue); };
-		int size() { return DecoderList.size(); };
 		bool IsDecoding() { return Decoding; };
 	protected:
 		SoundHandler();
@@ -61,7 +62,7 @@ class SoundHandler
 		bool Decoding;
 		bool ExitRequested;
 
-		std::vector<SoundDecoder *> DecoderList;
+		SoundDecoder * DecoderList[MAX_DECODERS];
 };
 
 #endif

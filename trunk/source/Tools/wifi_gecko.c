@@ -91,7 +91,7 @@ int WifiGecko_Send(const char * data, int datasize)
         }
 
         done += ret;
-        usleep (20000);
+        usleep (1000);
     }
 
     return ret;

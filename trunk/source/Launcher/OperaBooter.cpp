@@ -28,7 +28,9 @@
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
+#include "network/FileDownloader.h"
 #include "Tools/tools.h"
+#include "main.h"
 #include "sys.h"
 #include "OperaBooter.hpp"
 
@@ -100,6 +102,7 @@ bool OperaBooter::AddLink()
 
     char name[150];
     char addr[300];
+    bool downloadlink = false;
 
     choice = OnScreenKeyboard(name, sizeof(name));
     if(!choice)
@@ -113,10 +116,16 @@ bool OperaBooter::AddLink()
     if(!choice)
         return true;
 
-    return AddLink(name, addr);
+    choice = WindowPrompt(tr("What kind of URL did you enter?"), 0, tr("Website Link"), tr("Download Link"));
+    if(choice == 1)
+        downloadlink = false;
+    else
+        downloadlink = true;
+
+    return AddLink(name, addr, downloadlink);
 }
 
-bool OperaBooter::AddLink(const char * name, const char * addr)
+bool OperaBooter::AddLink(const char * name, const char * addr, bool downloadlink)
 {
     if(!xmlfile)
         return false;
@@ -124,6 +133,7 @@ bool OperaBooter::AddLink(const char * name, const char * addr)
     mxml_node_t * url = mxmlNewElement(xmlfile, "url");
     mxmlElementSetAttr(url, "name", name);
     mxmlElementSetAttr(url, "addr", addr);
+    mxmlElementSetAttr(url, "downloadlink", fmt("%i", downloadlink));
 
     int position = LinkList.size();
 
@@ -131,6 +141,7 @@ bool OperaBooter::AddLink(const char * name, const char * addr)
 
     LinkList[position].name = strdup(name);
     LinkList[position].addr = strdup(addr);
+    LinkList[position].downloadlink = downloadlink;
 
 	if(LinkList.size() > 1)
         Sort();
@@ -173,6 +184,8 @@ bool OperaBooter::ParseXML()
 	{
 		const char * name = mxmlElementGetAttr(node, "name");
 		const char * addr = mxmlElementGetAttr(node, "addr");
+		const char * linkformat = mxmlElementGetAttr(node, "downloadlink");
+        bool downloadlink = linkformat ? (atoi(linkformat) != 0) : false;
 
 		if(name && addr)
 		{
@@ -180,6 +193,7 @@ bool OperaBooter::ParseXML()
 
             LinkList[position].name = strdup(name);
             LinkList[position].addr = strdup(addr);
+            LinkList[position].downloadlink = downloadlink;
             ++position;
 		}
 
@@ -226,6 +240,7 @@ bool OperaBooter::SaveXML()
         mxml_node_t * url = mxmlNewElement(newfile, "url");
         mxmlElementSetAttr(url, "name", LinkList[i].name);
         mxmlElementSetAttr(url, "addr", LinkList[i].addr);
+        mxmlElementSetAttr(url, "downloadlink", fmt("%i", LinkList[i].downloadlink));
     }
 
     mxmlSaveFile(newfile, f, NULL);
@@ -258,6 +273,9 @@ bool OperaBooter::Launch(int pos)
     if(pos < 0 || pos >= (int) LinkList.size())
         return false;
 
+    if(LinkList[pos].downloadlink)
+        return this->DownloadFile(pos);
+
     if(OperaID == 0)
     {
         ShowError(tr("Opera Channel not found on the system."));
@@ -272,6 +290,31 @@ bool OperaBooter::Launch(int pos)
 	}
 
 	return true;
+}
+
+bool OperaBooter::DownloadFile(int pos)
+{
+    if(pos < 0 || pos >= (int) LinkList.size())
+        return false;
+
+    char url[1024];
+    char filepath[1024];
+    snprintf(filepath, sizeof(filepath), Settings.LastUsedPath.c_str());
+
+    int choice = WindowPrompt(tr("Please enter the a path."), tr("The file will be downloaded to this path."), tr("OK"));
+    if(!choice)
+        return true;
+
+    choice = OnScreenKeyboard(filepath, sizeof(filepath));
+    if(!choice)
+        return true;
+
+    if(strncasecmp(LinkList[pos].addr, "http://", strlen("http://")) != 0)
+        snprintf(url, sizeof(url), "http://%s", LinkList[pos].addr);
+    else
+        snprintf(url, sizeof(url), "%s", LinkList[pos].addr);
+
+    return (DownloadFileToPath(url, filepath, true) >= 0);
 }
 
 void OperaBooter::Sort()

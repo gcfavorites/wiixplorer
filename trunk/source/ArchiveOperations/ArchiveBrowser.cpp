@@ -375,6 +375,7 @@ void ArchiveBrowser::ClearList()
     }
 
     PathStructure.clear();
+    std::vector<ArchiveFileStruct *>().swap(PathStructure);
 }
 
 void ArchiveBrowser::SortList()

@@ -27,7 +27,7 @@ using namespace std;
 /**
  * Convert a short char string to a wide char string.
  *
- * This routine converts a supplied shot character string into a wide character string.
+ * This routine converts a supplied short character string into a wide character string.
  * Note that it is the user's responsibility to clear the returned buffer once it is no longer needed.
  *
  * @param strChar	Character string to be converted.
@@ -36,6 +36,9 @@ using namespace std;
 
 wchar_t* charToWideChar(const char* strChar)
 {
+    if(!strChar)
+        return NULL;
+
 	wchar_t *strWChar = new (std::nothrow) wchar_t[strlen(strChar) + 1];
 	if(!strWChar)
 		return NULL;
@@ -43,7 +46,7 @@ wchar_t* charToWideChar(const char* strChar)
 	int bt = mbstowcs(strWChar, strChar, strlen(strChar));
 	if (bt > 0)
 	{
-		strWChar[bt] = (wchar_t)'\0';
+		strWChar[bt] = 0;
 		return strWChar;
 	}
 
@@ -436,7 +439,7 @@ uint16_t FreeTypeGX::getWidth(const wchar_t *text, int16_t pixelSize)
 /**
  * Single char width
 */
-uint16_t FreeTypeGX::getCharWidth(const wchar_t &wChar, int16_t pixelSize, const wchar_t &prevChar)
+uint16_t FreeTypeGX::getCharWidth(const wchar_t wChar, int16_t pixelSize, const wchar_t prevChar)
 {
     uint16_t strWidth = 0;
     ftgxCharData * glyphData = cacheGlyphData(wChar, pixelSize);

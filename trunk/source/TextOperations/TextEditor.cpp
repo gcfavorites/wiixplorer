@@ -121,6 +121,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
     TextPointerBtn->SetPosition(43, 75);
     TextPointerBtn->SetHoldable(true);
     TextPointerBtn->SetTrigger(trigHeldA);
+    TextPointerBtn->PositionChanged(0, 0, 0);
     TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
 
     PlusBtn = new GuiButton(0, 0);

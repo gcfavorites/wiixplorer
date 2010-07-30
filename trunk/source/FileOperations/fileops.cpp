@@ -56,13 +56,11 @@ extern bool sizegainrunning;
 static int GetReplaceChoice(const char * filename)
 {
     const char * progressText = ProgressWindow::Instance()->GetTitle();
-    ProgressWindow::Instance()->SetValuesResetable(false);
     StopProgress();
-    ProgressWindow::Instance()->SetValuesResetable(true);
 
     int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
 
-    StartProgress(progressText);
+    StartProgress(progressText, PROGRESSBAR, false);
 
     if(choice == 3)
     {
