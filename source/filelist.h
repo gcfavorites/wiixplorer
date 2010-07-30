@@ -53,4 +53,7 @@ extern const u32	bk169jp_png_size;
 extern const u8		bk169sp_png[];
 extern const u32	bk169sp_png_size;
 
+extern const u8		ehcmodule_elf[];
+extern const u32	ehcmodule_elf_size;
+
 #endif

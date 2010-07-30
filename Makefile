@@ -17,7 +17,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	boot
 BUILD		:=	build
-SOURCES		:=	source source/images/bk source/images/bk169
+SOURCES		:=	source source/images
 DATA		:=	data  
 INCLUDES	:=
 
@@ -25,7 +25,7 @@ INCLUDES	:=
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS	= -g -O2 -Wall $(MACHDEP) $(INCLUDE)
+CFLAGS	= -g -O3 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
 #---------------------------------------------------------------------------------
@@ -70,6 +70,7 @@ SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 PNGFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.png)))
 DOLFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.dol)))
+ELFFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.elf)))
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
@@ -83,7 +84,8 @@ endif
 export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
 					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o) \
-					$(PNGFILES:.png=.png.o) $(addsuffix .o,$(DOLFILES))
+					$(PNGFILES:.png=.png.o) $(addsuffix .o,$(DOLFILES)) \
+					$(addsuffix .o,$(ELFFILES))
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
@@ -141,6 +143,10 @@ $(OUTPUT).elf: $(OFILES)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.dol.o : %.dol
+	@echo $(notdir $<)
+	@bin2s -a 32 $< | $(AS) -o $(@)
+
+%.elf.o : %.elf
 	@echo $(notdir $<)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 

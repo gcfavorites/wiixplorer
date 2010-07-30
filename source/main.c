@@ -5,8 +5,8 @@
  *
  *      Copyright 2009 The Lemon Man
  *      Thanks to luccax, Wiipower, Aurelio and crediar
- *      GX added by dimok (thanks to Tantric)
  *      usbGecko powered by Nuke
+ *      GX Graphics & mem2 load added by Dimok (thanks to Tantric)
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -31,132 +31,28 @@
 #include <unistd.h>
 #include <ogc/machine/processor.h>
 
-#include "pngu.h"
 #include "video.h"
-#include "filelist.h"
+#include "background_image.h"
 #include "dolloader.h"
+#include "filelist.h"
 #include "cfg.h"
 #include "fatmounter.h"
+#include "mload_init.h"
 
-extern "C"
-{
-    extern void __exception_setreload(int t);
-}
-
-static PNGUPROP imgProp;
-static IMGCTX ctx;
-
-
-u8 * GetImageData(void)
-{
-	u8 * data = NULL;
-
-	int ret;
-
-	if (CONF_GetAspectRatio()) {
-		switch (CONF_GetLanguage()) {
-			case CONF_LANG_FRENCH:
-				ctx = PNGU_SelectImageFromBuffer(bk169fr_png);
-				break;
-			case CONF_LANG_JAPANESE:
-				ctx = PNGU_SelectImageFromBuffer(bk169jp_png);
-				break;
-			case CONF_LANG_SPANISH:
-				ctx = PNGU_SelectImageFromBuffer(bk169sp_png);
-				break;
-			case CONF_LANG_ITALIAN:
-				ctx = PNGU_SelectImageFromBuffer(bk169it_png);
-				break;
-			case CONF_LANG_DUTCH:
-				ctx = PNGU_SelectImageFromBuffer(bk169du_png);
-				break;
-			case CONF_LANG_GERMAN:
-				ctx = PNGU_SelectImageFromBuffer(bk169ge_png);
-				break;
-			default:
-				ctx = PNGU_SelectImageFromBuffer(bk169en_png);
-				break;
-		}
-	} else {
-		switch (CONF_GetLanguage()) {
-			case CONF_LANG_FRENCH:
-				ctx = PNGU_SelectImageFromBuffer(bkfr_png);
-				break;
-			case CONF_LANG_JAPANESE:
-				ctx = PNGU_SelectImageFromBuffer(bkjp_png);
-				break;
-			case CONF_LANG_SPANISH:
-				ctx = PNGU_SelectImageFromBuffer(bksp_png);
-				break;
-			case CONF_LANG_ITALIAN:
-				ctx = PNGU_SelectImageFromBuffer(bkit_png);
-				break;
-			case CONF_LANG_DUTCH:
-				ctx = PNGU_SelectImageFromBuffer(bkdu_png);
-				break;
-			case CONF_LANG_GERMAN:
-				ctx = PNGU_SelectImageFromBuffer(bkge_png);
-				break;
-			default:
-				ctx = PNGU_SelectImageFromBuffer(bken_png);
-				break;
-		}
-	}
-	if (!ctx)
-		return NULL;
-
-	ret = PNGU_GetImageProperties(ctx, &imgProp);
-	if (ret != PNGU_OK)
-		return NULL;
-
-    int len = imgProp.imgWidth * imgProp.imgHeight * 4;
-
-    if(len%32) len += (32-len%32);
-    data = (u8 *)memalign (32, len);
-    ret = PNGU_DecodeTo4x4RGBA8 (ctx, imgProp.imgWidth, imgProp.imgHeight, data, 255);
-	DCFlushRange(data, len);
-
-	PNGU_ReleaseImageContext(ctx);
-
-    return data;
-}
-
-void Background_Show(int x, int y, int z, u8 * data, int angle, int scaleX, int scaleY, int alpha)
-{
-	/* Draw image */
-	Menu_DrawImg(x, y, z, imgProp.imgWidth, imgProp.imgHeight, data, angle, scaleX, scaleY, alpha);
-    Menu_Render();
-}
-
-void fadein(u8 * imgdata)
-{
-	/* fadein of image */
-	for(int i = 0; i < 255; i = i+10)
-	{
-		if(i>255) i = 255;
-		Background_Show(0, 0, 0, imgdata, 0, 1, 1, i);
-	}
-}
-
-void fadeout(u8 * imgdata)
-{
-	/* fadeoout of image */
-	for(int i = 255; i > 1; i = i-7)
-	{
-		if(i < 0) i = 0;
-		Background_Show(0, 0, 0, imgdata, 0, 1, 1, i);
-	}
-}
+void __exception_setreload(int t);
 
 int main(int argc, char **argv)
 {
 	u32 cookie;
 	FILE *exeFile = NULL;
-	void *exeBuffer          = (void *)EXECUTABLE_MEM_ADDR;
-	u32 exeSize              = 0;
+	void * exeBuffer = (void *)EXECUTABLE_MEM_ADDR;
+	u32 exeSize = 0;
 	u32 exeEntryPointAddress = 0;
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
+
+    if(IOS_ReloadIOS(202) >= 0)
+        mload_Init();
 
 	/* int videomod */
 	InitVideo();
@@ -249,7 +145,7 @@ int main(int argc, char **argv)
 
 	fseek (exeFile, 0, SEEK_END);
 	exeSize = ftell(exeFile);
-	fseek (exeFile, 0, SEEK_SET);
+	rewind (exeFile);
 
 	if(fread (exeBuffer, 1, exeSize, exeFile) != exeSize)
 	{
@@ -302,7 +198,7 @@ int main(int argc, char **argv)
 
 	if (exeEntryPointAddress == 0)
 	{
-		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);;
+		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 	}
 
 	exeEntryPoint = (entrypoint) exeEntryPointAddress;
