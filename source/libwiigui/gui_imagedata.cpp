@@ -24,10 +24,8 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "gui.h"
+#include "ImageOperations/TextureConverter.h"
 #include "ImageOperations/TplImage.h"
-
-#define MAXWIDTH 1024.0f
-#define MAXHEIGHT 768.0f
 
 /**
  * Constructor for the GuiImageData class.
@@ -121,7 +119,7 @@ void GuiImageData::LoadPNG(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -131,7 +129,7 @@ void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -148,7 +146,7 @@ void GuiImageData::LoadGIF(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -158,7 +156,7 @@ void GuiImageData::LoadGD(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -168,7 +166,7 @@ void GuiImageData::LoadGD2(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -178,7 +176,7 @@ void GuiImageData::LoadTIFF(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -188,7 +186,7 @@ void GuiImageData::LoadBMP(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -198,7 +196,7 @@ void GuiImageData::LoadTGA(const u8 *img, int imgSize)
     if(gdImg == 0)
         return;
 
-    GDImageToRGBA8(gdImg);
+    data = GDImageToRGBA8(&gdImg, &width, &height);
     gdImageDestroy(gdImg);
 }
 
@@ -216,91 +214,11 @@ void GuiImageData::LoadTPL(const u8 *img, int imgSize)
     {
         int len =  TplFile.GetTextureSize(0);
 
-        data = (u8 *) memalign (32, len);
+        data = (u8 *) memalign(32, len);
         if(!data)
             return;
 
         memcpy(data, ImgPtr, len);
         DCFlushRange(data, len);
     }
-}
-
-static inline u32 coordsRGBA8(u32 x, u32 y, u32 w)
-{
-	return ((((y >> 2) * (w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1;
-}
-
-void GuiImageData::GDImageToRGBA8(gdImagePtr & gdImg)
-{
-	width = gdImageSX(gdImg);
-	height = gdImageSY(gdImg);
-    int origwidth = width;
-    int origheight = height;
-
-    int newwidth = width;
-    int newheight = height;
-    float scale = 1.0f;
-    int retries = 100;  //shouldn't need that long but to be sure
-
-    while(newwidth*scale > MAXWIDTH || newheight*scale > MAXHEIGHT)
-    {
-        if(newwidth*scale > MAXWIDTH)
-            scale = MAXWIDTH/newwidth;
-        if(newheight*scale > MAXHEIGHT)
-            scale = MAXHEIGHT/newheight;
-
-        retries--;
-
-        if(!retries)
-            break;
-    }
-
-    newwidth = ALIGN((int) (newwidth * scale));
-    newheight = ALIGN((int) (newheight * scale));
-
-    if(newwidth != width || newheight != height)
-    {
-        gdImagePtr dst = gdImageCreateTrueColor(newwidth, newheight);
-        gdImageCopyResized(dst, gdImg, 0, 0, 0, 0, newwidth, newheight, width, height);
-
-        gdImageDestroy(gdImg);
-        gdImg = dst;
-
-        width = gdImageSX(gdImg);
-        height = gdImageSY(gdImg);
-    }
-
-    int len =  ((width+3)>>2)*((height+3)>>2)*32*2;
-    if(len%32)
-        len += (32-len%32);
-
-    data = (u8 *) memalign (32, len);
-    if(!data)
-        return;
-
-    for(int y = 0; y < height; y++)
-    {
-        for(int x = 0; x < width; x++)
-        {
-            u32 p;
-            if(x >= origwidth || y >= origheight)
-                p = 0;
-            else
-                p = gdImageGetPixel(gdImg, x, y);
-
-            u8 a = 254 - 2*((u8)gdImageAlpha(gdImg, p));
-            if(a == 254) a++;
-            u8 r = (u8)gdImageRed(gdImg, p);
-            u8 g = (u8)gdImageGreen(gdImg, p);
-            u8 b = (u8)gdImageBlue(gdImg, p);
-
-            u32 offset = coordsRGBA8(x, y, width);
-            data[offset] = a;
-            data[offset+1] = r;
-            data[offset+32] = g;
-            data[offset+33] = b;
-        }
-    }
-
-    DCFlushRange(data, len);
 }

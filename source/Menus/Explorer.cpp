@@ -42,19 +42,11 @@
 
 /*** Extern variables ***/
 extern bool boothomebrew;
-extern std::string LastUsedPath;
 
 Explorer::Explorer()
     :GuiWindow(0, 0)
 {
     this->Setup();
-}
-
-Explorer::Explorer(int device)
-    :GuiWindow(0, 0)
-{
-    this->Setup();
-    this->LoadDevice(device);
 }
 
 Explorer::Explorer(const char *path)
@@ -66,8 +58,6 @@ Explorer::Explorer(const char *path)
 
 Explorer::~Explorer()
 {
-    LastUsedPath = DeviceBrowser->GetCurrentPath();
-
     MainWindow::Instance()->ResumeGui();
     SetEffect(EFFECT_FADE, -50);
     while(this->GetEffect() > 0) usleep(100);
@@ -274,37 +264,8 @@ int Explorer::LoadPath(const char * path)
 
 	DeviceBrowser->ResetMarker();
     AdressText->SetText(DeviceBrowser->GetCurrentPath());
+    Settings.LastUsedPath.assign(DeviceBrowser->GetCurrentPath());
 	SetDeviceImage();
-	return filecount;
-}
-
-int Explorer::LoadDevice(int device)
-{
-    if(CurBrowser != DeviceBrowser)
-        return -1;
-
-    int filecount = DeviceBrowser->BrowseDevice(device);
-	if(filecount < 0)
-	{
-		int choice = WindowPrompt(tr("Error:"),
-		tr("Unable to load the device."),
-		tr("Retry"),
-		tr("Close"));
-
-		if(choice)
-		{
-            SDCard_Init();
-            USBDevice_Init();
-			return LoadDevice(device);
-		}
-		else
-			return -2;
-	}
-	DeviceBrowser->ResetMarker();
-
-    AdressText->SetText(DeviceBrowser->GetCurrentPath());
-	SetDeviceImage();
-
 	return filecount;
 }
 
@@ -363,6 +324,7 @@ void Explorer::CheckBrowserChanges()
                 fileBrowser->TriggerUpdate();
                 CurBrowser->ResetMarker();
                 AdressText->SetText(CurBrowser->GetCurrentPath());
+                Settings.LastUsedPath.assign(DeviceBrowser->GetCurrentPath());
             }
             else if(result == 0)
             {
@@ -417,7 +379,7 @@ void Explorer::CheckBrowserChanges()
                 ArcBrowser = new ArchiveBrowser(filepath);
                 CurBrowser = ArcBrowser;
                 fileBrowser->SetBrowser(CurBrowser);
-                AdressText->SetTextf("%s", CurBrowser->GetCurrentPath());
+                AdressText->SetText(CurBrowser->GetCurrentPath());
             }
             else if(result == REFRESH_BROWSER)
             {
@@ -465,10 +427,11 @@ void Explorer::CheckDeviceMenu()
                 delete ArcBrowser;
                 ArcBrowser = NULL;
             }
-            LoadDevice(device_choice);
+            LoadPath(fmt("%s:/", DeviceName[device_choice]));
             fileBrowser->SetSelected(0);
             fileBrowser->TriggerUpdate();
-            AdressText->SetTextf("%s", CurBrowser->GetCurrentPath());
+            AdressText->SetText(CurBrowser->GetCurrentPath());
+            Settings.LastUsedPath.assign(DeviceBrowser->GetCurrentPath());
         }
         SetState(STATE_DEFAULT);
         fileBrowser->SetTriggerUpdate(true);
@@ -594,6 +557,7 @@ void Explorer::BackInDirectory(GuiElement *sender, int pointer, POINT p)
     CurBrowser->Refresh();
     fileBrowser->TriggerUpdate();
     AdressText->SetText(CurBrowser->GetCurrentPath());
+    Settings.LastUsedPath.assign(DeviceBrowser->GetCurrentPath());
 
     sender->ResetState();
 }

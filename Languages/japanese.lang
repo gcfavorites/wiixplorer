@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-21 03:48+0200\n"
+"POT-Creation-Date: 2010-07-30 13:20+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -104,9 +104,6 @@ msgstr "青"
 
 msgid "Boot Settings"
 msgstr "起動設定"
-
-msgid "Bootup Mount"
-msgstr "起動時のデバイス"
 
 msgid "Both"
 msgstr "両方"
@@ -378,6 +375,9 @@ msgstr "この言語に設定しますか?"
 msgid "Do you want to load this language file?"
 msgstr "この言語ファイルを読み込みますか?"
 
+msgid "Do you want to open this URL?"
+msgstr ""
+
 msgid "Do you want to open this file in TextEditor?"
 msgstr "テキストエディタで開きますか?"
 
@@ -414,9 +414,6 @@ msgstr "設定を初期化しますか?"
 msgid "Do you want to save changes?"
 msgstr "変更を保存しますか?"
 
-msgid "Do you want to start Opera with this URL?"
-msgstr "Operaで開きますか?"
-
 msgid "Do you want to start the app?"
 msgstr "アプリを始めますか?"
 
@@ -431,6 +428,9 @@ msgstr "完了"
 
 msgid "Down Button"
 msgstr "下"
+
+msgid "Download Link"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
@@ -995,6 +995,9 @@ msgstr "URLの名前を入力してください"
 msgid "Please enter now the URL."
 msgstr "URLを入力してください"
 
+msgid "Please enter the a path."
+msgstr ""
+
 msgid "Please enter the password."
 msgstr "パスワードを入力してください"
 
@@ -1189,6 +1192,9 @@ msgstr "バッファサイズが大きすぎです。この後このアプリが
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "次に音楽を読み込んだときに反映します。"
 
+msgid "The file will be downloaded to this path."
+msgstr ""
+
 msgid "The new font could not be loaded."
 msgstr "フォントを読み込めませんでした"
 
@@ -1254,9 +1260,6 @@ msgstr "フォルダを作成できませんでした"
 
 msgid "Unable to load path."
 msgstr "パスを読み込めませんでした"
-
-msgid "Unable to load the device."
-msgstr "デバイスを読み込めませんでした"
 
 msgid "Unsupported format!"
 msgstr "対応していない形式です!"
@@ -1391,6 +1394,12 @@ msgstr "クラコンのボタン無し"
 msgid "Warning:"
 msgstr "警告:"
 
+msgid "Website Link"
+msgstr ""
+
+msgid "What kind of URL did you enter?"
+msgstr ""
+
 msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
@@ -1447,6 +1456,15 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Do you want to start Opera with this URL?"
+#~ msgstr "Operaで開きますか?"
+
+#~ msgid "Bootup Mount"
+#~ msgstr "起動時のデバイス"
+
+#~ msgid "Unable to load the device."
+#~ msgstr "デバイスを読み込めませんでした"
 
 #~ msgid ""
 #~ "Checking directory: %s\n"

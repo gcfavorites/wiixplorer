@@ -35,6 +35,7 @@ int MenuImageSettings()
 	int ret;
 	int i = 0;
 	bool firstRun = true;
+    char entered[150];
 
 	OptionList options;
 	options.SetName(i++, tr("Slideshow Delay"));
@@ -63,23 +64,20 @@ int MenuImageSettings()
 		switch (ret)
 		{
             case 0:
-                Settings.SlideshowDelay += 5;
-                if(Settings.SlideshowDelay > 60)
-                    Settings.SlideshowDelay = 5;
+                snprintf(entered, sizeof(entered), "%i", Settings.SlideshowDelay);
+                if(OnScreenKeyboard(entered, sizeof(entered)))
+                {
+                    Settings.SlideshowDelay = cut_bounds(atoi(entered), 0, 999999);
+                }
 				break;
             case 1:
                 Settings.ScreenshotFormat = (Settings.ScreenshotFormat+1) % 6;
 				break;
             case 2:
-                char entered[150];
                 snprintf(entered, sizeof(entered), "%i", Settings.ImageFadeSpeed);
                 if(OnScreenKeyboard(entered, sizeof(entered)))
                 {
-                    Settings.ImageFadeSpeed = atoi(entered);
-                    if(Settings.ImageFadeSpeed < 1)
-                        Settings.ImageFadeSpeed = 1;
-                    else if(Settings.ImageFadeSpeed > 255)
-                        Settings.ImageFadeSpeed = 255;
+                    Settings.ImageFadeSpeed = cut_bounds(atoi(entered), 1, 255);
                 }
 				break;
 		}

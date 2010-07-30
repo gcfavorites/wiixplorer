@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -24,7 +24,7 @@
  * PromptWindows.cpp
  *
  * All promptwindows
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include <gccore.h>
 #include <stdio.h>
@@ -48,12 +48,6 @@
 #include "sys.h"
 #include "svnrev.h"
 
-/****************************************************************************
- * OnScreenKeyboard by Tantric 2009
- *
- * Opens an on-screen keyboard window, with the data entered being stored
- * into the specified variable.
- ***************************************************************************/
 int OnScreenKeyboard(char * var, u16 maxlen)
 {
     wString Converter;
@@ -164,8 +158,21 @@ bool NetworkInitPrompt()
     PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."));
     MainWindow::Instance()->Append(Prompt);
 
-    if(Settings.AutoConnect == 0)
-        Initialize_Network();
+    if(!Settings.AutoConnect)
+    {
+        InitNetworkThread();
+        ResumeNetworkThread();
+    }
+
+    while(Prompt->GetChoice() == -1)
+    {
+        usleep(100);
+
+        if(shutdown)
+            Sys_Shutdown();
+        else if(reset)
+            Sys_Reboot();
+    }
 
     delete Prompt;
     Prompt = NULL;
@@ -218,16 +225,26 @@ const char *btn4Label, bool resetstate)
 ***************************************************************************/
 int WaitSMBConnect(void)
 {
+    static bool firsttimestart = true;
+
+    if(!firsttimestart)
+        return 1;
+
+    firsttimestart = false;
     int choice = -1;
 
-    PromptWindow * Prompt = NULL;
-    Prompt = new PromptWindow(tr("Please wait:"), tr("Network initialising..."), tr("Cancel"));
+    if(Settings.LastUsedPath.compare(0, 3, "smb") != 0 && Settings.LastUsedPath.compare(0, 3, "ftp") != 0)
+        return 1;
+
+    PromptWindow * Prompt = new PromptWindow(tr("Please wait:"), tr("Network initialising..."), tr("Cancel"));
 
     if(!Settings.AutoConnect)
     {
         InitNetworkThread();
         ResumeNetworkThread();
     }
+
+    time_t timer1 = 0;
 
     MainWindow::Instance()->Append(Prompt);
 
@@ -245,6 +262,12 @@ int WaitSMBConnect(void)
         if(IsNetworkInit())
         {
             Prompt->SetMessage(tr("SMB is connecting..."));
+
+            if(timer1 == 0)
+                timer1 = time(0);
+
+            if(time(0) - timer1 > 5)
+                choice = -2;
 
             for(int i = 0; i < 4; i++)
             {

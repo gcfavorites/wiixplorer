@@ -23,10 +23,19 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef FILE_DOWNLOADER_H_
-#define FILE_DOWNLOADER_H_
+#ifndef CRC32_HPP_
+#define CRC32_HPP_
 
-int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size);
-int DownloadFileToPath(const char *url, const char *dest, bool UseFilename = true);
+class CRC32
+{
+    public:
+        CRC32(const unsigned char *s = 0, unsigned int size = 0) { init(); calc_crc32(s, size); }
+        void init() { crc32hash = 0; }
+        unsigned long calc_crc32(const unsigned char *s, unsigned int size);
+        unsigned long getCRC() const { return crc32hash; }
+        static unsigned long CalcComplete(const unsigned char *s, unsigned int size) { CRC32 Calc(s, size); return Calc.getCRC(); }
+    private:
+        unsigned long crc32hash;
+};
 
 #endif

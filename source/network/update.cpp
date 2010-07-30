@@ -59,7 +59,7 @@ int UpdateApp(const char *url)
 
     CreateSubfolder(Settings.UpdatePath);
 
-    int res = DownloadFileToPath(url, dest);
+    int res = DownloadFileToPath(url, dest, false);
     if(res < 102400)
     {
         RemoveFile(dest);

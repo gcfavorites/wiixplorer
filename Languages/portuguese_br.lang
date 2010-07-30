@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-21 03:48+0200\n"
+"POT-Creation-Date: 2010-07-30 13:20+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: grama\n"
 "Language-Team: \n"
@@ -103,9 +103,6 @@ msgid "Blue"
 msgstr ""
 
 msgid "Boot Settings"
-msgstr ""
-
-msgid "Bootup Mount"
 msgstr ""
 
 msgid "Both"
@@ -378,6 +375,9 @@ msgstr ""
 msgid "Do you want to load this language file?"
 msgstr ""
 
+msgid "Do you want to open this URL?"
+msgstr ""
+
 msgid "Do you want to open this file in TextEditor?"
 msgstr ""
 
@@ -414,9 +414,6 @@ msgstr ""
 msgid "Do you want to save changes?"
 msgstr ""
 
-msgid "Do you want to start Opera with this URL?"
-msgstr ""
-
 msgid "Do you want to start the app?"
 msgstr ""
 
@@ -430,6 +427,9 @@ msgid "Done"
 msgstr ""
 
 msgid "Down Button"
+msgstr ""
+
+msgid "Download Link"
 msgstr ""
 
 #, c-format
@@ -995,6 +995,9 @@ msgstr ""
 msgid "Please enter now the URL."
 msgstr ""
 
+msgid "Please enter the a path."
+msgstr ""
+
 msgid "Please enter the password."
 msgstr ""
 
@@ -1189,6 +1192,9 @@ msgstr ""
 msgid "The effect will take with next music load. It might break music playback."
 msgstr ""
 
+msgid "The file will be downloaded to this path."
+msgstr ""
+
 msgid "The new font could not be loaded."
 msgstr ""
 
@@ -1253,9 +1259,6 @@ msgid "Unable to create folder."
 msgstr "Impossível criar pasta."
 
 msgid "Unable to load path."
-msgstr ""
-
-msgid "Unable to load the device."
 msgstr ""
 
 msgid "Unsupported format!"
@@ -1389,6 +1392,12 @@ msgid "WPAD NONE BUTTON"
 msgstr ""
 
 msgid "Warning:"
+msgstr ""
+
+msgid "Website Link"
+msgstr ""
+
+msgid "What kind of URL did you enter?"
 msgstr ""
 
 msgid "Wii Binary Files"

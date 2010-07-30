@@ -54,10 +54,9 @@ typedef struct
 
 typedef struct
 {
-	u64 offset; // DVD offset
+	char filename[MAXJOLIET]; // full filename
 	u64 length; // file length in 64 bytes for sizes higher than 4GB
 	bool isdir; // 0 - file, 1 - directory
-	char filename[MAXJOLIET]; // full filename
 } BROWSERENTRY;
 
 class FileBrowser : public Browser

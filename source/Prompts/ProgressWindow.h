@@ -26,14 +26,13 @@ class ProgressWindow : public GuiWindow
 		static ProgressWindow * Instance();
 		static void DestroyInstance();
 
-        void StartProgress(const char *title, int mode = PROGRESSBAR);
+        void StartProgress(const char *title, int mode = PROGRESSBAR, bool reset = true);
         void ShowProgress(u64 done, u64 total, const char *filename);
         void StopProgress();
         const char * GetTitle() { return ProgressTitle.c_str(); };
         void SetMinimized(bool m) { Minimized = m; };
         void SetMinimizable(bool m) { Minimizable = m; };
         void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; };
-        void SetValuesResetable(bool s) { ValuesResetable = s; };
     protected:
         ProgressWindow();
         ~ProgressWindow();
@@ -56,7 +55,6 @@ class ProgressWindow : public GuiWindow
         bool Changed;
         bool Minimized;
         bool Minimizable;
-        bool ValuesResetable;
         u8 * ThreadStack;
         lwp_t ProgressThread;
 		bool ExitRequested;
@@ -104,7 +102,7 @@ class ProgressWindow : public GuiWindow
 		GuiTrigger * trigA;
 };
 
-void StartProgress(const char *title, int mode = PROGRESSBAR);
+void StartProgress(const char *title, int mode = PROGRESSBAR, bool reset = true);
 void ShowProgress(u64 done, u64 total, const char *filename);
 void StopProgress();
 

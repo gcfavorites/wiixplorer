@@ -29,6 +29,7 @@
 #ifndef _SETTINGS_H_
 #define _SETTINGS_H_
 
+#include <string>
 #include <stdio.h>
 #include <gctypes.h>
 #include "Controls/AppControls.hpp"
@@ -127,8 +128,6 @@ class Settings
 
         //!BootDevice determines from which devices to load the config
         char	BootDevice[10];
-        //!Current selected device to browse
-        short   MountMethod;
         //!Current selected SMB user
         short  	CurrentSMBUser;
         //!Current selected FTP user
@@ -196,6 +195,8 @@ class Settings
         char	ScreenshotPath[150];
         //!Path to where the url list in xml form is
         char	LinkListPath[150];
+        //!Last used path to which the app returns to
+        std::string LastUsedPath;
 		//!SMB users informations
         SMBData SMBUser[MAXSMBUSERS];
         //!FTP users informations

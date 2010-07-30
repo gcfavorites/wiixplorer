@@ -54,12 +54,11 @@ ProgressWindow::ProgressWindow()
     TotalDone = 0;
     TotalSize = 0;
     progressDone = 0;
-    progressTotal = 100;
+    progressTotal = 0;
     Changed = false;
     ExitRequested = false;
     Minimized = false;
     Minimizable = false;
-    ValuesResetable = true;
     ProgressMsg[0] = '\0';
 
     dialogBox = NULL;
@@ -493,7 +492,7 @@ void ProgressWindow::InternalUpdate()
 	}
 }
 
-void ProgressWindow::StartProgress(const char *title, int progressmode)
+void ProgressWindow::StartProgress(const char *title, int progressmode, bool reset)
 {
     if(title)
         ProgressTitle.assign(title);
@@ -504,6 +503,13 @@ void ProgressWindow::StartProgress(const char *title, int progressmode)
 
     TimerSize = 0;
     ProgressTimer.reset();
+
+    if(reset)
+    {
+        progressTotal = 0;
+        TotalDone = 0;
+        TotalSize = 0;
+    }
 
     LWP_ResumeThread(ProgressThread);
 }
@@ -525,7 +531,7 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
     if(!done)
     {
 	    TotalDone += progressTotal;
-	    if(TotalSize == 0)
+        if(TotalSize == 0)
             TotalSize = total;
     }
 
@@ -541,12 +547,6 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 void ProgressWindow::StopProgress()
 {
 	showProgress = 0;
-	if(ValuesResetable)
-	{
-        progressTotal = 0;
-        TotalDone = 0;
-        TotalSize = 0;
-	}
 
 	while(!LWP_ThreadIsSuspended(ProgressThread) && !ExitRequested)
         usleep(100);
@@ -657,9 +657,9 @@ void ProgressWindow::ClearMemory()
     soundOver = NULL;
 }
 
-void StartProgress(const char *title, int mode)
+void StartProgress(const char *title, int mode, bool reset)
 {
-    ProgressWindow::Instance()->StartProgress(title, mode);
+    ProgressWindow::Instance()->StartProgress(title, mode, reset);
 }
 
 void ShowProgress(u64 done, u64 total, const char *filename)

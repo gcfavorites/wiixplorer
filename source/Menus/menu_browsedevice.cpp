@@ -32,25 +32,13 @@
 #include "menu.h"
 #include "sys.h"
 
-static bool firsttimestart = true;
-std::string LastUsedPath;
-
 int MenuBrowseDevice()
 {
-    if(firsttimestart  && Settings.MountMethod >= SMB1 && Settings.MountMethod <= FTP10 && !IsNetworkInit())
-    {
-        if(WaitSMBConnect() < 2)
-            ShowError(tr("Could not connect to the network"));
-        firsttimestart = false;
-    }
+	if(WaitSMBConnect() < 0)
+		ShowError(tr("Could not connect to the network"));
 
 	int menu = MENU_NONE;
-	Explorer * Explorer_1 = NULL;
-
-    if(LastUsedPath.length() == 0)
-        Explorer_1 = new Explorer(Settings.MountMethod);
-    else
-        Explorer_1 = new Explorer(LastUsedPath.c_str());
+	Explorer * Explorer_1 = new Explorer(Settings.LastUsedPath.c_str());
 
     MainWindow::Instance()->Append(Explorer_1);
     MainWindow::Instance()->ResumeGui();

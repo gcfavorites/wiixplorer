@@ -86,7 +86,7 @@ void gettextCleanUp(void)
 	}
 }
 
-static void ClearPrefixes(char * msg)
+static inline void ClearPrefixes(char * msg)
 {
     if(!msg)
         return;
@@ -95,20 +95,20 @@ static void ClearPrefixes(char * msg)
 
     int i = 0;
 
-    while(ptr[0] != 0)
+    while(ptr[0] != '\0')
     {
         if(ptr[0] == '\\' && (ptr[1] == '\\' || ptr[1] == '"'))
         {
-            ptr++;
+            ++ptr;
         }
 
         msg[i] = ptr[0];
 
-        i++;
-        ptr++;
+        ++i;
+        ++ptr;
     }
 
-    msg[i] = 0;
+    msg[i] = '\0';
 }
 
 bool gettextLoadLanguage(const char* langFile)

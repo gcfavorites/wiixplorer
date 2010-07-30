@@ -62,7 +62,6 @@ class GuiImageData
         void LoadTIFF(const u8 *img, int imgSize);
 		void LoadTGA(const u8 *img, int imgSize);
 		void LoadTPL(const u8 *img, int imgSize);
-		void GDImageToRGBA8(gdImagePtr & gdImg);
 
 		u8 * data; //!< Image data
 		int height; //!< Height of image

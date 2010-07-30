@@ -26,7 +26,6 @@ class WiiMovie : public GuiElement
         void ReadNextFrame();
         void LoadNextFrame();
         void FrameLoadLoop();
-        u8 * ConvertToRGBA(const u8 * src, u32 width, u32 height);
 
         u8 * ThreadStack;
 		lwp_t ReadThread;

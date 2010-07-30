@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-21 03:48+0200\n"
+"POT-Creation-Date: 2010-07-30 13:20+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -108,9 +108,6 @@ msgstr "蓝色"
 
 msgid "Boot Settings"
 msgstr "运行设置"
-
-msgid "Bootup Mount"
-msgstr "开始挂载"
 
 msgid "Both"
 msgstr "全部"
@@ -386,6 +383,9 @@ msgstr "是否读取这个语言包"
 msgid "Do you want to load this language file?"
 msgstr "是否读取此语言文件？"
 
+msgid "Do you want to open this URL?"
+msgstr ""
+
 msgid "Do you want to open this file in TextEditor?"
 msgstr "是否用文本编辑器打开此文件？"
 
@@ -422,9 +422,6 @@ msgstr "是否复位此设置？"
 msgid "Do you want to save changes?"
 msgstr "是否保存更改？"
 
-msgid "Do you want to start Opera with this URL?"
-msgstr ""
-
 msgid "Do you want to start the app?"
 msgstr "是否运行此程序？"
 
@@ -439,6 +436,9 @@ msgstr "完成"
 
 msgid "Down Button"
 msgstr "下载按钮"
+
+msgid "Download Link"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
@@ -1006,6 +1006,9 @@ msgstr ""
 msgid "Please enter now the URL."
 msgstr ""
 
+msgid "Please enter the a path."
+msgstr ""
+
 msgid "Please enter the password."
 msgstr "请输入密码。"
 
@@ -1200,6 +1203,9 @@ msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "此次设置将会在下次生效。可能会终止音乐播放。"
 
+msgid "The file will be downloaded to this path."
+msgstr ""
+
 msgid "The new font could not be loaded."
 msgstr "无法读取新字库。"
 
@@ -1265,9 +1271,6 @@ msgstr "不能建立文件夹"
 
 msgid "Unable to load path."
 msgstr "不能找到路径。"
-
-msgid "Unable to load the device."
-msgstr "设备无法读取"
 
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
@@ -1402,6 +1405,12 @@ msgstr "Wiimote 无键"
 msgid "Warning:"
 msgstr "警告："
 
+msgid "Website Link"
+msgstr ""
+
+msgid "What kind of URL did you enter?"
+msgstr ""
+
 msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
@@ -1458,6 +1467,12 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Bootup Mount"
+#~ msgstr "开始挂载"
+
+#~ msgid "Unable to load the device."
+#~ msgstr "设备无法读取"
 
 #~ msgid ""
 #~ "Checking directory: %s\n"

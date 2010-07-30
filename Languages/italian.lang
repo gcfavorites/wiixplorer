@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-24 14:59+0200\n"
+"POT-Creation-Date: 2010-07-30 15:19+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -38,7 +38,7 @@ msgid "7z decompression failed:"
 msgstr "Decompressione 7z fallita:"
 
 msgid "ASDFGHJKL:\"+"
-msgstr ""
+msgstr "ASDFGHJKL:\\\"+"
 
 msgid "Action cancelled."
 msgstr "Operazione annullata."
@@ -105,9 +105,6 @@ msgstr "Blu"
 
 msgid "Boot Settings"
 msgstr "Impostazioni avvio"
-
-msgid "Bootup Mount"
-msgstr "Mount all'avvio"
 
 msgid "Both"
 msgstr "Entrambi"
@@ -379,6 +376,9 @@ msgstr "Vuoi caricare questa lingua?"
 msgid "Do you want to load this language file?"
 msgstr "Vuoi caricare questo file della lingua?"
 
+msgid "Do you want to open this URL?"
+msgstr ""
+
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Vuoi aprire questo file con TextEditor?"
 
@@ -415,9 +415,6 @@ msgstr "Vuoi resettare le impostazioni?"
 msgid "Do you want to save changes?"
 msgstr "Vuoi salvare le modifiche?"
 
-msgid "Do you want to start Opera with this URL?"
-msgstr "Vuoi avviare Opera con questo indirizzo?"
-
 msgid "Do you want to start the app?"
 msgstr "Vuoi avviare l'applicazione?"
 
@@ -432,6 +429,9 @@ msgstr "Fatto"
 
 msgid "Down Button"
 msgstr "Pulsante Giu'"
+
+msgid "Download Link"
+msgstr ""
 
 #, c-format
 msgid "Downloaded %d files."
@@ -996,6 +996,9 @@ msgstr "Inserisci prima il nome dell'URL."
 msgid "Please enter now the URL."
 msgstr "Inserisci adesso l'URL."
 
+msgid "Please enter the a path."
+msgstr ""
+
 msgid "Please enter the password."
 msgstr "Inserisci la password."
 
@@ -1190,6 +1193,9 @@ msgstr "Dimensione buffer elevata. Se il programma non si avvia dopo questo camb
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "Si avra' effetto al prossimo brano. La riproduzione potrebbe interrompersi."
 
+msgid "The file will be downloaded to this path."
+msgstr ""
+
 msgid "The new font could not be loaded."
 msgstr "Impossibile caricare il nuovo font."
 
@@ -1255,9 +1261,6 @@ msgstr "Impossibile creare la cartella."
 
 msgid "Unable to load path."
 msgstr "Impossibile caricare il percorso."
-
-msgid "Unable to load the device."
-msgstr "Impossibile caricare la periferica."
 
 msgid "Unsupported format!"
 msgstr "Formato non supportato!"
@@ -1392,6 +1395,12 @@ msgstr "Pulsante WiiMote Nessuno"
 msgid "Warning:"
 msgstr "Attenzione:"
 
+msgid "Website Link"
+msgstr ""
+
+msgid "What kind of URL did you enter?"
+msgstr ""
+
 msgid "Wii Binary Files"
 msgstr "Files Binari Wii"
 
@@ -1449,8 +1458,17 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Bootup Mount"
+#~ msgstr "Mount all'avvio"
+
+#~ msgid "Do you want to start Opera with this URL?"
+#~ msgstr "Vuoi avviare Opera con questo indirizzo?"
+
 #~ msgid "The whole DevkitPro & libogc staff."
 #~ msgstr "Tutto lo staff di DevkitPro & libogc."
+
+#~ msgid "Unable to load the device."
+#~ msgstr "Impossibile caricare la periferica."
 
 #~ msgid "for his great tool LibWiiGui."
 #~ msgstr "per la fantastica LibWiiGui."

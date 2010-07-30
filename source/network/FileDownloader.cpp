@@ -35,7 +35,7 @@
  ****************************************************************************/
 int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 {
-    if(strncmp(url, "http://", strlen("http://")) != 0)
+    if(strncasecmp(url, "http://", strlen("http://")) != 0)
     {
         ShowError(tr("Not a valid URL"));
 		return -1;
@@ -149,9 +149,9 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 /****************************************************************************
  * Download a file from a given url to a given path with a Progressbar
  ****************************************************************************/
-int DownloadFileToPath(const char *url, const char *dest)
+int DownloadFileToPath(const char *url, const char *dest, bool UseFilename)
 {
-    if(strncmp(url, "http://", strlen("http://")) != 0)
+    if(strncasecmp(url, "http://", strlen("http://")) != 0)
     {
         ShowError(tr("Not a valid URL"));
 		return -1;
@@ -215,6 +215,9 @@ int DownloadFileToPath(const char *url, const char *dest)
         ShowError(tr("Not enough memory."));
         return -6;
     }
+
+    if(UseFilename)
+        sprintf((char *) dest, "%s/%s", dest, filename);
 
     FILE *file = fopen(dest, "wb");
     if(!file)
