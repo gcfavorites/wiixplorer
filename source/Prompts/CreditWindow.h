@@ -57,6 +57,7 @@ class CreditWindow : public GuiWindow
         GuiSound * btnClick;
 
         GuiText * RevNum;
+        GuiText * IOSRevTxt;
         GuiText * Entrie[20];
 
         GuiButton * Backbtn;

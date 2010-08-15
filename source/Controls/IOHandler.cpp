@@ -114,6 +114,9 @@ void IOHandler::StartProcess(bool lock)
 
 void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
 {
+    if(!Running)
+        ProgressWindow::Instance()->ResetValues();
+
     ClipboardItem * TmpItem = new ClipboardItem;
 
     for(int i = 0; i < List->GetItemcount(); i++)
@@ -159,14 +162,14 @@ void IOHandler::ProcessNext()
             snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(0));
             snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
             if(CompareDevices(srcpath, destdir))
-                StartProgress(tr("Moving item(s):"), THROBBER, false);
+                StartProgress(tr("Moving item(s):"), THROBBER, !Running);
             else
-                StartProgress(tr("Moving item(s):"), PROGRESSBAR, false);
+                StartProgress(tr("Moving item(s):"), PROGRESSBAR, !Running);
         }
     }
     else
     {
-        StartProgress(tr("Copying item(s):"), PROGRESSBAR, false);
+        StartProgress(tr("Copying item(s):"), PROGRESSBAR, !Running);
     }
     for(int i = 0; i < CurrentProcess->GetItemcount(); i++)
     {
@@ -257,7 +260,7 @@ void IOHandler::SetMaximized(int Param)
     TaskbarSlot = NULL;
 
     ProgressWindow::Instance()->SetMinimized(false);
-    StartProgress(ProgressText.c_str(), Param, false);
+    StartProgress(ProgressText.c_str(), Param, !Running);
 
     ProcessLocked = true;
     LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);

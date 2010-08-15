@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <smb.h>
 #include "Tools/StringTools.h"
+#include "network/networkops.h"
 #include "main.h"
 
 static bool SMB_Mounted[MAXSMBUSERS];
@@ -48,6 +49,9 @@ bool ConnectSMBShare()
 
     if(firstRun)
     {
+        if(!IsNetworkInit())
+            Initialize_Network();
+
         for(int i = 0; i < MAXSMBUSERS; i++)
             SMB_Mounted[i] = false;
 

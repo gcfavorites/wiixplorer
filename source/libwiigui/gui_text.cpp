@@ -50,9 +50,6 @@ GuiText::GuiText(const char * t, int s, GXColor c)
 		if(!text)
 		    return;
 
-        if(currentSize > MAX_FONT_SIZE)
-            currentSize = MAX_FONT_SIZE;
-
 		textWidth = fontSystem->getWidth(text, currentSize);
 	}
 }
@@ -83,9 +80,6 @@ GuiText::GuiText(const wchar_t * t, int s, GXColor c)
             return;
 
 		wcscpy(text, t);
-
-        if(currentSize > MAX_FONT_SIZE)
-            currentSize = MAX_FONT_SIZE;
 
 		textWidth = fontSystem->getWidth(text, currentSize);
 	}
@@ -118,9 +112,6 @@ GuiText::GuiText(const char * t)
 		text = charToWideChar(t);
 		if(!text)
 		    return;
-
-        if(currentSize > MAX_FONT_SIZE)
-            currentSize = MAX_FONT_SIZE;
 
 		textWidth = fontSystem->getWidth(text, currentSize);
 	}
@@ -537,9 +528,6 @@ void GuiText::Draw()
 	c.a = GetAlpha();
 
 	int newSize = size*GetScale();
-
-	if(newSize > MAX_FONT_SIZE)
-		newSize = MAX_FONT_SIZE;
 
 	if(newSize != currentSize)
 	{

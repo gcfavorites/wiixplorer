@@ -20,7 +20,7 @@ typedef struct _dolheader {
     u32 entry_point;
 } dolheader;
 
-u32 load_dol(void *dolstart, struct __argv *argv) {
+u32 load_dol(const void *dolstart, struct __argv *argv) {
     u32 i;
     dolheader *dolfile;
 
@@ -29,12 +29,12 @@ u32 load_dol(void *dolstart, struct __argv *argv) {
         for (i = 0; i < 7; i++) {
             if ((!dolfile->text_size[i]) || (dolfile->text_start[i] < 0x100)) continue;
             ICInvalidateRange ((void *) dolfile->text_start[i],dolfile->text_size[i]);
-            memmove ((void *) dolfile->text_start[i],dolstart+dolfile->text_pos[i],dolfile->text_size[i]);
+            memcpy((void *) dolfile->text_start[i],dolstart+dolfile->text_pos[i],dolfile->text_size[i]);
         }
 
         for (i = 0; i < 11; i++) {
             if ((!dolfile->data_size[i]) || (dolfile->data_start[i] < 0x100)) continue;
-            memmove ((void *) dolfile->data_start[i],dolstart+dolfile->data_pos[i],dolfile->data_size[i]);
+            memcpy((void *) dolfile->data_start[i],dolstart+dolfile->data_pos[i],dolfile->data_size[i]);
             DCFlushRangeNoSync ((void *) dolfile->data_start[i],dolfile->data_size[i]);
         }
 
@@ -43,7 +43,7 @@ u32 load_dol(void *dolstart, struct __argv *argv) {
 
         if (argv && argv->argvMagic == ARGV_MAGIC) {
             void *new_argv = (void *)(dolfile->entry_point + 8);
-            memmove(new_argv, argv, sizeof(*argv));
+            memcpy(new_argv, argv, sizeof(*argv));
             DCFlushRange(new_argv, sizeof(*argv));
         }
 

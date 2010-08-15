@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
+"POT-Creation-Date: 2010-08-15 10:27+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -101,6 +101,9 @@ msgstr "Arrière-plan Supérieur/Droit"
 
 msgid "Blue"
 msgstr "Bleu"
+
+msgid "Boot IOS"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "Options de démarrage"

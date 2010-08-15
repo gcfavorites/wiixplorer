@@ -154,8 +154,14 @@ CreditWindow::CreditWindow()
     RevNum->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     RevNum->SetPosition(20, 20);
 
+    IOSRevTxt = new GuiText((char *) NULL, 16, (GXColor) {0, 0, 0, 255});
+    IOSRevTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+    IOSRevTxt->SetPosition(20, 50);
+    IOSRevTxt->SetTextf("IOS %i Rev. %i", IOS_GetVersion(), IOS_GetRevision());
+
     Append(dialogBoxImg);
     Append(RevNum);
+    Append(IOSRevTxt);
     for(int i = 0; i < CreditEntries; i++)
         Append(Entrie[i]);
     Append(Backbtn);
@@ -189,6 +195,7 @@ CreditWindow::~CreditWindow()
     delete Backbtn;
 
     delete RevNum;
+    delete IOSRevTxt;
 
     delete trigA;
     delete trigB;

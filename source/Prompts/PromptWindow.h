@@ -28,7 +28,7 @@
 #define _PROMPTWINDOW_H_
 
 #include <gctypes.h>
-#include <libwiigui/gui.h>
+#include "libwiigui/gui.h"
 
 class PromptWindow : public GuiWindow
 {

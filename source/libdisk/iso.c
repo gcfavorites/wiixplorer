@@ -31,6 +31,7 @@ misrepresented as being the original software.
 #include <ogcsys.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
 #include <string.h>
 #include <sys/dir.h>
 #include <sys/iosupport.h>
@@ -82,8 +83,8 @@ typedef struct {
     bool inUse;
 } DIR_STATE_STRUCT;
 
-static u8 read_buffer[BUFFER_SIZE] __attribute__((aligned(32)));
-static u8 cluster_buffer[BUFFER_SIZE] __attribute__((aligned(32)));
+static u8 * read_buffer = NULL;
+static u8 * cluster_buffer = NULL;
 static u32 cache_start = 0;
 static u32 cache_sectors = 0;
 
@@ -104,7 +105,8 @@ static bool is_dir(DIR_ENTRY *entry) {
 #define OFFSET_NAMELEN 32
 #define OFFSET_NAME 33
 
-static int _read(void *ptr, u64 offset, size_t len) {
+static int internal_read(void *ptr, u64 offset, size_t len)
+{
     u32 sector = offset / SECTOR_SIZE;
     u32 end_sector = (offset + len - 1) / SECTOR_SIZE;
     u32 sectors = MIN(BUFFER_SIZE / SECTOR_SIZE, end_sector - sector + 1);
@@ -117,13 +119,36 @@ static int _read(void *ptr, u64 offset, size_t len) {
     if (DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector)) {
         last_access = gettime();
         cache_sectors = 0;
-        return -1;
+        u32 error;
+        if (DI2_GetError(&error)) return -1;
+        if ((error & 0xFFFFFF) == 0x020401) { // discid has to be read again
+            u64 discid;
+            DI2_ReadDiscID(&discid);
+            if (DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector))
+                return -1;
+        }
     }
     last_access = gettime();
     cache_start = sector;
     cache_sectors = BUFFER_SIZE / SECTOR_SIZE;
     memcpy(ptr, read_buffer + sector_offset, len);
     return len;
+}
+
+static int _read(void *ptr, u64 offset, u32 len)
+{
+    s32 read = 0;
+    u32 done = 0;
+    u8 * dataptr = (u8 *) ptr;
+
+    while(done < len)
+    {
+        if((read = internal_read(dataptr+done, offset+done, len-done)) < 0) return read;
+
+        done += read;
+    }
+
+    return done;
 }
 
 static int read_entry(DIR_ENTRY *entry, u8 *buf) {
@@ -670,31 +695,52 @@ static void cleanup_recursive(PATH_ENTRY *entry) {
     if (entry->children) free(entry->children);
 }
 
-bool ISO9660_Mount() {
+bool ISO9660_Mount()
+{
     ISO9660_Unmount();
+    read_buffer = memalign(32, BUFFER_SIZE);
+    cluster_buffer = memalign(32, BUFFER_SIZE);
+    if(!read_buffer || !cluster_buffer)
+    {
+        ISO9660_Unmount();
+        return false;
+    }
     bool success = read_directories() && (dotab_device = AddDevice(&dotab_iso9660)) >= 0;
     if (success) last_access = gettime();
     else ISO9660_Unmount();
     return success;
 }
 
-bool ISO9660_Unmount() {
+bool ISO9660_Unmount()
+{
     if (root) {
         cleanup_recursive(root);
         free(root);
         root = NULL;
     }
+    if(read_buffer)
+    {
+        free(read_buffer);
+        read_buffer = NULL;
+    }
+    if(cluster_buffer)
+    {
+        free(cluster_buffer);
+        cluster_buffer = NULL;
+    }
     current = root;
     unicode = false;
     cache_sectors = 0;
     last_access = 0;
-    if (dotab_device >= 0) {
+    if (dotab_device >= 0)
+    {
         dotab_device = -1;
         return !RemoveDevice(DEVICE_NAME ":");
     }
     return true;
 }
 
-u64 ISO9660_LastAccess() {
+u64 ISO9660_LastAccess()
+{
     return last_access;
 }

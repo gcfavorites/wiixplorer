@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
+"POT-Creation-Date: 2010-08-15 10:27+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -100,6 +100,9 @@ msgid "Background Upper/Right"
 msgstr ""
 
 msgid "Blue"
+msgstr ""
+
+msgid "Boot IOS"
 msgstr ""
 
 msgid "Boot Settings"

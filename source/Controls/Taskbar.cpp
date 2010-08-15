@@ -40,6 +40,7 @@
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
 #include "Launcher/OperaBooter.hpp"
+#include "network/networkops.h"
 #include "SoundOperations/MusicPlayer.h"
 #include "devicemounter.h"
 #include "sys.h"
@@ -53,6 +54,8 @@ Taskbar::Taskbar()
 {
     menu = MENU_NONE;
     triggerupdate = true;
+    WifiData = NULL;
+    WifiImg = NULL;
 
 	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
 	taskbarImg = new GuiImage(taskbarImgData);
@@ -108,6 +111,11 @@ Taskbar::~Taskbar()
 	delete HeadPhonesImg;
 	Resources::Remove(taskbarImgData);
 	Resources::Remove(HeadPhonesData);
+
+	if(WifiData)
+        Resources::Remove(WifiData);
+	if(WifiImg)
+        delete WifiImg;
 
 	delete homeBtn;
 	delete startBtn;
@@ -227,6 +235,14 @@ int Taskbar::GetMenu()
         MusicPlayer::Instance()->Show();
 		Musicplayer->ResetState();
 	}
+	else if(WifiImg == NULL && IsNetworkInit())
+	{
+	    WifiData = Resources::GetImageData(network_wireless_png, network_wireless_png_size);
+        WifiImg = new GuiImage(WifiData);
+        WifiImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+        WifiImg->SetPosition(450, 0);
+        Append(WifiImg);
+	}
 	else if(TasksDeleteQueue.size() > 0)
 	{
         while(!TasksDeleteQueue.empty())
@@ -341,6 +357,7 @@ int Taskbar::CheckStartMenu()
 			NTFS_UnMount();
 			//don't need to shutdown the devices
             SDCard_deInit();
+            USBDevice_deInit();
             SDGeckoA_deInit();
             SDGeckoB_deInit();
 			SDCard_Init();

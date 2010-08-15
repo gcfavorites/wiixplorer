@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
+"POT-Creation-Date: 2010-08-15 10:27+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -104,6 +104,9 @@ msgstr "Φόντο πάνω δεξιά"
 
 msgid "Blue"
 msgstr "Μπλέ"
+
+msgid "Boot IOS"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "Ρυθμίσεις εκκίνησης"

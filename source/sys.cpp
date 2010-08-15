@@ -97,6 +97,7 @@ extern "C" void ExitApp()
     SDGeckoA_deInit();
     SDGeckoB_deInit();
     USBDevice_deInit();
+	USB_Deinitialize();
     DiskDrive_deInit();
 	DeInit_Network();
 	MEM2_cleanup();

@@ -27,6 +27,7 @@
  ***************************************************************************/
 #include <ogcsys.h>
 #include <string.h>
+#include "network/networkops.h"
 #include "libftp/ftp_devoptab.h"
 #include "main.h"
 
@@ -38,6 +39,9 @@ static bool ftpReady = false;
 bool ConnectFTP()
 {
 	ftpReady = false;
+
+    if(!IsNetworkInit())
+        Initialize_Network();
 
 	for (int i = 0; i < MAXFTPUSERS; i++)
 	{

@@ -48,7 +48,6 @@
 
 extern "C"
 {
-    void __exception_setreload(int t);
     void SetupPDFFontPath(const char * path);
 }
 
@@ -61,22 +60,31 @@ int main(int argc, char *argv[])
     InitGecko();
     __exception_setreload(30);
 
+	SDCard_Init(); // Initialize file system
+	USBDevice_Init(); // Initialize file system
+	Settings.Load(argc, argv);
+
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
-    if(IOS_ReloadIOS(202) >= 0)
-        mload_Init();
+    if(EntraceIOS != Settings.BootIOS || (Settings.BootIOS == 58 && __di_check_ahbprot() != 1))
+    {
+        SDCard_deInit();
+        USBDevice_deInit();
+
+        if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
+            mload_Init();
+
+        SDCard_Init();
+        USBDevice_Init();
+    }
 
 	Sys_Init();
 	InitVideo(); // Initialise video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
-	SDCard_Init(); // Initialize file system
 	SDGeckoA_Init(); // Initialize file system
 	SDGeckoB_Init(); // Initialize file system
-	USBDevice_Init(); // Initialize file system
-    DiskDrive_Init(false); //Init DVD Driver
-
-	Settings.Load(argc, argv);
+    DiskDrive_Init(); //Init DVD Driver
 	Settings.LoadLanguage(Settings.LanguagePath);
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);
@@ -91,7 +99,9 @@ int main(int argc, char *argv[])
 
     if(boothomebrew)
     {
-        IOS_ReloadIOS(EntraceIOS);
+        if(EntraceIOS != IOS_GetVersion())
+            IOS_ReloadIOS(EntraceIOS);
+
         BootHomebrew();
     }
 

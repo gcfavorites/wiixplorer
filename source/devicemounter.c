@@ -9,6 +9,7 @@
 
 #include "devicemounter.h"
 #include "libdisk/fst.h"
+#include "libdisk/gcfst.h"
 #include "libdisk/iso.h"
 #include "libdisk/di2.h"
 
@@ -145,15 +146,16 @@ void SDGeckoB_deInit()
 	__io_gcsdb.shutdown();
 }
 
-int DiskDrive_Init(bool have_dvdx)
+int DiskDrive_Init()
 {
-	return DI2_Init(have_dvdx); //Init DVD Driver
+    //Init DVD Driver
+    return DI2_Init(false);
 }
 
 void DiskDrive_deInit()
 {
-    FST_Unmount();
-    ISO9660_Unmount();
+    DiskDrive_UnMount();
+    DI2_StopMotor();
     DI2_Close(); //Deinit DVD Driver
 }
 
@@ -170,14 +172,15 @@ bool Disk_Inserted()
 
 bool DiskDrive_Mount()
 {
-    if(DI2_IsMotorRunning())
+    char read_buffer[2048];
+    if(DI2_ReadDVD(read_buffer, 1, 0) == 0)
         return true;
 
     bool devicemounted = false;
 
     DiskDrive_UnMount();
-
     DI2_Mount();
+
 	time_t timer1, timer2;
 	timer1 = time(0);
 
@@ -194,6 +197,8 @@ bool DiskDrive_Mount()
 
     if(!devicemounted)
         devicemounted = FST_Mount();
+    if(!devicemounted)
+        devicemounted = GCFST_Mount();
 
     return devicemounted;
 }
@@ -201,5 +206,6 @@ bool DiskDrive_Mount()
 void DiskDrive_UnMount()
 {
     FST_Unmount();
+    GCFST_Unmount();
     ISO9660_Unmount();
 }

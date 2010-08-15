@@ -8,7 +8,7 @@ extern "C" {
 extern void __exception_closeall();
 typedef void (*entrypoint) (void);
 
-u32 load_dol(void *dolstart, struct __argv *argv);
+u32 load_dol(const void *dolstart, struct __argv *argv);
 
 
 #ifdef __cplusplus

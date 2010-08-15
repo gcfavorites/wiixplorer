@@ -264,6 +264,9 @@ void CalculateCutoff(f32 realwidth, f32 realheight, f32 minwidth, f32 maxwidth,
                      f32 &w1, f32 &h1, f32 &w2, f32 &h2, f32 &w3, f32 &h3, f32 &w4, f32 &h4,
                      f32 &o1, f32 &o2, f32 &o3, f32 &o4, f32 &u1, f32 &u2, f32 &u3, f32 &u4)
 {
+    if(angle < 0)
+        angle += 360;
+
     if((angle <= 45 || angle > 315) || (angle > 135 && angle <= 225))
     {
         f32 RealXpos = xpos-(realwidth*scaleX-realwidth)/2.0f;
@@ -543,7 +546,7 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 	f32 u3 = 0.0f, u4 = 1.0f;
 
     CalculateCutoff(realwidth, realheight, minwidth, maxwidth, minheight, maxheight,
-                    scaleX, scaleY, xpos, ypos, (abs((int) degrees)) % 360,
+                    scaleX, scaleY, xpos, ypos, ((int) degrees) % 360,
                     w1, h1, w2, h2, w3, h3, w4, h4, o1, o2, o3, o4, u1, u2, u3, u4);
 
 	GX_Begin(GX_QUADS, GX_VTXFMT0,4);

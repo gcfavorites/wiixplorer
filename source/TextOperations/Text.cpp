@@ -330,9 +330,6 @@ void Text::Draw()
 
 	int newSize = size*GetScale();
 
-	if(newSize > MAX_FONT_SIZE)
-		newSize = MAX_FONT_SIZE;
-
 	if(newSize != currentSize)
 	{
 		currentSize = newSize;

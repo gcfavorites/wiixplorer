@@ -30,7 +30,6 @@
 #define _MAINWINDOW_H
 
 #include "libwiigui/gui.h"
-#include <list>
 
 class MainWindow : public GuiWindow
 {

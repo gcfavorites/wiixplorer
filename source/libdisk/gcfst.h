@@ -1,10 +1,10 @@
 /*
 
-libfst -- a Wii disc filesystem devoptab library for the Wii
+libgcfst -- a GC disc filesystem devoptab library for the Wii
 
-Copyright (C) 2008 Joseph Jordan <joe.ftpii@psychlaw.com.au>
+Copyright (C) 2010 Dimok
 
-Modified by Dimok
+Based on the libfst by Joseph Jordan <joe.ftpii@psychlaw.com.au>
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from
@@ -25,11 +25,11 @@ misrepresented as being the original software.
 3.This notice may not be removed or altered from any source distribution.
 
 */
-#ifndef _FST_H
-#define _FST_H
+#ifndef _GCFST_H
+#define _GCFST_H
 
-bool FST_Mount();
-bool FST_Unmount();
-u64 FST_LastAccess();
+bool GCFST_Mount();
+bool GCFST_Unmount();
+u64 GCFST_LastAccess();
 
 #endif /* _FST_H_ */

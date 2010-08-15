@@ -31,6 +31,9 @@ extern "C"
 {
 #endif
 
+void __exception_setreload(int t);
+u32 __di_check_ahbprot(void);
+
 void wiilight(int enable);
 
 bool RebootApp();

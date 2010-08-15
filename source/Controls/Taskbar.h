@@ -76,8 +76,10 @@ class Taskbar : public GuiWindow
 
 		GuiImageData *taskbarImgData;
 		GuiImageData *HeadPhonesData;
+		GuiImageData *WifiData;
 		GuiImage *taskbarImg;
 		GuiImage *HeadPhonesImg;
+		GuiImage *WifiImg;
 		GuiText *timeTxt;
 		PictureButton *startBtn;
 		SimpleGuiTrigger *trigA;

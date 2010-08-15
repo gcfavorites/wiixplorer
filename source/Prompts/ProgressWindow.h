@@ -33,6 +33,7 @@ class ProgressWindow : public GuiWindow
         void SetMinimized(bool m) { Minimized = m; };
         void SetMinimizable(bool m) { Minimizable = m; };
         void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; };
+        void ResetValues() { progressTotal = 0; TotalDone = 0; TotalSize = 0; };
     protected:
         ProgressWindow();
         ~ProgressWindow();
