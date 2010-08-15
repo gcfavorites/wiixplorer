@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
+"POT-Creation-Date: 2010-08-15 22:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -101,6 +101,9 @@ msgstr "背景の右上"
 
 msgid "Blue"
 msgstr "青"
+
+msgid "Boot IOS"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "起動設定"
@@ -376,7 +379,7 @@ msgid "Do you want to load this language file?"
 msgstr "この言語ファイルを読み込みますか?"
 
 msgid "Do you want to open this URL?"
-msgstr ""
+msgstr "このURLを開きますか?"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr "テキストエディタで開きますか?"
@@ -430,7 +433,7 @@ msgid "Down Button"
 msgstr "下"
 
 msgid "Download Link"
-msgstr ""
+msgstr "ダウンロードリンク"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -996,7 +999,7 @@ msgid "Please enter now the URL."
 msgstr "URLを入力してください"
 
 msgid "Please enter the a path."
-msgstr ""
+msgstr "パスを入力してください"
 
 msgid "Please enter the password."
 msgstr "パスワードを入力してください"
@@ -1193,7 +1196,7 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "次に音楽を読み込んだときに反映します。"
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "ファイルはこのパスに保存されます"
 
 msgid "The new font could not be loaded."
 msgstr "フォントを読み込めませんでした"
@@ -1395,10 +1398,10 @@ msgid "Warning:"
 msgstr "警告:"
 
 msgid "Website Link"
-msgstr ""
+msgstr "ウェブサイトリンク"
 
 msgid "What kind of URL did you enter?"
-msgstr ""
+msgstr "入力したURLはどちらの形式ですか?"
 
 msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"

@@ -33,8 +33,6 @@
 #include <wchar.h>
 #include <map>
 
-#define MAX_FONT_SIZE 100
-
 /*! \struct ftgxCharData_
  *
  * Font face character glyph relevant data structure.
@@ -42,7 +40,7 @@
 typedef struct ftgxCharData_ {
 	int16_t renderOffsetX;		/**< Texture X axis bearing offset. */
 	uint16_t glyphAdvanceX;		/**< Character glyph X coordinate advance in pixels. */
-	uint16_t glyphIndex;		/**< Charachter glyph index in the font face. */
+	uint32_t glyphIndex;		/**< Charachter glyph index in the font face. */
 
 	uint16_t textureWidth;		/**< Texture width in pixels/bytes. */
 	uint16_t textureHeight;		/**< Texture glyph height in pixels/bytes. */

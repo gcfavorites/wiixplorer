@@ -104,22 +104,12 @@ int BootHomebrew()
     if(homebrewsize == 0)
         return -1;
 
-    entrypoint entry;
-    u32 cpu_isr;
-
-    u8 * buffer = (u8*) malloc(app_booter_dol_size);
-    if(!buffer)
-        return -1;
-
-    memcpy(buffer, app_booter_dol, app_booter_dol_size);
-
     struct __argv args;
     SetupARGV(&args);
 
-    entry = (entrypoint) load_dol(buffer, &args);
+    u32 cpu_isr;
 
-    if(buffer)
-        free(buffer);
+    entrypoint entry = (entrypoint) load_dol(app_booter_dol, &args);
 
     if (!entry)
         return -1;

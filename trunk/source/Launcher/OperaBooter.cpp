@@ -282,6 +282,8 @@ bool OperaBooter::Launch(int pos)
         return false;
     }
 
+    ExitApp();
+
     int ret = WII_LaunchTitleWithArgs(OperaID, 0, LinkList[pos].addr, NULL);
     if(ret < 0)
 	{

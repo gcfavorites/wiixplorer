@@ -505,11 +505,7 @@ void ProgressWindow::StartProgress(const char *title, int progressmode, bool res
     ProgressTimer.reset();
 
     if(reset)
-    {
-        progressTotal = 0;
-        TotalDone = 0;
-        TotalSize = 0;
-    }
+        ResetValues();
 
     LWP_ResumeThread(ProgressThread);
 }

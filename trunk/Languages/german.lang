@@ -1,11 +1,12 @@
 # WiiXplorer
-# german language source file - r190
+# german language source file - r195
+# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
-"PO-Revision-Date: 2010-07-20 19:01-0800\n"
+"POT-Creation-Date: 2010-08-15 22:06+0200\n"
+"PO-Revision-Date: 2010-07-30 06:21-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -101,6 +102,9 @@ msgstr "Hintergrund Oben/Rechts"
 
 msgid "Blue"
 msgstr "Blau"
+
+msgid "Boot IOS"
+msgstr ""
 
 msgid "Boot Settings"
 msgstr "Bootvorgang"
@@ -376,7 +380,7 @@ msgid "Do you want to load this language file?"
 msgstr "Diese Sprachdatei laden?"
 
 msgid "Do you want to open this URL?"
-msgstr ""
+msgstr "Diese URL öffnen?"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Diese Datei im TextEditor öffnen?"
@@ -430,7 +434,7 @@ msgid "Down Button"
 msgstr "Runter"
 
 msgid "Download Link"
-msgstr ""
+msgstr "Download"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -993,10 +997,10 @@ msgid "Please enter first the URL-Name."
 msgstr "Bitte erst dem Namen der URL eingeben."
 
 msgid "Please enter now the URL."
-msgstr "Jetzt die URL eingeben."
+msgstr "Bitte jetzt die URL eingeben."
 
 msgid "Please enter the a path."
-msgstr ""
+msgstr "Bitte einen Pfad eingeben."
 
 msgid "Please enter the password."
 msgstr "Bitte das Passwort eingeben."
@@ -1193,7 +1197,7 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "Der Effekt wird beim nächsten Laden der Musik übernommen. Es könnte die Musikwiedergabe unterbrechen."
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "Die Datei wird dann in diesen Pfad heruntergeladen."
 
 msgid "The new font could not be loaded."
 msgstr "Die neue Schriftart konnte nicht geladen werden."
@@ -1395,10 +1399,10 @@ msgid "Warning:"
 msgstr "Warnung:"
 
 msgid "Website Link"
-msgstr ""
+msgstr "Webseite"
 
 msgid "What kind of URL did you enter?"
-msgstr ""
+msgstr "Welche Art von URL hast du eingeben?"
 
 msgid "Wii Binary Files"
 msgstr "Wii Binär Dateien"

@@ -23,7 +23,7 @@
  *
  * PictureButton.h
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2009
  ***************************************************************************/
 
 #ifndef _PICTUREBUTTON_H

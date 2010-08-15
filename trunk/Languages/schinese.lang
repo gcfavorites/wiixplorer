@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 13:20+0200\n"
+"POT-Creation-Date: 2010-08-15 22:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgid "Action cancelled."
 msgstr "动作取消。"
 
 msgid "Add Link"
-msgstr ""
+msgstr "添加链接"
 
 msgid "Add to Playlist"
 msgstr "添加播放列表"
@@ -106,6 +106,9 @@ msgstr "背景按钮上或右"
 msgid "Blue"
 msgstr "蓝色"
 
+msgid "Boot IOS"
+msgstr ""
+
 msgid "Boot Settings"
 msgstr "运行设置"
 
@@ -161,7 +164,7 @@ msgid "Cannot write to the file."
 msgstr "无法写入文件。"
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "无法写入到此为止："
 
 msgid "Caps"
 msgstr "大写"
@@ -338,7 +341,7 @@ msgid "Disconnect SMB"
 msgstr "断开网络共享"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "是否要添加URL？"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "是否要增加粘贴项目到队列中？"
@@ -384,7 +387,7 @@ msgid "Do you want to load this language file?"
 msgstr "是否读取此语言文件？"
 
 msgid "Do you want to open this URL?"
-msgstr ""
+msgstr "是否要打开此URL？"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr "是否用文本编辑器打开此文件？"
@@ -438,7 +441,7 @@ msgid "Down Button"
 msgstr "下载按钮"
 
 msgid "Download Link"
-msgstr ""
+msgstr "下载链接"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -558,7 +561,7 @@ msgid "Failed to get the Changelog."
 msgstr "更新日志失败"
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "运行频道失败！"
 
 msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
@@ -778,7 +781,7 @@ msgid "Keyboard Shift Button"
 msgstr "键盘上档按钮"
 
 msgid "Lang."
-msgstr ""
+msgstr "语言。"
 
 msgid "Language"
 msgstr "语言"
@@ -1001,13 +1004,13 @@ msgid "Play Once"
 msgstr "只播放一次"
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "是输入第一次的URL网址。"
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "请立刻输入URL。"
 
 msgid "Please enter the a path."
-msgstr ""
+msgstr "请输入路径。"
 
 msgid "Please enter the password."
 msgstr "请输入密码。"
@@ -1083,7 +1086,7 @@ msgid "Reload"
 msgstr "重新运行"
 
 msgid "Remove Link"
-msgstr ""
+msgstr "移除链接"
 
 msgid "Remove from list"
 msgstr "删除列表"
@@ -1204,7 +1207,7 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "此次设置将会在下次生效。可能会终止音乐播放。"
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "下载文件到此位置。"
 
 msgid "The new font could not be loaded."
 msgstr "无法读取新字库。"
@@ -1216,10 +1219,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "此程序是由Devkitpro和libogc开发。"
 
 msgid "This link will be used in Opera."
-msgstr ""
+msgstr "在Opera中使用此链接。"
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "名称将会在开始菜单显示。"
 
 msgid "This option could mess up the pdf view."
 msgstr "此选项会造成pdf查看混乱。"
@@ -1255,10 +1258,10 @@ msgid "Transfering files:"
 msgstr "文件传输中："
 
 msgid "URL List"
-msgstr ""
+msgstr "URL列表"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "URL列表路径"
 
 msgid "URL is empty."
 msgstr "URL是空"

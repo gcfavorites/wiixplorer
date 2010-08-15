@@ -36,6 +36,7 @@ int MenuBootSettings()
 	bool firstRun = true;
 
 	OptionList options;
+	options.SetName(i++, tr("Boot IOS"));
 	options.SetName(i++, tr("Mount NTFS"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Boot Settings"), &options, MENU_SETTINGS);
@@ -60,6 +61,24 @@ int MenuBootSettings()
 		switch (ret)
 		{
 			case 0:
+				switch(Settings.BootIOS)
+				{
+				    case 58:
+                        Settings.BootIOS = 202;
+                        break;
+				    case 202:
+                        Settings.BootIOS = 222;
+                        break;
+				    case 222:
+                        Settings.BootIOS = 223;
+                        break;
+				    case 223:
+				    default:
+                        Settings.BootIOS = 58;
+                        break;
+				}
+				break;
+			case 1:
 				Settings.MountNTFS++;
 				if(Settings.MountNTFS > 1)
                     Settings.MountNTFS = 0;
@@ -70,6 +89,8 @@ int MenuBootSettings()
         {
             i = 0;
             firstRun = false;
+
+            options.SetValue(i++, "%i", Settings.BootIOS);
 
             if (Settings.MountNTFS == 1) options.SetValue(i++,tr("ON"));
             else if (Settings.MountNTFS == 0) options.SetValue(i++,tr("OFF"));

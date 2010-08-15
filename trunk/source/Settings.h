@@ -128,6 +128,8 @@ class Settings
 
         //!BootDevice determines from which devices to load the config
         char	BootDevice[10];
+        //!Boot IOS
+        short  	BootIOS;
         //!Current selected SMB user
         short  	CurrentSMBUser;
         //!Current selected FTP user

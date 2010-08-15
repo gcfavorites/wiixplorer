@@ -35,7 +35,7 @@ bool SDGeckoB_Inserted();
 void SDGeckoB_deInit();
 
 //!Wii Disk Drive Controls
-int DiskDrive_Init(bool have_dvdx);
+int DiskDrive_Init();
 void DiskDrive_deInit();
 bool Disk_Inserted();
 bool DiskDrive_Mount();

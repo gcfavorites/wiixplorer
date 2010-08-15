@@ -397,6 +397,9 @@ extern const u32	navi_right_png_size;
 extern const u8		trash_png[];
 extern const u32	trash_png_size;
 
+extern const u8		network_wireless_png[];
+extern const u32	network_wireless_png_size;
+
 extern const u8		app_booter_dol[];
 extern const u32	app_booter_dol_size;
 

@@ -176,17 +176,16 @@ ftgxCharData * FreeTypeGX::cacheGlyphData(wchar_t charCode, int16_t pixelSize)
 			textureWidth = glyphBitmap->width + (4 - glyphBitmap->width % 4) % 4;
 			textureHeight = glyphBitmap->rows + (4 - glyphBitmap->rows % 4) % 4;
 
-			fontData[pixelSize][charCode] = (ftgxCharData){
-				(int16_t) ftFace->glyph->bitmap_left,
-				(uint16_t) (ftFace->glyph->advance.x >> 6),
-				(uint16_t) gIndex,
-				(uint16_t) textureWidth,
-				(uint16_t) textureHeight,
-				(int16_t) ftFace->glyph->bitmap_top,
-				(int16_t) ftFace->glyph->bitmap_top,
-				(int16_t) glyphBitmap->rows - ftFace->glyph->bitmap_top,
-				NULL
-			};
+			fontData[pixelSize][charCode].renderOffsetX = (int16_t) ftFace->glyph->bitmap_left;
+			fontData[pixelSize][charCode].glyphAdvanceX = (uint16_t) (ftFace->glyph->advance.x >> 6);
+			fontData[pixelSize][charCode].glyphIndex = (uint32_t) gIndex;
+			fontData[pixelSize][charCode].textureWidth = (uint16_t) textureWidth;
+			fontData[pixelSize][charCode].textureHeight = (uint16_t) textureHeight;
+			fontData[pixelSize][charCode].renderOffsetY = (int16_t) ftFace->glyph->bitmap_top;
+			fontData[pixelSize][charCode].renderOffsetMax = (int16_t) ftFace->glyph->bitmap_top;
+			fontData[pixelSize][charCode].renderOffsetMin = (int16_t) glyphBitmap->rows - ftFace->glyph->bitmap_top;
+			fontData[pixelSize][charCode].glyphDataTexture = NULL;
+
 			loadGlyphData(glyphBitmap, &fontData[pixelSize][charCode]);
 
 			return &fontData[pixelSize][charCode];

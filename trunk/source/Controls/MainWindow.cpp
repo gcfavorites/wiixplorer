@@ -293,7 +293,7 @@ void MainWindow::InternalUpdateGUI()
 							 pointer[i]->GetHeight(), GX_TF_RGBA8,
 							 userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
 							 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2, 100.0f,
-							 userInput[i].wpad->ir.angle, 1, 1, 255, -100, screenwidth, -100, screenheight);
+							 userInput[i].wpad->ir.angle, 1, 1, 255, -100, screenwidth+100, -100, screenheight+100);
 			}
 		}
 
