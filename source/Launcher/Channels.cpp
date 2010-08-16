@@ -39,6 +39,7 @@
 #include "Channels.h"
 #include "FileOperations/MD5.h"
 #include "TextOperations/wstring.hpp"
+#include "sys.h"
 
 #define IMET_OFFSET			0x40
 #define IMET_SIGNATURE		0x494d4554
@@ -271,6 +272,7 @@ bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 
 void Channels::Launch(int index)
 {
+    ExitApp();
 	WII_LaunchTitle(channels.at(index).title);
 }
 

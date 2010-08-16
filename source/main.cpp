@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
     {
         SDCard_deInit();
         USBDevice_deInit();
+        USB_Deinitialize();
 
         if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
             mload_Init();

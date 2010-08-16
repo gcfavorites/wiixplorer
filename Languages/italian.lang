@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-15 22:06+0200\n"
+"POT-Creation-Date: 2010-08-16 19:09+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -510,6 +510,9 @@ msgstr "Sto estraendo gli elementi:"
 
 msgid "FTP Client Settings"
 msgstr "Impostazioni Client FTP"
+
+msgid "FTP Client reconnected successfull."
+msgstr ""
 
 msgid "FTP Path:"
 msgstr "Percorso FTP:"
@@ -1069,6 +1072,12 @@ msgstr "Riconnessione FTP"
 msgid "Reconnect SMB"
 msgstr "Riconnessione SMB"
 
+msgid "Reconnect failed. No client connected."
+msgstr ""
+
+msgid "Reconnect failed. No share connected."
+msgstr ""
+
 msgid "Red"
 msgstr "Rosso"
 
@@ -1113,6 +1122,9 @@ msgstr "Impostazioni SMB:"
 
 msgid "SMB is connecting..."
 msgstr "SMB in connessione..."
+
+msgid "SMB reconnected successfull."
+msgstr ""
 
 msgid "Save Alpha"
 msgstr "Salva Alpha"

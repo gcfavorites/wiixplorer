@@ -204,8 +204,10 @@ void Explorer::Setup()
 	Adressbar->SetPosition(fileBrowser->GetLeft()+62, fileBrowser->GetTop()-38);
 	Adressbar->SetImage(AdressbarImg);
 	Adressbar->SetLabel(AdressText);
+	Adressbar->SetSoundClick(btnSoundClick);
+	Adressbar->SetSoundOver(btnSoundOver);
 	Adressbar->SetRumble(false);
-    Adressbar->Clicked.connect(this, &Explorer::OnButtonClick);
+	Adressbar->SetTrigger(trigA);
 
     RefreshImg = new GuiImage(Refresh);
     RefreshImg->SetScale(0.8);
@@ -305,6 +307,17 @@ int Explorer::GetMenuChoice()
     CheckRightClick();
     ShowCredits(Credits);
 
+    if(Adressbar->GetState() == STATE_CLICKED)
+    {
+        char entered[1024];
+        strcpy(entered, CurBrowser->GetCurrentPath());
+        if(OnScreenKeyboard(entered, sizeof(entered)))
+        {
+            LoadPath(entered);
+        }
+        Adressbar->ResetState();
+    }
+
 	return menu;
 }
 
@@ -321,8 +334,9 @@ void Explorer::CheckBrowserChanges()
             if(result > 0)
             {
                 fileBrowser->SetSelected(0);
-                fileBrowser->TriggerUpdate();
+                CurBrowser->SetPageIndex(0);
                 CurBrowser->ResetMarker();
+                fileBrowser->TriggerUpdate();
                 AdressText->SetText(CurBrowser->GetCurrentPath());
                 Settings.LastUsedPath.assign(DeviceBrowser->GetCurrentPath());
             }
@@ -553,6 +567,7 @@ void Explorer::BackInDirectory(GuiElement *sender, int pointer, POINT p)
 {
     CurBrowser->BackInDirectory();
     fileBrowser->SetSelected(0);
+    CurBrowser->SetPageIndex(0);
     CurBrowser->ResetMarker();
     CurBrowser->Refresh();
     fileBrowser->TriggerUpdate();

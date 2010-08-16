@@ -124,9 +124,9 @@ void CloseSMBShare(int connection)
 /****************************************************************************
  * Reconnect SMB Connection
  ****************************************************************************/
-void SMB_Reconnect()
+bool SMB_Reconnect()
 {
     CloseSMBShare();
     usleep(200000);
-    ConnectSMBShare();
+    return ConnectSMBShare();
 }

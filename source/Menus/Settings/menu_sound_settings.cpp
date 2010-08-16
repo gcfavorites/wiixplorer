@@ -66,9 +66,11 @@ int MenuSoundSettings()
 		switch (ret)
 		{
             case 0:
-				Settings.MusicVolume += 10;
-				if(Settings.MusicVolume > 100)
-                    Settings.MusicVolume = 0;
+                snprintf(entered, sizeof(entered), "%i", Settings.MusicVolume);
+                if(OnScreenKeyboard(entered, 149))
+                {
+					Settings.MusicVolume = cut_bounds(atoi(entered), 0, 100);
+                }
                 MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
 				break;
             case 1:

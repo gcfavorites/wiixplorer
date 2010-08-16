@@ -122,7 +122,10 @@ int MenuFTPClientSettings()
                 if(result) {
                      CloseFTP();
                      sleep(1);
-                     ConnectFTP();
+                     if(ConnectFTP())
+                        WindowPrompt(tr("FTP Client reconnected successfull."), 0, tr("OK"));
+                    else
+                        ShowError(tr("Reconnect failed. No client connected."));
                 }
                 break;
 			case 8:

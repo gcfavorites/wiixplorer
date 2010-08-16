@@ -54,7 +54,7 @@ fi
 The GUI is done with libwiigui as base and graphics by NeoRame.
 
 Features:
- * USB2 support with cIOS202 installed
+ * USB2 support with IOS58 or IOS202 installed
  * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
  * FAT and NTFS files systems support
