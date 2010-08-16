@@ -1,3 +1,4 @@
+#include <gccore.h>
 #include <ogc/mutex.h>
 #include <ogc/system.h>
 #include <ogc/usbstorage.h>
@@ -26,6 +27,7 @@ void USBDevice_deInit()
 	fatUnmount("usb:/");
 	//Let's not shutdown so it stays awake for the application
 	__io_usbstorage.shutdown();
+	USB_Deinitialize();
 }
 
 int isSdInserted()

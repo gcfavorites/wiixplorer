@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-15 10:27+0200\n"
+"POT-Creation-Date: 2010-08-16 19:09+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -514,6 +514,9 @@ msgstr "Εξάγω αρχείο(α)..."
 
 msgid "FTP Client Settings"
 msgstr "Ρυθμίσεις πελάτη για το FTP"
+
+msgid "FTP Client reconnected successfull."
+msgstr ""
 
 msgid "FTP Path:"
 msgstr "Διαδρομή FTP:"
@@ -1073,6 +1076,12 @@ msgstr "Επανασύνδεση FTP"
 msgid "Reconnect SMB"
 msgstr "Επανασύνδεση SMB"
 
+msgid "Reconnect failed. No client connected."
+msgstr ""
+
+msgid "Reconnect failed. No share connected."
+msgstr ""
+
 msgid "Red"
 msgstr "Κόκκινο"
 
@@ -1117,6 +1126,9 @@ msgstr "Ρυθμίσεις SMB"
 
 msgid "SMB is connecting..."
 msgstr "Γίνεται σύνδεση SMB..."
+
+msgid "SMB reconnected successfull."
+msgstr ""
 
 msgid "Save Alpha"
 msgstr "Σώσε σε Alpha"

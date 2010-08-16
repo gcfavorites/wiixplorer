@@ -164,7 +164,7 @@ bool NetworkInitPrompt()
         ResumeNetworkThread();
     }
 
-    while(Prompt->GetChoice() == -1)
+    while(Prompt->GetChoice() == -1 && !IsNetworkInit())
     {
         usleep(100);
 

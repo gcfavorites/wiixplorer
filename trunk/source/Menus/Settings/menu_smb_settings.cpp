@@ -105,8 +105,12 @@ int MenuSMBSettings()
                 break;
             case 5:
                 result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
-                if(result) {
-                    SMB_Reconnect();
+                if(result)
+                {
+                    if(SMB_Reconnect())
+                        WindowPrompt(tr("SMB reconnected successfull."), 0, tr("OK"));
+                    else
+                        ShowError(tr("Reconnect failed. No share connected."));
                 }
                 break;
             case 6:

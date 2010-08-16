@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-15 22:06+0200\n"
+"POT-Creation-Date: 2010-08-16 19:09+0200\n"
 "PO-Revision-Date: 2010-07-30 06:21-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
@@ -510,6 +510,9 @@ msgstr "Entpacke Element(e):"
 
 msgid "FTP Client Settings"
 msgstr "Einstellungen: FTP Client"
+
+msgid "FTP Client reconnected successfull."
+msgstr ""
 
 msgid "FTP Path:"
 msgstr "FTP Pfad:"
@@ -1069,6 +1072,12 @@ msgstr "Client wiederverbinden"
 msgid "Reconnect SMB"
 msgstr "SMB wiederverbinden"
 
+msgid "Reconnect failed. No client connected."
+msgstr ""
+
+msgid "Reconnect failed. No share connected."
+msgstr ""
+
 msgid "Red"
 msgstr "Rot"
 
@@ -1113,6 +1122,9 @@ msgstr "Einstellungen: SMB"
 
 msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
+
+msgid "SMB reconnected successfull."
+msgstr ""
 
 msgid "Save Alpha"
 msgstr "Aplha speichern"

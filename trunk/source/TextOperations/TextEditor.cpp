@@ -115,7 +115,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
     MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     MainFileTxt->SetPosition(0, 0);
     MainFileTxt->SetLinesToDraw(linestodraw);
-    MainFileTxt->SetMaxWidth(340);
+    MainFileTxt->SetMaxWidth(330);
 
     TextPointerBtn = new TextPointer(MainFileTxt, linestodraw);
     TextPointerBtn->SetPosition(43, 75);

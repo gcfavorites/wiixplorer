@@ -73,6 +73,15 @@ int MenuBootSettings()
                         Settings.BootIOS = 223;
                         break;
 				    case 223:
+                        Settings.BootIOS = 36;
+                        break;
+				    case 36:
+                        Settings.BootIOS = 60;
+                        break;
+				    case 60:
+                        Settings.BootIOS = 61;
+                        break;
+				    case 61:
 				    default:
                         Settings.BootIOS = 58;
                         break;

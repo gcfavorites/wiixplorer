@@ -37,7 +37,6 @@
 #include "filelist.h"
 #include "cfg.h"
 #include "fatmounter.h"
-#include "mload_init.h"
 
 void __exception_setreload(int t);
 
@@ -51,8 +50,7 @@ int main(int argc, char **argv)
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
 
-    if(IOS_ReloadIOS(202) >= 0)
-        mload_Init();
+    IOS_ReloadIOS(58);
 
 	/* int videomod */
 	InitVideo();
