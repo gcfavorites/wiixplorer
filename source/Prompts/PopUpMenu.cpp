@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * Copyright (C) 2010
@@ -45,6 +45,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	height = 0;
 	maxTxtWidth = 0;
 	scrollIndex = 0;
+	ScrollState = 0;
 	hasIcons = false;
 	hasSubmenus = false;
 
@@ -67,13 +68,15 @@ PopUpMenu::PopUpMenu(int x, int y)
 	PopUpMenuScrollDownImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigAHeld = new GuiTrigger();
 	trigB = new GuiTrigger();
 	trigUp = new GuiTrigger();
 	trigDown = new GuiTrigger();
 	trigHome = new GuiTrigger();
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
-	trigUp->SetButtonOnlyTrigger(-1, WiiControls.UpButton | ClassicControls.UpButton << 16, GCControls.UpButton);
-	trigDown->SetButtonOnlyTrigger(-1, WiiControls.DownButton | ClassicControls.DownButton << 16, GCControls.DownButton);
+	trigAHeld->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigUp->SetButtonOnlyHeldTrigger(-1, WiiControls.UpButton | ClassicControls.UpButton << 16, GCControls.UpButton);
+	trigDown->SetButtonOnlyHeldTrigger(-1, WiiControls.DownButton | ClassicControls.DownButton << 16, GCControls.DownButton);
 	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
 	NoBtn = new GuiButton(screenwidth, screenheight);
@@ -89,20 +92,22 @@ PopUpMenu::PopUpMenu(int x, int y)
 	ScrollUpBtn = new GuiButton(PopUpMenuUpperImg->GetWidth(), PopUpMenuScrollUpImg->GetHeight()+5);
 	ScrollUpBtn->SetImage(PopUpMenuScrollUpImg);
 	ScrollUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ScrollUpBtn->SetTrigger(trigA);
+	ScrollUpBtn->SetTrigger(trigAHeld);
 	ScrollUpBtn->SetVisible(false);
 	ScrollUpBtn->SetState(STATE_DISABLED);
 	ScrollUpBtn->SetTrigger(trigUp);
-	ScrollUpBtn->Clicked.connect(this, &PopUpMenu::OnScrollUp);
+	ScrollUpBtn->SetHoldable(true);
+	ScrollUpBtn->Held.connect(this, &PopUpMenu::OnScrollUp);
 
 	ScrollDownBtn = new GuiButton(PopUpMenuLowerImg->GetWidth(), PopUpMenuScrollDownImg->GetHeight()+5);
 	ScrollDownBtn->SetImage(PopUpMenuScrollDownImg);
 	ScrollDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	ScrollDownBtn->SetTrigger(trigA);
+	ScrollDownBtn->SetTrigger(trigAHeld);
 	ScrollDownBtn->SetVisible(false);
 	ScrollDownBtn->SetState(STATE_DISABLED);
 	ScrollDownBtn->SetTrigger(trigDown);
-	ScrollDownBtn->Clicked.connect(this, &PopUpMenu::OnScrollDown);
+	ScrollDownBtn->SetHoldable(true);
+	ScrollDownBtn->Held.connect(this, &PopUpMenu::OnScrollDown);
 
 	Append(PopUpMenuUpperImg);
 	Append(PopUpMenuMiddleImg);
@@ -164,6 +169,7 @@ PopUpMenu::~PopUpMenu()
 	delete HomeBtn;
 
 	delete trigA;
+	delete trigAHeld;
 	delete trigB;
 	delete trigUp;
 	delete trigDown;
@@ -329,16 +335,22 @@ void PopUpMenu::OnClick(GuiElement *sender, int pointer, POINT p)
 
 void PopUpMenu::OnScrollUp(GuiElement *sender, int pointer, POINT p)
 {
-	sender->ResetState();
+    if(ScrollState < (u32) Settings.ScrollSpeed)
+        return;
 
 	Scroll(UP);
+
+	ScrollState = 0;
 }
 
 void PopUpMenu::OnScrollDown(GuiElement *sender, int pointer, POINT p)
 {
-	sender->ResetState();
+    if(ScrollState < (u32) Settings.ScrollSpeed)
+        return;
 
 	Scroll(DOWN);
+
+	ScrollState = 0;
 }
 
 void PopUpMenu::Scroll(int direction)

@@ -65,7 +65,7 @@ Taskbar::Taskbar()
 
 	timeTxt = new GuiText("", 20, (GXColor) {40, 40, 40, 255});
 	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	timeTxt->SetPosition(width-87, -1);
+	timeTxt->SetPosition(width-82, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
 	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
@@ -76,7 +76,7 @@ Taskbar::Taskbar()
 
 	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-	startBtn->SetPosition(27, -2);
+	startBtn->SetPosition(23, -2);
 	startBtn->SetSelectable(false);
 	startBtn->SetTrigger(trigA);
 
@@ -90,7 +90,7 @@ Taskbar::Taskbar()
 	Musicplayer->SetImage(HeadPhonesImg);
 	Musicplayer->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	Musicplayer->SetTrigger(trigA);
-	Musicplayer->SetPosition(490, 0);
+	Musicplayer->SetPosition(458, 0);
 	Musicplayer->SetEffectGrow();
 
 	Append(homeBtn);
@@ -160,7 +160,7 @@ void Taskbar::SetDim(bool d)
 
 void Taskbar::AddTask(Task * t)
 {
-    t->SetPosition(120+Tasks.size()*100, 0);
+    t->SetPosition(105+Tasks.size()*100, 0);
     t->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
     Tasks.push_back(t);
 	Append(t);
@@ -240,7 +240,7 @@ int Taskbar::GetMenu()
 	    WifiData = Resources::GetImageData(network_wireless_png, network_wireless_png_size);
         WifiImg = new GuiImage(WifiData);
         WifiImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
-        WifiImg->SetPosition(450, 0);
+        WifiImg->SetPosition(418, 0);
         Append(WifiImg);
 	}
 	else if(TasksDeleteQueue.size() > 0)

@@ -46,13 +46,8 @@
 #include "Memory/mem2.h"
 #include "mload/mload_init.h"
 
-extern "C"
-{
-    void SetupPDFFontPath(const char * path);
-}
-
-bool boothomebrew = false;
 Settings Settings;
+bool boothomebrew = false;
 
 int main(int argc, char *argv[])
 {
@@ -66,7 +61,7 @@ int main(int argc, char *argv[])
 
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
-    if(EntraceIOS != Settings.BootIOS || (Settings.BootIOS == 58 && __di_check_ahbprot() != 1))
+    if(EntraceIOS != Settings.BootIOS)
     {
         SDCard_deInit();
         USBDevice_deInit();
@@ -79,8 +74,9 @@ int main(int argc, char *argv[])
         USBDevice_Init();
     }
 
-	Sys_Init();
-	InitVideo(); // Initialise video
+    MagicPatches(); // We all love magic
+	Sys_Init(); // Initialize shutdown/reset buttons
+	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
 	SDGeckoA_Init(); // Initialize file system

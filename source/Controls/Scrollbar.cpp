@@ -34,7 +34,7 @@ Scrollbar::Scrollbar(int h, u8 m)
     RowSize = 0;
     PageSize = 0;
     EntrieCount = 0;
-    ScrollSpeed = 5;
+    ScrollSpeed = Settings.ScrollSpeed;
     ScrollState = 0;
     listchanged = false;
     Mode = m;

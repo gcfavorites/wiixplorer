@@ -229,9 +229,7 @@ uint16_t FreeTypeGX::cacheGlyphDataComplete(int16_t pixelSize)
  */
 void FreeTypeGX::loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData)
 {
-    int length =  ((charData->textureWidth+3)>>2)*((charData->textureHeight+3)>>2)*32*2;
-    if(length % 32)
-        length += (32-length%32);
+    int length =  ((((charData->textureWidth+3)>>2)*((charData->textureHeight+3)>>2)*32*2 + 31) & ~31);
 
 	uint8_t * glyphData = (uint8_t *) memalign(32, length);
 	if(!glyphData)

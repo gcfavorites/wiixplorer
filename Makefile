@@ -108,7 +108,8 @@ export OFILES	:=	$(BINFILES:.bin=.bin.o) \
 					$(TTFFILES:.ttf=.ttf.o) $(PNGFILES:.png=.png.o) \
 					$(OGGFILES:.ogg=.ogg.o) $(PCMFILES:.pcm=.pcm.o) \
 					$(WAVFILES:.wav=.wav.o) \
-					$(addsuffix .o,$(ELFFILES)) $(addsuffix .o,$(DOLFILES))
+					$(addsuffix .o,$(ELFFILES)) $(addsuffix .o,$(DOLFILES)) \
+					$(CURDIR)/data/binary/magic_patcher.o
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
