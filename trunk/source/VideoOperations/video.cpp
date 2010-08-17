@@ -243,7 +243,7 @@ u8 * Video_GetFrame(int * width, int * height)
     if(height)
         *height = vmode->xfbHeight;
 
-    int size = 2 * vmode->fbWidth * vmode->xfbHeight;
+    int size = ALIGN32(2 * vmode->fbWidth * vmode->xfbHeight);
 
     u8 * buffer = (u8 *) memalign(32, size);
     if(!buffer)

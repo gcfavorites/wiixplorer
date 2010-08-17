@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * by dude
+ * by dude, Dimok
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -23,40 +23,34 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <gccore.h>
 #include <stdio.h>
 #include <string.h>
 
+//! No need for high security crap. It's a simple encrypter/decrypter
+//! with a constant sid.
+const char * sid = "WiiXplorer";
+
 void EncryptString(const char *src, char *dst)
 {
-	u32 id;
-	char sid[9], tmp[3];
-
-	ES_GetDeviceID(&id);
-	sprintf(sid, "%08x", id);
-
+	int i;
+	char tmp[3];
 	dst[0] = 0;
-	u32 i = 0;
+
 	for (i = 0; i < strlen(src); i++)
 	{
-		sprintf(tmp, "%02x", src[i] ^ sid[i%8]);
+		sprintf(tmp, "%02x", src[i] ^ sid[i%10]);
 		strcat(dst, tmp);
 	}
 }
 
 void DecryptString(const char *src, char *dst)
 {
-	u32 id;
-	char sid[9];
-
-	ES_GetDeviceID(&id);
-	sprintf(sid, "%08x", id);
-	u32 i = 0;
+	int i;
 	for (i = 0; i < strlen(src); i += 2)
 	{
 		char c = (src[i] >= 'a' ? (src[i] - 'a') + 10 : (src[i] - '0')) << 4;
 		c += (src[i+1] >= 'a' ? (src[i+1] - 'a') + 10 : (src[i+1] - '0'));
-		dst[i>>1] = c ^ sid[(i>>1)%8];
+		dst[i>>1] = c ^ sid[(i>>1)%10];
 	}
 	dst[strlen(src)>>1] = 0;
 }

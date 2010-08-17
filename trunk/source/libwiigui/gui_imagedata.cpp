@@ -212,7 +212,7 @@ void GuiImageData::LoadTPL(const u8 *img, int imgSize)
 
     if(ImgPtr)
     {
-        int len =  TplFile.GetTextureSize(0);
+        int len =  ALIGN32(TplFile.GetTextureSize(0));
 
         data = (u8 *) memalign(32, len);
         if(!data)

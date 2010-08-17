@@ -39,6 +39,7 @@
 #include "Channels.h"
 #include "FileOperations/MD5.h"
 #include "TextOperations/wstring.hpp"
+#include "Tools/tools.h"
 #include "sys.h"
 
 #define IMET_OFFSET			0x40
@@ -47,8 +48,6 @@
 #define SYSTEM_CHANNELS		0x00010002
 #define RF_NEWS_CHANNEL		0x48414741
 #define RF_FORECAST_CHANNEL	0x48414641
-
-#define ALIGN(x) ((x % 32 != 0) ? (x / 32) * 32 + 32 : x)
 
 typedef struct
 {
@@ -112,7 +111,7 @@ u64* Channels::GetChannelList(u32* count)
 	if (ret || !countall)
 		return NULL;
 
-	u64* titles = (u64*)memalign(32, countall * sizeof(u64));
+	u64* titles = (u64*)memalign(32, ALIGN32(countall * sizeof(u64)));
 	if (!titles)
 		return NULL;
 
@@ -165,13 +164,19 @@ bool Channels::GetAppNameFromTmd(u64 title, char* app)
 			u32* data = NULL;
 
 			if (stats.file_length > 0)
-				data = (u32*)memalign(32, ALIGN(stats.file_length));
+				data = (u32*)memalign(32, ALIGN32(stats.file_length));
 
 			if (data)
 			{
 				if (ISFS_Read(fd, (char*)data, stats.file_length) > 0x208)
 				{
-					sprintf(app, "/title/%08x/%08x/content/%08x.app\n", high, low, data[0x79]);
+				    u16 i;
+				    struct _tmd * tmd_file = (struct _tmd *) SIGNATURE_PAYLOAD(data);
+				    for(i = 0; i < tmd_file->num_contents; ++i)
+                        if(tmd_file->contents[i].index == 0)
+                            break;
+
+				    sprintf(app, "/title/%08x/%08x/content/%08x.app", high, low, tmd_file->contents[i].cid);
 					ret = true;
 				}
 				free(data);

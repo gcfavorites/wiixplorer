@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * Copyright (C) 2010
@@ -99,7 +99,7 @@ class PopUpMenu : public GuiWindow
 		int GetHeight() { return height; }
 		void AddItem(const char *text, const u8 *icon = NULL, u32 iconsize = 0, bool submenu = false);
 		void Finish();
-
+        void Update(GuiTrigger * t) { GuiWindow::Update(t); ++ScrollState; }
 	private:
 		void OnClick(GuiElement *sender, int pointer, POINT p);
 		void OnScrollUp(GuiElement *sender, int pointer, POINT p);
@@ -116,6 +116,7 @@ class PopUpMenu : public GuiWindow
 		u32 xpos;
 		u32 ypos;
 		u32 scrollIndex;
+		u32 ScrollState;
 
 		bool hasIcons;
 		bool hasSubmenus;
@@ -142,6 +143,7 @@ class PopUpMenu : public GuiWindow
 		GuiButton * ScrollDownBtn;
 
 		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigAHeld;
 		GuiTrigger * trigB;
 		GuiTrigger * trigUp;
 		GuiTrigger * trigDown;

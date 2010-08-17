@@ -42,6 +42,7 @@
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "mload/mload_init.h"
+#include "Tools/tools.h"
 #include "audio.h"
 #include "main.h"
 #include "menu.h"
@@ -213,7 +214,7 @@ extern "C" int GetIOS_Rev(u32 ios)
 	u32 num_titles = 0, i = 0;
 	u64 tid = 0;
 	u64 * titles = NULL;
-	s32 ret = 0;
+	s32 ret = -1;
 
 	ret = ES_GetNumTitles(&num_titles);
 	if(ret < 0)
@@ -222,7 +223,7 @@ extern "C" int GetIOS_Rev(u32 ios)
 	if(num_titles < 1)
         return -1;
 
-	titles = (u64 *) memalign(32, num_titles * sizeof(u64) + 32);
+	titles = (u64 *) memalign(32, ALIGN32(num_titles * sizeof(u64) + 32));
 	if(!titles)
 	    return -1;
 
@@ -248,28 +249,40 @@ extern "C" int GetIOS_Rev(u32 ios)
 	if(!tid)
 		return -1;
 
-	signed_blob * s_tmd = (signed_blob *) memalign(32, MAX_SIGNED_TMD_SIZE);
+	ISFS_Initialize();
 
-	u32 tmd_size;
+	char tmd[ISFS_MAXPATH];
+	static fstats stats ATTRIBUTE_ALIGN(32);
+	ret = -1;
 
-	if (ES_GetStoredTMDSize(tid, &tmd_size) < 0)
+	u32 high = (u32)(tid >> 32);
+	u32 low  = (u32)(tid & 0xFFFFFFFF);
+
+	sprintf(tmd, "/title/%08x/%08x/content/title.tmd", high, low);
+
+	s32 fd = ISFS_Open(tmd, ISFS_OPEN_READ);
+	if (fd >= 0)
 	{
-        free(s_tmd);
-		return -1;
+		if (ISFS_GetFileStats(fd, &stats) >= 0)
+		{
+			u32 * data = NULL;
+
+			if (stats.file_length > 0)
+				data = (u32 *) memalign(32, ALIGN32(stats.file_length));
+
+			if (data)
+			{
+				if (ISFS_Read(fd, (char *) data, stats.file_length) > 0x208)
+				{
+				    ret = ((struct _tmd *) SIGNATURE_PAYLOAD(data))->title_version;
+				}
+				free(data);
+			}
+		}
+		ISFS_Close(fd);
 	}
 
-	if (ES_GetStoredTMD(tid, s_tmd, tmd_size) < 0)
-	{
-        free(s_tmd);
-		return -1;
-	}
-
-	tmd * t = (tmd *) SIGNATURE_PAYLOAD(s_tmd);
-
-	ret = t->title_version;
-
-    free(s_tmd);
-    s_tmd = NULL;
+	ISFS_Deinitialize();
 
 	return ret;
 }
@@ -288,7 +301,7 @@ extern "C" bool FindTitle(u64 titleid)
 	if(num_titles < 1)
         return found;
 
-	titles = (u64 *) memalign(32, num_titles * sizeof(u64) + 32);
+	titles = (u64 *) memalign(32, ALIGN32(num_titles * sizeof(u64) + 32));
 	if(!titles)
 	    return found;
 
