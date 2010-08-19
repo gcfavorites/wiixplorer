@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 09:35+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -378,9 +378,6 @@ msgstr "Voulez-vous charger ce language?"
 msgid "Do you want to load this language file?"
 msgstr "Voulez-vous charger ce fichier language?"
 
-msgid "Do you want to open this URL?"
-msgstr ""
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Voulez-vous éditer ce fichier texte?"
 
@@ -718,6 +715,9 @@ msgstr "Comment voulez-vous ouvrir le fichier?"
 msgid "How do you want to proceed?"
 msgstr "Comment voulez-vous procéder?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Mode Icone"
 
@@ -759,6 +759,9 @@ msgstr "Fichier d'entrée"
 
 msgid "Interlace"
 msgstr "Entrelacer"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "Qualité JPEG"
@@ -892,6 +895,9 @@ msgstr "Nouveau"
 msgid "No"
 msgstr "Non"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "Aucun fichier trouvé."
 
@@ -995,13 +1001,13 @@ msgstr "Lire le fichier"
 msgid "Play Once"
 msgstr "Lire"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr ""
 
 msgid "Please enter now the URL."
-msgstr ""
-
-msgid "Please enter the a path."
 msgstr ""
 
 msgid "Please enter the password."
@@ -1219,7 +1225,7 @@ msgstr "La nouvelle police est chargée."
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
-msgid "This link will be used in Opera."
+msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
 msgid "This name will be shown in the Start Menu"
@@ -1408,12 +1414,6 @@ msgstr "WiiMote - Bouton 1"
 
 msgid "Warning:"
 msgstr "Attention:"
-
-msgid "Website Link"
-msgstr ""
-
-msgid "What kind of URL did you enter?"
-msgstr ""
 
 msgid "Wii Binary Files"
 msgstr ""

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 09:35+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: SirPalax\n"
@@ -378,9 +378,6 @@ msgstr "¿Quieres cargar este idioma ?"
 msgid "Do you want to load this language file?"
 msgstr "¿Quieres cargar este archivo de idioma?"
 
-msgid "Do you want to open this URL?"
-msgstr "¿Quieres abrir esta URL?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "¿Quieres abrir este archivo con el Editor de Texto?"
 
@@ -718,6 +715,9 @@ msgstr "¿Cómo quieres abrir el archivo?"
 msgid "How do you want to proceed?"
 msgstr "¿Cómo quieres continuar?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Modo Iconos"
 
@@ -759,6 +759,9 @@ msgstr "Archivo Origen"
 
 msgid "Interlace"
 msgstr "Interlazado"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "Calidad JPEG"
@@ -892,6 +895,9 @@ msgstr "Nueva carpeta"
 msgid "No"
 msgstr ""
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "No se encontraron archivos."
 
@@ -995,14 +1001,14 @@ msgstr "Oir Archivo"
 msgid "Play Once"
 msgstr "Oir una vez"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "Introduce primero el nombre de la URL."
 
 msgid "Please enter now the URL."
 msgstr "Introduce ahora la dirección de la URL."
-
-msgid "Please enter the a path."
-msgstr "Por favor, introduce una ruta."
 
 msgid "Please enter the password."
 msgstr "Por favor, introduce la contraseña."
@@ -1219,8 +1225,8 @@ msgstr "Se ha cargado la nueva Fuente."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Todo el staff de devkitPro y libogc."
 
-msgid "This link will be used in Opera."
-msgstr "Este enlace se usará con Opera."
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "Este nombre se mostrará en el Menú de Inicio"
@@ -1409,12 +1415,6 @@ msgstr "NINGÚN BOTÓN WPAD"
 msgid "Warning:"
 msgstr "Advertencia:"
 
-msgid "Website Link"
-msgstr "Página Web"
-
-msgid "What kind of URL did you enter?"
-msgstr "¿Qué tipo de URL has escrito?"
-
 msgid "Wii Binary Files"
 msgstr "Archivos Binarios Wii"
 
@@ -1471,6 +1471,21 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "!\"·$%&/()=?¿"
+
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "¿Quieres abrir esta URL?"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "Por favor, introduce una ruta."
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "Este enlace se usará con Opera."
+
+#~ msgid "Website Link"
+#~ msgstr "Página Web"
+
+#~ msgid "What kind of URL did you enter?"
+#~ msgstr "¿Qué tipo de URL has escrito?"
 
 #~ msgid "Bootup Mount"
 #~ msgstr "Al arrancar montar"

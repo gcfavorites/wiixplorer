@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 09:35+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -379,9 +379,6 @@ msgstr "Wil je deze taal laden?"
 msgid "Do you want to load this language file?"
 msgstr ""
 
-msgid "Do you want to open this URL?"
-msgstr ""
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr ""
 
@@ -719,6 +716,9 @@ msgstr ""
 msgid "How do you want to proceed?"
 msgstr ""
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr ""
 
@@ -759,6 +759,9 @@ msgid "Input File"
 msgstr ""
 
 msgid "Interlace"
+msgstr ""
+
+msgid "Internet Channel"
 msgstr ""
 
 msgid "JPEG Quality"
@@ -893,6 +896,9 @@ msgstr "Nieuwe map"
 msgid "No"
 msgstr "Nee"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr ""
 
@@ -996,13 +1002,13 @@ msgstr ""
 msgid "Play Once"
 msgstr ""
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr ""
 
 msgid "Please enter now the URL."
-msgstr ""
-
-msgid "Please enter the a path."
 msgstr ""
 
 msgid "Please enter the password."
@@ -1220,7 +1226,7 @@ msgstr ""
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
-msgid "This link will be used in Opera."
+msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
 msgid "This name will be shown in the Start Menu"
@@ -1408,12 +1414,6 @@ msgid "WPAD NONE BUTTON"
 msgstr ""
 
 msgid "Warning:"
-msgstr ""
-
-msgid "Website Link"
-msgstr ""
-
-msgid "What kind of URL did you enter?"
 msgstr ""
 
 msgid "Wii Binary Files"

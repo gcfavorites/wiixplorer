@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * by dude
+ * by Dimok, dude
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -29,37 +29,32 @@
 #ifndef _APPLICATIONS_H_
 #define _APPLICATIONS_H_
 
+#include <string>
 #include <vector>
 
 typedef struct
 {
-	char path[256];
-	char name[256];
+	char path[255];
+	char name[255];
 } Application;
 
 class Applications
 {
     public:
-		static Applications *Instance();
-        static void DestroyInstance();
-
+        Applications(const char * path);
+		void Search(const char * path);
 		void Launch(int index);
 		int Count() { return applications.size(); }
-		char *GetName(int index) { return applications.at(index).name; }
+		const char * GetName(int ind) { if(ind < 0 || ind >= (int) applications.size()) return NULL; return applications.at(ind).name; }
 		void Reload();
         void Sort();
-
 	private:
-        Applications();
-        ~Applications();
-        static bool FileSortCallback(const Application & f1, const Application & f2);
-
-		static Applications *instance;
+        static bool SortCallback(const Application & f1, const Application & f2);
 
 		std::vector<Application> applications;
+		std::string LastPath;
 
-		bool GetNameFromXML(char *xml, char *name);
-		void Search();
+		bool GetNameFromXML(const char *xml, char *name);
 };
 
 #endif

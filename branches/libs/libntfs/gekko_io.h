@@ -26,7 +26,7 @@
 #endif
 
 #include "types.h"
-#include "cache.h"
+#include "cache2.h"
 #include <gccore.h>
 #include <ogc/disc_io.h>
 

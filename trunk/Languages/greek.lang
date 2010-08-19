@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 09:35+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -381,9 +381,6 @@ msgstr "Θέλεις να φορτώσω αυτήν την γλώσσα;"
 msgid "Do you want to load this language file?"
 msgstr "Θέλεις να φορτώσω το αρχείο αυτής της γλώσσας;"
 
-msgid "Do you want to open this URL?"
-msgstr ""
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Θέλεις να ανοίξω το αρχείο με τον κειμενογράφο;"
 
@@ -723,6 +720,9 @@ msgstr "Πώς θέλεις να ανοίξω αυτό το αρχείο;"
 msgid "How do you want to proceed?"
 msgstr "Πως θέλεις να προχωρήσω;"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Τρόπος με εικονίδια"
 
@@ -764,6 +764,9 @@ msgstr "Εισάχθηκε ως:"
 
 msgid "Interlace"
 msgstr "Συνυφαίνω"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "Ποιότητα JPEG"
@@ -897,6 +900,9 @@ msgstr "Καινούριος φάκελος"
 msgid "No"
 msgstr "Όχι"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "Δεν βρεθήκανε αρχεία."
 
@@ -1000,13 +1006,13 @@ msgstr "Παίξε αρχείο"
 msgid "Play Once"
 msgstr "Παίξε μία φορά"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr ""
 
 msgid "Please enter now the URL."
-msgstr ""
-
-msgid "Please enter the a path."
 msgstr ""
 
 msgid "Please enter the password."
@@ -1224,7 +1230,7 @@ msgstr "Η νέα γραμματοσειρά φορτώθηκε."
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
-msgid "This link will be used in Opera."
+msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
 msgid "This name will be shown in the Start Menu"
@@ -1413,12 +1419,6 @@ msgstr "WPAD ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
 msgid "Warning:"
 msgstr "Προσοχή:"
-
-msgid "Website Link"
-msgstr ""
-
-msgid "What kind of URL did you enter?"
-msgstr ""
 
 msgid "Wii Binary Files"
 msgstr "Διαδικά αρχεία Wii"

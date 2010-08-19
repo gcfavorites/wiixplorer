@@ -117,7 +117,6 @@ MainWindow::~MainWindow()
 	MusicPlayer::DestroyInstance();
 	SoundHandler::DestroyInstance();
 	Channels::DestroyInstance();
-	Applications::DestroyInstance();
 	IOHandler::DestroyInstance();
     ProgressWindow::DestroyInstance();
 

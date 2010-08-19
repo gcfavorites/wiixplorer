@@ -155,7 +155,7 @@ bool NetworkInitPrompt()
     if(IsNetworkInit())
         return true;
 
-    PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."));
+    PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
     MainWindow::Instance()->Append(Prompt);
 
     if(!Settings.AutoConnect)

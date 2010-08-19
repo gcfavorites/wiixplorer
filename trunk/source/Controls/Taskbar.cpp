@@ -285,7 +285,7 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(65, 134);
+	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, 134);
 
 	if (!StartMenu)
 		return menu;
@@ -365,7 +365,6 @@ int Taskbar::CheckStartMenu()
 			SDGeckoB_Init();
 			USBDevice_Init();
 			NTFS_Mount();
-			Applications::Instance()->Reload();
 		}
 	}
 	else if (choice == RESTART)
@@ -389,14 +388,15 @@ int Taskbar::CheckStartMenu()
 void Taskbar::CheckAppsMenu()
 {
 	int choice = -1;
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+50, 140);
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 140);
 
-	int count = Applications::Instance()->Count();
+    Applications Apps(Settings.AppPath);
+	int count = Apps.Count();
 
 	if (count > 0)
 	{
 		for (int i = 0; i < count; i++)
-			AppsMenu->AddItem(Applications::Instance()->GetName(i));
+			AppsMenu->AddItem(Apps.GetName(i));
 
 		AppsMenu->Finish();
 
@@ -417,16 +417,16 @@ void Taskbar::CheckAppsMenu()
 
 	delete AppsMenu;
 
-	if (choice >= 0 && WindowPrompt(tr("Do you want to start the app?"), Applications::Instance()->GetName(choice), tr("Yes"), tr("Cancel")))
+	if (choice >= 0 && WindowPrompt(tr("Do you want to start the app?"), Apps.GetName(choice), tr("Yes"), tr("Cancel")))
 	{
-		Applications::Instance()->Launch(choice);
+		Apps.Launch(choice);
 	}
 }
 
 void Taskbar::CheckChannelsMenu()
 {
 	int choice = -1;
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+50, 170);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 170);
 
 	int count = Channels::Instance()->Count();
 
@@ -463,7 +463,7 @@ void Taskbar::CheckChannelsMenu()
 void Taskbar::OpenLinksMenu()
 {
 	int choice = -1;
-	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+50, 200);
+	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 200);
 
     OperaBooter Booter(Settings.LinkListPath);
 
@@ -499,10 +499,12 @@ void Taskbar::OpenLinksMenu()
 
 	else if (choice > 0)
 	{
-	    int res = WindowPrompt(tr("Do you want to open this URL?"), Booter.GetLink(choice-1), tr("Yes"), tr("Remove Link"), tr("Cancel"));
+	    int res = WindowPrompt(tr("How should this URL be opened?"), Booter.GetLink(choice-1), tr("Internet Channel"), tr("Download Link"), tr("Remove Link"), tr("Cancel"));
 	    if(res == 1)
             Booter.Launch(choice-1);
         else if(res == 2)
+            Booter.DownloadFile(choice-1);
+        else if(res == 3)
             Booter.RemoveLink(choice-1);
 	}
 }

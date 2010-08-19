@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 09:35+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -386,9 +386,6 @@ msgstr "是否读取这个语言包"
 msgid "Do you want to load this language file?"
 msgstr "是否读取此语言文件？"
 
-msgid "Do you want to open this URL?"
-msgstr "是否要打开此URL？"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "是否用文本编辑器打开此文件？"
 
@@ -729,6 +726,9 @@ msgstr "你想要采取哪种方式打开此文件？"
 msgid "How do you want to proceed?"
 msgstr "你想要如何执行？"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "图标模式"
 
@@ -770,6 +770,9 @@ msgstr "输入文件"
 
 msgid "Interlace"
 msgstr "交织"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "JPEG图片质量"
@@ -903,6 +906,9 @@ msgstr "新文件夹"
 msgid "No"
 msgstr "否"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "没有找到任何文件。"
 
@@ -1006,14 +1012,14 @@ msgstr "播放文件"
 msgid "Play Once"
 msgstr "只播放一次"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "是输入第一次的URL网址。"
 
 msgid "Please enter now the URL."
 msgstr "请立刻输入URL。"
-
-msgid "Please enter the a path."
-msgstr "请输入路径。"
 
 msgid "Please enter the password."
 msgstr "请输入密码。"
@@ -1230,8 +1236,8 @@ msgstr "新字库已读取"
 msgid "The whole devkitPro & libogc staff."
 msgstr "此程序是由Devkitpro和libogc开发。"
 
-msgid "This link will be used in Opera."
-msgstr "在Opera中使用此链接。"
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "名称将会在开始菜单显示。"
@@ -1420,12 +1426,6 @@ msgstr "Wiimote 无键"
 msgid "Warning:"
 msgstr "警告："
 
-msgid "Website Link"
-msgstr ""
-
-msgid "What kind of URL did you enter?"
-msgstr ""
-
 msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
@@ -1482,6 +1482,15 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "是否要打开此URL？"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "请输入路径。"
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "在Opera中使用此链接。"
 
 #~ msgid "Bootup Mount"
 #~ msgstr "开始挂载"

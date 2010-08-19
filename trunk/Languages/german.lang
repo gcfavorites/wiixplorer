@@ -1,12 +1,12 @@
 # WiiXplorer
-# german language source file - r195
+# german language source file - r197
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
-"PO-Revision-Date: 2010-07-30 06:21-0800\n"
+"POT-Creation-Date: 2010-08-19 16:43+0200\n"
+"PO-Revision-Date: 2010-08-16 10:14-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -104,10 +104,10 @@ msgid "Blue"
 msgstr "Blau"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "IOS zum Starten"
 
 msgid "Boot Settings"
-msgstr "Bootvorgang"
+msgstr "Startvorgang"
 
 msgid "Both"
 msgstr "Beides"
@@ -379,9 +379,6 @@ msgstr "Diese Sprache laden?"
 msgid "Do you want to load this language file?"
 msgstr "Diese Sprachdatei laden?"
 
-msgid "Do you want to open this URL?"
-msgstr "Diese URL öffnen?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Diese Datei im TextEditor öffnen?"
 
@@ -512,7 +509,7 @@ msgid "FTP Client Settings"
 msgstr "Einstellungen: FTP Client"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "FTP Client erfolgreich wiederverbunden."
 
 msgid "FTP Path:"
 msgstr "FTP Pfad:"
@@ -719,6 +716,9 @@ msgstr "Womit soll die Datei geöffnet werden?"
 msgid "How do you want to proceed?"
 msgstr "Wie soll fortgefahren werden?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Symbole"
 
@@ -760,6 +760,9 @@ msgstr "Quelldatei"
 
 msgid "Interlace"
 msgstr "Halbbildverfahren/Interlace"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "JPEG Qualität"
@@ -893,6 +896,9 @@ msgstr "Neuer Ordner"
 msgid "No"
 msgstr "Nein"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "Keine Dateien gefunden."
 
@@ -996,14 +1002,14 @@ msgstr "Datei abspielen"
 msgid "Play Once"
 msgstr "Einmal abspielen"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "Bitte erst dem Namen der URL eingeben."
 
 msgid "Please enter now the URL."
 msgstr "Bitte jetzt die URL eingeben."
-
-msgid "Please enter the a path."
-msgstr "Bitte einen Pfad eingeben."
 
 msgid "Please enter the password."
 msgstr "Bitte das Passwort eingeben."
@@ -1073,10 +1079,10 @@ msgid "Reconnect SMB"
 msgstr "SMB wiederverbinden"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "Wiederverbinden fehlgeschlagen. Kein Client verbunden."
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "Wiederverbinden fehlgeschlagen. Keine Freigabe verbunden."
 
 msgid "Red"
 msgstr "Rot"
@@ -1124,7 +1130,7 @@ msgid "SMB is connecting..."
 msgstr "SMB verbindet..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "SMB erfolgreich wiederverbunden."
 
 msgid "Save Alpha"
 msgstr "Aplha speichern"
@@ -1220,8 +1226,8 @@ msgstr "Die neue Schriftart wurde geladen."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Das ganze devkitPro & libogc Team."
 
-msgid "This link will be used in Opera."
-msgstr "Dieser Link wird dann von Internet-Kanal verwendet."
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "Dieser Name wird dann im Startmenü angezeigt."
@@ -1410,12 +1416,6 @@ msgstr "kein FB BUTTON"
 msgid "Warning:"
 msgstr "Warnung:"
 
-msgid "Website Link"
-msgstr "Webseite"
-
-msgid "What kind of URL did you enter?"
-msgstr "Welche Art von URL hast du eingeben?"
-
 msgid "Wii Binary Files"
 msgstr "Wii Binär Dateien"
 
@@ -1472,6 +1472,21 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "Diese URL öffnen?"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "Bitte einen Pfad eingeben."
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "Dieser Link wird dann von Internet-Kanal verwendet."
+
+#~ msgid "Website Link"
+#~ msgstr "Webseite"
+
+#~ msgid "What kind of URL did you enter?"
+#~ msgstr "Welche Art von URL hast du eingeben?"
 
 #~ msgid "Do you want to start Opera with this URL?"
 #~ msgstr "Internet-Kanal mit dieser URL starten?"

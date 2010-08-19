@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * by dude
+ * by Dimok, dude
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -38,40 +38,22 @@
 
 extern bool boothomebrew;
 
-Applications *Applications::instance = NULL;
-
-Applications::Applications()
+Applications::Applications(const char * path)
 {
-	Search();
+    if(!path)
+        return;
+
+	Search(path);
 
 	if(applications.size() > 1)
         Sort();
 }
 
-Applications::~Applications()
-{
-}
-
-Applications * Applications::Instance()
-{
-	if (instance == NULL)
-	{
-		instance = new Applications();
-	}
-	return instance;
-}
-
-void Applications::DestroyInstance()
-{
-	if (instance)
-	{
-		delete instance;
-	}
-	instance = NULL;
-}
-
 void Applications::Launch(int index)
 {
+    if(index < 0 || index >= (int) applications.size())
+        return;
+
 	if (LoadHomebrew(applications.at(index).path) < 0)
 		return;
 
@@ -85,7 +67,7 @@ mxml_error_cb_t xmlerror(const char* error)
 	return NULL;
 }
 
-bool Applications::GetNameFromXML(char *xml, char *name)
+bool Applications::GetNameFromXML(const char *xml, char *name)
 {
 	mxml_node_t *tree = NULL;
 	mxml_node_t *data = NULL;
@@ -132,19 +114,18 @@ bool Applications::GetNameFromXML(char *xml, char *name)
 void Applications::Reload()
 {
 	applications.clear();
-	Search();
+	Search(LastPath.c_str());
 }
 
-void Applications::Search()
+void Applications::Search(const char * path)
 {
-	char apppath[256], hbpath[256], hbname[256], metaname[256];
-
-	if (strcmp(Settings.AppPath, "") == 0)
+	if (!path || strcmp(path, "") == 0)
 		return;
 
-	snprintf(apppath, sizeof(apppath), "%s", Settings.AppPath);
+    LastPath = path;
+    std::string hbpath;
 
-	DirList dir(apppath);
+	DirList dir(path);
 
 	int entries = dir.GetFilecount();
 
@@ -155,29 +136,29 @@ void Applications::Search()
 			if (!dir.IsDir(j))
 				continue;
 
-			snprintf(hbpath, sizeof(hbpath), "%s%s", apppath, dir.GetFilename(j));
+			hbpath.assign(path);
+			if(hbpath[hbpath.size()-1] != '/')
+                hbpath.append("/");
+			hbpath.append(dir.GetFilename(j));
 
-            DirList binary(hbpath, ".dol,.elf");
+            DirList binary(hbpath.c_str(), ".dol,.elf");
             if (binary.GetFilecount() > 0)
             {
-                DirList meta(hbpath, ".xml");
+                Application app;
+                snprintf(app.path, sizeof(app.path), "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
+
+                DirList meta(hbpath.c_str(), ".xml");
                 if (meta.GetFileIndex("meta.xml") >= 0)
                 {
-                    snprintf(metaname, sizeof(metaname), "%s/meta.xml", hbpath);
-
-                    if (!GetNameFromXML(metaname, hbname))
+                    if (!GetNameFromXML(fmt("%s/meta.xml", hbpath.c_str()), app.name))
                     {
-                        snprintf(hbname, sizeof(hbname), dir.GetFilename(j));
+                        snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
                     }
                 }
                 else
                 {
-                    snprintf(hbname, sizeof(hbname), dir.GetFilename(j));
+                    snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
                 }
-
-                Application app;
-                snprintf(app.path, sizeof(app.path), "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
-                snprintf(app.name, sizeof(app.name), hbname);
 
                 applications.push_back(app);
             }
@@ -189,10 +170,10 @@ void Applications::Search()
 
 void Applications::Sort()
 {
-    std::sort(applications.begin(), applications.end(), FileSortCallback);
+    std::sort(applications.begin(), applications.end(), SortCallback);
 }
 
-bool Applications::FileSortCallback(const Application & f1, const Application & f2)
+bool Applications::SortCallback(const Application & f1, const Application & f2)
 {
     if(stricmp(f1.name, f2.name) > 0)
         return false;

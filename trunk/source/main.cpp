@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         USBDevice_Init();
     }
 
-    MagicPatches(); // We all love magic
+    MagicPatches(1); // We all love magic
 	Sys_Init(); // Initialize shutdown/reset buttons
 	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input

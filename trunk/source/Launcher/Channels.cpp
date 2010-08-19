@@ -1,6 +1,6 @@
 /***************************************************************************
  * Copyright (C) 2010
- * by dude
+ * by Dimok, dude
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
