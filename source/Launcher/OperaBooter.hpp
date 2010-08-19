@@ -34,7 +34,6 @@ typedef struct
 {
     char * name;
     char * addr;
-    bool downloadlink;
 } Link;
 
 class OperaBooter
@@ -43,9 +42,10 @@ class OperaBooter
         OperaBooter(const char * xmlfile);
         ~OperaBooter();
         bool Launch(int pos);
+        bool DownloadFile(int pos);
         bool SaveXML();
         bool AddLink();
-        bool AddLink(const char * name, const char * addr, bool downloadlink);
+        bool AddLink(const char * name, const char * addr);
         void RemoveLink(int pos);
         const char * GetName(int pos);
         const char * GetLink(int pos);
@@ -53,7 +53,6 @@ class OperaBooter
     private:
         bool ParseXML();
         void ClearList();
-        bool DownloadFile(int pos);
         void Sort();
         static bool SortCallback(const Link & f1, const Link & f2);
 

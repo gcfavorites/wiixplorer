@@ -31,7 +31,7 @@ extern "C"
 {
 #endif
 
-s32 MagicPatches();
+s32 MagicPatches(s32 enable);
 void __exception_setreload(int t);
 u32 __di_check_ahbprot(void);
 

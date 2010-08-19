@@ -103,6 +103,7 @@ extern "C" void ExitApp()
 	DeInit_Network();
 	MEM2_cleanup();
     mload_DeInit();
+    MagicPatches(0);
 }
 
 extern "C" void __Sys_ResetCallback(void)

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 16:43+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -380,9 +380,6 @@ msgstr "Vil du indlæse dette sprog?"
 msgid "Do you want to load this language file?"
 msgstr "Vil du indLæse denne sprogfil?"
 
-msgid "Do you want to open this URL?"
-msgstr "Vil du åbne denne URL?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Vil du åbne denne fil med TextEditor?"
 
@@ -513,7 +510,7 @@ msgid "FTP Client Settings"
 msgstr "FTP klient indstillinger"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "Lykkedes at genforbinde FTP Klient. "
 
 msgid "FTP Path:"
 msgstr "FTP Sti:"
@@ -720,6 +717,9 @@ msgstr "Hvordan vil du åbne filen?"
 msgid "How do you want to proceed?"
 msgstr "Hvordan vil du fortsætte?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Ikon måde"
 
@@ -761,6 +761,9 @@ msgstr "Input fil"
 
 msgid "Interlace"
 msgstr "Sammenflette"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "JPEG kvalitet"
@@ -894,6 +897,9 @@ msgstr "Ny mappe"
 msgid "No"
 msgstr "Nej"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "Ingen filer fundet."
 
@@ -997,14 +1003,14 @@ msgstr "Afspil fil"
 msgid "Play Once"
 msgstr "Afspil en gang"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "Skriv først et URL-Navn."
 
 msgid "Please enter now the URL."
 msgstr "Skriv venligst URL nu."
-
-msgid "Please enter the a path."
-msgstr "Skriv venligst en sti."
 
 msgid "Please enter the password."
 msgstr "Skriv venligst kodeordet."
@@ -1019,7 +1025,7 @@ msgid "Possible unsupported format."
 msgstr "Format muligvis ikke understøttet"
 
 msgid "Press Startup FTP to start the server on port"
-msgstr "Pres Startup FTP få at starte server på port"
+msgstr "Tryk Start FTP få at starte server på port"
 
 msgid "Process canceled."
 msgstr "Handling annulleret."
@@ -1074,10 +1080,10 @@ msgid "Reconnect SMB"
 msgstr "Genforbind SMB"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "Fejlede at genforbinde. Ingen klient er forbundet."
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "Fejlede at genforbinde. Ingen delte forbindelser er forbundet."
 
 msgid "Red"
 msgstr "Rød"
@@ -1125,7 +1131,7 @@ msgid "SMB is connecting..."
 msgstr "SMB forbinder..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "Lykkedes at genforbinde SMB."
 
 msgid "Save Alpha"
 msgstr "Gem Alfa"
@@ -1198,7 +1204,7 @@ msgid "Standard"
 msgstr ""
 
 msgid "Startup FTP"
-msgstr ""
+msgstr "Start FTP"
 
 msgid "Temporary Path"
 msgstr "Midlertidig sti"
@@ -1221,8 +1227,8 @@ msgstr "Den nye font er indlæst."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Hele devkitPro & libogc staben."
 
-msgid "This link will be used in Opera."
-msgstr "Dette link vil blive brugt i Opera"
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "Dette navn vil blive vist i start menuen"
@@ -1411,12 +1417,6 @@ msgstr "WPAD INGEN KNAP"
 msgid "Warning:"
 msgstr "Advarsel:"
 
-msgid "Website Link"
-msgstr "Webside link"
-
-msgid "What kind of URL did you enter?"
-msgstr "Hvilken type URL skrev du?"
-
 msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
 
@@ -1473,6 +1473,21 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "Vil du åbne denne URL?"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "Skriv venligst en sti."
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "Dette link vil blive brugt i Opera"
+
+#~ msgid "Website Link"
+#~ msgstr "Webside link"
+
+#~ msgid "What kind of URL did you enter?"
+#~ msgstr "Hvilken type URL skrev du?"
 
 #~ msgid "Do you want to start Opera with this URL?"
 #~ msgstr "Vil du starte Opera med denne URL?"

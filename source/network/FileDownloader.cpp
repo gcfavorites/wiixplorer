@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "http.h"
+#include "FileOperations/fileops.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 
@@ -149,13 +150,28 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 /****************************************************************************
  * Download a file from a given url to a given path with a Progressbar
  ****************************************************************************/
-int DownloadFileToPath(const char *url, const char *dest, bool UseFilename)
+int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 {
-    if(strncasecmp(url, "http://", strlen("http://")) != 0)
+    if(!orig_url || !dest)
+	{
+        ShowError(tr("No URL or Path specified."));
+        return -2;
+	}
+
+    bool addhttp = false;
+
+    if(strncasecmp(orig_url, "http://", strlen("http://")) != 0)
     {
-        ShowError(tr("Not a valid URL"));
-		return -1;
+        addhttp = true;
     }
+
+    char url[strlen(orig_url) + (addhttp ? strlen("http://") : 0) + 1];
+
+    if(addhttp)
+        snprintf(url, sizeof(url), "http://%s", orig_url);
+    else
+        strcpy(url, orig_url);
+
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
@@ -217,7 +233,14 @@ int DownloadFileToPath(const char *url, const char *dest, bool UseFilename)
     }
 
     if(UseFilename)
-        sprintf((char *) dest, "%s/%s", dest, filename);
+    {
+        if(dest[strlen(dest)-1] != '/')
+            strcat((char *) dest, "/");
+
+        CreateSubfolder(dest);
+
+        strcat((char *) dest, filename);
+    }
 
     FILE *file = fopen(dest, "wb");
     if(!file)

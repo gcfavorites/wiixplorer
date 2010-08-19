@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# italian.lang - r195
+# italian.lang - r198
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 16:43+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -104,7 +104,7 @@ msgid "Blue"
 msgstr "Blu"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "IOS di avvio"
 
 msgid "Boot Settings"
 msgstr "Impostazioni avvio"
@@ -379,9 +379,6 @@ msgstr "Vuoi caricare questa lingua?"
 msgid "Do you want to load this language file?"
 msgstr "Vuoi caricare questo file della lingua?"
 
-msgid "Do you want to open this URL?"
-msgstr "Vuoi aprire questo URL?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Vuoi aprire questo file con TextEditor?"
 
@@ -434,7 +431,7 @@ msgid "Down Button"
 msgstr "Pulsante Giu'"
 
 msgid "Download Link"
-msgstr "Scarica Link"
+msgstr "Link di Download"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -512,7 +509,7 @@ msgid "FTP Client Settings"
 msgstr "Impostazioni Client FTP"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "Client FTP riconnesso con successo."
 
 msgid "FTP Path:"
 msgstr "Percorso FTP:"
@@ -719,6 +716,9 @@ msgstr "Come vuoi aprire il file?"
 msgid "How do you want to proceed?"
 msgstr "Come vuoi procedere?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "Icone"
 
@@ -760,6 +760,9 @@ msgstr "File in input"
 
 msgid "Interlace"
 msgstr "Interlaccia"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "Qualita' JPEG"
@@ -893,6 +896,9 @@ msgstr "Nuova Cartella"
 msgid "No"
 msgstr ""
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "Nessun file trovato."
 
@@ -996,14 +1002,14 @@ msgstr "Riproduci File"
 msgid "Play Once"
 msgstr "Riproduci una volta"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "Inserisci prima il nome dell'URL."
 
 msgid "Please enter now the URL."
 msgstr "Inserisci adesso l'URL."
-
-msgid "Please enter the a path."
-msgstr "Per favore, inserisci un percorso."
 
 msgid "Please enter the password."
 msgstr "Inserisci la password."
@@ -1073,10 +1079,10 @@ msgid "Reconnect SMB"
 msgstr "Riconnessione SMB"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "Riconnessione fallita. Nessun client connesso."
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "Riconnessione fallita. Nessuno share connesso."
 
 msgid "Red"
 msgstr "Rosso"
@@ -1124,7 +1130,7 @@ msgid "SMB is connecting..."
 msgstr "SMB in connessione..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "SMB riconnesso con successo."
 
 msgid "Save Alpha"
 msgstr "Salva Alpha"
@@ -1155,7 +1161,7 @@ msgid "Share %i"
 msgstr "Condividi %i"
 
 msgid "Share:"
-msgstr "Condividi:"
+msgstr ""
 
 msgid "Shift"
 msgstr ""
@@ -1220,8 +1226,8 @@ msgstr "Il nuovo font e' stato caricato."
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
-msgid "This link will be used in Opera."
-msgstr "Questo link verra' usato in Opera."
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "Questo nome verra' mostrato nel menu' Start."
@@ -1410,12 +1416,6 @@ msgstr "Pulsante WiiMote Nessuno"
 msgid "Warning:"
 msgstr "Attenzione:"
 
-msgid "Website Link"
-msgstr "Link"
-
-msgid "What kind of URL did you enter?"
-msgstr "Che tipo di URL hai inserito?"
-
 msgid "Wii Binary Files"
 msgstr "Files Binari Wii"
 
@@ -1473,8 +1473,23 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "Vuoi aprire questo URL?"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "Per favore, inserisci un percorso."
+
 #~ msgid "The whole DevkitPro & libogc staff."
 #~ msgstr "Tutto lo staff di DevkitPro & libogc."
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "Questo link verra' usato in Opera."
+
+#~ msgid "Website Link"
+#~ msgstr "Link Classico"
+
+#~ msgid "What kind of URL did you enter?"
+#~ msgstr "Che tipo di URL hai inserito?"
 
 #~ msgid "for his great tool LibWiiGui."
 #~ msgstr "per la fantastica LibWiiGui."

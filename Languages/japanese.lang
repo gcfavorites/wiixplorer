@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-16 19:09+0200\n"
+"POT-Creation-Date: 2010-08-19 16:43+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -103,7 +103,7 @@ msgid "Blue"
 msgstr "青"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "起動IOS"
 
 msgid "Boot Settings"
 msgstr "起動設定"
@@ -378,9 +378,6 @@ msgstr "この言語に設定しますか?"
 msgid "Do you want to load this language file?"
 msgstr "この言語ファイルを読み込みますか?"
 
-msgid "Do you want to open this URL?"
-msgstr "このURLを開きますか?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "テキストエディタで開きますか?"
 
@@ -511,7 +508,7 @@ msgid "FTP Client Settings"
 msgstr "FTPクライアント設定"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "FTPクライアントに再接続しました"
 
 msgid "FTP Path:"
 msgstr "FTPのパス"
@@ -718,6 +715,9 @@ msgstr "どのようにファイルを開きますか?"
 msgid "How do you want to proceed?"
 msgstr "何をしますか?"
 
+msgid "How should this URL be opened?"
+msgstr ""
+
 msgid "Icon Mode"
 msgstr "アイコン表示"
 
@@ -759,6 +759,9 @@ msgstr "入力ファイル"
 
 msgid "Interlace"
 msgstr "インターレース"
+
+msgid "Internet Channel"
+msgstr ""
 
 msgid "JPEG Quality"
 msgstr "JPEGの品質"
@@ -892,6 +895,9 @@ msgstr "新しいフォルダ"
 msgid "No"
 msgstr "いいえ"
 
+msgid "No URL or Path specified."
+msgstr ""
+
 msgid "No files found."
 msgstr "ファイルが見つかりません"
 
@@ -995,14 +1001,14 @@ msgstr "ファイルを再生"
 msgid "Play Once"
 msgstr "一度だけ再生"
 
+msgid "Please enter a path."
+msgstr ""
+
 msgid "Please enter first the URL-Name."
 msgstr "URLの名前を入力してください"
 
 msgid "Please enter now the URL."
 msgstr "URLを入力してください"
-
-msgid "Please enter the a path."
-msgstr "パスを入力してください"
 
 msgid "Please enter the password."
 msgstr "パスワードを入力してください"
@@ -1072,10 +1078,10 @@ msgid "Reconnect SMB"
 msgstr "SMBに再接続"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "再接続できませんでした"
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "再接続できませんでした"
 
 msgid "Red"
 msgstr "赤"
@@ -1123,7 +1129,7 @@ msgid "SMB is connecting..."
 msgstr "接続中"
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "SMBに再接続しました"
 
 msgid "Save Alpha"
 msgstr "アルファの保存"
@@ -1219,8 +1225,8 @@ msgstr "フォントを読み込みました"
 msgid "The whole devkitPro & libogc staff."
 msgstr "devkitPro&libogcの制作者の方々"
 
-msgid "This link will be used in Opera."
-msgstr "このリンクはOperaで使われます"
+msgid "This link will be used in Opera or as a Download Link."
+msgstr ""
 
 msgid "This name will be shown in the Start Menu"
 msgstr "この名前はスタートメニューで表示されます"
@@ -1409,12 +1415,6 @@ msgstr "クラコンのボタン無し"
 msgid "Warning:"
 msgstr "警告:"
 
-msgid "Website Link"
-msgstr "ウェブサイトリンク"
-
-msgid "What kind of URL did you enter?"
-msgstr "入力したURLはどちらの形式ですか?"
-
 msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
@@ -1471,6 +1471,21 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Do you want to open this URL?"
+#~ msgstr "このURLを開きますか?"
+
+#~ msgid "Please enter the a path."
+#~ msgstr "パスを入力してください"
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "このリンクはOperaで使われます"
+
+#~ msgid "Website Link"
+#~ msgstr "ウェブサイトリンク"
+
+#~ msgid "What kind of URL did you enter?"
+#~ msgstr "入力したURLはどちらの形式ですか?"
 
 #~ msgid "Do you want to start Opera with this URL?"
 #~ msgstr "Operaで開きますか?"

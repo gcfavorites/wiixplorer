@@ -86,8 +86,8 @@ int UpdateApp(const char *url)
  ***************************************************************************/
 int CheckForUpdate()
 {
-	if(!IsNetworkInit())
-		Initialize_Network();
+	if(!IsNetworkInit() && !NetworkInitPrompt())
+		return -1;
 
     int revnumber = 0;
     int currentrev = atoi(SvnRev());
