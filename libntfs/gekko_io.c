@@ -279,29 +279,31 @@ static s64 ntfs_device_gekko_io_readbytes(struct ntfs_device *dev, s64 offset, s
         return -1;
     }
 
+    if(offset < 0)
+    {
+        errno = EROFS;
+        return -1;
+    }
+
     if(!count)
         return 0;
 
     sec_t sec_start = (sec_t) fd->startSector;
     sec_t sec_count = 1;
-    u32 buffer_offset = 0;
+    u32 buffer_offset = (u32) (offset % fd->sectorSize);
     u8 *buffer = NULL;
 
     // Determine the range of sectors required for this read
     if (offset > 0) {
-        sec_start += (sec_t) floor((f64) offset/fd->sectorSize);
-        buffer_offset = (u32) (offset % fd->sectorSize);
+        sec_start += (sec_t) floor((f64) offset / (f64) fd->sectorSize);
     }
-    if (count > fd->sectorSize) {
-        sec_count = (sec_t) ceil((f64) count/fd->sectorSize);
-
-        if(buffer_offset > 0)
-            sec_count += 1;
+    if (buffer_offset+count > fd->sectorSize) {
+        sec_count = (sec_t) ceil((f64) (buffer_offset+count) / (f64) fd->sectorSize);
     }
 
     // If this read happens to be on the sector boundaries then do the read straight into the destination buffer
 
-    if((offset % fd->sectorSize == 0) && (count % fd->sectorSize == 0)) {
+    if((buffer_offset == 0) && (count % fd->sectorSize == 0)) {
 
         // Read from the device
         ntfs_log_trace("direct read from sector %d (%d sector(s) long)\n", sec_start, sec_count);
@@ -369,7 +371,7 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
         return -1;
     }
 
-    if(count < 0) {
+    if(count < 0 || offset < 0) {
         errno = EROFS;
         return -1;
     }
@@ -379,23 +381,20 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
 
     sec_t sec_start = (sec_t) fd->startSector;
     sec_t sec_count = 1;
-    u32 buffer_offset = 0;
+    u32 buffer_offset = (u32) (offset % fd->sectorSize);
     u8 *buffer = NULL;
 
     // Determine the range of sectors required for this write
     if (offset > 0) {
-        sec_start += (sec_t) floor((f64) offset/fd->sectorSize);
-        buffer_offset = (u32) (offset % fd->sectorSize);
+        sec_start += (sec_t) floor((f64) offset / (f64) fd->sectorSize);
     }
-    if (count > fd->sectorSize) {
-        sec_count = (sec_t) ceil((f64) count/fd->sectorSize);
-
-        if(buffer_offset > 0)
-            sec_count += 1;
+    if ((buffer_offset+count) > fd->sectorSize) {
+        sec_count = (sec_t) ceil((f64) (buffer_offset+count) / (f64) fd->sectorSize);
     }
 
     // If this write happens to be on the sector boundaries then do the write straight to disc
-    if((offset % fd->sectorSize == 0) && (count % fd->sectorSize == 0)) {
+    if((buffer_offset == 0) && (count % fd->sectorSize == 0))
+    {
         // Write to the device
         ntfs_log_trace("direct write to sector %d (%d sector(s) long)\n", sec_start, sec_count);
         if (!ntfs_device_gekko_io_writesectors(dev, sec_start, sec_count, buf)) {
@@ -404,8 +403,9 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
             return -1;
         }
     // Else write from a buffer aligned to the sector boundaries
-    } else {
-
+    }
+    else
+    {
         // Allocate a buffer to hold the write data
         buffer = (u8 *) ntfs_alloc(sec_count * fd->sectorSize);
         if (!buffer) {
@@ -415,7 +415,8 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
         // Read the first and last sectors of the buffer from disc (if required)
         // NOTE: This is done because the data does not line up with the sector boundaries,
         //       we just read in the buffer edges where the data overlaps with the rest of the disc
-        if(offset % fd->sectorSize != 0) {
+        if(buffer_offset != 0)
+        {
             if (!ntfs_device_gekko_io_readsectors(dev, sec_start, 1, buffer)) {
                 ntfs_log_perror("read failure @ sector %d\n", sec_start);
                 ntfs_free(buffer);
@@ -423,20 +424,10 @@ static s64 ntfs_device_gekko_io_writebytes(struct ntfs_device *dev, s64 offset, 
                 return -1;
             }
         }
-        if((count % fd->sectorSize != 0) || (buffer_offset > 0))
+        if((buffer_offset+count) % fd->sectorSize != 0)
         {
-            sec_t last_sectors = sec_count-1;
-            s32 read_sectors = 1;
-
-            if(sec_count > 1)
-            {
-                //let's read 2 sectors to be sure
-                last_sectors = sec_count-2;
-                read_sectors = 2;
-            }
-
-            if (!ntfs_device_gekko_io_readsectors(dev, sec_start + last_sectors, read_sectors, buffer + (last_sectors * fd->sectorSize))) {
-                ntfs_log_perror("read failure @ sector %d\n", sec_start + sec_count);
+            if (!ntfs_device_gekko_io_readsectors(dev, sec_start + sec_count - 1, 1, buffer + ((sec_count-1) * fd->sectorSize))) {
+                ntfs_log_perror("read failure @ sector %d\n", sec_start + sec_count - 1);
                 ntfs_free(buffer);
                 errno = EIO;
                 return -1;
