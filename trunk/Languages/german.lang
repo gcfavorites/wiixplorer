@@ -1,12 +1,12 @@
 # WiiXplorer
-# german language source file - r197
+# german language source file - r199
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 16:43+0200\n"
-"PO-Revision-Date: 2010-08-16 10:14-0800\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
+"PO-Revision-Date: 2010-08-19 10:14-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Vorgang abgebrochen."
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr "Link hinzufügen"
@@ -136,6 +139,9 @@ msgstr "Die Datei kann nicht geöffnet werden."
 msgid "Can't browse that path."
 msgstr "Dieser Pfad kann nicht durchsucht werden."
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "Datei kann nicht geladen werden"
 
@@ -154,8 +160,14 @@ msgstr "Verzeichnis kann nicht erstellt werden: "
 msgid "Cannot open image"
 msgstr "Bild kann nicht geöffnet werden."
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "Zielverzeichnis ist nicht beschreibbar."
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "In die Datei kann nicht geschrieben werden."
@@ -319,6 +331,9 @@ msgid "Demark Item Button"
 msgstr "Ein Element abwählen"
 
 msgid "Designer:"
+msgstr ""
+
+msgid "Device"
 msgstr ""
 
 msgid "Directory .."
@@ -505,6 +520,9 @@ msgstr "Entpacke Dateien..."
 msgid "Extracting item(s):"
 msgstr "Entpacke Element(e):"
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "Einstellungen: FTP Client"
 
@@ -556,11 +574,20 @@ msgstr "Laden des Kanals fehlgeschlagen."
 msgid "Failed to read file data."
 msgstr "Lesen der Dateidaten fehlgeschlagen."
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "Dateiendungen"
 
 msgid "File Extensions Assignment"
 msgstr "Zuordnung der Dateiendungen"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "Datei existiert bereits:"
@@ -623,6 +650,18 @@ msgstr "Schriftarten"
 msgid "Fontpath changed."
 msgstr "Pfad geändert"
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "Freier Speicher:"
 
@@ -664,6 +703,12 @@ msgstr "GCN TRIGGER R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GCN BUTTON Z"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2 Kompression"
@@ -717,7 +762,7 @@ msgid "How do you want to proceed?"
 msgstr "Wie soll fortgefahren werden?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "Wie soll diese URL geöffnet werden?"
 
 msgid "Icon Mode"
 msgstr "Symbole"
@@ -762,7 +807,7 @@ msgid "Interlace"
 msgstr "Halbbildverfahren/Interlace"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "Internet-Kanal"
 
 msgid "JPEG Quality"
 msgstr "JPEG Qualität"
@@ -827,6 +872,9 @@ msgstr "Bild wird geladen..."
 msgid "Log was saved in MD5.log"
 msgstr "Log wurde in MD5.log gespeichert."
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "Scheife"
 
@@ -860,8 +908,8 @@ msgstr "Menü"
 msgid "Minimize"
 msgstr "Minimieren"
 
-msgid "Mount NTFS"
-msgstr "NTFS benutzen"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr "Disc wird geladen"
@@ -897,7 +945,7 @@ msgid "No"
 msgstr "Nein"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "Kein(e) URL oder Pfad angegeben."
 
 msgid "No files found."
 msgstr "Keine Dateien gefunden."
@@ -942,6 +990,9 @@ msgstr "Nicht genug Speicher zum drehen."
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "Beachte:"
 
@@ -978,6 +1029,24 @@ msgstr "PDF Verarbeitungs Zoom"
 msgid "Parse Directory"
 msgstr "Verzeichnis analysieren"
 
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr ""
 
@@ -1003,7 +1072,7 @@ msgid "Play Once"
 msgstr "Einmal abspielen"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "Bitte einen Pfad eingeben."
 
 msgid "Please enter first the URL-Name."
 msgstr "Bitte erst dem Namen der URL eingeben."
@@ -1025,6 +1094,9 @@ msgstr "Möglicherweise nicht unterstüztes Format."
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Drücke 'FTP starten' zum Starten des Servers an Port"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Vorgang abgebrochen."
@@ -1090,6 +1162,12 @@ msgstr "Rot"
 msgid "Reload"
 msgstr "Erneut mounten"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr "Link entfernen"
 
@@ -1119,6 +1197,9 @@ msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "Das Abspielen eines Videos könnte das Programm verlangsamen oder einfrieren. Fortfahren?"
+
+msgid "SD-Card"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr ""
@@ -1152,6 +1233,15 @@ msgstr "Geschwindigkeit beim Scrollen"
 
 msgid "Server was shutdown...\n"
 msgstr "Server wurde ausgeschaltet...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -1205,6 +1295,9 @@ msgstr ""
 msgid "Startup FTP"
 msgstr "FTP starten"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Temporäres Verzeichnis"
 
@@ -1226,6 +1319,12 @@ msgstr "Die neue Schriftart wurde geladen."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Das ganze devkitPro & libogc Team."
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1234,6 +1333,9 @@ msgstr "Dieser Name wird dann im Startmenü angezeigt."
 
 msgid "This option could mess up the pdf view."
 msgstr "Diese Option kann die PDF Ansicht versauen."
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr "Verbleibende Zeit:"
@@ -1274,6 +1376,9 @@ msgstr "URL Liste"
 msgid "URL is empty."
 msgstr "URL ist leer."
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Unbekanntes Format. Diese Datei mit dem TextEditor öffnen?"
 
@@ -1282,6 +1387,9 @@ msgstr "Ordner konnte nicht erstellt werden."
 
 msgid "Unable to load path."
 msgstr "Pfad konnte nicht geöffnet werden."
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "Nicht unterstütztes Format!"
@@ -1325,6 +1433,9 @@ msgstr "Vertikal"
 
 msgid "Video Files"
 msgstr "Videos"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "WARNUNG:"
@@ -1437,6 +1548,12 @@ msgstr "Ja für alle"
 msgid "You can not cut into the directory itself."
 msgstr "Du kannst das Verzeichnis nicht in sich selbst einfügen."
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "Diese Aktion kann nicht auf folgendem angewendet werden:"
 
@@ -1473,14 +1590,17 @@ msgstr ""
 msgid "~!@#$%^&*()_"
 msgstr ""
 
+#~ msgid "Mount NTFS"
+#~ msgstr "NTFS benutzen"
+
+#~ msgid "This link will be used in Opera."
+#~ msgstr "Dieser Link wird dann von Internet-Kanal oder als Downloadlink verwendet."
+
 #~ msgid "Do you want to open this URL?"
 #~ msgstr "Diese URL öffnen?"
 
 #~ msgid "Please enter the a path."
 #~ msgstr "Bitte einen Pfad eingeben."
-
-#~ msgid "This link will be used in Opera."
-#~ msgstr "Dieser Link wird dann von Internet-Kanal verwendet."
 
 #~ msgid "Website Link"
 #~ msgstr "Webseite"

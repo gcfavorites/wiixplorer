@@ -36,16 +36,12 @@ static bool SMB_Mounted[MAXSMBUSERS];
 static bool firstRun = true;
 
 /****************************************************************************
- * Mount SMB Share
+ * Mount one SMB Share
  ****************************************************************************/
-bool ConnectSMBShare()
+bool ConnectSMBShare(int client)
 {
-    bool result = false;
-    char mountname[10];
-    char User[50];
-    char Password[50];
-    char SMBName[50];
-    char Host[50];
+    if(client < 0 || client >= MAXSMBUSERS)
+        return false;
 
     if(firstRun)
     {
@@ -58,24 +54,48 @@ bool ConnectSMBShare()
         firstRun = false;
     }
 
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        //don't let tinysmb modify the settings strings
-        sprintf(mountname, "smb%i", i+1);
-        strcpy(Host, Settings.SMBUser[i].Host);
-        strcpy(User, Settings.SMBUser[i].User);
-        strcpy(Password, Settings.SMBUser[i].Password);
-        strcpy(SMBName, Settings.SMBUser[i].SMBName);
+    if(SMB_Mounted[client])
+        return true;
 
-        if(strcmp(Host, "") != 0)
+    bool result = false;
+    char mountname[10];
+    char User[50];
+    char Password[50];
+    char SMBName[50];
+    char Host[50];
+
+    //don't let tinysmb modify the settings strings
+    sprintf(mountname, "smb%i", client+1);
+    strcpy(Host, Settings.SMBUser[client].Host);
+    strcpy(User, Settings.SMBUser[client].User);
+    strcpy(Password, Settings.SMBUser[client].Password);
+    strcpy(SMBName, Settings.SMBUser[client].SMBName);
+
+    if(strcmp(Host, "") != 0)
+    {
+        if(smbInitDevice(mountname, User, Password, SMBName, Host))
         {
-            if(smbInitDevice(mountname, User, Password, SMBName, Host))
-            {
-                result = true;
-                SMB_Mounted[i] = true;
-            }
+            result = true;
+            SMB_Mounted[client] = true;
         }
     }
+
+    return result;
+}
+
+/****************************************************************************
+ * Mount SMB Shares
+ ****************************************************************************/
+bool ConnectSMBShare()
+{
+    bool result = false;
+
+    for(int i = 0; i < MAXSMBUSERS; i++)
+    {
+        if(ConnectSMBShare(i))
+            result = true;
+    }
+
 	return result;
 }
 
@@ -93,20 +113,6 @@ bool IsSMB_Mounted(int smb)
 /****************************************************************************
  * Close SMB Share
  ****************************************************************************/
-void CloseSMBShare()
-{
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        char mountname[10];
-        sprintf(mountname, "smb%i", i+1);
-
-        if(IsSMB_Mounted(i))
-            smbClose(mountname);
-
-        SMB_Mounted[i] = false;
-    }
-}
-
 void CloseSMBShare(int connection)
 {
     if(connection < 0 || connection >= MAXSMBUSERS)
@@ -119,6 +125,14 @@ void CloseSMBShare(int connection)
         smbClose(mountname);
 
     SMB_Mounted[connection] = false;
+}
+
+void CloseSMBShare()
+{
+    for(int i = 0; i < MAXSMBUSERS; i++)
+    {
+        CloseSMBShare(i);
+    }
 }
 
 /****************************************************************************

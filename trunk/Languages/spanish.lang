@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: SirPalax\n"
 "Language-Team: SirPalax\n"
@@ -41,6 +41,9 @@ msgstr "ASDFGHJKLÑ¨Ç"
 
 msgid "Action cancelled."
 msgstr "Operación cancelada."
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr "Añadir Enlace"
@@ -135,6 +138,9 @@ msgstr "No se puede abrir el archivo."
 msgid "Can't browse that path."
 msgstr "No se puede navegar por esa ruta."
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "No se cargó el archivo"
 
@@ -153,8 +159,14 @@ msgstr "No se puede crear el directorio: "
 msgid "Cannot open image"
 msgstr "No se puede abrir la imagen"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "No se puede escribir en el destino."
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "No se puede escribir en el archivo."
@@ -319,6 +331,9 @@ msgstr "Desmarcar Elemento"
 
 msgid "Designer:"
 msgstr "Diseñador:"
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "Carpeta .."
@@ -504,6 +519,9 @@ msgstr "Extrayendo archivos..."
 msgid "Extracting item(s):"
 msgstr "Extrayendo elemento(s):"
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "Configuración del Cliente FTP"
 
@@ -555,11 +573,20 @@ msgstr "No se pudo cargar el canal."
 msgid "Failed to read file data."
 msgstr "No se pudo leer el archivo de datos."
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "Extensiones de Archivos"
 
 msgid "File Extensions Assignment"
 msgstr "Asignación de las Extensiones de Archivos"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "El archivo ya existe:"
@@ -622,6 +649,18 @@ msgstr "Archivos de Fuentes"
 msgid "Fontpath changed."
 msgstr "Ruta de la Fuente cambiada."
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "Espacio Libre:"
 
@@ -663,6 +702,12 @@ msgstr "GATILLO R PAD GC"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GATILLO Z PAD GC"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "Compresión GD2"
@@ -826,6 +871,9 @@ msgstr "Cargando imagen..."
 msgid "Log was saved in MD5.log"
 msgstr "Registro guardado en MD5.log"
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "Bucle"
 
@@ -859,8 +907,8 @@ msgstr "Menú de Wii"
 msgid "Minimize"
 msgstr "Minimizar"
 
-msgid "Mount NTFS"
-msgstr "Montar NTFS"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr "Montando disco"
@@ -941,6 +989,9 @@ msgstr "No hay memoria suficiente para rotar."
 msgid "Not enough memory."
 msgstr "No hay suficiente memoria."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "Aviso:"
 
@@ -976,6 +1027,24 @@ msgstr "Procesado de Zum del PDF"
 
 msgid "Parse Directory"
 msgstr "Analizar Carpeta"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Modo Pasivo:"
@@ -1024,6 +1093,9 @@ msgstr "Posible formato incompatible."
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pulsa Arrancar FTP para iniciar el Servidor en el puerto"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Proceso cancelado."
@@ -1089,6 +1161,12 @@ msgstr "Rojo"
 msgid "Reload"
 msgstr "Actualizar"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr "Borrar Enlace"
 
@@ -1118,6 +1196,9 @@ msgstr "Vibración"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "Ejecutar un Vídeo podría relentizar el proceso o congelar la aplicación. ¿Deseas continuar?"
+
+msgid "SD-Card"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Nombre del SMB:"
@@ -1151,6 +1232,15 @@ msgstr "Velocidad de Desplazamiento"
 
 msgid "Server was shutdown...\n"
 msgstr "El Servidor se ha parado...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "Configuración"
@@ -1204,6 +1294,9 @@ msgstr "Estándar"
 msgid "Startup FTP"
 msgstr "Arrancar FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Ruta Temporal"
 
@@ -1225,6 +1318,12 @@ msgstr "Se ha cargado la nueva Fuente."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Todo el staff de devkitPro y libogc."
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1233,6 +1332,9 @@ msgstr "Este nombre se mostrará en el Menú de Inicio"
 
 msgid "This option could mess up the pdf view."
 msgstr "Esta opción podría dañar la visualización del pdf."
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr "Tiempo restante:"
@@ -1273,6 +1375,9 @@ msgstr "Ruta de la Lista URL"
 msgid "URL is empty."
 msgstr "La URL está vacía."
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Formato desconocido. ¿Abrir este archivo con el Editor de Texto?"
 
@@ -1281,6 +1386,9 @@ msgstr "Imposible crear la carpeta."
 
 msgid "Unable to load path."
 msgstr "Imposible cargar la ruta."
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "¡Formato no soportado!"
@@ -1324,6 +1432,9 @@ msgstr ""
 
 msgid "Video Files"
 msgstr "Archivos de Vídeo"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "ADVERTENCIA:"
@@ -1436,6 +1547,12 @@ msgstr "Si a todo"
 msgid "You can not cut into the directory itself."
 msgstr "No puedes cortar dentro del directorio en sí mismo."
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
@@ -1471,6 +1588,9 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "!\"·$%&/()=?¿"
+
+#~ msgid "Mount NTFS"
+#~ msgstr "Montar NTFS"
 
 #~ msgid "Do you want to open this URL?"
 #~ msgstr "¿Quieres abrir esta URL?"

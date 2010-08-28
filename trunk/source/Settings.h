@@ -136,8 +136,6 @@ class Settings
         short  	CurrentFTPUser;
         //!Music Volume.
         short  	MusicVolume;
-        //!Option to mount or not mount the NTFS volumes
-        short  	MountNTFS;
         //!BGM Loop Mode
         short  	BGMLoopMode;
         //!AutoConnect Network on StartUp

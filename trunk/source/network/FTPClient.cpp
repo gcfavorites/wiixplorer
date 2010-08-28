@@ -33,48 +33,57 @@
 
 static bool ftpReady = false;
 
+bool ConnectFTP(int client)
+{
+    if(client < 0 || client >= MAXFTPUSERS)
+        return false;
+
+    char name[10];
+    sprintf(name, "ftp%i", client+1);
+
+    if (strcmp(Settings.FTPUser[client].Host, "") == 0)
+        return false;
+
+    char User[50];
+    char Password[50];
+
+    if(strcmp(Settings.FTPUser[client].User, "") == 0)
+        snprintf(User, sizeof(User), "anonymous");
+    else
+        snprintf(User, sizeof(User), "%s", Settings.FTPUser[client].User);
+
+    if(strcmp(Settings.FTPUser[client].Password, "") == 0)
+        snprintf(Password, sizeof(Password), "anonymous@WiiXplorer.com");
+    else
+        snprintf(Password, sizeof(Password), "%s", Settings.FTPUser[client].Password);
+
+    bool result = false;
+
+    if (ftpInitDevice(name,
+        User,
+        Password,
+        Settings.FTPUser[client].FTPPath,
+        Settings.FTPUser[client].Host,
+        Settings.FTPUser[client].Port,
+        Settings.FTPUser[client].Passive))
+    {
+        ftpReady = true;
+        result = true;
+    }
+
+    return result;
+}
+
 /****************************************************************************
  * FTP Stuff
  ***************************************************************************/
 bool ConnectFTP()
 {
-	ftpReady = false;
-
     if(!IsNetworkInit())
         Initialize_Network();
 
 	for (int i = 0; i < MAXFTPUSERS; i++)
-	{
-		char name[10];
-		sprintf(name, "ftp%i", i+1);
-
-		if (strcmp(Settings.FTPUser[i].Host, "") != 0)
-		{
-		    char User[50];
-		    char Password[50];
-
-		    if(strcmp(Settings.FTPUser[i].User, "") == 0)
-                snprintf(User, sizeof(User), "anonymous");
-            else
-                snprintf(User, sizeof(User), "%s", Settings.FTPUser[i].User);
-
-		    if(strcmp(Settings.FTPUser[i].Password, "") == 0)
-                snprintf(Password, sizeof(Password), "anonymous@WiiXplorer.com");
-            else
-                snprintf(Password, sizeof(Password), "%s", Settings.FTPUser[i].Password);
-
-			if (ftpInitDevice(name,
-				User,
-				Password,
-				Settings.FTPUser[i].FTPPath,
-				Settings.FTPUser[i].Host,
-				Settings.FTPUser[i].Port,
-				Settings.FTPUser[i].Passive))
-			{
-				ftpReady = true;
-			}
-		}
-	}
+        ConnectFTP(i);
 
 	return ftpReady;
 }
@@ -91,6 +100,12 @@ void CloseFTP()
 
 void CloseFTP(int client)
 {
+	if (client < 0 || client >= MAXFTPUSERS || !ftpReady)
+		return;
+
+    if(!IsFTPConnected(client))
+        return;
+
     char name[10];
     sprintf(name, "ftp%i", client+1);
     ftpClose(name);

@@ -56,7 +56,7 @@ class Explorer : public GuiWindow
         int GetMenuChoice();
         void SetState(int s);
         void SetFilter(u8 filtermode) { DeviceBrowser->SetFilter(filtermode); };
-        const char * GetCurrectPath() {  if(!CurBrowser) return NULL; return CurBrowser->GetCurrentPath(); };
+        const char * GetCurrectPath() { if(!CurBrowser) return NULL; return CurBrowser->GetCurrentPath(); };
     protected:
 		void CheckBrowserChanges();
 		void CheckDeviceMenu();
@@ -91,6 +91,7 @@ class Explorer : public GuiWindow
         GuiImageData * Address;
         GuiImageData * sdstorage;
         GuiImageData * usbstorage;
+        GuiImageData * usbstorage_blue;
         GuiImageData * networkstorage;
 		GuiImageData * ftpstorage;
         GuiImageData * dvd_ImgData;

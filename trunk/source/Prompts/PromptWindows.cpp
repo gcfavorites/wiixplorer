@@ -36,7 +36,6 @@
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
 #include "Controls/Taskbar.h"
-#include "devicemounter.h"
 #include "FileOperations/fileops.h"
 #include "FileOperations/filebrowser.h"
 #include "menu.h"

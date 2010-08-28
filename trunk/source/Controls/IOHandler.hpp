@@ -66,6 +66,7 @@ class IOHandler
         bool Running;
 		bool DestroyRequested;
 		bool ProcessLocked;
+		int ProgressMode;
 		u8 * ThreadStack;
 		lwp_t IOThread;
 		lwp_t RequestThread;

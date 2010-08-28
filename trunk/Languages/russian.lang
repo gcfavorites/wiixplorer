@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -42,6 +42,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Действие отменено."
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr ""
@@ -136,6 +139,9 @@ msgstr "Не удалось открыть файл."
 msgid "Can't browse that path."
 msgstr ""
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "Не удалось загрузить файл"
 
@@ -154,7 +160,13 @@ msgstr "Не удалось создать каталог: "
 msgid "Cannot open image"
 msgstr "Не удалось открыть изображение"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
+msgstr ""
+
+msgid "Cannot write to the drive."
 msgstr ""
 
 msgid "Cannot write to the file."
@@ -320,6 +332,9 @@ msgstr ""
 
 msgid "Designer:"
 msgstr "Дизайнер:"
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "Директория .."
@@ -505,6 +520,9 @@ msgstr "Извлечение файлов..."
 msgid "Extracting item(s):"
 msgstr ""
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "FTP клиент"
 
@@ -556,11 +574,20 @@ msgstr ""
 msgid "Failed to read file data."
 msgstr ""
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "Файловые расширения"
 
 msgid "File Extensions Assignment"
 msgstr "Распределение файловых расширений"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "Файл уже существует:"
@@ -623,6 +650,18 @@ msgstr "Шрифты"
 msgid "Fontpath changed."
 msgstr ""
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr ""
 
@@ -663,6 +702,12 @@ msgid "GC PAD TRIGGER R"
 msgstr ""
 
 msgid "GC PAD TRIGGER Z"
+msgstr ""
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
 msgstr ""
 
 msgid "GD2 Compression"
@@ -827,6 +872,9 @@ msgstr "Загрузка изображения..."
 msgid "Log was saved in MD5.log"
 msgstr ""
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -860,8 +908,8 @@ msgstr "Меню Wii"
 msgid "Minimize"
 msgstr ""
 
-msgid "Mount NTFS"
-msgstr "Монтировать NTFS"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr ""
@@ -942,6 +990,9 @@ msgstr "Недостаточно памяти, чтобы повернуть."
 msgid "Not enough memory."
 msgstr "Не хватает памяти."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "Уведомление:"
 
@@ -977,6 +1028,24 @@ msgstr ""
 
 msgid "Parse Directory"
 msgstr "Всю директорию"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Пассивный режим:"
@@ -1024,6 +1093,9 @@ msgid "Possible unsupported format."
 msgstr "Возможно, неподдерживаемый формат."
 
 msgid "Press Startup FTP to start the server on port"
+msgstr ""
+
+msgid "Primary"
 msgstr ""
 
 msgid "Process canceled."
@@ -1090,6 +1162,12 @@ msgstr ""
 msgid "Reload"
 msgstr "Перезагрузка SD и USB"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr ""
 
@@ -1118,6 +1196,9 @@ msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
+
+msgid "SD-Card"
 msgstr ""
 
 msgid "SMB Name:"
@@ -1152,6 +1233,15 @@ msgstr "Скорость прокрутки"
 
 msgid "Server was shutdown...\n"
 msgstr "Сервер остановлен...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "Настройки"
@@ -1205,6 +1295,9 @@ msgstr "Стандартно"
 msgid "Startup FTP"
 msgstr "Запустить FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr ""
 
@@ -1226,6 +1319,12 @@ msgstr "Новый шрифт загружен"
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1233,6 +1332,9 @@ msgid "This name will be shown in the Start Menu"
 msgstr ""
 
 msgid "This option could mess up the pdf view."
+msgstr ""
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
 msgstr ""
 
 msgid "Time left:"
@@ -1274,6 +1376,9 @@ msgstr ""
 msgid "URL is empty."
 msgstr "URL пуст."
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Неизвестный формат. Открыть файл в TextEditor?"
 
@@ -1281,6 +1386,9 @@ msgid "Unable to create folder."
 msgstr "Не удалось создать папку."
 
 msgid "Unable to load path."
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid "Unsupported format!"
@@ -1325,6 +1433,9 @@ msgstr ""
 
 msgid "Video Files"
 msgstr "Видео"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "ВНИМАНИЕ:"
@@ -1437,6 +1548,12 @@ msgstr "Да для всех"
 msgid "You can not cut into the directory itself."
 msgstr ""
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr ""
 
@@ -1472,6 +1589,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Mount NTFS"
+#~ msgstr "Монтировать NTFS"
 
 #~ msgid "Unable to load the device."
 #~ msgstr "Не удалось загрузить устройство."

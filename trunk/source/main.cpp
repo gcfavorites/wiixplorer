@@ -36,12 +36,13 @@
 #include "VideoOperations/video.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "TextOperations/FontSystem.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "audio.h"
 #include "libwiigui/gui.h"
+#include "libdisk/di2.h"
 #include "input.h"
 #include "filelist.h"
 #include "Settings.h"
-#include "devicemounter.h"
 #include "sys.h"
 #include "Memory/mem2.h"
 #include "mload/mload_init.h"
@@ -55,23 +56,24 @@ int main(int argc, char *argv[])
     InitGecko();
     __exception_setreload(30);
 
-	SDCard_Init(); // Initialize file system
-	USBDevice_Init(); // Initialize file system
+	DeviceHandler::Instance()->MountSD();
+	DeviceHandler::Instance()->MountAllUSB();
 	Settings.Load(argc, argv);
 
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
     if(EntraceIOS != Settings.BootIOS)
     {
-        SDCard_deInit();
-        USBDevice_deInit();
+        DeviceHandler::Instance()->UnMountSD();
+        DeviceHandler::Instance()->UnMountAllUSB();
         USB_Deinitialize();
 
         if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
             mload_Init();
 
-        SDCard_Init();
-        USBDevice_Init();
+        DeviceHandler::Instance()->MountSD();
+        DeviceHandler::Instance()->MountAllUSB();
+        Settings.Load(argc, argv);  //If it was not loaded, reloading here again.
     }
 
     MagicPatches(1); // We all love magic
@@ -79,15 +81,12 @@ int main(int argc, char *argv[])
 	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
-	SDGeckoA_Init(); // Initialize file system
-	SDGeckoB_Init(); // Initialize file system
-    DiskDrive_Init(); //Init DVD Driver
+    DeviceHandler::Instance()->MountGCA();
+    DeviceHandler::Instance()->MountGCB();
+    DI2_Init(false); //Init DVD Driver
 	Settings.LoadLanguage(Settings.LanguagePath);
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);
-
-	if(Settings.MountNTFS)
-        NTFS_Mount();
 
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");

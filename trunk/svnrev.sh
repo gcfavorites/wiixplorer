@@ -79,6 +79,7 @@ Features:
  * Properties of archive files
  * Textediting support
  * PDF Viewing support
+ * FAT32 Formating support
  * Integrated FTP Server and FTP Client
  * MD5 Calculator and Logger
  * Auto-Update feature

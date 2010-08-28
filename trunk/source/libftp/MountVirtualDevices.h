@@ -31,6 +31,8 @@ extern "C" {
 #endif
 
 void MountVirtualDevices();
+bool DiskDrive_Mount();
+bool Disk_Inserted();
 
 #ifdef __cplusplus
 }

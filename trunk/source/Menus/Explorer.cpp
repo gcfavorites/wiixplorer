@@ -35,7 +35,6 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileStartUp/FileStartUp.h"
-#include "devicemounter.h"
 #include "FileOperations/filebrowser.h"
 #include "FileOperations/fileops.h"
 #include "sys.h"
@@ -76,6 +75,7 @@ Explorer::~Explorer()
     Resources::Remove(Refresh);
     Resources::Remove(sdstorage);
     Resources::Remove(usbstorage);
+    Resources::Remove(usbstorage_blue);
     Resources::Remove(networkstorage);
 	Resources::Remove(ftpstorage);
     Resources::Remove(dvd_ImgData);
@@ -150,6 +150,7 @@ void Explorer::Setup()
 
 	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
 	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
+	usbstorage_blue = Resources::GetImageData(usbstorage_blue_png, usbstorage_blue_png_size);
 	networkstorage = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
 	ftpstorage = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
     dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
@@ -255,11 +256,8 @@ int Explorer::LoadPath(const char * path)
 		tr("Retry"),
 		tr("Close"));
 
-		if(choice) {
-            SDCard_Init();
-            USBDevice_Init();
+		if(choice)
 			return LoadPath(path);
-		}
 		else
 			return -2;
 	}
@@ -281,10 +279,14 @@ void Explorer::SetDeviceImage()
     {
         deviceImg->SetImage(sdstorage);
     }
-    else if(strncmp(currentroot, DeviceName[USB], 3) == 0 ||
-            strncmp(currentroot, DeviceName[NTFS0], 4) == 0)
+    else if(strncmp(currentroot, DeviceName[USB1], 3) == 0)
     {
-        deviceImg->SetImage(usbstorage);
+        const char * FSName = DeviceHandler::PathToFSName(DeviceBrowser->GetCurrentPath());
+
+        if(FSName && strncmp(FSName, "NTF", 3) != 0)
+            deviceImg->SetImage(usbstorage);
+        else
+            deviceImg->SetImage(usbstorage_blue);
     }
     else if(strncmp(currentroot, DeviceName[SMB1], 3) == 0)
     {

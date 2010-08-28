@@ -205,6 +205,9 @@ extern const u32	ftpstorage_png_size;
 extern const u8		usbstorage_png[];
 extern const u32	usbstorage_png_size;
 
+extern const u8		usbstorage_blue_png[];
+extern const u32	usbstorage_blue_png_size;
+
 extern const u8		sdstorage_png[];
 extern const u32	sdstorage_png_size;
 

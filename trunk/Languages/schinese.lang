@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -45,6 +45,9 @@ msgstr "ASDFGHJKL:\"+"
 
 msgid "Action cancelled."
 msgstr "动作取消。"
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr "添加链接"
@@ -107,7 +110,7 @@ msgid "Blue"
 msgstr "蓝色"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "运行IOS"
 
 msgid "Boot Settings"
 msgstr "运行设置"
@@ -139,6 +142,9 @@ msgstr "文件无法打开。"
 msgid "Can't browse that path."
 msgstr "无法找到路径。"
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "无法读取文件"
 
@@ -157,8 +163,14 @@ msgstr "无法创建目录："
 msgid "Cannot open image"
 msgstr "无法打开图片程序"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "目的地址无法写入"
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "无法写入文件。"
@@ -327,6 +339,9 @@ msgstr "取消选项按钮"
 
 msgid "Designer:"
 msgstr "设计者："
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "目录.."
@@ -515,11 +530,14 @@ msgstr "提取文件中......"
 msgid "Extracting item(s):"
 msgstr "提取项目中："
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "FTP客户端设置"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "FTP客户端重新连接成功。"
 
 msgid "FTP Path:"
 msgstr "FTP路径："
@@ -566,11 +584,20 @@ msgstr "运行频道失败！"
 msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "文件扩展"
 
 msgid "File Extensions Assignment"
 msgstr "文件扩展排列"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "文件已存在："
@@ -633,6 +660,18 @@ msgstr "字体文件"
 msgid "Fontpath changed."
 msgstr "字体路径已更改"
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "空余空间："
 
@@ -674,6 +713,12 @@ msgstr "GC手柄R键"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC手柄Z键"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2压缩"
@@ -727,7 +772,7 @@ msgid "How do you want to proceed?"
 msgstr "你想要如何执行？"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "如何打开此网址？"
 
 msgid "Icon Mode"
 msgstr "图标模式"
@@ -772,7 +817,7 @@ msgid "Interlace"
 msgstr "交织"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "互联网频道"
 
 msgid "JPEG Quality"
 msgstr "JPEG图片质量"
@@ -837,6 +882,9 @@ msgstr "读取图片中..."
 msgid "Log was saved in MD5.log"
 msgstr "日志保存在md5.log文件中"
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "循环"
 
@@ -870,8 +918,8 @@ msgstr "菜单"
 msgid "Minimize"
 msgstr "最小化"
 
-msgid "Mount NTFS"
-msgstr "挂载NTFS分区"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr "正在挂载光盘"
@@ -907,7 +955,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "无网址或路径使用"
 
 msgid "No files found."
 msgstr "没有找到任何文件。"
@@ -952,6 +1000,9 @@ msgstr "内存不足以修正图片旋转"
 msgid "Not enough memory."
 msgstr "内存不足"
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "注意："
 
@@ -968,7 +1019,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "是否用PDF查看器？"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "系统中没有安装Opera频道。"
 
 msgid "Out of memory: too many files!"
 msgstr "内存不足：文件过多！"
@@ -987,6 +1038,24 @@ msgstr "PDF缩放中"
 
 msgid "Parse Directory"
 msgstr "解析目录"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "被动模式"
@@ -1013,7 +1082,7 @@ msgid "Play Once"
 msgstr "只播放一次"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "输入一个路径"
 
 msgid "Please enter first the URL-Name."
 msgstr "是输入第一次的URL网址。"
@@ -1035,6 +1104,9 @@ msgstr "可能不支持此文件格式。"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "进程已取消"
@@ -1089,16 +1161,22 @@ msgid "Reconnect SMB"
 msgstr "重新连接网络共享"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "重新连接失败。没有客户端连接。"
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "连接失败。没有共享连接"
 
 msgid "Red"
 msgstr "红"
 
 msgid "Reload"
 msgstr "重新运行"
+
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
 
 msgid "Remove Link"
 msgstr "移除链接"
@@ -1130,6 +1208,9 @@ msgstr "震动"
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "正在播放的视频将会降低运行速度或使此程序死机。是否要继续？"
 
+msgid "SD-Card"
+msgstr ""
+
 msgid "SMB Name:"
 msgstr "网络共享名"
 
@@ -1140,7 +1221,7 @@ msgid "SMB is connecting..."
 msgstr "正在连接网络共享"
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "网络共享连接成功。"
 
 msgid "Save Alpha"
 msgstr "保存透明效果"
@@ -1162,6 +1243,15 @@ msgstr "滑动速度"
 
 msgid "Server was shutdown...\n"
 msgstr "服务已关闭...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"
@@ -1215,6 +1305,9 @@ msgstr "标准"
 msgid "Startup FTP"
 msgstr "开启FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "临时路径"
 
@@ -1236,14 +1329,23 @@ msgstr "新字库已读取"
 msgid "The whole devkitPro & libogc staff."
 msgstr "此程序是由Devkitpro和libogc开发。"
 
-msgid "This link will be used in Opera or as a Download Link."
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
 msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
+msgid "This link will be used in Opera or as a Download Link."
+msgstr "此链接将会在Opera中使用或者作为下载连接。"
 
 msgid "This name will be shown in the Start Menu"
 msgstr "名称将会在开始菜单显示。"
 
 msgid "This option could mess up the pdf view."
 msgstr "此选项会造成pdf查看混乱。"
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr "时间剩余："
@@ -1284,6 +1386,9 @@ msgstr "URL列表路径"
 msgid "URL is empty."
 msgstr "URL是空"
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "无法识别格式。是否用文本编辑器打开此文件？"
 
@@ -1292,6 +1397,9 @@ msgstr "不能建立文件夹"
 
 msgid "Unable to load path."
 msgstr "不能找到路径。"
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
@@ -1335,6 +1443,9 @@ msgstr "垂直"
 
 msgid "Video Files"
 msgstr "视频文件"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "警告："
@@ -1447,6 +1558,12 @@ msgstr "全部是"
 msgid "You can not cut into the directory itself."
 msgstr "无法在此目录中删除自己"
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
@@ -1482,6 +1599,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Mount NTFS"
+#~ msgstr "挂载NTFS分区"
 
 #~ msgid "Do you want to open this URL?"
 #~ msgstr "是否要打开此URL？"
