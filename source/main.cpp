@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
 	DeviceHandler::Instance()->MountSD();
 	DeviceHandler::Instance()->MountAllUSB();
-	Settings.Load(argc, argv);
+	Settings.Load();
 
     u8 EntraceIOS = (u8) IOS_GetVersion();
 
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
         DeviceHandler::Instance()->MountSD();
         DeviceHandler::Instance()->MountAllUSB();
-        Settings.Load(argc, argv);  //If it was not loaded, reloading here again.
+        Settings.Load();  //If it was not loaded, reloading here again.
     }
 
     MagicPatches(1); // We all love magic

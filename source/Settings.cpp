@@ -33,6 +33,7 @@
 
 #include "Settings.h"
 #include "FileOperations/fileops.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "Language/gettext.h"
 #include "Tools/tools.h"
 
@@ -149,10 +150,10 @@ bool Settings::Save()
     if(!CreateSubfolder(filedest))
     {
         //!Try the other device and standard path
-        if(strcmp(BootDevice, "usb:/") == 0)
+        if(strncmp(BootDevice, "usb", 3) == 0)
             strcpy(BootDevice, "sd:/");
         else
-            strcpy(BootDevice, "usb:/");
+            strcpy(BootDevice, "usb1:/");
 
         snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
         snprintf(filedest, sizeof(filedest), "%s%s", BootDevice, CONFIGPATH);
@@ -270,99 +271,54 @@ bool Settings::Save()
 	return true;
 }
 
-bool Settings::Load(int argc, char *argv[])
+bool Settings::FindConfig()
 {
-    char testpath[100];
     bool found = false;
 
-    //! Try first standard SD Path
-    snprintf(ConfigPath, sizeof(ConfigPath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
-    found = CheckFile(ConfigPath);
-    if(!found)
+    for(int i = SD; i <= USB8; i++)
     {
-        //! Try standard USB Path
-        snprintf(testpath, sizeof(testpath), "usb:/%s%s", CONFIGPATH, CONFIGNAME);
-        found = CheckFile(testpath);
-        if(found)
+        if(!found)
         {
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
-            strcpy(BootDevice, "usb:/");
-            found = true;
+            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+            found = CheckFile(ConfigPath);
+        }
+        if(!found)
+        {
+            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
+            found = CheckFile(ConfigPath);
+        }
+        if(!found)
+        {
+            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+            found = CheckFile(ConfigPath);
         }
     }
+
     if(!found)
     {
-        //! Try alternative SD Path
-        snprintf(testpath, sizeof(testpath), "sd:/apps/WiiXplorer/%s", CONFIGNAME);
-        found = CheckFile(testpath);
-        if(found)
+        for(int i = SD; i <= USB8; i++)
         {
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
-            strcpy(BootDevice, "sd:/");
-            found = true;
-        }
-    }
-    if(!found)
-    {
-        //! Try alternative SD Path
-        snprintf(testpath, sizeof(testpath), "sd:/apps/WiiExplorer/%s", CONFIGNAME);
-        found = CheckFile(testpath);
-        if(found)
-        {
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
-            strcpy(BootDevice, "sd:/");
-            found = true;
-        }
-    }
-    if(!found)
-    {
-        //! Try alternative USB Path
-        snprintf(testpath, sizeof(testpath), "usb:/apps/WiiXplorer/%s", CONFIGNAME);
-        found = CheckFile(testpath);
-        if(found)
-        {
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
-            strcpy(BootDevice, "usb:/");
-            found = true;
-        }
-    }
-    if(!found)
-    {
-        //! Try alternative USB Path
-        snprintf(testpath, sizeof(testpath), "usb:/apps/WiiExplorer/%s", CONFIGNAME);
-        found = CheckFile(testpath);
-        if(found)
-        {
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s", testpath);
-            strcpy(BootDevice, "usb:/");
-            found = true;
-        }
-    }
-    if(!found)
-    {
-        //! If all failed check argv and set standard path
-        if (argc >= 1)
-        {
-            if (!strncasecmp(argv[0], "usb:/", 5))
+            if(!found)
             {
-                strcpy(BootDevice, "usb:/");
-                snprintf(ConfigPath, sizeof(ConfigPath), "usb:/%s%s", CONFIGPATH, CONFIGNAME);
-                found = true;
-            }
-            else
-            {
-                strcpy(BootDevice, "sd:/");
-                snprintf(ConfigPath, sizeof(ConfigPath), "sd:/%s%s", CONFIGPATH, CONFIGNAME);
-                found = true;
+                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+                FILE * testFp = fopen(ConfigPath, "wb");
+                found = (testFp != NULL);
+                fclose(testFp);
             }
         }
     }
 
-    return Load();
+    return found;
 }
 
 bool Settings::Load()
 {
+    FindConfig();
+
 	char line[1024];
     char filepath[300];
     snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
