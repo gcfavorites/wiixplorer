@@ -91,9 +91,8 @@ class Settings
 		void SetDefault();
 		//!Load Settings
 		bool Load();
-        //!Overload to determine the BootDevice
-        //!Also for later purpose for more argv parsing options
-        bool Load(int argc, char *argv[]);
+        //!Find the config file in the default paths
+        bool FindConfig();
 		//!Save Settings
         bool Save();
 		//!Reset Settings
