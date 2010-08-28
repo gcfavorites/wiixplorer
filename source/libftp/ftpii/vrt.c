@@ -28,9 +28,10 @@ misrepresented as being the original software.
 #include <string.h>
 #include <sys/dir.h>
 #include <unistd.h>
+#include <gctypes.h>
 
 #include "Tools/gxprintf.h"
-#include "devicemounter.h"
+#include "libftp/MountVirtualDevices.h"
 #include "virtualpath.h"
 #include "vrt.h"
 

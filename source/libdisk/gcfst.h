@@ -28,8 +28,16 @@ misrepresented as being the original software.
 #ifndef _GCFST_H
 #define _GCFST_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 bool GCFST_Mount();
 bool GCFST_Unmount();
 u64 GCFST_LastAccess();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _FST_H_ */

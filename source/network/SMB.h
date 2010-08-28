@@ -29,6 +29,7 @@
 #define _SMB_H_
 
 bool ConnectSMBShare();
+bool ConnectSMBShare(int client);
 bool SMB_Reconnect();
 void CloseSMBShare();
 void CloseSMBShare(int connection);

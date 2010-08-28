@@ -41,12 +41,12 @@
 #include "VideoOperations/video.h"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
+#include "libdisk/di2.h"
 #include "mload/mload_init.h"
 #include "Tools/tools.h"
 #include "audio.h"
 #include "main.h"
 #include "menu.h"
-#include "devicemounter.h"
 #include "sys.h"
 
 bool shutdown = false;
@@ -91,15 +91,9 @@ extern "C" void ExitApp()
 	ClearFontData();
 	Resources::DestroyInstance();
 	FTPServer::DestroyInstance();
-	CloseFTP();
-	CloseSMBShare();
-    NTFS_UnMount();
-    SDCard_deInit();
-    SDGeckoA_deInit();
-    SDGeckoB_deInit();
-    USBDevice_deInit();
+	DeviceHandler::DestroyInstance();
+	DI2_Close();
 	USB_Deinitialize();
-    DiskDrive_deInit();
 	DeInit_Network();
 	MEM2_cleanup();
     mload_DeInit();

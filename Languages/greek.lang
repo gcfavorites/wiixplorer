@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -44,6 +44,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Η ενέργεια ακυρώθηκε"
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr ""
@@ -138,6 +141,9 @@ msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
 msgid "Can't browse that path."
 msgstr "Δεν μπορώ να περιηγηθώ αυτή τη διαδρομή."
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"
 
@@ -156,8 +162,14 @@ msgstr "Δεν μπορώ να διμιουργήσω διαδρομή:"
 msgid "Cannot open image"
 msgstr "Δεν μπορώ να ανοίξω την εικόνα"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "Δεν μπορώ να γράψω στον προορισμό."
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "Δεν μπορώ να γράψω στο αρχείο."
@@ -322,6 +334,9 @@ msgstr "Ξεμαρκάρισμα στοιχείου πλήκτρου"
 
 msgid "Designer:"
 msgstr "Σχεδιαστής:"
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "Διαδρομή..."
@@ -509,6 +524,9 @@ msgstr "Εξάγω αρχεία..."
 msgid "Extracting item(s):"
 msgstr "Εξάγω αρχείο(α)..."
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "Ρυθμίσεις πελάτη για το FTP"
 
@@ -560,11 +578,20 @@ msgstr ""
 msgid "Failed to read file data."
 msgstr "Απέτυχα να διαβάσω τα δεδομένα του αρχείου."
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "Επεκτάσεις αρχείου"
 
 msgid "File Extensions Assignment"
 msgstr "Εκχώρηση Επεκτάση αρχείου"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "Το αρχείο ήδη υπάρχει:"
@@ -627,6 +654,18 @@ msgstr "Αρχεία γραμματοσειρών"
 msgid "Fontpath changed."
 msgstr "Η διαδρομή της γραματοσειράς άλλαξε."
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "Ελεύθερος χώρος:"
 
@@ -668,6 +707,12 @@ msgstr "GC PAD ΣΚΑΝΔΑΛΗ R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC PAD ΣΚΑΝΔΑΛΗ Z"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "Συμπίεση GD2"
@@ -831,6 +876,9 @@ msgstr "Φορτώνω την εικόνα..."
 msgid "Log was saved in MD5.log"
 msgstr ""
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "Βρόχος"
 
@@ -864,8 +912,8 @@ msgstr "Μενού"
 msgid "Minimize"
 msgstr "Ελαχιστοποίηση"
 
-msgid "Mount NTFS"
-msgstr "Ανεβάσε το NTFS"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr "Ανέβασμα δίσκου"
@@ -946,6 +994,9 @@ msgstr "Δεν έχω πολύ μνήμη για περιστροφή."
 msgid "Not enough memory."
 msgstr "Δεν υπάρχει αρκετή μνήμη."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "Ειδοποίηση:"
 
@@ -981,6 +1032,24 @@ msgstr "Μεταποίηση μεγένθησης PDF"
 
 msgid "Parse Directory"
 msgstr "Ανάλυση διαδρομής"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Τρόπος passive:"
@@ -1029,6 +1098,9 @@ msgstr "Πιθανών μη υποστηριζόμενη μορφή."
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Πάτησε εκκίνηση για να αρχίσεις τον server στην πόρτα"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Η διαδικασία ακυρώθηκε."
@@ -1094,6 +1166,12 @@ msgstr "Κόκκινο"
 msgid "Reload"
 msgstr "Ανανέωση"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr ""
 
@@ -1123,6 +1201,9 @@ msgstr "Δόνηση"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "Βλέποντας ένα βίντεο μπορεί να επιβράδυνη την διαδικασία και να παγώσει την εφαρμογή. Θέλεις να συνεχείσω;"
+
+msgid "SD-Card"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "Όνομα SMB:"
@@ -1156,6 +1237,15 @@ msgstr "Ταχύτητα κύλισης"
 
 msgid "Server was shutdown...\n"
 msgstr "Ο server κλείνει...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "Ρυθμίσεις"
@@ -1209,6 +1299,9 @@ msgstr "Πρότυπο"
 msgid "Startup FTP"
 msgstr "Εκκίνηση FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Προσορινή διαδρομή"
 
@@ -1230,6 +1323,12 @@ msgstr "Η νέα γραμματοσειρά φορτώθηκε."
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1238,6 +1337,9 @@ msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "Αυτή η επιλογή μπορεί να κάνει ανω κάτω την εμφάνιση ενός pdf."
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr ""
@@ -1278,6 +1380,9 @@ msgstr ""
 msgid "URL is empty."
 msgstr "Η URL είναι άδεια."
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Άγνωστη μορφή. Θέλεις να ανοίξω αυτό το αρχείο με τον κειμενογράφω;"
 
@@ -1286,6 +1391,9 @@ msgstr "Δεν μπορώ να δημιουργήσω φάκελο."
 
 msgid "Unable to load path."
 msgstr "Δεν μπορώ να φορτώσω την διαδρομή."
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "Μη υποστηριζόμενω φορμάτ!"
@@ -1329,6 +1437,9 @@ msgstr "Κάθετα"
 
 msgid "Video Files"
 msgstr "Αρχεία βίντεου"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "ΠΡΟΣΟΧΗ:"
@@ -1441,6 +1552,12 @@ msgstr "Ναι σε όλα"
 msgid "You can not cut into the directory itself."
 msgstr "Δεν μπόρεις να κάνεις απόκοπή στην ίδια διαδρομή."
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "Δεν μπορείς να χρησιμοποιήσεις αυτήν την διαδικασία:"
 
@@ -1476,6 +1593,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Mount NTFS"
+#~ msgstr "Ανεβάσε το NTFS"
 
 #~ msgid "Bootup Mount"
 #~ msgstr "Ξεκίνημα από:"

@@ -25,41 +25,27 @@
  ***************************************************************************/
 #include "Prompts/DeviceMenu.h"
 #include "network/networkops.h"
-#include "devicemounter.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "ftpii/virtualpath.h"
 #include "menu.h"
 
 extern "C" void MountVirtualDevices()
 {
-    if(SDCard_Inserted())
+    for(int i = SD; i < MAXDEVICES; i++)
     {
-        VirtualMountDevice(fmt("%s:/", DeviceName[SD]));
-    }
-    if(SDGeckoA_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[GCSDA]));
-    }
-    if(SDGeckoB_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[GCSDB]));
-    }
-    if(USBDevice_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[USB]));
-    }
-    for(int i = 0; i < NTFS_GetMountCount(); i++)
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[NTFS0+i]));
-    }
-    if(Disk_Inserted())
-    {
-        VirtualMountDevice(fmt("%s:/", DeviceName[DVD]));
-    }
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        if(IsSMB_Mounted(i))
+        if(DeviceHandler::Instance()->IsInserted(i))
         {
-            VirtualMountDevice(fmt("%s:/", DeviceName[SMB1+i]));
+            VirtualMountDevice(fmt("%s:/", DeviceName[i]));
         }
     }
+}
+
+extern "C" bool DiskDrive_Mount()
+{
+    return DeviceHandler::Instance()->Mount(DVD);
+}
+
+extern "C" bool Disk_Inserted()
+{
+    return DeviceHandler::Instance()->IsInserted(DVD);
 }

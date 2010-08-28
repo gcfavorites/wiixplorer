@@ -28,8 +28,17 @@ misrepresented as being the original software.
 #ifndef _FST_H
 #define _FST_H
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 bool FST_Mount();
 bool FST_Unmount();
 u64 FST_LastAccess();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _FST_H_ */

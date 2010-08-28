@@ -39,6 +39,19 @@
 #include "Controls/Callback.hpp"
 #include "Controls/Task.hpp"
 
+enum
+{
+    APPS = 0,
+    CHANNELS,
+    URLS,
+    FORMATTER,
+    SETTINGS,
+    FTPSERVER,
+    RELOAD,
+    RESTART,
+    EXIT,
+};
+
 class Taskbar : public GuiWindow
 {
 	public:

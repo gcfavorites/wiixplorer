@@ -47,12 +47,12 @@ misrepresented as being the original software.
 
 #define FST_MAXPATHLEN 255
 #define DIR_SEPARATOR '/'
-#define SECTOR_SIZE 0x800
-#define BUFFER_SIZE 0x8000
+#define SECTOR_SIZE (u64)0x800
+#define BUFFER_SIZE (u64)0x8000
 
-#define CLUSTER_HEADER_SIZE 0x400
-#define ENCRYPTED_CLUSTER_SIZE 0x8000
-#define PLAINTEXT_CLUSTER_SIZE (ENCRYPTED_CLUSTER_SIZE - CLUSTER_HEADER_SIZE)
+#define CLUSTER_HEADER_SIZE (u64)0x400LL
+#define ENCRYPTED_CLUSTER_SIZE (u64)0x8000LL
+#define PLAINTEXT_CLUSTER_SIZE (u64)(ENCRYPTED_CLUSTER_SIZE - CLUSTER_HEADER_SIZE)
 #define AES_BLOCK_SIZE 16
 
 typedef struct {
@@ -115,6 +115,9 @@ static u32 cache_sectors = 0;
 static u8 * aescache = NULL;
 static u64 aescache_start = 0;
 static u64 aescache_end = 0;
+
+static int ReadFromEncryptedPartition( PARTITION *partition, u8* outbuf, u64 offset, u32 len );
+
 
 static bool is_dir(DIR_ENTRY *entry) {
     return entry->flags & FLAG_DIR;
@@ -220,11 +223,11 @@ static int internal_read(void *ptr, u64 offset, size_t len)
         last_access = gettime();
         cache_sectors = 0;
         u32 error;
-        if (DI2_GetError(&error)) return -1;
+	if (DI2_GetError(&error)) return -1;
         if ((error & 0xFFFFFF) == 0x020401) { // discid has to be read again
             u64 discid;
-            DI2_ReadDiscID(&discid);
-            if (DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector))
+	    DI2_ReadDiscID(&discid);
+	    if (DI2_ReadDVD(read_buffer, BUFFER_SIZE / SECTOR_SIZE, sector))
                 return -1;
         }
     }
@@ -259,7 +262,8 @@ static u64 plaintext_to_cipher(u64 offset) {
     return offset / PLAINTEXT_CLUSTER_SIZE * ENCRYPTED_CLUSTER_SIZE + (offset % PLAINTEXT_CLUSTER_SIZE) + CLUSTER_HEADER_SIZE;
 }
 
-static bool read_and_decrypt_cluster(aeskey title_key, u8 *buf, u64 offset, u32 offset_from_cluster, u32 len) {
+static bool read_and_decrypt_cluster(aeskey title_key, u8 *buf, u64 offset, u32 offset_from_cluster, u32 len)
+{
     u64 cache_start = cipher_to_plaintext(offset + offset_from_cluster);
     u64 cache_end = cipher_to_plaintext(offset + offset_from_cluster + len);
     if (aescache_end && cache_start >= aescache_start && cache_end <= aescache_end) {
@@ -279,13 +283,15 @@ static bool read_and_decrypt_cluster(aeskey title_key, u8 *buf, u64 offset, u32 
 }
 
 static int _FST_read_r(struct _reent *r, int fd, char *ptr, size_t len) {
+
     FILE_STRUCT *file = (FILE_STRUCT *)fd;
+
     if (!file->inUse) {
-        r->_errno = EBADF;
+	r->_errno = EBADF;
         return -1;
     }
     if (file->offset >= file->entry->size) {
-        r->_errno = EOVERFLOW;
+	r->_errno = EOVERFLOW;
         return 0;
     }
     if (len + file->offset > file->entry->size) {
@@ -297,24 +303,22 @@ static int _FST_read_r(struct _reent *r, int fd, char *ptr, size_t len) {
     }
 
     PARTITION *partition = partitions + file->entry->partition;
-    if (file->entry->flags & FLAG_RAW) {
-        u64 offset = (partition->offset << 2LL) + (file->entry->offset << 2LL) + file->offset;
+    if (file->entry->flags & FLAG_RAW)
+    {
+        u64 offset = ( partition->offset << 2LL ) + (u64)( (u64)file->entry->offset << 2LL ) + (u64)file->offset;
         len = _read(ptr, offset, len);
         if (len < 0) {
+	    r->_errno = EIO;
+            return -1;
+        }
+    }
+    else
+    {
+        if( ReadFromEncryptedPartition( partition, (u8*)ptr, (u64)( ((u64)file->entry->offset << 2LL) + (u64)file->offset ), len ) < 0 )
+        {
             r->_errno = EIO;
             return -1;
         }
-    } else {
-        u64 offset_from_data = plaintext_to_cipher((file->entry->offset << 2LL) + file->offset);
-        u64 cluster_offset_from_data = (offset_from_data / ENCRYPTED_CLUSTER_SIZE) * ENCRYPTED_CLUSTER_SIZE;
-        u32 offset_from_cluster = offset_from_data % ENCRYPTED_CLUSTER_SIZE;
-        len = MIN(ENCRYPTED_CLUSTER_SIZE - offset_from_cluster, len);
-        u64 data_offset = (partition->offset << 2LL) + (partition->partition_info.data_offset << 2LL);
-        if (!read_and_decrypt_cluster(partition->key, cluster_buffer, data_offset + cluster_offset_from_data, offset_from_cluster, len)) {
-            r->_errno = EIO;
-            return -1;
-        }
-        memcpy(ptr, cluster_buffer, len);
     }
     file->offset += len;
     return len;
@@ -573,22 +577,25 @@ static s32 read_fst(DIR_ENTRY *entry, FST_ENTRY *fst, char *name_table, s32 inde
 static bool read_partition(DIR_ENTRY *partition) {
     bool result = false;
 
-    u32 fst_size = partitions[partition->partition].fst_info.fst_size << 2;
-    u32 fst_offset = partitions[partition->partition].fst_info.fst_offset;
-    u8 *fst_buffer = malloc(fst_size);
+    PARTITION *part = &partitions[ partition->partition ];
+
+    u32 fst_size = part->fst_info.fst_size << 2;
+    u32 fst_offset = part->fst_info.fst_offset << 2;
+
+    u8 *fst_buffer = (u8*)memalign( 32, fst_size );
     if (!fst_buffer) goto end;
-    u32 offset = 0;
-    while (offset < fst_size) {
-        if (DI2_Read(read_buffer, BUFFER_SIZE, fst_offset + (offset >> 2))) goto end;
-        memcpy(fst_buffer + offset, read_buffer, MIN(BUFFER_SIZE, fst_size - offset));
-        offset += BUFFER_SIZE;
-    }
+
+    if( ReadFromEncryptedPartition( part, fst_buffer, fst_offset, fst_size ) < 0 ) goto end;
 
     FST_ENTRY *fst = (FST_ENTRY *)fst_buffer;
-    u32 name_table_offset = fst->filelen * sizeof(FST_ENTRY);
-    char *name_table = (char *)fst_buffer + name_table_offset;
+    u32 name_table_offset = fst->filelen * 0xC;
+    char *name_table = (char *)( fst_buffer + name_table_offset );
 
-    result = read_fst(partition, fst, name_table, 0) != -1;
+    DIR_ENTRY *files_entry = add_child_entry(partition, "files");
+    if( !files_entry )goto end;
+    files_entry->flags = FLAG_DIR;
+
+    result = read_fst( files_entry, fst, name_table, 0 ) != -1;
 
     end:
     if (fst_buffer) free(fst_buffer);
@@ -601,7 +608,8 @@ static bool read_partition(DIR_ENTRY *partition) {
 
 static bool read_title_key(PARTITION *partition) {
     tik ticket;
-    if (_read(&ticket, (partition->offset << 2) + sizeof(sig_rsa2048), sizeof(tik)) != sizeof(tik)) return false;
+    if (_read(&ticket, (u64)( (u64)partition->offset << 2ll ) + sizeof(sig_rsa2048), sizeof(tik)) != sizeof(tik)) return false;
+
     u8 iv[16];
     bzero(iv, 16);
     memcpy(iv, &ticket.titleid, sizeof(ticket.titleid));
@@ -615,7 +623,32 @@ static bool read_title_key(PARTITION *partition) {
 }
 
 static bool read_partition_info(PARTITION *partition) {
-    return _read(&partition->partition_info, (partition->offset << 2LL) + sizeof(sig_rsa2048) + sizeof(tik), sizeof(partition->partition_info)) == sizeof(partition->partition_info);
+    return _read(&partition->partition_info, (u64)( (u64)partition->offset << 2LL ) + sizeof(sig_rsa2048) + sizeof(tik), sizeof(partition->partition_info)) == sizeof(partition->partition_info);
+}
+
+static int ReadFromEncryptedPartition( PARTITION *partition, u8* outbuf, u64 offset, u32 len )
+{
+    u64 data_offset = (u64)( (u64)partition->offset << 2LL) + (u64)(partition->partition_info.data_offset << 2LL);
+
+    //read in chunks and decrypt as we go.
+    u32 ro = 0;
+    while( ro < len )
+    {
+	u64 offset_from_data = (u64)plaintext_to_cipher( offset + ro );
+	u64 cluster_offset_from_data = (u64)( offset_from_data / (u64)ENCRYPTED_CLUSTER_SIZE) * (u64)ENCRYPTED_CLUSTER_SIZE;
+	u64 offset_from_cluster = offset_from_data % (u64)ENCRYPTED_CLUSTER_SIZE;
+
+	u32 rl = MIN(ENCRYPTED_CLUSTER_SIZE - offset_from_cluster, len - ro);
+	memset( read_buffer, 0, BUFFER_SIZE ); //not needed, but i have a crash somewhere and im trying to find it
+	if (!read_and_decrypt_cluster(partition->key, read_buffer, (u64)( (u64)data_offset + (u64)cluster_offset_from_data ), (u64)offset_from_cluster, rl ) )
+	{
+	    return -1;
+	}
+	memcpy( outbuf + ro, read_buffer, rl );
+	ro += rl;
+    }
+
+    return len;
 }
 
 static bool add_ticket_entry(DIR_ENTRY *parent) {
@@ -639,14 +672,24 @@ static bool add_tmd_entry(DIR_ENTRY *parent) {
 }
 
 static bool add_header_entry(DIR_ENTRY *parent) {
-    DIR_ENTRY *entry = add_child_entry(parent, "header");
+    DIR_ENTRY *entry = add_child_entry( parent, "boot.bin" );
     if (!entry) return false;
-    entry->size = 0x400;
+    entry->offset = 0LL;
+    entry->size = 0x440;
+    return true;
+}
+
+static bool add_Bi2_entry(DIR_ENTRY *parent) {
+    DIR_ENTRY *entry = add_child_entry( parent, "bi2.bin" );
+    if (!entry) return false;
+    entry->offset = 0x440;
+    entry->size = 0x2000;
     return true;
 }
 
 static bool read_appldr_size(DIR_ENTRY *appldr) {
-    if (DI2_Read(read_buffer, 8, appldr->offset + (0x14 >> 2))) return false;
+    PARTITION *part = &partitions[ appldr->partition ];
+    if( ReadFromEncryptedPartition( part, read_buffer, (u64)( appldr->offset + 0x14 ), 8 ) < 0 ) return false;	//0x2454
     u32 *ints = (u32 *)read_buffer;
     u32 size = ints[0] + ints[1];
     if (size) size += 32;
@@ -655,62 +698,75 @@ static bool read_appldr_size(DIR_ENTRY *appldr) {
 }
 
 static bool add_appldr_entry(DIR_ENTRY *parent) {
-    DIR_ENTRY *entry = add_child_entry(parent, "appldr.bin");
+    DIR_ENTRY *entry = add_child_entry(parent, "apploader.img");
     if (!entry) return false;
-    entry->offset = 0x2440 >> 2;
-    return read_appldr_size(entry);
+    entry->offset = 0x2440;
+    //return true;
+    return read_appldr_size( entry );
 }
 
 static bool read_dol_size(DIR_ENTRY *dol) {
-    if (DI2_Read(read_buffer, 0x100, dol->offset)) return false;
+    PARTITION *part = &partitions[ dol->partition ];
+    //if (DI2_Read(read_buffer, 0x100, dol->offset)) return false;
+    if( ReadFromEncryptedPartition( part, read_buffer, (u64)( dol->offset ), 0x100 ) < 0 ) return false;
     u32 max = 0;
     u32 i;
-    for (i = 0; i < 7; i++) {
+    for (i = 0; i < 18; i++) {
         u32 offset = *(u32 *)(read_buffer + (i * 4));
         u32 size = *(u32 *)(read_buffer + (i * 4) + 0x90);
         if ((offset + size) > max) max = offset + size;
     }
-    for (i = 0; i < 11; i++) {
-        u32 offset = *(u32 *)(read_buffer + (i * 4) + 0x1c);
-        u32 size = *(u32 *)(read_buffer + (i * 4) + 0xac);
-        if ((offset + size) > max) max = offset + size;
-    }
     dol->size = max;
+
     return true;
 }
 
 static bool add_dol_entry(DIR_ENTRY *parent) {
     DIR_ENTRY *entry = add_child_entry(parent, "main.dol");
     if (!entry) return false;
-    entry->offset = partitions[entry->partition].fst_info.dol_offset;
+    entry->offset = partitions[entry->partition].fst_info.dol_offset << 2;
+    return true;
     return read_dol_size(entry);
 }
 
 static bool add_fst_entry(DIR_ENTRY *parent) {
     DIR_ENTRY *entry = add_child_entry(parent, "fst.bin");
     if (!entry) return false;
-    entry->offset = partitions[entry->partition].fst_info.fst_offset;
+    entry->offset = partitions[entry->partition].fst_info.fst_offset << 2LL;
     entry->size = partitions[entry->partition].fst_info.fst_size << 2LL;
     return true;
 }
 
-static bool add_partition_entry(u32 partition_number) {
-    char name[3];
-    sprintf(name, "%u", partition_number);
-    DIR_ENTRY *entry = add_child_entry(root, name);
-    if (!entry) return false;
-    entry->flags = FLAG_DIR;
-    entry->partition = partition_number;
-    return true;
-}
+static DIR_ENTRY *add_partition_entry( u32 num, u32 type ) {
+    char name[ 0x10 ];
+    char name2[ 0x10 ];
+    switch( type )
+    {
+	case 0:
+	    snprintf(name2, 0x10, "Data");
+	    break;
 
-static DIR_ENTRY *add_metadata_entry(u32 partition_number) {
-    char name[12];
-    sprintf(name, "%u_metadata", partition_number);
-    DIR_ENTRY *entry = add_child_entry(root, name);
+	case 1:
+	    snprintf(name2, 0x10, "Update");
+	    break;
+
+	case 2:
+	    snprintf(name2, 0x10, "Installer");
+	    break;
+
+	default:
+	{
+	    memcpy( &name2, &type, 4 );
+	    name2[ 4 ] = 0;
+	    break;
+	}
+    }
+
+    snprintf(name, 0x10, "%u %s", num, name2 );
+    DIR_ENTRY *entry = add_child_entry( root, name );
     if (!entry) return NULL;
     entry->flags = FLAG_DIR;
-    entry->partition = partition_number;
+    entry->partition = num;
     return entry;
 }
 
@@ -730,61 +786,61 @@ static bool read_disc() {
     current = root;
 
     for (table_index = 0; table_index < 4; table_index++) {
-        u32 count = tables[table_index].count;
-        if (count > 0) {
-            PARTITION_ENTRY entries[count];
-            u32 table_size = sizeof(PARTITION_ENTRY) * count;
-            if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != table_size) { free(root); root = NULL; return false; }
-            u32 partition_index;
-            for (partition_index = 0; partition_index < count; partition_index++) {
-                PARTITION *newPartitions = realloc(partitions, sizeof(PARTITION) * (partition_count + 1));
-                if (!newPartitions) { free(root); root = NULL; return false; }
-                partitions = newPartitions;
-                bzero(partitions + partition_count, sizeof(PARTITION));
-                PARTITION *partition = partitions + partition_count;
-                partition->offset = entries[partition_index].offset;
+	u32 count = tables[table_index].count;
+	if (count > 0) {
+	    PARTITION_ENTRY entries[count];
+	    u32 table_size = sizeof(PARTITION_ENTRY) * count;
+	    if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != table_size) { free(root); root = NULL; return false; }
+	    u32 partition_index;
+	    for (partition_index = 0; partition_index < count; partition_index++) {
+		PARTITION *newPartitions = realloc(partitions, sizeof(PARTITION) * (partition_count + 1));
+		if (!newPartitions)
+		{
+		    free(root);
+		    root = NULL;
+		    return false;
+		}
+		partitions = newPartitions;
+		bzero(partitions + partition_count, sizeof(PARTITION));
+		PARTITION *partition = partitions + partition_count;
+		partition->offset = entries[partition_index].offset;
 
-                if (DI2_OpenPartition(partition->offset)) continue;
+		DIR_ENTRY *partition_entry = add_partition_entry( partition_count, entries[partition_index].type );
 
-                if (!add_partition_entry(partition_count)) goto error;
-                DIR_ENTRY *meta_entry = add_metadata_entry(partition_count);
-                if (!meta_entry) goto error;
-                DIR_ENTRY *partition_entry = meta_entry - 1;
 
-                if (!read_title_key(partition)) goto error;
-                if (!read_partition_info(partition)) goto error;
-                if (!add_ticket_entry(meta_entry)) goto error;
-                if (!add_tmd_entry(meta_entry)) goto error;
+		if ( !partition_entry ) goto error;
+		DIR_ENTRY *tmp_entry = add_child_entry( partition_entry, ".." );
+		if( !tmp_entry )goto error;
+		tmp_entry->flags = FLAG_DIR;
 
-                if (DI2_Read(read_buffer, sizeof(FST_INFO), 0x420 >> 2)) goto error;
-                memcpy(&partition->fst_info, read_buffer, sizeof(FST_INFO));
+		if (!read_title_key(partition)) goto error;
+		if (!read_partition_info(partition)) goto error;
 
-                if (!(add_child_entry(meta_entry, "..")->flags = FLAG_DIR)) goto error;
-                if (!add_header_entry(meta_entry)) goto error;
-                if (!add_appldr_entry(meta_entry)) goto error;
-                if (partition->fst_info.dol_offset) {
-                    if (!add_dol_entry(meta_entry)) goto error;
-                }
-                if (partition->fst_info.fst_offset && partition->fst_info.fst_size) {
-                    if (!add_fst_entry(meta_entry)) goto error;
-                    if (!read_partition(partition_entry)) goto error;
-                }
+		if (!add_ticket_entry(partition_entry)) goto error;
+		if (!add_tmd_entry(partition_entry)) goto error;
+		if (!add_header_entry(partition_entry)) goto error;
+		if (!add_Bi2_entry(partition_entry)) goto error;
 
-                if (DI2_ClosePartition())
-                {
-                    free(root);
-                    root = NULL;
-                    return false;
-                }
-                partition_count++;
-            }
-        }
+		if( ReadFromEncryptedPartition( partition, (u8*)&partition->fst_info, 0x420LL, sizeof(FST_INFO) ) < 0 ) goto error;
+
+		if (!add_appldr_entry(partition_entry)) goto error;
+		if (partition->fst_info.dol_offset) {
+		    if (!add_dol_entry(partition_entry)) goto error;
+		}
+		if (partition->fst_info.fst_offset && partition->fst_info.fst_size) {
+		    if (!add_fst_entry(partition_entry)) goto error;
+		    if (!read_partition(partition_entry)) goto error;
+		}
+
+		partition_count++;
+
+	    }
+	}
     }
     return true;
     error:
     free(root);
     root = NULL;
-    DI2_ClosePartition();
     return false;
 }
 
@@ -807,6 +863,7 @@ bool FST_Mount() {
         FST_Unmount();
         return false;
     }
+
 
     bool success = read_disc() && (dotab_device = AddDevice(&dotab_fst)) >= 0;
     if (success) last_access = gettime();

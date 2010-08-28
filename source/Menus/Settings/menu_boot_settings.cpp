@@ -37,7 +37,6 @@ int MenuBootSettings()
 
 	OptionList options;
 	options.SetName(i++, tr("Boot IOS"));
-	options.SetName(i++, tr("Mount NTFS"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Boot Settings"), &options, MENU_SETTINGS);
 
@@ -87,11 +86,6 @@ int MenuBootSettings()
                         break;
 				}
 				break;
-			case 1:
-				Settings.MountNTFS++;
-				if(Settings.MountNTFS > 1)
-                    Settings.MountNTFS = 0;
-				break;
 		}
 
         if(firstRun || ret >= 0)
@@ -100,9 +94,6 @@ int MenuBootSettings()
             firstRun = false;
 
             options.SetValue(i++, "%i", Settings.BootIOS);
-
-            if (Settings.MountNTFS == 1) options.SetValue(i++,tr("ON"));
-            else if (Settings.MountNTFS == 0) options.SetValue(i++,tr("OFF"));
         }
 	}
 

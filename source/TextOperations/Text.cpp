@@ -240,7 +240,7 @@ void Text::FillRows()
             textDyn[i] = new wchar_t[maxWidth];
         }
         int offset = TextLines[curLineStart+i].LineOffset;
-        int count = TextLines[curLineStart+i].CharCount;
+        int count = TextLines[curLineStart+i].CharCount+1;
 
         for(int n = 0; n < count && offset+n < (int) wText->size(); n++)
             textDyn[i][n] = wText->at(offset+n);

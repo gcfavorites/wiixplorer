@@ -16,6 +16,7 @@ extern bool actioncanceled;
 enum
 {
     PROGRESSBAR = 1,
+    MULTI_PROGRESSBAR, //! Two progress bars running
     THROBBER,     //! Rotate throbber image only when calling ShowProgress
     AUTO_THROBBER //! Rotating throbber image without calling ShowProgress
 };
@@ -34,12 +35,14 @@ class ProgressWindow : public GuiWindow
         void SetMinimizable(bool m) { Minimizable = m; };
         void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; };
         void ResetValues() { progressTotal = 0; TotalDone = 0; TotalSize = 0; };
+        int GetProgressMode() { return showProgress; };
     protected:
         ProgressWindow();
         ~ProgressWindow();
 		static void * ThreadCallback(void *arg);
 		void InternalUpdate();
 		void SetupProgressbar();
+		void SetupMultiProgressbar();
 		void SetupThrobber();
 		void MainLoop();
 		void LoadWindow();

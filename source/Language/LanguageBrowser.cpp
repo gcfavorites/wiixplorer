@@ -39,7 +39,6 @@
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "LanguageUpdater.h"
-#include "devicemounter.h"
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"

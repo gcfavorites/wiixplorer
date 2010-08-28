@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -41,6 +41,9 @@ msgstr "ASDFGHJKL：\"+"
 
 msgid "Action cancelled."
 msgstr "動作已取消。"
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr ""
@@ -135,6 +138,9 @@ msgstr "無法開啟這個檔案。"
 msgid "Can't browse that path."
 msgstr "無法瀏覽那個路徑。"
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "無法讀取這個檔案"
 
@@ -153,8 +159,14 @@ msgstr "無法建立目錄："
 msgid "Cannot open image"
 msgstr "無法開啟圖片"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "無法寫入目的地。"
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "無法寫入檔案。"
@@ -319,6 +331,9 @@ msgstr "選取項目按鈕"
 
 msgid "Designer:"
 msgstr "設計者："
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "目錄.."
@@ -504,6 +519,9 @@ msgstr "輸出檔案中..."
 msgid "Extracting item(s):"
 msgstr "輸出項目中："
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "FTP用戶端設定"
 
@@ -555,11 +573,20 @@ msgstr ""
 msgid "Failed to read file data."
 msgstr "無法讀取檔案資料。"
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "檔案類型"
 
 msgid "File Extensions Assignment"
 msgstr "檔案類型附檔名"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "檔案已存在："
@@ -622,6 +649,18 @@ msgstr "字型檔案"
 msgid "Fontpath changed."
 msgstr "字型路徑已變更。"
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "可用空間："
 
@@ -663,6 +702,12 @@ msgstr "GC 搖桿按鈕 R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC 搖桿按鈕 Z"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2壓縮"
@@ -826,6 +871,9 @@ msgstr "載入圖片中..."
 msgid "Log was saved in MD5.log"
 msgstr ""
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "重複播放"
 
@@ -859,8 +907,8 @@ msgstr "選單"
 msgid "Minimize"
 msgstr ""
 
-msgid "Mount NTFS"
-msgstr "掛載NTFS"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr ""
@@ -941,6 +989,9 @@ msgstr "沒有足夠記憶體旋轉。"
 msgid "Not enough memory."
 msgstr "記憶體空間不足。"
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "注意："
 
@@ -976,6 +1027,24 @@ msgstr "PDF缩放處理中"
 
 msgid "Parse Directory"
 msgstr "解析路徑"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "被動式模式："
@@ -1024,6 +1093,9 @@ msgstr "無法支援的格式。"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "內容取消。"
@@ -1089,6 +1161,12 @@ msgstr ""
 msgid "Reload"
 msgstr "重新載入"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr ""
 
@@ -1117,6 +1195,9 @@ msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
+
+msgid "SD-Card"
 msgstr ""
 
 msgid "SMB Name:"
@@ -1151,6 +1232,15 @@ msgstr "滾動速度"
 
 msgid "Server was shutdown...\n"
 msgstr "伺服器被關閉...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "設定"
@@ -1204,6 +1294,9 @@ msgstr "標準"
 msgid "Startup FTP"
 msgstr "啟動 FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr ""
 
@@ -1225,6 +1318,12 @@ msgstr "新的字型已載入。"
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1233,6 +1332,9 @@ msgstr ""
 
 msgid "This option could mess up the pdf view."
 msgstr "此選項可能弄亂 PDF 的檢視。"
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr ""
@@ -1273,6 +1375,9 @@ msgstr ""
 msgid "URL is empty."
 msgstr "網址是空的。"
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "不知名格式。以TextEditor開啟此檔案？"
 
@@ -1281,6 +1386,9 @@ msgstr "無法建立資料夾。"
 
 msgid "Unable to load path."
 msgstr "無法載入路徑。"
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "未支援格式!"
@@ -1324,6 +1432,9 @@ msgstr "垂直"
 
 msgid "Video Files"
 msgstr "影片檔案"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "警告："
@@ -1436,6 +1547,12 @@ msgstr "全部都是"
 msgid "You can not cut into the directory itself."
 msgstr "無法在目錄中刪除該目錄。"
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
 
@@ -1471,6 +1588,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Mount NTFS"
+#~ msgstr "掛載NTFS"
 
 #~ msgid "Bootup Mount"
 #~ msgstr "預設載入裝置"

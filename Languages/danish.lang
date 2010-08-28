@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 16:43+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -43,6 +43,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Handling afbrudt."
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr "Tilføj link"
@@ -137,6 +140,9 @@ msgstr "Kan ikke åbne filen."
 msgid "Can't browse that path."
 msgstr "Kan ikke åbne denne sti"
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "Kan ikke indlæse fil"
 
@@ -155,8 +161,14 @@ msgstr "Kan ikke skabe bibliotek:"
 msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "Kan ikke skrive til destinationen."
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "Kan ikke skrive til fil."
@@ -320,6 +332,9 @@ msgid "Demark Item Button"
 msgstr "Demarker emne knap"
 
 msgid "Designer:"
+msgstr ""
+
+msgid "Device"
 msgstr ""
 
 msgid "Directory .."
@@ -506,6 +521,9 @@ msgstr "Udpakker filer..."
 msgid "Extracting item(s):"
 msgstr "Udpakker emne(r)."
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "FTP klient indstillinger"
 
@@ -557,11 +575,20 @@ msgstr "Fejlede at indlæse kanal."
 msgid "Failed to read file data."
 msgstr "Fejlede at læse fil data."
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "Fil udvidelser"
 
 msgid "File Extensions Assignment"
 msgstr "Fil udvidelser tildeling"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "Filen eksister allerede."
@@ -624,6 +651,18 @@ msgstr "Font filer"
 msgid "Fontpath changed."
 msgstr "Fontsti ændret."
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "Fri plads:"
 
@@ -665,6 +704,12 @@ msgstr "GC PAD AFTRÆKKER R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC PAD AFTRÆKKER Z"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2 Komprition"
@@ -718,7 +763,7 @@ msgid "How do you want to proceed?"
 msgstr "Hvordan vil du fortsætte?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "Hvordan skal denne URL åbnes"
 
 msgid "Icon Mode"
 msgstr "Ikon måde"
@@ -763,7 +808,7 @@ msgid "Interlace"
 msgstr "Sammenflette"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "Internet Kanal"
 
 msgid "JPEG Quality"
 msgstr "JPEG kvalitet"
@@ -828,6 +873,9 @@ msgstr "Indlæser billed..."
 msgid "Log was saved in MD5.log"
 msgstr "Log er gemt i MD5.log"
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -861,11 +909,11 @@ msgstr ""
 msgid "Minimize"
 msgstr "Minimer"
 
-msgid "Mount NTFS"
+msgid "Mounted as:"
 msgstr ""
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Indlæser disc"
 
 msgid "Moving item(s):"
 msgstr "Flyt emne(r):"
@@ -898,7 +946,7 @@ msgid "No"
 msgstr "Nej"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "Ingen URL eller Sti er nærmere angivet."
 
 msgid "No files found."
 msgstr "Ingen filer fundet."
@@ -943,6 +991,9 @@ msgstr "Ikke nok hukommelse til at roter."
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "Bemærk:"
 
@@ -959,7 +1010,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "Åben filen i PDF Viewer?"
 
 msgid "Opera Channel not found on the system."
-msgstr "Opera kanal, ikke fundet i systemet."
+msgstr "Opera kanal, er ikke fundet i systemet."
 
 msgid "Out of memory: too many files!"
 msgstr "Ikke nok hukommelse: For mange filer!"
@@ -978,6 +1029,24 @@ msgstr "PDF behandlings zoom"
 
 msgid "Parse Directory"
 msgstr "Analyser mappe"
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
 
 msgid "Passive Mode:"
 msgstr "Passiv Mode:"
@@ -1004,7 +1073,7 @@ msgid "Play Once"
 msgstr "Afspil en gang"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "Skriv venligst en sti."
 
 msgid "Please enter first the URL-Name."
 msgstr "Skriv først et URL-Navn."
@@ -1026,6 +1095,9 @@ msgstr "Format muligvis ikke understøttet"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "Tryk Start FTP få at starte server på port"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "Handling annulleret."
@@ -1091,6 +1163,12 @@ msgstr "Rød"
 msgid "Reload"
 msgstr "Genindlæs"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr "Fjern link"
 
@@ -1120,6 +1198,9 @@ msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "Afspilling af video kan nedsætte farten på processen eller fryse dette prg. Vil du fortsætte?"
+
+msgid "SD-Card"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "SMB-navn:"
@@ -1153,6 +1234,15 @@ msgstr "Scrolling hastighed"
 
 msgid "Server was shutdown...\n"
 msgstr "Server var lukket ned...\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "Indstillinger"
@@ -1206,6 +1296,9 @@ msgstr ""
 msgid "Startup FTP"
 msgstr "Start FTP"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Midlertidig sti"
 
@@ -1227,14 +1320,23 @@ msgstr "Den nye font er indlæst."
 msgid "The whole devkitPro & libogc staff."
 msgstr "Hele devkitPro & libogc staben."
 
-msgid "This link will be used in Opera or as a Download Link."
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
 msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
+msgid "This link will be used in Opera or as a Download Link."
+msgstr "Dette link vil blive brugt i Opera eller som et download link."
 
 msgid "This name will be shown in the Start Menu"
 msgstr "Dette navn vil blive vist i start menuen"
 
 msgid "This option could mess up the pdf view."
 msgstr "Denne mulighed kan ødelægge pdf view."
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr "Tid tilbage:"
@@ -1275,6 +1377,9 @@ msgstr "Sti til URL List"
 msgid "URL is empty."
 msgstr "URL'en er tom."
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Ukendt format. Åben denne fil med TextEditor?"
 
@@ -1283,6 +1388,9 @@ msgstr "Kan ikke oprette mappe."
 
 msgid "Unable to load path."
 msgstr "Kan ikke indlæse sti."
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "Format ikke understøttet!"
@@ -1326,6 +1434,9 @@ msgstr "Lodret"
 
 msgid "Video Files"
 msgstr "Video filer"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "ADVARSEL:"
@@ -1437,6 +1548,12 @@ msgstr "Ja til alle"
 
 msgid "You can not cut into the directory itself."
 msgstr "Du kan ikke sætte ind i samme mappe."
+
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
 
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"

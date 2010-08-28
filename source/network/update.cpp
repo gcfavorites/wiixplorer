@@ -100,11 +100,11 @@ int CheckForUpdate()
 
     while(1)
     {
-        HTML_Pos = HTML.FindStringEnd("href='");
+        HTML_Pos = HTML.FindStringEnd("href=\"");
         if(!HTML_Pos)
             break;
 
-        char * tmpLink = HTML.CopyString("'");
+        char * tmpLink = HTML.CopyString("\"");
         if(!tmpLink)
             continue;
 

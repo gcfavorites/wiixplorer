@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 16:43+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,6 +41,9 @@ msgstr "ぱぴぷぺぽがぎぐげごゑゐ"
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr "リンクを追加"
@@ -135,6 +138,9 @@ msgstr "ファイルを開けません"
 msgid "Can't browse that path."
 msgstr "パスを開けませんでした"
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr "ファイルを読めません"
 
@@ -153,8 +159,14 @@ msgstr "フォルダを作成できませんでした"
 msgid "Cannot open image"
 msgstr "画像を開けません"
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
 msgstr "書き込めません"
+
+msgid "Cannot write to the drive."
+msgstr ""
 
 msgid "Cannot write to the file."
 msgstr "ファイルに書き込めませんでした"
@@ -319,6 +331,9 @@ msgstr "選択を解除する"
 
 msgid "Designer:"
 msgstr "デザイナー:"
+
+msgid "Device"
+msgstr ""
 
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
@@ -504,6 +519,9 @@ msgstr "解凍中･･･"
 msgid "Extracting item(s):"
 msgstr "解凍中"
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr "FTPクライアント設定"
 
@@ -555,11 +573,20 @@ msgstr "チャンネルを読み込めませんでした"
 msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr "拡張子"
 
 msgid "File Extensions Assignment"
 msgstr "拡張子の割り当て"
+
+msgid "File System:"
+msgstr ""
 
 msgid "File already exists:"
 msgstr "ファイルが既に存在します"
@@ -622,6 +649,18 @@ msgstr "フォントファイル"
 msgid "Fontpath changed."
 msgstr "フォントのパスを変更しました"
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr "空き領域:"
 
@@ -663,6 +702,12 @@ msgstr "GCコンのRトリガー"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GCコンのZトリガー"
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
+msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2圧縮"
@@ -716,7 +761,7 @@ msgid "How do you want to proceed?"
 msgstr "何をしますか?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "URLをどう開きますか?"
 
 msgid "Icon Mode"
 msgstr "アイコン表示"
@@ -761,7 +806,7 @@ msgid "Interlace"
 msgstr "インターレース"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "インターネットチャンネル"
 
 msgid "JPEG Quality"
 msgstr "JPEGの品質"
@@ -826,6 +871,9 @@ msgstr "画像を読み込んでいます･･･"
 msgid "Log was saved in MD5.log"
 msgstr "MD5.logに保存されました"
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr "ループ"
 
@@ -859,8 +907,8 @@ msgstr "Wiiメニューへ"
 msgid "Minimize"
 msgstr "最小化"
 
-msgid "Mount NTFS"
-msgstr "NTFSのマウント"
+msgid "Mounted as:"
+msgstr ""
 
 msgid "Mounting disc"
 msgstr "マウント中です"
@@ -896,7 +944,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "URLやパスが指定されていません"
 
 msgid "No files found."
 msgstr "ファイルが見つかりません"
@@ -941,6 +989,9 @@ msgstr "回転するためのメモリが足りません"
 msgid "Not enough memory."
 msgstr "メモリ不足です"
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr "お知らせ:"
 
@@ -977,6 +1028,24 @@ msgstr "PDFの拡大処理"
 msgid "Parse Directory"
 msgstr "フォルダを追加"
 
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
+msgstr ""
+
 msgid "Passive Mode:"
 msgstr "受信モード:"
 
@@ -1002,7 +1071,7 @@ msgid "Play Once"
 msgstr "一度だけ再生"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "パスを入力してください。"
 
 msgid "Please enter first the URL-Name."
 msgstr "URLの名前を入力してください"
@@ -1024,6 +1093,9 @@ msgstr "対応していない形式です"
 
 msgid "Press Startup FTP to start the server on port"
 msgstr "サーバーを開始するためFTPを開始してください ポート:"
+
+msgid "Primary"
+msgstr ""
 
 msgid "Process canceled."
 msgstr "キャンセルしました"
@@ -1089,6 +1161,12 @@ msgstr "赤"
 msgid "Reload"
 msgstr "再読み込み"
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr "リンクを削除"
 
@@ -1118,6 +1196,9 @@ msgstr "振動機能"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
 msgstr "映像の再生はアプリに負荷がかかりますが続行しますか?"
+
+msgid "SD-Card"
+msgstr ""
 
 msgid "SMB Name:"
 msgstr "SMB名"
@@ -1151,6 +1232,15 @@ msgstr "スクロール速度"
 
 msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
+msgstr ""
 
 msgid "Settings"
 msgstr "設定"
@@ -1204,6 +1294,9 @@ msgstr "標準"
 msgid "Startup FTP"
 msgstr "FTPを開始"
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "一時フォルダのパス"
 
@@ -1225,14 +1318,23 @@ msgstr "フォントを読み込みました"
 msgid "The whole devkitPro & libogc staff."
 msgstr "devkitPro&libogcの制作者の方々"
 
-msgid "This link will be used in Opera or as a Download Link."
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
 msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
+msgid "This link will be used in Opera or as a Download Link."
+msgstr "このリンクはOperaやダウンロードで使われます"
 
 msgid "This name will be shown in the Start Menu"
 msgstr "この名前はスタートメニューで表示されます"
 
 msgid "This option could mess up the pdf view."
 msgstr "PDFの表示が崩れる場合があります"
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
+msgstr ""
 
 msgid "Time left:"
 msgstr "残り:"
@@ -1273,6 +1375,9 @@ msgstr "URLリストのパス"
 msgid "URL is empty."
 msgstr "URLが空です"
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "テキストエディタで開きますか?"
 
@@ -1281,6 +1386,9 @@ msgstr "フォルダを作成できませんでした"
 
 msgid "Unable to load path."
 msgstr "パスを読み込めませんでした"
+
+msgid "Unknown"
+msgstr ""
 
 msgid "Unsupported format!"
 msgstr "対応していない形式です!"
@@ -1324,6 +1432,9 @@ msgstr "上下反転"
 
 msgid "Video Files"
 msgstr "映像ファイル"
+
+msgid "WARNING"
+msgstr ""
 
 msgid "WARNING:"
 msgstr "警告:"
@@ -1436,6 +1547,12 @@ msgstr "全てはい"
 msgid "You can not cut into the directory itself."
 msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
+
 msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"
 
@@ -1471,6 +1588,9 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Mount NTFS"
+#~ msgstr "NTFSのマウント"
 
 #~ msgid "Do you want to open this URL?"
 #~ msgstr "このURLを開きますか?"

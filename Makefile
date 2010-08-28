@@ -26,6 +26,7 @@ SOURCES		:=	source \
 				source/Prompts \
 				source/BootHomebrew \
 				source/Controls \
+				source/DeviceControls \
 				source/Memory \
 				source/FileStartUp \
 				source/FileOperations \

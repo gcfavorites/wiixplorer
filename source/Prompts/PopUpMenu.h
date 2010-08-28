@@ -48,18 +48,6 @@ enum
 
 enum
 {
-    APPS = 0,
-    CHANNELS,
-    URLS,
-    SETTINGS,
-    FTPSERVER,
-    RELOAD,
-    RESTART,
-    EXIT,
-};
-
-enum
-{
     CUT = 0,
     COPY,
     PASTE,

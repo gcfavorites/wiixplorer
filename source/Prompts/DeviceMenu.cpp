@@ -25,12 +25,11 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-
 #include "DeviceMenu.h"
 #include "Controls/MainWindow.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "Memory/Resources.h"
 #include "network/networkops.h"
-#include "devicemounter.h"
 #include "Settings.h"
 #include "FileOperations/filebrowser.h"
 #include "Prompts/ProgressWindow.h"
@@ -53,6 +52,7 @@ DeviceMenu::DeviceMenu(int x, int y)
     //! Device imagedata
     sd_ImgData = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
     usb_ImgData = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
+    usb_blue_ImgData = Resources::GetImageData(usbstorage_blue_png, usbstorage_blue_png_size);
     smb_ImgData = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
     ftp_ImgData = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
 	dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
@@ -79,7 +79,7 @@ DeviceMenu::DeviceMenu(int x, int y)
 
     int PositionX = leftImg->GetWidth();
 
-    if(SDCard_Inserted())
+    if(DeviceHandler::Instance()->IsInserted(SD))
     {
         deviceText[deviceCount] = new GuiText(DeviceName[SD], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -104,7 +104,7 @@ DeviceMenu::DeviceMenu(int x, int y)
         deviceCount++;
     }
 
-    if(SDGeckoA_Inserted())
+    if(DeviceHandler::Instance()->IsInserted(GCSDA))
     {
         deviceText[deviceCount] = new GuiText(DeviceName[GCSDA], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -129,7 +129,7 @@ DeviceMenu::DeviceMenu(int x, int y)
         deviceCount++;
     }
 
-    if(SDGeckoB_Inserted())
+    if(DeviceHandler::Instance()->IsInserted(GCSDB))
     {
         deviceText[deviceCount] = new GuiText(DeviceName[GCSDB], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -154,59 +154,40 @@ DeviceMenu::DeviceMenu(int x, int y)
         deviceCount++;
     }
 
-    if(USBDevice_Inserted())
+    for(int j = USB1; j <= USB8; j++)
     {
-        deviceText[deviceCount] = new GuiText(DeviceName[USB], FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+        if(DeviceHandler::Instance()->IsInserted(j))
+        {
+            const char * FSName = DeviceHandler::GetFSName(j);
 
-        deviceSelection[deviceCount] = USB;
+            deviceText[deviceCount] = new GuiText(DeviceName[j], FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+            deviceText[deviceCount]->SetPosition(0, 2);
+            if(FSName && strncmp(FSName, "NTF", 3) != 0)
+                deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
+            else
+                deviceImgs[deviceCount] = new GuiImage(usb_blue_ImgData);
+            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+            deviceImgOver[deviceCount] = new GuiImage(menu_select);
+            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+            deviceBtn[deviceCount]->SetSoundClick(btnClick);
+            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+            deviceBtn[deviceCount]->SetTrigger(trigA);
+            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-        deviceCount++;
+            deviceSelection[deviceCount] = j;
+
+            deviceCount++;
+        }
     }
 
-	char text[50];
-    for(int i = 0; i < NTFS_GetMountCount(); i++)
-    {
-        sprintf(text, "%s", NTFS_GetMountName(i));
-        deviceText[deviceCount] = new GuiText(text, FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-
-        deviceSelection[deviceCount] = NTFS0+i;
-
-        deviceCount++;
-    }
-
-    if(Disk_Inserted())
+    if(DeviceHandler::Instance()->IsInserted(DVD))
     {
         deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
         deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
@@ -231,11 +212,11 @@ DeviceMenu::DeviceMenu(int x, int y)
         deviceCount++;
     }
 
-    for(int i = 0; i < MAXSMBUSERS; i++)
+    for(int i = SMB1; i <= SMB10; i++)
     {
-        if(IsSMB_Mounted(i))
+        if(DeviceHandler::Instance()->IsInserted(i))
         {
-            deviceText[deviceCount] = new GuiText(DeviceName[SMB1+i], FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
             deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
             deviceText[deviceCount]->SetPosition(0, 2);
             deviceImgs[deviceCount] = new GuiImage(smb_ImgData);
@@ -253,17 +234,17 @@ DeviceMenu::DeviceMenu(int x, int y)
             deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
             PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = SMB1+i;
+            deviceSelection[deviceCount] = i;
 
             deviceCount++;
         }
     }
 
-    for(int i = 0; i < MAXFTPUSERS; i++)
+    for(int i = FTP1; i <= FTP10; i++)
     {
-        if(IsFTPConnected(i))
+        if(DeviceHandler::Instance()->IsInserted(i))
         {
-            deviceText[deviceCount] = new GuiText(DeviceName[FTP1+i], FontSize, (GXColor){0, 0, 0, 255});
+            deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
             deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
             deviceText[deviceCount]->SetPosition(0, 2);
             deviceImgs[deviceCount] = new GuiImage(ftp_ImgData);
@@ -281,7 +262,7 @@ DeviceMenu::DeviceMenu(int x, int y)
             deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
             PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = FTP1+i;
+            deviceSelection[deviceCount] = i;
 
             deviceCount++;
         }
@@ -338,6 +319,7 @@ DeviceMenu::~DeviceMenu()
 	Resources::Remove(device_choose_center_Data);
     Resources::Remove(sd_ImgData);
     Resources::Remove(usb_ImgData);
+    Resources::Remove(usb_blue_ImgData);
     Resources::Remove(smb_ImgData);
 	Resources::Remove(ftp_ImgData);
     Resources::Remove(dvd_ImgData);
@@ -383,7 +365,7 @@ int DeviceMenu::GetChoice()
     {
         StartProgress(tr("Mounting disc"), AUTO_THROBBER);
         ShowProgress(0, 1, tr("Please wait..."));
-        DiskDrive_Mount();
+        DeviceHandler::Instance()->Mount(DVD);
         StopProgress();
     }
 

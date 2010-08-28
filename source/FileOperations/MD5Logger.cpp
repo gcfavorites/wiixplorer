@@ -77,11 +77,12 @@ bool MD5Logger::LogMD5(const char * logpath, ItemMarker * Marker, bool showprogr
     FolderCounter = 0;
     FileCounter = 0;
     ErrorCounter = 0;
+    int ProgressMode = ((Marker->GetItemcount() > 1) || Marker->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
 
-    StartProgress(tr("Calculating total size..."));
-    CalcTotalSize(Marker);
+    StartProgress(tr("Calculating MD5..."), ProgressMode);
 
-    StartProgress(tr("Calculating MD5..."));
+    if(ProgressMode == MULTI_PROGRESSBAR)
+        CalcTotalSize(Marker);
 
     fprintf(LogFile, tr("--------------------------------------------------\n"));
     fprintf(LogFile, tr("WiiXplorer MD5 Calculator\n"));

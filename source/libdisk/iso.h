@@ -28,10 +28,18 @@ misrepresented as being the original software.
 #ifndef _ISO_H
 #define _ISO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define ISO_MAXPATHLEN 128
 
 bool ISO9660_Mount();
 bool ISO9660_Unmount();
 u64 ISO9660_LastAccess();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _ISO_H_ */

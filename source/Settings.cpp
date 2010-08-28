@@ -54,8 +54,7 @@ Settings::~Settings()
 
 void Settings::SetDefault()
 {
-    BootIOS = 58;
-    MountNTFS = 0;
+    BootIOS = 202;
     MusicVolume = 80;
     CurrentSMBUser = 0;
 	CurrentFTPUser = 0;
@@ -177,7 +176,6 @@ bool Settings::Save()
 	fprintf(file, "CurrentFTPUser = %d\n", CurrentFTPUser);
 	fprintf(file, "LanguagePath = %s\n", LanguagePath);
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
-	fprintf(file, "MountNTFS = %d\n", MountNTFS);
 	fprintf(file, "BGMLoopMode = %d\n", BGMLoopMode);
 	fprintf(file, "AutoConnect = %d\n", AutoConnect);
 	fprintf(file, "UpdateMetaxml = %d\n", UpdateMetaxml);
@@ -360,8 +358,6 @@ bool Settings::Load(int argc, char *argv[])
         }
     }
 
-    SetDefault();
-
     return Load();
 }
 
@@ -526,12 +522,6 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "MusicVolume") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			MusicVolume = i;
-		}
-		return true;
-	}
-	else if (strcmp(name, "MountNTFS") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			MountNTFS = i;
 		}
 		return true;
 	}

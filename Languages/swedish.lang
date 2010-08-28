@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-19 09:35+0200\n"
+"POT-Creation-Date: 2010-08-28 16:14+0200\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -41,6 +41,9 @@ msgstr ""
 
 msgid "Action cancelled."
 msgstr "Händelse avbryten."
+
+msgid "Active (Bootable):"
+msgstr ""
 
 msgid "Add Link"
 msgstr ""
@@ -135,6 +138,9 @@ msgstr ""
 msgid "Can't browse that path."
 msgstr ""
 
+msgid "Can't find the right partition."
+msgstr ""
+
 msgid "Can't load file"
 msgstr ""
 
@@ -153,7 +159,13 @@ msgstr ""
 msgid "Cannot open image"
 msgstr ""
 
+msgid "Cannot read from the drive."
+msgstr ""
+
 msgid "Cannot write to destination."
+msgstr ""
+
+msgid "Cannot write to the drive."
 msgstr ""
 
 msgid "Cannot write to the file."
@@ -318,6 +330,9 @@ msgid "Demark Item Button"
 msgstr ""
 
 msgid "Designer:"
+msgstr ""
+
+msgid "Device"
 msgstr ""
 
 msgid "Directory .."
@@ -504,6 +519,9 @@ msgstr ""
 msgid "Extracting item(s):"
 msgstr ""
 
+msgid "FAT32 must have at least 65536 clusters"
+msgstr ""
+
 msgid "FTP Client Settings"
 msgstr ""
 
@@ -555,10 +573,19 @@ msgstr ""
 msgid "Failed to read file data."
 msgstr ""
 
+msgid "Failed to write EBR."
+msgstr ""
+
+msgid "Failed to write MBR."
+msgstr ""
+
 msgid "File Extensions"
 msgstr ""
 
 msgid "File Extensions Assignment"
+msgstr ""
+
+msgid "File System:"
 msgstr ""
 
 msgid "File already exists:"
@@ -622,6 +649,18 @@ msgstr ""
 msgid "Fontpath changed."
 msgstr ""
 
+msgid "Format"
+msgstr ""
+
+msgid "Format Partition?"
+msgstr ""
+
+msgid "Formating partition..."
+msgstr ""
+
+msgid "Formatter"
+msgstr ""
+
 msgid "Free Space:"
 msgstr ""
 
@@ -662,6 +701,12 @@ msgid "GC PAD TRIGGER R"
 msgstr ""
 
 msgid "GC PAD TRIGGER Z"
+msgstr ""
+
+msgid "GC-SD A"
+msgstr ""
+
+msgid "GC-SD B"
 msgstr ""
 
 msgid "GD2 Compression"
@@ -826,6 +871,9 @@ msgstr ""
 msgid "Log was saved in MD5.log"
 msgstr ""
 
+msgid "Logical"
+msgstr ""
+
 msgid "Loop"
 msgstr ""
 
@@ -859,7 +907,7 @@ msgstr ""
 msgid "Minimize"
 msgstr ""
 
-msgid "Mount NTFS"
+msgid "Mounted as:"
 msgstr ""
 
 msgid "Mounting disc"
@@ -941,6 +989,9 @@ msgstr ""
 msgid "Not enough memory."
 msgstr "Inte tillräkligt minne."
 
+msgid "Not mounted"
+msgstr ""
+
 msgid "Notice:"
 msgstr ""
 
@@ -975,6 +1026,24 @@ msgid "PDF Processing Zoom"
 msgstr ""
 
 msgid "Parse Directory"
+msgstr ""
+
+msgid "Partition"
+msgstr ""
+
+msgid "Partition Formatter"
+msgstr ""
+
+msgid "Partition Nr."
+msgstr ""
+
+msgid "Partition Size:"
+msgstr ""
+
+msgid "Partition Type:"
+msgstr ""
+
+msgid "Partition is too small."
 msgstr ""
 
 msgid "Passive Mode:"
@@ -1023,6 +1092,9 @@ msgid "Possible unsupported format."
 msgstr ""
 
 msgid "Press Startup FTP to start the server on port"
+msgstr ""
+
+msgid "Primary"
 msgstr ""
 
 msgid "Process canceled."
@@ -1089,6 +1161,12 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
+msgid "Remounting all devices."
+msgstr ""
+
+msgid "Remounting devices..."
+msgstr ""
+
 msgid "Remove Link"
 msgstr ""
 
@@ -1117,6 +1195,9 @@ msgid "Rumble"
 msgstr ""
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
+msgstr ""
+
+msgid "SD-Card"
 msgstr ""
 
 msgid "SMB Name:"
@@ -1150,6 +1231,15 @@ msgid "Scrolling Speed"
 msgstr ""
 
 msgid "Server was shutdown...\n"
+msgstr ""
+
+msgid "Set Active"
+msgstr ""
+
+msgid "Set this Partition as Active?"
+msgstr ""
+
+msgid "Setting partition as active."
 msgstr ""
 
 msgid "Settings"
@@ -1204,6 +1294,9 @@ msgstr ""
 msgid "Startup FTP"
 msgstr ""
 
+msgid "Successfully formated the partition."
+msgstr ""
+
 msgid "Temporary Path"
 msgstr ""
 
@@ -1225,6 +1318,12 @@ msgstr ""
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
+msgid "This drive has more than 2^28 clusters. Partition might be too small."
+msgstr ""
+
+msgid "This drive is too big"
+msgstr ""
+
 msgid "This link will be used in Opera or as a Download Link."
 msgstr ""
 
@@ -1232,6 +1331,9 @@ msgid "This name will be shown in the Start Menu"
 msgstr ""
 
 msgid "This option could mess up the pdf view."
+msgstr ""
+
+msgid "This will delete all the data on this partition. Do you want to continue?"
 msgstr ""
 
 msgid "Time left:"
@@ -1273,6 +1375,9 @@ msgstr ""
 msgid "URL is empty."
 msgstr ""
 
+msgid "USB Device"
+msgstr ""
+
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr ""
 
@@ -1280,6 +1385,9 @@ msgid "Unable to create folder."
 msgstr "Kunde inte skapa mapp."
 
 msgid "Unable to load path."
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid "Unsupported format!"
@@ -1323,6 +1431,9 @@ msgid "Vertical"
 msgstr ""
 
 msgid "Video Files"
+msgstr ""
+
+msgid "WARNING"
 msgstr ""
 
 msgid "WARNING:"
@@ -1435,6 +1546,12 @@ msgstr ""
 
 msgid "You can not cut into the directory itself."
 msgstr "Du kan inte klippa in till sjävla katalagon"
+
+msgid "You can't set a logical partition as active."
+msgstr ""
+
+msgid "You can't set this partition as active."
+msgstr ""
 
 msgid "You cant use this operation on:"
 msgstr "Du kan inte använda denna funktion på:"

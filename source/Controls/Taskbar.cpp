@@ -37,12 +37,13 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PopUpMenu.h"
+#include "DeviceControls/DeviceHandler.hpp"
+#include "DeviceControls/PartitionFormatterGUI.hpp"
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
 #include "Launcher/OperaBooter.hpp"
 #include "network/networkops.h"
 #include "SoundOperations/MusicPlayer.h"
-#include "devicemounter.h"
 #include "sys.h"
 
 #include "Prompts/HomeMenu.h"
@@ -285,7 +286,7 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, 134);
+	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, 105);
 
 	if (!StartMenu)
 		return menu;
@@ -293,6 +294,7 @@ int Taskbar::CheckStartMenu()
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
 	StartMenu->AddItem(tr("URL List"), opera_icon_png, opera_icon_png_size, true);
+	StartMenu->AddItem(tr("Formatter"), usbstorage_png, usbstorage_png_size);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
 	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
 	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
@@ -350,21 +352,31 @@ int Taskbar::CheckStartMenu()
 	{
 		menu = MENU_FTP;
 	}
+    else if (choice == FORMATTER)
+    {
+        choice = -1;
+
+        MainWindow::Instance()->SetState(STATE_DISABLED);
+        MainWindow::Instance()->SetDim(true);
+        SetTriggerUpdate(false);
+        PartitionFormatterGui * PartFormatter = new PartitionFormatterGui();
+        PartFormatter->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+        MainWindow::Instance()->Append(PartFormatter);
+        PartFormatter->MainUpdate();
+        delete PartFormatter;
+        MainWindow::Instance()->SetDim(false);
+        MainWindow::Instance()->SetState(STATE_DEFAULT);
+        SetTriggerUpdate(true);
+	}
 	else if (choice == RELOAD)
 	{
 		if (WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel")))
 		{
-			NTFS_UnMount();
-			//don't need to shutdown the devices
-            SDCard_deInit();
-            USBDevice_deInit();
-            SDGeckoA_deInit();
-            SDGeckoB_deInit();
-			SDCard_Init();
-			SDGeckoA_Init();
-			SDGeckoB_Init();
-			USBDevice_Init();
-			NTFS_Mount();
+            StartProgress(tr("Remounting all devices."), AUTO_THROBBER);
+            ShowProgress(0, 1, tr("Please wait..."));
+			DeviceHandler::Instance()->UnMountAll();
+			DeviceHandler::Instance()->MountAll();
+			StopProgress();
 		}
 	}
 	else if (choice == RESTART)
@@ -388,7 +400,7 @@ int Taskbar::CheckStartMenu()
 void Taskbar::CheckAppsMenu()
 {
 	int choice = -1;
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 140);
+	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 110);
 
     Applications Apps(Settings.AppPath);
 	int count = Apps.Count();
@@ -426,7 +438,7 @@ void Taskbar::CheckAppsMenu()
 void Taskbar::CheckChannelsMenu()
 {
 	int choice = -1;
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 170);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 140);
 
 	int count = Channels::Instance()->Count();
 
@@ -463,7 +475,7 @@ void Taskbar::CheckChannelsMenu()
 void Taskbar::OpenLinksMenu()
 {
 	int choice = -1;
-	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 200);
+	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 170);
 
     OperaBooter Booter(Settings.LinkListPath);
 

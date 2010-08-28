@@ -39,6 +39,7 @@ extern bool sizegainrunning;
 IOHandler::IOHandler()
 {
     TaskbarSlot = NULL;
+    ProgressMode = 0;
     IOThread = LWP_THREAD_NULL;
     RequestThread = LWP_THREAD_NULL;
     DestroyRequested = false;
@@ -115,7 +116,10 @@ void IOHandler::StartProcess(bool lock)
 void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
 {
     if(!Running)
+    {
         ProgressWindow::Instance()->ResetValues();
+        ProgressMode = ((List->GetItemcount() > 1) || List->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
+    }
 
     ClipboardItem * TmpItem = new ClipboardItem;
 
@@ -136,7 +140,7 @@ void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
         CalcTotalSize();
     }
 
-    IOHandler::Instance()->StartProcess(!Running);
+    StartProcess(!Running);
 }
 
 void IOHandler::ProcessNext()
@@ -162,14 +166,27 @@ void IOHandler::ProcessNext()
             snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(0));
             snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
             if(CompareDevices(srcpath, destdir))
+            {
+                if(ProgressWindow::Instance()->GetProgressMode() != THROBBER);
+                    StopProgress();
+
                 StartProgress(tr("Moving item(s):"), THROBBER, !Running);
+            }
             else
-                StartProgress(tr("Moving item(s):"), PROGRESSBAR, !Running);
+            {
+                if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode);
+                    StopProgress();
+
+                StartProgress(tr("Moving item(s):"), ProgressMode, !Running);
+            }
         }
     }
     else
     {
-        StartProgress(tr("Copying item(s):"), PROGRESSBAR, !Running);
+        if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode);
+            StopProgress();
+
+        StartProgress(tr("Copying item(s):"), ProgressMode, !Running);
     }
     for(int i = 0; i < CurrentProcess->GetItemcount(); i++)
     {
