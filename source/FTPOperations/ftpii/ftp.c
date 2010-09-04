@@ -35,7 +35,7 @@ misrepresented as being the original software.
 
 #include "Tools/gxprintf.h"
 #include "ftp.h"
-#include "libftp/MountVirtualDevices.h"
+#include "FTPOperations/MountVirtualDevices.h"
 #include "virtualpath.h"
 #include "net.h"
 #include "vrt.h"
