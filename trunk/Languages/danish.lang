@@ -141,7 +141,7 @@ msgid "Can't browse that path."
 msgstr "Kan ikke åbne denne sti"
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "Kan ikke finde den rigtige partition."
 
 msgid "Can't load file"
 msgstr "Kan ikke indlæse fil"
@@ -162,13 +162,13 @@ msgid "Cannot open image"
 msgstr "Kan ikke åbne billede"
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "Kan ikke læse fra drevet."
 
 msgid "Cannot write to destination."
 msgstr "Kan ikke skrive til destinationen."
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "Kan ikke skrrive til drevet."
 
 msgid "Cannot write to the file."
 msgstr "Kan ikke skrive til fil."
@@ -335,7 +335,7 @@ msgid "Designer:"
 msgstr ""
 
 msgid "Device"
-msgstr ""
+msgstr "Enhed"
 
 msgid "Directory .."
 msgstr "Mappe .."
@@ -522,7 +522,7 @@ msgid "Extracting item(s):"
 msgstr "Udpakker emne(r)."
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "FAT32 skal have mindst 65536 clusters"
 
 msgid "FTP Client Settings"
 msgstr "FTP klient indstillinger"
@@ -576,10 +576,10 @@ msgid "Failed to read file data."
 msgstr "Fejlede at læse fil data."
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "Fejlede at skrive EBR."
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "Fejlede at skrive MBR."
 
 msgid "File Extensions"
 msgstr "Fil udvidelser"
@@ -588,7 +588,7 @@ msgid "File Extensions Assignment"
 msgstr "Fil udvidelser tildeling"
 
 msgid "File System:"
-msgstr ""
+msgstr "Fil system:"
 
 msgid "File already exists:"
 msgstr "Filen eksister allerede."
@@ -652,16 +652,16 @@ msgid "Fontpath changed."
 msgstr "Fontsti ændret."
 
 msgid "Format"
-msgstr ""
+msgstr "Formater"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "Formater partition?"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "Formatere partition..."
 
 msgid "Formatter"
-msgstr ""
+msgstr "Formatering"
 
 msgid "Free Space:"
 msgstr "Fri plads:"
@@ -874,7 +874,7 @@ msgid "Log was saved in MD5.log"
 msgstr "Log er gemt i MD5.log"
 
 msgid "Logical"
-msgstr ""
+msgstr "Logisk"
 
 msgid "Loop"
 msgstr ""
@@ -910,7 +910,7 @@ msgid "Minimize"
 msgstr "Minimer"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "Indlæst som:"
 
 msgid "Mounting disc"
 msgstr "Indlæser disc"
@@ -992,7 +992,7 @@ msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
 
 msgid "Not mounted"
-msgstr ""
+msgstr "Ikke indlæst"
 
 msgid "Notice:"
 msgstr "Bemærk:"
@@ -1034,19 +1034,19 @@ msgid "Partition"
 msgstr ""
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "Partition formatering"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "Partition Nr."
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "Partition Størrelse:"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "Partition Type:"
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "Partition er for lille."
 
 msgid "Passive Mode:"
 msgstr "Passiv Mode:"
@@ -1164,10 +1164,10 @@ msgid "Reload"
 msgstr "Genindlæs"
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "Genindlæs alle enheder."
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "Genindlæser enheder..."
 
 msgid "Remove Link"
 msgstr "Fjern link"
@@ -1236,13 +1236,13 @@ msgid "Server was shutdown...\n"
 msgstr "Server var lukket ned...\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "Sæt aktiv"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "Sæt denne partition som aktiv?"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "Sætter partition som aktiv."
 
 msgid "Settings"
 msgstr "Indstillinger"
@@ -1297,7 +1297,7 @@ msgid "Startup FTP"
 msgstr "Start FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "Formatering af partition lykkedes."
 
 msgid "Temporary Path"
 msgstr "Midlertidig sti"
@@ -1321,10 +1321,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "Hele devkitPro & libogc staben."
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "Dette drev har mere end 2^28 clusters. Partition er muligvis for lille."
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "Dette drev er for stor"
 
 msgid "This link will be used in Opera or as a Download Link."
 msgstr "Dette link vil blive brugt i Opera eller som et download link."
@@ -1336,7 +1336,7 @@ msgid "This option could mess up the pdf view."
 msgstr "Denne mulighed kan ødelægge pdf view."
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "Dette vil slette alle data på denne partition. Vil du fortsætte?"
 
 msgid "Time left:"
 msgstr "Tid tilbage:"
@@ -1378,7 +1378,7 @@ msgid "URL is empty."
 msgstr "URL'en er tom."
 
 msgid "USB Device"
-msgstr ""
+msgstr "USB Enhed"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Ukendt format. Åben denne fil med TextEditor?"
@@ -1390,7 +1390,7 @@ msgid "Unable to load path."
 msgstr "Kan ikke indlæse sti."
 
 msgid "Unknown"
-msgstr ""
+msgstr "Ukendt"
 
 msgid "Unsupported format!"
 msgstr "Format ikke understøttet!"
@@ -1436,7 +1436,7 @@ msgid "Video Files"
 msgstr "Video filer"
 
 msgid "WARNING"
-msgstr ""
+msgstr "ADVARSEL"
 
 msgid "WARNING:"
 msgstr "ADVARSEL:"
@@ -1550,10 +1550,10 @@ msgid "You can not cut into the directory itself."
 msgstr "Du kan ikke sætte ind i samme mappe."
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "Du kan ikke sætte en logisk partition som aktiv."
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "Du kan ikke sætte denne partition som aktiv."
 
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"

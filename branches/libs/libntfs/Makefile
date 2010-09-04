@@ -9,7 +9,7 @@ include $(DEVKITPPC)/wii_rules
 LIBOGC_INC      :=      $(DEVKITPRO)/libogc/include
 LIBOGC_LIB      :=      $(DEVKITPRO)/libogc/lib/wii
 
-CFLAGS  := -O4 $(MACHDEP) -I$(LIBOGC_INC) -DGECKO -DHAVE_CONFIG_H -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+CFLAGS  := -O4 $(MACHDEP) -I$(LIBOGC_INC) -DHAVE_CONFIG_H
 
 LIB     := ntfs
 CFILES  := $(wildcard *.c)

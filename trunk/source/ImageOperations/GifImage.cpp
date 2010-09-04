@@ -32,10 +32,38 @@
 
 #define LZW_BUFF_SIZE   (17*1024)
 
+typedef struct _GIFLSDtag
+{
+    u16 ScreenWidth;
+    u16 ScreenHeight;
+    u8 PackedFields;
+    u8 Background;
+    u8 PixelAspectRatio;
+} __attribute__((__packed__)) GIFLSDtag;
+
+typedef struct _GIFGCEtag
+{
+    u8 BlockSize;       // Block Size: 4 bytes
+    u8 PackedFields;
+    u16 Delay;          // Delay Time (1/100 seconds)
+    u8 Transparent;     // Transparent Color Index
+} __attribute__((__packed__)) GIFGCEtag;
+
+// Read Image Descriptor
+typedef struct _GIFIDtag
+{
+    u16 xPos;
+    u16 yPos;
+    u16 Width;
+    u16 Height;
+    u8 PackedFields;
+} __attribute__((__packed__)) GIFIDtag;
+
 typedef struct
 {
     u8 b,g,r,a;
-} GIFCOLOR;
+} __attribute__((__packed__)) GIFCOLOR;
+
 
 GifImage::GifImage(const u8 * img, int imgSize)
 {
@@ -231,25 +259,17 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 	return whichBit;
 }
 
-
 void GifImage::LoadImage(const u8 * img, int imgSize)
 {
-    if( memcmp(img, "GIF", 3) != 0)
+    if(memcmp(img, "GIF", 3) != 0)
         return;
 
     int pos = 6;
 
-	struct GIFLSDtag
-	{
-		u16 ScreenWidth;
-		u16 ScreenHeight;
-		u8 PackedFields;
-		u8 Background;
-		u8 PixelAspectRatio;
-	} GifLSD;
+    GIFLSDtag GifLSD;
 
 	memcpy(&GifLSD, &img[pos], sizeof(GIFLSDtag));
-    pos += sizeof(GIFLSDtag)-1;
+    pos += sizeof(GIFLSDtag);
 
     int GlobalBPP = (GifLSD.PackedFields & 0x07) + 1;
 
@@ -281,15 +301,10 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			GlobalColorMap[n].r = GlobalColorMap[n].g = GlobalColorMap[n].b = n;
 	}
 
-    struct GIFGCEtag
-    {
-        u8 BlockSize;       // Block Size: 4 bytes
-        u8 PackedFields;
-        u16 Delay;          // Delay Time (1/100 seconds)
-        u8 Transparent;     // Transparent Color Index
-    } GifGCE;
-
 	int GraphicExtensionFound = 0;
+
+    GIFGCEtag GifGCE;
+    memset(&GifGCE, 0, sizeof(GIFGCEtag));
 
     do
 	{
@@ -302,7 +317,7 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
                 case 0xF9:
                     memcpy(&GifGCE, &img[pos], sizeof(GIFGCEtag));
                     GifGCE.Delay = le16(GifGCE.Delay);
-                    pos += sizeof(GIFGCEtag); // Block Terminator (always 0)
+                    pos += sizeof(GIFGCEtag)+1; // Block Terminator (always 0)
                     GraphicExtensionFound++;
                     break;
                 case 0xFE:
@@ -321,19 +336,9 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 		else if (charGot == 0x2c)
 		{
 			GifFrame NextImage;
-
-			// Read Image Descriptor
-			struct GIFIDtag
-			{
-				u16 xPos;
-				u16 yPos;
-				u16 Width;
-				u16 Height;
-				u8 PackedFields;
-			} GifID;
-
+            GIFIDtag GifID;
 			memcpy(&GifID, &img[pos], sizeof(GIFIDtag));
-			pos += sizeof(GIFIDtag)-1;
+			pos += sizeof(GIFIDtag);
 
 			GifID.xPos = le16(GifID.xPos);
 			GifID.yPos = le16(GifID.yPos);

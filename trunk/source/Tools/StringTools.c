@@ -56,7 +56,7 @@ const char * fmt(const char * format, ...)
 const wchar_t * wfmt(const char * format, ...)
 {
     static wchar_t strWChar[512];
-    memset(strWChar, 0, sizeof(strWChar));
+    strWChar[0] = 0;
 
 	if(!format)
         return (const wchar_t *) &strWChar;

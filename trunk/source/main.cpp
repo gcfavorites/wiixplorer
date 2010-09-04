@@ -39,7 +39,7 @@
 #include "DeviceControls/DeviceHandler.hpp"
 #include "audio.h"
 #include "libwiigui/gui.h"
-#include "libdisk/di2.h"
+#include "DiskOperations/di2.h"
 #include "input.h"
 #include "filelist.h"
 #include "Settings.h"
@@ -52,9 +52,10 @@ bool boothomebrew = false;
 
 int main(int argc, char *argv[])
 {
-	MEM2_init(52); // Initialize 52 MB (max is 53469152 bytes though)
-    InitGecko();
     __exception_setreload(30);
+	InitVideo(); // Initialize video
+    InitGecko();  // Initialize stdout/stderr and gecko output
+	MEM2_init(52); // Initialize 52 MB (max is 53469152 bytes though)
 
 	DeviceHandler::Instance()->MountSD();
 	DeviceHandler::Instance()->MountAllUSB();
@@ -78,7 +79,6 @@ int main(int argc, char *argv[])
 
     MagicPatches(1); // We all love magic
 	Sys_Init(); // Initialize shutdown/reset buttons
-	InitVideo(); // Initialize video
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
     DeviceHandler::Instance()->MountGCA();

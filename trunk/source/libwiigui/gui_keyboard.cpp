@@ -66,7 +66,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
             CurrentFirstLetter = 0;
 	}
 
-    memset(keys, 0, MAXROWS*sizeof(KeyboardRow));
+    memset(keys, 0, sizeof(keys));
 
     wcsncpy(keys[0].ch,       wfmt("%s", tr("`1234567890-")), MAXKEYS);
     wcsncpy(keys[0].chShift,  wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
@@ -344,7 +344,7 @@ void GuiKeyboard::SwitchKeyLanguage()
 {
     DefaultKeys = !DefaultKeys;
 
-    memset(keys, 0, MAXROWS*sizeof(KeyboardRow));
+    memset(keys, 0, sizeof(keys));
 
     if(DefaultKeys)
     {

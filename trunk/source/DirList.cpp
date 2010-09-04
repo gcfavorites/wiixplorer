@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -21,10 +21,8 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
- * DirList.cpp
- *
  * DirList Class
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,8 +111,6 @@ bool DirList::AddEntrie(const char * folderpath, const char * filename, u64 file
         FileInfo = (FileInfos *) malloc(sizeof(FileInfos));
         if (!FileInfo)
             return false;
-
-        memset(&FileInfo[filecount], 0, sizeof(FileInfos));
     }
 
     FileInfos *TempFileInfo = (FileInfos *) realloc(FileInfo, (filecount+1)*sizeof(FileInfos));
@@ -122,19 +118,18 @@ bool DirList::AddEntrie(const char * folderpath, const char * filename, u64 file
     if (!TempFileInfo)
     {
         ClearList();
-        free(TempFileInfo);
-        TempFileInfo = NULL;
         filecount = 0;
         return false;
-
     }
 
     FileInfo = TempFileInfo;
 
     memset(&(FileInfo[filecount]), 0, sizeof(FileInfo));
 
-    FileInfo[filecount].FilePath = (char *) malloc(strlen(folderpath)+1);
-    FileInfo[filecount].FileName = (char *) malloc(strlen(filename)+1);
+    FileInfo[filecount].FilePath = strdup(folderpath);
+    FileInfo[filecount].FileName = strdup(filename);
+    FileInfo[filecount].FileSize = filesize;
+    FileInfo[filecount].isDir = isDir;
 
     if (!FileInfo[filecount].FilePath || !FileInfo[filecount].FileName)
     {
@@ -142,12 +137,6 @@ bool DirList::AddEntrie(const char * folderpath, const char * filename, u64 file
         filecount = 0;
         return false;
     }
-
-    //!Set the values
-    snprintf(FileInfo[filecount].FilePath, strlen(folderpath)+1, "%s", folderpath);
-    snprintf(FileInfo[filecount].FileName, strlen(filename)+1, "%s", filename);
-    FileInfo[filecount].FileSize = filesize;
-    FileInfo[filecount].isDir = isDir;
 
     filecount++;
 
@@ -179,7 +168,7 @@ void DirList::ClearList()
 
 char *DirList::GetFilename(int ind)
 {
-    if (ind > filecount || ind < 0)
+    if (ind >= filecount || ind < 0)
         return NULL;
     else
         return FileInfo[ind].FileName;
@@ -187,7 +176,7 @@ char *DirList::GetFilename(int ind)
 
 char *DirList::GetFilepath(int ind)
 {
-    if (ind > filecount || ind < 0)
+    if (ind >= filecount || ind < 0)
         return NULL;
     else
         return FileInfo[ind].FilePath;
@@ -195,7 +184,7 @@ char *DirList::GetFilepath(int ind)
 
 unsigned int DirList::GetFilesize(int ind)
 {
-    if (ind > filecount || !filecount || !FileInfo)
+    if (ind >= filecount || !filecount || !FileInfo)
         return NULL;
     else
         return FileInfo[ind].FileSize;
@@ -203,7 +192,7 @@ unsigned int DirList::GetFilesize(int ind)
 
 bool DirList::IsDir(int ind)
 {
-    if (ind > filecount || !filecount || !FileInfo)
+    if (ind >= filecount || !filecount || !FileInfo)
         return false;
     else
         return FileInfo[ind].isDir;

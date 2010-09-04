@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# r175
+# r201
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:14+0200\n"
+"POT-Creation-Date: 2010-09-04 17:02+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i erreur(s) survenues. Vérifier MD5.log pour plus de détails."
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -46,10 +46,10 @@ msgid "Active (Bootable):"
 msgstr ""
 
 msgid "Add Link"
-msgstr ""
+msgstr "Ajouter un lien"
 
 msgid "Add to Playlist"
-msgstr "Ajoûter à la liste de lecture"
+msgstr "Ajouter à la liste de lecture"
 
 msgid "Alpha Blending"
 msgstr "Transparence"
@@ -88,7 +88,7 @@ msgid "Back Button"
 msgstr "Bouton Retour"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Bouton Dossier précédent"
 
 msgid "Background Bottom/Left"
 msgstr "Arrière-plan Inférieur/Gauche"
@@ -127,10 +127,10 @@ msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "Le CRC des fichiers extraits ne correspond pas. Mot-de-passe incorrect?"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "Calcul du MD5..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Calcul de la taille totale..."
 
 msgid "Can not open the file."
 msgstr "Ouverture du fichier impossible."
@@ -139,7 +139,7 @@ msgid "Can't browse that path."
 msgstr "Parcours du chemin impossible"
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "Impossible de trouver la bonne partition."
 
 msgid "Can't load file"
 msgstr "Chargement du fichier impossible."
@@ -160,19 +160,19 @@ msgid "Cannot open image"
 msgstr "Impossible d'ouvrir l'image."
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "Impossible de lire sur le lecteur."
 
 msgid "Cannot write to destination."
 msgstr "Ecriture impossible."
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "Impossible d'écrire sur le lecteur"
 
 msgid "Cannot write to the file."
 msgstr "Impossible d'écrire dans le fichier."
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "Impossible d'écrire sur:"
 
 msgid "Caps"
 msgstr "Verr"
@@ -188,7 +188,7 @@ msgstr "Chaînes"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "Vérifié %i fichier(s) dans %i dossier(s).\n"
 
 msgid "Checking directory:"
 msgstr ""
@@ -333,7 +333,7 @@ msgid "Designer:"
 msgstr "Graphiste:"
 
 msgid "Device"
-msgstr ""
+msgstr "Périphérique"
 
 msgid "Directory .."
 msgstr "Dossier .."
@@ -348,10 +348,10 @@ msgid "Disconnect SMB"
 msgstr "Déconnecter SMB"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "Voulez-vous ajouter une URL?"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr "Voulez-vous ajoûter cette sélection à la file d'attente?"
+msgstr "Voulez-vous ajouter cette sélection à la file d'attente?"
 
 msgid "Do you want to boot file now?"
 msgstr "Voulez-vous lancer le fichier maintenant?"
@@ -445,7 +445,7 @@ msgid "Down Button"
 msgstr "Bouton Bas"
 
 msgid "Download Link"
-msgstr ""
+msgstr "Lien de téléchargement"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -462,26 +462,26 @@ msgstr "Editer le libellé du bouton"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "%i erreur(s) rencontrées.\n"
 
 msgid "Enter"
 msgstr "Entrée"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Erreur - %s n'est pas un fichier\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "Error - Imposible d'ouvrir le dossier: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Error - Imposible d'ouvrir le fichier: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Error - Mémoire insuffisante sur: %s\n"
 
 msgid "Error while reading file."
 msgstr "Erreur durant la lecture du fichier."
@@ -520,13 +520,13 @@ msgid "Extracting item(s):"
 msgstr "Extraction:"
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "La FAT32 doit posséder au moins 65536 clusters"
 
 msgid "FTP Client Settings"
 msgstr "Paramètres client FTP"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "Client FTP reconnecté avec succès."
 
 msgid "FTP Path:"
 msgstr "Chemin FTP:"
@@ -568,16 +568,16 @@ msgid "Failed to get the Changelog."
 msgstr "L'obtention du Changelog a échoué."
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "Le chargement de la chaîne a échoué."
 
 msgid "Failed to read file data."
 msgstr "La lecture des données a échoué"
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "L'écriture de l'EBR a échoué."
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "L'écriture du MBR a échoué."
 
 msgid "File Extensions"
 msgstr "Extensions de fichier"
@@ -586,7 +586,7 @@ msgid "File Extensions Assignment"
 msgstr "Association des extensions de fichier"
 
 msgid "File System:"
-msgstr ""
+msgstr "Système de fichiers:"
 
 msgid "File already exists:"
 msgstr "Le fichier existe déjà:"
@@ -641,7 +641,7 @@ msgid "Folder"
 msgstr "Dossier"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Dossier(s)"
 
 msgid "Font Files"
 msgstr "Fichiers de police"
@@ -650,16 +650,16 @@ msgid "Fontpath changed."
 msgstr "Dossier des polices modifié."
 
 msgid "Format"
-msgstr ""
+msgstr "Formater"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "Formater la partition?"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "Formatage de la partition..."
 
 msgid "Formatter"
-msgstr ""
+msgstr "Formateur"
 
 msgid "Free Space:"
 msgstr "Espace libre:"
@@ -722,10 +722,10 @@ msgid "Green"
 msgstr "Vert"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Hashage terminé."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Hashage terminé avec succès."
 
 msgid "Hide System Files/Folders"
 msgstr "Cacher les dossiers et fichiers système"
@@ -761,7 +761,7 @@ msgid "How do you want to proceed?"
 msgstr "Comment voulez-vous procéder?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "Comment ouvrir cet URL?"
 
 msgid "Icon Mode"
 msgstr "Mode Icone"
@@ -806,7 +806,7 @@ msgid "Interlace"
 msgstr "Entrelacer"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "Chaîne Internet"
 
 msgid "JPEG Quality"
 msgstr "Qualité JPEG"
@@ -869,10 +869,10 @@ msgid "Loading image..."
 msgstr "Chargement de l'image..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "Log sauvegardé dans MD5.log"
 
 msgid "Logical"
-msgstr ""
+msgstr "Logique"
 
 msgid "Loop"
 msgstr "Boucle"
@@ -884,10 +884,10 @@ msgid "Low"
 msgstr "Faible"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "Vérification MD5"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "Impossible de créer le fichier MD5.log."
 
 msgid "MPlayerCE Path"
 msgstr "Chemin pour MPlayerCE"
@@ -908,16 +908,16 @@ msgid "Minimize"
 msgstr "Réduire"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "Monté dans:"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "Montage du disque"
 
 msgid "Moving item(s):"
 msgstr "Déplacement:"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Eléments multiples"
 
 msgid "Music Loop Mode"
 msgstr "Lecture en boucle"
@@ -944,7 +944,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "Pas d'URL ou de chemin défini."
 
 msgid "No files found."
 msgstr "Aucun fichier trouvé."
@@ -990,7 +990,7 @@ msgid "Not enough memory."
 msgstr "Mémoire insuffisante."
 
 msgid "Not mounted"
-msgstr ""
+msgstr "Non monté"
 
 msgid "Notice:"
 msgstr "Nota:"
@@ -1008,7 +1008,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "Ouvrir le fichier avec le lecteur PDF ?"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Chaîne Opera non trouvée sur le système."
 
 msgid "Out of memory: too many files!"
 msgstr "Mémoire insuffisante: trop de fichiers!"
@@ -1032,19 +1032,19 @@ msgid "Partition"
 msgstr ""
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "Formateur de partition"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "No de partition."
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "Taille de partition:"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "Type de partition:"
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "La partition est trop petite."
 
 msgid "Passive Mode:"
 msgstr "Mode passif:"
@@ -1071,13 +1071,13 @@ msgid "Play Once"
 msgstr "Lire"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "Veuillez saisir un chemin."
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "Veuillez d'abord saisir le nom de l'URL."
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "Veuillez maintenant saisir l'URL."
 
 msgid "Please enter the password."
 msgstr "Veuillez saisir le mot-de-passe."
@@ -1095,7 +1095,7 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "Appuyez sur Démarrer FTP pour lancer le serveur sur le port"
 
 msgid "Primary"
-msgstr ""
+msgstr "Primaire"
 
 msgid "Process canceled."
 msgstr "Procédure annulée."
@@ -1150,10 +1150,10 @@ msgid "Reconnect SMB"
 msgstr "Reconnecter SMB"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "La reconnexion a échoué. Aucun client connecté."
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "La reconnexion a échoué. Aucun partage connecté."
 
 msgid "Red"
 msgstr "Rouge"
@@ -1162,13 +1162,13 @@ msgid "Reload"
 msgstr "Recharger"
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "Remontage de tous les périphériques."
 
 msgid "Remounting devices..."
 msgstr ""
 
 msgid "Remove Link"
-msgstr ""
+msgstr "Suppression du lien"
 
 msgid "Remove from list"
 msgstr "Reirer de la liste"
@@ -1198,7 +1198,7 @@ msgid "Running a Video could slowdown the process or freeze the app. Do you want
 msgstr "Lancer une vidéo peut ralentir le processus ou ralentir l'application. Voulez-vous continuer?"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "Carte SD"
 
 msgid "SMB Name:"
 msgstr "Nom du SMB:"
@@ -1210,7 +1210,7 @@ msgid "SMB is connecting..."
 msgstr "Connexion SMB..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "SMB reconnecté avec succès."
 
 msgid "Save Alpha"
 msgstr "Conserver Alpha"
@@ -1234,13 +1234,13 @@ msgid "Server was shutdown...\n"
 msgstr "Le serveur a été arrêté"
 
 msgid "Set Active"
-msgstr ""
+msgstr "Activée"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "Activer cette parttion?"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "Activation de la partition."
 
 msgid "Settings"
 msgstr "Paramètres"
@@ -1295,7 +1295,7 @@ msgid "Startup FTP"
 msgstr "Démarrer FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "Partition formatée avec succès."
 
 msgid "Temporary Path"
 msgstr "Chemin temporaire"
@@ -1307,7 +1307,7 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "L'effet sera pris en compte au prochain chargement de musique. Réglage pouvant empêcher la lecture audio. "
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "Le ichier sera téléchargé dans ce chemin."
 
 msgid "The new font could not be loaded."
 msgstr "Le chargement de la nouvelle police a échoué."
@@ -1319,22 +1319,22 @@ msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "Ce lecteur a plus de 2^28 clusters. La partition pourrait être trop petite."
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "Ce lecteur est trop gros"
 
 msgid "This link will be used in Opera or as a Download Link."
-msgstr ""
+msgstr "Ce lien sera utilisé dans Opera ou comme Lien de téléchargement."
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "Ce nom apparaitra dans le Menu de démarrage"
 
 msgid "This option could mess up the pdf view."
 msgstr "Cette option peut empêcher la lecture des fichierds PDF."
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "Toutes les données de cette partition vont être détruites. Voulez-vous continuer?"
 
 msgid "Time left:"
 msgstr ""
@@ -1367,16 +1367,16 @@ msgid "Transfering files:"
 msgstr "Transfert des fichiers:"
 
 msgid "URL List"
-msgstr ""
+msgstr "Liste d'URL"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "Chemin de la liste d'URL"
 
 msgid "URL is empty."
 msgstr "URL vide."
 
 msgid "USB Device"
-msgstr ""
+msgstr "Périphérique USB"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Format inconnu. Voulez-vous ouvrir le fichier avec l'Editeur de Texte"
@@ -1388,7 +1388,7 @@ msgid "Unable to load path."
 msgstr "Chemin introuvable."
 
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 msgid "Unsupported format!"
 msgstr "Format non supporté !"
@@ -1434,7 +1434,7 @@ msgid "Video Files"
 msgstr "Fichiers vidéo"
 
 msgid "WARNING"
-msgstr ""
+msgstr "ATTENTION"
 
 msgid "WARNING:"
 msgstr "ATTENTION:"
@@ -1533,10 +1533,10 @@ msgid "WiiXplorer Default Music"
 msgstr "Musique par défaut de WiiXplorer"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "Calculateur MD5 de WiiXplorer\n"
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "Films de WiiXplorer"
 
 msgid "Yes"
 msgstr "Oui"
@@ -1548,10 +1548,10 @@ msgid "You can not cut into the directory itself."
 msgstr "Impossible de déplacer dans le même dossier."
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "Vous ne pouvez pas déclarer Active une parttion logique."
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "Vous ne pouvez pas déclarer cette partition Active."
 
 msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
@@ -1560,10 +1560,10 @@ msgid "ZXCVBNM<>?"
 msgstr "WXCVBN;<>?"
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "Bouton Zoomer"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "Bouton Dé-zoomer"
 
 msgid "`1234567890-"
 msgstr ""
@@ -1578,7 +1578,7 @@ msgid "for his FTP Server source."
 msgstr "pour les sources de son serveur FTP."
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "pour son formidable outil libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr "azertyuiop[]\\"
@@ -1597,9 +1597,6 @@ msgstr ""
 
 #~ msgid "Unable to load the device."
 #~ msgstr "Périphériques introuvables."
-
-#~ msgid "The whole DevkitPro & libogc staff."
-#~ msgstr "L'équipe DevkitPro & libogc."
 
 #~ msgid "for his great tool LibWiiGui."
 #~ msgstr "pour son formidable outil LibWiiGui."
