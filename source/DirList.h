@@ -29,10 +29,10 @@ class DirList
         bool LoadPath(const char * path, const char *filter = NULL);
         //! Get a filename of the list
         //!\param list index
-        char *GetFilename(int index);
+        char * GetFilename(int index);
         //! Get the a filepath of the list
         //!\param list index
-        char *GetFilepath(int index);
+        char * GetFilepath(int index);
         //! Get the a filesize of the list
         //!\param list index
         unsigned int GetFilesize(int index);
@@ -47,7 +47,7 @@ class DirList
 		int GetFileIndex(const char *filename);
     protected:
         //!Add a list entrie
-bool    AddEntrie(const char * folderpath, const char * filename, u64 filesize, bool isDir);
+        bool AddEntrie(const char * folderpath, const char * filename, u64 filesize, bool isDir);
         //! Clear the list
         void ClearList();
 

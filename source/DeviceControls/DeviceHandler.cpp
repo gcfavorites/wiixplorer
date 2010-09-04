@@ -34,10 +34,10 @@
 #include "network/FTPClient.h"
 #include "DeviceHandler.hpp"
 
-#include "libdisk/fst.h"
-#include "libdisk/gcfst.h"
-#include "libdisk/iso.h"
-#include "libdisk/di2.h"
+#include "DiskOperations/fst.h"
+#include "DiskOperations/gcfst.h"
+#include "DiskOperations/iso.h"
+#include "DiskOperations/di2.h"
 
 DeviceHandler * DeviceHandler::instance = NULL;
 
@@ -96,154 +96,78 @@ void DeviceHandler::UnMountAll()
 
 bool DeviceHandler::Mount(int dev)
 {
-    switch(dev)
-    {
-        case SD:
-            return MountSD();
-        case GCSDA:
-            return MountGCA();
-        case GCSDB:
-            return MountGCB();
-        case USB1:
-        case USB2:
-        case USB3:
-        case USB4:
-        case USB5:
-        case USB6:
-        case USB7:
-        case USB8:
-            return MountUSB(dev-USB1);
-        case SMB1:
-        case SMB2:
-        case SMB3:
-        case SMB4:
-        case SMB5:
-        case SMB6:
-        case SMB7:
-        case SMB8:
-        case SMB9:
-        case SMB10:
-            return ConnectSMBShare(dev-SMB1);
-        case FTP1:
-        case FTP2:
-        case FTP3:
-        case FTP4:
-        case FTP5:
-        case FTP6:
-        case FTP7:
-        case FTP8:
-        case FTP9:
-        case FTP10:
-            return ConnectFTP(dev-FTP1);
-        case DVD:
-            return MountDVD();
-        default:
-            return false;
-    }
+    if(dev == SD)
+        return MountSD();
+
+    else if(dev == GCSDA)
+        return MountGCA();
+
+    else if(dev == GCSDB)
+        return MountGCB();
+
+    else if(dev >= USB1 && dev <= USB8)
+        return MountUSB(dev-USB1);
+
+    else if(dev >= SMB1 && dev <= SMB10)
+        return ConnectSMBShare(dev-SMB1);
+
+    else if(dev >= FTP1 && dev <= FTP10)
+        return ConnectFTP(dev-FTP1);
+
+    else if(dev == DVD)
+        return MountDVD();
 
     return false;
 }
 
 bool DeviceHandler::IsInserted(int dev)
 {
-    switch(dev)
-    {
-        case SD:
-            return SD_Inserted() && sd->IsMounted(0);
-        case GCSDA:
-            return GCA_Inserted() && gca->IsMounted(0);
-        case GCSDB:
-            return GCB_Inserted() && gcb->IsMounted(0);
-        case USB1:
-        case USB2:
-        case USB3:
-        case USB4:
-        case USB5:
-        case USB6:
-        case USB7:
-        case USB8:
-            return USB_Inserted() && usb->IsMounted(dev-USB1);
-        case SMB1:
-        case SMB2:
-        case SMB3:
-        case SMB4:
-        case SMB5:
-        case SMB6:
-        case SMB7:
-        case SMB8:
-        case SMB9:
-        case SMB10:
-            return IsSMB_Mounted(dev-SMB1);
-        case FTP1:
-        case FTP2:
-        case FTP3:
-        case FTP4:
-        case FTP5:
-        case FTP6:
-        case FTP7:
-        case FTP8:
-        case FTP9:
-        case FTP10:
-            return IsFTPConnected(dev-FTP1); //later
-        case DVD:
-            return DVD_Inserted();
-        default:
-            return false;
-    }
+    if(dev == SD)
+        return SD_Inserted() && sd->IsMounted(0);
+
+    else if(dev == GCSDA)
+        return GCA_Inserted() && gca->IsMounted(0);
+
+    else if(dev == GCSDB)
+        return GCB_Inserted() && gcb->IsMounted(0);
+
+    else if(dev >= USB1 && dev <= USB8)
+        return USB_Inserted() && usb->IsMounted(dev-USB1);
+
+    else if(dev >= SMB1 && dev <= SMB10)
+        return IsSMB_Mounted(dev-SMB1);
+
+    else if(dev >= FTP1 && dev <= FTP10)
+        return IsFTPConnected(dev-FTP1); //later
+
+    else if(dev == DVD)
+        return DVD_Inserted();
 
     return false;
 }
 
 void DeviceHandler::UnMount(int dev)
 {
-    switch(dev)
-    {
-        case SD:
-            UnMountSD();
-            return;
-        case GCSDA:
-            UnMountGCA();
-            return;
-        case GCSDB:
-            UnMountGCB();
-            return;
-        case USB1:
-        case USB2:
-        case USB3:
-        case USB4:
-        case USB5:
-        case USB6:
-        case USB7:
-        case USB8:
-            UnMountUSB(dev-USB1);
-            return;
-        case SMB1:
-        case SMB2:
-        case SMB3:
-        case SMB4:
-        case SMB5:
-        case SMB6:
-        case SMB7:
-        case SMB8:
-        case SMB9:
-        case SMB10:
-            CloseSMBShare(dev-SMB1);
-            return;
-        case FTP1:
-        case FTP2:
-        case FTP3:
-        case FTP4:
-        case FTP5:
-        case FTP6:
-        case FTP7:
-        case FTP8:
-        case FTP9:
-        case FTP10:
-            CloseFTP(dev-FTP1);
-            return;
-        default:
-            return;
-    }
+    if(dev == SD)
+        UnMountSD();
+
+    else if(dev == GCSDA)
+        UnMountGCA();
+
+    else if(dev == GCSDB)
+        UnMountGCB();
+
+    else if(dev >= USB1 && dev <= USB8)
+        UnMountUSB(dev-USB1);
+
+    else if(dev >= SMB1 && dev <= SMB10)
+        CloseSMBShare(dev-SMB1);
+
+    else if(dev >= FTP1 && dev <= FTP10)
+        CloseFTP(dev-FTP1);
+
+    else if(dev == DVD)
+        UnMountDVD();
 }
 
 bool DeviceHandler::MountSD()

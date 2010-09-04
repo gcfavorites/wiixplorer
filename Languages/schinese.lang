@@ -47,7 +47,7 @@ msgid "Action cancelled."
 msgstr "动作取消。"
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "激活（可运行）："
 
 msgid "Add Link"
 msgstr "添加链接"
@@ -143,7 +143,7 @@ msgid "Can't browse that path."
 msgstr "无法找到路径。"
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "无法找到正确的分区。"
 
 msgid "Can't load file"
 msgstr "无法读取文件"
@@ -164,13 +164,13 @@ msgid "Cannot open image"
 msgstr "无法打开图片程序"
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "无法从分区读取数据。"
 
 msgid "Cannot write to destination."
 msgstr "目的地址无法写入"
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "无法向分区写入数据"
 
 msgid "Cannot write to the file."
 msgstr "无法写入文件。"
@@ -341,7 +341,7 @@ msgid "Designer:"
 msgstr "设计者："
 
 msgid "Device"
-msgstr ""
+msgstr "设备"
 
 msgid "Directory .."
 msgstr "目录.."
@@ -531,7 +531,7 @@ msgid "Extracting item(s):"
 msgstr "提取项目中："
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "FAT32分区必须至少65536个簇"
 
 msgid "FTP Client Settings"
 msgstr "FTP客户端设置"
@@ -585,10 +585,10 @@ msgid "Failed to read file data."
 msgstr "读取文件数据失败。"
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "写EBR失败。"
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "写MBR失败。"
 
 msgid "File Extensions"
 msgstr "文件扩展"
@@ -597,7 +597,7 @@ msgid "File Extensions Assignment"
 msgstr "文件扩展排列"
 
 msgid "File System:"
-msgstr ""
+msgstr "文件系统："
 
 msgid "File already exists:"
 msgstr "文件已存在："
@@ -661,16 +661,16 @@ msgid "Fontpath changed."
 msgstr "字体路径已更改"
 
 msgid "Format"
-msgstr ""
+msgstr "格式化"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "格式化分区？"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "正在格式化分区。。。"
 
 msgid "Formatter"
-msgstr ""
+msgstr "格式化程序"
 
 msgid "Free Space:"
 msgstr "空余空间："
@@ -715,10 +715,10 @@ msgid "GC PAD TRIGGER Z"
 msgstr "GC手柄Z键"
 
 msgid "GC-SD A"
-msgstr ""
+msgstr "GC_SD A键"
 
 msgid "GC-SD B"
-msgstr ""
+msgstr "GC-SD B键"
 
 msgid "GD2 Compression"
 msgstr "GD2压缩"
@@ -883,7 +883,7 @@ msgid "Log was saved in MD5.log"
 msgstr "日志保存在md5.log文件中"
 
 msgid "Logical"
-msgstr ""
+msgstr "逻辑分区"
 
 msgid "Loop"
 msgstr "循环"
@@ -919,7 +919,7 @@ msgid "Minimize"
 msgstr "最小化"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "以挂载成："
 
 msgid "Mounting disc"
 msgstr "正在挂载光盘"
@@ -1001,7 +1001,7 @@ msgid "Not enough memory."
 msgstr "内存不足"
 
 msgid "Not mounted"
-msgstr ""
+msgstr "没挂载"
 
 msgid "Notice:"
 msgstr "注意："
@@ -1040,22 +1040,22 @@ msgid "Parse Directory"
 msgstr "解析目录"
 
 msgid "Partition"
-msgstr ""
+msgstr "分区"
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "分区格式化程序"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "分区NR。"
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "分区大小："
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "分区类型："
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "分区过小："
 
 msgid "Passive Mode:"
 msgstr "被动模式"
@@ -1106,7 +1106,7 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
 
 msgid "Primary"
-msgstr ""
+msgstr "主"
 
 msgid "Process canceled."
 msgstr "进程已取消"
@@ -1173,10 +1173,10 @@ msgid "Reload"
 msgstr "重新运行"
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "正在重新挂载所有设备。"
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "重新挂载设备中..."
 
 msgid "Remove Link"
 msgstr "移除链接"
@@ -1209,7 +1209,7 @@ msgid "Running a Video could slowdown the process or freeze the app. Do you want
 msgstr "正在播放的视频将会降低运行速度或使此程序死机。是否要继续？"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "SD卡"
 
 msgid "SMB Name:"
 msgstr "网络共享名"
@@ -1245,13 +1245,13 @@ msgid "Server was shutdown...\n"
 msgstr "服务已关闭...\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "设置活动"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "是否设置此分区为活动分区？"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "正在设置活动分区."
 
 msgid "Settings"
 msgstr "设置"
@@ -1306,7 +1306,7 @@ msgid "Startup FTP"
 msgstr "开启FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "格式化分区成功。"
 
 msgid "Temporary Path"
 msgstr "临时路径"
@@ -1330,10 +1330,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "此程序是由Devkitpro和libogc开发。"
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "此分区超过2的28次方的簇。分区可能过小。"
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "分区过大。"
 
 msgid "This link will be used in Opera or as a Download Link."
 msgstr "此链接将会在Opera中使用或者作为下载连接。"
@@ -1345,7 +1345,7 @@ msgid "This option could mess up the pdf view."
 msgstr "此选项会造成pdf查看混乱。"
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "这样会删除所有此分区上的数据。是否继续？"
 
 msgid "Time left:"
 msgstr "时间剩余："
@@ -1387,7 +1387,7 @@ msgid "URL is empty."
 msgstr "URL是空"
 
 msgid "USB Device"
-msgstr ""
+msgstr "USB设备"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "无法识别格式。是否用文本编辑器打开此文件？"
@@ -1399,7 +1399,7 @@ msgid "Unable to load path."
 msgstr "不能找到路径。"
 
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
@@ -1445,7 +1445,7 @@ msgid "Video Files"
 msgstr "视频文件"
 
 msgid "WARNING"
-msgstr ""
+msgstr "警告"
 
 msgid "WARNING:"
 msgstr "警告："
@@ -1559,10 +1559,10 @@ msgid "You can not cut into the directory itself."
 msgstr "无法在此目录中删除自己"
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "你不能设置逻辑分区为活动分区"
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "此分区不能设置为活动分区。"
 
 msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："

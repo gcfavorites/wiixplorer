@@ -134,12 +134,13 @@ void Settings::DefaultColors()
 
 bool Settings::Save()
 {
-    char filepath[100];
+    if(!FindConfig())
+        return false;
+
     char filedest[100];
 	char password[100];
-
-    snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
     snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
+
     char * tmppath = strrchr(filedest, '/');
     if(tmppath)
     {
@@ -148,21 +149,9 @@ bool Settings::Save()
     }
 
     if(!CreateSubfolder(filedest))
-    {
-        //!Try the other device and standard path
-        if(strncmp(BootDevice, "usb", 3) == 0)
-            strcpy(BootDevice, "sd:/");
-        else
-            strcpy(BootDevice, "usb1:/");
+        return false;
 
-        snprintf(filepath, sizeof(filepath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
-        snprintf(filedest, sizeof(filedest), "%s%s", BootDevice, CONFIGPATH);
-
-        if(!CreateSubfolder(filedest))
-            return false;
-    }
-
-    file = fopen(filepath, "w");
+    file = fopen(ConfigPath, "w");
     if(!file)
     {
         fclose(file);
@@ -299,6 +288,7 @@ bool Settings::FindConfig()
 
     if(!found)
     {
+        //! No existing config so try to find a place where we can write it too
         for(int i = SD; i <= USB8; i++)
         {
             if(!found)

@@ -28,7 +28,7 @@
 #include <ogcsys.h>
 #include <string.h>
 #include "network/networkops.h"
-#include "libftp/ftp_devoptab.h"
+#include "FTPOperations/ftp_devoptab.h"
 #include "main.h"
 
 static bool ftpReady = false;

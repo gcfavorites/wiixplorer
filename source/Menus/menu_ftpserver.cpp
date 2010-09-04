@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include <unistd.h>
-#include "libftp/FTPServerMenu.h"
+#include "FTPOperations/FTPServerMenu.h"
 #include "Controls/MainWindow.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"

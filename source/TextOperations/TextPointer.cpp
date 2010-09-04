@@ -130,7 +130,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
 
     lineLength = wcslen(line)+1;
     wchar_t temp[lineLength];
-    memset(temp, 0, lineLength*sizeof(wchar_t));
+    memset(temp, 0, sizeof(temp));
 
     for(int i = 0; i < lineLength; i++)
     {

@@ -31,12 +31,12 @@
 #include <ogcsys.h>
 #include <ogc/machine/processor.h>
 
+#include "FTPOperations/FTPServer.h"
 #include "http.h"
 #include "networkops.h"
 #include "netreceiver.h"
 #include "update.h"
 #include "main.h"
-#include "libftp/FTPServer.h"
 
 static NetReceiver Receiver;
 static bool networkinit = false;

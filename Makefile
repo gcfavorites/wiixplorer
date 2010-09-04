@@ -36,9 +36,9 @@ SOURCES		:=	source \
 				source/TextOperations \
 				source/Language \
 				source/mload \
-				source/libdisk \
-				source/libftp \
-				source/libftp/ftpii \
+				source/DiskOperations \
+				source/FTPOperations \
+				source/FTPOperations/ftpii \
 				source/ArchiveOperations \
 				source/Launcher
 INCLUDES	:=	source
@@ -50,7 +50,7 @@ DATA		:=	data/images \
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-ggdb -O5 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
+CFLAGS		=	-g -O4 -Wall -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size

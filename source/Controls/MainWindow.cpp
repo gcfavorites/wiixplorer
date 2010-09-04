@@ -42,7 +42,7 @@
 #include "Menus/Settings/menu_settings.h"
 #include "Language/LanguageBrowser.h"
 #include "network/networkops.h"
-#include "libftp/FTPServer.h"
+#include "FTPOperations/FTPServer.h"
 #include "FileOperations/filebrowser.h"
 #include "Controls/IOHandler.hpp"
 #include "filelist.h"

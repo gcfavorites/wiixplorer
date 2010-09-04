@@ -43,7 +43,7 @@ msgid "Action cancelled."
 msgstr "キャンセルしました"
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "アクティブ(起動可能):"
 
 msgid "Add Link"
 msgstr "リンクを追加"
@@ -139,7 +139,7 @@ msgid "Can't browse that path."
 msgstr "パスを開けませんでした"
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "右の領域が見つかりません"
 
 msgid "Can't load file"
 msgstr "ファイルを読めません"
@@ -160,13 +160,13 @@ msgid "Cannot open image"
 msgstr "画像を開けません"
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "ドライブから読み込めません"
 
 msgid "Cannot write to destination."
 msgstr "書き込めません"
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "ドライブに書き込めません"
 
 msgid "Cannot write to the file."
 msgstr "ファイルに書き込めませんでした"
@@ -333,7 +333,7 @@ msgid "Designer:"
 msgstr "デザイナー:"
 
 msgid "Device"
-msgstr ""
+msgstr "デバイス"
 
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
@@ -445,7 +445,7 @@ msgid "Down Button"
 msgstr "下"
 
 msgid "Download Link"
-msgstr "ダウンロードリンク"
+msgstr "ダウンロードする"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -520,7 +520,7 @@ msgid "Extracting item(s):"
 msgstr "解凍中"
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "FAT32は最低でも65536のクラスターがなければいけません"
 
 msgid "FTP Client Settings"
 msgstr "FTPクライアント設定"
@@ -574,10 +574,10 @@ msgid "Failed to read file data."
 msgstr "データの読み込みに失敗しました"
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "EBRの書き込みに失敗しました"
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "MBRの書き込みに失敗しました"
 
 msgid "File Extensions"
 msgstr "拡張子"
@@ -586,7 +586,7 @@ msgid "File Extensions Assignment"
 msgstr "拡張子の割り当て"
 
 msgid "File System:"
-msgstr ""
+msgstr "ファイルシステム:"
 
 msgid "File already exists:"
 msgstr "ファイルが既に存在します"
@@ -650,16 +650,16 @@ msgid "Fontpath changed."
 msgstr "フォントのパスを変更しました"
 
 msgid "Format"
-msgstr ""
+msgstr "初期化"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "領域を初期化しますか?"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "領域を初期化中です…"
 
 msgid "Formatter"
-msgstr ""
+msgstr "初期化ツール"
 
 msgid "Free Space:"
 msgstr "空き領域:"
@@ -704,10 +704,10 @@ msgid "GC PAD TRIGGER Z"
 msgstr "GCコンのZトリガー"
 
 msgid "GC-SD A"
-msgstr ""
+msgstr "GCのSD A"
 
 msgid "GC-SD B"
-msgstr ""
+msgstr "GCのSD B"
 
 msgid "GD2 Compression"
 msgstr "GD2圧縮"
@@ -806,7 +806,7 @@ msgid "Interlace"
 msgstr "インターレース"
 
 msgid "Internet Channel"
-msgstr "インターネットチャンネル"
+msgstr "ページを見る"
 
 msgid "JPEG Quality"
 msgstr "JPEGの品質"
@@ -821,7 +821,7 @@ msgid "Keyboard Shift Button"
 msgstr "キーボードのシフト"
 
 msgid "Lang."
-msgstr "英語"
+msgstr "切替"
 
 msgid "Language"
 msgstr "言語"
@@ -872,7 +872,7 @@ msgid "Log was saved in MD5.log"
 msgstr "MD5.logに保存されました"
 
 msgid "Logical"
-msgstr ""
+msgstr "倫理的"
 
 msgid "Loop"
 msgstr "ループ"
@@ -908,7 +908,7 @@ msgid "Minimize"
 msgstr "最小化"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "マウント中:"
 
 msgid "Mounting disc"
 msgstr "マウント中です"
@@ -990,7 +990,7 @@ msgid "Not enough memory."
 msgstr "メモリ不足です"
 
 msgid "Not mounted"
-msgstr ""
+msgstr "マウントしていません"
 
 msgid "Notice:"
 msgstr "お知らせ:"
@@ -1029,22 +1029,22 @@ msgid "Parse Directory"
 msgstr "フォルダを追加"
 
 msgid "Partition"
-msgstr ""
+msgstr "領域"
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "領域初期化ツール"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "領域番号:"
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "領域サイズ:"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "領域タイプ:"
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "領域が小さすぎます"
 
 msgid "Passive Mode:"
 msgstr "受信モード:"
@@ -1095,7 +1095,7 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "サーバーを開始するためFTPを開始してください ポート:"
 
 msgid "Primary"
-msgstr ""
+msgstr "先頭"
 
 msgid "Process canceled."
 msgstr "キャンセルしました"
@@ -1162,10 +1162,10 @@ msgid "Reload"
 msgstr "再読み込み"
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "全てのデバイスを再マウントしています"
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "再マウント中です…"
 
 msgid "Remove Link"
 msgstr "リンクを削除"
@@ -1198,7 +1198,7 @@ msgid "Running a Video could slowdown the process or freeze the app. Do you want
 msgstr "映像の再生はアプリに負荷がかかりますが続行しますか?"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "SDカード"
 
 msgid "SMB Name:"
 msgstr "SMB名"
@@ -1234,13 +1234,13 @@ msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "アクティブにする"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "領域をアクティブにしますか?"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "アクティブにしています"
 
 msgid "Settings"
 msgstr "設定"
@@ -1295,7 +1295,7 @@ msgid "Startup FTP"
 msgstr "FTPを開始"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "領域を初期化しました"
 
 msgid "Temporary Path"
 msgstr "一時フォルダのパス"
@@ -1319,10 +1319,10 @@ msgid "The whole devkitPro & libogc staff."
 msgstr "devkitPro&libogcの制作者の方々"
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "このドライブは2^28以上のクラスタを持っています。領域が小さすぎです。"
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "このドライブは大きすぎです"
 
 msgid "This link will be used in Opera or as a Download Link."
 msgstr "このリンクはOperaやダウンロードで使われます"
@@ -1334,7 +1334,7 @@ msgid "This option could mess up the pdf view."
 msgstr "PDFの表示が崩れる場合があります"
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "この領域のデータを全て削除します。本当にしますか?"
 
 msgid "Time left:"
 msgstr "残り:"
@@ -1376,7 +1376,7 @@ msgid "URL is empty."
 msgstr "URLが空です"
 
 msgid "USB Device"
-msgstr ""
+msgstr "USBデバイス"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "テキストエディタで開きますか?"
@@ -1388,7 +1388,7 @@ msgid "Unable to load path."
 msgstr "パスを読み込めませんでした"
 
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 msgid "Unsupported format!"
 msgstr "対応していない形式です!"
@@ -1434,7 +1434,7 @@ msgid "Video Files"
 msgstr "映像ファイル"
 
 msgid "WARNING"
-msgstr ""
+msgstr "警告"
 
 msgid "WARNING:"
 msgstr "警告:"
@@ -1548,10 +1548,10 @@ msgid "You can not cut into the directory itself."
 msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "倫理的な領域はアクティブにできません"
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "この領域をアクティブにできません"
 
 msgid "You cant use this operation on:"
 msgstr "この操作は実行できません"

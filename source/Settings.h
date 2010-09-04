@@ -34,7 +34,7 @@
 #include <gctypes.h>
 #include "Controls/AppControls.hpp"
 #include "FileStartUp/FileExtensions.h"
-#include "libftp/ftp_devoptab.h"
+#include "FTPOperations/ftp_devoptab.h"
 
 #define MAXSMBUSERS         10
 #define MAXFTPUSERS         MAX_FTP_MOUNTED
