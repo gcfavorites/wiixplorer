@@ -1,29 +1,28 @@
-/*
- *      loadMii loader v0.3
- *      main.c
- *      http://code.google.com/p/loadmii
+ /****************************************************************************
+ * Copyright 2009 The Lemon Man and thanks to luccax, Wiipower, Aurelio and crediar
+ * Copyright 2010 Dimok
  *
- *      Copyright 2009 The Lemon Man
- *      Thanks to luccax, Wiipower, Aurelio and crediar
- *      usbGecko powered by Nuke
- *      GX Graphics & mem2 load added by Dimok (thanks to Tantric)
+ * Original forwarder source by
  *
- *      This program is free software; you can redistribute it and/or modify
- *      it under the terms of the GNU General Public License as published by
- *      the Free Software Foundation; either version 2 of the License, or
- *      (at your option) any later version.
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any
+ * damages arising from the use of this software.
  *
- *      This program is distributed in the hope that it will be useful,
- *      but WITHOUT ANY WARRANTY; without even the implied warranty of
- *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *      GNU General Public License for more details.
+ * Permission is granted to anyone to use this software for any
+ * purpose, including commercial applications, and to alter it and
+ * redistribute it freely, subject to the following restrictions:
  *
- *      You should have received a copy of the GNU General Public License
- *      along with this program; if not, write to the Free Software
- *      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- *      MA 02110-1301, USA.
- */
-
+ * 1. The origin of this software must not be misrepresented; you
+ * must not claim that you wrote the original software. If you use
+ * this software in a product, an acknowledgment in the product
+ * documentation would be appreciated but is not required.
+ *
+ * 2. Altered source versions must be plainly marked as such, and
+ * must not be misrepresented as being the original software.
+ *
+ * 3. This notice may not be removed or altered from any source
+ * distribution.
+ ***************************************************************************/
 #include <gccore.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -35,8 +34,7 @@
 #include "background_image.h"
 #include "dolloader.h"
 #include "filelist.h"
-#include "cfg.h"
-#include "fatmounter.h"
+#include "devicemounter.h"
 
 void __exception_setreload(int t);
 
@@ -49,97 +47,44 @@ int main(int argc, char **argv)
 	u32 exeEntryPointAddress = 0;
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
-
-    IOS_ReloadIOS(58);
+	/* check devices */
+	SDCard_Init();
+	USBDevice_Init();
 
 	/* int videomod */
 	InitVideo();
 	/* get imagedata */
 	u8 * imgdata = GetImageData();
 	fadein(imgdata);
-	/* check devices */
-	SDCard_Init();
-	USBDevice_Init();
 
-	char cfgpath[256];
-	bool result = false;
+    char filepath[200];
+    int dev;
 
-	sprintf(cfgpath, "sd:/config/WiiXplorer/WiiXplorer.cfg");
-	result = cfg_parsefile(cfgpath, &cfg_set);
-	if(!result) //no cfg-File on SD: try USB:
+	for(dev  = SD; dev < MAXDEVICES; ++dev)
 	{
-		sprintf(cfgpath, "usb:/config/WiiXplorer/WiiXplorer.cfg");
-		result = cfg_parsefile(cfgpath, &cfg_set);
+		if (exeFile == NULL)
+		{
+			sprintf(filepath, "%s:/apps/wiixplorer/boot.dol", DeviceName[dev]);
+			exeFile = fopen(filepath ,"rb");
+		}
+		if (exeFile == NULL)
+		{
+			sprintf(filepath, "%s:/apps/wiiexplorer/boot.dol", DeviceName[dev]);
+			exeFile = fopen(filepath ,"rb");
+		}
 	}
 
-    if(result)
+    // if nothing found exiting
+    if (exeFile == NULL)
     {
-        sprintf(cfgpath, "%sboot.dol", update_path);
-		/* Open dol File and check exist */
-        exeFile = fopen (cfgpath, "rb");
-        if (exeFile==NULL)
-        {
-            sprintf(cfgpath, "%sboot.elf", update_path);
-            exeFile = fopen (cfgpath,"rb");
-        }
-        if (exeFile==NULL)
-			result = false;
-        else
-        result = true;
+        fadeout(imgdata);
+        fclose (exeFile);
+        SDCard_deInit();
+        USBDevice_deInit();
+        StopGX();
+        free(imgdata);
+        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
     }
-
-	if(!result) // non cfg-File loaded or update_path not set
-	{
-		/* Open dol File and check exist */
-		sprintf(cfgpath, "sd:/apps/WiiExplorer/boot.dol");
-		exeFile = fopen (cfgpath ,"rb");
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "sd:/apps/WiiExplorer/boot.elf");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "usb:/apps/WiiExplorer/boot.dol");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "usb:/apps/WiiExplorer/boot.elf");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "sd:/apps/WiiXplorer/boot.dol");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "sd:/apps/WiiXplorer/boot.elf");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "usb:/apps/WiiXplorer/boot.dol");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		if (exeFile==NULL)
-		{
-			sprintf(cfgpath, "usb:/apps/WiiXplorer/boot.elf");
-			exeFile = fopen (cfgpath ,"rb");
-		}
-		// if nothing found exiting
-		if (exeFile==NULL)
-		{
-            fadeout(imgdata);
-            fclose (exeFile);
-            SDCard_deInit();
-            USBDevice_deInit();
-            StopGX();
-            free(imgdata);
-			SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-		}
-	}
 
 	fseek (exeFile, 0, SEEK_END);
 	exeSize = ftell(exeFile);
@@ -161,10 +106,10 @@ int main(int argc, char **argv)
 	struct __argv args;
 	bzero(&args, sizeof(args));
 	args.argvMagic = ARGV_MAGIC;
-	args.length = strlen(cfgpath) + 2;
+	args.length = strlen(filepath) + 2;
 	args.commandLine = (char*)malloc(args.length);
 	if (!args.commandLine) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-	strcpy(args.commandLine, cfgpath);
+	strcpy(args.commandLine, filepath);
 	args.commandLine[args.length - 1] = '\0';
 	args.argc = 1;
 	args.argv = &args.commandLine;
@@ -195,9 +140,7 @@ int main(int argc, char **argv)
 	free(imgdata);
 
 	if (exeEntryPointAddress == 0)
-	{
 		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-	}
 
 	exeEntryPoint = (entrypoint) exeEntryPointAddress;
 	/* cleaning up and load dol */
