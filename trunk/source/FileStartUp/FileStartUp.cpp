@@ -167,7 +167,6 @@ int FileStartUp(const char *filepath)
         {
             snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", filepath);
             MainWindow::Instance()->HaltGui();
-            ClearFontData();
             bool result = SetupDefaultFont(Settings.CustomFontPath);
             MainWindow::Instance()->ResumeGui();
             if(result)

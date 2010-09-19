@@ -28,6 +28,7 @@
 
 int MenuSettings();
 int MenuExplorerSettings();
+int MenuGeneralSettings();
 int MenuSoundSettings();
 int MenuImageSettings();
 int MenuBootSettings();

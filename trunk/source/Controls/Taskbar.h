@@ -77,9 +77,9 @@ class Taskbar : public GuiWindow
 
 		int CheckHomeButton();
 		int CheckStartMenu();
-		void CheckAppsMenu();
-		void CheckChannelsMenu();
-		void OpenLinksMenu();
+		void CheckAppsMenu(PopUpMenu *Parent);
+		void CheckChannelsMenu(PopUpMenu *Parent);
+		void OpenLinksMenu(PopUpMenu *Parent);
 
 		static Taskbar *instance;
 

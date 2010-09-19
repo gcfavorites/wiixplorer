@@ -3,8 +3,8 @@
   <name>WiiXplorer</name>
   <coder>Dimok</coder>
   <contributors>r-win/dude</contributors>
-  <version>r202</version>
-  <release_date>201009041503</release_date>
+  <version>r204</version>
+  <release_date>201009191209</release_date>
   <no_ios_reload/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
@@ -36,7 +36,7 @@ Features:
  * Properties of archive files
  * Textediting support
  * PDF Viewing support
- * FAT32 Formating support
+ * Format SD/USB primary/logical partitions to FAT32
  * Integrated FTP Server and FTP Client
  * MD5 Calculator and Logger
  * Auto-Update feature

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:14+0200\n"
+"POT-Creation-Date: 2010-09-19 14:06+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -717,6 +717,9 @@ msgstr ""
 msgid "GD2 Compression"
 msgstr "Συμπίεση GD2"
 
+msgid "General Settings"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Παίρνω το ιστορικό..."
 
@@ -1262,6 +1265,9 @@ msgstr ""
 
 msgid "Show Changelog"
 msgstr "Εμφάνιση ιστορικόύ"
+
+msgid "Show Partition Formatter"
+msgstr ""
 
 msgid "Shutdown"
 msgstr "Κλείσιμο"

@@ -173,7 +173,6 @@ int MenuPathSetup()
                     {
                         snprintf(Settings.CustomFontPath, sizeof(Settings.CustomFontPath), "%s", entered);
                         MainWindow::Instance()->HaltGui();
-                        ClearFontData();
                         bool result = SetupDefaultFont(Settings.CustomFontPath);
                         MainWindow::Instance()->ResumeGui();
                         if(result)

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:14+0200\n"
+"POT-Creation-Date: 2010-09-19 14:06+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -713,6 +713,9 @@ msgstr ""
 msgid "GD2 Compression"
 msgstr ""
 
+msgid "General Settings"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "Получение изменений..."
 
@@ -1258,6 +1261,9 @@ msgstr ""
 
 msgid "Show Changelog"
 msgstr "Изменения"
+
+msgid "Show Partition Formatter"
+msgstr ""
 
 msgid "Shutdown"
 msgstr "Выключить"
