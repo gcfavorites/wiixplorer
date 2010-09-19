@@ -78,6 +78,7 @@ void Settings::SetDefault()
     CopyThreadBackPrio = 30;
     Rumble = 1;
     HideSystemFiles = 1;
+    ShowFormatter = 0;
     PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
@@ -195,6 +196,7 @@ bool Settings::Save()
 	fprintf(file, "CopyThreadBackPrio = %d\n", CopyThreadBackPrio);
 	fprintf(file, "Rumble = %d\n", Rumble);
 	fprintf(file, "HideSystemFiles = %d\n", HideSystemFiles);
+	fprintf(file, "ShowFormatter = %d\n", ShowFormatter);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -621,6 +623,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "HideSystemFiles") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			HideSystemFiles = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "ShowFormatter") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			ShowFormatter = i;
 		}
 		return true;
 	}

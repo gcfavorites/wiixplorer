@@ -29,7 +29,6 @@
 FreeTypeGX * fontSystem = NULL;
 static FT_Byte * MainFont = (FT_Byte *) font_ttf;
 static u32 MainFontSize = font_ttf_size;
-static bool Allocated = false;
 
 extern "C"
 {
@@ -37,12 +36,27 @@ extern "C"
     void SetupPDFFallbackFont(const u8 * font, int size);
 }
 
+void ClearFontData()
+{
+    if(fontSystem)
+        delete fontSystem;
+    fontSystem = NULL;
+
+	if(MainFont != (FT_Byte *) font_ttf)
+    {
+        if(MainFont != NULL)
+            delete [] MainFont;
+        MainFont = (FT_Byte *) font_ttf;
+        MainFontSize = font_ttf_size;
+    }
+}
 
 bool SetupDefaultFont(const char *path)
 {
     bool result = false;
-
     FILE *pfile = NULL;
+
+    ClearFontData();
 
     if(path)
         pfile = fopen(path, "rb");
@@ -56,42 +70,20 @@ bool SetupDefaultFont(const char *path)
         MainFont = new (std::nothrow) FT_Byte[MainFontSize];
         if(!MainFont)
         {
-            fclose(pfile);
             MainFont = (FT_Byte *) font_ttf;
             MainFontSize = font_ttf_size;
-            Allocated = false;
         }
         else
         {
             fread(MainFont, 1, MainFontSize, pfile);
-            fclose(pfile);
-
             result = true;
-            Allocated = true;
         }
+        fclose(pfile);
     }
 
     SetupPDFFallbackFont(MainFont, MainFontSize);
 
-    if(fontSystem)
-        delete fontSystem;
-
     fontSystem = new FreeTypeGX(MainFont, MainFontSize);
 
     return result;
-}
-
-void ClearFontData()
-{
-    if(fontSystem)
-        delete fontSystem;
-    fontSystem = NULL;
-
-	if(MainFont && Allocated)
-    {
-        delete [] MainFont;
-        MainFont = (FT_Byte *) font_ttf;
-        MainFontSize = font_ttf_size;
-    }
-    Allocated = false;
 }

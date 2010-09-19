@@ -44,15 +44,6 @@ DeviceHandler * DeviceHandler::instance = NULL;
 DeviceHandler::~DeviceHandler()
 {
     UnMountAll();
-
-    if(sd)
-        delete sd;
-    if(gca)
-        delete gca;
-    if(gcb)
-        delete gca;
-    if(usb)
-        delete usb;
 }
 
 DeviceHandler * DeviceHandler::Instance()
@@ -77,7 +68,7 @@ bool DeviceHandler::MountAll()
 {
     bool result = false;
 
-    for(u32 i = SD; i <= FTP10; i++)
+    for(u32 i = SD; i <= DVD; i++)
     {
         if(Mount(i))
             result = true;
@@ -88,10 +79,22 @@ bool DeviceHandler::MountAll()
 
 void DeviceHandler::UnMountAll()
 {
-    for(u32 i = SD; i <= FTP10; i++)
-    {
+    for(u32 i = SD; i <= DVD; i++)
         UnMount(i);
-    }
+
+    if(sd)
+        delete sd;
+    if(gca)
+        delete gca;
+    if(gcb)
+        delete gca;
+    if(usb)
+        delete usb;
+
+    sd = NULL;
+    gca = NULL;
+    gcb = NULL;
+    usb = NULL;
 }
 
 bool DeviceHandler::Mount(int dev)
@@ -277,6 +280,9 @@ void DeviceHandler::UnMountAllUSB()
 
 bool DeviceHandler::MountDVD()
 {
+    if(!DVD_Inserted())
+        return false;
+
     char read_buffer[2048];
     if(DI2_ReadDVD(read_buffer, 1, 0) == 0)
         return true;

@@ -286,20 +286,17 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, 105);
-
-	if (!StartMenu)
-		return menu;
-
+	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, Settings.ShowFormatter ? 105 : 135);
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
 	StartMenu->AddItem(tr("URL List"), opera_icon_png, opera_icon_png_size, true);
-	StartMenu->AddItem(tr("Formatter"), usbstorage_png, usbstorage_png_size);
+	if(Settings.ShowFormatter)
+        StartMenu->AddItem(tr("Formatter"), usbstorage_png, usbstorage_png_size);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
 	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
 	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
-	StartMenu->AddItem(tr("Restart"), system_restart_png, system_restart_png_size);
-	StartMenu->AddItem(tr("Exit"), system_log_out_png, system_log_out_png_size);
+    StartMenu->AddItem(tr("Restart"), system_restart_png, system_restart_png_size);
+    StartMenu->AddItem(tr("Exit"), system_log_out_png, system_log_out_png_size);
 
 	StartMenu->Finish();
 
@@ -321,19 +318,22 @@ int Taskbar::CheckStartMenu()
 
 		choice = StartMenu->GetChoice();
 
+		if(choice >= FORMATTER && !Settings.ShowFormatter)
+            choice++;
+
 		if (choice == APPS)
 		{
-			CheckAppsMenu();
+			CheckAppsMenu(StartMenu);
 			choice = -1;
 		}
 		else if (choice == CHANNELS)
 		{
-			CheckChannelsMenu();
+			CheckChannelsMenu(StartMenu);
 			choice = -1;
 		}
 		else if (choice == URLS)
 		{
-			OpenLinksMenu();
+			OpenLinksMenu(StartMenu);
 			choice = -1;
 		}
 	}
@@ -397,10 +397,10 @@ int Taskbar::CheckStartMenu()
 	return menu;
 }
 
-void Taskbar::CheckAppsMenu()
+void Taskbar::CheckAppsMenu(PopUpMenu *Parent)
 {
 	int choice = -1;
-	PopUpMenu *AppsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 110);
+	PopUpMenu *AppsMenu = new PopUpMenu(Parent->GetWidth()+screenwidth/2-width/2-15, Parent->GetTop()+5);
 
     Applications Apps(Settings.AppPath);
 	int count = Apps.Count();
@@ -435,10 +435,10 @@ void Taskbar::CheckAppsMenu()
 	}
 }
 
-void Taskbar::CheckChannelsMenu()
+void Taskbar::CheckChannelsMenu(PopUpMenu *Parent)
 {
 	int choice = -1;
-	PopUpMenu *ChannelsMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 140);
+	PopUpMenu *ChannelsMenu = new PopUpMenu(Parent->GetWidth()+screenwidth/2-width/2-15, Parent->GetTop()+35);
 
 	int count = Channels::Instance()->Count();
 
@@ -472,10 +472,10 @@ void Taskbar::CheckChannelsMenu()
 	}
 }
 
-void Taskbar::OpenLinksMenu()
+void Taskbar::OpenLinksMenu(PopUpMenu *Parent)
 {
 	int choice = -1;
-	PopUpMenu * LinksMenu = new PopUpMenu(menuWidth+screenwidth/2-width/2-15, 170);
+	PopUpMenu * LinksMenu = new PopUpMenu(Parent->GetWidth()+screenwidth/2-width/2-15, Parent->GetTop()+65);
 
     OperaBooter Booter(Settings.LinkListPath);
 

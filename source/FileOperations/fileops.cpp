@@ -413,11 +413,6 @@ int CopyFile(const char * src, const char * dest)
 
         if(replacenone || choice == 2)
             return 1;
-
-        if(strstr(dest, "ntfs") != NULL)
-        {
-            RemoveFile(dest);
-        }
     }
 
     u64 sizesrc = FileSize(src);

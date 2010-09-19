@@ -198,6 +198,9 @@ void MainWindow::Show()
             case MENU_FTP:
                 currentMenu = MenuFTPServer();
                 break;
+            case MENU_GENERAL_SETTINGS:
+                currentMenu = MenuGeneralSettings();
+                break;
             case MENU_EXPLORER_SETTINGS:
                 currentMenu = MenuExplorerSettings();
                 break;

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 16:14+0200\n"
+"POT-Creation-Date: 2010-09-19 14:06+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -712,6 +712,9 @@ msgstr ""
 msgid "GD2 Compression"
 msgstr "GD2壓縮"
 
+msgid "General Settings"
+msgstr ""
+
 msgid "Getting Changelog..."
 msgstr "使用更新日誌 ..."
 
@@ -1257,6 +1260,9 @@ msgstr "Shift鍵"
 
 msgid "Show Changelog"
 msgstr "顯示更新日誌"
+
+msgid "Show Partition Formatter"
+msgstr ""
 
 msgid "Shutdown"
 msgstr "關閉"

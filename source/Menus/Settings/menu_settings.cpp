@@ -42,6 +42,7 @@ int MenuSettings()
 	OptionList options;
 	options.SetName(i++, tr("Language"));
 	options.SetName(i++, tr("Clock Mode"));
+	options.SetName(i++, tr("General Settings"));
 	options.SetName(i++, tr("Explorer Settings"));
 	options.SetName(i++, tr("Boot Settings"));
 	options.SetName(i++, tr("Image Settings"));
@@ -108,30 +109,33 @@ int MenuSettings()
 				Settings.ClockMode = (Settings.ClockMode+1) % 2;
 				break;
 			case 2:
-                menu = MENU_EXPLORER_SETTINGS;
+                menu = MENU_GENERAL_SETTINGS;
 				break;
 			case 3:
+                menu = MENU_EXPLORER_SETTINGS;
+				break;
+			case 4:
                 menu = MENU_BOOT_SETTINGS;
 				break;
-            case 4:
+            case 5:
                 menu = MENU_IMAGE_SETTINGS;
 				break;
-            case 5:
+            case 6:
                 menu = MENU_SOUND_SETTINGS;
 				break;
-            case 6:
+            case 7:
                 menu = MENU_NETWORK_SETTINGS;
 				break;
-            case 7:
+            case 8:
                 menu = MENU_FILE_EXTENSIONS;
 				break;
-            case 8:
+            case 9:
                 menu = MENU_CONTROLS_SETTINGS;
 				break;
-            case 9:
+            case 10:
                 menu = MENU_PATH_SETUP;
 				break;
-            case 10:
+            case 11:
                 menu = MENU_COLOR_SETTINGS;
 				break;
 		}
@@ -164,6 +168,8 @@ int MenuSettings()
                 options.SetValue(i++, tr("12H"));
             else
                 options.SetValue(i++, tr("24H"));
+
+            options.SetValue(i++, " ");
 
             options.SetValue(i++, " ");
 

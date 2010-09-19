@@ -144,10 +144,13 @@ void PartitionHandle::UnMount(int pos)
     if(MountNameList[pos].size() == 0)
         return;
 
+    char DeviceName[20];
+    snprintf(DeviceName, sizeof(DeviceName), "%s:", MountNameList[pos].c_str());
+
     //closing all open Files write back the cache
-    fatUnmount(MountNameList[pos].c_str());
+    fatUnmount(DeviceName);
     //closing all open Files write back the cache
-    ntfsUnmount(MountNameList[pos].c_str(), true);
+    ntfsUnmount(DeviceName, true);
     //Remove name from list
     MountNameList[pos].clear();
 }

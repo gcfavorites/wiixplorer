@@ -29,44 +29,6 @@
 #include "Prompts/PromptWindows.h"
 #include "Menus/Explorer.h"
 
-static inline int NextPriority(int prio)
-{
-    switch(prio)
-    {
-        case 0:
-            return 30;
-        case 30:
-            return 70;
-        case 70:
-            return 100;
-        case 100:
-            return 127;
-        case 127:
-            return 0;
-        default:
-            return 30;
-    }
-}
-
-static inline const char * PrioritySynonym(int prio)
-{
-    switch(prio)
-    {
-        case 0:
-            return tr("Idle");
-        case 30:
-            return tr("Low");
-        case 70:
-            return tr("Normal");
-        case 100:
-            return tr("High");
-        case 127:
-            return tr("Highest");
-        default:
-            return NULL;
-    }
-}
-
 int MenuExplorerSettings()
 {
 	int menu = MENU_NONE;
@@ -76,12 +38,6 @@ int MenuExplorerSettings()
 
 	OptionList options;
 	options.SetName(i++, tr("Browser Mode"));
-	options.SetName(i++, tr("Scrolling Speed"));
-	options.SetName(i++, tr("PDF Processing Zoom"));
-	options.SetName(i++, tr("Keyboard Delete Delay"));
-	options.SetName(i++, tr("Copy Thread Priority"));
-	options.SetName(i++, tr("Copy Thread Background Priority"));
-	options.SetName(i++, tr("Rumble"));
 	options.SetName(i++, tr("Hide System Files/Folders"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
@@ -109,34 +65,6 @@ int MenuExplorerSettings()
 				Settings.BrowserMode = (Settings.BrowserMode+1) % 2;
 				break;
             case 1:
-                Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
-                break;
-            case 2:
-                char entered[150];
-                snprintf(entered, sizeof(entered), "%0.2f", Settings.PDFLoadZoom);
-                if(OnScreenKeyboard(entered, 149))
-                {
-					Settings.PDFLoadZoom = atof(entered);
-					WindowPrompt(tr("Warning:"), tr("This option could mess up the pdf view."), tr("OK"));
-                }
-                break;
-            case 3:
-                snprintf(entered, sizeof(entered), "%i", Settings.KeyboardDeleteDelay);
-                if(OnScreenKeyboard(entered, 149))
-                {
-					Settings.KeyboardDeleteDelay = atoi(entered);
-                }
-                break;
-            case 4:
-                Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
-                break;
-            case 5:
-                Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
-                break;
-            case 6:
-                Settings.Rumble = (Settings.Rumble+1) % 2;
-                break;
-            case 7:
                 Settings.HideSystemFiles = (Settings.HideSystemFiles+1) % 2;
                 break;
 		}
@@ -150,19 +78,6 @@ int MenuExplorerSettings()
                 options.SetValue(i++, tr("Icon Mode"));
             else
                 options.SetValue(i++, tr("List Mode"));
-
-            options.SetValue(i++, "%i", Settings.ScrollSpeed);
-
-            options.SetValue(i++, "%0.2f", Settings.PDFLoadZoom);
-
-            options.SetValue(i++, "%i", Settings.KeyboardDeleteDelay);
-
-            options.SetValue(i++, PrioritySynonym(Settings.CopyThreadPrio));
-
-            options.SetValue(i++, PrioritySynonym(Settings.CopyThreadBackPrio));
-
-            if(Settings.Rumble) options.SetValue(i++, tr("ON"));
-            else options.SetValue(i++, tr("OFF"));
 
             if(Settings.HideSystemFiles) options.SetValue(i++, tr("ON"));
             else options.SetValue(i++, tr("OFF"));

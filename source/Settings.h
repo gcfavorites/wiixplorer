@@ -173,6 +173,8 @@ class Settings
 		short   Rumble;
 		//!Should system files be hidden or not
 		short   HideSystemFiles;
+		//!Should parition formatter be shown
+		short   ShowFormatter;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to mplayer_ce
