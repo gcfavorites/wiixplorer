@@ -16,7 +16,7 @@ LIBOGC_INC	:=	$(DEVKITPRO)/libogc/include
 LIBOGC_LIB	:=	$(DEVKITPRO)/libogc/lib/wii
 
 MACHDEP := -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -DPNG_CONFIGURE_LIBPNG -DHAVE_CONFIG_H
-CFLAGS  := -O5 -Wall $(MACHDEP) -I $(LIBOGC_INC)
+CFLAGS  := -O4 -Wall $(MACHDEP) -I $(LIBOGC_INC)
 
 LIB 	:= png
 CFILES	:= $(wildcard *.c)
