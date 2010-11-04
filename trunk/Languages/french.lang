@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-19 14:06+0200\n"
+"POT-Creation-Date: 2010-11-04 20:53+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Dj_Skual\n"
 "Language-Team: \n"
@@ -110,6 +110,9 @@ msgstr ""
 
 msgid "Boot Settings"
 msgstr "Options de démarrage"
+
+msgid "BootMii"
+msgstr ""
 
 msgid "Both"
 msgstr "Les deux"
@@ -377,9 +380,6 @@ msgstr "Voulez-vous télécharger les nouveaux fichiers de langue?"
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Voulez-vous quitter Wiixplorer?"
 
-msgid "Do you want to launch file with MPlayerCE?"
-msgstr "Voulez-vous lancer ce fichier avec MPlayerCE?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Voulez-vous charger le fichier depuis: %s?"
@@ -428,6 +428,9 @@ msgstr "Voulez-vous réinitialiser les paramètres ?"
 
 msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications?"
+
+msgid "Do you want to start BootMii?"
+msgstr ""
 
 msgid "Do you want to start the app?"
 msgstr "Voulez-vous démarrer l'application?"
@@ -757,6 +760,9 @@ msgstr "Hébergeur:"
 msgid "How do you want to change the path?"
 msgstr "Comment voulez-vous changer le chemin?"
 
+msgid "How do you want to launch this file?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "Comment voulez-vous ouvrir le fichier?"
 
@@ -892,11 +898,14 @@ msgstr "Vérification MD5"
 msgid "MD5 log file can't be created."
 msgstr "Impossible de créer le fichier MD5.log."
 
+msgid "MPlayerCE"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "Chemin pour MPlayerCE"
 
-msgid "MPlayerPath changed"
-msgstr "Chemin de MPlayerCE modifié"
+msgid "MPlayerCE path changed"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Cocher le bouton"
@@ -1535,6 +1544,15 @@ msgstr "Attention:"
 msgid "Wii Binary Files"
 msgstr ""
 
+msgid "WiiMC"
+msgstr ""
+
+msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMC path changed"
+msgstr ""
+
 msgid "WiiXplorer Default Music"
 msgstr "Musique par défaut de WiiXplorer"
 
@@ -1561,6 +1579,9 @@ msgstr "Vous ne pouvez pas déclarer cette partition Active."
 
 msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
+
+msgid "You do not have BootMii installed!"
+msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr "WXCVBN;<>?"
@@ -1594,6 +1615,12 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to launch file with MPlayerCE?"
+#~ msgstr "Voulez-vous lancer ce fichier avec MPlayerCE?"
+
+#~ msgid "MPlayerPath changed"
+#~ msgstr "Chemin de MPlayerCE modifié"
 
 #~ msgid "Mount NTFS"
 #~ msgstr "NTFS"

@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 	InitAudio(); // Initialize audio
     DeviceHandler::Instance()->MountGCA();
     DeviceHandler::Instance()->MountGCB();
-    DI2_Init(false); //Init DVD Driver
+    DI2_Init(); //Init DVD Driver
 	Settings.LoadLanguage(Settings.LanguagePath);
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);

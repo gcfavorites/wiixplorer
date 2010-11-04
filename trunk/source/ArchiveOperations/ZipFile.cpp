@@ -75,7 +75,7 @@ bool ZipFile::LoadList()
 
     do
     {
-        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, NULL, NULL, NULL) == UNZ_OK)
+        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) == UNZ_OK)
         {
             bool isDir = false;
             if(filename[strlen(filename)-1] == '/')
@@ -321,7 +321,7 @@ int ZipFile::ExtractAll(const char *dest)
 
     while(!Stop)
     {
-        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, NULL, NULL, NULL) != UNZ_OK)
+        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) != UNZ_OK)
         {
             Stop = true;
         }

@@ -23,9 +23,9 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef MPLAYERPATH_H_
-#define MPLAYERPATH_H_
+#ifndef WIIMC_ARGUMENTS_H_
+#define WIIMC_ARGUMENTS_H_
 
-void ConvertToMPlayerPath(const char * src, char * dst);
+void CreateWiiMCArguments(const char * src);
 
 #endif

@@ -89,6 +89,7 @@ void Settings::SetDefault()
     sprintf(LinkListPath, "%s/URL_List.xml", UpdatePath);
     strcpy(MusicPath, "");
     sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
+    sprintf(WiiMCPath, "%sapps/wiimc/boot.dol", BootDevice);
     LastUsedPath = BootDevice;
 
     for(int i = 0; i < MAXSMBUSERS; i++) {
@@ -181,6 +182,7 @@ bool Settings::Save()
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "LastUsedPath = %s\n", LastUsedPath.c_str());
 	fprintf(file, "MusicPath = %s\n", MusicPath);
+	fprintf(file, "WiiMCPath = %s\n", WiiMCPath);
 	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
@@ -552,6 +554,10 @@ bool Settings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "MusicPath") == 0) {
         strncpy(MusicPath, value, sizeof(MusicPath));
+		return true;
+	}
+	else if (strcmp(name, "WiiMCPath") == 0) {
+        strncpy(WiiMCPath, value, sizeof(WiiMCPath));
 		return true;
 	}
 	else if (strcmp(name, "MPlayerPath") == 0) {

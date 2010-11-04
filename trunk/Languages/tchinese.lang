@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-19 14:06+0200\n"
+"POT-Creation-Date: 2010-11-04 20:53+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
@@ -110,6 +110,9 @@ msgstr ""
 
 msgid "Boot Settings"
 msgstr "啟動設定"
+
+msgid "BootMii"
+msgstr ""
 
 msgid "Both"
 msgstr "全部"
@@ -377,9 +380,6 @@ msgstr "是否要下載新的語言檔？"
 msgid "Do you want to exit WiiXplorer?"
 msgstr "是否要退出WiiXplorer？"
 
-msgid "Do you want to launch file with MPlayerCE?"
-msgstr "是否要用MPlayerCE啟動檔案？"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "是否要從：%s載入檔案？"
@@ -428,6 +428,9 @@ msgstr "是否要重置這設定值？"
 
 msgid "Do you want to save changes?"
 msgstr "是否要儲存變更？"
+
+msgid "Do you want to start BootMii?"
+msgstr ""
 
 msgid "Do you want to start the app?"
 msgstr "是否要啟動這程式？"
@@ -757,6 +760,9 @@ msgstr "主機："
 msgid "How do you want to change the path?"
 msgstr "你要如何變更路徑？"
 
+msgid "How do you want to launch this file?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "你要如何開啟檔案？"
 
@@ -892,11 +898,14 @@ msgstr ""
 msgid "MD5 log file can't be created."
 msgstr ""
 
+msgid "MPlayerCE"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路徑"
 
-msgid "MPlayerPath changed"
-msgstr "MPlayerCE路徑已變更"
+msgid "MPlayerCE path changed"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "選取項目按鈕"
@@ -1535,6 +1544,15 @@ msgstr "警告："
 msgid "Wii Binary Files"
 msgstr "Wii 二進制檔案"
 
+msgid "WiiMC"
+msgstr ""
+
+msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMC path changed"
+msgstr ""
+
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer 預設音樂"
 
@@ -1561,6 +1579,9 @@ msgstr ""
 
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
+
+msgid "You do not have BootMii installed!"
+msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
@@ -1594,6 +1615,12 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Do you want to launch file with MPlayerCE?"
+#~ msgstr "是否要用MPlayerCE啟動檔案？"
+
+#~ msgid "MPlayerPath changed"
+#~ msgstr "MPlayerCE路徑已變更"
 
 #~ msgid "Mount NTFS"
 #~ msgstr "掛載NTFS"

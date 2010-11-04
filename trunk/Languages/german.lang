@@ -1,12 +1,12 @@
 # WiiXplorer
-# german language source file - r200
+# german language source file - r204
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-19 14:06+0200\n"
-"PO-Revision-Date: 2010-08-28 07:30-0800\n"
+"POT-Creation-Date: 2010-11-04 21:23+0100\n"
+"PO-Revision-Date: 2010-09-19 05:31-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,9 @@ msgstr "IOS zum Starten"
 
 msgid "Boot Settings"
 msgstr "Startvorgang"
+
+msgid "BootMii"
+msgstr ""
 
 msgid "Both"
 msgstr "Beides"
@@ -378,9 +381,6 @@ msgstr "Neue Sprachdateien herunterladen?"
 msgid "Do you want to exit WiiXplorer?"
 msgstr "WiiXplorer beenden?"
 
-msgid "Do you want to launch file with MPlayerCE?"
-msgstr "Datei mit MPlayer CE starten?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Datei laden von: %s ?"
@@ -429,6 +429,9 @@ msgstr "Einstellungen zurücksetzen?"
 
 msgid "Do you want to save changes?"
 msgstr "Änderungen speichern?"
+
+msgid "Do you want to start BootMii?"
+msgstr ""
 
 msgid "Do you want to start the app?"
 msgstr "Diese App starten?"
@@ -714,7 +717,7 @@ msgid "GD2 Compression"
 msgstr "GD2 Kompression"
 
 msgid "General Settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 msgid "Getting Changelog..."
 msgstr "Lade ChangeLog..."
@@ -757,6 +760,9 @@ msgstr ""
 
 msgid "How do you want to change the path?"
 msgstr "Wie möchtest du den Pfad ändern?"
+
+msgid "How do you want to launch this file?"
+msgstr ""
 
 msgid "How do you want to open the file?"
 msgstr "Womit soll die Datei geöffnet werden?"
@@ -893,11 +899,14 @@ msgstr ""
 msgid "MD5 log file can't be created."
 msgstr "MD5.log kann nicht erstellt werden."
 
+msgid "MPlayerCE"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "MPlayer CE"
 
-msgid "MPlayerPath changed"
-msgstr "Pfad geändert"
+msgid "MPlayerCE path changed"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Element markieren"
@@ -1263,7 +1272,7 @@ msgid "Show Changelog"
 msgstr "ChangeLog"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "Formatierer im Startmenü anzeigen"
 
 msgid "Shutdown"
 msgstr "Herunterfahren"
@@ -1353,7 +1362,7 @@ msgid "To Loader"
 msgstr "Loader"
 
 msgid "To Menu"
-msgstr "Menü"
+msgstr "Wii Menü"
 
 msgid "To Standby"
 msgstr "WiiConnet24 aus"
@@ -1536,6 +1545,15 @@ msgstr "Warnung:"
 msgid "Wii Binary Files"
 msgstr "Wii Binär Dateien"
 
+msgid "WiiMC"
+msgstr ""
+
+msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMC path changed"
+msgstr ""
+
 msgid "WiiXplorer Default Music"
 msgstr "Standardmusik"
 
@@ -1562,6 +1580,9 @@ msgstr "Du kannst diese Partition nicht als aktiv markieren."
 
 msgid "You cant use this operation on:"
 msgstr "Diese Aktion kann nicht auf folgendem angewendet werden:"
+
+msgid "You do not have BootMii installed!"
+msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr ""
@@ -1595,6 +1616,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to launch file with MPlayerCE?"
+#~ msgstr "Datei mit MPlayer CE starten?"
+
+#~ msgid "MPlayerPath changed"
+#~ msgstr "Pfad geändert"
 
 #~ msgid "Mount NTFS"
 #~ msgstr "NTFS benutzen"

@@ -350,21 +350,14 @@ static int ReadBlockFromCache(void *buf, uint32_t len, uint32_t block)
 
 s32 __DI_StubLaunch();
 
-int DI2_Init(bool dvdx)
+int DI2_Init()
 {
-	static int dvdxinit = 0;
     LoadedIOS = (u8) IOS_GetVersion();
 
     if(LoadedIOS < 202)
         return DI_Init();
 
 	state = DVD_INIT | DVD_NO_DISC;
-
-	if (dvdx && !dvdxinit)
-	{
-		__DI_StubLaunch(); // Marcan's 1337 magics happen here!
-		dvdxinit = 1;
-	}
 
 	if (di_fd < 0)
 		di_fd = IOS_Open(di_path, 2);

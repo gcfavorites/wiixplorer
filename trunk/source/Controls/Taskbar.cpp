@@ -286,10 +286,11 @@ int Taskbar::CheckHomeButton()
 
 int Taskbar::CheckStartMenu()
 {
-	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, Settings.ShowFormatter ? 105 : 135);
+	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, Settings.ShowFormatter ? 75 : 105);
 	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
 	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
 	StartMenu->AddItem(tr("URL List"), opera_icon_png, opera_icon_png_size, true);
+	StartMenu->AddItem(tr("BootMii"), BootMii_png, BootMii_png_size);
 	if(Settings.ShowFormatter)
         StartMenu->AddItem(tr("Formatter"), usbstorage_png, usbstorage_png_size);
 	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
@@ -351,6 +352,16 @@ int Taskbar::CheckStartMenu()
 	else if (choice == FTPSERVER)
 	{
 		menu = MENU_FTP;
+	}
+	else if (choice == BOOTMII)
+	{
+	    int res = WindowPrompt(tr("Do you want to start BootMii?"), 0, tr("Yes"), tr("No"));
+	    if(res)
+	    {
+            ExitApp();
+            if(IOS_ReloadIOS(254) < 0)
+                ShowError(tr("You do not have BootMii installed!"));
+	    }
 	}
     else if (choice == FORMATTER)
     {

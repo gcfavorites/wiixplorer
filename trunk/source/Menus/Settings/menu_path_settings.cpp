@@ -44,6 +44,7 @@ int MenuPathSetup()
 	OptionList options;
 	options.SetName(i++, tr("Update (App) Path"));
 	options.SetName(i++, tr("Apps Path"));
+	options.SetName(i++, tr("WiiMC Path"));
 	options.SetName(i++, tr("MPlayerCE Path"));
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Screenshot Path"));
@@ -143,6 +144,39 @@ int MenuPathSetup()
 
                         Path.append("boot.dol");
 
+                        snprintf(Settings.WiiMCPath, sizeof(Settings.WiiMCPath), "%s", Path.c_str());
+                    }
+                }
+                else if(choice == 2)
+                {
+                    snprintf(entered, sizeof(entered), "%s", Settings.WiiMCPath);
+                    if(OnScreenKeyboard(entered, 149))
+                    {
+                        if (entered[strlen(entered)-1] != '/')
+                            strcat(entered, "/");
+                        if(strstr(entered, "boot.dol") == 0)
+                            strcat(entered, "boot.dol");
+                        snprintf(Settings.WiiMCPath, sizeof(Settings.WiiMCPath), "%s", entered);
+                        WindowPrompt(tr("WiiMC path changed"), 0, tr("OK"));
+                    }
+                }
+				break;
+            case 3:
+                choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
+                if(choice == 1)
+                {
+                    Menu->SetState(STATE_DISABLED);
+                    string Path;
+                    menu = MenuGetPath(Path);
+                    Menu->SetState(STATE_DEFAULT);
+
+                    if(Path.length() > 0)
+                    {
+                        if (Path[Path.length()-1] != '/')
+                            Path.append("/");
+
+                        Path.append("boot.dol");
+
                         snprintf(Settings.MPlayerPath, sizeof(Settings.MPlayerPath), "%s", Path.c_str());
                     }
                 }
@@ -156,11 +190,11 @@ int MenuPathSetup()
                         if(strstr(entered, "boot.dol") == 0)
                             strcat(entered, "boot.dol");
                         snprintf(Settings.MPlayerPath, sizeof(Settings.MPlayerPath), "%s", entered);
-                        WindowPrompt(tr("MPlayerPath changed"), 0, tr("OK"));
+                        WindowPrompt(tr("MPlayerCE path changed"), 0, tr("OK"));
                     }
                 }
 				break;
-            case 3:
+            case 4:
                 choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
                 if(choice == 1)
                 {
@@ -182,7 +216,7 @@ int MenuPathSetup()
                     }
                 }
 				break;
-            case 4:
+            case 5:
                 choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
                 if(choice == 1)
                 {
@@ -209,7 +243,7 @@ int MenuPathSetup()
                     }
                 }
 				break;
-            case 5:
+            case 6:
                 choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
                 if(choice == 1)
                 {
@@ -236,7 +270,7 @@ int MenuPathSetup()
                     }
                 }
 				break;
-            case 6:
+            case 7:
                 choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
                 if(choice == 1)
                 {
@@ -269,8 +303,10 @@ int MenuPathSetup()
                     }
                 }
 				break;
-            case 7:
+            case 8:
                 Settings.DeleteTempPath = (Settings.DeleteTempPath+1) % 2;
+                break;
+            default:
                 break;
 		}
 
@@ -282,6 +318,8 @@ int MenuPathSetup()
             options.SetValue(i++, "%s", Settings.UpdatePath);
 
             options.SetValue(i++, "%s", Settings.AppPath);
+
+            options.SetValue(i++, "%s", Settings.WiiMCPath);
 
             options.SetValue(i++, "%s", Settings.MPlayerPath);
 
