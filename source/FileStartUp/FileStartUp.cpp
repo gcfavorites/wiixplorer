@@ -42,7 +42,8 @@
 #include "Controls/IOHandler.hpp"
 #include "VideoOperations/WiiMovie.hpp"
 #include "FileExtensions.h"
-#include "MPlayerPath.h"
+#include "MPlayerArguements.h"
+#include "WiiMCArguemnts.h"
 #include "menu.h"
 
 int FileStartUp(const char *filepath)
@@ -195,19 +196,24 @@ int FileStartUp(const char *filepath)
     }
     else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
     {
-        int choice = WindowPrompt(tr("Do you want to launch file with MPlayerCE?"), filename, tr("Yes"), tr("No"));
-        if(choice)
+        int choice = WindowPrompt(tr("How do you want to launch this file?"), filename, tr("WiiMC"), tr("MPlayerCE"), tr("Cancel"));
+        if(choice == 1)
+        {
+             int ret = LoadHomebrew(Settings.WiiMCPath);
+             if(ret >= 0)
+             {
+                 AddBootArgument(Settings.WiiMCPath);
+                 CreateWiiMCArguments(filepath);
+                 return BOOTHOMEBREW;
+             }
+        }
+        else if(choice == 2)
         {
              int ret = LoadHomebrew(Settings.MPlayerPath);
              if(ret >= 0)
              {
                  AddBootArgument(Settings.MPlayerPath);
-
-                 char mplayerpath[MAXPATHLEN];
-                 ConvertToMPlayerPath(filepath, mplayerpath);
-
-                 AddBootArgument(mplayerpath);
-                 AddBootArgument(fmt("−quiet"));
+                CreateMPlayerArguments(filepath);
                  return BOOTHOMEBREW;
              }
         }

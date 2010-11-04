@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-19 14:06+0200\n"
+"POT-Creation-Date: 2010-11-04 20:53+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -110,6 +110,9 @@ msgstr ""
 
 msgid "Boot Settings"
 msgstr "Definições de Arranque"
+
+msgid "BootMii"
+msgstr ""
 
 msgid "Both"
 msgstr "Ambos"
@@ -377,9 +380,6 @@ msgstr "Deseja descarregar novos ficheiros de idioma?"
 msgid "Do you want to exit WiiXplorer?"
 msgstr "Sair do WiiXplorer?"
 
-msgid "Do you want to launch file with MPlayerCE?"
-msgstr "Executar o ficheiro com o MPlayerCE?"
-
 #, c-format
 msgid "Do you want to load file from: %s ?"
 msgstr "Carregar o ficheiro de: %s ?"
@@ -428,6 +428,9 @@ msgstr "Repor predefinições?"
 
 msgid "Do you want to save changes?"
 msgstr "Deseja guardar as alterações?"
+
+msgid "Do you want to start BootMii?"
+msgstr ""
 
 msgid "Do you want to start the app?"
 msgstr "Arrancar o aplicativo?"
@@ -757,6 +760,9 @@ msgstr "Servidor:"
 msgid "How do you want to change the path?"
 msgstr "Como alterar o caminho?"
 
+msgid "How do you want to launch this file?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "Como abrir o ficheiro?"
 
@@ -892,11 +898,14 @@ msgstr ""
 msgid "MD5 log file can't be created."
 msgstr ""
 
+msgid "MPlayerCE"
+msgstr ""
+
 msgid "MPlayerCE Path"
 msgstr "Caminho MPlayerCE"
 
-msgid "MPlayerPath changed"
-msgstr "Caminho MPlayer alterado"
+msgid "MPlayerCE path changed"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Botão Marcar Item"
@@ -1535,6 +1544,15 @@ msgstr "Aviso:"
 msgid "Wii Binary Files"
 msgstr "Ficheiros Binários Wii"
 
+msgid "WiiMC"
+msgstr ""
+
+msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMC path changed"
+msgstr ""
+
 msgid "WiiXplorer Default Music"
 msgstr "Música Predefinida do WiiXplorer"
 
@@ -1561,6 +1579,9 @@ msgstr ""
 
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
+
+msgid "You do not have BootMii installed!"
+msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr ">ZXCVBNM;:_"
@@ -1594,6 +1615,12 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Do you want to launch file with MPlayerCE?"
+#~ msgstr "Executar o ficheiro com o MPlayerCE?"
+
+#~ msgid "MPlayerPath changed"
+#~ msgstr "Caminho MPlayer alterado"
 
 #~ msgid "Mount NTFS"
 #~ msgstr "Montar NTFS"

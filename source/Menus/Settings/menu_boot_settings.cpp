@@ -27,7 +27,6 @@
 #include "Controls/MainWindow.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/DeviceMenu.h"
-#include "Launcher/NandTitle.h"
 
 int MenuBootSettings()
 {
@@ -35,9 +34,6 @@ int MenuBootSettings()
 	int ret;
 	int i = 0;
 	bool firstRun = true;
-
-	NandTitle Titles;
-	Titles.Get();
 
 	OptionList options;
 	options.SetName(i++, tr("Boot IOS"));
@@ -66,47 +62,26 @@ int MenuBootSettings()
             switch(Settings.BootIOS)
             {
                 case 58:
-                    if(Titles.IndexOf(TITLE_ID(1, 202)) >= 0)
-                    {
-                        Settings.BootIOS = 202;
-                        break;
-                    }
+                    Settings.BootIOS = 202;
+                    break;
                 case 202:
-                    if(Titles.IndexOf(TITLE_ID(1, 222)) >= 0)
-                    {
-                        Settings.BootIOS = 222;
-                        break;
-                    }
+                    Settings.BootIOS = 222;
+                    break;
                 case 222:
-                    if(Titles.IndexOf(TITLE_ID(1, 223)) >= 0)
-                    {
-                        Settings.BootIOS = 223;
-                        break;
-                    }
+                    Settings.BootIOS = 223;
+                    break;
                 case 223:
-                    if(Titles.IndexOf(TITLE_ID(1, 36)) >= 0)
-                    {
-                        Settings.BootIOS = 36;
-                        break;
-                    }
+                    Settings.BootIOS = 36;
+                    break;
                 case 36:
-                    if(Titles.IndexOf(TITLE_ID(1, 60)) >= 0)
-                    {
-                        Settings.BootIOS = 60;
-                        break;
-                    }
+                    Settings.BootIOS = 60;
+                    break;
                 case 60:
-                    if(Titles.IndexOf(TITLE_ID(1, 61)) >= 0)
-                    {
-                        Settings.BootIOS = 61;
-                        break;
-                    }
+                    Settings.BootIOS = 61;
+                    break;
                 case 61:
-                    if(Titles.IndexOf(TITLE_ID(1, 58)) >= 0)
-                    {
-                        Settings.BootIOS = 58;
-                        break;
-                    }
+                    Settings.BootIOS = 58;
+                    break;
                 default:
                     break;
             }

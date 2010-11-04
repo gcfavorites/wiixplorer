@@ -27,72 +27,54 @@
 #include <stdio.h>
 #include <string.h>
 #include "DeviceControls/DeviceHandler.hpp"
+#include "BootHomebrew/BootHomebrew.h"
 #include "menu.h"
 
-static void CreateMPlayerSMBPath(const char * src, char * dst)
+void CreateWiiMCArguments(const char * src)
 {
-    if(!src || !dst)
-        return;
+    char Text[512];
+    AddBootArgument(Settings.WiiMCPath);
 
-    int client = atoi(&src[3]);
-    if(client <= 0 || client >= MAXSMBUSERS)
+    if(strncasecmp(src, "smb", 3) == 0)
     {
-        dst[0] = '\0';
-        return;
-    }
-
-    const char * filepath = src;
-
-    while(filepath[0] != '/' || filepath[1] == '/')
-        filepath++;
-
-    filepath++;
-
-    sprintf(dst, "smb://%s:%s@%s/%s/%s",
+		int client = atoi(src+3);
+        sprintf(Text, "smb:%s:%s:%s:%s",
             Settings.SMBUser[client-1].User,
             Settings.SMBUser[client-1].Password,
             Settings.SMBUser[client-1].Host,
-            Settings.SMBUser[client-1].SMBName,
-            filepath);
-}
-
-void ConvertToMPlayerPath(const char * src, char * dst)
-{
-    if(!src || !dst)
-        return;
-
-    if(src[0] == 's' && src[1] == 'm' && src[2] == 'b')
+            Settings.SMBUser[client-1].SMBName);
+        AddBootArgument(Text);
+    }
+    else if(strncasecmp(src, "sd", 2) == 0)
     {
-        CreateMPlayerSMBPath(src, dst);
-        return;
+		PartitionHandle * sd = (PartitionHandle *) DeviceHandler::Instance()->GetSDHandle();
+        sprintf(Text, "sd:fat:%i", sd->GetLBAStart(0));
+        AddBootArgument(Text);
+    }
+    else if(strncasecmp(src, "dvd", 3) == 0)
+    {
+        AddBootArgument("dvd");
+    }
+    else if(strncasecmp(src, "usb", 3) == 0)
+    {
+        int device = USB8-DeviceHandler::PathToDriveType(src);
+        PartitionHandle * usb = (PartitionHandle *) DeviceHandler::Instance()->GetUSBHandle();
+
+        if(strncasecmp(usb->GetFSName(device), "NTF", 3) == 0)
+        {
+            sprintf(Text, "usb:ntfs:%i", usb->GetLBAStart(device));
+            AddBootArgument(Text);
+        }
+        else
+        {
+            sprintf(Text, "usb:fat:%i", usb->GetLBAStart(device));
+            AddBootArgument(Text);
+        }
     }
 
-    int i = 0;
+    const char * filepath = strchr(src, '/');
+    if(filepath)
+        AddBootArgument(filepath);
 
-    char device[10];
-
-    while(src[i] != ':')
-    {
-        device[i] = src[i];
-        device[i+1] = 0;
-        i++;
-    }
-
-    char * ptr = (char *) &src[i];
-
-    while(ptr[0] != '/' || ptr[1] == '/')
-        ptr++;
-
-    if(strncmp(DeviceHandler::PathToFSName(src), "NTF", 3) != 0)
-    {
-        sprintf(dst, "ntfs_usb:%s", ptr);
-    }
-    else if(strncmp(device, "usb", 3) == 0)
-    {
-        sprintf(dst, "usb:%s", ptr);
-    }
-    else
-    {
-        sprintf(dst, "%s:%s", device, ptr);
-    }
+    AddBootArgument("WiiXplorer");
 }

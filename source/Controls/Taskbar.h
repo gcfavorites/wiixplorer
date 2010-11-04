@@ -44,6 +44,7 @@ enum
     APPS = 0,
     CHANNELS,
     URLS,
+    BOOTMII,
     FORMATTER,
     SETTINGS,
     FTPSERVER,

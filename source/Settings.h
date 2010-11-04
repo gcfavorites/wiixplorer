@@ -177,8 +177,10 @@ class Settings
 		short   ShowFormatter;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
-        //!Path to mplayer_ce
+        //!Path to MPlayerPath
         char	MPlayerPath[150];
+        //!Path to WiiMC
+        char	WiiMCPath[150];
         //!Languagefile path
         char	MusicPath[150];
         //!Languagefile path

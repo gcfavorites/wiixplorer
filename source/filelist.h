@@ -61,6 +61,9 @@ extern const u32	start_over_png_size;
 extern const u8		WiiXplorer_png[];
 extern const u32	WiiXplorer_png_size;
 
+extern const u8		BootMii_png[];
+extern const u32	BootMii_png_size;
+
 extern const u8		network_png[];
 extern const u32	network_png_size;
 
