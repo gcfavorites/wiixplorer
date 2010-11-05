@@ -38,13 +38,49 @@
 #include "Controls/MainWindow.h"
 #include "Prompts/Properties.h"
 #include "Prompts/ArchiveProperties.h"
+#include "menu.h"
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
 {
     if(!browser)
         return;
 
-    if(choice == ArcExtractFile)
+    if(choice == ArcPasteItems)
+    {
+        int ret = WindowPrompt(tr("Paste the item(s) into this directory?"), Clipboard::Instance()->GetItemName(Clipboard::Instance()->GetItemcount()-1), tr("Yes"), tr("Cancel"));
+        if(ret <= 0)
+            return;
+
+        const char * dstpath = strchr(browser->GetCurrentPath(), '/');
+        if(!dstpath)
+            ShowError(tr("Unknown error occured."));
+
+        dstpath++;
+
+        const char * slash = (dstpath[strlen(dstpath)-1] != '/') ? "/" : "";
+		int result = 0;
+		char DestPath[1024];
+        StartProgress(tr("Compressing item(s):"));
+
+        for(int i = 0; i < Clipboard::Instance()->GetItemcount(); ++i)
+        {
+            snprintf(DestPath, sizeof(DestPath), "%s%s%s", dstpath, slash, Clipboard::Instance()->GetItemName(i));
+            result = browser->AddItem(Clipboard::Instance()->GetItem(i), DestPath, Settings.CompressionLevel);
+            if(result < 0)
+                break;
+        }
+
+        ShowProgress(100, 100, tr("Reloading file list..."));
+        browser->ReloadList();
+        StopProgress();
+
+        if(result == -30)
+            ShowError(tr("Pasting files is currently only supported on ZIP archives."));
+        else if(result < 0 && result != -10)
+            WindowPrompt(fmt(tr("ERROR: %i"), result), tr("Failed adding the item(s)"), tr("OK"));
+    }
+
+    else if(choice == ArcExtractFile)
     {
         int ret = WindowPrompt(tr("Extract the selected item(s)?"), browser->GetCurrentName(), tr("Yes"), tr("Cancel"));
         if(ret <= 0)
@@ -254,6 +290,55 @@ void ProcessChoice(FileBrowser * browser, int choice)
                 IOHandler::Instance()->AddProcess(Clipboard::Instance(), browser->GetCurrentPath(), Clipboard::Instance()->Cutted);
             }
         }
+    }
+
+    else if(choice == ADDTOZIP)
+    {
+        int ret = WindowPrompt(browser->GetCurrentFilename(), tr("Would you like to add/append the selected item(s) to a zip?"), tr("Yes"), tr("No"));
+        if(ret <= 0)
+            return;
+
+        char DestZipPath[MAXPATHLEN];
+        snprintf(DestZipPath, sizeof(DestZipPath), "%s/%s", browser->GetCurrentPath(), tr("NewZip.zip"));
+
+        if(!OnScreenKeyboard(DestZipPath, sizeof(DestZipPath)))
+            return;
+
+        char * DestCopy = strdup(DestZipPath);
+        char * ptr = strrchr(DestCopy ? DestCopy : "", '/');
+        if(ptr)
+            ptr[1] = '\0';
+
+        CreateSubfolder(DestCopy);
+        free(DestCopy);
+        DestCopy = ptr = NULL;
+
+        ZipFile Zip(DestZipPath, CheckFile(DestZipPath) ? ZipFile::APPEND : ZipFile::CREATE);
+
+        //append selected Item
+        browser->MarkCurrentItem();
+        //Get ItemMarker
+        ItemMarker * IMarker = browser->GetItemMarker();
+
+		int result = 0;
+        StartProgress(tr("Compressing item(s):"));
+
+        for(int i = 0; i < IMarker->GetItemcount(); ++i)
+        {
+            if(IMarker->IsItemDir(i))
+            {
+                result = Zip.AddDirectory(IMarker->GetItemPath(i), IMarker->GetItemName(i), Settings.CompressionLevel);
+            }
+            else
+            {
+                result = Zip.AddFile(IMarker->GetItemPath(i), IMarker->GetItemName(i), Settings.CompressionLevel, false);
+            }
+        }
+        StopProgress();
+        if(result < 0)
+            WindowPrompt(fmt(tr("ERROR: %i"), result), tr("Failed adding the item(s)."), tr("OK"));
+
+        IMarker->Reset();
     }
 
     else if(choice == CHECK_MD5)

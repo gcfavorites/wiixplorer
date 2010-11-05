@@ -41,6 +41,27 @@ enum
     DELETEDIR
 };
 
+enum
+{
+    CUT = 0,
+    COPY,
+    PASTE,
+    RENAME,
+    DELETE,
+    NEWFOLDER,
+    ADDTOZIP,
+    CHECK_MD5,
+    PROPERTIES,
+};
+
+enum
+{
+    ArcPasteItems,
+    ArcExtractFile,
+    ArcExtractAll,
+    ArcProperties
+};
+
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);
 void ProcessChoice(FileBrowser * browser, int choice);
 

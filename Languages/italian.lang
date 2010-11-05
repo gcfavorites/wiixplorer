@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 21:23+0100\n"
+"POT-Creation-Date: 2010-11-05 18:52+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -16,6 +16,18 @@ msgstr ""
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr "%i errore/i riscontrato/i. Controlla il file MD5.log per i dettagli."
+
+msgid "(Best compression)"
+msgstr ""
+
+msgid "(Best speed)"
+msgstr ""
+
+msgid "(Default)"
+msgstr ""
+
+msgid "(Store)"
+msgstr ""
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -51,6 +63,9 @@ msgstr "Aggiungi Link"
 
 msgid "Add to Playlist"
 msgstr "Aggiungi alla Playlist"
+
+msgid "Add to zip"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr ""
@@ -230,6 +245,9 @@ msgstr "Impostazioni Colori"
 
 msgid "Compressed Size:"
 msgstr "Dimensione dopo compressione:"
+
+msgid "Compressing item(s):"
+msgstr ""
 
 msgid "Console Default"
 msgstr "Default console"
@@ -461,6 +479,10 @@ msgstr "Sto scaricando il file..."
 msgid "Downloading files..."
 msgstr "Scaricamento file..."
 
+#, c-format
+msgid "ERROR: %i"
+msgstr ""
+
 msgid "Edit Textline Button"
 msgstr "Pulsante Modifica Riga di Testo"
 
@@ -552,6 +574,12 @@ msgstr "FTP avviato.\n"
 
 msgid "Fade Speed"
 msgstr "Velocita' Dissolvenza"
+
+msgid "Failed adding the item(s)"
+msgstr ""
+
+msgid "Failed adding the item(s)."
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "Errore nella copia degli elementi."
@@ -953,6 +981,9 @@ msgstr "Inizializzazione rete..."
 msgid "New Folder"
 msgstr "Nuova Cartella"
 
+msgid "NewZip.zip"
+msgstr ""
+
 msgid "No"
 msgstr ""
 
@@ -1074,6 +1105,12 @@ msgstr "Incolla"
 msgid "Paste item(s) into current directory?"
 msgstr "Incollare gli elementi in questa cartella?"
 
+msgid "Paste the item(s) into this directory?"
+msgstr ""
+
+msgid "Pasting files is currently only supported on ZIP archives."
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Percorso Setup"
 
@@ -1173,6 +1210,9 @@ msgstr "Rosso"
 
 msgid "Reload"
 msgstr "Ricarica"
+
+msgid "Reloading file list..."
+msgstr ""
 
 msgid "Remounting all devices."
 msgstr "Rimontaggio di tutte le periferiche."
@@ -1406,6 +1446,9 @@ msgstr "Impossibile caricare il percorso."
 msgid "Unknown"
 msgstr "Sconosciuto"
 
+msgid "Unknown error occured."
+msgstr ""
+
 msgid "Unsupported format!"
 msgstr "Formato non supportato!"
 
@@ -1563,6 +1606,9 @@ msgstr "Calcolatore MD5\n"
 msgid "WiiXplorer Movies"
 msgstr "Filmati WiiXplorer"
 
+msgid "Would you like to add/append the selected item(s) to a zip?"
+msgstr ""
+
 msgid "Yes"
 msgstr "Si"
 
@@ -1585,6 +1631,9 @@ msgid "You do not have BootMii installed!"
 msgstr ""
 
 msgid "ZXCVBNM<>?"
+msgstr ""
+
+msgid "Zip Compression Mode"
 msgstr ""
 
 msgid "ZoomIn Button"

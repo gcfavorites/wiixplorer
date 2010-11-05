@@ -85,12 +85,26 @@ const char * ItemMarker::GetItemName(int ind)
     if(ind < 0 || ind >= (int) Items.size())
         return NULL;
 
-    char * filename = strrchr(Items.at(ind)->itempath, '/');
+    const char * itempath = Items.at(ind)->itempath;
+
+    if(itempath[strlen(itempath)-1] == '/' && strlen(itempath) > 2)
+    {
+        const char * ptr = &itempath[strlen(itempath)-2];
+        while(ptr > itempath && *ptr != '/')
+            --ptr;
+
+        if(ptr == itempath)
+            return NULL;
+
+        return ptr+1;
+    }
+
+    const char * filename = strrchr(itempath, '/');
 
     if(!filename)
         return NULL;
 
-    return (const char *) filename+1;
+    return filename+1;
 }
 
 const char * ItemMarker::GetItemPath(int ind)

@@ -26,25 +26,77 @@
  * ZipFile Class
  * for WiiXplorer 2009
  ***************************************************************************/
-#include <ogcsys.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include <sys/dir.h>
 
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "ZipFile.h"
 #include "FileOperations/fileops.h"
 
-ZipFile::ZipFile(const char *filepath)
+ZipFile::ZipFile(const char *filepath, short mode)
 {
-    File = unzOpen(filepath);
-    if(File)
-        this->LoadList();
+    if(!filepath)
+        return;
+
+    ZipFilePath = filepath;
+    OpenMode = mode;
+    zFile = 0;
+    uzFile = 0;
+
+    if(OpenMode == ZipFile::OPEN || OpenMode == ZipFile::APPEND)
+    {
+        uzFile = unzOpen(ZipFilePath.c_str());
+        if(uzFile)
+            this->LoadList();
+    }
 }
 
 ZipFile::~ZipFile()
+{
+    ClearList();
+    if(uzFile)
+        unzClose(uzFile);
+    if(zFile)
+        zipClose(zFile, NULL);
+}
+
+bool ZipFile::SwitchMode(short mode)
+{
+    if(mode == ZipFile::OPEN)
+    {
+        if(zFile)
+        {
+            zipClose(zFile, NULL);
+            zFile = 0;
+        }
+
+        if(!uzFile)
+            uzFile = unzOpen(ZipFilePath.c_str());
+
+        return (uzFile != 0);
+    }
+    else if(mode == ZipFile::CREATE || mode == ZipFile::APPEND)
+    {
+        if(uzFile)
+        {
+            unzClose(uzFile);
+            uzFile = 0;
+        }
+
+        if(!zFile)
+            zFile = zipOpen(ZipFilePath.c_str(), mode);
+
+        return (zFile != 0);
+    }
+
+    return false;
+}
+
+void ZipFile::ClearList()
 {
     for(u32 i = 0; i < ZipStructure.size(); i++)
     {
@@ -56,16 +108,17 @@ ZipFile::~ZipFile()
     }
 
     ZipStructure.clear();
-
-    unzClose(File);
+    std::vector<ArchiveFileStruct *>().swap(ZipStructure);
 }
 
 bool ZipFile::LoadList()
 {
-    if(!File)
+    ClearList();
+
+    if(!SwitchMode(ZipFile::OPEN))
         return false;
 
-    int ret = unzGoToFirstFile(File);
+    int ret = unzGoToFirstFile(uzFile);
     if(ret != UNZ_OK)
         return false;
 
@@ -75,7 +128,7 @@ bool ZipFile::LoadList()
 
     do
     {
-        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) == UNZ_OK)
+        if(unzGetCurrentFileInfo(uzFile, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) == UNZ_OK)
         {
             bool isDir = false;
             if(filename[strlen(filename)-1] == '/')
@@ -100,7 +153,7 @@ bool ZipFile::LoadList()
         }
         ++RealArchiveItemCount;
     }
-    while(unzGoToNextFile(File) == UNZ_OK);
+    while(unzGoToNextFile(uzFile) == UNZ_OK);
 
     PathControl();
 
@@ -120,13 +173,16 @@ bool ZipFile::SeekFile(int ind)
     if(ind < 0 || ind >= (int) ZipStructure.size())
         return false;
 
-    int ret = unzGoToFirstFile(File);
+    if(!SwitchMode(ZipFile::OPEN))
+        return false;
+
+    int ret = unzGoToFirstFile(uzFile);
     if(ret != UNZ_OK)
         return false;
 
     while(ind > 0)
     {
-        if(unzGoToNextFile(File) != UNZ_OK)
+        if(unzGoToNextFile(uzFile) != UNZ_OK)
             return false;
 
         --ind;
@@ -184,9 +240,202 @@ void ZipFile::PathControl()
     }
 }
 
+int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compresslevel, bool RefreshList)
+{
+    if(!destfilepath)
+        return -1;
+
+    if(OpenMode == ZipFile::OPEN)
+    {
+        if(!SwitchMode(ZipFile::APPEND))
+            return -2;
+    }
+    else if(!SwitchMode(OpenMode))
+        return -3;
+
+    zip_fileinfo file_info;
+    memset(&file_info, 0, sizeof(zip_fileinfo));
+
+    if(destfilepath[strlen(destfilepath)-1] == '/')
+    {
+        int ret = zipOpenNewFileInZip(zFile, destfilepath, &file_info, NULL, 0, NULL, 0, NULL, Z_DEFLATED, compresslevel);
+        if(ret != ZIP_OK)
+            return -4;
+
+        zipCloseFileInZip(zFile);
+        return 1;
+    }
+
+    if(!filepath)
+        return -5;
+
+
+    struct stat filestat;
+    memset(&filestat, 0, sizeof(struct stat));
+    stat(filepath, &filestat);
+
+    u64 filesize = filestat.st_size;
+
+    //! Set up the modified time
+    struct tm * ModTime = localtime(&filestat.st_mtime);
+    file_info.tmz_date.tm_sec = ModTime->tm_sec;
+    file_info.tmz_date.tm_min = ModTime->tm_min;
+    file_info.tmz_date.tm_hour = ModTime->tm_hour;
+    file_info.tmz_date.tm_mday = ModTime->tm_mday;
+    file_info.tmz_date.tm_mon = ModTime->tm_mon;
+    file_info.tmz_date.tm_year = ModTime->tm_year;
+
+    FILE * sourceFile = fopen(filepath, "rb");
+    if(!sourceFile)
+        return -6;
+
+    u32 blocksize = 1024*70;
+    u8 * buffer = (u8 *) malloc(blocksize);
+    if(!buffer)
+    {
+        fclose(sourceFile);
+        return -7;
+    }
+
+    int ret = zipOpenNewFileInZip(zFile, destfilepath, &file_info, NULL, 0, NULL, 0, NULL, Z_DEFLATED, compresslevel);
+    if(ret != ZIP_OK)
+    {
+        ShowError("%i", ret);
+        free(buffer);
+        fclose(sourceFile);
+        return -8;
+    }
+
+	const char * RealFilename = strrchr(destfilepath, '/');
+	if(RealFilename)
+        RealFilename += 1;
+    else
+        RealFilename = destfilepath;
+
+    int res = 0;
+    u64 done = 0;
+
+    while(done < filesize)
+    {
+        if(actioncanceled)
+        {
+            free(buffer);
+            fclose(sourceFile);
+            zipCloseFileInZip(zFile);
+            return -10;
+        }
+
+        ShowProgress(done, filesize, RealFilename);
+
+        if(filesize - done < blocksize)
+            blocksize = filesize - done;
+
+        ret = fread(buffer, 1, blocksize, sourceFile);
+        if(ret <= 0)
+            break; //done
+
+        res = zipWriteInFileInZip(zFile, buffer, ret);
+        if(res != ZIP_OK)
+            break;
+
+        done += ret;
+    }
+
+    free(buffer);
+    fclose(sourceFile);
+    zipCloseFileInZip(zFile);
+
+    if(RefreshList)
+        LoadList();
+
+    //! File is now created the next files need to be appended
+    OpenMode = ZipFile::APPEND;
+
+    return (done == filesize) ? 1 : -12;
+}
+
+
+int ZipFile::AddDirectory(const char *dirpath, const char *destfilepath, int compresslevel)
+{
+	if(!dirpath || !destfilepath)
+		return -1;
+
+    int ret = 1;
+    struct stat st;
+    DIR_ITER *dir = NULL;
+
+    dir = diropen(dirpath);
+    if(dir == NULL)
+        return -1;
+
+    char *filename = (char *) malloc(MAXPATHLEN);
+    if(!filename)
+    {
+        dirclose(dir);
+        return -2;
+    }
+
+    std::vector<std::string> DirList;
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if(actioncanceled)
+        {
+            free(filename);
+            dirclose(dir);
+            return -10;
+        }
+
+        if(st.st_mode & S_IFDIR)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                if(DirList.capacity()-DirList.size() == 0)
+                    DirList.reserve(DirList.size()+100);
+                DirList.push_back(std::string(filename));
+            }
+        }
+        else
+        {
+            std::string newpath(dirpath);
+            if(dirpath[strlen(dirpath)-1] != '/')
+                newpath += '/';
+            newpath += filename;
+
+            std::string newdestpath(destfilepath);
+            if(destfilepath[strlen(destfilepath)-1] != '/')
+                newdestpath += '/';
+            newdestpath += filename;
+
+            ret = AddFile(newpath.c_str(), newdestpath.c_str(), compresslevel, false);
+            if(ret < 0)
+                break;
+        }
+	}
+
+	while(!DirList.empty() && !(ret < 0))
+	{
+        std::string newpath(dirpath);
+        if(dirpath[strlen(dirpath)-1] != '/')
+            newpath += '/';
+		newpath += DirList[0];
+
+        std::string newdestpath(destfilepath);
+        if(destfilepath[strlen(destfilepath)-1] != '/')
+            newdestpath += '/';
+		newdestpath += DirList[0];
+
+        ret = AddDirectory(newpath.c_str(), newdestpath.c_str(), compresslevel);
+
+        DirList.erase(DirList.begin());
+	}
+
+	return ret;
+}
+
 int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 {
-    if(!File)
+    if(!SwitchMode(OPEN))
         return -1;
 
     if(!SeekFile(ind) && ind < RealArchiveItemCount)
@@ -202,7 +451,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
     else
         RealFilename = CurArcFile->filename;
 
-	char writepath[MAXPATHLEN];
+	char writepath[1024];
 	if(withpath)
         snprintf(writepath, sizeof(writepath), "%s/%s", dest, CurArcFile->filename);
     else
@@ -217,7 +466,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
         return 1;
     }
 
-    int ret = unzOpenCurrentFile(File);
+    int ret = unzOpenCurrentFile(uzFile);
 
     if(ret != UNZ_OK)
         return -2;
@@ -241,7 +490,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
     FILE *pfile = fopen(writepath, "wb");
     if(!pfile)
     {
-        unzCloseCurrentFile(File);
+        unzCloseCurrentFile(uzFile);
         StopProgress();
         free(buffer);
         fclose(pfile);
@@ -256,7 +505,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
             usleep(20000);
             free(buffer);
             fclose(pfile);
-            unzCloseCurrentFile(File);
+            unzCloseCurrentFile(uzFile);
             StopProgress();
             return -10;
         }
@@ -266,12 +515,12 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
         if(filesize - done < blocksize)
             blocksize = filesize - done;
 
-        ret = unzReadCurrentFile(File, buffer, blocksize);
+        ret = unzReadCurrentFile(uzFile, buffer, blocksize);
         if(ret < 0)
         {
             free(buffer);
             fclose(pfile);
-            unzCloseCurrentFile(File);
+            unzCloseCurrentFile(uzFile);
             StopProgress();
             return -4;
         }
@@ -283,7 +532,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
     } while(done < filesize);
 
     fclose(pfile);
-    unzCloseCurrentFile(File);
+    unzCloseCurrentFile(uzFile);
 
     free(buffer);
 
@@ -292,25 +541,25 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 
 int ZipFile::ExtractAll(const char *dest)
 {
-    if(!File)
+    if(!SwitchMode(OPEN))
         return -1;
 
     bool Stop = false;
 
-    u32 blocksize = 1024*50;
+    u32 blocksize = 1024*70;
     void *buffer = malloc(blocksize);
 
     if(!buffer)
         return -5;
 
-    char writepath[MAXPATHLEN];
-    char filename[MAXPATHLEN];
+    char writepath[1024];
+    char filename[1024];
     memset(writepath, 0, sizeof(writepath));
     memset(filename, 0, sizeof(filename));
 
     unz_file_info cur_file_info;
 
-    int ret = unzGoToFirstFile(File);
+    int ret = unzGoToFirstFile(uzFile);
     if(ret != UNZ_OK)
     {
         free(buffer);
@@ -321,7 +570,7 @@ int ZipFile::ExtractAll(const char *dest)
 
     while(!Stop)
     {
-        if(unzGetCurrentFileInfo(File, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) != UNZ_OK)
+        if(unzGetCurrentFileInfo(uzFile, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) != UNZ_OK)
         {
             Stop = true;
         }
@@ -333,7 +582,7 @@ int ZipFile::ExtractAll(const char *dest)
             u64 done = 0;
             char *pointer = NULL;
 
-            ret = unzOpenCurrentFile(File);
+            ret = unzOpenCurrentFile(uzFile);
 
             snprintf(writepath, sizeof(writepath), "%s/%s", dest, filename);
 
@@ -352,7 +601,7 @@ int ZipFile::ExtractAll(const char *dest)
                 {
                     free(buffer);
                     fclose(pfile);
-                    unzCloseCurrentFile(File);
+                    unzCloseCurrentFile(uzFile);
                     StopProgress();
                     return -8;
                 }
@@ -363,7 +612,7 @@ int ZipFile::ExtractAll(const char *dest)
                         usleep(20000);
                         free(buffer);
                         fclose(pfile);
-                        unzCloseCurrentFile(File);
+                        unzCloseCurrentFile(uzFile);
                         StopProgress();
                         return -10;
                     }
@@ -373,7 +622,7 @@ int ZipFile::ExtractAll(const char *dest)
                     if(uncompressed_size - done < blocksize)
                         blocksize = uncompressed_size - done;
 
-                    ret = unzReadCurrentFile(File, buffer, blocksize);
+                    ret = unzReadCurrentFile(uzFile, buffer, blocksize);
 
                     if(ret == 0)
                         break;
@@ -385,10 +634,10 @@ int ZipFile::ExtractAll(const char *dest)
                 } while(done < uncompressed_size);
 
                 fclose(pfile);
-                unzCloseCurrentFile(File);
+                unzCloseCurrentFile(uzFile);
             }
         }
-        if(unzGoToNextFile(File) != UNZ_OK)
+        if(unzGoToNextFile(uzFile) != UNZ_OK)
         {
             Stop = true;
         }

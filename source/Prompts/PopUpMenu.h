@@ -46,25 +46,6 @@ enum
 	DOWN
 };
 
-enum
-{
-    CUT = 0,
-    COPY,
-    PASTE,
-    RENAME,
-    DELETE,
-    NEWFOLDER,
-    CHECK_MD5,
-    PROPERTIES,
-};
-
-enum
-{
-    ArcExtractFile,
-    ArcExtractAll,
-    ArcProperties
-};
-
 typedef struct
 {
 	GuiButton* Button;

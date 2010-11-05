@@ -527,6 +527,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
             if(ArcBrowser)
             {
                 RightClick = new PopUpMenu(clickmenuBtn->GetLeft()+p.x, clickmenuBtn->GetTop()+p.y);
+                RightClick->AddItem(tr("Paste"));
                 RightClick->AddItem(tr("Extract"));
                 RightClick->AddItem(tr("Extract All"));
                 RightClick->AddItem(tr("Properties"));
@@ -541,6 +542,7 @@ void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
                 RightClick->AddItem(tr("Rename"));
                 RightClick->AddItem(tr("Delete"));
                 RightClick->AddItem(tr("New Folder"));
+                RightClick->AddItem(tr("Add to zip"));
                 RightClick->AddItem(tr("MD5 Check"));
                 RightClick->AddItem(tr("Properties"));
                 RightClick->Finish();
