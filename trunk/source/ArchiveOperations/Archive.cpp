@@ -134,6 +134,30 @@ u32 ArchiveHandle::GetItemCount()
     return 0;
 }
 
+bool ArchiveHandle::ReloadList()
+{
+    if(zipFile)
+        return zipFile->LoadList();
+
+    return false;
+}
+
+int ArchiveHandle::AddFile(const char * filepath, const char *destpath, int compression)
+{
+    if(zipFile)
+        return zipFile->AddFile(filepath, destpath, compression, false);
+
+    return -30;
+}
+
+int ArchiveHandle::AddDirectory(const char * filepath, const char *destpath, int compression)
+{
+    if(zipFile)
+        return zipFile->AddDirectory(filepath, destpath, compression);
+
+    return -30;
+}
+
 int ArchiveHandle::ExtractFile(int ind, const char *destpath, bool withpath)
 {
     if(zipFile)

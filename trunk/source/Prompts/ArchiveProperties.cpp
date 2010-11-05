@@ -31,7 +31,6 @@
 #include <dirent.h>
 #include <time.h>
 
-#include <unzip/unzip.h>
 #include "ArchiveProperties.h"
 #include "sys.h"
 #include "menu.h"

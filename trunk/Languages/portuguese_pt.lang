@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 20:53+0100\n"
+"POT-Creation-Date: 2010-11-05 18:52+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -14,6 +14,18 @@ msgstr ""
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
+msgstr ""
+
+msgid "(Best compression)"
+msgstr ""
+
+msgid "(Best speed)"
+msgstr ""
+
+msgid "(Default)"
+msgstr ""
+
+msgid "(Store)"
 msgstr ""
 
 msgid "--------------------------------------------------\n"
@@ -50,6 +62,9 @@ msgstr ""
 
 msgid "Add to Playlist"
 msgstr "Adicionar à Lista"
+
+msgid "Add to zip"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr "Combinação Alfa"
@@ -229,6 +244,9 @@ msgstr ""
 
 msgid "Compressed Size:"
 msgstr "Tamanho Comprimido:"
+
+msgid "Compressing item(s):"
+msgstr ""
 
 msgid "Console Default"
 msgstr "Predefinição da Consola"
@@ -460,6 +478,10 @@ msgstr "Descarregando ficheiro..."
 msgid "Downloading files..."
 msgstr "Descarregando ficheiros..."
 
+#, c-format
+msgid "ERROR: %i"
+msgstr ""
+
 msgid "Edit Textline Button"
 msgstr "Editar Linha de Texto"
 
@@ -551,6 +573,12 @@ msgstr "FTP Iniciado.\n"
 
 msgid "Fade Speed"
 msgstr "Velocidade de Desvanecimento"
+
+msgid "Failed adding the item(s)"
+msgstr ""
+
+msgid "Failed adding the item(s)."
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "Falha ao copiar o(s) item(s)."
@@ -952,6 +980,9 @@ msgstr "Inicializando rede..."
 msgid "New Folder"
 msgstr "Nova Pasta"
 
+msgid "NewZip.zip"
+msgstr ""
+
 msgid "No"
 msgstr "Não"
 
@@ -1073,6 +1104,12 @@ msgstr "Colar"
 msgid "Paste item(s) into current directory?"
 msgstr "Colar o(s) item(s) na pasta actual?"
 
+msgid "Paste the item(s) into this directory?"
+msgstr ""
+
+msgid "Pasting files is currently only supported on ZIP archives."
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Configuração de Pastas"
 
@@ -1172,6 +1209,9 @@ msgstr ""
 
 msgid "Reload"
 msgstr "Actualizar"
+
+msgid "Reloading file list..."
+msgstr ""
 
 msgid "Remounting all devices."
 msgstr ""
@@ -1405,6 +1445,9 @@ msgstr "Não foi possível aceder à pasta."
 msgid "Unknown"
 msgstr ""
 
+msgid "Unknown error occured."
+msgstr ""
+
 msgid "Unsupported format!"
 msgstr "Formato não suportado!"
 
@@ -1562,6 +1605,9 @@ msgstr ""
 msgid "WiiXplorer Movies"
 msgstr "Filmes WiiXplorer"
 
+msgid "Would you like to add/append the selected item(s) to a zip?"
+msgstr ""
+
 msgid "Yes"
 msgstr "Sim"
 
@@ -1585,6 +1631,9 @@ msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr ">ZXCVBNM;:_"
+
+msgid "Zip Compression Mode"
+msgstr ""
 
 msgid "ZoomIn Button"
 msgstr ""

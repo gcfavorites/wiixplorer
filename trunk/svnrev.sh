@@ -77,11 +77,13 @@ Features:
    in different formats
  * ZIP/7zip/RAR/BNR/U8Archive/RARC browsing and decompressing
  * Properties of archive files
+ * Add files/directories to a ZIP or create new ZIP files
  * Textediting support
  * PDF Viewing support
  * Format SD/USB primary/logical partitions to FAT32
  * Integrated FTP Server and FTP Client
  * MD5 Calculator and Logger
+ * Start BootMii
  * Auto-Update feature
 
 Credits:

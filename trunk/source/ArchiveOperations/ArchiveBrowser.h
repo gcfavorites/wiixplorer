@@ -34,6 +34,7 @@
 #include <vector>
 #include <algorithm>
 #include "FileOperations/Browser.hpp"
+#include "FileOperations/ItemMarker.h"
 #include "Archive.h"
 
 class ArchiveBrowser : public Browser
@@ -46,6 +47,8 @@ class ArchiveBrowser : public Browser
         ~ArchiveBrowser();
         //!Execute the current selected item
         int ExecuteCurrent(char * filepath);
+        //!Add new items into a destination path
+        int AddItem(const ItemStruct * Item, const char * arc_filepath, int compression);
         //!Extract item (folder or file) into a destination path
         int ExtractItem(int ind, const char * dest);
         int ExtractCurrentItem(const char * dest) { return ExtractItem(SelIndex, dest); };
@@ -88,6 +91,8 @@ class ArchiveBrowser : public Browser
         int BackInDirectory() { return LeaveCurDir(); };
         //!Refresh current directory
         void Refresh();
+        //!Reload complete archive file list
+        void ReloadList();
 
         //!Clear the current PathStructure and free the memory
         void ClearList();

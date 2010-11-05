@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 21:23+0100\n"
+"POT-Creation-Date: 2010-11-05 18:52+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -15,6 +15,18 @@ msgstr ""
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr "%i 错误冲突。关于更多信息检查MD5.log。"
+
+msgid "(Best compression)"
+msgstr ""
+
+msgid "(Best speed)"
+msgstr ""
+
+msgid "(Default)"
+msgstr ""
+
+msgid "(Store)"
+msgstr ""
 
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
@@ -54,6 +66,9 @@ msgstr "添加链接"
 
 msgid "Add to Playlist"
 msgstr "添加播放列表"
+
+msgid "Add to zip"
+msgstr ""
 
 msgid "Alpha Blending"
 msgstr "透明光影效果"
@@ -237,6 +252,9 @@ msgstr "颜色设置"
 
 msgid "Compressed Size:"
 msgstr "已压缩大小"
+
+msgid "Compressing item(s):"
+msgstr ""
 
 msgid "Console Default"
 msgstr "主机缺省"
@@ -468,6 +486,10 @@ msgstr "正在下载文件..."
 msgid "Downloading files..."
 msgstr "正在下载文件..."
 
+#, c-format
+msgid "ERROR: %i"
+msgstr ""
+
 msgid "Edit Textline Button"
 msgstr "编辑文本行按钮"
 
@@ -562,6 +584,12 @@ msgstr "FTP已开启。\n"
 
 msgid "Fade Speed"
 msgstr "减速"
+
+msgid "Failed adding the item(s)"
+msgstr ""
+
+msgid "Failed adding the item(s)."
+msgstr ""
 
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
@@ -963,6 +991,9 @@ msgstr "网络正在初始化"
 msgid "New Folder"
 msgstr "新文件夹"
 
+msgid "NewZip.zip"
+msgstr ""
+
 msgid "No"
 msgstr "否"
 
@@ -1084,6 +1115,12 @@ msgstr "粘贴"
 msgid "Paste item(s) into current directory?"
 msgstr "是否在当前目录中粘贴项目"
 
+msgid "Paste the item(s) into this directory?"
+msgstr ""
+
+msgid "Pasting files is currently only supported on ZIP archives."
+msgstr ""
+
 msgid "Path Setup"
 msgstr "路径设置"
 
@@ -1183,6 +1220,9 @@ msgstr "红"
 
 msgid "Reload"
 msgstr "重新运行"
+
+msgid "Reloading file list..."
+msgstr ""
 
 msgid "Remounting all devices."
 msgstr "正在重新挂载所有设备。"
@@ -1416,6 +1456,9 @@ msgstr "不能找到路径。"
 msgid "Unknown"
 msgstr "未知"
 
+msgid "Unknown error occured."
+msgstr ""
+
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
 
@@ -1573,6 +1616,9 @@ msgstr "WiiXplorer MD5 计算器\n"
 msgid "WiiXplorer Movies"
 msgstr "Wiixplorer电影"
 
+msgid "Would you like to add/append the selected item(s) to a zip?"
+msgstr ""
+
 msgid "Yes"
 msgstr "确定"
 
@@ -1596,6 +1642,9 @@ msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
+
+msgid "Zip Compression Mode"
+msgstr ""
 
 msgid "ZoomIn Button"
 msgstr "缩小按钮"

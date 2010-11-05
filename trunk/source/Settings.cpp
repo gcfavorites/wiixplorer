@@ -79,6 +79,7 @@ void Settings::SetDefault()
     Rumble = 1;
     HideSystemFiles = 1;
     ShowFormatter = 0;
+    CompressionLevel = -1;
     PDFLoadZoom = 1.0f;
     sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
     sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
@@ -199,6 +200,7 @@ bool Settings::Save()
 	fprintf(file, "Rumble = %d\n", Rumble);
 	fprintf(file, "HideSystemFiles = %d\n", HideSystemFiles);
 	fprintf(file, "ShowFormatter = %d\n", ShowFormatter);
+	fprintf(file, "CompressionLevel = %d\n", CompressionLevel);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -635,6 +637,12 @@ bool Settings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "ShowFormatter") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ShowFormatter = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "CompressionLevel") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			CompressionLevel = i;
 		}
 		return true;
 	}

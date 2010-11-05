@@ -136,6 +136,17 @@ int ArchiveBrowser::ExecuteCurrent(char * filepath)
     return result;
 }
 
+int ArchiveBrowser::AddItem(const ItemStruct * Item, const char * arc_filepath, int compression)
+{
+    if(!Item || !archive)
+        return -1;
+
+    if(Item->isdir)
+        return archive->AddDirectory(Item->itempath, arc_filepath, compression);
+
+    return archive->AddFile(Item->itempath, arc_filepath, compression);
+}
+
 int ArchiveBrowser::ExtractItem(int ind, const char * dest)
 {
     if(ind < 0 || ind > (int) PathStructure.size())
@@ -311,6 +322,16 @@ ArchiveFileStruct * ArchiveBrowser::GetItemStructure(int ind)
 void ArchiveBrowser::Refresh()
 {
     ParseArchiveDirectory(currentPath);
+}
+
+void ArchiveBrowser::ReloadList()
+{
+    if(!archive)
+        return;
+
+    archive->ReloadList();
+    ItemNumber = archive->GetItemCount();
+    Refresh();
 }
 
 int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)

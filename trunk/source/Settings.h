@@ -175,6 +175,8 @@ class Settings
 		short   HideSystemFiles;
 		//!Should parition formatter be shown
 		short   ShowFormatter;
+		//!Zip compression level
+		short   CompressionLevel;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to MPlayerPath

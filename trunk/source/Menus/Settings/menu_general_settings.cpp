@@ -68,6 +68,23 @@ static inline const char * PrioritySynonym(int prio)
     }
 }
 
+static inline const char * CompressionSynonym(int comp)
+{
+    switch(comp)
+    {
+        case -1:
+            return tr("(Default)");
+        case 0:
+            return tr("(Store)");
+        case 1:
+            return tr("(Best speed)");
+        case 9:
+            return tr("(Best compression)");
+        default:
+            return "";
+    }
+}
+
 int MenuGeneralSettings()
 {
 	int menu = MENU_NONE;
@@ -80,6 +97,7 @@ int MenuGeneralSettings()
 	options.SetName(i++, tr("Keyboard Delete Delay"));
 	options.SetName(i++, tr("Rumble"));
 	options.SetName(i++, tr("Scrolling Speed"));
+	options.SetName(i++, tr("Zip Compression Mode"));
 	options.SetName(i++, tr("Copy Thread Priority"));
 	options.SetName(i++, tr("Copy Thread Background Priority"));
 	options.SetName(i++, tr("Show Partition Formatter"));
@@ -128,12 +146,17 @@ int MenuGeneralSettings()
                 Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
                 break;
             case 4:
-                Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
+                Settings.CompressionLevel++;
+                if(Settings.CompressionLevel > 9)
+                    Settings.CompressionLevel = -1;
                 break;
             case 5:
-                Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
+                Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
                 break;
             case 6:
+                Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
+                break;
+            case 7:
                 Settings.ShowFormatter = (Settings.ShowFormatter+1) % 2;
                 break;
 		}
@@ -151,6 +174,8 @@ int MenuGeneralSettings()
             else options.SetValue(i++, tr("OFF"));
 
             options.SetValue(i++, "%i", Settings.ScrollSpeed);
+
+            options.SetValue(i++, "%i %s", Settings.CompressionLevel, CompressionSynonym(Settings.CompressionLevel));
 
             options.SetValue(i++, PrioritySynonym(Settings.CopyThreadPrio));
 

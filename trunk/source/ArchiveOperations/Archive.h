@@ -47,10 +47,16 @@ class ArchiveHandle
         ~ArchiveHandle();
 		//!Get the archive file structure
         ArchiveFileStruct * GetFileStruct(int fileIndx);
+		//!Add a new file into a destination path
+        int AddFile(const char * filepath, const char *destpath, int compression);
+		//!Add a full directory into a destination path
+        int AddDirectory(const char * path, const char *destpath, int compression);
 		//!Extract a files from a zip file to a path
         int ExtractFile(int ind, const char *destpath, bool withpath = false);
 		//!Extract all files from a zip file to a directory
         int ExtractAll(const char *destpath);
+		//!Reload archive list
+        bool ReloadList();
 		//!Get the total amount of items inside the archive
         u32 GetItemCount();
 
