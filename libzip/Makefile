@@ -9,11 +9,11 @@ LIBOGC_LIB      :=      $(DEVKITPRO)/libogc/lib/wii
 
 CFLAGS  := -O2 $(MACHDEP) -I$(LIBOGC_INC) -DHAVE_LIBZ
 
-LIB     := unzip
+LIB     := zip
 CFILES  := $(wildcard *.c)
 OFILES  := $(CFILES:.c=.o)
 ARC     := lib$(LIB).a
-HDR     := unzip.h ioapi.h
+HDR     := unzip.h ioapi.h zip.h
 
 all : $(OFILES)
 		$(AR) -r $(ARC) $(OFILES)
@@ -22,9 +22,9 @@ clean :
 		rm -f $(OFILES) $(ARC)
 
 install :
-		mkdir -p  $(LIBOGC_LIB)  $(LIBOGC_INC)/unzip
+		mkdir -p  $(LIBOGC_LIB)  $(LIBOGC_INC)/zip
 		cp -f $(ARC) $(LIBOGC_LIB)/
-		cp -f $(HDR) $(LIBOGC_INC)/unzip/
+		cp -f $(HDR) $(LIBOGC_INC)/zip/
 
 %.o : %.c
 		$(CC) $(CFLAGS) -c $< -o $@
