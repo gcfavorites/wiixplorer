@@ -154,12 +154,14 @@ int FileStartUp(const char *filepath)
     }
     else if(Settings.FileExtensions.CompareLanguageFiles(fileext) == 0)
     {
-        int choice = WindowPrompt(tr("Do you want to load this language file?"), filename, tr("Yes"), tr("No"));
-        if(choice)
+        int choice = WindowPrompt(tr("How do you want to load this language file?"), filename, tr("Load"), tr("Text Editor"), tr("Cancel"));
+        if(choice == 1)
         {
             Settings.LoadLanguage(filepath);
             return RELOAD_BROWSER;
         }
+        else if(choice == 2)
+            TextViewer(filepath);
     }
     else if(Settings.FileExtensions.CompareFont(fileext) == 0)
     {

@@ -1,12 +1,12 @@
 # WiiXplorer language source file.
-# r201
+# r206
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-05 18:52+0100\n"
+"POT-Creation-Date: 2010-11-25 22:19+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: Dj_Skual\n"
+"Last-Translator: wixx\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,16 +17,16 @@ msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr "%i erreur(s) survenues. Vérifier MD5.log pour plus de détails."
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "(Plus compressé)"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "(Plus rapide)"
 
 msgid "(Default)"
-msgstr ""
+msgstr "(Par défaut)"
 
 msgid "(Store)"
-msgstr ""
+msgstr "(Magasin)"
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -64,7 +64,7 @@ msgid "Add to Playlist"
 msgstr "Ajouter à la liste de lecture"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "Ajouter à l'archive"
 
 msgid "Alpha Blending"
 msgstr "Transparence"
@@ -246,7 +246,7 @@ msgid "Compressed Size:"
 msgstr "Taille Compressée:"
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "Compression de(s) élément(s):"
 
 msgid "Console Default"
 msgstr "Wii Défaut"
@@ -408,9 +408,6 @@ msgstr "Voulez-vous charger la langue par défaut?"
 msgid "Do you want to load this language ?"
 msgstr "Voulez-vous charger ce language?"
 
-msgid "Do you want to load this language file?"
-msgstr "Voulez-vous charger ce fichier language?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Voulez-vous éditer ce fichier texte?"
 
@@ -448,7 +445,7 @@ msgid "Do you want to save changes?"
 msgstr "Voulez-vous sauvegarder les modifications?"
 
 msgid "Do you want to start BootMii?"
-msgstr ""
+msgstr "Voulez-vous démarrer BootMii?"
 
 msgid "Do you want to start the app?"
 msgstr "Voulez-vous démarrer l'application?"
@@ -480,7 +477,7 @@ msgstr "Téléchargement des fichiers..."
 
 #, c-format
 msgid "ERROR: %i"
-msgstr ""
+msgstr "ERREUR: %i"
 
 msgid "Edit Textline Button"
 msgstr "Editer le libellé du bouton"
@@ -575,10 +572,10 @@ msgid "Fade Speed"
 msgstr "Vitesse de transition"
 
 msgid "Failed adding the item(s)"
-msgstr ""
+msgstr "L'addition a échoué"
 
 msgid "Failed adding the item(s)."
-msgstr ""
+msgstr "L'addition a échoué."
 
 msgid "Failed copying item(s)."
 msgstr "La copie a échoué."
@@ -744,7 +741,7 @@ msgid "GD2 Compression"
 msgstr "Compression GD2"
 
 msgid "General Settings"
-msgstr ""
+msgstr "Paramètres globaux"
 
 msgid "Getting Changelog..."
 msgstr "Obtention du Changelog..."
@@ -789,6 +786,9 @@ msgid "How do you want to change the path?"
 msgstr "Comment voulez-vous changer le chemin?"
 
 msgid "How do you want to launch this file?"
+msgstr "Comment voulez-vous lancer ce fichier?"
+
+msgid "How do you want to load this language file?"
 msgstr ""
 
 msgid "How do you want to open the file?"
@@ -896,6 +896,9 @@ msgstr "Ecoute sur le port TCP"
 msgid "Listing files in"
 msgstr "Lister les fichiers dans"
 
+msgid "Load"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "Charger la musique en mémoire"
 
@@ -930,7 +933,7 @@ msgid "MPlayerCE"
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr "Chemin pour MPlayerCE"
+msgstr "Chemin de MPlayerCE"
 
 msgid "MPlayerCE path changed"
 msgstr ""
@@ -1105,10 +1108,10 @@ msgid "Paste item(s) into current directory?"
 msgstr "Coller le(s) fichier(s) dans ce dossier?"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "Coller l(es) élément(s) dans ce dossier?"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "Coller des fichier n'est actuellement supporté que sur les archives ZIP."
 
 msgid "Path Setup"
 msgstr "Options dossiers"
@@ -1211,19 +1214,19 @@ msgid "Reload"
 msgstr "Recharger"
 
 msgid "Reloading file list..."
-msgstr ""
+msgstr "Mise à jour de la liste des fichier"
 
 msgid "Remounting all devices."
 msgstr "Remontage de tous les périphériques."
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "Remontage des périphériques..."
 
 msgid "Remove Link"
 msgstr "Suppression du lien"
 
 msgid "Remove from list"
-msgstr "Reirer de la liste"
+msgstr "Retirer de la liste"
 
 msgid "Rename"
 msgstr "Renommer"
@@ -1311,7 +1314,7 @@ msgid "Show Changelog"
 msgstr "Voir le Changelog"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "Afficher le formateur de partition"
 
 msgid "Shutdown"
 msgstr "Eteindre"
@@ -1354,6 +1357,9 @@ msgstr "Partition formatée avec succès."
 
 msgid "Temporary Path"
 msgstr "Chemin temporaire"
+
+msgid "Text Editor"
+msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "La taille du buffer est vraiment importante. Si l'application ne démarre pas après le changement, supprimez vos fichiers de configuration."
@@ -1446,7 +1452,7 @@ msgid "Unknown"
 msgstr "Inconnu"
 
 msgid "Unknown error occured."
-msgstr ""
+msgstr "Une erreur inconnue est survenue."
 
 msgid "Unsupported format!"
 msgstr "Format non supporté !"
@@ -1591,10 +1597,10 @@ msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "Chemin de WiiMC"
 
 msgid "WiiMC path changed"
-msgstr ""
+msgstr "Chemin de WiiMC modifié"
 
 msgid "WiiXplorer Default Music"
 msgstr "Musique par défaut de WiiXplorer"
@@ -1606,7 +1612,7 @@ msgid "WiiXplorer Movies"
 msgstr "Films de WiiXplorer"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "Voulez-vous ajouter la sélection à un fichier ZIP?"
 
 msgid "Yes"
 msgstr "Oui"
@@ -1627,13 +1633,13 @@ msgid "You cant use this operation on:"
 msgstr "Vous ne pouvez pas utiliser cette fonction sur:"
 
 msgid "You do not have BootMii installed!"
-msgstr ""
+msgstr "BootMii n'est pas installé"
 
 msgid "ZXCVBNM<>?"
 msgstr "WXCVBN;<>?"
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Compression en mode ZIP"
 
 msgid "ZoomIn Button"
 msgstr "Bouton Zoomer"
@@ -1665,11 +1671,14 @@ msgstr "wxcvbn:,./"
 msgid "~!@#$%^&*()_"
 msgstr ""
 
-#~ msgid "Do you want to launch file with MPlayerCE?"
-#~ msgstr "Voulez-vous lancer ce fichier avec MPlayerCE?"
+#~ msgid "Do you want to load this language file?"
+#~ msgstr "Voulez-vous charger ce fichier language?"
 
 #~ msgid "MPlayerPath changed"
 #~ msgstr "Chemin de MPlayerCE modifié"
+
+#~ msgid "Do you want to launch file with MPlayerCE?"
+#~ msgstr "Voulez-vous lancer ce fichier avec MPlayerCE?"
 
 #~ msgid "Mount NTFS"
 #~ msgstr "NTFS"

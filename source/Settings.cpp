@@ -275,7 +275,7 @@ bool Settings::FindConfig()
         if(!found)
         {
             snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
             found = CheckFile(ConfigPath);
         }
         if(!found)
@@ -287,7 +287,7 @@ bool Settings::FindConfig()
         if(!found)
         {
             snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
             found = CheckFile(ConfigPath);
         }
     }
@@ -300,7 +300,25 @@ bool Settings::FindConfig()
             if(!found)
             {
                 snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
+                FILE * testFp = fopen(ConfigPath, "wb");
+                found = (testFp != NULL);
+                fclose(testFp);
+            }
+            if(!found)
+            {
+                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+                FILE * testFp = fopen(ConfigPath, "wb");
+                found = (testFp != NULL);
+                fclose(testFp);
+            }
+            if(!found)
+            {
+                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s", DeviceName[i], CONFIGPATH);
+                CreateSubfolder(ConfigPath);
+                strcat(ConfigPath, CONFIGNAME);
                 FILE * testFp = fopen(ConfigPath, "wb");
                 found = (testFp != NULL);
                 fclose(testFp);

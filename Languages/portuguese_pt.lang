@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-05 18:52+0100\n"
+"POT-Creation-Date: 2010-11-25 22:16+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -408,9 +408,6 @@ msgstr "Carregar o idioma predefinido."
 msgid "Do you want to load this language ?"
 msgstr "Deseja activar este idioma ?"
 
-msgid "Do you want to load this language file?"
-msgstr "Carregar este ficheiro de idioma?"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "Abrir este ficheiro no TexEditor?"
 
@@ -791,6 +788,9 @@ msgstr "Como alterar o caminho?"
 msgid "How do you want to launch this file?"
 msgstr ""
 
+msgid "How do you want to load this language file?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr "Como abrir o ficheiro?"
 
@@ -894,6 +894,9 @@ msgid "Listening on TCP port"
 msgstr "À espera na porta TCP"
 
 msgid "Listing files in"
+msgstr ""
+
+msgid "Load"
 msgstr ""
 
 msgid "Load Music to Memory"
@@ -1355,6 +1358,9 @@ msgstr ""
 msgid "Temporary Path"
 msgstr ""
 
+msgid "Text Editor"
+msgstr ""
+
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "O tamanho do buffer é muito grande. Se a aplicação não arrancar, elimine os ficheiros de configuração."
 
@@ -1664,6 +1670,9 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Do you want to load this language file?"
+#~ msgstr "Carregar este ficheiro de idioma?"
 
 #~ msgid "Do you want to launch file with MPlayerCE?"
 #~ msgstr "Executar o ficheiro com o MPlayerCE?"

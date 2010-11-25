@@ -57,7 +57,7 @@ Features:
  * USB2 support with IOS58 or IOS202 installed
  * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
- * FAT and NTFS files systems support
+ * FAT/NTFS/EXT2/EXT3/EXT4 files systems support
  * Rename files/directories
  * Properties of files/directories
  * Browse through SD/USB/SMB/DVD/WiiDisk
