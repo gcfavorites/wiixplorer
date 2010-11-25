@@ -26,6 +26,7 @@
 #include <gccore.h>
 #include <fat.h>
 #include <ntfs.h>
+#include <ext2.h>
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
@@ -122,12 +123,16 @@ bool PartitionHandle::Mount(int pos, const char * name)
         if (fatMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS))
             return true;
     }
-    else if(strncmp(GetFSName(pos), "NTF", 3) == 0)
+    else if(strncmp(GetFSName(pos), "NTFS", 4) == 0)
     {
         if(ntfsMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, NTFS_SHOW_HIDDEN_FILES | NTFS_RECOVER))
             return true;
     }
-
+    else if(strncmp(GetFSName(pos), "LINUX", 5) == 0)
+    {
+        if(ext2Mount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, EXT2_FLAG_DEFAULT))
+            return true;
+    }
     MountNameList[pos].clear();
 
     return false;
@@ -151,6 +156,8 @@ void PartitionHandle::UnMount(int pos)
     fatUnmount(DeviceName);
     //closing all open Files write back the cache
     ntfsUnmount(DeviceName, true);
+    //closing all open Files write back the cache
+    ext2Unmount(DeviceName);
     //Remove name from list
     MountNameList[pos].clear();
 }

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-05 18:51+0100\n"
+"POT-Creation-Date: 2010-11-25 22:16+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -409,9 +409,6 @@ msgstr ""
 msgid "Do you want to load this language ?"
 msgstr "Wil je deze taal laden?"
 
-msgid "Do you want to load this language file?"
-msgstr ""
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr ""
 
@@ -792,6 +789,9 @@ msgstr ""
 msgid "How do you want to launch this file?"
 msgstr ""
 
+msgid "How do you want to load this language file?"
+msgstr ""
+
 msgid "How do you want to open the file?"
 msgstr ""
 
@@ -895,6 +895,9 @@ msgid "Listening on TCP port"
 msgstr ""
 
 msgid "Listing files in"
+msgstr ""
+
+msgid "Load"
 msgstr ""
 
 msgid "Load Music to Memory"
@@ -1354,6 +1357,9 @@ msgid "Successfully formated the partition."
 msgstr ""
 
 msgid "Temporary Path"
+msgstr ""
+
+msgid "Text Editor"
 msgstr ""
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."

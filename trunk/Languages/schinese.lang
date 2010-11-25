@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-05 18:52+0100\n"
+"POT-Creation-Date: 2010-11-25 22:21+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -17,16 +17,16 @@ msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr "%i 错误冲突。关于更多信息检查MD5.log。"
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "最好压缩"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "最快速度"
 
 msgid "(Default)"
-msgstr ""
+msgstr "缺省"
 
 msgid "(Store)"
-msgstr ""
+msgstr "存储"
 
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
@@ -68,7 +68,7 @@ msgid "Add to Playlist"
 msgstr "添加播放列表"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "添加到ZIP"
 
 msgid "Alpha Blending"
 msgstr "透明光影效果"
@@ -131,7 +131,7 @@ msgid "Boot Settings"
 msgstr "运行设置"
 
 msgid "BootMii"
-msgstr ""
+msgstr "BootMii"
 
 msgid "Both"
 msgstr "全部"
@@ -254,7 +254,7 @@ msgid "Compressed Size:"
 msgstr "已压缩大小"
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "正在压缩中项目："
 
 msgid "Console Default"
 msgstr "主机缺省"
@@ -416,9 +416,6 @@ msgstr "是否读取缺省语言。"
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
 
-msgid "Do you want to load this language file?"
-msgstr "是否读取此语言文件？"
-
 msgid "Do you want to open this file in TextEditor?"
 msgstr "是否用文本编辑器打开此文件？"
 
@@ -456,7 +453,7 @@ msgid "Do you want to save changes?"
 msgstr "是否保存更改？"
 
 msgid "Do you want to start BootMii?"
-msgstr ""
+msgstr "是否运行BootMii？"
 
 msgid "Do you want to start the app?"
 msgstr "是否运行此程序？"
@@ -488,7 +485,7 @@ msgstr "正在下载文件..."
 
 #, c-format
 msgid "ERROR: %i"
-msgstr ""
+msgstr "错误：%i"
 
 msgid "Edit Textline Button"
 msgstr "编辑文本行按钮"
@@ -586,10 +583,10 @@ msgid "Fade Speed"
 msgstr "减速"
 
 msgid "Failed adding the item(s)"
-msgstr ""
+msgstr "添加项目失败"
 
 msgid "Failed adding the item(s)."
-msgstr ""
+msgstr "添加项目失败"
 
 msgid "Failed copying item(s)."
 msgstr "复制项目失败。"
@@ -800,6 +797,9 @@ msgid "How do you want to change the path?"
 msgstr "是否要更改路径？"
 
 msgid "How do you want to launch this file?"
+msgstr "如何运行此文件？"
+
+msgid "How do you want to load this language file?"
 msgstr ""
 
 msgid "How do you want to open the file?"
@@ -907,6 +907,9 @@ msgstr "监听TCP端口"
 msgid "Listing files in"
 msgstr "监听文件在"
 
+msgid "Load"
+msgstr ""
+
 msgid "Load Music to Memory"
 msgstr "音乐载入内存中"
 
@@ -938,13 +941,13 @@ msgid "MD5 log file can't be created."
 msgstr "无法创建MD5 日志文件。"
 
 msgid "MPlayerCE"
-msgstr ""
+msgstr "MPlayerCE"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
 
 msgid "MPlayerCE path changed"
-msgstr ""
+msgstr "MPlayerCE路径已更改"
 
 msgid "Mark Item Button"
 msgstr "标记项目按钮"
@@ -992,7 +995,7 @@ msgid "New Folder"
 msgstr "新文件夹"
 
 msgid "NewZip.zip"
-msgstr ""
+msgstr "NewZip.zip"
 
 msgid "No"
 msgstr "否"
@@ -1116,10 +1119,10 @@ msgid "Paste item(s) into current directory?"
 msgstr "是否在当前目录中粘贴项目"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "是否粘贴文件到此目录？"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "粘贴文件仅仅支持ZIP格式。"
 
 msgid "Path Setup"
 msgstr "路径设置"
@@ -1222,7 +1225,7 @@ msgid "Reload"
 msgstr "重新运行"
 
 msgid "Reloading file list..."
-msgstr ""
+msgstr "重新读取文件列表。。。"
 
 msgid "Remounting all devices."
 msgstr "正在重新挂载所有设备。"
@@ -1366,6 +1369,9 @@ msgstr "格式化分区成功。"
 msgid "Temporary Path"
 msgstr "临时路径"
 
+msgid "Text Editor"
+msgstr ""
+
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
 
@@ -1457,7 +1463,7 @@ msgid "Unknown"
 msgstr "未知"
 
 msgid "Unknown error occured."
-msgstr ""
+msgstr "出现未知错误。"
 
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
@@ -1599,13 +1605,13 @@ msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
 msgid "WiiMC"
-msgstr ""
+msgstr "WiiMC"
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "WiiMC路径"
 
 msgid "WiiMC path changed"
-msgstr ""
+msgstr "WiiMC路径已更改"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer缺省音乐"
@@ -1617,7 +1623,7 @@ msgid "WiiXplorer Movies"
 msgstr "Wiixplorer电影"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "你是否想要把所选择的文件压缩成zip文件。"
 
 msgid "Yes"
 msgstr "确定"
@@ -1638,13 +1644,13 @@ msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
 msgid "You do not have BootMii installed!"
-msgstr ""
+msgstr "你没有安装BootMii！"
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Zip压缩模式"
 
 msgid "ZoomIn Button"
 msgstr "缩小按钮"
@@ -1675,6 +1681,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Do you want to load this language file?"
+#~ msgstr "是否读取此语言文件？"
 
 #~ msgid "Do you want to launch file with MPlayerCE?"
 #~ msgstr "是否要运行MplayerCE？"
