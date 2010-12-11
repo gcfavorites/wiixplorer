@@ -39,6 +39,12 @@
 
 #define PARTITION_BOOTABLE      0x80 /* Bootable (active) */
 #define PARTITION_NONBOOTABLE   0x00 /* Non-bootable */
+#define PARTITION_TYPE_GPT      0xEE /* Indicates that a GPT header is available */
+
+#define GUID_SYSTEM_PARTITION       0x0000000000000001LL    /* System partition (disk partitioning utilities must reserve the partition as is) */
+#define GUID_READ_ONLY_PARTITION    0x0800000000000000LL    /* Read-only partition */
+#define GUID_HIDDEN_PARTITION       0x2000000000000000LL    /* Hidden partition */
+#define GUID_NO_AUTOMOUNT_PARTITION 0x4000000000000000LL    /* Do not automount (e.g., do not assign drive letter) */
 
 #define BYTES_PER_SECTOR        512 /* Default in libogc */
 
@@ -66,16 +72,45 @@ typedef struct _EXTENDED_BOOT_RECORD {
     u16 signature;                          /* EBR signature; 0xAA55 */
 } __attribute__((__packed__)) EXTENDED_BOOT_RECORD;
 
+typedef struct _GPT_HEADER
+{
+    char magic[8];              /* "EFI PART" */
+    u32 revision;               /* For version 1.0 */
+    u32 header_size;            /* Header size in bytes */
+    u32 checksum;               /* CRC32 of header (0 to header size), with this field zeroed during calculation */
+    u32 reserved;               /* must be 0 */
+    u64 header_lba;             /* Current LBA (location of this header copy) */
+    u64 backup_lba;             /* Backup LBA (location of the other header copy) */
+    u64 first_part_lba;         /* First usable LBA for partitions (primary partition table last LBA + 1) */
+    u64 last_part_lba;          /* Last usable LBA (secondary partition table first LBA - 1) */
+    u8 disk_guid[16];           /* Disk GUID (also referred as UUID on UNIXes) */
+    u64 part_table_lba;         /* Partition entries starting LBA (always 2 in primary copy) */
+    u32 part_entries;           /* Number of partition entries */
+    u32 part_entry_size;        /* Size of a partition entry (usually 128) */
+    u32 part_entry_checksum;    /* CRC32 of partition array */
+    u8 zeros[420];
+} __attribute__((__packed__)) GPT_HEADER;
+
+typedef struct _GUID_PART_ENTRY
+{
+    u8 part_type_guid[16];      /* Partition type GUID */
+    u8 uniq_part_guid[16];      /* Unique partition GUID */
+    u64 part_first_lba;         /* First LBA (little-endian) */
+    u64 part_last_lba;          /* Last LBA (inclusive, usually odd) */
+    u64 attribute_flags;        /* GUID Attribute flags (e.g. bit 60 denotes read-only) */
+    char partition_name[72];    /* Partition name (36 UTF-16LE code units) */
+} __attribute__((__packed__)) GUID_PART_ENTRY;
+
 typedef struct _PartitionFS
 {
     const char * FSName;
-    u32 LBA_Start;
-    u32 SecCount;
+    u64 LBA_Start;
+    u64 SecCount;
     bool Bootable;
     u8 PartitionType;
     u8 PartitionNum;
     u32 EBR_Sector;
-} PartitionFS;
+} __attribute__((__packed__)) PartitionFS;
 
 
 class PartitionHandle
@@ -122,7 +157,9 @@ class PartitionHandle
     protected:
         bool valid(int pos) { return (pos >= 0 && pos < (int) PartitionList.size()); }
         int FindPartitions();
+        bool IsExisting(u64 lba);
         void CheckEBR(u8 PartNum, sec_t ebr_lba);
+        int CheckGPT(u8 PartNum);
 
         const DISC_INTERFACE *interface;
         std::vector<PartitionFS> PartitionList;

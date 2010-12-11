@@ -51,6 +51,7 @@ FileBrowser::FileBrowser()
     dirIter = NULL;
     parseHalt = true;
     exit_Requested = false;
+    memset(&browser, 0, sizeof(BROWSERINFO));
 
     //!Reset and prepare browser
     ResetBrowser();
@@ -65,12 +66,10 @@ FileBrowser::~FileBrowser()
 {
     ShutdownParseThread();
     dirclose(dirIter); // close directory
-    dirIter = NULL;
+    for(int i = 0; i < browser.numEntries; ++i)
+        free(browserList[i].filename);
     if(browserList != NULL)
-	{
 		free(browserList);
-		browserList = NULL;
-	}
 }
 
 /****************************************************************************
@@ -79,6 +78,9 @@ FileBrowser::~FileBrowser()
  ***************************************************************************/
 int FileBrowser::BrowsePath(const char *path)
 {
+    if(!path)
+        return -1;
+
 	int length = strlen(path)+1;
 
 	char *device = strchr(path, ':');
@@ -122,6 +124,9 @@ int FileBrowser::BrowseDevice(int device)
  ***************************************************************************/
 int FileBrowser::EnterSelDir()
 {
+    if(!browserList[browser.selIndex].filename)
+        return -1;
+
     int dirlength = strlen(browser.dir);
     int filelength = strlen(browserList[browser.selIndex].filename);
     if((dirlength+filelength+1) > MAXPATHLEN)
@@ -167,6 +172,9 @@ int FileBrowser::LeaveCurDir()
  ***************************************************************************/
 int FileBrowser::UpdateDirName()
 {
+    if(!browserList[browser.selIndex].filename)
+        return -1;
+
     if(strcmp(browserList[browser.selIndex].filename, "..") == 0)
     {
         return LeaveCurDir();
@@ -205,6 +213,9 @@ const char * FileBrowser::GetCurrentPath()
  ***************************************************************************/
 const char * FileBrowser::GetCurrentSelectedFilepath()
 {
+    if(!browserList[browser.selIndex].filename)
+        return NULL;
+
     if(strcmp(browser.dir, "") != 0)
         snprintf(currentpath, sizeof(currentpath), "%s%s/%s", browser.rootdir, browser.dir, browserList[browser.selIndex].filename);
     else
@@ -218,7 +229,7 @@ const char * FileBrowser::GetCurrentSelectedFilepath()
  ***************************************************************************/
 ItemStruct * FileBrowser::GetItemStruct(int pos)
 {
-    if(pos < 0 || pos >= (int) browser.numEntries)
+    if(pos < 0 || pos >= (int) browser.numEntries || !browserList[pos].filename)
         return NULL;
 
     ItemStruct * Item = new ItemStruct;
@@ -240,9 +251,8 @@ ItemStruct * FileBrowser::GetItemStruct(int pos)
  ***************************************************************************/
 void FileBrowser::ResetBrowser()
 {
-	browser.numEntries = 0;
-    browser.selIndex = 0;
-    browser.pageIndex = 0;
+    for(int i = 0; i < browser.numEntries; ++i)
+        free(browserList[i].filename);
 
 	// Clear any existing values
 	if(browserList != NULL)
@@ -250,6 +260,11 @@ void FileBrowser::ResetBrowser()
 		free(browserList);
 		browserList = NULL;
 	}
+
+	browser.numEntries = 0;
+    browser.selIndex = 0;
+    browser.pageIndex = 0;
+
 	// set aside space for 1 entry
 	browserList = (BROWSERENTRY *)malloc(sizeof(BROWSERENTRY));
 	memset(browserList, 0, sizeof(BROWSERENTRY));
@@ -353,9 +368,7 @@ bool FileBrowser::ParseDirEntries()
 			browserList = newBrowserList;
 		}
 
-		memset(&(browserList[browser.numEntries+i]), 0, sizeof(BROWSERENTRY)); // clear the new entry
-
-		snprintf(browserList[browser.numEntries+i].filename, MAXJOLIET, filename);
+		browserList[browser.numEntries+i].filename = strdup(filename);
 		browserList[browser.numEntries+i].length = filestat.st_size;
 		browserList[browser.numEntries+i].isdir = (filestat.st_mode & S_IFDIR) ? true : false; // flag this as a dir
 	}

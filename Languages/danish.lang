@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 22:16+0100\n"
+"POT-Creation-Date: 2010-12-12 00:23+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -17,16 +17,16 @@ msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr "%i fejl opstået. Tjek MD5.log for flere detaljer."
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "(Bedst kompession)"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "(Bedst Hastighed)"
 
 msgid "(Default)"
-msgstr ""
+msgstr "(Standard)"
 
 msgid "(Store)"
-msgstr ""
+msgstr "(Gem)"
 
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
@@ -57,7 +57,7 @@ msgid "Action cancelled."
 msgstr "Handling afbrudt."
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "Aktiv (Bootable):"
 
 msgid "Add Link"
 msgstr "Tilføj link"
@@ -66,7 +66,7 @@ msgid "Add to Playlist"
 msgstr "Tilføj til playliste"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "Tilføj til zip"
 
 msgid "Alpha Blending"
 msgstr "Alfa Blanding"
@@ -248,7 +248,7 @@ msgid "Compressed Size:"
 msgstr "Komprimeret størrelse:"
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "Pakker del(e):"
 
 msgid "Console Default"
 msgstr "Konsolstandard"
@@ -479,7 +479,7 @@ msgstr "Downloader filer..."
 
 #, c-format
 msgid "ERROR: %i"
-msgstr ""
+msgstr "FEJL: %i"
 
 msgid "Edit Textline Button"
 msgstr "Edit tekstlinje knap"
@@ -574,10 +574,10 @@ msgid "Fade Speed"
 msgstr "Fade hastighed"
 
 msgid "Failed adding the item(s)"
-msgstr ""
+msgstr "Fejlede at tilføje emne(r)"
 
 msgid "Failed adding the item(s)."
-msgstr ""
+msgstr "Fejlede at tilføje emne(r)"
 
 msgid "Failed copying item(s)."
 msgstr "Fejlede at kopier emne(r)."
@@ -631,7 +631,7 @@ msgid "File is corrupt (CRC mismatch)."
 msgstr "Fil er istykker (CRC Mismatch)."
 
 msgid "File is corrupt."
-msgstr "Fil er istykker."
+msgstr "Fil er ødelagt."
 
 msgid "File is too big."
 msgstr "Fil er for stor."
@@ -694,6 +694,9 @@ msgstr "Formatering"
 msgid "Free Space:"
 msgstr "Fri plads:"
 
+msgid "GC Homebrew"
+msgstr ""
+
 msgid "GC PAD BUTTON A"
 msgstr "GC PAD KNAP A"
 
@@ -742,8 +745,11 @@ msgstr ""
 msgid "GD2 Compression"
 msgstr "GD2 Komprition"
 
-msgid "General Settings"
+msgid "GUID"
 msgstr ""
+
+msgid "General Settings"
+msgstr "Generale indstillinger"
 
 msgid "Getting Changelog..."
 msgstr "Henter Changelog..."
@@ -788,10 +794,10 @@ msgid "How do you want to change the path?"
 msgstr "Hvordan vil du ændre denne sti?"
 
 msgid "How do you want to launch this file?"
-msgstr ""
+msgstr "Hvordan vil du indlæse denne fil?"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "Hvordan vil du indlæse denne sprog fil?"
 
 msgid "How do you want to open the file?"
 msgstr "Hvordan vil du åbne filen?"
@@ -899,7 +905,7 @@ msgid "Listing files in"
 msgstr "List filer i"
 
 msgid "Load"
-msgstr ""
+msgstr "Indlæs"
 
 msgid "Load Music to Memory"
 msgstr "Indlæs musik til hukommelse"
@@ -938,7 +944,7 @@ msgid "MPlayerCE Path"
 msgstr "Sti til MplayerCE"
 
 msgid "MPlayerCE path changed"
-msgstr ""
+msgstr "sti til MplayerCE er ændret"
 
 msgid "Mark Item Button"
 msgstr "Marker emne knap"
@@ -986,7 +992,7 @@ msgid "New Folder"
 msgstr "Ny mappe"
 
 msgid "NewZip.zip"
-msgstr ""
+msgstr "NyZip.zip"
 
 msgid "No"
 msgstr "Nej"
@@ -1110,10 +1116,10 @@ msgid "Paste item(s) into current directory?"
 msgstr "Indsæt emne(r) i denne mappe?"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "Insæt emne(r) i denne mappe?"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "indsætning af emner er kun understøttet af ZIP arkiver."
 
 msgid "Path Setup"
 msgstr "Sti indstillinger"
@@ -1216,7 +1222,7 @@ msgid "Reload"
 msgstr "Genindlæs"
 
 msgid "Reloading file list..."
-msgstr ""
+msgstr "Genindlæser fil liste..."
 
 msgid "Remounting all devices."
 msgstr "Genindlæs alle enheder."
@@ -1255,7 +1261,7 @@ msgid "Running a Video could slowdown the process or freeze the app. Do you want
 msgstr "Afspilling af video kan nedsætte farten på processen eller fryse dette prg. Vil du fortsætte?"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "SD-Kort"
 
 msgid "SMB Name:"
 msgstr "SMB-navn:"
@@ -1316,7 +1322,7 @@ msgid "Show Changelog"
 msgstr "Vis Changelog"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "Vis formaterings værktøj"
 
 msgid "Shutdown"
 msgstr "Luk ned"
@@ -1454,7 +1460,7 @@ msgid "Unknown"
 msgstr "Ukendt"
 
 msgid "Unknown error occured."
-msgstr ""
+msgstr "Ukendt fejl opstået."
 
 msgid "Unsupported format!"
 msgstr "Format ikke understøttet!"
@@ -1595,14 +1601,17 @@ msgstr "Advarsel:"
 msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
 
+msgid "Wii Homebrew"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "Sti til WiiMC"
 
 msgid "WiiMC path changed"
-msgstr ""
+msgstr "Sti til WiiMC er ændret"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer standard musikafspiller"
@@ -1614,7 +1623,7 @@ msgid "WiiXplorer Movies"
 msgstr "WiiXplorer film"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "Vil du tilføje/vedhæfte det valgte emne(r) til zip?"
 
 msgid "Yes"
 msgstr "Ja"
@@ -1635,13 +1644,16 @@ msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"
 
 msgid "You do not have BootMii installed!"
+msgstr "Du har ikke BootMii installeret!"
+
+msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr ""
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Zip Kompression måde"
 
 msgid "ZoomIn Button"
 msgstr "Zoom ind knap"

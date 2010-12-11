@@ -56,15 +56,21 @@ int FileStartUp(const char *filepath)
 
     if(Settings.FileExtensions.CompareHomebrew(fileext) == 0)
     {
-        int choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
+        int choice = 0;
+        if(strcasecmp(fileext, ".dol") == 0)
+            choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Wii Homebrew"), tr("GC Homebrew"), tr("Cancel"));
+        else
+            choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
         if(choice)
         {
-             int ret = LoadHomebrew(filepath);
-             if(ret >= 0)
-             {
-                 AddBootArgument(filepath);
-                 return BOOTHOMEBREW;
-             }
+            int ret = LoadHomebrew(filepath);
+            if(ret >= 0)
+                AddBootArgument(filepath);
+
+            if(choice == 1)
+                BootHomebrew();
+            else if(choice == 2)
+                BootGameCubeHomebrew();
         }
 
         return 0;
@@ -206,7 +212,7 @@ int FileStartUp(const char *filepath)
              {
                  AddBootArgument(Settings.WiiMCPath);
                  CreateWiiMCArguments(filepath);
-                 return BOOTHOMEBREW;
+                 BootHomebrew();
              }
         }
         else if(choice == 2)
@@ -215,8 +221,8 @@ int FileStartUp(const char *filepath)
              if(ret >= 0)
              {
                  AddBootArgument(Settings.MPlayerPath);
-                CreateMPlayerArguments(filepath);
-                 return BOOTHOMEBREW;
+                 CreateMPlayerArguments(filepath);
+                 BootHomebrew();
              }
         }
     }

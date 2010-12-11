@@ -409,9 +409,6 @@ extern const u32	network_wireless_png_size;
 extern const u8		app_booter_dol[];
 extern const u32	app_booter_dol_size;
 
-extern const u8		ehcmodule_elf[];
-extern const u32	ehcmodule_elf_size;
-
 #ifdef __cplusplus
 }
 #endif

@@ -58,8 +58,7 @@ void Applications::Launch(int index)
 		return;
 
     AddBootArgument(applications.at(index).path);
-	boothomebrew = true;
-	Taskbar::Instance()->SetMenu(MENU_EXIT);
+	BootHomebrew();
 }
 
 mxml_error_cb_t xmlerror(const char* error)

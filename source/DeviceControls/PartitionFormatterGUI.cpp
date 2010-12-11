@@ -262,6 +262,13 @@ void PartitionFormatterGui::MainUpdate()
 
         if(FormatRequested && Device)
         {
+            if(Device->GetPartitionType(CurPart) == PARTITION_TYPE_GPT)
+            {
+                ShowError(tr("You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."));
+                FormatRequested = false;
+                continue;
+            }
+
             int ret = WindowPrompt(tr("Format Partition?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
             ResetMainDim();
             if(ret)
@@ -342,7 +349,7 @@ void PartitionFormatterGui::ListPartitions()
         sprintf(MountName, "%s:/", Device->MountName(CurPart));
 
     MountNameValTxt->SetText(Device->MountName(CurPart) ? MountName : tr("Not mounted"));
-    PartitionValTxt->SetText(Device->GetEBRSector(CurPart) > 0 ? tr("Logical") : tr("Primary"));
+    PartitionValTxt->SetText(Device->GetEBRSector(CurPart) > 0 ? tr("Logical") : Device->GetPartitionType(CurPart) == PARTITION_TYPE_GPT ? tr("GUID") : tr("Primary"));
     PartActiveValTxt->SetText(Device->IsActive(CurPart) ? tr("Yes"): tr("No"));
     PartTypeValTxt->SetText(fmt("%s (0x%02X)", Device->GetFSName(CurPart), Device->GetPartitionType(CurPart)));
     PartSizeValTxt->SetTextf("%0.2fGB", Device->GetSize(CurPart)/GBSIZE);

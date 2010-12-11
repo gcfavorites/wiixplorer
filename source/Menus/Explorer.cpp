@@ -39,9 +39,6 @@
 #include "FileOperations/fileops.h"
 #include "sys.h"
 
-/*** Extern variables ***/
-extern bool boothomebrew;
-
 Explorer::Explorer()
     :GuiWindow(0, 0)
 {
@@ -382,12 +379,7 @@ void Explorer::CheckBrowserChanges()
             fileBrowser->SetTriggerUpdate(true);
             Taskbar::Instance()->SetTriggerUpdate(true);
 
-            if(result == BOOTHOMEBREW)
-            {
-                boothomebrew = true;
-                menu = MENU_EXIT;
-            }
-            else if(result == ARCHIVE)
+            if(result == ARCHIVE)
             {
                 if(ArcBrowser)
                     delete ArcBrowser;

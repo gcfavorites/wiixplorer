@@ -36,6 +36,7 @@ SOURCES		:=	source \
 				source/TextOperations \
 				source/Language \
 				source/mload \
+				source/mload/modules \
 				source/DiskOperations \
 				source/FTPOperations \
 				source/FTPOperations/ftpii \

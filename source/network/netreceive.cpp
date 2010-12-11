@@ -66,8 +66,7 @@ void IncommingConnection(NetReceiver & Receiver)
                     free(Item->itempath);
                 delete Item;
 
-                boothomebrew = true;
-                Taskbar::Instance()->SetMenu(MENU_EXIT);
+                BootHomebrew();
             }
         }
     }
