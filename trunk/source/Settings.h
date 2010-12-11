@@ -106,6 +106,8 @@ class Settings
         bool LoadLanguage(const char *path, int language = -1);
 		//!Set the default ColorSettings
         void DefaultColors();
+        //!This is set only once on start up to remember the entrace IOS
+        u8 EntraceIOS;
 
         /**************** Color Variables ************************/
 

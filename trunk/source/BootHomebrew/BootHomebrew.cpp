@@ -7,12 +7,21 @@
 #include <wiiuse/wpad.h>
 #include <vector>
 #include <string>
+#include <ogc/es.h>
+
+#define GC_DOL_MAGIC    "gchomebrew dol"
+#define GC_MAGIC_BUF    (char *) 0x807FFFE0
+#define GC_DOL_BUF      (u8 *)0x80800000
+#define BC              0x0000000100000100ULL
 
 #include "FileOperations/fileops.h"
+#include "DiskOperations/di2.h"
 #include "Language/gettext.h"
 #include "network/networkops.h"
 #include "dolloader.h"
 #include "filelist.h"
+#include "main.h"
+#include "sys.h"
 
 static u8 *homebrewbuffer = (u8 *) 0x92000000;
 static u32 homebrewsize = 0;
@@ -36,23 +45,26 @@ void FreeHomebrewBuffer()
 {
     homebrewbuffer = (u8 *)0x92000000;
     homebrewsize = 0;
+    Arguments.clear();
 }
 
 int LoadHomebrew(const char * filepath)
 {
-     u8 *buffer = NULL;
-     u64 filesize = 0;
-     int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
-     if(ret < 0)
-         return ret;
-
-     ret = CopyHomebrewMemory(buffer, 0, filesize);
-     if(buffer) {
-         free(buffer);
-         buffer = NULL;
-     }
-
+    u8 *buffer = NULL;
+    u64 filesize = 0;
+    int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
+    if(ret < 0)
      return ret;
+
+    FreeHomebrewBuffer();
+
+    ret = CopyHomebrewMemory(buffer, 0, filesize);
+    if(buffer) {
+        free(buffer);
+        buffer = NULL;
+    }
+
+    return ret;
 }
 
 static int SetupARGV(struct __argv * args)
@@ -98,10 +110,43 @@ static int SetupARGV(struct __argv * args)
     return 0;
 }
 
+int BootGameCubeHomebrew()
+{
+    if(homebrewsize == 0)
+        return -1;
+
+    ExitApp();
+
+    static tikview view ATTRIBUTE_ALIGN(32);
+
+    DI2_Init();
+    DI2_Reset();
+    DI2_ReadDiscID((u64 *) 0x80000000);
+    DI2_Mount();
+
+	strcpy(GC_MAGIC_BUF, GC_DOL_MAGIC);
+	DCFlushRange(GC_MAGIC_BUF, 32);
+    memcpy(GC_DOL_BUF, homebrewbuffer, homebrewsize);
+	DCFlushRange(GC_DOL_BUF, homebrewsize);
+	*(vu32 *) 0xCC003024 |= 0x07;
+
+	ES_GetTicketViews(BC, &view, 1);
+    int ret = ES_LaunchTitle(BC, &view);
+    if(ret < 0)
+        Sys_BackToLoader();
+
+    return ret;
+}
+
 int BootHomebrew()
 {
     if(homebrewsize == 0)
         return -1;
+
+    ExitApp();
+
+    if(IOS_GetVersion() != Settings.EntraceIOS)
+        IOS_ReloadIOS(Settings.EntraceIOS);
 
     struct __argv args;
     SetupARGV(&args);
@@ -118,6 +163,8 @@ int BootHomebrew()
     __exception_closeall();
     entry();
     _CPU_ISR_Restore (cpu_isr);
+
+    Sys_BackToLoader();
 
     return 0;
 }

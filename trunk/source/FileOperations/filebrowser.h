@@ -54,7 +54,7 @@ typedef struct
 
 typedef struct
 {
-	char filename[MAXJOLIET]; // full filename
+	char *filename; // full filename
 	u64 length; // file length in 64 bytes for sizes higher than 4GB
 	bool isdir; // 0 - file, 1 - directory
 } BROWSERENTRY;

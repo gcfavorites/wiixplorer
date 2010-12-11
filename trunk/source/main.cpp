@@ -48,7 +48,6 @@
 #include "mload/mload_init.h"
 
 Settings Settings;
-bool boothomebrew = false;
 
 int main(int argc, char *argv[])
 {
@@ -61,9 +60,9 @@ int main(int argc, char *argv[])
 	DeviceHandler::Instance()->MountAllUSB();
 	Settings.Load();
 
-    u8 EntraceIOS = (u8) IOS_GetVersion();
+    Settings.EntraceIOS = (u8) IOS_GetVersion();
 
-    if(EntraceIOS != Settings.BootIOS)
+    if(Settings.EntraceIOS != Settings.BootIOS)
     {
         DeviceHandler::Instance()->UnMountSD();
         DeviceHandler::Instance()->UnMountAllUSB();
@@ -92,14 +91,6 @@ int main(int argc, char *argv[])
 	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	MainWindow::Instance()->Show();
-
-    if(boothomebrew)
-    {
-        if(EntraceIOS != IOS_GetVersion())
-            IOS_ReloadIOS(EntraceIOS);
-
-        BootHomebrew();
-    }
 
 	/* Return to the Wii system menu  if not from HBC*/
     if(!IsFromHBC())

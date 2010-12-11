@@ -1,13 +1,13 @@
 # WiiXplorer
-# german language source file - r206
+# german language source file - r207
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 22:20+0100\n"
-"PO-Revision-Date: 2010-11-05 11:15-0800\n"
-"Last-Translator: atlanx\n"
+"POT-Creation-Date: 2010-12-12 00:23+0100\n"
+"PO-Revision-Date: 2010-11-25 13:34-0800\n"
+"Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -65,7 +65,7 @@ msgid "Add to Playlist"
 msgstr "Zur Wiedergabeliste hinzufügen"
 
 msgid "Add to zip"
-msgstr "zippen..."
+msgstr "Zippen"
 
 msgid "Alpha Blending"
 msgstr ""
@@ -122,10 +122,10 @@ msgid "Blue"
 msgstr "Blau"
 
 msgid "Boot IOS"
-msgstr "Dieses IOS zum Starten verwenden:"
+msgstr "IOS zum Starten:"
 
 msgid "Boot Settings"
-msgstr "Starteinstellung"
+msgstr "Programmstart"
 
 msgid "BootMii"
 msgstr ""
@@ -232,7 +232,7 @@ msgid "Client:"
 msgstr "FTP-Client #:"
 
 msgid "Clock Mode"
-msgstr "Uhr 12/24"
+msgstr "Uhr (12/24)"
 
 msgid "Close"
 msgstr "Schließen"
@@ -259,7 +259,7 @@ msgid "Continue"
 msgstr "Fortsetzen"
 
 msgid "Controls Settings"
-msgstr "Controller-Einstellungen"
+msgstr "Steuerung"
 
 msgid "Convert"
 msgstr "Konvertieren"
@@ -337,7 +337,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete Temp Path on Exit"
-msgstr "Tmp-Verz. immer löschen"
+msgstr "Temp. Verz. beim Beenden löschen"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "Auswahl löschen?"
@@ -346,7 +346,7 @@ msgid "Deleting files:"
 msgstr "Lösche Dateien:"
 
 msgid "Demark All Items Button"
-msgstr "ALLE El. abwählen mit"
+msgstr "Alle Elemente abwählen mit"
 
 msgid "Demark Item Button"
 msgstr "Element abwählen mit"
@@ -391,7 +391,7 @@ msgid "Do you want to disconnect the FTP client?"
 msgstr "FTP-Verbindung trennen?"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr "Netzwerkfreigabe(SMB) trennen?"
+msgstr "Netzwerkfreigabe (SMB) trennen?"
 
 msgid "Do you want to download new language files?"
 msgstr "Neue Sprachdateien herunterladen?"
@@ -422,7 +422,7 @@ msgid "Do you want to reboot now ?"
 msgstr "Jetzt neu starten?"
 
 msgid "Do you want to reconnect this SMB?"
-msgstr "Zu dieser Netzwerkfreigabe verbinden?"
+msgstr "Mit dieser Netzwerkfreigabe verbinden?"
 
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Mit diesem FTP-Client verbinden?"
@@ -528,7 +528,7 @@ msgid "Extract All"
 msgstr "Alles entpacken"
 
 msgid "Extract file to temp path and execute?"
-msgstr "Entpacken(in tmp-Verz.) und ausführen?"
+msgstr "Entpacken (temp.) und ausführen?"
 
 msgid "Extract full archive?"
 msgstr "Ganzes Archiv entpacken?"
@@ -564,13 +564,13 @@ msgid "FTP Server Settings"
 msgstr "Einstellungen: FTP-Server"
 
 msgid "FTP Server is running and listening on port"
-msgstr "FTP-Server läuft auf Port"
+msgstr "FTP-Server läuft und wartet an Port"
 
 msgid "FTP Started.\n"
 msgstr "FTP-Server gestartet.\n"
 
 msgid "Fade Speed"
-msgstr "Ausblendzeit in Sek."
+msgstr "Ausblendzeit in Sekunden"
 
 msgid "Failed adding the item(s)"
 msgstr "Element(e) hinzufügen ist fehlgeschlagen"
@@ -688,10 +688,13 @@ msgid "Formating partition..."
 msgstr "Partition wird formatiert..."
 
 msgid "Formatter"
-msgstr "Formatieren..."
+msgstr "Formatieren"
 
 msgid "Free Space:"
 msgstr "Freier Speicher:"
+
+msgid "GC Homebrew"
+msgstr ""
 
 msgid "GC PAD BUTTON A"
 msgstr "GCN BUTTON A"
@@ -706,7 +709,7 @@ msgid "GC PAD BUTTON LEFT"
 msgstr "GCN BUTTON LINKS"
 
 msgid "GC PAD BUTTON NONE"
-msgstr "kein GCN BUTTON"
+msgstr "GCN KEIN BUTTON"
 
 msgid "GC PAD BUTTON RIGHT"
 msgstr "GCN BUTTON RECHTS"
@@ -740,6 +743,9 @@ msgstr ""
 
 msgid "GD2 Compression"
 msgstr "GD2 Kompression"
+
+msgid "GUID"
+msgstr ""
 
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
@@ -790,7 +796,7 @@ msgid "How do you want to launch this file?"
 msgstr "Wie möchtest du diese Datei starten?"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "Wie möchtest du diese Sprachdatei laden?"
 
 msgid "How do you want to open the file?"
 msgstr "Womit soll die Datei geöffnet werden?"
@@ -898,7 +904,7 @@ msgid "Listing files in"
 msgstr "Liste Dateien in"
 
 msgid "Load"
-msgstr ""
+msgstr "Verwenden"
 
 msgid "Load Music to Memory"
 msgstr "Musik puffern"
@@ -937,7 +943,7 @@ msgid "MPlayerCE Path"
 msgstr "MPlayerCE"
 
 msgid "MPlayerCE path changed"
-msgstr "Pfad zum MPlayerCE geändert"
+msgstr "Pfad geändert"
 
 msgid "Mark Item Button"
 msgstr "Element markieren mit"
@@ -1106,13 +1112,13 @@ msgid "Paste"
 msgstr "Einfügen"
 
 msgid "Paste item(s) into current directory?"
-msgstr "Datei(en) im aktuellen Verzeichnis einfügen?"
+msgstr "Element(e) im aktuellen Verzeichnis einfügen?"
 
 msgid "Paste the item(s) into this directory?"
-msgstr "Datei(en) in dieses Verzeichnis einfügen?"
+msgstr "Element(e) in dieses Verzeichnis einfügen?"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr "Datei(en) einfügen wird zurzeit nur bei ZIP-Archiven unterstützt."
+msgstr "Element(e) einfügen wird zurzeit nur bei ZIP-Archiven unterstützt."
 
 msgid "Path Setup"
 msgstr "Pfade"
@@ -1321,7 +1327,7 @@ msgid "Shutdown"
 msgstr "Herunterfahren"
 
 msgid "Shutdown FTP"
-msgstr "FTP-Server stoppen"
+msgstr "FTP stoppen"
 
 msgid "Shutdown the Wii?"
 msgstr "Wii ausschalten?"
@@ -1333,7 +1339,7 @@ msgid "Slide Show Button"
 msgstr "Diashow starten mit"
 
 msgid "Slideshow Delay"
-msgstr "Diashow: Bildanzeige in Sek."
+msgstr "Diashow: Bildanzeige in Sekunden"
 
 msgid "Sound Settings"
 msgstr "Ton"
@@ -1342,7 +1348,7 @@ msgid "Soundblock Size"
 msgstr "Soundblock-Größe:"
 
 msgid "Soundblocks"
-msgstr ""
+msgstr "Soundblöcke"
 
 msgid "Special thanks to:"
 msgstr "Besonderen Dank an:"
@@ -1357,10 +1363,10 @@ msgid "Successfully formated the partition."
 msgstr "Die Partition wurde erfolgreich formatiert."
 
 msgid "Temporary Path"
-msgstr "Temp-Verzeichnis"
+msgstr "Temporäres Verzeichnis"
 
 msgid "Text Editor"
-msgstr ""
+msgstr "Texteditor"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Die Puffergröße ist sehr hoch. Wenn die App nicht startet, lösche deine Konfigurationsdateien."
@@ -1468,10 +1474,10 @@ msgid "Update App"
 msgstr "Updaten"
 
 msgid "Update Icon.png"
-msgstr "Icon aktualisieren"
+msgstr "icon.png aktualisieren"
 
 msgid "Update Meta.xml"
-msgstr "Meta.xml aktualisieren"
+msgstr "meta.xml aktualisieren"
 
 msgid "Update Path changed."
 msgstr "Pfad geändert"
@@ -1517,13 +1523,13 @@ msgid "WPAD BUTTON B"
 msgstr "Wii-FB BUTTON B"
 
 msgid "WPAD BUTTON DOWN"
-msgstr "Wii-FB Steuerkreuz RUNTER"
+msgstr "Wii-FB BUTTON RUNTER"
 
 msgid "WPAD BUTTON HOME"
 msgstr "Wii-FB BUTTON HOME"
 
 msgid "WPAD BUTTON LEFT"
-msgstr "Wii-FB Steuerkreuz LINKS"
+msgstr "Wii-FB BUTTON LINKS"
 
 msgid "WPAD BUTTON MINUS"
 msgstr "Wii-FB BUTTON MINUS"
@@ -1532,10 +1538,10 @@ msgid "WPAD BUTTON PLUS"
 msgstr "Wii-FB BUTTON PLUS"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr "Wii-FB Steuerkreuz RECHTS"
+msgstr "Wii-FB BUTTON RECHTS"
 
 msgid "WPAD BUTTON UP"
-msgstr "Wii-FB Steuerkreuz HOCH"
+msgstr "Wii-FB BUTTON HOCH"
 
 msgid "WPAD CLASSIC BUTTON A"
 msgstr "CLASSIC BUTTON A"
@@ -1544,7 +1550,7 @@ msgid "WPAD CLASSIC BUTTON B"
 msgstr "CLASSIC BUTTON B"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr "CLASSIC Steuerkreuz RUNTER"
+msgstr "CLASSIC BUTTON RUNTER"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
 msgstr "CLASSIC BUTTON L"
@@ -1556,7 +1562,7 @@ msgid "WPAD CLASSIC BUTTON HOME"
 msgstr "CLASSIC BUTTON HOME"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr "CLASSIC Steuerkreuz LINKS"
+msgstr "CLASSIC BUTTON LINKS"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
 msgstr "CLASSIC BUTTON MINUS"
@@ -1565,10 +1571,10 @@ msgid "WPAD CLASSIC BUTTON PLUS"
 msgstr "CLASSIC BUTTON PLUS"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr "CLASSIC Steuerkreuz RECHTS"
+msgstr "CLASSIC BUTTON RECHTS"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr "CLASSIC Steuerkreuz RUNTER"
+msgstr "CLASSIC BUTTON RUNTER"
 
 msgid "WPAD CLASSIC BUTTON X"
 msgstr "CLASSIC BUTTON X"
@@ -1583,16 +1589,19 @@ msgid "WPAD CLASSIC BUTTON ZR"
 msgstr "CLASSIC BUTTON ZR"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr "kein CLASSIC BUTTON"
+msgstr "CLASSIC KEIN BUTTON"
 
 msgid "WPAD NONE BUTTON"
-msgstr "kein Wii-FB BUTTON"
+msgstr "Wii-FB KEIN BUTTON"
 
 msgid "Warning:"
 msgstr "Warnung:"
 
 msgid "Wii Binary Files"
 msgstr "Wii Binärdateien"
+
+msgid "Wii Homebrew"
+msgstr ""
 
 msgid "WiiMC"
 msgstr ""
@@ -1636,6 +1645,9 @@ msgstr "Aktion nicht anwendbar auf:"
 msgid "You do not have BootMii installed!"
 msgstr "Du hast BootMii nicht installiert!"
 
+msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
+msgstr ""
+
 msgid "ZXCVBNM<>?"
 msgstr "YXCVBNM<>?"
 
@@ -1643,16 +1655,16 @@ msgid "Zip Compression Mode"
 msgstr "ZIP-Kompressionsmethode"
 
 msgid "ZoomIn Button"
-msgstr "ZoomIn mit"
+msgstr "Hereinzoomen mit"
 
 msgid "ZoomOut Button"
-msgstr "ZoomOut mit"
+msgstr "Herauszoomen mit"
 
 msgid "`1234567890-"
 msgstr ""
 
 msgid "and all the translators."
-msgstr "und allen Übersetzern."
+msgstr "und alle Übersetzer."
 
 msgid "asdfghjkl;'="
 msgstr ""
@@ -1760,10 +1772,10 @@ msgstr ""
 #~ msgstr "Benutzer:"
 
 #~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "Zur Netzwerkfreigabe verbinden?"
+#~ msgstr "Wieder mit der Netzwerkfreigabe verbinden?"
 
 #~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "Zum FTP-Server verbinden?"
+#~ msgstr "Wieder mit dem FTP Server verbinden?"
 
 #~ msgid "App Path"
 #~ msgstr "Apps"
@@ -1808,7 +1820,7 @@ msgstr ""
 #~ msgstr "Datei lesen aktivieren:"
 
 #~ msgid "FTP Data Port:"
-#~ msgstr "FTP Daten-Port:"
+#~ msgstr "FTP Daten Port:"
 
 #~ msgid ""
 #~ "A client has changed its working directory:\n"

@@ -28,8 +28,7 @@
 
 enum
 {
-    BOOTHOMEBREW = 1,
-    ARCHIVE,
+    ARCHIVE = 1,
     REFRESH_BROWSER,
     RELOAD_BROWSER
 };

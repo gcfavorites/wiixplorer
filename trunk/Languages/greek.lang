@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 22:16+0100\n"
+"POT-Creation-Date: 2010-12-12 00:23+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -697,6 +697,9 @@ msgstr "Διαμόρφωση"
 msgid "Free Space:"
 msgstr "Ελεύθερος χώρος:"
 
+msgid "GC Homebrew"
+msgstr ""
+
 msgid "GC PAD BUTTON A"
 msgstr "GC PAD ΠΛΗΚΤΡΟ A"
 
@@ -744,6 +747,9 @@ msgstr ""
 
 msgid "GD2 Compression"
 msgstr "Συμπίεση GD2"
+
+msgid "GUID"
+msgstr ""
 
 msgid "General Settings"
 msgstr ""
@@ -1598,6 +1604,9 @@ msgstr "Προσοχή:"
 msgid "Wii Binary Files"
 msgstr "Διαδικά αρχεία Wii"
 
+msgid "Wii Homebrew"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1638,6 +1647,9 @@ msgid "You cant use this operation on:"
 msgstr "Δεν μπορείς να χρησιμοποιήσεις αυτήν την διαδικασία:"
 
 msgid "You do not have BootMii installed!"
+msgstr ""
+
+msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr ""
 
 msgid "ZXCVBNM<>?"

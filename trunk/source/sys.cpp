@@ -52,8 +52,6 @@
 bool shutdown = false;
 bool reset = false;
 
-extern bool boothomebrew;
-
 extern "C" bool RebootApp()
 {
     char filepath[MAXPATHLEN];
@@ -66,10 +64,7 @@ extern "C" bool RebootApp()
     }
 
     AddBootArgument(filepath);
-
-    boothomebrew = true;
-
-    Taskbar::Instance()->SetMenu(MENU_EXIT);
+	BootHomebrew();
 
     return true;
 }

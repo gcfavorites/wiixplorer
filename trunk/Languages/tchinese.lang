@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-25 22:16+0100\n"
+"POT-Creation-Date: 2010-12-12 00:23+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: kyogc, Miller, Jane.H\n"
+"Last-Translator: mcc, kyogc, Miller, Jane.H\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,13 +17,13 @@ msgid "%i error(s) encountered. Check MD5.log for more details."
 msgstr ""
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "(最高壓縮比)"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "(最快速度)"
 
 msgid "(Default)"
-msgstr ""
+msgstr "(預設值)"
 
 msgid "(Store)"
 msgstr ""
@@ -55,16 +55,16 @@ msgid "Action cancelled."
 msgstr "動作已取消。"
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "啟動 (可運行)"
 
 msgid "Add Link"
-msgstr ""
+msgstr "增加連結"
 
 msgid "Add to Playlist"
 msgstr "加入播放清單"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "增加至ZIP"
 
 msgid "Alpha Blending"
 msgstr "半透明效果"
@@ -103,31 +103,31 @@ msgid "Back Button"
 msgstr "退後按鈕"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "目錄返回按鈕"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "背景左下方"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "背景右下方"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "背景左上方"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "背景右上方"
 
 msgid "Blue"
-msgstr ""
+msgstr "藍色"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "運行 IOS"
 
 msgid "Boot Settings"
 msgstr "啟動設定"
 
 msgid "BootMii"
-msgstr ""
+msgstr "BootMii"
 
 msgid "Both"
 msgstr "全部"
@@ -142,13 +142,13 @@ msgid "Browsing for font files must be done in the main browser."
 msgstr "在主瀏覽器中必須有瀏覽所需字型檔。"
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "CRC檢查錯誤. 密碼錯誤？"
 
 msgid "Calculating MD5..."
-msgstr ""
+msgstr "計算 MD5 中..."
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "計算整體大小..."
 
 msgid "Can not open the file."
 msgstr "無法開啟這個檔案。"
@@ -157,7 +157,7 @@ msgid "Can't browse that path."
 msgstr "無法瀏覽那個路徑。"
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "無法找到正確的分區"
 
 msgid "Can't load file"
 msgstr "無法讀取這個檔案"
@@ -178,19 +178,19 @@ msgid "Cannot open image"
 msgstr "無法開啟圖片"
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "無法從磁碟讀取"
 
 msgid "Cannot write to destination."
 msgstr "無法寫入目的地。"
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "無法寫入磁碟"
 
 msgid "Cannot write to the file."
 msgstr "無法寫入檔案。"
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "無法寫入此路徑"
 
 msgid "Caps"
 msgstr "Caps鍵"
@@ -209,10 +209,10 @@ msgid "Checked %i file(s) in %i folder(s).\n"
 msgstr ""
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "檢查目錄中 :"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "檢查檔案 :"
 
 msgid "Clear"
 msgstr "清除"
@@ -240,13 +240,13 @@ msgid "Coders:"
 msgstr "程式設計師："
 
 msgid "Color Settings"
-msgstr ""
+msgstr "顏色設定"
 
 msgid "Compressed Size:"
 msgstr "壓縮大小："
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "壓縮檔案中："
 
 msgid "Console Default"
 msgstr "主機預設值"
@@ -270,10 +270,10 @@ msgid "Copy"
 msgstr "複製"
 
 msgid "Copy Thread Background Priority"
-msgstr ""
+msgstr "背景複製執行序優先性"
 
 msgid "Copy Thread Priority"
-msgstr ""
+msgstr "複製執行序優先性"
 
 msgid "Copy current marked item(s)?"
 msgstr "複製現正所選項目嗎？"
@@ -318,7 +318,7 @@ msgid "Credits"
 msgstr "作者信息"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "目前已有一程序正在執行"
 
 msgid "Customfont Path"
 msgstr "字型路徑"
@@ -336,7 +336,7 @@ msgid "Delete"
 msgstr "刪除"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "離開時清除暫存路徑"
 
 msgid "Delete the selected item(s) and its content?"
 msgstr "刪除已選取項目及其內容嗎？"
@@ -354,7 +354,7 @@ msgid "Designer:"
 msgstr "設計者："
 
 msgid "Device"
-msgstr ""
+msgstr "裝置"
 
 msgid "Directory .."
 msgstr "目錄.."
@@ -372,7 +372,7 @@ msgid "Do you want to add an URL?"
 msgstr ""
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "是否要增加此項目至佇列中？"
 
 msgid "Do you want to boot file now?"
 msgstr "是否要立刻啟動檔案？"
@@ -433,7 +433,7 @@ msgid "Do you want to replace this file?"
 msgstr "是否要取代這檔案？"
 
 msgid "Do you want to reset the color settings?"
-msgstr ""
+msgstr "是否要重置色彩設定？"
 
 msgid "Do you want to reset the control settings?"
 msgstr "是否要重置控制台設定值？"
@@ -445,7 +445,7 @@ msgid "Do you want to save changes?"
 msgstr "是否要儲存變更？"
 
 msgid "Do you want to start BootMii?"
-msgstr ""
+msgstr "是否要啟動 BootMii？"
 
 msgid "Do you want to start the app?"
 msgstr "是否要啟動這程式？"
@@ -463,7 +463,7 @@ msgid "Down Button"
 msgstr "向下按鈕"
 
 msgid "Download Link"
-msgstr ""
+msgstr "下載連結"
 
 #, c-format
 msgid "Downloaded %d files."
@@ -477,25 +477,25 @@ msgstr "下載檔案..."
 
 #, c-format
 msgid "ERROR: %i"
-msgstr ""
+msgstr "錯誤： %i"
 
 msgid "Edit Textline Button"
 msgstr "編輯 Textline 按鈕"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "遭遇 %i 個錯誤.\n"
 
 msgid "Enter"
 msgstr "輸入"
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "錯誤 - %s 不是一個檔案"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr ""
+msgstr "錯誤 - 無法開啟資料夾：%s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
@@ -521,13 +521,13 @@ msgid "Explorer Settings"
 msgstr "瀏覽器設定"
 
 msgid "Extract"
-msgstr "匯出"
+msgstr "解壓縮"
 
 msgid "Extract All"
-msgstr "匯出所有"
+msgstr "解壓縮全部"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "解壓縮檔案至暫存路徑並執行"
 
 msgid "Extract full archive?"
 msgstr "匯出所有壓縮檔？"
@@ -542,13 +542,13 @@ msgid "Extracting item(s):"
 msgstr "輸出項目中："
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "FAT32 必須至少要有 65536 個擊區"
 
 msgid "FTP Client Settings"
 msgstr "FTP用戶端設定"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "FTP用戶端重新連接成功"
 
 msgid "FTP Path:"
 msgstr "FTP路徑："
@@ -572,10 +572,10 @@ msgid "Fade Speed"
 msgstr "減速"
 
 msgid "Failed adding the item(s)"
-msgstr ""
+msgstr "增加檔案失敗"
 
 msgid "Failed adding the item(s)."
-msgstr ""
+msgstr "增加檔案失敗"
 
 msgid "Failed copying item(s)."
 msgstr "無法複製項目。"
@@ -596,16 +596,16 @@ msgid "Failed to get the Changelog."
 msgstr "無法取得更新日誌。"
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "讀取頻道失敗"
 
 msgid "Failed to read file data."
 msgstr "無法讀取檔案資料。"
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "寫入 EBR 失敗"
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "寫入 MBR 失敗"
 
 msgid "File Extensions"
 msgstr "檔案類型"
@@ -614,7 +614,7 @@ msgid "File Extensions Assignment"
 msgstr "檔案類型附檔名"
 
 msgid "File System:"
-msgstr ""
+msgstr "檔案系統："
 
 msgid "File already exists:"
 msgstr "檔案已存在："
@@ -648,7 +648,7 @@ msgstr "檔案路徑："
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr ""
+msgstr "檔案路徑： %s"
 
 msgid "Files:"
 msgstr "檔案："
@@ -669,7 +669,7 @@ msgid "Folder"
 msgstr "資料夾"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "資料夾"
 
 msgid "Font Files"
 msgstr "字型檔案"
@@ -678,19 +678,22 @@ msgid "Fontpath changed."
 msgstr "字型路徑已變更。"
 
 msgid "Format"
-msgstr ""
+msgstr "格式化"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "格式化此分區"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "格式化分區中..."
 
 msgid "Formatter"
-msgstr ""
+msgstr "格式化程式"
 
 msgid "Free Space:"
 msgstr "可用空間："
+
+msgid "GC Homebrew"
+msgstr ""
 
 msgid "GC PAD BUTTON A"
 msgstr "GC 搖桿按鈕 A"
@@ -732,16 +735,19 @@ msgid "GC PAD TRIGGER Z"
 msgstr "GC 搖桿按鈕 Z"
 
 msgid "GC-SD A"
-msgstr ""
+msgstr "GC_SD A鍵"
 
 msgid "GC-SD B"
-msgstr ""
+msgstr "GC_SD B鍵"
 
 msgid "GD2 Compression"
 msgstr "GD2壓縮"
 
-msgid "General Settings"
+msgid "GUID"
 msgstr ""
+
+msgid "General Settings"
+msgstr "一般設定"
 
 msgid "Getting Changelog..."
 msgstr "使用更新日誌 ..."
@@ -750,22 +756,22 @@ msgid "Go Back"
 msgstr "返回"
 
 msgid "Green"
-msgstr ""
+msgstr "綠色"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "雜湊完成"
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "雜湊成功的完成"
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "隱藏系統檔案/資料夾"
 
 msgid "High"
-msgstr ""
+msgstr "高"
 
 msgid "Highest"
-msgstr ""
+msgstr "最高"
 
 msgid "Home Button"
 msgstr "Homebrew 按鈕"
@@ -786,7 +792,7 @@ msgid "How do you want to change the path?"
 msgstr "你要如何變更路徑？"
 
 msgid "How do you want to launch this file?"
-msgstr ""
+msgstr "你要如何執行此檔案？"
 
 msgid "How do you want to load this language file?"
 msgstr ""
@@ -795,19 +801,19 @@ msgid "How do you want to open the file?"
 msgstr "你要如何開啟檔案？"
 
 msgid "How do you want to proceed?"
-msgstr "您希望如何進行？"
+msgstr "你希望如何進行？"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "如何打開此網址"
 
 msgid "Icon Mode"
 msgstr "圖示模式"
 
 msgid "Idle"
-msgstr ""
+msgstr "空閒"
 
 msgid "Image Converter"
-msgstr "圖片轉換"
+msgstr "圖片轉換器"
 
 msgid "Image Files"
 msgstr "圖片檔案"
@@ -843,7 +849,7 @@ msgid "Interlace"
 msgstr "交錯"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "網際網路頻道"
 
 msgid "JPEG Quality"
 msgstr "JPEG圖片品質"
@@ -858,7 +864,7 @@ msgid "Keyboard Shift Button"
 msgstr "鍵盤Shift鍵"
 
 msgid "Lang."
-msgstr ""
+msgstr "語言"
 
 msgid "Language"
 msgstr "語言"
@@ -894,7 +900,7 @@ msgid "Listening on TCP port"
 msgstr "傾聽TCP通訊埠中"
 
 msgid "Listing files in"
-msgstr ""
+msgstr "列出檔案於"
 
 msgid "Load"
 msgstr ""
@@ -909,10 +915,10 @@ msgid "Loading image..."
 msgstr "載入圖片中..."
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "紀錄儲存在 MD5.log"
 
 msgid "Logical"
-msgstr ""
+msgstr "邏輯分區"
 
 msgid "Loop"
 msgstr "重複播放"
@@ -921,22 +927,22 @@ msgid "Loop Playlist"
 msgstr "重複播放清單"
 
 msgid "Low"
-msgstr ""
+msgstr "低"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "MD5 校驗"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "MD5 紀錄檔案無法產生"
 
 msgid "MPlayerCE"
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr "MPlayerCE路徑"
+msgstr "MPlayerCE 路徑"
 
 msgid "MPlayerCE path changed"
-msgstr ""
+msgstr "MPlayerCE 路徑已變更"
 
 msgid "Mark Item Button"
 msgstr "選取項目按鈕"
@@ -948,19 +954,19 @@ msgid "Menu"
 msgstr "選單"
 
 msgid "Minimize"
-msgstr ""
+msgstr "最小化"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "掛載成"
 
 msgid "Mounting disc"
-msgstr ""
+msgstr "掛載光碟"
 
 msgid "Moving item(s):"
 msgstr "移動項目中："
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "多選"
 
 msgid "Music Loop Mode"
 msgstr "音樂播放模式"
@@ -990,7 +996,7 @@ msgid "No"
 msgstr "否"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "沒有指定網址或路徑"
 
 msgid "No files found."
 msgstr "找不到檔案。"
@@ -1015,7 +1021,7 @@ msgid "No to all"
 msgstr "全部都否"
 
 msgid "Normal"
-msgstr ""
+msgstr "普通"
 
 msgid "Not a valid URL"
 msgstr "不是有效的URL"
@@ -1036,7 +1042,7 @@ msgid "Not enough memory."
 msgstr "記憶體空間不足。"
 
 msgid "Not mounted"
-msgstr ""
+msgstr "未掛載"
 
 msgid "Notice:"
 msgstr "注意："
@@ -1054,7 +1060,7 @@ msgid "Open the file in the PDF Viewer?"
 msgstr "以 PDF檢視器開啟檔案嗎？"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Opera 頻道未安裝"
 
 msgid "Out of memory: too many files!"
 msgstr "記憶體不足： 太多檔案!"
@@ -1075,22 +1081,22 @@ msgid "Parse Directory"
 msgstr "解析路徑"
 
 msgid "Partition"
-msgstr ""
+msgstr "分區"
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "分區 格式化"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "分區 Nr."
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "分區大小"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "分區類型："
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "分區過小"
 
 msgid "Passive Mode:"
 msgstr "被動式模式："
@@ -1105,16 +1111,16 @@ msgid "Paste"
 msgstr "貼上"
 
 msgid "Paste item(s) into current directory?"
-msgstr "項目貼入現在的目錄嗎？"
+msgstr "貼上項目至目前的目錄嗎？"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "貼上項目至此目錄嗎？"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "貼上檔案目前僅支援ZIP壓縮檔"
 
 msgid "Path Setup"
-msgstr "路徑安裝"
+msgstr "路徑設定"
 
 msgid "Play File"
 msgstr "播放檔案"
@@ -1123,13 +1129,13 @@ msgid "Play Once"
 msgstr "播放單曲"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "請輸入路徑"
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "請輸入第一個URL網址"
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "請輸入網址"
 
 msgid "Please enter the password."
 msgstr "請輸入密碼。"
@@ -1147,34 +1153,34 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
 
 msgid "Primary"
-msgstr ""
+msgstr "主要的"
 
 msgid "Process canceled."
 msgstr "內容取消。"
 
 msgid "ProgressBar Bottom/Left"
-msgstr ""
+msgstr "進度條 左下"
 
 msgid "ProgressBar Bottom/Right"
-msgstr ""
+msgstr "進度條 右下"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr ""
+msgstr "空進度條 左下"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr ""
+msgstr "空進度條 右下"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr ""
+msgstr "空進度條 左上"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr ""
+msgstr "空進度條 右上"
 
 msgid "ProgressBar Upper/Left"
-msgstr ""
+msgstr "進度條 左上"
 
 msgid "ProgressBar Upper/Right"
-msgstr ""
+msgstr "進度條 右上"
 
 msgid "Properties"
 msgstr "內容"
@@ -1202,28 +1208,28 @@ msgid "Reconnect SMB"
 msgstr "重新連接SMB網路共享"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "重新連接失敗.沒有使用者連接"
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "重新連接失敗.沒有共享連接"
 
 msgid "Red"
-msgstr ""
+msgstr "紅色"
 
 msgid "Reload"
 msgstr "重新載入"
 
 msgid "Reloading file list..."
-msgstr ""
+msgstr "重新載入檔案清單..."
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "重新掛載所有裝置."
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "重新掛載裝置..."
 
 msgid "Remove Link"
-msgstr ""
+msgstr "移除連結"
 
 msgid "Remove from list"
 msgstr "從清單中移除"
@@ -1247,13 +1253,13 @@ msgid "Rotate"
 msgstr "旋轉"
 
 msgid "Rumble"
-msgstr ""
+msgstr "震動"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr ""
+msgstr "撥放影片可能會使的程式變慢或者是當機.使否要繼續？"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "SD卡"
 
 msgid "SMB Name:"
 msgstr "SMB網路共享名稱："
@@ -1265,7 +1271,7 @@ msgid "SMB is connecting..."
 msgstr "連接SMB網路共享中..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "SMB重新連接成功"
 
 msgid "Save Alpha"
 msgstr "儲存Alpha"
@@ -1289,13 +1295,13 @@ msgid "Server was shutdown...\n"
 msgstr "伺服器被關閉...\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "設定啟用"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "將此分區設為使用中？"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "正在將此分區設定為使用中"
 
 msgid "Settings"
 msgstr "設定"
@@ -1314,7 +1320,7 @@ msgid "Show Changelog"
 msgstr "顯示更新日誌"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "顯示分區格式"
 
 msgid "Shutdown"
 msgstr "關閉"
@@ -1353,10 +1359,10 @@ msgid "Startup FTP"
 msgstr "啟動 FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "成功格式化分區"
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "暫存路徑"
 
 msgid "Text Editor"
 msgstr ""
@@ -1368,37 +1374,37 @@ msgid "The effect will take with next music load. It might break music playback.
 msgstr "這個特效將預讀下一個音樂檔案。它可能無法讓音樂連續播放。"
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "檔案將會被下載至此路徑"
 
 msgid "The new font could not be loaded."
-msgstr "新的字型無法被載入。"
+msgstr "新的字型無法被載入."
 
 msgid "The new font is loaded."
-msgstr "新的字型已載入。"
+msgstr "新的字型已載入."
 
 msgid "The whole devkitPro & libogc staff."
 msgstr ""
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "此分區有超過2^28個集簇.分區可能太小"
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "此磁碟大小太大"
 
 msgid "This link will be used in Opera or as a Download Link."
-msgstr ""
+msgstr "此連接會在Opera中被使用或是做為下載連接"
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "此名稱會顯示載開始選單"
 
 msgid "This option could mess up the pdf view."
 msgstr "此選項可能弄亂 PDF 的檢視。"
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "這樣會刪除所有此分區的資料.你確定要繼續？"
 
 msgid "Time left:"
-msgstr ""
+msgstr "剩餘時間："
 
 msgid "To Idle"
 msgstr "到閒置"
@@ -1428,16 +1434,16 @@ msgid "Transfering files:"
 msgstr "傳輸檔案中："
 
 msgid "URL List"
-msgstr ""
+msgstr "網址列表"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "網址列表路徑"
 
 msgid "URL is empty."
 msgstr "網址是空的。"
 
 msgid "USB Device"
-msgstr ""
+msgstr "USB裝置"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "不知名格式。以TextEditor開啟此檔案？"
@@ -1449,10 +1455,10 @@ msgid "Unable to load path."
 msgstr "無法載入路徑。"
 
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 msgid "Unknown error occured."
-msgstr ""
+msgstr "發生未知錯誤."
 
 msgid "Unsupported format!"
 msgstr "未支援格式!"
@@ -1486,7 +1492,7 @@ msgid "Update to Rev%i available"
 msgstr "更新到 Rev%i 可用的"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr ""
+msgstr "更新/下載 語言文件"
 
 msgid "Username:"
 msgstr "使用者名稱："
@@ -1498,94 +1504,94 @@ msgid "Video Files"
 msgstr "影片檔案"
 
 msgid "WARNING"
-msgstr ""
+msgstr "警告"
 
 msgid "WARNING:"
 msgstr "警告："
 
 msgid "WPAD BUTTON 1"
-msgstr "WPAD 按鈕 1"
+msgstr ""
 
 msgid "WPAD BUTTON 2"
-msgstr "WPAD 按鈕 2"
+msgstr ""
 
 msgid "WPAD BUTTON A"
-msgstr "WPAD 按鈕 A"
+msgstr ""
 
 msgid "WPAD BUTTON B"
-msgstr "WPAD 按鈕 B"
+msgstr ""
 
 msgid "WPAD BUTTON DOWN"
-msgstr "WPAD 按鈕下"
+msgstr ""
 
 msgid "WPAD BUTTON HOME"
-msgstr "WPAD 按鈕 HOME"
+msgstr ""
 
 msgid "WPAD BUTTON LEFT"
-msgstr "WPAD 按鈕左"
+msgstr ""
 
 msgid "WPAD BUTTON MINUS"
-msgstr "WPAD 按鈕 MINUS"
+msgstr ""
 
 msgid "WPAD BUTTON PLUS"
-msgstr "WPAD 按鈕 PLUS"
+msgstr ""
 
 msgid "WPAD BUTTON RIGHT"
-msgstr "WPAD 按鈕右"
+msgstr ""
 
 msgid "WPAD BUTTON UP"
-msgstr "WPAD 按鈕上"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr "WPAD 傳統搖桿 A"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr "WPAD 傳統搖桿 B"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr "WPAD 傳統搖桿下"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr "WPAD 傳統搖桿 L"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr "WPAD 傳統搖桿 R"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr "WPAD 傳統搖桿 HOME"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr "WPAD 傳統搖桿左"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr "WPAD 傳統搖桿 MINUS"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr "WPAD 傳統搖桿 PLUS"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr "WPAD 傳統搖桿右"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr "WPAD 傳統搖桿上"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr "WPAD 傳統搖桿 X"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr "WPAD 傳統搖桿 Y"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr "WPAD 傳統搖桿 ZL"
+msgstr ""
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr "WPAD 傳統搖桿 ZR"
+msgstr ""
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr "WPAD 傳統搖桿 NONE"
+msgstr ""
 
 msgid "WPAD NONE BUTTON"
-msgstr "WPAD NONE 按鈕"
+msgstr ""
 
 msgid "Warning:"
 msgstr "警告："
@@ -1593,26 +1599,29 @@ msgstr "警告："
 msgid "Wii Binary Files"
 msgstr "Wii 二進制檔案"
 
+msgid "Wii Homebrew"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "WiiMC 路徑"
 
 msgid "WiiMC path changed"
-msgstr ""
+msgstr "WiiMC 路徑已更改"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer 預設音樂"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "WiiXplorer MD5 計算器\n"
 
 msgid "WiiXplorer Movies"
 msgstr "WiiXplorer 影片"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "你想要 增加/附加 所選的檔案到ZIP"
 
 msgid "Yes"
 msgstr "是"
@@ -1624,7 +1633,7 @@ msgid "You can not cut into the directory itself."
 msgstr "無法在目錄中刪除該目錄。"
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "你不可以將羅基分區設為使用中"
 
 msgid "You can't set this partition as active."
 msgstr ""
@@ -1633,19 +1642,22 @@ msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
 
 msgid "You do not have BootMii installed!"
+msgstr "你沒有安裝 BootMii"
+
+msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr ""
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Zip 壓縮模式"
 
 msgid "ZoomIn Button"
-msgstr ""
+msgstr "縮小按鈕"
 
 msgid "ZoomOut Button"
-msgstr ""
+msgstr "放大按鈕"
 
 msgid "`1234567890-"
 msgstr "`1234567890-"
@@ -1660,7 +1672,7 @@ msgid "for his FTP Server source."
 msgstr "FTP伺服器來源。"
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "他的偉大的工具 libwiigui"
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"
@@ -1671,8 +1683,95 @@ msgstr "zxcvbnm,./"
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
 
+#~ msgid "Do you want to add an URL？"
+#~ msgstr "是否要增加一個網址嗎?"
+
 #~ msgid "Do you want to load this language file?"
 #~ msgstr "是否要載入這語言檔？"
+
+#~ msgid "WiiPAD BUTTON 1"
+#~ msgstr "WiiPAD 按鈕 1"
+
+#~ msgid "WiiPAD BUTTON 2"
+#~ msgstr "WiiPAD 按鈕 2"
+
+#~ msgid "WiiPAD BUTTON A"
+#~ msgstr "WiiPAD 按鈕 A"
+
+#~ msgid "WiiPAD BUTTON B"
+#~ msgstr "WiiPAD 按鈕 B"
+
+#~ msgid "WiiPAD BUTTON DOWN"
+#~ msgstr "WiiPAD 按鈕下"
+
+#~ msgid "WiiPAD BUTTON HOME"
+#~ msgstr "WiiPAD 按鈕 HOME"
+
+#~ msgid "WiiPAD BUTTON LEFT"
+#~ msgstr "WiiPAD 按鈕左"
+
+#~ msgid "WiiPAD BUTTON MINUS"
+#~ msgstr "WiiPAD 按鈕 MINUS"
+
+#~ msgid "WiiPAD BUTTON PLUS"
+#~ msgstr "WiiPAD 按鈕 PLUS"
+
+#~ msgid "WiiPAD BUTTON RIGHT"
+#~ msgstr "WiiPAD 按鈕右"
+
+#~ msgid "WiiPAD BUTTON UP"
+#~ msgstr "WiiPAD 按鈕上"
+
+#~ msgid "WiiPAD CLASSIC BUTTON A"
+#~ msgstr "WiiPAD 傳統搖桿 A"
+
+#~ msgid "WiiPAD CLASSIC BUTTON B"
+#~ msgstr "WiiPAD 傳統搖桿 B"
+
+#~ msgid "WiiPAD CLASSIC BUTTON DOWN"
+#~ msgstr "WiiPAD 傳統搖桿下"
+
+#~ msgid "WiiPAD CLASSIC BUTTON FULL L"
+#~ msgstr "WiiPAD 傳統搖桿 L"
+
+#~ msgid "WiiPAD CLASSIC BUTTON FULL R"
+#~ msgstr "WiiPAD 傳統搖桿 R"
+
+#~ msgid "WiiPAD CLASSIC BUTTON HOME"
+#~ msgstr "WiiPAD 傳統搖桿 HOME"
+
+#~ msgid "WiiPAD CLASSIC BUTTON LEFT"
+#~ msgstr "WiiPAD 傳統搖桿左"
+
+#~ msgid "WiiPAD CLASSIC BUTTON MINUS"
+#~ msgstr "WiiPAD 傳統搖桿 MINUS"
+
+#~ msgid "WiiPAD CLASSIC BUTTON PLUS"
+#~ msgstr "WiiPAD 傳統搖桿 PLUS"
+
+#~ msgid "WiiPAD CLASSIC BUTTON RIGHT"
+#~ msgstr "WiiPAD 傳統搖桿右"
+
+#~ msgid "WiiPAD CLASSIC BUTTON UP"
+#~ msgstr "WiiPAD 傳統搖桿上"
+
+#~ msgid "WiiPAD CLASSIC BUTTON X"
+#~ msgstr "WiiPAD 傳統搖桿 X"
+
+#~ msgid "WiiPAD CLASSIC BUTTON Y"
+#~ msgstr "WiiPAD 傳統搖桿 Y"
+
+#~ msgid "WiiPAD CLASSIC BUTTON ZL"
+#~ msgstr "WiiPAD 傳統搖桿 ZL"
+
+#~ msgid "WiiPAD CLASSIC BUTTON ZR"
+#~ msgstr "WiiPAD 傳統搖桿 ZR"
+
+#~ msgid "WiiPAD CLASSIC NONE BUTTON"
+#~ msgstr "WiiPAD 傳統搖桿 NONE"
+
+#~ msgid "WiiPAD NONE BUTTON"
+#~ msgstr "WiiPAD NONE 按鈕"
 
 #~ msgid "Do you want to launch file with MPlayerCE?"
 #~ msgstr "是否要用MPlayerCE啟動檔案？"
