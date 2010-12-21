@@ -38,6 +38,20 @@
 
 void __exception_setreload(int t);
 
+static FILE * open_file(const char * dev, char * filepath)
+{
+    sprintf(filepath, "%s:/apps/wiixplorer/boot.dol", dev);
+
+    FILE * exeFile = fopen(filepath ,"rb");
+    if (exeFile == NULL)
+    {
+        sprintf(filepath, "%s:/apps/wiiexplorer/boot.dol", dev);
+        exeFile = fopen(filepath ,"rb");
+    }
+
+    return exeFile;
+}
+
 int main(int argc, char **argv)
 {
 	u32 cookie;
@@ -47,9 +61,6 @@ int main(int argc, char **argv)
 	u32 exeEntryPointAddress = 0;
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
-	/* check devices */
-	SDCard_Init();
-	USBDevice_Init();
 
 	/* int videomod */
 	InitVideo();
@@ -58,19 +69,19 @@ int main(int argc, char **argv)
 	fadein(imgdata);
 
     char filepath[200];
-    int dev;
 
-	for(dev  = SD; dev < MAXDEVICES; ++dev)
+	// try SD Card First
+	SDCard_Init();
+	exeFile = open_file(DeviceName[SD], filepath);
+	// if app not found on SD Card try USB
+	if (exeFile == NULL)
 	{
-		if (exeFile == NULL)
+		USBDevice_Init();
+		int dev;
+		for(dev = USB1; dev < MAXDEVICES; ++dev)
 		{
-			sprintf(filepath, "%s:/apps/wiixplorer/boot.dol", DeviceName[dev]);
-			exeFile = fopen(filepath ,"rb");
-		}
-		if (exeFile == NULL)
-		{
-			sprintf(filepath, "%s:/apps/wiiexplorer/boot.dol", DeviceName[dev]);
-			exeFile = fopen(filepath ,"rb");
+		    if(!exeFile)
+                exeFile = open_file(DeviceName[dev], filepath);
 		}
 	}
 
