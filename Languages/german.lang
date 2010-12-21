@@ -1,12 +1,12 @@
 # WiiXplorer
-# german language source file - r207
+# german language source file - r208
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-12 00:23+0100\n"
-"PO-Revision-Date: 2010-11-25 13:34-0800\n"
+"POT-Creation-Date: 2010-12-12 14:17+0200\n"
+"PO-Revision-Date: 2010-12-11 15:38-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
 "MIME-Version: 1.0\n"
@@ -1646,7 +1646,7 @@ msgid "You do not have BootMii installed!"
 msgstr "Du hast BootMii nicht installiert!"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "Du hast eine GUID-Partitionstabelle (GPT). Formatieren mit einer GPT wird noch nicht unterstützt."
 
 msgid "ZXCVBNM<>?"
 msgstr "YXCVBNM<>?"

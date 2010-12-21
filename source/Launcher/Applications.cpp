@@ -144,7 +144,7 @@ void Applications::Search(const char * path)
             if (binary.GetFilecount() > 0)
             {
                 Application app;
-                snprintf(app.path, sizeof(app.path), "%s/%s", binary.GetFilepath(0), binary.GetFilename(0));
+                snprintf(app.path, sizeof(app.path), "%s", binary.GetFilepath(0));
 
                 DirList meta(hbpath.c_str(), ".xml");
                 if (meta.GetFileIndex("meta.xml") >= 0)

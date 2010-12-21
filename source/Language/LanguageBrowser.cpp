@@ -220,9 +220,7 @@ int LanguageBrowser()
 		    int choice = WindowPrompt(FileList.GetFilename(ret), tr("Do you want to load this language ?"), tr("Yes"), tr("Cancel"));
             if(choice)
             {
-                char filepath[200];
-                snprintf(filepath, sizeof(filepath), "%s/%s", FileList.GetFilepath(ret), FileList.GetFilename(ret));
-                if(Settings.LoadLanguage(filepath))
+                if(Settings.LoadLanguage(FileList.GetFilepath(ret)))
                         Settings.Save();
 
                 menu = MENU_SETTINGS;

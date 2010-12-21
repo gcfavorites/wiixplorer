@@ -33,9 +33,8 @@ u32 load_dol(const void *dolstart, struct __argv *argv)
 			if ((!dolfile->text_size[i]) || (dolfile->text_start[i] < 0x100))
 				continue;
 
-			memmove((void *) dolfile->text_start[i], dolstart
-				+ dolfile->text_pos[i], dolfile->text_size[i]);
-
+            VIDEO_WaitVSync();
+			memmove((void *) dolfile->text_start[i], dolstart + dolfile->text_pos[i], dolfile->text_size[i]);
 			DCFlushRange ((void *) dolfile->text_start[i], dolfile->text_size[i]);
 			ICInvalidateRange((void *) dolfile->text_start[i], dolfile->text_size[i]);
 		}
@@ -45,9 +44,8 @@ u32 load_dol(const void *dolstart, struct __argv *argv)
 			if ((!dolfile->data_size[i]) || (dolfile->data_start[i] < 0x100))
 				continue;
 
-			memmove((void *) dolfile->data_start[i], dolstart
-					+ dolfile->data_pos[i], dolfile->data_size[i]);
-
+            VIDEO_WaitVSync();
+			memmove((void *) dolfile->data_start[i], dolstart + dolfile->data_pos[i], dolfile->data_size[i]);
 			DCFlushRange((void *) dolfile->data_start[i],
 					dolfile->data_size[i]);
 		}
