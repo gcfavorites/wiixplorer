@@ -174,9 +174,7 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
     imageDir = new DirList(path, Settings.FileExtensions.GetImage());
 
-    char * filename = strrchr(filepath, '/');
-    if(filename)
-        filename += 1;
+    const char * filename = FullpathToFilename(filepath);
 
     currentImage = imageDir->GetFileIndex(filename);
     if (currentImage < 0)
@@ -258,15 +256,12 @@ int ImageViewer::MainUpdate()
             int choice = WindowPrompt(tr("Do you want to delete this file:"), imageDir->GetFilename(currentImage), tr("Yes"), tr("Cancel"), 0, 0, false);
             if (choice)
             {
-                char filepath[1024];
-                snprintf(filepath, sizeof(filepath), "%s/%s", imageDir->GetFilepath(currentImage), imageDir->GetFilename(currentImage));
-                if(!RemoveFile(filepath))
+                if(!RemoveFile(imageDir->GetFilepath(currentImage)))
                     ShowError(tr("File could not be deleted."));
                 else
                 {
                     NextImage(false);
-                    snprintf(filepath, sizeof(filepath), "%s/%s", imageDir->GetFilepath(currentImage), imageDir->GetFilename(currentImage));
-                    LoadImageList(filepath);
+                    LoadImageList(imageDir->GetFilepath(currentImage));
                 }
             }
             SetState(STATE_DEFAULT);
@@ -508,10 +503,10 @@ bool ImageViewer::LoadImage(int index, bool silent)
     if(index < 0 || index >= imageDir->GetFilecount())
         return false;
 
-	char * filename = imageDir->GetFilename(index);
-	char * filedir = imageDir->GetFilepath(index);
+	const char * filename = imageDir->GetFilename(index);
+	const char * filepath = imageDir->GetFilepath(index);
 
-	if (filename == NULL || filedir == NULL)
+	if (filename == NULL || filepath == NULL)
 	{
 		char buffer[100];
 		snprintf(buffer, sizeof(buffer), tr("No image found at index %d."), index);
@@ -521,9 +516,6 @@ bool ImageViewer::LoadImage(int index, bool silent)
 
 	u64 filesize;
 	u8 * file = NULL;
-
-	char filepath[MAXPATHLEN];
-	snprintf(filepath, sizeof(filepath), "%s/%s", filedir, filename);
 
 	int ret = -1;
 	if(silent)

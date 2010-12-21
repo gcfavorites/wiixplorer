@@ -301,7 +301,7 @@ const u8 * NetReceiver::UncompressData()
         }
 
         char newfilepath[300];
-        snprintf(newfilepath, sizeof(newfilepath), "%s/%s", Dir.GetFilepath(0), Dir.GetFilename(0));
+        snprintf(newfilepath, sizeof(newfilepath), "%s", Dir.GetFilepath(0));
         snprintf(FileName, sizeof(FileName), "%s", Dir.GetFilename(0));
 
         u8 * buffer = NULL;

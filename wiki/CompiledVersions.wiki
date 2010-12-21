@@ -1,5 +1,0 @@
-#summary Download compiled versions at MediaFire
-
-= Introduction =
-
-You can download compiled versions at [http://www.mediafire.com/?sharekey=83b930e4a2b072e5d8f14848abf485dd8b518534ab34e4555be6ba49b5870170 MediaFire]

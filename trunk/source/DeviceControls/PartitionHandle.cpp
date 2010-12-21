@@ -122,7 +122,8 @@ bool PartitionHandle::Mount(int pos, const char * name)
     {
         if (fatMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS))
         {
-            PartitionList[pos].FSName = "FAT";
+            if(strcmp(GetFSName(pos), "GUID-Entry") == 0)
+                PartitionList[pos].FSName = "FAT";
             return true;
         }
     }

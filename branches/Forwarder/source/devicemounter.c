@@ -2,11 +2,14 @@
 #include <ogc/mutex.h>
 #include <ogc/system.h>
 #include <ogc/usbstorage.h>
+#include <ogc/lwp_watchdog.h>
 #include <string.h>
 #include <stdio.h>
 #include <fat.h>
 #include <ntfs.h>
 #include <sdcard/wiisd_io.h>
+#include <unistd.h>
+#include <time.h>
 #include "devicemounter.h"
 
 //these are the only stable and speed is good
@@ -35,6 +38,16 @@ typedef struct _MASTER_BOOT_RECORD {
 
 int USBDevice_Init()
 {
+    time_t start = time(0);
+
+    while(start-time(0) < 10) // 10 sec
+    {
+        if(__io_usbstorage.startup() && __io_usbstorage.isInserted())
+            break;
+
+        usleep(200000); // 1/5 sec
+    }
+
     if(!__io_usbstorage.startup() || !__io_usbstorage.isInserted())
         return -1;
 

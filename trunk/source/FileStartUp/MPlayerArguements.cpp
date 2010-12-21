@@ -72,7 +72,7 @@ void CreateMPlayerArguments(const char * filepath)
         while(ptr[0] != '/' || ptr[1] == '/')
             ptr++;
 
-        if(strncmp(DeviceHandler::PathToFSName(filepath), "NTF", 3) != 0)
+        if(strncmp(DeviceHandler::PathToFSName(filepath), "NTFS", 4) != 0)
         {
             sprintf(dst, "ntfs_usb:%s", ptr);
         }

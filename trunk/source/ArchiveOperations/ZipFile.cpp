@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -24,7 +24,7 @@
  * ZipFile.cpp
  *
  * ZipFile Class
- * for WiiXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>

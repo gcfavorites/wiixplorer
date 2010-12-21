@@ -76,10 +76,6 @@ static u8 *fixed_buffer = NULL;
 
 #define USB2_BUFFER 128*1024
 
-static char fs[] ATTRIBUTE_ALIGN(32) = "/dev/usb2";
-static char fs2[] ATTRIBUTE_ALIGN(32) = "/dev/usb123";
-static char fs3[] ATTRIBUTE_ALIGN(32) = "/dev/usb/ehc";
-
 static int usb1disc_inited = 0;
 static DISC_INTERFACE __io_usb1storage;
 extern const DISC_INTERFACE __io_usb2storage;
@@ -127,16 +123,10 @@ static s32 USB2Storage_Open(int verbose)
 
 	LWP_MutexLock(usb2_mutex);
 
-	if (__usb2fd < 0)
-		__usb2fd = IOS_Open(fs, 0);
+	if (__usb2fd <= 0)
+		__usb2fd = IOS_Open("/dev/usb2", 0);
 
-	if (__usb2fd < 0)
-		__usb2fd = IOS_Open(fs2, 0);
-
-	if (__usb2fd < 0)
-		__usb2fd = IOS_Open(fs3, 0);
-
-	if(__usb2fd < 0)
+	if(__usb2fd <= 0)
 	{
         LWP_MutexUnlock(usb2_mutex);
 		return -1;
