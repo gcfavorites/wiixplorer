@@ -54,7 +54,7 @@ bool WriteGDImage(const char * filepath, gdImagePtr gdImg, u8 format, u8 compres
             gdImageTiff(gdImg, file);
             break;
         case IMAGE_BMP:
-            gdImageBmp(gdImg, file, cut_bounds(compression, 0, 9));
+            gdImageBmp(gdImg, file, compression > 9 ? 9 : compression);
             break;
         case IMAGE_GD:
             gdImageGd(gdImg, file);

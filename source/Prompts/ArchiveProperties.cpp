@@ -296,7 +296,7 @@ int ArchiveProperties::GetChoice()
     return choice;
 }
 
-void ArchiveProperties::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void ArchiveProperties::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

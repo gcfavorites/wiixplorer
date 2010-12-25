@@ -126,7 +126,7 @@ int SettingsMenu::GetMenu()
     return menu;
 }
 
-void SettingsMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void SettingsMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

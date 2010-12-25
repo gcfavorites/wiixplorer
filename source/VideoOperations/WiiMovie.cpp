@@ -159,7 +159,7 @@ void WiiMovie::SetVolume(int vol)
     ASND_ChangeVolumeVoice(0, volume, volume);
 }
 
-void WiiMovie::OnExitClick(GuiElement *sender, int pointer, POINT p)
+void WiiMovie::OnExitClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
     Stop();
@@ -213,7 +213,7 @@ void WiiMovie::SetAspectRatio(float Aspect)
     SetScaleX((float) GetWidth()/vidwidth);
 }
 
-extern "C" void THPSoundCallback(int voice)
+extern "C" void THPSoundCallback(int voice UNUSED)
 {
     if(!soundbuffer || !soundbuffer->IsBufferReady())
         return;

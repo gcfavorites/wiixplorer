@@ -267,8 +267,8 @@ DIR_ITER *vrt_diropen(char *cwd, char *path)
     Yields virtual aliases when iter->device == VRT_DEVICE_ID.
  */
 int vrt_dirnext(DIR_ITER *iter, char *filename, struct stat *st) {
-    if (iter->device == VRT_DEVICE_ID) {
-        for (; (int)iter->dirStruct < MAX_VIRTUAL_PARTITIONS; iter->dirStruct++) {
+    if (iter->device == (int) VRT_DEVICE_ID) {
+        for (; (u32)iter->dirStruct < MAX_VIRTUAL_PARTITIONS; iter->dirStruct++) {
             VIRTUAL_PARTITION *partition = VIRTUAL_PARTITIONS + (int)iter->dirStruct;
             if (partition->inserted) {
                 st->st_mode = S_IFDIR;
@@ -284,7 +284,7 @@ int vrt_dirnext(DIR_ITER *iter, char *filename, struct stat *st) {
 }
 
 int vrt_dirclose(DIR_ITER *iter) {
-    if (iter->device == VRT_DEVICE_ID) {
+    if (iter->device == (int) VRT_DEVICE_ID) {
         free(iter);
         return 0;
     }

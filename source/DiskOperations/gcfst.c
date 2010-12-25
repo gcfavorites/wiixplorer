@@ -47,6 +47,8 @@ misrepresented as being the original software.
 #define SECTOR_SIZE 0x800
 #define BUFFER_SIZE 0x8000
 
+#define UNUSED	__attribute__((unused))
+
 typedef struct {
     u32 dol_offset;
     u32 fst_offset;
@@ -145,7 +147,7 @@ static DIR_ENTRY *entry_from_path(const char *path) {
     return NULL;
 }
 
-static int _FST_open_r(struct _reent *r, void *fileStruct, const char *path, int flags, int mode) {
+static int _FST_open_r(struct _reent *r, void *fileStruct, const char *path, int flags UNUSED, int mode UNUSED) {
     FILE_STRUCT *file = (FILE_STRUCT *)fileStruct;
     DIR_ENTRY *entry = entry_from_path(path);
     if (!entry) {
@@ -238,7 +240,7 @@ static int _FST_read_r(struct _reent *r, int fd, char *ptr, size_t len) {
     }
 
     len = _read(ptr, file->entry->offset + file->offset, len);
-    if (len < 0)
+    if ((int) len < 0)
     {
         r->_errno = EIO;
         return -1;
@@ -277,7 +279,7 @@ static off_t _FST_seek_r(struct _reent *r, int fd, off_t pos, int dir) {
         return -1;
     }
 
-    if (position < 0 || position > file->entry->size) {
+    if (position < 0 || (u32) position > file->entry->size) {
         r->_errno = EINVAL;
         return -1;
     }
@@ -391,7 +393,7 @@ static int _FST_dirclose_r(struct _reent *r, DIR_ITER *dirState) {
     return 0;
 }
 
-static int _FST_statvfs_r(struct _reent *r, const char *name, struct statvfs *buf)
+static int _FST_statvfs_r(struct _reent *r UNUSED, const char *name UNUSED, struct statvfs *buf)
 {
     if(!buf)
         return -1;
@@ -421,7 +423,12 @@ static const devoptab_t dotab_fst = {
     _FST_dirreset_r,
     _FST_dirnext_r,
     _FST_dirclose_r,
-    _FST_statvfs_r
+    _FST_statvfs_r,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
 };
 
 typedef struct {
@@ -482,7 +489,7 @@ static s32 read_fst(DIR_ENTRY *entry, FST_ENTRY *fst, char *name_table, s32 inde
         if(entry != root) add_child_entry(entry, "..")->flags = FLAG_DIR;
         entry->offset = index;
         s32 next;
-        for (next = index + 1; next < fst_entry->filelen;) {
+        for (next = index + 1; (u32) next < fst_entry->filelen;) {
             next = read_fst(entry, fst, name_table, next);
             if (next == -1) return -1;
         }

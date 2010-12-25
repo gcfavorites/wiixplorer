@@ -383,16 +383,13 @@ void ArchiveBrowser::ClearList()
 {
     for(u32 i = 0; i < PathStructure.size(); i++)
     {
+        if(!PathStructure.at(i))
+            continue;
+
         if(PathStructure.at(i)->filename != NULL)
-        {
             delete [] PathStructure.at(i)->filename;
-            PathStructure.at(i)->filename = NULL;
-        }
-        if(PathStructure.at(i) != NULL)
-        {
-            delete PathStructure.at(i);
-            PathStructure.at(i) = NULL;
-        }
+
+        delete PathStructure.at(i);
     }
 
     PathStructure.clear();

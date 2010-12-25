@@ -136,7 +136,7 @@ static inline s16 FixedToShort(mad_fixed_t Fixed)
 	return((s16)Fixed);
 }
 
-int Mp3Decoder::Read(u8 * buffer, int buffer_size, int pos)
+int Mp3Decoder::Read(u8 * buffer, int buffer_size, int pos UNUSED)
 {
     if(!file_fd)
         return -1;

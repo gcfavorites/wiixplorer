@@ -35,7 +35,7 @@ class TextPointer : public GuiButton
 {
 	public:
         TextPointer(GuiText *parent, int linestodraw);
-        TextPointer(GuiText *parent, int linestodraw, int w, int h);
+        TextPointer(GuiText *parent, int w, int h);
 		~TextPointer();
 		void PositionChanged(int chan, int x, int y);
         void SetPointerPosition(int LetterPos);

@@ -151,11 +151,11 @@ void Taskbar::DestroyInstance()
 	instance = NULL;
 }
 
-void Taskbar::SetState(int s, int c)
+void Taskbar::SetState(int s UNUSED, int c UNUSED)
 {
 }
 
-void Taskbar::SetDim(bool d)
+void Taskbar::SetDim(bool d UNUSED)
 {
 }
 

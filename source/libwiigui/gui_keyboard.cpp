@@ -411,12 +411,12 @@ void GuiKeyboard::MoveText(int n)
         TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()+n);
 }
 
-void GuiKeyboard::OnPointerHeld(GuiElement *sender, int pointer, POINT p)
+void GuiKeyboard::OnPointerHeld(GuiElement *sender UNUSED, int pointer, POINT p)
 {
     TextPointerBtn->PositionChanged(pointer, p.x, p.y);
 }
 
-void GuiKeyboard::OnPositionMoved(GuiElement *sender, int pointer, POINT p)
+void GuiKeyboard::OnPositionMoved(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

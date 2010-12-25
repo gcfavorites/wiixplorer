@@ -407,7 +407,7 @@ bool PlayList::ParsePath(const char * filepath)
     return true;
 }
 
-void PlayList::OnListStateChange(GuiElement *sender, int s, int c)
+void PlayList::OnListStateChange(GuiElement *sender, int s, int c UNUSED)
 {
     if(s != STATE_SELECTED)
         return;

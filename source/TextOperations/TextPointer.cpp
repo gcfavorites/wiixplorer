@@ -57,7 +57,7 @@ TextPointer::TextPointer(GuiText *parent, int linestodraw)
     SetImage(TextPointerImg);
 }
 
-TextPointer::TextPointer(GuiText *parent, int linestodraw, int w, int h)
+TextPointer::TextPointer(GuiText *parent, int w, int h)
     : GuiButton(w, h)
 {
     TextPtr = parent;

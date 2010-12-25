@@ -260,7 +260,7 @@ void IconFileBrowser::RemoveButton(int i)
     Buttons.erase(Buttons.begin()+i);
 }
 
-void IconFileBrowser::OnButtonClicked(GuiElement *sender, int pointer, POINT p)
+void IconFileBrowser::OnButtonClicked(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     state = STATE_CLICKED;
 }

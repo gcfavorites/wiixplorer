@@ -33,7 +33,7 @@ class ProgressWindow : public GuiWindow
         const char * GetTitle() { return ProgressTitle.c_str(); };
         void SetMinimized(bool m) { Minimized = m; };
         void SetMinimizable(bool m) { Minimizable = m; };
-        void SetTotalValues(u64 Size, u32 FileCount) { TotalSize = Size; };
+        void SetTotalValues(u64 Size, u32 FileCount UNUSED) { TotalSize = Size; };
         void ResetValues() { progressTotal = 0; TotalDone = 0; TotalSize = 0; };
         int GetProgressMode() { return showProgress; };
     protected:

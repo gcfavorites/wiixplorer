@@ -500,7 +500,7 @@ void Explorer::CheckRightClick()
     }
 }
 
-void Explorer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void Explorer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p)
 {
     if(sender == CreditsBtn)
     {
@@ -559,7 +559,7 @@ void Explorer::SetState(int s)
 	}
 }
 
-void Explorer::BackInDirectory(GuiElement *sender, int pointer, POINT p)
+void Explorer::BackInDirectory(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     CurBrowser->BackInDirectory();
     fileBrowser->SetSelected(0);

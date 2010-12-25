@@ -109,16 +109,28 @@ void BNSDecoder::CloseFile()
     file_fd = NULL;
 }
 
-int BNSDecoder::Read(u8 * buffer, int buffer_size, int pos)
+int BNSDecoder::Read(u8 * buffer, int buffer_size, int pos UNUSED)
 {
     if(!SoundData.buffer)
         return -1;
 
-    if(CurPos >= (int) SoundData.size)
-        return 0;
+    if(SoundData.loopFlag)
+    {
+        int factor = SoundData.format == VOICE_STEREO_16BIT ? 4 : 2;
+        if(CurPos >= (int) SoundData.loopEnd*factor)
+            CurPos = SoundData.loopStart*factor;
 
-    if(buffer_size > (int) SoundData.size-CurPos)
-        buffer_size = SoundData.size-CurPos;
+        if(buffer_size > (int) SoundData.loopEnd*factor-CurPos)
+            buffer_size = SoundData.loopEnd*factor-CurPos;
+    }
+    else
+    {
+        if(CurPos >= (int) SoundData.size)
+            return 0;
+
+        if(buffer_size > (int) SoundData.size-CurPos)
+            buffer_size = SoundData.size-CurPos;
+    }
 
     memcpy(buffer, SoundData.buffer+CurPos, buffer_size);
     CurPos += buffer_size;
@@ -343,6 +355,9 @@ SoundBlock DecodefromBNS(const u8 *buffer, u32 size)
 	OutBlock.frequency = freq;
 	OutBlock.format = format;
 	OutBlock.size = length;
+	OutBlock.loopStart = infoChunk.loopStart;
+	OutBlock.loopEnd = infoChunk.loopEnd;
+	OutBlock.loopFlag = infoChunk.loopFlag;
 
 	return OutBlock;
 }

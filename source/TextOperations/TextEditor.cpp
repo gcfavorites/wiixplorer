@@ -297,9 +297,9 @@ int TextEditor::GetState()
 
 int TextEditor::EditLine()
 {
-    u32 currentline = TextPointerBtn->GetCurrentLine();
+    int currentline = TextPointerBtn->GetCurrentLine();
 
-    if(currentline < 0 || currentline >= (u32) linestodraw)
+    if(currentline < 0 || currentline >= linestodraw)
         return -1;
 
     u32 LetterNumInLine = TextPointerBtn->GetCurrentLetter();
@@ -331,7 +331,7 @@ int TextEditor::EditLine()
     return -1;
 }
 
-void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void TextEditor::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -344,7 +344,7 @@ void TextEditor::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
 }
 
-void TextEditor::OnPointerHeld(GuiElement *sender, int pointer, POINT p)
+void TextEditor::OnPointerHeld(GuiElement *sender UNUSED, int pointer, POINT p)
 {
     if(!userInput[pointer].wpad->ir.valid)
         return;

@@ -40,6 +40,8 @@ misrepresented as being the original software.
 #include "net.h"
 #include "vrt.h"
 
+#define UNUSED	__attribute__((unused))
+
 #define FTP_BUFFER_SIZE 1024
 #define MAX_CLIENTS 5
 
@@ -155,7 +157,7 @@ static u32 split(char *s, char sep, u32 maxsplit, char *result[]) {
     return num_results;
 }
 
-static s32 ftp_USER(client_t *client, char *username) {
+static s32 ftp_USER(client_t *client, char *username UNUSED) {
     return write_reply(client, 331, "User name okay, need password.");
 }
 
@@ -168,7 +170,7 @@ static s32 ftp_PASS(client_t *client, char *password_attempt) {
     }
 }
 
-static s32 ftp_REIN(client_t *client, char *rest) {
+static s32 ftp_REIN(client_t *client, char *rest UNUSED) {
     close_passive_socket(client);
     strcpy(client->cwd, "/");
     client->representation_type = 'A';
@@ -176,13 +178,13 @@ static s32 ftp_REIN(client_t *client, char *rest) {
     return write_reply(client, 220, "Service ready for new user.");
 }
 
-static s32 ftp_QUIT(client_t *client, char *rest) {
+static s32 ftp_QUIT(client_t *client, char *rest UNUSED) {
     // TODO: dont quit if xfer in progress
     s32 result = write_reply(client, 221, "Service closing control connection.");
     return result < 0 ? result : -EQUIT;
 }
 
-static s32 ftp_SYST(client_t *client, char *rest) {
+static s32 ftp_SYST(client_t *client, char *rest UNUSED) {
     return write_reply(client, 215, "UNIX Type: L8 Version: ftpii");
 }
 
@@ -211,7 +213,7 @@ static s32 ftp_MODE(client_t *client, char *rest) {
     }
 }
 
-static s32 ftp_PWD(client_t *client, char *rest) {
+static s32 ftp_PWD(client_t *client, char *rest UNUSED) {
     char msg[MAXPATHLEN + 24];
     // TODO: escape double-quotes
     sprintf(msg, "\"%s\" is current directory.", client->cwd);
@@ -228,7 +230,7 @@ static s32 ftp_CWD(client_t *client, char *path) {
     return result;
 }
 
-static s32 ftp_CDUP(client_t *client, char *rest) {
+static s32 ftp_CDUP(client_t *client, char *rest UNUSED) {
     s32 result;
     if (!vrt_chdir(client->cwd, "..")) {
         result = write_reply(client, 250, "CDUP command successful.");
@@ -293,7 +295,7 @@ static s32 ftp_SIZE(client_t *client, char *path) {
     }
 }
 
-static s32 ftp_PASV(client_t *client, char *rest) {
+static s32 ftp_PASV(client_t *client, char *rest UNUSED) {
     close_passive_socket(client);
     client->passive_socket = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     if (client->passive_socket < 0) {
@@ -345,7 +347,7 @@ static s32 ftp_PORT(client_t *client, char *portspec) {
 
 typedef s32 (*data_connection_handler)(client_t *client, data_connection_callback callback, void *arg);
 
-static s32 prepare_data_connection_active(client_t *client, data_connection_callback callback, void *arg) {
+static s32 prepare_data_connection_active(client_t *client, data_connection_callback callback UNUSED, void *arg UNUSED) {
     s32 data_socket = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     if (data_socket < 0) return data_socket;
     set_blocking(data_socket, false);
@@ -365,7 +367,7 @@ static s32 prepare_data_connection_active(client_t *client, data_connection_call
     return 0;
 }
 
-static s32 prepare_data_connection_passive(client_t *client, data_connection_callback callback, void *arg) {
+static s32 prepare_data_connection_passive(client_t *client, data_connection_callback callback UNUSED, void *arg UNUSED) {
     client->data_socket = client->passive_socket;
     gxprintf("Waiting for data connections...\n");
     return 0;
@@ -528,13 +530,13 @@ static s32 ftp_REST(client_t *client, char *offset_str) {
     return write_reply(client, 350, msg);
 }
 
-static s32 ftp_SITE_LOADER(client_t *client, char *rest) {
+static s32 ftp_SITE_LOADER(client_t *client, char *rest UNUSED) {
     s32 result = write_reply(client, 200, "Exiting to loader.");
     //set_reset_flag();
     return result;
 }
 
-static s32 ftp_SITE_CLEAR(client_t *client, char *rest) {
+static s32 ftp_SITE_CLEAR(client_t *client, char *rest UNUSED) {
     s32 result = write_reply(client, 200, "Cleared.");
     u32 i;
     for (i = 0; i < 100; i++) gxprintf("\n");
@@ -546,7 +548,7 @@ static s32 ftp_SITE_CLEAR(client_t *client, char *rest) {
     This is implemented as a no-op to prevent some FTP clients
     from displaying skip/abort/retry type prompts.
 */
-static s32 ftp_SITE_CHMOD(client_t *client, char *rest) {
+static s32 ftp_SITE_CHMOD(client_t *client, char *rest UNUSED) {
     return write_reply(client, 250, "SITE CHMOD command ok.");
 }
 
@@ -555,31 +557,31 @@ static s32 ftp_SITE_PASSWD(client_t *client, char *new_password) {
     return write_reply(client, 200, "Password changed.");
 }
 
-static s32 ftp_SITE_NOPASSWD(client_t *client, char *rest) {
+static s32 ftp_SITE_NOPASSWD(client_t *client, char *rest UNUSED) {
     set_ftp_password(NULL);
     return write_reply(client, 200, "Authentication disabled.");
 }
 
-static s32 ftp_SITE_EJECT(client_t *client, char *rest) {
+static s32 ftp_SITE_EJECT(client_t *client, char *rest UNUSED) {
     //if (dvd_eject()) return write_reply(client, 550, "Unable to eject DVD.");
     return write_reply(client, 200, "DVD ejected.");
 }
 
-static s32 ftp_SITE_MOUNT(client_t *client, char *path) {
+static s32 ftp_SITE_MOUNT(client_t *client, char *path UNUSED) {
     //if (!mount_virtual(path)) return write_reply(client, 550, "Unable to mount.");
     return write_reply(client, 250, "Mounted.");
 }
 
-static s32 ftp_SITE_UNMOUNT(client_t *client, char *path) {
+static s32 ftp_SITE_UNMOUNT(client_t *client, char *path UNUSED) {
     //if (!unmount_virtual(path)) return write_reply(client, 550, "Unable to unmount.");
     return write_reply(client, 250, "Unmounted.");
 }
 
-static s32 ftp_SITE_UNKNOWN(client_t *client, char *rest) {
+static s32 ftp_SITE_UNKNOWN(client_t *client, char *rest UNUSED) {
     return write_reply(client, 501, "Unknown SITE command.");
 }
 
-static s32 ftp_SITE_LOAD(client_t *client, char *path) {
+static s32 ftp_SITE_LOAD(client_t *client, char *path UNUSED) {
  //   FILE *f = vrt_fopen(client->cwd, path, "rb");
  //   if (!f) return write_reply(client, 550, strerror(errno));
  //   char *real_path = to_real_path(client->cwd, path);
@@ -611,19 +613,19 @@ static s32 ftp_SITE(client_t *client, char *cmd_line) {
     return dispatch_to_handler(client, cmd_line, site_commands, site_handlers);
 }
 
-static s32 ftp_NOOP(client_t *client, char *rest) {
+static s32 ftp_NOOP(client_t *client, char *rest UNUSED) {
     return write_reply(client, 200, "NOOP command successful.");
 }
 
-static s32 ftp_SUPERFLUOUS(client_t *client, char *rest) {
+static s32 ftp_SUPERFLUOUS(client_t *client, char *rest UNUSED) {
     return write_reply(client, 202, "Command not implemented, superfluous at this site.");
 }
 
-static s32 ftp_NEEDAUTH(client_t *client, char *rest) {
+static s32 ftp_NEEDAUTH(client_t *client, char *rest UNUSED) {
     return write_reply(client, 530, "Please login with USER and PASS.");
 }
 
-static s32 ftp_UNKNOWN(client_t *client, char *rest) {
+static s32 ftp_UNKNOWN(client_t *client, char *rest UNUSED) {
     return write_reply(client, 502, "Command not implemented.");
 }
 

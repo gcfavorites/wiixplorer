@@ -11,7 +11,7 @@
 
 static bool geckoinit = false;
 
-static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
+static ssize_t __out_write(struct _reent *r UNUSED, int fd UNUSED, const char *ptr, size_t len)
 {
     if(geckoinit && ptr)
 	{
@@ -44,7 +44,12 @@ static const devoptab_t gecko_out = {
 	NULL,		// device dirreset_r
 	NULL,		// device dirnext_r
 	NULL,		// device dirclose_r
-	NULL		// device statvfs_r
+	NULL,		// device statvfs_r
+	NULL,		// device ftruncate_r
+	NULL,		// device fsync_r
+	NULL,		// device deviceData
+	NULL,		// device chmod_r
+	NULL,		// device fchmod_r
 };
 
 static void USBGeckoOutput()
@@ -81,7 +86,7 @@ void gprintf(const char * format, ...)
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va) >= 0) && tmp)
 	{
-        usb_sendbuffer(1, tmp, strlen(tmp));
+        __out_write(NULL, 0, tmp, strlen(tmp));
 	}
 	va_end(va);
 
@@ -96,17 +101,17 @@ void gsenddata(const u8 *data, int length, const char *filename)
 	// First, send a "\x1b[2B]" line (this will tell geckoreader that binary data is comming up next)
 	const char *binary_data = "\x1b[2B]\n";
 
-	usb_sendbuffer(1, binary_data, strlen(binary_data));
+	__out_write(NULL, 0, binary_data, strlen(binary_data));
 
 	u8 filenamelength = filename == NULL ? 0 : strlen(filename);
 
 	// Send the length
-	usb_sendbuffer(1, (u8 *) &length, 4);
-	usb_sendbuffer(1, (u8 *) &filenamelength, 1);
-	usb_sendbuffer(1, data, length);
+	__out_write(NULL, 0, (char *) &length, 4);
+	__out_write(NULL, 0, (char *) &filenamelength, 1);
+	__out_write(NULL, 0, (char *) data, length);
 	if (filename != NULL)
 	{
-		usb_sendbuffer(1, filename, strlen(filename));
+		__out_write(NULL, 0, filename, strlen(filename));
 	}
 }
 

@@ -32,6 +32,7 @@
 #include "Tools/timer.h"
 #include "FileOperations/File.hpp"
 #include "Tools/BufferCircle.hpp"
+#include "Tools/tools.h"
 
 enum
 {

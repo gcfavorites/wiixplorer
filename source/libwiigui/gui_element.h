@@ -251,12 +251,12 @@ class GuiElement : public sigslot::has_slots<>
 		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
 		virtual void SetAlignment(int hor, int vert);
 		//!Dim the Element and its child elements
-		virtual void SetDim(bool d) { };
+		virtual void SetDim(bool d UNUSED) { };
 		//!Check if element is already
 		virtual bool IsDimmed() { return dim; };
 		//!Called constantly to allow the element to respond to the current input data
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
-		virtual void Update(GuiTrigger * t) { };
+		virtual void Update(GuiTrigger * t UNUSED) { };
 		//!Called constantly to redraw the element
 		virtual void Draw() { };
 

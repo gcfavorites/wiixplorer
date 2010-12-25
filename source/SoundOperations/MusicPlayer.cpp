@@ -423,7 +423,7 @@ void MusicPlayer::Hide()
     PlayTitle = NULL;
 }
 
-void MusicPlayer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void MusicPlayer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

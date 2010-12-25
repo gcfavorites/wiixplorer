@@ -46,6 +46,8 @@ misrepresented as being the original software.
 #define SECTOR_SIZE 0x800
 #define BUFFER_SIZE 0x8000
 
+#define UNUSED	__attribute__((unused))
+
 typedef struct {
     u8 name_length;
     u8 extended_sectors;
@@ -206,7 +208,7 @@ static bool read_directory(DIR_ENTRY *dir_entry, PATH_ENTRY *path_entry) {
     u32 sector_offset = 0;
 
     do {
-        if (_read(cluster_buffer, (u64)sector * SECTOR_SIZE + sector_offset, (SECTOR_SIZE - sector_offset)) != (SECTOR_SIZE - sector_offset)) return false;
+        if (_read(cluster_buffer, (u64)sector * SECTOR_SIZE + sector_offset, (SECTOR_SIZE - sector_offset)) != (int) (SECTOR_SIZE - sector_offset)) return false;
         int offset = read_entry(dir_entry, cluster_buffer);
         if (offset == -1) return false;
         if (!remaining) {
@@ -358,7 +360,7 @@ static bool entry_from_path(DIR_ENTRY *dir_entry, const char *const_path) {
     return found;
 }
 
-static int _ISO9660_open_r(struct _reent *r, void *fileStruct, const char *path, int flags, int mode) {
+static int _ISO9660_open_r(struct _reent *r, void *fileStruct, const char *path, int flags UNUSED, int mode UNUSED) {
     FILE_STRUCT *file = (FILE_STRUCT *)fileStruct;
     DIR_ENTRY entry;
     if (!entry_from_path(&entry, path)) {
@@ -406,7 +408,7 @@ static int _ISO9660_read_r(struct _reent *r, int fd, char *ptr, size_t len) {
     }
 
     u64 offset = file->entry.sector * SECTOR_SIZE + file->offset;
-    if ((len = _read(ptr, offset, len)) < 0) {
+    if ((int) (len = _read(ptr, offset, len)) < 0) {
         r->_errno = EIO;
         return -1;
     }
@@ -444,7 +446,7 @@ static off_t _ISO9660_seek_r(struct _reent *r, int fd, off_t pos, int dir) {
         return -1;
     }
 
-    if (position < 0 || position > file->entry.size) {
+    if (position < 0 || (u32) position > file->entry.size) {
         r->_errno = EINVAL;
         return -1;
     }
@@ -496,7 +498,7 @@ static int _ISO9660_stat_r(struct _reent *r, const char *path, struct stat *st) 
     return 0;
 }
 
-static int _ISO9660_statvfs_r(struct _reent *r, const char *name, struct statvfs *buf)
+static int _ISO9660_statvfs_r(struct _reent *r UNUSED, const char *name UNUSED, struct statvfs *buf)
 {
     if(!buf)
         return -1;
@@ -590,7 +592,12 @@ static const devoptab_t dotab_iso9660 = {
     _ISO9660_dirreset_r,
     _ISO9660_dirnext_r,
     _ISO9660_dirclose_r,
-    _ISO9660_statvfs_r
+    _ISO9660_statvfs_r,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
 };
 
 typedef struct {

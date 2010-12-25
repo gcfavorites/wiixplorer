@@ -35,6 +35,7 @@
 
 
 #include <gccore.h>
+#include "Tools/tools.h"
 
 #pragma pack(push, 1)
 
@@ -229,14 +230,14 @@ class VideoFile
 
   virtual void loadNextFrame() { };
 
-  virtual void getCurrentFrame(VideoFrame& frame) const { };
+  virtual void getCurrentFrame(VideoFrame& frame UNUSED) const { };
 
   //sound support:
   virtual bool hasSound() const { return false; };
   virtual int getNumChannels() const { return 0; };
   virtual int getFrequency() const { return 0; };
   virtual int getMaxAudioSamples() const { return 0; };
-  virtual int getCurrentBuffer(s16* data) const { return 0; };
+  virtual int getCurrentBuffer(s16* data UNUSED) const { return 0; };
 
  protected:
 

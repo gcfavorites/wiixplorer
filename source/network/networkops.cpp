@@ -118,7 +118,7 @@ void ResumeNetworkThread()
 /*********************************************************************************
  * Networkthread for background network initialize and update check with idle prio
  *********************************************************************************/
-static void * networkinitcallback(void *arg)
+static void * networkinitcallback(void *arg UNUSED)
 {
     while(!exitRequested)
     {
