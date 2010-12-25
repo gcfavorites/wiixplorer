@@ -394,8 +394,8 @@ bool CreateSubfolder(const char * fullpath)
  ***************************************************************************/
 int CopyFile(const char * src, const char * dest)
 {
-	u32 read = 1;
-	u32 wrote = 1;
+	int read = 1;
+	int wrote = 1;
 
 	char * filename = strrchr(src, '/');
 	if(filename)
@@ -531,6 +531,8 @@ int CopyDirectory(const char * src, const char * dest)
         return -2;
     }
 
+    memset(filename, 0, MAXPATHLEN);
+
     std::vector<char *> DirList;
     std::vector<char *> FileList;
 
@@ -558,6 +560,8 @@ int CopyDirectory(const char * src, const char * dest)
             VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
+
+        memset(filename, 0, MAXPATHLEN);
 	}
 	dirclose(dir);
     free(filename);
@@ -627,7 +631,7 @@ int CopyDirectory(const char * src, const char * dest)
  *
  * Move recursive a complete source path to destination path
  ***************************************************************************/
-int MoveDirectory(char * src, const char * dest)
+int MoveDirectory(const char * src, const char * dest)
 {
     bool samedevices = CompareDevices(src, dest);
 
@@ -645,6 +649,8 @@ int MoveDirectory(char * src, const char * dest)
         dirclose(dir);
         return -2;
     }
+
+    memset(filename, 0, MAXPATHLEN);
 
     std::vector<char *> DirList;
     std::vector<char *> FileList;
@@ -673,6 +679,8 @@ int MoveDirectory(char * src, const char * dest)
             VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
+
+        memset(filename, 0, MAXPATHLEN);
 	}
 	dirclose(dir);
     free(filename);
@@ -736,12 +744,16 @@ int MoveDirectory(char * src, const char * dest)
 	DirList.clear();
     ClearList(DirList);
 
-	src[strlen(src)-1] = '\0';
+    char srcCopy[strlen(src)+1];
+    strcpy(srcCopy, src);
+
+    while(srcCopy[strlen(srcCopy)-1] == '/')
+        srcCopy[strlen(srcCopy)-1] = '\0';
 
     if(actioncanceled)
         return -10;
 
-    if(remove(src) != 0)
+    if(remove(srcCopy) != 0)
         return -1;
 
     return 1;
@@ -764,7 +776,7 @@ int MoveFile(const char *srcpath, char *destdir)
 
     int res = CopyFile(srcpath, destdir);
     if(res < 0)
-        return -1;
+        return res;
 
     if(RemoveFile(srcpath))
         return 1;
@@ -777,7 +789,7 @@ int MoveFile(const char *srcpath, char *destdir)
  *
  * Remove a directory and its content recursively
  ***************************************************************************/
-int RemoveDirectory(char * dirpath)
+int RemoveDirectory(const char * dirpath)
 {
     struct stat st;
     DIR_ITER *dir = NULL;
@@ -793,6 +805,8 @@ int RemoveDirectory(char * dirpath)
         dirclose(dir);
         return -2;
     }
+
+    memset(filename, 0, MAXPATHLEN);
 
     std::vector<char *> DirList;
     std::vector<char *> FileList;
@@ -821,6 +835,8 @@ int RemoveDirectory(char * dirpath)
             VectorResize(FileList);
             FileList.push_back(strdup(filename));
         }
+
+        memset(filename, 0, MAXPATHLEN);
 	}
 	dirclose(dir);
 	free(filename);
@@ -872,12 +888,16 @@ int RemoveDirectory(char * dirpath)
     DirList.clear();
     ClearList(DirList);
 
-	dirpath[strlen(dirpath)-1] = '\0';
+    char dirpathCopy[strlen(dirpath)+1];
+    strcpy(dirpathCopy, dirpath);
+
+    while(dirpathCopy[strlen(dirpathCopy)-1] == '/')
+        dirpathCopy[strlen(dirpathCopy)-1] = '\0';
 
     if(actioncanceled)
         return -10;
 
-    if(remove(dirpath) != 0)
+    if(remove(dirpathCopy) != 0)
         return -1;
 
     return 1;
@@ -924,6 +944,8 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
         return;
     }
 
+    memset(filename, 0, MAXPATHLEN);
+
     std::vector<char *> DirList;
 
     while (dirnext(dir,filename,&st) == 0)
@@ -949,6 +971,7 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
             ++filecount;
             foldersize += st.st_size;
         }
+        memset(filename, 0, MAXPATHLEN);
 	}
 	dirclose(dir);
 	free(filename);

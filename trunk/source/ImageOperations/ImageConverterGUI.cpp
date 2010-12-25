@@ -454,7 +454,7 @@ void ImageConverterGui::SetOptionValues()
         Options.SetOptionValue(i++, tr("Both"));
 }
 
-void ImageConverterGui::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void ImageConverterGui::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -482,7 +482,7 @@ void ImageConverterGui::OnButtonClick(GuiElement *sender, int pointer, POINT p)
     }
 }
 
-void ImageConverterGui::OnOptionLeftClick(GuiElement *sender, int pointer, POINT p)
+void ImageConverterGui::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -541,7 +541,7 @@ void ImageConverterGui::OnOptionLeftClick(GuiElement *sender, int pointer, POINT
     SetOptionValues();
 }
 
-void ImageConverterGui::OnOptionRightClick(GuiElement *sender, int pointer, POINT p)
+void ImageConverterGui::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

@@ -443,7 +443,7 @@ void ImageViewer::StopSlideShow()
     Insert(backGround, 0);
 }
 
-void ImageViewer::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void ImageViewer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p)
 {
     if (sender == moveButton && image)
 	{

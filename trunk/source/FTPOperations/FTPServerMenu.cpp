@@ -174,7 +174,7 @@ int FTPServerMenu::GetMenu()
     return menu;
 }
 
-void FTPServerMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void FTPServerMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

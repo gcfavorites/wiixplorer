@@ -128,7 +128,7 @@ int OggDecoder::Rewind()
     return ret;
 }
 
-int OggDecoder::Read(u8 * buffer, int buffer_size, int pos)
+int OggDecoder::Read(u8 * buffer, int buffer_size, int pos UNUSED)
 {
     if(!file_fd)
         return -1;

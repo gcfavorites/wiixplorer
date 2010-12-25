@@ -284,7 +284,7 @@ void PromptWindow::SetMessage(const char *msg)
     msgTxt->SetText(msg);
 }
 
-void PromptWindow::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void PromptWindow::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

@@ -111,7 +111,7 @@ static s32 transfer_exact(s32 s, char *buf, s32 length, transferrer_type transfe
     set_blocking(s, true);
     while (remaining) {
         try_again_with_smaller_buffer:
-        bytes_transferred = transferrer(s, buf, MIN(remaining, NET_BUFFER_SIZE));
+        bytes_transferred = transferrer(s, buf, MIN(remaining, (int) NET_BUFFER_SIZE));
         if (bytes_transferred > 0) {
             remaining -= bytes_transferred;
             buf += bytes_transferred;

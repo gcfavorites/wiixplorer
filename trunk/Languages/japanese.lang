@@ -693,7 +693,7 @@ msgid "Free Space:"
 msgstr "空き領域:"
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "GCのHomebrew"
 
 msgid "GC PAD BUTTON A"
 msgstr "GCコンのAボタン"
@@ -1600,7 +1600,7 @@ msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
 msgid "Wii Homebrew"
-msgstr ""
+msgstr "WiiのHomebrew"
 
 msgid "WiiMC"
 msgstr ""
@@ -1645,7 +1645,7 @@ msgid "You do not have BootMii installed!"
 msgstr "BootMiiがインストールされていません!"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "GUIDパーティションテーブルでの初期化には対応していません"
 
 msgid "ZXCVBNM<>?"
 msgstr "ざじずぜぞだぢづでどをー"

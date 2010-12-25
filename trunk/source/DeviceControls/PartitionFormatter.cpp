@@ -327,7 +327,7 @@ int PartitionFormatter::WriteMBR_FAT32(const DISC_INTERFACE *interface, sec_t pa
     return 1;
 }
 
-int PartitionFormatter::WriteEBR_FAT32(const DISC_INTERFACE *interface, sec_t erb_lba, sec_t part_lba)
+int PartitionFormatter::WriteEBR_FAT32(const DISC_INTERFACE *interface, sec_t erb_lba, sec_t part_lba UNUSED)
 {
     if(!interface)
         return -1;

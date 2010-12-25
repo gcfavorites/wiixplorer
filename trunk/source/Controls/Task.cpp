@@ -71,7 +71,7 @@ void Task::SetIcon(GuiImageData * img)
 	GuiButton::SetIcon(ButtonIcon);
 }
 
-void Task::OnButtonClick(GuiElement * sender, int channel, POINT point)
+void Task::OnButtonClick(GuiElement * sender, int channel UNUSED, POINT point UNUSED)
 {
     Execute(Parameter);
     sender->ResetState();

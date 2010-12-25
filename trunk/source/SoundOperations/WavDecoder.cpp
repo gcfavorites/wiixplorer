@@ -125,7 +125,7 @@ void WavDecoder::CloseFile()
     file_fd = NULL;
 }
 
-int WavDecoder::Read(u8 * buffer, int buffer_size, int pos)
+int WavDecoder::Read(u8 * buffer, int buffer_size, int pos UNUSED)
 {
     if(!file_fd)
         return -1;

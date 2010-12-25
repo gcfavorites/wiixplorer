@@ -258,7 +258,7 @@ GuiImage * ListFileBrowser::GetIconFromExt(const char * fileext, bool dir)
     return (new GuiImage(fileDefault));
 }
 
-void ListFileBrowser::OnClicked(GuiElement *sender, int pointer, POINT p)
+void ListFileBrowser::OnClicked(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     state = STATE_CLICKED;
 }

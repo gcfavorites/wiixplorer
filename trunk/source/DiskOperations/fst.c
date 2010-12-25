@@ -55,6 +55,8 @@ misrepresented as being the original software.
 #define PLAINTEXT_CLUSTER_SIZE (u64)(ENCRYPTED_CLUSTER_SIZE - CLUSTER_HEADER_SIZE)
 #define AES_BLOCK_SIZE 16
 
+#define UNUSED	__attribute__((unused))
+
 typedef struct {
     u32 dol_offset;
     u32 fst_offset;
@@ -180,7 +182,7 @@ static DIR_ENTRY *entry_from_path(const char *path) {
     return NULL;
 }
 
-static int _FST_open_r(struct _reent *r, void *fileStruct, const char *path, int flags, int mode) {
+static int _FST_open_r(struct _reent *r, void *fileStruct, const char *path, int flags UNUSED, int mode UNUSED) {
     FILE_STRUCT *file = (FILE_STRUCT *)fileStruct;
     DIR_ENTRY *entry = entry_from_path(path);
     if (!entry) {
@@ -307,7 +309,7 @@ static int _FST_read_r(struct _reent *r, int fd, char *ptr, size_t len) {
     {
         u64 offset = ( partition->offset << 2LL ) + (u64)( (u64)file->entry->offset << 2LL ) + (u64)file->offset;
         len = _read(ptr, offset, len);
-        if (len < 0) {
+        if ((int) len < 0) {
 	    r->_errno = EIO;
             return -1;
         }
@@ -353,7 +355,7 @@ static off_t _FST_seek_r(struct _reent *r, int fd, off_t pos, int dir) {
         return -1;
     }
 
-    if (position < 0 || position > file->entry->size) {
+    if (position < 0 || (u32) position > file->entry->size) {
         r->_errno = EINVAL;
         return -1;
     }
@@ -467,7 +469,7 @@ static int _FST_dirclose_r(struct _reent *r, DIR_ITER *dirState) {
     return 0;
 }
 
-static int _FST_statvfs_r(struct _reent *r, const char *name, struct statvfs *buf)
+static int _FST_statvfs_r(struct _reent *r UNUSED, const char *name UNUSED, struct statvfs *buf)
 {
     if(!buf)
         return -1;
@@ -497,7 +499,12 @@ static const devoptab_t dotab_fst = {
     _FST_dirreset_r,
     _FST_dirnext_r,
     _FST_dirclose_r,
-    _FST_statvfs_r
+    _FST_statvfs_r,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
 };
 
 typedef struct {
@@ -562,7 +569,7 @@ static s32 read_fst(DIR_ENTRY *entry, FST_ENTRY *fst, char *name_table, s32 inde
         add_child_entry(entry, "..")->flags = FLAG_DIR;
         entry->offset = index;
         s32 next;
-        for (next = index + 1; next < fst_entry->filelen;) {
+        for (next = index + 1; (u32) next < fst_entry->filelen;) {
             next = read_fst(entry, fst, name_table, next);
             if (next == -1) return -1;
         }
@@ -790,7 +797,7 @@ static bool read_disc() {
 	if (count > 0) {
 	    PARTITION_ENTRY entries[count];
 	    u32 table_size = sizeof(PARTITION_ENTRY) * count;
-	    if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != table_size) { free(root); root = NULL; return false; }
+	    if (_read(entries, (u64)tables[table_index].table_offset << 2, table_size) != (int) table_size) { free(root); root = NULL; return false; }
 	    u32 partition_index;
 	    for (partition_index = 0; partition_index < count; partition_index++) {
 		PARTITION *newPartitions = realloc(partitions, sizeof(PARTITION) * (partition_count + 1));

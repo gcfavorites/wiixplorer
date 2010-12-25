@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define UNUSED	__attribute__((unused))
+
 //cache pages count
 #define FTP_CACHE_PAGES              3
 //cache page size
@@ -732,7 +734,7 @@ static int ftp_get_fname(char* s, char* d)
 	int i, cnt;
 	int in_space = 1;
 
-	for(i = 0, cnt = 9; (i < strlen(s))&&(cnt > 0); i++)
+	for(i = 0, cnt = 9; (i < (int) strlen(s))&&(cnt > 0); i++)
 	{
 		if(in_space)
 		{
@@ -747,7 +749,7 @@ static int ftp_get_fname(char* s, char* d)
 			if(s[i] == ' ') in_space = 1;
 		}
 	}
-	if(i >= strlen(s))
+	if(i >= (int) strlen(s))
 	{
 //		VERBOSE(" jumped the horse here!\n");
 		d[0] = 0;
@@ -767,7 +769,7 @@ static int ftp_get_substring(char *s, char *d, int n)
 	int in_space = 1;
 	int len = 0, i;
 
-	for(i = 0; i < strlen(s); i++)
+	for(i = 0; i < (int) strlen(s); i++)
 	{
 		if(in_space)
 		{
@@ -1365,7 +1367,7 @@ static bool FTP_Connect(ftp_env* env, const char* name, const char* user, const 
 
 //==============================================================================
 //==============================================================================
-static void AddDirEntry(FTPDIRSTATESTRUCT* state, FTPDIRENTRYLISTITEM*** ppLastItem, const char* name, off_t size, bool isDirectory)
+static void AddDirEntry(FTPDIRSTATESTRUCT* state UNUSED, FTPDIRENTRYLISTITEM*** ppLastItem, const char* name, off_t size, bool isDirectory)
 {
 	FTPDIRENTRYLISTITEM* pItem = ( FTPDIRENTRYLISTITEM* )malloc( sizeof( FTPDIRENTRYLISTITEM ) );
 
@@ -1906,7 +1908,7 @@ static void FTP_CloseFile( FTPFILESTRUCT* file )
 static void DestroyFTPReadAheadCache()
 {
 
-	int i;
+	u32 i;
 	if (FTPReadAheadCache == NULL) return;
 
 	NET_PRINTF("DestroyFTPReadAheadCache()\n", 0 );
@@ -1929,7 +1931,7 @@ static void DestroyFTPReadAheadCache()
 //pages - number of cache pages
 static void CreateFTPReadAheadCache(u32 pages)
 {
-	int i;
+	u32 i;
 
 	DestroyFTPReadAheadCache();
 
@@ -1959,7 +1961,7 @@ static void CreateFTPReadAheadCache(u32 pages)
 //called when file is closed
 static void ClearFTPFileCache(FTPFILESTRUCT *file)
 {
-	int i;
+	u32 i;
 
 	if (FTPReadAheadCache == NULL) return;
 
@@ -1982,8 +1984,9 @@ static void ClearFTPFileCache(FTPFILESTRUCT *file)
 //assumption: offset+length range is inside file
 static bool ReadFTPFromCache(void *buf, off_t len, FTPFILESTRUCT *file)
 {
-	int i, leastUsed;
-
+	int leastUsed;
+	u32 i;
+	
 	off_t rest;
 	off_t new_offset;
 
@@ -2051,7 +2054,7 @@ static bool ReadFTPFromCache(void *buf, off_t len, FTPFILESTRUCT *file)
 	//do not interset with existing pages
 	for (i = 0; i < numFTP_RA_pages; i++)
 	{
-		if ( i == leastUsed ) continue;
+		if ( (int) i == leastUsed ) continue;
 		if ( FTPReadAheadCache[i].file != file ) continue;
 
 		if ( (cache_offset < FTPReadAheadCache[i].offset ) && (cache_offset + FTP_READ_BUFFERSIZE > FTPReadAheadCache[i].offset) )
@@ -2164,7 +2167,7 @@ static char *ExtractDevice(const char *path, char *device)
 //==============================================================================
 //==============================================================================
 //FILE IO
-static int __ftp_open(struct _reent *r, void *fileStruct, const char *path, int flags, int mode)
+static int __ftp_open(struct _reent *r, void *fileStruct, const char *path, int flags, int mode UNUSED)
 {
 	NET_PRINTF("__ftp_open( path='%s' )\n", path );
 
@@ -2340,7 +2343,7 @@ static ssize_t __ftp_write(struct _reent *r, int fd, const char *ptr, size_t len
 
 //==============================================================================
 //==============================================================================
-static int __ftp_close(struct _reent *r, int fd)
+static int __ftp_close(struct _reent *r UNUSED, int fd)
 {
 	NET_PRINTF("__ftp_close()\n", 0 );
 
@@ -2355,7 +2358,7 @@ static int __ftp_close(struct _reent *r, int fd)
 
 //==============================================================================
 //==============================================================================
-static int __ftp_mkdir(struct _reent *r, const char *name, int mode)
+static int __ftp_mkdir(struct _reent *r, const char *name, int mode UNUSED)
 {
     NET_PRINTF("__ftp_mkdir()\n",0);
 
@@ -2534,7 +2537,7 @@ static int __ftp_chdir(struct _reent *r, const char *path)
 
 //==============================================================================
 //==============================================================================
-static int __ftp_dirreset(struct _reent *r, DIR_ITER *dirState)
+static int __ftp_dirreset(struct _reent *r UNUSED, DIR_ITER *dirState)
 {
 	char path_abs[FTP_MAXPATH];
 	FTPDIRSTATESTRUCT* state = (FTPDIRSTATESTRUCT*) (dirState->dirStruct);
@@ -2665,7 +2668,7 @@ static int __ftp_dirnext(struct _reent *r, DIR_ITER *dirState, char *filename, s
 
 //==============================================================================
 //==============================================================================
-static int __ftp_dirclose(struct _reent *r, DIR_ITER *dirState)
+static int __ftp_dirclose(struct _reent *r UNUSED, DIR_ITER *dirState)
 {
 	NET_PRINTF("__ftp_dirclose(  )\n",0 );
 

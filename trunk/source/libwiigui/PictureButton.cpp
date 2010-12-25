@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2010
  * by r-win
  *
  * This software is provided 'as-is', without any express or implied
@@ -23,7 +23,7 @@
  *
  * PictureButton.cpp
  *
- * for Wii-FileXplorer 2009
+ * for WiiXplorer 2010
  ***************************************************************************/
 
 #include "PictureButton.h"
@@ -38,7 +38,7 @@ PictureButton::PictureButton(const u8 *img, u32 imgSize)
 PictureButton::PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize)
 	: GuiButton(0, 0)
 {
-	Init(img, imgSize, imgOver, 0, NULL, NULL);
+	Init(img, imgSize, imgOver, imgOverSize, NULL, NULL);
 }
 
 PictureButton::PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick)

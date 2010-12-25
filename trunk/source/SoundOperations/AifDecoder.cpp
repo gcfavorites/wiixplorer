@@ -191,7 +191,7 @@ void AifDecoder::CloseFile()
     file_fd = NULL;
 }
 
-int AifDecoder::Read(u8 * buffer, int buffer_size, int pos)
+int AifDecoder::Read(u8 * buffer, int buffer_size, int pos UNUSED)
 {
     if(!file_fd)
         return -1;

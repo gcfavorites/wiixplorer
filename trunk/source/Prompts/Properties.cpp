@@ -354,7 +354,7 @@ int Properties::GetChoice()
     return choice;
 }
 
-void Properties::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void Properties::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

@@ -216,7 +216,7 @@ int CreditWindow::GetChoice()
     return choice;
 }
 
-void CreditWindow::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void CreditWindow::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

@@ -181,7 +181,7 @@ s8 WPAD_Stick(u8 chan, u8 right, int axis)
 /****************************************************************************
  * Initialize Stuff
  ***************************************************************************/
-extern "C" void __Wpad_PowerCallback(s32 chan)
+extern "C" void __Wpad_PowerCallback(s32 chan UNUSED)
 {
 	shutdown = true;
 }

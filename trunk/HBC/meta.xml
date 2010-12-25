@@ -3,8 +3,8 @@
   <name>WiiXplorer</name>
   <coder>Dimok</coder>
   <contributors>r-win/dude</contributors>
-  <version>r209</version>
-  <release_date>201012212120</release_date>
+  <version>r210</version>
+  <release_date>201012251714</release_date>
   <no_ios_reload/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
@@ -15,6 +15,7 @@ Features:
  * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
  * FAT/NTFS/EXT2/EXT3/EXT4 files systems support
+ * GUID Partition Table (GPT) support
  * Rename files/directories
  * Properties of files/directories
  * Browse through SD/USB/SMB/DVD/WiiDisk

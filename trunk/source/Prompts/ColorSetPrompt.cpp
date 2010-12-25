@@ -105,7 +105,7 @@ void ColorSetPrompt::UpdateOptionValues()
     arrowOption.SetOptionValue(2, fmt("%i", color[ColorPos].b));
 }
 
-void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer, POINT p)
+void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -116,20 +116,14 @@ void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer, POINT p)
             if(i == 0)
             {
                 --color[ColorPos].r;
-                if(color[ColorPos].r < 0)
-                    color[ColorPos].r = 255;
             }
             else if(i == 1)
             {
                 --color[ColorPos].g;
-                if(color[ColorPos].g < 0)
-                    color[ColorPos].g = 255;
             }
             else if(i == 2)
             {
                 --color[ColorPos].b;
-                if(color[ColorPos].b < 0)
-                    color[ColorPos].b = 255;
             }
             UpdateOptionValues();
             break;
@@ -137,7 +131,7 @@ void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer, POINT p)
     }
 }
 
-void ColorSetPrompt::OnOptionRightClick(GuiElement *sender, int pointer, POINT p)
+void ColorSetPrompt::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -163,7 +157,7 @@ void ColorSetPrompt::OnOptionRightClick(GuiElement *sender, int pointer, POINT p
     }
 }
 
-void ColorSetPrompt::OnOptionButtonClick(GuiElement *sender, int pointer, POINT p)
+void ColorSetPrompt::OnOptionButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

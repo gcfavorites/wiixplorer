@@ -74,8 +74,8 @@ class FileBrowser : public Browser
         bool IsDir(int ind) { return browserList[ind].isdir; };
         u64 GetFilesize(int ind) { return browserList[ind].length; };
         u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
-        const char * GetItemName(int ind) { return browserList[ind].filename; };
-        const char * GetCurrentFilename() { return browserList[browser.selIndex].filename; };
+        const char * GetItemName(int ind) { return (browserList[ind].filename ? browserList[ind].filename : ""); };
+        const char * GetCurrentFilename() { return (browserList[browser.selIndex].filename ? browserList[browser.selIndex].filename : ""); };
         const char * GetRootDir() { return browser.rootdir; };
         const char * GetDir() { return browser.dir; };
         const char * GetCurrentPath();

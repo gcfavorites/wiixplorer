@@ -523,13 +523,13 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 	u8 a;
     u32 x, y, pixel, offset;
 
-    for(y = 0; y < height; ++y)
+    for(y = 0; y < (u32) height; ++y)
     {
-        for(x = 0; x < width; ++x)
+        for(x = 0; x < (u32) width; ++x)
         {
             pixel = gdImageGetPixel(*gdImg, x, y);
 
-            a = 254 - 2*((u8)gdImageAlpha(*gdImg, pixel));
+            a = 254 - 2*(gdImageAlpha(*gdImg, pixel) & 0xFF);
             if(a == 254) a++;
 
             offset = coordsRGBA8(x, y, width);
@@ -552,7 +552,7 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 
 u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
 {
-    int x, y;
+    u32 x, y;
 
     int len =  datasizeRGBA8(width, height);
 

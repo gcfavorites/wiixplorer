@@ -49,7 +49,7 @@
 
 Settings Settings;
 
-int main(int argc, char *argv[])
+int main(int argc UNUSED, char *argv[] UNUSED)
 {
     __exception_setreload(30);
 	InitVideo(); // Initialize video

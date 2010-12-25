@@ -41,15 +41,15 @@ class PDFViewer : public ImageViewer
         bool PreviousPage();
         int MainUpdate();
         //! Virtual overloads to adjust to imageviewer
-        bool NextImage(bool silent = false) { return NextPage(); };
-        bool PreviousImage(bool silent = false) { return PreviousPage(); };
+        bool NextImage(bool silent UNUSED = false) { return NextPage(); };
+        bool PreviousImage(bool silent UNUSED = false) { return PreviousPage(); };
     protected:
         int PreparePage(int pagenum);
         int PageToRGBA8();
         void FreePage();
         //! Virtual overloads which are not needed
-        bool LoadImage(int index, bool silent = false) { return LoadPage(index); };
-        bool LoadImageList(const char * filepath) { return true; };
+        bool LoadImage(int index, bool silent UNUSED = false) { return LoadPage(index); };
+        bool LoadImageList(const char * filepath UNUSED) { return true; };
 
         u8 * OutputImage;
         fz_glyphcache *drawcache;

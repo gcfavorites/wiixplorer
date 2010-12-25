@@ -58,6 +58,7 @@ Features:
  * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
  * FAT/NTFS/EXT2/EXT3/EXT4 files systems support
+ * GUID Partition Table (GPT) support
  * Rename files/directories
  * Properties of files/directories
  * Browse through SD/USB/SMB/DVD/WiiDisk

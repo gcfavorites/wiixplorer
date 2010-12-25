@@ -167,14 +167,14 @@ void IOHandler::ProcessNext()
             snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
             if(CompareDevices(srcpath, destdir))
             {
-                if(ProgressWindow::Instance()->GetProgressMode() != THROBBER);
+                if(ProgressWindow::Instance()->GetProgressMode() != THROBBER)
                     StopProgress();
 
                 StartProgress(tr("Moving item(s):"), THROBBER, !Running);
             }
             else
             {
-                if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode);
+                if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
                     StopProgress();
 
                 StartProgress(tr("Moving item(s):"), ProgressMode, !Running);
@@ -183,7 +183,7 @@ void IOHandler::ProcessNext()
     }
     else
     {
-        if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode);
+        if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
             StopProgress();
 
         StartProgress(tr("Copying item(s):"), ProgressMode, !Running);

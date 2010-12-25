@@ -313,7 +313,7 @@ int PopUpMenu::GetChoice()
 	return choice;
 }
 
-void PopUpMenu::OnClick(GuiElement *sender, int pointer, POINT p)
+void PopUpMenu::OnClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
 	sender->ResetState();
 	//TODO add the functions instead of the link
@@ -333,7 +333,7 @@ void PopUpMenu::OnClick(GuiElement *sender, int pointer, POINT p)
 	}
 }
 
-void PopUpMenu::OnScrollUp(GuiElement *sender, int pointer, POINT p)
+void PopUpMenu::OnScrollUp(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < (u32) Settings.ScrollSpeed)
         return;
@@ -343,7 +343,7 @@ void PopUpMenu::OnScrollUp(GuiElement *sender, int pointer, POINT p)
 	ScrollState = 0;
 }
 
-void PopUpMenu::OnScrollDown(GuiElement *sender, int pointer, POINT p)
+void PopUpMenu::OnScrollDown(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < (u32) Settings.ScrollSpeed)
         return;

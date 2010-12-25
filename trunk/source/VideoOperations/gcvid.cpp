@@ -620,7 +620,7 @@ const u8* g_jpegBuffer;
 int g_jpegSize;
 bool g_isLoading = false;
 
-void jpegInitSource(j_decompress_ptr cinfo)
+void jpegInitSource(j_decompress_ptr cinfo UNUSED)
 {}
 
 boolean jpegFillInputBuffer(j_decompress_ptr cinfo)
@@ -642,7 +642,7 @@ boolean jpegResyncToRestart(j_decompress_ptr cinfo, int desired)
   return TRUE;
 }
 
-void jpegTermSource(j_decompress_ptr cinfo)
+void jpegTermSource(j_decompress_ptr cinfo UNUSED)
 {}
 
 void jpegErrorHandler(j_common_ptr cinfo)

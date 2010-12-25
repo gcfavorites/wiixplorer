@@ -572,9 +572,6 @@ void ProgressWindow::StartProgress(const char *title, int progressmode, bool res
 
 void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 {
-    if(total < 0)
-		return;
-
 	if(done > total)
 		done = total;
 

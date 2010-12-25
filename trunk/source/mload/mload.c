@@ -186,7 +186,7 @@ for(n=0; n<head->phnum; n++)
 
         if(getbe32(0)!=0) return -2; // bad info (sure)
 
-		for(m=4; m < entries->memsz; m+=8)
+		for(m=4; (u32) m < entries->memsz; m+=8)
 			{
 			switch(getbe32(m))
 				{

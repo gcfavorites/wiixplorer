@@ -52,7 +52,7 @@ class RarFile
         u32 GetItemCount();
 
     private:
-        bool LoadList(const char * filepath);
+        bool LoadList();
         void ClearList();
         bool CheckPassword();
         bool SeekFile(int index);

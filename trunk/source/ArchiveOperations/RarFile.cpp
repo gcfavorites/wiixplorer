@@ -42,7 +42,7 @@ RarFile::RarFile(const char *filepath)
 {
     RarArc.Open(filepath);
     RarArc.SetExceptions(false);
-    this->LoadList(filepath);
+    this->LoadList();
 }
 
 RarFile::~RarFile()
@@ -51,7 +51,7 @@ RarFile::~RarFile()
     RarArc.Close();
 }
 
-bool RarFile::LoadList(const char * filepath)
+bool RarFile::LoadList()
 {
     if (!RarArc.IsArchive(true))
     {

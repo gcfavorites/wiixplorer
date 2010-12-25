@@ -46,6 +46,7 @@ distribution.
 #include <ogc/lwp.h>
 #include <ogc/lwp_watchdog.h>
 
+#define UNUSED	__attribute__((unused))
 #include "di2.h"
 
 extern int di_fd;
@@ -193,7 +194,7 @@ static bool DVD_DiscPresent()
 	return false;
 }
 
-static void * motorthreadfunc(void *arg)
+static void * motorthreadfunc(void *arg UNUSED)
 {
 	long sleeptime;
 	bool first = true;
@@ -1110,12 +1111,12 @@ bool diio_Shutdown()
 	return true;
 }
 
-bool diio_ReadSectors(sec_t sector, sec_t numSectors, void *buffer)
+bool diio_ReadSectors(sec_t sector UNUSED, sec_t numSectors UNUSED, void *buffer UNUSED)
 {
 	return true;
 }
 
-bool diio_WriteSectors(sec_t sector, sec_t numSectors, const void *buffer)
+bool diio_WriteSectors(sec_t sector UNUSED, sec_t numSectors UNUSED, const void *buffer UNUSED)
 {
 	return true;
 }

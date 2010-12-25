@@ -34,6 +34,9 @@ typedef struct _SoundBlock
 	u32 size;
 	u8 format;
 	u32 frequency;
+	u32 loopStart;
+	u32 loopEnd;
+	u8 loopFlag;
 } SoundBlock;
 
 class BNSDecoder : public SoundDecoder

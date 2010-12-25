@@ -157,7 +157,7 @@ Scrollbar::~Scrollbar()
 	delete trigHeldA;
 }
 
-void Scrollbar::OnUpButtonHold(GuiElement *sender, int pointer, POINT p)
+void Scrollbar::OnUpButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < ScrollSpeed)
         return;
@@ -192,7 +192,7 @@ void Scrollbar::OnUpButtonHold(GuiElement *sender, int pointer, POINT p)
     listchanged = true;
 }
 
-void Scrollbar::OnDownButtonHold(GuiElement *sender, int pointer, POINT p)
+void Scrollbar::OnDownButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < ScrollSpeed)
         return;

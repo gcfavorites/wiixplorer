@@ -372,7 +372,7 @@ int DeviceMenu::GetChoice()
     return choice;
 }
 
-void DeviceMenu::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void DeviceMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

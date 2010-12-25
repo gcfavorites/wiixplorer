@@ -61,7 +61,7 @@ void Applications::Launch(int index)
 	BootHomebrew();
 }
 
-mxml_error_cb_t xmlerror(const char* error)
+mxml_error_cb_t xmlerror(const char* error UNUSED)
 {
 	return NULL;
 }

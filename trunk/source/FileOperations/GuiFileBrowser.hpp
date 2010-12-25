@@ -32,12 +32,12 @@
 class GuiFileBrowser : public GuiElement
 {
 	public:
-		GuiFileBrowser(Browser * filebrowser, int w, int h) { browser = filebrowser; };
+		GuiFileBrowser(Browser * filebrowser, int w UNUSED, int h UNUSED) { browser = filebrowser; };
 		virtual ~GuiFileBrowser() { };
         virtual void SetBrowser(Browser * b) { browser = b; TriggerUpdate(); };
-		virtual void SetTriggerUpdate(bool set) { };
+		virtual void SetTriggerUpdate(bool set UNUSED) { };
 		virtual void TriggerUpdate() { };
-        virtual void SetSelected(int i) { };
+        virtual void SetSelected(int i UNUSED) { };
 	protected:
 		Browser * browser;
 };

@@ -150,7 +150,7 @@ int GuiOptionBrowser::FindMenuItem(int currentItem, int direction)
 		return FindMenuItem(nextItem, direction);
 }
 
-void GuiOptionBrowser::OnStateChange(GuiElement *sender, int s, int chan)
+void GuiOptionBrowser::OnStateChange(GuiElement *sender, int s, int chan UNUSED)
 {
     for(int i = 0; i < PAGESIZE; i++)
     {

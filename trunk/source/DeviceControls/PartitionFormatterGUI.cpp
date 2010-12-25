@@ -381,7 +381,7 @@ void PartitionFormatterGui::SetDevice()
     DeviceOption.SetOptionValue(1, fmt("%i", CurPart+1));
 }
 
-void PartitionFormatterGui::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void PartitionFormatterGui::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -399,7 +399,7 @@ void PartitionFormatterGui::OnButtonClick(GuiElement *sender, int pointer, POINT
     }
 }
 
-void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer, POINT p)
+void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -452,7 +452,7 @@ void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer, P
     ListPartitions();
 }
 
-void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer, POINT p)
+void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
