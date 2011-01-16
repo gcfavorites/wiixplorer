@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-# italian.lang - r207
+# italian.lang - r210
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-12 00:23+0100\n"
+"POT-Creation-Date: 2011-01-16 15:32+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -694,7 +694,7 @@ msgid "Free Space:"
 msgstr "Spazio Libero:"
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "Homebrew GC"
 
 msgid "GC PAD BUTTON A"
 msgstr "Pulsante Pad GC A"
@@ -1601,7 +1601,7 @@ msgid "Wii Binary Files"
 msgstr "Files Binari Wii"
 
 msgid "Wii Homebrew"
-msgstr ""
+msgstr "Homebrew Wii"
 
 msgid "WiiMC"
 msgstr ""
@@ -1646,7 +1646,7 @@ msgid "You do not have BootMii installed!"
 msgstr "Non hai BootMii installato!"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "Hai una Tavola Partizioni GUID (GPT). La formattazione di partizioni in GPT non e' ancora supportata."
 
 msgid "ZXCVBNM<>?"
 msgstr ""

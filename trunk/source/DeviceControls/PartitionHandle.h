@@ -160,6 +160,7 @@ class PartitionHandle
         bool IsExisting(u64 lba);
         void CheckEBR(u8 PartNum, sec_t ebr_lba);
         int CheckGPT(u8 PartNum);
+        void AddPartition(const char * name, u64 lba_start, u64 sec_count, bool bootable, u8 part_type, u8 part_num, u32 EBR_Sector = 0);
 
         const DISC_INTERFACE *interface;
         std::vector<PartitionFS> PartitionList;

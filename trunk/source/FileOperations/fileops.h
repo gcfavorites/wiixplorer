@@ -39,7 +39,7 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filePath, u8
 int CopyFile(const char * src, const char * dest);
 int CopyDirectory(const char * src, const char * dest);
 int MoveDirectory(const char * src, const char * dest);
-int MoveFile(const char *srcpath, char *destdir);
+int MoveFile(const char *srcpath, const char *destdir);
 int RemoveDirectory(const char * dirpath);
 bool RenameFile(const char * srcpath, const char * destpath);
 bool RemoveFile(const char * filepath);

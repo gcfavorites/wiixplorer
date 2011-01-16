@@ -4,17 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-12 00:23+0100\n"
+"POT-Creation-Date: 2011-01-16 15:35+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
-"Last-Translator: mcc, kyogc, Miller, Jane.H\n"
-"Language-Team: \n"
+"Last-Translator: Jane.H\n"
+"Language-Team: mcc, kyogc, Miller, Jane.H\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i 錯誤衝突。關於更多資訊請檢查MD5.log。"
 
 msgid "(Best compression)"
 msgstr "(最高壓縮比)"
@@ -26,7 +26,7 @@ msgid "(Default)"
 msgstr "(預設值)"
 
 msgid "(Store)"
-msgstr ""
+msgstr "(儲存)"
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -157,7 +157,7 @@ msgid "Can't browse that path."
 msgstr "無法瀏覽那個路徑。"
 
 msgid "Can't find the right partition."
-msgstr "無法找到正確的分區"
+msgstr "無法找到正確的磁區"
 
 msgid "Can't load file"
 msgstr "無法讀取這個檔案"
@@ -206,7 +206,7 @@ msgstr "頻道"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "在 %i 檔案夾中已檢查 %i 檔案 。\n"
 
 msgid "Checking directory:"
 msgstr "檢查目錄中 :"
@@ -369,7 +369,7 @@ msgid "Disconnect SMB"
 msgstr "中斷連結 SMB網路共享"
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "是否要增加一個網址？"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "是否要增加此項目至佇列中？"
@@ -499,11 +499,11 @@ msgstr "錯誤 - 無法開啟資料夾：%s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "錯誤 - 無法開啟檔案： %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "錯誤 - 記憶體不足： %s\n"
 
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
@@ -648,7 +648,7 @@ msgstr "檔案路徑："
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "檔案路徑： %s"
+msgstr ""
 
 msgid "Files:"
 msgstr "檔案："
@@ -681,10 +681,10 @@ msgid "Format"
 msgstr "格式化"
 
 msgid "Format Partition?"
-msgstr "格式化此分區"
+msgstr "格式化此磁區"
 
 msgid "Formating partition..."
-msgstr "格式化分區中..."
+msgstr "格式化磁區中..."
 
 msgid "Formatter"
 msgstr "格式化程式"
@@ -693,7 +693,7 @@ msgid "Free Space:"
 msgstr "可用空間："
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "GC 自製軟體"
 
 msgid "GC PAD BUTTON A"
 msgstr "GC 搖桿按鈕 A"
@@ -744,7 +744,7 @@ msgid "GD2 Compression"
 msgstr "GD2壓縮"
 
 msgid "GUID"
-msgstr ""
+msgstr "GUID"
 
 msgid "General Settings"
 msgstr "一般設定"
@@ -795,16 +795,16 @@ msgid "How do you want to launch this file?"
 msgstr "你要如何執行此檔案？"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "你要如何載入這語言檔？"
 
 msgid "How do you want to open the file?"
 msgstr "你要如何開啟檔案？"
 
 msgid "How do you want to proceed?"
-msgstr "你希望如何進行？"
+msgstr "你要如何進行？"
 
 msgid "How should this URL be opened?"
-msgstr "如何打開此網址"
+msgstr "如何開啟這網址？"
 
 msgid "Icon Mode"
 msgstr "圖示模式"
@@ -903,7 +903,7 @@ msgid "Listing files in"
 msgstr "列出檔案於"
 
 msgid "Load"
-msgstr ""
+msgstr "載入"
 
 msgid "Load Music to Memory"
 msgstr "讀取音樂到記憶體"
@@ -918,7 +918,7 @@ msgid "Log was saved in MD5.log"
 msgstr "紀錄儲存在 MD5.log"
 
 msgid "Logical"
-msgstr "邏輯分區"
+msgstr "邏輯磁區"
 
 msgid "Loop"
 msgstr "重複播放"
@@ -936,7 +936,7 @@ msgid "MD5 log file can't be created."
 msgstr "MD5 紀錄檔案無法產生"
 
 msgid "MPlayerCE"
-msgstr ""
+msgstr "MPlayerCE"
 
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE 路徑"
@@ -990,7 +990,7 @@ msgid "New Folder"
 msgstr "新資料夾"
 
 msgid "NewZip.zip"
-msgstr ""
+msgstr "新增Zip.zip"
 
 msgid "No"
 msgstr "否"
@@ -1081,22 +1081,22 @@ msgid "Parse Directory"
 msgstr "解析路徑"
 
 msgid "Partition"
-msgstr "分區"
+msgstr "磁區"
 
 msgid "Partition Formatter"
-msgstr "分區 格式化"
+msgstr "磁區 格式化"
 
 msgid "Partition Nr."
-msgstr "分區 Nr."
+msgstr "磁區 Nr."
 
 msgid "Partition Size:"
-msgstr "分區大小"
+msgstr "磁區大小"
 
 msgid "Partition Type:"
-msgstr "分區類型："
+msgstr "磁區類型："
 
 msgid "Partition is too small."
-msgstr "分區過小"
+msgstr "磁區過小"
 
 msgid "Passive Mode:"
 msgstr "被動式模式："
@@ -1190,7 +1190,7 @@ msgstr "QWERTYUIOP{}|"
 
 #, c-format
 msgid "R: %i G: %i B: %i"
-msgstr ""
+msgstr "紅: %i 綠: %i 藍: %i"
 
 msgid "Random"
 msgstr "隨機播放"
@@ -1298,10 +1298,10 @@ msgid "Set Active"
 msgstr "設定啟用"
 
 msgid "Set this Partition as Active?"
-msgstr "將此分區設為使用中？"
+msgstr "將此磁區設為使用中？"
 
 msgid "Setting partition as active."
-msgstr "正在將此分區設定為使用中"
+msgstr "正在將此磁區設定為使用中"
 
 msgid "Settings"
 msgstr "設定"
@@ -1320,7 +1320,7 @@ msgid "Show Changelog"
 msgstr "顯示更新日誌"
 
 msgid "Show Partition Formatter"
-msgstr "顯示分區格式"
+msgstr "顯示磁區格式"
 
 msgid "Shutdown"
 msgstr "關閉"
@@ -1359,13 +1359,13 @@ msgid "Startup FTP"
 msgstr "啟動 FTP"
 
 msgid "Successfully formated the partition."
-msgstr "成功格式化分區"
+msgstr "成功格式化磁區"
 
 msgid "Temporary Path"
 msgstr "暫存路徑"
 
 msgid "Text Editor"
-msgstr ""
+msgstr "文字編輯器"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "緩衝區大小非常高。如果應用程式變成無法啟動，請刪除您的設定檔。"
@@ -1383,10 +1383,10 @@ msgid "The new font is loaded."
 msgstr "新的字型已載入."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "全部的 devkitPro & libogc 的人員。"
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr "此分區有超過2^28個集簇.分區可能太小"
+msgstr "此磁區有超過2^28個集簇.磁區可能太小"
 
 msgid "This drive is too big"
 msgstr "此磁碟大小太大"
@@ -1401,7 +1401,7 @@ msgid "This option could mess up the pdf view."
 msgstr "此選項可能弄亂 PDF 的檢視。"
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr "這樣會刪除所有此分區的資料.你確定要繼續？"
+msgstr "這樣會刪除所有此磁區的資料.你確定要繼續？"
 
 msgid "Time left:"
 msgstr "剩餘時間："
@@ -1492,7 +1492,7 @@ msgid "Update to Rev%i available"
 msgstr "更新到 Rev%i 可用的"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr "更新/下載 語言文件"
+msgstr "更新/下載 語言檔。"
 
 msgid "Username:"
 msgstr "使用者名稱："
@@ -1510,88 +1510,88 @@ msgid "WARNING:"
 msgstr "警告："
 
 msgid "WPAD BUTTON 1"
-msgstr ""
+msgstr "WPAD 按鈕 1"
 
 msgid "WPAD BUTTON 2"
-msgstr ""
+msgstr "WPAD 按鈕 2"
 
 msgid "WPAD BUTTON A"
-msgstr ""
+msgstr "WPAD 按鈕 A"
 
 msgid "WPAD BUTTON B"
-msgstr ""
+msgstr "WPAD 按鈕 B"
 
 msgid "WPAD BUTTON DOWN"
-msgstr ""
+msgstr "WPAD 按鈕下"
 
 msgid "WPAD BUTTON HOME"
-msgstr ""
+msgstr "WPAD 按鈕 HOME"
 
 msgid "WPAD BUTTON LEFT"
-msgstr ""
+msgstr "WPAD 按鈕左"
 
 msgid "WPAD BUTTON MINUS"
-msgstr ""
+msgstr "WPAD 按鈕 MINUS"
 
 msgid "WPAD BUTTON PLUS"
-msgstr ""
+msgstr "WPAD 按鈕 PLUS"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD 按鈕右"
 
 msgid "WPAD BUTTON UP"
-msgstr ""
+msgstr "WPAD 按鈕上"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr ""
+msgstr "WPAD 傳統搖桿 A"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr ""
+msgstr "WPAD 傳統搖桿 B"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr ""
+msgstr "WPAD 傳統搖桿下"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr ""
+msgstr "WPAD 傳統搖桿 L"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr ""
+msgstr "WPAD 傳統搖桿 R"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr ""
+msgstr "WPAD 傳統搖桿 HOME"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr ""
+msgstr "WPAD 傳統搖桿左"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr ""
+msgstr "WPAD 傳統搖桿 MINUS"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr ""
+msgstr "WPAD 傳統搖桿 PLUS"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr ""
+msgstr "WPAD 傳統搖桿右"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr ""
+msgstr "WPAD 傳統搖桿上"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr ""
+msgstr "WPAD 傳統搖桿 X"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr ""
+msgstr "WPAD 傳統搖桿 Y"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr ""
+msgstr "WPAD 傳統搖桿 ZL"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr ""
+msgstr "WPAD 傳統搖桿 ZR"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr ""
+msgstr "WPAD 傳統搖桿 NONE"
 
 msgid "WPAD NONE BUTTON"
-msgstr ""
+msgstr "WPAD NONE 按鈕"
 
 msgid "Warning:"
 msgstr "警告："
@@ -1600,10 +1600,10 @@ msgid "Wii Binary Files"
 msgstr "Wii 二進制檔案"
 
 msgid "Wii Homebrew"
-msgstr ""
+msgstr "Wii 自製程式"
 
 msgid "WiiMC"
-msgstr ""
+msgstr "WiiMC"
 
 msgid "WiiMC Path"
 msgstr "WiiMC 路徑"
@@ -1633,10 +1633,10 @@ msgid "You can not cut into the directory itself."
 msgstr "無法在目錄中刪除該目錄。"
 
 msgid "You can't set a logical partition as active."
-msgstr "你不可以將羅基分區設為使用中"
+msgstr "你不可以將邏輯磁區設為使用中"
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "你不能設定這磁區為使用中。"
 
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
@@ -1645,7 +1645,7 @@ msgid "You do not have BootMii installed!"
 msgstr "你沒有安裝 BootMii"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "你有一個GUID磁區表（GPT）。還不支援在GPT中格式化磁區。"
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
@@ -1682,6 +1682,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Filepath: %s"
+#~ msgstr "檔案路徑： %s"
 
 #~ msgid "Do you want to add an URL？"
 #~ msgstr "是否要增加一個網址嗎?"
@@ -1799,9 +1802,6 @@ msgstr "~!@#$%^&*()_"
 
 #~ msgid "Extract first and open than."
 #~ msgstr "匯出第一個開啟項目。"
-
-#~ msgid "Filepath: %s"
-#~ msgstr "檔案路徑： %s"
 
 #~ msgid "Open"
 #~ msgstr "開啟"

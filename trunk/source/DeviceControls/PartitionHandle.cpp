@@ -86,7 +86,7 @@ PartitionHandle::PartitionHandle(const DISC_INTERFACE *discio)
 
 PartitionHandle::~PartitionHandle()
 {
-     UnMountAll();
+    UnMountAll();
 
     //shutdown device
     interface->shutdown();
@@ -185,6 +185,41 @@ bool PartitionHandle::IsExisting(u64 lba)
     return false;
 }
 
+void PartitionHandle::AddPartition(const char * name, u64 lba_start, u64 sec_count, bool bootable, u8 part_type, u8 part_num, u32 EBR_Sector)
+{
+    if(IsExisting(lba_start))
+        return;
+
+    u8 buffer[BYTES_PER_SECTOR];
+
+    if (!interface->readSectors(lba_start, 1, buffer))
+        return;
+
+    //! Partition typ can be missleading the correct partition format. Stupid lazy ass Partition Editors.
+    if((memcmp(buffer + 0x36, "FAT", 3) == 0 || memcmp(buffer + 0x52, "FAT", 3) == 0) &&
+        strncmp(PartFromType(part_type), "FAT", 3) != 0)
+    {
+        name = "FAT32";
+        part_type = 0x0c;
+    }
+    if (memcmp(buffer + 0x03, "NTFS", 4) == 0)
+    {
+        name = "NTFS";
+        part_type = 0x07;
+    }
+
+    int part = PartitionList.size();
+    PartitionList.resize(part+1);
+
+    PartitionList[part].FSName = name;
+    PartitionList[part].LBA_Start = lba_start;
+    PartitionList[part].SecCount = sec_count;
+    PartitionList[part].Bootable = bootable;
+    PartitionList[part].PartitionType = part_type;
+    PartitionList[part].PartitionNum = part_num;
+    PartitionList[part].EBR_Sector = EBR_Sector;
+}
+
 int PartitionHandle::FindPartitions()
 {
     MASTER_BOOT_RECORD mbr;
@@ -214,18 +249,11 @@ int PartitionHandle::FindPartitions()
 			continue;
         }
 
-        if(le32(partition->block_count) > 0 && !IsExisting(le32(partition->lba_start)))
+        if(le32(partition->block_count) > 0)
         {
-            PartitionFS PartitionEntrie;
-            PartitionEntrie.FSName = PartFromType(partition->type);
-            PartitionEntrie.LBA_Start = le32(partition->lba_start);
-            PartitionEntrie.SecCount = le32(partition->block_count);
-            PartitionEntrie.Bootable = (partition->status == PARTITION_BOOTABLE);
-            PartitionEntrie.PartitionType = partition->type;
-            PartitionEntrie.PartitionNum = i;
-            PartitionEntrie.EBR_Sector = 0;
-
-            PartitionList.push_back(PartitionEntrie);
+            AddPartition(PartFromType(partition->type), le32(partition->lba_start),
+                         le32(partition->block_count), (partition->status == PARTITION_BOOTABLE),
+                         partition->type, i);
         }
     }
 
@@ -246,18 +274,11 @@ void PartitionHandle::CheckEBR(u8 PartNum, sec_t ebr_lba)
         if (ebr.signature != EBR_SIGNATURE)
             return;
 
-        if(le32(ebr.partition.block_count) > 0 && !IsExisting(ebr_lba + next_erb_lba + le32(ebr.partition.lba_start)))
+        if(le32(ebr.partition.block_count) > 0)
         {
-            PartitionFS PartitionEntrie;
-            PartitionEntrie.FSName = PartFromType(ebr.partition.type);
-            PartitionEntrie.LBA_Start = ebr_lba + next_erb_lba + le32(ebr.partition.lba_start);
-            PartitionEntrie.SecCount = le32(ebr.partition.block_count);
-            PartitionEntrie.Bootable = (ebr.partition.status == PARTITION_BOOTABLE);
-            PartitionEntrie.PartitionType = ebr.partition.type;
-            PartitionEntrie.PartitionNum = PartNum;
-            PartitionEntrie.EBR_Sector = ebr_lba + next_erb_lba;
-
-            PartitionList.push_back(PartitionEntrie);
+            AddPartition(PartFromType(ebr.partition.type), ebr_lba + next_erb_lba + le32(ebr.partition.lba_start),
+                         le32(ebr.partition.block_count), (ebr.partition.status == PARTITION_BOOTABLE),
+                         ebr.partition.type, PartNum, ebr_lba + next_erb_lba);
         }
         // Get the start sector of the current partition
         // and the next extended boot record in the chain
@@ -302,19 +323,10 @@ int PartitionHandle::CheckGPT(u8 PartNum)
             if(memcmp(part_entry->part_type_guid, TYPE_UNUSED, 16) == 0)
                 continue;
 
-            if(IsExisting(le64(part_entry->part_first_lba)))
-                continue;
+            bool bootable = (memcmp(part_entry->part_type_guid, TYPE_BIOS, 16) == 0);
 
-            PartitionFS PartitionEntrie;
-            PartitionEntrie.FSName = "GUID-Entry";
-            PartitionEntrie.LBA_Start = le64(part_entry->part_first_lba);
-            PartitionEntrie.SecCount = le64(part_entry->part_last_lba);
-            PartitionEntrie.Bootable = (memcmp(part_entry->part_type_guid, TYPE_BIOS, 16) == 0);
-            PartitionEntrie.PartitionType = PARTITION_TYPE_GPT;
-            PartitionEntrie.PartitionNum = PartNum;
-            PartitionEntrie.EBR_Sector = 0;
-
-            PartitionList.push_back(PartitionEntrie);
+            AddPartition("GUID-Entry", le64(part_entry->part_first_lba), le64(part_entry->part_last_lba),
+                         bootable, PARTITION_TYPE_GPT, PartNum);
         }
 
         next_lba++;

@@ -33,12 +33,14 @@
 #include <sys/dir.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <string>
 #include <vector>
-
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "fileops.h"
 #include "filebrowser.h"
+
+using namespace std;
 
 #define BLOCKSIZE               70*1024      //70KB
 #define VectorResize(List) if(List.capacity()-List.size() == 0) List.reserve(List.size()+100)
@@ -190,24 +192,32 @@ bool CheckFile(const char * filepath)
     if(!filepath)
         return false;
 
+    if(strchr(filepath, '/') == NULL)
+        return false;
+
     struct stat filestat;
+    int length = strlen(filepath);
 
-    char dirnoslash[strlen(filepath)+2];
-    snprintf(dirnoslash, sizeof(dirnoslash), "%s", filepath);
+    char * dirnoslash = (char *) malloc(length+2);
+    if(!dirnoslash) return false;
 
-    if(dirnoslash[strlen(dirnoslash)-1] == '/')
-        dirnoslash[strlen(dirnoslash)-1] = '\0';
+    strcpy(dirnoslash, filepath);
+
+    while(dirnoslash[length-1] == '/')
+    {
+        dirnoslash[length-1] = '\0';
+        --length;
+    }
 
 	char * notRoot = strrchr(dirnoslash, '/');
 	if(!notRoot)
-	{
 	    strcat(dirnoslash, "/");
-	}
 
-    if (stat(dirnoslash, &filestat) == 0)
-        return true;
+    int ret = stat(dirnoslash, &filestat);
 
-    return false;
+    free(dirnoslash);
+
+    return (ret == 0);
 }
 
 /****************************************************************************
@@ -219,7 +229,7 @@ u64 FileSize(const char * filepath)
 {
   struct stat filestat;
 
-  if (stat(filepath, &filestat) != 0)
+  if (!filepath || stat(filepath, &filestat) != 0)
     return 0;
 
   return filestat.st_size;
@@ -232,6 +242,9 @@ u64 FileSize(const char * filepath)
  ***************************************************************************/
 int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 {
+    if(!filepath)
+        return -1;
+
     int ret = -1;
     u64 filesize = FileSize(filepath);
 	char * filename = strrchr(filepath, '/');
@@ -337,54 +350,31 @@ bool CreateSubfolder(const char * fullpath)
     if(!fullpath)
         return false;
 
-    bool result  = false;
-
-    char dirnoslash[strlen(fullpath)+1];
-    strcpy(dirnoslash, fullpath);
-
-    int pos = strlen(dirnoslash)-1;
-    while(dirnoslash[pos] == '/')
-    {
-        dirnoslash[pos] = '\0';
-        pos--;
-    }
-
-    if(CheckFile(dirnoslash))
-    {
+    if(CheckFile(fullpath))
         return true;
-    }
-    else
+
+    string dirpath(fullpath);
+
+    int length = dirpath.size()-1;
+    while(dirpath[length] == '/')
     {
-        char parentpath[strlen(dirnoslash)+2];
-        strcpy(parentpath, dirnoslash);
-        char * ptr = strrchr(parentpath, '/');
-
-        if(!ptr)
-        {
-            //!Device root directory (must be with '/')
-            strcat(parentpath, "/");
-            struct stat filestat;
-            if (stat(parentpath, &filestat) == 0)
-                return true;
-
-            return false;
-        }
-
-        ptr++;
-        ptr[0] = '\0';
-
-        result = CreateSubfolder(parentpath);
+        dirpath.erase(length);
+        --length;
     }
 
+    string subpath(dirpath);
+    size_t pos = subpath.rfind('/');
+    if(pos == string::npos)
+        return false;
+
+    if(subpath.size()-1 > pos)
+        subpath.erase(pos+1);
+
+    bool result = CreateSubfolder(subpath.c_str());
     if(!result)
         return false;
 
-    if (mkdir(dirnoslash, 0777) == -1)
-    {
-        return false;
-    }
-
-    return true;
+    return (mkdir(dirpath.c_str(), 0777) != -1);
 }
 
 /****************************************************************************
@@ -450,7 +440,7 @@ int CopyFile(const char * src, const char * dest)
             fclose(source);
             fclose(destination);
             free(buffer);
-            RemoveFile((char *) dest);
+            RemoveFile(dest);
             return -10;
         }
 
@@ -465,7 +455,7 @@ int CopyFile(const char * src, const char * dest)
             fclose(source);
             fclose(destination);
             free(buffer);
-            RemoveFile((char *) dest);
+            RemoveFile(dest);
             return -3;
         }
 
@@ -475,7 +465,7 @@ int CopyFile(const char * src, const char * dest)
             fclose(source);
             fclose(destination);
             free(buffer);
-            RemoveFile((char *) dest);
+            RemoveFile(dest);
             return -3;
         }
 
@@ -498,16 +488,76 @@ int CopyFile(const char * src, const char * dest)
 *
 * Clearing a vector list
 ****************************************************************************/
-static inline void ClearList(std::vector<char *> &List)
+static inline void ClearList(vector<char *> &List)
 {
     for(u32 i = 0; i < List.size(); ++i)
     {
         if(List[i])
+        {
             free(List[i]);
-        List[i] = NULL;
+            List[i] = NULL;
+        }
     }
     List.clear();
-    std::vector<char *>().swap(List);
+    vector<char *>().swap(List);
+}
+
+/****************************************************************************
+* ListDirectory
+*
+* Create a list of files/dirs of a directory
+****************************************************************************/
+static int ListDirectory(string &path, vector<char *> &DirList, vector<char *> &FileList)
+{
+    struct stat st;
+    DIR_ITER *dir = NULL;
+
+    dir = diropen(path.c_str());
+    if(dir == NULL)
+        return -2;
+
+    char *filename = (char *) malloc(MAXPATHLEN);
+    if(!filename)
+    {
+        dirclose(dir);
+        return -3;
+    }
+
+    memset(filename, 0, MAXPATHLEN);
+
+    while (dirnext(dir,filename,&st) == 0)
+	{
+        if(actioncanceled)
+        {
+            free(filename);
+            ClearList(DirList);
+            ClearList(FileList);
+            dirclose(dir);
+            return -10;
+        }
+
+        if(st.st_mode & S_IFDIR)
+        {
+            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+            {
+                VectorResize(DirList);
+                DirList.push_back(strdup(filename));
+            }
+        }
+        else
+        {
+            VectorResize(FileList);
+            FileList.push_back(strdup(filename));
+        }
+
+        memset(filename, 0, MAXPATHLEN);
+	}
+
+    free(filename);
+    filename = NULL;
+    dirclose(dir);
+
+    return 0;
 }
 
 /****************************************************************************
@@ -515,60 +565,17 @@ static inline void ClearList(std::vector<char *> &List)
  *
  * Copy recursive a complete source path to destination path
  ***************************************************************************/
-int CopyDirectory(const char * src, const char * dest)
+static int InternalCopyDirectory(string &src, string &dest)
 {
-    struct stat st;
-    DIR_ITER *dir = NULL;
+    vector<char *> DirList;
+    vector<char *> FileList;
 
-    dir = diropen(src);
-    if(dir == NULL)
-        return -1;
-
-    char *filename = (char *) malloc(MAXPATHLEN);
-    if(!filename)
-    {
-        dirclose(dir);
-        return -2;
-    }
-
-    memset(filename, 0, MAXPATHLEN);
-
-    std::vector<char *> DirList;
-    std::vector<char *> FileList;
-
-    while (dirnext(dir,filename,&st) == 0)
-	{
-        if(actioncanceled)
-        {
-            free(filename);
-            ClearList(DirList);
-            ClearList(FileList);
-            dirclose(dir);
-            return -10;
-        }
-
-        if(st.st_mode & S_IFDIR)
-        {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-            {
-                VectorResize(DirList);
-                DirList.push_back(strdup(filename));
-            }
-        }
-        else
-        {
-            VectorResize(FileList);
-            FileList.push_back(strdup(filename));
-        }
-
-        memset(filename, 0, MAXPATHLEN);
-	}
-	dirclose(dir);
-    free(filename);
-    filename = NULL;
+    int ret = ListDirectory(src, DirList, FileList);
+    if(ret < 0)
+        return ret;
 
     //! Ensure that empty directories are created
-    CreateSubfolder(dest);
+    CreateSubfolder(dest.c_str());
 
     for(u32 i = 0; i < FileList.size(); ++i)
     {
@@ -579,20 +586,20 @@ int CopyDirectory(const char * src, const char * dest)
             return -10;
         }
 
-        if(FileList[i])
-        {
-            u32 strsize = strlen(src)+strlen(FileList[i])+1;
-            char currentname[strsize];
-            char destname[strsize];
-            sprintf(currentname, "%s%s", src, FileList[i]);
-            sprintf(destname, "%s%s", dest, FileList[i]);
-            free(FileList[i]);
-            FileList[i] = NULL;
-            CopyFile(currentname, destname);
-        }
+        if(!FileList[i])
+            continue;
+
+        int srcSize = src.size();
+        int destSize = dest.size();
+        src += FileList[i];
+        dest += FileList[i];
+        free(FileList[i]);
+        FileList[i] = NULL;
+        CopyFile(src.c_str(), dest.c_str());
+        src.erase(srcSize);
+        dest.erase(destSize);
     }
 
-    FileList.clear();
     ClearList(FileList);
 
     for(u32 i = 0; i < DirList.size(); ++i)
@@ -604,26 +611,37 @@ int CopyDirectory(const char * src, const char * dest)
             return -10;
         }
 
-        if(DirList[i])
-        {
-            u32 strsize = strlen(src)+strlen(DirList[i])+2;
-            char currentname[strsize];
-            char destname[strsize];
-            sprintf(currentname, "%s%s/", src, DirList[i]);
-            sprintf(destname, "%s%s/", dest, DirList[i]);
-            free(DirList[i]);
-            DirList[i] = NULL;
-            CopyDirectory(currentname, destname);
-        }
+        if(!DirList[i])
+            continue;
+
+        int srcSize = src.size();
+        int destSize = dest.size();
+        src += DirList[i];
+        src += '/';
+        dest += DirList[i];
+        dest += '/';
+        free(DirList[i]);
+        DirList[i] = NULL;
+        InternalCopyDirectory(src, dest);
+        src.erase(srcSize);
+        dest.erase(destSize);
 	}
 
-	DirList.clear();
     ClearList(DirList);
 
-    if(actioncanceled)
-        return -10;
-
     return 1;
+
+}
+
+int CopyDirectory(const char * src, const char * dest)
+{
+    if(!src || !dest)
+        return -1;
+
+    string srcString(src);
+    string destString(dest);
+
+    return InternalCopyDirectory(srcString, destString);
 }
 
 /****************************************************************************
@@ -631,63 +649,18 @@ int CopyDirectory(const char * src, const char * dest)
  *
  * Move recursive a complete source path to destination path
  ***************************************************************************/
-int MoveDirectory(const char * src, const char * dest)
+static int InternalMoveDirectory(string &src, string &dest)
 {
-    bool samedevices = CompareDevices(src, dest);
+    bool samedevices = CompareDevices(src.c_str(), dest.c_str());
+    vector<char *> DirList;
+    vector<char *> FileList;
 
-    struct stat st;
-    DIR_ITER *dir = NULL;
-
-    dir = diropen(src);
-    if(dir == NULL)
-        return -1;
-
-    char *filename = (char *) malloc(MAXPATHLEN);
-
-    if(!filename)
-    {
-        dirclose(dir);
-        return -2;
-    }
-
-    memset(filename, 0, MAXPATHLEN);
-
-    std::vector<char *> DirList;
-    std::vector<char *> FileList;
-
-    while (dirnext(dir,filename,&st) == 0)
-	{
-        if(actioncanceled)
-        {
-            free(filename);
-            ClearList(DirList);
-            ClearList(FileList);
-            dirclose(dir);
-            return -10;
-        }
-
-        if(st.st_mode & S_IFDIR)
-        {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-            {
-                VectorResize(DirList);
-                DirList.push_back(strdup(filename));
-            }
-        }
-        else
-        {
-            VectorResize(FileList);
-            FileList.push_back(strdup(filename));
-        }
-
-        memset(filename, 0, MAXPATHLEN);
-	}
-	dirclose(dir);
-    free(filename);
-    filename = NULL;
+    int ret = ListDirectory(src, DirList, FileList);
+    if(ret < 0)
+        return ret;
 
     //! Ensure that empty directories are created
-    CreateSubfolder(dest);
+    CreateSubfolder(dest.c_str());
 
     for(u32 i = 0; i < FileList.size(); ++i)
     {
@@ -698,24 +671,24 @@ int MoveDirectory(const char * src, const char * dest)
             return -10;
         }
 
-        if(FileList[i])
-        {
-            u32 strsize = strlen(src)+strlen(FileList[i])+2;
-            char currentname[strsize];
-            char destname[strsize];
-            sprintf(currentname, "%s%s", src, FileList[i]);
-            sprintf(destname, "%s%s", dest, FileList[i]);
+        if(!FileList[i])
+            continue;
 
-            MoveFile(currentname, destname);
-            if(samedevices)
-                ShowProgress(0, 1, FileList[i]);
+        int srcSize = src.size();
+        int destSize = dest.size();
+        src += FileList[i];
+        dest += FileList[i];
 
-            free(FileList[i]);
-            FileList[i] = NULL;
-        }
+        MoveFile(src.c_str(), dest.c_str());
+        if(samedevices)
+            ShowProgress(0, 1, FileList[i]);
+
+        free(FileList[i]);
+        FileList[i] = NULL;
+        src.erase(srcSize);
+        dest.erase(destSize);
     }
 
-    FileList.clear();
     ClearList(FileList);
 
     for(u32 i = 0; i < DirList.size(); ++i)
@@ -727,36 +700,47 @@ int MoveDirectory(const char * src, const char * dest)
             return -10;
         }
 
-        if(DirList[i])
-        {
-            u32 strsize = strlen(src)+strlen(DirList[i])+2;
-            char currentname[strsize];
-            char destname[strsize];
-            sprintf(currentname, "%s%s/", src, DirList[i]);
-            sprintf(destname, "%s%s/", dest, DirList[i]);
-            free(DirList[i]);
-            DirList[i] = NULL;
+        if(!DirList[i])
+            continue;
 
-            MoveDirectory(currentname, destname);
-        }
+        int srcSize = src.size();
+        int destSize = dest.size();
+        src += DirList[i];
+        src += '/';
+        dest += DirList[i];
+        dest += '/';
+        free(DirList[i]);
+        DirList[i] = NULL;
+
+        InternalMoveDirectory(src, dest);
+        src.erase(srcSize);
+        dest.erase(destSize);
 	}
 
-	DirList.clear();
     ClearList(DirList);
 
-    char srcCopy[strlen(src)+1];
-    strcpy(srcCopy, src);
+    string srcCopy(src);
 
-    while(srcCopy[strlen(srcCopy)-1] == '/')
-        srcCopy[strlen(srcCopy)-1] = '\0';
+    while(srcCopy[srcCopy.size()-1] == '/')
+        srcCopy.erase(srcCopy.size());
 
     if(actioncanceled)
         return -10;
 
-    if(remove(srcCopy) != 0)
+    ret = remove(srcCopy.c_str());
+
+    return (ret != 0 ? -1 : 1);
+}
+
+int MoveDirectory(const char * src, const char * dest)
+{
+    if(!src || !dest)
         return -1;
 
-    return 1;
+    string srcString(src);
+    string destString(dest);
+
+    return InternalMoveDirectory(srcString, destString);
 }
 
 /****************************************************************************
@@ -764,10 +748,26 @@ int MoveDirectory(const char * src, const char * dest)
  *
  * Move a file from srcpath to destdir
  ***************************************************************************/
-int MoveFile(const char *srcpath, char *destdir)
+int MoveFile(const char *srcpath, const char *destdir)
 {
     if(CompareDevices(srcpath, destdir))
     {
+        if(CheckFile(destdir))
+        {
+            int choice = -1;
+            if(!replaceall && !replacenone)
+			{
+				const char * filename = strrchr(destdir, '/');
+                choice = GetReplaceChoice(filename ? filename+1 : destdir);
+			}
+
+            if(replacenone || choice == 2)
+                return 1;
+
+            else if(replaceall || choice == 1)
+                RemoveFile(destdir);
+        }
+
         if(RenameFile(srcpath, destdir))
             return 1;
         else
@@ -789,58 +789,14 @@ int MoveFile(const char *srcpath, char *destdir)
  *
  * Remove a directory and its content recursively
  ***************************************************************************/
-int RemoveDirectory(const char * dirpath)
+static int InternalRemoveDirectory(string &dirpath)
 {
-    struct stat st;
-    DIR_ITER *dir = NULL;
+    vector<char *> DirList;
+    vector<char *> FileList;
 
-    dir = diropen(dirpath);
-    if(dir == NULL)
-        return -1;
-
-    char * filename = (char *) malloc(MAXPATHLEN);
-
-    if(!filename)
-    {
-        dirclose(dir);
-        return -2;
-    }
-
-    memset(filename, 0, MAXPATHLEN);
-
-    std::vector<char *> DirList;
-    std::vector<char *> FileList;
-
-    while (dirnext(dir,filename,&st) == 0)
-	{
-        if(actioncanceled)
-        {
-            free(filename);
-            ClearList(DirList);
-            ClearList(FileList);
-            dirclose(dir);
-            return -10;
-        }
-
-        if(st.st_mode & S_IFDIR)
-        {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-            {
-                VectorResize(DirList);
-                DirList.push_back(strdup(filename));
-            }
-        }
-        else
-        {
-            VectorResize(FileList);
-            FileList.push_back(strdup(filename));
-        }
-
-        memset(filename, 0, MAXPATHLEN);
-	}
-	dirclose(dir);
-	free(filename);
-	filename = NULL;
+    int ret = ListDirectory(dirpath, DirList, FileList);
+    if(ret < 0)
+        return ret;
 
     for(u32 i = 0; i < FileList.size(); ++i)
     {
@@ -851,20 +807,20 @@ int RemoveDirectory(const char * dirpath)
             return -10;
         }
 
-        if(FileList[i])
-        {
-            u32 strsize = strlen(dirpath)+strlen(FileList[i])+2;
-            char fullpath[strsize];
-            sprintf(fullpath, "%s%s", dirpath, FileList[i]);
-            RemoveFile(fullpath);
+        if(!FileList[i])
+            continue;
 
-            //!Display Throbber rotating
-            ShowProgress(0, 1, FileList[i]);
-            free(FileList[i]);
-            FileList[i] = NULL;
-        }
+        int stringSize = dirpath.size();
+        dirpath += FileList[i];
+        RemoveFile(dirpath.c_str());
+        dirpath.erase(stringSize);
+
+        //!Display Throbber rotating
+        ShowProgress(0, 1, FileList[i]);
+        free(FileList[i]);
+        FileList[i] = NULL;
     }
-    FileList.clear();
+
     ClearList(FileList);
 
     for(u32 i = 0; i < DirList.size(); ++i)
@@ -875,32 +831,44 @@ int RemoveDirectory(const char * dirpath)
             ClearList(FileList);
             return -10;
         }
-        if(DirList[i])
-        {
-            char fullpath[strlen(dirpath)+strlen(DirList[i])+2];
-            sprintf(fullpath, "%s%s/", dirpath, DirList[i]);
-            free(DirList[i]);
-            DirList[i] = NULL;
 
-            RemoveDirectory(fullpath);
-        }
+        if(!DirList[i])
+            continue;
+
+        int stringSize = dirpath.size();
+        dirpath += DirList[i];
+        dirpath += '/';
+        free(DirList[i]);
+        DirList[i] = NULL;
+
+        InternalRemoveDirectory(dirpath);
+        dirpath.erase(stringSize);
     }
-    DirList.clear();
+
     ClearList(DirList);
 
-    char dirpathCopy[strlen(dirpath)+1];
-    strcpy(dirpathCopy, dirpath);
+    string srcCopy(dirpath);
 
-    while(dirpathCopy[strlen(dirpathCopy)-1] == '/')
-        dirpathCopy[strlen(dirpathCopy)-1] = '\0';
+    while(srcCopy[srcCopy.size()-1] == '/')
+        srcCopy.erase(srcCopy.size());
 
     if(actioncanceled)
         return -10;
 
-    if(remove(dirpathCopy) != 0)
+    ret = remove(srcCopy.c_str());
+
+    return (ret != 0 ? -1 : 1);
+
+}
+
+int RemoveDirectory(const char * dirpath)
+{
+    if(!dirpath)
         return -1;
 
-    return 1;
+    string destString(dirpath);
+
+    return InternalRemoveDirectory(destString);
 }
 
 /****************************************************************************
@@ -930,14 +898,11 @@ bool RenameFile(const char * srcpath, const char * destpath)
  ***************************************************************************/
 void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 {
-    struct stat st;
     DIR_ITER *dir = diropen(folderpath);
-
     if(dir == NULL)
         return;
 
     char *filename = (char *) malloc(MAXPATHLEN);
-
     if(!filename)
     {
         dirclose(dir);
@@ -946,19 +911,28 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 
     memset(filename, 0, MAXPATHLEN);
 
-    std::vector<char *> DirList;
+    struct stat * st = (struct stat *) malloc(sizeof(struct stat));
+    if(!st)
+    {
+        free(filename);
+        dirclose(dir);
+        return;
+    }
 
-    while (dirnext(dir,filename,&st) == 0)
+    vector<char *> DirList;
+
+    while (dirnext(dir,filename,st) == 0)
 	{
         if(!sizegainrunning)
         {
             free(filename);
-            ClearList(DirList);
+            free(st);
             dirclose(dir);
+            ClearList(DirList);
             return;
         }
 
-        if(st.st_mode & S_IFDIR)
+        if(st->st_mode & S_IFDIR)
         {
             if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
             {
@@ -969,28 +943,28 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
         else
         {
             ++filecount;
-            foldersize += st.st_size;
+            foldersize += st->st_size;
         }
         memset(filename, 0, MAXPATHLEN);
 	}
+
 	dirclose(dir);
 	free(filename);
-    filename = NULL;
+    free(st);
 
 	for(u32 i = 0; i < DirList.size(); ++i)
 	{
-	    if(DirList[i])
-	    {
-            char currentname[strlen(folderpath)+strlen(DirList[i])+2];
-            sprintf(currentname, "%s%s/", folderpath, DirList[i]);
-            free(DirList[i]);
-            DirList[i] = NULL;
+	    if(!DirList[i])
+            continue;
 
-            GetFolderSize(currentname, foldersize, filecount);
-	    }
+        string currentname(folderpath);
+        currentname += DirList[i];
+        currentname += '/';
+        free(DirList[i]);
+        DirList[i] = NULL;
+
+        GetFolderSize(currentname.c_str(), foldersize, filecount);
 	}
-    DirList.clear();
-    ClearList(DirList);
 }
 
 /****************************************************************************

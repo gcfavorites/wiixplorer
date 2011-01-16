@@ -1647,7 +1647,7 @@ msgid "You do not have BootMii installed!"
 msgstr "Du har ikke BootMii installeret!"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "Du har en GUID Partition Table (GPT). Formatering af partition i en GPT er ikke understøttet endnu."
 
 msgid "ZXCVBNM<>?"
 msgstr ""

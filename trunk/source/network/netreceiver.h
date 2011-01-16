@@ -38,8 +38,8 @@ class NetReceiver
         const u8 * ReceiveData();
         const u8 * GetData();
         u32 GetFilesize();
-        const char * GetFilename() { return (const char *) &FileName; };
-        const char * GetIncommingIP() { return (const char *) &incommingIP; };
+        const char * GetFilename() { return (const char *) FileName; };
+        const char * GetIncommingIP() { return (const char *) incommingIP; };
         void FreeData();
     protected:
         const u8 * UncompressData();

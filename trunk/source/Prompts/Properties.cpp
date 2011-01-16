@@ -428,6 +428,8 @@ void Properties::InternalFolderSizeGain()
         {
             //background capacity getting because it is very slow
             struct statvfs stats;
+            memset(&stats, 0, sizeof(stats));
+            memcpy(&stats.f_flag, "SCAN", 4);
             statvfs(folderpath, &stats);
 
             devicefree = (u64)stats.f_frsize * (u64)stats.f_bfree;
