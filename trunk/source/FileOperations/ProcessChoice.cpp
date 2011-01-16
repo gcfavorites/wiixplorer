@@ -163,7 +163,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
     if(!browser)
         return;
 
-    else if(strcmp(browser->GetCurrentFilename(),"..") != 0)
+    else if(browser->GetCurrentFilename() && strcmp(browser->GetCurrentFilename(),"..") != 0)
     {
         if(choice == CUT)
         {

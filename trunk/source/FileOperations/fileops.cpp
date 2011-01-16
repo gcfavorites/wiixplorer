@@ -1,5 +1,5 @@
  /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -722,7 +722,7 @@ static int InternalMoveDirectory(string &src, string &dest)
     string srcCopy(src);
 
     while(srcCopy[srcCopy.size()-1] == '/')
-        srcCopy.erase(srcCopy.size());
+        srcCopy.erase(srcCopy.size()-1);
 
     if(actioncanceled)
         return -10;
@@ -840,7 +840,6 @@ static int InternalRemoveDirectory(string &dirpath)
         dirpath += '/';
         free(DirList[i]);
         DirList[i] = NULL;
-
         InternalRemoveDirectory(dirpath);
         dirpath.erase(stringSize);
     }
@@ -850,7 +849,7 @@ static int InternalRemoveDirectory(string &dirpath)
     string srcCopy(dirpath);
 
     while(srcCopy[srcCopy.size()-1] == '/')
-        srcCopy.erase(srcCopy.size());
+        srcCopy.erase(srcCopy.size()-1);
 
     if(actioncanceled)
         return -10;
