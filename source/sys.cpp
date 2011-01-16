@@ -81,11 +81,11 @@ extern "C" void ExitApp()
     ShutdownPads();
 	Clipboard::DestroyInstance();
 	MainWindow::DestroyInstance();
+	FTPServer::DestroyInstance();
 	StopGX();
 	ShutdownAudio();
 	ClearFontData();
 	Resources::DestroyInstance();
-	FTPServer::DestroyInstance();
 	DeviceHandler::DestroyInstance();
 	DI2_Close();
 	USB_Deinitialize();
@@ -170,7 +170,7 @@ extern "C" void Sys_BackToLoader(void)
 		exit(0);
 	}
 	// Channel Version
-	Sys_LoadMenu();
+	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
 
 extern "C" bool IsFromHBC()

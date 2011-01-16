@@ -175,6 +175,8 @@ ftgxCharData * FreeTypeGX::cacheGlyphData(wchar_t charCode, int16_t pixelSize)
 
 			textureWidth = glyphBitmap->width + (4 - glyphBitmap->width % 4) % 4;
 			textureHeight = glyphBitmap->rows + (4 - glyphBitmap->rows % 4) % 4;
+            if(textureWidth == 0) textureWidth = 4;
+            if(textureHeight == 0) textureHeight = 4;
 
 			fontData[pixelSize][charCode].renderOffsetX = (int16_t) ftFace->glyph->bitmap_left;
 			fontData[pixelSize][charCode].glyphAdvanceX = (uint16_t) (ftFace->glyph->advance.x >> 6);

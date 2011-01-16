@@ -236,7 +236,7 @@ const u8 * NetReceiver::ReceiveData()
     }
 
     char temp[50];
-    network_read(connection, (u8 *) &temp, 49);
+    network_read(connection, (u8 *) temp, 49);
     temp[49] = 0;
 
     snprintf(FileName, sizeof(FileName), "%s", temp);

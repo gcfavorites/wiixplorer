@@ -1,32 +1,33 @@
 # WiiXplorer language source file.
-# r195
+# r210
+# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-12 00:23+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: SirPalax\n"
-"Language-Team: SirPalax\n"
+"Last-Translator: PabloACZ\n"
+"Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr "%i error(es) encontrado(s). Comprueba MD5.log para más detalles."
+msgstr "%i error(es) encontrado(s). Revisa el archivo MD5.log para obtener más detalles."
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "(mejor compresión)"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "(mejor velocidad)"
 
 msgid "(Default)"
-msgstr ""
+msgstr "(por defecto)"
 
 msgid "(Store)"
-msgstr ""
+msgstr "(almacenar)"
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -40,13 +41,13 @@ msgid "1"
 msgstr ""
 
 msgid "12H"
-msgstr ""
+msgstr "12 horas"
 
 msgid "24H"
-msgstr ""
+msgstr "24 horas"
 
 msgid "7z decompression failed:"
-msgstr "Descompresión 7z fallida:"
+msgstr "La descompresión 7z falló:"
 
 msgid "ASDFGHJKL:\"+"
 msgstr "ASDFGHJKLÑ¨Ç"
@@ -55,25 +56,25 @@ msgid "Action cancelled."
 msgstr "Operación cancelada."
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "Activa (booteable):"
 
 msgid "Add Link"
-msgstr "Añadir Enlace"
+msgstr "Añadir enlace"
 
 msgid "Add to Playlist"
-msgstr "Añadir a la Lista"
+msgstr "Añadir a la lista de reproducción"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "Añadir a un archivo zip"
 
 msgid "Alpha Blending"
 msgstr "Combinación Alfa"
 
 msgid "App Default"
-msgstr "Por defecto"
+msgstr "Pred. de la App"
 
 msgid "AppPath changed"
-msgstr "Ruta de Aplicaciones cambiada"
+msgstr "La ruta de las aplicaciones fue cambiada"
 
 msgid "Apps"
 msgstr "Aplicaciones"
@@ -82,16 +83,16 @@ msgid "Apps Path"
 msgstr "Ruta de las aplicaciones"
 
 msgid "Archive Files"
-msgstr "Archivos Comprimidos"
+msgstr "Comprimidos"
 
 msgid "Audio Files"
-msgstr "Archivos de Audio"
+msgstr "Archivos de audio"
 
 msgid "Auto Connect"
 msgstr "Conexión automática"
 
 msgid "Auto Start:"
-msgstr "Autoarrancar:"
+msgstr "Inicio automático:"
 
 msgid "BMP Compression"
 msgstr "Compresión BMP"
@@ -103,28 +104,28 @@ msgid "Back Button"
 msgstr "Suprimir"
 
 msgid "Back in Directory Button"
-msgstr "Atrás desde una Carpeta"
+msgstr "Botón de regreso"
 
 msgid "Background Bottom/Left"
-msgstr "Fondo de Pantalla Abajo/Izquierda"
+msgstr "Inferior izquierda fondo"
 
 msgid "Background Bottom/Right"
-msgstr "Fondo de Pantalla Abajo/Derecha"
+msgstr "Inferior derecha fondo"
 
 msgid "Background Upper/Left"
-msgstr "Fondo de Pantalla Arriba/Izquierda"
+msgstr "Superior izquierda fondo"
 
 msgid "Background Upper/Right"
-msgstr "Fondo de Pantalla Arriba/Derecha"
+msgstr "Superior derecha fondo"
 
 msgid "Blue"
 msgstr "Azul"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "IOS a usar"
 
 msgid "Boot Settings"
-msgstr "Configuración de Arranque"
+msgstr "Configuración de inicio"
 
 msgid "BootMii"
 msgstr ""
@@ -133,16 +134,16 @@ msgid "Both"
 msgstr "Ambas"
 
 msgid "Browse"
-msgstr "Navegar"
+msgstr "Explorar"
 
 msgid "Browser Mode"
-msgstr "Modo de Navegación"
+msgstr "Modo de navegación"
 
 msgid "Browsing for font files must be done in the main browser."
-msgstr "Para buscar archivos de fuentes se debe hacer desde el navegador principal."
+msgstr "La búsqueda de archivos de fuentes debe hacerse desde el explorador principal."
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr "El CRC del archivo extraído no coincide. ¿Contraseña incorrecta?"
+msgstr "El CRC del archivo extraído no coincide. ¿Quizás usaste una contraseña incorrecta?"
 
 msgid "Calculating MD5..."
 msgstr "Calculando MD5..."
@@ -154,19 +155,19 @@ msgid "Can not open the file."
 msgstr "No se puede abrir el archivo."
 
 msgid "Can't browse that path."
-msgstr "No se puede navegar por esa ruta."
+msgstr "No se puede explorar esa ruta."
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "No se puede encontrar la partición correcta."
 
 msgid "Can't load file"
-msgstr "No se cargó el archivo"
+msgstr "No se puede cargar el archivo."
 
 msgid "Can't load page."
-msgstr "No se cargó la página."
+msgstr "No se puede cargar la página."
 
 msgid "Can't open file."
-msgstr "No se abrió el archivo."
+msgstr "No se puede abrir el archivo."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -178,19 +179,19 @@ msgid "Cannot open image"
 msgstr "No se puede abrir la imagen"
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "No se puede leer el disco."
 
 msgid "Cannot write to destination."
-msgstr "No se puede escribir en el destino."
+msgstr "No se pueden escribir datos al directorio de destino."
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "No se pueden escribir datos en la unidad."
 
 msgid "Cannot write to the file."
-msgstr "No se puede escribir en el archivo."
+msgstr "No se puede modificar el archivo."
 
 msgid "Cannot write to this path:"
-msgstr "No se puede escribir en esta ruta:"
+msgstr "No se pueden escribir datos en esta ruta:"
 
 msgid "Caps"
 msgstr "Blq May"
@@ -199,26 +200,26 @@ msgid "Change"
 msgstr "Cambiar"
 
 msgid "Change Language Path?"
-msgstr "¿Cambiar la ruta del idioma?"
+msgstr "¿Deseas cambiar la ruta de los archivos de idioma?"
 
 msgid "Channels"
 msgstr "Canales"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr "Comprobado %i archivo(s) en %i carpeta(s).\n"
+msgstr "Comprobado(s) %i archivo(s) en %i carpeta(s).\n"
 
 msgid "Checking directory:"
-msgstr "Comprobado carpeta:"
+msgstr "Verificando directorio:"
 
 msgid "Checking file:"
-msgstr "Comprobado archivo:"
+msgstr "Verificando archivo:"
 
 msgid "Clear"
-msgstr "Borrar"
+msgstr "Limpiar"
 
 msgid "Clear List"
-msgstr "Borrar Lista"
+msgstr "Limpiar lista"
 
 msgid "Click Button"
 msgstr "Clic"
@@ -231,34 +232,34 @@ msgid "Client:"
 msgstr "Cliente:"
 
 msgid "Clock Mode"
-msgstr "Hora en formato"
+msgstr "Formato del reloj"
 
 msgid "Close"
-msgstr "Salir"
+msgstr "Cerrar"
 
 msgid "Coders:"
 msgstr "Programadores:"
 
 msgid "Color Settings"
-msgstr "Configuración de Color"
+msgstr "Configuración del color"
 
 msgid "Compressed Size:"
 msgstr "Tamaño comprimido:"
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "Comprimiendo elemento(s):"
 
 msgid "Console Default"
-msgstr "Pred. de la Consola"
+msgstr "Pred. de la consola"
 
 msgid "Context Menu Button"
-msgstr "Menú Contextual"
+msgstr "Botón del menú contextual"
 
 msgid "Continue"
 msgstr "Continuar"
 
 msgid "Controls Settings"
-msgstr "Configuración de Control"
+msgstr "Configuración de mandos"
 
 msgid "Convert"
 msgstr "Convertir"
@@ -270,28 +271,28 @@ msgid "Copy"
 msgstr "Copiar"
 
 msgid "Copy Thread Background Priority"
-msgstr "Prioridad al Copiar en Segundo Plano"
+msgstr "Prioridad al copiar en segundo plano"
 
 msgid "Copy Thread Priority"
-msgstr "Prioridad al Copiar"
+msgstr "Prioridad de copiado de archivos"
 
 msgid "Copy current marked item(s)?"
-msgstr "¿Copiar elemento(s) marcado(s)?"
+msgstr "¿Quieres copiar los elementos marcados?"
 
 msgid "Copy of"
 msgstr "Copia de"
 
 msgid "Copying item(s):"
-msgstr "Copiando elemento(s)"
+msgstr "Copiando archivo(s):"
 
 msgid "Could not connect to the network"
 msgstr "No se pudo conectar a la red"
 
 msgid "Could not connect to the server."
-msgstr "No se pudo conectar al Servidor."
+msgstr "No se pudo conectar al servidor."
 
 msgid "Could not convert image."
-msgstr "No se pudo convertir la imagen"
+msgstr "No se pudo convertir la imagen."
 
 msgid "Could not decompress the file."
 msgstr "No se pudo descomprimir el archivo."
@@ -312,22 +313,22 @@ msgid "Could not load text file."
 msgstr "No se pudo cargar el archivo de texto."
 
 msgid "Could not parse directory."
-msgstr "No se pudo analizar la carpeta."
+msgstr "No se pudo analizar el directorio."
 
 msgid "Credits"
 msgstr "Créditos"
 
 msgid "Currently a process is running."
-msgstr "Actualmente un proceso se está ejecutando."
+msgstr "Ya se está ejecutando un proceso."
 
 msgid "Customfont Path"
-msgstr "Ruta Fuente personalizada"
+msgstr "Ruta de los archivos de fuente"
 
 msgid "Cut"
 msgstr "Cortar"
 
 msgid "Cut current marked item(s)?"
-msgstr "¿Cortar elemento(s) marcado(s)?"
+msgstr "¿Quieres cortar los elementos marcados?"
 
 msgid "Default"
 msgstr "Por defecto"
@@ -336,34 +337,34 @@ msgid "Delete"
 msgstr "Eliminar"
 
 msgid "Delete Temp Path on Exit"
-msgstr "Borrar la Ruta Temporal al Salir"
+msgstr "Eliminar la ruta temporal al salir"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr "¿Borrar elemento(s) seleccionado(s) y su contenido?"
+msgstr "¿Quieres eliminar los elementos seleccionados y su contenido?"
 
 msgid "Deleting files:"
 msgstr "Eliminando archivos:"
 
 msgid "Demark All Items Button"
-msgstr "Desmarcar todos los Elementos"
+msgstr "Botón desmarcar todos elementos"
 
 msgid "Demark Item Button"
-msgstr "Desmarcar Elemento"
+msgstr "Botón para desmarcar elemento"
 
 msgid "Designer:"
 msgstr "Diseñador:"
 
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 msgid "Directory .."
-msgstr "Carpeta .."
+msgstr "Directorio .."
 
 msgid "Directory couldn't be deleted."
-msgstr "La carpeta no puede ser borrada."
+msgstr "El directorio no pudo ser eliminado."
 
 msgid "Disconnect Client"
-msgstr "Desconectar Cliente"
+msgstr "Desconectar cliente"
 
 msgid "Disconnect SMB"
 msgstr "Desconectar SMB"
@@ -378,13 +379,13 @@ msgid "Do you want to boot file now?"
 msgstr "¿Quieres iniciar el archivo ahora?"
 
 msgid "Do you want to boot:"
-msgstr "¿Quieres ejecutar?:"
+msgstr "¿Quieres ejecutar este archivo?:"
 
 msgid "Do you want to change the font?"
-msgstr "¿Quieres cambiar la Fuente?"
+msgstr "¿Quieres cambiar la fuente?"
 
 msgid "Do you want to delete this file:"
-msgstr "¿Quieres borrar este archivo?:"
+msgstr "¿Quieres eliminar este archivo?:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "¿Quieres desconectar el cliente FTP?"
@@ -393,81 +394,81 @@ msgid "Do you want to disconnect this SMB?"
 msgstr "¿Quieres desconectar este SMB?"
 
 msgid "Do you want to download new language files?"
-msgstr "¿Quieres descargar nuevos archivos de idiomas?"
+msgstr "¿Quieres descargar nuevos archivos de idioma?"
 
 msgid "Do you want to exit WiiXplorer?"
 msgstr "¿Quieres salir de WiiXplorer?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr "¿Quieres cargar el archivo desde: %s ?"
+msgstr "¿Quieres cargar el archivo desde %s?"
 
 msgid "Do you want to load the default language."
-msgstr "¿Quieres cargar el idioma por defecto?."
+msgstr "¿Quieres cargar el idioma por defecto?"
 
 msgid "Do you want to load this language ?"
-msgstr "¿Quieres cargar este idioma ?"
+msgstr "¿Quieres cargar este idioma?"
 
 msgid "Do you want to open this file in TextEditor?"
 msgstr "¿Quieres abrir este archivo con el Editor de Texto?"
 
 msgid "Do you want to playback this file?"
-msgstr "¿Quieres reproducir este archivo?"
+msgstr ""
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr "¿Quieres reiniciar WiiXplorer?"
+msgstr "¿Quieres reiniciar el WiiXplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr "¿Quieres reiniciar ahora ?"
+msgstr "¿Quieres reiniciar ahora?"
 
 msgid "Do you want to reconnect this SMB?"
 msgstr "¿Quieres reconectar este SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr "¿Quieres reconectar con al cliente FTP?"
+msgstr "¿Quieres reconectar este cliente FTP?"
 
 msgid "Do you want to remount the devices?"
 msgstr "¿Quieres volver a montar los dispositivos?"
 
 msgid "Do you want to replace this file?"
-msgstr "¿Quieres sustituir este archivo?"
+msgstr "¿Quieres reemplazar este archivo?"
 
 msgid "Do you want to reset the color settings?"
-msgstr "¿Restablecer la Configuración de Color?"
+msgstr "¿Quieres restablecer la configuración del color?"
 
 msgid "Do you want to reset the control settings?"
-msgstr "¿Restablecer la Configuración de Control?"
+msgstr "¿Quieres restablecer la configuración de mandos?"
 
 msgid "Do you want to reset the settings?"
-msgstr "¿Restablecer la Configuración?"
+msgstr "¿Quieres restablecer las opciones?"
 
 msgid "Do you want to save changes?"
 msgstr "¿Quieres guardar los cambios?"
 
 msgid "Do you want to start BootMii?"
-msgstr ""
+msgstr "¿Quieres iniciar el BootMii IOS?"
 
 msgid "Do you want to start the app?"
-msgstr "¿Quieres lanzar la aplicación?"
+msgstr "¿Quieres iniciar la aplicación?"
 
 msgid "Do you want to start the channel?"
-msgstr "¿Quieres lanzar el canal?"
+msgstr "¿Quieres iniciar el canal?"
 
 msgid "Do you want to update now ?"
-msgstr "¿Quieres actualizar ahora ?"
+msgstr "¿Quieres actualizar ahora?"
 
 msgid "Done"
-msgstr "Hecho"
+msgstr "Listo"
 
 msgid "Down Button"
 msgstr "Abajo"
 
 msgid "Download Link"
-msgstr "De Descarga"
+msgstr "Enlace de descarga"
 
 #, c-format
 msgid "Downloaded %d files."
-msgstr "Descargados %d archivos."
+msgstr "Descargado(s) %d archivo(s)."
 
 msgid "Downloading file..."
 msgstr "Descargando archivo..."
@@ -480,7 +481,7 @@ msgid "ERROR: %i"
 msgstr ""
 
 msgid "Edit Textline Button"
-msgstr "Editar Línea de Texto"
+msgstr "Botón edición línea de texto"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
@@ -495,7 +496,7 @@ msgstr "Error - %s no es un archivo\n"
 
 #, c-format
 msgid "Error - Could not open directory: %s\n"
-msgstr "Error - No se pudo abrir la carpeta: %s\n"
+msgstr "Error - No se pudo abrir el directorio: %s\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
@@ -503,7 +504,7 @@ msgstr "Error - No se pudo abrir el archivo: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr "Error - No hay suficiente memoria en: %s\n"
+msgstr "Error - No hay suficiente espacio en: %s\n"
 
 msgid "Error while reading file."
 msgstr "Error al leer el archivo."
@@ -515,10 +516,10 @@ msgid "Exit"
 msgstr "Salir"
 
 msgid "Exit WiiXplorer?"
-msgstr "¿Salir de WiiXplorer?"
+msgstr "¿Quieres salir de WiiXplorer?"
 
 msgid "Explorer Settings"
-msgstr "Configuración del Explorador"
+msgstr "Configuración del explorador"
 
 msgid "Extract"
 msgstr "Extraer"
@@ -527,13 +528,13 @@ msgid "Extract All"
 msgstr "Extraer todo"
 
 msgid "Extract file to temp path and execute?"
-msgstr "¿Extraer el archivo en la ruta temporal y ejecutar?"
+msgstr "¿Quieres extraer el archivo en la ruta temporal y ejecutarlo?"
 
 msgid "Extract full archive?"
-msgstr "¿Extraer archivo completo?"
+msgstr "¿Quieres extraer el archivo completo?"
 
 msgid "Extract the selected item(s)?"
-msgstr "¿Extraer elemento(s) seleccionado(s)?"
+msgstr "¿Quieres extraer los elementos seleccionados?"
 
 msgid "Extracting files..."
 msgstr "Extrayendo archivos..."
@@ -542,103 +543,103 @@ msgid "Extracting item(s):"
 msgstr "Extrayendo elemento(s):"
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "El formato FAT32 debe tener al menos 65536 clústeres."
 
 msgid "FTP Client Settings"
-msgstr "Configuración del Cliente FTP"
+msgstr "Configuración del cliente FTP"
 
 msgid "FTP Client reconnected successfull."
-msgstr ""
+msgstr "Reconexión exitosa del cliente FTP."
 
 msgid "FTP Path:"
-msgstr "Ruta FTP:"
+msgstr "Ruta del FTP:"
 
 msgid "FTP Port:"
-msgstr "Puerto FTP:"
+msgstr "Puerto del FTP:"
 
 msgid "FTP Server"
 msgstr "Servidor FTP"
 
 msgid "FTP Server Settings"
-msgstr "Configuración del Servidor FTP"
+msgstr "Configuración del servidor FTP"
 
 msgid "FTP Server is running and listening on port"
-msgstr "El Servidor FTP está funcionando y escuchando por el puerto"
+msgstr "El servidor FTP está funcionando bajo el puerto"
 
 msgid "FTP Started.\n"
-msgstr "FTP Iniciado.\n"
+msgstr "FTP iniciado.\n"
 
 msgid "Fade Speed"
-msgstr "Velocidad de Desvanecimiento"
+msgstr "Velocidad de desvanecimiento"
 
 msgid "Failed adding the item(s)"
-msgstr ""
+msgstr "Error al añadir archivo(s)"
 
 msgid "Failed adding the item(s)."
-msgstr ""
+msgstr "Error al añadir archivo(s)."
 
 msgid "Failed copying item(s)."
-msgstr "No se pudo copiar elemento(s)."
+msgstr "Error al copiar archivo(s)."
 
 msgid "Failed extracting the archive."
-msgstr "No se pudo extraer el archivo."
+msgstr "No se pudo extraer el comprimido."
 
 msgid "Failed extracting the item(s)."
-msgstr "No se pudo extraer elemento(s)."
+msgstr "Error al extraer archivo(s)."
 
 msgid "Failed moving item(s)."
-msgstr "No se pudo mover elemento(s)."
+msgstr "Error al mover archivo(s)."
 
 msgid "Failed renaming item"
-msgstr "No se pudo renombrar elemento"
+msgstr "No se pudo renombrar el archivo"
 
 msgid "Failed to get the Changelog."
-msgstr "No se pudo obtener la Lista de Cambios."
+msgstr "No se pudo obtener el registro de cambios."
 
 msgid "Failed to load the channel."
 msgstr "No se pudo cargar el canal."
 
 msgid "Failed to read file data."
-msgstr "No se pudo leer el archivo de datos."
+msgstr "No se pudieron leer los datos del archivo."
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "No se pudo escribir el EBR."
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "No se pudo escribir el MBR."
 
 msgid "File Extensions"
-msgstr "Extensiones de Archivos"
+msgstr "Extensiones de archivo"
 
 msgid "File Extensions Assignment"
-msgstr "Asignación de las Extensiones de Archivos"
+msgstr "Asignación de extensiones de archivo"
 
 msgid "File System:"
-msgstr ""
+msgstr "Sistema de archivos:"
 
 msgid "File already exists:"
 msgstr "El archivo ya existe:"
 
 msgid "File could not be deleted."
-msgstr "El archivo no puede ser eliminado."
+msgstr "El archivo no se pudo eliminar."
 
 msgid "File couldn't be deleted."
-msgstr "El archivo no puede ser eliminado."
+msgstr "El archivo no se pudo eliminar."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr "Archivo corrupto (no coincide el CRC)."
+msgstr "Archivo corrupto (el CRC no coincide)."
 
 msgid "File is corrupt."
-msgstr "Archivo corrupto"
+msgstr "El archivo está corrupto."
 
 msgid "File is too big."
-msgstr "El archivo es demasiado grande."
+msgstr "El archivo es muy grande."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr "El archivo utilizado es demasiado alto para la configuración de compresión (tamaño del diccionario demasiado grande)."
+msgstr "El archivo usa una configuración de compresión muy alta (el tamaño del diccionario es muy grande)."
 
 msgid "File uses unsupported compression settings."
-msgstr "El archivo utilizado es incompatible con la configuración de compresión."
+msgstr "El archivo usa una configuración de compresión no soportada."
 
 msgid "File was edited."
 msgstr "El archivo fue editado."
@@ -657,13 +658,13 @@ msgid "Filesize doesn't match."
 msgstr "El tamaño del archivo no coincide."
 
 msgid "Filesize is 0 Byte."
-msgstr "El tamaño del archivo es de 0 Bytes."
+msgstr "El archivo pesa 0 bytes."
 
 msgid "Filetype:"
 msgstr "Tipo de archivo:"
 
 msgid "Flip Mode"
-msgstr "Modo Rotación"
+msgstr "Modo de Rotación"
 
 msgid "Folder"
 msgstr "Carpeta"
@@ -672,100 +673,100 @@ msgid "Folder(s)"
 msgstr "Carpeta(s)"
 
 msgid "Font Files"
-msgstr "Archivos de Fuentes"
+msgstr "Archivos de fuente"
 
 msgid "Fontpath changed."
-msgstr "Ruta de la Fuente cambiada."
+msgstr "Se cambió la ruta de los archivos de fuente."
 
 msgid "Format"
-msgstr ""
+msgstr "Formatear"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "¿Quieres formatear la partición?"
 
 msgid "Formating partition..."
-msgstr ""
+msgstr "Formateando partición..."
 
 msgid "Formatter"
-msgstr ""
+msgstr "Formateador"
 
 msgid "Free Space:"
-msgstr "Espacio Libre:"
+msgstr "Espacio libre:"
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "Homebrew de GCN"
 
 msgid "GC PAD BUTTON A"
-msgstr "BOTÓN A PAD GC"
+msgstr "BOTÓN A MANDO GCN"
 
 msgid "GC PAD BUTTON B"
-msgstr "BOTÓN B PAD GC"
+msgstr "BOTÓN B MANDO GCN"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr "BOTÓN ABAJO PAD GC"
+msgstr "BOTÓN ABAJO MANDO GCN"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr "BOTÓN IZQUIERDA PAD GC"
+msgstr "BOTÓN IZQUIERDA MANDO GCN"
 
 msgid "GC PAD BUTTON NONE"
-msgstr "NINGÚN BOTÓN PAD GC"
+msgstr "NINGÚN BOTÓN MANDO GCN"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr "BOTÓN DERECHA PAD GC"
+msgstr "BOTÓN DERECHA MANDO GCN"
 
 msgid "GC PAD BUTTON START"
-msgstr "BOTÓN START PAD GC"
+msgstr "BOTÓN START MANDO GCN"
 
 msgid "GC PAD BUTTON UP"
-msgstr "BOTÓN ARRIBA PAD GC"
+msgstr "BOTÓN ARRIBA MANDO GCN"
 
 msgid "GC PAD BUTTON X"
-msgstr "BOTÓN X PAD GC"
+msgstr "BOTÓN X MANDO GCN"
 
 msgid "GC PAD BUTTON Y"
-msgstr "BOTÓN Y PAD GC"
+msgstr "BOTÓN Y MANDO GCN"
 
 msgid "GC PAD TRIGGER L"
-msgstr "GATILLO L PAD GC"
+msgstr "BOTÓN ABAJO MANDO GCN"
 
 msgid "GC PAD TRIGGER R"
-msgstr "GATILLO R PAD GC"
+msgstr "BOTÓN R MANDO GCN"
 
 msgid "GC PAD TRIGGER Z"
-msgstr "GATILLO Z PAD GC"
+msgstr "BOTÓN Z MANDO GCN"
 
 msgid "GC-SD A"
-msgstr ""
+msgstr "SD Gecko A"
 
 msgid "GC-SD B"
-msgstr ""
+msgstr "SD Gecko B"
 
 msgid "GD2 Compression"
 msgstr "Compresión GD2"
 
 msgid "GUID"
-msgstr ""
+msgstr "Tabla de partición GPT"
 
 msgid "General Settings"
-msgstr ""
+msgstr "Opciones generales"
 
 msgid "Getting Changelog..."
-msgstr "Obteniendo la Lista de Cambios..."
+msgstr "Obteniendo registro de cambios..."
 
 msgid "Go Back"
-msgstr "Atrás"
+msgstr "Ir atrás"
 
 msgid "Green"
 msgstr "Verde"
 
 msgid "Hashing complete."
-msgstr "Hashing completado."
+msgstr "Hasheo completado."
 
 msgid "Hashing successfully finished."
-msgstr "Hashing finalizado con éxito."
+msgstr "Hasheo finalizado exitosamente."
 
 msgid "Hide System Files/Folders"
-msgstr "Ocultar Archivos/Carpetas del Sistema"
+msgstr "Ocultar archivos y carpetas del sistema"
 
 msgid "High"
 msgstr "Alta"
@@ -774,13 +775,13 @@ msgid "Highest"
 msgstr "Máxima"
 
 msgid "Home Button"
-msgstr "HOME"
+msgstr "Botón HOME"
 
 msgid "Home Menu"
 msgstr "Menú HOME"
 
 msgid "Homebrew Files"
-msgstr "Archivos Homebrew"
+msgstr "Homebrew de Wii"
 
 msgid "Horizontal"
 msgstr ""
@@ -792,10 +793,10 @@ msgid "How do you want to change the path?"
 msgstr "¿Cómo quieres cambiar la ruta?"
 
 msgid "How do you want to launch this file?"
-msgstr ""
+msgstr "¿Cómo quieres iniciar este archivo?"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "¿Cómo quieres cargar este archivo de idioma?"
 
 msgid "How do you want to open the file?"
 msgstr "¿Cómo quieres abrir el archivo?"
@@ -804,37 +805,37 @@ msgid "How do you want to proceed?"
 msgstr "¿Cómo quieres continuar?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "¿Cómo debe ser abierta esta URL?"
 
 msgid "Icon Mode"
-msgstr "Modo Iconos"
+msgstr "Por íconos"
 
 msgid "Idle"
 msgstr "Mínima"
 
 msgid "Image Converter"
-msgstr "Conversor de Imágenes"
+msgstr "Conversor de imágenes"
 
 msgid "Image Files"
-msgstr "Archivos de Imagen"
+msgstr "Imágenes"
 
 msgid "Image Heigth"
-msgstr "Altura de Imagen"
+msgstr "Altura de la imagen"
 
 msgid "Image Settings"
-msgstr "Valores de las Imágenes"
+msgstr "Valores de las imágenes"
 
 msgid "Image Viewer"
-msgstr "Visor de Imágenes"
+msgstr "Visor de imágenes"
 
 msgid "Image Width"
-msgstr "Ancho de Imagen"
+msgstr "Anchura de la imagen"
 
 msgid "Image successfully converted."
-msgstr "Imagen convertida con éxito."
+msgstr "Imagen convertida exitosamente."
 
 msgid "ImageConverter"
-msgstr "Conversor de Imágenes"
+msgstr "Conversor de imágenes"
 
 msgid "ImageViewer"
 msgstr "Visor de Imágenes"
@@ -843,25 +844,25 @@ msgid "Incomming connection."
 msgstr "Conexión entrante."
 
 msgid "Input File"
-msgstr "Archivo Origen"
+msgstr "Archivo de entrada"
 
 msgid "Interlace"
-msgstr "Interlazado"
+msgstr "Entrelazado"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "Canal Internet"
 
 msgid "JPEG Quality"
-msgstr "Calidad JPEG"
+msgstr "Calidad de JPEG"
 
 msgid "Keyboard Backspace Button"
-msgstr "Retroceso en el Teclado"
+msgstr "Botón de retroceso en teclado"
 
 msgid "Keyboard Delete Delay"
-msgstr "Retardo al Eliminar en el Teclado"
+msgstr "Retardo de borrado en teclado"
 
 msgid "Keyboard Shift Button"
-msgstr "Mayúsculas en el Teclado"
+msgstr "Botón de Mayúsculas en teclado"
 
 msgid "Lang."
 msgstr "Idioma"
@@ -870,13 +871,13 @@ msgid "Language"
 msgstr "Idioma"
 
 msgid "Language Files"
-msgstr "Archivos de Idioma"
+msgstr "Archivos de idioma"
 
 msgid "Language Path changed."
-msgstr "Ruta del idioma cambiada."
+msgstr "Se cambió la ruta de los archivos de idioma."
 
 msgid "Language Settings"
-msgstr "Configuración del Idioma"
+msgstr "Configuración de idioma"
 
 msgid "Last access:"
 msgstr "Último acceso:"
@@ -894,19 +895,19 @@ msgid "Linebreak"
 msgstr "Salto L."
 
 msgid "List Mode"
-msgstr "Modo Lista"
+msgstr "Por lista"
 
 msgid "Listening on TCP port"
 msgstr "Escuchando por el puerto TCP"
 
 msgid "Listing files in"
-msgstr "Listar los archivos en"
+msgstr "Listando los archivos en"
 
 msgid "Load"
-msgstr ""
+msgstr "Cargar"
 
 msgid "Load Music to Memory"
-msgstr "Cargar Música en Memoria"
+msgstr "Cargar música a la memoria"
 
 msgid "Loading file:"
 msgstr "Cargando archivo:"
@@ -915,16 +916,16 @@ msgid "Loading image..."
 msgstr "Cargando imagen..."
 
 msgid "Log was saved in MD5.log"
-msgstr "Registro guardado en MD5.log"
+msgstr "Registro guardado como MD5.log"
 
 msgid "Logical"
-msgstr ""
+msgstr "Lógica"
 
 msgid "Loop"
-msgstr "Bucle"
+msgstr "Repetición constante (bucle)"
 
 msgid "Loop Playlist"
-msgstr "Bucle de la Lista de Reproducción"
+msgstr "Repetir lista de reproducción"
 
 msgid "Low"
 msgstr "Baja"
@@ -933,7 +934,7 @@ msgid "MD5 Check"
 msgstr "Verificar MD5"
 
 msgid "MD5 log file can't be created."
-msgstr "El archivo de registro MD5 no se puede crear."
+msgstr "No se puede crear el archivo de registro MD5."
 
 msgid "MPlayerCE"
 msgstr ""
@@ -942,22 +943,22 @@ msgid "MPlayerCE Path"
 msgstr "Ruta del MPlayerCE"
 
 msgid "MPlayerCE path changed"
-msgstr ""
+msgstr "Se cambió la ruta del MPlayerCE"
 
 msgid "Mark Item Button"
-msgstr "Marcar Elemento"
+msgstr "Botón para marcar elemento"
 
 msgid "Memory Buffer"
-msgstr "Búfer de Memoria"
+msgstr "Búfer de memoria"
 
 msgid "Menu"
-msgstr "Menú de Wii"
+msgstr "Menú"
 
 msgid "Minimize"
 msgstr "Minimizar"
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "Montado como:"
 
 msgid "Mounting disc"
 msgstr "Montando disco"
@@ -966,56 +967,56 @@ msgid "Moving item(s):"
 msgstr "Moviendo elemento(s):"
 
 msgid "Multiple Items"
-msgstr "Múltiples Elementos"
+msgstr "Elementos múltiples"
 
 msgid "Music Loop Mode"
-msgstr "Modo bucle musical"
+msgstr "Modo de repetición de música"
 
 msgid "Music Volume"
-msgstr "Volumen musical"
+msgstr "Volumen de la música"
 
 msgid "NONE"
 msgstr "NINGUNA"
 
 msgid "Name might already exists."
-msgstr "El nombre puede que ya exista."
+msgstr "Puede que el nombre ya exista."
 
 msgid "Network Settings"
-msgstr "Configuración de la Red"
+msgstr "Configuración de red"
 
 msgid "Network initialising..."
-msgstr "Inicializando la red..."
+msgstr "Inicializando red..."
 
 msgid "New Folder"
 msgstr "Nueva carpeta"
 
 msgid "NewZip.zip"
-msgstr ""
+msgstr "NuevoZip.zip"
 
 msgid "No"
 msgstr ""
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "No se especificó ninguna URL o ruta."
 
 msgid "No files found."
 msgstr "No se encontraron archivos."
 
 msgid "No homebrew in the zip."
-msgstr "Sin homebrew en el zip."
+msgstr "No hay homebrew en el zip."
 
 #, c-format
 msgid "No image found at index %d."
-msgstr "Imagen no encontrada en índice %d."
+msgstr "No se encontraron imágenes en el índice %d."
 
 msgid "No language files found."
-msgstr "No se encontraron archivos de idiomas."
+msgstr "No se encontraron archivos de idioma."
 
 msgid "No network connection."
-msgstr "No hay conexión de Red."
+msgstr "No hay conexión de red."
 
 msgid "No new updates available"
-msgstr "No hay nuevas actualizaciones disponibles"
+msgstr "No hay nuevas actualizaciones disponibles."
 
 msgid "No to all"
 msgstr "No a todo"
@@ -1027,22 +1028,22 @@ msgid "Not a valid URL"
 msgstr "No es una URL válida"
 
 msgid "Not a valid URL path"
-msgstr "No es una ruta URL válida"
+msgstr "No es una ruta válida"
 
 msgid "Not a valid domain"
 msgstr "No es un dominio válido"
 
 msgid "Not enough memory to resize."
-msgstr "No hay memoria suficiente para redimensionar."
+msgstr "No hay memoria suficiente para redimensionar la imagen."
 
 msgid "Not enough memory to rotate."
-msgstr "No hay memoria suficiente para rotar."
+msgstr "No hay memoria suficiente para rotar la imagen."
 
 msgid "Not enough memory."
-msgstr "No hay suficiente memoria."
+msgstr "No hay memoria suficiente."
 
 msgid "Not mounted"
-msgstr ""
+msgstr "No montado"
 
 msgid "Notice:"
 msgstr "Aviso:"
@@ -1054,52 +1055,52 @@ msgid "OK"
 msgstr "Aceptar"
 
 msgid "ON"
-msgstr "SI"
+msgstr "SÍ"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr "¿Abrir el archivo en el visor de PDF?"
+msgstr "¿Quieres abrir el archivo con el visor PDF?"
 
 msgid "Opera Channel not found on the system."
-msgstr "Canal Internet no encontrado en el sistema."
+msgstr "El Canal Internet no está instalado."
 
 msgid "Out of memory: too many files!"
-msgstr "Falta memoria: ¡demasiados archivos!"
+msgstr "Memoria insuficiente: ¡hay demasiados archivos!"
 
 msgid "Output File"
-msgstr "Archivo Final"
+msgstr "Archivo de salida"
 
 msgid "Output Type"
-msgstr "Tipo de Salida"
+msgstr "Tipo de slaida"
 
 msgid "PDF Files"
 msgstr "Archivos PDF"
 
 msgid "PDF Processing Zoom"
-msgstr "Procesado de Zum del PDF"
+msgstr "Procesado del Zoom en PDFs"
 
 msgid "Parse Directory"
-msgstr "Analizar Carpeta"
+msgstr "Analizar directorio"
 
 msgid "Partition"
-msgstr ""
+msgstr "Partición"
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "Formateador de particiones"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "No. de partición"
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "Tamaño de la partición"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "Tipo de partición"
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "La partición es muy pequeña."
 
 msgid "Passive Mode:"
-msgstr "Modo Pasivo:"
+msgstr "Modo pasivo:"
 
 msgid "Password is needed."
 msgstr "Se necesita la contraseña."
@@ -1111,76 +1112,76 @@ msgid "Paste"
 msgstr "Pegar"
 
 msgid "Paste item(s) into current directory?"
-msgstr "¿Pegar elemento(s) en la carpeta actual?"
+msgstr "¿Pegar elemento(s) en el directorio actual?"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "¿Pegar elemento(s) a este directorio?"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "La adición de elementos sólo está soportada con los archivos ZIP."
 
 msgid "Path Setup"
-msgstr "Disposición de las Rutas"
+msgstr "Disposición de las rutas"
 
 msgid "Play File"
-msgstr "Oir Archivo"
+msgstr "Reproducir archivo"
 
 msgid "Play Once"
-msgstr "Oir una vez"
+msgstr "Reproducir una vez"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "Introduce una ruta."
 
 msgid "Please enter first the URL-Name."
-msgstr "Introduce primero el nombre de la URL."
+msgstr "Introduce primero el nombre de la página."
 
 msgid "Please enter now the URL."
-msgstr "Introduce ahora la dirección de la URL."
+msgstr "Introduce ahora la dirección URL."
 
 msgid "Please enter the password."
-msgstr "Por favor, introduce la contraseña."
+msgstr "Introduce la contraseña."
 
 msgid "Please wait..."
-msgstr "Espera por favor..."
+msgstr "Por favor, espera..."
 
 msgid "Please wait:"
-msgstr "Espera por favor:"
+msgstr "Por favor, espera:"
 
 msgid "Possible unsupported format."
-msgstr "Posible formato incompatible."
+msgstr "Posible formato no soportado."
 
 msgid "Press Startup FTP to start the server on port"
-msgstr "Pulsa Arrancar FTP para iniciar el Servidor en el puerto"
+msgstr "Selecciona \"Iniciar FTP\" para iniciar el servidor bajo el puerto"
 
 msgid "Primary"
-msgstr ""
+msgstr "Primaria"
 
 msgid "Process canceled."
 msgstr "Proceso cancelado."
 
 msgid "ProgressBar Bottom/Left"
-msgstr "Barra de Progreso Abajo/Izquierda"
+msgstr "Inferior izquierda barra progreso"
 
 msgid "ProgressBar Bottom/Right"
-msgstr "Barra de Progreso Abajo/Derecha"
+msgstr "Inferior derecha barra progreso"
 
 msgid "ProgressBar Empty Bottom/Left"
-msgstr "Barra de Progreso Vacía Abajo/Izquierda"
+msgstr "Inferior izquierda barra progreso (vacía)"
 
 msgid "ProgressBar Empty Bottom/Right"
-msgstr "Barra de Progreso Vacía Abajo/Derecha"
+msgstr "Inferior derecha barra progreso (vacía)"
 
 msgid "ProgressBar Empty Upper/Left"
-msgstr "Barra de Progreso Vacía Arriba/Izquierda"
+msgstr "Superior izquierda barra progreso (vacía)"
 
 msgid "ProgressBar Empty Upper/Right"
-msgstr "Barra de Progreso Vacía Arriba/Derecha"
+msgstr "Superior derecha barra progreso (vacía)"
 
 msgid "ProgressBar Upper/Left"
-msgstr "Barra de Progreso Arriba/Izquierda"
+msgstr "Superior izquierda barra progreso"
 
 msgid "ProgressBar Upper/Right"
-msgstr "Barra de Progreso Arriba/Derecha"
+msgstr "Superior derecha barra progreso"
 
 msgid "Properties"
 msgstr "Propiedades"
@@ -1208,10 +1209,10 @@ msgid "Reconnect SMB"
 msgstr "Reconectar SMB"
 
 msgid "Reconnect failed. No client connected."
-msgstr ""
+msgstr "La reconexión falló. No hay clientes conectados."
 
 msgid "Reconnect failed. No share connected."
-msgstr ""
+msgstr "La reconexión falló. No hay recursos SMB conectados."
 
 msgid "Red"
 msgstr "Rojo"
@@ -1220,19 +1221,19 @@ msgid "Reload"
 msgstr "Actualizar"
 
 msgid "Reloading file list..."
-msgstr ""
+msgstr "Actualizando la lista de archivos..."
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "Remontando todos los dispositivos."
 
 msgid "Remounting devices..."
-msgstr ""
+msgstr "Remontando dispositivos..."
 
 msgid "Remove Link"
-msgstr "Borrar Enlace"
+msgstr "Borrar enlace"
 
 msgid "Remove from list"
-msgstr "Borrar de la lista"
+msgstr "Quitar de la lista"
 
 msgid "Rename"
 msgstr "Renombrar"
@@ -1253,74 +1254,74 @@ msgid "Rotate"
 msgstr "Rotar"
 
 msgid "Rumble"
-msgstr "Vibración"
+msgstr "Vibración del mando"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr "Ejecutar un Vídeo podría relentizar el proceso o congelar la aplicación. ¿Deseas continuar?"
+msgstr "Cargar un video podría ralentizar el proceso o congelar la aplicación. ¿Deseas continuar?"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "Tarjeta SD"
 
 msgid "SMB Name:"
 msgstr "Nombre del SMB:"
 
 msgid "SMB Settings"
-msgstr "Configuración de SMB"
+msgstr "Configuración de recursos SMB"
 
 msgid "SMB is connecting..."
-msgstr "SMB está conectando..."
+msgstr "El recurso SMB se está conectando..."
 
 msgid "SMB reconnected successfull."
-msgstr ""
+msgstr "Se reconectó el recurso SMB exitosamente."
 
 msgid "Save Alpha"
-msgstr "Guardar Alfa"
+msgstr "Guardar alfa"
 
 msgid "Screenshot Format"
-msgstr "Formato de Captura de Pantalla"
+msgstr "Formato de captura de pantalla"
 
 msgid "Screenshot Hold Button"
-msgstr "Mantener para Capturar Pantalla"
+msgstr "Mantener botón capturar pantalla"
 
 msgid "Screenshot Path"
-msgstr "Ruta de Captura de Pantalla"
+msgstr "Ruta de las capturas de pantalla"
 
 msgid "Screenshot Press Button"
-msgstr "Pulsar para Capturar Pantalla"
+msgstr "Botón capturas de pantalla"
 
 msgid "Scrolling Speed"
-msgstr "Velocidad de Desplazamiento"
+msgstr "Velocidad de desplazamiento"
 
 msgid "Server was shutdown...\n"
-msgstr "El Servidor se ha parado...\n"
+msgstr "Se ha desactivado el servidor...\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "Estab. como activa"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "¿Quieres establecer esta partición como activa?"
 
 msgid "Setting partition as active."
-msgstr ""
+msgstr "Estableciendo partición como activa."
 
 msgid "Settings"
 msgstr "Configuración"
 
 #, c-format
 msgid "Share %i"
-msgstr "Compartido %i"
+msgstr "Recurso compartido %i"
 
 msgid "Share:"
-msgstr "Compartido:"
+msgstr "Recurso compartido:"
 
 msgid "Shift"
 msgstr "May"
 
 msgid "Show Changelog"
-msgstr "Ver Lista de Cambios"
+msgstr "Ver registro de cambios"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "Mostrar el formateador de particiones"
 
 msgid "Shutdown"
 msgstr "Apagar"
@@ -1329,19 +1330,19 @@ msgid "Shutdown FTP"
 msgstr "Parar FTP"
 
 msgid "Shutdown the Wii?"
-msgstr "¿Apagar la Wii?"
+msgstr "¿Quieres apagar la consola?"
 
 msgid "Size:"
 msgstr "Tamaño:"
 
 msgid "Slide Show Button"
-msgstr "Avance de Diaporama"
+msgstr "Botón presentación diapositivas"
 
 msgid "Slideshow Delay"
-msgstr "Retardo del Diaporama"
+msgstr "Retardo en la presentación de diapositivas"
 
 msgid "Sound Settings"
-msgstr "Ajustes de Sonido"
+msgstr "Configuración de sonido"
 
 msgid "Soundblock Size"
 msgstr "Tamaño del bloque de sonido"
@@ -1356,52 +1357,52 @@ msgid "Standard"
 msgstr "Estándar"
 
 msgid "Startup FTP"
-msgstr "Arrancar FTP"
+msgstr "Iniciar FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "Partición formateada exitosamente."
 
 msgid "Temporary Path"
-msgstr "Ruta Temporal"
+msgstr "Ruta temporal"
 
 msgid "Text Editor"
-msgstr ""
+msgstr "Editor de texto"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr "El tamaño del búfer es muy alto. Si la aplicación no arranca después de esto, borra los archivos de configuración."
+msgstr "El tamaño del búfer es muy alto. Si la aplicación no inicia después de ésto, borra los archivos de configuración."
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr "Tendrá efecto al cargar la siguiente música. Podría bloquearse la reproducción musical."
+msgstr "El cambio surtirá efecto cuando cargues música de nuevo. La reproducción de música podría quedar inhabilitada."
 
 msgid "The file will be downloaded to this path."
-msgstr "El archivo se descargará en esta ruta."
+msgstr "El archivo será descargado a esta ruta."
 
 msgid "The new font could not be loaded."
-msgstr "No se pudo cargar la nueva Fuente."
+msgstr "No se pudo cargar la nueva fuente."
 
 msgid "The new font is loaded."
-msgstr "Se ha cargado la nueva Fuente."
+msgstr "Se ha cargado la nueva fuente."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr "Todo el staff de devkitPro y libogc."
+msgstr "Todo el staff del devkitPro y del libogc."
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "Esta unidad tiene más de 2^28 clústeres. Es posible que la partición sea muy pequeña."
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "Esta unidad es muy grande"
 
 msgid "This link will be used in Opera or as a Download Link."
-msgstr ""
+msgstr "Este enlace será usado en el Canal Internet o como una descarga."
 
 msgid "This name will be shown in the Start Menu"
-msgstr "Este nombre se mostrará en el Menú de Inicio"
+msgstr "Este nombre aparecerá en el menú de Inicio"
 
 msgid "This option could mess up the pdf view."
-msgstr "Esta opción podría dañar la visualización del pdf."
+msgstr "Esta opción podría dañar la visualización del PDF."
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "Ésto eliminará todos los datos encontrados en esta partición. ¿Deseas continuar?"
 
 msgid "Time left:"
 msgstr "Tiempo restante:"
@@ -1410,16 +1411,16 @@ msgid "To Idle"
 msgstr "WiiConnect24"
 
 msgid "To Loader"
-msgstr "Al Cargador"
+msgstr "Al cargador"
 
 msgid "To Menu"
-msgstr "Al Menú"
+msgstr "Al Menú de Wii"
 
 msgid "To Standby"
-msgstr "En Espera"
+msgstr "En espera"
 
 msgid "Total Space:"
-msgstr "Espacio Total:"
+msgstr "Espacio total:"
 
 msgid "Transfer cancelled."
 msgstr "Transferencia cancelada."
@@ -1434,31 +1435,31 @@ msgid "Transfering files:"
 msgstr "Transfiriendo archivos:"
 
 msgid "URL List"
-msgstr "Lista URL"
+msgstr "Lista de URLs"
 
 msgid "URL List Path"
-msgstr "Ruta de la Lista URL"
+msgstr "Ruta de la lista de URLs"
 
 msgid "URL is empty."
 msgstr "La URL está vacía."
 
 msgid "USB Device"
-msgstr ""
+msgstr "Dispositivo USB"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr "Formato desconocido. ¿Abrir este archivo con el Editor de Texto?"
+msgstr "Formato desconocido. ¿Deseas abrir este archivo con el Editor de texto?"
 
 msgid "Unable to create folder."
-msgstr "Imposible crear la carpeta."
+msgstr "No se pudo crear la carpeta."
 
 msgid "Unable to load path."
-msgstr "Imposible cargar la ruta."
+msgstr "No se pudo cargar la ruta."
 
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 msgid "Unknown error occured."
-msgstr ""
+msgstr "Ocurrió un error desconocido."
 
 msgid "Unsupported format!"
 msgstr "¡Formato no soportado!"
@@ -1467,32 +1468,32 @@ msgid "Up Button"
 msgstr "Arriba"
 
 msgid "Update (App) Path"
-msgstr "Ruta para actualizar Aplicación"
+msgstr "Ruta de actualización del WiiXplorer"
 
 msgid "Update App"
-msgstr "Actualizar"
+msgstr "Actualizar App"
 
 msgid "Update Icon.png"
-msgstr "Actualizar Icon.png"
+msgstr "Actualizar el icon.png"
 
 msgid "Update Meta.xml"
-msgstr "Actualizar Meta.xml"
+msgstr "Actualizar el meta.xml"
 
 msgid "Update Path changed."
-msgstr "Ruta de actualización cambiada."
+msgstr "La ruta del WiiXplorer fue cambiada."
 
 msgid "Update failed"
-msgstr "Error en la actualización"
+msgstr "La actualización falló"
 
 msgid "Update successfully finished"
-msgstr "Actualización concluida con éxito"
+msgstr "La actualización fue completada exitosamente"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr "Actualización a Rev%i disponible"
+msgstr "Está disponible una actualización a la rev%i"
 
 msgid "Updating/Downloading Languagefiles."
-msgstr "Actualizar/Descargar archivos de Idiomas."
+msgstr "Actualizar/descargar archivos de idioma."
 
 msgid "Username:"
 msgstr "Nombre de usuario:"
@@ -1501,163 +1502,163 @@ msgid "Vertical"
 msgstr ""
 
 msgid "Video Files"
-msgstr "Archivos de Vídeo"
+msgstr "Archivos de video"
 
 msgid "WARNING"
-msgstr ""
+msgstr "ADVERTENCIA"
 
 msgid "WARNING:"
 msgstr "ADVERTENCIA:"
 
 msgid "WPAD BUTTON 1"
-msgstr "BOTÓN 1 WPAD"
+msgstr "BOTÓN 1 WIIMOTE"
 
 msgid "WPAD BUTTON 2"
-msgstr "BOTÓN 2 WPAD"
+msgstr "BOTÓN 2 WIIMOTE"
 
 msgid "WPAD BUTTON A"
-msgstr "BOTÓN A WPAD"
+msgstr "BOTÓN A WIIMOTE"
 
 msgid "WPAD BUTTON B"
-msgstr "BOTÓN B WPAD"
+msgstr "BOTÓN B WIIMOTE"
 
 msgid "WPAD BUTTON DOWN"
-msgstr "BOTÓN ABAJO WPAD"
+msgstr "BOTÓN ABAJO WIIMOTE"
 
 msgid "WPAD BUTTON HOME"
-msgstr "BOTÓN HOME WPAD"
+msgstr "BOTÓN HOME WIIMOTE"
 
 msgid "WPAD BUTTON LEFT"
-msgstr "BOTÓN IZQUIERDA WPAD"
+msgstr "BOTÓN IZQUIERDA WIIMOTE"
 
 msgid "WPAD BUTTON MINUS"
-msgstr "BOTÓN MENOS WPAD"
+msgstr "BOTÓN - WIIMOTE"
 
 msgid "WPAD BUTTON PLUS"
-msgstr "BOTÓN MÁS WPAD"
+msgstr "BOTÓN + WIIMOTE"
 
 msgid "WPAD BUTTON RIGHT"
-msgstr "BOTÓN DERECHA WPAD"
+msgstr "BOTÓN DERECHA WIIMOTE"
 
 msgid "WPAD BUTTON UP"
-msgstr "BOTÓN ARRIBA WPAD"
+msgstr "BOTÓN ARRIBA WIIMOTE"
 
 msgid "WPAD CLASSIC BUTTON A"
-msgstr "BOTÓN A WPAD CLÁSICO"
+msgstr "BOTÓN A MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON B"
-msgstr "BOTÓN B WPAD CLÁSICO"
+msgstr "BOTÓN B MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON DOWN"
-msgstr "BOTÓN ABAJO WPAD CLÁSICO"
+msgstr "BOTÓN ABAJO MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON FULL L"
-msgstr "BOTÓN L WPAD CLÁSICO"
+msgstr "BOTÓN L MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON FULL R"
-msgstr "BOTÓN R WPAD CLÁSICO"
+msgstr "BOTÓN R MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON HOME"
-msgstr "BOTÓN HOME WPAD CLÁSICO"
+msgstr "BOTÓN HOME MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON LEFT"
-msgstr "BOTÓN IZQUIERDA WPAD CLÁSICO"
+msgstr "BOTÓN IZQUIERDA MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON MINUS"
-msgstr "BOTÓN MENOS WPAD CLÁSICO"
+msgstr "BOTÓN - MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON PLUS"
-msgstr "BOTÓN MÁS WPAD CLÁSICO"
+msgstr "BOTÓN + MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON RIGHT"
-msgstr "BOTÓN DERECHA WPAD CLÁSICO"
+msgstr "BOTÓN DERECHA MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON UP"
-msgstr "BOTÓN ARRIBA WPAD CLÁSICO"
+msgstr "BOTÓN ARRIBA MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON X"
-msgstr "BOTÓN X WPAD CLÁSICO"
+msgstr "BOTÓN X MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON Y"
-msgstr "BOTÓN Y WPAD CLÁSICO"
+msgstr "BOTÓN Y MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON ZL"
-msgstr "BOTÓN ZL WPAD CLÁSICO"
+msgstr "BOTÓN ZL MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC BUTTON ZR"
-msgstr "BOTÓN ZR WPAD CLÁSICO"
+msgstr "BOTÓN ZR MANDO CLÁSICO"
 
 msgid "WPAD CLASSIC NONE BUTTON"
-msgstr "NINGÚN BOTÓN WPAD CLÁSICO"
+msgstr "NINGÚN BOTÓN MANDO CLÁSICO"
 
 msgid "WPAD NONE BUTTON"
-msgstr "NINGÚN BOTÓN WPAD"
+msgstr "NINGÚN BOTÓN WIIMOTE"
 
 msgid "Warning:"
 msgstr "Advertencia:"
 
 msgid "Wii Binary Files"
-msgstr "Archivos Binarios Wii"
+msgstr "Archivos binarios"
 
 msgid "Wii Homebrew"
-msgstr ""
+msgstr "Homebrew de Wii"
 
 msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "Ruta del WiiMC"
 
 msgid "WiiMC path changed"
-msgstr ""
+msgstr "Se cambió la ruta del WiiMC"
 
 msgid "WiiXplorer Default Music"
-msgstr "Música por defecto de WiiXplorer"
+msgstr "Música por defecto del WiiXplorer"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr "Calculadora MD5 WiiXplorer\n"
+msgstr "Calculador de MD5 del WiiXplorer"
 
 msgid "WiiXplorer Movies"
-msgstr "Películas WiiXplorer"
+msgstr "Cinemas de Wii y GCN"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "¿Quieres añadir los elementos seleccionados a un zip?"
 
 msgid "Yes"
 msgstr "Sí"
 
 msgid "Yes to all"
-msgstr "Si a todo"
+msgstr "Sí a todo"
 
 msgid "You can not cut into the directory itself."
 msgstr "No puedes cortar dentro del directorio en sí mismo."
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "No puedes establecer una partición lógica como activa."
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "No puedes establecer esta partición como activa."
 
 msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
 msgid "You do not have BootMii installed!"
-msgstr ""
+msgstr "¡No tienes instalado el BootMii IOS!"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "Esta unidad tiene una tabla de partición GUID (GPT). El formateado de particiones en GPT no está soportado todavía."
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM;:_"
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Modo de compresión Zip"
 
 msgid "ZoomIn Button"
-msgstr "Ampliar Zum"
+msgstr "Botón de acercamiento"
 
 msgid "ZoomOut Button"
-msgstr "Disminuir Zum"
+msgstr "Botón de alejamiento"
 
 msgid "`1234567890-"
 msgstr "1234567890'¡"
@@ -1669,10 +1670,10 @@ msgid "asdfghjkl;'="
 msgstr "asdfghjklñ@ç"
 
 msgid "for his FTP Server source."
-msgstr "por el código de su Servidor FTP"
+msgstr "por el código de su servidor FTP."
 
 msgid "for his great tool libwiigui."
-msgstr "por su gran utilidad libwiigui."
+msgstr "por su gran utilidad, libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop#+\\"
@@ -1682,315 +1683,3 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "!\"·$%&/()=?¿"
-
-#~ msgid "Do you want to load this language file?"
-#~ msgstr "¿Quieres cargar este archivo de idioma?"
-
-#~ msgid "Do you want to launch file with MPlayerCE?"
-#~ msgstr "¿Quieres ejecutar el archivo con MPlayerCE?"
-
-#~ msgid "MPlayerPath changed"
-#~ msgstr "Ruta del MPlayerCE cambiada"
-
-#~ msgid "Mount NTFS"
-#~ msgstr "Montar NTFS"
-
-#~ msgid "Do you want to open this URL?"
-#~ msgstr "¿Quieres abrir esta URL?"
-
-#~ msgid "Please enter the a path."
-#~ msgstr "Por favor, introduce una ruta."
-
-#~ msgid "This link will be used in Opera."
-#~ msgstr "Este enlace se usará con Opera."
-
-#~ msgid "Website Link"
-#~ msgstr "Página Web"
-
-#~ msgid "What kind of URL did you enter?"
-#~ msgstr "¿Qué tipo de URL has escrito?"
-
-#~ msgid "Bootup Mount"
-#~ msgstr "Al arrancar montar"
-
-#~ msgid "Do you want to start Opera with this URL?"
-#~ msgstr "¿Quieres lanzar Opera con esta URL?"
-
-#~ msgid "Unable to load the device."
-#~ msgstr "Imposible cargar el dispositivo."
-
-#~ msgid "The whole DevkitPro & libogc staff."
-#~ msgstr "Todo el staff de Devkitpro & liboc."
-
-#~ msgid "for his great tool LibWiiGui."
-#~ msgstr "por su gran utilidad LibWiiGui."
-
-#~ msgid "Download Files"
-#~ msgstr "Descargar Archivos"
-
-#~ msgid "Not enough memory 2."
-#~ msgstr "No hay memoria 2."
-
-#~ msgid "Priority High"
-#~ msgstr "Prioridad Alta"
-
-#~ msgid "Priority Highest"
-#~ msgstr "Prioridad Máxima"
-
-#~ msgid "Priority Idle"
-#~ msgstr "Prioridad Mínima"
-
-#~ msgid "Priority Low"
-#~ msgstr "Prioridad Baja"
-
-#~ msgid "Priority Normal"
-#~ msgstr "Prioridad Normal"
-
-#~ msgid "Extract first and open than."
-#~ msgstr "Extraer primero y luego abrir"
-
-#~ msgid "Open"
-#~ msgstr "Abrir"
-
-#~ msgid "Opening is not yet implemented"
-#~ msgstr "Apertura no está aún implementada"
-
-#~ msgid "Can't read file:"
-#~ msgstr "No se leyó el archivo:"
-
-#~ msgid "User %i"
-#~ msgstr "Usuario %i"
-
-#~ msgid "Play Directory"
-#~ msgstr "Carpeta musical"
-
-#~ msgid "User:"
-#~ msgstr "Usuario:"
-
-#~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "¿Quieres reconectar el SMB?"
-
-#~ msgid "Do you want to reconnect to FTP server?"
-#~ msgstr "¿Quieres reconectar al Servidor FTP?"
-
-#~ msgid "App Path"
-#~ msgstr "Ruta de las aplicaciones"
-
-#~ msgid "Fatal Error: Out of memory. Requested %0.2fKB memory. Must shutdown app."
-#~ msgstr "Error grave: No hay memoria. Requeridos %0.2fKB de memoria. Debes apagar la aplicación."
-
-#~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "¿Quieres abrir este archivo con el Visor de Texto?"
-
-#~ msgid "Do you want to load app default language ?"
-#~ msgstr "¿Quieres cargar el idioma por defecto de la aplicación?"
-
-#~ msgid "Do you want to load console default language."
-#~ msgstr "¿Quieres cargar el idioma por defecto de la consola?"
-
-#~ msgid "Do you want to exit to the system menu?"
-#~ msgstr "¿Quieres salir al menú de sistema?"
-
-#~ msgid "Loader"
-#~ msgstr "Cargador"
-
-#~ msgid "Fontpath changed"
-#~ msgstr "Ruta de la Fuente cambiada"
-
-#~ msgid "Restart the app to load the new font."
-#~ msgstr "Reiniciar la aplicación para cargar la nueva fuente."
-
-#~ msgid "Enable Create dir:"
-#~ msgstr "Permitir Crear carpetas:"
-
-#~ msgid "Enable Delete dir:"
-#~ msgstr "Permitir Borrar carpetas:"
-
-#~ msgid "Enable Delete file:"
-#~ msgstr "Permitir Borrar archivos:"
-
-#~ msgid "Enable Write file:"
-#~ msgstr "Permitir Escribir archivos:"
-
-#~ msgid "Enable Zip Mode:"
-#~ msgstr "Permitir Modo Zip:"
-
-#~ msgid "Enable list file:"
-#~ msgstr "Permitir listar archivos:"
-
-#~ msgid "Enable read file:"
-#~ msgstr "Permitir leer archivos:"
-
-#~ msgid "FTP Data Port:"
-#~ msgstr "Puerto de Datos FTP:"
-
-#~ msgid ""
-#~ "A client has changed its working directory:\n"
-#~ "\tFull path: \"%s\"\n"
-#~ "\tWorking directory: \"%s\"\n"
-#~ msgstr ""
-#~ "Un cliente ha cambiado su carpeta de trabajo:\n"
-#~ "\tRuta completa: \"%s\"\n"
-#~ "\tCarpeta de trabajo: \"%s\"\n"
-
-#~ msgid "A client has disconnected.\n"
-#~ msgstr "Un cliente se ha desconectado.\n"
-
-#~ msgid "A client has logged-in.\n"
-#~ msgstr "Un cliente se ha logeado.\n"
-
-#~ msgid "A client is being deleted.\n"
-#~ msgstr "Un cliente está siendo eliminado.\n"
-
-#~ msgid "A client is downloading a file: \"%s\"\n"
-#~ msgstr "Un cliente está descargando un archivo: \"%s\"\n"
-
-#~ msgid "A client is listing a directory: \"%s\"\n"
-#~ msgstr "Un cliente está visualizando una carpeta: \"%s\"\n"
-
-#~ msgid "A client is uploading a file: \"%s\"\n"
-#~ msgstr "Un cliente está subiendo un archivo: \"%s\"\n"
-
-#~ msgid "A new client has been created:\n"
-#~ msgstr "Se ha creado un nuevo cliente:\n"
-
-#~ msgid "Cmd received: %s\n"
-#~ msgstr "Cmd recibido: %s\n"
-
-#~ msgid "Connected"
-#~ msgstr "Conectado"
-
-#~ msgid "Connected with: %s)"
-#~ msgstr "Conectado con: %s)"
-
-#~ msgid "Ftp stopped"
-#~ msgstr "Ftp parado"
-
-#~ msgid "Internal error"
-#~ msgstr "Error interno"
-
-#~ msgid "Launch Ftp"
-#~ msgstr "Arrancar Ftp"
-
-#~ msgid "Reply sent: %s\n"
-#~ msgstr "Respuesta enviada: %s\n"
-
-#~ msgid "Server at: %s"
-#~ msgstr "Servidor en: %s"
-
-#~ msgid "Server started"
-#~ msgstr "Servidor arrancado"
-
-#~ msgid "Server stopped"
-#~ msgstr "Servidor parado"
-
-#~ msgid "Server waits for client"
-#~ msgstr "Servidor esperando clientes"
-
-#~ msgid "Stop Ftp "
-#~ msgstr "Parar Ftp "
-
-#~ msgid "Too many pass tries for (%s)\n"
-#~ msgstr "Intentos de acceso excedidos por (%s)\n"
-
-#~ msgid "Do you want to open this file with ImageViewer?"
-#~ msgstr "¿Quieres abrir este archivo con el Visor de Imágenes?"
-
-#~ msgid "FTP Settings"
-#~ msgstr "Configuración FTP"
-
-#~ msgid "Update Settings"
-#~ msgstr "Configuración de actualización"
-
-#~ msgid "You cannot read/write from/to the same file."
-#~ msgstr "No puedes leer/escribir desde/hacia el mismo archivo."
-
-#~ msgid "Failed copying file."
-#~ msgstr "No se pudo copiar archivo."
-
-#~ msgid "Failed copying files."
-#~ msgstr "No se pudo copiar archivos."
-
-#~ msgid "Directory successfully deleted."
-#~ msgstr "Directorio eliminado correctamente."
-
-#~ msgid "Copy directory?"
-#~ msgstr "¿Copiar directorio?"
-
-#~ msgid "Copy file?"
-#~ msgstr "¿Copiar archivo?"
-
-#~ msgid "Copying file:"
-#~ msgstr "Copiando archivo:"
-
-#~ msgid "Copying files:"
-#~ msgstr "Copiando archivos:"
-
-#~ msgid "Cut directory?"
-#~ msgstr "¿Cortar directorio?"
-
-#~ msgid "Cut file?"
-#~ msgstr "¿Cortar archivo?"
-
-#~ msgid "Delete directory and its content?"
-#~ msgstr "¿Eliminar el directorio y su contenido?"
-
-#~ msgid "Delete this file?"
-#~ msgstr "¿Eliminar este archivo?"
-
-#~ msgid "Directory successfully copied."
-#~ msgstr "Directorio copiado correctamente."
-
-#~ msgid "Directory successfully moved."
-#~ msgstr "Directorio movido correctamente."
-
-#~ msgid "Failed renaming file"
-#~ msgstr "Fallo al renombrar archivo."
-
-#~ msgid "File does not exist anymore!"
-#~ msgstr "¡El archivo ya no existe!"
-
-#~ msgid "File successfully copied."
-#~ msgstr "Archivo copiado correctamente."
-
-#~ msgid "File successfully moved."
-#~ msgstr "Archivo movido correctamente."
-
-#~ msgid "Moving files:"
-#~ msgstr "Moviendo archivos:"
-
-#~ msgid "Name already exists."
-#~ msgstr "Nombre ya existe."
-
-#~ msgid "Paste into current directory?"
-#~ msgstr "¿Pegar en directorio actual?"
-
-#~ msgid "Last status change:"
-#~ msgstr "Último cambio de estado:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "No se puede abrir el archivo"
-
-#~ msgid "An error occured."
-#~ msgstr "Se ha producido un error."
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Esto no es un archivo OGG/MP3"
-
-#~ msgid "Connect SMB"
-#~ msgstr "Conectar SMB"
-
-#~ msgid "Failed to extract files."
-#~ msgstr "Fallo al extraer archivo."
-
-#~ msgid "Files successfully extracted."
-#~ msgstr "Archivos extraidos correctamente."
-
-#~ msgid "Enter a directory where to extract the files to."
-#~ msgstr "Ingresa un directorio a donde extraer los archivos."
-
-#~ msgid "Change Settings"
-#~ msgstr "Cambiar configuración"
-
-#~ msgid "Unable to load device."
-#~ msgstr "No se puede cargar el dispositivo."

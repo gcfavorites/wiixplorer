@@ -102,6 +102,8 @@ void FTPServer::ShutdownFTP()
 {
     ftp_running = false;
 
+    LWP_ResumeThread(ftpthread);
+
 	while(!LWP_ThreadIsSuspended (ftpthread))
 		usleep(THREAD_SLEEP);
 

@@ -82,7 +82,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
     char filename[255];
     memset(filename, 0, sizeof(filename));
 
-    u32 filesize = network_request(connection, header, (char *) &filename);
+    u32 filesize = network_request(connection, header, filename);
 
     if(!filesize)
     {
@@ -213,7 +213,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
     char filename[255];
     memset(filename, 0, sizeof(filename));
 
-    u32 filesize = network_request(connection, header, (char *) &filename);
+    u32 filesize = network_request(connection, header, filename);
 
     if(!filesize)
     {
