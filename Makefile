@@ -25,7 +25,7 @@ INCLUDES	:=
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS	= -g -O3 -Wall $(MACHDEP) $(INCLUDE)
+CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
 #---------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ LDFLAGS	= -g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-lfat -lntfs -lpng -lz -lbte -logc -lm
+LIBS	:=	-lfat -lntfs -lext2fs -lpng -lz -lbte -logc -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -81,11 +81,10 @@ else
 	export LD	:=	$(CXX)
 endif
 
-export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
-					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
+export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o) \
 					$(PNGFILES:.png=.png.o) $(addsuffix .o,$(DOLFILES)) \
-					$(addsuffix .o,$(ELFFILES))
+					$(addsuffix .o,$(ELFFILES)) $(addsuffix .o,$(BINFILES))
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
@@ -107,7 +106,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 clean:
@@ -147,6 +146,10 @@ $(OUTPUT).elf: $(OFILES)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 
 %.elf.o : %.elf
+	@echo $(notdir $<)
+	@bin2s -a 32 $< | $(AS) -o $(@)
+
+%.bin.o : %.bin
 	@echo $(notdir $<)
 	@bin2s -a 32 $< | $(AS) -o $(@)
 
