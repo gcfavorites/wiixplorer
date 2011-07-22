@@ -32,7 +32,7 @@ class OptionList
 {
 	public:
 		OptionList();
-		~OptionList();
+		virtual ~OptionList();
 		void SetName(int i, const char *format, ...) __attribute__((format (printf, 3, 4)));
 		void SetValue(int i, const char *format, ...) __attribute__((format (printf, 3, 4)));
         const char * GetName(int i);

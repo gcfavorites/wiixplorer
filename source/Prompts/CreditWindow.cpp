@@ -36,7 +36,7 @@ CreditWindow::CreditWindow()
 {
     choice = -1;
 
-    dialogBox = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
+    dialogBox = Resources::GetImageData("bg_properties.png");
     dialogBoxImg = new GuiImage(dialogBox);
 
     width = dialogBox->GetWidth();
@@ -49,7 +49,7 @@ CreditWindow::CreditWindow()
     trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-    btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+    btnClick = Resources::GetSound("button_click.wav");
 
     int i = 0;
     int x = 30;
@@ -130,8 +130,8 @@ CreditWindow::CreditWindow()
 
     CreditEntries = i;
 
-    arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
-    arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
+    arrowUp = Resources::GetImageData("scrollbar_arrowup.png");
+    arrowUpOver = Resources::GetImageData("scrollbar_arrowup_over.png");
     arrowUpImg = new GuiImage(arrowUp);
     arrowUpImg->SetAngle(45);
     arrowUpImgOver = new GuiImage(arrowUpOver);
@@ -216,7 +216,7 @@ int CreditWindow::GetChoice()
     return choice;
 }
 
-void CreditWindow::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void CreditWindow::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

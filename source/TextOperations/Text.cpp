@@ -293,7 +293,6 @@ void Text::CalcLineOffsets()
     const wchar_t * origTxt = wText->c_str();
     int ch = 0;
     int lastSpace = -1;
-    int lastSpaceIndex = -1;
     int currWidth = 0;
     int i = 0;
 
@@ -328,7 +327,6 @@ void Text::CalcLineOffsets()
         else if(origTxt[ch] == ' ')
         {
             lastSpace = ch;
-            lastSpaceIndex = i;
         }
 
         ch++;
@@ -338,8 +336,11 @@ void Text::CalcLineOffsets()
     TmpLine.CharCount = ch-TmpLine.LineOffset;
     TmpLine.width = currWidth;
 
-    if(TmpLine.CharCount > 0)
+    if(TmpLine.CharCount-1 > 0)
+    {
+        TmpLine.CharCount -= 1;
         TextLines.push_back(TmpLine);
+    }
 }
 
 void Text::Draw()

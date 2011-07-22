@@ -143,9 +143,9 @@ void ProgressWindow::LoadWindow()
 	SetPosition(0, -10);
 
     if(showProgress == MULTI_PROGRESSBAR)
-        dialogBox = Resources::GetImageData(progress_window_png, progress_window_png_size);
+        dialogBox = Resources::GetImageData("progress_window.png");
     else if(showProgress == PROGRESSBAR || showProgress == THROBBER || showProgress == AUTO_THROBBER)
-        dialogBox = Resources::GetImageData(dialogue_box_png, dialogue_box_png_size);
+        dialogBox = Resources::GetImageData("dialogue_box.png");
 
 	dialogBoxImg = new GuiImage(dialogBox);
 	Append(dialogBoxImg);
@@ -156,8 +156,8 @@ void ProgressWindow::LoadWindow()
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	soundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	soundClick = Resources::GetSound("button_click.wav");
+	soundOver = Resources::GetSound("button_over.wav");
 
 	titleTxt = new GuiText(ProgressTitle.c_str(), 22, (GXColor){0, 0, 0, 255});
 	titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
@@ -171,7 +171,7 @@ void ProgressWindow::LoadWindow()
 	msgTxt->SetMaxWidth(430, DOTTED);
 	Append(msgTxt);
 
-    btnOutline = Resources::GetImageData(small_button_png, small_button_png_size);
+    btnOutline = Resources::GetImageData("small_button.png");
 	buttonImg = new GuiImage(btnOutline);
     AbortTxt = new GuiText(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	AbortBtn = new GuiButton(buttonImg->GetWidth(), buttonImg->GetHeight());
@@ -322,7 +322,7 @@ void ProgressWindow::SetupProgressbar()
     ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
     ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
-	progressbarOutline = Resources::GetImageData(progressbar_outline_png, progressbar_outline_png_size);
+	progressbarOutline = Resources::GetImageData("progressbar_outline.png");
 
 	int OutLineMiddle = progressbarOutline->GetHeight()/2;
 
@@ -375,7 +375,7 @@ void ProgressWindow::SetupMultiProgressbar()
     ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
     ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
-	progressbarOutline = Resources::GetImageData(progressbar_outline_png, progressbar_outline_png_size);
+	progressbarOutline = Resources::GetImageData("progressbar_outline.png");
 
 	int OutLineMiddle = progressbarOutline->GetHeight()/2;
 
@@ -458,7 +458,7 @@ void ProgressWindow::SetupMultiProgressbar()
 
 void ProgressWindow::SetupThrobber()
 {
-    throbber = Resources::GetImageData(throbber_png, throbber_png_size);
+    throbber = Resources::GetImageData("throbber.png");
     throbberImg = new GuiImage(throbber);
 	throbberImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	throbberImg->SetPosition(0, 25);

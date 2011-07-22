@@ -35,11 +35,11 @@
 #include "Memory/Resources.h"
 #include "FileOperations/ItemMarker.h"
 
-class Properties : public GuiWindow
+class Properties : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         Properties(ItemMarker * IMarker);
-        ~Properties();
+        virtual ~Properties();
         int GetChoice();
     private:
         void UpdateSizeValue();
@@ -47,7 +47,7 @@ class Properties : public GuiWindow
         void StopSizeThread();
         void InternalFolderSizeGain();
 		static void * FolderSizeThread(void *arg);
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         ItemMarker * Marker;
         int choice;

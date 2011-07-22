@@ -40,7 +40,7 @@ enum
     MAX_LOOP_MODES
 };
 
-class MusicPlayer : public GuiWindow
+class MusicPlayer : public GuiWindow, public sigslot::has_slots<>
 {
     public:
 		static MusicPlayer * Instance();
@@ -68,9 +68,9 @@ class MusicPlayer : public GuiWindow
         void Update(GuiTrigger * t);
     protected:
         MusicPlayer();
-        ~MusicPlayer();
+        virtual ~MusicPlayer();
         void InternalSetup();
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
 		bool Paused;
 		bool Stopped;

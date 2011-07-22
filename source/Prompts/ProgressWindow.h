@@ -21,7 +21,7 @@ enum
     AUTO_THROBBER //! Rotating throbber image without calling ShowProgress
 };
 
-class ProgressWindow : public GuiWindow
+class ProgressWindow : public GuiWindow, public sigslot::has_slots<>
 {
     public:
 		static ProgressWindow * Instance();
@@ -38,7 +38,7 @@ class ProgressWindow : public GuiWindow
         int GetProgressMode() { return showProgress; };
     protected:
         ProgressWindow();
-        ~ProgressWindow();
+        virtual ~ProgressWindow();
 		static void * ThreadCallback(void *arg);
 		void InternalUpdate();
 		void SetupProgressbar();

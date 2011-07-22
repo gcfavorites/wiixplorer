@@ -65,7 +65,7 @@ class GuiImage : public GuiElement
 		//!\param c Image color
 		GuiImage(int w, int h, GXColor * c);
 		//!Destructor
-		~GuiImage();
+		virtual ~GuiImage();
 		//!Gets the image rotation angle for drawing
 		float GetAngle();
 		//!Sets the image rotation angle for drawing

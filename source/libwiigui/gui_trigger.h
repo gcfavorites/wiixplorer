@@ -56,7 +56,7 @@ class GuiTrigger
 		//!Constructor
 		GuiTrigger();
 		//!Destructor
-		~GuiTrigger();
+		virtual ~GuiTrigger();
 		//!Sets a simple trigger. Requires: element is selected, and trigger button is pressed
 		//!\param ch Controller channel number
 		//!\param wiibtns Wii controller trigger button(s) - classic controller buttons are considered separately

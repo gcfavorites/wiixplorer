@@ -49,7 +49,7 @@ class MainWindow : public GuiWindow
 		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); };
 	private:
 		MainWindow();
-		~MainWindow();
+		virtual ~MainWindow();
 		static void * UpdateGUI(void *arg);
 		void InternalUpdateGUI();
 

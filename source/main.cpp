@@ -41,7 +41,6 @@
 #include "libwiigui/gui.h"
 #include "DiskOperations/di2.h"
 #include "input.h"
-#include "filelist.h"
 #include "Settings.h"
 #include "sys.h"
 #include "Memory/mem2.h"

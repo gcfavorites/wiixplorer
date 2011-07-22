@@ -41,7 +41,7 @@ class WiiArchive
         //!Overload
         WiiArchive(const u8 * Buffer, u32 Size);
 		//!Destructor
-		~WiiArchive();
+		virtual ~WiiArchive();
 		//!Load the file
         virtual bool LoadFile(const char * filepath);
 		//!Load the file from a buffer

@@ -21,19 +21,19 @@ HomeMenu::HomeMenu()
 	trigHome = new GuiTrigger();
 	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
-	ButtonClickSnd = Resources::GetSound(button_click_wav, button_click_wav_size);
-	ButtonOverSnd = Resources::GetSound(button_over_wav, button_over_wav_size);
+	ButtonClickSnd = Resources::GetSound("button_click.wav");
+	ButtonOverSnd = Resources::GetSound("button_over.wav");
 
-	TopBtnImgData = new GuiImageData(homemenu_top_png, homemenu_top_png_size);
-	TopBtnOverImgData = new GuiImageData(homemenu_top_over_png, homemenu_top_over_png_size);
-	BottomBtnImgData = new GuiImageData(homemenu_bottom_png, homemenu_bottom_png_size);
-	BottomBtnOverImgData = new GuiImageData(homemenu_bottom_over_png, homemenu_bottom_over_png_size);
-	CloseBtnImgData = new GuiImageData(homemenu_close_png, homemenu_close_png_size);
-	StandardBtnImgData = new GuiImageData(homemenu_button_png, homemenu_button_png_size);
-	WiimoteBtnImgData = new GuiImageData(wiimote_png, wiimote_png_size);
+	TopBtnImgData = Resources::GetImageData("homemenu_top.png");
+	TopBtnOverImgData = Resources::GetImageData("homemenu_top_over.png");
+	BottomBtnImgData = Resources::GetImageData("homemenu_bottom.png");
+	BottomBtnOverImgData = Resources::GetImageData("homemenu_bottom_over.png");
+	CloseBtnImgData = Resources::GetImageData("homemenu_close.png");
+	StandardBtnImgData = Resources::GetImageData("homemenu_button.png");
+	WiimoteBtnImgData = Resources::GetImageData("wiimote.png");
 
-	BatteryImgData = new GuiImageData(battery_png, battery_png_size);
-	BatteryBarImgData = new GuiImageData(battery_bar_png, battery_bar_png_size);
+	BatteryImgData = Resources::GetImageData("battery.png");
+	BatteryBarImgData = Resources::GetImageData("battery_bar.png");
 
 	TopBtnImg = new GuiImage(TopBtnImgData);
 	TopBtnOverImg = new GuiImage(TopBtnOverImgData);
@@ -181,16 +181,6 @@ HomeMenu::~HomeMenu()
 	delete ShutdownBtnImg;
 	delete WiimoteBtnImg;
 
-	delete TopBtnImgData;
-	delete TopBtnOverImgData;
-	delete BottomBtnImgData;
-	delete BottomBtnOverImgData;
-	delete CloseBtnImgData;
-	delete StandardBtnImgData;
-	delete WiimoteBtnImgData;
-	delete BatteryImgData;
-	delete BatteryBarImgData;
-
 	delete TitleText;
 	delete ShutdownBtnText;
 	delete ExitBtnText;
@@ -206,6 +196,16 @@ HomeMenu::~HomeMenu()
 
 	delete trigA;
 	delete trigHome;
+
+	Resources::Remove(TopBtnImgData);
+	Resources::Remove(TopBtnOverImgData);
+	Resources::Remove(BottomBtnImgData);
+	Resources::Remove(BottomBtnOverImgData);
+	Resources::Remove(CloseBtnImgData);
+	Resources::Remove(StandardBtnImgData);
+	Resources::Remove(WiimoteBtnImgData);
+	Resources::Remove(BatteryImgData);
+	Resources::Remove(BatteryBarImgData);
 
 	Resources::Remove(ButtonClickSnd);
 	Resources::Remove(ButtonOverSnd);

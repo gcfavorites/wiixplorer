@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2010
+ * Copyright (C) 2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,49 +20,54 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * for WiiXplorer 2010
  ***************************************************************************/
 #ifndef SCROLLBAR_HPP_
 #define SCROLLBAR_HPP_
 
 #include "libwiigui/gui.h"
 
-enum
-{
-    ICONMODE = 0,
-    LISTMODE,
-};
-
-class Scrollbar : public GuiElement
+class Scrollbar : public GuiElement, public sigslot::has_slots<>
 {
     public:
         Scrollbar(int height, u8 mode = LISTMODE);
-        ~Scrollbar();
+        virtual ~Scrollbar();
+        void SetDPadControl(bool a) { AllowDPad = a; }
+        void SetButtonScroll(u32 button) { ButtonScroll = button; }
+        void ScrollOneUp();
+        void ScrollOneDown();
+        int GetSelectedItem() { return SelItem; };
+        int GetSelectedIndex() { return SelInd; };
+        void SetScrollSpeed(u16 speed) { ScrollSpeed = speed; };
+        void SetButtonScrollSpeed(u16 speed) { ButtonScrollSpeed = speed; };
+        void Draw();
+        void Update(GuiTrigger * t);
+        enum
+        {
+            ICONMODE = 0,
+            LISTMODE,
+        };
+        //! Signals
+		sigslot::signal2<int, int> listChanged;
+		//! Slots
         void SetPageSize(int size);
         void SetRowSize(int size);
         void SetSelectedItem(int pos);
         void SetSelectedIndex(int pos);
         void SetEntrieCount(int cnt);
-        int GetSelectedItem() { return SelItem; };
-        int GetSelectedIndex() { return SelInd; };
-        bool ListChanged();
-        void SetScrollSpeed(u16 speed) { ScrollSpeed = speed; };
-        void SetMinWidth(int w);
-        void SetMaxWidth(int w);
-        void SetMinHeight(int h);
-        void SetMaxHeight(int h);
-        void Draw();
-        void Update(GuiTrigger * t);
     protected:
-        void SetScrollboxPosition();
-        void OnUpButtonHold(GuiElement *sender, int pointer, POINT p);
-        void OnDownButtonHold(GuiElement *sender, int pointer, POINT p);
-        void OnBoxButtonHold(GuiElement *sender, int pointer, POINT p);
+        void setScrollboxPosition(int SelItem, int SelInd);
+        void OnUpButtonHold(GuiButton *sender, int pointer, POINT p);
+        void OnDownButtonHold(GuiButton *sender, int pointer, POINT p);
+        void OnBoxButtonHold(GuiButton *sender, int pointer, POINT p);
+        void CheckDPadControls(GuiTrigger *t);
+        void ScrollByButton(GuiTrigger *t);
 
         u8 Mode;
         u32 ScrollState;
         u16 ScrollSpeed;
+        u16 ButtonScrollSpeed;
+        u32 ButtonScroll;
+        bool AllowDPad;
 
         int MinHeight;
         int MaxHeight;
@@ -71,13 +76,15 @@ class Scrollbar : public GuiElement
         int RowSize;
         int PageSize;
         int EntrieCount;
+        int ButtonPositionX;
+        int pressedChan;
         bool listchanged;
 
 		GuiButton * arrowUpBtn;
 		GuiButton * arrowDownBtn;
 		GuiButton * scrollbarBoxBtn;
 		GuiImage * scrollbarTopImg;
-		GuiImage * scrollbarButtomImg;
+		GuiImage * scrollbarBottomImg;
 		GuiImage * scrollbarTileImg;
 		GuiImage * arrowDownImg;
 		GuiImage * arrowDownOverImg;
@@ -85,8 +92,9 @@ class Scrollbar : public GuiElement
 		GuiImage * arrowUpOverImg;
 		GuiImage * scrollbarBoxImg;
 		GuiImage * scrollbarBoxOverImg;
+		GuiImage * oneButtonScrollImg;
 		GuiImageData * scrollbarTop;
-		GuiImageData * scrollbarButtom;
+		GuiImageData * scrollbarBottom;
 		GuiImageData * scrollbarTile;
 		GuiImageData * arrowDown;
 		GuiImageData * arrowDownOver;
@@ -94,6 +102,7 @@ class Scrollbar : public GuiElement
 		GuiImageData * arrowUpOver;
 		GuiImageData * scrollbarBox;
 		GuiImageData * scrollbarBoxOver;
+		GuiImageData * oneButtonScrollImgData;
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 		GuiTrigger * trigHeldA;

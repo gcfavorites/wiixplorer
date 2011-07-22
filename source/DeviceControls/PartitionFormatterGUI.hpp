@@ -29,14 +29,14 @@
 #include "libwiigui/gui_arrowoption.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
-class PartitionFormatterGui : public GuiWindow
+class PartitionFormatterGui : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         PartitionFormatterGui();
-        ~PartitionFormatterGui();
+        virtual ~PartitionFormatterGui();
         void MainUpdate();
     protected:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
         void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
         void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
         void SetDevice();

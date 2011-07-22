@@ -34,11 +34,11 @@
 #include "Text.hpp"
 
 //!Display a list of files
-class TextEditor : public GuiWindow
+class TextEditor : public GuiWindow, public sigslot::has_slots<>
 {
 	public:
 		TextEditor(const wchar_t *intext, int LinesToDraw, const char *path);
-		~TextEditor();
+		virtual ~TextEditor();
 		void SetTriggerUpdate(bool set);
 		void SetText(const wchar_t *intext);
         void WriteTextFile(const char * path);
@@ -47,8 +47,9 @@ class TextEditor : public GuiWindow
 		void Update(GuiTrigger * t);
 	protected:
         int EditLine();
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
-        void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
+		void OnListChange(int selItem, int selIndex);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+        void OnPointerHeld(GuiButton *sender, int pointer, POINT p);
 
 		bool triggerupdate;
 		bool ExitEditor;

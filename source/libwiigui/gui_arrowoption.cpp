@@ -30,10 +30,10 @@
 GuiArrowOption::GuiArrowOption()
     : GuiWindow(440, 338)
 {
-	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    ArrowImgData = Resources::GetImageData(arrow_right_png, arrow_right_png_size);
+    ArrowImgData = Resources::GetImageData("arrow_right.png");
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 }
 
@@ -172,17 +172,17 @@ int GuiArrowOption::GetOptionCount()
     return OptionsBtn.size();
 }
 
-void GuiArrowOption::OnButtonClick(GuiElement *sender, int pointer, POINT p)
+void GuiArrowOption::OnButtonClick(GuiButton *sender, int pointer, POINT p)
 {
     ClickedButton(sender, pointer, p);
 }
 
-void GuiArrowOption::OnRightButtonClick(GuiElement *sender, int pointer, POINT p)
+void GuiArrowOption::OnRightButtonClick(GuiButton *sender, int pointer, POINT p)
 {
     ClickedRight(sender, pointer, p);
 }
 
-void GuiArrowOption::OnLeftButtonClick(GuiElement *sender, int pointer, POINT p)
+void GuiArrowOption::OnLeftButtonClick(GuiButton *sender, int pointer, POINT p)
 {
     ClickedLeft(sender, pointer, p);
 }

@@ -281,13 +281,16 @@ int MenuControlsSettings()
 	options.SetName(i++, tr("Back in Directory Button"));
 	options.SetName(i++, tr("Back in Directory Button"));
 	options.SetName(i++, tr("Back in Directory Button"));
+	options.SetName(i++, tr("Button Hold Scroll"));
+	options.SetName(i++, tr("Button Hold Scroll"));
+	options.SetName(i++, tr("Button Hold Scroll"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Controls Settings"), &options, MENU_SETTINGS);
 
 	MainWindow::Instance()->Append(Menu);
 
-    GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
     SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
@@ -499,6 +502,15 @@ int MenuControlsSettings()
 			case 55:
 				GCControls.UpInDirectory = NextPAD_Button(GCControls.UpInDirectory);
 				break;
+			case 56:
+				WiiControls.OneButtonScroll = NextWPAD_Button(WiiControls.OneButtonScroll);
+				break;
+            case 57:
+				ClassicControls.OneButtonScroll = NextClassic_Button(ClassicControls.OneButtonScroll);
+				break;
+			case 58:
+				GCControls.OneButtonScroll = NextPAD_Button(GCControls.OneButtonScroll);
+				break;
             default:
                 break;
 		}
@@ -582,6 +594,10 @@ int MenuControlsSettings()
             options.SetValue(i++, GetWPAD_ButtonName(WiiControls.UpInDirectory));
             options.SetValue(i++, GetClassic_ButtonName(ClassicControls.UpInDirectory));
             options.SetValue(i++, GetPAD_ButtonName(GCControls.UpInDirectory));
+
+            options.SetValue(i++, GetWPAD_ButtonName(WiiControls.OneButtonScroll));
+            options.SetValue(i++, GetClassic_ButtonName(ClassicControls.OneButtonScroll));
+            options.SetValue(i++, GetPAD_ButtonName(GCControls.OneButtonScroll));
         }
 	}
 	MainWindow::Instance()->HaltGui();

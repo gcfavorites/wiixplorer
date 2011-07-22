@@ -45,7 +45,6 @@
 #include "FTPOperations/FTPServer.h"
 #include "FileOperations/filebrowser.h"
 #include "Controls/IOHandler.hpp"
-#include "filelist.h"
 #include "Settings.h"
 #include "menu.h"
 #include "VideoOperations/video.h"
@@ -94,10 +93,10 @@ MainWindow::MainWindow()
 	MusicPlayer::Instance()->SetPosition(30, 230);
 	Append(MusicPlayer::Instance());
 
-	standardPointer[0] = new GuiImageData(player1_point_png, player1_point_png_size);
-	standardPointer[1] = new GuiImageData(player2_point_png, player2_point_png_size);
-	standardPointer[2] = new GuiImageData(player3_point_png, player3_point_png_size);
-	standardPointer[3] = new GuiImageData(player4_point_png, player4_point_png_size);
+	standardPointer[0] = Resources::GetImageData("player1_point.png");
+	standardPointer[1] = Resources::GetImageData("player2_point.png");
+	standardPointer[2] = Resources::GetImageData("player3_point.png");
+	standardPointer[3] = Resources::GetImageData("player4_point.png");
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -125,8 +124,8 @@ MainWindow::~MainWindow()
 	for (int i = 0; i < 4; i++)
 	{
 	    if(grabPointer[i])
-            delete grabPointer[i];
-		delete standardPointer[i];
+            Resources::Remove(grabPointer[i]);
+		Resources::Remove(standardPointer[i]);
 	}
 	if(ThreadStack)
         free(ThreadStack);
@@ -316,13 +315,13 @@ void MainWindow::SetGrabPointer(int i)
     if(!grabPointer[i])
     {
         if(i == 0)
-            grabPointer[i] = new GuiImageData(player1_grab_png, player1_grab_png_size);
+            grabPointer[i] = Resources::GetImageData("player1_grab.png");
         else if(i == 1)
-            grabPointer[i] = new GuiImageData(player2_grab_png, player2_grab_png_size);
+            grabPointer[i] = Resources::GetImageData("player2_grab.png");
         else if(i == 2)
-            grabPointer[i] = new GuiImageData(player3_grab_png, player3_grab_png_size);
+            grabPointer[i] = Resources::GetImageData("player3_grab.png");
         else
-            grabPointer[i] = new GuiImageData(player4_grab_png, player4_grab_png_size);
+            grabPointer[i] = Resources::GetImageData("player4_grab.png");
     }
 
 	pointer[i] = grabPointer[i];
@@ -336,6 +335,6 @@ void MainWindow::ResetPointer(int i)
 	pointer[i] = standardPointer[i];
 
     if(grabPointer[i])
-        delete grabPointer[i];
+        Resources::Remove(grabPointer[i]);
 	grabPointer[i] = NULL;
 }

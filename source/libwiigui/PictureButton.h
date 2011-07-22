@@ -34,19 +34,16 @@
 class PictureButton : public GuiButton
 {
 	public:
-		PictureButton(const u8 *img, u32 imgSize);
-		PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize);
-		PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick);
-		PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick, GuiSound * sndOver);
+		PictureButton(const char *img = NULL, const char *imgOver = NULL, GuiSound * sndClick = NULL, GuiSound * sndOver = NULL);
 
 		PictureButton(GuiImageData *img);
 		PictureButton(GuiImageData *img, GuiImageData *imgOver);
 		PictureButton(GuiImageData *img, GuiImageData *imgOver, GuiSound * sndClick);
 		PictureButton(GuiImageData *img, GuiImageData *imgOver, GuiSound * sndClick, GuiSound * sndOver);
 
-		~PictureButton();
+		virtual ~PictureButton();
 	private:
-		void Init(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick, GuiSound * sndOver);
+		void Init(const char *img, const char *imgOver, GuiSound * sndClick, GuiSound * sndOver);
 		void Init(GuiImageData *img, GuiImageData *imgOver, GuiSound * sndClick, GuiSound * sndOver);
         GuiImageData *imgData;
         GuiImageData *imgOverData;

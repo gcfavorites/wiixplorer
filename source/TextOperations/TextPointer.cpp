@@ -49,7 +49,7 @@ TextPointer::TextPointer(GuiText *parent, int linestodraw)
     height = (linestodraw+1)*(fontsize+6);
     visibility = true;
 
-    TextPointerImgData = Resources::GetImageData(textpointer_img_png, textpointer_img_png_size);
+    TextPointerImgData = Resources::GetImageData("textpointer_img.png");
     TextPointerImg = new GuiImage(TextPointerImgData);
     TextPointerImg->SetVisible(visibility);
 
@@ -70,7 +70,7 @@ TextPointer::TextPointer(GuiText *parent, int w, int h)
     height = h;
     visibility = true;
 
-    TextPointerImgData = Resources::GetImageData(textpointer_img_png, textpointer_img_png_size);
+    TextPointerImgData = Resources::GetImageData("textpointer_img.png");
     TextPointerImg = new GuiImage(TextPointerImgData);
     TextPointerImg->SetVisible(visibility);
 

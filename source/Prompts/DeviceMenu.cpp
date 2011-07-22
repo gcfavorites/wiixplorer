@@ -44,18 +44,18 @@ DeviceMenu::DeviceMenu(int x, int y)
     choice = -1;
 
     //! Menu imagedata
-    device_choose_right_Data = Resources::GetImageData(device_choose_right_png, device_choose_right_png_size);
-    device_choose_left_Data = Resources::GetImageData(device_choose_left_png, device_choose_left_png_size);
-    device_choose_center_Data = Resources::GetImageData(device_choose_center_png, device_choose_center_png_size);
-    menu_select = Resources::GetImageData(deviceselection_png, deviceselection_png_size);
+    device_choose_right_Data = Resources::GetImageData("device_choose_right.png");
+    device_choose_left_Data = Resources::GetImageData("device_choose_left.png");
+    device_choose_center_Data = Resources::GetImageData("device_choose_center.png");
+    menu_select = Resources::GetImageData("deviceselection.png");
 
     //! Device imagedata
-    sd_ImgData = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
-    usb_ImgData = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
-    usb_blue_ImgData = Resources::GetImageData(usbstorage_blue_png, usbstorage_blue_png_size);
-    smb_ImgData = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
-    ftp_ImgData = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
-	dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
+    sd_ImgData = Resources::GetImageData("sdstorage.png");
+    usb_ImgData = Resources::GetImageData("usbstorage.png");
+    usb_blue_ImgData = Resources::GetImageData("usbstorage_blue.png");
+    smb_ImgData = Resources::GetImageData("networkstorage.png");
+    ftp_ImgData = Resources::GetImageData("ftpstorage.png");
+	dvd_ImgData = Resources::GetImageData("dvdstorage.png");
 
     //! Menu images
     centerImg = new GuiImage(device_choose_center_Data);
@@ -66,7 +66,7 @@ DeviceMenu::DeviceMenu(int x, int y)
 	trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnClick = Resources::GetSound("button_click.wav");
 
     for(int i = 0; i < MAXDEVICES; i++)
     {
@@ -372,7 +372,7 @@ int DeviceMenu::GetChoice()
     return choice;
 }
 
-void DeviceMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void DeviceMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

@@ -354,26 +354,23 @@ bool GuiText::SetFont(const u8 *fontbuffer, const u32 filesize)
 
 	return true;
 }
-
 void GuiText::MakeDottedText()
 {
     int pos = textDyn.size();
-    textDyn.resize(pos+1);
+    textDyn.resize(pos + 1);
 
     int i = 0, currentWidth = 0;
     textDyn[pos] = new wchar_t[maxWidth];
 
-    while(text[i])
+    while (text[i])
     {
-        currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i-1] : 0x0000);
-        if(currentWidth >= maxWidth)
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i - 1] : 0);
+        if (currentWidth >= maxWidth && i > 2)
         {
-            if(i > 3)
-            {
-                textDyn[pos][i-3] = '.';
-                textDyn[pos][i-2] = '.';
-                textDyn[pos][i-1] = '.';
-            }
+            textDyn[pos][i - 2] = '.';
+            textDyn[pos][i - 1] = '.';
+            textDyn[pos][i] = '.';
+            i++;
             break;
         }
 
@@ -386,19 +383,19 @@ void GuiText::MakeDottedText()
 
 void GuiText::ScrollText()
 {
-    if(textDyn.size() == 0)
+    if (textDyn.size() == 0)
     {
         int pos = textDyn.size();
         int i = 0, currentWidth = 0;
-        textDyn.resize(pos+1);
+        textDyn.resize(pos + 1);
 
         textDyn[pos] = new wchar_t[maxWidth];
 
-        while(text[i] && currentWidth < maxWidth)
+        while (text[i] && currentWidth < maxWidth)
         {
             textDyn[pos][i] = text[i];
 
-            currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i-1] : 0x0000);
+            currentWidth += (font ? font : fontSystem)->getCharWidth(text[i], currentSize, i > 0 ? text[i - 1] : 0);
 
             ++i;
         }
@@ -407,59 +404,60 @@ void GuiText::ScrollText()
         return;
     }
 
-    if(frameCount % textScrollDelay != 0)
+    if (frameCount % textScrollDelay != 0)
     {
         return;
     }
 
-    if(textScrollInitialDelay)
+    if (textScrollInitialDelay)
     {
         --textScrollInitialDelay;
         return;
     }
 
-    int strlen = wcslen(text);
+    int stringlen = wcslen(text);
 
     ++textScrollPos;
-    if(textScrollPos > strlen)
+    if (textScrollPos > stringlen)
     {
         textScrollPos = 0;
         textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
     }
 
     int ch = textScrollPos;
-    int pos = textDyn.size()-1;
+    int pos = textDyn.size() - 1;
 
-    if(textDyn[pos])
-        delete [] textDyn[pos];
-
-    textDyn[pos] = new wchar_t[maxWidth];
+    if (!textDyn[pos]) new wchar_t[maxWidth];
 
     int i = 0, currentWidth = 0;
 
-    while(currentWidth < maxWidth)
+    while (currentWidth < maxWidth)
     {
-        if(ch > strlen-1)
+        if (ch > stringlen - 1)
         {
             textDyn[pos][i++] = ' ';
+            currentWidth += (font ? font : fontSystem)->getCharWidth(L' ', currentSize, ch > 0 ? text[ch - 1] : 0);
             textDyn[pos][i++] = ' ';
+            currentWidth += (font ? font : fontSystem)->getCharWidth(L' ', currentSize, L' ');
             textDyn[pos][i++] = ' ';
+            currentWidth += (font ? font : fontSystem)->getCharWidth(L' ', currentSize, L' ');
             ch = 0;
+
+            if(currentWidth >= maxWidth)
+                break;
         }
 
         textDyn[pos][i] = text[ch];
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch - 1] : 0);
         ++ch;
         ++i;
-
-        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0x0000);
     }
     textDyn[pos][i] = 0;
 }
 
 void GuiText::WrapText()
 {
-    if(textDyn.size() > 0)
-        return;
+    if (textDyn.size() > 0) return;
 
     int i = 0;
     int ch = 0;
@@ -468,22 +466,22 @@ void GuiText::WrapText()
     int lastSpaceIndex = -1;
     int currentWidth = 0;
 
-    while(text[ch] && linenum < linestodraw)
+    while (text[ch] && linenum < linestodraw)
     {
-        if(linenum >= (int) textDyn.size())
+        if (linenum >= (int) textDyn.size())
         {
-            textDyn.resize(linenum+1);
+            textDyn.resize(linenum + 1);
             textDyn[linenum] = new wchar_t[maxWidth];
         }
 
         textDyn[linenum][i] = text[ch];
-        textDyn[linenum][i+1] = 0;
+        textDyn[linenum][i + 1] = 0;
 
-        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0x0000);
+        currentWidth += (font ? font : fontSystem)->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch - 1] : 0x0000);
 
-        if(currentWidth >= maxWidth)
+        if (currentWidth >= maxWidth)
         {
-            if(lastSpace >= 0)
+            if (lastSpace >= 0)
             {
                 textDyn[linenum][lastSpaceIndex] = 0; // discard space, and everything after
                 ch = lastSpace; // go backwards to the last space
@@ -491,19 +489,19 @@ void GuiText::WrapText()
                 lastSpaceIndex = -1;
             }
 
-            if(linenum+1 == linestodraw && text[ch+1] != 0x0000)
+            if (linenum + 1 == linestodraw && text[ch + 1] != 0x0000)
             {
-                textDyn[linenum][i-2] = '.';
-                textDyn[linenum][i-1] = '.';
+                textDyn[linenum][i - 2] = '.';
+                textDyn[linenum][i - 1] = '.';
                 textDyn[linenum][i] = '.';
-                textDyn[linenum][i+1] = 0;
+                textDyn[linenum][i + 1] = 0;
             }
 
             currentWidth = 0;
             ++linenum;
             i = -1;
         }
-        if(text[ch] == ' ' && i >= 0)
+        if (text[ch] == ' ' && i >= 0)
         {
             lastSpace = ch;
             lastSpaceIndex = i;

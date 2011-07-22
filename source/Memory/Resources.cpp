@@ -27,6 +27,7 @@
  ***************************************************************************/
 
 #include "Resources.h"
+#include "filelist.h"
 
 Resources * Resources::instance = NULL;
 
@@ -70,14 +71,38 @@ Resources::~Resources()
 	soundCount.clear();
 }
 
-GuiImageData *Resources::GetImageData(const u8 *img, u32 imgSize)
+GuiImageData *Resources::GetImageData(const char *filename)
 {
-	return Resources::Instance()->InternalGetImageData(img, imgSize);
+	if(!filename)
+		return NULL;
+
+	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	{
+        if(strcasecmp(filename, RecourceList[i].filename) == 0)
+        {
+            const u8 *img = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
+            u32 imgSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
+        	return Resources::Instance()->InternalGetImageData(img, imgSize);
+        }
+	}
+	return NULL;
 }
 
-GuiSound *Resources::GetSound(const u8 *snd, s32 sndSize)
+GuiSound *Resources::GetSound(const char *filename)
 {
-	return Resources::Instance()->InternalGetSound(snd, sndSize);
+	if(!filename)
+		return NULL;
+
+	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	{
+        if(strcasecmp(filename, RecourceList[i].filename) == 0)
+        {
+            const u8 *snd = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
+            u32 sndSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
+        	return Resources::Instance()->InternalGetSound(snd, sndSize);
+        }
+	}
+	return NULL;
 }
 
 void Resources::Remove(GuiImageData *img)
@@ -126,23 +151,23 @@ GuiSound *Resources::InternalGetSound(const u8 *snd, s32 sndSize)
 void Resources::InternalRemoveImageData(GuiImageData *img)
 {
 	std::map<GuiImageData *, int>::iterator itr = imageCount.find(img);
-	if (itr != imageCount.end())
+	if (itr == imageCount.end())
+		return;
+
+	itr->second--;
+
+	if (itr->second == 0) // Remove the resource
 	{
-		itr->second--;
+		imageCount.erase(itr);
 
-		if (itr->second == 0) // Remove the resource
+		std::map<const u8 *, GuiImageData *>::iterator iitr;
+		for (iitr = images.begin(); iitr != images.end(); iitr++)
 		{
-			imageCount.erase(itr);
-
-			std::map<const u8 *, GuiImageData *>::iterator iitr;
-			for (iitr = images.begin(); iitr != images.end(); iitr++)
+			if (iitr->second == img)
 			{
-				if (iitr->second == img)
-				{
-					delete iitr->second;
-					images.erase(iitr);
-					break;
-				}
+				delete iitr->second;
+				images.erase(iitr);
+				break;
 			}
 		}
 	}
@@ -151,23 +176,23 @@ void Resources::InternalRemoveImageData(GuiImageData *img)
 void Resources::InternalRemoveSound(GuiSound *snd)
 {
 	std::map<GuiSound *, int>::iterator itr = soundCount.find(snd);
-	if (itr != soundCount.end())
+	if (itr == soundCount.end())
+		return;
+
+	itr->second--;
+
+	if (itr->second == 0) // Remove the resource
 	{
-		itr->second--;
+		soundCount.erase(itr);
 
-		if (itr->second == 0) // Remove the resource
+		std::map<const u8 *, GuiSound *>::iterator iitr;
+		for (iitr = sounds.begin(); iitr != sounds.end(); iitr++)
 		{
-			soundCount.erase(itr);
-
-			std::map<const u8 *, GuiSound *>::iterator iitr;
-			for (iitr = sounds.begin(); iitr != sounds.end(); iitr++)
+			if (iitr->second == snd)
 			{
-				if (iitr->second == snd)
-				{
-					delete iitr->second;
-					sounds.erase(iitr);
-					break;
-				}
+				delete iitr->second;
+				sounds.erase(iitr);
+				break;
 			}
 		}
 	}

@@ -46,7 +46,7 @@ class ItemMarker
 {
     public:
         ItemMarker() { };
-        ~ItemMarker() { Reset(); };
+        virtual ~ItemMarker() { Reset(); };
         void AddItem(const ItemStruct * Item);
         int FindItem(const ItemStruct * Item);
         void RemoveItem(const ItemStruct * Item);

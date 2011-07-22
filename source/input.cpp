@@ -52,7 +52,7 @@ void UpdatePads()
         if(Settings.Rumble)
             DoRumble(i);
 
-        if(userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton && userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton)
+        if((userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton) && (userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton))
         {
             Screenshot();
         }

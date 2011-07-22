@@ -29,28 +29,10 @@
 #include "PictureButton.h"
 #include "Memory/Resources.h"
 
-PictureButton::PictureButton(const u8 *img, u32 imgSize)
+PictureButton::PictureButton(const char *img, const char *imgOver, GuiSound * sndClick, GuiSound *sndOver)
 	: GuiButton(0, 0)
 {
-	Init(img, imgSize, NULL, 0, NULL, NULL);
-}
-
-PictureButton::PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize)
-	: GuiButton(0, 0)
-{
-	Init(img, imgSize, imgOver, imgOverSize, NULL, NULL);
-}
-
-PictureButton::PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick)
-	: GuiButton(0, 0)
-{
-	Init(img, imgSize, imgOver, imgOverSize, sndClick, NULL);
-}
-
-PictureButton::PictureButton(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick, GuiSound * sndOver)
-	: GuiButton(0, 0)
-{
-	Init(img, imgSize, imgOver, imgOverSize, sndClick, sndOver);
+	Init(img, imgOver, sndClick, sndOver);
 }
 
 PictureButton::PictureButton(GuiImageData *img)
@@ -89,10 +71,10 @@ PictureButton::~PictureButton()
 
 }
 
-void PictureButton::Init(const u8 *img, u32 imgSize, const u8 *imgOver, u32 imgOverSize, GuiSound * sndClick, GuiSound * sndOver)
+void PictureButton::Init(const char *img, const char *imgOver, GuiSound * sndClick, GuiSound * sndOver)
 {
-	imgData = Resources::GetImageData(img, imgSize);
-	imgOverData = imgOver ? Resources::GetImageData(imgOver, imgOverSize) : NULL;
+	imgData = Resources::GetImageData(img);
+	imgOverData = Resources::GetImageData(imgOver);
 
 	width = imgData->GetWidth();
 	height = imgData->GetHeight();

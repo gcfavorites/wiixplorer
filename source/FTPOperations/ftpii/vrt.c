@@ -182,7 +182,7 @@ static void *with_virtual_path(void *virtual_cwd, void *void_f, char *virtual_pa
         case 1: result = f(path, args[0]); break;
         case 2: result = f(path, args[0], args[1]); break;
         case 3: result = f(path, args[0], args[1], args[2]); break;
-        default: result = (void *)failed;
+        default: result = (void *)failed; break;
     }
 
     free(path);

@@ -34,9 +34,9 @@ GuiTooltip::GuiTooltip(const char *t)
 	ElapseTime = 2.0f;
 	color = (GXColor){0, 0, 0, 255};
 
-    tooltipLeft = Resources::GetImageData(tooltip_left_png, tooltip_left_png_size);
-    tooltipTile = Resources::GetImageData(tooltip_tile_png, tooltip_tile_png_size);
-    tooltipRight = Resources::GetImageData(tooltip_right_png, tooltip_right_png_size);
+    tooltipLeft = Resources::GetImageData("tooltip_left.png");
+    tooltipTile = Resources::GetImageData("tooltip_tile.png");
+    tooltipRight = Resources::GetImageData("tooltip_right.png");
     leftImage = new GuiImage(tooltipLeft);
     tileImage = new GuiImage(tooltipTile);
     rightImage = new GuiImage(tooltipRight);

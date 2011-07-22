@@ -53,8 +53,8 @@ int MenuNetworkSettings()
 
 	MainWindow::Instance()->Append(Menu);
 
-    GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
     SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 

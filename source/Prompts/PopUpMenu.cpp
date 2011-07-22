@@ -49,15 +49,15 @@ PopUpMenu::PopUpMenu(int x, int y)
 	hasIcons = false;
 	hasSubmenus = false;
 
-	PopUpMenuClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	PopUpMenuClick = Resources::GetSound("button_click.wav");
 
-	PopUpMenuUpper = Resources::GetImageData(ClickMenuUpper_png, ClickMenuUpper_png_size);
-	PopUpMenuMiddle = Resources::GetImageData(ClickMenuMiddle_png, ClickMenuMiddle_png_size);
-	PopUpMenuLower = Resources::GetImageData(ClickMenuLower_png, ClickMenuLower_png_size);
-	PopUpMenuSelect = Resources::GetImageData(menu_selection_png, menu_selection_png_size);
-	PopUpMenuScrollUp = Resources::GetImageData(arrow_up_png, arrow_up_png_size);
-	PopUpMenuScrollDown = Resources::GetImageData(arrow_down_png, arrow_down_png_size);
-	PopUpMenuExpand = Resources::GetImageData(arrow_right_png, arrow_right_png_size);
+	PopUpMenuUpper = Resources::GetImageData("ClickMenuUpper.png");
+	PopUpMenuMiddle = Resources::GetImageData("ClickMenuMiddle.png");
+	PopUpMenuLower = Resources::GetImageData("ClickMenuLower.png");
+	PopUpMenuSelect = Resources::GetImageData("menu_selection.png");
+	PopUpMenuScrollUp = Resources::GetImageData("arrow_up.png");
+	PopUpMenuScrollDown = Resources::GetImageData("arrow_down.png");
+	PopUpMenuExpand = Resources::GetImageData("arrow_right.png");
 
 	PopUpMenuUpperImg = new GuiImage(PopUpMenuUpper);
 	PopUpMenuMiddleImg = new GuiImage(PopUpMenuMiddle);
@@ -178,7 +178,7 @@ PopUpMenu::~PopUpMenu()
 	MainWindow::Instance()->ResumeGui();
 }
 
-void PopUpMenu::AddItem(const char *text, const u8 *icon, u32 icon_size, bool submenu)
+void PopUpMenu::AddItem(const char *text, const char *icon, bool submenu)
 {
 	Items item;
 
@@ -200,7 +200,7 @@ void PopUpMenu::AddItem(const char *text, const u8 *icon, u32 icon_size, bool su
 
 	if (icon)
 	{
-		item.Icon = Resources::GetImageData(icon, icon_size);
+		item.Icon = Resources::GetImageData(icon);
 
 		item.IconImg = new GuiImage(item.Icon);
 		item.IconImg->SetPosition(ButtonX, (Item.size()+1)*ButtonHeight-18);
@@ -313,7 +313,7 @@ int PopUpMenu::GetChoice()
 	return choice;
 }
 
-void PopUpMenu::OnClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
 	sender->ResetState();
 	//TODO add the functions instead of the link
@@ -333,7 +333,7 @@ void PopUpMenu::OnClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
 	}
 }
 
-void PopUpMenu::OnScrollUp(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void PopUpMenu::OnScrollUp(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < (u32) Settings.ScrollSpeed)
         return;
@@ -343,7 +343,7 @@ void PopUpMenu::OnScrollUp(GuiElement *sender UNUSED, int pointer UNUSED, POINT 
 	ScrollState = 0;
 }
 
-void PopUpMenu::OnScrollDown(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void PopUpMenu::OnScrollDown(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     if(ScrollState < (u32) Settings.ScrollSpeed)
         return;

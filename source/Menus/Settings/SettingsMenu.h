@@ -30,15 +30,15 @@
 #include "libwiigui/gui_optionbrowser.h"
 #include "menu.h"
 
-class SettingsMenu : public GuiWindow
+class SettingsMenu : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         SettingsMenu(const char * title, OptionList * option, int returnTo);
-        ~SettingsMenu();
+        virtual ~SettingsMenu();
         int GetClickedOption();
         int GetMenu();
     protected:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int menu;
         int returnToMenu;

@@ -30,18 +30,18 @@
 #include <gctypes.h>
 #include "libwiigui/gui.h"
 
-class PromptWindow : public GuiWindow
+class PromptWindow : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         PromptWindow(const char *title, const char *msg = NULL, const char *btn1Label = NULL,
                         const char *btn2Label = NULL, const char *btn3Label = NULL,
                         const char *btn4Label = NULL, bool resetstate = true);
-        ~PromptWindow();
+        virtual ~PromptWindow();
         int GetChoice();
         void SetTitle(const char *title);
         void SetMessage(const char *msg);
     protected:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int choice;
 		bool resetstate;

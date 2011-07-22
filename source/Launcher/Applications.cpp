@@ -36,8 +36,6 @@
 #include "Controls/Taskbar.h"
 #include "menu.h"
 
-extern bool boothomebrew;
-
 Applications::Applications(const char * path)
 {
     if(!path)

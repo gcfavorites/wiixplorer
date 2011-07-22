@@ -61,26 +61,27 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	trigPlus = new GuiTrigger;
 	trigPlus->SetButtonOnlyTrigger(-1, WiiControls.EditTextLine | ClassicControls.EditTextLine << 16, GCControls.EditTextLine);
 
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundOver = Resources::GetSound("button_over.wav");
+	btnSoundClick = Resources::GetSound("button_click.wav");
 
-	bgTexteditorData = Resources::GetImageData(textreader_box_png, textreader_box_png_size);
+	bgTexteditorData = Resources::GetImageData("textreader_box.png");
 	bgTexteditorImg = new GuiImage(bgTexteditorData);
 
-	closeImgData = Resources::GetImageData(close_png, close_png_size);
-	closeImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
+	closeImgData = Resources::GetImageData("close.png");
+	closeImgOverData = Resources::GetImageData("close_over.png");
     closeImg = new GuiImage(closeImgData);
     closeImgOver = new GuiImage(closeImgOverData);
-	maximizeImgData = Resources::GetImageData(maximize_dis_png, maximize_dis_png_size);
+	maximizeImgData = Resources::GetImageData("maximize_dis.png");
     maximizeImg = new GuiImage(maximizeImgData);
-	minimizeImgData = Resources::GetImageData(minimize_dis_png, minimize_dis_png_size);
+	minimizeImgData = Resources::GetImageData("minimize_dis.png");
     minimizeImg = new GuiImage(minimizeImgData);
 
-	scrollbar = new Scrollbar(230, LISTMODE);
+	scrollbar = new Scrollbar(230, Scrollbar::LISTMODE);
 	scrollbar->SetParent(this);
 	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbar->SetPosition(-25, 60);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	scrollbar->listChanged.connect(this, &TextEditor::OnListChange);
 
     closeBtn = new GuiButton(closeImg->GetWidth(), closeImg->GetHeight());
     closeBtn->SetImage(closeImg);
@@ -331,7 +332,7 @@ int TextEditor::EditLine()
     return -1;
 }
 
-void TextEditor::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -344,12 +345,17 @@ void TextEditor::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p U
     }
 }
 
-void TextEditor::OnPointerHeld(GuiElement *sender UNUSED, int pointer, POINT p)
+void TextEditor::OnPointerHeld(GuiButton *sender UNUSED, int pointer, POINT p)
 {
     if(!userInput[pointer].wpad->ir.valid)
         return;
 
     TextPointerBtn->PositionChanged(pointer, p.x, p.y);
+}
+
+void TextEditor::OnListChange(int selItem, int selIndex)
+{
+	MainFileTxt->SetTextLine(selItem+selIndex);
 }
 
 void TextEditor::Update(GuiTrigger * t)
@@ -363,30 +369,6 @@ void TextEditor::Update(GuiTrigger * t)
 	minimizeBtn->Update(t);
 	TextPointerBtn->Update(t);
 	PlusBtn->Update(t);
-
-    if(scrollbar->ListChanged())
-    {
-        MainFileTxt->SetTextLine(scrollbar->GetSelectedItem()+scrollbar->GetSelectedIndex());
-    }
-
-	if(t->Right())
-	{
-	    for(int i = 0; i < linestodraw; i++)
-            MainFileTxt->NextLine();
-	}
-	else if(t->Left())
-	{
-	    for(int i = 0; i < linestodraw; i++)
-            MainFileTxt->PreviousLine();
-	}
-	else if(t->Down())
-	{
-        MainFileTxt->NextLine();
-	}
-	else if(t->Up())
-	{
-        MainFileTxt->PreviousLine();
-	}
 
 	int EntrieCount = (MainFileTxt->GetTotalLinesCount()-linestodraw);
 

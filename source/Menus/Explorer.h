@@ -45,12 +45,12 @@ enum
     LISTBROWSER,
 };
 
-class Explorer : public GuiWindow
+class Explorer : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         Explorer();
         Explorer(const char * path);
-        ~Explorer();
+        virtual ~Explorer();
         void Setup();
         int LoadPath(const char * path);
         int GetMenuChoice();
@@ -62,8 +62,8 @@ class Explorer : public GuiWindow
 		void CheckDeviceMenu();
 		void CheckRightClick();
         void SetDeviceImage();
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
-        void BackInDirectory(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+        void BackInDirectory(GuiButton *sender, int pointer, POINT p);
 
         int menu;
 

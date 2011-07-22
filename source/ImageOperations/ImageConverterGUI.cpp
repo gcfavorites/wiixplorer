@@ -105,20 +105,20 @@ void ImageConverterGui::Setup()
     ElemPointer = NULL;
     Converting = false;
 
-	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    bgWindow = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
+    bgWindow = Resources::GetImageData("bg_properties.png");
     bgWindowImg = new GuiImage(bgWindow);
     bgWindowImg->SetScaleY(1.21);
     width = bgWindow->GetWidth();
     height = bgWindow->GetHeight();
     Append(bgWindowImg);
 
-    AdressBarData = Resources::GetImageData(addressbar_small_png, addressbar_small_png_size);
-    btnOutline = Resources::GetImageData(small_button_png, small_button_png_size);
-    CloseImgData = Resources::GetImageData(close_png, close_png_size);
-    CloseImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
+    AdressBarData = Resources::GetImageData("addressbar_small.png");
+    btnOutline = Resources::GetImageData("small_button.png");
+    CloseImgData = Resources::GetImageData("close.png");
+    CloseImgOverData = Resources::GetImageData("close_over.png");
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
@@ -454,7 +454,7 @@ void ImageConverterGui::SetOptionValues()
         Options.SetOptionValue(i++, tr("Both"));
 }
 
-void ImageConverterGui::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void ImageConverterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

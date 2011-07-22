@@ -72,13 +72,13 @@ typedef struct _POINT {
 } POINT;
 
 //!Primary GUI class. Most other classes inherit from this class.
-class GuiElement : public sigslot::has_slots<>
+class GuiElement
 {
 	public:
 		//!Constructor
 		GuiElement();
 		//!Destructor
-		~GuiElement();
+		virtual ~GuiElement();
 		//!Set the element's parent
 		//!\param e Pointer to parent element
 		void SetParent(GuiElement * e);
@@ -263,9 +263,6 @@ class GuiElement : public sigslot::has_slots<>
 		POINT PtrToScreen(POINT p);
 		POINT PtrToControl(POINT p);
 
-		sigslot::signal3<GuiElement *, int, POINT> Clicked;
-		sigslot::signal3<GuiElement *, int, POINT> Held;
-		sigslot::signal2<GuiElement *, int> Released;
 		sigslot::signal2<GuiElement *, bool> VisibleChanged;
 		sigslot::signal3<GuiElement *, int, int> StateChanged;
 	protected:

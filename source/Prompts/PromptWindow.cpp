@@ -31,7 +31,6 @@
 
 #include "Prompts/PromptWindow.h"
 #include "Memory/Resources.h"
-#include "filelist.h"
 #include "Controls/MainWindow.h"
 #include "main.h"
 #include "sys.h"
@@ -54,19 +53,19 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
     choice = -1;
 	resetstate = r;
 
-	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-    bgWindow = Resources::GetImageData(dialogue_box_png, dialogue_box_png_size);
+    bgWindow = Resources::GetImageData("dialogue_box.png");
     bgWindowImg = new GuiImage(bgWindow);
     width = bgWindow->GetWidth();
     height = bgWindow->GetHeight();
 
-    btnOutline = Resources::GetImageData(button_png, button_png_size);
+    btnOutline = Resources::GetImageData("button.png");
 
     titleTxt = new GuiText(title, 22, (GXColor){0, 0, 0, 255});
     titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
@@ -284,7 +283,7 @@ void PromptWindow::SetMessage(const char *msg)
     msgTxt->SetText(msg);
 }
 
-void PromptWindow::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void PromptWindow::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

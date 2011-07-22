@@ -10,7 +10,7 @@ class CFile
         CFile();
         CFile(const char * filepath, const char * mode);
         CFile(const u8 * memory, int memsize);
-        ~CFile();
+        virtual ~CFile();
         int open(const char * filepath, const char * mode);
         int open(const u8 * memory, int memsize);
         void close();

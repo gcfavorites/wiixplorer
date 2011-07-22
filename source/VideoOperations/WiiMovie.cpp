@@ -159,7 +159,7 @@ void WiiMovie::SetVolume(int vol)
     ASND_ChangeVolumeVoice(0, volume, volume);
 }
 
-void WiiMovie::OnExitClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void WiiMovie::OnExitClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
     Stop();

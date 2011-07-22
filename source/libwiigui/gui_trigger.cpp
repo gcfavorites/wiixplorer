@@ -140,13 +140,13 @@ bool GuiTrigger::Left()
 {
 	u32 wiibtn = WiiControls.LeftButton;
 
-	if((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.LeftButton << 16))
-			|| (pad.btns_d | pad.btns_h) & GCControls.LeftButton
+	if(((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.LeftButton << 16)))
+			|| ((pad.btns_d | pad.btns_h) & GCControls.LeftButton)
 			|| pad.stickX < -PADCAL
 			|| WPAD_Stick(0,0) < -PADCAL)
 	{
-		if(wpad->btns_d & (wiibtn | (ClassicControls.LeftButton << 16))
-			|| pad.btns_d & GCControls.LeftButton)
+		if((wpad->btns_d & (wiibtn | (ClassicControls.LeftButton << 16)))
+			|| (pad.btns_d & GCControls.LeftButton))
 		{
 			scrollDelay = SCROLL_INITIAL_DELAY; // reset scroll delay.
 			return true;
@@ -169,13 +169,13 @@ bool GuiTrigger::Right()
 {
 	u32 wiibtn = WiiControls.RightButton;
 
-	if((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.RightButton << 16))
-			|| (pad.btns_d | pad.btns_h) & GCControls.RightButton
+	if(((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.RightButton << 16)))
+			|| ((pad.btns_d | pad.btns_h) & GCControls.RightButton)
 			|| pad.stickX > PADCAL
 			|| WPAD_Stick(0,0) > PADCAL)
 	{
-		if(wpad->btns_d & (wiibtn | (ClassicControls.RightButton << 16))
-			|| pad.btns_d & GCControls.RightButton)
+		if((wpad->btns_d & (wiibtn | (ClassicControls.RightButton << 16)))
+			|| (pad.btns_d & GCControls.RightButton))
 		{
 			scrollDelay = SCROLL_INITIAL_DELAY; // reset scroll delay.
 			return true;
@@ -198,13 +198,13 @@ bool GuiTrigger::Up()
 {
 	u32 wiibtn = WiiControls.UpButton;
 
-	if((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.UpButton << 16))
-			|| (pad.btns_d | pad.btns_h) & GCControls.UpButton
+	if(((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.UpButton << 16)))
+			|| ((pad.btns_d | pad.btns_h) & GCControls.UpButton)
 			|| pad.stickY > PADCAL
 			|| WPAD_Stick(0,1) > PADCAL)
 	{
-		if(wpad->btns_d & (wiibtn | (ClassicControls.UpButton << 16))
-			|| pad.btns_d & GCControls.UpButton)
+		if((wpad->btns_d & (wiibtn | (ClassicControls.UpButton << 16)))
+			|| (pad.btns_d & GCControls.UpButton))
 		{
 			scrollDelay = SCROLL_INITIAL_DELAY; // reset scroll delay.
 			return true;
@@ -227,13 +227,13 @@ bool GuiTrigger::Down()
 {
 	u32 wiibtn = WiiControls.DownButton;
 
-	if((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.DownButton << 16))
-			|| (pad.btns_d | pad.btns_h) & GCControls.DownButton
+	if(((wpad->btns_d | wpad->btns_h) & (wiibtn | (ClassicControls.DownButton << 16)))
+			|| ((pad.btns_d | pad.btns_h) & GCControls.DownButton)
 			|| pad.stickY < -PADCAL
 			|| WPAD_Stick(0,1) < -PADCAL)
 	{
-		if(wpad->btns_d & (wiibtn | (ClassicControls.DownButton << 16))
-			|| pad.btns_d & GCControls.DownButton)
+		if((wpad->btns_d & (wiibtn | (ClassicControls.DownButton << 16)))
+			|| (pad.btns_d & GCControls.DownButton))
 		{
 			scrollDelay = SCROLL_INITIAL_DELAY; // reset scroll delay.
 			return true;

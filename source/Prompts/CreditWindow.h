@@ -34,14 +34,14 @@
 #include "libwiigui/gui.h"
 #include "Memory/Resources.h"
 
-class CreditWindow : public GuiWindow
+class CreditWindow : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         CreditWindow();
-        ~CreditWindow();
+        virtual ~CreditWindow();
         int GetChoice();
     private:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int choice;
         int CreditEntries;

@@ -79,7 +79,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 
 	int KeyboardPosition = -25;
 
-	keyTextbox = Resources::GetImageData(keyboard_textbox_png, keyboard_textbox_png_size);
+	keyTextbox = Resources::GetImageData("keyboard_textbox.png");
 	keyTextboxImg = new GuiImage(keyTextbox);
 	keyTextboxImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	keyTextboxImg->SetPosition(0, 0);
@@ -102,15 +102,15 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
     TextPointerBtn->PositionChanged(0, 0, 0);
     TextPointerBtn->SetPointerPosition(MAX_KEYBOARD_DISPLAY-1);
 
-	key = Resources::GetImageData(keyboard_key_png, keyboard_key_png_size);
-	keyOver = Resources::GetImageData(keyboard_key_over_png, keyboard_key_over_png_size);
-	keyMedium = Resources::GetImageData(keyboard_mediumkey_png, keyboard_mediumkey_png_size);
-	keyMediumOver = Resources::GetImageData(keyboard_mediumkey_over_png, keyboard_mediumkey_over_png_size);
-	keyLarge = Resources::GetImageData(keyboard_largekey_png, keyboard_largekey_png_size);
-	keyLargeOver = Resources::GetImageData(keyboard_largekey_over_png, keyboard_largekey_over_png_size);
+	key = Resources::GetImageData("keyboard_key.png");
+	keyOver = Resources::GetImageData("keyboard_key_over.png");
+	keyMedium = Resources::GetImageData("keyboard_mediumkey.png");
+	keyMediumOver = Resources::GetImageData("keyboard_mediumkey_over.png");
+	keyLarge = Resources::GetImageData("keyboard_largekey.png");
+	keyLargeOver = Resources::GetImageData("keyboard_largekey_over.png");
 
-	keySoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	keySoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	keySoundOver = Resources::GetSound("button_over.wav");
+	keySoundClick = Resources::GetSound("button_click.wav");
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -411,12 +411,12 @@ void GuiKeyboard::MoveText(int n)
         TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()+n);
 }
 
-void GuiKeyboard::OnPointerHeld(GuiElement *sender UNUSED, int pointer, POINT p)
+void GuiKeyboard::OnPointerHeld(GuiButton *sender UNUSED, int pointer, POINT p)
 {
     TextPointerBtn->PositionChanged(pointer, p.x, p.y);
 }
 
-void GuiKeyboard::OnPositionMoved(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void GuiKeyboard::OnPositionMoved(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -472,9 +472,9 @@ void GuiKeyboard::Update(GuiTrigger * t)
         RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
 		keyBack->SetState(STATE_SELECTED, t->chan);
 	}
-	else if((t->wpad->btns_h & WiiControls.KeyBackspaceButton ||
-             t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16) ||
-             t->pad.btns_h & GCControls.KeyBackspaceButton) &&
+	else if(((t->wpad->btns_h & WiiControls.KeyBackspaceButton) ||
+             (t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16)) ||
+             (t->pad.btns_h & GCControls.KeyBackspaceButton)) &&
              DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
 	{
         RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
@@ -513,9 +513,9 @@ void GuiKeyboard::Update(GuiTrigger * t)
 		UpdateKeys = true;
 	}
 
-	if(t->wpad->btns_h & WiiControls.KeyShiftButton ||
-       t->wpad->btns_h & (ClassicControls.KeyShiftButton << 16) ||
-       t->pad.btns_h & GCControls.KeyShiftButton)
+	if((t->wpad->btns_h & WiiControls.KeyShiftButton) ||
+       (t->wpad->btns_h & (ClassicControls.KeyShiftButton << 16)) ||
+       (t->pad.btns_h & GCControls.KeyShiftButton))
 	{
 	    caps = true;
 

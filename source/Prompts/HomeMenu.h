@@ -37,7 +37,7 @@ class HomeMenu : public GuiWindow
 	public:
 		int GetChoice();
 		HomeMenu();
-		~HomeMenu();
+		virtual ~HomeMenu();
 
 	private:
 		void FadeOut();

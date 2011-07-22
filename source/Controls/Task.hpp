@@ -29,18 +29,18 @@
 #include "libwiigui/gui.h"
 #include "Controls/Callback.hpp"
 
-class Task : public GuiButton
+class Task : public GuiButton, public sigslot::has_slots<>
 {
     public:
         Task(const char * title);
-        ~Task();
+        virtual ~Task();
         void SetCallback(cCallback * CallbackClass) { Callback = CallbackClass; };
         void SetTitle(const char * title) { Title->SetText(title); };
         void Execute(int param = 0);
         void SetIcon(GuiImageData * img);
         void SetParameter(int p) { Parameter = p; };
     private:
-        void OnButtonClick(GuiElement * sender, int channel, POINT point);
+        void OnButtonClick(GuiButton * sender, int channel, POINT point);
 
         cCallback * Callback;
         GuiText * Title;

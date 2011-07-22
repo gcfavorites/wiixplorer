@@ -137,20 +137,20 @@ void Explorer::Setup()
 	trigBackInDir = new GuiTrigger();
     trigBackInDir->SetButtonOnlyTrigger(-1, WiiControls.UpInDirectory | ClassicControls.UpInDirectory << 16, GCControls.UpInDirectory);
 
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    creditsImgData = Resources::GetImageData(WiiXplorer_png, WiiXplorer_png_size);
-	Background = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
-	Address = Resources::GetImageData(addressbar_textbox_png, addressbar_textbox_png_size);
-	Refresh = Resources::GetImageData(refresh2_png, refresh2_png_size);
+    creditsImgData = Resources::GetImageData("WiiXplorer.png");
+	Background = Resources::GetImageData("bg_browser.png");
+	Address = Resources::GetImageData("addressbar_textbox.png");
+	Refresh = Resources::GetImageData("refresh2.png");
 
-	sdstorage = Resources::GetImageData(sdstorage_png, sdstorage_png_size);
-	usbstorage = Resources::GetImageData(usbstorage_png, usbstorage_png_size);
-	usbstorage_blue = Resources::GetImageData(usbstorage_blue_png, usbstorage_blue_png_size);
-	networkstorage = Resources::GetImageData(networkstorage_png, networkstorage_png_size);
-	ftpstorage = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
-    dvd_ImgData = Resources::GetImageData(dvdstorage_png, dvdstorage_png_size);
+	sdstorage = Resources::GetImageData("sdstorage.png");
+	usbstorage = Resources::GetImageData("usbstorage.png");
+	usbstorage_blue = Resources::GetImageData("usbstorage_blue.png");
+	networkstorage = Resources::GetImageData("networkstorage.png");
+	ftpstorage = Resources::GetImageData("ftpstorage.png");
+    dvd_ImgData = Resources::GetImageData("dvdstorage.png");
 
     width = Background->GetWidth();
     height = Background->GetHeight();
@@ -500,7 +500,7 @@ void Explorer::CheckRightClick()
     }
 }
 
-void Explorer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p)
+void Explorer::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p)
 {
     if(sender == CreditsBtn)
     {
@@ -559,7 +559,7 @@ void Explorer::SetState(int s)
 	}
 }
 
-void Explorer::BackInDirectory(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void Explorer::BackInDirectory(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     CurBrowser->BackInDirectory();
     fileBrowser->SetSelected(0);

@@ -29,16 +29,16 @@
 #include "libwiigui/gui_arrowoption.h"
 #include "ImageConverter.hpp"
 
-class ImageConverterGui : public GuiWindow, ImageConverter
+class ImageConverterGui : public GuiWindow, public ImageConverter, public sigslot::has_slots<>
 {
     public:
         ImageConverterGui(const char * filepath);
         ImageConverterGui(const u8 * imgBuf, int imgSize);
-        ~ImageConverterGui();
+        virtual ~ImageConverterGui();
         int MainUpdate();
         void Draw();
     protected:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
         void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
         void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
         void OnOptionButtonClick(GuiElement *sender, int pointer, POINT p);

@@ -17,7 +17,6 @@
 #include "Language/gettext.h"
 #include "VideoOperations/video.h"
 #include "SoundOperations/gui_sound.h"
-#include "filelist.h"
 #include "input.h"
 #include "sigslot.h"
 #include "Tools/gecko.h"
