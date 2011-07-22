@@ -35,14 +35,14 @@
 #include "ArchiveOperations/ArchiveBrowser.h"
 #include "Memory/Resources.h"
 
-class ArchiveProperties : public GuiWindow
+class ArchiveProperties : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         ArchiveProperties(ArchiveFileStruct * File);
-        ~ArchiveProperties();
+        virtual ~ArchiveProperties();
         int GetChoice();
     private:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int choice;
         ArchiveFileStruct ArchiveFile;

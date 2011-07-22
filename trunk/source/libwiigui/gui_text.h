@@ -48,7 +48,7 @@ class GuiText : public GuiElement
 		//!\param t Text
 		GuiText(const char * t);
 		//!Destructor
-		~GuiText();
+		virtual ~GuiText();
 		//!Sets the text of the GuiText element
 		//!\param t Text
 		virtual void SetText(const char * t);

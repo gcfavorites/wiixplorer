@@ -74,7 +74,7 @@ class RarcFile : public WiiArchive
         //!Overload
         RarcFile(const u8 * Buffer, u32 Size);
 		//!Destructor
-		~RarcFile();
+		virtual ~RarcFile();
     protected:
         //!Parse the archive
         bool ParseFile();

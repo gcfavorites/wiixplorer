@@ -29,7 +29,10 @@
 #include <string.h>
 #include <string>
 #include <algorithm>
-#include <sys/dir.h>
+#include <sys/stat.h>
+#include <sys/dirent.h>
+
+#define MAXPATHLEN  1024
 
 #include "Tools/StringTools.h"
 #include "DirList.h"
@@ -47,34 +50,55 @@ DirList::~DirList()
 
 bool DirList::LoadPath(const char * folder, const char *filter, u32 flags)
 {
-    if(!folder)
+    if(!folder) return false;
+
+    std::string folderpath(folder);
+
+    return LoadPath(folderpath, filter, flags);
+}
+
+bool DirList::LoadPath(std::string &folderpath, const char *filter, u32 flags)
+{
+    if(folderpath.size() < 3)
         return false;
 
-    struct stat st;
-    DIR_ITER *dir = NULL;
-	std::string folderpath = folder;
+    struct dirent *dirent = NULL;
+    DIR *dir = NULL;
 
 	if(folderpath[folderpath.size()-1] == '/')
-        folderpath.erase(folderpath.size()-1, 1);
+        folderpath.erase(folderpath.size()-1);
 
-	const char * notRoot = strchr(folderpath.c_str(), '/');
-	if(!notRoot)
+	bool isRoot = (folderpath.find('/') == std::string::npos);
+	if(isRoot)
 	    folderpath += '/';
 
-    dir = diropen(folderpath.c_str());
+    dir = opendir(folderpath.c_str());
     if (dir == NULL)
         return false;
 
-    char * filename = new (std::nothrow) char[1024];
-    if(!filename)
+    char * filename = new (std::nothrow) char[MAXPATHLEN];
+    struct stat *st = new (std::nothrow) struct stat;
+    if(!filename || !st)
     {
-        dirclose(dir);
+        delete [] filename;
+        delete st;
+        closedir(dir);
         return false;
     }
 
-    while (dirnext(dir,filename,&st) == 0)
+    while ((dirent = readdir(dir)) != 0)
     {
-        if(st.st_mode & S_IFDIR)
+        if(!dirent->d_name)
+            continue;
+
+        snprintf(filename, MAXPATHLEN, "%s/%s", folderpath.c_str(), dirent->d_name);
+
+        if(stat(filename, st) != 0)
+            continue;
+
+        snprintf(filename, MAXPATHLEN, dirent->d_name);
+
+        if(st->st_mode & S_IFDIR)
         {
             if(!(flags & Dirs))
                 continue;
@@ -84,10 +108,11 @@ bool DirList::LoadPath(const char * folder, const char *filter, u32 flags)
 
             if(flags & CheckSubfolders)
             {
-                std::string newFolder = folderpath;
-                if(notRoot) newFolder += '/';
-                newFolder += filename;
-                LoadPath(newFolder.c_str(), filter, flags);
+                int length = folderpath.size();
+                if(!isRoot) folderpath += '/';
+                folderpath += filename;
+                LoadPath(folderpath, filter, flags);
+                folderpath.erase(length);
             }
         }
         else
@@ -103,15 +128,16 @@ bool DirList::LoadPath(const char * folder, const char *filter, u32 flags)
                 continue;
 
             if(strtokcmp(fileext, filter, ",") == 0)
-                AddEntrie(folderpath.c_str(), filename, st.st_size, (st.st_mode & S_IFDIR) ? true : false);
+                AddEntrie(folderpath.c_str(), filename, st->st_size, (st->st_mode & S_IFDIR) ? true : false);
         }
         else
         {
-            AddEntrie(folderpath.c_str(), filename, st.st_size, (st.st_mode & S_IFDIR) ? true : false);
+            AddEntrie(folderpath.c_str(), filename, st->st_size, (st->st_mode & S_IFDIR) ? true : false);
         }
     }
-    dirclose(dir);
+    closedir(dir);
     delete [] filename;
+    delete st;
 
     return true;
 }
@@ -157,13 +183,10 @@ static bool SortCallback(const FileInfos & f1, const FileInfos & f2)
 	if(f1.isDir && !(f2.isDir)) return true;
 	if(!(f1.isDir) && f2.isDir) return false;
 
-    const char * Filename1 = FullpathToFilename(f1.FilePath);
-    const char * Filename2 = FullpathToFilename(f2.FilePath);
+	if(f1.FilePath && !f2.FilePath) return true;
+	if(!f1.FilePath) return false;
 
-	if(Filename1 && !Filename2) return true;
-	if(!Filename1 && Filename2) return false;
-
-    if(strcasecmp(Filename1, Filename2) > 0)
+    if(strcasecmp(f1.FilePath, f2.FilePath) > 0)
         return false;
 
     return true;
@@ -171,7 +194,14 @@ static bool SortCallback(const FileInfos & f1, const FileInfos & f2)
 
 void DirList::SortList()
 {
-    std::sort(FileInfo.begin(), FileInfo.end(), SortCallback);
+    if(FileInfo.size() > 1)
+        std::sort(FileInfo.begin(), FileInfo.end(), SortCallback);
+}
+
+void DirList::SortList(bool (*SortFunc)(const FileInfos &a, const FileInfos &b))
+{
+    if(FileInfo.size() > 1)
+        std::sort(FileInfo.begin(), FileInfo.end(), SortFunc);
 }
 
 int DirList::GetFileIndex(const char *filename)

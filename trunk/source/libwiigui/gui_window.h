@@ -40,7 +40,7 @@ class GuiWindow : public GuiElement
 		//!\param h Height of window
 		GuiWindow(int w, int h);
 		//!Destructor
-		~GuiWindow();
+		virtual ~GuiWindow();
 		//!Appends a GuiElement to the GuiWindow
 		//!\param e The GuiElement to append. If it is already in the GuiWindow, it is removed first
 		void Append(GuiElement* e);

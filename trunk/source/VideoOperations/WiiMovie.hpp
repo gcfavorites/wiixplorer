@@ -7,11 +7,11 @@
 
 using namespace std;
 
-class WiiMovie : public GuiElement
+class WiiMovie : public GuiElement, public sigslot::has_slots<>
 {
     public:
         WiiMovie(const char * filepath);
-        ~WiiMovie();
+        virtual ~WiiMovie();
         bool Play();
         void Stop();
         void SetVolume(int vol);
@@ -21,7 +21,7 @@ class WiiMovie : public GuiElement
         void Draw();
         void Update(GuiTrigger * t);
     protected:
-        void OnExitClick(GuiElement *sender, int pointer, POINT p);
+        void OnExitClick(GuiButton *sender, int pointer, POINT p);
 		static void * UpdateThread(void *arg);
         void ReadNextFrame();
         void LoadNextFrame();

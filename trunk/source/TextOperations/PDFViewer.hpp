@@ -33,7 +33,7 @@ class PDFViewer : public ImageViewer
 {
     public:
         PDFViewer(const char * filepath, const char * password = NULL);
-        ~PDFViewer();
+        virtual ~PDFViewer();
         void OpenFile(const char * filename, const char * password = NULL);
         void CloseFile();
         bool LoadPage(int pagenum);

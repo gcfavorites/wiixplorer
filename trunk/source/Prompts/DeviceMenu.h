@@ -33,14 +33,14 @@
 #include "libwiigui/gui.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
-class DeviceMenu : public GuiWindow
+class DeviceMenu : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         DeviceMenu(int x, int y);
-        ~DeviceMenu();
+        virtual ~DeviceMenu();
         int GetChoice();
     private:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int deviceCount;
         int deviceSelection[MAXDEVICES];

@@ -273,41 +273,16 @@ void GuiElement::SetState(int s, int c)
 	state = s;
 	stateChan = c;
 	StateChanged(this, s, c);
-
-	if(c < 0 || c > 3)
-        return;
-
-	POINT p = {0, 0};
-
-    if (userInput[c].wpad)
-    {
-        if (userInput[c].wpad->ir.valid)
-        {
-            p.x = userInput[c].wpad->ir.x;
-            p.y = userInput[c].wpad->ir.y;
-        }
-    }
-	if (s == STATE_CLICKED) {
-		Clicked(this, c, PtrToControl(p));
-	} else if (s == STATE_HELD) {
-		Held(this, c, PtrToControl(p));
-	}
 }
 
 void GuiElement::ResetState()
 {
     LOCK(this);
-	int prevState = state;
-	int prevStateChan = stateChan;
-
 	if(state != STATE_DISABLED)
 	{
 		state = STATE_DEFAULT;
 		stateChan = -1;
 	}
-
-	if (prevState == STATE_HELD)
-		Released(this, prevStateChan);
 }
 
 void GuiElement::SetClickable(bool c)
@@ -416,11 +391,11 @@ void GuiElement::SetEffect(int eff, int amount, int target)
                 xoffsetDyn = screenwidth;
 		}
 	}
-	if(eff & EFFECT_FADE && amount > 0)
+	if((eff & EFFECT_FADE) && amount > 0)
 	{
 		alphaDyn = 0;
 	}
-	else if(eff & EFFECT_FADE && amount < 0)
+	else if((eff & EFFECT_FADE) && amount < 0)
 	{
 		alphaDyn = alpha;
 	}

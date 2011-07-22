@@ -36,8 +36,6 @@
 #include "netreceiver.h"
 #include "menu.h"
 
-extern bool boothomebrew;
-
 void IncommingConnection(NetReceiver & Receiver)
 {
     char text[200];

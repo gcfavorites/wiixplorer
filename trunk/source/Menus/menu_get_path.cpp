@@ -37,11 +37,11 @@ int MenuGetPath(std::string & Path)
 
 	Explorer * Explorer_1 = NULL;
 
-	GuiSound * btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	GuiSound * btnSoundClick = Resources::GetSound("button_click.wav");
+	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
-    GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-    GuiImageData * btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
+    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+    GuiImageData * btnOutlineOver = Resources::GetImageData("button_over.png");
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);

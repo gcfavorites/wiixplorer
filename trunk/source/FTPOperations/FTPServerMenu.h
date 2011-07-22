@@ -29,14 +29,14 @@
 #include "libwiigui/gui.h"
 #include "Controls/GXConsole.hpp"
 
-class FTPServerMenu : public GuiWindow
+class FTPServerMenu : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         FTPServerMenu();
-        ~FTPServerMenu();
+        virtual ~FTPServerMenu();
         int GetMenu();
     protected:
-        void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 
         int menu;
 

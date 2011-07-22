@@ -63,12 +63,12 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
     ArchiveFile.archiveType = ArcFile->archiveType;
 
 
-    dialogBox = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
-    titleData = Resources::GetImageData(icon_folder_png, icon_folder_png_size);
-    arrowUp = Resources::GetImageData(close_png, close_png_size);
-    arrowUpOver = Resources::GetImageData(close_over_png, close_over_png_size);
+    dialogBox = Resources::GetImageData("bg_properties.png");
+    titleData = Resources::GetImageData("icon_folder.png");
+    arrowUp = Resources::GetImageData("close.png");
+    arrowUpOver = Resources::GetImageData("close_over.png");
 
-    btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+    btnClick = Resources::GetSound("button_click.wav");
 
     dialogBoxImg = new GuiImage(dialogBox);
 
@@ -296,7 +296,7 @@ int ArchiveProperties::GetChoice()
     return choice;
 }
 
-void ArchiveProperties::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void ArchiveProperties::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

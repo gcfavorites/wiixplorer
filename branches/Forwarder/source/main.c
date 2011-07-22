@@ -32,11 +32,18 @@
 
 #include "video.h"
 #include "background_image.h"
-#include "dolloader.h"
 #include "filelist.h"
 #include "devicemounter.h"
 
-void __exception_setreload(int t);
+#define EXECUTE_ADDR	((u8 *) 0x92000000)
+#define BOOTER_ADDR		((u8 *) 0x93000000)
+#define ARGS_ADDR		((u8 *) 0x93200000)
+
+typedef void (*entrypoint) (void);
+extern void __exception_setreload(int t);
+extern void __exception_closeall();
+extern const u8 app_booter_bin[];
+extern const u32 app_booter_bin_size;
 
 static FILE * open_file(const char * dev, char * filepath)
 {
@@ -56,9 +63,8 @@ int main(int argc, char **argv)
 {
 	u32 cookie;
 	FILE *exeFile = NULL;
-	void * exeBuffer = (void *)EXECUTABLE_MEM_ADDR;
+	void * exeBuffer = (void *)EXECUTE_ADDR;
 	u32 exeSize = 0;
-	u32 exeEntryPointAddress = 0;
 	entrypoint exeEntryPoint;
 	__exception_setreload(0);
 
@@ -126,23 +132,11 @@ int main(int argc, char **argv)
 	args.argv = &args.commandLine;
 	args.endARGV = args.argv + 1;
 
-	u8 * appboot_buff = (u8 *) malloc(app_booter_dol_size);
-	if(!appboot_buff)
-	{
-		fadeout(imgdata);
-        SDCard_deInit();
-        USBDevice_deInit();
-        StopGX();
-        free(imgdata);
-		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-	}
+	memcpy(BOOTER_ADDR, app_booter_bin, app_booter_bin_size);
+	DCFlushRange(BOOTER_ADDR, app_booter_bin_size);
 
-    memcpy(appboot_buff, app_booter_dol, app_booter_dol_size);
-
-	exeEntryPointAddress = load_dol_image(appboot_buff, &args);
-
-    if(appboot_buff)
-        free(appboot_buff);
+	memcpy(ARGS_ADDR, &args, sizeof(args));
+	DCFlushRange(ARGS_ADDR, sizeof(args));
 
 	fadeout(imgdata);
 	SDCard_deInit();
@@ -150,10 +144,7 @@ int main(int argc, char **argv)
 	StopGX();
 	free(imgdata);
 
-	if (exeEntryPointAddress == 0)
-		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
-
-	exeEntryPoint = (entrypoint) exeEntryPointAddress;
+	exeEntryPoint = (entrypoint) BOOTER_ADDR;
 	/* cleaning up and load dol */
 	SYS_ResetSystem(SYS_SHUTDOWN, 0, 0);
 	_CPU_ISR_Disable (cookie);

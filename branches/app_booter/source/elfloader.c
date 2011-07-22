@@ -15,11 +15,10 @@
  */
 
 #include <stdio.h>
-#include <string.h>
-
-#include <gccore.h>
 
 #include "elf_abi.h"
+#include "sync.h"
+#include "string.h"
 
 /* ======================================================================
  * Determine if a valid ELF image exists at the given memory location.
@@ -50,7 +49,7 @@ s32 valid_elf_image (void *addr)
  * entry point address.
  * ====================================================================== */
 
-u32 load_elf_image (void *elfstart, u32 size) {
+u32 load_elf_image (void *elfstart) {
 	Elf32_Ehdr *ehdr;
 	Elf32_Phdr *phdrs;
 	u8 *image;
@@ -81,13 +80,12 @@ u32 load_elf_image (void *elfstart, u32 size) {
 			continue;
 
 		image = (u8 *) (elfstart + phdrs[i].p_offset);
-		memmove ((void *) phdrs[i].p_paddr, (const void *) image,
-				 phdrs[i].p_filesz);
+		memcpy ((void *) phdrs[i].p_paddr, (const void *) image, phdrs[i].p_filesz);
 
-		DCFlushRange ((void *) phdrs[i].p_paddr, phdrs[i].p_memsz);
+		sync_before_exec ((void *) phdrs[i].p_paddr, phdrs[i].p_memsz);
 
-		if(phdrs[i].p_flags & PF_X)
-			ICInvalidateRange ((void *) phdrs[i].p_paddr, phdrs[i].p_memsz);
+		//if(phdrs[i].p_flags & PF_X)
+			//ICInvalidateRange ((void *) phdrs[i].p_paddr, phdrs[i].p_memsz);
 	}
 
 	return ((ehdr->e_entry & 0x3FFFFFFF) | 0x80000000);

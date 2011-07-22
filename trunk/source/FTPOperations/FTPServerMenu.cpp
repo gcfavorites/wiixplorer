@@ -47,13 +47,13 @@ FTPServerMenu::FTPServerMenu()
 
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    btnOutline = Resources::GetImageData(button_png, button_png_size);
-    btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
-    network_icon = Resources::GetImageData(network_png, network_png_size);
-    bgImgData = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
+    btnOutline = Resources::GetImageData("button.png");
+    btnOutlineOver = Resources::GetImageData("button_over.png");
+    network_icon = Resources::GetImageData("network.png");
+    bgImgData = Resources::GetImageData("bg_browser.png");
 
     width = bgImgData->GetWidth();
     height = bgImgData->GetHeight()+100;
@@ -174,7 +174,7 @@ int FTPServerMenu::GetMenu()
     return menu;
 }
 
-void FTPServerMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

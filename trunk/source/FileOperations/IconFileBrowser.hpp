@@ -32,11 +32,11 @@
 
 using namespace std;
 
-class IconFileBrowser : public GuiFileBrowser
+class IconFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 {
 	public:
 		IconFileBrowser(Browser * filebrowser, int w, int h);
-		~IconFileBrowser();
+		virtual ~IconFileBrowser();
 		void ResetState();
         void SetSelected(int i);
         void SetTriggerUpdate(bool t) { triggerupdate = t; };
@@ -44,7 +44,8 @@ class IconFileBrowser : public GuiFileBrowser
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
-        void OnButtonClicked(GuiElement *sender, int pointer, POINT p);
+		void OnListChange(int selItem, int selIndex);
+        void OnButtonClicked(GuiButton *sender, int pointer, POINT p);
         GuiImage * GetIconFromExt(const char * fileext, bool dir);
         void AddButton();
         void SetButton(int i, const char * name, bool dir, bool enable, int x, int y);

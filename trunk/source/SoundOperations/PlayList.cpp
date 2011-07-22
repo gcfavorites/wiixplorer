@@ -188,15 +188,15 @@ void PlayList::SwitchMinimized()
 
 void PlayList::Show()
 {
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-    menu_selectionData = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
+    menu_selectionData = Resources::GetImageData("bg_browser_selection.png");
 
-    playlistImgData = Resources::GetImageData(playlist_png, playlist_png_size);
+    playlistImgData = Resources::GetImageData("playlist.png");
     playlistImg = new GuiImage(playlistImgData);
     playlistImg->SetMaxHeight(maxheight);
     Append(playlistImg);
@@ -206,6 +206,7 @@ void PlayList::Show()
 	scrollbar->SetPosition(-17, 50);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->SetMaxHeight(maxheight);
+	scrollbar->listChanged.connect(this, &PlayList::OnListChange);
 	Append(scrollbar);
 
 	PlayListBtn = new GuiButton(50, 33);
@@ -426,6 +427,43 @@ void PlayList::OnListStateChange(GuiElement *sender, int s, int c UNUSED)
     }
 }
 
+void PlayList::OnListChange(int selItem, int selIndex)
+{
+	selectedItem = selItem;
+	listOffset = selIndex;
+
+	if(listChanged && FileList.size() > PAGE_SIZE)
+	{
+	    while(listOffset+PAGE_SIZE > (int) FileList.size())
+            --listOffset;
+	}
+
+	for(int i = 0; i < (int) PAGE_SIZE; i++)
+	{
+	    if(i >= (int) ListBtn.size())
+            continue;
+
+		if(listOffset+i < (int) FileList.size())
+		{
+			if(ListBtn[i]->GetState() == STATE_DISABLED)
+				ListBtn[i]->SetState(STATE_DEFAULT);
+
+			ListBtn[i]->SetVisible(true);
+
+			char * filename = strrchr(FileList[listOffset+i], '/');
+			if(filename)
+				filename++;
+
+			ListBtnTxt[i]->SetText(filename);
+		}
+		else
+		{
+			ListBtn[i]->SetVisible(false);
+			ListBtn[i]->SetState(STATE_DISABLED);
+		}
+	}
+}
+
 void PlayList::Draw()
 {
     if(Hidden)
@@ -451,43 +489,6 @@ void PlayList::Update(GuiTrigger * t)
     PlayListBtn->Update(t);
     scrollbar->Update(t);
 
-    if(scrollbar->ListChanged())
-    {
-        selectedItem = scrollbar->GetSelectedItem();
-        listOffset = scrollbar->GetSelectedIndex();
-        listChanged = true;
-    }
-
-	if(t->Up())
-	{
-		if(selectedItem == 0 &&	 listOffset + selectedItem > 0)
-		{
-			// move list up by 1
-			--listOffset;
-			listChanged = true;
-		}
-		else if(selectedItem > 0)
-		{
-			--selectedItem;
-		}
-	}
-	else if(t->Down())
-	{
-		if(listOffset + selectedItem + 1 < (int) FileList.size())
-		{
-			if(selectedItem == PAGE_SIZE-1 && listOffset+PAGE_SIZE < (int) FileList.size())
-			{
-				// move list down by 1
-				++listOffset;
-				listChanged = true;
-			}
-			else if(ListBtn[selectedItem+1]->IsVisible())
-			{
-				++selectedItem;
-			}
-		}
-	}
-
 	if(listChanged && FileList.size() > PAGE_SIZE)
 	{
 	    while(listOffset+PAGE_SIZE > (int) FileList.size())
@@ -498,28 +499,6 @@ void PlayList::Update(GuiTrigger * t)
 	{
 	    if(i >= (int) ListBtn.size())
             continue;
-
-		if(listChanged)
-		{
-			if(listOffset+i < (int) FileList.size())
-			{
-				if(ListBtn[i]->GetState() == STATE_DISABLED)
-					ListBtn[i]->SetState(STATE_DEFAULT);
-
-				ListBtn[i]->SetVisible(true);
-
-				char * filename = strrchr(FileList[listOffset+i], '/');
-				if(filename)
-                    filename++;
-
-				ListBtnTxt[i]->SetText(filename);
-			}
-			else
-			{
-				ListBtn[i]->SetVisible(false);
-				ListBtn[i]->SetState(STATE_DISABLED);
-			}
-		}
 
 		if(i != selectedItem && ListBtn[i]->GetState() == STATE_SELECTED)
 		{
@@ -546,7 +525,5 @@ void PlayList::Update(GuiTrigger * t)
     scrollbar->SetSelectedItem(selectedItem);
     scrollbar->SetSelectedIndex(listOffset);
     scrollbar->SetEntrieCount(FileList.size());
-
-    listChanged = false;
 }
 

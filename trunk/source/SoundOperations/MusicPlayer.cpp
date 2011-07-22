@@ -32,7 +32,6 @@
 #include "Prompts/PromptWindows.h"
 #include "Memory/Resources.h"
 #include "MusicPlayer.h"
-#include "filelist.h"
 #include "Language/gettext.h"
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileExtensions.h"
@@ -41,6 +40,9 @@
 #include "sys.h"
 
 MusicPlayer * MusicPlayer::instance = NULL;
+
+extern const u8 bg_music_ogg[];
+extern const u32 bg_music_ogg_size;
 
 MusicPlayer::MusicPlayer()
     : GuiWindow(480, 216)
@@ -423,7 +425,7 @@ void MusicPlayer::Hide()
     PlayTitle = NULL;
 }
 
-void MusicPlayer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void MusicPlayer::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 
@@ -439,13 +441,13 @@ void MusicPlayer::InternalSetup()
     trigB = new GuiTrigger();
     trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-    playerImgData = Resources::GetImageData(player_png, player_png_size);
-    navi_defaultImgData = Resources::GetImageData(navi_default_png, navi_default_png_size);
-    navi_upImgData = Resources::GetImageData(navi_up_png, navi_up_png_size);
-    navi_downImgData = Resources::GetImageData(navi_down_png, navi_down_png_size);
-    navi_leftImgData = Resources::GetImageData(navi_left_png, navi_left_png_size);
-    navi_rightImgData = Resources::GetImageData(navi_right_png, navi_right_png_size);
+	btnSoundOver = Resources::GetSound("button_over.wav");
+    playerImgData = Resources::GetImageData("player.png");
+    navi_defaultImgData = Resources::GetImageData("navi_default.png");
+    navi_upImgData = Resources::GetImageData("navi_up.png");
+    navi_downImgData = Resources::GetImageData("navi_down.png");
+    navi_leftImgData = Resources::GetImageData("navi_left.png");
+    navi_rightImgData = Resources::GetImageData("navi_right.png");
 
     width = playerImgData->GetWidth();
     height = playerImgData->GetHeight();

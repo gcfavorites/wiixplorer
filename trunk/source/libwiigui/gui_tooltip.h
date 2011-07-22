@@ -36,7 +36,7 @@ class GuiTooltip : public GuiElement
 		//!Constructor
 		GuiTooltip(const char *t);
 		//!Destructor
-		~GuiTooltip();
+		virtual ~GuiTooltip();
 		//!Sets GuiTooltip text
 		void SetText(const char * t);
 		//!Set the fontsize of the text

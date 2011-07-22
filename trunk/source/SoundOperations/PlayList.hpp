@@ -30,11 +30,11 @@
 #include "libwiigui/gui.h"
 #include "Controls/Scrollbar.hpp"
 
-class PlayList : public GuiWindow
+class PlayList : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         PlayList();
-        ~PlayList();
+        virtual ~PlayList();
         int GetChoice();
         const char * at(int pos);
         const char * operator[](int pos) { return at(pos); };
@@ -54,6 +54,7 @@ class PlayList : public GuiWindow
         void Update(GuiTrigger * t);
     protected:
         void SwitchMinimized();
+		void OnListChange(int selItem, int selIndex);
         void OnListStateChange(GuiElement *sender, int s, int c);
 
         int listOffset;

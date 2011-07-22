@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-12 00:23+0100\n"
+"POT-Creation-Date: 2011-07-22 23:51+0200\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -140,6 +140,9 @@ msgstr "Modo de Navegação"
 
 msgid "Browsing for font files must be done in the main browser."
 msgstr "Procura por fontes precisa ser feita no navegador principal."
+
+msgid "Button Hold Scroll"
+msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC do arquivo extraído não bate. Senha inválida?"

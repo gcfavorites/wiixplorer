@@ -32,20 +32,22 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundClick = Resources::GetSound("button_click.wav");
 
-	bgOptions = Resources::GetImageData(bg_browser_png, bg_browser_png_size);
+	bgOptions = Resources::GetImageData("bg_browser.png");
 	bgOptionsImg = new GuiImage(bgOptions);
 	bgOptionsImg->SetParent(this);
 	bgOptionsImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
-	bgOptionsEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
+	bgOptionsEntry = Resources::GetImageData("bg_browser_selection.png");
 
 	scrollbar = new Scrollbar(245);
 	scrollbar->SetParent(this);
 	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	scrollbar->listChanged.connect(this, &GuiOptionBrowser::OnListChange);
+	scrollbar->SetButtonScroll(WiiControls.OneButtonScroll | ClassicControls.OneButtonScroll << 16);
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
@@ -198,68 +200,59 @@ void GuiOptionBrowser::TriggerUpdate()
 	listChanged = true;
 }
 
+void GuiOptionBrowser::OnListChange(int selItem, int selIndex)
+{
+	selectedItem = selItem;
+	listOffset = selIndex;
+	int maxNameWidth = 0;
+	int next = listOffset;
+
+	for(int i=0; i<PAGESIZE; i++)
+	{
+		if(next >= 0)
+		{
+			if(optionBtn[i]->GetState() == STATE_DISABLED)
+			{
+				optionBtn[i]->SetVisible(true);
+				optionBtn[i]->SetState(STATE_DEFAULT);
+			}
+
+			optionTxt[i]->SetText(options->GetName(next));
+			optionVal[i]->SetText(options->GetValue(next));
+
+			if(maxNameWidth < optionTxt[i]->GetTextWidth())
+				maxNameWidth = optionTxt[i]->GetTextWidth();
+
+			if(coL2 < (24+maxNameWidth+16))
+				coL2 = 24+maxNameWidth+16;
+
+			optionIndex[i] = next;
+			next = this->FindMenuItem(next, 1);
+		}
+		else
+		{
+			optionBtn[i]->SetVisible(false);
+			optionBtn[i]->SetState(STATE_DISABLED);
+		}
+	}
+
+	for(int i = 0; i < PAGESIZE; i++)
+	{
+		optionVal[i]->SetPosition(coL2,0);
+		optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
+	}
+
+}
+
 void GuiOptionBrowser::Update(GuiTrigger * t)
 {
 	if(state == STATE_DISABLED || !t)
 		return;
 
-	int next, prev;
-	int optionslength = options->GetLength();
-
     scrollbar->Update(t);
 
-    if(scrollbar->ListChanged())
-    {
-        selectedItem = scrollbar->GetSelectedItem();
-        listOffset = scrollbar->GetSelectedIndex();
-        listChanged = true;
-    }
-
-	next = listOffset;
-
 	if(options->IsChanged())
-        listChanged = true;
-
-	if(listChanged)
-	{
-		listChanged = false;
-		int maxNameWidth = 0;
-
-		for(int i=0; i<PAGESIZE; i++)
-		{
-			if(next >= 0)
-			{
-				if(optionBtn[i]->GetState() == STATE_DISABLED)
-				{
-					optionBtn[i]->SetVisible(true);
-					optionBtn[i]->SetState(STATE_DEFAULT);
-				}
-
-				optionTxt[i]->SetText(options->GetName(next));
-				optionVal[i]->SetText(options->GetValue(next));
-
-                if(maxNameWidth < optionTxt[i]->GetTextWidth())
-                    maxNameWidth = optionTxt[i]->GetTextWidth();
-
-                if(coL2 < (24+maxNameWidth+16))
-                    coL2 = 24+maxNameWidth+16;
-
-				optionIndex[i] = next;
-				next = this->FindMenuItem(next, 1);
-			}
-			else
-			{
-				optionBtn[i]->SetVisible(false);
-				optionBtn[i]->SetState(STATE_DISABLED);
-			}
-		}
-
-		for(int i = 0; i < PAGESIZE; i++)
-		{
-            optionVal[i]->SetPosition(coL2,0);
-            optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
-		}
-	}
+        OnListChange(selectedItem, listOffset);
 
 	for(int i=0; i<PAGESIZE; i++)
 	{
@@ -286,71 +279,7 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 			selectedItem = i;
 	}
 
-	if(t->Left())
-	{
-		if(listOffset-PAGESIZE >= 0)
-		{
-            listOffset -= PAGESIZE;
-        }
-        else
-        {
-            listOffset = 0;
-        }
-        listChanged = true;
-	}
-	if(t->Right())
-	{
-		if(listOffset+PAGESIZE*2 < optionslength)
-		{
-            listOffset += PAGESIZE;
-        }
-        else
-        {
-            listOffset = optionslength-PAGESIZE;
-            if(listOffset < 0)
-                listOffset = 0;
-        }
-        listChanged = true;
-	}
-
-	if(t->Down())
-	{
-		next = this->FindMenuItem(optionIndex[selectedItem], 1);
-
-		if(next >= 0)
-		{
-			if(selectedItem == PAGESIZE-1)
-			{
-				// move list down by 1
-				listOffset = this->FindMenuItem(listOffset, 1);
-				listChanged = true;
-			}
-			else if(optionBtn[selectedItem+1]->IsVisible())
-			{
-				selectedItem++;
-			}
-		}
-	}
-	else if(t->Up())
-	{
-		prev = this->FindMenuItem(optionIndex[selectedItem], -1);
-
-		if(prev >= 0)
-		{
-			if(selectedItem == 0)
-			{
-				// move list up by 1
-				listOffset = prev;
-				listChanged = true;
-			}
-			else
-			{
-				selectedItem--;
-			}
-		}
-	}
-
-    scrollbar->SetEntrieCount(optionslength);
+    scrollbar->SetEntrieCount(options->GetLength());
     scrollbar->SetPageSize(PAGESIZE);
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(selectedItem);

@@ -86,7 +86,7 @@ class U8Archive : public WiiArchive
         //!Overload
         U8Archive(const u8 * Buffer, u32 Size);
 		//!Destructor
-		~U8Archive();
+		virtual ~U8Archive();
     protected:
         //!Parse the archive
         bool ParseFile();

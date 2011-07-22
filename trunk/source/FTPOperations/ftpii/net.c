@@ -191,4 +191,5 @@ s32 recv_to_file(s32 s, FILE *f) {
         }
         usleep(100);
     }
+    return -1;
 }

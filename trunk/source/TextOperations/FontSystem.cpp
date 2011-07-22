@@ -24,7 +24,9 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "FreeTypeGX.h"
-#include "filelist.h"
+
+extern const u8 font_ttf[];
+extern const u32 font_ttf_size;
 
 FreeTypeGX * fontSystem = NULL;
 static FT_Byte * MainFont = (FT_Byte *) font_ttf;

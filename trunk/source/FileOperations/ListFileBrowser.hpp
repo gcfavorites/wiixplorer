@@ -33,11 +33,11 @@
 #include "Controls/Scrollbar.hpp"
 
 //!Display a list of files
-class ListFileBrowser : public GuiFileBrowser
+class ListFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 {
 	public:
 		ListFileBrowser(Browser * filebrowser, int w, int h);
-		~ListFileBrowser();
+		virtual ~ListFileBrowser();
 		void ResetState();
         void SetSelected(int i);
         void SetTriggerUpdate(bool t) { triggerupdate = t; };
@@ -45,11 +45,12 @@ class ListFileBrowser : public GuiFileBrowser
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
+		void OnListChange(int selItem, int selIndex);
         void AddButton();
         void SetButton(int i, const char * name, u64 filesize, bool dir, bool enable);
         void RemoveButton(int i);
         GuiImage * GetIconFromExt(const char * fileext, bool dir);
-        void OnClicked(GuiElement *sender, int pointer, POINT p);
+        void OnClicked(GuiButton *sender, int pointer, POINT p);
 		int selectedItem;
 		int numEntries;
 		bool listChanged;

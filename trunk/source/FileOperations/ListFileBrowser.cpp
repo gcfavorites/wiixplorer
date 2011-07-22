@@ -47,26 +47,28 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
+	btnSoundOver = Resources::GetSound("button_over.wav");
+	btnSoundClick = Resources::GetSound("button_click.wav");
 
-	bgFileSelectionEntry = Resources::GetImageData(bg_browser_selection_png, bg_browser_selection_png_size);
-	fileArchives = Resources::GetImageData(icon_archives_png, icon_archives_png_size);
-	fileDefault = Resources::GetImageData(icon_default_png, icon_default_png_size);
-	fileFolder = Resources::GetImageData(icon_folder_png, icon_folder_png_size);
-	fileGFX = Resources::GetImageData(icon_gfx_png, icon_gfx_png_size);
-	filePLS = Resources::GetImageData(icon_pls_png, icon_pls_png_size);
-	fileSFX = Resources::GetImageData(icon_sfx_png, icon_sfx_png_size);
-	fileTXT = Resources::GetImageData(icon_txt_png, icon_txt_png_size);
-	fileXML = Resources::GetImageData(icon_xml_png, icon_xml_png_size);
-	fileVID = Resources::GetImageData(icon_video_png, icon_video_png_size);
-	filePDF = Resources::GetImageData(icon_pdf_png, icon_pdf_png_size);
+	bgFileSelectionEntry = Resources::GetImageData("bg_browser_selection.png");
+	fileArchives = Resources::GetImageData("icon_archives.png");
+	fileDefault = Resources::GetImageData("icon_default.png");
+	fileFolder = Resources::GetImageData("icon_folder.png");
+	fileGFX = Resources::GetImageData("icon_gfx.png");
+	filePLS = Resources::GetImageData("icon_pls.png");
+	fileSFX = Resources::GetImageData("icon_sfx.png");
+	fileTXT = Resources::GetImageData("icon_txt.png");
+	fileXML = Resources::GetImageData("icon_xml.png");
+	fileVID = Resources::GetImageData("icon_video.png");
+	filePDF = Resources::GetImageData("icon_pdf.png");
 
 	scrollbar = new Scrollbar(245);
 	scrollbar->SetParent(this);
 	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	scrollbar->listChanged.connect(this, &ListFileBrowser::OnListChange);
+	scrollbar->SetButtonScroll(WiiControls.OneButtonScroll | ClassicControls.OneButtonScroll << 16);
 }
 
 /**
@@ -258,7 +260,7 @@ GuiImage * ListFileBrowser::GetIconFromExt(const char * fileext, bool dir)
     return (new GuiImage(fileDefault));
 }
 
-void ListFileBrowser::OnClicked(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void ListFileBrowser::OnClicked(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
 {
     state = STATE_CLICKED;
 }
@@ -281,6 +283,24 @@ void ListFileBrowser::ResetState()
 	for(u32 i = 0; i< fileBtn.size(); i++)
 	{
 		fileBtn[i]->ResetState();
+	}
+}
+
+void ListFileBrowser::OnListChange(int selItem, int selIndex)
+{
+	selectedItem = selItem;
+	browser->SetPageIndex(selIndex);
+
+	for(int i = 0; i < PAGESIZE; i++)
+	{
+		if(browser->GetPageIndex()+i < browser->GetEntrieCount())
+		{
+			SetButton(i, browser->GetItemName(browser->GetPageIndex()+i), browser->GetFilesize(browser->GetPageIndex()+i), browser->IsDir(browser->GetPageIndex()+i), true);
+		}
+		else
+		{
+			SetButton(i, NULL, 0, false, false);
+		}
 	}
 }
 
@@ -309,75 +329,14 @@ void ListFileBrowser::Update(GuiTrigger * t)
 
 	scrollbar->Update(t);
 
-    if(scrollbar->ListChanged())
-    {
-        selectedItem = scrollbar->GetSelectedItem();
-        browser->SetPageIndex(scrollbar->GetSelectedIndex());
-        listChanged = true;
-    }
 
     if(browser)
         browser->UpdateMarker(t);
-
-	if(t->Right())
-	{
-		if(browser->GetPageIndex() < browser->GetEntrieCount() && browser->GetEntrieCount() > PAGESIZE)
-		{
-			int pageIndex = browser->GetPageIndex() + PAGESIZE;
-			if(pageIndex+PAGESIZE >= browser->GetEntrieCount())
-				pageIndex = browser->GetEntrieCount()-PAGESIZE;
-			browser->SetPageIndex(pageIndex);
-			listChanged = true;
-		}
-	}
-	else if(t->Left())
-	{
-		if(browser->GetPageIndex() > 0)
-		{
-			int pageIndex = browser->GetPageIndex() - PAGESIZE;
-			if(pageIndex < 0)
-				pageIndex = 0;
-			browser->SetPageIndex(pageIndex);
-			listChanged = true;
-		}
-	}
-	else if(t->Down())
-	{
-		if(browser->GetPageIndex() + selectedItem + 1 < browser->GetEntrieCount())
-		{
-			if(selectedItem == (int) fileBtn.size()-1)
-			{
-				// move list down by 1
-				browser->SetPageIndex(browser->GetPageIndex()+1);
-				listChanged = true;
-			}
-			else if((int) fileBtn.size() > selectedItem+1 && fileBtn[selectedItem+1]->IsVisible())
-			{
-				fileBtn[selectedItem]->ResetState();
-				fileBtn[++selectedItem]->SetState(STATE_SELECTED, t->chan);
-			}
-		}
-	}
-	else if(t->Up())
-	{
-		if(selectedItem == 0 &&	 browser->GetPageIndex() + selectedItem > 0)
-		{
-			// move list up by 1
-			browser->SetPageIndex(browser->GetPageIndex()-1);
-			listChanged = true;
-		}
-		else if((int) fileBtn.size() > selectedItem && selectedItem > 0)
-		{
-			fileBtn[selectedItem]->ResetState();
-			fileBtn[--selectedItem]->SetState(STATE_SELECTED, t->chan);
-		}
-	}
 
 	if(numEntries != browser->GetEntrieCount())
 	{
 	    numEntries = browser->GetEntrieCount();
 	    scrollbar->SetEntrieCount(numEntries);
-        listChanged = true;
 	}
 
 	for(int i = 0; i < PAGESIZE; i++)
@@ -429,6 +388,4 @@ void ListFileBrowser::Update(GuiTrigger * t)
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(selectedItem);
     scrollbar->SetSelectedIndex(browser->GetPageIndex());
-
-	listChanged = false;
 }

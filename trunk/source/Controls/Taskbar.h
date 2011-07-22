@@ -74,7 +74,7 @@ class Taskbar : public GuiWindow
 
 	private:
 		Taskbar();
-		~Taskbar();
+		virtual ~Taskbar();
 
 		int CheckHomeButton();
 		int CheckStartMenu();

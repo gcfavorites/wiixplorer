@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <fat.h>
 #include <ntfs.h>
+#include <ext2.h>
 #include <sdcard/wiisd_io.h>
 #include <unistd.h>
 #include <time.h>
@@ -32,7 +33,7 @@ typedef struct _MASTER_BOOT_RECORD {
     u16 signature;                          /* MBR signature; 0xAA55 */
 } __attribute__((__packed__)) MASTER_BOOT_RECORD;
 
-
+#define PARTITION_TYPE_LINUX    0x83
 #define le32(i) (((((u32) i) & 0xFF) << 24) | ((((u32) i) & 0xFF00) << 8) | \
                 ((((u32) i) & 0xFF0000) >> 8) | ((((u32) i) & 0xFF000000) >> 24))
 
@@ -53,7 +54,7 @@ int USBDevice_Init()
 
     int i;
     MASTER_BOOT_RECORD mbr;
-    char ntfsBootSector[512];
+    char BootSector[512];
 
     __io_usbstorage.readSectors(0, 1, &mbr);
 
@@ -76,7 +77,10 @@ int USBDevice_Init()
                 ntfsMount(DeviceName[USB1+i], &__io_usbstorage, le32(mbr.partitions[i].lba_start), CACHE, SECTORS, NTFS_SHOW_HIDDEN_FILES | NTFS_RECOVER | NTFS_IGNORE_CASE);
             }
         }
-
+        else if(mbr.partitions[i].type == PARTITION_TYPE_LINUX)
+        {
+        	ext2Mount(DeviceName[USB1+i], &__io_usbstorage, le32(mbr.partitions[i].lba_start), CACHE, SECTORS, EXT2_FLAG_DEFAULT);
+        }
     }
 
 	return -1;
@@ -92,6 +96,7 @@ void USBDevice_deInit()
         sprintf(Name, "%s:/", DeviceName[dev]);
         fatUnmount(Name);
         ntfsUnmount(Name, true);
+        ext2Unmount(Name);
     }
 	//Let's not shutdown so it stays awake for the application
 	__io_usbstorage.shutdown();

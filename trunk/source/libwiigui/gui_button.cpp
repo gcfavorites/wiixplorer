@@ -153,6 +153,29 @@ void GuiButton::SetTooltip(GuiTooltip * t)
 		tooltip->SetParent(this);
 }
 
+void GuiButton::SetState(int s, int c)
+{
+    LOCK(this);
+	GuiElement::SetState(s, c);
+
+	if(c < 0 || c > 3)
+        return;
+
+	if (s == STATE_CLICKED)
+	{
+		POINT p = {0, 0};
+		if (userInput[c].wpad)
+		{
+			if (userInput[c].wpad->ir.valid)
+			{
+				p.x = userInput[c].wpad->ir.x;
+				p.y = userInput[c].wpad->ir.y;
+			}
+		}
+		Clicked(this, c, PtrToControl(p));
+	}
+}
+
 void GuiButton::SetMinWidth(int w)
 {
     if(image)
@@ -382,7 +405,7 @@ void GuiButton::Update(GuiTrigger * t)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
-				if(t->wpad->btns_h & trigger[i]->wpad->btns_h || t->pad.btns_h & trigger[i]->pad.btns_h)
+				if((t->wpad->btns_h & trigger[i]->wpad->btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
 				{
 					if(trigger[i]->type == TRIGGER_HELD && (state == STATE_CLICKED || state == STATE_HELD) && stateChan == t->chan)
 					{
@@ -412,6 +435,7 @@ void GuiButton::Update(GuiTrigger * t)
 				else if(!held && state == STATE_HELD && stateChan == t->chan)
 				{
 					this->ResetState();
+					Released(this, stateChan);
 				}
 			}
 		}

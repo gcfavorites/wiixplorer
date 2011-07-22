@@ -48,6 +48,9 @@
 
 #include "Prompts/HomeMenu.h"
 
+extern const u8 clock_ttf[];
+extern const u32 clock_ttf_size;
+
 Taskbar *Taskbar::instance = NULL;
 
 Taskbar::Taskbar()
@@ -58,7 +61,7 @@ Taskbar::Taskbar()
     WifiData = NULL;
     WifiImg = NULL;
 
-	taskbarImgData = Resources::GetImageData(taskbar_png, taskbar_png_size);
+	taskbarImgData = Resources::GetImageData("taskbar.png");
 	taskbarImg = new GuiImage(taskbarImgData);
 
 	width = taskbarImg->GetWidth();
@@ -69,13 +72,13 @@ Taskbar::Taskbar()
 	timeTxt->SetPosition(width-82, -1);
 	timeTxt->SetFont(clock_ttf, clock_ttf_size);
 
-	soundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	soundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	soundClick = Resources::GetSound("button_click.wav");
+	soundOver = Resources::GetSound("button_over.wav");
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigHome = new GuiTrigger();
 	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
-	startBtn = new PictureButton(start_png, start_png_size, start_over_png, start_over_png_size, soundClick, soundOver);
+	startBtn = new PictureButton("start.png", "start_over.png", soundClick, soundOver);
 	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 	startBtn->SetPosition(23, -2);
 	startBtn->SetSelectable(false);
@@ -85,7 +88,7 @@ Taskbar::Taskbar()
 	homeBtn->SetSelectable(false);
 	homeBtn->SetTrigger(trigHome);
 
-	HeadPhonesData = Resources::GetImageData(player_icon_png, player_icon_png_size);
+	HeadPhonesData = Resources::GetImageData("player_icon.png");
 	HeadPhonesImg = new GuiImage(HeadPhonesData);
 	Musicplayer = new GuiButton(HeadPhonesData->GetWidth(), HeadPhonesData->GetHeight());
 	Musicplayer->SetImage(HeadPhonesImg);
@@ -238,7 +241,7 @@ int Taskbar::GetMenu()
 	}
 	else if(WifiImg == NULL && IsNetworkInit())
 	{
-	    WifiData = Resources::GetImageData(network_wireless_png, network_wireless_png_size);
+	    WifiData = Resources::GetImageData("network_wireless.png");
         WifiImg = new GuiImage(WifiData);
         WifiImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
         WifiImg->SetPosition(418, 0);
@@ -287,17 +290,17 @@ int Taskbar::CheckHomeButton()
 int Taskbar::CheckStartMenu()
 {
 	PopUpMenu *StartMenu = new PopUpMenu(screenwidth/2-width/2-2, Settings.ShowFormatter ? 75 : 105);
-	StartMenu->AddItem(tr("Apps"), apps_png, apps_png_size, true);
-	StartMenu->AddItem(tr("Channels"), channels_png, channels_png_size, true);
-	StartMenu->AddItem(tr("URL List"), opera_icon_png, opera_icon_png_size, true);
-	StartMenu->AddItem(tr("BootMii"), BootMii_png, BootMii_png_size);
+	StartMenu->AddItem(tr("Apps"), "apps.png", true);
+	StartMenu->AddItem(tr("Channels"), "channels.png", true);
+	StartMenu->AddItem(tr("URL List"), "opera_icon.png", true);
+	StartMenu->AddItem(tr("BootMii"), "BootMii.png");
 	if(Settings.ShowFormatter)
-        StartMenu->AddItem(tr("Formatter"), usbstorage_png, usbstorage_png_size);
-	StartMenu->AddItem(tr("Settings"), settings_png, settings_png_size);
-	StartMenu->AddItem(tr("FTP Server"), network_png, network_png_size);
-	StartMenu->AddItem(tr("Reload"), refresh_png, refresh_png_size);
-    StartMenu->AddItem(tr("Restart"), system_restart_png, system_restart_png_size);
-    StartMenu->AddItem(tr("Exit"), system_log_out_png, system_log_out_png_size);
+        StartMenu->AddItem(tr("Formatter"), "usbstorage.png");
+	StartMenu->AddItem(tr("Settings"), "settings.png");
+	StartMenu->AddItem(tr("FTP Server"), "network.png");
+	StartMenu->AddItem(tr("Reload"), "refresh.png");
+    StartMenu->AddItem(tr("Restart"), "system_restart.png");
+    StartMenu->AddItem(tr("Exit"), "system_log_out.png");
 
 	StartMenu->Finish();
 

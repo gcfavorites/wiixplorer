@@ -31,7 +31,7 @@
 #include "libwiigui/gui.h"
 #include "DirList.h"
 
-class ImageViewer : public GuiWindow
+class ImageViewer : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         //!Constructor
@@ -69,7 +69,7 @@ class ImageViewer : public GuiWindow
         //!\param path Path from where to load the filelist of all images or the image itself
         virtual bool LoadImageList(const char * filepath);
         //!OnButtonClick intern callback for buttonclicks.
-        virtual void OnButtonClick(GuiElement *sender, int pointer, POINT p);
+        virtual void OnButtonClick(GuiButton *sender, int pointer, POINT p);
 		//!Variables of the ImageViewer
         DirList * imageDir;
         int currentImage;

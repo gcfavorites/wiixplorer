@@ -39,7 +39,7 @@ class GuiButton : public GuiElement
 		//!\param h Height
 		GuiButton(int w, int h);
 		//!Destructor
-		~GuiButton();
+		virtual ~GuiButton();
 		//!Sets the button's size
 		void SetSize(int w, int h);
 		//!Sets the button's image
@@ -91,6 +91,10 @@ class GuiButton : public GuiElement
 		//!Sets the sound to play on click
 		//!\param s Pointer to GuiSound object
 		void SetSoundClick(GuiSound * s);
+		//!Sets the element's state
+		//!\param s State (STATE_DEFAULT, STATE_SELECTED, STATE_CLICKED, STATE_DISABLED)
+		//!\param c Controller channel (0-3, -1 = none)
+		virtual void SetState(int s, int c = -1);
 		//!Sets a tooltip that should popup after a few seconds
 		void SetTooltip(GuiTooltip * t);
 		//!Image cutoffs
@@ -103,6 +107,9 @@ class GuiButton : public GuiElement
 		//!Constantly called to allow the GuiButton to respond to updated input data
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
 		void Update(GuiTrigger * t);
+		sigslot::signal3<GuiButton *, int, POINT> Clicked;
+		sigslot::signal3<GuiButton *, int, POINT> Held;
+		sigslot::signal2<GuiButton *, int> Released;
 	protected:
 		GuiImage * image; //!< Button image (default)
 		GuiImage * imageOver; //!< Button image for STATE_SELECTED

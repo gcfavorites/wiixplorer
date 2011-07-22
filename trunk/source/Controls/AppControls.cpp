@@ -65,6 +65,7 @@ void AppControls::SetDefault()
     WiiControls.ZoomIn = WPAD_BUTTON_PLUS;
     WiiControls.ZoomOut = WPAD_BUTTON_MINUS;
     WiiControls.UpInDirectory = WPAD_BUTTON_B;
+    WiiControls.OneButtonScroll = 0x0000;
 
     ClassicControls.ClickButton = WPAD_CLASSIC_BUTTON_A >> 16;
     ClassicControls.BackButton = WPAD_CLASSIC_BUTTON_B >> 16;
@@ -84,6 +85,7 @@ void AppControls::SetDefault()
     ClassicControls.ZoomIn = WPAD_CLASSIC_BUTTON_PLUS >> 16;
     ClassicControls.ZoomOut = WPAD_CLASSIC_BUTTON_MINUS >> 16;
     ClassicControls.UpInDirectory = WPAD_CLASSIC_BUTTON_B >> 16;
+    ClassicControls.OneButtonScroll = 0x0000;
 
     GCControls.ClickButton = PAD_BUTTON_A;
     GCControls.BackButton = PAD_BUTTON_B;
@@ -103,6 +105,7 @@ void AppControls::SetDefault()
     GCControls.ZoomIn = PAD_TRIGGER_R;
     GCControls.ZoomOut = PAD_TRIGGER_L;
     GCControls.UpInDirectory = PAD_BUTTON_B;
+    GCControls.OneButtonScroll = 0x0000;
 }
 
 bool AppControls::Load(const char * filepath)

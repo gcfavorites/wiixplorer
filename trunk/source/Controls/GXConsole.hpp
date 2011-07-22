@@ -35,7 +35,7 @@ class GXConsole : public GuiElement
         //!Constructor
         GXConsole(int w, int h);
         //!Destructor
-        ~GXConsole();
+        virtual ~GXConsole();
         //!formated print
 		void printf(const char *format, ...) __attribute__((format(printf,2,3)));
         //!clear console

@@ -38,7 +38,7 @@ class GuiImageData
 		//!\param imgSize The image size
 		GuiImageData(const u8 * img, int imgSize);
 		//!Destructor
-		~GuiImageData();
+		virtual ~GuiImageData();
 		//!Gets a pointer to the image data
 		//!\return pointer to image data
 		u8 * GetImage() { return data ? data : AnimGif ? AnimGif->GetFrameImage(0) : NULL; };

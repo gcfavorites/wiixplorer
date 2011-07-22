@@ -40,7 +40,6 @@
 #include "FileOperations/filebrowser.h"
 #include "menu.h"
 #include "main.h"
-#include "filelist.h"
 #include "Controls/MainWindow.h"
 #include "Tools/StringTools.h"
 #include "TextOperations/wstring.hpp"
@@ -70,9 +69,9 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 
 	GuiKeyboard keyboard(var, maxlen);
 
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-	GuiImageData * btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
+	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
+	GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiImageData * btnOutlineOver = Resources::GetImageData("button_over.png");
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 

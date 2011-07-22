@@ -124,14 +124,12 @@ char * HTML_Stream::CopyString(const char * stopat)
 
     u32 blocksize = 1024;
     u32 counter = 0;
-    u32 allocatedsize = 0;
 
     char * outtext = (char*) malloc(blocksize);
     if(!outtext)
         return NULL;
 
     u32 stopatLength = strlen(stopat);
-    allocatedsize = blocksize;
     memset(outtext, 0, blocksize);
 
     while ((htmlstringcompare(HTML_File, stopat, position) != 0) && (position+stopatLength < filesize))

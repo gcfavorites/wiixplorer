@@ -48,6 +48,7 @@ typedef struct _Controls
     u16     ZoomIn;
     u16     ZoomOut;
     u16     UpInDirectory;
+    u16     OneButtonScroll;
 } ControlItems;
 
 class AppControls

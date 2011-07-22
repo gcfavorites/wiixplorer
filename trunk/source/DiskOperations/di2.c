@@ -51,8 +51,6 @@ distribution.
 
 extern int di_fd;
 
-int _DI2_ReadDVD_ReadID(void* buf, uint32_t len, uint32_t lba);
-int _DI2_ReadDVD_ReadID_Async(void* buf, uint32_t len, uint32_t lba, ipccallback ipc_cb);
 void _DI2_SetCallback(int di_command, ipccallback);
 int _DI2_ReadDVD_Check(void* buf, uint32_t len, uint32_t lba);
 static int _cover_callback(int ret, void* usrdata);
@@ -348,9 +346,6 @@ static int ReadBlockFromCache(void *buf, uint32_t len, uint32_t block)
 /*
  Initialize the DI interface, should always be called first!
  */
-
-s32 __DI_StubLaunch();
-
 int DI2_Init()
 {
     LoadedIOS = (u8) IOS_GetVersion();

@@ -3,8 +3,8 @@
   <name>WiiXplorer</name>
   <coder>Dimok</coder>
   <contributors>r-win/dude</contributors>
-  <version>r212</version>
-  <release_date>201101161923</release_date>
+  <version>r213</version>
+  <release_date>201107222259</release_date>
   <no_ios_reload/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.

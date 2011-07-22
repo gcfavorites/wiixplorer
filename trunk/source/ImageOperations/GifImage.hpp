@@ -46,7 +46,7 @@ class GifImage
 {
     public:
         GifImage(const u8 * img, int imgSize);
-        ~GifImage();
+        virtual ~GifImage();
         void LoadImage(const u8 * img, int imgSize);
         u8 * GetFrameImage(int pos);
         int GetWidth() { return MainWidth; };

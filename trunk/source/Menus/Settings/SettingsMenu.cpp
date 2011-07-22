@@ -36,11 +36,11 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
     Options = opts;
     returnToMenu = returnTo;
 
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnSoundClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    btnOutline = Resources::GetImageData(button_png, button_png_size);
-    btnOutlineOver = Resources::GetImageData(button_over_png, button_over_png_size);
+    btnOutline = Resources::GetImageData("button.png");
+    btnOutlineOver = Resources::GetImageData("button_over.png");
 
     trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
@@ -126,7 +126,7 @@ int SettingsMenu::GetMenu()
     return menu;
 }
 
-void SettingsMenu::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void SettingsMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

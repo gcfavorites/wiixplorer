@@ -58,21 +58,21 @@ typedef struct
 //	bool SubMenu;
 } Items;
 
-class PopUpMenu : public GuiWindow
+class PopUpMenu : public GuiWindow, public sigslot::has_slots<>
 {
 	public:
 		PopUpMenu(int x, int y);
-		~PopUpMenu();
+		virtual ~PopUpMenu();
 		int GetChoice();
 		int GetWidth() { return width; }
 		int GetHeight() { return height; }
-		void AddItem(const char *text, const u8 *icon = NULL, u32 iconsize = 0, bool submenu = false);
+		void AddItem(const char *text, const char *icon = NULL, bool submenu = false);
 		void Finish();
         void Update(GuiTrigger * t) { GuiWindow::Update(t); ++ScrollState; }
 	private:
-		void OnClick(GuiElement *sender, int pointer, POINT p);
-		void OnScrollUp(GuiElement *sender, int pointer, POINT p);
-		void OnScrollDown(GuiElement *sender, int pointer, POINT p);
+		void OnClick(GuiButton *sender, int pointer, POINT p);
+		void OnScrollUp(GuiButton *sender, int pointer, POINT p);
+		void OnScrollDown(GuiButton *sender, int pointer, POINT p);
 		void Scroll(int direction);
 
 		std::vector<Items> Item;

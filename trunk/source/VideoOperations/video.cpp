@@ -100,7 +100,7 @@ ResetVideo_Menu()
 
 	GX_SetNumChans(1);
 	GX_SetNumTexGens(1);
-	GX_SetTevOp (GX_TEVSTAGE0, GX_PASSCLR);
+	GX_SetTevOp (GX_TEVSTAGE0, GX_MODULATE);
 	GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLOR0A0);
 	GX_SetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_IDENTITY);
 
@@ -517,7 +517,6 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 	GX_LoadTexObj(&texObj, GX_TEXMAP0);
 	GX_InvalidateTexAll();
 
-	GX_SetTevOp (GX_TEVSTAGE0, GX_MODULATE);
 	GX_SetVtxDesc (GX_VA_TEX0, GX_DIRECT);
 
 	Mtx m,m1,m2, mv;
@@ -567,9 +566,6 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 	GX_TexCoord2f32(u3, u4);
 	GX_End();
 	GX_LoadPosMtxImm (GXmodelView2D, GX_PNMTX0);
-
-	GX_SetTevOp (GX_TEVSTAGE0, GX_PASSCLR);
-	GX_SetVtxDesc (GX_VA_TEX0, GX_NONE);
 }
 
 /****************************************************************************
@@ -579,6 +575,9 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
  ***************************************************************************/
 void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * color, bool multicolor, bool filled)
 {
+	GX_SetTevOp (GX_TEVSTAGE0, GX_PASSCLR);
+	GX_SetVtxDesc (GX_VA_TEX0, GX_NONE);
+
     u8 fmt = GX_TRIANGLEFAN;
 	long n = 4;
 	f32 x2 = x+width;
@@ -602,4 +601,6 @@ void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * co
             GX_Color4u8(color[0].r, color[0].g, color[0].b, color[0].a);
 	}
 	GX_End();
+
+	GX_SetTevOp (GX_TEVSTAGE0, GX_MODULATE);
 }

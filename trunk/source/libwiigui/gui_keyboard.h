@@ -15,12 +15,12 @@ typedef struct _keyrowtype
 } KeyboardRow;
 
 //!On-screen keyboard
-class GuiKeyboard : public GuiWindow
+class GuiKeyboard : public GuiWindow, public sigslot::has_slots<>
 {
 	public:
         GuiKeyboard(const char * t, u32 max);
 		GuiKeyboard(const wchar_t * t, u32 max);
-		~GuiKeyboard();
+		virtual ~GuiKeyboard();
         const wchar_t * GetString();
 		std::string GetUTF8String() const;
         void AddChar(int pos, wchar_t Char);
@@ -31,8 +31,8 @@ class GuiKeyboard : public GuiWindow
         void SetupKeyboard(const wchar_t * t, u32 max);
         void MoveText(int n);
         const wchar_t * GetDisplayText(const wString * ws);
-        void OnPointerHeld(GuiElement *sender, int pointer, POINT p);
-        void OnPositionMoved(GuiElement *sender, int pointer, POINT p);
+        void OnPointerHeld(GuiButton *sender, int pointer, POINT p);
+        void OnPositionMoved(GuiButton *sender, int pointer, POINT p);
 
         u32 DeleteDelay;
         int CurrentFirstLetter;

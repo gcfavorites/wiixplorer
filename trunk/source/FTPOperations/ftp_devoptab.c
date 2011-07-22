@@ -1986,7 +1986,7 @@ static bool ReadFTPFromCache(void *buf, off_t len, FTPFILESTRUCT *file)
 {
 	int leastUsed;
 	u32 i;
-	
+
 	off_t rest;
 	off_t new_offset;
 
@@ -2101,6 +2101,7 @@ static bool ReadFTPFromCache(void *buf, off_t len, FTPFILESTRUCT *file)
 	FTPReadAheadCache[leastUsed].file = file;
 
 	goto continue_read;
+	return false;
 }
 
 

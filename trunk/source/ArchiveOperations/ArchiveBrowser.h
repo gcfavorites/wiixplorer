@@ -44,7 +44,7 @@ class ArchiveBrowser : public Browser
         ArchiveBrowser(const char * filepath);
         ArchiveBrowser(ArchiveHandle * archive);
         //!Destructor
-        ~ArchiveBrowser();
+        virtual ~ArchiveBrowser();
         //!Execute the current selected item
         int ExecuteCurrent(char * filepath);
         //!Add new items into a destination path

@@ -63,7 +63,7 @@ class FileBrowser : public Browser
 {
     public:
         FileBrowser();
-        ~FileBrowser();
+        virtual ~FileBrowser();
         int BrowsePath(const char *path);
         int BrowseDevice(int device);
         void SetPageIndex(int ind);

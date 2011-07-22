@@ -4,11 +4,11 @@
 
 
 //!Display a list of menu options
-class GuiOptionBrowser : public GuiElement
+class GuiOptionBrowser : public GuiElement, public sigslot::has_slots<>
 {
 	public:
 		GuiOptionBrowser(int w, int h, OptionList * l);
-		~GuiOptionBrowser();
+		virtual ~GuiOptionBrowser();
 		void SetCol2Position(int x);
 		int FindMenuItem(int c, int d);
 		int GetClickedOption();
@@ -17,6 +17,7 @@ class GuiOptionBrowser : public GuiElement
 		void TriggerUpdate();
 		void Update(GuiTrigger * t);
 	protected:
+		void OnListChange(int selItem, int selIndex);
         void OnStateChange(GuiElement *sender, int state, int chan);
 		int selectedItem;
 		int listOffset;

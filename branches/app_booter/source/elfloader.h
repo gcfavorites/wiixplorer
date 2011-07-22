@@ -1,8 +1,6 @@
 #ifndef _ELFLOADER_H_
 #define _ELFLOADER_H_
 
-#include <wiiuse/wpad.h>
-
 #ifdef __cplusplus
 extern "C"
 {

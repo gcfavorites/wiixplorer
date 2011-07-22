@@ -218,7 +218,7 @@ bool DeviceHandler::MountGCB()
     }
 
     //! Mount only one Partition
-    return gcb->Mount(0, DeviceName[GCSDB]);;
+    return gcb->Mount(0, DeviceName[GCSDB]);
 }
 
 bool DeviceHandler::MountUSB(int pos)

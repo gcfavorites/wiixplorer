@@ -42,7 +42,6 @@
 #include "DirList.h"
 #include "main.h"
 #include "menu.h"
-#include "filelist.h"
 #include "sys.h"
 
 /****************************************************************************
@@ -99,9 +98,9 @@ int LanguageBrowser()
         options.SetValue(i, " ");
 	}
 
-	GuiSound * btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	GuiImageData * btnOutline = Resources::GetImageData(button_png, button_png_size);
-	GuiImageData * btnNetworkData = Resources::GetImageData(ftpstorage_png, ftpstorage_png_size);
+	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
+	GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiImageData * btnNetworkData = Resources::GetImageData("ftpstorage.png");
 
 	GuiTrigger trigA;
 	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);

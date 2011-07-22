@@ -43,18 +43,18 @@ PartitionFormatterGui::PartitionFormatterGui()
     ActiveRequested = false;
     Device = NULL;
 
-	btnClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
+	btnClick = Resources::GetSound("button_click.wav");
+	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    bgWindow = Resources::GetImageData(bg_properties_png, bg_properties_png_size);
+    bgWindow = Resources::GetImageData("bg_properties.png");
     bgWindowImg = new GuiImage(bgWindow);
     width = bgWindow->GetWidth();
     height = bgWindow->GetHeight();
     Append(bgWindowImg);
 
-    btnOutline = Resources::GetImageData(small_button_png, small_button_png_size);
-    CloseImgData = Resources::GetImageData(close_png, close_png_size);
-    CloseImgOverData = Resources::GetImageData(close_over_png, close_over_png_size);
+    btnOutline = Resources::GetImageData("small_button.png");
+    CloseImgData = Resources::GetImageData("close.png");
+    CloseImgOverData = Resources::GetImageData("close_over.png");
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
@@ -381,7 +381,7 @@ void PartitionFormatterGui::SetDevice()
     DeviceOption.SetOptionValue(1, fmt("%i", CurPart+1));
 }
 
-void PartitionFormatterGui::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void PartitionFormatterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 {
     sender->ResetState();
 

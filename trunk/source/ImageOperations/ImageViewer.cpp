@@ -204,8 +204,8 @@ int ImageViewer::MainUpdate()
  			pointerY = userInput[i].wpad->ir.y;
 		}
 
-		if ((userInput[i].wpad->btns_u & WiiControls.ClickButton ||
-             userInput[i].wpad->btns_u & (ClassicControls.ClickButton << 16))
+		if (((userInput[i].wpad->btns_u & WiiControls.ClickButton) ||
+             (userInput[i].wpad->btns_u & (ClassicControls.ClickButton << 16)))
              && isAButtonPressed[i])
 		{
 			MainWindow::Instance()->ResetPointer(i);
@@ -443,14 +443,14 @@ void ImageViewer::StopSlideShow()
     Insert(backGround, 0);
 }
 
-void ImageViewer::OnButtonClick(GuiElement *sender, int pointer UNUSED, POINT p)
+void ImageViewer::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p)
 {
     if (sender == moveButton && image)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			if ((userInput[i].wpad->btns_h & WiiControls.ClickButton ||
-                 userInput[i].wpad->btns_h & (ClassicControls.ClickButton << 16))
+			if (((userInput[i].wpad->btns_h & WiiControls.ClickButton) ||
+                 (userInput[i].wpad->btns_h & (ClassicControls.ClickButton << 16)))
                  && !isAButtonPressed[i])
 			{
 				MainWindow::Instance()->SetGrabPointer(i);
@@ -615,8 +615,8 @@ void ImageViewer::Setup()
 
 	Append(backGround);
 
-	backButtonData = Resources::GetImageData(back_png, back_png_size);
-	backButtonOverData = Resources::GetImageData(back_over_png, back_over_png_size);
+	backButtonData = Resources::GetImageData("back.png");
+	backButtonOverData = Resources::GetImageData("back_over.png");
 	backButtonImage = new GuiImage(backButtonData);
 	backButtonOverImage = new GuiImage(backButtonOverData);
 
@@ -630,8 +630,8 @@ void ImageViewer::Setup()
     backButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 	Append(backButton);
 
-	zoominButtonData = Resources::GetImageData(zoomin_png, zoomin_png_size);
-	zoominButtonOverData = Resources::GetImageData(zoomin_over_png, zoomin_over_png_size);
+	zoominButtonData = Resources::GetImageData("zoomin.png");
+	zoominButtonOverData = Resources::GetImageData("zoomin_over.png");
 	zoominButtonImage = new GuiImage(zoominButtonData);
 	zoominButtonOverImage = new GuiImage(zoominButtonOverData);
 
@@ -645,8 +645,8 @@ void ImageViewer::Setup()
 	zoominButton->SetTrigger(trigPlus_Held);
 	Append(zoominButton);
 
-	zoomoutButtonData = Resources::GetImageData(zoomout_png, zoomout_png_size);
-	zoomoutButtonOverData = Resources::GetImageData(zoomout_over_png, zoomout_over_png_size);
+	zoomoutButtonData = Resources::GetImageData("zoomout.png");
+	zoomoutButtonOverData = Resources::GetImageData("zoomout_over.png");
 	zoomoutButtonImage = new GuiImage(zoomoutButtonData);
 	zoomoutButtonOverImage = new GuiImage(zoomoutButtonOverData);
 
@@ -660,8 +660,8 @@ void ImageViewer::Setup()
 	zoomoutButton->SetTrigger(trigMinus_Held);
 	Append(zoomoutButton);
 
-	rotateRButtonData = Resources::GetImageData(rotateR_png, rotateR_png_size);
-	rotateRButtonOverData = Resources::GetImageData(rotateR_over_png, rotateR_over_png_size);
+	rotateRButtonData = Resources::GetImageData("rotateR.png");
+	rotateRButtonOverData = Resources::GetImageData("rotateR_over.png");
 	rotateRButtonImage = new GuiImage(rotateRButtonData);
 	rotateRButtonOverImage = new GuiImage(rotateRButtonOverData);
 
@@ -676,8 +676,8 @@ void ImageViewer::Setup()
 
 	Append(rotateRButton);
 
-	rotateLButtonData = Resources::GetImageData(rotateL_png, rotateL_png_size);
-	rotateLButtonOverData = Resources::GetImageData(rotateL_over_png, rotateL_over_png_size);
+	rotateLButtonData = Resources::GetImageData("rotateL.png");
+	rotateLButtonOverData = Resources::GetImageData("rotateL_over.png");
 	rotateLButtonImage = new GuiImage(rotateLButtonData);
 	rotateLButtonOverImage = new GuiImage(rotateLButtonOverData);
 
@@ -691,8 +691,8 @@ void ImageViewer::Setup()
     rotateLButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 	Append(rotateLButton);
 
-    nextButtonData = Resources::GetImageData(next_png, next_png_size);
-    nextButtonOverData = Resources::GetImageData(next_over_png, next_over_png_size);
+    nextButtonData = Resources::GetImageData("next.png");
+    nextButtonOverData = Resources::GetImageData("next_over.png");
     nextButtonImage = new GuiImage(nextButtonData);
     nextButtonOverImage = new GuiImage(nextButtonOverData);
 
@@ -705,8 +705,8 @@ void ImageViewer::Setup()
     nextButton->SetTrigger(trigNext);
     Append(nextButton);
 
-    prevButtonData = Resources::GetImageData(prev_png, prev_png_size);
-    prevButtonOverData = Resources::GetImageData(prev_over_png, prev_over_png_size);
+    prevButtonData = Resources::GetImageData("prev.png");
+    prevButtonOverData = Resources::GetImageData("prev_over.png");
     prevButtonImage = new GuiImage(prevButtonData);
     prevButtonOverImage = new GuiImage(prevButtonOverData);
 
@@ -719,8 +719,8 @@ void ImageViewer::Setup()
     prevButton->SetTrigger(trigPrev);
     Append(prevButton);
 
-    slideshowButtonData = Resources::GetImageData(slideshow_png, slideshow_png_size);
-    slideshowButtonOverData = Resources::GetImageData(slideshow_over_png, slideshow_over_png_size);
+    slideshowButtonData = Resources::GetImageData("slideshow.png");
+    slideshowButtonOverData = Resources::GetImageData("slideshow_over.png");
     slideshowButtonImage = new GuiImage(slideshowButtonData);
     slideshowButtonOverImage = new GuiImage(slideshowButtonOverData);
 
@@ -749,7 +749,7 @@ void ImageViewer::Setup()
 
 	Append(moveButton);
 
-    trashImgData = Resources::GetImageData(trash_png, trash_png_size);
+    trashImgData = Resources::GetImageData("trash.png");
     trashImg = new GuiImage(trashImgData);
     trashImg->SetAlpha(120);
     trashImg->SetScale(1.1);

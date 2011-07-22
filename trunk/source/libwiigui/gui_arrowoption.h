@@ -30,11 +30,11 @@
 
 using namespace std;
 
-class GuiArrowOption : public GuiWindow
+class GuiArrowOption : public GuiWindow, public sigslot::has_slots<>
 {
     public:
         GuiArrowOption();
-        ~GuiArrowOption();
+        virtual ~GuiArrowOption();
         void AddOption(const char * name, int PositionX, int PositionY);
         void SetOptionName(int i, const char * text);
         void SetOptionValue(int i, const char * text);
@@ -49,9 +49,9 @@ class GuiArrowOption : public GuiWindow
 		sigslot::signal3<GuiElement *, int, POINT> ClickedRight;
 		sigslot::signal3<GuiElement *, int, POINT> ClickedButton;
     protected:
-		void OnButtonClick(GuiElement *sender, int pointer, POINT p);
-		void OnRightButtonClick(GuiElement *sender, int pointer, POINT p);
-		void OnLeftButtonClick(GuiElement *sender, int pointer, POINT p);
+		void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+		void OnRightButtonClick(GuiButton *sender, int pointer, POINT p);
+		void OnLeftButtonClick(GuiButton *sender, int pointer, POINT p);
 
         GuiSound * btnClick;
         GuiSound * btnSoundOver;

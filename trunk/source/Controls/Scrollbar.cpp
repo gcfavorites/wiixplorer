@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2010
+ * Copyright (C) 2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,12 +20,10 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * for WiiXplorer 2010
  ***************************************************************************/
 #include "Memory/Resources.h"
 #include "Scrollbar.hpp"
-#include "main.h"
+#include "Tools/tools.h"
 
 Scrollbar::Scrollbar(int h, u8 m)
 {
@@ -34,53 +32,60 @@ Scrollbar::Scrollbar(int h, u8 m)
     RowSize = 0;
     PageSize = 0;
     EntrieCount = 0;
-    ScrollSpeed = Settings.ScrollSpeed;
+    ScrollSpeed = 15;
+    ButtonScroll = 0;
+    ButtonScrollSpeed = 20;
     ScrollState = 0;
-    listchanged = false;
+    pressedChan = -1;
+    AllowDPad = true;
     Mode = m;
+    listChanged.connect(this, &Scrollbar::setScrollboxPosition);
 
-	btnSoundOver = Resources::GetSound(button_over_wav, button_over_wav_size);
-	btnSoundClick = Resources::GetSound(button_click_wav, button_click_wav_size);
-
-    scrollbarTop = Resources::GetImageData(ScrollBG_Top_png, ScrollBG_Top_png_size);
-    scrollbarButtom = Resources::GetImageData(ScrollBG_Buttom_png, ScrollBG_Buttom_png_size);
-    scrollbarTile = Resources::GetImageData(ScrollBG_Tile_png, ScrollBG_Tile_png_size);
-	arrowDown = Resources::GetImageData(scrollbar_arrowdown_png, scrollbar_arrowdown_png_size);
-	arrowDownOver = Resources::GetImageData(scrollbar_arrowdown_over_png, scrollbar_arrowdown_over_png_size);
-	arrowUp = Resources::GetImageData(scrollbar_arrowup_png, scrollbar_arrowup_png_size);
-	arrowUpOver = Resources::GetImageData(scrollbar_arrowup_over_png, scrollbar_arrowup_over_png_size);
-	scrollbarBox = Resources::GetImageData(scrollbar_box_png, scrollbar_box_png_size);
-	scrollbarBoxOver = Resources::GetImageData(scrollbar_box_over_png, scrollbar_box_over_png_size);
+	btnSoundOver = Resources::GetSound("button_over.wav");
+	btnSoundClick = Resources::GetSound("button_click.wav");
+    scrollbarTop = Resources::GetImageData("scrollBarTop.png");
+    scrollbarBottom = Resources::GetImageData("scrollBarBottom.png");
+    scrollbarTile = Resources::GetImageData("scrollBarTile.png");
+	arrowDown = Resources::GetImageData("scrollbar_arrowdown.png");
+	arrowDownOver = Resources::GetImageData("scrollbar_arrowdown_over.png");
+	arrowUp = Resources::GetImageData("scrollbar_arrowup.png");
+	arrowUpOver = Resources::GetImageData("scrollbar_arrowup_over.png");
+	scrollbarBox = Resources::GetImageData("scrollbar_box.png");
+	scrollbarBoxOver = Resources::GetImageData("scrollbar_box_over.png");
+	oneButtonScrollImgData = Resources::GetImageData("oneButtonScroll.png");
 
     height = h;
-    width = scrollbarTop->GetWidth();
+    width = MAX(scrollbarBox->GetWidth(), scrollbarTile->GetWidth());
 
-    MinHeight = arrowUp->GetHeight()-7;
-    MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight()/2-7;
+    MinHeight = arrowUp->GetHeight();
+    MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight();
 
 	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
 
-    int Tiles = (height-40-scrollbarTop->GetHeight()-scrollbarButtom->GetHeight())/4;
-    int PositionY = 25;
+    int Tiles = (height-scrollbarTop->GetHeight()-scrollbarBottom->GetHeight())/4;
+    int PositionY = 0;
+    ButtonPositionX = 0;
+
+    oneButtonScrollImg = new GuiImage(oneButtonScrollImgData);
 
 	scrollbarTopImg = new GuiImage(scrollbarTop);
 	scrollbarTopImg->SetParent(this);
-	scrollbarTopImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	scrollbarTopImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	scrollbarTopImg->SetPosition(0, PositionY);
 	PositionY += scrollbarTop->GetHeight();
 
 	scrollbarTileImg = new GuiImage(scrollbarTile);
 	scrollbarTileImg->SetParent(this);
-	scrollbarTileImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	scrollbarTileImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	scrollbarTileImg->SetPosition(0, PositionY);
 	scrollbarTileImg->SetTileVertical(Tiles);
 	PositionY += Tiles*scrollbarTile->GetHeight();
 
-	scrollbarButtomImg = new GuiImage(scrollbarButtom);
-	scrollbarButtomImg->SetParent(this);
-	scrollbarButtomImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	scrollbarButtomImg->SetPosition(0, PositionY);
+	scrollbarBottomImg = new GuiImage(scrollbarBottom);
+	scrollbarBottomImg->SetParent(this);
+	scrollbarBottomImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarBottomImg->SetPosition(0, PositionY);
 
 	arrowDownImg = new GuiImage(arrowDown);
 	arrowDownOverImg = new GuiImage(arrowDownOver);
@@ -93,8 +98,8 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowUpBtn->SetParent(this);
 	arrowUpBtn->SetImage(arrowUpImg);
 	arrowUpBtn->SetImageOver(arrowUpOverImg);
-	arrowUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	arrowUpBtn->SetPosition(0, 0);
+	arrowUpBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	arrowUpBtn->SetPosition(ButtonPositionX, 0);
 	arrowUpBtn->SetHoldable(true);
 	arrowUpBtn->SetTrigger(trigHeldA);
 	arrowUpBtn->SetSoundOver(btnSoundOver);
@@ -105,8 +110,8 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowDownBtn->SetParent(this);
 	arrowDownBtn->SetImage(arrowDownImg);
 	arrowDownBtn->SetImageOver(arrowDownOverImg);
-	arrowDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	arrowDownBtn->SetPosition(0, 0);
+	arrowDownBtn->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	arrowDownBtn->SetPosition(ButtonPositionX, 0);
 	arrowDownBtn->SetHoldable(true);
 	arrowDownBtn->SetTrigger(trigHeldA);
 	arrowDownBtn->SetSoundOver(btnSoundOver);
@@ -117,8 +122,8 @@ Scrollbar::Scrollbar(int h, u8 m)
 	scrollbarBoxBtn->SetParent(this);
 	scrollbarBoxBtn->SetImage(scrollbarBoxImg);
 	scrollbarBoxBtn->SetImageOver(scrollbarBoxOverImg);
-	scrollbarBoxBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	scrollbarBoxBtn->SetPosition(0, MinHeight);
+	scrollbarBoxBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarBoxBtn->SetPosition(ButtonPositionX, MinHeight);
 	scrollbarBoxBtn->SetMinY(MinHeight);
 	scrollbarBoxBtn->SetMaxY(MaxHeight);
 	scrollbarBoxBtn->SetHoldable(true);
@@ -131,7 +136,7 @@ Scrollbar::~Scrollbar()
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnSoundClick);
 	Resources::Remove(scrollbarTop);
-	Resources::Remove(scrollbarButtom);
+	Resources::Remove(scrollbarBottom);
 	Resources::Remove(scrollbarTile);
 	Resources::Remove(arrowDown);
 	Resources::Remove(arrowDownOver);
@@ -139,13 +144,14 @@ Scrollbar::~Scrollbar()
 	Resources::Remove(arrowUpOver);
 	Resources::Remove(scrollbarBox);
 	Resources::Remove(scrollbarBoxOver);
+	Resources::Remove(oneButtonScrollImgData);
 
 	delete arrowUpBtn;
 	delete arrowDownBtn;
 	delete scrollbarBoxBtn;
 
 	delete scrollbarTopImg;
-	delete scrollbarButtomImg;
+	delete scrollbarBottomImg;
 	delete scrollbarTileImg;
 	delete arrowDownImg;
 	delete arrowDownOverImg;
@@ -153,15 +159,13 @@ Scrollbar::~Scrollbar()
 	delete arrowUpOverImg;
 	delete scrollbarBoxImg;
 	delete scrollbarBoxOverImg;
+	delete oneButtonScrollImg;
 
 	delete trigHeldA;
 }
 
-void Scrollbar::OnUpButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void Scrollbar::ScrollOneUp()
 {
-    if(ScrollState < ScrollSpeed)
-        return;
-
     if(Mode == ICONMODE)
     {
         if(SelInd+SelItem-RowSize >= 0)
@@ -187,16 +191,10 @@ void Scrollbar::OnUpButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, PO
 			--SelItem;
 		}
     }
-
-    ScrollState = 0;
-    listchanged = true;
 }
 
-void Scrollbar::OnDownButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void Scrollbar::ScrollOneDown()
 {
-    if(ScrollState < ScrollSpeed)
-        return;
-
     if(Mode == ICONMODE)
     {
         int i = RowSize;
@@ -231,12 +229,31 @@ void Scrollbar::OnDownButtonHold(GuiElement *sender UNUSED, int pointer UNUSED, 
 			}
 		}
     }
-
-    ScrollState = 0;
-    listchanged = true;
 }
 
-void Scrollbar::OnBoxButtonHold(GuiElement *sender, int pointer, POINT p)
+void Scrollbar::OnUpButtonHold(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+{
+    if(ScrollState < ScrollSpeed)
+        return;
+
+    ScrollOneUp();
+
+    ScrollState = 0;
+    listChanged(SelItem, SelInd);
+}
+
+void Scrollbar::OnDownButtonHold(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+{
+    if(ScrollState < ScrollSpeed)
+        return;
+
+    ScrollOneDown();
+
+    ScrollState = 0;
+    listChanged(SelItem, SelInd);
+}
+
+void Scrollbar::OnBoxButtonHold(GuiButton *sender UNUSED, int pointer, POINT p)
 {
     if(ScrollState < ScrollSpeed)
         return;
@@ -244,9 +261,9 @@ void Scrollbar::OnBoxButtonHold(GuiElement *sender, int pointer, POINT p)
     if(!userInput[pointer].wpad->ir.valid)
         return;
 
-    p.y = p.y+sender->GetTop()-this->GetTop()-scrollbarBox->GetHeight()/2;
+    int y = p.y-this->GetTop()-scrollbarBox->GetHeight()/2;
 
-    int positionWiimote = cut_bounds(p.y-MinHeight, 0, MaxHeight-MinHeight);
+    int positionWiimote = cut_bounds(y-MinHeight, 0, MaxHeight-MinHeight);
 
     int newSelected = (int) ((float) positionWiimote / (float) (MaxHeight-MinHeight) * (float) (EntrieCount-1));
 
@@ -271,15 +288,31 @@ void Scrollbar::OnBoxButtonHold(GuiElement *sender, int pointer, POINT p)
         int diff = newSelected-SelInd-SelItem;
 
         if(newSelected <= 0)
+        {
             SelItem = 0;
+            SelInd = 0;
+        }
         else if(newSelected >= EntrieCount-1)
+        {
             SelItem = (PageSize-1 < EntrieCount-1) ? PageSize-1 : EntrieCount-1;
-
-        SelInd = cut_bounds(SelInd+diff, 0, ((EntrieCount-PageSize < 0) ? 0 : EntrieCount-PageSize));
+            SelInd = EntrieCount-PageSize;
+        }
+        else if(newSelected < PageSize && SelInd == 0 && diff < 0)
+        {
+            SelItem = MAX(SelItem+diff, 0);
+        }
+        else if(EntrieCount-newSelected < PageSize && SelInd == EntrieCount-PageSize && diff > 0)
+        {
+            SelItem = MIN(SelItem+diff, PageSize-1);
+        }
+        else
+        {
+            SelInd = cut_bounds(SelInd+diff, 0, ((EntrieCount-PageSize < 0) ? 0 : EntrieCount-PageSize));
+        }
     }
 
     ScrollState = 0;
-    listchanged = true;
+    listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetPageSize(int size)
@@ -288,7 +321,7 @@ void Scrollbar::SetPageSize(int size)
         return;
 
     PageSize = size;
-	SetScrollboxPosition();
+	listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetRowSize(int size)
@@ -297,7 +330,7 @@ void Scrollbar::SetRowSize(int size)
         return;
 
     RowSize = size;
-	SetScrollboxPosition();
+	listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetSelectedItem(int pos)
@@ -306,7 +339,7 @@ void Scrollbar::SetSelectedItem(int pos)
         return;
 
     SelItem = pos;
-	SetScrollboxPosition();
+	listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetSelectedIndex(int pos)
@@ -315,7 +348,7 @@ void Scrollbar::SetSelectedIndex(int pos)
         return;
 
     SelInd = pos;
-	SetScrollboxPosition();
+	listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetEntrieCount(int cnt)
@@ -324,18 +357,10 @@ void Scrollbar::SetEntrieCount(int cnt)
         return;
 
     EntrieCount = cnt;
-	SetScrollboxPosition();
+	listChanged(SelItem, SelInd);
 }
 
-bool Scrollbar::ListChanged()
-{
-    bool ret = listchanged;
-    listchanged = false;
-
-    return ret;
-}
-
-void Scrollbar::SetScrollboxPosition()
+void Scrollbar::setScrollboxPosition(int SelItem, int SelInd)
 {
     if(Mode == ICONMODE)
     {
@@ -348,7 +373,7 @@ void Scrollbar::SetScrollboxPosition()
         else if(position > MaxHeight || ((SelInd+PageSize >= (EntrieCount-1)) && row > 1))
             position = MaxHeight;
 
-        scrollbarBoxBtn->SetPosition(0, position);
+        scrollbarBoxBtn->SetPosition(ButtonPositionX, position);
     }
     else if(Mode == LISTMODE)
     {
@@ -359,72 +384,88 @@ void Scrollbar::SetScrollboxPosition()
         else if(position > MaxHeight || (SelInd+SelItem >= EntrieCount-1))
             position = MaxHeight;
 
-        scrollbarBoxBtn->SetPosition(0, position);
+        scrollbarBoxBtn->SetPosition(ButtonPositionX, position);
     }
 }
 
-void Scrollbar::SetMinWidth(int w)
+void Scrollbar::CheckDPadControls(GuiTrigger *t)
 {
-    scrollbarTopImg->SetMinWidth(w);
-	scrollbarButtomImg->SetMinWidth(w);
-	scrollbarTileImg->SetMinWidth(w);
-	arrowDownImg->SetMinWidth(w);
-	arrowDownOverImg->SetMinWidth(w);
-	arrowUpImg->SetMinWidth(w);
-	arrowUpOverImg->SetMinWidth(w);
-	scrollbarBoxImg->SetMinWidth(w);
-	scrollbarBoxOverImg->SetMinWidth(w);
+	if(t->Up())
+	{
+	    ScrollOneUp();
+        listChanged(SelItem, SelInd);
+	}
+	else if(t->Down())
+	{
+	    ScrollOneDown();
+        listChanged(SelItem, SelInd);
+	}
+
+	else if(t->Left() && Mode == LISTMODE)
+	{
+	    SelInd -= PageSize;
+        if(SelInd < 0)
+        {
+            SelInd = 0;
+            SelItem = 0;
+        }
+        listChanged(SelItem, SelInd);
+	}
+	else if(t->Right() && Mode == LISTMODE)
+	{
+        SelInd += PageSize;
+        if(SelInd+PageSize >= EntrieCount)
+        {
+            SelInd = EntrieCount-PageSize;
+            SelItem = PageSize-1;
+        }
+        listChanged(SelItem, SelInd);
+	}
 }
 
-void Scrollbar::SetMaxWidth(int w)
+void Scrollbar::ScrollByButton(GuiTrigger *t)
 {
-    scrollbarTopImg->SetMaxWidth(w);
-	scrollbarButtomImg->SetMaxWidth(w);
-	scrollbarTileImg->SetMaxWidth(w);
-	arrowDownImg->SetMaxWidth(w);
-	arrowDownOverImg->SetMaxWidth(w);
-	arrowUpImg->SetMaxWidth(w);
-	arrowUpOverImg->SetMaxWidth(w);
-	scrollbarBoxImg->SetMaxWidth(w);
-	scrollbarBoxOverImg->SetMaxWidth(w);
-}
+    static int pressedPosition = -1;
 
-void Scrollbar::SetMinHeight(int h)
-{
-    scrollbarTopImg->SetMinHeight(h);
-	scrollbarButtomImg->SetMinHeight(h);
-	scrollbarTileImg->SetMinHeight(h);
-	arrowDownImg->SetMinHeight(h);
-	arrowDownOverImg->SetMinHeight(h);
-	arrowUpImg->SetMinHeight(h);
-	arrowUpOverImg->SetMinHeight(h);
-	scrollbarBoxImg->SetMinHeight(h);
-	scrollbarBoxOverImg->SetMinHeight(h);
-}
+    if(!t->wpad->ir.valid || ScrollState < ButtonScrollSpeed-ButtonScrollSpeed*fabs(pressedPosition-t->wpad->ir.y)/250.f)
+        return;
 
-void Scrollbar::SetMaxHeight(int h)
-{
-    scrollbarTopImg->SetMaxHeight(h);
-	scrollbarButtomImg->SetMaxHeight(h);
-	scrollbarTileImg->SetMaxHeight(h);
-	arrowDownImg->SetMaxHeight(h);
-	arrowDownOverImg->SetMaxHeight(h);
-	arrowUpImg->SetMaxHeight(h);
-	arrowUpOverImg->SetMaxHeight(h);
-	scrollbarBoxImg->SetMaxHeight(h);
-	scrollbarBoxOverImg->SetMaxHeight(h);
+    if(pressedChan == -1 && (t->wpad->btns_d & ButtonScroll) &&
+       parentElement && parentElement->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+    {
+        pressedPosition = t->wpad->ir.y;
+        pressedChan = t->chan;
+        oneButtonScrollImg->SetPosition(t->wpad->ir.x-oneButtonScrollImg->GetWidth()/2, t->wpad->ir.y-oneButtonScrollImg->GetHeight()/2);
+    }
+
+    if(pressedChan == t->chan && (t->wpad->btns_h & ButtonScroll))
+    {
+        if(pressedPosition-oneButtonScrollImg->GetHeight()/2 > t->wpad->ir.y)
+            ScrollOneUp();
+        else if(pressedPosition+oneButtonScrollImg->GetHeight()/2 < t->wpad->ir.y)
+            ScrollOneDown();
+
+        ScrollState = 0;
+        listChanged(SelItem, SelInd);
+    }
+
+    if(pressedChan == t->chan && !t->wpad->btns_d && !t->wpad->btns_h)
+    {
+        pressedChan = -1;
+        pressedPosition = -1;
+    }
 }
 
 void Scrollbar::Draw()
 {
 	scrollbarTileImg->Draw();
 	scrollbarTopImg->Draw();
-	scrollbarButtomImg->Draw();
+	scrollbarBottomImg->Draw();
 	arrowUpBtn->Draw();
 	arrowDownBtn->Draw();
 	scrollbarBoxBtn->Draw();
-
-    ++ScrollState;
+	if(pressedChan >= 0 && userInput[pressedChan].wpad->ir.valid)
+	    oneButtonScrollImg->Draw();
 
 	UpdateEffects();
 }
@@ -434,7 +475,10 @@ void Scrollbar::Update(GuiTrigger * t)
 	arrowUpBtn->Update(t);
 	arrowDownBtn->Update(t);
 	scrollbarBoxBtn->Update(t);
+    if(AllowDPad)
+        CheckDPadControls(t);
+    if(ButtonScroll)
+        ScrollByButton(t);
 
-    if(listchanged)
-        SetScrollboxPosition();
+    ++ScrollState;
 }

@@ -339,12 +339,6 @@ static bool __usb2storage_Shutdown(void)
 
 	USB2Storage_Close();
 
-    if(hId > 0)
-    {
-        iosDestroyHeap(hId);
-        hId = -1;
-    }
-
 	if (usb2_mutex != LWP_MUTEX_NULL)
 	{
         LWP_MutexUnlock(usb2_mutex);
