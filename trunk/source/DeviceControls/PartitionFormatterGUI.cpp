@@ -360,25 +360,30 @@ void PartitionFormatterGui::SetDevice()
     if(CurDevice == SD)
     {
         DeviceOption.SetOptionValue(0, tr("SD-Card"));
-        Device = (PartitionHandle *) DeviceHandler::Instance()->GetSDHandle();
+        Device = DeviceHandler::Instance()->GetSDHandle();
     }
     else if(CurDevice == GCSDA)
     {
         DeviceOption.SetOptionValue(0, tr("GC-SD A"));
-        Device = (PartitionHandle *) DeviceHandler::Instance()->GetGCAHandle();
+        Device = DeviceHandler::Instance()->GetGCAHandle();
     }
     else if(CurDevice == GCSDB)
     {
         DeviceOption.SetOptionValue(0, tr("GC-SD B"));
-        Device = (PartitionHandle *) DeviceHandler::Instance()->GetGCBHandle();
+        Device = DeviceHandler::Instance()->GetGCBHandle();
     }
-    else if(CurDevice >= USB1)
+    else if(CurDevice == USB1)
     {
-        DeviceOption.SetOptionValue(0, tr("USB Device"));
-        Device = (PartitionHandle *) DeviceHandler::Instance()->GetUSBHandle();
+        DeviceOption.SetOptionValue(0, tr("USB Device Port 0"));
+        Device = DeviceHandler::Instance()->GetUSB0Handle();
+    }
+    else if(CurDevice == USB2)
+    {
+        DeviceOption.SetOptionValue(0, tr("USB Device Port 1"));
+        Device = DeviceHandler::Instance()->GetUSB1Handle();
     }
 
-    DeviceOption.SetOptionValue(1, fmt("%i", CurPart+1));
+	DeviceOption.SetOptionValue(1, fmt("%i", CurPart+1));
 }
 
 void PartitionFormatterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
@@ -411,28 +416,45 @@ void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer UN
                 CurDevice = GCSDB;
             else if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
-            else if(DeviceHandler::Instance()->USB_Inserted())
+            else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
+            else if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
         }
         else if(CurDevice == GCSDB)
         {
             if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
-            else if(DeviceHandler::Instance()->USB_Inserted())
+            else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
+            else if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
             else if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
         }
         else if(CurDevice == GCSDA)
         {
-            if(DeviceHandler::Instance()->USB_Inserted())
+            if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
+            else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
             else if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
             else if(DeviceHandler::Instance()->GCB_Inserted())
                 CurDevice = GCSDB;
         }
-        else if(CurDevice >= USB1)
+        else if(CurDevice == USB2)
+        {
+            if(DeviceHandler::Instance()->USB0_Inserted())
+                CurDevice = USB1;
+            else if(DeviceHandler::Instance()->SD_Inserted())
+                CurDevice = SD;
+            else if(DeviceHandler::Instance()->GCB_Inserted())
+                CurDevice = GCSDB;
+            else if(DeviceHandler::Instance()->GCA_Inserted())
+                CurDevice = GCSDA;
+        }
+        else if(CurDevice == USB1)
         {
             if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
@@ -440,6 +462,8 @@ void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer UN
                 CurDevice = GCSDB;
             else if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
+            else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
         }
     }
     else if(sender == DeviceOption.GetButtonLeft(1))
@@ -460,14 +484,27 @@ void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer U
     {
         if(CurDevice == SD)
         {
-            if(DeviceHandler::Instance()->USB_Inserted())
+			if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
+			else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
             else if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
             else if(DeviceHandler::Instance()->GCB_Inserted())
                 CurDevice = GCSDB;
         }
-        else if(CurDevice >= USB1)
+        else if(CurDevice == USB1)
+        {
+			if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
+            else if(DeviceHandler::Instance()->GCA_Inserted())
+                CurDevice = GCSDA;
+            else if(DeviceHandler::Instance()->GCB_Inserted())
+                CurDevice = GCSDB;
+            else if(DeviceHandler::Instance()->SD_Inserted())
+                CurDevice = SD;
+        }
+        else if(CurDevice == USB2)
         {
             if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
@@ -475,6 +512,8 @@ void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer U
                 CurDevice = GCSDB;
             else if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
+			else if(DeviceHandler::Instance()->USB0_Inserted())
+                CurDevice = USB1;
         }
         else if(CurDevice == GCSDA)
         {
@@ -482,15 +521,19 @@ void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer U
                 CurDevice = GCSDB;
             else if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
-            else if(DeviceHandler::Instance()->USB_Inserted())
+            else if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
+			else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
         }
         else if(CurDevice == GCSDB)
         {
             if(DeviceHandler::Instance()->SD_Inserted())
                 CurDevice = SD;
-            else if(DeviceHandler::Instance()->USB_Inserted())
+            else if(DeviceHandler::Instance()->USB0_Inserted())
                 CurDevice = USB1;
+			else if(DeviceHandler::Instance()->USB1_Inserted())
+                CurDevice = USB2;
             else if(DeviceHandler::Instance()->GCA_Inserted())
                 CurDevice = GCSDA;
         }

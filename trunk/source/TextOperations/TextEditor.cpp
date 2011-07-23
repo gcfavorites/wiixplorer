@@ -370,9 +370,7 @@ void TextEditor::Update(GuiTrigger * t)
 	TextPointerBtn->Update(t);
 	PlusBtn->Update(t);
 
-	int EntrieCount = (MainFileTxt->GetTotalLinesCount()-linestodraw);
-
-    scrollbar->SetEntrieCount(EntrieCount > 0 ? EntrieCount+1 : 0);
+    scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
     scrollbar->SetPageSize(linestodraw);
     scrollbar->SetRowSize(0);
     scrollbar->SetSelectedItem(0);

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 23:51+0200\n"
+"POT-Creation-Date: 2011-07-23 11:33+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -1448,8 +1448,11 @@ msgstr "Διαδρομή λίστα συνδέσμων."
 msgid "URL is empty."
 msgstr "Η URL είναι άδεια."
 
-msgid "USB Device"
-msgstr "Συσκευή USB"
+msgid "USB Device Port 0"
+msgstr ""
+
+msgid "USB Device Port 1"
+msgstr ""
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Άγνωστη μορφή. Θέλεις να ανοίξω αυτό το αρχείο με τον κειμενογράφω;"
@@ -1499,6 +1502,9 @@ msgstr "Διαθέσημη αναβάθμηση έκδοση %i"
 
 msgid "Updating/Downloading Languagefiles."
 msgstr "Αναβάθμηση/Κατέβασμα αρχείων γλωσσών."
+
+msgid "Use Both USB Ports"
+msgstr ""
 
 msgid "Username:"
 msgstr "Ονομα χρήστη"
@@ -1688,3 +1694,6 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "USB Device"
+#~ msgstr "Συσκευή USB"

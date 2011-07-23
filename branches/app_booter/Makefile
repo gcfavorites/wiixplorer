@@ -11,7 +11,7 @@ export PATH	:=	$(DEVKITPPC)/bin:$(PORTLIBS)/bin:$(PATH)
 export LIBOGC_INC	:=	$(DEVKITPRO)/libogc/include
 export LIBOGC_LIB	:=	$(DEVKITPRO)/libogc/lib/wii
 
-PREFIX	:=	powerpc-eabi-
+PREFIX	:=	powerpc-gekko-
 
 export AS	:=	$(PREFIX)as
 export CC	:=	$(PREFIX)gcc

@@ -179,6 +179,8 @@ class Settings
 		short   ShowFormatter;
 		//!Zip compression level
 		short   CompressionLevel;
+		//!USB Port to mount
+		short   USBPort;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
         //!Path to MPlayerPath

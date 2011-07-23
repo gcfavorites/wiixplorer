@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2010
+ * Copyright (C) 2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,8 +20,6 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * for WiiXplorer 2010
  ***************************************************************************/
 #include <malloc.h>
 #include <unistd.h>
@@ -32,7 +30,9 @@
 #include <sdcard/gcsd.h>
 #include "network/SMB.h"
 #include "network/FTPClient.h"
+#include "mload/usb2storage.h"
 #include "DeviceHandler.hpp"
+#include "main.h"
 
 #include "DiskOperations/fst.h"
 #include "DiskOperations/gcfst.h"
@@ -88,13 +88,17 @@ void DeviceHandler::UnMountAll()
         delete gca;
     if(gcb)
         delete gca;
-    if(usb)
-        delete usb;
+    if(usb0)
+        delete usb0;
+    if(usb1)
+        delete usb1;
 
     sd = NULL;
     gca = NULL;
     gcb = NULL;
-    usb = NULL;
+    usb0 = NULL;
+    usb1 = NULL;
+    USBStorage2_Deinit();
 }
 
 bool DeviceHandler::Mount(int dev)
@@ -135,7 +139,7 @@ bool DeviceHandler::IsInserted(int dev)
         return GCB_Inserted() && gcb->IsMounted(0);
 
     else if(dev >= USB1 && dev <= USB8)
-        return USB_Inserted() && usb->IsMounted(dev-USB1);
+        return GetUSBFromDev(dev) && GetUSBFromDev(dev)->IsMounted(PartToPortPart(dev-USB1));
 
     else if(dev >= SMB1 && dev <= SMB10)
         return IsSMB_Mounted(dev-SMB1);
@@ -223,30 +227,38 @@ bool DeviceHandler::MountGCB()
 
 bool DeviceHandler::MountUSB(int pos)
 {
-    if(!usb)
-        usb = new PartitionHandle(&__io_usbstorage);
+    if(!usb0)
+        usb0 = new PartitionHandle(&__io_usbstorage);
+    if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
+        usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 
-    if(usb->GetPartitionCount() < 1)
-    {
-        delete usb;
-        usb = NULL;
+    int partCount = 0;
+    if(usb0)
+		partCount += usb0->GetPartitionCount();
+	if(usb1)
+		partCount += usb1->GetPartitionCount();
+
+    if(pos >= partCount)
         return false;
-    }
 
-    if(pos >= usb->GetPartitionCount())
-        return false;
-
-    return usb->Mount(pos, DeviceName[USB1+pos]);
+    return GetUSBFromDev(USB1+pos)->Mount(PartToPortPart(pos), DeviceName[USB1+pos]);
 }
 
 bool DeviceHandler::MountAllUSB()
 {
-    if(!usb)
-        usb = new PartitionHandle(&__io_usbstorage);
+    if(!usb0)
+        usb0 = new PartitionHandle(&__io_usbstorage);
+    if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
+        usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 
     bool result = false;
+    int partCount = 0;
+    if(usb0)
+		partCount += usb0->GetPartitionCount();
+	if(usb1)
+		partCount += usb1->GetPartitionCount();
 
-    for(int i = 0; i < usb->GetPartitionCount(); i++)
+    for(int i = 0; i < partCount; i++)
     {
         if(MountUSB(i))
             result = true;
@@ -257,25 +269,26 @@ bool DeviceHandler::MountAllUSB()
 
 void DeviceHandler::UnMountUSB(int pos)
 {
-    if(!usb)
-        return;
-
-    if(pos >= usb->GetPartitionCount())
-        return;
-
-    usb->UnMount(pos);
+    if(GetUSBFromDev(USB1+pos))
+        GetUSBFromDev(USB1+pos)->UnMount(PartToPortPart(pos));
 }
 
 void DeviceHandler::UnMountAllUSB()
 {
-    if(!usb)
-        return;
+    int partCount = 0;
+    if(usb0)
+		partCount += usb0->GetPartitionCount();
+	if(usb1)
+		partCount += usb1->GetPartitionCount();
 
-    for(int i = 0; i < usb->GetPartitionCount(); i++)
-        usb->UnMount(i);
+    for(int i = 0; i < partCount; i++)
+        UnMountUSB(i);
 
-    delete usb;
-    usb = NULL;
+    delete usb0;
+    delete usb1;
+    usb0 = NULL;
+    usb1 = NULL;
+    USBStorage2_Deinit();
 }
 
 bool DeviceHandler::MountDVD()
@@ -360,10 +373,36 @@ const char * DeviceHandler::GetFSName(int dev)
     {
         return DeviceHandler::instance->gcb->GetFSName(0);
     }
-    else if(dev >= USB1 && dev <= USB8 && DeviceHandler::instance->usb)
+    else if(dev >= USB1 && dev <= USB8 && instance->GetUSBFromDev(dev))
     {
-        return DeviceHandler::instance->usb->GetFSName(dev-USB1);
+        return instance->GetUSBFromDev(dev)->GetFSName(instance->PartToPortPart(dev-USB1));
     }
 
     return NULL;
 }
+
+PartitionHandle * DeviceHandler::GetUSBFromDev(int dev)
+{
+	int usbPart = dev-USB1;
+
+	if(!usb0 || usbPart >= usb0->GetPartitionCount())
+		return usb1;
+	else
+		return usb0;
+}
+
+ int DeviceHandler::PartToPortPart(int part)
+ {
+	if(!usb0 || part >= usb0->GetPartitionCount())
+		return part-usb0->GetPartitionCount();
+	else
+		return part;
+ }
+
+ int DeviceHandler::PartToPort(int part)
+ {
+	if(!usb0 || part >= usb0->GetPartitionCount())
+		return 1;
+	else
+		return 0;
+ }
