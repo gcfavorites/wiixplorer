@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2010
+ * Copyright (C) 2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,8 +20,6 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * for WiiXplorer 2010
  ***************************************************************************/
 #ifndef DEVICE_HANDLER_HPP_
 #define DEVICE_HANDLER_HPP_
@@ -41,6 +39,8 @@ enum
     USB6,
     USB7,
     USB8,
+    USB9,
+    USB10,
     SMB1,
     SMB2,
     SMB3,
@@ -78,6 +78,8 @@ const char DeviceName[MAXDEVICES][6] =
     "usb6",
     "usb7",
     "usb8",
+    "usb9",
+    "usb10",
     "smb1",
     "smb2",
     "smb3",
@@ -123,7 +125,8 @@ class DeviceHandler
 		bool SD_Inserted() { if(sd) return sd->IsInserted(); return false; };
 		bool GCA_Inserted() { if(gca) return gca->IsInserted(); return false; };
 		bool GCB_Inserted() { if(gcb) return gcb->IsInserted(); return false; };
-		bool USB_Inserted() { if(usb) return usb->IsInserted(); return false; };
+		bool USB0_Inserted() { if(usb0) return usb0->IsInserted(); return false; };
+		bool USB1_Inserted() { if(usb1) return usb1->IsInserted(); return false; };
 		bool DVD_Inserted();
 		void UnMountSD() { if(sd) delete sd; sd = NULL; };
 		void UnMountGCA() { if(gca) delete gca; gca = NULL; };
@@ -131,15 +134,19 @@ class DeviceHandler
 		void UnMountUSB(int pos);
 		void UnMountAllUSB();
 		void UnMountDVD();
-		const PartitionHandle * GetSDHandle() { return sd; };
-		const PartitionHandle * GetGCAHandle() { return gca; };
-		const PartitionHandle * GetGCBHandle() { return gcb; };
-		const PartitionHandle * GetUSBHandle() { return usb; };
+		PartitionHandle * GetSDHandle() { return sd; };
+		PartitionHandle * GetGCAHandle() { return gca; };
+		PartitionHandle * GetGCBHandle() { return gcb; };
+		PartitionHandle * GetUSB0Handle() { return usb0; };
+		PartitionHandle * GetUSB1Handle() { return usb1; };
+		PartitionHandle * GetUSBFromDev(int dev);
+        int PartToPortPart(int part);
+        int PartToPort(int part);
 		static int PathToDriveType(const char * path);
         static const char * GetFSName(int dev);
         static const char * PathToFSName(const char * path) { return GetFSName(PathToDriveType(path)); };
     private:
-        DeviceHandler() : sd(0), gca(0), gcb(0), usb(0) { };
+        DeviceHandler() : sd(0), gca(0), gcb(0), usb0(0), usb1(0) { };
         ~DeviceHandler();
 
 		static DeviceHandler *instance;
@@ -147,7 +154,8 @@ class DeviceHandler
         PartitionHandle * sd;
         PartitionHandle * gca;
         PartitionHandle * gcb;
-        PartitionHandle * usb;
+        PartitionHandle * usb0;
+        PartitionHandle * usb1;
 };
 
 #endif

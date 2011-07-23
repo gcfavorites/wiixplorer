@@ -58,14 +58,14 @@ void CreateWiiMCArguments(const char * src)
     else if(strncasecmp(src, "usb", 3) == 0)
     {
         int device = USB8-DeviceHandler::PathToDriveType(src);
-        PartitionHandle * usb = (PartitionHandle *) DeviceHandler::Instance()->GetUSBHandle();
-
-        if(strncasecmp(usb->GetFSName(device), "NTF", 3) == 0)
+        PartitionHandle * usb = (PartitionHandle *) DeviceHandler::Instance()->GetUSB0Handle();
+	
+        if(usb && strncasecmp(usb->GetFSName(device), "NTF", 3) == 0)
         {
             sprintf(Text, "usb:ntfs:%i", usb->GetLBAStart(device));
             AddBootArgument(Text);
         }
-        else
+        else if(usb)
         {
             sprintf(Text, "usb:fat:%i", usb->GetLBAStart(device));
             AddBootArgument(Text);

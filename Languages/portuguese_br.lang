@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 23:51+0200\n"
+"POT-Creation-Date: 2011-07-23 11:33+0200\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -1445,8 +1445,11 @@ msgstr "Caminho da Lista de Endereços"
 msgid "URL is empty."
 msgstr "Endereço vazio."
 
-msgid "USB Device"
-msgstr "Dispositivo USB"
+msgid "USB Device Port 0"
+msgstr ""
+
+msgid "USB Device Port 1"
+msgstr ""
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "Formato desconhecido. Abrir no editor de texto?"
@@ -1496,6 +1499,9 @@ msgstr "Atualização para r%i disponível"
 
 msgid "Updating/Downloading Languagefiles."
 msgstr "Atualizando/Baixando arquivos de ling."
+
+msgid "Use Both USB Ports"
+msgstr ""
 
 msgid "Username:"
 msgstr "Nome de Usuário:"
@@ -1685,6 +1691,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "USB Device"
+#~ msgstr "Dispositivo USB"
 
 #~ msgid "Do you want to load this language file?"
 #~ msgstr "Quer carregar este arquivo de linguagem?"

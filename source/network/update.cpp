@@ -124,7 +124,7 @@ int CheckForUpdate()
                 if(fileRev > revnumber)
                 {
                     revnumber = fileRev;
-                    snprintf(DownloadLink, sizeof(DownloadLink), "%s", tmpLink);
+                    snprintf(DownloadLink, sizeof(DownloadLink), "http:%s", tmpLink);
                 }
             }
         }

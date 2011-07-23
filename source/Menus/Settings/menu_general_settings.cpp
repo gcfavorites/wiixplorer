@@ -101,6 +101,7 @@ int MenuGeneralSettings()
 	options.SetName(i++, tr("Copy Thread Priority"));
 	options.SetName(i++, tr("Copy Thread Background Priority"));
 	options.SetName(i++, tr("Show Partition Formatter"));
+	options.SetName(i++, tr("Use Both USB Ports"));
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
@@ -159,6 +160,9 @@ int MenuGeneralSettings()
             case 7:
                 Settings.ShowFormatter = (Settings.ShowFormatter+1) % 2;
                 break;
+            case 8:
+                Settings.USBPort = 0;//(Settings.USBPort+1) % 2; //TODO: fix in ehci module
+                break;
 		}
 
         if(firstRun || ret >= 0)
@@ -182,6 +186,9 @@ int MenuGeneralSettings()
             options.SetValue(i++, PrioritySynonym(Settings.CopyThreadBackPrio));
 
             if(Settings.ShowFormatter) options.SetValue(i++, tr("ON"));
+            else options.SetValue(i++, tr("OFF"));
+
+            if(Settings.USBPort) options.SetValue(i++, tr("ON"));
             else options.SetValue(i++, tr("OFF"));
         }
 	}

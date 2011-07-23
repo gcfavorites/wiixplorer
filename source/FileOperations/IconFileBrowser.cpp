@@ -369,7 +369,7 @@ void IconFileBrowser::Update(GuiTrigger * t)
 	    scrollbar->SetEntrieCount(numEntries);
 	}
 
-	for(int i = 0; i < PageSize; i++)
+	for(int i = 0; i < PageSize && i < (int) Buttons.size(); i++)
 	{
 		if(i != selectedItem && Buttons[i]->GetState() == STATE_SELECTED)
 			Buttons[i]->ResetState();

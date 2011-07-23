@@ -29,7 +29,7 @@ extern const u8 app_booter_bin[];
 extern const u32 app_booter_bin_size;
 
 typedef void (*entrypoint) (void);
-extern "C" void __exception_closeall();
+extern "C" { void __exception_closeall(); }
 
 static u8 *homebrewbuffer = EXECUTE_ADDR;
 static u32 homebrewsize = 0;

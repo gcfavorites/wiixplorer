@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 23:51+0200\n"
+"POT-Creation-Date: 2011-07-23 11:33+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Jane.H\n"
 "Language-Team: mcc, kyogc, Miller, Jane.H\n"
@@ -1445,8 +1445,11 @@ msgstr "網址列表路徑"
 msgid "URL is empty."
 msgstr "網址是空的。"
 
-msgid "USB Device"
-msgstr "USB裝置"
+msgid "USB Device Port 0"
+msgstr ""
+
+msgid "USB Device Port 1"
+msgstr ""
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "不知名格式。以TextEditor開啟此檔案？"
@@ -1496,6 +1499,9 @@ msgstr "更新到 Rev%i 可用的"
 
 msgid "Updating/Downloading Languagefiles."
 msgstr "更新/下載 語言檔。"
+
+msgid "Use Both USB Ports"
+msgstr ""
 
 msgid "Username:"
 msgstr "使用者名稱："
@@ -1685,6 +1691,9 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "USB Device"
+#~ msgstr "USB裝置"
 
 #~ msgid "Filepath: %s"
 #~ msgstr "檔案路徑： %s"
