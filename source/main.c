@@ -124,8 +124,8 @@ int main(int argc, char **argv)
 	bzero(&args, sizeof(args));
 	args.argvMagic = ARGV_MAGIC;
 	args.length = strlen(filepath) + 2;
-	args.commandLine = (char*)malloc(args.length);
-	if (!args.commandLine) SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+	//! Put the argument into mem2 too, to avoid overwriting it
+	args.commandLine = (char *) ARGS_ADDR + sizeof(args);
 	strcpy(args.commandLine, filepath);
 	args.commandLine[args.length - 1] = '\0';
 	args.argc = 1;
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
 	DCFlushRange(BOOTER_ADDR, app_booter_bin_size);
 
 	memcpy(ARGS_ADDR, &args, sizeof(args));
-	DCFlushRange(ARGS_ADDR, sizeof(args));
+	DCFlushRange(ARGS_ADDR, sizeof(args) + args.length);
 
 	fadeout(imgdata);
 	SDCard_deInit();
