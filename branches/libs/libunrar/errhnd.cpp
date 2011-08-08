@@ -1,16 +1,5 @@
 #include "rar.hpp"
 
-int RarErrorCode = 0;
-
-//!Quick and dirty error handle for WiiXplorer by Dimok
-extern "C"
-{
-    extern void ShowError(const char * format, ...);
-    void Sys_BackToLoader();
-}
-extern void StopProgress();
-extern int WindowPrompt(const char *a, const char *b, const char *c, const char *d, const char *e, const char *f, bool t);
-
 
 static bool UserBreak;
 
@@ -23,7 +12,6 @@ ErrorHandler::ErrorHandler()
 void ErrorHandler::Clean()
 {
   ExitCode=SUCCESS;
-  RarErrorCode=0;
   ErrCount=0;
   EnableBreak=true;
   Silent=false;
@@ -33,53 +21,69 @@ void ErrorHandler::Clean()
 
 void ErrorHandler::MemoryError()
 {
-  StopProgress();
-  ShowError("Not enought memory.");
-  RarErrorCode = MEMORY_ERROR;
+  MemoryErrorMsg();
+  Throw(MEMORY_ERROR);
 }
 
 
 void ErrorHandler::OpenError(const char *FileName)
 {
-  StopProgress();
-  ShowError("Cannot open file %s", FileName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  OpenErrorMsg(FileName);
+  Throw(OPEN_ERROR);
+#endif
 }
 
 
 void ErrorHandler::CloseError(const char *FileName)
 {
-  StopProgress();
-  ShowError("Cannot close file %s", FileName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  if (!UserBreak)
+  {
+    ErrMsg(NULL,St(MErrFClose),FileName);
+    SysErrMsg();
+  }
+#endif
+#if !defined(SILENT) || defined(RARDLL)
+  Throw(FATAL_ERROR);
+#endif
 }
 
 
 void ErrorHandler::ReadError(const char *FileName)
 {
-  StopProgress();
-  ShowError("Read Error in %s", FileName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  ReadErrorMsg(NULL,FileName);
+#endif
+#if !defined(SILENT) || defined(RARDLL)
+  Throw(FATAL_ERROR);
+#endif
 }
 
 
 bool ErrorHandler::AskRepeatRead(const char *FileName)
 {
-    StopProgress();
-    char output[200];
-    snprintf(output, sizeof(output), "Read Error in file: %s", FileName);
-
-    int choice = WindowPrompt(output, "Retry?", "Yes", "Cancel", 0, 0, true);
-
-    return (choice != 0);
+#if !defined(SILENT) && !defined(SFX_MODULE) && !defined(_WIN_CE)
+  if (!Silent)
+  {
+    SysErrMsg();
+    mprintf("\n");
+    Log(NULL,St(MErrRead),FileName);
+    return(Ask(St(MRetryAbort))==1);
+  }
+#endif
+  return(false);
 }
 
 
 void ErrorHandler::WriteError(const char *ArcName,const char *FileName)
 {
-  StopProgress();
-  ShowError("Write Error from %s to %s", ArcName, FileName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  WriteErrorMsg(ArcName,FileName);
+#endif
+#if !defined(SILENT) || defined(RARDLL)
+  Throw(WRITE_ERROR);
+#endif
 }
 
 
@@ -99,85 +103,114 @@ void ErrorHandler::WriteErrorFAT(const char *FileName)
 
 bool ErrorHandler::AskRepeatWrite(const char *FileName,bool DiskFull)
 {
-    StopProgress();
-    char output[200];
-    if(DiskFull)
-        snprintf(output, sizeof(output), "Write Error in file: %s. Disk is Full", FileName);
-    else
-        snprintf(output, sizeof(output), "Write Error in file: %s", FileName);
-
-    int choice = WindowPrompt(output, "Retry?", "Yes", "Cancel", 0, 0, true);
-
-    return (choice != 0);
+#if !defined(SILENT) && !defined(_WIN_CE)
+  if (!Silent)
+  {
+    SysErrMsg();
+    mprintf("\n");
+    Log(NULL,St(DiskFull ? MNotEnoughDisk:MErrWrite),FileName);
+    return(Ask(St(MRetryAbort))==1);
+  }
+#endif
+  return(false);
 }
 
 
 void ErrorHandler::SeekError(const char *FileName)
 {
-  StopProgress();
-  ShowError("Seek Error in %s", FileName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  if (!UserBreak)
+  {
+    ErrMsg(NULL,St(MErrSeek),FileName);
+    SysErrMsg();
+  }
+#endif
+#if !defined(SILENT) || defined(RARDLL)
+  Throw(FATAL_ERROR);
+#endif
 }
 
 
 void ErrorHandler::GeneralErrMsg(const char *Msg)
 {
-  StopProgress();
-  ShowError(Msg);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  Log(NULL,"%s",Msg);
+  SysErrMsg();
+#endif
 }
 
 
 void ErrorHandler::MemoryErrorMsg()
 {
-  RarErrorCode = MEMORY_ERROR;
+#ifndef SILENT
+  ErrMsg(NULL,St(MErrOutMem));
+#endif
 }
 
 
 void ErrorHandler::OpenErrorMsg(const char *FileName)
 {
-  StopProgress();
-  ShowError("Error opening %s", FileName);
-  RarErrorCode = FATAL_ERROR;
+  OpenErrorMsg(NULL,FileName);
 }
 
 
 void ErrorHandler::OpenErrorMsg(const char *ArcName,const char *FileName)
 {
-  StopProgress();
-  ShowError("Error opening %s in %s", FileName, ArcName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  Log(ArcName && *ArcName ? ArcName:NULL,St(MCannotOpen),FileName);
+  Alarm();
+  SysErrMsg();
+#endif
 }
 
 
 void ErrorHandler::CreateErrorMsg(const char *FileName)
 {
   CreateErrorMsg(NULL,FileName);
-  RarErrorCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::CreateErrorMsg(const char *ArcName,const char *FileName)
 {
-  StopProgress();
-  ShowError("Error received from %s in %s", FileName, ArcName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  Log(ArcName && *ArcName ? ArcName:NULL,St(MCannotCreate),FileName);
+  Alarm();
+#if defined(_WIN_32) && !defined(_WIN_CE) && !defined(SFX_MODULE) && defined(MAX_PATH)
+  if (GetLastError()==ERROR_PATH_NOT_FOUND)
+  {
+    size_t NameLength=strlen(FileName);
+    if (!IsFullPath(FileName))
+    {
+      char CurDir[NM];
+      GetCurrentDirectory(sizeof(CurDir),CurDir);
+      NameLength+=strlen(CurDir)+1;
+    }
+    if (NameLength>MAX_PATH)
+    {
+      Log(ArcName && *ArcName ? ArcName:NULL,St(MMaxPathLimit),MAX_PATH);
+    }
+  }
+#endif
+  SysErrMsg();
+#endif
 }
 
 
 void ErrorHandler::ReadErrorMsg(const char *ArcName,const char *FileName)
 {
-  StopProgress();
-  ShowError("Read error from %s in %s", FileName, ArcName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  ErrMsg(ArcName,St(MErrRead),FileName);
+  SysErrMsg();
+#endif
 }
 
 
 void ErrorHandler::WriteErrorMsg(const char *ArcName,const char *FileName)
 {
-  StopProgress();
-  ShowError("Write error to %s in %s", FileName, ArcName);
-  RarErrorCode = FATAL_ERROR;
+#ifndef SILENT
+  ErrMsg(ArcName,St(MErrWrite),FileName);
+  SysErrMsg();
+#endif
 }
 
 
@@ -198,12 +231,16 @@ void ErrorHandler::ErrMsg(const char *ArcName,const char *fmt,...)
   va_start(argptr,fmt);
   vsprintf(Msg,fmt,argptr);
   va_end(argptr);
+#ifdef _WIN_32
+  if (UserBreak)
+    Sleep(5000);
+#endif
+  Alarm();
   if (*Msg)
   {
-    StopProgress();
-    ShowError("Msg");
+    Log(ArcName,"\n%s",Msg);
+    mprintf("\n%s\n",St(MProgAborted));
   }
-  RarErrorCode = FATAL_ERROR;
 }
 #endif
 
@@ -229,63 +266,72 @@ void ErrorHandler::SetErrorCode(int Code)
 }
 
 
-//#if !defined(GUI) && !defined(_SFX_RTL_)
-//#ifdef _WIN_32
-//BOOL __stdcall ProcessSignal(DWORD SigType)
-//#else
-//#if defined(__sun)
-//extern "C"
-//#endif
-//void _stdfunction ProcessSignal(int SigType)
-//#endif
-//{
-//#ifdef _WIN_32
-//  if (SigType==CTRL_LOGOFF_EVENT)
-//    return(TRUE);
-//#endif
-//  UserBreak=true;
-//  mprintf(St(MBreak));
-//  for (int I=0;!File::RemoveCreated() && I<3;I++)
-//  {
-//#ifdef _WIN_32
-//    Sleep(100);
-//#endif
-//  }
-//#if defined(USE_RC) && !defined(SFX_MODULE) && !defined(_WIN_CE)
-//  ExtRes.UnloadDLL();
-//#endif
-//  exit(USER_BREAK);
-//#if defined(_WIN_32) && !defined(_MSC_VER)
-//  // never reached, just to avoid a compiler warning
-//  return(TRUE);
-//#endif
-//}
-//#endif
+#if !defined(GUI) && !defined(_SFX_RTL_)
+#ifdef _WIN_32
+BOOL __stdcall ProcessSignal(DWORD SigType)
+#else
+#if defined(__sun)
+extern "C"
+#endif
+void _stdfunction ProcessSignal(int SigType)
+#endif
+{
+#ifdef _WIN_32
+  if (SigType==CTRL_LOGOFF_EVENT)
+    return(TRUE);
+#endif
+  UserBreak=true;
+  mprintf(St(MBreak));
+  for (int I=0;!File::RemoveCreated() && I<3;I++)
+  {
+#ifdef _WIN_32
+    Sleep(100);
+#endif
+  }
+#if defined(USE_RC) && !defined(SFX_MODULE) && !defined(_WIN_CE)
+  ExtRes.UnloadDLL();
+#endif
+  exit(USER_BREAK);
+#if defined(_WIN_32) && !defined(_MSC_VER)
+  // never reached, just to avoid a compiler warning
+  return(TRUE);
+#endif
+}
+#endif
 
 
 void ErrorHandler::SetSignalHandlers(bool Enable)
 {
-//  EnableBreak=Enable;
-//#if !defined(GUI) && !defined(_SFX_RTL_)
-//#ifdef _WIN_32
-//  SetConsoleCtrlHandler(Enable ? ProcessSignal:NULL,TRUE);
-////  signal(SIGBREAK,Enable ? ProcessSignal:SIG_IGN);
-//#else
-//  signal(SIGINT,Enable ? ProcessSignal:SIG_IGN);
-//  signal(SIGTERM,Enable ? ProcessSignal:SIG_IGN);
-//#endif
-//#endif
+  EnableBreak=Enable;
+#if !defined(GUI) && !defined(_SFX_RTL_)
+#ifdef _WIN_32
+  SetConsoleCtrlHandler(Enable ? ProcessSignal:NULL,TRUE);
+//  signal(SIGBREAK,Enable ? ProcessSignal:SIG_IGN);
+#else
+  signal(SIGINT,Enable ? ProcessSignal:SIG_IGN);
+  signal(SIGTERM,Enable ? ProcessSignal:SIG_IGN);
+#endif
+#endif
 }
+
+//!Change for WiiXplorer by Dimok
+
+extern "C" {
+extern void ShowError(const char * format, ...);
+void Sys_BackToLoader();
+}
+
+extern void StopProgress();
 
 void ErrorHandler::Throw(int Code)
 {
   if (Code==USER_BREAK && !EnableBreak)
     return;
 
+//!Change for WiiXplorer by Dimok
     StopProgress();
     ShowError("Fatal error: %i. Must shutdown app.", Code);
-    RarErrorCode = FATAL_ERROR;
-    return;
+    Sys_BackToLoader();
 #ifdef ALLOW_EXCEPTIONS
   throw Code;
 #else
@@ -297,8 +343,47 @@ void ErrorHandler::Throw(int Code)
 
 void ErrorHandler::SysErrMsg()
 {
-    StopProgress();
-    ShowError("System error received");
-  RarErrorCode = FATAL_ERROR;
+#if !defined(SFX_MODULE) && !defined(SILENT)
+#ifdef _WIN_32
+    #define STRCHR strchr
+    #define ERRCHAR char
+  ERRCHAR  *lpMsgBuf=NULL;
+  int ErrType=GetLastError();
+  if (ErrType!=0 && FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,
+              NULL,ErrType,MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+              (LPTSTR)&lpMsgBuf,0,NULL))
+  {
+    ERRCHAR  *CurMsg=lpMsgBuf;
+    while (CurMsg!=NULL)
+    {
+      while (*CurMsg=='\r' || *CurMsg=='\n')
+        CurMsg++;
+      if (*CurMsg==0)
+        break;
+      ERRCHAR *EndMsg=STRCHR(CurMsg,'\r');
+      if (EndMsg==NULL)
+        EndMsg=STRCHR(CurMsg,'\n');
+      if (EndMsg!=NULL)
+      {
+        *EndMsg=0;
+        EndMsg++;
+      }
+      Log(NULL,"\n%s",CurMsg);
+      CurMsg=EndMsg;
+    }
+  }
+  LocalFree( lpMsgBuf );
+#endif
+
+#if defined(_UNIX) || defined(_EMX)
+  char *err=strerror(errno);
+  if (err!=NULL)
+    Log(NULL,"\n%s",err);
+#endif
+
+#endif
 }
+
+
+
 
