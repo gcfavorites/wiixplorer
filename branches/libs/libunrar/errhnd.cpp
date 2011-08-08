@@ -314,24 +314,11 @@ void ErrorHandler::SetSignalHandlers(bool Enable)
 #endif
 }
 
-//!Change for WiiXplorer by Dimok
-
-extern "C" {
-extern void ShowError(const char * format, ...);
-void Sys_BackToLoader();
-}
-
-extern void StopProgress();
-
 void ErrorHandler::Throw(int Code)
 {
   if (Code==USER_BREAK && !EnableBreak)
     return;
-
-//!Change for WiiXplorer by Dimok
-    StopProgress();
-    ShowError("Fatal error: %i. Must shutdown app.", Code);
-    Sys_BackToLoader();
+  ErrHandler.SetErrorCode(Code);
 #ifdef ALLOW_EXCEPTIONS
   throw Code;
 #else
