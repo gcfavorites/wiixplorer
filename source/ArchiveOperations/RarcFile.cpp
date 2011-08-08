@@ -37,168 +37,168 @@
 #include "RarcFile.h"
 
 RarcFile::RarcFile(const char *filepath)
-    : WiiArchive(filepath)
+	: WiiArchive(filepath)
 {
-    ParseFile();
+	ParseFile();
 }
 
 RarcFile::RarcFile(const u8 * Buffer, u32 Size)
-    : WiiArchive(Buffer, Size)
+	: WiiArchive(Buffer, Size)
 {
-    ParseFile();
+	ParseFile();
 }
 
 RarcFile::~RarcFile()
 {
-    CloseFile();
+	CloseFile();
 }
 
 bool RarcFile::ParseFile()
 {
-    if(!FileBuffer && !File)
-        return false;
+	if(!FileBuffer && !File)
+		return false;
 
-    ClearList();
+	ClearList();
 
-    ReadFile(&Header, sizeof(RarcHeader), 0);
+	ReadFile(&Header, sizeof(RarcHeader), 0);
 
-    Yaz0_Header Yaz0_Head;
-    memcpy(&Yaz0_Head, &Header, sizeof(Yaz0_Header));
+	Yaz0_Header Yaz0_Head;
+	memcpy(&Yaz0_Head, &Header, sizeof(Yaz0_Header));
 
-    if(Yaz0_Head.magic == 'Yaz0')
-    {
-        if(!FileBuffer)
-        {
-            FileBuffer = (u8 *) malloc(FileSize);
-            if(!FileBuffer)
-            {
-                CloseFile();
-                return false;
-            }
-            ReadFile(FileBuffer, FileSize, 0);
-            FromMem = true;
-        }
+	if(Yaz0_Head.magic == 'Yaz0')
+	{
+		if(!FileBuffer)
+		{
+			FileBuffer = (u8 *) malloc(FileSize);
+			if(!FileBuffer)
+			{
+				CloseFile();
+				return false;
+			}
+			ReadFile(FileBuffer, FileSize, 0);
+			FromMem = true;
+		}
 
-        FileSize = Yaz0_Head.decompressed_size;
+		FileSize = Yaz0_Head.decompressed_size;
 
-        u8 * buff = (u8 *) malloc(FileSize);
-        if(!buff)
-        {
-            CloseFile();
-            return false;
-        }
+		u8 * buff = (u8 *) malloc(FileSize);
+		if(!buff)
+		{
+			CloseFile();
+			return false;
+		}
 
-        uncompressYaz0(FileBuffer, buff, FileSize);
+		uncompressYaz0(FileBuffer, buff, FileSize);
 
-        CloseFile();
+		CloseFile();
 
-        FromMem = true;
-        FileBuffer = buff;
+		FromMem = true;
+		FileBuffer = buff;
 
-        return ParseRarcHeader();
-    }
+		return ParseRarcHeader();
+	}
 	else if(Header.magic == 'RARC')
 	{
-        return ParseRarcHeader();
+		return ParseRarcHeader();
 	}
 
-    //Unknown RarcFile
-    CloseFile();
+	//Unknown RarcFile
+	CloseFile();
 
-    return false;
+	return false;
 }
 
 bool RarcFile::ParseRarcHeader()
 {
-    ReadFile(&Header, sizeof(RarcHeader), 0);
+	ReadFile(&Header, sizeof(RarcHeader), 0);
 
-    if(Header.magic != 'RARC')
-    {
-        CloseFile();
-        return false;
-    }
+	if(Header.magic != 'RARC')
+	{
+		CloseFile();
+		return false;
+	}
 
-    FileSize = Header.size;
+	FileSize = Header.size;
 
-    RarcNode RootNode;
+	RarcNode RootNode;
 
-    ReadFile(&RootNode, sizeof(RarcNode), sizeof(RarcHeader));
+	ReadFile(&RootNode, sizeof(RarcNode), sizeof(RarcHeader));
 
-    ItemIndex = 0;
+	ItemIndex = 0;
 
-    string ItemPath;
-    ParseNode(&RootNode, ItemPath);
+	string ItemPath;
+	ParseNode(&RootNode, ItemPath);
 
-    return true;
+	return true;
 }
 
 void RarcFile::ParseNode(RarcNode * Node, string & parentDirectory)
 {
-    u32 StringOffset = Header.stringTableOffset+0x20;
-    u32 DataOffset = Header.dataStartOffset+0x20;
-    u32 CurrOffset = Header.fileEntriesOffset+0x20+Node->firstFileEntryOffset*sizeof(RarcFileEntry);
+	u32 StringOffset = Header.stringTableOffset+0x20;
+	u32 DataOffset = Header.dataStartOffset+0x20;
+	u32 CurrOffset = Header.fileEntriesOffset+0x20+Node->firstFileEntryOffset*sizeof(RarcFileEntry);
 
-    //I love recursion... :P
-    string parent_dir = parentDirectory;
-    string ItemName;
-    GetFilename(StringOffset+Node->filenameOffset, ItemName);
+	//I love recursion... :P
+	string parent_dir = parentDirectory;
+	string ItemName;
+	GetFilename(StringOffset+Node->filenameOffset, ItemName);
 
-    if(parent_dir.size() == 0)
-    {
-        parent_dir = ItemName;
-    }
-    else
-    {
-        //It's just awesome...
-        parent_dir.assign(fmt("%s/%s", parentDirectory.c_str(), ItemName.c_str()));
-    }
+	if(parent_dir.size() == 0)
+	{
+		parent_dir = ItemName;
+	}
+	else
+	{
+		//It's just awesome...
+		parent_dir.assign(fmt("%s/%s", parentDirectory.c_str(), ItemName.c_str()));
+	}
 
-    ItemName.clear();
+	ItemName.clear();
 
-    AddListEntrie(parent_dir.c_str(), 0, 0, true, ItemIndex++, 0, ArcArch);
-    BufferOffset.push_back(0);
+	AddListEntrie(parent_dir.c_str(), 0, 0, true, ItemIndex++, 0, ArcArch);
+	BufferOffset.push_back(0);
 
-    for(u16 i = 0; i < Node->numFileEntries; i++)
-    {
-        RarcFileEntry FileEntry;
-        ReadFile(&FileEntry, sizeof(RarcFileEntry), CurrOffset);
+	for(u16 i = 0; i < Node->numFileEntries; i++)
+	{
+		RarcFileEntry FileEntry;
+		ReadFile(&FileEntry, sizeof(RarcFileEntry), CurrOffset);
 
-        GetFilename(StringOffset+FileEntry.filenameOffset, ItemName);
+		GetFilename(StringOffset+FileEntry.filenameOffset, ItemName);
 
-        u32 filelength = FileEntry.dataSize;
+		u32 filelength = FileEntry.dataSize;
 
-        /* It's a dir... */
-        if(FileEntry.id == 0xFFFF)
-        {
-            if(strcmp(ItemName.c_str(), ".") != 0 && strcmp(ItemName.c_str(), "..") != 0)
-            {
-                RarcNode DirNode;
-                ReadFile(&DirNode, sizeof(RarcNode), sizeof(RarcHeader)+sizeof(RarcNode)*FileEntry.dataOffset);
-                ParseNode(&DirNode, parent_dir);
-            }
-        }
-        /* It's a file... */
-        else
-        {
-            AddListEntrie(fmt("%s/%s", parent_dir.c_str(), ItemName.c_str()), filelength, filelength, false, ItemIndex++, 0, ArcArch);
-            BufferOffset.push_back(DataOffset+FileEntry.dataOffset);
-        }
+		/* It's a dir... */
+		if(FileEntry.id == 0xFFFF)
+		{
+			if(strcmp(ItemName.c_str(), ".") != 0 && strcmp(ItemName.c_str(), "..") != 0)
+			{
+				RarcNode DirNode;
+				ReadFile(&DirNode, sizeof(RarcNode), sizeof(RarcHeader)+sizeof(RarcNode)*FileEntry.dataOffset);
+				ParseNode(&DirNode, parent_dir);
+			}
+		}
+		/* It's a file... */
+		else
+		{
+			AddListEntrie(fmt("%s/%s", parent_dir.c_str(), ItemName.c_str()), filelength, filelength, false, ItemIndex++, 0, ArcArch);
+			BufferOffset.push_back(DataOffset+FileEntry.dataOffset);
+		}
 
-        ItemName.clear();
-        CurrOffset += sizeof(RarcFileEntry);
-    }
+		ItemName.clear();
+		CurrOffset += sizeof(RarcFileEntry);
+	}
 }
 
 void RarcFile::GetFilename(int offset, string & Filename)
 {
-    int n = -1;
-    char Char = 0;
+	int n = -1;
+	char Char = 0;
 
-    do
-    {
-        n++;
-        ReadFile(&Char, 1, offset+n);
-        Filename.push_back(Char);
-    }
-    while((Char != 0) && (offset+n < (int) FileSize));
+	do
+	{
+		n++;
+		ReadFile(&Char, 1, offset+n);
+		Filename.push_back(Char);
+	}
+	while((Char != 0) && (offset+n < (int) FileSize));
 }

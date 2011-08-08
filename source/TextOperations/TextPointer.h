@@ -28,36 +28,38 @@
 #ifndef TEXTPOINTER_H
 #define TEXTPOINTER_H
 
-#include "libwiigui/gui.h"
+#include "GUI/gui_button.h"
+#include "GUI/gui_image.h"
+#include "GUI/gui_text.h"
 
 
 class TextPointer : public GuiButton
 {
 	public:
-        TextPointer(GuiText *parent, int linestodraw);
-        TextPointer(GuiText *parent, int w, int h);
-        virtual ~TextPointer();
+		TextPointer(GuiText *parent, int linestodraw);
+		TextPointer(GuiText *parent, int w, int h);
+		virtual ~TextPointer();
 		void PositionChanged(int chan, int x, int y);
-        void SetPointerPosition(int LetterPos);
-        void TextWidthChanged();
-        int GetCurrentLine() { return currentline; };
-        int GetCurrentLetter() { return LetterNumInLine; };
+		void SetPointerPosition(int LetterPos);
+		void TextWidthChanged();
+		int GetCurrentLine() { return currentline; };
+		int GetCurrentLetter() { return LetterNumInLine; };
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
-        int fontsize;
-        int lineLength;
-        int currentline;
-        int currentChan;
-        int Position_X;
-        int LetterNumInLine;
-        int Position_Y;
-        bool Marking;
-        bool visibility;
-        GuiImageData * TextPointerImgData;
-        GuiImage * TextPointerImg;
-        GuiImage * MarkImage;
-        GuiText * TextPtr;
+		int fontsize;
+		int lineLength;
+		int currentline;
+		int currentChan;
+		int Position_X;
+		int LetterNumInLine;
+		int Position_Y;
+		bool Marking;
+		bool visibility;
+		GuiImageData * TextPointerImgData;
+		GuiImage * TextPointerImg;
+		GuiImage * MarkImage;
+		GuiText * TextPtr;
 };
 
 #endif

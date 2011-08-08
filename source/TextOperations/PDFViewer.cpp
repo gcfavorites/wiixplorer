@@ -25,49 +25,49 @@
  ***************************************************************************/
 #include <gccore.h>
 #include <malloc.h>
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "PDFViewer.hpp"
 #include "menu.h"
 #include "sys.h"
 
 PDFViewer::PDFViewer(const char * filepath, const char * password)
-    : ImageViewer(filepath)
+	: ImageViewer(filepath)
 {
 	OutputImage = NULL;
 	currentPage = 1;
 	drawzoom = Settings.PDFLoadZoom;
 	drawrotate = 0;
-    drawcache = (fz_glyphcache*) nil;
-    drawpage = (pdf_page*) nil;
-    //!the TrashButton from imageviewer isn't needed
-    Remove(trashButton);
+	drawcache = (fz_glyphcache*) nil;
+	drawpage = (pdf_page*) nil;
+	//!the TrashButton from imageviewer isn't needed
+	Remove(trashButton);
 
 	fz_cpudetect();
 	fz_accelerate();
-    closexref();
+	closexref();
 
-    OpenFile(filepath, password);
-    LoadPage(currentPage);
+	OpenFile(filepath, password);
+	LoadPage(currentPage);
 }
 
 PDFViewer::~PDFViewer()
 {
-    CloseFile();
+	CloseFile();
 }
 
 void PDFViewer::OpenFile(const char * filepath, const char * password)
 {
-    CloseFile();
-    drawcache = fz_newglyphcache();
-    openxref((char *) filepath, (char *) password, 0);
-    if(xref)
-        PageCount = pdf_getpagecount(xref);
+	CloseFile();
+	drawcache = fz_newglyphcache();
+	openxref((char *) filepath, (char *) password, 0);
+	if(xref)
+		PageCount = pdf_getpagecount(xref);
 }
 
 void PDFViewer::CloseFile()
 {
-    FreePage();
+	FreePage();
 
 	if (xref && xref->store)
 	{
@@ -85,15 +85,11 @@ void PDFViewer::CloseFile()
 
 int PDFViewer::MainUpdate()
 {
-    if(shutdown)
-        Sys_Shutdown();
-    else if(reset)
-        Sys_Reboot();
 
-    if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        return -1;
+//	if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+		//return -1;
 
-    return ImageViewer::MainUpdate();
+	return ImageViewer::MainUpdate();
 }
 
 int PDFViewer::PreparePage(int pagenum)
@@ -102,41 +98,40 @@ int PDFViewer::PreparePage(int pagenum)
 	fz_obj * pageobj = pdf_getpageobject(xref, pagenum);
 	error = pdf_loadpage(&drawpage, xref, pageobj);
 	if (error)
-    {
-        ShowError(tr("Can't load page."));
-        return -1;
-    }
+	{
+		ShowError(tr("Can't load page."));
+		return -1;
+	}
 
-    return 0;
+	return 0;
 }
 
 bool PDFViewer::LoadPage(int pagenum)
 {
-    if(!xref)
-        return false;
+	if(!xref)
+		return false;
 
-    FreePage();
+	FreePage();
 
-    int ret = PreparePage(pagenum);
-    if(ret < 0)
-    {
-        CloseFile();
-        return false;
-    }
+	int ret = PreparePage(pagenum);
+	if(ret < 0)
+	{
+		CloseFile();
+		return false;
+	}
 
-    ret = PageToRGBA8();
-    if(ret <= 0)
-    {
-        CloseFile();
-        return false;
-    }
+	ret = PageToRGBA8();
+	if(ret <= 0)
+	{
+		CloseFile();
+		return false;
+	}
 
-	MainWindow::Instance()->HaltGui();
 	RemoveAll();
 	image = new GuiImage(OutputImage, imagewidth, imageheight);
 	image->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	if(SlideShowStart > 0)
-        image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
+		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 
 	Append(backGround);
 	Append(image);
@@ -145,67 +140,64 @@ bool PDFViewer::LoadPage(int pagenum)
 	Append(zoomoutButton);
 	Append(rotateRButton);
 	Append(rotateLButton);
-    Append(nextButton);
-    Append(prevButton);
-    Append(slideshowButton);
+	Append(nextButton);
+	Append(prevButton);
+	Append(slideshowButton);
 	Append(moveButton);
-	MainWindow::Instance()->ResumeGui();
 
 	return true;
 }
 
 bool PDFViewer::NextPage()
 {
-    ++currentPage;
+	++currentPage;
 
-    if(currentPage > PageCount)
-        currentPage = 1;
+	if(currentPage > PageCount)
+		currentPage = 1;
 
-    return LoadPage(currentPage);
+	return LoadPage(currentPage);
 }
 
 bool PDFViewer::PreviousPage()
 {
-    --currentPage;
-    if(currentPage < 1)
-        currentPage = PageCount;
+	--currentPage;
+	if(currentPage < 1)
+		currentPage = PageCount;
 
-    return LoadPage(currentPage);
+	return LoadPage(currentPage);
 }
 
 void PDFViewer::FreePage()
 {
-    if(image && SlideShowStart > 0)
-    {
-        image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
-        while(image->GetEffect() > 0) usleep(100);
-    }
+	if(image && SlideShowStart > 0)
+	{
+		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+		while(image->GetEffect() > 0) usleep(100);
+	}
 
-	MainWindow::Instance()->HaltGui();
 	Remove(image);
 	if(image)
-        delete image;
-    image = NULL;
+		delete image;
+	image = NULL;
 
-    if(OutputImage)
-        free(OutputImage);
+	if(OutputImage)
+		free(OutputImage);
 	OutputImage = NULL;
-	MainWindow::Instance()->ResumeGui();
 
-    if(drawpage != nil)
-        pdf_droppage(drawpage);
-    drawpage = (pdf_page *) nil;
-    flushxref();
-    if (xref && xref->store)
-    {
-        pdf_agestoreditems(xref->store);
-        pdf_evictageditems(xref->store);
-    }
+	if(drawpage != nil)
+		pdf_droppage(drawpage);
+	drawpage = (pdf_page *) nil;
+	flushxref();
+	if (xref && xref->store)
+	{
+		pdf_agestoreditems(xref->store);
+		pdf_evictageditems(xref->store);
+	}
 }
 
 int PDFViewer::PageToRGBA8()
 {
-    fz_error error;
+	fz_error error;
 	fz_matrix ctm;
 	fz_bbox bbox;
 	fz_pixmap *pix;
@@ -223,66 +215,66 @@ int PDFViewer::PageToRGBA8()
 	pix = fz_newpixmap(pdf_devicergb, bbox.x0, bbox.y0, w, h);
 	if(!pix)
 	{
-        FreePage();
-        ShowError(tr("Not enough memory."));
-        return -1;
+		FreePage();
+		ShowError(tr("Not enough memory."));
+		return -1;
 	}
 
 	fz_clearpixmap(pix, 0xFF);
 	memset(pix->samples, 0xff, pix->h * pix->w * pix->n);
 
-    fz_device *dev = fz_newdrawdevice(drawcache, pix);
-    error = pdf_runcontentstream(dev, ctm, xref, drawpage->resources, drawpage->contents);
-    fz_freedevice(dev);
-    if (error)
-    {
-        fz_droppixmap(pix);
-        FreePage();
-        return -1;
-    }
+	fz_device *dev = fz_newdrawdevice(drawcache, pix);
+	error = pdf_runcontentstream(dev, ctm, xref, drawpage->resources, drawpage->contents);
+	fz_freedevice(dev);
+	if (error)
+	{
+		fz_droppixmap(pix);
+		FreePage();
+		return -1;
+	}
 
-    int len = datasizeRGBA8(width, height);
+	int len = datasizeRGBA8(width, height);
 
-    OutputImage = (u8 *) memalign(32, len);
-    if(!OutputImage)
-    {
-        fz_droppixmap(pix);
-        FreePage();
-        ShowError(tr("Not enough memory."));
-        return -1;
-    }
+	OutputImage = (u8 *) memalign(32, len);
+	if(!OutputImage)
+	{
+		fz_droppixmap(pix);
+		FreePage();
+		ShowError(tr("Not enough memory."));
+		return -1;
+	}
 
-    u32 offset;
-    imagewidth = pix->w;
-    imageheight = pix->h;
+	u32 offset;
+	imagewidth = pix->w;
+	imageheight = pix->h;
 
-    for (y = 0; y < pix->h; y++)
-    {
-        unsigned char *src = pix->samples + y * pix->w * 4;
+	for (y = 0; y < pix->h; y++)
+	{
+		unsigned char *src = pix->samples + y * pix->w * 4;
 
-        for (x = 0; x < pix->w; x++)
-        {
-            offset = coordsRGBA8(x, y, pix->w);
+		for (x = 0; x < pix->w; x++)
+		{
+			offset = coordsRGBA8(x, y, pix->w);
 
-            OutputImage[offset] = src[x * 4 + 0];
-            OutputImage[offset+1] = src[x * 4 + 1];
-            OutputImage[offset+32] = src[x * 4 + 2];
-            OutputImage[offset+33] = src[x * 4 + 3];
-        }
-    }
-    DCFlushRange(OutputImage, len);
+			OutputImage[offset] = src[x * 4 + 0];
+			OutputImage[offset+1] = src[x * 4 + 1];
+			OutputImage[offset+32] = src[x * 4 + 2];
+			OutputImage[offset+33] = src[x * 4 + 3];
+		}
+	}
+	DCFlushRange(OutputImage, len);
 
 	fz_droppixmap(pix);
 
-    if(drawpage != nil)
-        pdf_droppage(drawpage);
-    drawpage = (pdf_page *) nil;
-    flushxref();
-    if (xref && xref->store)
-    {
-        pdf_agestoreditems(xref->store);
-        pdf_evictageditems(xref->store);
-    }
+	if(drawpage != nil)
+		pdf_droppage(drawpage);
+	drawpage = (pdf_page *) nil;
+	flushxref();
+	if (xref && xref->store)
+	{
+		pdf_agestoreditems(xref->store);
+		pdf_evictageditems(xref->store);
+	}
 
 	return len;
 }

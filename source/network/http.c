@@ -12,17 +12,17 @@ const struct block emptyblock = {0, NULL};
 // Write our message to the server
 static s32 send_message(s32 server, char *msg) {
 	s32 bytes_transferred = 0;
-    s32 remaining = strlen(msg);
-    while (remaining) {
-        if ((bytes_transferred = net_write(server, msg, remaining > NET_BUFFER_SIZE ? NET_BUFFER_SIZE : remaining)) > 0) {
-            remaining -= bytes_transferred;
+	s32 remaining = strlen(msg);
+	while (remaining) {
+		if ((bytes_transferred = net_write(server, msg, remaining > NET_BUFFER_SIZE ? NET_BUFFER_SIZE : remaining)) > 0) {
+			remaining -= bytes_transferred;
 			usleep (20 * 1000);
-        } else if (bytes_transferred < 0) {
-            return bytes_transferred;
-        } else {
-            return -ENODATA;
-        }
-    }
+		} else if (bytes_transferred < 0) {
+			return bytes_transferred;
+		} else {
+			return -ENODATA;
+		}
+	}
 	return 0;
 }
 
@@ -36,7 +36,7 @@ static s32 send_message(s32 server, char *msg) {
 static s32 server_connect(u32 ipaddress, u32 socket_port) {
 	//Initialize socket
 	s32 connection = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
-    if (connection < 0) return connection;
+	if (connection < 0) return connection;
 
 	struct sockaddr_in connect_addr;
 	memset(&connect_addr, 0, sizeof(connect_addr));
@@ -235,79 +235,79 @@ struct block downloadfile(const char *url)
 
 s32 GetConnection(char * domain)
 {
-    if(!domain)
-        return -1;
+	if(!domain)
+		return -1;
 
-    u32 ipaddress = getipbynamecached(domain);
-    if(ipaddress == 0)
-        return -1;
-    s32 connection = server_connect(ipaddress, 80);
-    return connection;
+	u32 ipaddress = getipbynamecached(domain);
+	if(ipaddress == 0)
+		return -1;
+	s32 connection = server_connect(ipaddress, 80);
+	return connection;
 
 }
 
 int network_request(int connection, const char * request, char * filename)
 {
-    char buf[1024];
-    char *ptr = NULL;
+	char buf[1024];
+	char *ptr = NULL;
 
-    u32 cnt, size;
-    s32 ret;
+	u32 cnt, size;
+	s32 ret;
 
-    ret = net_send(connection, request, strlen(request), 0);
-    if (ret < 0)
-        return ret;
+	ret = net_send(connection, request, strlen(request), 0);
+	if (ret < 0)
+		return ret;
 
-    memset(buf, 0, sizeof(buf));
+	memset(buf, 0, sizeof(buf));
 
-    for (cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
-        if (net_recv(connection, buf + cnt, 1, 0) <= 0)
-            return -1;
+	for (cnt = 0; !strstr(buf, "\r\n\r\n"); cnt++)
+		if (net_recv(connection, buf + cnt, 1, 0) <= 0)
+			return -1;
 
-    if (!strstr(buf, "HTTP/1.1 200 OK"))
-        return -1;
+	if (!strstr(buf, "HTTP/1.1 200 OK"))
+		return -1;
 
-    if(filename)
-    {
-        /* Get filename */
-        ptr = strstr(buf, "filename=\"");
+	if(filename)
+	{
+		/* Get filename */
+		ptr = strstr(buf, "filename=\"");
 
-        if(ptr)
-        {
-            ptr += sizeof("filename=\"")-1;
+		if(ptr)
+		{
+			ptr += sizeof("filename=\"")-1;
 
-            for(cnt = 0; ptr[cnt] != '\r' && ptr[cnt] != '\n' && ptr[cnt] != '"'; cnt++)
-            {
-                filename[cnt] = ptr[cnt];
-                filename[cnt+1] = '\0';
-            }
-        }
-    }
+			for(cnt = 0; ptr[cnt] != '\r' && ptr[cnt] != '\n' && ptr[cnt] != '"'; cnt++)
+			{
+				filename[cnt] = ptr[cnt];
+				filename[cnt+1] = '\0';
+			}
+		}
+	}
 
-    ptr = strstr(buf, "Content-Length:");
-    if (!ptr)
-        return -1;
+	ptr = strstr(buf, "Content-Length:");
+	if (!ptr)
+		return -1;
 
-    sscanf(ptr, "Content-Length: %u", &size);
-    return size;
+	sscanf(ptr, "Content-Length: %u", &size);
+	return size;
 }
 
 int network_read(int connection, u8 *buf, u32 len)
 {
-    u32 read = 0;
-    s32 ret = -1;
+	u32 read = 0;
+	s32 ret = -1;
 
-    while (read < len)
-    {
-        ret = net_read(connection, buf + read, len - read);
-        if (ret < 0)
-            return ret;
+	while (read < len)
+	{
+		ret = net_read(connection, buf + read, len - read);
+		if (ret < 0)
+			return ret;
 
-        if (!ret)
-            break;
+		if (!ret)
+			break;
 
-        read += ret;
-    }
+		read += ret;
+	}
 
-    return read;
+	return read;
 }

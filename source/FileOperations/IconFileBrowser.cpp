@@ -32,7 +32,7 @@
  * Constructor for the IconFileBrowser class.
  */
 IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
-    : GuiFileBrowser(filebrowser, w, h)
+	: GuiFileBrowser(filebrowser, w, h)
 {
 	width = w;
 	height = h;
@@ -40,7 +40,6 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	numEntries = 0;
 	browser = filebrowser;
 	listChanged = true; // trigger an initial list update
-	triggerupdate = true; // trigger disable
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -68,7 +67,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	scrollbar->listChanged.connect(this, &IconFileBrowser::OnListChange);
 	scrollbar->SetButtonScroll(WiiControls.OneButtonScroll | ClassicControls.OneButtonScroll << 16);
 
-    RowSize = (width-25)/(fileDefault->GetWidth()+50);
+	RowSize = (width-25)/(fileDefault->GetWidth()+50);
 	PageSize = RowSize*height/(fileDefault->GetHeight()+50);
 }
 
@@ -77,7 +76,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
  */
 IconFileBrowser::~IconFileBrowser()
 {
-    browser = NULL;
+	browser = NULL;
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnSoundClick);
 	Resources::Remove(bgFileSelection);
@@ -92,22 +91,22 @@ IconFileBrowser::~IconFileBrowser()
 	Resources::Remove(fileVID);
 	Resources::Remove(filePDF);
 
-    delete scrollbar;
+	delete scrollbar;
 
 	delete trigA;
 
 	for(u32 i = 0; i < Buttons.size(); i++)
 	{
-	    if(Buttons[i])
-            delete Buttons[i];
-	    if(ButtonText[i])
-            delete ButtonText[i];
-	    if(FileSelectionImg[i])
-            delete FileSelectionImg[i];
-	    if(ButtonImg[i])
-            delete ButtonImg[i];
-	    if(Tooltip[i])
-            delete Tooltip[i];
+		if(Buttons[i])
+			delete Buttons[i];
+		if(ButtonText[i])
+			delete ButtonText[i];
+		if(FileSelectionImg[i])
+			delete FileSelectionImg[i];
+		if(ButtonImg[i])
+			delete ButtonImg[i];
+		if(Tooltip[i])
+			delete Tooltip[i];
 	}
 
 	Buttons.clear();
@@ -119,161 +118,168 @@ IconFileBrowser::~IconFileBrowser()
 
 GuiImage * IconFileBrowser::GetIconFromExt(const char * fileext, bool dir)
 {
-    if(dir)
-        return (new GuiImage(fileFolder));
+	if(dir)
+		return (new GuiImage(fileFolder));
 
-    if(fileext)
-    {
-        if(Settings.FileExtensions.CompareImage(fileext) == 0)
-        {
-            return (new GuiImage(fileGFX));
-        }
-        else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
-        {
-            return (new GuiImage(fileSFX));
-        }
-        else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0)
-        {
-            return (new GuiImage(filePLS));
-        }
-        else if(strcasecmp(fileext, ".txt") == 0)
-        {
-            return (new GuiImage(fileTXT));
-        }
-        else if(strcasecmp(fileext, ".xml") == 0)
-        {
-            return (new GuiImage(fileXML));
-        }
-        else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0 || Settings.FileExtensions.CompareArchive(fileext) == 0)
-        {
-            return (new GuiImage(fileArchives));
-        }
-        else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
-        {
-            return (new GuiImage(fileVID));
-        }
-        else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
-        {
-            return (new GuiImage(filePDF));
-        }
-    }
+	if(fileext)
+	{
+		if(Settings.FileExtensions.CompareImage(fileext) == 0)
+		{
+			return (new GuiImage(fileGFX));
+		}
+		else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
+		{
+			return (new GuiImage(fileSFX));
+		}
+		else if(strcasecmp(fileext, ".pls") == 0 || strcasecmp(fileext, ".m3u") == 0)
+		{
+			return (new GuiImage(filePLS));
+		}
+		else if(strcasecmp(fileext, ".txt") == 0)
+		{
+			return (new GuiImage(fileTXT));
+		}
+		else if(strcasecmp(fileext, ".xml") == 0)
+		{
+			return (new GuiImage(fileXML));
+		}
+		else if(Settings.FileExtensions.CompareWiiBinary(fileext) == 0 || Settings.FileExtensions.CompareArchive(fileext) == 0)
+		{
+			return (new GuiImage(fileArchives));
+		}
+		else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
+		{
+			return (new GuiImage(fileVID));
+		}
+		else if(Settings.FileExtensions.ComparePDF(fileext) == 0)
+		{
+			return (new GuiImage(filePDF));
+		}
+	}
 
-    return (new GuiImage(fileDefault));
+	return (new GuiImage(fileDefault));
 }
 
 void IconFileBrowser::AddButton()
 {
-    GuiImage * BtnImg = NULL;
-    ButtonImg.push_back(BtnImg);
+	GuiImage * BtnImg = NULL;
+	ButtonImg.push_back(BtnImg);
 
-    GuiText * BtnTxt = new GuiText((char *) NULL, 14, (GXColor){0, 0, 0, 255});
-    BtnTxt->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    BtnTxt->SetPosition(0, -10);
-    BtnTxt->SetLinesToDraw(2);
-    BtnTxt->SetMaxWidth(fileDefault->GetWidth()+38, WRAP);
-    ButtonText.push_back(BtnTxt);
+	GuiText * BtnTxt = new GuiText((char *) NULL, 14, (GXColor){0, 0, 0, 255});
+	BtnTxt->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	BtnTxt->SetPosition(0, -10);
+	BtnTxt->SetLinesToDraw(2);
+	BtnTxt->SetMaxWidth(fileDefault->GetWidth()+38, WRAP);
+	ButtonText.push_back(BtnTxt);
 
-    GuiImage * Marker = new GuiImage(bgFileSelection);
-    Marker->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    Marker->SetPosition(0, -17);
-    FileSelectionImg.push_back(Marker);
+	GuiImage * Marker = new GuiImage(bgFileSelection);
+	Marker->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	Marker->SetPosition(0, -17);
+	FileSelectionImg.push_back(Marker);
 
-    GuiTooltip * tmpToolTip = new GuiTooltip((char *) NULL);
-    tmpToolTip->SetPosition(0, 0);
-    Tooltip.push_back(tmpToolTip);
+	GuiTooltip * tmpToolTip = new GuiTooltip((char *) NULL);
+	tmpToolTip->SetPosition(0, 0);
+	Tooltip.push_back(tmpToolTip);
 
-    GuiButton * Btn = new GuiButton(fileDefault->GetWidth()+40, fileDefault->GetHeight()+32);
-    Btn->SetParent(this);
-    Btn->SetLabel(BtnTxt);
-    Btn->SetIcon(BtnImg);
-    Btn->SetImageOver(Marker);
-    Btn->SetTrigger(trigA);
-    Btn->SetSoundClick(btnSoundClick);
-    Btn->SetTooltip(tmpToolTip);
-    Btn->Clicked.connect(this, &IconFileBrowser::OnButtonClicked);
-    Buttons.push_back(Btn);
+	GuiButton * Btn = new GuiButton(fileDefault->GetWidth()+40, fileDefault->GetHeight()+32);
+	Btn->SetParent(this);
+	Btn->SetLabel(BtnTxt);
+	Btn->SetIcon(BtnImg);
+	Btn->SetImageOver(Marker);
+	Btn->SetTrigger(trigA);
+	Btn->SetSoundClick(btnSoundClick);
+	Btn->SetTooltip(tmpToolTip);
+	Btn->Clicked.connect(this, &IconFileBrowser::OnButtonClicked);
+	Buttons.push_back(Btn);
 }
 
 void IconFileBrowser::SetButton(int i, const char * name, bool dir, bool enable, int x, int y)
 {
-    if(i < 0)
-        return;
+	if(i < 0)
+		return;
 
-    else if(i >= (int) Buttons.size())
-    {
-        AddButton();
-    }
+	else if(i >= (int) Buttons.size())
+	{
+		AddButton();
+	}
 
-    if(!enable)
-    {
-        Buttons[i]->SetVisible(false);
-        Buttons[i]->SetState(STATE_DISABLED);
-        return;
-    }
+	if(!enable)
+	{
+		Buttons[i]->SetVisible(false);
+		Buttons[i]->SetState(STATE_DISABLED);
+		return;
+	}
 
-    if(ButtonImg[i])
-        delete ButtonImg[i];
+	if(ButtonImg[i])
+		delete ButtonImg[i];
 
-    ButtonImg[i] = GetIconFromExt((name ? strrchr(name, '.') : NULL), dir);
-    ButtonImg[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    ButtonText[i]->SetText(name);
-    Tooltip[i]->SetText(name);
-    if(40+x+Tooltip[i]->GetWidth() > width)
-    {
-        Tooltip[i]->SetPosition(width-(40+x+Tooltip[i]->GetWidth()), -30);
-    }
-    else
-    {
-        Tooltip[i]->SetPosition(40, -30);
-    }
+	ButtonImg[i] = GetIconFromExt((name ? strrchr(name, '.') : NULL), dir);
+	ButtonImg[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	ButtonText[i]->SetText(name);
+	Tooltip[i]->SetText(name);
+	if(40+x+Tooltip[i]->GetWidth() > width)
+	{
+		Tooltip[i]->SetPosition(width-(40+x+Tooltip[i]->GetWidth()), -30);
+	}
+	else
+	{
+		Tooltip[i]->SetPosition(40, -30);
+	}
 
-    if(Tooltip[i]->GetLeft() < 0)
-    {
-        Tooltip[i]->SetPosition(10-x-GetLeft(), -30);
-    }
+	if(Tooltip[i]->GetLeft() < 0)
+	{
+		Tooltip[i]->SetPosition(10-x-GetLeft(), -30);
+	}
 
-    Buttons[i]->SetIcon(ButtonImg[i]);
-    Buttons[i]->SetVisible(true);
-    Buttons[i]->SetPosition(x, y);
+	Buttons[i]->SetIcon(ButtonImg[i]);
+	Buttons[i]->SetVisible(true);
+	Buttons[i]->SetPosition(x, y);
 
-    if(Buttons[i]->GetState() == STATE_DISABLED)
-        Buttons[i]->SetState(STATE_DEFAULT);
+	if(Buttons[i]->GetState() == STATE_DISABLED)
+		Buttons[i]->SetState(STATE_DEFAULT);
 }
 
 void IconFileBrowser::RemoveButton(int i)
 {
-    if(i < 0 || i >= (int) Buttons.size())
-        return;
+	if(i < 0 || i >= (int) Buttons.size())
+		return;
 
-    if(ButtonImg.at(i))
-        delete ButtonImg.at(i);
-    ButtonImg.erase(ButtonImg.begin()+i);
+	if(ButtonImg.at(i))
+		delete ButtonImg.at(i);
+	ButtonImg.erase(ButtonImg.begin()+i);
 
-    if(ButtonText.at(i))
-        delete ButtonText.at(i);
-    ButtonText.erase(ButtonText.begin()+i);
+	if(ButtonText.at(i))
+		delete ButtonText.at(i);
+	ButtonText.erase(ButtonText.begin()+i);
 
-    if(FileSelectionImg.at(i))
-        delete FileSelectionImg.at(i);
-    FileSelectionImg.erase(FileSelectionImg.begin()+i);
+	if(FileSelectionImg.at(i))
+		delete FileSelectionImg.at(i);
+	FileSelectionImg.erase(FileSelectionImg.begin()+i);
 
-    if(Buttons.at(i))
-        delete Buttons.at(i);
-    Buttons.erase(Buttons.begin()+i);
+	if(Buttons.at(i))
+		delete Buttons.at(i);
+	Buttons.erase(Buttons.begin()+i);
 }
 
-void IconFileBrowser::OnButtonClicked(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void IconFileBrowser::OnButtonClicked(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    state = STATE_CLICKED;
+	for(u32 i = 0; i < Buttons.size(); i++)
+	{
+		if(Buttons[i] == sender)
+		{
+			Clicked(i);
+			break;
+		}
+	}
 }
 
 void IconFileBrowser::SetSelected(int i)
 {
-    if(i < 0 || i >= PAGESIZE)
-        return;
+	if(i < 0 || i >= PAGESIZE)
+		return;
 
-    selectedItem = i;
-    Buttons[selectedItem]->SetState(STATE_SELECTED);
+	selectedItem = i;
+	Buttons[selectedItem]->SetState(STATE_SELECTED);
 }
 
 void IconFileBrowser::ResetState()
@@ -293,7 +299,7 @@ void IconFileBrowser::OnListChange(int selItem, int selIndex)
 	selectedItem = selItem;
 	browser->SetPageIndex(selIndex);
 
-    u16 x = 25, y = 7;
+	u16 x = 25, y = 7;
 
 	for(int i = 0; i < PageSize; i++)
 	{
@@ -329,44 +335,44 @@ void IconFileBrowser::Draw()
 
 	for(u32 i = 0; i < Buttons.size(); i++)
 	{
-	    Buttons[i]->Draw();
+		Buttons[i]->Draw();
 	}
 
-    //needs a redraw for overrendering
-    if(parentElement && parentElement->GetState() != STATE_DISABLED)
-    {
-        if(state == STATE_DISABLED)
-            state = STATE_DEFAULT;
+	//needs a redraw for overrendering
+	if(parentElement && parentElement->GetState() != STATE_DISABLED)
+	{
+		if(state == STATE_DISABLED)
+			state = STATE_DEFAULT;
 
-        for(u32 i = 0; i < Buttons.size(); i++)
-        {
-            Tooltip[i]->Draw();
-        }
-    }
-    else
-    {
-        if(state == STATE_DEFAULT)
-            state = STATE_DISABLED;
-    }
+		for(u32 i = 0; i < Buttons.size(); i++)
+		{
+			Tooltip[i]->Draw();
+		}
+	}
+	else
+	{
+		if(state == STATE_DEFAULT)
+			state = STATE_DISABLED;
+	}
 
 	UpdateEffects();
 }
 
 void IconFileBrowser::Update(GuiTrigger * t)
 {
-	if(state == STATE_DISABLED || !t || !triggerupdate)
+	if(state == STATE_DISABLED || !t)
 		return;
 
 	scrollbar->Update(t);
 
-    if(browser)
-        browser->UpdateMarker(t);
+	if(browser)
+		browser->UpdateMarker(t);
 
 	//endNavigation:
 	if(numEntries != browser->GetEntrieCount())
 	{
-	    numEntries = browser->GetEntrieCount();
-	    scrollbar->SetEntrieCount(numEntries);
+		numEntries = browser->GetEntrieCount();
+		scrollbar->SetEntrieCount(numEntries);
 	}
 
 	for(int i = 0; i < PageSize && i < (int) Buttons.size(); i++)
@@ -388,11 +394,11 @@ void IconFileBrowser::Update(GuiTrigger * t)
 		{
 			selectedItem = i;
 			browser->SetSelectedIndex(browser->GetPageIndex() + i);
-		    Tooltip[i]->SetState(STATE_DEFAULT);
+			Tooltip[i]->SetState(STATE_DEFAULT);
 		}
 		else
 		{
-		    Tooltip[i]->SetState(STATE_DISABLED);
+			Tooltip[i]->SetState(STATE_DISABLED);
 		}
 
 		ItemMarker * IMarker = browser->GetItemMarker();
@@ -400,15 +406,16 @@ void IconFileBrowser::Update(GuiTrigger * t)
 
 		for(int n = 0; n < itemCount; n++)
 		{
-		    if(browser->GetPageIndex() + i == IMarker->GetItemIndex(n))
-		    {
-		        Buttons[i]->SetState(STATE_SELECTED);
-		    }
+			if(browser->GetPageIndex() + i == IMarker->GetItemIndex(n))
+			{
+				Buttons[i]->SetState(STATE_SELECTED);
+				break;
+			}
 		}
 	}
 
-    scrollbar->SetPageSize(PageSize);
-    scrollbar->SetRowSize(RowSize);
-    scrollbar->SetSelectedItem(selectedItem);
-    scrollbar->SetSelectedIndex(browser->GetPageIndex());
+	scrollbar->SetPageSize(PageSize);
+	scrollbar->SetRowSize(RowSize);
+	scrollbar->SetSelectedItem(selectedItem);
+	scrollbar->SetSelectedIndex(browser->GetPageIndex());
 }

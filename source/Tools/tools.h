@@ -36,10 +36,9 @@ extern "C" {
 #include "StringTools.h"
 #include "ConvertUTF.h"
 
-#define UNUSED  __attribute__((unused))
 #define GXCOLORTORGBA(x) ((u32) (x.r << 24 | x.g << 16 | x.b << 8 | x.a))
 #define RGBATOGXCOLOR(x) ((GXColor) {(x & 0xFF000000) >> 24, (x & 0x00FF0000) >> 16, (x & 0x0000FF00) >> 8, (x & 0x000000FF)})
-#define cut_bounds(x, min, max) ( (x < min) ? min : (x > max) ? max : x )
+#define LIMIT(x, min, max) ( (x < min) ? min : (x > max) ? max : x )
 #define ALIGN(x) (((x) + 3) & ~3)
 #define ALIGN32(x) (((x) + 31) & ~31)
 #define coordsRGBA8(x, y, w) (((((y >> 2) * (w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1)

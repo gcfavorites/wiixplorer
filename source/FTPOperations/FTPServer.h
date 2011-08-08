@@ -26,30 +26,30 @@
 #ifndef FTP_SERVER_H_
 #define FTP_SERVER_H_
 
-#include "libwiigui/gui.h"
+#include "stdafx.h"
 #include "Controls/GXConsole.hpp"
 
 class FTPServer
 {
-    public:
+	public:
 		static FTPServer * Instance();
 		static void DestroyInstance();
-        void StartupFTP();
-        void ShutdownFTP();
-        bool IsRunning() { return ftp_running; };
-    protected:
-        FTPServer();
-        ~FTPServer();
+		void StartupFTP();
+		void ShutdownFTP();
+		bool IsRunning() { return ftp_running; };
+	protected:
+		FTPServer();
+		~FTPServer();
 		void InternalFTPUpdate();
 		static void * UpdateFTP(void *arg);
 
 		static FTPServer *instance;
 
-        u8 * ThreadStack;
+		u8 * ThreadStack;
 		lwp_t ftpthread;
-        bool ftp_running;
-        s32 server;
-        bool ExitRequested;
+		bool ftp_running;
+		s32 server;
+		bool ExitRequested;
 };
 
 #endif

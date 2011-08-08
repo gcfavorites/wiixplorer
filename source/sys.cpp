@@ -23,28 +23,25 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <stdio.h>
-#include <ogcsys.h>
-#include <gccore.h>
-#include <string.h>
-#include <stdlib.h>
-#include <wiiuse/wpad.h>
-
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
+#include "Launcher/Channels.h"
 #include "BootHomebrew/BootHomebrew.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 #include "FTPOperations/FTPServer.h"
 #include "Memory/mem2.h"
 #include "VideoOperations/video.h"
+#include "SoundOperations/SoundHandler.hpp"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "DiskOperations/di2.h"
 #include "mload/mload_init.h"
 #include "Tools/tools.h"
 #include "audio.h"
+#include "input.h"
 #include "main.h"
 #include "menu.h"
 #include "sys.h"
@@ -54,34 +51,37 @@ bool reset = false;
 
 extern "C" bool RebootApp()
 {
-    char filepath[MAXPATHLEN];
-    snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
-    int ret = LoadHomebrew(filepath);
-    if(ret < 0)
-    {
-         WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
-         return false;
-    }
+	char filepath[MAXPATHLEN];
+	snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
+	int ret = LoadHomebrew(filepath);
+	if(ret < 0)
+	{
+		 WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
+		 return false;
+	}
 
-    AddBootArgument(filepath);
+	AddBootArgument(filepath);
 	BootHomebrew();
 
-    return true;
+	return true;
 }
 
 extern "C" void ExitApp()
 {
-    if(Settings.DeleteTempPath)
-    {
-        char path[sizeof(Settings.TempPath)];
-        strcpy(path, Settings.TempPath);
-        RemoveDirectory(path);
-    }
-    Settings.Save();
-    ShutdownPads();
+	if(Settings.DeleteTempPath)
+	{
+		char path[sizeof(Settings.TempPath)];
+		strcpy(path, Settings.TempPath);
+		RemoveDirectory(path);
+	}
+	Settings.Save();
+	ShutdownPads();
 	Clipboard::DestroyInstance();
-	MainWindow::DestroyInstance();
+	Application::DestroyInstance();
+	ProgressWindow::DestroyInstance();
 	FTPServer::DestroyInstance();
+	Channels::DestroyInstance();
+	SoundHandler::DestroyInstance();
 	StopGX();
 	ShutdownAudio();
 	ClearFontData();
@@ -91,8 +91,8 @@ extern "C" void ExitApp()
 	USB_Deinitialize();
 	DeInit_Network();
 	MEM2_cleanup();
-    mload_DeInit();
-    MagicPatches(0);
+	mload_DeInit();
+	MagicPatches(0);
 }
 
 extern "C" void __Sys_ResetCallback(void)
@@ -163,7 +163,7 @@ extern "C" void Sys_LoadMenu(void)
 
 extern "C" void Sys_BackToLoader(void)
 {
-    ExitApp();
+	ExitApp();
 
 	if (IsFromHBC())
 	{
@@ -175,28 +175,28 @@ extern "C" void Sys_BackToLoader(void)
 
 extern "C" bool IsFromHBC()
 {
-    if(!(*((u32*) 0x80001800)))
-        return false;
+	if(!(*((u32*) 0x80001800)))
+		return false;
 
-    char * signature = (char *) 0x80001804;
-    if(strncmp(signature, "STUBHAXX", 8) == 0)
-    {
-        return true;
-    }
+	char * signature = (char *) 0x80001804;
+	if(strncmp(signature, "STUBHAXX", 8) == 0)
+	{
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 extern "C" void LoadCIOS()
 {
-    int IOS_Rev = GetIOS_Rev(202);
+	int IOS_Rev = GetIOS_Rev(202);
 
-    if(IOS_Rev > 1 && IOS_Rev < 7)
-    {
-        int ret = IOS_ReloadIOS(202);
-        if(ret >= 0)
-            mload_Init();
-    }
+	if(IOS_Rev > 1 && IOS_Rev < 7)
+	{
+		int ret = IOS_ReloadIOS(202);
+		if(ret >= 0)
+			mload_Init();
+	}
 }
 
 extern "C" int GetIOS_Rev(u32 ios)
@@ -211,11 +211,11 @@ extern "C" int GetIOS_Rev(u32 ios)
 		return -1;
 
 	if(num_titles < 1)
-        return -1;
+		return -1;
 
 	titles = (u64 *) memalign(32, ALIGN32(num_titles * sizeof(u64) + 32));
 	if(!titles)
-	    return -1;
+		return -1;
 
 	ret = ES_GetTitles(titles, num_titles);
 	if(ret < 0)
@@ -264,7 +264,7 @@ extern "C" int GetIOS_Rev(u32 ios)
 			{
 				if (ISFS_Read(fd, (char *) data, stats.file_length) > 0x208)
 				{
-				    ret = ((struct _tmd *) SIGNATURE_PAYLOAD(data))->title_version;
+					ret = ((struct _tmd *) SIGNATURE_PAYLOAD(data))->title_version;
 				}
 				free(data);
 			}
@@ -279,7 +279,7 @@ extern "C" int GetIOS_Rev(u32 ios)
 
 extern "C" bool FindTitle(u64 titleid)
 {
-    bool found = false;
+	bool found = false;
 	u32 num_titles = 0, i = 0;
 	u64 * titles = NULL;
 	s32 ret = 0;
@@ -289,11 +289,11 @@ extern "C" bool FindTitle(u64 titleid)
 		return found;
 
 	if(num_titles < 1)
-        return found;
+		return found;
 
 	titles = (u64 *) memalign(32, ALIGN32(num_titles * sizeof(u64) + 32));
 	if(!titles)
-	    return found;
+		return found;
 
 	ret = ES_GetTitles(titles, num_titles);
 	if(ret < 0)
@@ -306,7 +306,7 @@ extern "C" bool FindTitle(u64 titleid)
 	{
 		if (titles[i] == titleid)
 		{
-		    found = true;
+			found = true;
 			break;
 		}
 	}

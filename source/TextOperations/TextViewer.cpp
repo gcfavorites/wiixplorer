@@ -25,20 +25,15 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-#include <gctypes.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-
-#include "libwiigui/gui.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
-#include "menu.h"
 #include "FileOperations/fileops.h"
-#include "sys.h"
 #include "TextEditor.h"
 #include "wstring.hpp"
+#include "FreeTypeGX.h"
+#include "menu.h"
+#include "sys.h"
 
 
 /****************************************************************************
@@ -46,105 +41,99 @@
 ***************************************************************************/
 void TextViewer(const char *filepath)
 {
-    bool exitwindow = false;
+	bool exitwindow = false;
 
-    u8 *file = NULL;
-    u64 filesize = 0;
+	u8 *file = NULL;
+	u64 filesize = 0;
 
-    int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
-    if(ret < 0)
-    {
-        ShowError(tr("Could not load text file."));
-        return;
-    }
-    else if(filesize > (u32) (4.5*MBSIZE))
-    {
-        free(file);
-        ShowError(tr("File is too big."));
-        return;
-    }
+	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
+	if(ret < 0)
+	{
+		ShowError(tr("Could not load text file."));
+		return;
+	}
+	else if(filesize > (u32) (4.5*MBSIZE))
+	{
+		free(file);
+		ShowError(tr("File is too big."));
+		return;
+	}
 
-    u8 * tmp = (u8 *) realloc(file, filesize+1);
-    if(!tmp)
-    {
-        free(file);
-        ShowError(tr("Not enough memory."));
-        return;
-    }
-    file = tmp;
-    file[filesize] = 0;
-    filesize++;
+	u8 * tmp = (u8 *) realloc(file, filesize+1);
+	if(!tmp)
+	{
+		free(file);
+		ShowError(tr("Not enough memory."));
+		return;
+	}
+	file = tmp;
+	file[filesize] = 0;
+	filesize++;
 
-    wString * filetext = NULL;
+	wString * filetext = NULL;
 
-    //To check if text is UTF8 or not
-    if(utf8Len((char*) file) > 0)
-    {
-        filetext = new (std::nothrow) wString();
-        if(!filetext)
-        {
-            free(file);
-            file = NULL;
-            ShowError(tr("Not enough memory."));
-            return;
-        }
+	//To check if text is UTF8 or not
+	if(utf8Len((char*) file) > 0)
+	{
+		filetext = new (std::nothrow) wString();
+		if(!filetext)
+		{
+			free(file);
+			file = NULL;
+			ShowError(tr("Not enough memory."));
+			return;
+		}
 
-        filetext->fromUTF8((char*) file);
-        free(file);
-        file = NULL;
-    }
-    else
-    {
-        wchar_t * tmptext = charToWideChar((char*) file);
+		filetext->fromUTF8((char*) file);
+		free(file);
+		file = NULL;
+	}
+	else
+	{
+		wchar_t * tmptext = charToWideChar((char*) file);
 
-        free(file);
-        file = NULL;
+		free(file);
+		file = NULL;
 
-        if(!tmptext)
-        {
-            ShowError(tr("Not enough memory."));
-            return;
-        }
+		if(!tmptext)
+		{
+			ShowError(tr("Not enough memory."));
+			return;
+		}
 
-        filetext = new (std::nothrow) wString(tmptext);
+		filetext = new (std::nothrow) wString(tmptext);
 
-        delete [] tmptext;
+		delete [] tmptext;
 
-        if(!filetext)
-        {
-            ShowError(tr("Not enough memory."));
-            return;
-        }
-    }
+		if(!filetext)
+		{
+			ShowError(tr("Not enough memory."));
+			return;
+		}
+	}
 
-    TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
-    Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    Editor->SetPosition(0, 0);
+	TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
+	Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	Editor->SetPosition(0, 0);
 
-    delete filetext;
-    filetext = NULL;
+	delete filetext;
+	filetext = NULL;
 
-    MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
-    MainWindow::Instance()->Append(Editor);
+	Application::Instance()->SetState(STATE_DISABLED);
+	//Application::Instance()->SetDim(true);
+	Application::Instance()->Append(Editor);
 
-    while(!exitwindow)
-    {
-        usleep(100);
+	while(!exitwindow)
+	{
+		usleep(100);
 
-        if(shutdown)
-            Sys_Shutdown();
-        else if(reset)
-            Sys_Reboot();
+		if(Editor->GetState() == STATE_CLOSED)
+			exitwindow = true;
+	}
 
-        else if(Editor->GetState() == STATE_CLOSED)
-            exitwindow = true;
-    }
+	delete Editor;
+	Editor = NULL;
 
-    delete Editor;
-    Editor = NULL;
-
-    MainWindow::Instance()->SetState(STATE_DEFAULT);
-    MainWindow::Instance()->SetDim(false);
-    MainWindow::Instance()->ResumeGui();
+	Application::Instance()->SetState(STATE_DEFAULT);
+	//Application::Instance()->SetDim(false);
 }

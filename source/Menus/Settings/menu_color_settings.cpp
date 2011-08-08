@@ -25,7 +25,7 @@
  ***************************************************************************/
 #include <unistd.h>
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ColorSetPrompt.h"
@@ -36,8 +36,8 @@ int MenuColorSettings()
 	int ret;
 	int i = 0;
 	bool firstRun = true;
-    ColorSetPrompt * ColorPrompt = NULL;
-    GXColor ImgColor[4];
+	ColorSetPrompt * ColorPrompt = NULL;
+	GXColor ImgColor[4];
 
 	OptionList options;
 	options.SetName(i++, tr("Background Upper/Left"));
@@ -55,12 +55,12 @@ int MenuColorSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Color Settings"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
-    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiImageData * btnOutline = Resources::GetImageData("button.png");
 	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
-    SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText resetBtnTxt(tr("Reset"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(btnOutline);
@@ -73,251 +73,249 @@ int MenuColorSettings()
 	resetBtn.SetTrigger(&trigA);
 	resetBtn.SetEffectGrow();
 
-	MainWindow::Instance()->Append(&resetBtn);
+	Application::Instance()->Append(&resetBtn);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
-        else if(resetBtn.GetState() == STATE_CLICKED)
-        {
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
+		else if(resetBtn.GetState() == STATE_CLICKED)
+		{
 			resetBtn.ResetState();
 			int choice = WindowPrompt(tr("Do you want to reset the color settings?"), 0, tr("Yes"), tr("Cancel"));
 			if(choice)
 			{
-                Settings.DefaultColors();
-                MainWindow::Instance()->GetBGColorPtr()[0] = RGBATOGXCOLOR(Settings.BackgroundUL);
-                MainWindow::Instance()->GetBGColorPtr()[1] = RGBATOGXCOLOR(Settings.BackgroundUR);
-                MainWindow::Instance()->GetBGColorPtr()[2] = RGBATOGXCOLOR(Settings.BackgroundBR);
-                MainWindow::Instance()->GetBGColorPtr()[3] = RGBATOGXCOLOR(Settings.BackgroundBL);
-                firstRun = true;
+				Settings.DefaultColors();
+				Application::Instance()->GetBGColorPtr()[0] = RGBATOGXCOLOR(Settings.BackgroundUL);
+				Application::Instance()->GetBGColorPtr()[1] = RGBATOGXCOLOR(Settings.BackgroundUR);
+				Application::Instance()->GetBGColorPtr()[2] = RGBATOGXCOLOR(Settings.BackgroundBR);
+				Application::Instance()->GetBGColorPtr()[3] = RGBATOGXCOLOR(Settings.BackgroundBL);
+				firstRun = true;
 			}
-        }
+		}
 
 		ret = Menu->GetClickedOption();
 
 		switch (ret)
 		{
 			case 0:
-                ColorPrompt = new ColorSetPrompt(tr("Background Upper/Left"), MainWindow::Instance()->GetBGColorPtr(), 0);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.BackgroundUL = GXCOLORTORGBA(MainWindow::Instance()->GetBGColorPtr()[0]);
+				ColorPrompt = new ColorSetPrompt(tr("Background Upper/Left"), Application::Instance()->GetBGColorPtr(), 0);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.BackgroundUL = GXCOLORTORGBA(Application::Instance()->GetBGColorPtr()[0]);
 				break;
-            case 1:
-                ColorPrompt = new ColorSetPrompt(tr("Background Upper/Right"), MainWindow::Instance()->GetBGColorPtr(), 1);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.BackgroundUR = GXCOLORTORGBA(MainWindow::Instance()->GetBGColorPtr()[1]);
+			case 1:
+				ColorPrompt = new ColorSetPrompt(tr("Background Upper/Right"), Application::Instance()->GetBGColorPtr(), 1);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.BackgroundUR = GXCOLORTORGBA(Application::Instance()->GetBGColorPtr()[1]);
 				break;
 			case 2:
-                ColorPrompt = new ColorSetPrompt(tr("Background Bottom/Right"), MainWindow::Instance()->GetBGColorPtr(), 2);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.BackgroundBR = GXCOLORTORGBA(MainWindow::Instance()->GetBGColorPtr()[2]);
+				ColorPrompt = new ColorSetPrompt(tr("Background Bottom/Right"), Application::Instance()->GetBGColorPtr(), 2);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.BackgroundBR = GXCOLORTORGBA(Application::Instance()->GetBGColorPtr()[2]);
 				break;
 			case 3:
-                ColorPrompt = new ColorSetPrompt(tr("Background Bottom/Left"), MainWindow::Instance()->GetBGColorPtr(), 3);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.BackgroundBL = GXCOLORTORGBA(MainWindow::Instance()->GetBGColorPtr()[3]);
+				ColorPrompt = new ColorSetPrompt(tr("Background Bottom/Left"), Application::Instance()->GetBGColorPtr(), 3);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.BackgroundBL = GXCOLORTORGBA(Application::Instance()->GetBGColorPtr()[3]);
 				break;
-            case 4:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Left"), (GXColor *) &ImgColor, 0);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressUL = GXCOLORTORGBA(ImgColor[0]);
+			case 4:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Left"), (GXColor *) &ImgColor, 0);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressUL = GXCOLORTORGBA(ImgColor[0]);
 				break;
-            case 5:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Right"), (GXColor *) &ImgColor, 1);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressUR = GXCOLORTORGBA(ImgColor[1]);
+			case 5:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Right"), (GXColor *) &ImgColor, 1);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressUR = GXCOLORTORGBA(ImgColor[1]);
 				break;
-            case 6:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Right"), (GXColor *) &ImgColor, 2);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressBR = GXCOLORTORGBA(ImgColor[2]);
+			case 6:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Right"), (GXColor *) &ImgColor, 2);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressBR = GXCOLORTORGBA(ImgColor[2]);
 				break;
-            case 7:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Left"), (GXColor *) &ImgColor, 3);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressBL = GXCOLORTORGBA(ImgColor[3]);
+			case 7:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Left"), (GXColor *) &ImgColor, 3);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressBL = GXCOLORTORGBA(ImgColor[3]);
 				break;
-            case 8:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Left"), (GXColor *) &ImgColor, 0);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressEmptyUL = GXCOLORTORGBA(ImgColor[0]);
+			case 8:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Left"), (GXColor *) &ImgColor, 0);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressEmptyUL = GXCOLORTORGBA(ImgColor[0]);
 				break;
-            case 9:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Right"), (GXColor *) &ImgColor, 1);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressEmptyUR = GXCOLORTORGBA(ImgColor[1]);
+			case 9:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Upper/Right"), (GXColor *) &ImgColor, 1);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressEmptyUR = GXCOLORTORGBA(ImgColor[1]);
 				break;
-            case 10:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Right"), (GXColor *) &ImgColor, 2);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressEmptyBR = GXCOLORTORGBA(ImgColor[2]);
+			case 10:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Right"), (GXColor *) &ImgColor, 2);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressEmptyBR = GXCOLORTORGBA(ImgColor[2]);
 				break;
-            case 11:
-                ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-                ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-                ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-                ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
-                ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Left"), (GXColor *) &ImgColor, 3);
-                MainWindow::Instance()->SetState(STATE_DISABLED);
-                MainWindow::Instance()->Append(ColorPrompt);
-                ColorPrompt->ShowPrompt();
-                delete ColorPrompt;
-                ColorPrompt = NULL;
-                MainWindow::Instance()->SetState(STATE_DEFAULT);
-                Settings.ProgressEmptyBL = GXCOLORTORGBA(ImgColor[3]);
+			case 11:
+				ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+				ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+				ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+				ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+				ColorPrompt = new ColorSetPrompt(tr("ProgressBar Bottom/Left"), (GXColor *) &ImgColor, 3);
+				Application::Instance()->SetState(STATE_DISABLED);
+				Application::Instance()->Append(ColorPrompt);
+				ColorPrompt->ShowPrompt();
+				delete ColorPrompt;
+				ColorPrompt = NULL;
+				Application::Instance()->SetState(STATE_DEFAULT);
+				Settings.ProgressEmptyBL = GXCOLORTORGBA(ImgColor[3]);
 				break;
-            default:
-                break;
+			default:
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), MainWindow::Instance()->GetBGColorPtr()[0].r,
-                                           MainWindow::Instance()->GetBGColorPtr()[0].g,
-                                           MainWindow::Instance()->GetBGColorPtr()[0].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), Application::Instance()->GetBGColorPtr()[0].r,
+										   Application::Instance()->GetBGColorPtr()[0].g,
+										   Application::Instance()->GetBGColorPtr()[0].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), MainWindow::Instance()->GetBGColorPtr()[1].r,
-                                           MainWindow::Instance()->GetBGColorPtr()[1].g,
-                                           MainWindow::Instance()->GetBGColorPtr()[1].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), Application::Instance()->GetBGColorPtr()[1].r,
+										   Application::Instance()->GetBGColorPtr()[1].g,
+										   Application::Instance()->GetBGColorPtr()[1].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), MainWindow::Instance()->GetBGColorPtr()[2].r,
-                                           MainWindow::Instance()->GetBGColorPtr()[2].g,
-                                           MainWindow::Instance()->GetBGColorPtr()[2].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), Application::Instance()->GetBGColorPtr()[2].r,
+										   Application::Instance()->GetBGColorPtr()[2].g,
+										   Application::Instance()->GetBGColorPtr()[2].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), MainWindow::Instance()->GetBGColorPtr()[3].r,
-                                           MainWindow::Instance()->GetBGColorPtr()[3].g,
-                                           MainWindow::Instance()->GetBGColorPtr()[3].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), Application::Instance()->GetBGColorPtr()[3].r,
+										   Application::Instance()->GetBGColorPtr()[3].g,
+										   Application::Instance()->GetBGColorPtr()[3].b);
 
-            ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-            ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-            ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-            ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+			ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+			ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+			ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+			ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[0].r, ImgColor[0].g, ImgColor[0].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[0].r, ImgColor[0].g, ImgColor[0].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[1].r, ImgColor[1].g, ImgColor[1].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[1].r, ImgColor[1].g, ImgColor[1].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[2].r, ImgColor[2].g, ImgColor[2].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[2].r, ImgColor[2].g, ImgColor[2].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[3].r, ImgColor[3].g, ImgColor[3].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[3].r, ImgColor[3].g, ImgColor[3].b);
 
-            ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-            ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-            ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-            ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+			ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+			ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+			ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+			ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[0].r, ImgColor[0].g, ImgColor[0].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[0].r, ImgColor[0].g, ImgColor[0].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[1].r, ImgColor[1].g, ImgColor[1].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[1].r, ImgColor[1].g, ImgColor[1].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[2].r, ImgColor[2].g, ImgColor[2].b);
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[2].r, ImgColor[2].g, ImgColor[2].b);
 
-            options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[3].r, ImgColor[3].g, ImgColor[3].b);
-        }
+			options.SetValue(i++, tr("R: %i G: %i B: %i"), ImgColor[3].r, ImgColor[3].g, ImgColor[3].b);
+		}
 	}
-	MainWindow::Instance()->HaltGui();
-	MainWindow::Instance()->Remove(&resetBtn);
+	Application::Instance()->Remove(&resetBtn);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
-    delete Menu;
-	MainWindow::Instance()->ResumeGui();
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

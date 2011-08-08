@@ -35,77 +35,77 @@
 
 extern "C" bool Screenshot(const char * outpath, int format)
 {
-    int width = 0;
-    int height = 0;
+	int width = 0;
+	int height = 0;
 
-    u8 * frameBuf = Video_GetFrame(&width, &height);
-    if(!frameBuf)
-        return false;
+	u8 * frameBuf = Video_GetFrame(&width, &height);
+	if(!frameBuf)
+		return false;
 
-    gdImagePtr gdImg = 0;
+	gdImagePtr gdImg = 0;
 
-    YCbYCrToGD(frameBuf, width, height, &gdImg);
+	YCbYCrToGD(frameBuf, width, height, &gdImg);
 
-    free(frameBuf);
-    frameBuf = NULL;
+	free(frameBuf);
+	frameBuf = NULL;
 
-    if(gdImg == 0)
-        return false;
+	if(gdImg == 0)
+		return false;
 
-    if(screenwidth != width || screenheight != height)
-    {
-        gdImagePtr dst = gdImageCreateTrueColor(screenwidth, screenheight);
-        gdImageCopyResized(dst, gdImg, 0, 0, 0, 0, screenwidth, screenheight, width, height);
+	if(screenwidth != width || screenheight != height)
+	{
+		gdImagePtr dst = gdImageCreateTrueColor(screenwidth, screenheight);
+		gdImageCopyResized(dst, gdImg, 0, 0, 0, 0, screenwidth, screenheight, width, height);
 
-        gdImageDestroy(gdImg);
-        gdImg = dst;
-    }
+		gdImageDestroy(gdImg);
+		gdImg = dst;
+	}
 
-    WriteGDImage(outpath, gdImg, format, 0);
+	WriteGDImage(outpath, gdImg, format, 0);
 
-    gdImageDestroy(gdImg);
+	gdImageDestroy(gdImg);
 
-    return 0;
+	return 0;
 }
 
 bool Screenshot()
 {
-    time_t rawtime;
-    time(&rawtime);
-    struct tm * curtime = localtime(&rawtime);
+	time_t rawtime;
+	time(&rawtime);
+	struct tm * curtime = localtime(&rawtime);
 
-    char Extension[6];
+	char Extension[6];
 
-    switch(Settings.ScreenshotFormat)
-    {
-        default:
-        case IMAGE_PNG:
-            sprintf(Extension, ".png");
-            break;
-        case IMAGE_JPEG:
-            sprintf(Extension, ".jpg");
-            break;
-        case IMAGE_GIF:
-            sprintf(Extension, ".gif");
-            break;
-        case IMAGE_TIFF:
-            sprintf(Extension, ".tif");
-            break;
-        case IMAGE_BMP:
-            sprintf(Extension, ".bmp");
-            break;
-        case IMAGE_GD:
-        case IMAGE_GD2:
-            sprintf(Extension, ".gd");
-            break;
-    }
+	switch(Settings.ScreenshotFormat)
+	{
+		default:
+		case IMAGE_PNG:
+			sprintf(Extension, ".png");
+			break;
+		case IMAGE_JPEG:
+			sprintf(Extension, ".jpg");
+			break;
+		case IMAGE_GIF:
+			sprintf(Extension, ".gif");
+			break;
+		case IMAGE_TIFF:
+			sprintf(Extension, ".tif");
+			break;
+		case IMAGE_BMP:
+			sprintf(Extension, ".bmp");
+			break;
+		case IMAGE_GD:
+		case IMAGE_GD2:
+			sprintf(Extension, ".gd");
+			break;
+	}
 
-    char text[100];
-    strftime (text, sizeof(text), "WiiXplorer_%H%M%S", curtime);
+	char text[100];
+	strftime (text, sizeof(text), "WiiXplorer_%H%M%S", curtime);
 
-    char filepath[400];
-    snprintf(filepath, sizeof(filepath), "%s/%s%s", Settings.ScreenshotPath, text, Extension);
-    CreateSubfolder(Settings.ScreenshotPath);
+	char filepath[400];
+	snprintf(filepath, sizeof(filepath), "%s/%s%s", Settings.ScreenshotPath, text, Extension);
+	CreateSubfolder(Settings.ScreenshotPath);
 
-    return Screenshot(filepath, Settings.ScreenshotFormat);
+	return Screenshot(filepath, Settings.ScreenshotFormat);
 }

@@ -30,7 +30,7 @@
 #ifndef _HOMEMENU_H
 #define _HOMEMENU_H
 
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 
 class HomeMenu : public GuiWindow
 {

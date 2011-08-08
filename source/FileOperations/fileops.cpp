@@ -42,7 +42,7 @@
 
 using namespace std;
 
-#define BLOCKSIZE               70*1024      //70KB
+#define BLOCKSIZE			   70*1024	  //70KB
 #define VectorResize(List) if(List.capacity()-List.size() == 0) List.reserve(List.size()+100)
 
 static bool replaceall = false;
@@ -57,30 +57,30 @@ extern bool sizegainrunning;
  ***************************************************************************/
 static int GetReplaceChoice(const char * filename)
 {
-    const char * progressText = ProgressWindow::Instance()->GetTitle();
-    StopProgress();
+	const char * progressText = ProgressWindow::Instance()->GetTitle();
+	StopProgress();
 
-    int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
+	int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
 
-    StartProgress(progressText, PROGRESSBAR, false);
+	StartProgress(progressText, PROGRESSBAR, false);
 
-    if(choice == 3)
-    {
-        replaceall = true;
-        replacenone = false;
-        return choice;
-    }
-    else if(choice == 0)
-    {
-        replaceall = false;
-        replacenone = true;
-        return choice;
-    }
-    else
-    {
-        replaceall = false;
-        return choice;
-    }
+	if(choice == 3)
+	{
+		replaceall = true;
+		replacenone = false;
+		return choice;
+	}
+	else if(choice == 0)
+	{
+		replaceall = false;
+		replacenone = true;
+		return choice;
+	}
+	else
+	{
+		replaceall = false;
+		return choice;
+	}
 }
 
 /****************************************************************************
@@ -90,8 +90,8 @@ static int GetReplaceChoice(const char * filename)
  ***************************************************************************/
  void ResetReplaceChoice()
  {
-    replaceall = false;
-    replacenone = false;
+	replaceall = false;
+	replacenone = false;
  }
 
 /****************************************************************************
@@ -101,30 +101,30 @@ static int GetReplaceChoice(const char * filename)
  ***************************************************************************/
 bool FindFile(const char * filename, const char * path)
 {
-    if(!filename || ! path)
-        return false;
+	if(!filename || ! path)
+		return false;
 
-    DIR_ITER *dir = NULL;
-    struct stat st;
-    char currfilename[MAXPATHLEN];
+	DIR_ITER *dir = NULL;
+	struct stat st;
+	char currfilename[MAXPATHLEN];
 
-    dir = diropen(path);
-    if(!dir)
-    {
-        dirclose(dir);
-        return false;
-    }
+	dir = diropen(path);
+	if(!dir)
+	{
+		dirclose(dir);
+		return false;
+	}
 
-    while (dirnext(dir,currfilename,&st) == 0)
-    {
-        if (strcasecmp(currfilename, filename) == 0)
-        {
-            dirclose(dir);
-            return true;
-        }
-    }
-    dirclose(dir);
-    return false;
+	while (dirnext(dir,currfilename,&st) == 0)
+	{
+		if (strcasecmp(currfilename, filename) == 0)
+		{
+			dirclose(dir);
+			return true;
+		}
+	}
+	dirclose(dir);
+	return false;
 }
 
 /****************************************************************************
@@ -134,52 +134,52 @@ bool FindFile(const char * filename, const char * path)
  ***************************************************************************/
 bool SearchFile(const char * searchpath, const char * searched_filename, char * outfilepath)
 {
-    struct stat st;
-    DIR_ITER *dir = NULL;
-    bool result = false;
+	struct stat st;
+	DIR_ITER *dir = NULL;
+	bool result = false;
 
-    char filename[MAXPATHLEN];
-    char pathptr[strlen(searchpath)+2];
-    snprintf(pathptr, sizeof(pathptr), "%s", searchpath);
+	char filename[MAXPATHLEN];
+	char pathptr[strlen(searchpath)+2];
+	snprintf(pathptr, sizeof(pathptr), "%s", searchpath);
 
-    if(pathptr[strlen(pathptr)-1] == '/')
-    {
-        pathptr[strlen(pathptr)-1] = '\0';
-    }
+	if(pathptr[strlen(pathptr)-1] == '/')
+	{
+		pathptr[strlen(pathptr)-1] = '\0';
+	}
 
 	char * notRoot = strrchr(pathptr, '/');
 	if(!notRoot)
 	{
-	    strcat(pathptr, "/");
+		strcat(pathptr, "/");
 	}
 
-    dir = diropen(pathptr);
-    if(!dir)
-        return false;
+	dir = diropen(pathptr);
+	if(!dir)
+		return false;
 
-    while (dirnext(dir,filename,&st) == 0 && result == false)
+	while (dirnext(dir,filename,&st) == 0 && result == false)
 	{
-	    if(strcasecmp(filename, searched_filename) == 0)
-	    {
-	        if(outfilepath)
-	        {
-	            sprintf(outfilepath, "%s/%s", pathptr, filename);
-	        }
-	        result = true;
-	    }
-        else if((st.st_mode & S_IFDIR) != 0)
-        {
-            if(strcmp(filename, ".") != 0 && strcmp(filename, "..") != 0)
-            {
-                char newpath[1024];
-                snprintf(newpath, sizeof(newpath), "%s/%s", pathptr, filename);
-                result = SearchFile(newpath, searched_filename, outfilepath);
-            }
-        }
+		if(strcasecmp(filename, searched_filename) == 0)
+		{
+			if(outfilepath)
+			{
+				sprintf(outfilepath, "%s/%s", pathptr, filename);
+			}
+			result = true;
+		}
+		else if((st.st_mode & S_IFDIR) != 0)
+		{
+			if(strcmp(filename, ".") != 0 && strcmp(filename, "..") != 0)
+			{
+				char newpath[1024];
+				snprintf(newpath, sizeof(newpath), "%s/%s", pathptr, filename);
+				result = SearchFile(newpath, searched_filename, outfilepath);
+			}
+		}
 	}
-    dirclose(dir);
+	dirclose(dir);
 
-    return result;
+	return result;
 }
 
 /****************************************************************************
@@ -189,35 +189,35 @@ bool SearchFile(const char * searchpath, const char * searched_filename, char * 
  ***************************************************************************/
 bool CheckFile(const char * filepath)
 {
-    if(!filepath)
-        return false;
+	if(!filepath)
+		return false;
 
-    if(strchr(filepath, '/') == NULL)
-        return false;
+	if(strchr(filepath, '/') == NULL)
+		return false;
 
-    struct stat filestat;
-    int length = strlen(filepath);
+	struct stat filestat;
+	int length = strlen(filepath);
 
-    char * dirnoslash = (char *) malloc(length+2);
-    if(!dirnoslash) return false;
+	char * dirnoslash = (char *) malloc(length+2);
+	if(!dirnoslash) return false;
 
-    strcpy(dirnoslash, filepath);
+	strcpy(dirnoslash, filepath);
 
-    while(dirnoslash[length-1] == '/')
-    {
-        dirnoslash[length-1] = '\0';
-        --length;
-    }
+	while(dirnoslash[length-1] == '/')
+	{
+		dirnoslash[length-1] = '\0';
+		--length;
+	}
 
 	char * notRoot = strrchr(dirnoslash, '/');
 	if(!notRoot)
-	    strcat(dirnoslash, "/");
+		strcat(dirnoslash, "/");
 
-    int ret = stat(dirnoslash, &filestat);
+	int ret = stat(dirnoslash, &filestat);
 
-    free(dirnoslash);
+	free(dirnoslash);
 
-    return (ret == 0);
+	return (ret == 0);
 }
 
 /****************************************************************************
@@ -230,7 +230,7 @@ u64 FileSize(const char * filepath)
   struct stat filestat;
 
   if (!filepath || stat(filepath, &filestat) != 0)
-    return 0;
+	return 0;
 
   return filestat.st_size;
 }
@@ -242,76 +242,76 @@ u64 FileSize(const char * filepath)
  ***************************************************************************/
 int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 {
-    if(!filepath)
-        return -1;
+	if(!filepath)
+		return -1;
 
-    int ret = -1;
-    u64 filesize = FileSize(filepath);
+	int ret = -1;
+	u64 filesize = FileSize(filepath);
 	char * filename = strrchr(filepath, '/');
 	if(filename)
-        filename++;
+		filename++;
 
-    *inbuffer = NULL;
-    *size = 0;
+	*inbuffer = NULL;
+	*size = 0;
 
-    FILE *file = fopen(filepath, "rb");
+	FILE *file = fopen(filepath, "rb");
 
-    if (file == NULL)
-        return -1;
+	if (file == NULL)
+		return -1;
 
-    u8 *buffer = (u8 *) malloc(filesize);
-    if (buffer == NULL)
-    {
-        fclose(file);
-        return -2;
-    }
+	u8 *buffer = (u8 *) malloc(filesize);
+	if (buffer == NULL)
+	{
+		fclose(file);
+		return -2;
+	}
 
-    u64 done = 0;
-    u32 blocksize = BLOCKSIZE;
+	u64 done = 0;
+	u32 blocksize = BLOCKSIZE;
 
-    do
-    {
-        if(actioncanceled)
-        {
-            free(buffer);
-            fclose(file);
-            return -10;
-        }
+	do
+	{
+		if(actioncanceled)
+		{
+			free(buffer);
+			fclose(file);
+			return -10;
+		}
 
-        if(blocksize > filesize-done)
-            blocksize = filesize-done;
+		if(blocksize > filesize-done)
+			blocksize = filesize-done;
 
-        ShowProgress(done, filesize, filename);
-        ret = fread(buffer+done, 1, blocksize, file);
-        if(ret < 0)
-        {
-            free(buffer);
-            fclose(file);
-            return -3;
-        }
-        else if(ret == 0)
-        {
-            //we are done
-            break;
-        }
+		ShowProgress(done, filesize, filename);
+		ret = fread(buffer+done, 1, blocksize, file);
+		if(ret < 0)
+		{
+			free(buffer);
+			fclose(file);
+			return -3;
+		}
+		else if(ret == 0)
+		{
+			//we are done
+			break;
+		}
 
-        done += ret;
+		done += ret;
 
-    }
-    while(done < filesize);
+	}
+	while(done < filesize);
 
-    fclose(file);
+	fclose(file);
 
-    if (done != filesize)
-    {
-        free(buffer);
-        return -3;
-    }
+	if (done != filesize)
+	{
+		free(buffer);
+		return -3;
+	}
 
-    *inbuffer = buffer;
-    *size = filesize;
+	*inbuffer = buffer;
+	*size = filesize;
 
-    return 1;
+	return 1;
 }
 
 /****************************************************************************
@@ -321,22 +321,22 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
  ***************************************************************************/
 int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8 **inbuffer, u64 *size)
 {
-    StartProgress(progressText);
-    int ret = LoadFileToMem(filepath, inbuffer, size);
-    StopProgress();
+	StartProgress(progressText);
+	int ret = LoadFileToMem(filepath, inbuffer, size);
+	StopProgress();
 
-    if(ret == -1) {
-        ShowError(tr("Can not open the file."));
-    }
-    else if(ret == -2) {
-        ShowError(tr("Not enough memory."));
-    }
-    else if(ret == -3) {
-        ShowError(tr("Error while reading file."));
-    }
-    else if(ret == -10) {
-        ShowError(tr("Action cancelled."));
-    }
+	if(ret == -1) {
+		ShowError(tr("Can not open the file."));
+	}
+	else if(ret == -2) {
+		ShowError(tr("Not enough memory."));
+	}
+	else if(ret == -3) {
+		ShowError(tr("Error while reading file."));
+	}
+	else if(ret == -10) {
+		ShowError(tr("Action cancelled."));
+	}
 	return ret;
 }
 
@@ -347,34 +347,34 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8
  ***************************************************************************/
 bool CreateSubfolder(const char * fullpath)
 {
-    if(!fullpath)
-        return false;
+	if(!fullpath)
+		return false;
 
-    if(CheckFile(fullpath))
-        return true;
+	if(CheckFile(fullpath))
+		return true;
 
-    string dirpath(fullpath);
+	string dirpath(fullpath);
 
-    int length = dirpath.size()-1;
-    while(dirpath[length] == '/')
-    {
-        dirpath.erase(length);
-        --length;
-    }
+	int length = dirpath.size()-1;
+	while(dirpath[length] == '/')
+	{
+		dirpath.erase(length);
+		--length;
+	}
 
-    string subpath(dirpath);
-    size_t pos = subpath.rfind('/');
-    if(pos == string::npos)
-        return false;
+	string subpath(dirpath);
+	size_t pos = subpath.rfind('/');
+	if(pos == string::npos)
+		return false;
 
-    if(subpath.size()-1 > pos)
-        subpath.erase(pos+1);
+	if(subpath.size()-1 > pos)
+		subpath.erase(pos+1);
 
-    bool result = CreateSubfolder(subpath.c_str());
-    if(!result)
-        return false;
+	bool result = CreateSubfolder(subpath.c_str());
+	if(!result)
+		return false;
 
-    return (mkdir(dirpath.c_str(), 0777) != -1);
+	return (mkdir(dirpath.c_str(), 0777) != -1);
 }
 
 /****************************************************************************
@@ -389,96 +389,96 @@ int CopyFile(const char * src, const char * dest)
 
 	char * filename = strrchr(src, '/');
 	if(filename)
-        filename++;
-    else
-        return -1;
+		filename++;
+	else
+		return -1;
 
-    bool fileexist = CheckFile(dest);
+	bool fileexist = CheckFile(dest);
 
-    if(fileexist == true)
-    {
-        int choice = -1;
-        if(!replaceall && !replacenone)
-            choice = GetReplaceChoice(filename);
+	if(fileexist == true)
+	{
+		int choice = -1;
+		if(!replaceall && !replacenone)
+			choice = GetReplaceChoice(filename);
 
-        if(replacenone || choice == 2)
-            return 1;
-    }
+		if(replacenone || choice == 2)
+			return 1;
+	}
 
-    u64 sizesrc = FileSize(src);
+	u64 sizesrc = FileSize(src);
 
 	FILE * source = fopen(src, "rb");
 
 	if(!source)
 		return -2;
 
-    u32 blksize = BLOCKSIZE;
+	u32 blksize = BLOCKSIZE;
 
 	u8 * buffer = (u8 *) malloc(blksize);
 
 	if(buffer == NULL){
-	    //no memory
-        fclose(source);
+		//no memory
+		fclose(source);
 		return -1;
 	}
 
 	FILE * destination = fopen(dest, "wb");
 
-    if(destination == NULL)
-    {
-        free(buffer);
-        fclose(source);
-        return -3;
-    }
+	if(destination == NULL)
+	{
+		free(buffer);
+		fclose(source);
+		return -3;
+	}
 
-    u64 done = 0;
+	u64 done = 0;
 
-    do
-    {
-        if(actioncanceled)
-        {
-            fclose(source);
-            fclose(destination);
-            free(buffer);
-            RemoveFile(dest);
-            return -10;
-        }
+	do
+	{
+		if(actioncanceled)
+		{
+			fclose(source);
+			fclose(destination);
+			free(buffer);
+			RemoveFile(dest);
+			return -10;
+		}
 
-        if(blksize > sizesrc - done)
-            blksize = sizesrc - done;
+		if(blksize > sizesrc - done)
+			blksize = sizesrc - done;
 
-        //Display progress
-        ShowProgress(done, sizesrc, filename);
-        read = fread(buffer, 1, blksize, source);
-        if(read < 0)
-        {
-            fclose(source);
-            fclose(destination);
-            free(buffer);
-            RemoveFile(dest);
-            return -3;
-        }
+		//Display progress
+		ShowProgress(done, sizesrc, filename);
+		read = fread(buffer, 1, blksize, source);
+		if(read < 0)
+		{
+			fclose(source);
+			fclose(destination);
+			free(buffer);
+			RemoveFile(dest);
+			return -3;
+		}
 
-        wrote = fwrite(buffer, 1, read, destination);
-        if(wrote < 0)
-        {
-            fclose(source);
-            fclose(destination);
-            free(buffer);
-            RemoveFile(dest);
-            return -3;
-        }
+		wrote = fwrite(buffer, 1, read, destination);
+		if(wrote < 0)
+		{
+			fclose(source);
+			fclose(destination);
+			free(buffer);
+			RemoveFile(dest);
+			return -3;
+		}
 
-        done += wrote;
-    }
-    while (read > 0);
+		done += wrote;
+	}
+	while (read > 0);
 
-    free(buffer);
-    fclose(source);
-    fclose(destination);
+	free(buffer);
+	fclose(source);
+	fclose(destination);
 
-    if(sizesrc != done)
-        return -4;
+	if(sizesrc != done)
+		return -4;
 
 	return 1;
 }
@@ -490,16 +490,16 @@ int CopyFile(const char * src, const char * dest)
 ****************************************************************************/
 static inline void ClearList(vector<char *> &List)
 {
-    for(u32 i = 0; i < List.size(); ++i)
-    {
-        if(List[i])
-        {
-            free(List[i]);
-            List[i] = NULL;
-        }
-    }
-    List.clear();
-    vector<char *>().swap(List);
+	for(u32 i = 0; i < List.size(); ++i)
+	{
+		if(List[i])
+		{
+			free(List[i]);
+			List[i] = NULL;
+		}
+	}
+	List.clear();
+	vector<char *>().swap(List);
 }
 
 /****************************************************************************
@@ -509,55 +509,55 @@ static inline void ClearList(vector<char *> &List)
 ****************************************************************************/
 static int ListDirectory(string &path, vector<char *> &DirList, vector<char *> &FileList)
 {
-    struct stat st;
-    DIR_ITER *dir = NULL;
+	struct stat st;
+	DIR_ITER *dir = NULL;
 
-    dir = diropen(path.c_str());
-    if(dir == NULL)
-        return -2;
+	dir = diropen(path.c_str());
+	if(dir == NULL)
+		return -2;
 
-    char *filename = (char *) malloc(MAXPATHLEN);
-    if(!filename)
-    {
-        dirclose(dir);
-        return -3;
-    }
-
-    memset(filename, 0, MAXPATHLEN);
-
-    while (dirnext(dir,filename,&st) == 0)
+	char *filename = (char *) malloc(MAXPATHLEN);
+	if(!filename)
 	{
-        if(actioncanceled)
-        {
-            free(filename);
-            ClearList(DirList);
-            ClearList(FileList);
-            dirclose(dir);
-            return -10;
-        }
-
-        if(st.st_mode & S_IFDIR)
-        {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-            {
-                VectorResize(DirList);
-                DirList.push_back(strdup(filename));
-            }
-        }
-        else
-        {
-            VectorResize(FileList);
-            FileList.push_back(strdup(filename));
-        }
-
-        memset(filename, 0, MAXPATHLEN);
+		dirclose(dir);
+		return -3;
 	}
 
-    free(filename);
-    filename = NULL;
-    dirclose(dir);
+	memset(filename, 0, MAXPATHLEN);
 
-    return 0;
+	while (dirnext(dir,filename,&st) == 0)
+	{
+		if(actioncanceled)
+		{
+			free(filename);
+			ClearList(DirList);
+			ClearList(FileList);
+			dirclose(dir);
+			return -10;
+		}
+
+		if(st.st_mode & S_IFDIR)
+		{
+			if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+			{
+				VectorResize(DirList);
+				DirList.push_back(strdup(filename));
+			}
+		}
+		else
+		{
+			VectorResize(FileList);
+			FileList.push_back(strdup(filename));
+		}
+
+		memset(filename, 0, MAXPATHLEN);
+	}
+
+	free(filename);
+	filename = NULL;
+	dirclose(dir);
+
+	return 0;
 }
 
 /****************************************************************************
@@ -567,81 +567,81 @@ static int ListDirectory(string &path, vector<char *> &DirList, vector<char *> &
  ***************************************************************************/
 static int InternalCopyDirectory(string &src, string &dest)
 {
-    vector<char *> DirList;
-    vector<char *> FileList;
+	vector<char *> DirList;
+	vector<char *> FileList;
 
-    int ret = ListDirectory(src, DirList, FileList);
-    if(ret < 0)
-        return ret;
+	int ret = ListDirectory(src, DirList, FileList);
+	if(ret < 0)
+		return ret;
 
-    //! Ensure that empty directories are created
-    CreateSubfolder(dest.c_str());
+	//! Ensure that empty directories are created
+	CreateSubfolder(dest.c_str());
 
-    for(u32 i = 0; i < FileList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
+	for(u32 i = 0; i < FileList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
 
-        if(!FileList[i])
-            continue;
+		if(!FileList[i])
+			continue;
 
-        int srcSize = src.size();
-        int destSize = dest.size();
-        src += FileList[i];
-        dest += FileList[i];
-        free(FileList[i]);
-        FileList[i] = NULL;
-        CopyFile(src.c_str(), dest.c_str());
-        src.erase(srcSize);
-        dest.erase(destSize);
-    }
-
-    ClearList(FileList);
-
-    for(u32 i = 0; i < DirList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
-
-        if(!DirList[i])
-            continue;
-
-        int srcSize = src.size();
-        int destSize = dest.size();
-        src += DirList[i];
-        src += '/';
-        dest += DirList[i];
-        dest += '/';
-        free(DirList[i]);
-        DirList[i] = NULL;
-        InternalCopyDirectory(src, dest);
-        src.erase(srcSize);
-        dest.erase(destSize);
+		int srcSize = src.size();
+		int destSize = dest.size();
+		src += FileList[i];
+		dest += FileList[i];
+		free(FileList[i]);
+		FileList[i] = NULL;
+		CopyFile(src.c_str(), dest.c_str());
+		src.erase(srcSize);
+		dest.erase(destSize);
 	}
 
-    ClearList(DirList);
+	ClearList(FileList);
 
-    return 1;
+	for(u32 i = 0; i < DirList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
+
+		if(!DirList[i])
+			continue;
+
+		int srcSize = src.size();
+		int destSize = dest.size();
+		src += DirList[i];
+		src += '/';
+		dest += DirList[i];
+		dest += '/';
+		free(DirList[i]);
+		DirList[i] = NULL;
+		InternalCopyDirectory(src, dest);
+		src.erase(srcSize);
+		dest.erase(destSize);
+	}
+
+	ClearList(DirList);
+
+	return 1;
 
 }
 
 int CopyDirectory(const char * src, const char * dest)
 {
-    if(!src || !dest)
-        return -1;
+	if(!src || !dest)
+		return -1;
 
-    string srcString(src);
-    string destString(dest);
+	string srcString(src);
+	string destString(dest);
 
-    return InternalCopyDirectory(srcString, destString);
+	return InternalCopyDirectory(srcString, destString);
 }
 
 /****************************************************************************
@@ -651,96 +651,96 @@ int CopyDirectory(const char * src, const char * dest)
  ***************************************************************************/
 static int InternalMoveDirectory(string &src, string &dest)
 {
-    bool samedevices = CompareDevices(src.c_str(), dest.c_str());
-    vector<char *> DirList;
-    vector<char *> FileList;
+	bool samedevices = CompareDevices(src.c_str(), dest.c_str());
+	vector<char *> DirList;
+	vector<char *> FileList;
 
-    int ret = ListDirectory(src, DirList, FileList);
-    if(ret < 0)
-        return ret;
+	int ret = ListDirectory(src, DirList, FileList);
+	if(ret < 0)
+		return ret;
 
-    //! Ensure that empty directories are created
-    CreateSubfolder(dest.c_str());
+	//! Ensure that empty directories are created
+	CreateSubfolder(dest.c_str());
 
-    for(u32 i = 0; i < FileList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
+	for(u32 i = 0; i < FileList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
 
-        if(!FileList[i])
-            continue;
+		if(!FileList[i])
+			continue;
 
-        int srcSize = src.size();
-        int destSize = dest.size();
-        src += FileList[i];
-        dest += FileList[i];
+		int srcSize = src.size();
+		int destSize = dest.size();
+		src += FileList[i];
+		dest += FileList[i];
 
-        MoveFile(src.c_str(), dest.c_str());
-        if(samedevices)
-            ShowProgress(0, 1, FileList[i]);
+		MoveFile(src.c_str(), dest.c_str());
+		if(samedevices)
+			ShowProgress(0, 1, FileList[i]);
 
-        free(FileList[i]);
-        FileList[i] = NULL;
-        src.erase(srcSize);
-        dest.erase(destSize);
-    }
-
-    ClearList(FileList);
-
-    for(u32 i = 0; i < DirList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
-
-        if(!DirList[i])
-            continue;
-
-        int srcSize = src.size();
-        int destSize = dest.size();
-        src += DirList[i];
-        src += '/';
-        dest += DirList[i];
-        dest += '/';
-        free(DirList[i]);
-        DirList[i] = NULL;
-
-        InternalMoveDirectory(src, dest);
-        src.erase(srcSize);
-        dest.erase(destSize);
+		free(FileList[i]);
+		FileList[i] = NULL;
+		src.erase(srcSize);
+		dest.erase(destSize);
 	}
 
-    ClearList(DirList);
+	ClearList(FileList);
 
-    string srcCopy(src);
+	for(u32 i = 0; i < DirList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
 
-    while(srcCopy[srcCopy.size()-1] == '/')
-        srcCopy.erase(srcCopy.size()-1);
+		if(!DirList[i])
+			continue;
 
-    if(actioncanceled)
-        return -10;
+		int srcSize = src.size();
+		int destSize = dest.size();
+		src += DirList[i];
+		src += '/';
+		dest += DirList[i];
+		dest += '/';
+		free(DirList[i]);
+		DirList[i] = NULL;
 
-    ret = remove(srcCopy.c_str());
+		InternalMoveDirectory(src, dest);
+		src.erase(srcSize);
+		dest.erase(destSize);
+	}
 
-    return (ret != 0 ? -1 : 1);
+	ClearList(DirList);
+
+	string srcCopy(src);
+
+	while(srcCopy[srcCopy.size()-1] == '/')
+		srcCopy.erase(srcCopy.size()-1);
+
+	if(actioncanceled)
+		return -10;
+
+	ret = remove(srcCopy.c_str());
+
+	return (ret != 0 ? -1 : 1);
 }
 
 int MoveDirectory(const char * src, const char * dest)
 {
-    if(!src || !dest)
-        return -1;
+	if(!src || !dest)
+		return -1;
 
-    string srcString(src);
-    string destString(dest);
+	string srcString(src);
+	string destString(dest);
 
-    return InternalMoveDirectory(srcString, destString);
+	return InternalMoveDirectory(srcString, destString);
 }
 
 /****************************************************************************
@@ -750,38 +750,38 @@ int MoveDirectory(const char * src, const char * dest)
  ***************************************************************************/
 int MoveFile(const char *srcpath, const char *destdir)
 {
-    if(CompareDevices(srcpath, destdir))
-    {
-        if(CheckFile(destdir))
-        {
-            int choice = -1;
-            if(!replaceall && !replacenone)
+	if(CompareDevices(srcpath, destdir))
+	{
+		if(CheckFile(destdir))
+		{
+			int choice = -1;
+			if(!replaceall && !replacenone)
 			{
 				const char * filename = strrchr(destdir, '/');
-                choice = GetReplaceChoice(filename ? filename+1 : destdir);
+				choice = GetReplaceChoice(filename ? filename+1 : destdir);
 			}
 
-            if(replacenone || choice == 2)
-                return 1;
+			if(replacenone || choice == 2)
+				return 1;
 
-            else if(replaceall || choice == 1)
-                RemoveFile(destdir);
-        }
+			else if(replaceall || choice == 1)
+				RemoveFile(destdir);
+		}
 
-        if(RenameFile(srcpath, destdir))
-            return 1;
-        else
-            return -1;
-    }
+		if(RenameFile(srcpath, destdir))
+			return 1;
+		else
+			return -1;
+	}
 
-    int res = CopyFile(srcpath, destdir);
-    if(res < 0)
-        return res;
+	int res = CopyFile(srcpath, destdir);
+	if(res < 0)
+		return res;
 
-    if(RemoveFile(srcpath))
-        return 1;
+	if(RemoveFile(srcpath))
+		return 1;
 
-    return -1;
+	return -1;
 }
 
 /****************************************************************************
@@ -791,83 +791,83 @@ int MoveFile(const char *srcpath, const char *destdir)
  ***************************************************************************/
 static int InternalRemoveDirectory(string &dirpath)
 {
-    vector<char *> DirList;
-    vector<char *> FileList;
+	vector<char *> DirList;
+	vector<char *> FileList;
 
-    int ret = ListDirectory(dirpath, DirList, FileList);
-    if(ret < 0)
-        return ret;
+	int ret = ListDirectory(dirpath, DirList, FileList);
+	if(ret < 0)
+		return ret;
 
-    for(u32 i = 0; i < FileList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
+	for(u32 i = 0; i < FileList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
 
-        if(!FileList[i])
-            continue;
+		if(!FileList[i])
+			continue;
 
-        int stringSize = dirpath.size();
-        dirpath += FileList[i];
-        RemoveFile(dirpath.c_str());
-        dirpath.erase(stringSize);
+		int stringSize = dirpath.size();
+		dirpath += FileList[i];
+		RemoveFile(dirpath.c_str());
+		dirpath.erase(stringSize);
 
-        //!Display Throbber rotating
-        ShowProgress(0, 1, FileList[i]);
-        free(FileList[i]);
-        FileList[i] = NULL;
-    }
+		//!Display Throbber rotating
+		ShowProgress(0, 1, FileList[i]);
+		free(FileList[i]);
+		FileList[i] = NULL;
+	}
 
-    ClearList(FileList);
+	ClearList(FileList);
 
-    for(u32 i = 0; i < DirList.size(); ++i)
-    {
-        if(actioncanceled)
-        {
-            ClearList(DirList);
-            ClearList(FileList);
-            return -10;
-        }
+	for(u32 i = 0; i < DirList.size(); ++i)
+	{
+		if(actioncanceled)
+		{
+			ClearList(DirList);
+			ClearList(FileList);
+			return -10;
+		}
 
-        if(!DirList[i])
-            continue;
+		if(!DirList[i])
+			continue;
 
-        int stringSize = dirpath.size();
-        dirpath += DirList[i];
-        dirpath += '/';
-        free(DirList[i]);
-        DirList[i] = NULL;
-        InternalRemoveDirectory(dirpath);
-        dirpath.erase(stringSize);
-    }
+		int stringSize = dirpath.size();
+		dirpath += DirList[i];
+		dirpath += '/';
+		free(DirList[i]);
+		DirList[i] = NULL;
+		InternalRemoveDirectory(dirpath);
+		dirpath.erase(stringSize);
+	}
 
-    ClearList(DirList);
+	ClearList(DirList);
 
-    string srcCopy(dirpath);
+	string srcCopy(dirpath);
 
-    while(srcCopy[srcCopy.size()-1] == '/')
-        srcCopy.erase(srcCopy.size()-1);
+	while(srcCopy[srcCopy.size()-1] == '/')
+		srcCopy.erase(srcCopy.size()-1);
 
-    if(actioncanceled)
-        return -10;
+	if(actioncanceled)
+		return -10;
 
-    ret = remove(srcCopy.c_str());
+	ret = remove(srcCopy.c_str());
 
-    return (ret != 0 ? -1 : 1);
+	return (ret != 0 ? -1 : 1);
 
 }
 
 int RemoveDirectory(const char * dirpath)
 {
-    if(!dirpath)
-        return -1;
+	if(!dirpath)
+		return -1;
 
-    string destString(dirpath);
+	string destString(dirpath);
 
-    return InternalRemoveDirectory(destString);
+	return InternalRemoveDirectory(destString);
 }
 
 /****************************************************************************
@@ -877,7 +877,7 @@ int RemoveDirectory(const char * dirpath)
  ***************************************************************************/
 bool RemoveFile(const char * filepath)
 {
-    return (remove(filepath) == 0);
+	return (remove(filepath) == 0);
 }
 
 /****************************************************************************
@@ -887,7 +887,7 @@ bool RemoveFile(const char * filepath)
  ***************************************************************************/
 bool RenameFile(const char * srcpath, const char * destpath)
 {
-    return (rename(srcpath, destpath) == 0);
+	return (rename(srcpath, destpath) == 0);
 }
 
 /****************************************************************************
@@ -897,72 +897,72 @@ bool RenameFile(const char * srcpath, const char * destpath)
  ***************************************************************************/
 void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
 {
-    DIR_ITER *dir = diropen(folderpath);
-    if(dir == NULL)
-        return;
+	DIR_ITER *dir = diropen(folderpath);
+	if(dir == NULL)
+		return;
 
-    char *filename = (char *) malloc(MAXPATHLEN);
-    if(!filename)
-    {
-        dirclose(dir);
-        return;
-    }
-
-    memset(filename, 0, MAXPATHLEN);
-
-    struct stat * st = (struct stat *) malloc(sizeof(struct stat));
-    if(!st)
-    {
-        free(filename);
-        dirclose(dir);
-        return;
-    }
-
-    vector<char *> DirList;
-
-    while (dirnext(dir,filename,st) == 0)
+	char *filename = (char *) malloc(MAXPATHLEN);
+	if(!filename)
 	{
-        if(!sizegainrunning)
-        {
-            free(filename);
-            free(st);
-            dirclose(dir);
-            ClearList(DirList);
-            return;
-        }
+		dirclose(dir);
+		return;
+	}
 
-        if(st->st_mode & S_IFDIR)
-        {
-            if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-            {
-                VectorResize(DirList);
-                DirList.push_back(strdup(filename));
-            }
-        }
-        else
-        {
-            ++filecount;
-            foldersize += st->st_size;
-        }
-        memset(filename, 0, MAXPATHLEN);
+	memset(filename, 0, MAXPATHLEN);
+
+	struct stat * st = (struct stat *) malloc(sizeof(struct stat));
+	if(!st)
+	{
+		free(filename);
+		dirclose(dir);
+		return;
+	}
+
+	vector<char *> DirList;
+
+	while (dirnext(dir,filename,st) == 0)
+	{
+		if(!sizegainrunning)
+		{
+			free(filename);
+			free(st);
+			dirclose(dir);
+			ClearList(DirList);
+			return;
+		}
+
+		if(st->st_mode & S_IFDIR)
+		{
+			if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
+			{
+				VectorResize(DirList);
+				DirList.push_back(strdup(filename));
+			}
+		}
+		else
+		{
+			++filecount;
+			foldersize += st->st_size;
+		}
+		memset(filename, 0, MAXPATHLEN);
 	}
 
 	dirclose(dir);
 	free(filename);
-    free(st);
+	free(st);
 
 	for(u32 i = 0; i < DirList.size(); ++i)
 	{
-	    if(!DirList[i])
-            continue;
+		if(!DirList[i])
+			continue;
 
-        string currentname(folderpath);
-        currentname += DirList[i];
-        currentname += '/';
-        free(DirList[i]);
-        DirList[i] = NULL;
+		string currentname(folderpath);
+		currentname += DirList[i];
+		currentname += '/';
+		free(DirList[i]);
+		DirList[i] = NULL;
 
-        GetFolderSize(currentname.c_str(), foldersize, filecount);
+		GetFolderSize(currentname.c_str(), foldersize, filecount);
 	}
 }
 
@@ -973,14 +973,14 @@ void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filecount)
  ***************************************************************************/
 bool CompareDevices(const char *src, const char *dest)
 {
-    if(!src || !dest)
-        return false;
+	if(!src || !dest)
+		return false;
 
-    char *device1 = strchr(src, ':');
-    char *device2 = strchr(dest, ':');
+	char *device1 = strchr(src, ':');
+	char *device2 = strchr(dest, ':');
 
 	if(!device1 || !device2)
-        return false;
+		return false;
 
 	int position1 = device1-src+1;
 	int position2 = device2-dest+1;
@@ -991,8 +991,8 @@ bool CompareDevices(const char *src, const char *dest)
 	snprintf(temp1, position1, "%s", src);
 	snprintf(temp2, position2, "%s", dest);
 
-    if(strcasecmp(temp1, temp2) == 0)
-        return true;
+	if(strcasecmp(temp1, temp2) == 0)
+		return true;
 
-    return false;
+	return false;
 }

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Jane.H\n"
 "Language-Team: mcc, kyogc, Miller, Jane.H\n"
@@ -528,6 +528,9 @@ msgstr "解壓縮"
 
 msgid "Extract All"
 msgstr "解壓縮全部"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "解壓縮檔案至暫存路徑並執行"
@@ -1219,14 +1222,11 @@ msgstr "重新連接失敗.沒有共享連接"
 msgid "Red"
 msgstr "紅色"
 
-msgid "Reload"
-msgstr "重新載入"
-
 msgid "Reloading file list..."
 msgstr "重新載入檔案清單..."
 
-msgid "Remounting all devices."
-msgstr "重新掛載所有裝置."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "重新掛載裝置..."
@@ -1650,9 +1650,6 @@ msgstr "你不能設定這磁區為使用中。"
 msgid "You cant use this operation on:"
 msgstr "無法使用此功能在："
 
-msgid "You do not have BootMii installed!"
-msgstr "你沒有安裝 BootMii"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "你有一個GUID磁區表（GPT）。還不支援在GPT中格式化磁區。"
 
@@ -1691,6 +1688,15 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Reload"
+#~ msgstr "重新載入"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "重新掛載所有裝置."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "你沒有安裝 BootMii"
 
 #~ msgid "USB Device"
 #~ msgstr "USB裝置"

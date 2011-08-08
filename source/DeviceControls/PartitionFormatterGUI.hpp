@@ -26,67 +26,67 @@
 #ifndef _PARTITION_FORMATTER_GUI_H_
 #define _PARTITION_FORMATTER_GUI_H_
 
-#include "libwiigui/gui_arrowoption.h"
+#include "GUI/gui.h"
+#include "GUI/gui_arrowoption.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
 class PartitionFormatterGui : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        PartitionFormatterGui();
-        virtual ~PartitionFormatterGui();
-        void MainUpdate();
-    protected:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
-        void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
-        void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
-        void SetDevice();
-        void ListPartitions();
-        void ResetMainDim();
+	public:
+		PartitionFormatterGui();
+		virtual ~PartitionFormatterGui();
+		void MainUpdate();
+	protected:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnOptionRightClick(GuiElement *sender, int pointer, const POINT &p);
+		void SetDevice();
+		void ListPartitions();
 
-        int currentState;
-        int CurDevice;
-        int CurPart;
-        bool FormatRequested;
-        bool ActiveRequested;
+		int currentState;
+		int CurDevice;
+		int CurPart;
+		bool FormatRequested;
+		bool ActiveRequested;
 
-        PartitionHandle * Device;
+		PartitionHandle * Device;
 
-        GuiSound * btnClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnClick;
+		GuiSound * btnSoundOver;
 
-        GuiButton * FormatBtn;
-        GuiButton * ActiveBtn;
-        GuiButton * BackBtn;
+		GuiButton * FormatBtn;
+		GuiButton * ActiveBtn;
+		GuiButton * BackBtn;
 
-        GuiText * TitleTxt;
-        GuiText * MountNameTxt;
-        GuiText * PartitionTxt;
-        GuiText * PartActiveTxt;
-        GuiText * PartTypeTxt;
-        GuiText * PartSizeTxt;
-        GuiText * MountNameValTxt;
-        GuiText * PartitionValTxt;
-        GuiText * PartActiveValTxt;
-        GuiText * PartTypeValTxt;
-        GuiText * PartSizeValTxt;
-        GuiText * FormatBtnTxt;
-        GuiText * ActiveBtnTxt;
+		GuiText * TitleTxt;
+		GuiText * MountNameTxt;
+		GuiText * PartitionTxt;
+		GuiText * PartActiveTxt;
+		GuiText * PartTypeTxt;
+		GuiText * PartSizeTxt;
+		GuiText * MountNameValTxt;
+		GuiText * PartitionValTxt;
+		GuiText * PartActiveValTxt;
+		GuiText * PartTypeValTxt;
+		GuiText * PartSizeValTxt;
+		GuiText * FormatBtnTxt;
+		GuiText * ActiveBtnTxt;
 
-        GuiImage * bgWindowImg;
-        GuiImage * ActiveBtnImg;
-        GuiImage * FormatBtnImg;
-        GuiImage * BackBtnImg;
-        GuiImage * BackBtnImgOver;
+		GuiImage * bgWindowImg;
+		GuiImage * ActiveBtnImg;
+		GuiImage * FormatBtnImg;
+		GuiImage * BackBtnImg;
+		GuiImage * BackBtnImgOver;
 
-        GuiImageData * bgWindow;
-        GuiImageData * btnOutline;
-        GuiImageData * CloseImgData;
-        GuiImageData * CloseImgOverData;
+		GuiImageData * bgWindow;
+		GuiImageData * btnOutline;
+		GuiImageData * CloseImgData;
+		GuiImageData * CloseImgOverData;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 
-        GuiArrowOption DeviceOption;
+		GuiArrowOption DeviceOption;
 };
 
 #endif

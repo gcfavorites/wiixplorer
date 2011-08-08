@@ -28,14 +28,14 @@
 
 class CRC32
 {
-    public:
-        CRC32(const unsigned char *s = 0, unsigned int size = 0) { init(); calc_crc32(s, size); }
-        void init() { crc32hash = 0; }
-        unsigned long calc_crc32(const unsigned char *s, unsigned int size);
-        unsigned long getCRC() const { return crc32hash; }
-        static unsigned long CalcComplete(const unsigned char *s, unsigned int size) { CRC32 Calc(s, size); return Calc.getCRC(); }
-    private:
-        unsigned long crc32hash;
+	public:
+		CRC32(const unsigned char *s = 0, unsigned int size = 0) { init(); calc_crc32(s, size); }
+		void init() { crc32hash = 0; }
+		unsigned long calc_crc32(const unsigned char *s, unsigned int size);
+		unsigned long getCRC() const { return crc32hash; }
+		static unsigned long CalcComplete(const unsigned char *s, unsigned int size) { CRC32 Calc(s, size); return Calc.getCRC(); }
+	private:
+		unsigned long crc32hash;
 };
 
 #endif

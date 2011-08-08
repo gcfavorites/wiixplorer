@@ -24,21 +24,19 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include <unistd.h>
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "TextOperations/PDFViewer.hpp"
 
 void PDFLoader(const char *filepath)
 {
-    PDFViewer * Viewer = new PDFViewer(filepath);
-    MainWindow::Instance()->Append(Viewer);
+	PDFViewer * Viewer = new PDFViewer(filepath);
+	Application::Instance()->Append(Viewer);
 
-    while(Viewer->MainUpdate() < 0)
-    {
-        VIDEO_WaitVSync();
-    }
+	while(Viewer->MainUpdate() < 0)
+	{
+		VIDEO_WaitVSync();
+	}
 
-    delete Viewer;
-    Viewer = NULL;
-
-    MainWindow::Instance()->ResumeGui();
+	delete Viewer;
+	Viewer = NULL;
 }

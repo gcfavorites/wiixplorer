@@ -35,79 +35,79 @@
 
 void Browser::MarkCurrentItem()
 {
-    ItemStruct * Item = GetCurrentItemStruct();
+	ItemStruct * Item = GetCurrentItemStruct();
 
-    if(Item)
-    {
-        IMarker.AddItem(Item);
+	if(Item)
+	{
+		IMarker.AddItem(Item);
 
-        if(Item->itempath)
-            free(Item->itempath);
-        delete Item;
-    }
+		if(Item->itempath)
+			free(Item->itempath);
+		delete Item;
+	}
 }
 
 void Browser::UnMarkCurrentItem()
 {
-    ItemStruct * Item = GetCurrentItemStruct();
+	ItemStruct * Item = GetCurrentItemStruct();
 
-    if(Item)
-    {
-        IMarker.RemoveItem(Item);
+	if(Item)
+	{
+		IMarker.RemoveItem(Item);
 
-        if(Item->itempath)
-            free(Item->itempath);
-        delete Item;
-    }
+		if(Item->itempath)
+			free(Item->itempath);
+		delete Item;
+	}
 }
 
 void Browser::MarkAllItems()
 {
-    for(int i = 0; i < GetEntrieCount(); i++)
-    {
-        ItemStruct * Item = GetItemStruct(i);
+	for(int i = 0; i < GetEntrieCount(); i++)
+	{
+		ItemStruct * Item = GetItemStruct(i);
 
-        if(Item)
-        {
-            IMarker.AddItem(Item);
+		if(Item)
+		{
+			IMarker.AddItem(Item);
 
-            if(Item->itempath)
-                free(Item->itempath);
-            delete Item;
-        }
-    }
+			if(Item->itempath)
+				free(Item->itempath);
+			delete Item;
+		}
+	}
 }
 
 void Browser::UpdateMarker(GuiTrigger * t)
 {
 	if((t->wpad->btns_d & WiiControls.DeMarkAllButton) ||
-       (t->wpad->btns_d & (ClassicControls.DeMarkAllButton << 16)) ||
-       (t->pad.btns_d & GCControls.DeMarkAllButton))
+	   (t->wpad->btns_d & (ClassicControls.DeMarkAllButton << 16)) ||
+	   (t->pad.btns_d & GCControls.DeMarkAllButton))
 	{
-        this->ResetMarker();
+		this->ResetMarker();
 	}
 	else if((t->wpad->btns_d & WiiControls.MarkItemButton) ||
-            (t->wpad->btns_d & (ClassicControls.MarkItemButton << 16)) ||
-            (t->pad.btns_d & GCControls.MarkItemButton))
+			(t->wpad->btns_d & (ClassicControls.MarkItemButton << 16)) ||
+			(t->pad.btns_d & GCControls.MarkItemButton))
 	{
-	    DelayCounter = 0;
-	    this->MarkCurrentItem();
+		DelayCounter = 0;
+		this->MarkCurrentItem();
 	}
 	else if((t->wpad->btns_d & WiiControls.DeMarkItemButton) ||
-            (t->wpad->btns_d & (ClassicControls.DeMarkItemButton << 16)) ||
-            (t->pad.btns_d & GCControls.DeMarkItemButton))
+			(t->wpad->btns_d & (ClassicControls.DeMarkItemButton << 16)) ||
+			(t->pad.btns_d & GCControls.DeMarkItemButton))
 	{
-	    this->UnMarkCurrentItem();
+		this->UnMarkCurrentItem();
 	}
-    else if((t->wpad->btns_h & WiiControls.MarkItemButton) ||
-       (t->wpad->btns_h & (ClassicControls.MarkItemButton << 16)) ||
-       (t->pad.btns_h & GCControls.MarkItemButton))
+	else if((t->wpad->btns_h & WiiControls.MarkItemButton) ||
+	   (t->wpad->btns_h & (ClassicControls.MarkItemButton << 16)) ||
+	   (t->pad.btns_h & GCControls.MarkItemButton))
 	{
-	    ++DelayCounter;
+		++DelayCounter;
 
-	    if(DelayCounter == 40)
-	    {
-	        this->MarkAllItems();
-	    }
+		if(DelayCounter == 40)
+		{
+			this->MarkAllItems();
+		}
 	}
 }

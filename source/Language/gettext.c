@@ -27,16 +27,16 @@ hash_string (const char *str_param)
   /* Compute the hash value for the given string.  */
   hval = 0;
   while (*str != '\0')
-    {
-      hval <<= 4;
-      hval += (u8) *str++;
-      g = hval & ((u32) 0xf << (HASHWORDBITS - 4));
-      if (g != 0)
+	{
+	  hval <<= 4;
+	  hval += (u8) *str++;
+	  g = hval & ((u32) 0xf << (HASHWORDBITS - 4));
+	  if (g != 0)
 	{
 	  hval ^= g >> (HASHWORDBITS - 8);
 	  hval ^= g;
 	}
-    }
+	}
   return hval;
 }
 
@@ -88,27 +88,27 @@ void gettextCleanUp(void)
 
 static inline void ClearPrefixes(char * msg)
 {
-    if(!msg)
-        return;
+	if(!msg)
+		return;
 
-    const char * ptr = msg;
+	const char * ptr = msg;
 
-    int i = 0;
+	int i = 0;
 
-    while(ptr[0] != '\0')
-    {
-        if(ptr[0] == '\\' && (ptr[1] == '\\' || ptr[1] == '"'))
-        {
-            ++ptr;
-        }
+	while(ptr[0] != '\0')
+	{
+		if(ptr[0] == '\\' && (ptr[1] == '\\' || ptr[1] == '"'))
+		{
+			++ptr;
+		}
 
-        msg[i] = ptr[0];
+		msg[i] = ptr[0];
 
-        ++i;
-        ++ptr;
-    }
+		++i;
+		++ptr;
+	}
 
-    msg[i] = '\0';
+	msg[i] = '\0';
 }
 
 bool gettextLoadLanguage(const char* langFile)

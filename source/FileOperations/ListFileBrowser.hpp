@@ -39,22 +39,20 @@ class ListFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		ListFileBrowser(Browser * filebrowser, int w, int h);
 		virtual ~ListFileBrowser();
 		void ResetState();
-        void SetSelected(int i);
-        void SetTriggerUpdate(bool t) { triggerupdate = t; };
+		void SetSelected(int i);
 		void TriggerUpdate() { listChanged = true; };
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
 		void OnListChange(int selItem, int selIndex);
-        void AddButton();
-        void SetButton(int i, const char * name, u64 filesize, bool dir, bool enable);
-        void RemoveButton(int i);
-        GuiImage * GetIconFromExt(const char * fileext, bool dir);
-        void OnClicked(GuiButton *sender, int pointer, POINT p);
+		void AddButton();
+		void SetButton(int i, const char * name, u64 filesize, bool dir, bool enable);
+		void RemoveButton(int i);
+		GuiImage * GetIconFromExt(const char * fileext, bool dir);
+		void OnClicked(GuiButton *sender, int pointer, const POINT &p);
 		int selectedItem;
 		int numEntries;
 		bool listChanged;
-		bool triggerupdate;
 
 		std::vector<GuiText *> fileBtnText;
 		std::vector<GuiText *> fileBtnTextOver;
@@ -66,16 +64,16 @@ class ListFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		Scrollbar * scrollbar;
 
 		GuiImageData * bgFileSelectionEntry;
-        GuiImageData * fileArchives;
+		GuiImageData * fileArchives;
 		GuiImageData * fileDefault;
 		GuiImageData * fileFolder;
-        GuiImageData * fileGFX;
+		GuiImageData * fileGFX;
 		GuiImageData * filePLS;
 		GuiImageData * fileSFX;
-        GuiImageData * fileTXT;
-        GuiImageData * fileXML;
-        GuiImageData * fileVID;
-        GuiImageData * filePDF;
+		GuiImageData * fileTXT;
+		GuiImageData * fileXML;
+		GuiImageData * fileVID;
+		GuiImageData * filePDF;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;

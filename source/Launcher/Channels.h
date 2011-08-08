@@ -47,8 +47,8 @@ class Channels
 
 		void Launch(int index);
 		int Count() { return channels.size(); };
-		char *GetName(int index) { return channels.at(index).name; };
-        void Sort();
+		char *GetName(int index) { if(index >= 0 && index < (int) channels.size()) return channels.at(index).name; return NULL; };
+		void Sort();
 
 	private:
 		Channels();

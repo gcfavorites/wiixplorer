@@ -27,7 +27,7 @@
 #include "Prompts/PromptWindows.h"
 #include "ImageOperations/ImageWrite.h"
 #include "Prompts/DeviceMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "SettingsMenu.h"
 #include "menu_settings.h"
@@ -58,119 +58,119 @@ int MenuFileExtensions()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("File Extensions Assignment"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
 		switch (ret)
 		{
 			case 0:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetVideo());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetVideo(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetVideo());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetVideo(entered);
+				}
+				break;
 			case 1:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetAudio());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetAudio(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetAudio());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetAudio(entered);
+				}
+				break;
 			case 2:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetImage());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetImage(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetImage());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetImage(entered);
+				}
+				break;
 			case 3:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetArchive());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetArchive(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetArchive());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetArchive(entered);
+				}
+				break;
 			case 4:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetHomebrew());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetHomebrew(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetHomebrew());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetHomebrew(entered);
+				}
+				break;
 			case 5:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetFont());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetFont(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetFont());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetFont(entered);
+				}
+				break;
 			case 6:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetLanguageFiles());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetLanguageFiles(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetLanguageFiles());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetLanguageFiles(entered);
+				}
+				break;
 			case 7:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetWiiBinary());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetWiiBinary(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetWiiBinary());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetWiiBinary(entered);
+				}
+				break;
 			case 8:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetPDF());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetPDF(entered);
-                }
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetPDF());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetPDF(entered);
+				}
+				break;
 			case 9:
-                snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetWiiXplorerMovies());
-                if(OnScreenKeyboard(entered, 299))
-                {
-                    Settings.FileExtensions.SetWiiXplorerMovies(entered);
-                }
-                break;
-            default:
-                break;
+				snprintf(entered, sizeof(entered), "%s", Settings.FileExtensions.GetWiiXplorerMovies());
+				if(OnScreenKeyboard(entered, 299))
+				{
+					Settings.FileExtensions.SetWiiXplorerMovies(entered);
+				}
+				break;
+			default:
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            options.SetValue(i++, Settings.FileExtensions.GetVideo());
-            options.SetValue(i++, Settings.FileExtensions.GetAudio());
-            options.SetValue(i++, Settings.FileExtensions.GetImage());
-            options.SetValue(i++, Settings.FileExtensions.GetArchive());
-            options.SetValue(i++, Settings.FileExtensions.GetHomebrew());
-            options.SetValue(i++, Settings.FileExtensions.GetFont());
-            options.SetValue(i++, Settings.FileExtensions.GetLanguageFiles());
-            options.SetValue(i++, Settings.FileExtensions.GetWiiBinary());
-            options.SetValue(i++, Settings.FileExtensions.GetPDF());
-            options.SetValue(i++, Settings.FileExtensions.GetWiiXplorerMovies());
-        }
+			options.SetValue(i++, Settings.FileExtensions.GetVideo());
+			options.SetValue(i++, Settings.FileExtensions.GetAudio());
+			options.SetValue(i++, Settings.FileExtensions.GetImage());
+			options.SetValue(i++, Settings.FileExtensions.GetArchive());
+			options.SetValue(i++, Settings.FileExtensions.GetHomebrew());
+			options.SetValue(i++, Settings.FileExtensions.GetFont());
+			options.SetValue(i++, Settings.FileExtensions.GetLanguageFiles());
+			options.SetValue(i++, Settings.FileExtensions.GetWiiBinary());
+			options.SetValue(i++, Settings.FileExtensions.GetPDF());
+			options.SetValue(i++, Settings.FileExtensions.GetWiiXplorerMovies());
+		}
 	}
 
-    delete Menu;
-    Settings.Save();
+	delete Menu;
+	Settings.Save();
 
 	return menu;
 }

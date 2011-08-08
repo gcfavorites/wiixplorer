@@ -23,219 +23,224 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
+#include <stdarg.h>
+#include "GUI/gui_window.h"
 #include "GXConsole.hpp"
+#include "FreeTypeGX.h"
+
+extern FreeTypeGX *fontSystem;
 
 GXConsole::GXConsole(int w, int h)
 {
-    fontSize = 16;
-    HeightBetweenLines = 6;
-    Background = NULL;
-    width = w;
-    height = h;
-    RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
-    color = (GXColor) {0, 0, 0, 255};
+	fontSize = 16;
+	HeightBetweenLines = 6;
+	Background = NULL;
+	width = w;
+	height = h;
+	RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
+	color = (GXColor) {0, 0, 0, 255};
 	style = FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
 	LWP_MutexInit(&mutex, true);
 }
 
 GXConsole::~GXConsole()
 {
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    clear();
+	clear();
 	LWP_MutexDestroy(mutex);
 }
 
 void GXConsole::printf(const char *format, ...)
 {
-    if(!format)
-        return;
+	if(!format)
+		return;
 
 	char *tmp=0;
 	va_list va;
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
-	    if(strcmp(tmp, "\x1b[2;0H") == 0)
-	    {
-            clear();
-	    }
-	    else
-	    {
-            wchar_t * wtext = new wchar_t[strlen(tmp)+1];
-            char2wchar_t(tmp, wtext);
-            AddText(wtext);
-            delete [] wtext;
-	    }
+		if(strcmp(tmp, "\x1b[2;0H") == 0)
+		{
+			clear();
+		}
+		else
+		{
+			wchar_t * wtext = new wchar_t[strlen(tmp)+1];
+			char2wchar_t(tmp, wtext);
+			AddText(wtext);
+			delete [] wtext;
+		}
 	}
 	va_end(va);
 
 	if(tmp)
-        free(tmp);
+		free(tmp);
 }
 
 void GXConsole::AddText(const wchar_t * inText)
 {
-    if(!inText)
-        return;
+	if(!inText)
+		return;
 
-    wString * Text = NULL;
+	wString * Text = NULL;
 
-    if(ConsoleRow.size() > 0)
-    {
-        Text = ConsoleRow.at(ConsoleRow.size()-1);
-    }
-    else
-    {
-        Text = new wString();
-        AddRow(Text);
-    }
+	if(ConsoleRow.size() > 0)
+	{
+		Text = ConsoleRow.at(ConsoleRow.size()-1);
+	}
+	else
+	{
+		Text = new wString();
+		AddRow(Text);
+	}
 
-    const wchar_t * ptr = inText;
+	const wchar_t * ptr = inText;
 
-    while(ptr[0] != 0)
-    {
-        if(IsMaxWidth(Text))
-        {
-            wString * newString = new wString();
-            Text = newString;
-            AddRow(Text);
-        }
-        if(ptr[0] == '\t')
-        {
-            Text->push_back(' ');
-            if(IsMaxWidth(Text))
-            {
-                wString * newString = new wString();
-                Text = newString;
-                AddRow(Text);
-            }
-            Text->push_back(' ');
-            if(IsMaxWidth(Text))
-            {
-                wString * newString = new wString();
-                Text = newString;
-                AddRow(Text);
-            }
-            Text->push_back(' ');
-            if(IsMaxWidth(Text))
-            {
-                wString * newString = new wString();
-                Text = newString;
-                AddRow(Text);
-            }
-            ++ptr;
-            continue;
-        }
-        else if(ptr[0] == '\n')
-        {
-            wString * newString = new wString();
-            Text = newString;
-            AddRow(Text);
-            ++ptr;
-            continue;
-        }
+	while(ptr[0] != 0)
+	{
+		if(IsMaxWidth(Text))
+		{
+			wString * newString = new wString();
+			Text = newString;
+			AddRow(Text);
+		}
+		if(ptr[0] == '\t')
+		{
+			Text->push_back(' ');
+			if(IsMaxWidth(Text))
+			{
+				wString * newString = new wString();
+				Text = newString;
+				AddRow(Text);
+			}
+			Text->push_back(' ');
+			if(IsMaxWidth(Text))
+			{
+				wString * newString = new wString();
+				Text = newString;
+				AddRow(Text);
+			}
+			Text->push_back(' ');
+			if(IsMaxWidth(Text))
+			{
+				wString * newString = new wString();
+				Text = newString;
+				AddRow(Text);
+			}
+			++ptr;
+			continue;
+		}
+		else if(ptr[0] == '\n')
+		{
+			wString * newString = new wString();
+			Text = newString;
+			AddRow(Text);
+			++ptr;
+			continue;
+		}
 
-        Text->push_back(ptr[0]);
+		Text->push_back(ptr[0]);
 
-        ++ptr;
-    }
+		++ptr;
+	}
 }
 
 bool GXConsole::IsMaxWidth(const wString * text)
 {
-    int currWidth = fontSystem->getWidth(text->c_str(), fontSize);
+	int currWidth = fontSystem->getWidth(text->c_str(), fontSize);
 
-    if(currWidth >= width)
-    {
-        return true;
-    }
+	if(currWidth >= width)
+	{
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 void GXConsole::AddRow(const wString * text)
 {
-    if(ConsoleRow.size() > RowCount)
-    {
-        RemoveRow(0);
-    }
+	if(ConsoleRow.size() > RowCount)
+	{
+		RemoveRow(0);
+	}
 
 	LWP_MutexLock(mutex);
-    ConsoleRow.push_back((wString *) text);
+	ConsoleRow.push_back((wString *) text);
 	LWP_MutexUnlock(mutex);
 }
 
 void GXConsole::RemoveRow(int row)
 {
-    if(row < 0 || row >= (int) ConsoleRow.size())
-        return;
+	if(row < 0 || row >= (int) ConsoleRow.size())
+		return;
 
 	LWP_MutexLock(mutex);
-    if(ConsoleRow.at(row))
-        delete ConsoleRow.at(row);
+	if(ConsoleRow.at(row))
+		delete ConsoleRow.at(row);
 
-    ConsoleRow.at(row) = NULL;
+	ConsoleRow.at(row) = NULL;
 
-    ConsoleRow.erase(ConsoleRow.begin()+row);
+	ConsoleRow.erase(ConsoleRow.begin()+row);
 	LWP_MutexUnlock(mutex);
 }
 
 void GXConsole::clear()
 {
 	LWP_MutexLock(mutex);
-    for(u32 i = 0; i < ConsoleRow.size(); i++)
-    {
-        if(ConsoleRow.at(i))
-            delete ConsoleRow.at(i);
+	for(u32 i = 0; i < ConsoleRow.size(); i++)
+	{
+		if(ConsoleRow.at(i))
+			delete ConsoleRow.at(i);
 
-        ConsoleRow.at(i) = NULL;
-    }
+		ConsoleRow.at(i) = NULL;
+	}
 
-    ConsoleRow.clear();
+	ConsoleRow.clear();
 	LWP_MutexUnlock(mutex);
 }
 
 void GXConsole::SetImage(GuiImage * img)
 {
-    Background = img;
+	Background = img;
 
-    if(Background)
-    {
-        Background->SetParent(this);
-    }
+	if(Background)
+	{
+		Background->SetParent(this);
+	}
 }
 
 void GXConsole::SetTextColor(GXColor c)
 {
-    color = c;
+	color = c;
 }
 
 void GXConsole::SetFontSize(int size)
 {
-    fontSize = size;
-    RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
+	fontSize = size;
+	RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
 }
 
 void GXConsole::SetHeightBetweenLines(int h)
 {
-    HeightBetweenLines = h;
-    RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
+	HeightBetweenLines = h;
+	RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
 }
 
 void GXConsole::Draw()
 {
-    if(Background)
-        Background->Draw();
+	if(Background)
+		Background->Draw();
 
-    int PositionX = GetLeft();
-    int PositionY = GetTop();
-    int PositionZ = GetZPosition();
+	int PositionX = GetLeft();
+	int PositionY = GetTop();
+	int PositionZ = GetZPosition();
 
-    for(u32 i = 0; i < ConsoleRow.size(); i++)
-    {
-        fontSystem->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), PositionZ, ConsoleRow.at(i)->c_str(), fontSize, color, style);
-    }
+	for(u32 i = 0; i < ConsoleRow.size(); i++)
+	{
+		fontSystem->drawText(PositionX, PositionY+i*(HeightBetweenLines+fontSize), PositionZ, ConsoleRow.at(i)->c_str(), fontSize, color, style);
+	}
 }
 

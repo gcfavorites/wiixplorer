@@ -24,58 +24,59 @@
  * TextPointer.cpp
  * for WiiXplorer 2009
  ***************************************************************************/
-
-#include <unistd.h>
+#include "GUI/gui_longtext.hpp"
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "TextPointer.h"
-#include "Text.hpp"
+#include "FreeTypeGX.h"
+
+extern FreeTypeGX * fontSystem;
 
 /**
  * Constructor for the TextPointer class.
  */
 TextPointer::TextPointer(GuiText *parent, int linestodraw)
-    : GuiButton(343, 240)
+	: GuiButton(343, 240)
 {
-    TextPtr = parent;
-    fontsize = TextPtr->GetFontSize();
-    MarkImage = NULL;
-    currentline = -1;
-    Position_X = 0;
-    Position_Y = 0;
-    width = TextPtr->GetTextMaxWidth();
-    if(width == 0)
-        width = TextPtr->GetTextWidth();
-    height = (linestodraw+1)*(fontsize+6);
-    visibility = true;
+	TextPtr = parent;
+	fontsize = TextPtr->GetFontSize();
+	MarkImage = NULL;
+	currentline = -1;
+	Position_X = 0;
+	Position_Y = 0;
+	width = TextPtr->GetTextMaxWidth();
+	if(width == 0)
+		width = TextPtr->GetTextWidth();
+	height = (linestodraw+1)*(fontsize+6);
+	visibility = true;
 
-    TextPointerImgData = Resources::GetImageData("textpointer_img.png");
-    TextPointerImg = new GuiImage(TextPointerImgData);
-    TextPointerImg->SetVisible(visibility);
+	TextPointerImgData = Resources::GetImageData("textpointer_img.png");
+	TextPointerImg = new GuiImage(TextPointerImgData);
+	TextPointerImg->SetVisible(visibility);
 
-    SetLabel(TextPtr);
-    SetImage(TextPointerImg);
+	SetLabel(TextPtr);
+	SetImage(TextPointerImg);
 }
 
 TextPointer::TextPointer(GuiText *parent, int w, int h)
-    : GuiButton(w, h)
+	: GuiButton(w, h)
 {
-    TextPtr = parent;
-    fontsize = TextPtr->GetFontSize();
-    MarkImage = NULL;
-    currentline = -1;
-    Position_X = 0;
-    Position_Y = 0;
-    width = w;
-    height = h;
-    visibility = true;
+	TextPtr = parent;
+	fontsize = TextPtr->GetFontSize();
+	MarkImage = NULL;
+	currentline = -1;
+	Position_X = 0;
+	Position_Y = 0;
+	width = w;
+	height = h;
+	visibility = true;
 
-    TextPointerImgData = Resources::GetImageData("textpointer_img.png");
-    TextPointerImg = new GuiImage(TextPointerImgData);
-    TextPointerImg->SetVisible(visibility);
+	TextPointerImgData = Resources::GetImageData("textpointer_img.png");
+	TextPointerImg = new GuiImage(TextPointerImgData);
+	TextPointerImg->SetVisible(visibility);
 
-    SetLabel(TextPtr);
-    SetImage(TextPointerImg);
+	SetLabel(TextPtr);
+	SetImage(TextPointerImg);
 }
 
 /**
@@ -83,136 +84,136 @@ TextPointer::TextPointer(GuiText *parent, int w, int h)
  */
 TextPointer::~TextPointer()
 {
-    Resources::Remove(TextPointerImgData);
+	Resources::Remove(TextPointerImgData);
 	delete TextPointerImg;
 
 	if(MarkImage)
-        delete MarkImage;
+		delete MarkImage;
 }
 
 void TextPointer::PositionChanged(int chan, int x, int y)
 {
 	if(MarkImage)
 	{
-        delete MarkImage;
-        MarkImage = NULL;
+		delete MarkImage;
+		MarkImage = NULL;
 	}
 
-    currentChan = chan;
-    currentline = -1;
-    Position_X = 0;
-    Position_Y = 0;
-    LetterNumInLine = 0;
-    Marking = false;
+	currentChan = chan;
+	currentline = -1;
+	Position_X = 0;
+	Position_Y = 0;
+	LetterNumInLine = 0;
+	Marking = false;
 
-    int linenumber = 0;
+	int linenumber = 0;
 
-    int differenz = 1000;
+	int differenz = 1000;
 
-    int maxlines = TextPtr->GetLinesCount();
-    if(maxlines < 1)
-        maxlines = 1;
+	int maxlines = TextPtr->GetLinesCount();
+	if(maxlines < 1)
+		maxlines = 1;
 
-    for(int i = 0; i < maxlines; i++)
-    {
-        int linestart = i*(fontsize+6);
-        if(differenz > abs(linestart-y))
-        {
-            differenz = abs(linestart-y);
-            linenumber = i;
-        }
-    }
-    differenz = 1000;
-    const wchar_t * line = TextPtr->GetTextLine(linenumber);
+	for(int i = 0; i < maxlines; i++)
+	{
+		int linestart = i*(fontsize+6);
+		if(differenz > abs(linestart-y))
+		{
+			differenz = abs(linestart-y);
+			linenumber = i;
+		}
+	}
+	differenz = 1000;
+	const wchar_t * line = TextPtr->GetTextLine(linenumber);
 
-    if(!line)
-        return;
+	if(!line)
+		return;
 
-    lineLength = wcslen(line)+1;
-    wchar_t temp[lineLength];
-    memset(temp, 0, sizeof(temp));
+	lineLength = wcslen(line)+1;
+	wchar_t temp[lineLength];
+	memset(temp, 0, sizeof(temp));
 
-    for(int i = 0; i < lineLength; i++)
-    {
-        temp[i] = line[i];
+	for(int i = 0; i < lineLength; i++)
+	{
+		temp[i] = line[i];
 
-        int w = fontSystem->getWidth(temp, fontsize);
+		int w = fontSystem->getWidth(temp, fontsize);
 
-        if(differenz > abs(x-w))
-        {
-            differenz = abs(x-w);
-            Position_X = w;
-            LetterNumInLine = i+1;
-        }
-    }
+		if(differenz > abs(x-w))
+		{
+			differenz = abs(x-w);
+			Position_X = w;
+			LetterNumInLine = i+1;
+		}
+	}
 
-    if(differenz > abs(x))
-    {
-        differenz = abs(x);
-        Position_X = 0;
-        LetterNumInLine = 0;
-    }
+	if(differenz > abs(x))
+	{
+		differenz = abs(x);
+		Position_X = 0;
+		LetterNumInLine = 0;
+	}
 
-    currentChan = chan;
-    currentline = linenumber;
-    Position_Y = linenumber*(fontsize+6);
-    Marking = true;
+	currentChan = chan;
+	currentline = linenumber;
+	Position_Y = linenumber*(fontsize+6);
+	Marking = true;
 }
 
 void TextPointer::SetPointerPosition(int LetterPos)
 {
-    if(LetterPos <= 0)
-    {
-        Position_X = 0;
-        LetterNumInLine = 0;
-        Marking = false;
-        return;
-    }
+	if(LetterPos <= 0)
+	{
+		Position_X = 0;
+		LetterNumInLine = 0;
+		Marking = false;
+		return;
+	}
 
-    const wchar_t * line = TextPtr->GetTextLine(currentline);
+	const wchar_t * line = TextPtr->GetTextLine(currentline);
 
-    if(!line)
-        return;
+	if(!line)
+		return;
 
-    lineLength = wcslen(line);
+	lineLength = wcslen(line);
 
-    if(LetterPos < 0)
-        LetterPos = 0;
-    else if(LetterPos > lineLength)
-        LetterPos = lineLength;
+	if(LetterPos < 0)
+		LetterPos = 0;
+	else if(LetterPos > lineLength)
+		LetterPos = lineLength;
 
-    Position_X = 0;
+	Position_X = 0;
 
-    for(int i = 0; i < LetterPos; ++i)
-    {
-        Position_X += fontSystem->getCharWidth(line[i], fontsize, i > 0 ? line[i-1] : 0);
-    }
+	for(int i = 0; i < LetterPos; ++i)
+	{
+		Position_X += fontSystem->getCharWidth(line[i], fontsize, i > 0 ? line[i-1] : 0);
+	}
 
-    LetterNumInLine = LetterPos;
-    Marking = false;
+	LetterNumInLine = LetterPos;
+	Marking = false;
 }
 
 void TextPointer::TextWidthChanged()
 {
-    width = TextPtr->GetTextMaxWidth();
-    if(width == 0)
-        width = TextPtr->GetTextWidth();
+	width = TextPtr->GetTextMaxWidth();
+	if(width == 0)
+		width = TextPtr->GetTextWidth();
 }
 
 void TextPointer::Draw()
 {
-    if(frameCount % 30 == 0)
-    {
-        visibility = !visibility;
-        TextPointerImg->SetVisible(visibility);
-    }
-    else if(TextPointerImg->GetLeft() != Position_X || TextPointerImg->GetTop() != Position_Y)
-        TextPointerImg->SetPosition(Position_X, Position_Y);
+	if(frameCount % 30 == 0)
+	{
+		visibility = !visibility;
+		TextPointerImg->SetVisible(visibility);
+	}
+	else if(TextPointerImg->GetLeft() != Position_X || TextPointerImg->GetTop() != Position_Y)
+		TextPointerImg->SetPosition(Position_X, Position_Y);
 
-    GuiButton::Draw();
+	GuiButton::Draw();
 }
 
 void TextPointer::Update(GuiTrigger * t)
 {
-    GuiButton::Update(t);
+	GuiButton::Update(t);
 }

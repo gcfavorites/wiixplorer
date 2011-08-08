@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-    const char *SvnRev();
+	const char *SvnRev();
 
 #ifdef __cplusplus
 }

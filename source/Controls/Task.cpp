@@ -27,52 +27,52 @@
 #include "menu.h"
 
 Task::Task(const char * title)
-    : GuiButton(100, 44)
+	: GuiButton(100, 44)
 {
-    Parameter = 0;
-    Callback = NULL;
-    ButtonImg = NULL;
-    ButtonIcon = NULL;
-    Title = new GuiText(title, 20, (GXColor) {0, 0, 0, 255});
-    Title->SetMaxWidth(80, DOTTED);
-    Title->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	Parameter = 0;
+	Callback = NULL;
+	ButtonImg = NULL;
+	ButtonIcon = NULL;
+	Title = new GuiText(title, 20, (GXColor) {0, 0, 0, 255});
+	Title->SetMaxWidth(80, DOTTED);
+	Title->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
-    SetLabel(Title);
-    SetImage(ButtonImg);
-    SetTrigger(trigA);
-    SetEffectGrow();
-    Clicked.connect(this, &Task::OnButtonClick);
+	SetLabel(Title);
+	SetImage(ButtonImg);
+	SetTrigger(trigA);
+	SetEffectGrow();
+	Clicked.connect(this, &Task::OnButtonClick);
 }
 
 Task::~Task()
 {
-    delete Title;
-    delete trigA;
-    if(ButtonImg)
-        delete ButtonImg;
-    if(ButtonIcon)
-        delete ButtonIcon;
+	delete Title;
+	delete trigA;
+	if(ButtonImg)
+		delete ButtonImg;
+	if(ButtonIcon)
+		delete ButtonIcon;
 }
 
 void Task::Execute(int param)
 {
-    if(Callback)
-        Callback->Execute(param);
+	if(Callback)
+		Callback->Execute(param);
 }
 
 void Task::SetIcon(GuiImageData * img)
 {
-    if(ButtonIcon)
-        delete ButtonIcon;
+	if(ButtonIcon)
+		delete ButtonIcon;
 
-    ButtonIcon = new GuiImage(img);
+	ButtonIcon = new GuiImage(img);
 	GuiButton::SetIcon(ButtonIcon);
 }
 
-void Task::OnButtonClick(GuiButton * sender, int channel UNUSED, POINT point UNUSED)
+void Task::OnButtonClick(GuiButton * sender, int channel UNUSED, const POINT &point UNUSED)
 {
-    Execute(Parameter);
-    sender->ResetState();
+	Execute(Parameter);
+	sender->ResetState();
 }

@@ -34,36 +34,36 @@
 
 typedef struct
 {
-    ItemMarker ItemList;
-    std::string DestPath;
-    bool Cutted;
+	ItemMarker ItemList;
+	std::string DestPath;
+	bool Cutted;
 } ClipboardItem;
 
 class IOHandler
 {
-    public:
+	public:
 		static IOHandler * Instance();
 		static void DestroyInstance();
 
-        void StartProcess(bool lock = true);
-        void AddProcess(ItemMarker * List, const char * dest, bool Cutted = false);
-        void SetMinimized(int mode);
-        void SetMaximized(int mode);
-        bool IsRunning() { return Running; };
-    protected:
+		void StartProcess(bool lock = true);
+		void AddProcess(ItemMarker * List, const char * dest, bool Cutted = false);
+		void SetMinimized(int mode);
+		void SetMaximized(int mode);
+		bool IsRunning() { return Running; };
+	protected:
 		IOHandler();
 		~IOHandler();
 		static void * ThreadCallback(void *arg);
 		void InternalThreadHandle();
-        void ProcessNext();
-        void CalcTotalSize();
+		void ProcessNext();
+		void CalcTotalSize();
 		static IOHandler * instance;
 
-        std::string ProgressText;
-        std::queue<ClipboardItem *> ProcessQueue;
-        u32 TotalFileCount;
-        u64 TotalSize;
-        bool Running;
+		std::string ProgressText;
+		std::queue<ClipboardItem *> ProcessQueue;
+		u32 TotalFileCount;
+		u64 TotalSize;
+		bool Running;
 		bool DestroyRequested;
 		bool ProcessLocked;
 		int ProgressMode;

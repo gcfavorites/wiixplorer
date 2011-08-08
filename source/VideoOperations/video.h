@@ -19,8 +19,4 @@ u8 * Video_GetFrame(int * width, int * height);
 void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos, f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth, f32 minheight, f32 maxheight);
 void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * color, bool multicolor, bool filled);
 
-extern int screenheight;
-extern int screenwidth;
-extern u32 frameCount;
-
 #endif

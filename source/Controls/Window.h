@@ -44,9 +44,9 @@ class Window : public GuiWindow
 		void Draw();
 		void SetIcon(GuiImageData *imgData);
 		void SetTitle(std::string text);
-        void SetHeight(int h);
-        void SetWidth(int w);
-        void SizeChanged();
+		void SetHeight(int h);
+		void SetWidth(int w);
+		void SizeChanged();
 
 		//!Focussed signal
 		sigslot::signal1<Window *> Focussed;

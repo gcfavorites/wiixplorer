@@ -25,24 +25,18 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-
-#include <gctypes.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-
-#include "libwiigui/gui.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileExtensions.h"
 #include "ImageOperations/ImageViewer.h"
 #include "sys.h"
 #include "DirList.h"
+#include "input.h"
 #include "menu.h"
 
 ImageViewer::ImageViewer(const char *filepath)
-    : GuiWindow(0, 0)
+	: GuiWindow(0, 0)
 {
 	currentImage = 0;
 	currentState = -1;
@@ -72,89 +66,85 @@ ImageViewer::ImageViewer(const char *filepath)
 
 ImageViewer::~ImageViewer()
 {
-    MainWindow::Instance()->ResumeGui();
-    SetEffect(EFFECT_FADE, -50);
-    while(this->GetEffect() > 0) usleep(100);
+	SetEffect(EFFECT_FADE, -50);
+	while(this->GetEffect() > 0) usleep(100);
 
-    MainWindow::Instance()->HaltGui();
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    for(int i = 0; i < 4; i++)
-        MainWindow::Instance()->ResetPointer(i);
+	for(int i = 0; i < 4; i++)
+		Application::Instance()->ResetPointer(i);
 
-    RemoveAll();
+	RemoveAll();
 
-    if(imageDir)
-        delete imageDir;
+	if(imageDir)
+		delete imageDir;
 
-    if(image)
-        delete image;
+	if(image)
+		delete image;
 
-    if(imageData)
-        delete imageData;
+	if(imageData)
+		delete imageData;
 
-    delete nextButton;
-    delete prevButton;
-    delete stopSlideshowButton;
-    delete slideshowButton;
-    delete zoominButton;
-    delete zoomoutButton;
-    delete rotateLButton;
-    delete rotateRButton;
-    delete backButton;
+	delete nextButton;
+	delete prevButton;
+	delete stopSlideshowButton;
+	delete slideshowButton;
+	delete zoominButton;
+	delete zoomoutButton;
+	delete rotateLButton;
+	delete rotateRButton;
+	delete backButton;
 	delete moveButton;
 	delete trashButton;
 
-    delete trigger;
-    delete trigNext;
-    delete trigPrev;
-    delete trigB;
-    delete trigA_Held;
-    delete trigPlus_Held;
-    delete trigMinus_Held;
+	delete trigger;
+	delete trigNext;
+	delete trigPrev;
+	delete trigB;
+	delete trigA_Held;
+	delete trigPlus_Held;
+	delete trigMinus_Held;
 	delete trigRotateL;
 	delete trigRotateR;
 	delete trigSlideshow;
 
 	delete backGround;
 
-    Resources::Remove(backButtonData);
-    Resources::Remove(backButtonOverData);
-    delete backButtonImage;
-    delete backButtonOverImage;
-    Resources::Remove(zoominButtonData);
-    Resources::Remove(zoominButtonOverData);
-    delete zoominButtonImage;
-    delete zoominButtonOverImage;
-    Resources::Remove(zoomoutButtonData);
-    Resources::Remove(zoomoutButtonOverData);
-    delete zoomoutButtonImage;
-    delete zoomoutButtonOverImage;
-    Resources::Remove(rotateRButtonData);
-    Resources::Remove(rotateRButtonOverData);
-    delete rotateRButtonImage;
-    delete rotateRButtonOverImage;
-    Resources::Remove(rotateLButtonData);
-    Resources::Remove(rotateLButtonOverData);
-    delete rotateLButtonImage;
-    delete rotateLButtonOverImage;
-    Resources::Remove(nextButtonData);
-    Resources::Remove(nextButtonOverData);
-    delete nextButtonImage;
-    delete nextButtonOverImage;
-    Resources::Remove(prevButtonData);
-    Resources::Remove(prevButtonOverData);
-    delete prevButtonImage;
-    delete prevButtonOverImage;
-    Resources::Remove(slideshowButtonData);
-    Resources::Remove(slideshowButtonOverData);
-    delete slideshowButtonImage;
-    delete slideshowButtonOverImage;
-    Resources::Remove(trashImgData);
-    delete trashImg;
-
-    MainWindow::Instance()->ResumeGui();
+	Resources::Remove(backButtonData);
+	Resources::Remove(backButtonOverData);
+	delete backButtonImage;
+	delete backButtonOverImage;
+	Resources::Remove(zoominButtonData);
+	Resources::Remove(zoominButtonOverData);
+	delete zoominButtonImage;
+	delete zoominButtonOverImage;
+	Resources::Remove(zoomoutButtonData);
+	Resources::Remove(zoomoutButtonOverData);
+	delete zoomoutButtonImage;
+	delete zoomoutButtonOverImage;
+	Resources::Remove(rotateRButtonData);
+	Resources::Remove(rotateRButtonOverData);
+	delete rotateRButtonImage;
+	delete rotateRButtonOverImage;
+	Resources::Remove(rotateLButtonData);
+	Resources::Remove(rotateLButtonOverData);
+	delete rotateLButtonImage;
+	delete rotateLButtonOverImage;
+	Resources::Remove(nextButtonData);
+	Resources::Remove(nextButtonOverData);
+	delete nextButtonImage;
+	delete nextButtonOverImage;
+	Resources::Remove(prevButtonData);
+	Resources::Remove(prevButtonOverData);
+	delete prevButtonImage;
+	delete prevButtonOverImage;
+	Resources::Remove(slideshowButtonData);
+	Resources::Remove(slideshowButtonOverData);
+	delete slideshowButtonImage;
+	delete slideshowButtonOverImage;
+	Resources::Remove(trashImgData);
+	delete trashImg;
 }
 
 bool ImageViewer::LoadImageList(const char * filepath)
@@ -164,25 +154,25 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
 	char *ptr = strrchr(path, '/');
 	if (!ptr)
-	    return false;
+		return false;
 
-    ptr++;
-    ptr[0] = '\0';
+	ptr++;
+	ptr[0] = '\0';
 
-    if(imageDir)
-        delete imageDir;
+	if(imageDir)
+		delete imageDir;
 
-    imageDir = new DirList(path, Settings.FileExtensions.GetImage());
+	imageDir = new DirList(path, Settings.FileExtensions.GetImage());
 
-    const char * filename = FullpathToFilename(filepath);
+	const char * filename = FullpathToFilename(filepath);
 
-    currentImage = imageDir->GetFileIndex(filename);
-    if (currentImage < 0)
-    {
-        delete imageDir;
-        imageDir = NULL;
-        return false;
-    }
+	currentImage = imageDir->GetFileIndex(filename);
+	if (currentImage < 0)
+	{
+		delete imageDir;
+		imageDir = NULL;
+		return false;
+	}
 
 	return true;
 }
@@ -205,42 +195,42 @@ int ImageViewer::MainUpdate()
 		}
 
 		if (((userInput[i].wpad->btns_u & WiiControls.ClickButton) ||
-             (userInput[i].wpad->btns_u & (ClassicControls.ClickButton << 16)))
-             && isAButtonPressed[i])
+			 (userInput[i].wpad->btns_u & (ClassicControls.ClickButton << 16)))
+			 && isAButtonPressed[i])
 		{
-			MainWindow::Instance()->ResetPointer(i);
+			Application::Instance()->ResetPointer(i);
 			isAButtonPressed[i] = false;
 		}
 	}
 
-    if(SlideShowStart > 0)
-    {
-        time_t currentTime = time(0);
-        if(currentTime-SlideShowStart >= slideshowDelay)
-        {
-            SlideShowStart = currentTime;
-            NextImage(true);
-        }
-    }
-    //!Has to be in main thread for image loading with progressbar
-    else if(nextButton->GetState() == STATE_CLICKED)
-    {
-        nextButton->ResetState();
-        NextImage();
-    }
-    else if(prevButton->GetState() == STATE_CLICKED)
-    {
-        prevButton->ResetState();
-        PreviousImage();
-    }
-    else if (zoominButton->GetState() == STATE_HELD)
-    {
-        ZoomIn();
-    }
-    else if (zoomoutButton->GetState() == STATE_HELD)
-    {
-        ZoomOut();
-    }
+	if(SlideShowStart > 0)
+	{
+		time_t currentTime = time(0);
+		if(currentTime-SlideShowStart >= slideshowDelay)
+		{
+			SlideShowStart = currentTime;
+			NextImage(true);
+		}
+	}
+	//!Has to be in main thread for image loading with progressbar
+	else if(nextButton->GetState() == STATE_CLICKED)
+	{
+		nextButton->ResetState();
+		NextImage();
+	}
+	else if(prevButton->GetState() == STATE_CLICKED)
+	{
+		prevButton->ResetState();
+		PreviousImage();
+	}
+	else if (zoominButton->GetState() == STATE_HELD)
+	{
+		ZoomIn();
+	}
+	else if (zoomoutButton->GetState() == STATE_HELD)
+	{
+		ZoomOut();
+	}
 	else if (moveButton->GetState() == STATE_HELD)
 	{
 		if (image && isPointerVisible)
@@ -250,22 +240,22 @@ int ImageViewer::MainUpdate()
 	}
 	else if (trashButton->GetState() == STATE_CLICKED)
 	{
-	    if(imageDir && image)
-	    {
-            SetState(STATE_DISABLED);
-            int choice = WindowPrompt(tr("Do you want to delete this file:"), imageDir->GetFilename(currentImage), tr("Yes"), tr("Cancel"), 0, 0, false);
-            if (choice)
-            {
-                if(!RemoveFile(imageDir->GetFilepath(currentImage)))
-                    ShowError(tr("File could not be deleted."));
-                else
-                {
-                    NextImage(false);
-                    LoadImageList(imageDir->GetFilepath(currentImage));
-                }
-            }
-            SetState(STATE_DEFAULT);
-	    }
+		if(imageDir && image)
+		{
+			SetState(STATE_DISABLED);
+			int choice = WindowPrompt(tr("Do you want to delete this file:"), imageDir->GetFilename(currentImage), tr("Yes"), tr("Cancel"));
+			if (choice)
+			{
+				if(!RemoveFile(imageDir->GetFilepath(currentImage)))
+					ShowError(tr("File could not be deleted."));
+				else
+				{
+					NextImage(false);
+					LoadImageList(imageDir->GetFilepath(currentImage));
+				}
+			}
+			SetState(STATE_DEFAULT);
+		}
 		trashButton->ResetState();
 	}
 
@@ -309,151 +299,151 @@ int ImageViewer::MainUpdate()
 		image->SetAngle(currentAngle-(rotateLeft+=3));
 	}
 
-    return currentState;
+	return currentState;
 }
 
 void ImageViewer::ZoomIn()
 {
-    if(!image)
-        return;
+	if(!image)
+		return;
 
-    SetImageSize(image->GetScale()+0.01f);
+	SetImageSize(image->GetScale()+0.01f);
 }
 
 void ImageViewer::ZoomOut()
 {
-    if(!image)
-        return;
+	if(!image)
+		return;
 
-    SetImageSize(image->GetScale()-0.01f);
+	SetImageSize(image->GetScale()-0.01f);
 }
 
 void ImageViewer::SetImageSize(float scale)
 {
-    if(!image)
-        return;
+	if(!image)
+		return;
 
-    if(scale < 0.0f)
-        scale = 0.000001f;
+	if(scale < 0.0f)
+		scale = 0.000001f;
 
-    image->SetScale(scale);
+	image->SetScale(scale);
 }
 
 void ImageViewer::SetStartUpImageSize()
 {
-    if(!image)
-        return;
+	if(!image)
+		return;
 
-    SetImageSize(1.0f);
+	SetImageSize(1.0f);
 
-    float newscale = image->GetScale();
+	float newscale = image->GetScale();
 
-    float imgwidth = (float) image->GetWidth() * 1.0f;
-    float imgheight = (float) image->GetHeight() * 1.0f;
-    int retries = 100;
+	float imgwidth = (float) image->GetWidth() * 1.0f;
+	float imgheight = (float) image->GetHeight() * 1.0f;
+	int retries = 100;
 
-    while(imgheight * newscale > height || imgwidth * newscale > width)
-    {
-        if(imgheight * newscale > height)
-            newscale = height/imgheight;
-        if(imgwidth * newscale > width)
-            newscale = width/imgwidth;
+	while(imgheight * newscale > height || imgwidth * newscale > width)
+	{
+		if(imgheight * newscale > height)
+			newscale = height/imgheight;
+		if(imgwidth * newscale > width)
+			newscale = width/imgwidth;
 
-        retries--;
-        if(retries == 0)
-        {
-            newscale = 1.0f;
-            break;
-        }
-    }
+		retries--;
+		if(retries == 0)
+		{
+			newscale = 1.0f;
+			break;
+		}
+	}
 
-    if(newscale < 0.05f)
-        newscale = 0.05f;
+	if(newscale < 0.05f)
+		newscale = 0.05f;
 
-    int PositionX = (int) (GetLeft()+width/2.0f-imgwidth/2.0f);
-    int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
-    image->SetScale(newscale);
-    image->SetPosition(PositionX, PositionY);
+	int PositionX = (int) (GetLeft()+width/2.0f-imgwidth/2.0f);
+	int PositionY = (int) (GetTop()+height/2.0f-imgheight/2.0f);
+	image->SetScale(newscale);
+	image->SetPosition(PositionX, PositionY);
 }
 
 bool ImageViewer::NextImage(bool silent)
 {
-    currentImage++;
-    if(currentImage >= imageDir->GetFilecount())
-        currentImage = 0;
+	currentImage++;
+	if(currentImage >= imageDir->GetFilecount())
+		currentImage = 0;
 
 	return LoadImage(currentImage, silent);
 }
 
 bool ImageViewer::PreviousImage(bool silent)
 {
-    currentImage--;
-    if(currentImage < 0)
-        currentImage = imageDir->GetFilecount()-1;
+	currentImage--;
+	if(currentImage < 0)
+		currentImage = imageDir->GetFilecount()-1;
 
 	return LoadImage(currentImage, silent);
 }
 
 void ImageViewer::StartSlideShow()
 {
-    //start a slideshow
-    SlideShowStart = time(0);
+	//start a slideshow
+	SlideShowStart = time(0);
 
 	Remove(moveButton);
-    Remove(backButton);
-    Remove(slideshowButton);
-    Remove(zoominButton);
-    Remove(zoomoutButton);
-    Remove(rotateLButton);
-    Remove(rotateRButton);
-    Remove(prevButton);
-    Remove(nextButton);
-    Append(stopSlideshowButton);
+	Remove(backButton);
+	Remove(slideshowButton);
+	Remove(zoominButton);
+	Remove(zoomoutButton);
+	Remove(rotateLButton);
+	Remove(rotateRButton);
+	Remove(prevButton);
+	Remove(nextButton);
+	Append(stopSlideshowButton);
 
-    Remove(backGround);
-    if(backGround)
-        delete backGround;
+	Remove(backGround);
+	if(backGround)
+		delete backGround;
 
 	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 255});
-    Insert(backGround, 0);
+	Insert(backGround, 0);
 }
 
 void ImageViewer::StopSlideShow()
 {
-    //stop a slideshow
-    SlideShowStart = 0;
+	//stop a slideshow
+	SlideShowStart = 0;
 
 	Append(moveButton);
-    Append(backButton);
-    Append(slideshowButton);
-    Append(zoominButton);
-    Append(zoomoutButton);
-    Append(rotateLButton);
-    Append(rotateRButton);
-    Append(prevButton);
-    Append(nextButton);
+	Append(backButton);
+	Append(slideshowButton);
+	Append(zoominButton);
+	Append(zoomoutButton);
+	Append(rotateLButton);
+	Append(rotateRButton);
+	Append(prevButton);
+	Append(nextButton);
 
-    Remove(stopSlideshowButton);
+	Remove(stopSlideshowButton);
 
-    Remove(backGround);
-    if(backGround)
-        delete backGround;
+	Remove(backGround);
+	if(backGround)
+		delete backGround;
 
 	backGround = new GuiImage(width, height, (GXColor){0, 0, 0, 0x50});
-    Insert(backGround, 0);
+	Insert(backGround, 0);
 }
 
-void ImageViewer::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p)
+void ImageViewer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p)
 {
-    if (sender == moveButton && image)
+	if (sender == moveButton && image)
 	{
 		for (int i = 0; i < 4; i++)
 		{
 			if (((userInput[i].wpad->btns_h & WiiControls.ClickButton) ||
-                 (userInput[i].wpad->btns_h & (ClassicControls.ClickButton << 16)))
-                 && !isAButtonPressed[i])
+				 (userInput[i].wpad->btns_h & (ClassicControls.ClickButton << 16)))
+				 && !isAButtonPressed[i])
 			{
-				MainWindow::Instance()->SetGrabPointer(i);
+				Application::Instance()->SetGrabPointer(i);
 				isAButtonPressed[i] = true;
 			}
 		}
@@ -463,45 +453,45 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p)
 		return;
 	}
 
-    sender->ResetState();
+	sender->ResetState();
 
-    if (sender == backButton)
-    {
-        currentState = 1;
-    }
-    else if (sender == slideshowButton)
-    {
-        StartSlideShow();
-    }
-    else if (sender == stopSlideshowButton)
-    {
-        StopSlideShow();
-    }
-    else if (sender == rotateRButton)
-    {
+	if (sender == backButton)
+	{
+		currentState = 1;
+	}
+	else if (sender == slideshowButton)
+	{
+		StartSlideShow();
+	}
+	else if (sender == stopSlideshowButton)
+	{
+		StopSlideShow();
+	}
+	else if (sender == rotateRButton)
+	{
 		if (image && !((int)image->GetAngle()%90))
 		{
 			rotateRight = 0;
 			currentAngle = image->GetAngle();
 		}
-    }
-    else if (sender == rotateLButton)
-    {
-        if (image && !((int)image->GetAngle()%90))
+	}
+	else if (sender == rotateLButton)
+	{
+		if (image && !((int)image->GetAngle()%90))
 		{
 			rotateLeft = 0;
 			currentAngle = image->GetAngle();
 		}
-    }
+	}
 }
 
 bool ImageViewer::LoadImage(int index, bool silent)
 {
-    if(!imageDir)
-        return false;
+	if(!imageDir)
+		return false;
 
-    if(index < 0 || index >= imageDir->GetFilecount())
-        return false;
+	if(index < 0 || index >= imageDir->GetFilecount())
+		return false;
 
 	const char * filename = imageDir->GetFilename(index);
 	const char * filepath = imageDir->GetFilepath(index);
@@ -519,40 +509,38 @@ bool ImageViewer::LoadImage(int index, bool silent)
 
 	int ret = -1;
 	if(silent)
-        ret = LoadFileToMem(filepath, &file, &filesize);
-    else
-        ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
+		ret = LoadFileToMem(filepath, &file, &filesize);
+	else
+		ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
 
 	if (ret < 0)
 		return false;
 
 	GuiImageData *newImage = new GuiImageData(file, filesize);
 
-    if(file)
-    {
-        free(file);
-        file = NULL;
-    }
+	if(file)
+	{
+		free(file);
+		file = NULL;
+	}
 
 	if (newImage->GetImage() == NULL && !silent)
 	{
-	    delete newImage;
+		delete newImage;
 		ShowError(tr("Cannot open image"));
 		return false;
 	}
 
-    if(image && SlideShowStart > 0)
-    {
-        image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
-        while(image->GetEffect() > 0) usleep(100);
-    }
-
-	MainWindow::Instance()->HaltGui();
+	if(image && SlideShowStart > 0)
+	{
+		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+		while(image->GetEffect() > 0) usleep(100);
+	}
 
 	if(image != NULL)
 	{
-        Remove(image);
-	    delete image;
+		Remove(image);
+		delete image;
 	}
 
 	if (imageData != NULL)
@@ -564,30 +552,28 @@ bool ImageViewer::LoadImage(int index, bool silent)
 
 	image = new GuiImage(imageData);
 
-    //!Set original size first if not over the limits
-    SetStartUpImageSize();
+	//!Set original size first if not over the limits
+	SetStartUpImageSize();
 
-    //!Insert after background image and before Buttons
+	//!Insert after background image and before Buttons
 	Insert(image, 1);
 
-    if(SlideShowStart > 0)
-        image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
-
-	MainWindow::Instance()->ResumeGui();
+	if(SlideShowStart > 0)
+		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 
 	//!Substract loading time from timer for slideshow
 	if(SlideShowStart > 0)
-        SlideShowStart = time(0);
+		SlideShowStart = time(0);
 
 	return true;
 }
 
 void ImageViewer::Setup()
 {
-    int DefaultButtonWidth = 96;
+	int DefaultButtonWidth = 96;
 
-	width = MainWindow::Instance()->GetWidth();
-	height = MainWindow::Instance()->GetHeight();
+	width = Application::Instance()->GetWidth();
+	height = Application::Instance()->GetHeight();
 
 	trigger = new GuiTrigger();
 	trigA_Held = new GuiTrigger();
@@ -627,7 +613,7 @@ void ImageViewer::Setup()
 	backButton->SetPosition(-2*DefaultButtonWidth-DefaultButtonWidth/2-2, -16);
 	backButton->SetTrigger(trigger);
 	backButton->SetTrigger(trigB);
-    backButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+	backButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 	Append(backButton);
 
 	zoominButtonData = Resources::GetImageData("zoomin.png");
@@ -672,7 +658,7 @@ void ImageViewer::Setup()
 	rotateRButton->SetPosition(DefaultButtonWidth+DefaultButtonWidth/2, -16);
 	rotateRButton->SetTrigger(trigger);
 	rotateRButton->SetTrigger(trigRotateR);
-    rotateRButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+	rotateRButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
 	Append(rotateRButton);
 
@@ -688,57 +674,57 @@ void ImageViewer::Setup()
 	rotateLButton->SetPosition(2*DefaultButtonWidth+DefaultButtonWidth/2+2, -16);
 	rotateLButton->SetTrigger(trigger);
 	rotateLButton->SetTrigger(trigRotateL);
-    rotateLButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+	rotateLButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 	Append(rotateLButton);
 
-    nextButtonData = Resources::GetImageData("next.png");
-    nextButtonOverData = Resources::GetImageData("next_over.png");
-    nextButtonImage = new GuiImage(nextButtonData);
-    nextButtonOverImage = new GuiImage(nextButtonOverData);
+	nextButtonData = Resources::GetImageData("next.png");
+	nextButtonOverData = Resources::GetImageData("next_over.png");
+	nextButtonImage = new GuiImage(nextButtonData);
+	nextButtonOverImage = new GuiImage(nextButtonOverData);
 
-    nextButton = new GuiButton(nextButtonImage->GetWidth(), nextButtonImage->GetHeight());
-    nextButton->SetImage(nextButtonImage);
-    nextButton->SetImageOver(nextButtonOverImage);
-    nextButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-    nextButton->SetPosition(-16, 198);
-    nextButton->SetTrigger(trigger);
-    nextButton->SetTrigger(trigNext);
-    Append(nextButton);
+	nextButton = new GuiButton(nextButtonImage->GetWidth(), nextButtonImage->GetHeight());
+	nextButton->SetImage(nextButtonImage);
+	nextButton->SetImageOver(nextButtonOverImage);
+	nextButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	nextButton->SetPosition(-16, 198);
+	nextButton->SetTrigger(trigger);
+	nextButton->SetTrigger(trigNext);
+	Append(nextButton);
 
-    prevButtonData = Resources::GetImageData("prev.png");
-    prevButtonOverData = Resources::GetImageData("prev_over.png");
-    prevButtonImage = new GuiImage(prevButtonData);
-    prevButtonOverImage = new GuiImage(prevButtonOverData);
+	prevButtonData = Resources::GetImageData("prev.png");
+	prevButtonOverData = Resources::GetImageData("prev_over.png");
+	prevButtonImage = new GuiImage(prevButtonData);
+	prevButtonOverImage = new GuiImage(prevButtonOverData);
 
-    prevButton = new GuiButton(prevButtonImage->GetWidth(), prevButtonImage->GetHeight());
-    prevButton->SetImage(prevButtonImage);
-    prevButton->SetImageOver(prevButtonOverImage);
-    prevButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    prevButton->SetPosition(16, 198);
-    prevButton->SetTrigger(trigger);
-    prevButton->SetTrigger(trigPrev);
-    Append(prevButton);
+	prevButton = new GuiButton(prevButtonImage->GetWidth(), prevButtonImage->GetHeight());
+	prevButton->SetImage(prevButtonImage);
+	prevButton->SetImageOver(prevButtonOverImage);
+	prevButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	prevButton->SetPosition(16, 198);
+	prevButton->SetTrigger(trigger);
+	prevButton->SetTrigger(trigPrev);
+	Append(prevButton);
 
-    slideshowButtonData = Resources::GetImageData("slideshow.png");
-    slideshowButtonOverData = Resources::GetImageData("slideshow_over.png");
-    slideshowButtonImage = new GuiImage(slideshowButtonData);
-    slideshowButtonOverImage = new GuiImage(slideshowButtonOverData);
+	slideshowButtonData = Resources::GetImageData("slideshow.png");
+	slideshowButtonOverData = Resources::GetImageData("slideshow_over.png");
+	slideshowButtonImage = new GuiImage(slideshowButtonData);
+	slideshowButtonOverImage = new GuiImage(slideshowButtonOverData);
 
-    slideshowButton = new GuiButton(slideshowButtonImage->GetWidth(), slideshowButtonImage->GetHeight());
-    slideshowButton->SetImage(slideshowButtonImage);
-    slideshowButton->SetImageOver(slideshowButtonOverImage);
-    slideshowButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-    slideshowButton->SetPosition(-DefaultButtonWidth-DefaultButtonWidth/2, -16);
-    slideshowButton->SetTrigger(trigger);
+	slideshowButton = new GuiButton(slideshowButtonImage->GetWidth(), slideshowButtonImage->GetHeight());
+	slideshowButton->SetImage(slideshowButtonImage);
+	slideshowButton->SetImageOver(slideshowButtonOverImage);
+	slideshowButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	slideshowButton->SetPosition(-DefaultButtonWidth-DefaultButtonWidth/2, -16);
+	slideshowButton->SetTrigger(trigger);
 	slideshowButton->SetTrigger(trigSlideshow);
-    slideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+	slideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
-    Append(slideshowButton);
+	Append(slideshowButton);
 
-    stopSlideshowButton = new GuiButton(MainWindow::Instance()->GetWidth(), MainWindow::Instance()->GetHeight());
-    stopSlideshowButton->SetTrigger(trigger);
-    stopSlideshowButton->SetTrigger(trigB);
-    stopSlideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
+	stopSlideshowButton = new GuiButton(Application::Instance()->GetWidth(), Application::Instance()->GetHeight());
+	stopSlideshowButton->SetTrigger(trigger);
+	stopSlideshowButton->SetTrigger(trigB);
+	stopSlideshowButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
 
 	moveButton = new GuiButton(screenwidth-(prevButton->GetLeft()+prevButton->GetWidth())*2, screenheight-backButton->GetHeight()-16);
 	moveButton->SetPosition(prevButton->GetLeft()+prevButton->GetWidth(), 0);
@@ -749,18 +735,18 @@ void ImageViewer::Setup()
 
 	Append(moveButton);
 
-    trashImgData = Resources::GetImageData("trash.png");
-    trashImg = new GuiImage(trashImgData);
-    trashImg->SetAlpha(120);
-    trashImg->SetScale(1.1);
-    trashButton = new GuiButton(trashImgData->GetWidth(), trashImgData->GetHeight());
-    trashButton->SetImage(trashImg);
-    trashButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-    trashButton->SetPosition(-30, 30);
-    trashButton->SetTrigger(trigger);
-    trashButton->SetEffectGrow();
+	trashImgData = Resources::GetImageData("trash.png");
+	trashImg = new GuiImage(trashImgData);
+	trashImg->SetAlpha(120);
+	trashImg->SetScale(1.1);
+	trashButton = new GuiButton(trashImgData->GetWidth(), trashImgData->GetHeight());
+	trashButton->SetImage(trashImg);
+	trashButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	trashButton->SetPosition(-30, 30);
+	trashButton->SetTrigger(trigger);
+	trashButton->SetEffectGrow();
 
-    Append(trashButton);
+	Append(trashButton);
 
-    SetEffect(EFFECT_FADE, 50);
+	SetEffect(EFFECT_FADE, 50);
 }

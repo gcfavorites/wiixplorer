@@ -27,52 +27,53 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-#ifndef ARCHIVE_H_
-#define ARCHIVE_H_
+#ifndef ___ARCHIVE_H_
+#define ___ARCHIVE_H_
 
 #include <gctypes.h>
 
+#include "ArchiveStruct.h"
+#include "RarFile.h"
 #include "7ZipFile.h"
 #include "ZipFile.h"
-#include "RarFile.h"
 #include "U8Archive.h"
 #include "RarcFile.h"
 
 class ArchiveHandle
 {
-    public:
+	public:
 		//!Constructor
-        ArchiveHandle(const char  * filepath);
+		ArchiveHandle(const char  * filepath);
 		//!Destructor
-        ~ArchiveHandle();
+		~ArchiveHandle();
 		//!Get the archive file structure
-        ArchiveFileStruct * GetFileStruct(int fileIndx);
+		ArchiveFileStruct * GetFileStruct(int fileIndx);
 		//!Add a new file into a destination path
-        int AddFile(const char * filepath, const char *destpath, int compression);
+		int AddFile(const char * filepath, const char *destpath, int compression);
 		//!Add a full directory into a destination path
-        int AddDirectory(const char * path, const char *destpath, int compression);
+		int AddDirectory(const char * path, const char *destpath, int compression);
 		//!Extract a files from a zip file to a path
-        int ExtractFile(int ind, const char *destpath, bool withpath = false);
+		int ExtractFile(int ind, const char *destpath, bool withpath = false);
 		//!Extract all files from a zip file to a directory
-        int ExtractAll(const char *destpath);
+		int ExtractAll(const char *destpath);
 		//!Reload archive list
-        bool ReloadList();
+		bool ReloadList();
 		//!Get the total amount of items inside the archive
-        u32 GetItemCount();
+		u32 GetItemCount();
 
-    private:
+	private:
 		//!Check what kind of archive it is
-        bool IsZipFile (const char *buffer);
-        bool Is7ZipFile(const char *buffer);
-        bool IsRarFile(const char *buffer);
-        bool IsU8ArchiveFile(const char *buffer);
-        bool IsRarcFile(const char *buffer);
+		bool IsZipFile (const char *buffer);
+		bool Is7ZipFile(const char *buffer);
+		bool IsRarFile(const char *buffer);
+		bool IsU8ArchiveFile(const char *buffer);
+		bool IsRarcFile(const char *buffer);
 
-        SzFile * szFile;
-        ZipFile * zipFile;
-        RarFile * rarFile;
-        U8Archive * u8File;
-        RarcFile * rarcFile;
+		SzFile * szFile;
+		ZipFile * zipFile;
+		RarFile * rarFile;
+		U8Archive * u8File;
+		RarcFile * rarcFile;
 };
 
 #endif //ARCHIVE_BROWSER_H_

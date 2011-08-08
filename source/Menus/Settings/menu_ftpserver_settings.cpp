@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
@@ -37,8 +37,8 @@ int MenuFTPServerSettings()
 	int menu = MENU_NONE;
 	int ret, result = 0;
 	int i = 0;
-    char entered[150];
-    bool firstRun = true;
+	char entered[150];
+	bool firstRun = true;
 
 	OptionList options;
 	options.SetName(i++, tr("Auto Start:"));
@@ -47,66 +47,66 @@ int MenuFTPServerSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("FTP Server Settings"), &options, MENU_NETWORK_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
 		switch (ret)
 		{
-            case 0:
-                Settings.FTPServer.AutoStart = (Settings.FTPServer.AutoStart+1) % 2;
-                break;
-            case 1:
-                entered[0] = 0;
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.FTPServer.Password, sizeof(Settings.FTPServer.Password), "%s", entered);
-                }
-                break;
-            case 2:
-                snprintf(entered, sizeof(entered), "%d", Settings.FTPServer.Port);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    Settings.FTPServer.Port = (u16) atoi(entered);
-                }
-                break;
+			case 0:
+				Settings.FTPServer.AutoStart = (Settings.FTPServer.AutoStart+1) % 2;
+				break;
+			case 1:
+				entered[0] = 0;
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					snprintf(Settings.FTPServer.Password, sizeof(Settings.FTPServer.Password), "%s", entered);
+				}
+				break;
+			case 2:
+				snprintf(entered, sizeof(entered), "%d", Settings.FTPServer.Port);
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					Settings.FTPServer.Port = (u16) atoi(entered);
+				}
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            if(Settings.FTPServer.AutoStart == 1)
-                options.SetValue(i++, tr("ON"));
-            else
-                options.SetValue(i++, tr("OFF"));
+			if(Settings.FTPServer.AutoStart == 1)
+				options.SetValue(i++, tr("ON"));
+			else
+				options.SetValue(i++, tr("OFF"));
 
 			if (strcmp(Settings.FTPServer.Password, "") != 0)
 				options.SetValue(i++,"********");
 			else
 				options.SetValue(i++," ");
 
-            options.SetValue(i++,"%i", Settings.FTPServer.Port);
-        }
+			options.SetValue(i++,"%i", Settings.FTPServer.Port);
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

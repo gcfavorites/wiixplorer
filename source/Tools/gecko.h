@@ -6,14 +6,14 @@ extern "C" {
 #endif
 
 #ifdef GEKKO
-    bool InitGecko();
-    void gprintf(const char * format, ...);
-    void gsenddata(const u8 *data, int length, const char *filename);
-    char ascii(char s);
-    void ghexdump(void *d, int len);
+	bool InitGecko();
+	void gprintf(const char * format, ...);
+	void gsenddata(const u8 *data, int length, const char *filename);
+	char ascii(char s);
+	void ghexdump(void *d, int len);
 #else
 	#define gprintf(...)
-	#define InitGecko()      false
+	#define InitGecko()	  false
 #endif /* GEKKO */
 
 #ifdef __cplusplus

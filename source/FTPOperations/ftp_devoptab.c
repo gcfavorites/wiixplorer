@@ -27,7 +27,7 @@
 #define UNUSED	__attribute__((unused))
 
 //cache pages count
-#define FTP_CACHE_PAGES              3
+#define FTP_CACHE_PAGES			  3
 //cache page size
 #define NET_READ_BUFFERSIZE			7300
 #define NET_WRITE_BUFFERSIZE			4096
@@ -60,7 +60,7 @@ typedef struct
 //cache page
 typedef struct
 {
-	off_t offset;           //offset in file
+	off_t offset;		   //offset in file
 	u64 last_used;			//last used, ms
 	FTPFILESTRUCT *file;	//file this item read from, NULL if free page
 	void *ptr;				//poiter to data, FTP_READ_BUFFERSIZE bytes
@@ -96,15 +96,15 @@ typedef struct
 	char * user;				//'anonymous', can't be NULL
 	char * password;			//'anonymous', can't be NULL
 	char * share;			//share name without terminating  '/', with starting '/', can't be NULL
-    unsigned short port;	//FTP port, standard 21
+	unsigned short port;	//FTP port, standard 21
 
 	bool ftp_passive;		//use PASV connection
 
 	SOCKET ctrl_socket;
 	SOCKET data_socket;
 
-	char * name;             //'ftp1', NULL means free item
-	int envIndex;           //position if this item in FTPEnv array
+	char * name;			 //'ftp1', NULL means free item
+	int envIndex;		   //position if this item in FTPEnv array
 
 	char * currentpath;  //Always terminated by '/'. '/' for share root. Always contains'/', not '\'.
 
@@ -210,10 +210,10 @@ static s32 set_blocking(s32 s, bool blocking)
 	nodelay = 1;
 	net_setsockopt(s,IPPROTO_TCP,TCP_NODELAY,&nodelay,sizeof(nodelay));
 
-    s32 flags;
-    flags = net_fcntl(s, F_GETFL, 0);
-    if (flags >= 0) flags = net_fcntl(s, F_SETFL, blocking ? (flags&~4) : (flags|4));
-    return flags;
+	s32 flags;
+	flags = net_fcntl(s, F_GETFL, 0);
+	if (flags >= 0) flags = net_fcntl(s, F_SETFL, blocking ? (flags&~4) : (flags|4));
+	return flags;
 }
 
 
@@ -223,8 +223,8 @@ static s32 set_blocking(s32 s, bool blocking)
 //allows to send all data before closing
 static s32 net_close_blocking(s32 s)
 {
-    set_blocking(s, true);
-    return net_close(s);
+	set_blocking(s, true);
+	return net_close(s);
 }
 
 //========================================================================
@@ -995,8 +995,8 @@ execute_open_actv_retry:
 		NET_PRINTF("net_accept()\n",0);
 
 
-        struct sockaddr_in data_peer_address;
-        socklen_t addrlen = sizeof(data_peer_address);
+		struct sockaddr_in data_peer_address;
+		socklen_t addrlen = sizeof(data_peer_address);
 
 		*data_sock = net_accept( ssock, (struct sockaddr *)&data_peer_address ,&addrlen );
 		if (*data_sock == INVALID_SOCKET)
@@ -1320,8 +1320,8 @@ static bool FTP_Connect(ftp_env* env, const char* name, const char* user, const 
 	env->ftp_passive = ftp_passive;
 
 	env->currentpath = (char *) malloc(FTP_MAXPATH);
-    env->currentpath[0]='\\';
-    env->currentpath[1]='\0';
+	env->currentpath[0]='\\';
+	env->currentpath[1]='\0';
 
 	env->dir_cache = (char *) malloc(FTP_MAXPATH);
 	env->dir_cache_list = NULL;
@@ -1465,7 +1465,7 @@ static bool FTP_FindFirst(const char *path_abs, FTPDIRSTATESTRUCT* state, ftp_en
 
 	state->envIndex = env->envIndex;
 
-    //cache needs to be reloaded because of a new file might be created
+	//cache needs to be reloaded because of a new file might be created
 	if ( env->dir_cache_list != NULL && strcmp( env->dir_cache, path_abs ) == 0 && !dir_changed)
 	{
 		copyDirList( &(state->list), env->dir_cache_list );
@@ -1581,7 +1581,7 @@ loaddir_retry:
 		copyDirList( &(env->dir_cache_list), state->list );
 	}
 
-    dir_changed = false;
+	dir_changed = false;
 
 	NET_PRINTF( "FTP_FindFirst() - Ok\n", 0 );
 
@@ -1696,11 +1696,11 @@ static bool FTP_OpenFile( const char* filename, FTPFILESTRUCT* file, ftp_env* en
 
 		if( ((flags & 0x03) == O_WRONLY) || ((flags & 0x03) == O_RDWR) )
 		{
-            file->envIndex = env->envIndex;
-            file->offset = 0;
-            file->size = 0;
-            strcpy(file->filename, filename);
-            return true;
+			file->envIndex = env->envIndex;
+			file->offset = 0;
+			file->size = 0;
+			strcpy(file->filename, filename);
+			return true;
 		}
 
 		return false;
@@ -1768,7 +1768,7 @@ static bool FTP_WriteFile(void* buf, off_t len, off_t offset, FTPFILESTRUCT* fil
 	SOCKET data_sock = INVALID_SOCKET;
 	ftp_env* env = &FTPEnv[file->envIndex];
 
-    _FTP_lock();
+	_FTP_lock();
 
 read_retry:
 
@@ -1788,7 +1788,7 @@ read_retry:
 	}
 
 	last_off = offset + len;
-    _FTP_unlock();
+	_FTP_unlock();
 
 	return true;
 }
@@ -1835,20 +1835,20 @@ static bool FTP_DeleteDir(const char * name, ftp_env * env)
 	char buf2[FTP_MAXPATH + 6];
 	int res;
 
-    sprintf(buf2, "CDUP");
+	sprintf(buf2, "CDUP");
 
 	if((res = ftp_execute(env, buf2, 250, 0)) < 0)
-    {
-        //Couldn't delete directory
-        return false;
-    }
+	{
+		//Couldn't delete directory
+		return false;
+	}
 
-    if(name[strlen(name)-1] == '/')
-        ((char *) name)[strlen(name)-1] = 0;
+	if(name[strlen(name)-1] == '/')
+		((char *) name)[strlen(name)-1] = 0;
 
-    char * relativename = strrchr(name, '/');
-    if(!relativename)
-        return false;
+	char * relativename = strrchr(name, '/');
+	if(!relativename)
+		return false;
 
 	sprintf(buf2, "RMD %s", relativename+1);
 
@@ -1858,7 +1858,7 @@ static bool FTP_DeleteDir(const char * name, ftp_env * env)
 		return false;
 	}
 
-    ftp_close_data(env);
+	ftp_close_data(env);
 
 	return true;
 }
@@ -1868,19 +1868,19 @@ static bool FTP_Rename(const char * oldpath_absolute, const char * path_absolute
 	char buf2[FTP_MAXPATH + 6];
 	int res;
 
-    sprintf(buf2, "RNFR %s%s", env->share, oldpath_absolute);
+	sprintf(buf2, "RNFR %s%s", env->share, oldpath_absolute);
 
 	if((res = ftp_execute(env, buf2, 350, 0)) < 0)
-    {
-        //Couldn't find
-        return false;
-    }
+	{
+		//Couldn't find
+		return false;
+	}
 
 	sprintf(buf2, "RNTO %s%s", env->share, path_absolute);
 
 	if((res = ftp_execute(env, buf2, 250, 0)) < 0)
 	{
-        //Couldn't rename
+		//Couldn't rename
 		return false;
 	}
 
@@ -1896,8 +1896,8 @@ static void FTP_CloseFile( FTPFILESTRUCT* file )
 
 	NET_PRINTF("FTP_CloseFile( fileName='%s' )\n", file->filename );
 
-    ftp_env* env = &FTPEnv[file->envIndex];
-    ftp_close_data(env);
+	ftp_env* env = &FTPEnv[file->envIndex];
+	ftp_close_data(env);
 	//nothing to do
 }
 
@@ -2361,7 +2361,7 @@ static int __ftp_close(struct _reent *r UNUSED, int fd)
 //==============================================================================
 static int __ftp_mkdir(struct _reent *r, const char *name, int mode UNUSED)
 {
-    NET_PRINTF("__ftp_mkdir()\n",0);
+	NET_PRINTF("__ftp_mkdir()\n",0);
 
 	char path_absolute[FTP_MAXPATH];
 
@@ -2423,27 +2423,27 @@ static int __ftp_unlink(struct _reent *r, const char *name)
 	if ( FTP_PathInfo(path_absolute, &dentry, env ) == false )
 	{
 		r->_errno = EBADF;
-	    return -1;
+		return -1;
 	}
 
 	_FTP_lock();
 	if (dentry.isDirectory)
 	{
-	    if(FTP_DeleteDir(path_absolute, env) == false)
-        {
-            _FTP_unlock();
-            r->_errno = ENOTDIR;
-            return -1;
-        }
+		if(FTP_DeleteDir(path_absolute, env) == false)
+		{
+			_FTP_unlock();
+			r->_errno = ENOTDIR;
+			return -1;
+		}
 	}
-    else
-    {
-	    if(FTP_DeleteFile(path_absolute, env) == false)
-        {
-            _FTP_unlock();
-            r->_errno = ENOTDIR;
-            return -1;
-        }
+	else
+	{
+		if(FTP_DeleteFile(path_absolute, env) == false)
+		{
+			_FTP_unlock();
+			r->_errno = ENOTDIR;
+			return -1;
+		}
 	}
 	_FTP_unlock();
 
@@ -2486,14 +2486,14 @@ static int __ftp_rename(struct _reent *r, const char *oldName, const char *newNa
 
 	_FTP_lock();
 
-    if(FTP_Rename(oldpath_absolute, path_absolute, env) == false)
-    {
-        _FTP_unlock();
-        r->_errno = ENOTDIR;
-        return -1;
-    }
+	if(FTP_Rename(oldpath_absolute, path_absolute, env) == false)
+	{
+		_FTP_unlock();
+		r->_errno = ENOTDIR;
+		return -1;
+	}
 
-    _FTP_unlock();
+	_FTP_unlock();
 
 	dir_changed = true;
 
@@ -2782,9 +2782,9 @@ static void MountDevice(const char *name, int envIndex)
 	dotab_ftp->dirnext_r=__ftp_dirnext; // device dirnext_r
 	dotab_ftp->dirclose_r=__ftp_dirclose; // device dirclose_r
 	dotab_ftp->statvfs_r=NULL;			// device statvfs_r
-	dotab_ftp->ftruncate_r=NULL;               // device ftruncate_r
-	dotab_ftp->fsync_r=NULL;           // device fsync_r
-	dotab_ftp->deviceData=NULL;       	/* Device data */
+	dotab_ftp->ftruncate_r=NULL;			   // device ftruncate_r
+	dotab_ftp->fsync_r=NULL;		   // device fsync_r
+	dotab_ftp->deviceData=NULL;	   	/* Device data */
 
 	AddDevice(dotab_ftp);
 
@@ -2884,18 +2884,18 @@ bool CheckFTPConnection(const char* name)
 //simple network logging interface
 bool net_printf( const char *fmt, ... )
 {
-    char buf[4096];
-    char buf2[4096];
+	char buf[4096];
+	char buf2[4096];
 	struct sockaddr_in server_addr;
 	u64 t1,t2;
 	s32 len;
 	s32 ret;
 	const char* data = &buf[0];
-    va_list va;
+	va_list va;
 
-    va_start(va, fmt);
-    vsprintf(buf2, fmt, va);
-    va_end(va);
+	va_start(va, fmt);
+	vsprintf(buf2, fmt, va);
+	va_end(va);
 
 	sprintf(buf, "%05d: %s", debug_msgid, buf2 );
 	debug_msgid++;

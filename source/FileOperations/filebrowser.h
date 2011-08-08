@@ -36,7 +36,7 @@
 #include <sys/dir.h>
 
 #define FILTER_DIRECTORIES  0x01
-#define FILTER_FILES        0x02
+#define FILTER_FILES		0x02
 
 #define MAXJOLIET 255
 
@@ -61,52 +61,53 @@ typedef struct
 
 class FileBrowser : public Browser
 {
-    public:
-        FileBrowser();
-        virtual ~FileBrowser();
-        int BrowsePath(const char *path);
-        int BrowseDevice(int device);
-        void SetPageIndex(int ind);
-        void SetSelectedIndex(int ind);
-        int GetEntrieCount() { return browser.numEntries; };
-        int GetPageIndex() { return browser.pageIndex; };
-        int GetSelIndex() { return browser.selIndex; };
-        bool IsDir(int ind) { return browserList[ind].isdir; };
-        u64 GetFilesize(int ind) { return browserList[ind].length; };
-        u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
-        const char * GetItemName(int ind) { return (browserList[ind].filename ? browserList[ind].filename : ""); };
-        const char * GetCurrentFilename() { return (browserList[browser.selIndex].filename ? browserList[browser.selIndex].filename : ""); };
-        const char * GetRootDir() { return browser.rootdir; };
-        const char * GetDir() { return browser.dir; };
-        const char * GetCurrentPath();
-        const char * GetCurrentSelectedFilepath();
-        ItemStruct * GetItemStruct(int pos);
-        int ChangeDirectory();
-        int BackInDirectory() { return LeaveCurDir(); };
-        void Refresh();
-        void SetFilter(u8 filtermode) { Filter = filtermode; };
-    private:
-        int ParseDirectory(bool ResetPosition = true);
-        int UpdateDirName();
-        void ResetBrowser();
-        int EnterSelDir();
-        int LeaveCurDir();
-        void InitParseThread();
-        void ShutdownParseThread();
-        bool ParseDirEntries();
+	public:
+		FileBrowser();
+		virtual ~FileBrowser();
+		int BrowsePath(const char *path);
+		int BrowseDevice(int device);
+		void SetPageIndex(int ind);
+		void SetSelectedIndex(int ind);
+		int GetEntrieCount() { return browser.numEntries; };
+		int GetPageIndex() { return browser.pageIndex; };
+		int GetSelIndex() { return browser.selIndex; };
+		bool IsDir(int ind) { return browserList[ind].isdir; };
+		u64 GetFilesize(int ind) { return browserList[ind].length; };
+		u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
+		const char * GetItemName(int ind) { return (browserList[ind].filename ? browserList[ind].filename : ""); };
+		const char * GetCurrentFilename() { return (browserList[browser.selIndex].filename ? browserList[browser.selIndex].filename : ""); };
+		const char * GetRootDir() { return browser.rootdir; };
+		const char * GetDir() { return browser.dir; };
+		const char * GetCurrentPath();
+		const char * GetCurrentSelectedFilepath();
+		ItemStruct * GetItemStruct(int pos);
+		int ChangeDirectory();
+		int BackInDirectory() { return LeaveCurDir(); };
+		void Refresh();
+		void SetFilter(u8 filtermode) { Filter = filtermode; };
+		int ExecuteFile(const char *filepath);
+	private:
+		int ParseDirectory(bool ResetPosition = true);
+		int UpdateDirName();
+		void ResetBrowser();
+		int EnterSelDir();
+		int LeaveCurDir();
+		void InitParseThread();
+		void ShutdownParseThread();
+		bool ParseDirEntries();
 		static void * UpdateThread(void *arg);
 		void InternalThreadUpdate();
 
 		BROWSERINFO browser;
-        BROWSERENTRY * browserList;
-        // folder parsing thread
-        lwp_t parsethread;
-        u8 * ThreadStack;
-        u8 Filter;
-        bool parseHalt;
-        bool exit_Requested;
-        DIR_ITER *dirIter;
-        char currentpath[MAXPATHLEN];
+		BROWSERENTRY * browserList;
+		// folder parsing thread
+		lwp_t parsethread;
+		u8 * ThreadStack;
+		u8 Filter;
+		bool parseHalt;
+		bool exit_Requested;
+		DIR_ITER *dirIter;
+		char currentpath[MAXPATHLEN];
 };
 
 #endif

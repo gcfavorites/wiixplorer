@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -531,6 +531,9 @@ msgstr "Εξαγωγή"
 
 msgid "Extract All"
 msgstr "Εξαγωγή όλων"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "Να κάνω εξαγωγή αρχείου στον προσορινό φάκελο και να το τρέξω;"
@@ -1222,14 +1225,11 @@ msgstr "Η επανασύνδεση απέτυχε. Καμιά μοιραζώμ�
 msgid "Red"
 msgstr "Κόκκινο"
 
-msgid "Reload"
-msgstr "Ανανέωση"
-
 msgid "Reloading file list..."
 msgstr ""
 
-msgid "Remounting all devices."
-msgstr "Ανέβασμα ξανα όλες οι συσκευές."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Ανέβασμα ξανά οι συσκευές..."
@@ -1653,9 +1653,6 @@ msgstr "Δεν μπορείς να θέσεις αυτήν την κατάτμη
 msgid "You cant use this operation on:"
 msgstr "Δεν μπορείς να χρησιμοποιήσεις αυτήν την διαδικασία:"
 
-msgid "You do not have BootMii installed!"
-msgstr "Δεν έχεις εγκατεστημένο το BootMii!"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "Έχεις Φορμαρισμένο Table GUID με (GPT). Φορμαρισμένα διαμερίσματα με GTP δεν υποστηρίζονται ακόμη."
 
@@ -1694,6 +1691,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Reload"
+#~ msgstr "Ανανέωση"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Ανέβασμα ξανα όλες οι συσκευές."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "Δεν έχεις εγκατεστημένο το BootMii!"
 
 #~ msgid "USB Device"
 #~ msgstr "Συσκευή USB"

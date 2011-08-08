@@ -34,15 +34,15 @@
 extern "C" {
 #endif
 
-/**     Connection Flags     **/
-#define LANADAPTER          0x01
-#define DNSDHCP             0x02
-#define IPDHCP              0x04
-#define USESPROXY           0x10
+/**	 Connection Flags	 **/
+#define LANADAPTER		  0x01
+#define DNSDHCP			 0x02
+#define IPDHCP			  0x04
+#define USESPROXY		   0x10
 #define INTERNETTESTPASSED  0x20
 #define CONNECTIONSELECTED  0x80
 
-#define READINGFAILED       0xFF
+#define READINGFAILED	   0xFF
 
 u8 ConnectionFlags();
 u8 HasValidConnection();

@@ -29,48 +29,48 @@
 #define _WIIARCHIVE_H_
 
 #include <string>
-#include "7ZipFile.h"
+#include "ArchiveStruct.h"
 
 using namespace std;
 
 class WiiArchive
 {
-    public:
+	public:
 		//!Constructor
-        WiiArchive(const char *filepath);
-        //!Overload
-        WiiArchive(const u8 * Buffer, u32 Size);
+		WiiArchive(const char *filepath);
+		//!Overload
+		WiiArchive(const u8 * Buffer, u32 Size);
 		//!Destructor
 		virtual ~WiiArchive();
 		//!Load the file
-        virtual bool LoadFile(const char * filepath);
+		virtual bool LoadFile(const char * filepath);
 		//!Load the file from a buffer
-        virtual bool LoadFile(const u8 * Buffer, u32 Size);
+		virtual bool LoadFile(const u8 * Buffer, u32 Size);
 		//!Get the archive file structure
-        virtual ArchiveFileStruct * GetFileStruct(int fileIndx);
+		virtual ArchiveFileStruct * GetFileStruct(int fileIndx);
 		//!Extract a file
 		virtual int ExtractFile(int ind, const char *dest, bool withpath = false);
 		//!Extract all files
 		virtual int ExtractAll(const char *dest);
 		//!Get the total amount of items inside the archive
-        virtual u32 GetItemCount() { return PathStructure.size(); };
+		virtual u32 GetItemCount() { return PathStructure.size(); };
 		//!Close File
 		virtual void CloseFile();
 
-    protected:
-        //!Add archive listname
-        void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 Type);
-        //!Clear the list
-        void ClearList();
-        //!Raw read from the file
-        size_t ReadFile(void * buffer, size_t size, off_t offset);
+	protected:
+		//!Add archive listname
+		void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 Type);
+		//!Clear the list
+		void ClearList();
+		//!Raw read from the file
+		size_t ReadFile(void * buffer, size_t size, off_t offset);
 
-        bool FromMem;
-        FILE * File;
-        u8 * FileBuffer;
-        u32 FileSize;
-        vector<ArchiveFileStruct *> PathStructure;
-        vector<u32> BufferOffset;
+		bool FromMem;
+		FILE * File;
+		u8 * FileBuffer;
+		u32 FileSize;
+		vector<ArchiveFileStruct *> PathStructure;
+		vector<u32> BufferOffset;
 };
 
 #endif

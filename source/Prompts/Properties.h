@@ -31,70 +31,70 @@
 #include <gctypes.h>
 #include <unistd.h>
 
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "Memory/Resources.h"
 #include "FileOperations/ItemMarker.h"
 
 class Properties : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        Properties(ItemMarker * IMarker);
-        virtual ~Properties();
-        int GetChoice();
-    private:
-        void UpdateSizeValue();
-        void StartGetFolderSizeThread();
-        void StopSizeThread();
-        void InternalFolderSizeGain();
+	public:
+		Properties(ItemMarker * IMarker);
+		virtual ~Properties();
+		int GetChoice();
+	private:
+		void UpdateSizeValue();
+		void StartGetFolderSizeThread();
+		void StopSizeThread();
+		void InternalFolderSizeGain();
 		static void * FolderSizeThread(void *arg);
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        ItemMarker * Marker;
-        int choice;
-        bool folder;
-        u64 TotalSize;
-        u32 FileCount;
-        u64 OldSize;
-        u64 devicefree;
-        u64 devicesize;
-        lwp_t foldersizethread;
+		ItemMarker * Marker;
+		int choice;
+		bool folder;
+		u64 TotalSize;
+		u32 FileCount;
+		u64 OldSize;
+		u64 devicefree;
+		u64 devicesize;
+		lwp_t foldersizethread;
 
-        GuiImage * dialogBoxImg;
-        GuiImage * TitleImg;
-        GuiImage * arrowUpImg;
-        GuiImage * arrowUpImgOver;
+		GuiImage * dialogBoxImg;
+		GuiImage * TitleImg;
+		GuiImage * arrowUpImg;
+		GuiImage * arrowUpImgOver;
 
-        GuiImageData * dialogBox;
-        GuiImageData * titleData;
-        GuiImageData * arrowUp;
-        GuiImageData * arrowUpOver;
+		GuiImageData * dialogBox;
+		GuiImageData * titleData;
+		GuiImageData * arrowUp;
+		GuiImageData * arrowUpOver;
 
-        GuiSound * btnClick;
+		GuiSound * btnClick;
 
-        GuiText * TitleTxt;
-        GuiText * filepathTxt;
-        GuiText * filepathvalTxt;
-        GuiText * filecountTxt;
-        GuiText * filecountTxtVal;
-        GuiText * filesizeTxt;
-        GuiText * filesizeTxtVal;
-        GuiText * filetypeTxt;
-        GuiText * filetypeTxtVal;
-        GuiText * devicefreeTxt;
-        GuiText * devicefreeTxtVal;
-        GuiText * devicetotalTxt;
-        GuiText * devicetotalTxtVal;
-        GuiText * last_accessTxt;
-        GuiText * last_accessTxtVal;
-        GuiText * last_modifTxt;
-        GuiText * last_modifTxtVal;
-        GuiText * last_changeTxt;
-        GuiText * last_changeTxtVal;
+		GuiText * TitleTxt;
+		GuiText * filepathTxt;
+		GuiText * filepathvalTxt;
+		GuiText * filecountTxt;
+		GuiText * filecountTxtVal;
+		GuiText * filesizeTxt;
+		GuiText * filesizeTxtVal;
+		GuiText * filetypeTxt;
+		GuiText * filetypeTxtVal;
+		GuiText * devicefreeTxt;
+		GuiText * devicefreeTxtVal;
+		GuiText * devicetotalTxt;
+		GuiText * devicetotalTxtVal;
+		GuiText * last_accessTxt;
+		GuiText * last_accessTxtVal;
+		GuiText * last_modifTxt;
+		GuiText * last_modifTxtVal;
+		GuiText * last_changeTxt;
+		GuiText * last_changeTxtVal;
 
-        GuiButton * CloseBtn;
+		GuiButton * CloseBtn;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 #endif

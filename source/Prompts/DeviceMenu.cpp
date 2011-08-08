@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2009-2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,13 +20,9 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * DeviceMenu.cpp
- *
- * for WiiXplorer 2009
  ***************************************************************************/
 #include "DeviceMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "Memory/Resources.h"
 #include "network/networkops.h"
@@ -35,360 +31,350 @@
 #include "Prompts/ProgressWindow.h"
 #include "main.h"
 
-DeviceMenu::DeviceMenu(int x, int y)
-    :GuiWindow(0, 0)
+DeviceMenu::DeviceMenu(int x, int y, GuiWindow *p)
+	:	GuiWindow(0, 0, p)
 {
-    int PositionY = 19;
-    int FontSize = 17;
-    deviceCount = 0;
-    choice = -1;
+	int PositionY = 19;
+	int FontSize = 17;
+	deviceCount = 0;
+	choice = -1;
 
-    //! Menu imagedata
-    device_choose_right_Data = Resources::GetImageData("device_choose_right.png");
-    device_choose_left_Data = Resources::GetImageData("device_choose_left.png");
-    device_choose_center_Data = Resources::GetImageData("device_choose_center.png");
-    menu_select = Resources::GetImageData("deviceselection.png");
+	//! Menu imagedata
+	device_choose_right_Data = Resources::GetImageData("device_choose_right.png");
+	device_choose_left_Data = Resources::GetImageData("device_choose_left.png");
+	device_choose_center_Data = Resources::GetImageData("device_choose_center.png");
+	menu_select = Resources::GetImageData("deviceselection.png");
 
-    //! Device imagedata
-    sd_ImgData = Resources::GetImageData("sdstorage.png");
-    usb_ImgData = Resources::GetImageData("usbstorage.png");
-    usb_blue_ImgData = Resources::GetImageData("usbstorage_blue.png");
-    smb_ImgData = Resources::GetImageData("networkstorage.png");
-    ftp_ImgData = Resources::GetImageData("ftpstorage.png");
+	//! Device imagedata
+	sd_ImgData = Resources::GetImageData("sdstorage.png");
+	usb_ImgData = Resources::GetImageData("usbstorage.png");
+	usb_blue_ImgData = Resources::GetImageData("usbstorage_blue.png");
+	smb_ImgData = Resources::GetImageData("networkstorage.png");
+	ftp_ImgData = Resources::GetImageData("ftpstorage.png");
 	dvd_ImgData = Resources::GetImageData("dvdstorage.png");
 
-    //! Menu images
-    centerImg = new GuiImage(device_choose_center_Data);
-    leftImg = new GuiImage(device_choose_left_Data);
-    rightImg = new GuiImage(device_choose_right_Data);
+	//! Menu images
+	centerImg = new GuiImage(device_choose_center_Data);
+	leftImg = new GuiImage(device_choose_left_Data);
+	rightImg = new GuiImage(device_choose_right_Data);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	btnClick = Resources::GetSound("button_click.wav");
 
-    for(int i = 0; i < MAXDEVICES; i++)
-    {
-        deviceBtn[i] = NULL;
-        deviceImgs[i] = NULL;
-        deviceImgOver[i] = NULL;
-        deviceText[i] = NULL;
-        deviceSelection[i] = -1;
-    }
+	for(int i = 0; i < MAXDEVICES; i++)
+	{
+		deviceBtn[i] = NULL;
+		deviceImgs[i] = NULL;
+		deviceImgOver[i] = NULL;
+		deviceText[i] = NULL;
+		deviceSelection[i] = -1;
+	}
 
-    int PositionX = leftImg->GetWidth();
+	int PositionX = leftImg->GetWidth();
 
-    if(DeviceHandler::Instance()->IsInserted(SD))
-    {
-        deviceText[deviceCount] = new GuiText(DeviceName[SD], FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	if(DeviceHandler::Instance()->IsInserted(SD))
+	{
+		deviceText[deviceCount] = new GuiText(DeviceName[SD], FontSize, (GXColor){0, 0, 0, 255});
+		deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		deviceText[deviceCount]->SetPosition(0, 2);
+		deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
+		deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+		deviceImgOver[deviceCount] = new GuiImage(menu_select);
+		deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+		deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+		deviceBtn[deviceCount]->SetSoundClick(btnClick);
+		deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+		deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+		deviceBtn[deviceCount]->SetTrigger(trigA);
+		deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+		deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+		PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-        deviceSelection[deviceCount] = SD;
+		deviceSelection[deviceCount] = SD;
 
-        deviceCount++;
-    }
+		deviceCount++;
+	}
 
-    if(DeviceHandler::Instance()->IsInserted(GCSDA))
-    {
-        deviceText[deviceCount] = new GuiText(DeviceName[GCSDA], FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	if(DeviceHandler::Instance()->IsInserted(GCSDA))
+	{
+		deviceText[deviceCount] = new GuiText(DeviceName[GCSDA], FontSize, (GXColor){0, 0, 0, 255});
+		deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		deviceText[deviceCount]->SetPosition(0, 2);
+		deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
+		deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+		deviceImgOver[deviceCount] = new GuiImage(menu_select);
+		deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+		deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+		deviceBtn[deviceCount]->SetSoundClick(btnClick);
+		deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+		deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+		deviceBtn[deviceCount]->SetTrigger(trigA);
+		deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+		deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+		PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-        deviceSelection[deviceCount] = GCSDA;
+		deviceSelection[deviceCount] = GCSDA;
 
-        deviceCount++;
-    }
+		deviceCount++;
+	}
 
-    if(DeviceHandler::Instance()->IsInserted(GCSDB))
-    {
-        deviceText[deviceCount] = new GuiText(DeviceName[GCSDB], FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	if(DeviceHandler::Instance()->IsInserted(GCSDB))
+	{
+		deviceText[deviceCount] = new GuiText(DeviceName[GCSDB], FontSize, (GXColor){0, 0, 0, 255});
+		deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		deviceText[deviceCount]->SetPosition(0, 2);
+		deviceImgs[deviceCount] = new GuiImage(sd_ImgData);
+		deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+		deviceImgOver[deviceCount] = new GuiImage(menu_select);
+		deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+		deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+		deviceBtn[deviceCount]->SetSoundClick(btnClick);
+		deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+		deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+		deviceBtn[deviceCount]->SetTrigger(trigA);
+		deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+		deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+		PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-        deviceSelection[deviceCount] = GCSDB;
+		deviceSelection[deviceCount] = GCSDB;
 
-        deviceCount++;
-    }
+		deviceCount++;
+	}
 
-    for(int j = USB1; j <= USB8; j++)
-    {
-        if(DeviceHandler::Instance()->IsInserted(j))
-        {
-            const char * FSName = DeviceHandler::GetFSName(j);
+	for(int j = USB1; j <= USB8; j++)
+	{
+		if(DeviceHandler::Instance()->IsInserted(j))
+		{
+			const char * FSName = DeviceHandler::GetFSName(j);
 
-            deviceText[deviceCount] = new GuiText(DeviceName[j], FontSize, (GXColor){0, 0, 0, 255});
-            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-            deviceText[deviceCount]->SetPosition(0, 2);
-            if(FSName && strncmp(FSName, "NTF", 3) != 0)
-                deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
-            else
-                deviceImgs[deviceCount] = new GuiImage(usb_blue_ImgData);
-            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-            deviceImgOver[deviceCount] = new GuiImage(menu_select);
-            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-            deviceBtn[deviceCount]->SetSoundClick(btnClick);
-            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-            deviceBtn[deviceCount]->SetTrigger(trigA);
-            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+			deviceText[deviceCount] = new GuiText(DeviceName[j], FontSize, (GXColor){0, 0, 0, 255});
+			deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+			deviceText[deviceCount]->SetPosition(0, 2);
+			if(FSName && strncmp(FSName, "NTF", 3) != 0)
+				deviceImgs[deviceCount] = new GuiImage(usb_ImgData);
+			else
+				deviceImgs[deviceCount] = new GuiImage(usb_blue_ImgData);
+			deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+			deviceImgOver[deviceCount] = new GuiImage(menu_select);
+			deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+			deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+			deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+			deviceBtn[deviceCount]->SetSoundClick(btnClick);
+			deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+			deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+			deviceBtn[deviceCount]->SetTrigger(trigA);
+			deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+			deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+			deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+			PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = j;
+			deviceSelection[deviceCount] = j;
 
-            deviceCount++;
-        }
-    }
+			deviceCount++;
+		}
+	}
 
-    if(DeviceHandler::Instance()->IsInserted(DVD))
-    {
-        deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
-        deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-        deviceText[deviceCount]->SetPosition(0, 2);
-        deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
-        deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-        deviceImgOver[deviceCount] = new GuiImage(menu_select);
-        deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-        deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-        deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-        deviceBtn[deviceCount]->SetSoundClick(btnClick);
-        deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-        deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-        deviceBtn[deviceCount]->SetTrigger(trigA);
-        deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-        deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-        deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-        PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	if(DeviceHandler::Instance()->IsInserted(DVD))
+	{
+		deviceText[deviceCount] = new GuiText(DeviceName[DVD], FontSize, (GXColor){0, 0, 0, 255});
+		deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		deviceText[deviceCount]->SetPosition(0, 2);
+		deviceImgs[deviceCount] = new GuiImage(dvd_ImgData);
+		deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+		deviceImgOver[deviceCount] = new GuiImage(menu_select);
+		deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+		deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+		deviceBtn[deviceCount]->SetSoundClick(btnClick);
+		deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+		deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+		deviceBtn[deviceCount]->SetTrigger(trigA);
+		deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+		deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+		PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-        deviceSelection[deviceCount] = DVD;
+		deviceSelection[deviceCount] = DVD;
 
-        deviceCount++;
-    }
+		deviceCount++;
+	}
 
-    for(int i = SMB1; i <= SMB10; i++)
-    {
-        if(DeviceHandler::Instance()->IsInserted(i))
-        {
-            deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
-            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-            deviceText[deviceCount]->SetPosition(0, 2);
-            deviceImgs[deviceCount] = new GuiImage(smb_ImgData);
-            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-            deviceImgOver[deviceCount] = new GuiImage(menu_select);
-            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-            deviceBtn[deviceCount]->SetSoundClick(btnClick);
-            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-            deviceBtn[deviceCount]->SetTrigger(trigA);
-            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	for(int i = SMB1; i <= SMB10; i++)
+	{
+		if(DeviceHandler::Instance()->IsInserted(i))
+		{
+			deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
+			deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+			deviceText[deviceCount]->SetPosition(0, 2);
+			deviceImgs[deviceCount] = new GuiImage(smb_ImgData);
+			deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+			deviceImgOver[deviceCount] = new GuiImage(menu_select);
+			deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+			deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+			deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+			deviceBtn[deviceCount]->SetSoundClick(btnClick);
+			deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+			deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+			deviceBtn[deviceCount]->SetTrigger(trigA);
+			deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+			deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+			deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+			PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = i;
+			deviceSelection[deviceCount] = i;
 
-            deviceCount++;
-        }
-    }
+			deviceCount++;
+		}
+	}
 
-    for(int i = FTP1; i <= FTP10; i++)
-    {
-        if(DeviceHandler::Instance()->IsInserted(i))
-        {
-            deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
-            deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
-            deviceText[deviceCount]->SetPosition(0, 2);
-            deviceImgs[deviceCount] = new GuiImage(ftp_ImgData);
-            deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-            deviceImgOver[deviceCount] = new GuiImage(menu_select);
-            deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-            deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
-            deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
-            deviceBtn[deviceCount]->SetSoundClick(btnClick);
-            deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
-            deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
-            deviceBtn[deviceCount]->SetTrigger(trigA);
-            deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-            deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
-            deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
-            PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+	for(int i = FTP1; i <= FTP10; i++)
+	{
+		if(DeviceHandler::Instance()->IsInserted(i))
+		{
+			deviceText[deviceCount] = new GuiText(DeviceName[i], FontSize, (GXColor){0, 0, 0, 255});
+			deviceText[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+			deviceText[deviceCount]->SetPosition(0, 2);
+			deviceImgs[deviceCount] = new GuiImage(ftp_ImgData);
+			deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+			deviceImgOver[deviceCount] = new GuiImage(menu_select);
+			deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+			deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+			deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+			deviceBtn[deviceCount]->SetSoundClick(btnClick);
+			deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+			deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+			deviceBtn[deviceCount]->SetTrigger(trigA);
+			deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+			deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+			deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+			PositionX += deviceImgs[deviceCount]->GetWidth()+10;
 
-            deviceSelection[deviceCount] = i;
+			deviceSelection[deviceCount] = i;
 
-            deviceCount++;
-        }
-    }
+			deviceCount++;
+		}
+	}
 
-    //! Set image position and tile
-    tile = (PositionX-leftImg->GetWidth())/centerImg->GetWidth();
+	//! Set image position and tile
+	tile = (PositionX-leftImg->GetWidth())/centerImg->GetWidth();
 
-    leftImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    leftImg->SetPosition(0, 0);
+	leftImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	leftImg->SetPosition(0, 0);
 
-    centerImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    centerImg->SetPosition(leftImg->GetLeft()+leftImg->GetWidth(), 0);
-    centerImg->SetTileHorizontal(tile);
+	centerImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	centerImg->SetPosition(leftImg->GetLeft()+leftImg->GetWidth(), 0);
+	centerImg->SetTileHorizontal(tile);
 
-    rightImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    rightImg->SetPosition(leftImg->GetWidth() + tile * centerImg->GetWidth(), 0);
+	rightImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	rightImg->SetPosition(leftImg->GetWidth() + tile * centerImg->GetWidth(), 0);
 
-    width = leftImg->GetWidth() + tile * centerImg->GetWidth() + rightImg->GetWidth();
-    height = leftImg->GetHeight();
+	width = leftImg->GetWidth() + tile * centerImg->GetWidth() + rightImg->GetWidth();
+	height = leftImg->GetHeight();
 
-    NoBtn = new GuiButton(screenwidth, screenheight);
-    NoBtn->SetPosition(-x, -y);
-    NoBtn->SetTrigger(trigA);
-    NoBtn->SetTrigger(trigB);
-    NoBtn->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+	NoBtn = new GuiButton(screenwidth, screenheight);
+	NoBtn->SetTrigger(trigA);
+	NoBtn->SetTrigger(trigB);
+	NoBtn->Clicked.connect(this, &DeviceMenu::OnButtonClick);
 
-    Append(NoBtn);
-    Append(leftImg);
-    Append(centerImg);
-    Append(rightImg);
-    for(int i = 0; i < deviceCount; i++)
-        Append(deviceBtn[i]);
+	Append(NoBtn);
+	Append(leftImg);
+	Append(centerImg);
+	Append(rightImg);
+	for(int i = 0; i < deviceCount; i++)
+		Append(deviceBtn[i]);
 
-    SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    SetPosition(x, y);
-    SetEffect(EFFECT_FADE, 25);
+	SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	SetPosition(x, y);
+	SetEffect(EFFECT_FADE, 25);
+
+	NoBtn->SetPosition(-GetLeft(), -GetTop());
 }
 
 DeviceMenu::~DeviceMenu()
 {
-    MainWindow::Instance()->ResumeGui();
-    SetEffect(EFFECT_FADE, -30);
-    while(this->GetEffect() > 0) usleep(100);
+	SetEffect(EFFECT_FADE, -30);
+	while(this->GetEffect() > 0)
+		Application::Instance()->updateEvents();
 
-    MainWindow::Instance()->HaltGui();
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    RemoveAll();
+	RemoveAll();
 
 	Resources::Remove(device_choose_right_Data);
 	Resources::Remove(device_choose_left_Data);
 	Resources::Remove(device_choose_center_Data);
-    Resources::Remove(sd_ImgData);
-    Resources::Remove(usb_ImgData);
-    Resources::Remove(usb_blue_ImgData);
-    Resources::Remove(smb_ImgData);
+	Resources::Remove(sd_ImgData);
+	Resources::Remove(usb_ImgData);
+	Resources::Remove(usb_blue_ImgData);
+	Resources::Remove(smb_ImgData);
 	Resources::Remove(ftp_ImgData);
-    Resources::Remove(dvd_ImgData);
-    Resources::Remove(menu_select);
+	Resources::Remove(dvd_ImgData);
+	Resources::Remove(menu_select);
 
 	Resources::Remove(btnClick);
 
-    for(int i = 0; i < MAXDEVICES; i++)
-    {
-        if(deviceBtn[i]) {
-            delete deviceBtn[i];
-            deviceBtn[i] = NULL;
-        }
-        if(deviceImgs[i]) {
-            delete deviceImgs[i];
-            deviceImgs[i] = NULL;
-        }
-        if(deviceImgOver[i]) {
-            delete deviceImgOver[i];
-            deviceImgOver[i] = NULL;
-        }
-        if(deviceText[i]) {
-            delete deviceText[i];
-            deviceText[i] = NULL;
-        }
-    }
+	for(int i = 0; i < MAXDEVICES; i++)
+	{
+		if(deviceBtn[i]) {
+			delete deviceBtn[i];
+			deviceBtn[i] = NULL;
+		}
+		if(deviceImgs[i]) {
+			delete deviceImgs[i];
+			deviceImgs[i] = NULL;
+		}
+		if(deviceImgOver[i]) {
+			delete deviceImgOver[i];
+			deviceImgOver[i] = NULL;
+		}
+		if(deviceText[i]) {
+			delete deviceText[i];
+			deviceText[i] = NULL;
+		}
+	}
 
-    delete centerImg;
-    delete leftImg;
-    delete rightImg;
+	delete centerImg;
+	delete leftImg;
+	delete rightImg;
 
-    delete NoBtn;
+	delete NoBtn;
 
-    delete trigA;
-    delete trigB;
-
-    MainWindow::Instance()->ResumeGui();
+	delete trigA;
+	delete trigB;
 }
 
-int DeviceMenu::GetChoice()
+void DeviceMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p)
 {
-    if(choice == DVD)
-    {
-        StartProgress(tr("Mounting disc"), AUTO_THROBBER);
-        ShowProgress(0, 1, tr("Please wait..."));
-        DeviceHandler::Instance()->Mount(DVD);
-        StopProgress();
-    }
+	if(sender == NoBtn)
+	{
+		if(!this->IsInside(p.x, p.y))
+			DeviceSelected(this, -2);
+		return;
+	}
 
-    return choice;
-}
-
-void DeviceMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
-{
-    sender->ResetState();
-
-    if(sender == NoBtn)
-    {
-        choice = -2;
-        return;
-    }
-
-    int i = 0;
-    for(i = 0; i < deviceCount; i++)
-    {
-        if(sender == deviceBtn[i])
-        {
-            choice = deviceSelection[i];
-            break;
-        }
-    }
+	for(int i = 0; i < deviceCount; i++)
+	{
+		if(sender == deviceBtn[i])
+		{
+			if(choice == DVD)
+			{
+				StartProgress(tr("Mounting disc"), AUTO_THROBBER);
+				ShowProgress(0, 1, tr("Please wait..."));
+				DeviceHandler::Instance()->Mount(DVD);
+				StopProgress();
+			}
+			DeviceSelected(this, deviceSelection[i]);
+			return;
+		}
+	}
 }

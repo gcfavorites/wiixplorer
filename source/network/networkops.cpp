@@ -53,20 +53,20 @@ static bool exitRequested = false;
  ***************************************************************************/
 void Initialize_Network(void)
 {
-    if(networkinit)
-        return;
+	if(networkinit)
+		return;
 
 	s32 result;
 
-    result = if_config(IP, NULL, NULL, true);
+	result = if_config(IP, NULL, NULL, true);
 
-    if(result < 0) {
-        networkinit = false;
+	if(result < 0) {
+		networkinit = false;
 		return;
 	}
 
-    networkinit = true;
-    return;
+	networkinit = true;
+	return;
 }
 
 /****************************************************************************
@@ -74,14 +74,14 @@ void Initialize_Network(void)
  ***************************************************************************/
 void DeInit_Network(void)
 {
-    net_deinit();
+	net_deinit();
 }
 /****************************************************************************
  * Check if network was initialised
  ***************************************************************************/
 bool IsNetworkInit(void)
 {
-    return networkinit;
+	return networkinit;
 }
 
 /****************************************************************************
@@ -89,7 +89,7 @@ bool IsNetworkInit(void)
  ***************************************************************************/
 char * GetNetworkIP(void)
 {
-    return IP;
+	return IP;
 }
 
 /****************************************************************************
@@ -97,7 +97,7 @@ char * GetNetworkIP(void)
  ***************************************************************************/
 void HaltNetworkThread()
 {
-    networkHalt = true;
+	networkHalt = true;
 
 	// wait for thread to finish
 	while(!LWP_ThreadIsSuspended(networkthread))
@@ -120,38 +120,38 @@ void ResumeNetworkThread()
  *********************************************************************************/
 static void * networkinitcallback(void *arg UNUSED)
 {
-    while(!exitRequested)
-    {
-        if(networkHalt)
-        {
-            LWP_SuspendThread(networkthread);
+	while(!exitRequested)
+	{
+		if(networkHalt)
+		{
+			LWP_SuspendThread(networkthread);
 			usleep(100);
 			continue;
-        }
+		}
 
-        if(!networkinit)
-            Initialize_Network();
+		if(!networkinit)
+			Initialize_Network();
 
-        if(!firstRun)
-        {
-            ConnectSMBShare();
-            if(Settings.FTPServer.AutoStart)
-                FTPServer::Instance()->StartupFTP();
+		if(!firstRun)
+		{
+			ConnectSMBShare();
+			if(Settings.FTPServer.AutoStart)
+				FTPServer::Instance()->StartupFTP();
 
 			ConnectFTP();
-            CheckForUpdate();
+			CheckForUpdate();
 
-            LWP_SetThreadPriority(networkthread, 0);
-            firstRun = true;
-        }
+			LWP_SetThreadPriority(networkthread, 0);
+			firstRun = true;
+		}
 
-        if(Receiver.CheckIncomming())
-        {
-            IncommingConnection(Receiver);
-        }
+		if(Receiver.CheckIncomming())
+		{
+			IncommingConnection(Receiver);
+		}
 
-        usleep(200000);
-    }
+		usleep(200000);
+	}
 	return NULL;
 }
 
@@ -160,9 +160,9 @@ static void * networkinitcallback(void *arg UNUSED)
  ***************************************************************************/
 void InitNetworkThread()
 {
-    ThreadStack = (u8 *) memalign(32, 16384);
-    if(!ThreadStack)
-        return;
+	ThreadStack = (u8 *) memalign(32, 16384);
+	if(!ThreadStack)
+		return;
 
 	LWP_CreateThread (&networkthread, networkinitcallback, NULL, ThreadStack, 16384, 30);
 	ResumeNetworkThread();
@@ -173,18 +173,18 @@ void InitNetworkThread()
  ***************************************************************************/
 void ShutdownNetworkThread()
 {
-    Receiver.FreeData();
-    Receiver.CloseConnection();
-    exitRequested = true;
+	Receiver.FreeData();
+	Receiver.CloseConnection();
+	exitRequested = true;
 
-    if(networkthread != LWP_THREAD_NULL)
-    {
-        ResumeNetworkThread();
-        LWP_JoinThread (networkthread, NULL);
-        networkthread = LWP_THREAD_NULL;
-    }
+	if(networkthread != LWP_THREAD_NULL)
+	{
+		ResumeNetworkThread();
+		LWP_JoinThread (networkthread, NULL);
+		networkthread = LWP_THREAD_NULL;
+	}
 
 	if(ThreadStack)
-        free(ThreadStack);
-    ThreadStack = NULL;
+		free(ThreadStack);
+	ThreadStack = NULL;
 }

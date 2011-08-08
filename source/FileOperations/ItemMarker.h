@@ -37,29 +37,29 @@
 typedef struct _ItemStruct
 {
 	char *  itempath;
-	u64     itemsize;
-	bool    isdir;
-	int     itemindex;
+	u64	 itemsize;
+	bool	isdir;
+	int	 itemindex;
 } ItemStruct;
 
 class ItemMarker
 {
-    public:
-        ItemMarker() { };
-        virtual ~ItemMarker() { Reset(); };
-        void AddItem(const ItemStruct * Item);
-        int FindItem(const ItemStruct * Item);
-        void RemoveItem(const ItemStruct * Item);
-        ItemStruct * GetItem(int ind);
-        const char * GetItemName(int ind);
-        const char * GetItemPath(int ind);
-        u64 GetItemSize(int ind);
-        bool IsItemDir(int ind);
-        int GetItemIndex(int ind);
-        int GetItemcount() { return Items.size(); };
-        void Reset();
-    protected:
-        std::vector<ItemStruct *> Items;
+	public:
+		ItemMarker() { };
+		virtual ~ItemMarker() { Reset(); };
+		void AddItem(const ItemStruct * Item);
+		int FindItem(const ItemStruct * Item);
+		void RemoveItem(const ItemStruct * Item);
+		ItemStruct * GetItem(int ind);
+		const char * GetItemName(int ind);
+		const char * GetItemPath(int ind);
+		u64 GetItemSize(int ind);
+		bool IsItemDir(int ind);
+		int GetItemIndex(int ind);
+		int GetItemcount() { return Items.size(); };
+		void Reset();
+	protected:
+		std::vector<ItemStruct *> Items;
 };
 
 #endif

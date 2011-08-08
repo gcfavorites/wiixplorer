@@ -68,23 +68,23 @@ typedef struct
 
 class RarcFile : public WiiArchive
 {
-    public:
+	public:
 		//!Constructor
-        RarcFile(const char *filepath);
-        //!Overload
-        RarcFile(const u8 * Buffer, u32 Size);
+		RarcFile(const char *filepath);
+		//!Overload
+		RarcFile(const u8 * Buffer, u32 Size);
 		//!Destructor
 		virtual ~RarcFile();
-    protected:
-        //!Parse the archive
-        bool ParseFile();
-        bool ParseRarcHeader();
-        void ParseNode(RarcNode * Node, string & parentDirectory);
-        //!Get the Filename
-        void GetFilename(int offset, string & Filename);
+	protected:
+		//!Parse the archive
+		bool ParseFile();
+		bool ParseRarcHeader();
+		void ParseNode(RarcNode * Node, string & parentDirectory);
+		//!Get the Filename
+		void GetFilename(int offset, string & Filename);
 
-        RarcHeader Header;
-        int ItemIndex;
+		RarcHeader Header;
+		int ItemIndex;
 };
 
 #endif

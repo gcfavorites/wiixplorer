@@ -15,13 +15,19 @@
 #define PI 				3.14159265f
 #define PADCAL			50
 
-extern int rumbleRequest[4];
-
 void UpdatePads();
 void SetupPads();
 void ShutdownPads();
 void ShutoffRumble();
 void DoRumble(int i);
+void RequestRumble(int chan);
 int Wpad_Init(void);
+
+//! Callbacks for shutdown/reset
+extern bool shutdown;
+extern bool reset;
+//! User input
+class GuiTrigger;
+extern GuiTrigger userInput[4];
 
 #endif

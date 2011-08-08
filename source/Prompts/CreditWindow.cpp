@@ -25,203 +25,185 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "CreditWindow.h"
 #include "main.h"
 #include "svnrev.h"
 
 
-CreditWindow::CreditWindow()
-    : GuiWindow(0, 0)
+CreditWindow::CreditWindow(GuiWindow *p)
+	: GuiWindow(0, 0, p)
 {
-    choice = -1;
+	choice = -1;
 
-    dialogBox = Resources::GetImageData("bg_properties.png");
-    dialogBoxImg = new GuiImage(dialogBox);
+	dialogBox = Resources::GetImageData("bg_properties.png");
+	dialogBoxImg = new GuiImage(dialogBox);
 
-    width = dialogBox->GetWidth();
-    height = dialogBox->GetHeight();
+	width = dialogBox->GetWidth();
+	height = dialogBox->GetHeight();
 
-    SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 
-    trigA = new GuiTrigger();
-    trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
-    trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigA = new GuiTrigger();
+	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigB = new GuiTrigger();
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-    btnClick = Resources::GetSound("button_click.wav");
+	btnClick = Resources::GetSound("button_click.wav");
 
-    int i = 0;
-    int x = 30;
-    int y = 30;
+	int i = 0;
+	int x = 30;
+	int y = 30;
 
-    Entrie[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-    Entrie[i]->SetPosition(0, y);
-    i++;
-    y += 50;
+	Entrie[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	Entrie[i]->SetPosition(0, y);
+	i++;
+	y += 50;
 
-    Entrie[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x, y);
-    i++;
+	Entrie[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x, y);
+	i++;
 
-    Entrie[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x+150, y);
-    i++;
-    y += 32;
+	Entrie[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x+150, y);
+	i++;
+	y += 32;
 
-    Entrie[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x+150, y);
-    i++;
-    y += 32;
+	Entrie[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x+150, y);
+	i++;
+	y += 32;
 
-    Entrie[i] = new GuiText("dude", 22, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x+150, y);
-    i++;
-    y += 40;
+	Entrie[i] = new GuiText("dude", 22, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x+150, y);
+	i++;
+	y += 40;
 
-    Entrie[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x, y);
-    i++;
+	Entrie[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x, y);
+	i++;
 
-    Entrie[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x+150, y);
-    i++;
-    y += 50;
+	Entrie[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x+150, y);
+	i++;
+	y += 50;
 
-    Entrie[i] = new GuiText(tr("Special thanks to:"), 22, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x,y);
-    i++;
-    y += 28;
+	Entrie[i] = new GuiText(tr("Special thanks to:"), 22, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x,y);
+	i++;
+	y += 28;
 
-    char text[80];
-    snprintf(text, sizeof(text), "Dj_Skual %s", tr("and all the translators."));
-    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x,y);
-    i++;
-    y += 28;
+	char text[80];
+	snprintf(text, sizeof(text), "Dj_Skual %s", tr("and all the translators."));
+	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x,y);
+	i++;
+	y += 28;
 
-    snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool libwiigui."));
-    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x,y);
-    i++;
-    y += 28;
+	snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool libwiigui."));
+	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x,y);
+	i++;
+	y += 28;
 
-    snprintf(text, sizeof(text), "Joseph Jordan %s ", tr("for his FTP Server source."));
-    Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x,y);
-    i++;
-    y += 28;
+	snprintf(text, sizeof(text), "Joseph Jordan %s ", tr("for his FTP Server source."));
+	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x,y);
+	i++;
+	y += 28;
 
-    Entrie[i] = new GuiText(tr("The whole devkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
-    Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Entrie[i]->SetPosition(x,y);
-    i++;
+	Entrie[i] = new GuiText(tr("The whole devkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
+	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetPosition(x,y);
+	i++;
 
-    CreditEntries = i;
+	CreditEntries = i;
 
-    arrowUp = Resources::GetImageData("scrollbar_arrowup.png");
-    arrowUpOver = Resources::GetImageData("scrollbar_arrowup_over.png");
-    arrowUpImg = new GuiImage(arrowUp);
-    arrowUpImg->SetAngle(45);
-    arrowUpImgOver = new GuiImage(arrowUpOver);
-    arrowUpImgOver->SetAngle(45);
-    Backbtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-    Backbtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-    Backbtn->SetSoundClick(btnClick);
-    Backbtn->SetImage(arrowUpImg);
-    Backbtn->SetImageOver(arrowUpImgOver);
-    Backbtn->SetPosition(-20, 20);
-    Backbtn->SetEffectGrow();
-    Backbtn->SetTrigger(trigA);
-    Backbtn->SetTrigger(trigB);
-    Backbtn->Clicked.connect(this, &CreditWindow::OnButtonClick);
+	arrowUp = Resources::GetImageData("scrollbar_arrowup.png");
+	arrowUpOver = Resources::GetImageData("scrollbar_arrowup_over.png");
+	arrowUpImg = new GuiImage(arrowUp);
+	arrowUpImg->SetAngle(45);
+	arrowUpImgOver = new GuiImage(arrowUpOver);
+	arrowUpImgOver->SetAngle(45);
+	Backbtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
+	Backbtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	Backbtn->SetSoundClick(btnClick);
+	Backbtn->SetImage(arrowUpImg);
+	Backbtn->SetImageOver(arrowUpImgOver);
+	Backbtn->SetPosition(-20, 20);
+	Backbtn->SetEffectGrow();
+	Backbtn->SetTrigger(trigA);
+	Backbtn->SetTrigger(trigB);
+	Backbtn->Clicked.connect(this, &CreditWindow::OnButtonClick);
 
-    char Rev[50];
-    sprintf(Rev, "Rev. %i", atoi(SvnRev()));
+	char Rev[50];
+	sprintf(Rev, "Rev. %i", atoi(SvnRev()));
 
-    RevNum = new GuiText(Rev, 22, (GXColor) {0, 0, 0, 255});
-    RevNum->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    RevNum->SetPosition(20, 20);
+	RevNum = new GuiText(Rev, 22, (GXColor) {0, 0, 0, 255});
+	RevNum->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	RevNum->SetPosition(20, 20);
 
-    IOSRevTxt = new GuiText((char *) NULL, 16, (GXColor) {0, 0, 0, 255});
-    IOSRevTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    IOSRevTxt->SetPosition(20, 50);
-    IOSRevTxt->SetTextf("IOS %i Rev. %i", IOS_GetVersion(), IOS_GetRevision());
+	IOSRevTxt = new GuiText((char *) NULL, 16, (GXColor) {0, 0, 0, 255});
+	IOSRevTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	IOSRevTxt->SetPosition(20, 50);
+	IOSRevTxt->SetTextf("IOS %i Rev. %i", IOS_GetVersion(), IOS_GetRevision());
 
-    Append(dialogBoxImg);
-    Append(RevNum);
-    Append(IOSRevTxt);
-    for(int i = 0; i < CreditEntries; i++)
-        Append(Entrie[i]);
-    Append(Backbtn);
+	Append(dialogBoxImg);
+	Append(RevNum);
+	Append(IOSRevTxt);
+	for(int i = 0; i < CreditEntries; i++)
+		Append(Entrie[i]);
+	Append(Backbtn);
 
-    MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
-    this->SetState(STATE_DEFAULT);
-    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 40);
 }
 
 CreditWindow::~CreditWindow()
 {
-    MainWindow::Instance()->ResumeGui();
-    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
-    while(this->GetEffect() > 0) usleep(100);
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
+	while(this->GetEffect() > 0)
+		Application::Instance()->updateEvents();
 
-    MainWindow::Instance()->HaltGui();
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    RemoveAll();
+	RemoveAll();
 
-    Resources::Remove(btnClick);
-    Resources::Remove(dialogBox);
-    Resources::Remove(arrowUp);
-    Resources::Remove(arrowUpOver);
-    delete dialogBoxImg;
-    delete arrowUpImg;
-    delete arrowUpImgOver;
+	Resources::Remove(btnClick);
+	Resources::Remove(dialogBox);
+	Resources::Remove(arrowUp);
+	Resources::Remove(arrowUpOver);
+	delete dialogBoxImg;
+	delete arrowUpImg;
+	delete arrowUpImgOver;
 
-    delete Backbtn;
+	delete Backbtn;
 
-    delete RevNum;
-    delete IOSRevTxt;
+	delete RevNum;
+	delete IOSRevTxt;
 
-    delete trigA;
-    delete trigB;
+	delete trigA;
+	delete trigB;
 
-    for(int i = 0; i < CreditEntries; i++)
-    {
-        delete Entrie[i];
-        Entrie[i] = NULL;
-    }
-
-    MainWindow::Instance()->SetState(STATE_DEFAULT);
-    MainWindow::Instance()->SetDim(false);
-    MainWindow::Instance()->ResumeGui();
+	for(int i = 0; i < CreditEntries; i++)
+	{
+		delete Entrie[i];
+		Entrie[i] = NULL;
+	}
 }
 
-int CreditWindow::GetChoice()
+void CreditWindow::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-    return choice;
-}
-
-void CreditWindow::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
-{
-    sender->ResetState();
-
-    if(sender == Backbtn)
-    {
-        choice = 1;
-    }
+	Closing();
 }

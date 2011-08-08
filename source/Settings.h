@@ -36,8 +36,8 @@
 #include "FileStartUp/FileExtensions.h"
 #include "FTPOperations/ftp_devoptab.h"
 
-#define MAXSMBUSERS         10
-#define MAXFTPUSERS         MAX_FTP_MOUNTED
+#define MAXSMBUSERS		 10
+#define MAXFTPUSERS		 MAX_FTP_MOUNTED
 
 typedef struct _SMBData
 {
@@ -49,116 +49,116 @@ typedef struct _SMBData
 
 typedef struct _FTPData
 {
-	char    Host[50];
-	char    User[50];
-	char    Password[50];
-	char    FTPPath[50];
-    unsigned short	Port;
+	char	Host[50];
+	char	User[50];
+	char	Password[50];
+	char	FTPPath[50];
+	unsigned short	Port;
 	short	Passive;
 } FTPData;
 
 typedef struct _FTPServerData
 {
-    short   AutoStart;
-	char    Password[50];
-    unsigned short	Port;
+	short   AutoStart;
+	char	Password[50];
+	unsigned short	Port;
 } FTPServerData;
 
 enum {
-    APP_DEFAULT = 0,
-    CONSOLE_DEFAULT,
-    JAPANESE,
-    ENGLISH,
-    GERMAN,
-    FRENCH,
-    SPANISH,
-    ITALIAN,
-    DUTCH,
-    S_CHINESE,
-    T_CHINESE,
-    KOREAN,
-    MAX_LANGUAGE
+	APP_DEFAULT = 0,
+	CONSOLE_DEFAULT,
+	JAPANESE,
+	ENGLISH,
+	GERMAN,
+	FRENCH,
+	SPANISH,
+	ITALIAN,
+	DUTCH,
+	S_CHINESE,
+	T_CHINESE,
+	KOREAN,
+	MAX_LANGUAGE
 };
 
-class Settings
+class CSettings
 {
-    public:
+	public:
 		//!Constructor
-        Settings();
+		CSettings();
 		//!Destructor
-		~Settings();
+		~CSettings();
 		//!Set Default Settings
 		void SetDefault();
 		//!Load Settings
 		bool Load();
-        //!Find the config file in the default paths
-        bool FindConfig();
+		//!Find the config file in the default paths
+		bool FindConfig();
 		//!Save Settings
-        bool Save();
+		bool Save();
 		//!Reset Settings
-        bool Reset();
+		bool Reset();
 		//!Set a Setting
 		//!\param name Settingname
 		//!\param value Settingvalue
-        bool SetSetting(char * name, char * value);
+		bool SetSetting(char * name, char * value);
 		//!Load a languagefile
 		//!\param language
-        bool LoadLanguage(const char *path, int language = -1);
+		bool LoadLanguage(const char *path, int language = -1);
 		//!Set the default ColorSettings
-        void DefaultColors();
-        //!This is set only once on start up to remember the entrace IOS
-        u8 EntraceIOS;
+		void DefaultColors();
+		//!This is set only once on start up to remember the entrace IOS
+		u8 EntraceIOS;
 
-        /**************** Color Variables ************************/
+		/**************** Color Variables ************************/
 
-        u32 BackgroundUL;
-        u32 BackgroundUR;
-        u32 BackgroundBR;
-        u32 BackgroundBL;
-        u32 ProgressUL;
-        u32 ProgressUR;
-        u32 ProgressBR;
-        u32 ProgressBL;
-        u32 ProgressEmptyUL;
-        u32 ProgressEmptyUR;
-        u32 ProgressEmptyBR;
-        u32 ProgressEmptyBL;
+		u32 BackgroundUL;
+		u32 BackgroundUR;
+		u32 BackgroundBR;
+		u32 BackgroundBL;
+		u32 ProgressUL;
+		u32 ProgressUR;
+		u32 ProgressBR;
+		u32 ProgressBL;
+		u32 ProgressEmptyUL;
+		u32 ProgressEmptyUR;
+		u32 ProgressEmptyBR;
+		u32 ProgressEmptyBL;
 
-        /**************** Settings Variables ************************/
+		/**************** Settings Variables ************************/
 
 
-        //!BootDevice determines from which devices to load the config
-        char	BootDevice[10];
-        //!Boot IOS
-        short  	BootIOS;
-        //!Current selected SMB user
-        short  	CurrentSMBUser;
-        //!Current selected FTP user
-        short  	CurrentFTPUser;
-        //!Music Volume.
-        short  	MusicVolume;
-        //!BGM Loop Mode
-        short  	BGMLoopMode;
-        //!AutoConnect Network on StartUp
-        short  	AutoConnect;
-        //!Update the meta.xml
-        short  	UpdateMetaxml;
-        //!Update the icon.png
-        short  	UpdateIconpng;
-        //!Clock mode
-        short  	ClockMode;
-        //!Scrolling speed
-        short  	ScrollSpeed;
-        //!Browser mode
-        short  	BrowserMode;
-        //!SoundblockCount
-        short   SoundblockCount;
-        //!SoundblockSize
-        int     SoundblockSize;
-        //!Screenshot image format
-        short  	ScreenshotFormat;
-        //!Load music to memory or play it from device
-        short  	LoadMusicToMem;
+		//!BootDevice determines from which devices to load the config
+		char	BootDevice[10];
+		//!Boot IOS
+		short  	BootIOS;
+		//!Current selected SMB user
+		short  	CurrentSMBUser;
+		//!Current selected FTP user
+		short  	CurrentFTPUser;
+		//!Music Volume.
+		short  	MusicVolume;
+		//!BGM Loop Mode
+		short  	BGMLoopMode;
+		//!AutoConnect Network on StartUp
+		short  	AutoConnect;
+		//!Update the meta.xml
+		short  	UpdateMetaxml;
+		//!Update the icon.png
+		short  	UpdateIconpng;
+		//!Clock mode
+		short  	ClockMode;
+		//!Scrolling speed
+		short  	ScrollSpeed;
+		//!Browser mode
+		short  	BrowserMode;
+		//!SoundblockCount
+		short   SoundblockCount;
+		//!SoundblockSize
+		int	 SoundblockSize;
+		//!Screenshot image format
+		short  	ScreenshotFormat;
+		//!Load music to memory or play it from device
+		short  	LoadMusicToMem;
 		//!Slideshow time between images
 		short   SlideshowDelay;
 		//!Fade speed between images
@@ -183,47 +183,53 @@ class Settings
 		short   USBPort;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
-        //!Path to MPlayerPath
-        char	MPlayerPath[150];
-        //!Path to WiiMC
-        char	WiiMCPath[150];
-        //!Languagefile path
-        char	MusicPath[150];
-        //!Languagefile path
-        char	LanguagePath[150];
-        //!Path to the customfont file.
-        char	CustomFontPath[150];
-        //!Temporary path for file extraction
-        char	TempPath[150];
-        //!Path to where the app is located
-        //!Default is sd:/apps/WiiExplorer/
-        char	UpdatePath[150];
-        //!Path to where the homebrew apps are
-        char	AppPath[150];
-        //!Path to where the screenshots are written
-        char	ScreenshotPath[150];
-        //!Path to where the url list in xml form is
-        char	LinkListPath[150];
-        //!Last used path to which the app returns to
-        std::string LastUsedPath;
+		//!Path to MPlayerPath
+		char	MPlayerPath[150];
+		//!Path to WiiMC
+		char	WiiMCPath[150];
+		//!Languagefile path
+		char	MusicPath[150];
+		//!Languagefile path
+		char	LanguagePath[150];
+		//!Path to the customfont file.
+		char	CustomFontPath[150];
+		//!Temporary path for file extraction
+		char	TempPath[150];
+		//!Path to where the app is located
+		//!Default is sd:/apps/WiiExplorer/
+		char	UpdatePath[150];
+		//!Path to where the homebrew apps are
+		char	AppPath[150];
+		//!Path to where the screenshots are written
+		char	ScreenshotPath[150];
+		//!Path to where the url list in xml form is
+		char	LinkListPath[150];
+		//!Last used path to which the app returns to
+		std::string LastUsedPath;
 		//!SMB users informations
-        SMBData SMBUser[MAXSMBUSERS];
-        //!FTP users informations
-        FTPData FTPUser[MAXFTPUSERS];
+		SMBData SMBUser[MAXSMBUSERS];
+		//!FTP users informations
+		FTPData FTPUser[MAXFTPUSERS];
 		//!FTP server informations
 		FTPServerData FTPServer;
 		//!Internal WiiXplorer FileExtensions
 		FilesExtensions FileExtensions;
 		//!The controls of the App
-        AppControls Controls;
-        //!Path to the configuration file
-        //!only for internal use
-        char    ConfigPath[50];
-    protected:
+		AppControls Controls;
+		//!Path to the configuration file
+		//!only for internal use
+		char	ConfigPath[50];
+	protected:
 
-        void ParseLine(char *line);
-        void TrimLine(char *dest, char *src, int size);
-        FILE * file;
+		void ParseLine(char *line);
+		void TrimLine(char *dest, char *src, int size);
+		FILE * file;
 };
+
+extern CSettings Settings;
+
+#define WiiControls		 Settings.Controls.WiiControls
+#define ClassicControls	 Settings.Controls.ClassicControls
+#define GCControls		  Settings.Controls.GCControls
 
 #endif

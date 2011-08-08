@@ -23,7 +23,6 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include "Controls/MainWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
@@ -35,70 +34,70 @@ static const char * UpdateURL = "http://wiixplorer.googlecode.com/svn/trunk/Lang
 
 int UpdateLanguageFiles()
 {
-    if(!NetworkInitPrompt())
-        return -1;
+	if(!NetworkInitPrompt())
+		return -1;
 
-    char * ptr = strrchr(Settings.LanguagePath, '/');
-    if(ptr && strlen(Settings.LanguagePath) > 0 && Settings.LanguagePath[strlen(Settings.LanguagePath)-1] != '/')
-        ptr[1] = '\0';
+	char * ptr = strrchr(Settings.LanguagePath, '/');
+	if(ptr && strlen(Settings.LanguagePath) > 0 && Settings.LanguagePath[strlen(Settings.LanguagePath)-1] != '/')
+		ptr[1] = '\0';
 
-    if(!CreateSubfolder(Settings.LanguagePath))
-    {
-        ShowError("%s", tr("Cannot create directory: "), Settings.LanguagePath);
-        return -1;
-    }
+	if(!CreateSubfolder(Settings.LanguagePath))
+	{
+		ShowError("%s", tr("Cannot create directory: "), Settings.LanguagePath);
+		return -1;
+	}
 
-    URL_List LinkList(UpdateURL);
+	URL_List LinkList(UpdateURL);
 
-    if(LinkList.GetURLCount() <= 0)
-    {
-        ShowError(tr("No files found."));
-        return -1;
-    }
+	if(LinkList.GetURLCount() <= 0)
+	{
+		ShowError(tr("No files found."));
+		return -1;
+	}
 
-    StartProgress(tr("Downloading files..."));
-    u32 done = 0;
-    u32 FilesDownloaded = 0;
+	StartProgress(tr("Downloading files..."));
+	u32 done = 0;
+	u32 FilesDownloaded = 0;
 
-    for (int i = 0; i < LinkList.GetURLCount(); i++)
-    {
-        if(actioncanceled)
-            continue;
+	for (int i = 0; i < LinkList.GetURLCount(); i++)
+	{
+		if(actioncanceled)
+			continue;
 
-        ShowProgress(done, (LinkList.GetURLCount()-1)*16*1024, LinkList.GetURL(i));
+		ShowProgress(done, (LinkList.GetURLCount()-1)*16*1024, LinkList.GetURL(i));
 
-        char * fileext = strrchr(LinkList.GetURL(i), '.');
-        if(!fileext)
-            continue;
+		char * fileext = strrchr(LinkList.GetURL(i), '.');
+		if(!fileext)
+			continue;
 
-        if (strcasecmp(fileext, ".lang") != 0)
-            continue;
+		if (strcasecmp(fileext, ".lang") != 0)
+			continue;
 
-        char fullURL[MAXPATHLEN];
-        if(LinkList.IsFullURL(i))
-            snprintf(fullURL, sizeof(fullURL), "%s", LinkList.GetURL(i));
-        else
-            snprintf(fullURL, sizeof(fullURL), "%s%s", UpdateURL, LinkList.GetURL(i));
+		char fullURL[MAXPATHLEN];
+		if(LinkList.IsFullURL(i))
+			snprintf(fullURL, sizeof(fullURL), "%s", LinkList.GetURL(i));
+		else
+			snprintf(fullURL, sizeof(fullURL), "%s%s", UpdateURL, LinkList.GetURL(i));
 
-        struct block file = downloadfile(fullURL);
+		struct block file = downloadfile(fullURL);
 
-        if (file.data && file.size > 0)
-        {
-            snprintf(fullURL, sizeof(fullURL), "%s%s", Settings.LanguagePath, LinkList.GetURL(i));
-            FILE * filePtr = fopen(fullURL, "wb");
-            if(filePtr)
-            {
-                fwrite(file.data, 1, file.size, filePtr);
-                fclose(filePtr);
-                done += file.size;
-                FilesDownloaded++;
-            }
-        }
+		if (file.data && file.size > 0)
+		{
+			snprintf(fullURL, sizeof(fullURL), "%s%s", Settings.LanguagePath, LinkList.GetURL(i));
+			FILE * filePtr = fopen(fullURL, "wb");
+			if(filePtr)
+			{
+				fwrite(file.data, 1, file.size, filePtr);
+				fclose(filePtr);
+				done += file.size;
+				FilesDownloaded++;
+			}
+		}
 
-        if(file.data)
-            free(file.data);
-    }
-    StopProgress();
+		if(file.data)
+			free(file.data);
+	}
+	StopProgress();
 
-    return FilesDownloaded;
+	return FilesDownloaded;
 }

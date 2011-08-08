@@ -34,73 +34,73 @@
 
 typedef struct _GIFLSDtag
 {
-    u16 ScreenWidth;
-    u16 ScreenHeight;
-    u8 PackedFields;
-    u8 Background;
-    u8 PixelAspectRatio;
+	u16 ScreenWidth;
+	u16 ScreenHeight;
+	u8 PackedFields;
+	u8 Background;
+	u8 PixelAspectRatio;
 } __attribute__((__packed__)) GIFLSDtag;
 
 typedef struct _GIFGCEtag
 {
-    u8 BlockSize;       // Block Size: 4 bytes
-    u8 PackedFields;
-    u16 Delay;          // Delay Time (1/100 seconds)
-    u8 Transparent;     // Transparent Color Index
+	u8 BlockSize;	   // Block Size: 4 bytes
+	u8 PackedFields;
+	u16 Delay;		  // Delay Time (1/100 seconds)
+	u8 Transparent;	 // Transparent Color Index
 } __attribute__((__packed__)) GIFGCEtag;
 
 // Read Image Descriptor
 typedef struct _GIFIDtag
 {
-    u16 xPos;
-    u16 yPos;
-    u16 Width;
-    u16 Height;
-    u8 PackedFields;
+	u16 xPos;
+	u16 yPos;
+	u16 Width;
+	u16 Height;
+	u8 PackedFields;
 } __attribute__((__packed__)) GIFIDtag;
 
 typedef struct
 {
-    u8 b,g,r,a;
+	u8 b,g,r,a;
 } __attribute__((__packed__)) GIFCOLOR;
 
 
 GifImage::GifImage(const u8 * img, int imgSize)
 {
-    currentFrame = 0;
-    lastTimer = 0.0f;
-    LoadImage(img, imgSize);
+	currentFrame = 0;
+	lastTimer = 0.0f;
+	LoadImage(img, imgSize);
 }
 
 GifImage::~GifImage()
 {
-    for(u32 i = 0; i < Frames.size(); i++)
-    {
-        if(Frames[i].image)
-            free(Frames[i].image);
-    }
-    Frames.clear();
+	for(u32 i = 0; i < Frames.size(); i++)
+	{
+		if(Frames[i].image)
+			free(Frames[i].image);
+	}
+	Frames.clear();
 }
 
 u8 * GifImage::GetFrameImage(int pos)
 {
-    if(pos < 0 || pos >= GetFrameCount())
-        return NULL;
+	if(pos < 0 || pos >= GetFrameCount())
+		return NULL;
 
-    return Frames[pos].image;
+	return Frames[pos].image;
 }
 
 // ****************************************************************************
-// * LZWDecoder (C/C++)                                                       *
-// * Codec to perform LZW (GIF Variant) decompression.                        *
-// *                         (c) Nov2000, Juan Soulie <jsoulie@cplusplus.com> *
+// * LZWDecoder (C/C++)													   *
+// * Codec to perform LZW (GIF Variant) decompression.						*
+// *						 (c) Nov2000, Juan Soulie <jsoulie@cplusplus.com> *
 // ****************************************************************************
 //
 // Parameter description:
 //  - bufIn: Input buffer containing a "de-blocked" GIF/LZW compressed image.
 //  - bufOut: Output buffer where result will be stored.
 //  - InitCodeSize: Initial CodeSize to be Used
-//    (GIF files include this as the first byte in a picture block)
+//	(GIF files include this as the first byte in a picture block)
 //  - AlignedWidth : Width of a row in memory (including alignment if needed)
 //  - Width, Height: Physical dimensions of image.
 //  - Interlace: 1 for Interlaced GIFs.
@@ -183,10 +183,10 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 		{
 			if (OutIndex > LZW_BUFF_SIZE)
 			{
-			    delete [] OutStack;
-			    delete [] Suffix;
-			    delete [] Prefix;
-			    return 0;
+				delete [] OutStack;
+				delete [] Suffix;
+				delete [] Prefix;
+				return 0;
 			}
 			OutStack[OutIndex++] = Suffix[OutCode];	// Add suffix to Output Stack
 			OutCode = Prefix[OutCode];				// Loop with preffix
@@ -194,12 +194,12 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 
 		// NOW OutCode IS A RAW CODE, ADD IT TO OUTPUT STACK.
 		if (OutIndex > LZW_BUFF_SIZE)
-        {
-            delete [] OutStack;
-            delete [] Suffix;
-            delete [] Prefix;
-            return 0;
-        }
+		{
+			delete [] OutStack;
+			delete [] Suffix;
+			delete [] Prefix;
+			return 0;
+		}
 		OutStack[OutIndex++] = (unsigned char) OutCode;
 
 		// ADD NEW ENTRY TO TABLE (PrevCode + OutCode)
@@ -212,10 +212,10 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 			// Prevent Translation table overflow:
 			if (NextEntry>=LZW_BUFF_SIZE)
 			{
-			    delete [] OutStack;
-			    delete [] Suffix;
-			    delete [] Prefix;
-			    return 0;
+				delete [] OutStack;
+				delete [] Suffix;
+				delete [] Prefix;
+				return 0;
 			}
 
 			// INCREASE CodeSize IF NextEntry IS INVALID WITH CURRENT CodeSize
@@ -235,7 +235,7 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 			if (col==Width)						// Check if new row.
 			{
 				if (Interlace) {				// If interlaced::
-					     if ((row&7)==0) {row+=8; if (row>=Height) row=4;}
+						 if ((row&7)==0) {row+=8; if (row>=Height) row=4;}
 					else if ((row&3)==0) {row+=8; if (row>=Height) row=2;}
 					else if ((row&1)==0) {row+=4; if (row>=Height) row=1;}
 					else row+=2;
@@ -252,39 +252,39 @@ static int LZWDecoder (char * bufIn, char * bufOut,
 
 	}	// while (main decompressor loop)
 
-    delete [] OutStack;
-    delete [] Suffix;
-    delete [] Prefix;
+	delete [] OutStack;
+	delete [] Suffix;
+	delete [] Prefix;
 
 	return whichBit;
 }
 
 void GifImage::LoadImage(const u8 * img, int imgSize)
 {
-    if(memcmp(img, "GIF", 3) != 0)
-        return;
+	if(memcmp(img, "GIF", 3) != 0)
+		return;
 
-    int pos = 6;
+	int pos = 6;
 
-    GIFLSDtag GifLSD;
+	GIFLSDtag GifLSD;
 
 	memcpy(&GifLSD, &img[pos], sizeof(GIFLSDtag));
-    pos += sizeof(GIFLSDtag);
+	pos += sizeof(GIFLSDtag);
 
-    int GlobalBPP = (GifLSD.PackedFields & 0x07) + 1;
+	int GlobalBPP = (GifLSD.PackedFields & 0x07) + 1;
 
-    GifLSD.ScreenWidth = le16(GifLSD.ScreenWidth);
-    GifLSD.ScreenHeight = le16(GifLSD.ScreenHeight);
+	GifLSD.ScreenWidth = le16(GifLSD.ScreenWidth);
+	GifLSD.ScreenHeight = le16(GifLSD.ScreenHeight);
 
 	MainWidth = GifLSD.ScreenWidth;
 	MainHeight = GifLSD.ScreenHeight;
 
-    GIFCOLOR * GlobalColorMap = new (std::nothrow) GIFCOLOR[1 << GlobalBPP];
-    if(!GlobalColorMap)
-    {
-        ShowError(tr("Not enough memory."));
-        return;
-    }
+	GIFCOLOR * GlobalColorMap = new (std::nothrow) GIFCOLOR[1 << GlobalBPP];
+	if(!GlobalColorMap)
+	{
+		ShowError(tr("Not enough memory."));
+		return;
+	}
 
 	if (GifLSD.PackedFields & 0x80)	// File has global color map?
 	{
@@ -297,46 +297,46 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 	}
 	else	// GIF standard says to provide an internal default Palette:
 	{
-	    for(int n = 0; n < 256; n++)
+		for(int n = 0; n < 256; n++)
 			GlobalColorMap[n].r = GlobalColorMap[n].g = GlobalColorMap[n].b = n;
 	}
 
 	int GraphicExtensionFound = 0;
 
-    GIFGCEtag GifGCE;
-    memset(&GifGCE, 0, sizeof(GIFGCEtag));
+	GIFGCEtag GifGCE;
+	memset(&GifGCE, 0, sizeof(GIFGCEtag));
 
-    do
+	do
 	{
-	    int charGot = img[pos++];
+		int charGot = img[pos++];
 
-	    if (charGot == 0x21)
+		if (charGot == 0x21)
 		{
 			switch (img[pos++])
 			{
-                case 0xF9:
-                    memcpy(&GifGCE, &img[pos], sizeof(GIFGCEtag));
-                    GifGCE.Delay = le16(GifGCE.Delay);
-                    pos += sizeof(GIFGCEtag)+1; // Block Terminator (always 0)
-                    GraphicExtensionFound++;
-                    break;
-                case 0xFE:
-                case 0x01:
-                case 0xFF:
-                default:
-                    // read (and ignore) data sub-blocks
-                    while(int BlockLength = img[pos++])
-                    {
-                        for (int n = 0; n < BlockLength; n++)
-                            ++pos;
-                    }
-                    break;
+				case 0xF9:
+					memcpy(&GifGCE, &img[pos], sizeof(GIFGCEtag));
+					GifGCE.Delay = le16(GifGCE.Delay);
+					pos += sizeof(GIFGCEtag)+1; // Block Terminator (always 0)
+					GraphicExtensionFound++;
+					break;
+				case 0xFE:
+				case 0x01:
+				case 0xFF:
+				default:
+					// read (and ignore) data sub-blocks
+					while(int BlockLength = img[pos++])
+					{
+						for (int n = 0; n < BlockLength; n++)
+							++pos;
+					}
+					break;
 			}
 		}
 		else if (charGot == 0x2c)
 		{
 			GifFrame NextImage;
-            GIFIDtag GifID;
+			GIFIDtag GifID;
 			memcpy(&GifID, &img[pos], sizeof(GIFIDtag));
 			pos += sizeof(GIFIDtag);
 
@@ -358,16 +358,16 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			int BPP = LocalColorMap ? (GifID.PackedFields & 7) + 1 : GlobalBPP;
 			int BytesPerRow = GifID.Width;
 			if(BPP == 24)
-                BytesPerRow *= 3;
+				BytesPerRow *= 3;
 
-            BytesPerRow = ALIGN(BytesPerRow);
+			BytesPerRow = ALIGN(BytesPerRow);
 
-            u8 * Raster = new (std::nothrow) u8 [BytesPerRow*GifID.Height];
-            if(!Raster)
-            {
-                ShowError(tr("Not enough memory."));
-                break;
-            }
+			u8 * Raster = new (std::nothrow) u8 [BytesPerRow*GifID.Height];
+			if(!Raster)
+			{
+				ShowError(tr("Not enough memory."));
+				break;
+			}
 
 			bool Transparent = false;
 			int Transparency = -1;
@@ -377,22 +377,22 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 				Transparency = Transparent ? GifGCE.Transparent : -1;
 			}
 
-            GIFCOLOR * CurrentColorMap = new (std::nothrow) GIFCOLOR[sizeof(GIFCOLOR)*(1<<BPP)];
-            if(!CurrentColorMap)
-            {
-                delete [] Raster;
-                ShowError(tr("Not enough memory."));
-                break;
-            }
+			GIFCOLOR * CurrentColorMap = new (std::nothrow) GIFCOLOR[sizeof(GIFCOLOR)*(1<<BPP)];
+			if(!CurrentColorMap)
+			{
+				delete [] Raster;
+				ShowError(tr("Not enough memory."));
+				break;
+			}
 
 			if (LocalColorMap)
 			{
-			    memcpy(CurrentColorMap, &img[pos], sizeof(GIFCOLOR)*(1<<BPP));
-			    pos += (sizeof(GIFCOLOR)-1)*(1 << BPP);
+				memcpy(CurrentColorMap, &img[pos], sizeof(GIFCOLOR)*(1<<BPP));
+				pos += (sizeof(GIFCOLOR)-1)*(1 << BPP);
 			}
 			else
 			{
-			    memcpy(CurrentColorMap, GlobalColorMap, sizeof(GIFCOLOR)*(1<<BPP));
+				memcpy(CurrentColorMap, GlobalColorMap, sizeof(GIFCOLOR)*(1<<BPP));
 			}
 
 			short firstbyte = img[pos++];	// 1st byte of img block (CodeSize)
@@ -402,19 +402,19 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			ImgEnd = ImgStart = pos;
 			while(int n = img[pos++])
 			{
-			    ImgEnd += n+1;
-                pos = ImgEnd;
+				ImgEnd += n+1;
+				pos = ImgEnd;
 			}
-            pos = ImgStart;
+			pos = ImgStart;
 
 			char * pCompressedImage = new  (std::nothrow) char [ImgEnd-ImgStart+4];
 			if(!pCompressedImage)
-            {
-                delete [] Raster;
-                delete [] CurrentColorMap;
-                ShowError(tr("Not enough memory."));
-                break;
-            }
+			{
+				delete [] Raster;
+				delete [] CurrentColorMap;
+				ShowError(tr("Not enough memory."));
+				break;
+			}
 
 			char * pTemp = pCompressedImage;
 			while (int nBlockLength = img[pos++])
@@ -425,75 +425,75 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 			}
 
 			int ret = LZWDecoder(pCompressedImage, (char *) Raster, firstbyte, BytesPerRow, GifID.Width,
-                               GifID.Height, ((GifID.PackedFields & 0x40)?1:0));
+							   GifID.Height, ((GifID.PackedFields & 0x40)?1:0));
 
 			if (ret)
 			{
-                int len =  datasizeRGBA8(NextImage.width, NextImage.height);
+				int len =  datasizeRGBA8(NextImage.width, NextImage.height);
 
-                NextImage.image = (u8 *) memalign(32, len);
+				NextImage.image = (u8 *) memalign(32, len);
 
-                if(!NextImage.image)
-                {
-                    delete [] pCompressedImage;
-                    delete [] Raster;
-                    delete [] CurrentColorMap;
-                    ShowError(tr("Not enough memory."));
-                    break;
-                }
+				if(!NextImage.image)
+				{
+					delete [] pCompressedImage;
+					delete [] Raster;
+					delete [] CurrentColorMap;
+					ShowError(tr("Not enough memory."));
+					break;
+				}
 
-                u32 offset;
-                u8 r, g, b;
+				u32 offset;
+				u8 r, g, b;
 
 				for(int x = 0; x < NextImage.width; ++x)
 				{
-				    for(int y = 0; y < NextImage.height; ++y)
-                    {
-                        offset = coordsRGBA8(x, y, NextImage.width);
+					for(int y = 0; y < NextImage.height; ++y)
+					{
+						offset = coordsRGBA8(x, y, NextImage.width);
 
-                        if(x < GifID.Width && y < GifID.Height)
-                        {
-                            if(BPP == 24)
-                            {
-                                u32 * pixel = (u32 *) &Raster[y*BytesPerRow+x*3];
-                                b = (*pixel & 0x00FF0000) >> 16;
-                                g = (*pixel & 0x0000FF00) >> 8;
-                                r = (*pixel & 0x000000FF);
-                            }
-                            else
-                            {
-                                b = Raster[y*BytesPerRow+x];
-                                g = Raster[y*BytesPerRow+x];
-                                r = Raster[y*BytesPerRow+x];
-                            }
+						if(x < GifID.Width && y < GifID.Height)
+						{
+							if(BPP == 24)
+							{
+								u32 * pixel = (u32 *) &Raster[y*BytesPerRow+x*3];
+								b = (*pixel & 0x00FF0000) >> 16;
+								g = (*pixel & 0x0000FF00) >> 8;
+								r = (*pixel & 0x000000FF);
+							}
+							else
+							{
+								b = Raster[y*BytesPerRow+x];
+								g = Raster[y*BytesPerRow+x];
+								r = Raster[y*BytesPerRow+x];
+							}
 
-                            if(r == Transparency || g == Transparency || b == Transparency)
-                            {
-                                NextImage.image[offset] = 0;
-                                NextImage.image[offset+1] = 255;
-                                NextImage.image[offset+32] = 255;
-                                NextImage.image[offset+33] = 255;
-                            }
-                            else
-                            {
-                                NextImage.image[offset] = 255;
-                                NextImage.image[offset+1] = CurrentColorMap[r].r;
-                                NextImage.image[offset+32] = CurrentColorMap[g].g;
-                                NextImage.image[offset+33] = CurrentColorMap[b].b;
-                            }
-                        }
-                        else
-                        {
-                            NextImage.image[offset] = 0;
-                            NextImage.image[offset+1] = 255;
-                            NextImage.image[offset+32] = 255;
-                            NextImage.image[offset+33] = 255;
-                        }
-                    }
+							if(r == Transparency || g == Transparency || b == Transparency)
+							{
+								NextImage.image[offset] = 0;
+								NextImage.image[offset+1] = 255;
+								NextImage.image[offset+32] = 255;
+								NextImage.image[offset+33] = 255;
+							}
+							else
+							{
+								NextImage.image[offset] = 255;
+								NextImage.image[offset+1] = CurrentColorMap[r].r;
+								NextImage.image[offset+32] = CurrentColorMap[g].g;
+								NextImage.image[offset+33] = CurrentColorMap[b].b;
+							}
+						}
+						else
+						{
+							NextImage.image[offset] = 0;
+							NextImage.image[offset+1] = 255;
+							NextImage.image[offset+32] = 255;
+							NextImage.image[offset+33] = 255;
+						}
+					}
 				}
 				DCFlushRange(NextImage.image, len);
 
-                Frames.push_back(NextImage);
+				Frames.push_back(NextImage);
 			}
 
 			delete [] pCompressedImage;
@@ -512,50 +512,50 @@ void GifImage::LoadImage(const u8 * img, int imgSize)
 
 void GifImage::Draw(int x, int y, int z, int degrees, float scaleX, float scaleY, int alpha, int minwidth, int maxwidth, int minheight, int maxheight)
 {
-    if(Frames.size() == 0)
-        return;
+	if(Frames.size() == 0)
+		return;
 
-    float OffX, OffY;
+	float OffX, OffY;
 
-    for(u32 i = 0; i < RedrawQueue.size(); i++)
-    {
-         //!Correcting scale position
-        OffX = x+RedrawQueue[i].offsetx*scaleX+(RedrawQueue[i].width*scaleX-RedrawQueue[i].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
-        OffY = y+RedrawQueue[i].offsety*scaleY+(RedrawQueue[i].height*scaleY-RedrawQueue[i].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
+	for(u32 i = 0; i < RedrawQueue.size(); i++)
+	{
+		 //!Correcting scale position
+		OffX = x+RedrawQueue[i].offsetx*scaleX+(RedrawQueue[i].width*scaleX-RedrawQueue[i].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
+		OffY = y+RedrawQueue[i].offsety*scaleY+(RedrawQueue[i].height*scaleY-RedrawQueue[i].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
 
-        Menu_DrawImg(RedrawQueue[i].image, RedrawQueue[i].width, RedrawQueue[i].height,
-                     GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth,
-                     maxwidth, minheight, maxheight);
-    }
+		Menu_DrawImg(RedrawQueue[i].image, RedrawQueue[i].width, RedrawQueue[i].height,
+					 GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth,
+					 maxwidth, minheight, maxheight);
+	}
 
-    //!Correcting scale position
-    OffX = x+Frames[currentFrame].offsetx*scaleX+(Frames[currentFrame].width*scaleX-Frames[currentFrame].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
-    OffY = y+Frames[currentFrame].offsety*scaleY+(Frames[currentFrame].height*scaleY-Frames[currentFrame].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
+	//!Correcting scale position
+	OffX = x+Frames[currentFrame].offsetx*scaleX+(Frames[currentFrame].width*scaleX-Frames[currentFrame].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
+	OffY = y+Frames[currentFrame].offsety*scaleY+(Frames[currentFrame].height*scaleY-Frames[currentFrame].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
 
-    Menu_DrawImg(Frames[currentFrame].image, Frames[currentFrame].width, Frames[currentFrame].height,
-                 GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth, maxwidth, minheight,
-                 maxheight);
+	Menu_DrawImg(Frames[currentFrame].image, Frames[currentFrame].width, Frames[currentFrame].height,
+				 GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth, maxwidth, minheight,
+				 maxheight);
 
-    if(DelayTimer.elapsed()-lastTimer >= Frames[currentFrame].Delay/100.0f)
-    {
-        if((Frames[currentFrame].Disposal == 0 && !Frames[currentFrame].Transparent) ||
-            Frames[currentFrame].Disposal == 1)
-        {
-            RedrawQueue.push_back(Frames[currentFrame]);
-        }
-        else if(Frames[currentFrame].Disposal == 2 && RedrawQueue.size() > 0)
-        {
-            RedrawQueue.pop_back();
-        }
+	if(DelayTimer.elapsed()-lastTimer >= Frames[currentFrame].Delay/100.0f)
+	{
+		if((Frames[currentFrame].Disposal == 0 && !Frames[currentFrame].Transparent) ||
+			Frames[currentFrame].Disposal == 1)
+		{
+			RedrawQueue.push_back(Frames[currentFrame]);
+		}
+		else if(Frames[currentFrame].Disposal == 2 && RedrawQueue.size() > 0)
+		{
+			RedrawQueue.pop_back();
+		}
 
-        ++currentFrame;
+		++currentFrame;
 
-        lastTimer = DelayTimer.elapsed();
+		lastTimer = DelayTimer.elapsed();
 
-        if(currentFrame >= (int) Frames.size())
-        {
-            currentFrame = 0;
-            RedrawQueue.clear();
-        }
-    }
+		if(currentFrame >= (int) Frames.size())
+		{
+			currentFrame = 0;
+			RedrawQueue.clear();
+		}
+	}
 }

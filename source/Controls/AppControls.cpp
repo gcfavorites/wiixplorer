@@ -35,7 +35,7 @@
 
 AppControls::AppControls()
 {
-    SetDefault();
+	SetDefault();
 }
 
 AppControls::~AppControls()
@@ -44,93 +44,93 @@ AppControls::~AppControls()
 
 void AppControls::SetDefault()
 {
-    ScreenshotHoldButton = WPAD_BUTTON_1;
-    ScreenshotClickButton = WPAD_BUTTON_B;
+	ScreenshotHoldButton = WPAD_BUTTON_1;
+	ScreenshotClickButton = WPAD_BUTTON_B;
 
-    WiiControls.ClickButton = WPAD_BUTTON_A;
-    WiiControls.BackButton = WPAD_BUTTON_B;
-    WiiControls.UpButton = WPAD_BUTTON_UP;
-    WiiControls.DownButton = WPAD_BUTTON_DOWN;
-    WiiControls.LeftButton = WPAD_BUTTON_LEFT;
-    WiiControls.RightButton = WPAD_BUTTON_RIGHT;
-    WiiControls.ContextMenuButton = WPAD_BUTTON_PLUS;
-    WiiControls.MarkItemButton = WPAD_BUTTON_1;
-    WiiControls.DeMarkItemButton = WPAD_BUTTON_2;
-    WiiControls.DeMarkAllButton = WPAD_BUTTON_MINUS;
-    WiiControls.HomeButton = WPAD_BUTTON_HOME;
-    WiiControls.EditTextLine = WPAD_BUTTON_PLUS;
-    WiiControls.SlideShowButton = WPAD_BUTTON_1;
-    WiiControls.KeyShiftButton = 0x0000;
-    WiiControls.KeyBackspaceButton = WPAD_BUTTON_B;
-    WiiControls.ZoomIn = WPAD_BUTTON_PLUS;
-    WiiControls.ZoomOut = WPAD_BUTTON_MINUS;
-    WiiControls.UpInDirectory = WPAD_BUTTON_B;
-    WiiControls.OneButtonScroll = 0x0000;
+	WiiControls.ClickButton = WPAD_BUTTON_A;
+	WiiControls.BackButton = WPAD_BUTTON_B;
+	WiiControls.UpButton = WPAD_BUTTON_UP;
+	WiiControls.DownButton = WPAD_BUTTON_DOWN;
+	WiiControls.LeftButton = WPAD_BUTTON_LEFT;
+	WiiControls.RightButton = WPAD_BUTTON_RIGHT;
+	WiiControls.ContextMenuButton = WPAD_BUTTON_PLUS;
+	WiiControls.MarkItemButton = WPAD_BUTTON_1;
+	WiiControls.DeMarkItemButton = WPAD_BUTTON_2;
+	WiiControls.DeMarkAllButton = WPAD_BUTTON_MINUS;
+	WiiControls.HomeButton = WPAD_BUTTON_HOME;
+	WiiControls.EditTextLine = WPAD_BUTTON_PLUS;
+	WiiControls.SlideShowButton = WPAD_BUTTON_1;
+	WiiControls.KeyShiftButton = 0x0000;
+	WiiControls.KeyBackspaceButton = WPAD_BUTTON_B;
+	WiiControls.ZoomIn = WPAD_BUTTON_PLUS;
+	WiiControls.ZoomOut = WPAD_BUTTON_MINUS;
+	WiiControls.UpInDirectory = WPAD_BUTTON_B;
+	WiiControls.OneButtonScroll = 0x0000;
 
-    ClassicControls.ClickButton = WPAD_CLASSIC_BUTTON_A >> 16;
-    ClassicControls.BackButton = WPAD_CLASSIC_BUTTON_B >> 16;
-    ClassicControls.UpButton = WPAD_CLASSIC_BUTTON_UP >> 16;
-    ClassicControls.DownButton = WPAD_CLASSIC_BUTTON_DOWN >> 16;
-    ClassicControls.LeftButton = WPAD_CLASSIC_BUTTON_LEFT >> 16;
-    ClassicControls.RightButton = WPAD_CLASSIC_BUTTON_RIGHT >> 16;
-    ClassicControls.ContextMenuButton = WPAD_CLASSIC_BUTTON_ZR >> 16;
-    ClassicControls.MarkItemButton = WPAD_CLASSIC_BUTTON_PLUS >> 16;
-    ClassicControls.DeMarkItemButton = WPAD_CLASSIC_BUTTON_MINUS >> 16;
-    ClassicControls.DeMarkAllButton = WPAD_CLASSIC_BUTTON_B >> 16;
-    ClassicControls.HomeButton = WPAD_CLASSIC_BUTTON_HOME >> 16;
-    ClassicControls.EditTextLine = WPAD_CLASSIC_BUTTON_PLUS >> 16;
-    ClassicControls.SlideShowButton = WPAD_CLASSIC_BUTTON_X >> 16;
-    ClassicControls.KeyShiftButton = 0x0000;
-    ClassicControls.KeyBackspaceButton = WPAD_CLASSIC_BUTTON_B >> 16;
-    ClassicControls.ZoomIn = WPAD_CLASSIC_BUTTON_PLUS >> 16;
-    ClassicControls.ZoomOut = WPAD_CLASSIC_BUTTON_MINUS >> 16;
-    ClassicControls.UpInDirectory = WPAD_CLASSIC_BUTTON_B >> 16;
-    ClassicControls.OneButtonScroll = 0x0000;
+	ClassicControls.ClickButton = WPAD_CLASSIC_BUTTON_A >> 16;
+	ClassicControls.BackButton = WPAD_CLASSIC_BUTTON_B >> 16;
+	ClassicControls.UpButton = WPAD_CLASSIC_BUTTON_UP >> 16;
+	ClassicControls.DownButton = WPAD_CLASSIC_BUTTON_DOWN >> 16;
+	ClassicControls.LeftButton = WPAD_CLASSIC_BUTTON_LEFT >> 16;
+	ClassicControls.RightButton = WPAD_CLASSIC_BUTTON_RIGHT >> 16;
+	ClassicControls.ContextMenuButton = WPAD_CLASSIC_BUTTON_ZR >> 16;
+	ClassicControls.MarkItemButton = WPAD_CLASSIC_BUTTON_PLUS >> 16;
+	ClassicControls.DeMarkItemButton = WPAD_CLASSIC_BUTTON_MINUS >> 16;
+	ClassicControls.DeMarkAllButton = WPAD_CLASSIC_BUTTON_B >> 16;
+	ClassicControls.HomeButton = WPAD_CLASSIC_BUTTON_HOME >> 16;
+	ClassicControls.EditTextLine = WPAD_CLASSIC_BUTTON_PLUS >> 16;
+	ClassicControls.SlideShowButton = WPAD_CLASSIC_BUTTON_X >> 16;
+	ClassicControls.KeyShiftButton = 0x0000;
+	ClassicControls.KeyBackspaceButton = WPAD_CLASSIC_BUTTON_B >> 16;
+	ClassicControls.ZoomIn = WPAD_CLASSIC_BUTTON_PLUS >> 16;
+	ClassicControls.ZoomOut = WPAD_CLASSIC_BUTTON_MINUS >> 16;
+	ClassicControls.UpInDirectory = WPAD_CLASSIC_BUTTON_B >> 16;
+	ClassicControls.OneButtonScroll = 0x0000;
 
-    GCControls.ClickButton = PAD_BUTTON_A;
-    GCControls.BackButton = PAD_BUTTON_B;
-    GCControls.UpButton = PAD_BUTTON_UP;
-    GCControls.DownButton = PAD_BUTTON_DOWN;
-    GCControls.LeftButton = PAD_BUTTON_LEFT;
-    GCControls.RightButton = PAD_BUTTON_RIGHT;
-    GCControls.ContextMenuButton = PAD_TRIGGER_Z;
-    GCControls.MarkItemButton = PAD_TRIGGER_R;
-    GCControls.DeMarkItemButton = PAD_TRIGGER_L;
-    GCControls.DeMarkAllButton = PAD_BUTTON_B;
-    GCControls.HomeButton = PAD_BUTTON_MENU;
-    GCControls.EditTextLine = PAD_TRIGGER_Z;
-    GCControls.SlideShowButton = PAD_BUTTON_X;
-    GCControls.KeyShiftButton = 0x0000;
-    GCControls.KeyBackspaceButton = PAD_BUTTON_B;
-    GCControls.ZoomIn = PAD_TRIGGER_R;
-    GCControls.ZoomOut = PAD_TRIGGER_L;
-    GCControls.UpInDirectory = PAD_BUTTON_B;
-    GCControls.OneButtonScroll = 0x0000;
+	GCControls.ClickButton = PAD_BUTTON_A;
+	GCControls.BackButton = PAD_BUTTON_B;
+	GCControls.UpButton = PAD_BUTTON_UP;
+	GCControls.DownButton = PAD_BUTTON_DOWN;
+	GCControls.LeftButton = PAD_BUTTON_LEFT;
+	GCControls.RightButton = PAD_BUTTON_RIGHT;
+	GCControls.ContextMenuButton = PAD_TRIGGER_Z;
+	GCControls.MarkItemButton = PAD_TRIGGER_R;
+	GCControls.DeMarkItemButton = PAD_TRIGGER_L;
+	GCControls.DeMarkAllButton = PAD_BUTTON_B;
+	GCControls.HomeButton = PAD_BUTTON_MENU;
+	GCControls.EditTextLine = PAD_TRIGGER_Z;
+	GCControls.SlideShowButton = PAD_BUTTON_X;
+	GCControls.KeyShiftButton = 0x0000;
+	GCControls.KeyBackspaceButton = PAD_BUTTON_B;
+	GCControls.ZoomIn = PAD_TRIGGER_R;
+	GCControls.ZoomOut = PAD_TRIGGER_L;
+	GCControls.UpInDirectory = PAD_BUTTON_B;
+	GCControls.OneButtonScroll = 0x0000;
 }
 
 bool AppControls::Load(const char * filepath)
 {
-    if(!filepath)
-        return false;
+	if(!filepath)
+		return false;
 
 	char line[1024];
-    snprintf(FilePath, sizeof(FilePath), "%s/WiiXplorer_Controls.cfg", filepath);
+	snprintf(FilePath, sizeof(FilePath), "%s/WiiXplorer_Controls.cfg", filepath);
 
-    if(!CheckFile(FilePath))
-        return false;
+	if(!CheckFile(FilePath))
+		return false;
 
 	FILE * file = fopen(FilePath, "r");
 	if (!file)
 	{
-        fclose(file);
-        return false;
+		fclose(file);
+		return false;
 	}
 
 	while (fgets(line, sizeof(line), file))
 	{
 		if (line[0] == '#') continue;
 
-        this->ParseLine(line);
+		this->ParseLine(line);
 	}
 	fclose(file);
 
@@ -139,27 +139,27 @@ bool AppControls::Load(const char * filepath)
 
 bool AppControls::Save()
 {
-    char destpath[1024];
-    snprintf(destpath, sizeof(destpath), "%s", FilePath);
+	char destpath[1024];
+	snprintf(destpath, sizeof(destpath), "%s", FilePath);
 
-    char * ptr = strrchr(destpath, '/');
-    if(ptr)
-    {
-        ptr++;
-        ptr[0] = '\0';
-    }
+	char * ptr = strrchr(destpath, '/');
+	if(ptr)
+	{
+		ptr++;
+		ptr[0] = '\0';
+	}
 
-    if(!CreateSubfolder(destpath))
-        return false;
+	if(!CreateSubfolder(destpath))
+		return false;
 
-    FILE * file = fopen(FilePath, "w");
-    if(!file)
-    {
-        fclose(file);
-        return false;
-    }
+	FILE * file = fopen(FilePath, "w");
+	if(!file)
+	{
+		fclose(file);
+		return false;
+	}
 
-    fprintf(file, "# WiiXplorer Controls\n");
+	fprintf(file, "# WiiXplorer Controls\n");
 	fprintf(file, "# Note: This file is automatically generated\n\n");
 	fprintf(file, "# Wii Controls\n\n");
 	fprintf(file, "WiiControls.ClickButton = %d\n", WiiControls.ClickButton);
@@ -232,9 +232,9 @@ bool AppControls::Save()
 
 bool AppControls::SetControl(char *name, char *value)
 {
-    int i = 0;
+	int i = 0;
 
-    if (strcmp(name, "ScreenshotHoldButton") == 0) {
+	if (strcmp(name, "ScreenshotHoldButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ScreenshotHoldButton = i;
 		}
@@ -246,7 +246,7 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
-    else if (strcmp(name, "WiiControls.ClickButton") == 0) {
+	else if (strcmp(name, "WiiControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			WiiControls.ClickButton = i;
 		}
@@ -354,7 +354,7 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
-    else if (strcmp(name, "ClassicControls.ClickButton") == 0) {
+	else if (strcmp(name, "ClassicControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			ClassicControls.ClickButton = i;
 		}
@@ -462,7 +462,7 @@ bool AppControls::SetControl(char *name, char *value)
 		}
 		return true;
 	}
-    else if (strcmp(name, "GCControls.ClickButton") == 0) {
+	else if (strcmp(name, "GCControls.ClickButton") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			GCControls.ClickButton = i;
 		}
@@ -576,18 +576,18 @@ bool AppControls::SetControl(char *name, char *value)
 
 void AppControls::ParseLine(char *line)
 {
-    char temp[200], name[200], value[200];
+	char temp[200], name[200], value[200];
 
-    strncpy(temp, line, sizeof(temp));
+	strncpy(temp, line, sizeof(temp));
 
-    char * eq = strchr(temp, '=');
+	char * eq = strchr(temp, '=');
 
-    if(!eq) return;
+	if(!eq) return;
 
-    *eq = 0;
+	*eq = 0;
 
-    this->TrimLine(name, temp, sizeof(name));
-    this->TrimLine(value, eq+1, sizeof(value));
+	this->TrimLine(name, temp, sizeof(name));
+	this->TrimLine(value, eq+1, sizeof(value));
 
 	this->SetControl(name, value);
 }

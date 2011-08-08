@@ -26,44 +26,45 @@
 #ifndef _GXCONSOLE_HPP_
 #define _GXCONSOLE_HPP_
 
-#include "libwiigui/gui.h"
+#include "GUI/gui_element.h"
+#include "GUI/gui_image.h"
 #include "TextOperations/wstring.hpp"
 
 class GXConsole : public GuiElement
 {
-    public:
-        //!Constructor
-        GXConsole(int w, int h);
-        //!Destructor
-        virtual ~GXConsole();
-        //!formated print
+	public:
+		//!Constructor
+		GXConsole(int w, int h);
+		//!Destructor
+		virtual ~GXConsole();
+		//!formated print
 		void printf(const char *format, ...) __attribute__((format(printf,2,3)));
-        //!clear console
-        void clear();
-        //!Set background image
+		//!clear console
+		void clear();
+		//!Set background image
 		void SetImage(GuiImage * img);
-        //!Set text color
-        void SetTextColor(GXColor c);
-        //!Set fontsize
-        void SetFontSize(int size);
-        //!Set the height between two lines
-        void SetHeightBetweenLines(int h);
-        //!Draw callback(GuiElement overload)
-        void Draw();
-    protected:
+		//!Set text color
+		void SetTextColor(GXColor c);
+		//!Set fontsize
+		void SetFontSize(int size);
+		//!Set the height between two lines
+		void SetHeightBetweenLines(int h);
+		//!Draw callback(GuiElement overload)
+		void Draw();
+	protected:
 		void AddText(const wchar_t * text);
-        void AddRow(const wString * text);
-        void RemoveRow(int row);
-        bool IsMaxWidth(const wString * text);
+		void AddRow(const wString * text);
+		void RemoveRow(int row);
+		bool IsMaxWidth(const wString * text);
 
 		mutex_t mutex;
-        u32 fontSize;
-        u32 HeightBetweenLines;
-        u32 RowCount;
-        u16 style;
-        GXColor color;
-        GuiImage * Background;
-        std::vector<wString *> ConsoleRow;
+		u32 fontSize;
+		u32 HeightBetweenLines;
+		u32 RowCount;
+		u16 style;
+		GXColor color;
+		GuiImage * Background;
+		std::vector<wString *> ConsoleRow;
 };
 
 #endif

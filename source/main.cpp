@@ -23,22 +23,11 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
-#include <gccore.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ogcsys.h>
-#include <unistd.h>
-#include <locale.h>
-
-#include "FreeTypeGX.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "VideoOperations/video.h"
-#include "BootHomebrew/BootHomebrew.h"
 #include "TextOperations/FontSystem.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "audio.h"
-#include "libwiigui/gui.h"
 #include "DiskOperations/di2.h"
 #include "input.h"
 #include "Settings.h"
@@ -46,42 +35,41 @@
 #include "Memory/mem2.h"
 #include "mload/mload_init.h"
 
-Settings Settings;
 
 int main(int argc UNUSED, char *argv[] UNUSED)
 {
-    __exception_setreload(30);
+	__exception_setreload(30);
 	InitVideo(); // Initialize video
-    InitGecko();  // Initialize stdout/stderr and gecko output
+	InitGecko();  // Initialize stdout/stderr and gecko output
 	MEM2_init(52); // Initialize 52 MB (max is 53469152 bytes though)
 
 	DeviceHandler::Instance()->MountSD();
 	DeviceHandler::Instance()->MountAllUSB();
 	Settings.Load();
 
-    Settings.EntraceIOS = (u8) IOS_GetVersion();
+	Settings.EntraceIOS = (u8) IOS_GetVersion();
 
-    if(Settings.EntraceIOS != Settings.BootIOS)
-    {
-        DeviceHandler::Instance()->UnMountSD();
-        DeviceHandler::Instance()->UnMountAllUSB();
-        USB_Deinitialize();
+	if(Settings.EntraceIOS != Settings.BootIOS)
+	{
+		DeviceHandler::Instance()->UnMountSD();
+		DeviceHandler::Instance()->UnMountAllUSB();
+		USB_Deinitialize();
 
-        if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
-            mload_Init();
+		if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
+			mload_Init();
 
-        DeviceHandler::Instance()->MountSD();
-        DeviceHandler::Instance()->MountAllUSB();
-        Settings.Load();  //If it was not loaded, reloading here again.
-    }
+		DeviceHandler::Instance()->MountSD();
+		DeviceHandler::Instance()->MountAllUSB();
+		Settings.Load();  //If it was not loaded, reloading here again.
+	}
 
-    MagicPatches(1); // We all love magic
+	MagicPatches(1); // We all love magic
 	Sys_Init(); // Initialize shutdown/reset buttons
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
-    DeviceHandler::Instance()->MountGCA();
-    DeviceHandler::Instance()->MountGCB();
-    DI2_Init(); //Init DVD Driver
+	DeviceHandler::Instance()->MountGCA();
+	DeviceHandler::Instance()->MountGCB();
+	DI2_Init(); //Init DVD Driver
 	Settings.LoadLanguage(Settings.LanguagePath);
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);
@@ -89,11 +77,12 @@ int main(int argc UNUSED, char *argv[] UNUSED)
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");
 
-	MainWindow::Instance()->Show();
+	Application::Instance()->show();
+	Application::Instance()->exec();
 
 	/* Return to the Wii system menu  if not from HBC*/
-    if(!IsFromHBC())
-        SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+	if(!IsFromHBC())
+		SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 
 	return 0;
 }

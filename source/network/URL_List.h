@@ -34,30 +34,30 @@
 
 typedef struct
 {
-    char    *URL;
-    bool    fullurl;
+	char	*URL;
+	bool	fullurl;
 } Link_Info;
 
 class URL_List
 {
-    public:
-        //!Constructor
-        //!\param url from where to get the list of sublinks
-        URL_List(const char *url);
-        //!Destructor
-        ~URL_List();
-        //! Get an URL from the List
-        //!\param list index
-        char * GetURL(int index);
-        //! Check if URL is a full standalone URL or just a file/SubURL
-        bool IsFullURL(int ind);
-        //! Get the number of links counted
-        int GetURLCount();
-        //! Sort list
-        void SortList();
-    protected:
-        int urlcount;
-        Link_Info *Links;
+	public:
+		//!Constructor
+		//!\param url from where to get the list of sublinks
+		URL_List(const char *url);
+		//!Destructor
+		~URL_List();
+		//! Get an URL from the List
+		//!\param list index
+		char * GetURL(int index);
+		//! Check if URL is a full standalone URL or just a file/SubURL
+		bool IsFullURL(int ind);
+		//! Get the number of links counted
+		int GetURLCount();
+		//! Sort list
+		void SortList();
+	protected:
+		int urlcount;
+		Link_Info *Links;
 };
 
 #endif

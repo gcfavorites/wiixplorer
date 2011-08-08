@@ -38,24 +38,24 @@
 
 Applications::Applications(const char * path)
 {
-    if(!path)
-        return;
+	if(!path)
+		return;
 
 	Search(path);
 
 	if(applications.size() > 1)
-        Sort();
+		Sort();
 }
 
 void Applications::Launch(int index)
 {
-    if(index < 0 || index >= (int) applications.size())
-        return;
+	if(index < 0 || index >= (int) applications.size())
+		return;
 
 	if (LoadHomebrew(applications.at(index).path) < 0)
 		return;
 
-    AddBootArgument(applications.at(index).path);
+	AddBootArgument(applications.at(index).path);
 	BootHomebrew();
 }
 
@@ -119,61 +119,61 @@ void Applications::Search(const char * path)
 	if (!path || strcmp(path, "") == 0)
 		return;
 
-    LastPath = path;
-    std::string hbpath;
+	LastPath = path;
+	std::string hbpath;
 
 	DirList dir(path);
 
 	int entries = dir.GetFilecount();
 
-    if (entries > 0)
-    {
-        for (int j = 0; j < entries; j++)
-        {
+	if (entries > 0)
+	{
+		for (int j = 0; j < entries; j++)
+		{
 			if (!dir.IsDir(j))
 				continue;
 
 			hbpath.assign(path);
 			if(hbpath[hbpath.size()-1] != '/')
-                hbpath.append("/");
+				hbpath.append("/");
 			hbpath.append(dir.GetFilename(j));
 
-            DirList binary(hbpath.c_str(), ".dol,.elf");
-            if (binary.GetFilecount() > 0)
-            {
-                Application app;
-                snprintf(app.path, sizeof(app.path), "%s", binary.GetFilepath(0));
+			DirList binary(hbpath.c_str(), ".dol,.elf");
+			if (binary.GetFilecount() > 0)
+			{
+				App app;
+				snprintf(app.path, sizeof(app.path), "%s", binary.GetFilepath(0));
 
-                DirList meta(hbpath.c_str(), ".xml");
-                if (meta.GetFileIndex("meta.xml") >= 0)
-                {
-                    if (!GetNameFromXML(fmt("%s/meta.xml", hbpath.c_str()), app.name))
-                    {
-                        snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
-                    }
-                }
-                else
-                {
-                    snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
-                }
+				DirList meta(hbpath.c_str(), ".xml");
+				if (meta.GetFileIndex("meta.xml") >= 0)
+				{
+					if (!GetNameFromXML(fmt("%s/meta.xml", hbpath.c_str()), app.name))
+					{
+						snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
+					}
+				}
+				else
+				{
+					snprintf(app.name, sizeof(app.name), dir.GetFilename(j));
+				}
 
-                applications.push_back(app);
-            }
-        }
-    }
+				applications.push_back(app);
+			}
+		}
+	}
 
-    std::vector<Application>(applications).swap(applications);
+	std::vector<App>(applications).swap(applications);
 }
 
 void Applications::Sort()
 {
-    std::sort(applications.begin(), applications.end(), SortCallback);
+	std::sort(applications.begin(), applications.end(), SortCallback);
 }
 
-bool Applications::SortCallback(const Application & f1, const Application & f2)
+bool Applications::SortCallback(const App & f1, const App & f2)
 {
-    if(stricmp(f1.name, f2.name) > 0)
-        return false;
-    else
-        return true;
+	if(stricmp(f1.name, f2.name) > 0)
+		return false;
+	else
+		return true;
 }

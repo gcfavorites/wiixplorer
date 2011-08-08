@@ -43,7 +43,7 @@ DeviceHandler * DeviceHandler::instance = NULL;
 
 DeviceHandler::~DeviceHandler()
 {
-    UnMountAll();
+	UnMountAll();
 }
 
 DeviceHandler * DeviceHandler::Instance()
@@ -57,253 +57,253 @@ DeviceHandler * DeviceHandler::Instance()
 
 void DeviceHandler::DestroyInstance()
 {
-    if(instance)
-    {
-        delete instance;
-    }
-    instance = NULL;
+	if(instance)
+	{
+		delete instance;
+	}
+	instance = NULL;
 }
 
 bool DeviceHandler::MountAll()
 {
-    bool result = false;
+	bool result = false;
 
-    for(u32 i = SD; i <= DVD; i++)
-    {
-        if(Mount(i))
-            result = true;
-    }
+	for(u32 i = SD; i <= DVD; i++)
+	{
+		if(Mount(i))
+			result = true;
+	}
 
-    return result;
+	return result;
 }
 
 void DeviceHandler::UnMountAll()
 {
-    for(u32 i = SD; i <= DVD; i++)
-        UnMount(i);
+	for(u32 i = SD; i <= DVD; i++)
+		UnMount(i);
 
-    if(sd)
-        delete sd;
-    if(gca)
-        delete gca;
-    if(gcb)
-        delete gca;
-    if(usb0)
-        delete usb0;
-    if(usb1)
-        delete usb1;
+	if(sd)
+		delete sd;
+	if(gca)
+		delete gca;
+	if(gcb)
+		delete gca;
+	if(usb0)
+		delete usb0;
+	if(usb1)
+		delete usb1;
 
-    sd = NULL;
-    gca = NULL;
-    gcb = NULL;
-    usb0 = NULL;
-    usb1 = NULL;
-    USBStorage2_Deinit();
+	sd = NULL;
+	gca = NULL;
+	gcb = NULL;
+	usb0 = NULL;
+	usb1 = NULL;
+	USBStorage2_Deinit();
 }
 
 bool DeviceHandler::Mount(int dev)
 {
-    if(dev == SD)
-        return MountSD();
+	if(dev == SD)
+		return MountSD();
 
-    else if(dev == GCSDA)
-        return MountGCA();
+	else if(dev == GCSDA)
+		return MountGCA();
 
-    else if(dev == GCSDB)
-        return MountGCB();
+	else if(dev == GCSDB)
+		return MountGCB();
 
-    else if(dev >= USB1 && dev <= USB8)
-        return MountUSB(dev-USB1);
+	else if(dev >= USB1 && dev <= USB8)
+		return MountUSB(dev-USB1);
 
-    else if(dev >= SMB1 && dev <= SMB10)
-        return ConnectSMBShare(dev-SMB1);
+	else if(dev >= SMB1 && dev <= SMB10)
+		return ConnectSMBShare(dev-SMB1);
 
-    else if(dev >= FTP1 && dev <= FTP10)
-        return ConnectFTP(dev-FTP1);
+	else if(dev >= FTP1 && dev <= FTP10)
+		return ConnectFTP(dev-FTP1);
 
-    else if(dev == DVD)
-        return MountDVD();
+	else if(dev == DVD)
+		return MountDVD();
 
-    return false;
+	return false;
 }
 
 bool DeviceHandler::IsInserted(int dev)
 {
-    if(dev == SD)
-        return SD_Inserted() && sd->IsMounted(0);
+	if(dev == SD)
+		return SD_Inserted() && sd->IsMounted(0);
 
-    else if(dev == GCSDA)
-        return GCA_Inserted() && gca->IsMounted(0);
+	else if(dev == GCSDA)
+		return GCA_Inserted() && gca->IsMounted(0);
 
-    else if(dev == GCSDB)
-        return GCB_Inserted() && gcb->IsMounted(0);
+	else if(dev == GCSDB)
+		return GCB_Inserted() && gcb->IsMounted(0);
 
-    else if(dev >= USB1 && dev <= USB8)
-        return GetUSBFromDev(dev) && GetUSBFromDev(dev)->IsMounted(PartToPortPart(dev-USB1));
+	else if(dev >= USB1 && dev <= USB8)
+		return GetUSBFromDev(dev) && GetUSBFromDev(dev)->IsMounted(PartToPortPart(dev-USB1));
 
-    else if(dev >= SMB1 && dev <= SMB10)
-        return IsSMB_Mounted(dev-SMB1);
+	else if(dev >= SMB1 && dev <= SMB10)
+		return IsSMB_Mounted(dev-SMB1);
 
-    else if(dev >= FTP1 && dev <= FTP10)
-        return IsFTPConnected(dev-FTP1); //later
+	else if(dev >= FTP1 && dev <= FTP10)
+		return IsFTPConnected(dev-FTP1); //later
 
-    else if(dev == DVD)
-        return DVD_Inserted();
+	else if(dev == DVD)
+		return DVD_Inserted();
 
-    return false;
+	return false;
 }
 
 void DeviceHandler::UnMount(int dev)
 {
-    if(dev == SD)
-        UnMountSD();
+	if(dev == SD)
+		UnMountSD();
 
-    else if(dev == GCSDA)
-        UnMountGCA();
+	else if(dev == GCSDA)
+		UnMountGCA();
 
-    else if(dev == GCSDB)
-        UnMountGCB();
+	else if(dev == GCSDB)
+		UnMountGCB();
 
-    else if(dev >= USB1 && dev <= USB8)
-        UnMountUSB(dev-USB1);
+	else if(dev >= USB1 && dev <= USB8)
+		UnMountUSB(dev-USB1);
 
-    else if(dev >= SMB1 && dev <= SMB10)
-        CloseSMBShare(dev-SMB1);
+	else if(dev >= SMB1 && dev <= SMB10)
+		CloseSMBShare(dev-SMB1);
 
-    else if(dev >= FTP1 && dev <= FTP10)
-        CloseFTP(dev-FTP1);
+	else if(dev >= FTP1 && dev <= FTP10)
+		CloseFTP(dev-FTP1);
 
-    else if(dev == DVD)
-        UnMountDVD();
+	else if(dev == DVD)
+		UnMountDVD();
 }
 
 bool DeviceHandler::MountSD()
 {
-    if(!sd)
-        sd = new PartitionHandle(&__io_wiisd);
+	if(!sd)
+		sd = new PartitionHandle(&__io_wiisd);
 
-    if(sd->GetPartitionCount() < 1)
-    {
-        delete sd;
-        sd = NULL;
-        return false;
-    }
+	if(sd->GetPartitionCount() < 1)
+	{
+		delete sd;
+		sd = NULL;
+		return false;
+	}
 
-    //! Mount only one SD Partition
-    return sd->Mount(0, DeviceName[SD]);
+	//! Mount only one SD Partition
+	return sd->Mount(0, DeviceName[SD]);
 }
 
 bool DeviceHandler::MountGCA()
 {
-    if(!gca)
-        gca = new PartitionHandle(&__io_gcsda);
+	if(!gca)
+		gca = new PartitionHandle(&__io_gcsda);
 
-    if(gca->GetPartitionCount() < 1)
-    {
-        delete gca;
-        gca = NULL;
-        return false;
-    }
+	if(gca->GetPartitionCount() < 1)
+	{
+		delete gca;
+		gca = NULL;
+		return false;
+	}
 
-    //! Mount only one Partition
-    return gca->Mount(0, DeviceName[GCSDA]);
+	//! Mount only one Partition
+	return gca->Mount(0, DeviceName[GCSDA]);
 }
 
 bool DeviceHandler::MountGCB()
 {
-    if(!gcb)
-        gcb = new PartitionHandle(&__io_gcsdb);
+	if(!gcb)
+		gcb = new PartitionHandle(&__io_gcsdb);
 
-    if(gcb->GetPartitionCount() < 1)
-    {
-        delete gcb;
-        gcb = NULL;
-        return false;
-    }
+	if(gcb->GetPartitionCount() < 1)
+	{
+		delete gcb;
+		gcb = NULL;
+		return false;
+	}
 
-    //! Mount only one Partition
-    return gcb->Mount(0, DeviceName[GCSDB]);
+	//! Mount only one Partition
+	return gcb->Mount(0, DeviceName[GCSDB]);
 }
 
 bool DeviceHandler::MountUSB(int pos)
 {
-    if(!usb0)
-        usb0 = new PartitionHandle(&__io_usbstorage);
-    if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
-        usb1 = new PartitionHandle(&__io_usbstorage2_port1);
+	if(!usb0)
+		usb0 = new PartitionHandle(&__io_usbstorage);
+	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
+		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 
-    int partCount = 0;
-    if(usb0)
+	int partCount = 0;
+	if(usb0)
 		partCount += usb0->GetPartitionCount();
 	if(usb1)
 		partCount += usb1->GetPartitionCount();
 
-    if(pos >= partCount)
-        return false;
+	if(pos >= partCount)
+		return false;
 
-    return GetUSBFromDev(USB1+pos)->Mount(PartToPortPart(pos), DeviceName[USB1+pos]);
+	return GetUSBFromDev(USB1+pos)->Mount(PartToPortPart(pos), DeviceName[USB1+pos]);
 }
 
 bool DeviceHandler::MountAllUSB()
 {
-    if(!usb0)
-        usb0 = new PartitionHandle(&__io_usbstorage);
-    if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
-        usb1 = new PartitionHandle(&__io_usbstorage2_port1);
+	if(!usb0)
+		usb0 = new PartitionHandle(&__io_usbstorage);
+	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
+		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 
-    bool result = false;
-    int partCount = 0;
-    if(usb0)
+	bool result = false;
+	int partCount = 0;
+	if(usb0)
 		partCount += usb0->GetPartitionCount();
 	if(usb1)
 		partCount += usb1->GetPartitionCount();
 
-    for(int i = 0; i < partCount; i++)
-    {
-        if(MountUSB(i))
-            result = true;
-    }
+	for(int i = 0; i < partCount; i++)
+	{
+		if(MountUSB(i))
+			result = true;
+	}
 
-    return result;
+	return result;
 }
 
 void DeviceHandler::UnMountUSB(int pos)
 {
-    if(GetUSBFromDev(USB1+pos))
-        GetUSBFromDev(USB1+pos)->UnMount(PartToPortPart(pos));
+	if(GetUSBFromDev(USB1+pos))
+		GetUSBFromDev(USB1+pos)->UnMount(PartToPortPart(pos));
 }
 
 void DeviceHandler::UnMountAllUSB()
 {
-    int partCount = 0;
-    if(usb0)
+	int partCount = 0;
+	if(usb0)
 		partCount += usb0->GetPartitionCount();
 	if(usb1)
 		partCount += usb1->GetPartitionCount();
 
-    for(int i = 0; i < partCount; i++)
-        UnMountUSB(i);
+	for(int i = 0; i < partCount; i++)
+		UnMountUSB(i);
 
-    delete usb0;
-    delete usb1;
-    usb0 = NULL;
-    usb1 = NULL;
-    USBStorage2_Deinit();
+	delete usb0;
+	delete usb1;
+	usb0 = NULL;
+	usb1 = NULL;
+	USBStorage2_Deinit();
 }
 
 bool DeviceHandler::MountDVD()
 {
-    if(!DVD_Inserted())
-        return false;
+	if(!DVD_Inserted())
+		return false;
 
-    char read_buffer[2048];
-    if(DI2_ReadDVD(read_buffer, 1, 0) == 0)
-        return true;
+	char read_buffer[2048];
+	if(DI2_ReadDVD(read_buffer, 1, 0) == 0)
+		return true;
 
-    bool devicemounted = false;
+	bool devicemounted = false;
 
-    UnMountDVD();
-    DI2_Mount();
+	UnMountDVD();
+	DI2_Mount();
 
 	time_t timer1, timer2;
 	timer1 = time(0);
@@ -312,73 +312,73 @@ bool DeviceHandler::MountDVD()
 	{
 		timer2 = time(0);
 		if(timer2-timer1 > 15)
-            return false;
+			return false;
 
 		usleep(5000);
 	}
 
-    devicemounted = ISO9660_Mount();
+	devicemounted = ISO9660_Mount();
 
-    if(!devicemounted)
-        devicemounted = FST_Mount();
-    if(!devicemounted)
-        devicemounted = GCFST_Mount();
+	if(!devicemounted)
+		devicemounted = FST_Mount();
+	if(!devicemounted)
+		devicemounted = GCFST_Mount();
 
-    return devicemounted;
+	return devicemounted;
 }
 
 bool DeviceHandler::DVD_Inserted()
 {
-    uint32_t cover = 0;
-    DI2_GetCoverRegister(&cover);
+	uint32_t cover = 0;
+	DI2_GetCoverRegister(&cover);
 
-    if(cover & DVD_COVER_DISC_INSERTED)
-        return true;
+	if(cover & DVD_COVER_DISC_INSERTED)
+		return true;
 
 	return false;
 }
 
 void DeviceHandler::UnMountDVD()
 {
-    FST_Unmount();
-    GCFST_Unmount();
-    ISO9660_Unmount();
+	FST_Unmount();
+	GCFST_Unmount();
+	ISO9660_Unmount();
 }
 
 int DeviceHandler::PathToDriveType(const char * path)
 {
-    if(!path)
-        return -1;
+	if(!path)
+		return -1;
 
-    for(int i = SD; i <= DVD; i++)
-    {
-        if(strncmp(path, DeviceName[i], strlen(DeviceName[i])) == 0)
-            return i;
-    }
+	for(int i = SD; i <= DVD; i++)
+	{
+		if(strncmp(path, DeviceName[i], strlen(DeviceName[i])) == 0)
+			return i;
+	}
 
-    return -1;
+	return -1;
 }
 
 const char * DeviceHandler::GetFSName(int dev)
 {
-    if(dev == SD && DeviceHandler::instance->sd)
-    {
-        return DeviceHandler::instance->sd->GetFSName(0);
-    }
-    else if(dev == GCSDA && DeviceHandler::instance->gca)
-    {
-        return DeviceHandler::instance->gca->GetFSName(0);
-    }
-    else if(dev == GCSDB && DeviceHandler::instance->gcb)
-    {
-        return DeviceHandler::instance->gcb->GetFSName(0);
-    }
-    else if(dev >= USB1 && dev <= USB8 && instance->GetUSBFromDev(dev))
-    {
-        return instance->GetUSBFromDev(dev)->GetFSName(instance->PartToPortPart(dev-USB1));
-    }
+	if(dev == SD && DeviceHandler::instance->sd)
+	{
+		return DeviceHandler::instance->sd->GetFSName(0);
+	}
+	else if(dev == GCSDA && DeviceHandler::instance->gca)
+	{
+		return DeviceHandler::instance->gca->GetFSName(0);
+	}
+	else if(dev == GCSDB && DeviceHandler::instance->gcb)
+	{
+		return DeviceHandler::instance->gcb->GetFSName(0);
+	}
+	else if(dev >= USB1 && dev <= USB8 && instance->GetUSBFromDev(dev))
+	{
+		return instance->GetUSBFromDev(dev)->GetFSName(instance->PartToPortPart(dev-USB1));
+	}
 
-    return NULL;
+	return NULL;
 }
 
 PartitionHandle * DeviceHandler::GetUSBFromDev(int dev)

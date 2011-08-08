@@ -28,10 +28,10 @@
 #ifndef TEXTEDITOR_H
 #define TEXTEDITOR_H
 
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
+#include "GUI/gui_longtext.hpp"
 #include "Controls/Scrollbar.hpp"
 #include "TextPointer.h"
-#include "Text.hpp"
 
 //!Display a list of files
 class TextEditor : public GuiWindow, public sigslot::has_slots<>
@@ -41,15 +41,15 @@ class TextEditor : public GuiWindow, public sigslot::has_slots<>
 		virtual ~TextEditor();
 		void SetTriggerUpdate(bool set);
 		void SetText(const wchar_t *intext);
-        void WriteTextFile(const char * path);
-        int GetState();
+		void WriteTextFile(const char * path);
+		int GetState();
 		void ResetState();
 		void Update(GuiTrigger * t);
 	protected:
-        int EditLine();
+		int EditLine();
 		void OnListChange(int selItem, int selIndex);
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
-        void OnPointerHeld(GuiButton *sender, int pointer, POINT p);
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnPointerHeld(GuiButton *sender, int pointer, const POINT &p);
 
 		bool triggerupdate;
 		bool ExitEditor;
@@ -61,40 +61,40 @@ class TextEditor : public GuiWindow, public sigslot::has_slots<>
 
 		Scrollbar * scrollbar;
 
-        /** Buttons **/
+		/** Buttons **/
 		GuiButton * maximizeBtn;
 		GuiButton * minimizeBtn;
 		GuiButton * closeBtn;
 		GuiButton * PlusBtn;
 		TextPointer * TextPointerBtn;
 
-        /** Images **/
+		/** Images **/
 		GuiImage * bgTexteditorImg;
 		GuiImage * closeImg;
 		GuiImage * closeImgOver;
 		GuiImage * maximizeImg;
 		GuiImage * minimizeImg;
 
-        /** ImageDatas **/
+		/** ImageDatas **/
 		GuiImageData * bgTexteditorData;
 		GuiImageData * closeImgData;
 		GuiImageData * closeImgOverData;
 		GuiImageData * maximizeImgData;
 		GuiImageData * minimizeImgData;
 
-        /** Sounds **/
+		/** Sounds **/
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;
 
-        /** Triggers **/
+		/** Triggers **/
 		GuiTrigger * trigA;
 		GuiTrigger * trigHeldA;
 		GuiTrigger * trigPlus;
 		GuiTrigger * trigB;
 
-        /** Texts **/
+		/** Texts **/
 		GuiText * filenameTxt;
-		Text * MainFileTxt;
+		GuiLongText * MainFileTxt;
 };
 
 #endif

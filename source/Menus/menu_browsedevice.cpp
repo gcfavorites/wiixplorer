@@ -26,7 +26,7 @@
 #include <gctypes.h>
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Explorer.h"
 #include "menu.h"
@@ -38,30 +38,22 @@ int MenuBrowseDevice()
 		ShowError(tr("Could not connect to the network"));
 
 	int menu = MENU_NONE;
-	Explorer * Explorer_1 = new Explorer(Settings.LastUsedPath.c_str());
+	Explorer * Explorer_1 = new Explorer(0, Settings.LastUsedPath.c_str());
 
-    MainWindow::Instance()->Append(Explorer_1);
-    MainWindow::Instance()->ResumeGui();
+	Application::Instance()->Append(Explorer_1);
 
-    while(menu == MENU_NONE)
-    {
-	    usleep(THREAD_SLEEP);
+	while(menu == MENU_NONE)
+	{
+		usleep(THREAD_SLEEP);
 
-        if(shutdown)
-            Sys_Shutdown();
+//		menu = Explorer_1->GetMenuChoice();
 
-        else if(reset)
-            Sys_Reboot();
+//		if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//			menu = Taskbar::Instance()->GetMenu();
+	}
 
-        menu = Explorer_1->GetMenuChoice();
-
-        if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-			menu = Taskbar::Instance()->GetMenu();
-    }
-
-    delete Explorer_1;
-    Explorer_1 = NULL;
-	MainWindow::Instance()->ResumeGui();
+	delete Explorer_1;
+	Explorer_1 = NULL;
 
 	return menu;
 }

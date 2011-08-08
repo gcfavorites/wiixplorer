@@ -29,18 +29,16 @@
 #ifndef _RESOURCES_H
 #define _RESOURCES_H
 
-#include <gccore.h>
-
-#include "libwiigui/gui.h"
-
 #include <map>
+#include "GUI/gui_image.h"
+#include "GUI/gui_sound.h"
 
 class Resources
 {
 	public:
 		static Resources *Instance();
 		static void DestroyInstance();
-        //! Only images/sounds that are compiled into the app go here
+		//! Only images/sounds that are compiled into the app go here
 		static GuiImageData *GetImageData(const char *filename);
 		static GuiSound *GetSound(const char *filename);
 

@@ -23,16 +23,8 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  ***************************************************************************/
-#include <gccore.h>
-#include <ogcsys.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <wiiuse/wpad.h>
-
-#include "input.h"
-#include "libwiigui/gui.h"
+#include "stdafx.h"
+#include "Tools/tools.h"
 
 #define DEFAULT_FIFO_SIZE 256 * 1024
 static unsigned int *xfb[2] = { NULL, NULL }; // Double buffered
@@ -129,47 +121,47 @@ InitVideo ()
 	VIDEO_Init();
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
-    bool pal = false;
+	bool pal = false;
 
-    if (vmode == &TVPal528IntDf)
-        pal = true;
+	if (vmode == &TVPal528IntDf)
+		pal = true;
 
-    if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
-    {
+	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
+	{
 		screenwidth = 768;
-        vmode->fbWidth = 640;
-        vmode->efbHeight = 456;
-        vmode->viWidth = 686;
+		vmode->fbWidth = 640;
+		vmode->efbHeight = 456;
+		vmode->viWidth = 686;
 
-        if (pal)
-        {
-            vmode->xfbHeight = 542;
-            vmode->viHeight = 542;
-        }
-        else
-        {
-            vmode->xfbHeight = 456;
-            vmode->viHeight = 456;
-        }
-    }
-    else
-    {
-        if (pal)
-            vmode = &TVPal574IntDfScale;
+		if (pal)
+		{
+			vmode->xfbHeight = 542;
+			vmode->viHeight = 542;
+		}
+		else
+		{
+			vmode->xfbHeight = 456;
+			vmode->viHeight = 456;
+		}
+	}
+	else
+	{
+		if (pal)
+			vmode = &TVPal574IntDfScale;
 
-        vmode->viWidth = 672;
-    }
+		vmode->viWidth = 672;
+	}
 
-    if (pal)
-    {
-        vmode->viXOrigin = (VI_MAX_WIDTH_PAL - vmode->viWidth) / 2;
-        vmode->viYOrigin = (VI_MAX_HEIGHT_PAL - vmode->viHeight) / 2;
-    }
-    else
-    {
-        vmode->viXOrigin = (VI_MAX_WIDTH_NTSC - vmode->viWidth) / 2;
-        vmode->viYOrigin = (VI_MAX_HEIGHT_NTSC - vmode->viHeight) / 2;
-    }
+	if (pal)
+	{
+		vmode->viXOrigin = (VI_MAX_WIDTH_PAL - vmode->viWidth) / 2;
+		vmode->viYOrigin = (VI_MAX_HEIGHT_PAL - vmode->viHeight) / 2;
+	}
+	else
+	{
+		vmode->viXOrigin = (VI_MAX_WIDTH_NTSC - vmode->viWidth) / 2;
+		vmode->viYOrigin = (VI_MAX_HEIGHT_NTSC - vmode->viHeight) / 2;
+	}
 
 	// Allocate the video buffers
 	xfb[0] = (u32 *) MEM_K0_TO_K1 (SYS_AllocateFramebuffer (vmode));
@@ -241,18 +233,18 @@ void Menu_Render()
  ***************************************************************************/
 u8 * Video_GetFrame(int * width, int * height)
 {
-    if(width)
-        *width = vmode->fbWidth;
-    if(height)
-        *height = vmode->xfbHeight;
+	if(width)
+		*width = vmode->fbWidth;
+	if(height)
+		*height = vmode->xfbHeight;
 
-    int size = ALIGN32(2 * vmode->fbWidth * vmode->xfbHeight);
+	int size = ALIGN32(2 * vmode->fbWidth * vmode->xfbHeight);
 
-    u8 * buffer = (u8 *) memalign(32, size);
-    if(!buffer)
-        return NULL;
+	u8 * buffer = (u8 *) memalign(32, size);
+	if(!buffer)
+		return NULL;
 
-    memcpy(buffer, xfb[whichfb], size);
+	memcpy(buffer, xfb[whichfb], size);
 
 	return buffer;
 }
@@ -262,244 +254,244 @@ u8 * Video_GetFrame(int * width, int * height)
 //!If someone has a better suggestion, i'll listen :D.
 static inline
 void CalculateCutoff(f32 realwidth, f32 realheight, f32 minwidth, f32 maxwidth,
-                     f32 minheight, f32 maxheight, f32 scaleX, f32 scaleY,
+					 f32 minheight, f32 maxheight, f32 scaleX, f32 scaleY,
 					 f32 xpos, f32 ypos, int angle,
-                     f32 &w1, f32 &h1, f32 &w2, f32 &h2, f32 &w3, f32 &h3, f32 &w4, f32 &h4,
-                     f32 &o1, f32 &o2, f32 &o3, f32 &o4, f32 &u1, f32 &u2, f32 &u3, f32 &u4)
+					 f32 &w1, f32 &h1, f32 &w2, f32 &h2, f32 &w3, f32 &h3, f32 &w4, f32 &h4,
+					 f32 &o1, f32 &o2, f32 &o3, f32 &o4, f32 &u1, f32 &u2, f32 &u3, f32 &u4)
 {
-    if(angle < 0)
-        angle += 360;
+	if(angle < 0)
+		angle += 360;
 
-    if((angle <= 45 || angle > 315) || (angle > 135 && angle <= 225))
-    {
-        f32 RealXpos = xpos-(realwidth*scaleX-realwidth)/2.0f;
-        f32 RealYpos = ypos-(realheight*scaleY-realheight)/2.0f;
+	if((angle <= 45 || angle > 315) || (angle > 135 && angle <= 225))
+	{
+		f32 RealXpos = xpos-(realwidth*scaleX-realwidth)/2.0f;
+		f32 RealYpos = ypos-(realheight*scaleY-realheight)/2.0f;
 
-        if(RealXpos < minwidth)
-        {
-            f32 cutoff = fabs(RealXpos-minwidth)/scaleX;
-            f32 factor = cutoff/realwidth;
+		if(RealXpos < minwidth)
+		{
+			f32 cutoff = fabs(RealXpos-minwidth)/scaleX;
+			f32 factor = cutoff/realwidth;
 
-            if(cutoff > realwidth)
-                cutoff = realwidth;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle <= 45 || angle > 315)
-            {
-                w1 += cutoff;
-                w4 += cutoff;
-                o1 += factor;
-                u3 += factor;
-            }
-            else if(angle > 135 && angle <= 225)
-            {
-                w2 -= cutoff;
-                w3 -= cutoff;
-                o3 -= factor;
-                u1 -= factor;
-            }
-        }
-        if(RealXpos+realwidth*scaleX > maxwidth)
-        {
-            f32 cutoff = fabs(RealXpos+realwidth*scaleX-maxwidth)/scaleX;
-            f32 factor = cutoff/realwidth;
-            if(cutoff > realwidth)
-                cutoff = realwidth;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle <= 45 || angle > 315)
-            {
-                w2 -= cutoff;
-                w3 -= cutoff;
-                o3 -= factor;
-                u1 -= factor;
-            }
-            else if(angle > 135 && angle <= 225)
-            {
-                w1 += cutoff;
-                w4 += cutoff;
-                o1 += factor;
-                u3 += factor;
-            }
-        }
-        if(RealYpos < minheight)
-        {
-            f32 cutoff = fabs(RealYpos-minheight)/scaleY;
-            f32 factor = cutoff/realheight;
+			if(cutoff > realwidth)
+				cutoff = realwidth;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle <= 45 || angle > 315)
+			{
+				w1 += cutoff;
+				w4 += cutoff;
+				o1 += factor;
+				u3 += factor;
+			}
+			else if(angle > 135 && angle <= 225)
+			{
+				w2 -= cutoff;
+				w3 -= cutoff;
+				o3 -= factor;
+				u1 -= factor;
+			}
+		}
+		if(RealXpos+realwidth*scaleX > maxwidth)
+		{
+			f32 cutoff = fabs(RealXpos+realwidth*scaleX-maxwidth)/scaleX;
+			f32 factor = cutoff/realwidth;
+			if(cutoff > realwidth)
+				cutoff = realwidth;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle <= 45 || angle > 315)
+			{
+				w2 -= cutoff;
+				w3 -= cutoff;
+				o3 -= factor;
+				u1 -= factor;
+			}
+			else if(angle > 135 && angle <= 225)
+			{
+				w1 += cutoff;
+				w4 += cutoff;
+				o1 += factor;
+				u3 += factor;
+			}
+		}
+		if(RealYpos < minheight)
+		{
+			f32 cutoff = fabs(RealYpos-minheight)/scaleY;
+			f32 factor = cutoff/realheight;
 
-            if(cutoff > realheight)
-                cutoff = realheight;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle <= 45 || angle > 315)
-            {
-                h1 += cutoff;
-                h2 += cutoff;
-                o2 += factor;
-                o4 += factor;
-            }
-            else if(angle > 135 && angle <= 225)
-            {
-                h3 -= cutoff;
-                h4 -= cutoff;
-                u2 -= factor;
-                u4 -= factor;
-            }
-        }
-        if(RealYpos+realheight*scaleY > maxheight)
-        {
-            f32 cutoff = fabs(RealYpos+realheight*scaleY-maxheight)/scaleY;
-            f32 factor = cutoff/realheight;
-            if(cutoff > realheight)
-                cutoff = realheight;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle <= 45 || angle > 315)
-            {
-                h3 -= cutoff;
-                h4 -= cutoff;
-                u2 -= factor;
-                u4 -= factor;
-            }
-            else if(angle > 135 && angle <= 225)
-            {
-                h1 += cutoff;
-                h2 += cutoff;
-                o2 += factor;
-                o4 += factor;
-            }
-        }
-    }
-    else if((angle > 45 && angle <= 135) || (angle > 225 && angle <= 315))
-    {
-        f32 RealXpos = xpos+realwidth/2.0f-realheight/2.0f-(realheight*scaleY-realheight)/2.0f;
-        f32 RealYpos = ypos+realheight/2.0f-realwidth/2.0f-(realwidth*scaleX-realwidth)/2.0f;
+			if(cutoff > realheight)
+				cutoff = realheight;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle <= 45 || angle > 315)
+			{
+				h1 += cutoff;
+				h2 += cutoff;
+				o2 += factor;
+				o4 += factor;
+			}
+			else if(angle > 135 && angle <= 225)
+			{
+				h3 -= cutoff;
+				h4 -= cutoff;
+				u2 -= factor;
+				u4 -= factor;
+			}
+		}
+		if(RealYpos+realheight*scaleY > maxheight)
+		{
+			f32 cutoff = fabs(RealYpos+realheight*scaleY-maxheight)/scaleY;
+			f32 factor = cutoff/realheight;
+			if(cutoff > realheight)
+				cutoff = realheight;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle <= 45 || angle > 315)
+			{
+				h3 -= cutoff;
+				h4 -= cutoff;
+				u2 -= factor;
+				u4 -= factor;
+			}
+			else if(angle > 135 && angle <= 225)
+			{
+				h1 += cutoff;
+				h2 += cutoff;
+				o2 += factor;
+				o4 += factor;
+			}
+		}
+	}
+	else if((angle > 45 && angle <= 135) || (angle > 225 && angle <= 315))
+	{
+		f32 RealXpos = xpos+realwidth/2.0f-realheight/2.0f-(realheight*scaleY-realheight)/2.0f;
+		f32 RealYpos = ypos+realheight/2.0f-realwidth/2.0f-(realwidth*scaleX-realwidth)/2.0f;
 
-        if(RealXpos < minwidth)
-        {
-            f32 cutoff = fabs(RealXpos-minwidth)/scaleY;
-            f32 factor = cutoff/realheight;
-            if(cutoff > realheight)
-                cutoff = realheight;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle > 45 && angle <= 135)
-            {
-                h3 -= cutoff;
-                h4 -= cutoff;
-                u2 -= factor;
-                u4 -= factor;
-            }
-            else if(angle > 225 && angle <= 315)
-            {
-                h1 += cutoff;
-                h2 += cutoff;
-                o2 += factor;
-                o4 += factor;
-            }
-        }
-        if(RealXpos+realheight*scaleY > maxwidth)
-        {
-            f32 cutoff = fabs(RealXpos+realheight*scaleY-maxwidth)/scaleY;
-            f32 factor = cutoff/realheight;
-            if(cutoff > realheight)
-                cutoff = realheight;
-            else if(cutoff < 0)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0)
-                factor = 0.0f;
-            if(angle > 45 && angle <= 135)
-            {
-                h1 += cutoff;
-                h2 += cutoff;
-                o2 += factor;
-                o4 += factor;
-            }
-            else if(angle > 225 && angle <= 315)
-            {
-                h3 -= cutoff;
-                h4 -= cutoff;
-                u2 -= factor;
-                u4 -= factor;
-            }
-        }
-        if(RealYpos < minheight)
-        {
-            f32 cutoff = fabs(RealYpos-minheight)/scaleX;
-            f32 factor = cutoff/realwidth;
-            if(cutoff > realwidth)
-                cutoff = realwidth;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle > 45 && angle <= 135)
-            {
-                w1 += cutoff;
-                w4 += cutoff;
-                o1 += factor;
-                u3 += factor;
-            }
-            else if(angle > 225 && angle <= 315)
-            {
-                w2 -= cutoff;
-                w3 -= cutoff;
-                o3 -= factor;
-                u1 -= factor;
-            }
-        }
-        if(RealYpos+realwidth*scaleX > maxheight)
-        {
-            f32 cutoff = fabs(RealYpos+realwidth*scaleX-maxheight)/scaleX;
-            f32 factor = cutoff/realwidth;
-            if(cutoff > realwidth)
-                cutoff = realwidth;
-            else if(cutoff < 0.0f)
-                cutoff = 0.0f;
-            if(factor > 1.0f)
-                factor = 1.0f;
-            else if(factor < 0.0f)
-                factor = 0.0f;
-            if(angle > 45 && angle <= 135)
-            {
-                w2 -= cutoff;
-                w3 -= cutoff;
-                o3 -= factor;
-                u1 -= factor;
-            }
-            else if(angle > 225 && angle <= 315)
-            {
-                w1 += cutoff;
-                w4 += cutoff;
-                o1 += factor;
-                u3 += factor;
-            }
-        }
-    }
+		if(RealXpos < minwidth)
+		{
+			f32 cutoff = fabs(RealXpos-minwidth)/scaleY;
+			f32 factor = cutoff/realheight;
+			if(cutoff > realheight)
+				cutoff = realheight;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle > 45 && angle <= 135)
+			{
+				h3 -= cutoff;
+				h4 -= cutoff;
+				u2 -= factor;
+				u4 -= factor;
+			}
+			else if(angle > 225 && angle <= 315)
+			{
+				h1 += cutoff;
+				h2 += cutoff;
+				o2 += factor;
+				o4 += factor;
+			}
+		}
+		if(RealXpos+realheight*scaleY > maxwidth)
+		{
+			f32 cutoff = fabs(RealXpos+realheight*scaleY-maxwidth)/scaleY;
+			f32 factor = cutoff/realheight;
+			if(cutoff > realheight)
+				cutoff = realheight;
+			else if(cutoff < 0)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0)
+				factor = 0.0f;
+			if(angle > 45 && angle <= 135)
+			{
+				h1 += cutoff;
+				h2 += cutoff;
+				o2 += factor;
+				o4 += factor;
+			}
+			else if(angle > 225 && angle <= 315)
+			{
+				h3 -= cutoff;
+				h4 -= cutoff;
+				u2 -= factor;
+				u4 -= factor;
+			}
+		}
+		if(RealYpos < minheight)
+		{
+			f32 cutoff = fabs(RealYpos-minheight)/scaleX;
+			f32 factor = cutoff/realwidth;
+			if(cutoff > realwidth)
+				cutoff = realwidth;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle > 45 && angle <= 135)
+			{
+				w1 += cutoff;
+				w4 += cutoff;
+				o1 += factor;
+				u3 += factor;
+			}
+			else if(angle > 225 && angle <= 315)
+			{
+				w2 -= cutoff;
+				w3 -= cutoff;
+				o3 -= factor;
+				u1 -= factor;
+			}
+		}
+		if(RealYpos+realwidth*scaleX > maxheight)
+		{
+			f32 cutoff = fabs(RealYpos+realwidth*scaleX-maxheight)/scaleX;
+			f32 factor = cutoff/realwidth;
+			if(cutoff > realwidth)
+				cutoff = realwidth;
+			else if(cutoff < 0.0f)
+				cutoff = 0.0f;
+			if(factor > 1.0f)
+				factor = 1.0f;
+			else if(factor < 0.0f)
+				factor = 0.0f;
+			if(angle > 45 && angle <= 135)
+			{
+				w2 -= cutoff;
+				w3 -= cutoff;
+				o3 -= factor;
+				u1 -= factor;
+			}
+			else if(angle > 225 && angle <= 315)
+			{
+				w1 += cutoff;
+				w4 += cutoff;
+				o1 += factor;
+				u3 += factor;
+			}
+		}
+	}
 }
 
 /****************************************************************************
@@ -508,8 +500,8 @@ void CalculateCutoff(f32 realwidth, f32 realheight, f32 minwidth, f32 maxwidth,
  * Draws the specified image on screen using GX
  ***************************************************************************/
 void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos,
-                  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth,
-                  f32 minheight, f32 maxheight)
+				  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth,
+				  f32 minheight, f32 maxheight)
 {
 	if(data == NULL)
 		return;
@@ -547,9 +539,9 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 	f32 u1 = 1.0f, u2 = 1.0f;
 	f32 u3 = 0.0f, u4 = 1.0f;
 
-    CalculateCutoff(realwidth, realheight, minwidth, maxwidth, minheight, maxheight,
-                    scaleX, scaleY, xpos, ypos, ((int) degrees) % 360,
-                    w1, h1, w2, h2, w3, h3, w4, h4, o1, o2, o3, o4, u1, u2, u3, u4);
+	CalculateCutoff(realwidth, realheight, minwidth, maxwidth, minheight, maxheight,
+					scaleX, scaleY, xpos, ypos, ((int) degrees) % 360,
+					w1, h1, w2, h2, w3, h3, w4, h4, o1, o2, o3, o4, u1, u2, u3, u4);
 
 	GX_Begin(GX_QUADS, GX_VTXFMT0,4);
 	GX_Position3f32(w1, h1,  0);
@@ -581,7 +573,7 @@ void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * co
 	GX_SetTevOp (GX_TEVSTAGE0, GX_PASSCLR);
 	GX_SetVtxDesc (GX_VA_TEX0, GX_NONE);
 
-    u8 fmt = GX_TRIANGLEFAN;
+	u8 fmt = GX_TRIANGLEFAN;
 	long n = 4;
 	f32 x2 = x+width;
 	f32 y2 = y+height;
@@ -599,9 +591,9 @@ void Menu_DrawRectangle(f32 x, f32 y, f32 z, f32 width, f32 height, GXColor * co
 		GX_Position3f32(v[i].x, v[i].y,  v[i].z);
 
 		if(multicolor)
-            GX_Color4u8(color[i].r, color[i].g, color[i].b, color[i].a);
-        else
-            GX_Color4u8(color[0].r, color[0].g, color[0].b, color[0].a);
+			GX_Color4u8(color[i].r, color[i].g, color[i].b, color[i].a);
+		else
+			GX_Color4u8(color[0].r, color[0].g, color[0].b, color[0].a);
 	}
 	GX_End();
 

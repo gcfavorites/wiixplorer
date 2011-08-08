@@ -32,10 +32,7 @@
 #include <stdio.h> //FILE*
 #include <string>
 #include <vector>
-
-
-#include <gccore.h>
-#include "Tools/tools.h"
+#include "stdafx.h"
 
 #pragma pack(push, 1)
 
@@ -91,8 +88,8 @@ struct ThpAudioInfo
   u32 frequency;
   u32 numSamples;
   u32 numData; //only for version 1.1 - that many
-               //audio blocks are after each video block
-               //(for surround sound?)
+			   //audio blocks are after each video block
+			   //(for surround sound?)
 };
 
 //endmonk

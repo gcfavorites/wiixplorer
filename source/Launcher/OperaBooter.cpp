@@ -1,28 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * for WiiXplorer 2010
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <algorithm>
 #include <ogc/wiilaunch.h>
 #include "FileOperations/fileops.h"
@@ -40,136 +31,136 @@
 
 OperaBooter::OperaBooter(const char * xml)
 {
-    xmlfile = NULL;
-    xmlbuffer = NULL;
-    OperaID = 0;
-    u64 size = 0;
+	xmlfile = NULL;
+	xmlbuffer = NULL;
+	OperaID = 0;
+	u64 size = 0;
 
-    if(!xml)
-        return;
+	if(!xml)
+		return;
 
-    FilePath = xml;
-    LoadFileToMem(xml, &xmlbuffer, &size);
+	FilePath = xml;
+	LoadFileToMem(xml, &xmlbuffer, &size);
 
-    if(!xmlbuffer)
-    {
-        xmlfile = mxmlNewXML("1.0");
-        mxmlSetWrapMargin(0);
-    }
-    else
-    {
-        xmlfile = mxmlLoadString(NULL, (const char *) xmlbuffer, MXML_OPAQUE_CALLBACK);
-    }
+	if(!xmlbuffer)
+	{
+		xmlfile = mxmlNewXML("1.0");
+		mxmlSetWrapMargin(0);
+	}
+	else
+	{
+		xmlfile = mxmlLoadString(NULL, (const char *) xmlbuffer, MXML_OPAQUE_CALLBACK);
+	}
 
-    if(!xmlfile)
-        return;
+	if(!xmlfile)
+		return;
 
-    ParseXML();
+	ParseXML();
 
-    if(FindTitle(OPERA_USA))
-    {
-        OperaID = OPERA_USA;
-    }
-    else if(FindTitle(OPERA_PAL))
-    {
-        OperaID = OPERA_PAL;
-    }
-    else if(FindTitle(OPERA_JAP))
-    {
-        OperaID = OPERA_JAP;
-    }
+	if(FindTitle(OPERA_USA))
+	{
+		OperaID = OPERA_USA;
+	}
+	else if(FindTitle(OPERA_PAL))
+	{
+		OperaID = OPERA_PAL;
+	}
+	else if(FindTitle(OPERA_JAP))
+	{
+		OperaID = OPERA_JAP;
+	}
 }
 
 OperaBooter::~OperaBooter()
 {
-    if(xmlfile)
-        mxmlDelete(xmlfile);
-    if(xmlbuffer)
-        free(xmlbuffer);
+	if(xmlfile)
+		mxmlDelete(xmlfile);
+	if(xmlbuffer)
+		free(xmlbuffer);
 
-    ClearList();
+	ClearList();
 }
 
 bool OperaBooter::AddLink()
 {
-    int choice = WindowPrompt(tr("Do you want to add an URL?"), 0, tr("Yes"), tr("Cancel"));
-    if(!choice)
-        return true;
+	int choice = WindowPrompt(tr("Do you want to add an URL?"), 0, tr("Yes"), tr("Cancel"));
+	if(!choice)
+		return true;
 
-    choice = WindowPrompt(tr("Please enter first the URL-Name."), tr("This name will be shown in the Start Menu"), tr("OK"));
-    if(!choice)
-        return true;
+	choice = WindowPrompt(tr("Please enter first the URL-Name."), tr("This name will be shown in the Start Menu"), tr("OK"));
+	if(!choice)
+		return true;
 
-    char name[150];
-    char addr[300];
+	char name[150];
+	char addr[300];
 
-    choice = OnScreenKeyboard(name, sizeof(name));
-    if(!choice)
-        return true;
+	choice = OnScreenKeyboard(name, sizeof(name));
+	if(!choice)
+		return true;
 
-    choice = WindowPrompt(tr("Please enter now the URL."), tr("This link will be used in Opera or as a Download Link."), tr("OK"));
-    if(!choice)
-        return true;
+	choice = WindowPrompt(tr("Please enter now the URL."), tr("This link will be used in Opera or as a Download Link."), tr("OK"));
+	if(!choice)
+		return true;
 
-    choice = OnScreenKeyboard(addr, sizeof(addr));
-    if(!choice)
-        return true;
+	choice = OnScreenKeyboard(addr, sizeof(addr));
+	if(!choice)
+		return true;
 
-    return AddLink(name, addr);
+	return AddLink(name, addr);
 }
 
 bool OperaBooter::AddLink(const char * name, const char * addr)
 {
-    if(!xmlfile)
-        return false;
+	if(!xmlfile)
+		return false;
 
-    mxml_node_t * url = mxmlNewElement(xmlfile, "url");
-    mxmlElementSetAttr(url, "name", name);
-    mxmlElementSetAttr(url, "addr", addr);
+	mxml_node_t * url = mxmlNewElement(xmlfile, "url");
+	mxmlElementSetAttr(url, "name", name);
+	mxmlElementSetAttr(url, "addr", addr);
 
-    int position = LinkList.size();
+	int position = LinkList.size();
 
-    LinkList.resize(position+1);
+	LinkList.resize(position+1);
 
-    LinkList[position].name = strdup(name);
-    LinkList[position].addr = strdup(addr);
+	LinkList[position].name = strdup(name);
+	LinkList[position].addr = strdup(addr);
 
 	if(LinkList.size() > 1)
-        Sort();
+		Sort();
 
-    return SaveXML();
+	return SaveXML();
 }
 
 void OperaBooter::RemoveLink(int pos)
 {
-    if(pos < 0 || pos >= (int) LinkList.size())
-        return;
+	if(pos < 0 || pos >= (int) LinkList.size())
+		return;
 
-    if(LinkList[pos].name)
-        free(LinkList[pos].name);
-    if(LinkList[pos].addr)
-        free(LinkList[pos].addr);
+	if(LinkList[pos].name)
+		free(LinkList[pos].name);
+	if(LinkList[pos].addr)
+		free(LinkList[pos].addr);
 
-    LinkList.erase(LinkList.begin()+pos);
+	LinkList.erase(LinkList.begin()+pos);
 
 	if(LinkList.size() > 1)
-        Sort();
+		Sort();
 
-    SaveXML();
+	SaveXML();
 }
 
 bool OperaBooter::ParseXML()
 {
-    if(!xmlfile)
-        return false;
+	if(!xmlfile)
+		return false;
 
-    ClearList();
+	ClearList();
 
-    mxml_node_t * node = mxmlFindElement(xmlfile, xmlfile, "url", NULL, NULL, MXML_DESCEND_FIRST);
-    if (node == NULL)
-        return false;
+	mxml_node_t * node = mxmlFindElement(xmlfile, xmlfile, "url", NULL, NULL, MXML_DESCEND_FIRST);
+	if (node == NULL)
+		return false;
 
-    u32 position = 0;
+	u32 position = 0;
 
 	while(node != NULL)
 	{
@@ -178,100 +169,100 @@ bool OperaBooter::ParseXML()
 
 		if(name && addr)
 		{
-            LinkList.resize(position+1);
+			LinkList.resize(position+1);
 
-            LinkList[position].name = strdup(name);
-            LinkList[position].addr = strdup(addr);
-            ++position;
+			LinkList[position].name = strdup(name);
+			LinkList[position].addr = strdup(addr);
+			++position;
 		}
 
 		node = mxmlFindElement(node, xmlfile, "url", NULL, NULL, MXML_NO_DESCEND);
 	}
 
 	if(LinkList.size() > 1)
-        Sort();
+		Sort();
 
-    return true;
+	return true;
 }
 
 void OperaBooter::ClearList()
 {
-    for(u32 i = 0; i < LinkList.size(); i++)
-    {
-        if(LinkList[i].name)
-            free(LinkList[i].name);
-        if(LinkList[i].addr)
-            free(LinkList[i].addr);
-    }
-    LinkList.clear();
-    std::vector<Link>().swap(LinkList);
+	for(u32 i = 0; i < LinkList.size(); i++)
+	{
+		if(LinkList[i].name)
+			free(LinkList[i].name);
+		if(LinkList[i].addr)
+			free(LinkList[i].addr);
+	}
+	LinkList.clear();
+	std::vector<Link>().swap(LinkList);
 }
 
 bool OperaBooter::SaveXML()
 {
-    mxml_node_t * newfile = mxmlNewXML("1.0");
-    if(!newfile)
-        return false;
+	mxml_node_t * newfile = mxmlNewXML("1.0");
+	if(!newfile)
+		return false;
 
-    mxmlSetWrapMargin(0);
+	mxmlSetWrapMargin(0);
 
-    FILE *f = fopen(FilePath.c_str(), "wb");
-    if(!f)
-    {
-        mxmlDelete(newfile);
-        ShowError("%s %s", tr("Cannot write to this path:"), FilePath.c_str());
-        return false;
-    }
+	FILE *f = fopen(FilePath.c_str(), "wb");
+	if(!f)
+	{
+		mxmlDelete(newfile);
+		ShowError("%s %s", tr("Cannot write to this path:"), FilePath.c_str());
+		return false;
+	}
 
-    for(u32 i = 0; i < LinkList.size(); i++)
-    {
-        mxml_node_t * url = mxmlNewElement(newfile, "url");
-        mxmlElementSetAttr(url, "name", LinkList[i].name);
-        mxmlElementSetAttr(url, "addr", LinkList[i].addr);
-    }
+	for(u32 i = 0; i < LinkList.size(); i++)
+	{
+		mxml_node_t * url = mxmlNewElement(newfile, "url");
+		mxmlElementSetAttr(url, "name", LinkList[i].name);
+		mxmlElementSetAttr(url, "addr", LinkList[i].addr);
+	}
 
-    mxmlSaveFile(newfile, f, NULL);
-    fclose(f);
+	mxmlSaveFile(newfile, f, NULL);
+	fclose(f);
 
-    mxmlDelete(xmlfile);
-    xmlfile = newfile;
+	mxmlDelete(xmlfile);
+	xmlfile = newfile;
 
-    return true;
+	return true;
 }
 
 const char * OperaBooter::GetName(int pos)
 {
-    if(pos < 0 || pos >= (int) LinkList.size())
-        return NULL;
+	if(pos < 0 || pos >= (int) LinkList.size())
+		return NULL;
 
-    return LinkList[pos].name;
+	return LinkList[pos].name;
 }
 
 const char * OperaBooter::GetLink(int pos)
 {
-    if(pos < 0 || pos >= (int) LinkList.size())
-        return NULL;
+	if(pos < 0 || pos >= (int) LinkList.size())
+		return NULL;
 
-    return LinkList[pos].addr;
+	return LinkList[pos].addr;
 }
 
 bool OperaBooter::Launch(int pos)
 {
-    if(pos < 0 || pos >= (int) LinkList.size())
-        return false;
+	if(pos < 0 || pos >= (int) LinkList.size())
+		return false;
 
-    if(OperaID == 0)
-    {
-        ShowError(tr("Opera Channel not found on the system."));
-        return false;
-    }
-
-    ExitApp();
-
-    int ret = WII_LaunchTitleWithArgs(OperaID, 0, LinkList[pos].addr, NULL);
-    if(ret < 0)
+	if(OperaID == 0)
 	{
-        ShowError(tr("Failed to load the channel."));
+		ShowError(tr("Opera Channel not found on the system."));
+		return false;
+	}
+
+	ExitApp();
+
+	int ret = WII_LaunchTitleWithArgs(OperaID, 0, LinkList[pos].addr, NULL);
+	if(ret < 0)
+	{
+		ShowError(tr("Failed to load the channel."));
 		return false;
 	}
 
@@ -280,35 +271,35 @@ bool OperaBooter::Launch(int pos)
 
 bool OperaBooter::DownloadFile(int pos)
 {
-    if(pos < 0 || pos >= (int) LinkList.size())
-        return false;
+	if(pos < 0 || pos >= (int) LinkList.size())
+		return false;
 
-    if(!NetworkInitPrompt())
-        return false;
+	if(!NetworkInitPrompt())
+		return false;
 
-    char filepath[1024];
-    snprintf(filepath, sizeof(filepath), Settings.LastUsedPath.c_str());
+	char filepath[1024];
+	snprintf(filepath, sizeof(filepath), Settings.LastUsedPath.c_str());
 
-    int choice = WindowPrompt(tr("Please enter a path."), tr("The file will be downloaded to this path."), tr("OK"));
-    if(!choice)
-        return true;
+	int choice = WindowPrompt(tr("Please enter a path."), tr("The file will be downloaded to this path."), tr("OK"));
+	if(!choice)
+		return true;
 
-    choice = OnScreenKeyboard(filepath, sizeof(filepath));
-    if(!choice)
-        return true;
+	choice = OnScreenKeyboard(filepath, sizeof(filepath));
+	if(!choice)
+		return true;
 
-    return (DownloadFileToPath(LinkList[pos].addr, filepath, true) >= 0);
+	return (DownloadFileToPath(LinkList[pos].addr, filepath, true) >= 0);
 }
 
 void OperaBooter::Sort()
 {
-    std::sort(LinkList.begin(), LinkList.end(), SortCallback);
+	std::sort(LinkList.begin(), LinkList.end(), SortCallback);
 }
 
 bool OperaBooter::SortCallback(const Link & f1, const Link & f2)
 {
-    if(stricmp(f1.name, f2.name) > 0)
-        return false;
-    else
-        return true;
+	if(stricmp(f1.name, f2.name) > 0)
+		return false;
+	else
+		return true;
 }

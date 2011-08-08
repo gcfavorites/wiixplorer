@@ -31,36 +31,36 @@
 
 class PDFViewer : public ImageViewer
 {
-    public:
-        PDFViewer(const char * filepath, const char * password = NULL);
-        virtual ~PDFViewer();
-        void OpenFile(const char * filename, const char * password = NULL);
-        void CloseFile();
-        bool LoadPage(int pagenum);
-        bool NextPage();
-        bool PreviousPage();
-        int MainUpdate();
-        //! Virtual overloads to adjust to imageviewer
-        bool NextImage(bool silent UNUSED = false) { return NextPage(); };
-        bool PreviousImage(bool silent UNUSED = false) { return PreviousPage(); };
-    protected:
-        int PreparePage(int pagenum);
-        int PageToRGBA8();
-        void FreePage();
-        //! Virtual overloads which are not needed
-        bool LoadImage(int index, bool silent UNUSED = false) { return LoadPage(index); };
-        bool LoadImageList(const char * filepath UNUSED) { return true; };
+	public:
+		PDFViewer(const char * filepath, const char * password = NULL);
+		virtual ~PDFViewer();
+		void OpenFile(const char * filename, const char * password = NULL);
+		void CloseFile();
+		bool LoadPage(int pagenum);
+		bool NextPage();
+		bool PreviousPage();
+		int MainUpdate();
+		//! Virtual overloads to adjust to imageviewer
+		bool NextImage(bool silent UNUSED = false) { return NextPage(); };
+		bool PreviousImage(bool silent UNUSED = false) { return PreviousPage(); };
+	protected:
+		int PreparePage(int pagenum);
+		int PageToRGBA8();
+		void FreePage();
+		//! Virtual overloads which are not needed
+		bool LoadImage(int index, bool silent UNUSED = false) { return LoadPage(index); };
+		bool LoadImageList(const char * filepath UNUSED) { return true; };
 
-        u8 * OutputImage;
-        fz_glyphcache *drawcache;
-        pdf_page *drawpage;
-        float drawzoom;
-        int LoopMode;
-        int currentPage;
-        int PageCount;
-        int drawrotate;
-        int imagewidth;
-        int imageheight;
+		u8 * OutputImage;
+		fz_glyphcache *drawcache;
+		pdf_page *drawpage;
+		float drawzoom;
+		int LoopMode;
+		int currentPage;
+		int PageCount;
+		int drawrotate;
+		int imagewidth;
+		int imageheight;
 };
 
 #endif

@@ -27,24 +27,24 @@
 #define COLORSETPROMPT_H
 
 #include "Prompts/PromptWindows.h"
-#include "libwiigui/gui_arrowoption.h"
+#include "GUI/gui_arrowoption.h"
 
 class ColorSetPrompt : public PromptWindow
 {
-    public:
-        ColorSetPrompt(const char * title, GXColor * c, int pos);
-        void ShowPrompt();
-    protected:
-        void UpdateOptionValues();
-        void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
-        void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
-        void OnOptionButtonClick(GuiElement *sender, int pointer, POINT p);
+	public:
+		ColorSetPrompt(const char * title, GXColor * c, int pos);
+		void ShowPrompt();
+	protected:
+		void UpdateOptionValues();
+		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnOptionRightClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnOptionButtonClick(GuiElement *sender, int pointer, const POINT &p);
 
-        int ColorPos;
-        int ColorChange;
-        GXColor OrigColor[4];
-        GXColor * color;
-        GuiArrowOption arrowOption;
+		int ColorPos;
+		int ColorChange;
+		GXColor OrigColor[4];
+		GXColor * color;
+		GuiArrowOption arrowOption;
 };
 
 #endif

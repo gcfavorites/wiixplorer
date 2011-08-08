@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
@@ -37,8 +37,8 @@ int MenuSMBSettings()
 	int menu = MENU_NONE;
 	int ret, result = 0;
 	int i = 0;
-    char entered[150];
-    bool firstRun = true;
+	char entered[150];
+	bool firstRun = true;
 
 	OptionList options;
 	options.SetName(i++, tr("Share:"));
@@ -51,20 +51,20 @@ int MenuSMBSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("SMB Settings"), &options, MENU_NETWORK_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
@@ -72,76 +72,76 @@ int MenuSMBSettings()
 		{
 			case 0:
 				Settings.CurrentSMBUser++;
-                if(Settings.CurrentSMBUser >= MAXSMBUSERS)
-                    Settings.CurrentSMBUser = 0;
+				if(Settings.CurrentSMBUser >= MAXSMBUSERS)
+					Settings.CurrentSMBUser = 0;
 				break;
-            case 1:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Host, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Host), "%s", entered);
-                }
-                break;
-            case 2:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].User, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].User), "%s", entered);
-                }
-                break;
-            case 3:
-                entered[0] = 0;
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Password, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Password), "%s", entered);
-                }
-                break;
-            case 4:
-                snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
-                result = OnScreenKeyboard(entered, 149);
-                if(result) {
-                    snprintf(Settings.SMBUser[Settings.CurrentSMBUser].SMBName, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].SMBName), "%s", entered);
-                }
-                break;
-            case 5:
-                result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
-                if(result)
-                {
-                    if(SMB_Reconnect())
-                        WindowPrompt(tr("SMB reconnected successfull."), 0, tr("OK"));
-                    else
-                        ShowError(tr("Reconnect failed. No share connected."));
-                }
-                break;
-            case 6:
-                result = WindowPrompt(tr("Do you want to disconnect this SMB?"),0,tr("OK"),tr("Cancel"));
-                if(result) {
-                    CloseSMBShare(Settings.CurrentSMBUser);
-                }
-                break;
+			case 1:
+				snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Host, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Host), "%s", entered);
+				}
+				break;
+			case 2:
+				snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					snprintf(Settings.SMBUser[Settings.CurrentSMBUser].User, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].User), "%s", entered);
+				}
+				break;
+			case 3:
+				entered[0] = 0;
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					snprintf(Settings.SMBUser[Settings.CurrentSMBUser].Password, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].Password), "%s", entered);
+				}
+				break;
+			case 4:
+				snprintf(entered, sizeof(entered), "%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
+				result = OnScreenKeyboard(entered, 149);
+				if(result) {
+					snprintf(Settings.SMBUser[Settings.CurrentSMBUser].SMBName, sizeof(Settings.SMBUser[Settings.CurrentSMBUser].SMBName), "%s", entered);
+				}
+				break;
+			case 5:
+				result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
+				if(result)
+				{
+					if(SMB_Reconnect())
+						WindowPrompt(tr("SMB reconnected successfull."), 0, tr("OK"));
+					else
+						ShowError(tr("Reconnect failed. No share connected."));
+				}
+				break;
+			case 6:
+				result = WindowPrompt(tr("Do you want to disconnect this SMB?"),0,tr("OK"),tr("Cancel"));
+				if(result) {
+					CloseSMBShare(Settings.CurrentSMBUser);
+				}
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            options.SetValue(i++,tr("Share %i"), Settings.CurrentSMBUser+1);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
+			options.SetValue(i++,tr("Share %i"), Settings.CurrentSMBUser+1);
+			options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].Host);
+			options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].User);
 			if (strcmp(Settings.SMBUser[Settings.CurrentSMBUser].Password, "") != 0)
 				options.SetValue(i++,"********");
 			else
 				options.SetValue(i++," ");
-            options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
-            options.SetValue(i++," ");
-            options.SetValue(i++," ");
-        }
+			options.SetValue(i++,"%s", Settings.SMBUser[Settings.CurrentSMBUser].SMBName);
+			options.SetValue(i++," ");
+			options.SetValue(i++," ");
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }
