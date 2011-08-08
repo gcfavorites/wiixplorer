@@ -35,8 +35,8 @@
 #include "PartitionHandle.h"
 #include "PartitionFormatter.hpp"
 
-#define PARTITION_TYPE_DOS33_EXTENDED       0x05 /* DOS 3.3+ extended partition */
-#define PARTITION_TYPE_WIN95_EXTENDED       0x0F /* Windows 95 extended partition */
+#define PARTITION_TYPE_DOS33_EXTENDED	   0x05 /* DOS 3.3+ extended partition */
+#define PARTITION_TYPE_WIN95_EXTENDED	   0x0F /* Windows 95 extended partition */
 
 #define CACHE 8
 #define SECTORS 64
@@ -68,223 +68,223 @@ static inline const char * PartFromType(int type)
 
 PartitionHandle::PartitionHandle(const DISC_INTERFACE *discio)
 {
-    interface = discio;
+	interface = discio;
 
-    // Sanity check
-    if (!interface)
-        return;
+	// Sanity check
+	if (!interface)
+		return;
 
-    // Start the device and check that it is inserted
-    if (!interface->startup())
-        return;
+	// Start the device and check that it is inserted
+	if (!interface->startup())
+		return;
 
-    if (!interface->isInserted())
-        return;
+	if (!interface->isInserted())
+		return;
 
-    FindPartitions();
+	FindPartitions();
 }
 
 PartitionHandle::~PartitionHandle()
 {
-    UnMountAll();
+	UnMountAll();
 
-    //shutdown device
-    interface->shutdown();
+	//shutdown device
+	interface->shutdown();
 }
 
 bool PartitionHandle::IsMounted(int pos)
 {
-    if(pos < 0 || pos >= (int) MountNameList.size())
-        return false;
+	if(pos < 0 || pos >= (int) MountNameList.size())
+		return false;
 
-    if(MountNameList[pos].size() == 0)
-        return false;
+	if(MountNameList[pos].size() == 0)
+		return false;
 
-    return true;
+	return true;
 }
 
 bool PartitionHandle::Mount(int pos, const char * name)
 {
-    if(!valid(pos))
-        return false;
+	if(!valid(pos))
+		return false;
 
-    if(!name)
-        return false;
+	if(!name)
+		return false;
 
-    UnMount(pos);
+	UnMount(pos);
 
-    if(pos >= (int) MountNameList.size())
-        MountNameList.resize(GetPartitionCount());
+	if(pos >= (int) MountNameList.size())
+		MountNameList.resize(GetPartitionCount());
 
-    MountNameList[pos] = name;
+	MountNameList[pos] = name;
 
-    if(strncmp(GetFSName(pos), "FAT", 3) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
-    {
-        if (fatMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS))
-        {
-            if(strcmp(GetFSName(pos), "GUID-Entry") == 0)
-                PartitionList[pos].FSName = "FAT";
-            return true;
-        }
-    }
+	if(strncmp(GetFSName(pos), "FAT", 3) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
+	{
+		if (fatMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS))
+		{
+			if(strcmp(GetFSName(pos), "GUID-Entry") == 0)
+				PartitionList[pos].FSName = "FAT";
+			return true;
+		}
+	}
 
-    if(strncmp(GetFSName(pos), "NTFS", 4) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
-    {
-        if(ntfsMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, NTFS_SHOW_HIDDEN_FILES | NTFS_RECOVER))
-        {
-            PartitionList[pos].FSName = "NTFS";
-            return true;
-        }
-    }
+	if(strncmp(GetFSName(pos), "NTFS", 4) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
+	{
+		if(ntfsMount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, NTFS_SHOW_HIDDEN_FILES | NTFS_RECOVER))
+		{
+			PartitionList[pos].FSName = "NTFS";
+			return true;
+		}
+	}
 
-    if(strncmp(GetFSName(pos), "LINUX", 5) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
-    {
-        if(ext2Mount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, EXT2_FLAG_DEFAULT))
-        {
-            PartitionList[pos].FSName = "LINUX";
-            return true;
-        }
-    }
-    MountNameList[pos].clear();
+	if(strncmp(GetFSName(pos), "LINUX", 5) == 0 || strcmp(GetFSName(pos), "GUID-Entry") == 0)
+	{
+		if(ext2Mount(MountNameList[pos].c_str(), interface, GetLBAStart(pos), CACHE, SECTORS, EXT2_FLAG_DEFAULT))
+		{
+			PartitionList[pos].FSName = "LINUX";
+			return true;
+		}
+	}
+	MountNameList[pos].clear();
 
-    return false;
+	return false;
 }
 
 void PartitionHandle::UnMount(int pos)
 {
-    if(!interface)
-        return;
+	if(!interface)
+		return;
 
-    if(pos >= (int) MountNameList.size())
-        return;
+	if(pos >= (int) MountNameList.size())
+		return;
 
-    if(MountNameList[pos].size() == 0)
-        return;
+	if(MountNameList[pos].size() == 0)
+		return;
 
-    char DeviceName[20];
-    snprintf(DeviceName, sizeof(DeviceName), "%s:", MountNameList[pos].c_str());
+	char DeviceName[20];
+	snprintf(DeviceName, sizeof(DeviceName), "%s:", MountNameList[pos].c_str());
 
-    //closing all open Files write back the cache
-    fatUnmount(DeviceName);
-    //closing all open Files write back the cache
-    ntfsUnmount(DeviceName, true);
-    //closing all open Files write back the cache
-    ext2Unmount(DeviceName);
-    //Remove name from list
-    MountNameList[pos].clear();
+	//closing all open Files write back the cache
+	fatUnmount(DeviceName);
+	//closing all open Files write back the cache
+	ntfsUnmount(DeviceName, true);
+	//closing all open Files write back the cache
+	ext2Unmount(DeviceName);
+	//Remove name from list
+	MountNameList[pos].clear();
 }
 
 bool PartitionHandle::IsExisting(u64 lba)
 {
-    for(u32 i = 0; i < PartitionList.size(); ++i)
-    {
-        if(PartitionList[i].LBA_Start == lba)
-            return true;
-    }
+	for(u32 i = 0; i < PartitionList.size(); ++i)
+	{
+		if(PartitionList[i].LBA_Start == lba)
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 void PartitionHandle::AddPartition(const char * name, u64 lba_start, u64 sec_count, bool bootable, u8 part_type, u8 part_num, u32 EBR_Sector)
 {
-    if(IsExisting(lba_start))
-        return;
+	if(IsExisting(lba_start))
+		return;
 
-    u8 buffer[BYTES_PER_SECTOR];
+	u8 buffer[BYTES_PER_SECTOR];
 
-    if (!interface->readSectors(lba_start, 1, buffer))
-        return;
+	if (!interface->readSectors(lba_start, 1, buffer))
+		return;
 
-    //! Partition typ can be missleading the correct partition format. Stupid lazy ass Partition Editors.
-    if((memcmp(buffer + 0x36, "FAT", 3) == 0 || memcmp(buffer + 0x52, "FAT", 3) == 0) &&
-        strncmp(PartFromType(part_type), "FAT", 3) != 0)
-    {
-        name = "FAT32";
-        part_type = 0x0c;
-    }
-    if (memcmp(buffer + 0x03, "NTFS", 4) == 0)
-    {
-        name = "NTFS";
-        part_type = 0x07;
-    }
+	//! Partition typ can be missleading the correct partition format. Stupid lazy ass Partition Editors.
+	if((memcmp(buffer + 0x36, "FAT", 3) == 0 || memcmp(buffer + 0x52, "FAT", 3) == 0) &&
+		strncmp(PartFromType(part_type), "FAT", 3) != 0)
+	{
+		name = "FAT32";
+		part_type = 0x0c;
+	}
+	if (memcmp(buffer + 0x03, "NTFS", 4) == 0)
+	{
+		name = "NTFS";
+		part_type = 0x07;
+	}
 
-    int part = PartitionList.size();
-    PartitionList.resize(part+1);
+	int part = PartitionList.size();
+	PartitionList.resize(part+1);
 
-    PartitionList[part].FSName = name;
-    PartitionList[part].LBA_Start = lba_start;
-    PartitionList[part].SecCount = sec_count;
-    PartitionList[part].Bootable = bootable;
-    PartitionList[part].PartitionType = part_type;
-    PartitionList[part].PartitionNum = part_num;
-    PartitionList[part].EBR_Sector = EBR_Sector;
+	PartitionList[part].FSName = name;
+	PartitionList[part].LBA_Start = lba_start;
+	PartitionList[part].SecCount = sec_count;
+	PartitionList[part].Bootable = bootable;
+	PartitionList[part].PartitionType = part_type;
+	PartitionList[part].PartitionNum = part_num;
+	PartitionList[part].EBR_Sector = EBR_Sector;
 }
 
 int PartitionHandle::FindPartitions()
 {
-    MASTER_BOOT_RECORD mbr;
+	MASTER_BOOT_RECORD mbr;
 
-    // Read the first sector on the device
-    if (!interface->readSectors(0, 1, &mbr))
-        return -1;
+	// Read the first sector on the device
+	if (!interface->readSectors(0, 1, &mbr))
+		return -1;
 
-    // If this is the devices master boot record
-    if (mbr.signature != MBR_SIGNATURE)
-        return -1;
+	// If this is the devices master boot record
+	if (mbr.signature != MBR_SIGNATURE)
+		return -1;
 
-    for (int i = 0; i < 4; i++)
-    {
-        PARTITION_RECORD * partition = (PARTITION_RECORD *) &mbr.partitions[i];
+	for (int i = 0; i < 4; i++)
+	{
+		PARTITION_RECORD * partition = (PARTITION_RECORD *) &mbr.partitions[i];
 
-        if(partition->type == PARTITION_TYPE_GPT)
-        {
-            int ret = CheckGPT(i);
-            if(ret == 0)
-                return ret;
-        }
+		if(partition->type == PARTITION_TYPE_GPT)
+		{
+			int ret = CheckGPT(i);
+			if(ret == 0)
+				return ret;
+		}
 
-        if(partition->type == PARTITION_TYPE_DOS33_EXTENDED || partition->type == PARTITION_TYPE_WIN95_EXTENDED)
-        {
+		if(partition->type == PARTITION_TYPE_DOS33_EXTENDED || partition->type == PARTITION_TYPE_WIN95_EXTENDED)
+		{
 			CheckEBR(i, le32(partition->lba_start));
 			continue;
-        }
+		}
 
-        if(le32(partition->block_count) > 0)
-        {
-            AddPartition(PartFromType(partition->type), le32(partition->lba_start),
-                         le32(partition->block_count), (partition->status == PARTITION_BOOTABLE),
-                         partition->type, i);
-        }
-    }
+		if(le32(partition->block_count) > 0)
+		{
+			AddPartition(PartFromType(partition->type), le32(partition->lba_start),
+						 le32(partition->block_count), (partition->status == PARTITION_BOOTABLE),
+						 partition->type, i);
+		}
+	}
 
-    return 0;
+	return 0;
 }
 
 void PartitionHandle::CheckEBR(u8 PartNum, sec_t ebr_lba)
 {
-    EXTENDED_BOOT_RECORD ebr;
-    sec_t next_erb_lba = 0;
+	EXTENDED_BOOT_RECORD ebr;
+	sec_t next_erb_lba = 0;
 
-    do
-    {
-        // Read and validate the extended boot record
-        if (!interface->readSectors(ebr_lba + next_erb_lba, 1, &ebr))
-            return;
+	do
+	{
+		// Read and validate the extended boot record
+		if (!interface->readSectors(ebr_lba + next_erb_lba, 1, &ebr))
+			return;
 
-        if (ebr.signature != EBR_SIGNATURE)
-            return;
+		if (ebr.signature != EBR_SIGNATURE)
+			return;
 
-        if(le32(ebr.partition.block_count) > 0)
-        {
-            AddPartition(PartFromType(ebr.partition.type), ebr_lba + next_erb_lba + le32(ebr.partition.lba_start),
-                         le32(ebr.partition.block_count), (ebr.partition.status == PARTITION_BOOTABLE),
-                         ebr.partition.type, PartNum, ebr_lba + next_erb_lba);
-        }
-        // Get the start sector of the current partition
-        // and the next extended boot record in the chain
-        next_erb_lba = le32(ebr.next_ebr.lba_start);
-    }
-    while(next_erb_lba > 0);
+		if(le32(ebr.partition.block_count) > 0)
+		{
+			AddPartition(PartFromType(ebr.partition.type), ebr_lba + next_erb_lba + le32(ebr.partition.lba_start),
+						 le32(ebr.partition.block_count), (ebr.partition.status == PARTITION_BOOTABLE),
+						 ebr.partition.type, PartNum, ebr_lba + next_erb_lba);
+		}
+		// Get the start sector of the current partition
+		// and the next extended boot record in the chain
+		next_erb_lba = le32(ebr.next_ebr.lba_start);
+	}
+	while(next_erb_lba > 0);
 }
 
 static const u8 TYPE_UNUSED[16] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 };
@@ -293,46 +293,46 @@ static const u8 TYPE_BIOS[16] = { 0x48,0x61,0x68,0x21,0x49,0x64,0x6F,0x6E,0x74,0
 
 int PartitionHandle::CheckGPT(u8 PartNum)
 {
-    GPT_HEADER gpt_header;
+	GPT_HEADER gpt_header;
 
-    // Read and validate the extended boot record
-    if (!interface->readSectors(1, 1, &gpt_header))
-        return -1;
+	// Read and validate the extended boot record
+	if (!interface->readSectors(1, 1, &gpt_header))
+		return -1;
 
-    if(strncmp(gpt_header.magic, "EFI PART", 8) != 0)
-        return -1;
+	if(strncmp(gpt_header.magic, "EFI PART", 8) != 0)
+		return -1;
 
-    gpt_header.part_table_lba = le64(gpt_header.part_table_lba);
-    gpt_header.part_entries = le32(gpt_header.part_entries);
-    gpt_header.part_entry_size = le32(gpt_header.part_entry_size);
-    gpt_header.part_entry_checksum = le32(gpt_header.part_entry_checksum);
+	gpt_header.part_table_lba = le64(gpt_header.part_table_lba);
+	gpt_header.part_entries = le32(gpt_header.part_entries);
+	gpt_header.part_entry_size = le32(gpt_header.part_entry_size);
+	gpt_header.part_entry_checksum = le32(gpt_header.part_entry_checksum);
 
-    u8 * sector_buf = new u8[BYTES_PER_SECTOR];
+	u8 * sector_buf = new u8[BYTES_PER_SECTOR];
 
-    u64 next_lba = gpt_header.part_table_lba;
+	u64 next_lba = gpt_header.part_table_lba;
 
-    for(u32 i = 0; i < gpt_header.part_entries; ++i)
-    {
-        if (!interface->readSectors(next_lba, 1, sector_buf))
-            break;
+	for(u32 i = 0; i < gpt_header.part_entries; ++i)
+	{
+		if (!interface->readSectors(next_lba, 1, sector_buf))
+			break;
 
-        for(u32 n = 0; n < BYTES_PER_SECTOR/gpt_header.part_entry_size; ++n, ++i)
-        {
-            GUID_PART_ENTRY * part_entry = (GUID_PART_ENTRY *) (sector_buf+gpt_header.part_entry_size*n);
+		for(u32 n = 0; n < BYTES_PER_SECTOR/gpt_header.part_entry_size; ++n, ++i)
+		{
+			GUID_PART_ENTRY * part_entry = (GUID_PART_ENTRY *) (sector_buf+gpt_header.part_entry_size*n);
 
-            if(memcmp(part_entry->part_type_guid, TYPE_UNUSED, 16) == 0)
-                continue;
+			if(memcmp(part_entry->part_type_guid, TYPE_UNUSED, 16) == 0)
+				continue;
 
-            bool bootable = (memcmp(part_entry->part_type_guid, TYPE_BIOS, 16) == 0);
+			bool bootable = (memcmp(part_entry->part_type_guid, TYPE_BIOS, 16) == 0);
 
-            AddPartition("GUID-Entry", le64(part_entry->part_first_lba), le64(part_entry->part_last_lba),
-                         bootable, PARTITION_TYPE_GPT, PartNum);
-        }
+			AddPartition("GUID-Entry", le64(part_entry->part_first_lba), le64(part_entry->part_last_lba),
+						 bootable, PARTITION_TYPE_GPT, PartNum);
+		}
 
-        next_lba++;
-    }
+		next_lba++;
+	}
 
-    delete [] sector_buf;
+	delete [] sector_buf;
 
-    return 0;
+	return 0;
 }

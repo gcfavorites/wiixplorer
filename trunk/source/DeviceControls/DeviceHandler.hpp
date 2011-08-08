@@ -28,94 +28,94 @@
 
 enum
 {
-    SD = 0,
-    GCSDA,
-    GCSDB,
-    USB1,
-    USB2,
-    USB3,
-    USB4,
-    USB5,
-    USB6,
-    USB7,
-    USB8,
-    USB9,
-    USB10,
-    SMB1,
-    SMB2,
-    SMB3,
-    SMB4,
-    SMB5,
-    SMB6,
-    SMB7,
-    SMB8,
-    SMB9,
-    SMB10,
-    FTP1,
-    FTP2,
-    FTP3,
-    FTP4,
-    FTP5,
-    FTP6,
-    FTP7,
-    FTP8,
-    FTP9,
-    FTP10,
+	SD = 0,
+	GCSDA,
+	GCSDB,
+	USB1,
+	USB2,
+	USB3,
+	USB4,
+	USB5,
+	USB6,
+	USB7,
+	USB8,
+	USB9,
+	USB10,
+	SMB1,
+	SMB2,
+	SMB3,
+	SMB4,
+	SMB5,
+	SMB6,
+	SMB7,
+	SMB8,
+	SMB9,
+	SMB10,
+	FTP1,
+	FTP2,
+	FTP3,
+	FTP4,
+	FTP5,
+	FTP6,
+	FTP7,
+	FTP8,
+	FTP9,
+	FTP10,
 	DVD,
-    MAXDEVICES
+	MAXDEVICES
 };
 
 const char DeviceName[MAXDEVICES][6] =
 {
-    "sd",
-    "gca",
-    "gcb",
-    "usb1",
-    "usb2",
-    "usb3",
-    "usb4",
-    "usb5",
-    "usb6",
-    "usb7",
-    "usb8",
-    "usb9",
-    "usb10",
-    "smb1",
-    "smb2",
-    "smb3",
-    "smb4",
-    "smb5",
-    "smb6",
-    "smb7",
-    "smb8",
-    "smb9",
-    "smb10",
-    "ftp1",
-    "ftp2",
-    "ftp3",
-    "ftp4",
-    "ftp5",
-    "ftp6",
-    "ftp7",
-    "ftp8",
-    "ftp9",
-    "ftp10",
+	"sd",
+	"gca",
+	"gcb",
+	"usb1",
+	"usb2",
+	"usb3",
+	"usb4",
+	"usb5",
+	"usb6",
+	"usb7",
+	"usb8",
+	"usb9",
+	"usb10",
+	"smb1",
+	"smb2",
+	"smb3",
+	"smb4",
+	"smb5",
+	"smb6",
+	"smb7",
+	"smb8",
+	"smb9",
+	"smb10",
+	"ftp1",
+	"ftp2",
+	"ftp3",
+	"ftp4",
+	"ftp5",
+	"ftp6",
+	"ftp7",
+	"ftp8",
+	"ftp9",
+	"ftp10",
 	"dvd",
 };
 
 class DeviceHandler
 {
-    public:
+	public:
 		static DeviceHandler * Instance();
 		static void DestroyInstance();
 
-        bool MountAll();
-        void UnMountAll();
-        bool Mount(int dev);
-        bool IsInserted(int dev);
-        void UnMount(int dev);
+		bool MountAll();
+		void UnMountAll();
+		bool Mount(int dev);
+		bool IsInserted(int dev);
+		void UnMount(int dev);
 
-        //! Individual Mounts/UnMounts...
+		//! Individual Mounts/UnMounts...
 		bool MountSD();
 		bool MountGCA();
 		bool MountGCB();
@@ -140,22 +140,22 @@ class DeviceHandler
 		PartitionHandle * GetUSB0Handle() { return usb0; };
 		PartitionHandle * GetUSB1Handle() { return usb1; };
 		PartitionHandle * GetUSBFromDev(int dev);
-        int PartToPortPart(int part);
-        int PartToPort(int part);
+		int PartToPortPart(int part);
+		int PartToPort(int part);
 		static int PathToDriveType(const char * path);
-        static const char * GetFSName(int dev);
-        static const char * PathToFSName(const char * path) { return GetFSName(PathToDriveType(path)); };
-    private:
-        DeviceHandler() : sd(0), gca(0), gcb(0), usb0(0), usb1(0) { };
-        ~DeviceHandler();
+		static const char * GetFSName(int dev);
+		static const char * PathToFSName(const char * path) { return GetFSName(PathToDriveType(path)); };
+	private:
+		DeviceHandler() : sd(0), gca(0), gcb(0), usb0(0), usb1(0) { };
+		~DeviceHandler();
 
 		static DeviceHandler *instance;
 
-        PartitionHandle * sd;
-        PartitionHandle * gca;
-        PartitionHandle * gcb;
-        PartitionHandle * usb0;
-        PartitionHandle * usb1;
+		PartitionHandle * sd;
+		PartitionHandle * gca;
+		PartitionHandle * gcb;
+		PartitionHandle * usb0;
+		PartitionHandle * usb1;
 };
 
 #endif

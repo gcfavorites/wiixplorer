@@ -26,58 +26,58 @@
 #ifndef _IMAGE_CONVERTER_H_
 #define _IMAGE_CONVERTER_H_
 
-#include "libwiigui/gui.h"
+#include "stdafx.h"
 #include "ImageWrite.h"
 
 enum
 {
-    NONE,
-    FLIP_VERTICAL,
-    FLIP_HORIZONTAL,
-    FLIP_BOTH
+	NONE,
+	FLIP_VERTICAL,
+	FLIP_HORIZONTAL,
+	FLIP_BOTH
 };
 
 class ImageConverter
 {
-    public:
-        ImageConverter(const char * filepath);
-        ImageConverter(const u8 * imgBuf, int imgSize);
-        ~ImageConverter();
-        bool LoadImage(const char * filepath);
-        bool LoadImage(const u8 * img, int imgSize);
-        bool Convert();
-        bool RotateImage(int angle);
-        bool ResizeImage(int newwidth, int newheight);
-        void FlipHorizontal();
-        void FlipVertical();
-        void FlipBoth();
-        void SetOutPath(const char * filepath);
-        gdImagePtr GetImagePtr();
-        void ResetOptions();
+	public:
+		ImageConverter(const char * filepath);
+		ImageConverter(const u8 * imgBuf, int imgSize);
+		~ImageConverter();
+		bool LoadImage(const char * filepath);
+		bool LoadImage(const u8 * img, int imgSize);
+		bool Convert();
+		bool RotateImage(int angle);
+		bool ResizeImage(int newwidth, int newheight);
+		void FlipHorizontal();
+		void FlipVertical();
+		void FlipBoth();
+		void SetOutPath(const char * filepath);
+		gdImagePtr GetImagePtr();
+		void ResetOptions();
 
-        bool WriteImage(const char * filepath);
+		bool WriteImage(const char * filepath);
 
-    protected:
-        void Setup();
-        void ClearMemory();
+	protected:
+		void Setup();
+		void ClearMemory();
 
-        gdImagePtr gdImage;
-        u8 InputType;
-        char * ImagePath;
-        char * OutPath;
+		gdImagePtr gdImage;
+		u8 InputType;
+		char * ImagePath;
+		char * OutPath;
 
-        /** Options **/
-        int OutputWidth;
-        int OutputHeight;
-        int Angle;
-        u8 FlipMode;
-        u8 Interlace;
-        u8 AlphaBlending;
-        u8 SaveAlpha;
-        u8 OutputType;
-        u8 JPEG_Quality;
-        u8 BMP_Compression;
-        u8 GD2_Compression;
+		/** Options **/
+		int OutputWidth;
+		int OutputHeight;
+		int Angle;
+		u8 FlipMode;
+		u8 Interlace;
+		u8 AlphaBlending;
+		u8 SaveAlpha;
+		u8 OutputType;
+		u8 JPEG_Quality;
+		u8 BMP_Compression;
+		u8 GD2_Compression;
 };
 
 #endif

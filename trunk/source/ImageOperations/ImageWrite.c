@@ -31,40 +31,40 @@
 
 bool WriteGDImage(const char * filepath, gdImagePtr gdImg, u8 format, u8 compression)
 {
-    if(gdImg == 0)
-        return false;
+	if(gdImg == 0)
+		return false;
 
-    FILE * file = fopen(filepath, "wb");
-    if(!file)
-        return false;
+	FILE * file = fopen(filepath, "wb");
+	if(!file)
+		return false;
 
-    switch(format)
-    {
-        default:
-        case IMAGE_PNG:
-            gdImagePng(gdImg, file);
-            break;
-        case IMAGE_JPEG:
-            gdImageJpeg(gdImg, file, cut_bounds(100-compression, 0, 100));
-            break;
-        case IMAGE_GIF:
-            gdImageGif(gdImg, file);
-            break;
-        case IMAGE_TIFF:
-            gdImageTiff(gdImg, file);
-            break;
-        case IMAGE_BMP:
-            gdImageBmp(gdImg, file, compression > 9 ? 9 : compression);
-            break;
-        case IMAGE_GD:
-            gdImageGd(gdImg, file);
-            break;
-        case IMAGE_GD2:
-            gdImageGd2(gdImg, file, 0, cut_bounds(compression+1, 1, 2));
-            break;
-    }
+	switch(format)
+	{
+		default:
+		case IMAGE_PNG:
+			gdImagePng(gdImg, file);
+			break;
+		case IMAGE_JPEG:
+			gdImageJpeg(gdImg, file, LIMIT(100-compression, 0, 100));
+			break;
+		case IMAGE_GIF:
+			gdImageGif(gdImg, file);
+			break;
+		case IMAGE_TIFF:
+			gdImageTiff(gdImg, file);
+			break;
+		case IMAGE_BMP:
+			gdImageBmp(gdImg, file, compression > 9 ? 9 : compression);
+			break;
+		case IMAGE_GD:
+			gdImageGd(gdImg, file);
+			break;
+		case IMAGE_GD2:
+			gdImageGd2(gdImg, file, 0, LIMIT(compression+1, 1, 2));
+			break;
+	}
 
-    fclose(file);
+	fclose(file);
 
-    return true;
+	return true;
 }

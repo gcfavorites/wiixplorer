@@ -80,19 +80,19 @@ struct U8Entry
 
 class U8Archive : public WiiArchive
 {
-    public:
+	public:
 		//!Constructor
-        U8Archive(const char *filepath);
-        //!Overload
-        U8Archive(const u8 * Buffer, u32 Size);
+		U8Archive(const char *filepath);
+		//!Overload
+		U8Archive(const u8 * Buffer, u32 Size);
 		//!Destructor
 		virtual ~U8Archive();
-    protected:
-        //!Parse the archive
-        bool ParseFile();
-        bool ParseU8Header(u32 U8HeaderOffset);
-        //!Get the U8Filename
-        void U8Filename(const U8Entry * fst, int fstoffset, int i, string & Filename);
+	protected:
+		//!Parse the archive
+		bool ParseFile();
+		bool ParseU8Header(u32 U8HeaderOffset);
+		//!Get the U8Filename
+		void U8Filename(const U8Entry * fst, int fstoffset, int i, string & Filename);
 };
 
 #endif

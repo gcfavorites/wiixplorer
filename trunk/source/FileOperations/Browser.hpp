@@ -33,40 +33,42 @@
 #ifndef _BROWSER_H_
 #define _BROWSER_H_
 
+#include "GUI/gui_trigger.h"
 #include "ItemMarker.h"
-#include "libwiigui/gui.h"
 
 class Browser
 {
-    public:
-        Browser() { DelayCounter = 0; };
-        virtual ~Browser() { };
-        virtual int GetEntrieCount() { return 0; };
-        virtual int GetPageIndex() { return 0; };
-        virtual int GetSelIndex() { return 0; };
-        virtual void SetPageIndex(int ind UNUSED) { };
-        virtual void SetSelectedIndex(int ind UNUSED) { };
-        virtual bool IsDir(int ind UNUSED) { return true; };
-        virtual bool IsCurrentDir() { return IsDir(GetSelIndex()); };
-        virtual const char * GetItemName(int ind UNUSED) { return NULL; };
-        virtual int BrowsePath(const char * path UNUSED) { return 0; };
-        virtual int ChangeDirectory() { return 0; };
-        virtual const char * GetCurrentPath() { return NULL; };
-        virtual const char * GetCurrentSelectedFilepath() { return NULL; };
-        virtual u64 GetFilesize(int ind UNUSED) { return 0; };
-        virtual void Refresh() { };
-        virtual int BackInDirectory() { return -1; };
-        virtual ItemStruct * GetItemStruct(int pos UNUSED) { return NULL; };
-        virtual ItemStruct * GetCurrentItemStruct() { return GetItemStruct(GetSelIndex()); };
-        void MarkAllItems();
-        void MarkCurrentItem();
-        void UnMarkCurrentItem();
-        void ResetMarker() { IMarker.Reset(); };
-        void UpdateMarker(GuiTrigger * t);
-        ItemMarker * GetItemMarker() { return (ItemMarker *) &IMarker; };
-    protected:
-        ItemMarker IMarker;
-        int DelayCounter;
+	public:
+		Browser() { DelayCounter = 0; };
+		virtual ~Browser() { };
+		virtual int GetEntrieCount() { return 0; };
+		virtual int GetPageIndex() { return 0; };
+		virtual int GetSelIndex() { return 0; };
+		virtual void SetPageIndex(int ind UNUSED) { };
+		virtual void SetSelectedIndex(int ind UNUSED) { };
+		virtual bool IsDir(int ind UNUSED) { return true; };
+		virtual bool IsCurrentDir() { return IsDir(GetSelIndex()); };
+		virtual const char * GetItemName(int ind UNUSED) { return NULL; };
+		virtual int BrowsePath(const char * path UNUSED) { return 0; };
+		virtual int ChangeDirectory() { return 0; };
+		virtual const char * GetCurrentPath() { return NULL; };
+		virtual const char * GetCurrentSelectedFilepath() { return NULL; };
+		virtual u64 GetFilesize(int ind UNUSED) { return 0; };
+		virtual void Refresh() { };
+		virtual int BackInDirectory() { return -1; };
+		virtual ItemStruct * GetItemStruct(int pos UNUSED) { return NULL; };
+		virtual ItemStruct * GetCurrentItemStruct() { return GetItemStruct(GetSelIndex()); };
+		virtual void SetFilter(u8 filtermode UNUSED) {};
+		virtual int ExecuteFile(const char *filepath UNUSED) { return -1; };
+		void MarkAllItems();
+		void MarkCurrentItem();
+		void UnMarkCurrentItem();
+		void ResetMarker() { IMarker.Reset(); };
+		void UpdateMarker(GuiTrigger * t);
+		ItemMarker * GetItemMarker() { return (ItemMarker *) &IMarker; };
+	protected:
+		ItemMarker IMarker;
+		int DelayCounter;
 };
 
 #endif

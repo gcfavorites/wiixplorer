@@ -1,7 +1,7 @@
 #include <unistd.h>
 
 #include "HomeMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 #include "SoundOperations/MusicPlayer.h"
 #include "Memory/Resources.h"
@@ -134,7 +134,7 @@ HomeMenu::HomeMenu()
 		BatteryBarImg[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 
 		BatteryImg[i] = new GuiImage(BatteryImgData);
-        BatteryImg[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		BatteryImg[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
 		BatteryImg[i]->SetPosition(2, -4);
 
 		BatteryBtn[i] = new GuiButton(0,0);
@@ -147,19 +147,17 @@ HomeMenu::HomeMenu()
 		Append(BatteryBtn[i]);
 	}
 
-    if(!MusicPlayer::Instance()->IsStopped())
-        MusicPlayer::Instance()->Pause();
-	MainWindow::Instance()->SetState(STATE_DISABLED);
-    MainWindow::Instance()->SetDim(true);
+	if(!MusicPlayer::Instance()->IsStopped())
+		MusicPlayer::Instance()->Pause();
+	Application::Instance()->SetState(STATE_DISABLED);
+	//Application::Instance()->SetDim(true);
 }
 
 HomeMenu::~HomeMenu()
 {
-	MainWindow::Instance()->ResumeGui();
 	SetEffect(EFFECT_FADE, -50);
 	while(this->GetEffect() > 0) usleep(100);
 
-	MainWindow::Instance()->HaltGui();
 	if(parentElement)
 		((GuiWindow *) parentElement)->Remove(this);
 
@@ -210,10 +208,8 @@ HomeMenu::~HomeMenu()
 	Resources::Remove(ButtonClickSnd);
 	Resources::Remove(ButtonOverSnd);
 
-    MusicPlayer::Instance()->Resume();
-	MainWindow::Instance()->SetState(STATE_DEFAULT);
-	MainWindow::Instance()->SetDim(false);
-	MainWindow::Instance()->ResumeGui();
+	Application::Instance()->SetState(STATE_DEFAULT);
+	//Application::Instance()->SetDim(false);
 }
 
 void HomeMenu::FadeOut()
@@ -271,14 +267,14 @@ int HomeMenu::GetChoice()
 		ExitBtn->ResetState();
 
 		this->SetState(STATE_DISABLED);
-		int ret = WindowPrompt(tr("Exit WiiXplorer?"), 0, tr("To Loader"), tr("To Menu"), tr("Cancel"), 0, false);
+		int ret = WindowPrompt(tr("Exit WiiXplorer?"), 0, tr("To Loader"), tr("To Menu"), tr("Cancel"));
 		if (ret == 1)
 		{
 			Sys_BackToLoader();
 		}
 		else if(ret == 2)
 		{
-		    Sys_LoadMenu();
+			Sys_LoadMenu();
 		}
 		this->SetState(STATE_DEFAULT);
 	}
@@ -286,18 +282,18 @@ int HomeMenu::GetChoice()
 	{
 		ShutdownBtn->ResetState();
 		this->SetState(STATE_DISABLED);
-		int ret = WindowPrompt(tr("Shutdown the Wii?"), 0, tr("Default"), tr("To Standby"), tr("To Idle"), tr("Cancel"), false);
+		int ret = WindowPrompt(tr("Shutdown the Wii?"), 0, tr("Default"), tr("To Standby"), tr("To Idle"), tr("Cancel"));
 		if (ret == 1)
 		{
-		    Sys_Shutdown();
+			Sys_Shutdown();
 		}
 		else if (ret == 2)
 		{
-		    Sys_ShutdownToStandby();
+			Sys_ShutdownToStandby();
 		}
 		else if(ret == 3)
 		{
-		    Sys_ShutdownToIdle();
+			Sys_ShutdownToIdle();
 		}
 		this->SetState(STATE_DEFAULT);
 	}

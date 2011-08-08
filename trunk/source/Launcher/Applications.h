@@ -32,26 +32,26 @@
 #include <string>
 #include <vector>
 
-typedef struct
-{
-	char path[255];
-	char name[255];
-} Application;
-
 class Applications
 {
-    public:
-        Applications(const char * path);
+	public:
+		Applications(const char * path);
 		void Search(const char * path);
 		void Launch(int index);
 		int Count() { return applications.size(); }
 		const char * GetName(int ind) { if(ind < 0 || ind >= (int) applications.size()) return NULL; return applications.at(ind).name; }
 		void Reload();
-        void Sort();
+		void Sort();
 	private:
-        static bool SortCallback(const Application & f1, const Application & f2);
+		typedef struct
+		{
+			char path[255];
+			char name[255];
+		} App;
+		
+		static bool SortCallback(const App & f1, const App & f2);
 
-		std::vector<Application> applications;
+		std::vector<App> applications;
 		std::string LastPath;
 
 		bool GetNameFromXML(const char *xml, char *name);

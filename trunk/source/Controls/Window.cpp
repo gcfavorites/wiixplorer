@@ -36,17 +36,17 @@ bool Window::busyMoving = false;
 Window::Window(int w, int h)
 	: GuiWindow(0, 0)
 {
-    width = w;
-    height = h;
+	width = w;
+	height = h;
 
-    /** Windowframe resources **/
+	/** Windowframe resources **/
 	window_tile_horizontalDat = Resources::GetImageData(window_tile_horizontal_png, window_tile_horizontal_png_size);
 	window_tile_verticalDat = Resources::GetImageData(window_tile_vertical_png, window_tile_vertical_png_size);
 	window_corner_leftDat = Resources::GetImageData(window_corner_left_png, window_corner_left_png_size);
 	window_corner_rightDat = Resources::GetImageData(window_corner_right_png, window_corner_right_png_size);
 
-    /** Windowframe images **/
-    window_tile_vertical_left = new GuiImage(window_tile_verticalDat);
+	/** Windowframe images **/
+	window_tile_vertical_left = new GuiImage(window_tile_verticalDat);
 	window_tile_vertical_right = new GuiImage(window_tile_verticalDat);
 	window_tile_vertical_right->SetAngle(180);
 	window_tile_horizontal_top = new GuiImage(window_tile_horizontalDat);
@@ -91,7 +91,7 @@ Window::Window(int w, int h)
 	titleBar -> Append(icon);
 	titleBar -> Append(titleBarButton);
 
-    SizeChanged();
+	SizeChanged();
 
 	Append(window_tile_horizontal_top);
 	Append(window_tile_horizontal_bottom);
@@ -158,7 +158,7 @@ void Window::Draw()
 
 	GXColor backgroundColor = (GXColor){226, 230, 237, 255};
 
-    Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, &backgroundColor, false, true);
+	Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, &backgroundColor, false, true);
 
 	GuiWindow::Draw();
 }
@@ -207,7 +207,7 @@ void Window::SetHeight(int h)
 
 void Window::SizeChanged()
 {
-    /** Windowframe tiles **/
+	/** Windowframe tiles **/
 	int tilecountH = (width-window_corner_leftDat->GetWidth()*2)/4;
 	int tilecountV = (height-window_corner_leftDat->GetHeight()*2)/4;
 	window_tile_horizontal_top->SetTileHorizontal(tilecountH);
@@ -215,16 +215,16 @@ void Window::SizeChanged()
 	window_tile_vertical_left->SetTileVertical(tilecountV);
 	window_tile_vertical_right->SetTileVertical(tilecountV);
 
-    /** Windowframe positions **/
+	/** Windowframe positions **/
 	window_corner_left_top->SetPosition(0, 0);
 	window_corner_right_top->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth()+tilecountH*window_tile_horizontalDat->GetWidth(), 0);
 	window_corner_left_bottom->SetPosition(0, window_corner_left_top->GetTop()+window_corner_leftDat->GetHeight()+tilecountV*window_tile_verticalDat->GetHeight());
 	window_corner_right_bottom->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth()+tilecountH*window_tile_horizontalDat->GetWidth(),
-                                            window_corner_left_top->GetTop()+window_corner_leftDat->GetHeight()+tilecountV*window_tile_verticalDat->GetHeight());
-    window_tile_horizontal_top->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth(), 0);
-    window_tile_horizontal_bottom->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth(), window_corner_left_bottom->GetTop()+window_corner_left_bottom->GetHeight()-window_tile_horizontalDat->GetHeight());
-    window_tile_vertical_left->SetPosition(0, window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
-    window_tile_vertical_right->SetPosition(window_corner_right_top->GetLeft()+window_corner_right_top->GetWidth()-window_tile_vertical_right->GetWidth(), window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
+											window_corner_left_top->GetTop()+window_corner_leftDat->GetHeight()+tilecountV*window_tile_verticalDat->GetHeight());
+	window_tile_horizontal_top->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth(), 0);
+	window_tile_horizontal_bottom->SetPosition(window_corner_left_top->GetLeft()+window_corner_leftDat->GetWidth(), window_corner_left_bottom->GetTop()+window_corner_left_bottom->GetHeight()-window_tile_horizontalDat->GetHeight());
+	window_tile_vertical_left->SetPosition(0, window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
+	window_tile_vertical_right->SetPosition(window_corner_right_top->GetLeft()+window_corner_right_top->GetWidth()-window_tile_vertical_right->GetWidth(), window_corner_right_top->GetTop()+window_corner_right_top->GetHeight());
 }
 
 #endif

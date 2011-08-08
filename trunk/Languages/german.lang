@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2010-12-11 15:38-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
@@ -529,6 +529,9 @@ msgstr "Entpacken"
 
 msgid "Extract All"
 msgstr "Alles entpacken"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "Entpacken (temp.) und ausführen?"
@@ -1220,14 +1223,11 @@ msgstr "  Verbindungsversuch fehlgeschlagen.          Keine Netzwerkfreigabe gef
 msgid "Red"
 msgstr "Rot"
 
-msgid "Reload"
-msgstr "Erneut mounten"
-
 msgid "Reloading file list..."
 msgstr "Dateiliste wird aktualisiert..."
 
-msgid "Remounting all devices."
-msgstr "Alle Speichermedien werden erneut eingebunden."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Speichermedien werden erneut eingebunden."
@@ -1651,9 +1651,6 @@ msgstr "Diese Partition kann nicht als aktiv markiert werden."
 msgid "You cant use this operation on:"
 msgstr "Aktion nicht anwendbar auf:"
 
-msgid "You do not have BootMii installed!"
-msgstr "Du hast BootMii nicht installiert!"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "Du hast eine GUID-Partitionstabelle (GPT). Formatieren mit einer GPT wird noch nicht unterstützt."
 
@@ -1692,6 +1689,15 @@ msgstr "yxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Reload"
+#~ msgstr "Erneut mounten"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Alle Speichermedien werden erneut eingebunden."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "Du hast BootMii nicht installiert!"
 
 #~ msgid "USB Device"
 #~ msgstr "USB-Laufwerk"

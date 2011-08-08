@@ -100,19 +100,19 @@ Credits:
 
 Links:
   WiiXplorer Project Page:
-    http://code.google.com/p/wiixplorer/
+	http://code.google.com/p/wiixplorer/
   WiiXplorer Support Site:
-    http://code.google.com/p/wiixplorer/
-    updates/list
+	http://code.google.com/p/wiixplorer/
+	updates/list
   Libwiigui Website:
-    http://wiibrew.org/wiki/Libwiigui/
+	http://wiibrew.org/wiki/Libwiigui/
   FreeTypeGX Project Page:
-    http://code.google.com/p/freetypegx/
+	http://code.google.com/p/freetypegx/
   Gettext Official Page:
-    http://www.gnu.org/software/gettext/
-    gettext.html
+	http://www.gnu.org/software/gettext/
+	gettext.html
   Languages Page:
-    http://gbatemp.net/
+	http://gbatemp.net/
 	index.php?showtopic=174053
   </long_description>
 </app>

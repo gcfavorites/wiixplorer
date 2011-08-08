@@ -37,31 +37,31 @@
 #include "U8Archive.h"
 
 U8Archive::U8Archive(const char *filepath)
-    : WiiArchive(filepath)
+	: WiiArchive(filepath)
 {
-    ParseFile();
+	ParseFile();
 }
 
 U8Archive::U8Archive(const u8 * Buffer, u32 Size)
-    : WiiArchive(Buffer, Size)
+	: WiiArchive(Buffer, Size)
 {
-    ParseFile();
+	ParseFile();
 }
 
 U8Archive::~U8Archive()
 {
-    CloseFile();
+	CloseFile();
 }
 
 bool U8Archive::ParseFile()
 {
-    if(!FileBuffer && !File)
-        return false;
+	if(!FileBuffer && !File)
+		return false;
 
-    ClearList();
+	ClearList();
 
-    IMETHeader IMET_Header;
-    ReadFile(&IMET_Header, sizeof(IMETHeader), 0);
+	IMETHeader IMET_Header;
+	ReadFile(&IMET_Header, sizeof(IMETHeader), 0);
 
 	IMD5Header IMD5_Header;
 	memcpy(&IMD5_Header, &IMET_Header, sizeof(IMD5Header));
@@ -69,158 +69,158 @@ bool U8Archive::ParseFile()
 	memcpy(&U8_Header, &IMET_Header, sizeof(U8Header));
 	u32 U8HeaderOffset = 0;
 
-    //It's opening.bnr
+	//It's opening.bnr
 	if (IMET_Header.fcc == 'IMET')
 	{
-	    //Add header.imet as a file
-        AddListEntrie("header.imet", sizeof(IMETHeader), sizeof(IMETHeader), false, 0, 0, U8Arch);
-        BufferOffset.push_back(0);
+		//Add header.imet as a file
+		AddListEntrie("header.imet", sizeof(IMETHeader), sizeof(IMETHeader), false, 0, 0, U8Arch);
+		BufferOffset.push_back(0);
 
-        U8HeaderOffset = sizeof(IMETHeader);
+		U8HeaderOffset = sizeof(IMETHeader);
 
-        return ParseU8Header(U8HeaderOffset);
+		return ParseU8Header(U8HeaderOffset);
 	}
 
 	//It's icon.bin/banner.bin/sound.bin
 	else if(IMD5_Header.fcc == 'IMD5')
 	{
-	    FileSize = IMD5_Header.filesize;
-	    u32 LZ77Magic = 0;
-        U8HeaderOffset = sizeof(IMD5Header);
-        ReadFile(&LZ77Magic, sizeof(u32), U8HeaderOffset);
+		FileSize = IMD5_Header.filesize;
+		u32 LZ77Magic = 0;
+		U8HeaderOffset = sizeof(IMD5Header);
+		ReadFile(&LZ77Magic, sizeof(u32), U8HeaderOffset);
 
-        if(LZ77Magic == 'LZ77')
-        {
-            FileSize -= sizeof(IMD5Header);
-            u8 * BinBuffer = (u8 *) malloc(FileSize);
-            if(!BinBuffer)
-                return false;
+		if(LZ77Magic == 'LZ77')
+		{
+			FileSize -= sizeof(IMD5Header);
+			u8 * BinBuffer = (u8 *) malloc(FileSize);
+			if(!BinBuffer)
+				return false;
 
-            ReadFile(BinBuffer, FileSize, U8HeaderOffset);
+			ReadFile(BinBuffer, FileSize, U8HeaderOffset);
 
-            u8 * UncBinBuffer = uncompressLZ77(BinBuffer, FileSize, &FileSize);
-            if(!UncBinBuffer)
-                return false;
+			u8 * UncBinBuffer = uncompressLZ77(BinBuffer, FileSize, &FileSize);
+			if(!UncBinBuffer)
+				return false;
 
-            u32 tmpSize = FileSize;
-            free(BinBuffer);
-            CloseFile();
+			u32 tmpSize = FileSize;
+			free(BinBuffer);
+			CloseFile();
 
-            FileBuffer = UncBinBuffer;
-            FileSize = tmpSize;
-            FromMem = true;
-            U8HeaderOffset = 0;
-        }
+			FileBuffer = UncBinBuffer;
+			FileSize = tmpSize;
+			FromMem = true;
+			U8HeaderOffset = 0;
+		}
 
-        return ParseU8Header(U8HeaderOffset);
+		return ParseU8Header(U8HeaderOffset);
 	}
 	//It's a direct U8Archive...weird but oh well...
 	else if(U8_Header.fcc == 0x55AA382D /* U.8- */)
 	{
-        return ParseU8Header(0);
+		return ParseU8Header(0);
 	}
 
-    //Unknown U8Archive
-    CloseFile();
+	//Unknown U8Archive
+	CloseFile();
 
-    return false;
+	return false;
 }
 
 bool U8Archive::ParseU8Header(u32 U8HeaderOffset)
 {
-    u32 U8Magic;
-    ReadFile(&U8Magic, sizeof(u32), U8HeaderOffset);
+	u32 U8Magic;
+	ReadFile(&U8Magic, sizeof(u32), U8HeaderOffset);
 
-    if(U8Magic != 0x55AA382D /* U.8- */)
-    {
-        CloseFile();
-        return false;
-    }
+	if(U8Magic != 0x55AA382D /* U.8- */)
+	{
+		CloseFile();
+		return false;
+	}
 
-    u32 rootNodeOffset = 0;
-    ReadFile(&rootNodeOffset, sizeof(u32), U8HeaderOffset+sizeof(u32));
+	u32 rootNodeOffset = 0;
+	ReadFile(&rootNodeOffset, sizeof(u32), U8HeaderOffset+sizeof(u32));
 
-    u32 fstOffset = U8HeaderOffset + rootNodeOffset;
-    U8Entry * MainFST = (U8Entry *) malloc(sizeof(U8Entry));
-    if(!MainFST)
-    {
-        CloseFile();
-        return false;
-    }
+	u32 fstOffset = U8HeaderOffset + rootNodeOffset;
+	U8Entry * MainFST = (U8Entry *) malloc(sizeof(U8Entry));
+	if(!MainFST)
+	{
+		CloseFile();
+		return false;
+	}
 
-    ReadFile(MainFST, sizeof(U8Entry), fstOffset);
+	ReadFile(MainFST, sizeof(U8Entry), fstOffset);
 
-    u32 fstNums = MainFST[0].numEntries;
-    U8Entry * fst = (U8Entry *) realloc(MainFST, fstNums*sizeof(U8Entry));
-    if(!fst)
-    {
-        free(MainFST);
-        CloseFile();
-        return false;
-    }
+	u32 fstNums = MainFST[0].numEntries;
+	U8Entry * fst = (U8Entry *) realloc(MainFST, fstNums*sizeof(U8Entry));
+	if(!fst)
+	{
+		free(MainFST);
+		CloseFile();
+		return false;
+	}
 
-    ReadFile(fst, fstNums*sizeof(U8Entry), fstOffset);
+	ReadFile(fst, fstNums*sizeof(U8Entry), fstOffset);
 
-    char filename[MAXPATHLEN];
+	char filename[MAXPATHLEN];
 	char directory[MAXPATHLEN];
 	strcpy(directory, "");
 	u32 dir_stack[100];
 	int dir_index = 0;
 
 	for (u32 i = 1; i < fstNums; ++i)
-    {
-        string RealFilename;
-        U8Filename(fst, fstOffset, i, RealFilename);
-        snprintf(filename, sizeof(filename), "%s%s", directory, RealFilename.c_str());
+	{
+		string RealFilename;
+		U8Filename(fst, fstOffset, i, RealFilename);
+		snprintf(filename, sizeof(filename), "%s%s", directory, RealFilename.c_str());
 
-        bool isDir = (fst[i].fileType == 0) ? false : true;
+		bool isDir = (fst[i].fileType == 0) ? false : true;
 
-        if(isDir)
-        {
-            dir_stack[++dir_index] = fst[i].numEntries;
-            char tmp[MAXPATHLEN];
-            snprintf(tmp, sizeof(tmp), "%s/", RealFilename.c_str());
-            strncat(directory, tmp, sizeof(directory));
-        }
+		if(isDir)
+		{
+			dir_stack[++dir_index] = fst[i].numEntries;
+			char tmp[MAXPATHLEN];
+			snprintf(tmp, sizeof(tmp), "%s/", RealFilename.c_str());
+			strncat(directory, tmp, sizeof(directory));
+		}
 
-        AddListEntrie(filename, fst[i].fileLength, fst[i].fileLength, isDir, GetItemCount(), 0, U8Arch);
-        BufferOffset.push_back(U8HeaderOffset+fst[i].fileOffset);
+		AddListEntrie(filename, fst[i].fileLength, fst[i].fileLength, isDir, GetItemCount(), 0, U8Arch);
+		BufferOffset.push_back(U8HeaderOffset+fst[i].fileOffset);
 
-        while (dir_stack[dir_index] == i+1 && dir_index > 0)
-        {
-            if(directory[strlen(directory)-1] == '/')
-                directory[strlen(directory)-1] = '\0';
+		while (dir_stack[dir_index] == i+1 && dir_index > 0)
+		{
+			if(directory[strlen(directory)-1] == '/')
+				directory[strlen(directory)-1] = '\0';
 
-            char * ptr = strrchr(directory, '/');
-            if(ptr)
-            {
-                ptr++;
-                ptr[0] = '\0';
-            }
-            else
-            {
-                directory[0] = '\0';
-            }
-            dir_index--;
-        }
-    }
+			char * ptr = strrchr(directory, '/');
+			if(ptr)
+			{
+				ptr++;
+				ptr[0] = '\0';
+			}
+			else
+			{
+				directory[0] = '\0';
+			}
+			dir_index--;
+		}
+	}
 
-    free(fst);
+	free(fst);
 
-    return true;
+	return true;
 }
 
 void U8Archive::U8Filename(const U8Entry * fst, int fstoffset, int i, string & Filename)
 {
-    u32 nameoffset = fstoffset+fst[0].numEntries*sizeof(U8Entry)+fst[i].nameOffset;
-    int n = -1;
-    char Char;
+	u32 nameoffset = fstoffset+fst[0].numEntries*sizeof(U8Entry)+fst[i].nameOffset;
+	int n = -1;
+	char Char;
 
-    do
-    {
-        n++;
-        ReadFile(&Char, 1, nameoffset+n);
-        Filename.push_back(Char);
-    }
-    while(Char != 0 && nameoffset+n < FileSize);
+	do
+	{
+		n++;
+		ReadFile(&Char, 1, nameoffset+n);
+		Filename.push_back(Char);
+	}
+	while(Char != 0 && nameoffset+n < FileSize);
 }

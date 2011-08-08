@@ -28,7 +28,7 @@
 #include <network.h>
 #include "FTPServerMenu.h"
 #include "FTPServer.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/DeviceMenu.h"
 #include "network/networkops.h"
@@ -41,22 +41,22 @@
 #include "sys.h"
 
 FTPServerMenu::FTPServerMenu()
-    : GuiWindow(0, 0)
+	: GuiWindow(0, 0)
 {
 	menu = MENU_NONE;
 
-    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	btnSoundClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    btnOutline = Resources::GetImageData("button.png");
-    btnOutlineOver = Resources::GetImageData("button_over.png");
-    network_icon = Resources::GetImageData("network.png");
-    bgImgData = Resources::GetImageData("bg_browser.png");
+	btnOutline = Resources::GetImageData("button.png");
+	btnOutlineOver = Resources::GetImageData("button_over.png");
+	network_icon = Resources::GetImageData("network.png");
+	bgImgData = Resources::GetImageData("bg_browser.png");
 
-    width = bgImgData->GetWidth();
-    height = bgImgData->GetHeight()+100;
+	width = bgImgData->GetWidth();
+	height = bgImgData->GetHeight()+100;
 
 	bgImg = new GuiImage(bgImgData);
 	Append(bgImg);
@@ -65,10 +65,10 @@ FTPServerMenu::FTPServerMenu()
 	networkImg->SetPosition(30, 16);
 	Append(networkImg);
 
-	IPText = new GuiText(fmt("Server IP: %s    Port: %d", GetNetworkIP(), Settings.FTPServer.Port), 20, (GXColor){0, 0, 0, 255});
-    IPText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    IPText->SetPosition(65, 25);
-    Append(IPText);
+	IPText = new GuiText(fmt("Server IP: %s	Port: %d", GetNetworkIP(), Settings.FTPServer.Port), 20, (GXColor){0, 0, 0, 255});
+	IPText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	IPText->SetPosition(65, 25);
+	Append(IPText);
 
 	backBtnTxt = new GuiText(tr("Go Back"), 20, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);
@@ -81,7 +81,7 @@ FTPServerMenu::FTPServerMenu()
 	backBtn->SetSoundOver(btnSoundOver);
 	backBtn->SetTrigger(trigA);
 	backBtn->SetEffectGrow();
-    backBtn->Clicked.connect(this, &FTPServerMenu::OnButtonClick);
+	backBtn->Clicked.connect(this, &FTPServerMenu::OnButtonClick);
 	Append(backBtn);
 
 	MainFTPBtnTxt = new GuiText(tr("Startup FTP"), 20, (GXColor){0, 0, 0, 255});
@@ -95,104 +95,94 @@ FTPServerMenu::FTPServerMenu()
 	MainFTPBtn->SetSoundOver(btnSoundOver);
 	MainFTPBtn->SetTrigger(trigA);
 	MainFTPBtn->SetEffectGrow();
-    MainFTPBtn->Clicked.connect(this, &FTPServerMenu::OnButtonClick);
+	MainFTPBtn->Clicked.connect(this, &FTPServerMenu::OnButtonClick);
 	Append(MainFTPBtn);
 
-    Console = new GXConsole(bgImgData->GetWidth()-50, 250);
-    Console->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-    Console->SetPosition(20, 65);
+	Console = new GXConsole(bgImgData->GetWidth()-50, 250);
+	Console->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Console->SetPosition(20, 65);
 	Append(Console);
 
 	SetGXConsole(Console);
 
-    SetEffect(EFFECT_FADE, 50);
+	SetEffect(EFFECT_FADE, 50);
 
-    if(FTPServer::Instance()->IsRunning())
-    {
-        gxprintf("%s %d.\n", tr("FTP Server is running and listening on port"), Settings.FTPServer.Port);
-        MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
-    }
-    else
-        gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
+	if(FTPServer::Instance()->IsRunning())
+	{
+		gxprintf("%s %d.\n", tr("FTP Server is running and listening on port"), Settings.FTPServer.Port);
+		MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
+	}
+	else
+		gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
 }
 
 FTPServerMenu::~FTPServerMenu()
 {
-    MainWindow::Instance()->ResumeGui();
+	SetEffect(EFFECT_FADE, -50);
 
-    SetEffect(EFFECT_FADE, -50);
+	while(this->GetEffect() > 0)
+		usleep(100);
 
-    while(this->GetEffect() > 0)
-        usleep(100);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    MainWindow::Instance()->HaltGui();
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
-
-    RemoveAll();
+	RemoveAll();
 	SetGXConsole(NULL);
 
-    MainWindow::Instance()->ResumeGui();
+	Resources::Remove(btnSoundClick);
+	Resources::Remove(btnSoundOver);
 
-    Resources::Remove(btnSoundClick);
-    Resources::Remove(btnSoundOver);
+	Resources::Remove(btnOutline);
+	Resources::Remove(btnOutlineOver);
+	Resources::Remove(network_icon);
+	Resources::Remove(bgImgData);
 
-    Resources::Remove(btnOutline);
-    Resources::Remove(btnOutlineOver);
-    Resources::Remove(network_icon);
-    Resources::Remove(bgImgData);
+	delete bgImg;
+	delete backBtnImg;
+	delete MainFTPBtnImg;
+	delete networkImg;
 
-    delete bgImg;
-    delete backBtnImg;
-    delete MainFTPBtnImg;
-    delete networkImg;
+	delete IPText;
+	delete backBtnTxt;
+	delete MainFTPBtnTxt;
 
-    delete IPText;
-    delete backBtnTxt;
-    delete MainFTPBtnTxt;
+	delete backBtn;
+	delete MainFTPBtn;
 
-    delete backBtn;
-    delete MainFTPBtn;
+	delete trigA;
 
-    delete trigA;
-
-    delete Console;
+	delete Console;
 }
 
 int FTPServerMenu::GetMenu()
 {
-    if(shutdown)
-        Sys_Shutdown();
-    else if(reset)
-        Sys_Reboot();
+//	if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//	{
+//		menu = Taskbar::Instance()->GetMenu();
+//	}
 
-    else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-    {
-        menu = Taskbar::Instance()->GetMenu();
-    }
-
-    return menu;
+	return menu;
 }
 
-void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
+void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    sender->ResetState();
+	sender->ResetState();
 
-    if(sender == backBtn)
-    {
-        menu = MENU_BROWSE_DEVICE;
-    }
-    else if(sender == MainFTPBtn)
-    {
-        if(FTPServer::Instance()->IsRunning())
-        {
-            MainFTPBtnTxt->SetText(tr("Startup FTP"));
-            FTPServer::Instance()->ShutdownFTP();
-        }
-        else
-        {
-            MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
-            FTPServer::Instance()->StartupFTP();
-        }
-    }
+	if(sender == backBtn)
+	{
+		menu = MENU_BROWSE_DEVICE;
+	}
+	else if(sender == MainFTPBtn)
+	{
+		if(FTPServer::Instance()->IsRunning())
+		{
+			MainFTPBtnTxt->SetText(tr("Startup FTP"));
+			FTPServer::Instance()->ShutdownFTP();
+		}
+		else
+		{
+			MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
+			FTPServer::Instance()->StartupFTP();
+		}
+	}
 }

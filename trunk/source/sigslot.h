@@ -3,7 +3,7 @@
 // Written by Sarah Thompson (sarah@telergy.com) 2002.
 //
 // License: Public domain. You are free to use this code however you like, with the proviso that
-//          the author takes on no responsibility or liability for any use.
+//		  the author takes on no responsibility or liability for any use.
 //
 // QUICK DOCUMENTATION
 //
@@ -74,27 +74,13 @@
 //			See the full documentation at http://sigslot.sourceforge.net/
 //
 //
-
 #ifndef SIGSLOT_H__
 #define SIGSLOT_H__
 
 #include <set>
 #include <list>
 
-#if defined(SIGSLOT_PURE_ISO) || (!defined(WIN32) && !defined(__GNUG__) && !defined(SIGSLOT_USE_POSIX_THREADS) && !defined(SIGSLOT_USE_LWP_THREADS))
-#	define _SIGSLOT_SINGLE_THREADED
-#elif defined(WIN32)
-#	define _SIGSLOT_HAS_WIN32_THREADS
-#	include <windows.h>
-#elif (defined(__GNUG__) && defined(__GCCORE_H__)) || defined(SIGSLOT_USE_LWP_THREADS)
-#	define _SIGSLOT_HAS_LWP_THREADS
-#	include <ogc/mutex.h>
-#elif defined(__GNUG__) || defined(SIGSLOT_USE_POSIX_THREADS)
-#	define _SIGSLOT_HAS_POSIX_THREADS
-#	include <pthread.h>
-#else
-#	define _SIGSLOT_SINGLE_THREADED
-#endif
+#define _SIGSLOT_SINGLE_THREADED
 
 #ifndef SIGSLOT_DEFAULT_MT_POLICY
 #	ifdef _SIGSLOT_SINGLE_THREADED
@@ -280,18 +266,13 @@ namespace sigslot {
 #endif // _SIGSLOT_HAS_POSIX_THREADS
 
 #ifdef _SIGSLOT_HAS_LWP_THREADS
-	// The multi threading policies only get compiled in if they are enabled.
-	//!making mutex static because libogc only supports up to 64 mutex - Dimok
-	static mutex_t g_mutex = LWP_MUTEX_NULL;
-	static mutex_t m_mutex = LWP_MUTEX_NULL;
 
 	class multi_threaded_global
 	{
 	public:
 		multi_threaded_global()
 		{
-		    if(g_mutex == LWP_MUTEX_NULL)
-                LWP_MutexInit(&g_mutex, NULL);
+			;
 		}
 
 		multi_threaded_global(const multi_threaded_global&)
@@ -306,12 +287,12 @@ namespace sigslot {
 
 		virtual void lock()
 		{
-			LWP_MutexLock(g_mutex);
+			;
 		}
 
 		virtual void unlock()
 		{
-			LWP_MutexUnlock(g_mutex);
+			;
 		}
 	};
 
@@ -320,14 +301,12 @@ namespace sigslot {
 	public:
 		multi_threaded_local()
 		{
-		    if(m_mutex == LWP_MUTEX_NULL)
-                LWP_MutexInit(&m_mutex, NULL);
+			;
 		}
 
 		multi_threaded_local(const multi_threaded_local&)
 		{
-		    if(m_mutex == LWP_MUTEX_NULL)
-                LWP_MutexInit(&m_mutex, NULL);
+			;
 		}
 
 		virtual ~multi_threaded_local()
@@ -336,12 +315,12 @@ namespace sigslot {
 
 		virtual void lock()
 		{
-			LWP_MutexLock(m_mutex);
+			;
 		}
 
 		virtual void unlock()
 		{
-			LWP_MutexUnlock(m_mutex);
+			;
 		}
 	};
 
@@ -800,8 +779,8 @@ namespace sigslot {
 	public:
 		typedef typename std::list<_connection_base2<arg1_type, arg2_type, mt_policy> *>
 			connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base2()
 		{
@@ -921,8 +900,8 @@ namespace sigslot {
 		typedef std::list<_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy> *>
 			connections_list;
 
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 		_signal_base3()
 		{
 			;
@@ -1040,8 +1019,8 @@ namespace sigslot {
 	public:
 		typedef std::list<_connection_base4<arg1_type, arg2_type, arg3_type,
 			arg4_type, mt_policy> *>  connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base4()
 		{
@@ -1161,8 +1140,8 @@ namespace sigslot {
 	public:
 		typedef std::list<_connection_base5<arg1_type, arg2_type, arg3_type,
 			arg4_type, arg5_type, mt_policy> *>  connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base5()
 		{
@@ -1283,8 +1262,8 @@ namespace sigslot {
 	public:
 		typedef std::list<_connection_base6<arg1_type, arg2_type, arg3_type,
 			arg4_type, arg5_type, arg6_type, mt_policy> *>  connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base6()
 		{
@@ -1405,8 +1384,8 @@ namespace sigslot {
 	public:
 		typedef std::list<_connection_base7<arg1_type, arg2_type, arg3_type,
 			arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> *>  connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base7()
 		{
@@ -1528,8 +1507,8 @@ namespace sigslot {
 		typedef std::list<_connection_base8<arg1_type, arg2_type, arg3_type,
 			arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> *>
 			connections_list;
-        typedef typename connections_list::const_iterator const_iterator;
-        typedef typename connections_list::iterator iterator;
+		typedef typename connections_list::const_iterator const_iterator;
+		typedef typename connections_list::iterator iterator;
 
 		_signal_base8()
 		{
@@ -1801,10 +1780,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection3()
-                {
-                        ;
-                }
+				virtual ~_connection3()
+				{
+						;
+				}
 
 
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone()
@@ -1851,10 +1830,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection4()
-                {
-                        ;
-                }
+				virtual ~_connection4()
+				{
+						;
+				}
 
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone()
 		{
@@ -1902,10 +1881,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection5()
-                {
-                        ;
-                }
+				virtual ~_connection5()
+				{
+						;
+				}
 
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type,
 			arg5_type, mt_policy>* clone()
@@ -1957,10 +1936,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection6()
-                {
-                        ;
-                }
+				virtual ~_connection6()
+				{
+						;
+				}
 
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type,
 			arg5_type, arg6_type, mt_policy>* clone()
@@ -2012,10 +1991,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection7()
-                {
-                        ;
-                }
+				virtual ~_connection7()
+				{
+						;
+				}
 
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type,
 			arg5_type, arg6_type, arg7_type, mt_policy>* clone()
@@ -2069,10 +2048,10 @@ namespace sigslot {
 			m_pmemfun = pmemfun;
 		}
 
-                virtual ~_connection8()
-                {
-                        ;
-                }
+				virtual ~_connection8()
+				{
+						;
+				}
 
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type,
 			arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone()
@@ -2109,7 +2088,7 @@ namespace sigslot {
 	class signal0 : public _signal_base0<mt_policy>
 	{
 	public:
-    	typedef typename _signal_base0<mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base0<mt_policy>::connections_list::const_iterator const_iterator;
 		signal0()
 		{
 			;
@@ -2175,7 +2154,7 @@ namespace sigslot {
 	class signal1 : public _signal_base1<arg1_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base1<arg1_type, mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base1<arg1_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal1()
 		{
 			;
@@ -2241,7 +2220,7 @@ namespace sigslot {
 	class signal2 : public _signal_base2<arg1_type, arg2_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base2<arg1_type, arg2_type, mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base2<arg1_type, arg2_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal2()
 		{
 			;
@@ -2308,7 +2287,7 @@ namespace sigslot {
 	class signal3 : public _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base3<arg1_type, arg2_type, arg3_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal3()
 		{
 			;
@@ -2377,7 +2356,7 @@ namespace sigslot {
 		arg4_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal4()
 		{
 			;
@@ -2447,7 +2426,7 @@ namespace sigslot {
 		arg4_type, arg5_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>::connections_list::const_iterator const_iterator;
+		typedef typename _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal5()
 		{
 			;
@@ -2522,7 +2501,7 @@ namespace sigslot {
 		arg4_type, arg5_type, arg6_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base6<arg1_type, arg2_type, arg3_type,
+		typedef typename _signal_base6<arg1_type, arg2_type, arg3_type,
 		arg4_type, arg5_type, arg6_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal6()
 		{
@@ -2598,7 +2577,7 @@ namespace sigslot {
 		arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base7<arg1_type, arg2_type, arg3_type,
+		typedef typename _signal_base7<arg1_type, arg2_type, arg3_type,
 		arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal7()
 		{
@@ -2675,7 +2654,7 @@ namespace sigslot {
 		arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>
 	{
 	public:
-    	typedef typename _signal_base8<arg1_type, arg2_type, arg3_type,
+		typedef typename _signal_base8<arg1_type, arg2_type, arg3_type,
 		arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>::connections_list::const_iterator const_iterator;
 		signal8()
 		{

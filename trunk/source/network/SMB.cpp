@@ -40,47 +40,47 @@ static bool firstRun = true;
  ****************************************************************************/
 bool ConnectSMBShare(int client)
 {
-    if(client < 0 || client >= MAXSMBUSERS)
-        return false;
+	if(client < 0 || client >= MAXSMBUSERS)
+		return false;
 
-    if(firstRun)
-    {
-        if(!IsNetworkInit())
-            Initialize_Network();
+	if(firstRun)
+	{
+		if(!IsNetworkInit())
+			Initialize_Network();
 
-        for(int i = 0; i < MAXSMBUSERS; i++)
-            SMB_Mounted[i] = false;
+		for(int i = 0; i < MAXSMBUSERS; i++)
+			SMB_Mounted[i] = false;
 
-        firstRun = false;
-    }
+		firstRun = false;
+	}
 
-    if(SMB_Mounted[client])
-        return true;
+	if(SMB_Mounted[client])
+		return true;
 
-    bool result = false;
-    char mountname[10];
-    char User[50];
-    char Password[50];
-    char SMBName[50];
-    char Host[50];
+	bool result = false;
+	char mountname[10];
+	char User[50];
+	char Password[50];
+	char SMBName[50];
+	char Host[50];
 
-    //don't let tinysmb modify the settings strings
-    sprintf(mountname, "smb%i", client+1);
-    strcpy(Host, Settings.SMBUser[client].Host);
-    strcpy(User, Settings.SMBUser[client].User);
-    strcpy(Password, Settings.SMBUser[client].Password);
-    strcpy(SMBName, Settings.SMBUser[client].SMBName);
+	//don't let tinysmb modify the settings strings
+	sprintf(mountname, "smb%i", client+1);
+	strcpy(Host, Settings.SMBUser[client].Host);
+	strcpy(User, Settings.SMBUser[client].User);
+	strcpy(Password, Settings.SMBUser[client].Password);
+	strcpy(SMBName, Settings.SMBUser[client].SMBName);
 
-    if(strcmp(Host, "") != 0)
-    {
-        if(smbInitDevice(mountname, User, Password, SMBName, Host))
-        {
-            result = true;
-            SMB_Mounted[client] = true;
-        }
-    }
+	if(strcmp(Host, "") != 0)
+	{
+		if(smbInitDevice(mountname, User, Password, SMBName, Host))
+		{
+			result = true;
+			SMB_Mounted[client] = true;
+		}
+	}
 
-    return result;
+	return result;
 }
 
 /****************************************************************************
@@ -88,13 +88,13 @@ bool ConnectSMBShare(int client)
  ****************************************************************************/
 bool ConnectSMBShare()
 {
-    bool result = false;
+	bool result = false;
 
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        if(ConnectSMBShare(i))
-            result = true;
-    }
+	for(int i = 0; i < MAXSMBUSERS; i++)
+	{
+		if(ConnectSMBShare(i))
+			result = true;
+	}
 
 	return result;
 }
@@ -104,10 +104,10 @@ bool ConnectSMBShare()
  ***************************************************************************/
 bool IsSMB_Mounted(int smb)
 {
-    if(smb < 0 || smb >= MAXSMBUSERS)
-        return false;
+	if(smb < 0 || smb >= MAXSMBUSERS)
+		return false;
 
-    return SMB_Mounted[smb];
+	return SMB_Mounted[smb];
 }
 
 /****************************************************************************
@@ -115,24 +115,24 @@ bool IsSMB_Mounted(int smb)
  ****************************************************************************/
 void CloseSMBShare(int connection)
 {
-    if(connection < 0 || connection >= MAXSMBUSERS)
-        return;
+	if(connection < 0 || connection >= MAXSMBUSERS)
+		return;
 
-    char mountname[10];
-    sprintf(mountname, "smb%i", connection+1);
+	char mountname[10];
+	sprintf(mountname, "smb%i", connection+1);
 
-    if(IsSMB_Mounted(connection))
-        smbClose(mountname);
+	if(IsSMB_Mounted(connection))
+		smbClose(mountname);
 
-    SMB_Mounted[connection] = false;
+	SMB_Mounted[connection] = false;
 }
 
 void CloseSMBShare()
 {
-    for(int i = 0; i < MAXSMBUSERS; i++)
-    {
-        CloseSMBShare(i);
-    }
+	for(int i = 0; i < MAXSMBUSERS; i++)
+	{
+		CloseSMBShare(i);
+	}
 }
 
 /****************************************************************************
@@ -140,7 +140,7 @@ void CloseSMBShare()
  ****************************************************************************/
 bool SMB_Reconnect()
 {
-    CloseSMBShare();
-    usleep(200000);
-    return ConnectSMBShare();
+	CloseSMBShare();
+	usleep(200000);
+	return ConnectSMBShare();
 }

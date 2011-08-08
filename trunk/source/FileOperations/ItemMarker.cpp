@@ -30,154 +30,154 @@
 
 void ItemMarker::AddItem(const ItemStruct * file)
 {
-    if(!file || !file->itempath)
-        return;
+	if(!file || !file->itempath)
+		return;
 
-    else if(strlen(file->itempath) == 0)
-        return;
+	else if(strlen(file->itempath) == 0)
+		return;
 
-    else if(FindItem(file) >= 0)
-        return;
+	else if(FindItem(file) >= 0)
+		return;
 
-    char * filename = strrchr(file->itempath, '/');
+	char * filename = strrchr(file->itempath, '/');
 
-    if(filename)
-    {
-        filename++;
-        if(strcmp(filename, ".") == 0 || strcmp(filename, "..") == 0)
-            return;
-    }
+	if(filename)
+	{
+		filename++;
+		if(strcmp(filename, ".") == 0 || strcmp(filename, "..") == 0)
+			return;
+	}
 
-    ItemStruct * newItem = new ItemStruct;
-    newItem->itempath = (char *) malloc(strlen(file->itempath)+1);
-    newItem->itemsize = file->itemsize;
-    newItem->isdir = file->isdir;
-    newItem->itemindex = file->itemindex;
+	ItemStruct * newItem = new ItemStruct;
+	newItem->itempath = (char *) malloc(strlen(file->itempath)+1);
+	newItem->itemsize = file->itemsize;
+	newItem->isdir = file->isdir;
+	newItem->itemindex = file->itemindex;
 
-    //! Skip double '/'
-    int j, n = 0;
-    char * srcpath = file->itempath;
-    char * dstpath = newItem->itempath;
+	//! Skip double '/'
+	int j, n = 0;
+	char * srcpath = file->itempath;
+	char * dstpath = newItem->itempath;
 
-    for(j = 0; srcpath[j] != 0; ++j)
-    {
-        if(srcpath[j] == '/' && srcpath[j+1] == '/')
-            continue;
+	for(j = 0; srcpath[j] != 0; ++j)
+	{
+		if(srcpath[j] == '/' && srcpath[j+1] == '/')
+			continue;
 
-        dstpath[n] = srcpath[j];
-        ++n;
-    }
-    dstpath[n] = 0;
+		dstpath[n] = srcpath[j];
+		++n;
+	}
+	dstpath[n] = 0;
 
-    Items.push_back(newItem);
+	Items.push_back(newItem);
 }
 
 ItemStruct * ItemMarker::GetItem(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return NULL;
+	if(ind < 0 || ind >= (int) Items.size())
+		return NULL;
 
-    return Items.at(ind);
+	return Items.at(ind);
 }
 
 const char * ItemMarker::GetItemName(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return NULL;
+	if(ind < 0 || ind >= (int) Items.size())
+		return NULL;
 
-    const char * itempath = Items.at(ind)->itempath;
+	const char * itempath = Items.at(ind)->itempath;
 
-    if(itempath[strlen(itempath)-1] == '/' && strlen(itempath) > 2)
-    {
-        const char * ptr = &itempath[strlen(itempath)-2];
-        while(ptr > itempath && *ptr != '/')
-            --ptr;
+	if(itempath[strlen(itempath)-1] == '/' && strlen(itempath) > 2)
+	{
+		const char * ptr = &itempath[strlen(itempath)-2];
+		while(ptr > itempath && *ptr != '/')
+			--ptr;
 
-        if(ptr == itempath)
-            return NULL;
+		if(ptr == itempath)
+			return NULL;
 
-        return ptr+1;
-    }
+		return ptr+1;
+	}
 
-    const char * filename = strrchr(itempath, '/');
+	const char * filename = strrchr(itempath, '/');
 
-    if(!filename)
-        return NULL;
+	if(!filename)
+		return NULL;
 
-    return filename+1;
+	return filename+1;
 }
 
 const char * ItemMarker::GetItemPath(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return NULL;
+	if(ind < 0 || ind >= (int) Items.size())
+		return NULL;
 
-    return (const char *) Items.at(ind)->itempath;
+	return (const char *) Items.at(ind)->itempath;
 }
 
 u64 ItemMarker::GetItemSize(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return 0;
+	if(ind < 0 || ind >= (int) Items.size())
+		return 0;
 
-    return Items.at(ind)->itemsize;
+	return Items.at(ind)->itemsize;
 }
 
 bool ItemMarker::IsItemDir(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return false;
+	if(ind < 0 || ind >= (int) Items.size())
+		return false;
 
-    return Items.at(ind)->isdir;
+	return Items.at(ind)->isdir;
 }
 
 int ItemMarker::GetItemIndex(int ind)
 {
-    if(ind < 0 || ind >= (int) Items.size())
-        return -1;
+	if(ind < 0 || ind >= (int) Items.size())
+		return -1;
 
-    return Items.at(ind)->itemindex;
+	return Items.at(ind)->itemindex;
 }
 
 int ItemMarker::FindItem(const ItemStruct * Item)
 {
-    if(!Item)
-        return -1;
+	if(!Item)
+		return -1;
 
-    for(u32 i = 0; i < Items.size(); i++)
-    {
-        if(strcasecmp(Item->itempath, Items.at(i)->itempath) == 0)
-        {
-            return i;
-        }
-    }
+	for(u32 i = 0; i < Items.size(); i++)
+	{
+		if(strcasecmp(Item->itempath, Items.at(i)->itempath) == 0)
+		{
+			return i;
+		}
+	}
 
-    return -1;
+	return -1;
 }
 
 void ItemMarker::RemoveItem(const ItemStruct * Item)
 {
-    if(!Item)
-        return;
+	if(!Item)
+		return;
 
-    int num = FindItem(Item);
+	int num = FindItem(Item);
 
-    if(num < 0)
-        return;
+	if(num < 0)
+		return;
 
-    free(Items.at(num)->itempath);
-    delete Items.at(num);
+	free(Items.at(num)->itempath);
+	delete Items.at(num);
 
-    Items.erase(Items.begin()+num);
+	Items.erase(Items.begin()+num);
 }
 
 void ItemMarker::Reset()
 {
-    for(u32 i = 0; i < Items.size(); i++)
-    {
-        free(Items.at(i)->itempath);
-        delete Items.at(i);
-    }
+	for(u32 i = 0; i < Items.size(); i++)
+	{
+		free(Items.at(i)->itempath);
+		delete Items.at(i);
+	}
 
-    Items.clear();
+	Items.clear();
 }

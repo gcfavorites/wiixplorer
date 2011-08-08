@@ -25,43 +25,42 @@
  *
  * for WiiXplorer 2009
  ***************************************************************************/
-#ifndef _RARFILE_H_
-#define _RARFILE_H_
+#ifndef ___RARFILE_H_
+#define ___RARFILE_H_
 
 #include <vector>
 #include <string>
 
 #include <libunrar/rar.hpp>
-#include "7ZipFile.h"
-
+#include "ArchiveStruct.h"
 
 class RarFile
 {
-    public:
+	public:
 		//!Constructor
-        RarFile(const char *filepath);
+		RarFile(const char *filepath);
 		//!Destructor
 		~RarFile();
 		//!Get the archive file structure
-        ArchiveFileStruct * GetFileStruct(int fileIndx);
+		ArchiveFileStruct * GetFileStruct(int fileIndx);
 		//!Extract file from a 7zip to file
-        int ExtractFile(int fileindex, const char * outpath, bool withpath = false);
+		int ExtractFile(int fileindex, const char * outpath, bool withpath = false);
 		//!Extract all files from the RAR to a path
-        int ExtractAll(const char * destpath);
+		int ExtractAll(const char * destpath);
 		//!Get the total amount of items inside the archive
-        u32 GetItemCount();
+		u32 GetItemCount();
 
-    private:
-        bool LoadList();
-        void ClearList();
-        bool CheckPassword();
-        bool SeekFile(int index);
-        void UnstoreFile(ComprDataIO &DataIO, int64 DestUnpSize);
-        int InternalExtractFile(const char * outpath, bool withpath);
-        Archive RarArc;
+	private:
+		bool LoadList();
+		void ClearList();
+		bool CheckPassword();
+		bool SeekFile(int index);
+		void UnstoreFile(ComprDataIO &DataIO, int64 DestUnpSize);
+		int InternalExtractFile(const char * outpath, bool withpath);
+		Archive RarArc;
 
-        std::vector<ArchiveFileStruct *> RarStructure;
-        std::string Password;
+		std::vector<ArchiveFileStruct *> RarStructure;
+		std::string Password;
 };
 
 #endif

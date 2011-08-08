@@ -63,14 +63,14 @@ bool I4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 8)
 	{
@@ -111,14 +111,14 @@ bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
@@ -138,7 +138,7 @@ bool IA4ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 					u8 g = ((oldpixel & 0xF) * 255) / 15;
 					u8 b = ((oldpixel & 0xF) * 255) / 15;
 					u8 a = ((oldpixel >> 4)  * 255) / 15;
-                    a = 127-127*a/255;
+					a = 127-127*a/255;
 
 					gdImageSetPixel(*im, x+1, y, gdTrueColorAlpha(r, g, b, a));
 				}
@@ -155,14 +155,14 @@ bool I8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
@@ -197,14 +197,14 @@ bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
@@ -223,7 +223,7 @@ bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 					u8 g = oldpixel >> 8;
 					u8 b = oldpixel >> 8;
 					u8 a = oldpixel & 0xFF;
-                    a = 127-127*a/255;
+					a = 127-127*a/255;
 
 					gdImageSetPixel(*im, x+1, y, gdTrueColorAlpha(r, g, b, a));
 				}
@@ -236,23 +236,23 @@ bool IA8ToGD(const u8 * buffer, u32 width, u32 height, gdImagePtr * im)
 bool CMPToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 {
 	u32 x, y;
-    u8 r, g, b, a;
-    u16 raw;
-    u16 c[4];
-    int x0, x1, x2, y0, y1, y2, off;
-    int ww = (-(-(width) & -(8)));
-    int ix;
-    u32 px;
+	u8 r, g, b, a;
+	u16 raw;
+	u16 c[4];
+	int x0, x1, x2, y0, y1, y2, off;
+	int ww = (-(-(width) & -(8)));
+	int ix;
+	u32 px;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for (y = 0; y < height; y++)
 	{
@@ -285,7 +285,7 @@ bool CMPToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 			b = (raw << 3) & 0xf8;
 			a = gdAlphaOpaque;
 
-            gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
+			gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 		}
 	}
 
@@ -299,14 +299,14 @@ bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
@@ -326,7 +326,7 @@ bool RGB565ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 					u8 b = ((pixel >> 0)  & 0x1F) << 3;
 					u8 a = gdAlphaOpaque;
 
-                    gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
+					gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 				}
 			}
 		}
@@ -341,14 +341,14 @@ bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 	u32 iv;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
@@ -370,7 +370,7 @@ bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 						u8 b = (((pixel >> 0)  & 0x1F) * 255) / 31;
 						u8 a = gdAlphaOpaque;
 
-                        gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
+						gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 					}
 					else
 					{
@@ -379,9 +379,9 @@ bool RGB565A3ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 						u8 g = (((pixel >> 8)  & 0xF) * 255) / 15;
 						u8 b = (((pixel >> 4)  & 0xF) * 255) / 15;
 						u8 a = (((pixel >> 0)  & 0x7) * 64) / 7;
-                        a = 127-127*a/255;
+						a = 127-127*a/255;
 
-                        gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
+						gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 					}
 				}
 			}
@@ -397,28 +397,28 @@ bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 	u8 r, g, b, a;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
 	for(y = 0; y < height; y++)
 	{
 		for(x = 0; x < width; x++)
 		{
-		    offset = coordsRGBA8(x, y, width);
-            a = *(buffer+offset);
-            r = *(buffer+offset+1);
-            g = *(buffer+offset+32);
-            b = *(buffer+offset+33);
+			offset = coordsRGBA8(x, y, width);
+			a = *(buffer+offset);
+			r = *(buffer+offset+1);
+			g = *(buffer+offset+32);
+			b = *(buffer+offset+33);
 
-            a = 127-127*a/255;
+			a = 127-127*a/255;
 
-            gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
+			gdImageSetPixel(*im, x, y, gdTrueColorAlpha(r, g, b, a));
 		}
 	}
 
@@ -428,184 +428,184 @@ bool RGBA8ToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 bool YCbYCrToGD(const u8* buffer, u32 width, u32 height, gdImagePtr * im)
 {
 	u32 x, y, x1, YCbYCr;
-    int r, g, b;
-    u8 r1, g1, b1;
+	int r, g, b;
+	u8 r1, g1, b1;
 
 	if(!buffer)
-        return false;
+		return false;
 
 	*im = gdImageCreateTrueColor(width, height);
 	if(*im == 0)
 		return false;
 
-    gdImageAlphaBlending(*im, 0);
-    gdImageSaveAlpha(*im, 1);
+	gdImageAlphaBlending(*im, 0);
+	gdImageSaveAlpha(*im, 1);
 
-    for(y = 0; y < height; y++)
-    {
-        for (x = 0, x1 = 0; x < (width / 2); x++, x1++)
-        {
-            YCbYCr = ((u32 *) buffer)[y*width/2+x];
+	for(y = 0; y < height; y++)
+	{
+		for (x = 0, x1 = 0; x < (width / 2); x++, x1++)
+		{
+			YCbYCr = ((u32 *) buffer)[y*width/2+x];
 
-            u8 * val = (u8 *) &YCbYCr;
+			u8 * val = (u8 *) &YCbYCr;
 
-            r = (int) (1.371f * (val[3] - 128));
-            g = (int) (- 0.698f * (val[3] - 128) - 0.336f * (val[1] - 128));
-            b = (int) (1.732f * (val[1] - 128));
+			r = (int) (1.371f * (val[3] - 128));
+			g = (int) (- 0.698f * (val[3] - 128) - 0.336f * (val[1] - 128));
+			b = (int) (1.732f * (val[1] - 128));
 
-            r1 = cut_bounds(val[0] + r, 0, 255);
-            g1 = cut_bounds(val[0] + g, 0, 255);
-            b1 = cut_bounds(val[0] + b, 0, 255);
+			r1 = LIMIT(val[0] + r, 0, 255);
+			g1 = LIMIT(val[0] + g, 0, 255);
+			b1 = LIMIT(val[0] + b, 0, 255);
 
-            gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
-            x1++;
+			gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
+			x1++;
 
-            r1 = cut_bounds(val[2] + r, 0, 255);
-            g1 = cut_bounds(val[2] + g, 0, 255);
-            b1 = cut_bounds(val[2] + b, 0, 255);
-            gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
-        }
-    }
+			r1 = LIMIT(val[2] + r, 0, 255);
+			g1 = LIMIT(val[2] + g, 0, 255);
+			b1 = LIMIT(val[2] + b, 0, 255);
+			gdImageSetPixel(*im, x1, y, gdTrueColorAlpha(r1, g1, b1, gdAlphaOpaque));
+		}
+	}
 
-    return true;
+	return true;
 }
 
 u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 {
 	int width = gdImageSX(*gdImg);
 	int height = gdImageSY(*gdImg);
-    float scale = 1.0f;
-    int retries = 100;  //shouldn't need that long but to be sure
+	float scale = 1.0f;
+	int retries = 100;  //shouldn't need that long but to be sure
 
-    gdImageAlphaBlending(*gdImg, 0);
-    gdImageSaveAlpha(*gdImg, 1);
+	gdImageAlphaBlending(*gdImg, 0);
+	gdImageSaveAlpha(*gdImg, 1);
 
-    while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
-    {
-        if(width*scale > MAXWIDTH)
-            scale = MAXWIDTH/width;
-        if(height*scale > MAXHEIGHT)
-            scale = MAXHEIGHT/height;
+	while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
+	{
+		if(width*scale > MAXWIDTH)
+			scale = MAXWIDTH/width;
+		if(height*scale > MAXHEIGHT)
+			scale = MAXHEIGHT/height;
 
-        retries--;
+		retries--;
 
-        if(!retries)
-        {
-            while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
-                scale -= 0.02;
-            break;
-        }
-    }
+		if(!retries)
+		{
+			while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
+				scale -= 0.02;
+			break;
+		}
+	}
 
-    width = ALIGN((int) (width * scale));
-    height = ALIGN((int) (height * scale));
+	width = ALIGN((int) (width * scale));
+	height = ALIGN((int) (height * scale));
 
-    if(width != gdImageSX(*gdImg) || height != gdImageSY(*gdImg))
-    {
-        gdImagePtr dst = gdImageCreateTrueColor(width, height);
-        gdImageAlphaBlending(dst, 0);
-        gdImageSaveAlpha(dst, 1);
-        gdImageCopyResized(dst, *gdImg, 0, 0, 0, 0, width, height, gdImageSX(*gdImg), gdImageSY(*gdImg));
+	if(width != gdImageSX(*gdImg) || height != gdImageSY(*gdImg))
+	{
+		gdImagePtr dst = gdImageCreateTrueColor(width, height);
+		gdImageAlphaBlending(dst, 0);
+		gdImageSaveAlpha(dst, 1);
+		gdImageCopyResized(dst, *gdImg, 0, 0, 0, 0, width, height, gdImageSX(*gdImg), gdImageSY(*gdImg));
 
-        gdImageDestroy(*gdImg);
-        *gdImg = dst;
+		gdImageDestroy(*gdImg);
+		*gdImg = dst;
 
-        width = gdImageSX(*gdImg);
-        height = gdImageSY(*gdImg);
-    }
+		width = gdImageSX(*gdImg);
+		height = gdImageSY(*gdImg);
+	}
 
-    int len =  datasizeRGBA8(width, height);
+	int len =  datasizeRGBA8(width, height);
 
-    u8 * data = (u8 *) memalign(32, len);
-    if(!data)
-        return NULL;
+	u8 * data = (u8 *) memalign(32, len);
+	if(!data)
+		return NULL;
 
 	u8 a;
-    u32 x, y, pixel, offset;
+	u32 x, y, pixel, offset;
 
-    for(y = 0; y < (u32) height; ++y)
-    {
-        for(x = 0; x < (u32) width; ++x)
-        {
-            pixel = gdImageGetPixel(*gdImg, x, y);
+	for(y = 0; y < (u32) height; ++y)
+	{
+		for(x = 0; x < (u32) width; ++x)
+		{
+			pixel = gdImageGetPixel(*gdImg, x, y);
 
-            a = 254 - 2*(gdImageAlpha(*gdImg, pixel) & 0xFF);
-            if(a == 254) a++;
+			a = 254 - 2*(gdImageAlpha(*gdImg, pixel) & 0xFF);
+			if(a == 254) a++;
 
-            offset = coordsRGBA8(x, y, width);
-            data[offset] = a;
-            data[offset+1] = (u8)gdImageRed(*gdImg, pixel);
-            data[offset+32] = (u8)gdImageGreen(*gdImg, pixel);
-            data[offset+33] = (u8)gdImageBlue(*gdImg, pixel);
-        }
-    }
+			offset = coordsRGBA8(x, y, width);
+			data[offset] = a;
+			data[offset+1] = (u8)gdImageRed(*gdImg, pixel);
+			data[offset+32] = (u8)gdImageGreen(*gdImg, pixel);
+			data[offset+33] = (u8)gdImageBlue(*gdImg, pixel);
+		}
+	}
 
-    DCFlushRange(data, len);
+	DCFlushRange(data, len);
 
-    if(w)
-        *w = width;
-    if(h)
-        *h = height;
+	if(w)
+		*w = width;
+	if(h)
+		*h = height;
 
-    return data;
+	return data;
 }
 
 u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
 {
-    u32 x, y;
+	u32 x, y;
 
-    int len =  datasizeRGBA8(width, height);
+	int len =  datasizeRGBA8(width, height);
 
-    u8 * data = memalign(32, len);
-    if(!data)
-        return NULL;
+	u8 * data = memalign(32, len);
+	if(!data)
+		return NULL;
 
-    for (y = 0; y < height; y++)
-    {
-        for (x = 0; x < width; x++)
-        {
-            u32 offset = coordsRGBA8(x, y, width);
-            u8 a = src[offset];
-            u8 r = src[offset+1];
-            u8 g = src[offset+32];
-            u8 b = src[offset+33];
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < width; x++)
+		{
+			u32 offset = coordsRGBA8(x, y, width);
+			u8 a = src[offset];
+			u8 r = src[offset+1];
+			u8 g = src[offset+32];
+			u8 b = src[offset+33];
 
-            u32 offset2 = coordsRGBA8((width-x-1), (height-y-1), width);
-            data[offset2] = a;
-            data[offset2+1] = r;
-            data[offset2+32] = g;
-            data[offset2+33] = b;
-        }
-    }
+			u32 offset2 = coordsRGBA8((width-x-1), (height-y-1), width);
+			data[offset2] = a;
+			data[offset2+1] = r;
+			data[offset2+32] = g;
+			data[offset2+33] = b;
+		}
+	}
 
-    DCFlushRange(data, len);
+	DCFlushRange(data, len);
 
-    return data;
+	return data;
 }
 
 u8 * RGB8ToRGBA8(const u8 *src, u32 width, u32 height)
 {
-    u32 x, y, offset;
+	u32 x, y, offset;
 
-    int len = datasizeRGBA8(width, height);
+	int len = datasizeRGBA8(width, height);
 
-    u8 * dst = (u8 *) memalign(32, len);
-    if(!dst)
-        return NULL;
+	u8 * dst = (u8 *) memalign(32, len);
+	if(!dst)
+		return NULL;
 
-    for (y = 0; y < height; ++y)
-    {
-        for (x = 0; x < width; ++x)
-        {
-            offset = coordsRGBA8(x, y, width);
-            dst[offset] = 0xFF;
-            dst[offset+1] = src[(y*width+x)*3];
-            dst[offset+32] = src[(y*width+x)*3+1];
-            dst[offset+33] = src[(y*width+x)*3+2];
-        }
-    }
+	for (y = 0; y < height; ++y)
+	{
+		for (x = 0; x < width; ++x)
+		{
+			offset = coordsRGBA8(x, y, width);
+			dst[offset] = 0xFF;
+			dst[offset+1] = src[(y*width+x)*3];
+			dst[offset+32] = src[(y*width+x)*3+1];
+			dst[offset+33] = src[(y*width+x)*3+2];
+		}
+	}
 
-    DCFlushRange(dst, len);
+	DCFlushRange(dst, len);
 
-    return dst;
+	return dst;
 }

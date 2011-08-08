@@ -27,61 +27,61 @@
 #define PLAYLIST_HPP_
 
 #include <vector>
-#include "libwiigui/gui.h"
+#include "GUI/gui_window.h"
 #include "Controls/Scrollbar.hpp"
 
 class PlayList : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        PlayList();
-        virtual ~PlayList();
-        int GetChoice();
-        const char * at(int pos);
-        const char * operator[](int pos) { return at(pos); };
-        int size() { return FileList.size(); };
-        bool ParsePath(const char * filepath);
-        void AddEntrie(const char * filepath);
-        void RemoveEntrie(int pos);
-        void ClearList();
-        void Show();
-        void Hide();
-        bool Save();
-        bool LoadList();
-        int FindFile(const char * filepath);
-        int GetSelectedItem() { return listOffset+selectedItem; };
-        bool IsMinimized() { return Minimized; };
-        void Draw();
-        void Update(GuiTrigger * t);
-    protected:
-        void SwitchMinimized();
+	public:
+		PlayList();
+		virtual ~PlayList();
+		int GetChoice();
+		const char * at(int pos);
+		const char * operator[](int pos) { return at(pos); };
+		int size() { return FileList.size(); };
+		bool ParsePath(const char * filepath);
+		void AddEntrie(const char * filepath);
+		void RemoveEntrie(int pos);
+		void ClearList();
+		void Show();
+		void Hide();
+		bool Save();
+		bool LoadList();
+		int FindFile(const char * filepath);
+		int GetSelectedItem() { return listOffset+selectedItem; };
+		bool IsMinimized() { return Minimized; };
+		void Draw();
+		void Update(GuiTrigger * t);
+	protected:
+		void SwitchMinimized();
 		void OnListChange(int selItem, int selIndex);
-        void OnListStateChange(GuiElement *sender, int s, int c);
+		void OnListStateChange(GuiElement *sender, int s, int c);
 
-        int listOffset;
-        int selectedItem;
-        bool Minimized;
-        bool Hidden;
-        bool listChanged;
+		int listOffset;
+		int selectedItem;
+		bool Minimized;
+		bool Hidden;
+		bool listChanged;
 
-        std::vector<char *> FileList;
+		std::vector<char *> FileList;
 
-        //!Gui stuff
+		//!Gui stuff
 
-        std::vector<GuiButton *> ListBtn;
-        std::vector<GuiText *> ListBtnTxt;
-        std::vector<GuiImage *> ListBtnImgOver;
+		std::vector<GuiButton *> ListBtn;
+		std::vector<GuiText *> ListBtnTxt;
+		std::vector<GuiImage *> ListBtnImgOver;
 
-        GuiButton * PlayListBtn;
-        GuiImageData * menu_selectionData;
-        GuiImageData * playlistImgData;
-        GuiImage * playlistImg;
+		GuiButton * PlayListBtn;
+		GuiImageData * menu_selectionData;
+		GuiImageData * playlistImgData;
+		GuiImage * playlistImg;
 
-        GuiSound * btnSoundClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnSoundClick;
+		GuiSound * btnSoundOver;
 
-        Scrollbar * scrollbar;
+		Scrollbar * scrollbar;
 
-        GuiTrigger * trigA;
+		GuiTrigger * trigA;
 };
 
 #endif

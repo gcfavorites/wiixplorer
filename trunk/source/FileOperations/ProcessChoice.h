@@ -34,32 +34,32 @@
 
 enum
 {
-    COPYFILE,
-    COPYDIR,
-    MOVEDIR,
-    DELETEFILE,
-    DELETEDIR
+	COPYFILE,
+	COPYDIR,
+	MOVEDIR,
+	DELETEFILE,
+	DELETEDIR
 };
 
 enum
 {
-    CUT = 0,
-    COPY,
-    PASTE,
-    RENAME,
-    DELETE,
-    NEWFOLDER,
-    ADDTOZIP,
-    CHECK_MD5,
-    PROPERTIES,
+	CUT = 0,
+	COPY,
+	PASTE,
+	RENAME,
+	DELETE,
+	NEWFOLDER,
+	ADDTOZIP,
+	CHECK_MD5,
+	PROPERTIES,
 };
 
 enum
 {
-    ArcPasteItems,
-    ArcExtractFile,
-    ArcExtractAll,
-    ArcProperties
+	ArcPasteItems,
+	ArcExtractFile,
+	ArcExtractAll,
+	ArcProperties
 };
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);

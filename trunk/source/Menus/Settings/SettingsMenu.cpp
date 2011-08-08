@@ -25,26 +25,26 @@
  ***************************************************************************/
 #include <unistd.h>
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Memory/Resources.h"
 #include "sys.h"
 
 SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
-    : GuiWindow(screenwidth, screenheight)
+	: GuiWindow(screenwidth, screenheight)
 {
-    menu = MENU_NONE;
-    Options = opts;
-    returnToMenu = returnTo;
+	menu = MENU_NONE;
+	Options = opts;
+	returnToMenu = returnTo;
 
 	btnSoundClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
 
-    btnOutline = Resources::GetImageData("button.png");
-    btnOutlineOver = Resources::GetImageData("button_over.png");
+	btnOutline = Resources::GetImageData("button.png");
+	btnOutlineOver = Resources::GetImageData("button_over.png");
 
-    trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
-    trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	backBtnTxt = new GuiText(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);
@@ -58,7 +58,7 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
 	backBtn->SetTrigger(trigA);
 	backBtn->SetTrigger(trigB);
 	backBtn->SetEffectGrow();
-    backBtn->Clicked.connect(this, &SettingsMenu::OnButtonClick);
+	backBtn->Clicked.connect(this, &SettingsMenu::OnButtonClick);
 
 	optionBrowser = new GuiOptionBrowser(584, 248, Options);
 	optionBrowser->SetPosition(0, 100);
@@ -72,67 +72,57 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
 	Append(optionBrowser);
 	Append(titleTxt);
 
-    SetEffect(EFFECT_FADE, 50);
+	SetEffect(EFFECT_FADE, 50);
 }
 
 SettingsMenu::~SettingsMenu()
 {
-    MainWindow::Instance()->ResumeGui();
+	SetEffect(EFFECT_FADE, -50);
 
-    SetEffect(EFFECT_FADE, -50);
+	while(this->GetEffect() > 0)
+		usleep(100);
 
-    while(this->GetEffect() > 0)
-        usleep(100);
+	if(parentElement)
+		((GuiWindow *) parentElement)->Remove(this);
 
-    MainWindow::Instance()->HaltGui();
-    if(parentElement)
-        ((GuiWindow *) parentElement)->Remove(this);
-
-    RemoveAll();
-    MainWindow::Instance()->ResumeGui();
+	RemoveAll();
 
 	Resources::Remove(btnSoundClick);
 	Resources::Remove(btnSoundOver);
 
-    Resources::Remove(btnOutline);
-    Resources::Remove(btnOutlineOver);
+	Resources::Remove(btnOutline);
+	Resources::Remove(btnOutlineOver);
 
-    delete backBtnImg;
+	delete backBtnImg;
 
-    delete backBtn;
+	delete backBtn;
 
-    delete titleTxt;
-    delete backBtnTxt;
+	delete titleTxt;
+	delete backBtnTxt;
 
-    delete optionBrowser;
+	delete optionBrowser;
 
-    delete trigA;
-    delete trigB;
+	delete trigA;
+	delete trigB;
 }
 
 int SettingsMenu::GetClickedOption()
 {
-    return optionBrowser->GetClickedOption();
+	return optionBrowser->GetClickedOption();
 }
 
 int SettingsMenu::GetMenu()
 {
-    if(shutdown == 1)
-        Sys_Shutdown();
-
-    else if(reset == 1)
-        Sys_Reboot();
-
-    return menu;
+	return menu;
 }
 
-void SettingsMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
+void SettingsMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    sender->ResetState();
+	sender->ResetState();
 
-    if(sender == backBtn)
-    {
-        menu = returnToMenu;
-    }
+	if(sender == backBtn)
+	{
+		menu = returnToMenu;
+	}
 }
 

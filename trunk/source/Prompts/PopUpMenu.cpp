@@ -1,46 +1,29 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * Copyright (C) 2010
- * by dude
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * PopUpMenu.cpp
- *
- * for WiiXplorer 2010
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "PopUpMenu.h"
-#include "Controls/MainWindow.h"
 #include "main.h"
 
-const int ButtonX = 20;
-const u32 ButtonHeight = 32;
-const u32 MaxVisible = 10;
+static const int ButtonX = 20;
+static const u32 ButtonHeight = 32;
+static const u32 MaxVisible = 10;
 
 PopUpMenu::PopUpMenu(int x, int y)
-    :GuiWindow(0, 0)
+	:GuiWindow(0, 0)
 {
-	choice = -1;
 	width = 0;
 	height = 0;
 	maxTxtWidth = 0;
@@ -48,6 +31,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	ScrollState = 0;
 	hasIcons = false;
 	hasSubmenus = false;
+	subMenu = NULL;
 
 	PopUpMenuClick = Resources::GetSound("button_click.wav");
 
@@ -69,19 +53,20 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigAHeld = new GuiTrigger();
+	trigAOnly = new GuiTrigger();
 	trigB = new GuiTrigger();
 	trigUp = new GuiTrigger();
 	trigDown = new GuiTrigger();
 	trigHome = new GuiTrigger();
+	trigAOnly->SetButtonOnlyTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 	trigAHeld->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigUp->SetButtonOnlyHeldTrigger(-1, WiiControls.UpButton | ClassicControls.UpButton << 16, GCControls.UpButton);
 	trigDown->SetButtonOnlyHeldTrigger(-1, WiiControls.DownButton | ClassicControls.DownButton << 16, GCControls.DownButton);
 	trigHome->SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
 
-	NoBtn = new GuiButton(screenwidth, screenheight);
-	NoBtn->SetPosition(-x, -y);
-	NoBtn->SetTrigger(trigA);
+	NoBtn = new GuiButton(0, 0);
+	NoBtn->SetTrigger(trigAOnly);
 	NoBtn->SetTrigger(trigB);
 	NoBtn->Clicked.connect(this, &PopUpMenu::OnClick);
 
@@ -123,7 +108,8 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 PopUpMenu::~PopUpMenu()
 {
-	MainWindow::Instance()->HaltGui();
+	CloseSubMenu();
+
 	if(parentElement)
 		((GuiWindow *) parentElement)->Remove(this);
 
@@ -170,12 +156,11 @@ PopUpMenu::~PopUpMenu()
 
 	delete trigA;
 	delete trigAHeld;
+	delete trigAOnly;
 	delete trigB;
 	delete trigUp;
 	delete trigDown;
 	delete trigHome;
-
-	MainWindow::Instance()->ResumeGui();
 }
 
 void PopUpMenu::AddItem(const char *text, const char *icon, bool submenu)
@@ -233,6 +218,15 @@ void PopUpMenu::AddItem(const char *text, const char *icon, bool submenu)
 	Item.push_back(item);
 }
 
+void PopUpMenu::OpenSubMenu(int position, PopUpMenu *menu)
+{
+	if(subMenu)
+		CloseSubMenu();
+	subMenu = menu;
+	subMenu->SetPosition(this->GetWidth()-12, position*30);
+	this->Append(subMenu);
+}
+
 void PopUpMenu::Finish()
 {
 	u32 x = xpos;
@@ -241,7 +235,7 @@ void PopUpMenu::Finish()
 	int leftmargin = (hasIcons ? ButtonX+40 : ButtonX);
 	int rightmargin = (hasSubmenus ? 40 : 20);
 	float scale = 1.0f;
-    int ButtonsOffset = 0;
+	int ButtonsOffset = 0;
 
 	if(Item.size() > MaxVisible)
 	{
@@ -250,8 +244,8 @@ void PopUpMenu::Finish()
 
 		middleheight = ButtonHeight*MaxVisible;
 
-        middleheight += PopUpMenuScrollUpImg->GetHeight()+PopUpMenuScrollDownImg->GetHeight()-10;
-        ButtonsOffset += PopUpMenuScrollUpImg->GetHeight();
+		middleheight += PopUpMenuScrollUpImg->GetHeight()+PopUpMenuScrollDownImg->GetHeight()-10;
+		ButtonsOffset += PopUpMenuScrollUpImg->GetHeight();
 
 		for (u32 i = MaxVisible; i < Item.size(); i++)
 		{
@@ -273,6 +267,8 @@ void PopUpMenu::Finish()
 
 	if (width > PopUpMenuMiddleImg->GetWidth())
 		scale = 1.0f * width / PopUpMenuMiddleImg->GetWidth();
+	else
+		width = PopUpMenuMiddleImg->GetWidth();
 
 	PopUpMenuUpperImg->SetScaleX(scale);
 	PopUpMenuMiddleImg->SetScaleX(scale);
@@ -308,18 +304,17 @@ void PopUpMenu::Finish()
 	SetPosition(x, y);
 }
 
-int PopUpMenu::GetChoice()
+void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	return choice;
-}
-
-void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
-{
-	sender->ResetState();
-	//TODO add the functions instead of the link
-	if (sender == NoBtn || sender == HomeBtn)
+	if (sender == NoBtn)
 	{
-		choice = -10;
+		if(!IsInside(p.x, p.y) && (!subMenu || !subMenu->IsInside(p.x, p.y)))
+			ItemClicked(this, -10);
+		return;
+	}
+	else if (sender == HomeBtn)
+	{
+		ItemClicked(this, -10);
 		return;
 	}
 
@@ -327,26 +322,26 @@ void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, POINT p UNUSED)
 	{
 		if(sender == Item[i].Button)
 		{
-			choice = i;
-			break;
+			ItemClicked(this, i);
+			return;
 		}
 	}
 }
 
-void PopUpMenu::OnScrollUp(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void PopUpMenu::OnScrollUp(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-    if(ScrollState < (u32) Settings.ScrollSpeed)
-        return;
+	if(ScrollState < (u32) Settings.ScrollSpeed)
+		return;
 
 	Scroll(UP);
 
 	ScrollState = 0;
 }
 
-void PopUpMenu::OnScrollDown(GuiButton *sender UNUSED, int pointer UNUSED, POINT p UNUSED)
+void PopUpMenu::OnScrollDown(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-    if(ScrollState < (u32) Settings.ScrollSpeed)
-        return;
+	if(ScrollState < (u32) Settings.ScrollSpeed)
+		return;
 
 	Scroll(DOWN);
 
@@ -355,7 +350,6 @@ void PopUpMenu::OnScrollDown(GuiButton *sender UNUSED, int pointer UNUSED, POINT
 
 void PopUpMenu::Scroll(int direction)
 {
-	choice = -1;
 	int step = ButtonHeight;
 
 	if (direction == UP)

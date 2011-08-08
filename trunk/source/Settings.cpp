@@ -37,132 +37,134 @@
 #include "Language/gettext.h"
 #include "Tools/tools.h"
 
-#define DEFAULT_APP_PATH    "apps/WiiExplorer/"
-#define CONFIGPATH          "config/WiiXplorer/"
-#define CONFIGNAME          "WiiXplorer.cfg"
-#define LANGPATH      	    "config/WiiXplorer/Languages/"
+#define DEFAULT_APP_PATH	"apps/WiiExplorer/"
+#define CONFIGPATH		  "config/WiiXplorer/"
+#define CONFIGNAME		  "WiiXplorer.cfg"
+#define LANGPATH	  		"config/WiiXplorer/Languages/"
 
-Settings::Settings()
+CSettings Settings;
+
+CSettings::CSettings()
 {
-    strcpy(BootDevice, "sd:/");
-    snprintf(ConfigPath, sizeof(ConfigPath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
-    this->SetDefault();
+	strcpy(BootDevice, "sd:/");
+	snprintf(ConfigPath, sizeof(ConfigPath), "%s%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
+	this->SetDefault();
 }
 
-Settings::~Settings()
+CSettings::~CSettings()
 {
 }
 
-void Settings::SetDefault()
+void CSettings::SetDefault()
 {
-    BootIOS = 202;
-    MusicVolume = 80;
-    CurrentSMBUser = 0;
+	BootIOS = 202;
+	MusicVolume = 80;
+	CurrentSMBUser = 0;
 	CurrentFTPUser = 0;
-    BGMLoopMode = 1;
+	BGMLoopMode = 1;
 	SlideshowDelay = 4;
 	ImageFadeSpeed = 20;
 	KeyboardDeleteDelay = 15;
-    AutoConnect = 0;
-    UpdateMetaxml = 1;
-    UpdateIconpng = 1;
-    ClockMode = 0;
-    ScrollSpeed = 5;
-    BrowserMode = 0;
-    ScreenshotFormat = 0;
-    SoundblockCount = 8;
-    SoundblockSize = 8192;
-    LoadMusicToMem = 0;
-    DeleteTempPath = 1;
-    CopyThreadPrio = 100;
-    CopyThreadBackPrio = 30;
-    Rumble = 1;
-    HideSystemFiles = 1;
-    ShowFormatter = 0;
-    CompressionLevel = -1;
-    USBPort = 0;
-    PDFLoadZoom = 1.0f;
-    sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
-    sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
-    sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
-    sprintf(AppPath, "%sapps/", BootDevice);
-    sprintf(TempPath, "%s/Temp/", UpdatePath);
-    sprintf(ScreenshotPath, "%s", UpdatePath);
-    sprintf(LinkListPath, "%s/URL_List.xml", UpdatePath);
-    strcpy(MusicPath, "");
-    sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
-    sprintf(WiiMCPath, "%sapps/wiimc/boot.dol", BootDevice);
-    LastUsedPath = BootDevice;
+	AutoConnect = 0;
+	UpdateMetaxml = 1;
+	UpdateIconpng = 1;
+	ClockMode = 0;
+	ScrollSpeed = 5;
+	BrowserMode = 0;
+	ScreenshotFormat = 0;
+	SoundblockCount = 8;
+	SoundblockSize = 8192;
+	LoadMusicToMem = 0;
+	DeleteTempPath = 1;
+	CopyThreadPrio = 100;
+	CopyThreadBackPrio = 30;
+	Rumble = 1;
+	HideSystemFiles = 1;
+	ShowFormatter = 0;
+	CompressionLevel = -1;
+	USBPort = 0;
+	PDFLoadZoom = 1.0f;
+	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
+	sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
+	sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
+	sprintf(AppPath, "%sapps/", BootDevice);
+	sprintf(TempPath, "%s/Temp/", UpdatePath);
+	sprintf(ScreenshotPath, "%s", UpdatePath);
+	sprintf(LinkListPath, "%s/URL_List.xml", UpdatePath);
+	strcpy(MusicPath, "");
+	sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
+	sprintf(WiiMCPath, "%sapps/wiimc/boot.dol", BootDevice);
+	LastUsedPath = BootDevice;
 
-    for(int i = 0; i < MAXSMBUSERS; i++) {
-        strcpy(SMBUser[i].Host, "");
-        strcpy(SMBUser[i].User, "");
-        strcpy(SMBUser[i].Password, "");
-        strcpy(SMBUser[i].SMBName, "");
+	for(int i = 0; i < MAXSMBUSERS; i++) {
+		strcpy(SMBUser[i].Host, "");
+		strcpy(SMBUser[i].User, "");
+		strcpy(SMBUser[i].Password, "");
+		strcpy(SMBUser[i].SMBName, "");
 	}
 
 	for(int i = 0; i < MAXFTPUSERS; i++) {
-        strcpy(FTPUser[i].Host, "");
-        strcpy(FTPUser[i].User, "");
-        strcpy(FTPUser[i].Password, "");
-        strcpy(FTPUser[i].FTPPath, "/");
-        FTPUser[i].Port = 21;
+		strcpy(FTPUser[i].Host, "");
+		strcpy(FTPUser[i].User, "");
+		strcpy(FTPUser[i].Password, "");
+		strcpy(FTPUser[i].FTPPath, "/");
+		FTPUser[i].Port = 21;
 		FTPUser[i].Passive = 0;
 	}
 
-    FTPServer.AutoStart = 0;
+	FTPServer.AutoStart = 0;
 	strcpy(FTPServer.Password, "");
 	FTPServer.Port = 21;
 
-    FileExtensions.SetDefault();
-    Controls.SetDefault();
+	FileExtensions.SetDefault();
+	Controls.SetDefault();
 
-    DefaultColors();
+	DefaultColors();
 }
 
-void Settings::DefaultColors()
+void CSettings::DefaultColors()
 {
-    BackgroundUL = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
-    BackgroundUR = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
-    BackgroundBR = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
-    BackgroundBL = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
-    ProgressUL = GXCOLORTORGBA(((GXColor){239, 28, 28, 255}));
-    ProgressUR = GXCOLORTORGBA(((GXColor){79, 153, 239, 255}));
-    ProgressBR = GXCOLORTORGBA(((GXColor){59, 159, 223, 255}));
-    ProgressBL = GXCOLORTORGBA(((GXColor){199, 71, 99, 255}));
-    ProgressEmptyUL = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
-    ProgressEmptyUR = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
-    ProgressEmptyBR = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
-    ProgressEmptyBL = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
+	BackgroundUL = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
+	BackgroundUR = GXCOLORTORGBA(((GXColor){67, 71, 72, 255}));
+	BackgroundBR = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
+	BackgroundBL = GXCOLORTORGBA(((GXColor){100, 110, 110, 255}));
+	ProgressUL = GXCOLORTORGBA(((GXColor){239, 28, 28, 255}));
+	ProgressUR = GXCOLORTORGBA(((GXColor){79, 153, 239, 255}));
+	ProgressBR = GXCOLORTORGBA(((GXColor){59, 159, 223, 255}));
+	ProgressBL = GXCOLORTORGBA(((GXColor){199, 71, 99, 255}));
+	ProgressEmptyUL = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
+	ProgressEmptyUR = GXCOLORTORGBA(((GXColor){237, 240, 245, 255}));
+	ProgressEmptyBR = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
+	ProgressEmptyBL = GXCOLORTORGBA(((GXColor){197, 202, 210, 255}));
 }
 
-bool Settings::Save()
+bool CSettings::Save()
 {
-    if(!FindConfig())
-        return false;
+	if(!FindConfig())
+		return false;
 
-    char filedest[100];
+	char filedest[100];
 	char password[100];
-    snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
+	snprintf(filedest, sizeof(filedest), "%s", ConfigPath);
 
-    char * tmppath = strrchr(filedest, '/');
-    if(tmppath)
-    {
-        tmppath++;
-        tmppath[0] = '\0';
-    }
+	char * tmppath = strrchr(filedest, '/');
+	if(tmppath)
+	{
+		tmppath++;
+		tmppath[0] = '\0';
+	}
 
-    if(!CreateSubfolder(filedest))
-        return false;
+	if(!CreateSubfolder(filedest))
+		return false;
 
-    file = fopen(ConfigPath, "w");
-    if(!file)
-    {
-        fclose(file);
-        return false;
-    }
+	file = fopen(ConfigPath, "w");
+	if(!file)
+	{
+		fclose(file);
+		return false;
+	}
 
-    fprintf(file, "# WiiXplorer Settingsfile\n");
+	fprintf(file, "# WiiXplorer Settingsfile\n");
 	fprintf(file, "# Note: This file is automatically generated\n\n");
 	fprintf(file, "# Main Settings\n\n");
 	fprintf(file, "BootIOS = %d\n", BootIOS);
@@ -231,34 +233,34 @@ bool Settings::Save()
 	fprintf(file, "ProgressEmptyBL = %u\n", ProgressEmptyBL);
 
 	fprintf(file, "\n# SMB Setup Information\n\n");
-    for(int i = 0; i < MAXSMBUSERS; i++) {
-        fprintf(file, "SMBUser[%d].Host = %s\n", i+1, SMBUser[i].Host);
-        fprintf(file, "SMBUser[%d].User = %s\n", i+1, SMBUser[i].User);
-        password[0] = 0;
+	for(int i = 0; i < MAXSMBUSERS; i++) {
+		fprintf(file, "SMBUser[%d].Host = %s\n", i+1, SMBUser[i].Host);
+		fprintf(file, "SMBUser[%d].User = %s\n", i+1, SMBUser[i].User);
+		password[0] = 0;
 		if (strcmp(SMBUser[i].Password, "") != 0)
-            EncryptString(SMBUser[i].Password, password);
+			EncryptString(SMBUser[i].Password, password);
 		fprintf(file, "SMBUser[%d].CPassword = %s\n", i+1, password);
-        fprintf(file, "SMBUser[%d].SMBName = %s\n\n", i+1, SMBUser[i].SMBName);
+		fprintf(file, "SMBUser[%d].SMBName = %s\n\n", i+1, SMBUser[i].SMBName);
 	}
 
 	fprintf(file, "\n# FTP Setup Information\n\n");
-    for(int i = 0; i < MAXFTPUSERS; i++) {
-        fprintf(file, "FTPUser[%d].Host = %s\n", i+1, FTPUser[i].Host);
-        fprintf(file, "FTPUser[%d].User = %s\n", i+1, FTPUser[i].User);
-        password[0] = 0;
-        if (strcmp(FTPUser[i].Password, "") != 0)
-            EncryptString(FTPUser[i].Password, password);
-        fprintf(file, "FTPUser[%d].CPassword = %s\n", i+1, password);
-        fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
+	for(int i = 0; i < MAXFTPUSERS; i++) {
+		fprintf(file, "FTPUser[%d].Host = %s\n", i+1, FTPUser[i].Host);
+		fprintf(file, "FTPUser[%d].User = %s\n", i+1, FTPUser[i].User);
+		password[0] = 0;
+		if (strcmp(FTPUser[i].Password, "") != 0)
+			EncryptString(FTPUser[i].Password, password);
+		fprintf(file, "FTPUser[%d].CPassword = %s\n", i+1, password);
+		fprintf(file, "FTPUser[%d].FTPPath = %s\n", i+1, FTPUser[i].FTPPath);
 		fprintf(file, "FTPUser[%d].Port = %d\n", i+1, FTPUser[i].Port);
 		fprintf(file, "FTPUser[%d].Passive = %d\n\n", i+1, FTPUser[i].Passive);
 	}
 
 	fprintf(file, "\n# FTP Server Setup Information\n\n");
 	fprintf(file, "FTPServer.AutoStart = %d\n", FTPServer.AutoStart);
-    password[0] = 0;
-    if (strcmp(FTPServer.Password, "") != 0)
-        EncryptString(FTPServer.Password, password);
+	password[0] = 0;
+	if (strcmp(FTPServer.Password, "") != 0)
+		EncryptString(FTPServer.Password, password);
 	fprintf(file, "FTPServer.CPassword = %s\n", password);
 	fprintf(file, "FTPServer.Port = %d\n", FTPServer.Port);
 	fclose(file);
@@ -268,98 +270,98 @@ bool Settings::Save()
 	return true;
 }
 
-bool Settings::FindConfig()
+bool CSettings::FindConfig()
 {
-    bool found = false;
+	bool found = false;
 
-    for(int i = SD; i <= USB8; i++)
-    {
-        if(!found)
-        {
-            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
-            found = CheckFile(ConfigPath);
-        }
-        if(!found)
-        {
-            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
-            found = CheckFile(ConfigPath);
-        }
-        if(!found)
-        {
-            snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-            snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
-            found = CheckFile(ConfigPath);
-        }
-    }
+	for(int i = SD; i <= USB8; i++)
+	{
+		if(!found)
+		{
+			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+			found = CheckFile(ConfigPath);
+		}
+		if(!found)
+		{
+			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
+			found = CheckFile(ConfigPath);
+		}
+		if(!found)
+		{
+			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+			found = CheckFile(ConfigPath);
+		}
+	}
 
-    if(!found)
-    {
-        //! No existing config so try to find a place where we can write it too
-        for(int i = SD; i <= USB8; i++)
-        {
-            if(!found)
-            {
-                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
-                FILE * testFp = fopen(ConfigPath, "wb");
-                found = (testFp != NULL);
-                fclose(testFp);
-            }
-            if(!found)
-            {
-                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
-                FILE * testFp = fopen(ConfigPath, "wb");
-                found = (testFp != NULL);
-                fclose(testFp);
-            }
-            if(!found)
-            {
-                snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-                snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s", DeviceName[i], CONFIGPATH);
-                CreateSubfolder(ConfigPath);
-                strcat(ConfigPath, CONFIGNAME);
-                FILE * testFp = fopen(ConfigPath, "wb");
-                found = (testFp != NULL);
-                fclose(testFp);
-            }
-        }
-    }
+	if(!found)
+	{
+		//! No existing config so try to find a place where we can write it too
+		for(int i = SD; i <= USB8; i++)
+		{
+			if(!found)
+			{
+				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
+				FILE * testFp = fopen(ConfigPath, "wb");
+				found = (testFp != NULL);
+				fclose(testFp);
+			}
+			if(!found)
+			{
+				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+				FILE * testFp = fopen(ConfigPath, "wb");
+				found = (testFp != NULL);
+				fclose(testFp);
+			}
+			if(!found)
+			{
+				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
+				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s", DeviceName[i], CONFIGPATH);
+				CreateSubfolder(ConfigPath);
+				strcat(ConfigPath, CONFIGNAME);
+				FILE * testFp = fopen(ConfigPath, "wb");
+				found = (testFp != NULL);
+				fclose(testFp);
+			}
+		}
+	}
 
-    return found;
+	return found;
 }
 
-bool Settings::Load()
+bool CSettings::Load()
 {
-    FindConfig();
+	FindConfig();
 
 	char line[1024];
-    char filepath[300];
-    snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
+	char filepath[300];
+	snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
 
-    if(!CheckFile(filepath))
-        return false;
+	if(!CheckFile(filepath))
+		return false;
 
 	file = fopen(filepath, "r");
 	if (!file)
 	{
-        fclose(file);
-        return false;
+		fclose(file);
+		return false;
 	}
 
 	while (fgets(line, sizeof(line), file))
 	{
 		if (line[0] == '#') continue;
 
-        this->ParseLine(line);
+		this->ParseLine(line);
 	}
 	fclose(file);
 
 	char * ptr = strrchr(filepath, '/');
 	if(ptr)
-        ptr[0] = '\0';
+		ptr[0] = '\0';
 
 	Controls.Load(filepath);
 
@@ -367,115 +369,115 @@ bool Settings::Load()
 
 }
 
-bool Settings::LoadLanguage(const char *path, int language)
+bool CSettings::LoadLanguage(const char *path, int language)
 {
-    bool ret = false;
+	bool ret = false;
 
-    if(language >= 0 || !path) {
+	if(language >= 0 || !path) {
 
-        if(language < 0)
-            return false;
+		if(language < 0)
+			return false;
 
-        char filepath[150];
-        char langpath[150];
-        snprintf(langpath, sizeof(langpath), "%s", LanguagePath);
-        if(langpath[strlen(langpath)-1] != '/')
-        {
-            char * ptr = strrchr(langpath, '/');
-            if(ptr)
-            {
-                ptr++;
-                ptr[0] = '\0';
-            }
-        }
+		char filepath[150];
+		char langpath[150];
+		snprintf(langpath, sizeof(langpath), "%s", LanguagePath);
+		if(langpath[strlen(langpath)-1] != '/')
+		{
+			char * ptr = strrchr(langpath, '/');
+			if(ptr)
+			{
+				ptr++;
+				ptr[0] = '\0';
+			}
+		}
 
-        if(language == APP_DEFAULT)
-        {
-            strcpy(LanguagePath, langpath);
-            gettextCleanUp();
-            return true;
-        }
-        else if(language == CONSOLE_DEFAULT)
-        {
-            return LoadLanguage(NULL, CONF_GetLanguage()+2);
-        }
-        else if(language == JAPANESE)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/japanese.lang", langpath);
-        }
-        else if(language == ENGLISH)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/english.lang", langpath);
-        }
-        else if(language == GERMAN)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/german.lang", langpath);
-        }
-        else if(language == FRENCH)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/french.lang", langpath);
-        }
-        else if(language == SPANISH)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/spanish.lang", langpath);
-        }
-        else if(language == ITALIAN)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/italian.lang", langpath);
-        }
-        else if(language == DUTCH)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/dutch.lang", langpath);
-        }
-        else if(language == S_CHINESE)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", langpath);
-        }
-        else if(language == T_CHINESE)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", langpath);
-        }
-        else if(language == KOREAN)
-        {
-            snprintf(filepath, sizeof(filepath), "%s%s/korean.lang", BootDevice, langpath);
-        }
+		if(language == APP_DEFAULT)
+		{
+			strcpy(LanguagePath, langpath);
+			gettextCleanUp();
+			return true;
+		}
+		else if(language == CONSOLE_DEFAULT)
+		{
+			return LoadLanguage(NULL, CONF_GetLanguage()+2);
+		}
+		else if(language == JAPANESE)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/japanese.lang", langpath);
+		}
+		else if(language == ENGLISH)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/english.lang", langpath);
+		}
+		else if(language == GERMAN)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/german.lang", langpath);
+		}
+		else if(language == FRENCH)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/french.lang", langpath);
+		}
+		else if(language == SPANISH)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/spanish.lang", langpath);
+		}
+		else if(language == ITALIAN)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/italian.lang", langpath);
+		}
+		else if(language == DUTCH)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/dutch.lang", langpath);
+		}
+		else if(language == S_CHINESE)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/s_chinese.lang", langpath);
+		}
+		else if(language == T_CHINESE)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/t_chinese.lang", langpath);
+		}
+		else if(language == KOREAN)
+		{
+			snprintf(filepath, sizeof(filepath), "%s%s/korean.lang", BootDevice, langpath);
+		}
 
-        ret = gettextLoadLanguage(filepath);
-        if(ret)
-            strncpy(LanguagePath, filepath, sizeof(LanguagePath));
+		ret = gettextLoadLanguage(filepath);
+		if(ret)
+			strncpy(LanguagePath, filepath, sizeof(LanguagePath));
 
-    } else {
+	} else {
 
-        ret = gettextLoadLanguage(path);
-        if(ret)
-            strncpy(LanguagePath, path, sizeof(LanguagePath));
-    }
+		ret = gettextLoadLanguage(path);
+		if(ret)
+			strncpy(LanguagePath, path, sizeof(LanguagePath));
+	}
 
-    return ret;
+	return ret;
 }
 
-bool Settings::Reset()
+bool CSettings::Reset()
 {
-    this->SetDefault();
+	this->SetDefault();
 
-    if(this->Save())
-        return true;
+	if(this->Save())
+		return true;
 
 	return false;
 }
 
-bool Settings::SetSetting(char *name, char *value)
+bool CSettings::SetSetting(char *name, char *value)
 {
-    int i = 0;
+	int i = 0;
 	char password[100];
 
-    if (strcmp(name, "BootIOS") == 0) {
+	if (strcmp(name, "BootIOS") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			BootIOS = i;
 		}
 		return true;
 	}
-    else if (strcmp(name, "CurrentSMBUser") == 0) {
+	else if (strcmp(name, "CurrentSMBUser") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			CurrentSMBUser = i;
 		}
@@ -488,7 +490,7 @@ bool Settings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "LanguagePath") == 0) {
-        strncpy(LanguagePath, value, sizeof(LanguagePath));
+		strncpy(LanguagePath, value, sizeof(LanguagePath));
 		return true;
 	}
 	else if (strcmp(name, "MusicVolume") == 0) {
@@ -567,43 +569,43 @@ bool Settings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "CustomFontPath") == 0) {
-        strncpy(CustomFontPath, value, sizeof(CustomFontPath));
+		strncpy(CustomFontPath, value, sizeof(CustomFontPath));
 		return true;
 	}
 	else if (strcmp(name, "LastUsedPath") == 0) {
-        LastUsedPath.assign(value);
+		LastUsedPath.assign(value);
 		return true;
 	}
 	else if (strcmp(name, "MusicPath") == 0) {
-        strncpy(MusicPath, value, sizeof(MusicPath));
+		strncpy(MusicPath, value, sizeof(MusicPath));
 		return true;
 	}
 	else if (strcmp(name, "WiiMCPath") == 0) {
-        strncpy(WiiMCPath, value, sizeof(WiiMCPath));
+		strncpy(WiiMCPath, value, sizeof(WiiMCPath));
 		return true;
 	}
 	else if (strcmp(name, "MPlayerPath") == 0) {
-        strncpy(MPlayerPath, value, sizeof(MPlayerPath));
+		strncpy(MPlayerPath, value, sizeof(MPlayerPath));
 		return true;
 	}
 	else if (strcmp(name, "UpdatePath") == 0) {
-        strncpy(UpdatePath, value, sizeof(UpdatePath));
+		strncpy(UpdatePath, value, sizeof(UpdatePath));
 		return true;
 	}
 	else if (strcmp(name, "AppPath") == 0) {
-        strncpy(AppPath, value, sizeof(AppPath));
+		strncpy(AppPath, value, sizeof(AppPath));
 		return true;
 	}
 	else if (strcmp(name, "TempPath") == 0) {
-        strncpy(TempPath, value, sizeof(TempPath));
+		strncpy(TempPath, value, sizeof(TempPath));
 		return true;
 	}
 	else if (strcmp(name, "ScreenshotPath") == 0) {
-        strncpy(ScreenshotPath, value, sizeof(ScreenshotPath));
+		strncpy(ScreenshotPath, value, sizeof(ScreenshotPath));
 		return true;
 	}
 	else if (strcmp(name, "LinkListPath") == 0) {
-        strncpy(LinkListPath, value, sizeof(LinkListPath));
+		strncpy(LinkListPath, value, sizeof(LinkListPath));
 		return true;
 	}
 	else if (strcmp(name, "SlideshowDelay") == 0) {
@@ -721,154 +723,154 @@ bool Settings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.VideoFiles") == 0) {
-        FileExtensions.SetVideo(value);
+		FileExtensions.SetVideo(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.AudioFiles") == 0) {
-        FileExtensions.SetAudio(value);
+		FileExtensions.SetAudio(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.ImageFiles") == 0) {
-        FileExtensions.SetImage(value);
+		FileExtensions.SetImage(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.ArchiveFiles") == 0) {
-        FileExtensions.SetArchive(value);
+		FileExtensions.SetArchive(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.HomebrewFiles") == 0) {
-        FileExtensions.SetHomebrew(value);
+		FileExtensions.SetHomebrew(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.FontFiles") == 0) {
-        FileExtensions.SetFont(value);
+		FileExtensions.SetFont(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.WiiBinaryFiles") == 0) {
-        FileExtensions.SetWiiBinary(value);
+		FileExtensions.SetWiiBinary(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.LanguageFiles") == 0) {
-        FileExtensions.SetLanguageFiles(value);
+		FileExtensions.SetLanguageFiles(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.PDFFiles") == 0) {
-        FileExtensions.SetPDF(value);
+		FileExtensions.SetPDF(value);
 		return true;
 	}
 	else if (strcmp(name, "FileExtensions.WiiXplorerMovies") == 0) {
-        FileExtensions.SetWiiXplorerMovies(value);
+		FileExtensions.SetWiiXplorerMovies(value);
 		return true;
 	}
-    else if (strcmp(name, "FTPServer.AutoStart") == 0) {
-        if (sscanf(value, "%d", &i) == 1) {
-            FTPServer.AutoStart = i;
-        }
-        return true;
-    }
-    else if (strcmp(name, "FTPServer.CPassword") == 0) {
-        if (strcmp(value, "") != 0)
-            DecryptString(value, password);
-        strncpy(FTPServer.Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPServer.Password));
-        return true;
-    }
-    else if (strcmp(name, "FTPServer.Port") == 0) {
-        if (sscanf(value, "%d", &i) == 1) {
-            FTPServer.Port = i;
-        }
-        return true;
-    }
+	else if (strcmp(name, "FTPServer.AutoStart") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			FTPServer.AutoStart = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "FTPServer.CPassword") == 0) {
+		if (strcmp(value, "") != 0)
+			DecryptString(value, password);
+		strncpy(FTPServer.Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPServer.Password));
+		return true;
+	}
+	else if (strcmp(name, "FTPServer.Port") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			FTPServer.Port = i;
+		}
+		return true;
+	}
 	else {
-	    char temp[80];
-	    int n = 0;
+		char temp[80];
+		int n = 0;
 
-	    for(n = 0; n < MAXSMBUSERS; n++) {
-	        sprintf(temp, "SMBUser[%d].Host", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(SMBUser[n].Host, value, sizeof(SMBUser[n].Host));
-                return true;
-            }
-            sprintf(temp, "SMBUser[%d].User", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(SMBUser[n].User, value, sizeof(SMBUser[n].User));
-                return true;
-            }
-            sprintf(temp, "SMBUser[%d].CPassword", n+1);
-            if (stricmp(name, temp) == 0) {
-                if (strcmp(value, "") != 0)
-                    DecryptString(value, password);
-                strncpy(SMBUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(SMBUser[n].Password));
-                return true;
-            }
-            sprintf(temp, "SMBUser[%d].SMBName", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(SMBUser[n].SMBName, value, sizeof(SMBUser[n].SMBName));
-                return true;
-            }
-	    }
+		for(n = 0; n < MAXSMBUSERS; n++) {
+			sprintf(temp, "SMBUser[%d].Host", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(SMBUser[n].Host, value, sizeof(SMBUser[n].Host));
+				return true;
+			}
+			sprintf(temp, "SMBUser[%d].User", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(SMBUser[n].User, value, sizeof(SMBUser[n].User));
+				return true;
+			}
+			sprintf(temp, "SMBUser[%d].CPassword", n+1);
+			if (stricmp(name, temp) == 0) {
+				if (strcmp(value, "") != 0)
+					DecryptString(value, password);
+				strncpy(SMBUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(SMBUser[n].Password));
+				return true;
+			}
+			sprintf(temp, "SMBUser[%d].SMBName", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(SMBUser[n].SMBName, value, sizeof(SMBUser[n].SMBName));
+				return true;
+			}
+		}
 
-	    for(n = 0; n < MAXFTPUSERS; n++) {
-	        sprintf(temp, "FTPUser[%d].Host", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(FTPUser[n].Host, value, sizeof(FTPUser[n].Host));
-                return true;
-            }
-            sprintf(temp, "FTPUser[%d].User", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(FTPUser[n].User, value, sizeof(FTPUser[n].User));
-                return true;
-            }
-            sprintf(temp, "FTPUser[%d].CPassword", n+1);
-            if (stricmp(name, temp) == 0) {
-                if (strcmp(value, "") != 0)
-                    DecryptString(value, password);
-                strncpy(FTPUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPUser[n].Password));
-                return true;
-            }
-            sprintf(temp, "FTPUser[%d].FTPPath", n+1);
-            if (stricmp(name, temp) == 0) {
-                strncpy(FTPUser[n].FTPPath, value, sizeof(FTPUser[n].FTPPath));
-                return true;
-            }
-            sprintf(temp, "FTPUser[%d].Port", n+1);
-            if (stricmp(name, temp) == 0) {
+		for(n = 0; n < MAXFTPUSERS; n++) {
+			sprintf(temp, "FTPUser[%d].Host", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(FTPUser[n].Host, value, sizeof(FTPUser[n].Host));
+				return true;
+			}
+			sprintf(temp, "FTPUser[%d].User", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(FTPUser[n].User, value, sizeof(FTPUser[n].User));
+				return true;
+			}
+			sprintf(temp, "FTPUser[%d].CPassword", n+1);
+			if (stricmp(name, temp) == 0) {
+				if (strcmp(value, "") != 0)
+					DecryptString(value, password);
+				strncpy(FTPUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPUser[n].Password));
+				return true;
+			}
+			sprintf(temp, "FTPUser[%d].FTPPath", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(FTPUser[n].FTPPath, value, sizeof(FTPUser[n].FTPPath));
+				return true;
+			}
+			sprintf(temp, "FTPUser[%d].Port", n+1);
+			if (stricmp(name, temp) == 0) {
 				if (sscanf(value, "%d", &i) == 1) {
 					FTPUser[n].Port = i;
 				}
-                return true;
-            }
-            sprintf(temp, "FTPUser[%d].Passive", n+1);
-            if (stricmp(name, temp) == 0) {
+				return true;
+			}
+			sprintf(temp, "FTPUser[%d].Passive", n+1);
+			if (stricmp(name, temp) == 0) {
 				if (sscanf(value, "%d", &i) == 1) {
 					FTPUser[n].Passive = i;
 				}
-                return true;
-            }
+				return true;
+			}
 		}
 	}
 
-    return false;
+	return false;
 }
 
-void Settings::ParseLine(char *line)
+void CSettings::ParseLine(char *line)
 {
-    char temp[1024], name[1024], value[1024];
+	char temp[1024], name[1024], value[1024];
 
-    strncpy(temp, line, sizeof(temp));
+	strncpy(temp, line, sizeof(temp));
 
-    char * eq = strchr(temp, '=');
+	char * eq = strchr(temp, '=');
 
-    if(!eq) return;
+	if(!eq) return;
 
-    *eq = 0;
+	*eq = 0;
 
-    this->TrimLine(name, temp, sizeof(name));
-    this->TrimLine(value, eq+1, sizeof(value));
+	this->TrimLine(name, temp, sizeof(name));
+	this->TrimLine(value, eq+1, sizeof(value));
 
 	this->SetSetting(name, value);
 }
 
-void Settings::TrimLine(char *dest, char *src, int size)
+void CSettings::TrimLine(char *dest, char *src, int size)
 {
 	int len;
 	while (*src == ' ') src++;

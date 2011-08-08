@@ -32,49 +32,49 @@
 
 void CreateWiiMCArguments(const char * src)
 {
-    char Text[512];
-    AddBootArgument(Settings.WiiMCPath);
+	char Text[512];
+	AddBootArgument(Settings.WiiMCPath);
 
-    if(strncasecmp(src, "smb", 3) == 0)
-    {
+	if(strncasecmp(src, "smb", 3) == 0)
+	{
 		int client = atoi(src+3);
-        sprintf(Text, "smb:%s:%s:%s:%s",
-            Settings.SMBUser[client-1].User,
-            Settings.SMBUser[client-1].Password,
-            Settings.SMBUser[client-1].Host,
-            Settings.SMBUser[client-1].SMBName);
-        AddBootArgument(Text);
-    }
-    else if(strncasecmp(src, "sd", 2) == 0)
-    {
+		sprintf(Text, "smb:%s:%s:%s:%s",
+			Settings.SMBUser[client-1].User,
+			Settings.SMBUser[client-1].Password,
+			Settings.SMBUser[client-1].Host,
+			Settings.SMBUser[client-1].SMBName);
+		AddBootArgument(Text);
+	}
+	else if(strncasecmp(src, "sd", 2) == 0)
+	{
 		PartitionHandle * sd = (PartitionHandle *) DeviceHandler::Instance()->GetSDHandle();
-        sprintf(Text, "sd:fat:%i", sd->GetLBAStart(0));
-        AddBootArgument(Text);
-    }
-    else if(strncasecmp(src, "dvd", 3) == 0)
-    {
-        AddBootArgument("dvd");
-    }
-    else if(strncasecmp(src, "usb", 3) == 0)
-    {
-        int device = USB8-DeviceHandler::PathToDriveType(src);
-        PartitionHandle * usb = (PartitionHandle *) DeviceHandler::Instance()->GetUSB0Handle();
+		sprintf(Text, "sd:fat:%i", sd->GetLBAStart(0));
+		AddBootArgument(Text);
+	}
+	else if(strncasecmp(src, "dvd", 3) == 0)
+	{
+		AddBootArgument("dvd");
+	}
+	else if(strncasecmp(src, "usb", 3) == 0)
+	{
+		int device = USB8-DeviceHandler::PathToDriveType(src);
+		PartitionHandle * usb = (PartitionHandle *) DeviceHandler::Instance()->GetUSB0Handle();
 	
-        if(usb && strncasecmp(usb->GetFSName(device), "NTF", 3) == 0)
-        {
-            sprintf(Text, "usb:ntfs:%i", usb->GetLBAStart(device));
-            AddBootArgument(Text);
-        }
-        else if(usb)
-        {
-            sprintf(Text, "usb:fat:%i", usb->GetLBAStart(device));
-            AddBootArgument(Text);
-        }
-    }
+		if(usb && strncasecmp(usb->GetFSName(device), "NTF", 3) == 0)
+		{
+			sprintf(Text, "usb:ntfs:%i", usb->GetLBAStart(device));
+			AddBootArgument(Text);
+		}
+		else if(usb)
+		{
+			sprintf(Text, "usb:fat:%i", usb->GetLBAStart(device));
+			AddBootArgument(Text);
+		}
+	}
 
-    const char * filepath = strchr(src, '/');
-    if(filepath)
-        AddBootArgument(filepath);
+	const char * filepath = strchr(src, '/');
+	if(filepath)
+		AddBootArgument(filepath);
 
-    AddBootArgument("WiiXplorer");
+	AddBootArgument("WiiXplorer");
 }

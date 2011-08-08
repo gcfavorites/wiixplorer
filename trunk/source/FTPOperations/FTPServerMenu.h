@@ -26,43 +26,43 @@
 #ifndef MENU_FTP_SERVER_H_
 #define MENU_FTP_SERVER_H_
 
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "Controls/GXConsole.hpp"
 
 class FTPServerMenu : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        FTPServerMenu();
-        virtual ~FTPServerMenu();
-        int GetMenu();
-    protected:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+	public:
+		FTPServerMenu();
+		virtual ~FTPServerMenu();
+		int GetMenu();
+	protected:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        int menu;
+		int menu;
 
-        GuiSound * btnSoundClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnSoundClick;
+		GuiSound * btnSoundOver;
 
-        GuiImageData * btnOutline;
-        GuiImageData * btnOutlineOver;
-        GuiImageData * network_icon;
-        GuiImageData * bgImgData;
+		GuiImageData * btnOutline;
+		GuiImageData * btnOutlineOver;
+		GuiImageData * network_icon;
+		GuiImageData * bgImgData;
 
-        GuiImage * bgImg;
-        GuiImage * backBtnImg;
-        GuiImage * MainFTPBtnImg;
-        GuiImage * networkImg;
+		GuiImage * bgImg;
+		GuiImage * backBtnImg;
+		GuiImage * MainFTPBtnImg;
+		GuiImage * networkImg;
 
-        GuiText * IPText;
-        GuiText * backBtnTxt;
-        GuiText * MainFTPBtnTxt;
+		GuiText * IPText;
+		GuiText * backBtnTxt;
+		GuiText * MainFTPBtnTxt;
 
-        GuiButton * backBtn;
-        GuiButton * MainFTPBtn;
+		GuiButton * backBtn;
+		GuiButton * MainFTPBtn;
 
-        SimpleGuiTrigger * trigA;
+		SimpleGuiTrigger * trigA;
 
-        GXConsole * Console;
+		GXConsole * Console;
 };
 
 #endif

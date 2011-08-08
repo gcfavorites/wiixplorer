@@ -28,57 +28,54 @@
  #ifndef __ARCHIVEPROPERTIES_H_
  #define __ARCHIVEPROPERTIES_H_
 
-#include <gctypes.h>
-#include <unistd.h>
-
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "ArchiveOperations/ArchiveBrowser.h"
 #include "Memory/Resources.h"
 
 class ArchiveProperties : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        ArchiveProperties(ArchiveFileStruct * File);
-        virtual ~ArchiveProperties();
-        int GetChoice();
-    private:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+	public:
+		ArchiveProperties(ArchiveFileStruct * File);
+		virtual ~ArchiveProperties();
+		int GetChoice();
+	private:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        int choice;
-        ArchiveFileStruct ArchiveFile;
-        u64 foldersize;
-        u64 oldfoldersize;
-        u32 filecount;
+		int choice;
+		ArchiveFileStruct ArchiveFile;
+		u64 foldersize;
+		u64 oldfoldersize;
+		u32 filecount;
 
-        GuiImage * dialogBoxImg;
-        GuiImage * TitleImg;
-        GuiImage * arrowUpImg;
-        GuiImage * arrowUpImgOver;
+		GuiImage * dialogBoxImg;
+		GuiImage * TitleImg;
+		GuiImage * arrowUpImg;
+		GuiImage * arrowUpImgOver;
 
-        GuiImageData * dialogBox;
-        GuiImageData * titleData;
-        GuiImageData * arrowUp;
-        GuiImageData * arrowUpOver;
+		GuiImageData * dialogBox;
+		GuiImageData * titleData;
+		GuiImageData * arrowUp;
+		GuiImageData * arrowUpOver;
 
-        GuiSound * btnClick;
+		GuiSound * btnClick;
 
-        GuiText * TitleTxt;
-        GuiText * filepathTxt;
-        GuiText * filecountTxt;
-        GuiText * filecountTxtVal;
-        GuiText * filesizeTxt;
-        GuiText * filesizeTxtVal;
-        GuiText * filesizeCompTxt;
-        GuiText * filesizeCompTxtVal;
-        GuiText * filetypeTxt;
-        GuiText * filetypeTxtVal;
-        GuiText * last_modifTxt;
-        GuiText * last_modifTxtVal;
+		GuiText * TitleTxt;
+		GuiText * filepathTxt;
+		GuiText * filecountTxt;
+		GuiText * filecountTxtVal;
+		GuiText * filesizeTxt;
+		GuiText * filesizeTxtVal;
+		GuiText * filesizeCompTxt;
+		GuiText * filesizeCompTxtVal;
+		GuiText * filetypeTxt;
+		GuiText * filetypeTxtVal;
+		GuiText * last_modifTxt;
+		GuiText * last_modifTxtVal;
 
-        GuiButton * CloseBtn;
+		GuiButton * CloseBtn;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 #endif

@@ -38,43 +38,43 @@ extern bool sizegainrunning;
 
 IOHandler::IOHandler()
 {
-    TaskbarSlot = NULL;
-    ProgressMode = 0;
-    IOThread = LWP_THREAD_NULL;
-    RequestThread = LWP_THREAD_NULL;
-    DestroyRequested = false;
-    ProcessLocked = false;
-    Running = false;
-    TotalFileCount = 0;
-    TotalSize = 0;
-    MinimizeCallback.SetCallback(this, &IOHandler::SetMaximized);
+	TaskbarSlot = NULL;
+	ProgressMode = 0;
+	IOThread = LWP_THREAD_NULL;
+	RequestThread = LWP_THREAD_NULL;
+	DestroyRequested = false;
+	ProcessLocked = false;
+	Running = false;
+	TotalFileCount = 0;
+	TotalSize = 0;
+	MinimizeCallback.SetCallback(this, &IOHandler::SetMaximized);
 
-    ThreadStack = (u8 *) memalign(32, 32768);
-    if(!ThreadStack)
-        return;
+	ThreadStack = (u8 *) memalign(32, 32768);
+	if(!ThreadStack)
+		return;
 
 	LWP_CreateThread(&IOThread, ThreadCallback, this, ThreadStack, 32768, Settings.CopyThreadPrio);
 }
 
 IOHandler::~IOHandler()
 {
-    DestroyRequested = true;
-    Running = false;
-    actioncanceled = true;
+	DestroyRequested = true;
+	Running = false;
+	actioncanceled = true;
 
-    if(IOThread != LWP_THREAD_NULL)
-    {
-        LWP_ResumeThread(IOThread);
-        LWP_JoinThread(IOThread, NULL);
-    }
+	if(IOThread != LWP_THREAD_NULL)
+	{
+		LWP_ResumeThread(IOThread);
+		LWP_JoinThread(IOThread, NULL);
+	}
 	if(ThreadStack)
-        free(ThreadStack);
+		free(ThreadStack);
 
-    while(!ProcessQueue.empty())
-    {
-        delete ProcessQueue.front();
-        ProcessQueue.pop();
-    }
+	while(!ProcessQueue.empty())
+	{
+		delete ProcessQueue.front();
+		ProcessQueue.pop();
+	}
 }
 
 IOHandler * IOHandler::Instance()
@@ -88,226 +88,226 @@ IOHandler * IOHandler::Instance()
 
 void IOHandler::DestroyInstance()
 {
-    if(instance)
-    {
-        delete instance;
-    }
-    instance = NULL;
+	if(instance)
+	{
+		delete instance;
+	}
+	instance = NULL;
 }
 
 void IOHandler::StartProcess(bool lock)
 {
-    Running = true;
-    ProcessLocked = lock;
+	Running = true;
+	ProcessLocked = lock;
 
-    LWP_ResumeThread(IOThread);
-    RequestThread = LWP_GetSelf();
+	LWP_ResumeThread(IOThread);
+	RequestThread = LWP_GetSelf();
 
-    if(!ProcessQueue.back()->Cutted)
-        CalcTotalSize();
+	if(!ProcessQueue.back()->Cutted)
+		CalcTotalSize();
 
-    if(ProcessLocked)
-    {
-        LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
-        LWP_SuspendThread(RequestThread);
-    }
+	if(ProcessLocked)
+	{
+		LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
+		LWP_SuspendThread(RequestThread);
+	}
 }
 
 void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
 {
-    if(!Running)
-    {
-        ProgressWindow::Instance()->ResetValues();
-        ProgressMode = ((List->GetItemcount() > 1) || List->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
-    }
+	if(!Running)
+	{
+		ProgressWindow::Instance()->ResetValues();
+		ProgressMode = ((List->GetItemcount() > 1) || List->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
+	}
 
-    ClipboardItem * TmpItem = new ClipboardItem;
+	ClipboardItem * TmpItem = new ClipboardItem;
 
-    for(int i = 0; i < List->GetItemcount(); i++)
-    {
-        TmpItem->ItemList.AddItem(List->GetItem(i));
-    }
+	for(int i = 0; i < List->GetItemcount(); i++)
+	{
+		TmpItem->ItemList.AddItem(List->GetItem(i));
+	}
 
-    TmpItem->DestPath = dest;
-    TmpItem->Cutted = Cutted;
+	TmpItem->DestPath = dest;
+	TmpItem->Cutted = Cutted;
 
-    ProcessQueue.push(TmpItem);
+	ProcessQueue.push(TmpItem);
 
-    if(Cutted)
-    {
-        if(!Running)
-            StartProgress(tr("Calculating total size..."));
-        CalcTotalSize();
-    }
+	if(Cutted)
+	{
+		if(!Running)
+			StartProgress(tr("Calculating total size..."));
+		CalcTotalSize();
+	}
 
-    StartProcess(!Running);
+	StartProcess(!Running);
 }
 
 void IOHandler::ProcessNext()
 {
-    if(DestroyRequested)
-        return;
+	if(DestroyRequested)
+		return;
 
-    ItemMarker * CurrentProcess = (ItemMarker *) &ProcessQueue.front()->ItemList;
+	ItemMarker * CurrentProcess = (ItemMarker *) &ProcessQueue.front()->ItemList;
 
-    const char * destpath = ProcessQueue.front()->DestPath.c_str();
+	const char * destpath = ProcessQueue.front()->DestPath.c_str();
 
-    char srcpath[MAXPATHLEN];
-    char destdir[MAXPATHLEN];
-    int res = 0;
-    ProgressWindow::Instance()->SetMinimizable(true);
-    ProgressWindow::Instance()->SetMinimized(!ProcessLocked);
+	char srcpath[MAXPATHLEN];
+	char destdir[MAXPATHLEN];
+	int res = 0;
+	ProgressWindow::Instance()->SetMinimizable(true);
+	ProgressWindow::Instance()->SetMinimized(!ProcessLocked);
 
-    bool Cutted = ProcessQueue.front()->Cutted;
-    if(Cutted)
-    {
-        if(CurrentProcess->GetItemcount() > 0)
-        {
-            snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(0));
-            snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
-            if(CompareDevices(srcpath, destdir))
-            {
-                if(ProgressWindow::Instance()->GetProgressMode() != THROBBER)
-                    StopProgress();
+	bool Cutted = ProcessQueue.front()->Cutted;
+	if(Cutted)
+	{
+		if(CurrentProcess->GetItemcount() > 0)
+		{
+			snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(0));
+			snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
+			if(CompareDevices(srcpath, destdir))
+			{
+				if(ProgressWindow::Instance()->GetProgressMode() != THROBBER)
+					StopProgress();
 
-                StartProgress(tr("Moving item(s):"), THROBBER, !Running);
-            }
-            else
-            {
-                if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
-                    StopProgress();
+				StartProgress(tr("Moving item(s):"), THROBBER, !Running);
+			}
+			else
+			{
+				if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
+					StopProgress();
 
-                StartProgress(tr("Moving item(s):"), ProgressMode, !Running);
-            }
-        }
-    }
-    else
-    {
-        if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
-            StopProgress();
+				StartProgress(tr("Moving item(s):"), ProgressMode, !Running);
+			}
+		}
+	}
+	else
+	{
+		if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
+			StopProgress();
 
-        StartProgress(tr("Copying item(s):"), ProgressMode, !Running);
-    }
-    for(int i = 0; i < CurrentProcess->GetItemcount(); i++)
-    {
-        if(CurrentProcess->IsItemDir(i) == true)
-        {
-            snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(i));
-            snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(i));
-            if(Cutted == false)
-            {
-                res = CopyDirectory(srcpath, destdir);
-            }
-            else
-            {
-                if(strcmp(srcpath, destdir) != 0)
-                {
-                    res = MoveDirectory(srcpath, destdir);
-                }
-                else
-                {
-                    StopProgress();
-                    ShowError(tr("You can not cut into the directory itself."));
-                    res =  -1;
-                }
-            }
+		StartProgress(tr("Copying item(s):"), ProgressMode, !Running);
+	}
+	for(int i = 0; i < CurrentProcess->GetItemcount(); i++)
+	{
+		if(CurrentProcess->IsItemDir(i) == true)
+		{
+			snprintf(srcpath, sizeof(srcpath), "%s/", CurrentProcess->GetItemPath(i));
+			snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(i));
+			if(Cutted == false)
+			{
+				res = CopyDirectory(srcpath, destdir);
+			}
+			else
+			{
+				if(strcmp(srcpath, destdir) != 0)
+				{
+					res = MoveDirectory(srcpath, destdir);
+				}
+				else
+				{
+					StopProgress();
+					ShowError(tr("You can not cut into the directory itself."));
+					res =  -1;
+				}
+			}
 
-            if(res == -10)
-            {
-                StopProgress();
-                if(!DestroyRequested)
-                    WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
-                break;
-            }
-        }
-        else
-        {
-            snprintf(srcpath, sizeof(srcpath), "%s", CurrentProcess->GetItemPath(i));
-            snprintf(destdir, sizeof(destdir), "%s/%s", destpath, CurrentProcess->GetItemName(i));
-            if(Cutted == false)
-            {
-                if(strcmp(srcpath, destdir) == 0)
-                {
-                    snprintf(destdir, sizeof(destdir), "%s/%s %s", destpath, tr("Copy of"), CurrentProcess->GetItemName(i));
-                }
-                res = CopyFile(srcpath, destdir);
-            }
-            else
-            {
-                if(strcmp(srcpath, destdir) == 0)
-                {
-                    res = 1;
-                    continue;
-                }
-                res = MoveFile(srcpath, destdir);
-            }
-        }
-    }
-    if(res < 0 && res != 10 && !DestroyRequested)
-    {
-        StopProgress();
-        if(Cutted)
-            ShowError(tr("Failed moving item(s)."));
-        else
-            ShowError(tr("Failed copying item(s)."));
-    }
+			if(res == -10)
+			{
+				StopProgress();
+				if(!DestroyRequested)
+					WindowPrompt(tr("Transfering files:"), tr("Action cancelled."), tr("OK"));
+				break;
+			}
+		}
+		else
+		{
+			snprintf(srcpath, sizeof(srcpath), "%s", CurrentProcess->GetItemPath(i));
+			snprintf(destdir, sizeof(destdir), "%s/%s", destpath, CurrentProcess->GetItemName(i));
+			if(Cutted == false)
+			{
+				if(strcmp(srcpath, destdir) == 0)
+				{
+					snprintf(destdir, sizeof(destdir), "%s/%s %s", destpath, tr("Copy of"), CurrentProcess->GetItemName(i));
+				}
+				res = CopyFile(srcpath, destdir);
+			}
+			else
+			{
+				if(strcmp(srcpath, destdir) == 0)
+				{
+					res = 1;
+					continue;
+				}
+				res = MoveFile(srcpath, destdir);
+			}
+		}
+	}
+	if(res < 0 && res != 10 && !DestroyRequested)
+	{
+		StopProgress();
+		if(Cutted)
+			ShowError(tr("Failed moving item(s)."));
+		else
+			ShowError(tr("Failed copying item(s)."));
+	}
 
-    CurrentProcess->Reset();
-    delete ProcessQueue.front();
-    ProcessQueue.pop();
+	CurrentProcess->Reset();
+	delete ProcessQueue.front();
+	ProcessQueue.pop();
 }
 
 void IOHandler::SetMinimized(int mode)
 {
-    ProgressText.assign(ProgressWindow::Instance()->GetTitle());
-    TaskbarSlot = new Task(ProgressText.c_str());
-    TaskbarSlot->SetCallback(&MinimizeCallback);
-    TaskbarSlot->SetParameter(mode);
-    Taskbar::Instance()->AddTask(TaskbarSlot);
+	ProgressText.assign(ProgressWindow::Instance()->GetTitle());
+	TaskbarSlot = new Task(ProgressText.c_str());
+	TaskbarSlot->SetCallback(&MinimizeCallback);
+	TaskbarSlot->SetParameter(mode);
+	Taskbar::Instance()->AddTask(TaskbarSlot);
 
-    LWP_SetThreadPriority(IOThread, Settings.CopyThreadBackPrio);
+	LWP_SetThreadPriority(IOThread, Settings.CopyThreadBackPrio);
 
-    LWP_ResumeThread(RequestThread);
-    ProcessLocked = false;
+	LWP_ResumeThread(RequestThread);
+	ProcessLocked = false;
 }
 
 void IOHandler::SetMaximized(int Param)
 {
-    Taskbar::Instance()->RemoveTask(TaskbarSlot);
-    TaskbarSlot = NULL;
+	Taskbar::Instance()->RemoveTask(TaskbarSlot);
+	TaskbarSlot = NULL;
 
-    ProgressWindow::Instance()->SetMinimized(false);
-    StartProgress(ProgressText.c_str(), Param, !Running);
+	ProgressWindow::Instance()->SetMinimized(false);
+	StartProgress(ProgressText.c_str(), Param, !Running);
 
-    ProcessLocked = true;
-    LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
-    LWP_SuspendThread(RequestThread);
+	ProcessLocked = true;
+	LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
+	LWP_SuspendThread(RequestThread);
 }
 
 void IOHandler::CalcTotalSize()
 {
-    ItemMarker * Process = (ItemMarker *) &ProcessQueue.back()->ItemList;
+	ItemMarker * Process = (ItemMarker *) &ProcessQueue.back()->ItemList;
 
-    char filepath[1024];
-    sizegainrunning = true;
+	char filepath[1024];
+	sizegainrunning = true;
 
-    for(int i = 0; i < Process->GetItemcount(); i++)
-    {
-        if(Process->IsItemDir(i) == true)
-        {
-            snprintf(filepath, sizeof(filepath), "%s/", Process->GetItemPath(i));
-            GetFolderSize(filepath, TotalSize, TotalFileCount);
-        }
-        else
-        {
-            TotalSize += FileSize(Process->GetItemPath(i));
-            ++TotalFileCount;
-        }
-    }
+	for(int i = 0; i < Process->GetItemcount(); i++)
+	{
+		if(Process->IsItemDir(i) == true)
+		{
+			snprintf(filepath, sizeof(filepath), "%s/", Process->GetItemPath(i));
+			GetFolderSize(filepath, TotalSize, TotalFileCount);
+		}
+		else
+		{
+			TotalSize += FileSize(Process->GetItemPath(i));
+			++TotalFileCount;
+		}
+	}
 
-    sizegainrunning = false;
+	sizegainrunning = false;
 
-    ProgressWindow::Instance()->SetTotalValues(TotalSize, TotalFileCount);
+	ProgressWindow::Instance()->SetTotalValues(TotalSize, TotalFileCount);
 }
 
 void * IOHandler::ThreadCallback(void *arg)
@@ -318,29 +318,29 @@ void * IOHandler::ThreadCallback(void *arg)
 
 void IOHandler::InternalThreadHandle()
 {
-    while(!DestroyRequested)
-    {
-        if(!Running)
-            LWP_SuspendThread(IOThread);
+	while(!DestroyRequested)
+	{
+		if(!Running)
+			LWP_SuspendThread(IOThread);
 
-        while(!ProcessQueue.empty() && Running)
-            ProcessNext();
+		while(!ProcessQueue.empty() && Running)
+			ProcessNext();
 
-        if(TaskbarSlot)
-        {
-            Taskbar::Instance()->RemoveTask(TaskbarSlot);
-            TaskbarSlot = NULL;
-        }
+		if(TaskbarSlot)
+		{
+			Taskbar::Instance()->RemoveTask(TaskbarSlot);
+			TaskbarSlot = NULL;
+		}
 
-        StopProgress();
-        ProgressWindow::Instance()->SetMinimized(false);
-        ProgressWindow::Instance()->SetMinimizable(false);
-        ResetReplaceChoice();
+		StopProgress();
+		ProgressWindow::Instance()->SetMinimized(false);
+		ProgressWindow::Instance()->SetMinimizable(false);
+		ResetReplaceChoice();
 
-        LWP_ResumeThread(RequestThread);
-        TotalFileCount = 0;
-        TotalSize = 0;
-        ProcessLocked = false;
-        Running = false;
-    }
+		LWP_ResumeThread(RequestThread);
+		TotalFileCount = 0;
+		TotalSize = 0;
+		ProcessLocked = false;
+		Running = false;
+	}
 }

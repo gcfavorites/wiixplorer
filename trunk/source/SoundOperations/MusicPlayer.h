@@ -28,49 +28,49 @@
 
 #include <vector>
 #include <string>
-#include "libwiigui/gui.h"
+#include "GUI/gui_window.h"
 #include "PlayList.hpp"
 
 enum
 {
-    ONCE = 0,
-    LOOP,
-    RANDOM_MUSIC,
-    PLAYLIST_LOOP,
-    MAX_LOOP_MODES
+	ONCE = 0,
+	LOOP,
+	RANDOM_MUSIC,
+	PLAYLIST_LOOP,
+	MAX_LOOP_MODES
 };
 
 class MusicPlayer : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
+	public:
 		static MusicPlayer * Instance();
 		static void DestroyInstance();
 
-        bool Load(const char *path, bool silent = true);
-        bool LoadStandard();
-        bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); };
-        void Resume();
-        bool Play();
-        bool Play(int pos);
-        bool PlayNext();
-        bool PlayPrevious();
-        bool PlayRandom();
-        void Pause() { if(IsStopped()) return; MainSound->Pause(); Paused = true; };
-        void Stop();
-        void SetLoop(u8 mode) { LoopMode = mode; MainSound->SetLoop(LoopMode); };
-        void SetVolume(int volume) { MainSound->SetVolume(volume); };
-        void Show();
-        void Hide();
-        void AddEntrie(const char * filename) { TitleList.AddEntrie(filename); };
-        void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); };
-        bool IsStopped() { return Stopped; };
-        void SetPlaybackFinished(bool b) { PlaybackFinished = b; };
-        void Update(GuiTrigger * t);
-    protected:
-        MusicPlayer();
-        virtual ~MusicPlayer();
-        void InternalSetup();
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+		bool Load(const char *path, bool silent = true);
+		bool LoadStandard();
+		bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); };
+		void Resume();
+		bool Play();
+		bool Play(int pos);
+		bool PlayNext();
+		bool PlayPrevious();
+		bool PlayRandom();
+		void Pause() { if(IsStopped()) return; MainSound->Pause(); Paused = true; };
+		void Stop();
+		void SetLoop(u8 mode) { LoopMode = mode; MainSound->SetLoop(LoopMode); };
+		void SetVolume(int volume) { MainSound->SetVolume(volume); };
+		void Show();
+		void Hide();
+		void AddEntrie(const char * filename) { TitleList.AddEntrie(filename); };
+		void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); };
+		bool IsStopped() { return Stopped; };
+		void SetPlaybackFinished(bool b) { PlaybackFinished = b; };
+		void Update(GuiTrigger * t);
+	protected:
+		MusicPlayer();
+		virtual ~MusicPlayer();
+		void InternalSetup();
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
 		bool Paused;
 		bool Stopped;
@@ -79,35 +79,35 @@ class MusicPlayer : public GuiWindow, public sigslot::has_slots<>
 		bool ExitRequested;
 
 		GuiSound * MainSound;
-        u8 LoopMode;
+		u8 LoopMode;
 
 		static MusicPlayer *instance;
-        int currentPlaying;
-        int CircleImageDelay;
-        PlayList TitleList;
+		int currentPlaying;
+		int CircleImageDelay;
+		PlayList TitleList;
 
-        GuiSound * btnSoundOver;
-        GuiImageData * playerImgData;
-        GuiImageData * navi_defaultImgData;
-        GuiImageData * navi_upImgData;
-        GuiImageData * navi_downImgData;
-        GuiImageData * navi_leftImgData;
-        GuiImageData * navi_rightImgData;
+		GuiSound * btnSoundOver;
+		GuiImageData * playerImgData;
+		GuiImageData * navi_defaultImgData;
+		GuiImageData * navi_upImgData;
+		GuiImageData * navi_downImgData;
+		GuiImageData * navi_leftImgData;
+		GuiImageData * navi_rightImgData;
 
-        GuiImage * BackgroundImg;
-        GuiImage * CircleImg;
+		GuiImage * BackgroundImg;
+		GuiImage * CircleImg;
 
-        GuiButton * BackButton;
-        GuiButton * PlayBtn;
-        GuiButton * StopBtn;
-        GuiButton * NextBtn;
-        GuiButton * PreviousBtn;
+		GuiButton * BackButton;
+		GuiButton * PlayBtn;
+		GuiButton * StopBtn;
+		GuiButton * NextBtn;
+		GuiButton * PreviousBtn;
 
-        std::string Title;
-        GuiText * PlayTitle;
+		std::string Title;
+		GuiText * PlayTitle;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 #endif

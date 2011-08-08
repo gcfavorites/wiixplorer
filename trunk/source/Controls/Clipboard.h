@@ -28,19 +28,18 @@
 #ifndef _CLIPBOARD_H_
 #define _CLIPBOARD_H_
 
-#include "libwiigui/gui.h"
 #include "FileOperations/filebrowser.h"
 #include "FileOperations/ItemMarker.h"
 
 class Clipboard : public ItemMarker
 {
-    public:
+	public:
 		static Clipboard * Instance();
-        static void DestroyInstance();
+		static void DestroyInstance();
 
-        bool Cutted;
-    private:
-        Clipboard() { Cutted = false; };
+		bool Cutted;
+	private:
+		Clipboard() { Cutted = false; };
 		static Clipboard *instance;
 
 };

@@ -1,5 +1,5 @@
 /***************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2009-2011
  * by Dimok
  *
  * This software is provided 'as-is', without any express or implied
@@ -20,59 +20,53 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * Device Menu
- *
- * for WiiXplorer 2009
  ***************************************************************************/
  #ifndef __DEVICE_MENU_H_
  #define __DEVICE_MENU_H_
 
-#include <gctypes.h>
-#include <unistd.h>
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
 class DeviceMenu : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        DeviceMenu(int x, int y);
-        virtual ~DeviceMenu();
-        int GetChoice();
-    private:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+	public:
+		DeviceMenu(int x, int y, GuiWindow *parent = 0);
+		virtual ~DeviceMenu();
+		sigslot::signal2<DeviceMenu *, int> DeviceSelected;
+	private:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        int deviceCount;
-        int deviceSelection[MAXDEVICES];
-        int tile;
-        int choice;
+		int deviceCount;
+		int deviceSelection[MAXDEVICES];
+		int tile;
+		int choice;
 
-        GuiImage * centerImg;
-        GuiImage * leftImg;
-        GuiImage * rightImg;
-        GuiImage * deviceImgs[MAXDEVICES];
-        GuiImage * deviceImgOver[MAXDEVICES];
+		GuiImage * centerImg;
+		GuiImage * leftImg;
+		GuiImage * rightImg;
+		GuiImage * deviceImgs[MAXDEVICES];
+		GuiImage * deviceImgOver[MAXDEVICES];
 
-        GuiImageData * device_choose_right_Data;
-        GuiImageData * device_choose_left_Data;
-        GuiImageData * device_choose_center_Data;
-        GuiImageData * menu_select;
-        GuiImageData * sd_ImgData;
-        GuiImageData * usb_ImgData;
-        GuiImageData * usb_blue_ImgData;
-        GuiImageData * smb_ImgData;
-        GuiImageData * ftp_ImgData;
+		GuiImageData * device_choose_right_Data;
+		GuiImageData * device_choose_left_Data;
+		GuiImageData * device_choose_center_Data;
+		GuiImageData * menu_select;
+		GuiImageData * sd_ImgData;
+		GuiImageData * usb_ImgData;
+		GuiImageData * usb_blue_ImgData;
+		GuiImageData * smb_ImgData;
+		GuiImageData * ftp_ImgData;
 		GuiImageData * dvd_ImgData;
 
-        GuiSound * btnClick;
+		GuiSound * btnClick;
 
-        GuiText * deviceText[MAXDEVICES];
+		GuiText * deviceText[MAXDEVICES];
 
-        GuiButton * NoBtn;
-        GuiButton * deviceBtn[MAXDEVICES];
+		GuiButton * NoBtn;
+		GuiButton * deviceBtn[MAXDEVICES];
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 #endif //__DEVICE_MENU_H_

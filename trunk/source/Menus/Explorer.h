@@ -1,116 +1,93 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * Explorer Class
- *
- * for WiiXplorer 2009
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
  #ifndef __EXPLORER_H_
  #define __EXPLORER_H_
 
-#include <gctypes.h>
-#include <unistd.h>
-
-#include "FileOperations/ListFileBrowser.hpp"
-#include "FileOperations/IconFileBrowser.hpp"
+#include "FileOperations/filebrowser.h"
+#include "FileOperations/GuiFileBrowser.hpp"
+#include "FileOperations/Browser.hpp"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"
-#include "FileOperations/filebrowser.h"
-#include "ArchiveOperations/ArchiveBrowser.h"
 
 enum
 {
-    ICONBROWSER = 0,
-    LISTBROWSER,
+	ICONBROWSER = 0,
+	LISTBROWSER,
 };
 
 class Explorer : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        Explorer();
-        Explorer(const char * path);
-        virtual ~Explorer();
-        void Setup();
-        int LoadPath(const char * path);
-        int GetMenuChoice();
-        void SetState(int s);
-        void SetFilter(u8 filtermode) { DeviceBrowser->SetFilter(filtermode); };
-        const char * GetCurrectPath() { if(!CurBrowser) return NULL; return CurBrowser->GetCurrentPath(); };
-    protected:
-		void CheckBrowserChanges();
-		void CheckDeviceMenu();
-		void CheckRightClick();
-        void SetDeviceImage();
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
-        void BackInDirectory(GuiButton *sender, int pointer, POINT p);
+	public:
+		Explorer(GuiWindow *parent = 0, const char * path = 0);
+		virtual ~Explorer();
+		int LoadPath(const char * path);
+		void SetFilter(u8 filtermode) { fileBrowser->SetFilter(filtermode); };
+		const char * GetCurrectPath() { return fileBrowser->GetCurrentPath(); };
+		void show();
+		void hide();
+	protected:
+		void Init();
+		void OnBrowserChanges(int index);
+		void OnDeviceSelect(DeviceMenu *Device_Menu, int device);
+		void OnRightClick(PopUpMenu *menu, int item);
+		void OnCreditsClosing();
+		void SetDeviceImage();
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void BackInDirectory(GuiButton *sender, int pointer, const POINT &p);
 
-        int menu;
+		FileBrowser *fileBrowser;
+		Browser * curBrowser;
+		GuiFileBrowser * guiBrowser;
 
-        Browser * CurBrowser;
-        FileBrowser * DeviceBrowser;
-        ArchiveBrowser * ArcBrowser;
+		CreditWindow * Credits;
 
-        GuiFileBrowser * fileBrowser;
-        IconFileBrowser * iconBrowser;
-        ListFileBrowser * listBrowser;
+		GuiImage * BackgroundImg;
+		GuiImage * creditsImg;
+		GuiImage * RefreshImg;
+		GuiImage * deviceImg;
+		GuiImage * AdressbarImg;
 
-        DeviceMenu * Device_Menu;
-        PopUpMenu * RightClick;
-        CreditWindow * Credits;
-
-        GuiImage * BackgroundImg;
-        GuiImage * creditsImg;
-        GuiImage * RefreshImg;
-        GuiImage * deviceImg;
-        GuiImage * AdressbarImg;
-
-        GuiImageData * creditsImgData;
-        GuiImageData * Refresh;
-        GuiImageData * Background;
-        GuiImageData * Address;
-        GuiImageData * sdstorage;
-        GuiImageData * usbstorage;
-        GuiImageData * usbstorage_blue;
-        GuiImageData * networkstorage;
+		GuiImageData * creditsImgData;
+		GuiImageData * Refresh;
+		GuiImageData * Background;
+		GuiImageData * Address;
+		GuiImageData * sdstorage;
+		GuiImageData * usbstorage;
+		GuiImageData * usbstorage_blue;
+		GuiImageData * networkstorage;
 		GuiImageData * ftpstorage;
-        GuiImageData * dvd_ImgData;
+		GuiImageData * dvd_ImgData;
 
-        GuiSound * btnSoundClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnSoundClick;
+		GuiSound * btnSoundOver;
 
-        GuiText * AdressText;
+		GuiText * AdressText;
 
-        GuiButton * CreditsBtn;
-        GuiButton * RefreshBtn;
-        GuiButton * deviceSwitchBtn;
-        GuiButton * Adressbar;
-        GuiButton * clickmenuBtn;
-        GuiButton * BackInDirBtn;
+		GuiButton * CreditsBtn;
+		GuiButton * RefreshBtn;
+		GuiButton * deviceSwitchBtn;
+		GuiButton * Adressbar;
+		GuiButton * clickmenuBtn;
+		GuiButton * BackInDirBtn;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigPlus;
-        GuiTrigger * trigBackInDir;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigPlus;
+		GuiTrigger * trigBackInDir;
 };
 
 #endif

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: PabloACZ\n"
 "Language-Team: Spanish\n"
@@ -529,6 +529,9 @@ msgstr "Extraer"
 
 msgid "Extract All"
 msgstr "Extraer todo"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "¿Quieres extraer el archivo en la ruta temporal y ejecutarlo?"
@@ -1220,14 +1223,11 @@ msgstr "La reconexión falló. No hay recursos SMB conectados."
 msgid "Red"
 msgstr "Rojo"
 
-msgid "Reload"
-msgstr "Actualizar"
-
 msgid "Reloading file list..."
 msgstr "Actualizando la lista de archivos..."
 
-msgid "Remounting all devices."
-msgstr "Remontando todos los dispositivos."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Remontando dispositivos..."
@@ -1651,9 +1651,6 @@ msgstr "No puedes establecer esta partición como activa."
 msgid "You cant use this operation on:"
 msgstr "No puedes usar esta operación en:"
 
-msgid "You do not have BootMii installed!"
-msgstr "¡No tienes instalado el BootMii IOS!"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "Esta unidad tiene una tabla de partición GUID (GPT). El formateado de particiones en GPT no está soportado todavía."
 
@@ -1692,6 +1689,15 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "!\"·$%&/()=?¿"
+
+#~ msgid "Reload"
+#~ msgstr "Actualizar"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Remontando todos los dispositivos."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "¡No tienes instalado el BootMii IOS!"
 
 #~ msgid "USB Device"
 #~ msgstr "Dispositivo USB"

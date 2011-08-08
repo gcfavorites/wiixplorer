@@ -5,27 +5,17 @@
  * input.cpp
  * Wii/GameCube controller management
  ***************************************************************************/
-
-#include <gccore.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <ogcsys.h>
-#include <unistd.h>
-#include <wiiuse/wpad.h>
-
-#include "menu.h"
+#include "stdafx.h"
 #include "VideoOperations/video.h"
 #include "ImageOperations/Screenshot.h"
+#include "GUI/gui_trigger.h"
+#include "Settings.h"
 #include "input.h"
-#include "sys.h"
-#include "main.h"
-#include "libwiigui/gui.h"
 
-int rumbleRequest[4] = {0,0,0,0};
-GuiTrigger userInput[4];
 static int rumbleCount[4] = {0,0,0,0};
+static int rumbleRequest[4] = {0,0,0,0};
+GuiTrigger userInput[4];
+extern bool shutdown;
 
 /****************************************************************************
  * UpdatePads
@@ -49,13 +39,13 @@ void UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 
-        if(Settings.Rumble)
-            DoRumble(i);
+		if(Settings.Rumble)
+			DoRumble(i);
 
-        if((userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton) && (userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton))
-        {
-            Screenshot();
-        }
+		if((userInput[i].wpad->btns_h & Settings.Controls.ScreenshotHoldButton) && (userInput[i].wpad->btns_d & Settings.Controls.ScreenshotClickButton))
+		{
+			Screenshot();
+		}
 	}
 }
 
@@ -97,10 +87,18 @@ void ShutoffRumble()
  ***************************************************************************/
 void ShutdownPads()
 {
-    ShutoffRumble();
+	ShutoffRumble();
 	WPAD_Flush(0);
-    WPAD_Disconnect(0);
-    WPAD_Shutdown();
+	WPAD_Disconnect(0);
+	WPAD_Shutdown();
+}
+
+/****************************************************************************
+ * Request for Rumble
+ ***************************************************************************/
+void RequestRumble(int chan)
+{
+	rumbleRequest[chan] = 1;
 }
 
 /****************************************************************************
@@ -119,10 +117,10 @@ void DoRumble(int i)
 		if(rumbleCount[i] > 0)
 			--rumbleCount[i];
 
-        if(rumbleCount[i] < 4)
-            WPAD_Rumble(i, 0); // rumble off
+		if(rumbleCount[i] < 4)
+			WPAD_Rumble(i, 0); // rumble off
 
-	    rumbleRequest[i] = 0;
+		rumbleRequest[i] = 0;
 	}
 }
 

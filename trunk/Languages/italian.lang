@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -529,6 +529,9 @@ msgstr "Estrai"
 
 msgid "Extract All"
 msgstr "Estrai tutto"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "Estrarre il file nella cartella temporanea e avviarlo?"
@@ -1220,14 +1223,11 @@ msgstr "Riconnessione fallita. Nessuno share connesso."
 msgid "Red"
 msgstr "Rosso"
 
-msgid "Reload"
-msgstr "Ricarica"
-
 msgid "Reloading file list..."
 msgstr "Ricarica lista file..."
 
-msgid "Remounting all devices."
-msgstr "Rimontaggio di tutte le periferiche."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Rimontaggio periferiche..."
@@ -1651,9 +1651,6 @@ msgstr "Non puoi impostare questa partizione come attiva."
 msgid "You cant use this operation on:"
 msgstr "Non puoi eseguire questa operazione su:"
 
-msgid "You do not have BootMii installed!"
-msgstr "Non hai BootMii installato!"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "Hai una Tavola Partizioni GUID (GPT). La formattazione di partizioni in GPT non e' ancora supportata."
 
@@ -1692,6 +1689,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Reload"
+#~ msgstr "Ricarica"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Rimontaggio di tutte le periferiche."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "Non hai BootMii installato!"
 
 #~ msgid "USB Device"
 #~ msgstr "Periferica USB"

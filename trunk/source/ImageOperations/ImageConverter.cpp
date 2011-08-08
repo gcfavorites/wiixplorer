@@ -33,359 +33,359 @@
 
 ImageConverter::ImageConverter(const char * filepath)
 {
-    InputType = IMAGE_PNG;
-    ImagePath = NULL;
-    OutPath = NULL;
-    gdImage = 0;
+	InputType = IMAGE_PNG;
+	ImagePath = NULL;
+	OutPath = NULL;
+	gdImage = 0;
 
-    ResetOptions();
-    LoadImage(filepath);
+	ResetOptions();
+	LoadImage(filepath);
 }
 
 ImageConverter::ImageConverter(const u8 * imgBuf, int imgSize)
 {
-    InputType = IMAGE_PNG;
-    ImagePath = NULL;
-    OutPath = NULL;
-    gdImage = 0;
+	InputType = IMAGE_PNG;
+	ImagePath = NULL;
+	OutPath = NULL;
+	gdImage = 0;
 
-    ResetOptions();
-    LoadImage(imgBuf, imgSize);
+	ResetOptions();
+	LoadImage(imgBuf, imgSize);
 }
 
 ImageConverter::~ImageConverter()
 {
-    ClearMemory();
+	ClearMemory();
 }
 
 bool ImageConverter::LoadImage(const char * filepath)
 {
-    ClearMemory();
+	ClearMemory();
 
-    if(!filepath)
-        return false;
+	if(!filepath)
+		return false;
 
-    ImagePath = new char[strlen(filepath)+1];
-    sprintf(ImagePath, "%s", filepath);
+	ImagePath = new char[strlen(filepath)+1];
+	sprintf(ImagePath, "%s", filepath);
 
-    SetOutPath(filepath);
+	SetOutPath(filepath);
 
-    u8 * buffer = NULL;
-    u64 filesize = 0;
+	u8 * buffer = NULL;
+	u64 filesize = 0;
 
-    LoadFileToMemWithProgress(tr("Loading image..."), filepath, &buffer, &filesize);
+	LoadFileToMemWithProgress(tr("Loading image..."), filepath, &buffer, &filesize);
 
-    if(!buffer)
-    {
-        ShowError(tr("Could not load image."));
-        return false;
-    }
+	if(!buffer)
+	{
+		ShowError(tr("Could not load image."));
+		return false;
+	}
 
-    bool result = LoadImage(buffer, filesize);
-    free(buffer);
+	bool result = LoadImage(buffer, filesize);
+	free(buffer);
 
-    return result;
+	return result;
 }
 
 bool ImageConverter::LoadImage(const u8 * img, int imgSize)
 {
-    if (img[0] == 0xFF && img[1] == 0xD8)
-    {
-        gdImage = gdImageCreateFromJpegPtr(imgSize, (u8*) img);
-        InputType = IMAGE_JPEG;
-    }
-    else if ((img[0] == 0x49 && img[1] == 0x49) || (img[0] == 0x4D && img[1] == 0x4D))
-    {
-        gdImage = gdImageCreateFromTiffPtr(imgSize, (u8*) img);
-        InputType = IMAGE_TIFF;
-    }
-    else if (img[0] == 'B' && img[1] == 'M')
-    {
-        gdImage = gdImageCreateFromBmpPtr(imgSize, (u8*) img);
-        InputType = IMAGE_BMP;
-    }
-    else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F')
-    {
-        gdImage = gdImageCreateFromGifPtr(imgSize, (u8*) img);
-        InputType = IMAGE_GIF;
-    }
-    else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G')
-    {
-        gdImage = gdImageCreateFromPngPtr(imgSize, (u8*) img);
-        InputType = IMAGE_PNG;
-    }
-    else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE))
-    {
-        gdImage = gdImageCreateFromGdPtr(imgSize, (u8*) img);
-        InputType = IMAGE_GD;
-    }
-    else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00)
-    {
-        gdImage = gdImageCreateFromGd2Ptr(imgSize, (u8*) img);
-        InputType = IMAGE_GD2;
-    }
-    else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30)
-    {
-        TplImage TplFile(img, imgSize);
+	if (img[0] == 0xFF && img[1] == 0xD8)
+	{
+		gdImage = gdImageCreateFromJpegPtr(imgSize, (u8*) img);
+		InputType = IMAGE_JPEG;
+	}
+	else if ((img[0] == 0x49 && img[1] == 0x49) || (img[0] == 0x4D && img[1] == 0x4D))
+	{
+		gdImage = gdImageCreateFromTiffPtr(imgSize, (u8*) img);
+		InputType = IMAGE_TIFF;
+	}
+	else if (img[0] == 'B' && img[1] == 'M')
+	{
+		gdImage = gdImageCreateFromBmpPtr(imgSize, (u8*) img);
+		InputType = IMAGE_BMP;
+	}
+	else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F')
+	{
+		gdImage = gdImageCreateFromGifPtr(imgSize, (u8*) img);
+		InputType = IMAGE_GIF;
+	}
+	else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G')
+	{
+		gdImage = gdImageCreateFromPngPtr(imgSize, (u8*) img);
+		InputType = IMAGE_PNG;
+	}
+	else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE))
+	{
+		gdImage = gdImageCreateFromGdPtr(imgSize, (u8*) img);
+		InputType = IMAGE_GD;
+	}
+	else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00)
+	{
+		gdImage = gdImageCreateFromGd2Ptr(imgSize, (u8*) img);
+		InputType = IMAGE_GD2;
+	}
+	else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30)
+	{
+		TplImage TplFile(img, imgSize);
 
-        gdImage = TplFile.ConvertToGD(0);
-        InputType = IMAGE_TPL;
-    }
-    //!This must be last since it can also intefere with outher formats
-    else if(img[0] == 0x00)
-    {
-        gdImage = gdImageCreateFromTgaPtr(imgSize, (u8*) img);
-        InputType = IMAGE_TGA;
-    }
+		gdImage = TplFile.ConvertToGD(0);
+		InputType = IMAGE_TPL;
+	}
+	//!This must be last since it can also intefere with outher formats
+	else if(img[0] == 0x00)
+	{
+		gdImage = gdImageCreateFromTgaPtr(imgSize, (u8*) img);
+		InputType = IMAGE_TGA;
+	}
 
-    if(gdImage == 0)
-    {
-        ShowError(tr("Could not load image."));
-        return false;
-    }
+	if(gdImage == 0)
+	{
+		ShowError(tr("Could not load image."));
+		return false;
+	}
 
-    OutputWidth = gdImageSX(gdImage);
+	OutputWidth = gdImageSX(gdImage);
 	OutputHeight = gdImageSY(gdImage);
 
-    return true;
+	return true;
 }
 
 gdImagePtr ImageConverter::GetImagePtr()
 {
-    return gdImage;
+	return gdImage;
 }
 
 bool ImageConverter::Convert()
 {
-    bool result = false;
+	bool result = false;
 
-    result = RotateImage(Angle);
-    if(!result)
-        return false;
+	result = RotateImage(Angle);
+	if(!result)
+		return false;
 
-    result = ResizeImage(OutputWidth, OutputHeight);
-    if(!result)
-        return false;
+	result = ResizeImage(OutputWidth, OutputHeight);
+	if(!result)
+		return false;
 
-    if(FlipMode == FLIP_VERTICAL)
-        FlipVertical();
+	if(FlipMode == FLIP_VERTICAL)
+		FlipVertical();
 
-    if(FlipMode == FLIP_HORIZONTAL)
-        FlipHorizontal();
+	if(FlipMode == FLIP_HORIZONTAL)
+		FlipHorizontal();
 
-    if(FlipMode == FLIP_BOTH)
-        FlipBoth();
+	if(FlipMode == FLIP_BOTH)
+		FlipBoth();
 
-    if(OutPath)
-        return WriteImage(OutPath);
+	if(OutPath)
+		return WriteImage(OutPath);
 
-    return false;
+	return false;
 }
 
 bool ImageConverter::ResizeImage(int newwidth, int newheight)
 {
-    if(gdImage == 0)
-        return false;
+	if(gdImage == 0)
+		return false;
 
-    int imgwidth = gdImageSX(gdImage);
+	int imgwidth = gdImageSX(gdImage);
 	int imgheight = gdImageSY(gdImage);
 
-    if(imgwidth != newwidth || newheight != newheight)
-    {
-        gdImagePtr dst = gdImageCreateTrueColor(newwidth, newheight);
-        if(dst == 0)
-        {
-            StopProgress();
-            ShowError(tr("Not enough memory to resize."));
-            return false;
-        }
+	if(imgwidth != newwidth || newheight != newheight)
+	{
+		gdImagePtr dst = gdImageCreateTrueColor(newwidth, newheight);
+		if(dst == 0)
+		{
+			StopProgress();
+			ShowError(tr("Not enough memory to resize."));
+			return false;
+		}
 
-        gdImageInterlace(dst, Interlace);
-        gdImageAlphaBlending(dst, AlphaBlending);
-        gdImageSaveAlpha(dst, SaveAlpha);
+		gdImageInterlace(dst, Interlace);
+		gdImageAlphaBlending(dst, AlphaBlending);
+		gdImageSaveAlpha(dst, SaveAlpha);
 
-        gdImageCopyResized(dst, gdImage, 0, 0, 0, 0, newwidth, newheight, imgwidth, imgheight);
-        gdImageDestroy(gdImage);
-        gdImage = dst;
-    }
+		gdImageCopyResized(dst, gdImage, 0, 0, 0, 0, newwidth, newheight, imgwidth, imgheight);
+		gdImageDestroy(gdImage);
+		gdImage = dst;
+	}
 
-    return true;
+	return true;
 }
 
 bool ImageConverter::RotateImage(int angle)
 {
-    if(gdImage == 0)
-        return false;
+	if(gdImage == 0)
+		return false;
 
-    int imgwidth = gdImageSX(gdImage);
+	int imgwidth = gdImageSX(gdImage);
 	int imgheight = gdImageSY(gdImage);
 
-    if(angle != 0)
-    {
-        gdImagePtr dst = gdImageCreateTrueColor(OutputWidth, OutputHeight);
-        if(dst == 0)
-        {
-            StopProgress();
-            ShowError(tr("Not enough memory to rotate."));
-            return false;
-        }
+	if(angle != 0)
+	{
+		gdImagePtr dst = gdImageCreateTrueColor(OutputWidth, OutputHeight);
+		if(dst == 0)
+		{
+			StopProgress();
+			ShowError(tr("Not enough memory to rotate."));
+			return false;
+		}
 
-        gdImageInterlace(dst, Interlace);
-        gdImageAlphaBlending(dst, AlphaBlending);
-        gdImageSaveAlpha(dst, SaveAlpha);
+		gdImageInterlace(dst, Interlace);
+		gdImageAlphaBlending(dst, AlphaBlending);
+		gdImageSaveAlpha(dst, SaveAlpha);
 
-        gdImageCopyRotated (dst, gdImage, (double) OutputWidth/2.0, (double) OutputHeight/2.0, 0, 0, imgwidth, imgheight, angle);
-        gdImageDestroy(gdImage);
-        gdImage = dst;
-    }
+		gdImageCopyRotated (dst, gdImage, (double) OutputWidth/2.0, (double) OutputHeight/2.0, 0, 0, imgwidth, imgheight, angle);
+		gdImageDestroy(gdImage);
+		gdImage = dst;
+	}
 
-    return true;
+	return true;
 }
 
 void ImageConverter::FlipHorizontal()
 {
-    if(gdImage == 0)
-        return;
+	if(gdImage == 0)
+		return;
 
-    gdImageFlipHorizontal(gdImage);
+	gdImageFlipHorizontal(gdImage);
 }
 
 void ImageConverter::FlipVertical()
 {
-    if(gdImage == 0)
-        return;
+	if(gdImage == 0)
+		return;
 
-    gdImageFlipVertical(gdImage);
+	gdImageFlipVertical(gdImage);
 }
 
 void ImageConverter::FlipBoth()
 {
-    if(gdImage == 0)
-        return;
+	if(gdImage == 0)
+		return;
 
-    gdImageFlipBoth(gdImage);
+	gdImageFlipBoth(gdImage);
 }
 
 bool ImageConverter::WriteImage(const char * filepath)
 {
-    if(gdImage == 0)
-        return false;
+	if(gdImage == 0)
+		return false;
 
-    u8 compression = 0;
+	u8 compression = 0;
 
-    if(OutputType == IMAGE_JPEG)
-    {
-        compression = 100-JPEG_Quality;
-    }
-    else if(OutputType == IMAGE_BMP)
-    {
-        compression = BMP_Compression;
-    }
-    else if(OutputType == IMAGE_GD2)
-    {
-        compression = GD2_Compression;
-    }
+	if(OutputType == IMAGE_JPEG)
+	{
+		compression = 100-JPEG_Quality;
+	}
+	else if(OutputType == IMAGE_BMP)
+	{
+		compression = BMP_Compression;
+	}
+	else if(OutputType == IMAGE_GD2)
+	{
+		compression = GD2_Compression;
+	}
 
-    return WriteGDImage(filepath, gdImage, OutputType, compression);
+	return WriteGDImage(filepath, gdImage, OutputType, compression);
 }
 
 void ImageConverter::ClearMemory()
 {
-    if(gdImage != 0)
-        gdImageDestroy(gdImage);
+	if(gdImage != 0)
+		gdImageDestroy(gdImage);
 
-    gdImage = 0;
+	gdImage = 0;
 
-    if(ImagePath)
-        delete [] ImagePath;
+	if(ImagePath)
+		delete [] ImagePath;
 
-    if(OutPath)
-        delete [] OutPath;
+	if(OutPath)
+		delete [] OutPath;
 
-    ImagePath = NULL;
-    OutPath = NULL;
+	ImagePath = NULL;
+	OutPath = NULL;
 }
 
 void ImageConverter::ResetOptions()
 {
-    OutputType = IMAGE_PNG;
-    FlipMode = NONE;
-    Interlace = 0;
-    AlphaBlending = 0;
-    SaveAlpha = 1;
-    JPEG_Quality = 100;
-    BMP_Compression = 1;
-    GD2_Compression = 1;
-    Angle = 0;
-    OutputWidth = 0;
-    OutputHeight = 0;
+	OutputType = IMAGE_PNG;
+	FlipMode = NONE;
+	Interlace = 0;
+	AlphaBlending = 0;
+	SaveAlpha = 1;
+	JPEG_Quality = 100;
+	BMP_Compression = 1;
+	GD2_Compression = 1;
+	Angle = 0;
+	OutputWidth = 0;
+	OutputHeight = 0;
 
-    if(gdImage != 0)
-    {
-        OutputWidth = gdImageSX(gdImage);
-        OutputHeight = gdImageSY(gdImage);
-    }
+	if(gdImage != 0)
+	{
+		OutputWidth = gdImageSX(gdImage);
+		OutputHeight = gdImageSY(gdImage);
+	}
 
-    SetOutPath(NULL);
+	SetOutPath(NULL);
 }
 
 void ImageConverter::SetOutPath(const char * filepath)
 {
-    char * PathPointer = NULL;
+	char * PathPointer = NULL;
 
-    if(filepath)
-        PathPointer = strdup(filepath);
+	if(filepath)
+		PathPointer = strdup(filepath);
 
-    else if(OutPath)
-        PathPointer = strdup(OutPath);
+	else if(OutPath)
+		PathPointer = strdup(OutPath);
 
-    else if(ImagePath)
-        PathPointer = strdup(ImagePath);
+	else if(ImagePath)
+		PathPointer = strdup(ImagePath);
 
-    if(!PathPointer)
-        return;
+	if(!PathPointer)
+		return;
 
-    char Extension[6];
-    memset(Extension, 0, sizeof(Extension));
+	char Extension[6];
+	memset(Extension, 0, sizeof(Extension));
 
-    switch(OutputType)
-    {
-        case IMAGE_PNG:
-            sprintf(Extension, ".png");
-            break;
-        case IMAGE_JPEG:
-            sprintf(Extension, ".jpg");
-            break;
-        case IMAGE_GIF:
-            sprintf(Extension, ".gif");
-            break;
-        case IMAGE_TIFF:
-            sprintf(Extension, ".tif");
-            break;
-        case IMAGE_BMP:
-            sprintf(Extension, ".bmp");
-            break;
-        case IMAGE_GD:
-        case IMAGE_GD2:
-            sprintf(Extension, ".gd");
-            break;
-        default:
-            free(PathPointer);
-            return;
-    }
+	switch(OutputType)
+	{
+		case IMAGE_PNG:
+			sprintf(Extension, ".png");
+			break;
+		case IMAGE_JPEG:
+			sprintf(Extension, ".jpg");
+			break;
+		case IMAGE_GIF:
+			sprintf(Extension, ".gif");
+			break;
+		case IMAGE_TIFF:
+			sprintf(Extension, ".tif");
+			break;
+		case IMAGE_BMP:
+			sprintf(Extension, ".bmp");
+			break;
+		case IMAGE_GD:
+		case IMAGE_GD2:
+			sprintf(Extension, ".gd");
+			break;
+		default:
+			free(PathPointer);
+			return;
+	}
 
-    if(OutPath)
-        delete [] OutPath;
+	if(OutPath)
+		delete [] OutPath;
 
-    OutPath = new char[strlen(PathPointer)+strlen(Extension)+1];
-    sprintf(OutPath, "%s", PathPointer);
+	OutPath = new char[strlen(PathPointer)+strlen(Extension)+1];
+	sprintf(OutPath, "%s", PathPointer);
 
-    free(PathPointer);
+	free(PathPointer);
 
-    char * ExtPtr = strrchr(OutPath, '.');
+	char * ExtPtr = strrchr(OutPath, '.');
 
-    if(!ExtPtr)
-        return;
+	if(!ExtPtr)
+		return;
 
-    sprintf(ExtPtr, "%s", Extension);
+	sprintf(ExtPtr, "%s", Extension);
 }

@@ -78,7 +78,7 @@ Channels::Channels()
 	Search();
 
 	if(channels.size() > 1)
-        Sort();
+		Sort();
 }
 
 Channels::~Channels()
@@ -170,13 +170,13 @@ bool Channels::GetAppNameFromTmd(u64 title, char* app)
 			{
 				if (ISFS_Read(fd, (char*)data, stats.file_length) > 0x208)
 				{
-				    u16 i;
-				    struct _tmd * tmd_file = (struct _tmd *) SIGNATURE_PAYLOAD(data);
-				    for(i = 0; i < tmd_file->num_contents; ++i)
-                        if(tmd_file->contents[i].index == 0)
-                            break;
+					u16 i;
+					struct _tmd * tmd_file = (struct _tmd *) SIGNATURE_PAYLOAD(data);
+					for(i = 0; i < tmd_file->num_contents; ++i)
+						if(tmd_file->contents[i].index == 0)
+							break;
 
-				    sprintf(app, "/title/%08x/%08x/content/%08x.app", high, low, tmd_file->contents[i].cid);
+					sprintf(app, "/title/%08x/%08x/content/%08x.app", high, low, tmd_file->contents[i].cid);
 					ret = true;
 				}
 				free(data);
@@ -277,7 +277,7 @@ bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 
 void Channels::Launch(int index)
 {
-    ExitApp();
+	ExitApp();
 	WII_LaunchTitle(channels.at(index).title);
 }
 
@@ -302,10 +302,10 @@ void Channels::Search()
 		if (GetChannelNameFromApp(list[i], name, language))
 		{
 			Channel channel;
-            wString *wsname = new wString(name);
+			wString *wsname = new wString(name);
 
-            snprintf(channel.name, sizeof(channel.name), "%s", (wsname->toUTF8()).c_str());
-            delete wsname;
+			snprintf(channel.name, sizeof(channel.name), "%s", (wsname->toUTF8()).c_str());
+			delete wsname;
 
 			channel.title = list[i];
 
@@ -317,18 +317,18 @@ void Channels::Search()
 
 	free(list);
 
-    std::vector<Channel>(channels).swap(channels);
+	std::vector<Channel>(channels).swap(channels);
 }
 
 void Channels::Sort()
 {
-    std::sort(channels.begin(), channels.end(), FileSortCallback);
+	std::sort(channels.begin(), channels.end(), FileSortCallback);
 }
 
 bool Channels::FileSortCallback(const Channel & f1, const Channel & f2)
 {
-    if(stricmp(f1.name, f2.name) > 0)
-        return false;
-    else
-        return true;
+	if(stricmp(f1.name, f2.name) > 0)
+		return false;
+	else
+		return true;
 }

@@ -24,10 +24,11 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "ImageOperations/ImageWrite.h"
+#include "Tools/tools.h"
 
 int MenuImageSettings()
 {
@@ -35,7 +36,7 @@ int MenuImageSettings()
 	int ret;
 	int i = 0;
 	bool firstRun = true;
-    char entered[150];
+	char entered[150];
 
 	OptionList options;
 	options.SetName(i++, tr("Slideshow Delay"));
@@ -44,73 +45,73 @@ int MenuImageSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Image Settings"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
 		switch (ret)
 		{
-            case 0:
-                snprintf(entered, sizeof(entered), "%i", Settings.SlideshowDelay);
-                if(OnScreenKeyboard(entered, sizeof(entered)))
-                {
-                    Settings.SlideshowDelay = cut_bounds(atoi(entered), 0, 999999);
-                }
+			case 0:
+				snprintf(entered, sizeof(entered), "%i", Settings.SlideshowDelay);
+				if(OnScreenKeyboard(entered, sizeof(entered)))
+				{
+					Settings.SlideshowDelay = LIMIT(atoi(entered), 0, 999999);
+				}
 				break;
-            case 1:
-                Settings.ScreenshotFormat = (Settings.ScreenshotFormat+1) % 6;
+			case 1:
+				Settings.ScreenshotFormat = (Settings.ScreenshotFormat+1) % 6;
 				break;
-            case 2:
-                snprintf(entered, sizeof(entered), "%i", Settings.ImageFadeSpeed);
-                if(OnScreenKeyboard(entered, sizeof(entered)))
-                {
-                    Settings.ImageFadeSpeed = cut_bounds(atoi(entered), 1, 255);
-                }
+			case 2:
+				snprintf(entered, sizeof(entered), "%i", Settings.ImageFadeSpeed);
+				if(OnScreenKeyboard(entered, sizeof(entered)))
+				{
+					Settings.ImageFadeSpeed = LIMIT(atoi(entered), 1, 255);
+				}
 				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
 			options.SetValue(i++, "%i", Settings.SlideshowDelay);
 
 			if(Settings.ScreenshotFormat == IMAGE_PNG)
-                options.SetValue(i++, "PNG");
-            else if(Settings.ScreenshotFormat == IMAGE_JPEG)
-                options.SetValue(i++, "JPEG");
-            else if(Settings.ScreenshotFormat == IMAGE_GIF)
-                options.SetValue(i++, "GIF");
-            else if(Settings.ScreenshotFormat == IMAGE_TIFF)
-                options.SetValue(i++, "TIFF");
-            else if(Settings.ScreenshotFormat == IMAGE_BMP)
-                options.SetValue(i++, "BMP");
-            else if(Settings.ScreenshotFormat == IMAGE_GD)
-                options.SetValue(i++, "GD");
-            else if(Settings.ScreenshotFormat == IMAGE_GD2)
-                options.SetValue(i++, "GD2");
+				options.SetValue(i++, "PNG");
+			else if(Settings.ScreenshotFormat == IMAGE_JPEG)
+				options.SetValue(i++, "JPEG");
+			else if(Settings.ScreenshotFormat == IMAGE_GIF)
+				options.SetValue(i++, "GIF");
+			else if(Settings.ScreenshotFormat == IMAGE_TIFF)
+				options.SetValue(i++, "TIFF");
+			else if(Settings.ScreenshotFormat == IMAGE_BMP)
+				options.SetValue(i++, "BMP");
+			else if(Settings.ScreenshotFormat == IMAGE_GD)
+				options.SetValue(i++, "GD");
+			else if(Settings.ScreenshotFormat == IMAGE_GD2)
+				options.SetValue(i++, "GD2");
 
 			options.SetValue(i++, "%i", Settings.ImageFadeSpeed);
-        }
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

@@ -13,11 +13,11 @@
 
 typedef struct _RecourceFile
 {
-    const char *filename;
-    const u8   *DefaultFile;
-    const u32   DefaultFileSize;
-    u8         *CustomFile;
-    u32         CustomFileSize;
+	const char *filename;
+	const u8   *DefaultFile;
+	const u32   DefaultFileSize;
+	u8		 *CustomFile;
+	u32		 CustomFileSize;
 } RecourceFile;
 
 extern const u8 addressbar_small_png[];

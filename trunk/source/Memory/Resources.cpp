@@ -78,12 +78,12 @@ GuiImageData *Resources::GetImageData(const char *filename)
 
 	for(int i = 0; RecourceList[i].filename != NULL; ++i)
 	{
-        if(strcasecmp(filename, RecourceList[i].filename) == 0)
-        {
-            const u8 *img = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
-            u32 imgSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
-        	return Resources::Instance()->InternalGetImageData(img, imgSize);
-        }
+		if(strcasecmp(filename, RecourceList[i].filename) == 0)
+		{
+			const u8 *img = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
+			u32 imgSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
+			return Resources::Instance()->InternalGetImageData(img, imgSize);
+		}
 	}
 	return NULL;
 }
@@ -95,12 +95,12 @@ GuiSound *Resources::GetSound(const char *filename)
 
 	for(int i = 0; RecourceList[i].filename != NULL; ++i)
 	{
-        if(strcasecmp(filename, RecourceList[i].filename) == 0)
-        {
-            const u8 *snd = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
-            u32 sndSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
-        	return Resources::Instance()->InternalGetSound(snd, sndSize);
-        }
+		if(strcasecmp(filename, RecourceList[i].filename) == 0)
+		{
+			const u8 *snd = (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
+			u32 sndSize = (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
+			return Resources::Instance()->InternalGetSound(snd, sndSize);
+		}
 	}
 	return NULL;
 }

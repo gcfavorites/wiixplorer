@@ -47,38 +47,38 @@
  ***************************************************************************/
 int UpdateApp(const char *url)
 {
-    if(!url)
-    {
-        ShowError(tr("URL is empty."));
-        return -1;
-    }
+	if(!url)
+	{
+		ShowError(tr("URL is empty."));
+		return -1;
+	}
 
-    char dest[strlen(Settings.UpdatePath)+10];
+	char dest[strlen(Settings.UpdatePath)+10];
 
-    snprintf(dest, sizeof(dest), "%sboot.tmp", Settings.UpdatePath);
+	snprintf(dest, sizeof(dest), "%sboot.tmp", Settings.UpdatePath);
 
-    CreateSubfolder(Settings.UpdatePath);
+	CreateSubfolder(Settings.UpdatePath);
 
-    int res = DownloadFileToPath(url, dest, false);
-    if(res < 102400)
-    {
-        RemoveFile(dest);
-        WindowPrompt(tr("Update failed"), tr("Could not download file."), tr("OK"));
-        return -1;
-    }
-    else
-    {
-        char realdest[strlen(dest)+1];
-        snprintf(realdest, sizeof(realdest), "%sboot.dol", Settings.UpdatePath);
-        RemoveFile(realdest);
-        rename(dest, realdest);
-        if(Settings.UpdateMetaxml)
-            UpdateMetaXml();
-        if(Settings.UpdateIconpng)
-            UpdateIconPNG();
-    }
+	int res = DownloadFileToPath(url, dest, false);
+	if(res < 102400)
+	{
+		RemoveFile(dest);
+		WindowPrompt(tr("Update failed"), tr("Could not download file."), tr("OK"));
+		return -1;
+	}
+	else
+	{
+		char realdest[strlen(dest)+1];
+		snprintf(realdest, sizeof(realdest), "%sboot.dol", Settings.UpdatePath);
+		RemoveFile(realdest);
+		rename(dest, realdest);
+		if(Settings.UpdateMetaxml)
+			UpdateMetaXml();
+		if(Settings.UpdateIconpng)
+			UpdateIconPNG();
+	}
 
-    return 1;
+	return 1;
 }
 
 /****************************************************************************
@@ -89,82 +89,82 @@ int CheckForUpdate()
 	if(!IsNetworkInit() && !NetworkInitPrompt())
 		return -1;
 
-    int revnumber = 0;
-    int currentrev = atoi(SvnRev());
+	int revnumber = 0;
+	int currentrev = atoi(SvnRev());
 
-    HTML_Stream HTML("http://code.google.com/p/wiixplorer/downloads/list");
+	HTML_Stream HTML("http://code.google.com/p/wiixplorer/downloads/list");
 
-    const char * HTML_Pos = NULL;
-    char DownloadLink[300];
-    memset(DownloadLink, 0, sizeof(DownloadLink));
+	const char * HTML_Pos = NULL;
+	char DownloadLink[300];
+	memset(DownloadLink, 0, sizeof(DownloadLink));
 
-    while(1)
-    {
-        HTML_Pos = HTML.FindStringEnd("href=\"");
-        if(!HTML_Pos)
-            break;
+	while(1)
+	{
+		HTML_Pos = HTML.FindStringEnd("href=\"");
+		if(!HTML_Pos)
+			break;
 
-        char * tmpLink = HTML.CopyString("\"");
-        if(!tmpLink)
-            continue;
+		char * tmpLink = HTML.CopyString("\"");
+		if(!tmpLink)
+			continue;
 
-        char *fileext = strrchr(tmpLink, '.');
-        if(fileext)
-        {
-            if(strcasecmp(fileext, ".dol") == 0)
-            {
-                char revtxt[80];
-                char *filename = strrchr(tmpLink, '/')+2;
-                u8 n = 0;
-                for (n = 0; n < strlen(filename)-2; n++)
-                    revtxt[n] = filename[n];
-                revtxt[n] = 0;
-                int fileRev = atoi(revtxt);
+		char *fileext = strrchr(tmpLink, '.');
+		if(fileext)
+		{
+			if(strcasecmp(fileext, ".dol") == 0)
+			{
+				char revtxt[80];
+				char *filename = strrchr(tmpLink, '/')+2;
+				u8 n = 0;
+				for (n = 0; n < strlen(filename)-2; n++)
+					revtxt[n] = filename[n];
+				revtxt[n] = 0;
+				int fileRev = atoi(revtxt);
 
-                if(fileRev > revnumber)
-                {
-                    revnumber = fileRev;
-                    snprintf(DownloadLink, sizeof(DownloadLink), "http:%s", tmpLink);
-                }
-            }
-        }
-        free(tmpLink);
-    }
+				if(fileRev > revnumber)
+				{
+					revnumber = fileRev;
+					snprintf(DownloadLink, sizeof(DownloadLink), "http:%s", tmpLink);
+				}
+			}
+		}
+		free(tmpLink);
+	}
 
-    if (revnumber > currentrev)
-    {
-        char text[100];
-        sprintf(text, tr("Update to Rev%i available"), revnumber);
-        int choice = 1;
-        while(choice)
-        {
-            choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("Show Changelog"), tr("Cancel"));
+	if (revnumber > currentrev)
+	{
+		char text[100];
+		sprintf(text, tr("Update to Rev%i available"), revnumber);
+		int choice = 1;
+		while(choice)
+		{
+			choice = WindowPrompt(text, tr("Do you want to update now ?"), tr("Yes"), tr("Show Changelog"), tr("Cancel"));
 
-            if(choice == 1)
-            {
-                if(UpdateApp(DownloadLink) >= 0)
-                {
-                    int ret = WindowPrompt(tr("Update successfully finished"), tr("Do you want to reboot now ?"), tr("Yes"), tr("No"));
-                    if(ret)
-                        RebootApp();
-                }
-                break;
-            }
-            else if(choice == 2)
-            {
-                ChangeLog Changelog;
-                Changelog.DownloadChangeLog(revnumber-5, revnumber);
-                if(!Changelog.Show())
-                    WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
-            }
-        }
-    }
-    else
-    {
-        revnumber = 0;
-    }
+			if(choice == 1)
+			{
+				if(UpdateApp(DownloadLink) >= 0)
+				{
+					int ret = WindowPrompt(tr("Update successfully finished"), tr("Do you want to reboot now ?"), tr("Yes"), tr("No"));
+					if(ret)
+						RebootApp();
+				}
+				break;
+			}
+			else if(choice == 2)
+			{
+				ChangeLog Changelog;
+				Changelog.DownloadChangeLog(revnumber-5, revnumber);
+				if(!Changelog.Show())
+					WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
+			}
+		}
+	}
+	else
+	{
+		revnumber = 0;
+	}
 
-    return revnumber;
+	return revnumber;
 }
 
 /****************************************************************************
@@ -173,25 +173,25 @@ int CheckForUpdate()
 bool UpdateMetaXml()
 {
 	if(!IsNetworkInit())
-        Initialize_Network();
+		Initialize_Network();
 
-    struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/meta.xml");
-    if(!file.data)
-        return false;
+	struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/meta.xml");
+	if(!file.data)
+		return false;
 
-    CreateSubfolder(Settings.UpdatePath);
+	CreateSubfolder(Settings.UpdatePath);
 
-    char path[MAXPATHLEN];
-    snprintf(path, sizeof(path), "%smeta.xml", Settings.UpdatePath);
-    FILE * pFile = fopen(path, "wb");
-    if(!pFile)
-        return false;
+	char path[MAXPATHLEN];
+	snprintf(path, sizeof(path), "%smeta.xml", Settings.UpdatePath);
+	FILE * pFile = fopen(path, "wb");
+	if(!pFile)
+		return false;
 
-    fwrite(file.data, 1, file.size, pFile);
-    fclose(pFile);
-    free(file.data);
+	fwrite(file.data, 1, file.size, pFile);
+	fclose(pFile);
+	free(file.data);
 
-    return true;
+	return true;
 }
 
 /****************************************************************************
@@ -200,23 +200,23 @@ bool UpdateMetaXml()
 bool UpdateIconPNG()
 {
 	if(!IsNetworkInit())
-        Initialize_Network();
+		Initialize_Network();
 
-    struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/icon.png");
-    if(!file.data)
-        return false;
+	struct block file = downloadfile("http://wiixplorer.googlecode.com/svn/trunk/HBC/icon.png");
+	if(!file.data)
+		return false;
 
-    CreateSubfolder(Settings.UpdatePath);
+	CreateSubfolder(Settings.UpdatePath);
 
-    char path[MAXPATHLEN];
-    snprintf(path, sizeof(path), "%sicon.png", Settings.UpdatePath);
-    FILE * pFile = fopen(path, "wb");
-    if(!pFile)
-        return false;
+	char path[MAXPATHLEN];
+	snprintf(path, sizeof(path), "%sicon.png", Settings.UpdatePath);
+	FILE * pFile = fopen(path, "wb");
+	if(!pFile)
+		return false;
 
-    fwrite(file.data, 1, file.size, pFile);
-    fclose(pFile);
-    free(file.data);
+	fwrite(file.data, 1, file.size, pFile);
+	fclose(pFile);
+	free(file.data);
 
-    return true;
+	return true;
 }

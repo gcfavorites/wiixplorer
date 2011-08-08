@@ -31,21 +31,21 @@
 
 extern "C" void MountVirtualDevices()
 {
-    for(int i = SD; i < MAXDEVICES; i++)
-    {
-        if(DeviceHandler::Instance()->IsInserted(i))
-        {
-            VirtualMountDevice(fmt("%s:/", DeviceName[i]));
-        }
-    }
+	for(int i = SD; i < MAXDEVICES; i++)
+	{
+		if(DeviceHandler::Instance()->IsInserted(i))
+		{
+			VirtualMountDevice(fmt("%s:/", DeviceName[i]));
+		}
+	}
 }
 
 extern "C" bool DiskDrive_Mount()
 {
-    return DeviceHandler::Instance()->Mount(DVD);
+	return DeviceHandler::Instance()->Mount(DVD);
 }
 
 extern "C" bool Disk_Inserted()
 {
-    return DeviceHandler::Instance()->IsInserted(DVD);
+	return DeviceHandler::Instance()->IsInserted(DVD);
 }

@@ -28,9 +28,9 @@
 
 enum
 {
-    ARCHIVE = 1,
-    REFRESH_BROWSER,
-    RELOAD_BROWSER
+	ARCHIVE = 1,
+	REFRESH_BROWSER,
+	RELOAD_BROWSER
 };
 
 int FileStartUp(const char * filepath);

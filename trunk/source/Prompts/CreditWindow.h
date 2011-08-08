@@ -28,42 +28,39 @@
  #ifndef __CREDITWINDOW_H_
  #define __CREDITWINDOW_H_
 
-#include <gctypes.h>
-#include <unistd.h>
-
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "Memory/Resources.h"
 
 class CreditWindow : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        CreditWindow();
-        virtual ~CreditWindow();
-        int GetChoice();
-    private:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+	public:
+		CreditWindow(GuiWindow *parent);
+		virtual ~CreditWindow();
+		sigslot::signal0<> Closing;
+	private:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        int choice;
-        int CreditEntries;
+		int choice;
+		int CreditEntries;
 
-        GuiImage * dialogBoxImg;
-        GuiImage * arrowUpImg;
-        GuiImage * arrowUpImgOver;
+		GuiImage * dialogBoxImg;
+		GuiImage * arrowUpImg;
+		GuiImage * arrowUpImgOver;
 
-        GuiImageData * dialogBox;
-        GuiImageData * arrowUp;
-        GuiImageData * arrowUpOver;
+		GuiImageData * dialogBox;
+		GuiImageData * arrowUp;
+		GuiImageData * arrowUpOver;
 
-        GuiSound * btnClick;
+		GuiSound * btnClick;
 
-        GuiText * RevNum;
-        GuiText * IOSRevTxt;
-        GuiText * Entrie[20];
+		GuiText * RevNum;
+		GuiText * IOSRevTxt;
+		GuiText * Entrie[20];
 
-        GuiButton * Backbtn;
+		GuiButton * Backbtn;
 
-        GuiTrigger * trigA;
-        GuiTrigger * trigB;
+		GuiTrigger * trigA;
+		GuiTrigger * trigB;
 };
 
 #endif

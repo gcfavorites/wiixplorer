@@ -30,17 +30,17 @@
 
 class ChangeLog
 {
-    public:
-        ChangeLog();
-        ~ChangeLog();
-        //!Does all the checks and downloads
-        //!opens the ChangeLog.txt with TextViewer afterwards
-        bool Show();
-        int GetSavedChangeLogRev();
-        bool DownloadChangeLog(int fromRev, int tillRev, bool backwards = true);
-        //!Allocates memory that has to be freed afterwards
-        char * GetChangeLogRange(int fromRev, int tillRev, bool backwards = true);
-        char * GetChanges(int Rev);
+	public:
+		ChangeLog();
+		~ChangeLog();
+		//!Does all the checks and downloads
+		//!opens the ChangeLog.txt with TextViewer afterwards
+		bool Show();
+		int GetSavedChangeLogRev();
+		bool DownloadChangeLog(int fromRev, int tillRev, bool backwards = true);
+		//!Allocates memory that has to be freed afterwards
+		char * GetChangeLogRange(int fromRev, int tillRev, bool backwards = true);
+		char * GetChanges(int Rev);
 };
 
 #endif

@@ -26,40 +26,40 @@
 #ifndef SETTINGS_MENU_H_
 #define SETTINGS_MENU_H_
 
-#include "libwiigui/gui.h"
-#include "libwiigui/gui_optionbrowser.h"
+#include "GUI/gui.h"
+#include "GUI/gui_optionbrowser.h"
 #include "menu.h"
 
 class SettingsMenu : public GuiWindow, public sigslot::has_slots<>
 {
-    public:
-        SettingsMenu(const char * title, OptionList * option, int returnTo);
-        virtual ~SettingsMenu();
-        int GetClickedOption();
-        int GetMenu();
-    protected:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
+	public:
+		SettingsMenu(const char * title, OptionList * option, int returnTo);
+		virtual ~SettingsMenu();
+		int GetClickedOption();
+		int GetMenu();
+	protected:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-        int menu;
-        int returnToMenu;
+		int menu;
+		int returnToMenu;
 
-        GuiSound * btnSoundClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnSoundClick;
+		GuiSound * btnSoundOver;
 
-        GuiImageData * btnOutline;
-        GuiImageData * btnOutlineOver;
+		GuiImageData * btnOutline;
+		GuiImageData * btnOutlineOver;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 
-        OptionList * Options;
+		OptionList * Options;
 
-        GuiText * titleTxt;
-        GuiText * backBtnTxt;
-        GuiImage * backBtnImg;
-        GuiButton * backBtn;
+		GuiText * titleTxt;
+		GuiText * backBtnTxt;
+		GuiImage * backBtnImg;
+		GuiButton * backBtn;
 
-        GuiOptionBrowser * optionBrowser;
+		GuiOptionBrowser * optionBrowser;
 };
 
 

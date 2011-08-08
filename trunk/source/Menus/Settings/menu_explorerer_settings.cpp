@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "Menus/Explorer.h"
@@ -42,49 +42,49 @@ int MenuExplorerSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Explorer Settings"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
 		switch (ret)
 		{
-            case 0:
+			case 0:
 				Settings.BrowserMode = (Settings.BrowserMode+1) % 2;
 				break;
-            case 1:
-                Settings.HideSystemFiles = (Settings.HideSystemFiles+1) % 2;
-                break;
+			case 1:
+				Settings.HideSystemFiles = (Settings.HideSystemFiles+1) % 2;
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            if (Settings.BrowserMode == ICONBROWSER)
-                options.SetValue(i++, tr("Icon Mode"));
-            else
-                options.SetValue(i++, tr("List Mode"));
+			if (Settings.BrowserMode == ICONBROWSER)
+				options.SetValue(i++, tr("Icon Mode"));
+			else
+				options.SetValue(i++, tr("List Mode"));
 
-            if(Settings.HideSystemFiles) options.SetValue(i++, tr("ON"));
-            else options.SetValue(i++, tr("OFF"));
-        }
+			if(Settings.HideSystemFiles) options.SetValue(i++, tr("ON"));
+			else options.SetValue(i++, tr("OFF"));
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
 	return menu;
 }

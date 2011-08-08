@@ -25,32 +25,32 @@
  ***************************************************************************/
 #include <unistd.h>
 #include "FTPOperations/FTPServerMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "network/networkops.h"
 #include "Prompts/PromptWindows.h"
 #include "menu.h"
 
 int MenuFTPServer()
 {
-    int menu = MENU_NONE;
+	int menu = MENU_NONE;
 
-    if(!NetworkInitPrompt())
-        return MENU_BROWSE_DEVICE;
+	if(!NetworkInitPrompt())
+		return MENU_BROWSE_DEVICE;
 
-    FTPServerMenu * FTPMenu = new FTPServerMenu();
-    FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-    FTPMenu->SetPosition(0, 30);
+	FTPServerMenu * FTPMenu = new FTPServerMenu();
+	FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	FTPMenu->SetPosition(0, 30);
 
-    MainWindow::Instance()->Append(FTPMenu);
+	Application::Instance()->Append(FTPMenu);
 
-    while(menu == MENU_NONE)
-    {
-        usleep(100);
+	while(menu == MENU_NONE)
+	{
+		usleep(100);
 
-        menu = FTPMenu->GetMenu();
-    }
+		menu = FTPMenu->GetMenu();
+	}
 
-    delete FTPMenu;
+	delete FTPMenu;
 
 	return menu;
 }

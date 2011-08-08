@@ -30,46 +30,46 @@
 
 typedef struct _Controls
 {
-    u16     ClickButton;
-    u16     BackButton;
-    u16     UpButton;
-    u16     DownButton;
-    u16     LeftButton;
-    u16     RightButton;
-    u16     ContextMenuButton;
-    u16     MarkItemButton;
-    u16     DeMarkItemButton;
-    u16     DeMarkAllButton;
-    u16     HomeButton;
-    u16     EditTextLine;
-    u16     SlideShowButton;
-    u16     KeyShiftButton;
-    u16     KeyBackspaceButton;
-    u16     ZoomIn;
-    u16     ZoomOut;
-    u16     UpInDirectory;
-    u16     OneButtonScroll;
+	u16	 ClickButton;
+	u16	 BackButton;
+	u16	 UpButton;
+	u16	 DownButton;
+	u16	 LeftButton;
+	u16	 RightButton;
+	u16	 ContextMenuButton;
+	u16	 MarkItemButton;
+	u16	 DeMarkItemButton;
+	u16	 DeMarkAllButton;
+	u16	 HomeButton;
+	u16	 EditTextLine;
+	u16	 SlideShowButton;
+	u16	 KeyShiftButton;
+	u16	 KeyBackspaceButton;
+	u16	 ZoomIn;
+	u16	 ZoomOut;
+	u16	 UpInDirectory;
+	u16	 OneButtonScroll;
 } ControlItems;
 
 class AppControls
 {
-    public:
-        AppControls();
-        ~AppControls();
-        void SetDefault();
-        bool Load(const char * filepath);
-        bool Save();
-        bool SetControl(char *name, char *value);
+	public:
+		AppControls();
+		~AppControls();
+		void SetDefault();
+		bool Load(const char * filepath);
+		bool Save();
+		bool SetControl(char *name, char *value);
 
-        ControlItems WiiControls;
-        ControlItems ClassicControls;
-        ControlItems GCControls;
-        u16 ScreenshotHoldButton;
-        u16 ScreenshotClickButton;
-    protected:
-        char FilePath[150];
-        void ParseLine(char *line);
-        void TrimLine(char *dest, char *src, int size);
+		ControlItems WiiControls;
+		ControlItems ClassicControls;
+		ControlItems GCControls;
+		u16 ScreenshotHoldButton;
+		u16 ScreenshotClickButton;
+	protected:
+		char FilePath[150];
+		void ParseLine(char *line);
+		void TrimLine(char *dest, char *src, int size);
 };
 
 #endif

@@ -30,10 +30,8 @@
 
 #include "Settings.h"
 
-extern Settings Settings;
-
-#define WiiControls         Settings.Controls.WiiControls
-#define ClassicControls     Settings.Controls.ClassicControls
-#define GCControls          Settings.Controls.GCControls
+#define WiiControls		 Settings.Controls.WiiControls
+#define ClassicControls	 Settings.Controls.ClassicControls
+#define GCControls		  Settings.Controls.GCControls
 
 #endif

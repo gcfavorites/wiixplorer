@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source \
-				source/libwiigui \
+				source/GUI \
 				source/Tools \
 				source/Menus \
 				source/Menus/Settings \
@@ -50,9 +50,9 @@ DATA		:=	data/images \
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O4 -Wall -Wextra -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
+CFLAGS		=	-g -O3 -Wall -Wextra -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
 				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
-CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
+CXXFLAGS	=	$(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
@@ -127,12 +127,17 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
 					-L$(LIBOGC_LIB)
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
-.PHONY: $(BUILD) clean
+.PHONY: $(BUILD) lang clean
 
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
+#---------------------------------------------------------------------------------
+lang:
+	@[ -d build ] || mkdir -p build
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile language
 
 #---------------------------------------------------------------------------------
 clean:
@@ -155,8 +160,9 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).dol: $(OUTPUT).elf language
+$(OUTPUT).dol: $(OUTPUT).elf
 $(OUTPUT).elf: $(OFILES)
+
 language: $(wildcard $(PROJECTDIR)/Languages/*.lang)
 
 #---------------------------------------------------------------------------------

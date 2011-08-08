@@ -26,66 +26,66 @@
 #ifndef _IMAGE_CONVERTER_GUI_H_
 #define _IMAGE_CONVERTER_GUI_H_
 
-#include "libwiigui/gui_arrowoption.h"
+#include "GUI/gui_arrowoption.h"
 #include "ImageConverter.hpp"
 
 class ImageConverterGui : public GuiWindow, public ImageConverter, public sigslot::has_slots<>
 {
-    public:
-        ImageConverterGui(const char * filepath);
-        ImageConverterGui(const u8 * imgBuf, int imgSize);
-        virtual ~ImageConverterGui();
-        int MainUpdate();
-        void Draw();
-    protected:
-        void OnButtonClick(GuiButton *sender, int pointer, POINT p);
-        void OnOptionLeftClick(GuiElement *sender, int pointer, POINT p);
-        void OnOptionRightClick(GuiElement *sender, int pointer, POINT p);
-        void OnOptionButtonClick(GuiElement *sender, int pointer, POINT p);
-        void SetOptionValues();
-        void Setup();
+	public:
+		ImageConverterGui(const char * filepath);
+		ImageConverterGui(const u8 * imgBuf, int imgSize);
+		virtual ~ImageConverterGui();
+		int MainUpdate();
+		void Draw();
+	protected:
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnOptionRightClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnOptionButtonClick(GuiElement *sender, int pointer, const POINT &p);
+		void SetOptionValues();
+		void Setup();
 
-        int currentState;
-        int OptionClicked;
-        bool Converting;
+		int currentState;
+		int OptionClicked;
+		bool Converting;
 
-        GuiElement * ElemPointer;
+		GuiElement * ElemPointer;
 
-        GuiSound * btnClick;
-        GuiSound * btnSoundOver;
+		GuiSound * btnClick;
+		GuiSound * btnSoundOver;
 
-        GuiButton * ConvertBtn;
-        GuiButton * ResetBtn;
-        GuiButton * BackBtn;
-        GuiButton * AdressBarInput;
-        GuiButton * AdressBarOutput;
+		GuiButton * ConvertBtn;
+		GuiButton * ResetBtn;
+		GuiButton * BackBtn;
+		GuiButton * AdressBarInput;
+		GuiButton * AdressBarOutput;
 
-        GuiText * TitleTxt;
-        GuiText * ConvertBtnTxt;
-        GuiText * ResetBtnTxt;
-        GuiText * AdressBarInputName;
-        GuiText * AdressBarOutputName;
-        GuiText * AdressBarInputText;
-        GuiText * AdressBarOutputText;
+		GuiText * TitleTxt;
+		GuiText * ConvertBtnTxt;
+		GuiText * ResetBtnTxt;
+		GuiText * AdressBarInputName;
+		GuiText * AdressBarOutputName;
+		GuiText * AdressBarInputText;
+		GuiText * AdressBarOutputText;
 
-        GuiImage * bgWindowImg;
-        GuiImage * ConvertBtnImg;
-        GuiImage * ResetBtnImg;
-        GuiImage * BackBtnImg;
-        GuiImage * BackBtnImgOver;
-        GuiImage * AdressBarInputImg;
-        GuiImage * AdressBarOutputImg;
+		GuiImage * bgWindowImg;
+		GuiImage * ConvertBtnImg;
+		GuiImage * ResetBtnImg;
+		GuiImage * BackBtnImg;
+		GuiImage * BackBtnImgOver;
+		GuiImage * AdressBarInputImg;
+		GuiImage * AdressBarOutputImg;
 
-        GuiImageData * bgWindow;
-        GuiImageData * btnOutline;
-        GuiImageData * CloseImgData;
-        GuiImageData * CloseImgOverData;
-        GuiImageData * AdressBarData;
+		GuiImageData * bgWindow;
+		GuiImageData * btnOutline;
+		GuiImageData * CloseImgData;
+		GuiImageData * CloseImgOverData;
+		GuiImageData * AdressBarData;
 
-        SimpleGuiTrigger * trigA;
-        GuiTrigger * trigB;
+		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 
-        GuiArrowOption Options;
+		GuiArrowOption Options;
 };
 
 #endif

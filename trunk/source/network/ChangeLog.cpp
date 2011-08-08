@@ -44,189 +44,189 @@ ChangeLog::~ChangeLog()
 
 char * ChangeLog::GetChangeLogRange(int fromRev, int tillRev, bool backwards)
 {
-    char * changelog = (char*) malloc(32);
-    if(!changelog)
-        return NULL;
+	char * changelog = (char*) malloc(32);
+	if(!changelog)
+		return NULL;
 
-    strcpy(changelog, "");
+	strcpy(changelog, "");
 
-    //for '\0'
-    int logsize = 1;
-    int RevCounter;
-    int StopRev;
+	//for '\0'
+	int logsize = 1;
+	int RevCounter;
+	int StopRev;
 
-    if(backwards)
-    {
-        RevCounter = tillRev;
-        StopRev = fromRev-1;
-    }
-    else
-    {
-        RevCounter = fromRev;
-        StopRev = tillRev+1;
-    }
+	if(backwards)
+	{
+		RevCounter = tillRev;
+		StopRev = fromRev-1;
+	}
+	else
+	{
+		RevCounter = fromRev;
+		StopRev = tillRev+1;
+	}
 
-    StartProgress(tr("Getting Changelog..."), THROBBER);
+	StartProgress(tr("Getting Changelog..."), THROBBER);
 
-    while(RevCounter != StopRev)
-    {
-        char ProgressText[50];
-        snprintf(ProgressText, sizeof(ProgressText), "Revision %i", RevCounter);
-        ShowProgress(0, 1, ProgressText);
+	while(RevCounter != StopRev)
+	{
+		char ProgressText[50];
+		snprintf(ProgressText, sizeof(ProgressText), "Revision %i", RevCounter);
+		ShowProgress(0, 1, ProgressText);
 
-        char * RevChangelog = this->GetChanges(RevCounter);
-        if(!RevChangelog)
-            continue;
+		char * RevChangelog = this->GetChanges(RevCounter);
+		if(!RevChangelog)
+			continue;
 
-        logsize += strlen(RevChangelog)+2;
+		logsize += strlen(RevChangelog)+2;
 
-        char * tmpMem = (char*) realloc(changelog, logsize);
-        if(!tmpMem)
-        {
-            StopProgress();
-            free(tmpMem);
-            tmpMem = NULL;
-            free(changelog);
-            free(RevChangelog);
-            return NULL;
-        }
+		char * tmpMem = (char*) realloc(changelog, logsize);
+		if(!tmpMem)
+		{
+			StopProgress();
+			free(tmpMem);
+			tmpMem = NULL;
+			free(changelog);
+			free(RevChangelog);
+			return NULL;
+		}
 
-        changelog = tmpMem;
+		changelog = tmpMem;
 
-        strcat(changelog, RevChangelog);
-        strcat(changelog, "\n\n");
+		strcat(changelog, RevChangelog);
+		strcat(changelog, "\n\n");
 
-        free(RevChangelog);
+		free(RevChangelog);
 
-        if(backwards)
-            RevCounter--;
-        else
-            RevCounter++;
-    }
+		if(backwards)
+			RevCounter--;
+		else
+			RevCounter++;
+	}
 
-    StopProgress();
+	StopProgress();
 
-    if(strlen(changelog) < 5)
-    {
-        //something went wrong
-        free(changelog);
-        changelog = NULL;
-    }
+	if(strlen(changelog) < 5)
+	{
+		//something went wrong
+		free(changelog);
+		changelog = NULL;
+	}
 
-    return changelog;
+	return changelog;
 }
 
 char * ChangeLog::GetChanges(int Rev)
 {
-    HTML_Stream html;
+	HTML_Stream html;
 
-    char * changelog = (char*) malloc(32);
-    if(!changelog)
-        return NULL;
+	char * changelog = (char*) malloc(32);
+	if(!changelog)
+		return NULL;
 
-    strcpy(changelog, "");
+	strcpy(changelog, "");
 
-    //for '\0'
-    int logsize = 1;
-    char RevTxt[50];
-    char URL[80];
+	//for '\0'
+	int logsize = 1;
+	char RevTxt[50];
+	char URL[80];
 
-    sprintf(URL, "http://code.google.com/p/wiixplorer/source/detail?r=%i", Rev);
-    if(!html.LoadLink(URL))
-    {
-        free(changelog);
-        return NULL;;
-    }
+	sprintf(URL, "http://code.google.com/p/wiixplorer/source/detail?r=%i", Rev);
+	if(!html.LoadLink(URL))
+	{
+		free(changelog);
+		return NULL;;
+	}
 
-    html.FindStringEnd("<pre class=\"wrap\" style=\"margin-left:1em\">");
-    char * RevChangelog = html.CopyString("</pre>");
+	html.FindStringEnd("<pre class=\"wrap\" style=\"margin-left:1em\">");
+	char * RevChangelog = html.CopyString("</pre>");
 
-    snprintf(RevTxt, sizeof(RevTxt), "Revision: %i\n", Rev);
-    logsize += strlen(RevChangelog)+strlen(RevTxt);
-    char * tmpMem = (char*) realloc(changelog, logsize);
-    if(!tmpMem)
-    {
-        StopProgress();
-        free(tmpMem);
-        tmpMem = NULL;
-        free(changelog);
-        free(RevChangelog);
-        return NULL;
-    }
+	snprintf(RevTxt, sizeof(RevTxt), "Revision: %i\n", Rev);
+	logsize += strlen(RevChangelog)+strlen(RevTxt);
+	char * tmpMem = (char*) realloc(changelog, logsize);
+	if(!tmpMem)
+	{
+		StopProgress();
+		free(tmpMem);
+		tmpMem = NULL;
+		free(changelog);
+		free(RevChangelog);
+		return NULL;
+	}
 
-    changelog = tmpMem;
-    strcat(changelog, RevTxt);
-    strcat(changelog, RevChangelog);
-    free(RevChangelog);
+	changelog = tmpMem;
+	strcat(changelog, RevTxt);
+	strcat(changelog, RevChangelog);
+	free(RevChangelog);
 
-    if(strlen(changelog) < 5)
-    {
-        //something went wrong
-        free(changelog);
-        changelog = NULL;
-    }
+	if(strlen(changelog) < 5)
+	{
+		//something went wrong
+		free(changelog);
+		changelog = NULL;
+	}
 
-    return changelog;
+	return changelog;
 }
 
 
 bool ChangeLog::DownloadChangeLog(int fromRev, int tillRev, bool backwards)
 {
-    char * Changelog = GetChangeLogRange(fromRev, tillRev, backwards);
+	char * Changelog = GetChangeLogRange(fromRev, tillRev, backwards);
 
-    if(!Changelog)
-        return false;
+	if(!Changelog)
+		return false;
 
-    char writepath[MAXPATHLEN];
-    snprintf(writepath, sizeof(writepath), "%sChangeLog.txt", Settings.UpdatePath);
-    CreateSubfolder(Settings.UpdatePath);
+	char writepath[MAXPATHLEN];
+	snprintf(writepath, sizeof(writepath), "%sChangeLog.txt", Settings.UpdatePath);
+	CreateSubfolder(Settings.UpdatePath);
 
-    FILE * f = fopen(writepath, "wb");
-    if(!f)
-        return false;
+	FILE * f = fopen(writepath, "wb");
+	if(!f)
+		return false;
 
-    fwrite(Changelog, 1, strlen(Changelog), f);
-    fclose(f);
-    free(Changelog);
+	fwrite(Changelog, 1, strlen(Changelog), f);
+	fclose(f);
+	free(Changelog);
 
-    return true;
+	return true;
 }
 
 int ChangeLog::GetSavedChangeLogRev()
 {
-    char changelogpath[MAXPATHLEN];
-    snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
+	char changelogpath[MAXPATHLEN];
+	snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
 
-    if(!CheckFile(changelogpath))
-        return -1;
+	if(!CheckFile(changelogpath))
+		return -1;
 
-    FILE * f = fopen(changelogpath, "rb");
-    if(!f)
-        return -1;
+	FILE * f = fopen(changelogpath, "rb");
+	if(!f)
+		return -1;
 
-    char ChagelogRev[20];
-    fseek(f, 10, SEEK_SET);
-    fread(&ChagelogRev, 1, 4, f);
-    fclose(f);
+	char ChagelogRev[20];
+	fseek(f, 10, SEEK_SET);
+	fread(&ChagelogRev, 1, 4, f);
+	fclose(f);
 
-    return atoi(ChagelogRev);
+	return atoi(ChagelogRev);
 }
 
 bool ChangeLog::Show()
 {
-    char changelogpath[MAXPATHLEN];
-    snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
+	char changelogpath[MAXPATHLEN];
+	snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
 
-    if(GetSavedChangeLogRev() < atoi(SvnRev()))
-    {
-        if(!DownloadChangeLog(atoi(SvnRev())-5, atoi(SvnRev())))
-            return false;
-    }
+	if(GetSavedChangeLogRev() < atoi(SvnRev()))
+	{
+		if(!DownloadChangeLog(atoi(SvnRev())-5, atoi(SvnRev())))
+			return false;
+	}
 
-    if(!CheckFile(changelogpath))
-        return false;
+	if(!CheckFile(changelogpath))
+		return false;
 
-    TextViewer(changelogpath);
+	TextViewer(changelogpath);
 
-    return true;
+	return true;
 }

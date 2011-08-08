@@ -10,13 +10,13 @@
 #define _MENU_H_
 
 #include <ogcsys.h>
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "main.h"
 
-#define THREAD_SLEEP    100
-#define KBSIZE          1024.0
-#define MBSIZE          1048576.0
-#define GBSIZE          1073741824.0
+#define THREAD_SLEEP	100
+#define KBSIZE		  1024.0
+#define MBSIZE		  1048576.0
+#define GBSIZE		  1073741824.0
 
 enum
 {

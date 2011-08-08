@@ -1,11 +1,13 @@
+#include <stdarg.h>
 #include "Controls/GXConsole.hpp"
+#include "input.h"
 
 static GXConsole * Console = NULL;
 
 extern "C" void gxprintf(const char * format, ...)
 {
-    if(!Console || shutdown || reset)
-        return;
+	if(!Console || shutdown || reset)
+		return;
 
 	char *tmp=0;
 	va_list va;
@@ -17,10 +19,10 @@ extern "C" void gxprintf(const char * format, ...)
 	va_end(va);
 
 	if(tmp)
-        free(tmp);
+		free(tmp);
 }
 
 extern "C" void SetGXConsole(void * console)
 {
-    Console = (GXConsole *) console;
+	Console = (GXConsole *) console;
 }

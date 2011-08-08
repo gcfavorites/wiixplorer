@@ -36,24 +36,24 @@
  ****************************************************************************/
 int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 {
-    if(strncasecmp(url, "http://", strlen("http://")) != 0)
-    {
-        ShowError(tr("Not a valid URL"));
+	if(strncasecmp(url, "http://", strlen("http://")) != 0)
+	{
+		ShowError(tr("Not a valid URL"));
 		return -1;
-    }
+	}
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
 	{
-        ShowError(tr("Not a valid URL path"));
-        return -2;
+		ShowError(tr("Not a valid URL path"));
+		return -2;
 	}
 
 	int domainlength = path - url - strlen("http://");
 
 	if(domainlength == 0)
 	{
-        ShowError(tr("Not a valid domain"));
+		ShowError(tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -63,88 +63,88 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	int connection = GetConnection(domain);
 
-    if(connection < 0)
-    {
-        ShowError(tr("Could not connect to the server."));
-        return -4;
-    }
+	if(connection < 0)
+	{
+		ShowError(tr("Could not connect to the server."));
+		return -4;
+	}
 
-    char header[1024];
-    char * ptr = header;
-    ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
-    ptr += sprintf(ptr, "Host: %s\r\n", domain);
-    ptr += sprintf(ptr, "Referer: %s\r\n", domain);
-    ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
-    ptr += sprintf(ptr, "Pragma: no-cache\r\n");
-    ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
-    ptr += sprintf(ptr, "Connection: close\r\n\r\n");
+	char header[1024];
+	char * ptr = header;
+	ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
+	ptr += sprintf(ptr, "Host: %s\r\n", domain);
+	ptr += sprintf(ptr, "Referer: %s\r\n", domain);
+	ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
+	ptr += sprintf(ptr, "Pragma: no-cache\r\n");
+	ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
+	ptr += sprintf(ptr, "Connection: close\r\n\r\n");
 
-    char filename[255];
-    memset(filename, 0, sizeof(filename));
+	char filename[255];
+	memset(filename, 0, sizeof(filename));
 
-    u32 filesize = network_request(connection, header, filename);
+	u32 filesize = network_request(connection, header, filename);
 
-    if(!filesize)
-    {
-        net_close(connection);
-        ShowError(tr("Filesize is 0 Byte."));
-        return -5;
-    }
+	if(!filesize)
+	{
+		net_close(connection);
+		ShowError(tr("Filesize is 0 Byte."));
+		return -5;
+	}
 
-    u32 blocksize = 10*1024;
+	u32 blocksize = 10*1024;
 
-    u8 * buffer = (u8 *) malloc(filesize);
-    if(!buffer)
-    {
-        net_close(connection);
-        ShowError(tr("Not enough memory."));
-        return -6;
-    }
+	u8 * buffer = (u8 *) malloc(filesize);
+	if(!buffer)
+	{
+		net_close(connection);
+		ShowError(tr("Not enough memory."));
+		return -6;
+	}
 
-    u32 done = 0;
+	u32 done = 0;
 
-    StartProgress(tr("Downloading file..."));
+	StartProgress(tr("Downloading file..."));
 
-    while(done < filesize)
-    {
-        if(actioncanceled)
-        {
-            free(buffer);
-            StopProgress();
-            net_close(connection);
-            ShowError(tr("Transfer cancelled."));
-            return -10;
-        }
+	while(done < filesize)
+	{
+		if(actioncanceled)
+		{
+			free(buffer);
+			StopProgress();
+			net_close(connection);
+			ShowError(tr("Transfer cancelled."));
+			return -10;
+		}
 
-        ShowProgress(done, filesize, filename);
+		ShowProgress(done, filesize, filename);
 
-        if(blocksize > filesize - done)
-            blocksize = filesize - done;
+		if(blocksize > filesize - done)
+			blocksize = filesize - done;
 
 
-        s32 read = network_read(connection, buffer+done, blocksize);
+		s32 read = network_read(connection, buffer+done, blocksize);
 
-        if(read < 0)
-        {
-            free(buffer);
-            StopProgress();
-            net_close(connection);
-            ShowError(tr("Transfer failed"));
-            return -8;
-        }
-        else if(!read)
-            break;
+		if(read < 0)
+		{
+			free(buffer);
+			StopProgress();
+			net_close(connection);
+			ShowError(tr("Transfer failed"));
+			return -8;
+		}
+		else if(!read)
+			break;
 
-        done += read;
-    }
+		done += read;
+	}
 
-    StopProgress();
-    net_close(connection);
+	StopProgress();
+	net_close(connection);
 
-    *inbuffer = buffer;
-    *size = filesize;
+	*inbuffer = buffer;
+	*size = filesize;
 
-    return 1;
+	return 1;
 }
 
 /****************************************************************************
@@ -152,39 +152,39 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
  ****************************************************************************/
 int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 {
-    if(!orig_url || !dest)
+	if(!orig_url || !dest)
 	{
-        ShowError(tr("No URL or Path specified."));
-        return -2;
+		ShowError(tr("No URL or Path specified."));
+		return -2;
 	}
 
-    bool addhttp = false;
+	bool addhttp = false;
 
-    if(strncasecmp(orig_url, "http://", strlen("http://")) != 0)
-    {
-        addhttp = true;
-    }
+	if(strncasecmp(orig_url, "http://", strlen("http://")) != 0)
+	{
+		addhttp = true;
+	}
 
-    char url[strlen(orig_url) + (addhttp ? strlen("http://") : 0) + 1];
+	char url[strlen(orig_url) + (addhttp ? strlen("http://") : 0) + 1];
 
-    if(addhttp)
-        snprintf(url, sizeof(url), "http://%s", orig_url);
-    else
-        strcpy(url, orig_url);
+	if(addhttp)
+		snprintf(url, sizeof(url), "http://%s", orig_url);
+	else
+		strcpy(url, orig_url);
 
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
 	{
-        ShowError(tr("Not a valid URL path"));
-        return -2;
+		ShowError(tr("Not a valid URL path"));
+		return -2;
 	}
 
 	int domainlength = path - url - strlen("http://");
 
 	if(domainlength == 0)
 	{
-        ShowError(tr("Not a valid domain"));
+		ShowError(tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -194,107 +194,107 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	int connection = GetConnection(domain);
 
-    if(connection < 0)
-    {
-        ShowError(tr("Could not connect to the server."));
-        return -4;
-    }
+	if(connection < 0)
+	{
+		ShowError(tr("Could not connect to the server."));
+		return -4;
+	}
 
-    char header[1024];
-    char * ptr = header;
-    ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
-    ptr += sprintf(ptr, "Host: %s\r\n", domain);
-    ptr += sprintf(ptr, "Referer: %s\r\n", domain);
-    ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
-    ptr += sprintf(ptr, "Pragma: no-cache\r\n");
-    ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
-    ptr += sprintf(ptr, "Connection: close\r\n\r\n");
+	char header[1024];
+	char * ptr = header;
+	ptr += sprintf(ptr, "GET %s HTTP/1.1\r\n", path);
+	ptr += sprintf(ptr, "Host: %s\r\n", domain);
+	ptr += sprintf(ptr, "Referer: %s\r\n", domain);
+	ptr += sprintf(ptr, "User-Agent: WiiXplorer\r\n");
+	ptr += sprintf(ptr, "Pragma: no-cache\r\n");
+	ptr += sprintf(ptr, "Cache-Control: no-cache\r\n");
+	ptr += sprintf(ptr, "Connection: close\r\n\r\n");
 
-    char filename[255];
-    memset(filename, 0, sizeof(filename));
+	char filename[255];
+	memset(filename, 0, sizeof(filename));
 
-    u32 filesize = network_request(connection, header, filename);
+	u32 filesize = network_request(connection, header, filename);
 
-    if(!filesize)
-    {
-        net_close(connection);
-        ShowError(tr("Filesize is 0 Byte."));
-        return -5;
-    }
+	if(!filesize)
+	{
+		net_close(connection);
+		ShowError(tr("Filesize is 0 Byte."));
+		return -5;
+	}
 
-    u32 blocksize = 10*1024;
+	u32 blocksize = 10*1024;
 
-    u8 *buffer = (u8 *) malloc(blocksize);
-    if(!buffer)
-    {
-        net_close(connection);
-        ShowError(tr("Not enough memory."));
-        return -6;
-    }
+	u8 *buffer = (u8 *) malloc(blocksize);
+	if(!buffer)
+	{
+		net_close(connection);
+		ShowError(tr("Not enough memory."));
+		return -6;
+	}
 
-    if(UseFilename)
-    {
-        if(dest[strlen(dest)-1] != '/')
-            strcat((char *) dest, "/");
+	if(UseFilename)
+	{
+		if(dest[strlen(dest)-1] != '/')
+			strcat((char *) dest, "/");
 
-        CreateSubfolder(dest);
+		CreateSubfolder(dest);
 
-        strcat((char *) dest, filename);
-    }
+		strcat((char *) dest, filename);
+	}
 
-    FILE *file = fopen(dest, "wb");
-    if(!file)
-    {
-        net_close(connection);
-        free(buffer);
-        ShowError(tr("Cannot write to destination."));
-        return -7;
-    }
+	FILE *file = fopen(dest, "wb");
+	if(!file)
+	{
+		net_close(connection);
+		free(buffer);
+		ShowError(tr("Cannot write to destination."));
+		return -7;
+	}
 
-    u32 done = 0;
+	u32 done = 0;
 
-    StartProgress(tr("Downloading file..."));
+	StartProgress(tr("Downloading file..."));
 
-    while(done < filesize)
-    {
-        if(actioncanceled)
-        {
-            free(buffer);
-            StopProgress();
-            net_close(connection);
-            fclose(file);
-            ShowError(tr("Transfer cancelled."));
-            return -10;
-        }
+	while(done < filesize)
+	{
+		if(actioncanceled)
+		{
+			free(buffer);
+			StopProgress();
+			net_close(connection);
+			fclose(file);
+			ShowError(tr("Transfer cancelled."));
+			return -10;
+		}
 
-        ShowProgress(done, filesize, filename);
+		ShowProgress(done, filesize, filename);
 
-        if(blocksize > filesize - done)
-            blocksize = filesize - done;
+		if(blocksize > filesize - done)
+			blocksize = filesize - done;
 
-        s32 read = network_read(connection, buffer, blocksize);
+		s32 read = network_read(connection, buffer, blocksize);
 
-        if(read < 0)
-        {
-            free(buffer);
-            StopProgress();
-            net_close(connection);
-            fclose(file);
-            ShowError(tr("Transfer failed"));
-            return -8;
-        }
-        else if(!read)
-            break;
+		if(read < 0)
+		{
+			free(buffer);
+			StopProgress();
+			net_close(connection);
+			fclose(file);
+			ShowError(tr("Transfer failed"));
+			return -8;
+		}
+		else if(!read)
+			break;
 
-        fwrite(buffer, 1, read, file);
+		fwrite(buffer, 1, read, file);
 
-        done += read;
-    }
+		done += read;
+	}
 
-    free(buffer);
-    StopProgress();
-    net_close(connection);
-    fclose(file);
+	free(buffer);
+	StopProgress();
+	net_close(connection);
+	fclose(file);
 
-    return done;
+	return done;
 }

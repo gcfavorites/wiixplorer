@@ -26,18 +26,19 @@
 #ifndef __GUIFILEBROWSER_HPP_
 #define __GUIFILEBROWSER_HPP_
 
-#include "libwiigui/gui.h"
+#include "GUI/gui_element.h"
 #include "FileOperations/Browser.hpp"
+#include "sigslot.h"
 
 class GuiFileBrowser : public GuiElement
 {
 	public:
 		GuiFileBrowser(Browser * filebrowser, int w UNUSED, int h UNUSED) { browser = filebrowser; };
 		virtual ~GuiFileBrowser() { };
-        virtual void SetBrowser(Browser * b) { browser = b; TriggerUpdate(); };
-		virtual void SetTriggerUpdate(bool set UNUSED) { };
+		virtual void SetBrowser(Browser * b) { browser = b; TriggerUpdate(); };
 		virtual void TriggerUpdate() { };
-        virtual void SetSelected(int i UNUSED) { };
+		virtual void SetSelected(int i UNUSED) { };
+		sigslot::signal1<int> Clicked;
 	protected:
 		Browser * browser;
 };

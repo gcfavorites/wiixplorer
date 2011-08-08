@@ -26,148 +26,148 @@
 #include "ColorSetPrompt.h"
 
 ColorSetPrompt::ColorSetPrompt(const char * title, GXColor * c, int pos)
-    : PromptWindow(title, 0, tr("Done"), tr("Cancel"), 0, 0, false)
+	: PromptWindow(title, 0, tr("Done"), tr("Cancel"))
 {
-    ColorPos = pos;
-    color = c;
-    ColorChange = -1;
+	ColorPos = pos;
+	color = c;
+	ColorChange = -1;
 
-    for(int i = 0; i < 4; i++)
-        OrigColor[i] = color[i];
+	for(int i = 0; i < 4; i++)
+		OrigColor[i] = color[i];
 
-    arrowOption.ClickedLeft.connect(this, &ColorSetPrompt::OnOptionLeftClick);
-    arrowOption.ClickedRight.connect(this, &ColorSetPrompt::OnOptionRightClick);
-    arrowOption.ClickedButton.connect(this, &ColorSetPrompt::OnOptionButtonClick);
+	arrowOption.ClickedLeft.connect(this, &ColorSetPrompt::OnOptionLeftClick);
+	arrowOption.ClickedRight.connect(this, &ColorSetPrompt::OnOptionRightClick);
+	arrowOption.ClickedButton.connect(this, &ColorSetPrompt::OnOptionButtonClick);
 
-    int PositionX = 102;
+	int PositionX = 102;
 
-    arrowOption.AddOption(tr("Red"), PositionX, 130);
-    arrowOption.AddOption(tr("Green"), PositionX+130, 130);
-    arrowOption.AddOption(tr("Blue"), PositionX+260, 130);
-    arrowOption.SetScale(1.3);
+	arrowOption.AddOption(tr("Red"), PositionX, 130);
+	arrowOption.AddOption(tr("Green"), PositionX+130, 130);
+	arrowOption.AddOption(tr("Blue"), PositionX+260, 130);
+	arrowOption.SetScale(1.3);
 
-    UpdateOptionValues();
+	UpdateOptionValues();
 
-    Append(&arrowOption);
+	Append(&arrowOption);
 }
 
 void ColorSetPrompt::ShowPrompt()
 {
-    int userChoice = -1;
+	int userChoice = -1;
 
-    while(userChoice < 0)
-    {
-        userChoice = GetChoice();
+	while(userChoice < 0)
+	{
+		userChoice = GetChoice();
 
-        if(userChoice == 0)
-        {
-            for(int i = 0; i < 4; i++)
-                color[i] = OrigColor[i];
-        }
+		if(userChoice == 0)
+		{
+			for(int i = 0; i < 4; i++)
+				color[i] = OrigColor[i];
+		}
 
-        if(ColorChange != -1)
-        {
-            char Text[150];
-            if(ColorChange == 0)
-            {
-                sprintf(Text, "%i", color[ColorPos].r);
-            }
-            else if(ColorChange == 1)
-            {
-                sprintf(Text, "%i", color[ColorPos].g);
-            }
-            else if(ColorChange == 2)
-            {
-                sprintf(Text, "%i", color[ColorPos].b);
-            }
+		if(ColorChange != -1)
+		{
+			char Text[150];
+			if(ColorChange == 0)
+			{
+				sprintf(Text, "%i", color[ColorPos].r);
+			}
+			else if(ColorChange == 1)
+			{
+				sprintf(Text, "%i", color[ColorPos].g);
+			}
+			else if(ColorChange == 2)
+			{
+				sprintf(Text, "%i", color[ColorPos].b);
+			}
 
-            if(OnScreenKeyboard(Text, 150))
-            {
-                if(ColorChange == 0)
-                    color[ColorPos].r = (u8) atoi(Text);
-                else if(ColorChange == 1)
-                    color[ColorPos].g = (u8) atoi(Text);
-                else if(ColorChange == 2)
-                    color[ColorPos].b = (u8) atoi(Text);
-            }
-            SetState(STATE_DEFAULT);
-            UpdateOptionValues();
+			if(OnScreenKeyboard(Text, 150))
+			{
+				if(ColorChange == 0)
+					color[ColorPos].r = (u8) atoi(Text);
+				else if(ColorChange == 1)
+					color[ColorPos].g = (u8) atoi(Text);
+				else if(ColorChange == 2)
+					color[ColorPos].b = (u8) atoi(Text);
+			}
+			SetState(STATE_DEFAULT);
+			UpdateOptionValues();
 
-            ColorChange = -1;
-        }
-    }
+			ColorChange = -1;
+		}
+	}
 }
 
 void ColorSetPrompt::UpdateOptionValues()
 {
-    arrowOption.SetOptionValue(0, fmt("%i", color[ColorPos].r));
-    arrowOption.SetOptionValue(1, fmt("%i", color[ColorPos].g));
-    arrowOption.SetOptionValue(2, fmt("%i", color[ColorPos].b));
+	arrowOption.SetOptionValue(0, fmt("%i", color[ColorPos].r));
+	arrowOption.SetOptionValue(1, fmt("%i", color[ColorPos].g));
+	arrowOption.SetOptionValue(2, fmt("%i", color[ColorPos].b));
 }
 
-void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void ColorSetPrompt::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    sender->ResetState();
+	sender->ResetState();
 
-    for(int i = 0; i < arrowOption.GetOptionCount(); i++)
-    {
-        if(sender == arrowOption.GetButtonLeft(i))
-        {
-            if(i == 0)
-            {
-                --color[ColorPos].r;
-            }
-            else if(i == 1)
-            {
-                --color[ColorPos].g;
-            }
-            else if(i == 2)
-            {
-                --color[ColorPos].b;
-            }
-            UpdateOptionValues();
-            break;
-        }
-    }
+	for(int i = 0; i < arrowOption.GetOptionCount(); i++)
+	{
+		if(sender == arrowOption.GetButtonLeft(i))
+		{
+			if(i == 0)
+			{
+				--color[ColorPos].r;
+			}
+			else if(i == 1)
+			{
+				--color[ColorPos].g;
+			}
+			else if(i == 2)
+			{
+				--color[ColorPos].b;
+			}
+			UpdateOptionValues();
+			break;
+		}
+	}
 }
 
-void ColorSetPrompt::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void ColorSetPrompt::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    sender->ResetState();
+	sender->ResetState();
 
-    for(int i = 0; i < arrowOption.GetOptionCount(); i++)
-    {
-        if(sender == arrowOption.GetButtonRight(i))
-        {
-            if(i == 0)
-            {
-                color[ColorPos].r = (color[ColorPos].r+1) % 255;
-            }
-            else if(i == 1)
-            {
-                color[ColorPos].g = (color[ColorPos].g+1) % 255;
-            }
-            else if(i == 2)
-            {
-                color[ColorPos].b = (color[ColorPos].b+1) % 255;
-            }
-            UpdateOptionValues();
-            break;
-        }
-    }
+	for(int i = 0; i < arrowOption.GetOptionCount(); i++)
+	{
+		if(sender == arrowOption.GetButtonRight(i))
+		{
+			if(i == 0)
+			{
+				color[ColorPos].r = (color[ColorPos].r+1) % 255;
+			}
+			else if(i == 1)
+			{
+				color[ColorPos].g = (color[ColorPos].g+1) % 255;
+			}
+			else if(i == 2)
+			{
+				color[ColorPos].b = (color[ColorPos].b+1) % 255;
+			}
+			UpdateOptionValues();
+			break;
+		}
+	}
 }
 
-void ColorSetPrompt::OnOptionButtonClick(GuiElement *sender, int pointer UNUSED, POINT p UNUSED)
+void ColorSetPrompt::OnOptionButtonClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-    sender->ResetState();
+	sender->ResetState();
 
-    for(int i = 0; i < arrowOption.GetOptionCount(); i++)
-    {
-        if(sender == arrowOption.GetButton(i))
-        {
-            ColorChange = i;
-            break;
-        }
-    }
+	for(int i = 0; i < arrowOption.GetOptionCount(); i++)
+	{
+		if(sender == arrowOption.GetButton(i))
+		{
+			ColorChange = i;
+			break;
+		}
+	}
 
 }

@@ -53,15 +53,15 @@ SzFile::SzFile(const char *filepath)
 {
 	if(InFile_Open(&archiveStream.file, filepath))
 	{
-	    SzResult = 9;
+		SzResult = 9;
 		return;
 	}
 
-    FileInStream_CreateVTable(&archiveStream);
-    LookToRead_CreateVTable(&lookStream, False);
+	FileInStream_CreateVTable(&archiveStream);
+	LookToRead_CreateVTable(&lookStream, False);
 
-    lookStream.realStream = &archiveStream.s;
-    LookToRead_Init(&lookStream);
+	lookStream.realStream = &archiveStream.s;
+	LookToRead_Init(&lookStream);
 
 	// set default 7Zip SDK handlers for allocation and freeing memory
 	SzAllocImp.Alloc = SzAlloc;
@@ -70,11 +70,11 @@ SzFile::SzFile(const char *filepath)
 	SzAllocTempImp.Free = SzFreeTemp;
 
 	// prepare CRC and 7Zip database structures
-    CrcGenerateTable();
-    SzArEx_Init(&SzArchiveDb);
+	CrcGenerateTable();
+	SzArEx_Init(&SzArchiveDb);
 
 	// open the archive
-    SzResult = SzArEx_Open(&SzArchiveDb, &lookStream.s, &SzAllocImp, &SzAllocTempImp);
+	SzResult = SzArEx_Open(&SzArchiveDb, &lookStream.s, &SzAllocImp, &SzAllocTempImp);
 
 
 	if (SzResult != SZ_OK)
@@ -85,9 +85,9 @@ SzFile::SzFile(const char *filepath)
 
 SzFile::~SzFile()
 {
-    SzArEx_Free(&SzArchiveDb, &SzAllocImp);
+	SzArEx_Free(&SzArchiveDb, &SzAllocImp);
 
-    File_Close(&archiveStream.file);
+	File_Close(&archiveStream.file);
 }
 
 bool SzFile::Is7ZipFile (const char *buffer)
@@ -106,23 +106,23 @@ bool SzFile::Is7ZipFile (const char *buffer)
 
 ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 {
-    if(ind > (int) SzArchiveDb.db.NumFiles || ind < 0)
-        return NULL;
+	if(ind > (int) SzArchiveDb.db.NumFiles || ind < 0)
+		return NULL;
 
-    CSzFileItem * SzFileItem = SzArchiveDb.db.Files + ind;
+	CSzFileItem * SzFileItem = SzArchiveDb.db.Files + ind;
 
-    CurArcFile.filename = SzFileItem->Name;
-    CurArcFile.length = SzFileItem->Size;
-    CurArcFile.comp_length = 0;
-    CurArcFile.isdir = SzFileItem->IsDir;
-    CurArcFile.fileindex = ind;
-    if(SzFileItem->MTimeDefined)
-        CurArcFile.ModTime = (u64) (SzFileItem->MTime.Low  | ((u64) SzFileItem->MTime.High << 32));
-    else
-        CurArcFile.ModTime = 0;
-    CurArcFile.archiveType = SZIP;
+	CurArcFile.filename = SzFileItem->Name;
+	CurArcFile.length = SzFileItem->Size;
+	CurArcFile.comp_length = 0;
+	CurArcFile.isdir = SzFileItem->IsDir;
+	CurArcFile.fileindex = ind;
+	if(SzFileItem->MTimeDefined)
+		CurArcFile.ModTime = (u64) (SzFileItem->MTime.Low  | ((u64) SzFileItem->MTime.High << 32));
+	else
+		CurArcFile.ModTime = 0;
+	CurArcFile.archiveType = SZIP;
 
-    return &CurArcFile;
+	return &CurArcFile;
 }
 
 void SzFile::DisplayError(SRes res)
@@ -133,93 +133,93 @@ void SzFile::DisplayError(SRes res)
 
 u32 SzFile::GetItemCount()
 {
-    if(SzResult != SZ_OK)
-        return 0;
+	if(SzResult != SZ_OK)
+		return 0;
 
 	return SzArchiveDb.db.NumFiles;
 }
 
 int SzFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 {
-    if(SzResult != SZ_OK)
-        return -1;
+	if(SzResult != SZ_OK)
+		return -1;
 
-    if(!GetFileStruct(fileindex))
-        return -2;
+	if(!GetFileStruct(fileindex))
+		return -2;
 
 	// reset variables
 	UInt32 SzBlockIndex = 0xFFFFFFFF;
 	size_t SzOffset = 0;
-    size_t SzSizeProcessed = 0;
-    Byte * outBuffer = 0;
-    size_t outBufferSize = 0;
+	size_t SzSizeProcessed = 0;
+	Byte * outBuffer = 0;
+	size_t outBufferSize = 0;
 
 	char * RealFilename = strrchr(CurArcFile.filename, '/');
 
 	char writepath[MAXPATHLEN];
 	if(!RealFilename || withpath)
-        snprintf(writepath, sizeof(writepath), "%s/%s", outpath, CurArcFile.filename);
-    else
-        snprintf(writepath, sizeof(writepath), "%s/%s", outpath, RealFilename+1);
+		snprintf(writepath, sizeof(writepath), "%s/%s", outpath, CurArcFile.filename);
+	else
+		snprintf(writepath, sizeof(writepath), "%s/%s", outpath, RealFilename+1);
 
-    if(CurArcFile.isdir)
-    {
-        strncat(writepath, "/", sizeof(writepath));
-        CreateSubfolder(writepath);
-        return 1;
-    }
+	if(CurArcFile.isdir)
+	{
+		strncat(writepath, "/", sizeof(writepath));
+		CreateSubfolder(writepath);
+		return 1;
+	}
 
-    char * temppath = strdup(writepath);
-    char * pointer = strrchr(temppath, '/');
-    if(pointer)
-    {
-        pointer += 1;
-        pointer[0] = '\0';
-    }
-    CreateSubfolder(temppath);
+	char * temppath = strdup(writepath);
+	char * pointer = strrchr(temppath, '/');
+	if(pointer)
+	{
+		pointer += 1;
+		pointer[0] = '\0';
+	}
+	CreateSubfolder(temppath);
 
-    free(temppath);
-    temppath = NULL;
+	free(temppath);
+	temppath = NULL;
 
-    //startup timer
-    ShowProgress(0, CurArcFile.length, (RealFilename ? RealFilename+1 : CurArcFile.filename));
+	//startup timer
+	ShowProgress(0, CurArcFile.length, (RealFilename ? RealFilename+1 : CurArcFile.filename));
 
 	// Extract
 	SzResult = SzAr_Extract(&SzArchiveDb, &lookStream.s, fileindex,
-                            &SzBlockIndex, &outBuffer, &outBufferSize,
-                            &SzOffset, &SzSizeProcessed,
-                            &SzAllocImp, &SzAllocTempImp);
+							&SzBlockIndex, &outBuffer, &outBufferSize,
+							&SzOffset, &SzSizeProcessed,
+							&SzAllocImp, &SzAllocTempImp);
 
-    if(actioncanceled)
-        SzResult = 10;
+	if(actioncanceled)
+		SzResult = 10;
 
-    if(SzResult == SZ_OK)
-    {
-        FILE * wFile = fopen(writepath, "wb");
+	if(SzResult == SZ_OK)
+	{
+		FILE * wFile = fopen(writepath, "wb");
 
-        //not quite right and needs to be changed
-        u32 done = 0;
-        if(!wFile)
-            done = CurArcFile.length;
+		//not quite right and needs to be changed
+		u32 done = 0;
+		if(!wFile)
+			done = CurArcFile.length;
 
-        do
-        {
-            ShowProgress(done, CurArcFile.length, (RealFilename ? RealFilename+1 : CurArcFile.filename));
-            int wrote = fwrite(outBuffer, 1, 51200, wFile);
-            done += wrote;
+		do
+		{
+			ShowProgress(done, CurArcFile.length, (RealFilename ? RealFilename+1 : CurArcFile.filename));
+			int wrote = fwrite(outBuffer, 1, 51200, wFile);
+			done += wrote;
 
-            if(wrote == 0)
-                break;
+			if(wrote == 0)
+				break;
 
-        } while(done < CurArcFile.length);
+		} while(done < CurArcFile.length);
 
-        fclose(wFile);
-    }
-    if(outBuffer)
-    {
-        IAlloc_Free(&SzAllocImp, outBuffer);
-        outBuffer = NULL;
-    }
+		fclose(wFile);
+	}
+	if(outBuffer)
+	{
+		IAlloc_Free(&SzAllocImp, outBuffer);
+		outBuffer = NULL;
+	}
 
 	// check for errors
 	if(SzResult != SZ_OK)
@@ -234,38 +234,38 @@ int SzFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 
 int SzFile::ExtractAll(const char * destpath)
 {
-    if(!destpath)
-        return -5;
+	if(!destpath)
+		return -5;
 
-    StartProgress(tr("Extracting files..."));
+	StartProgress(tr("Extracting files..."));
 
-    for(u32 i = 0; i < SzArchiveDb.db.NumFiles; i++)
+	for(u32 i = 0; i < SzArchiveDb.db.NumFiles; i++)
 	{
-	    if(actioncanceled)
-            return -10;
+		if(actioncanceled)
+			return -10;
 
-        CSzFileItem * SzFileItem = SzArchiveDb.db.Files + i;
+		CSzFileItem * SzFileItem = SzArchiveDb.db.Files + i;
 
-        char path[MAXPATHLEN];
-        snprintf(path, sizeof(path), "%s/%s", destpath, SzFileItem->Name);
-        u32 filesize = SzFileItem->Size;
+		char path[MAXPATHLEN];
+		snprintf(path, sizeof(path), "%s/%s", destpath, SzFileItem->Name);
+		u32 filesize = SzFileItem->Size;
 
-        if(!filesize)
-            continue;
+		if(!filesize)
+			continue;
 
-        char * pointer = strrchr(path, '/')+1;
+		char * pointer = strrchr(path, '/')+1;
 
-        if(pointer)
-        {
-            //cut off filename
-            pointer[0] = '\0';
-        }
-        else
-            continue; //shouldn't ever happen but to be sure, skip the file if it does
+		if(pointer)
+		{
+			//cut off filename
+			pointer[0] = '\0';
+		}
+		else
+			continue; //shouldn't ever happen but to be sure, skip the file if it does
 
-        CreateSubfolder(path);
+		CreateSubfolder(path);
 
-        ExtractFile(i, path);
+		ExtractFile(i, path);
 	}
 	StopProgress();
 

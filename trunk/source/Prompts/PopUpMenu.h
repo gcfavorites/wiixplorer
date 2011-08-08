@@ -1,34 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * Copyright (C) 2010
- * by dude
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * PopUpMenu.h
- *
- * for WiiXplorer 2010
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
  #ifndef __POPUPMENU_H_
  #define __POPUPMENU_H_
 
@@ -37,7 +22,7 @@
 #include <gctypes.h>
 #include <unistd.h>
 
-#include "libwiigui/gui.h"
+#include "GUI/gui.h"
 #include "Memory/Resources.h"
 
 enum
@@ -46,41 +31,42 @@ enum
 	DOWN
 };
 
-typedef struct
-{
-	GuiButton* Button;
-	GuiText* ButtonTxt;
-	GuiText* ButtonTxtOver;
-	GuiImage* ButtonMenuSelect;
-	GuiImage* ExpandImg;
-	GuiImage* IconImg;
-	GuiImageData* Icon;
-//	bool SubMenu;
-} Items;
-
 class PopUpMenu : public GuiWindow, public sigslot::has_slots<>
 {
 	public:
 		PopUpMenu(int x, int y);
 		virtual ~PopUpMenu();
-		int GetChoice();
-		int GetWidth() { return width; }
-		int GetHeight() { return height; }
 		void AddItem(const char *text, const char *icon = NULL, bool submenu = false);
 		void Finish();
-        void Update(GuiTrigger * t) { GuiWindow::Update(t); ++ScrollState; }
+		void OpenSubMenu(int position, PopUpMenu *menu);
+		void CloseSubMenu() { Remove(subMenu); }
+		void SetUserData(void *data) { userData = data; }
+		void *GetUserData() const { return userData; }
+		void Update(GuiTrigger * t) { GuiWindow::Update(t); ++ScrollState; }
+		sigslot::signal2<PopUpMenu *, int> ItemClicked;
 	private:
-		void OnClick(GuiButton *sender, int pointer, POINT p);
-		void OnScrollUp(GuiButton *sender, int pointer, POINT p);
-		void OnScrollDown(GuiButton *sender, int pointer, POINT p);
+		void OnClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnScrollUp(GuiButton *sender, int pointer, const POINT &p);
+		void OnScrollDown(GuiButton *sender, int pointer, const POINT &p);
 		void Scroll(int direction);
+
+		typedef struct
+		{
+			GuiButton* Button;
+			GuiText* ButtonTxt;
+			GuiText* ButtonTxtOver;
+			GuiImage* ButtonMenuSelect;
+			GuiImage* ExpandImg;
+			GuiImage* IconImg;
+			GuiImageData* Icon;
+		} Items;
 
 		std::vector<Items> Item;
 
-		int choice;
+		void *userData;
+		PopUpMenu *subMenu;
+
 		int maxTxtWidth;
-		int width;
-		int height;
 
 		u32 xpos;
 		u32 ypos;
@@ -113,6 +99,7 @@ class PopUpMenu : public GuiWindow, public sigslot::has_slots<>
 
 		SimpleGuiTrigger * trigA;
 		GuiTrigger * trigAHeld;
+		GuiTrigger * trigAOnly;
 		GuiTrigger * trigB;
 		GuiTrigger * trigUp;
 		GuiTrigger * trigDown;

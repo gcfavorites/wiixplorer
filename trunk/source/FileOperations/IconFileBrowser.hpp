@@ -28,7 +28,7 @@
 
 #include "Controls/Scrollbar.hpp"
 #include "GuiFileBrowser.hpp"
-#include "libwiigui/gui_tooltip.h"
+#include "GUI/gui_tooltip.h"
 
 using namespace std;
 
@@ -38,25 +38,23 @@ class IconFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		IconFileBrowser(Browser * filebrowser, int w, int h);
 		virtual ~IconFileBrowser();
 		void ResetState();
-        void SetSelected(int i);
-        void SetTriggerUpdate(bool t) { triggerupdate = t; };
+		void SetSelected(int i);
 		void TriggerUpdate() { listChanged = true; };
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
 		void OnListChange(int selItem, int selIndex);
-        void OnButtonClicked(GuiButton *sender, int pointer, POINT p);
-        GuiImage * GetIconFromExt(const char * fileext, bool dir);
-        void AddButton();
-        void SetButton(int i, const char * name, bool dir, bool enable, int x, int y);
-        void RemoveButton(int i);
+		void OnButtonClicked(GuiButton *sender, int pointer, const POINT &p);
+		GuiImage * GetIconFromExt(const char * fileext, bool dir);
+		void AddButton();
+		void SetButton(int i, const char * name, bool dir, bool enable, int x, int y);
+		void RemoveButton(int i);
 
-        u16 RowSize;
-        u16 PageSize;
+		u16 RowSize;
+		u16 PageSize;
 		int selectedItem;
 		int numEntries;
 		bool listChanged;
-		bool triggerupdate;
 
 		vector<GuiText *> ButtonText;
 		vector<GuiImage *> FileSelectionImg;
@@ -67,16 +65,16 @@ class IconFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		Scrollbar * scrollbar;
 
 		GuiImageData * bgFileSelection;
-        GuiImageData * fileArchives;
+		GuiImageData * fileArchives;
 		GuiImageData * fileDefault;
 		GuiImageData * fileFolder;
-        GuiImageData * fileGFX;
+		GuiImageData * fileGFX;
 		GuiImageData * filePLS;
 		GuiImageData * fileSFX;
-        GuiImageData * fileTXT;
-        GuiImageData * fileXML;
-        GuiImageData * fileVID;
-        GuiImageData * filePDF;
+		GuiImageData * fileTXT;
+		GuiImageData * fileXML;
+		GuiImageData * fileVID;
+		GuiImageData * filePDF;
 
 		GuiSound * btnSoundOver;
 		GuiSound * btnSoundClick;

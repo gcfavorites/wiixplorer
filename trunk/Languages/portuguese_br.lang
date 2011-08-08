@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -528,6 +528,9 @@ msgstr "Extrair"
 
 msgid "Extract All"
 msgstr "Extrair todos"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "Extrair para o caminho temporário e executar?"
@@ -1219,14 +1222,11 @@ msgstr "Reconexão falhou. Compartilhamento desconectado."
 msgid "Red"
 msgstr "Vermelho"
 
-msgid "Reload"
-msgstr "Recarregar"
-
 msgid "Reloading file list..."
 msgstr ""
 
-msgid "Remounting all devices."
-msgstr "Remontando todos os dispositivos"
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Remontando dispositivos..."
@@ -1650,9 +1650,6 @@ msgstr "Esta partição não pode ser ativada"
 msgid "You cant use this operation on:"
 msgstr "Você não pode usar essa opção em:"
 
-msgid "You do not have BootMii installed!"
-msgstr ""
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr ""
 
@@ -1691,6 +1688,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Reload"
+#~ msgstr "Recarregar"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Remontando todos os dispositivos"
 
 #~ msgid "USB Device"
 #~ msgstr "Dispositivo USB"

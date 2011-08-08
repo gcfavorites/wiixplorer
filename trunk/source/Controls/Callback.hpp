@@ -28,36 +28,36 @@
 
 class cCallback
 {
-    public:
-        virtual void Execute(int Param) const =0;
+	public:
+		virtual void Execute(int Param) const =0;
 };
 
 template <class cInstance>
 class TCallback : public cCallback
 {
-    public:
-        TCallback()    // constructor
-        {
-            pFunction = 0;
-        }
+	public:
+		TCallback()	// constructor
+		{
+			pFunction = 0;
+		}
 
-        typedef void (cInstance::*tFunction)(int Param);
+		typedef void (cInstance::*tFunction)(int Param);
 
-        virtual void Execute(int Param) const
-        {
-            if (pFunction)
-                (cInst->*pFunction)(Param);
-        }
+		virtual void Execute(int Param) const
+		{
+			if (pFunction)
+				(cInst->*pFunction)(Param);
+		}
 
-        void SetCallback (cInstance * cInstancePointer, tFunction pFunctionPointer)
-        {
-            cInst     = cInstancePointer;
-            pFunction = pFunctionPointer;
-        }
+		void SetCallback (cInstance * cInstancePointer, tFunction pFunctionPointer)
+		{
+			cInst	 = cInstancePointer;
+			pFunction = pFunctionPointer;
+		}
 
-    private:
-        cInstance *cInst;
-        tFunction pFunction;
+	private:
+		cInstance *cInst;
+		tFunction pFunction;
 };
 
 #endif

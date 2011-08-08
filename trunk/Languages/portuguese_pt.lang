@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -528,6 +528,9 @@ msgstr "Extrair"
 
 msgid "Extract All"
 msgstr "Extrair Tudo"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr ""
@@ -1219,13 +1222,10 @@ msgstr ""
 msgid "Red"
 msgstr ""
 
-msgid "Reload"
-msgstr "Actualizar"
-
 msgid "Reloading file list..."
 msgstr ""
 
-msgid "Remounting all devices."
+msgid "Remount"
 msgstr ""
 
 msgid "Remounting devices..."
@@ -1650,9 +1650,6 @@ msgstr ""
 msgid "You cant use this operation on:"
 msgstr "Não pode usar esta operação em:"
 
-msgid "You do not have BootMii installed!"
-msgstr ""
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr ""
 
@@ -1691,6 +1688,9 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Reload"
+#~ msgstr "Actualizar"
 
 #~ msgid "Do you want to load this language file?"
 #~ msgstr "Carregar este ficheiro de idioma?"

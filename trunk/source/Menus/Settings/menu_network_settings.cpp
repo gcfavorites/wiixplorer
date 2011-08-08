@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
@@ -39,7 +39,7 @@ int MenuNetworkSettings()
 	int menu = MENU_NONE;
 	int ret;
 	int i = 0;
-    bool firstRun = true;
+	bool firstRun = true;
 
 	OptionList options;
 	options.SetName(i++, tr("Auto Connect"));
@@ -51,12 +51,12 @@ int MenuNetworkSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Network Settings"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
-    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiImageData * btnOutline = Resources::GetImageData("button.png");
 	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
-    SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText updateBtnTxt(tr("Update App"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage updateBtnImg(btnOutline);
@@ -69,34 +69,34 @@ int MenuNetworkSettings()
 	updateBtn.SetTrigger(&trigA);
 	updateBtn.SetEffectGrow();
 
-	MainWindow::Instance()->Append(&updateBtn);
+	Application::Instance()->Append(&updateBtn);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
-        else if(updateBtn.GetState() == STATE_CLICKED)
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
+		else if(updateBtn.GetState() == STATE_CLICKED)
 		{
-            int res = CheckForUpdate();
-            if(res == 0)
-            {
-                int choice = WindowPrompt(tr("No new updates available"), 0, tr("OK"), tr("Show Changelog"));
-                if(choice == 0)
-                {
-                    ChangeLog Changelog;
-                    if(!Changelog.Show())
-                        WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
-                }
-            }
-		    updateBtn.ResetState();
+			int res = CheckForUpdate();
+			if(res == 0)
+			{
+				int choice = WindowPrompt(tr("No new updates available"), 0, tr("OK"), tr("Show Changelog"));
+				if(choice == 0)
+				{
+					ChangeLog Changelog;
+					if(!Changelog.Show())
+						WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
+				}
+			}
+			updateBtn.ResetState();
 		}
 
 		ret = Menu->GetClickedOption();
@@ -105,58 +105,56 @@ int MenuNetworkSettings()
 		{
 			case 0:
 				Settings.AutoConnect++;
-                if(Settings.AutoConnect > 1)
-                    Settings.AutoConnect = 0;
+				if(Settings.AutoConnect > 1)
+					Settings.AutoConnect = 0;
 				break;
 			case 1:
 				Settings.UpdateMetaxml++;
-                if(Settings.UpdateMetaxml > 1)
-                    Settings.UpdateMetaxml = 0;
+				if(Settings.UpdateMetaxml > 1)
+					Settings.UpdateMetaxml = 0;
 				break;
 			case 2:
 				Settings.UpdateIconpng++;
-                if(Settings.UpdateIconpng > 1)
-                    Settings.UpdateIconpng = 0;
+				if(Settings.UpdateIconpng > 1)
+					Settings.UpdateIconpng = 0;
 				break;
-            case 3:
-                menu = MENU_SMB_SETTINGS;
-                break;
-            case 4:
-                menu = MENU_FTPCLIENT_SETTINGS;
-                break;
-            case 5:
-                menu = MENU_FTPSERVER_SETTINGS;
-                break;
+			case 3:
+				menu = MENU_SMB_SETTINGS;
+				break;
+			case 4:
+				menu = MENU_FTPCLIENT_SETTINGS;
+				break;
+			case 5:
+				menu = MENU_FTPSERVER_SETTINGS;
+				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            if(Settings.AutoConnect == 1) options.SetValue(i++, tr("ON"));
-            else if(Settings.AutoConnect == 0) options.SetValue(i++, tr("OFF"));
+			if(Settings.AutoConnect == 1) options.SetValue(i++, tr("ON"));
+			else if(Settings.AutoConnect == 0) options.SetValue(i++, tr("OFF"));
 
-            if(Settings.UpdateMetaxml == 1) options.SetValue(i++, tr("ON"));
-            else if(Settings.UpdateMetaxml == 0) options.SetValue(i++, tr("OFF"));
+			if(Settings.UpdateMetaxml == 1) options.SetValue(i++, tr("ON"));
+			else if(Settings.UpdateMetaxml == 0) options.SetValue(i++, tr("OFF"));
 
-            if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
-            else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
+			if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
+			else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
 
-            options.SetValue(i++, " ");
-        }
+			options.SetValue(i++, " ");
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
-	MainWindow::Instance()->HaltGui();
-	MainWindow::Instance()->Remove(&updateBtn);
-	MainWindow::Instance()->ResumeGui();
+	Application::Instance()->Remove(&updateBtn);
 
 	Resources::Remove(btnOutline);
 	Resources::Remove(btnSoundOver);
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

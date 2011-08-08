@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/DeviceMenu.h"
 
@@ -40,65 +40,65 @@ int MenuBootSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Boot Settings"), &options, MENU_SETTINGS);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
 
 		ret = Menu->GetClickedOption();
 
 		if(ret >= 0)
 		{
-            switch(Settings.BootIOS)
-            {
-                case 58:
-                    Settings.BootIOS = 202;
-                    break;
-                case 202:
-                    Settings.BootIOS = 222;
-                    break;
-                case 222:
-                    Settings.BootIOS = 223;
-                    break;
-                case 223:
-                    Settings.BootIOS = 36;
-                    break;
-                case 36:
-                    Settings.BootIOS = 60;
-                    break;
-                case 60:
-                    Settings.BootIOS = 61;
-                    break;
-                case 61:
-                    Settings.BootIOS = 58;
-                    break;
-                default:
-                    break;
-            }
+			switch(Settings.BootIOS)
+			{
+				case 58:
+					Settings.BootIOS = 202;
+					break;
+				case 202:
+					Settings.BootIOS = 222;
+					break;
+				case 222:
+					Settings.BootIOS = 223;
+					break;
+				case 223:
+					Settings.BootIOS = 36;
+					break;
+				case 36:
+					Settings.BootIOS = 60;
+					break;
+				case 60:
+					Settings.BootIOS = 61;
+					break;
+				case 61:
+					Settings.BootIOS = 58;
+					break;
+				default:
+					break;
+			}
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            options.SetValue(i++, "%i", Settings.BootIOS);
-        }
+			options.SetValue(i++, "%i", Settings.BootIOS);
+		}
 	}
 
-    delete Menu;
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

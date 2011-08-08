@@ -41,7 +41,7 @@ extern "C" void ShowError(const char * format, ...)
 	va_end(va);
 
 	if(tmp)
-        free(tmp);
+		free(tmp);
 }
 
 extern "C" void ShowMsg(const char * title, const char * format, ...)
@@ -56,5 +56,5 @@ extern "C" void ShowMsg(const char * title, const char * format, ...)
 	va_end(va);
 
 	if(tmp)
-        free(tmp);
+		free(tmp);
 }

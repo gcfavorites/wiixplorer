@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-23 11:33+0200\n"
+"POT-Creation-Date: 2011-08-02 22:10+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -530,6 +530,9 @@ msgstr "Udpak"
 
 msgid "Extract All"
 msgstr "Udpak alle"
+
+msgid "Extract error code:"
+msgstr ""
 
 msgid "Extract file to temp path and execute?"
 msgstr "Udpak fil til midlertidig sti og udføre?"
@@ -1221,14 +1224,11 @@ msgstr "Fejlede at genforbinde. Ingen delte forbindelser er forbundet."
 msgid "Red"
 msgstr "Rød"
 
-msgid "Reload"
-msgstr "Genindlæs"
-
 msgid "Reloading file list..."
 msgstr "Genindlæser fil liste..."
 
-msgid "Remounting all devices."
-msgstr "Genindlæs alle enheder."
+msgid "Remount"
+msgstr ""
 
 msgid "Remounting devices..."
 msgstr "Genindlæser enheder..."
@@ -1652,9 +1652,6 @@ msgstr "Du kan ikke sætte denne partition som aktiv."
 msgid "You cant use this operation on:"
 msgstr "Du kan ikke udføre denne handling på:"
 
-msgid "You do not have BootMii installed!"
-msgstr "Du har ikke BootMii installeret!"
-
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
 msgstr "Du har en GUID Partition Table (GPT). Formatering af partition i en GPT er ikke understøttet endnu."
 
@@ -1693,6 +1690,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Reload"
+#~ msgstr "Genindlæs"
+
+#~ msgid "Remounting all devices."
+#~ msgstr "Genindlæs alle enheder."
+
+#~ msgid "You do not have BootMii installed!"
+#~ msgstr "Du har ikke BootMii installeret!"
 
 #~ msgid "USB Device"
 #~ msgstr "USB Enhed"

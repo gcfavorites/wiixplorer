@@ -33,8 +33,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "libwiigui/gui.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Controls/IOHandler.hpp"
 #include "Prompts/ProgressWindow.h"
@@ -49,64 +48,64 @@ ProgressWindow * ProgressWindow::instance = NULL;
 
 ProgressWindow::ProgressWindow()
 {
-    ProgressThread = LWP_THREAD_NULL;
-    showProgress = 0;
-    TotalDone = 0;
-    TotalSize = 0;
-    progressDone = 0;
-    progressTotal = 0;
-    Changed = false;
-    ExitRequested = false;
-    Minimized = false;
-    Minimizable = false;
-    ProgressMsg[0] = '\0';
+	ProgressThread = LWP_THREAD_NULL;
+	showProgress = 0;
+	TotalDone = 0;
+	TotalSize = 0;
+	progressDone = 0;
+	progressTotal = 0;
+	Changed = false;
+	ExitRequested = false;
+	Minimized = false;
+	Minimizable = false;
+	ProgressMsg[0] = '\0';
 
-    dialogBox = NULL;
-    progressbarOutline = NULL;
-    throbber = NULL;
-    btnOutline = NULL;
-    dialogBoxImg = NULL;
-    progressbarOutlineImg = NULL;
-    progressbarEmptyImg = NULL;
-    progressbarImg = NULL;
-    progressbarTotalOutlineImg = NULL;
-    progressbarTotalEmptyImg = NULL;
-    progressbarTotalImg = NULL;
-    throbberImg = NULL;
-    buttonImg = NULL;
-    MinimizeImg = NULL;
-    titleTxt = NULL;
-    msgTxt = NULL;
-    prTxt = NULL;
-    prTotalTxt = NULL;
-    prsTxt = NULL;
-    prsTotalTxt = NULL;
-    speedTxt = NULL;
-    sizeTxt = NULL;
-    sizeTotalTxt = NULL;
-    TimeTxt = NULL;
-    AbortTxt = NULL;
-    MinimizeTxt = NULL;
-    AbortBtn = NULL;
-    MinimizeBtn = NULL;
-    trigA = NULL;
-    soundClick = NULL;
-    soundOver = NULL;
+	dialogBox = NULL;
+	progressbarOutline = NULL;
+	throbber = NULL;
+	btnOutline = NULL;
+	dialogBoxImg = NULL;
+	progressbarOutlineImg = NULL;
+	progressbarEmptyImg = NULL;
+	progressbarImg = NULL;
+	progressbarTotalOutlineImg = NULL;
+	progressbarTotalEmptyImg = NULL;
+	progressbarTotalImg = NULL;
+	throbberImg = NULL;
+	buttonImg = NULL;
+	MinimizeImg = NULL;
+	titleTxt = NULL;
+	msgTxt = NULL;
+	prTxt = NULL;
+	prTotalTxt = NULL;
+	prsTxt = NULL;
+	prsTotalTxt = NULL;
+	speedTxt = NULL;
+	sizeTxt = NULL;
+	sizeTotalTxt = NULL;
+	TimeTxt = NULL;
+	AbortTxt = NULL;
+	MinimizeTxt = NULL;
+	AbortBtn = NULL;
+	MinimizeBtn = NULL;
+	trigA = NULL;
+	soundClick = NULL;
+	soundOver = NULL;
 
-    ThreadStack = (u8 *) memalign(32, 32768);
+	ThreadStack = (u8 *) memalign(32, 32768);
 	LWP_CreateThread(&ProgressThread, ThreadCallback, this, ThreadStack, 32768, 70);
 }
 
 ProgressWindow::~ProgressWindow()
 {
-    ExitRequested = true;
-    actioncanceled = true;
-    showProgress = 0;
-    LWP_ResumeThread(ProgressThread);
+	ExitRequested = true;
+	actioncanceled = true;
+	showProgress = 0;
+	LWP_ResumeThread(ProgressThread);
 	LWP_JoinThread(ProgressThread, NULL);
 	ProgressThread = LWP_THREAD_NULL;
 	if(ThreadStack)
-        free(ThreadStack);
+		free(ThreadStack);
 
 	ClearMemory();
 }
@@ -122,36 +121,36 @@ ProgressWindow * ProgressWindow::Instance()
 
 void ProgressWindow::DestroyInstance()
 {
-    if(instance)
-    {
-        delete instance;
-        instance = NULL;
-    }
+	if(instance)
+	{
+		delete instance;
+		instance = NULL;
+	}
 }
 
 void ProgressWindow::LoadWindow()
 {
 	if(!showProgress || Minimized)
-        return;
+		return;
 
-    //! To skip progressbar for fast processes
+	//! To skip progressbar for fast processes
 	usleep(500000);
 	if(!showProgress)
-        return;
+		return;
 
 	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	SetPosition(0, -10);
 
-    if(showProgress == MULTI_PROGRESSBAR)
-        dialogBox = Resources::GetImageData("progress_window.png");
-    else if(showProgress == PROGRESSBAR || showProgress == THROBBER || showProgress == AUTO_THROBBER)
-        dialogBox = Resources::GetImageData("dialogue_box.png");
+	if(showProgress == MULTI_PROGRESSBAR)
+		dialogBox = Resources::GetImageData("progress_window.png");
+	else if(showProgress == PROGRESSBAR || showProgress == THROBBER || showProgress == AUTO_THROBBER)
+		dialogBox = Resources::GetImageData("dialogue_box.png");
 
 	dialogBoxImg = new GuiImage(dialogBox);
 	Append(dialogBoxImg);
 
-    width = dialogBox->GetWidth();
-    height = dialogBox->GetHeight();
+	width = dialogBox->GetWidth();
+	height = dialogBox->GetHeight();
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -165,15 +164,15 @@ void ProgressWindow::LoadWindow()
 	titleTxt->SetMaxWidth(430, DOTTED);
 	Append(titleTxt);
 
-    msgTxt = new GuiText((char*) NULL, 22, (GXColor){0, 0, 0, 255});
+	msgTxt = new GuiText((char*) NULL, 22, (GXColor){0, 0, 0, 255});
 	msgTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
 	msgTxt->SetPosition(0,110);
 	msgTxt->SetMaxWidth(430, DOTTED);
 	Append(msgTxt);
 
-    btnOutline = Resources::GetImageData("small_button.png");
+	btnOutline = Resources::GetImageData("small_button.png");
 	buttonImg = new GuiImage(btnOutline);
-    AbortTxt = new GuiText(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
+	AbortTxt = new GuiText(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	AbortBtn = new GuiButton(buttonImg->GetWidth(), buttonImg->GetHeight());
 	AbortBtn->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
 	AbortBtn->SetPosition(0, -48);
@@ -185,149 +184,134 @@ void ProgressWindow::LoadWindow()
 	AbortBtn->SetEffectGrow();
 	Append(AbortBtn);
 
-    if(Minimizable)
-    {
-        MinimizeImg = new GuiImage(btnOutline);
-        MinimizeTxt = new GuiText(tr("Minimize"), 22, (GXColor){0, 0, 0, 255});
-        MinimizeBtn = new GuiButton(MinimizeImg->GetWidth(), MinimizeImg->GetHeight());
-        MinimizeBtn->SetLabel(MinimizeTxt);
-        MinimizeBtn->SetImage(MinimizeImg);
-        MinimizeBtn->SetTrigger(trigA);
-        MinimizeBtn->SetSoundClick(soundClick);
-        MinimizeBtn->SetSoundOver(soundOver);
-        MinimizeBtn->SetEffectGrow();
-        Append(MinimizeBtn);
+	if(Minimizable)
+	{
+		MinimizeImg = new GuiImage(btnOutline);
+		MinimizeTxt = new GuiText(tr("Minimize"), 22, (GXColor){0, 0, 0, 255});
+		MinimizeBtn = new GuiButton(MinimizeImg->GetWidth(), MinimizeImg->GetHeight());
+		MinimizeBtn->SetLabel(MinimizeTxt);
+		MinimizeBtn->SetImage(MinimizeImg);
+		MinimizeBtn->SetTrigger(trigA);
+		MinimizeBtn->SetSoundClick(soundClick);
+		MinimizeBtn->SetSoundOver(soundOver);
+		MinimizeBtn->SetEffectGrow();
+		Append(MinimizeBtn);
 
-        AbortBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-        AbortBtn->SetPosition(-60, -48);
-        MinimizeBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-        MinimizeBtn->SetPosition(60, -48);
-    }
+		AbortBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		AbortBtn->SetPosition(-60, -48);
+		MinimizeBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		MinimizeBtn->SetPosition(60, -48);
+	}
 
-    if(showProgress == PROGRESSBAR)
-        SetupProgressbar();
+	if(showProgress == PROGRESSBAR)
+		SetupProgressbar();
 
-    else if(showProgress == MULTI_PROGRESSBAR)
-        SetupMultiProgressbar();
+	else if(showProgress == MULTI_PROGRESSBAR)
+		SetupMultiProgressbar();
 
-    else if(showProgress == THROBBER || showProgress == AUTO_THROBBER)
-        SetupThrobber();
+	else if(showProgress == THROBBER || showProgress == AUTO_THROBBER)
+		SetupThrobber();
 
-    SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
-    bool isDimmed = MainWindow::Instance()->IsDimmed();
-    int oldState = MainWindow::Instance()->GetState();
+	//bool isDimmed = Application::Instance()->IsDimmed();
+	int oldState = STATE_DEFAULT;//Application::Instance()->GetState();
 
-	MainWindow::Instance()->SetState(STATE_DISABLED);
-	MainWindow::Instance()->SetDim(true);
-	MainWindow::Instance()->Append(this);
+	Application::Instance()->SetState(STATE_DISABLED);
+	//Application::Instance()->SetDim(true);
+	Application::Instance()->Append(this);
 
 	MainLoop();
 
-    if(ExitRequested)
-        return;
+	if(ExitRequested)
+		return;
 
-    MainWindow::Instance()->HaltGui();
-    ResetEffects();
-    MainWindow::Instance()->Remove(this);
-    MainWindow::Instance()->SetState(oldState);
-    MainWindow::Instance()->SetDim(isDimmed);
-    ClearMemory();
-    MainWindow::Instance()->ResumeGui();
+	ResetEffects();
+	Application::Instance()->Remove(this);
+	Application::Instance()->SetState(oldState);
+	//Application::Instance()->SetDim(isDimmed);
+	ClearMemory();
 
 	actioncanceled = false;
 }
 
 void ProgressWindow::MainLoop()
 {
-    int angle = 0;
+	int angle = 0;
 
 	while(showProgress)
 	{
-	    usleep(30000);
+		usleep(30000);
 
-	    if(Changed)
-	    {
-            msgTxt->SetText(ProgressMsg);
+		if(Changed)
+		{
+			msgTxt->SetText(ProgressMsg);
 
-            UpdateValues();
+			UpdateValues();
 
-            if(showProgress == THROBBER)
-            {
-                angle = (angle + 5) % 360;
-                if(throbberImg)
-                    throbberImg->SetAngle(angle);
-            }
-            Changed = false;
-	    }
+			if(showProgress == THROBBER)
+			{
+				angle = (angle + 5) % 360;
+				if(throbberImg)
+					throbberImg->SetAngle(angle);
+			}
+			Changed = false;
+		}
 
-	    if(showProgress == AUTO_THROBBER)
-	    {
-            angle = (angle + 5) % 360;
-            if(throbberImg)
-                throbberImg->SetAngle(angle);
-	    }
+		if(showProgress == AUTO_THROBBER)
+		{
+			angle = (angle + 5) % 360;
+			if(throbberImg)
+				throbberImg->SetAngle(angle);
+		}
 
-        if(shutdown)
-        {
-            ExitRequested = true;
-            Sys_Shutdown();
-            return;
-        }
-        else if(reset)
-        {
-            ExitRequested = true;
-            Sys_Reboot();
-            return;
-        }
-
-        else if(AbortBtn->GetState() == STATE_CLICKED)
-        {
-            actioncanceled = true;
-            AbortBtn->ResetState();
-        }
-        else if(MinimizeBtn && MinimizeBtn->GetState() == STATE_CLICKED)
-        {
-            Minimized = true;
-            IOHandler::Instance()->SetMinimized(showProgress);
-            showProgress = 0;
-            MinimizeBtn->ResetState();
-        }
+		else if(AbortBtn->GetState() == STATE_CLICKED)
+		{
+			actioncanceled = true;
+			AbortBtn->ResetState();
+		}
+		else if(MinimizeBtn && MinimizeBtn->GetState() == STATE_CLICKED)
+		{
+			Minimized = true;
+			IOHandler::Instance()->SetMinimized(showProgress);
+			showProgress = 0;
+			MinimizeBtn->ResetState();
+		}
 	}
 
-    if(Minimized)
-        SetEffect(EFFECT_FADE, -20);
+	if(Minimized)
+		SetEffect(EFFECT_FADE, -20);
 	else
-        SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+		SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 
-    if(!ExitRequested)
-        while(GetEffect() > 0) usleep(100);
+	if(!ExitRequested)
+		while(GetEffect() > 0) usleep(100);
 }
 
 void ProgressWindow::SetupProgressbar()
 {
-    GXColor ImgColor[4];
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+	GXColor ImgColor[4];
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
 
 	progressbarEmptyImg = new GuiImage(360, 36, (GXColor *) &ImgColor);
 	progressbarEmptyImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarEmptyImg->SetPosition(58, 145);
 	Append(progressbarEmptyImg);
 
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
 	progressbarOutline = Resources::GetImageData("progressbar_outline.png");
 
 	int OutLineMiddle = progressbarOutline->GetHeight()/2;
 
-    progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
-    progressbarImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
+	progressbarImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarImg->SetPosition(58, 145);
 	Append(progressbarImg);
 
@@ -336,7 +320,7 @@ void ProgressWindow::SetupProgressbar()
 	progressbarOutlineImg->SetPosition(58, 145);
 	Append(progressbarOutlineImg);
 
-    prTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	prTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 	prTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	prTxt->SetPosition(219, 145+OutLineMiddle-9);
 	Append(prTxt);
@@ -346,41 +330,41 @@ void ProgressWindow::SetupProgressbar()
 	prsTxt->SetPosition(273, 145+OutLineMiddle-9);
 	Append(prsTxt);
 
-    sizeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    sizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	sizeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	sizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	sizeTxt->SetPosition(55, 145+50);
 	Append(sizeTxt);
 
-    speedTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    speedTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	speedTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	speedTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	speedTxt->SetPosition(345, 145+50);
 	Append(speedTxt);
 }
 
 void ProgressWindow::SetupMultiProgressbar()
 {
-    GXColor ImgColor[4];
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+	GXColor ImgColor[4];
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
 
 	progressbarEmptyImg = new GuiImage(360, 36, (GXColor *) &ImgColor);
 	progressbarEmptyImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarEmptyImg->SetPosition(58, 155);
 	Append(progressbarEmptyImg);
 
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
 	progressbarOutline = Resources::GetImageData("progressbar_outline.png");
 
 	int OutLineMiddle = progressbarOutline->GetHeight()/2;
 
-    progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
-    progressbarImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
+	progressbarImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarImg->SetPosition(58, 155);
 	Append(progressbarImg);
 
@@ -389,7 +373,7 @@ void ProgressWindow::SetupMultiProgressbar()
 	progressbarOutlineImg->SetPosition(58, 155);
 	Append(progressbarOutlineImg);
 
-    prTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	prTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 	prTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	prTxt->SetPosition(219, 155+OutLineMiddle-9);
 	Append(prTxt);
@@ -399,34 +383,34 @@ void ProgressWindow::SetupMultiProgressbar()
 	prsTxt->SetPosition(273, 155+OutLineMiddle-9);
 	Append(prsTxt);
 
-    sizeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    sizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	sizeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	sizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	sizeTxt->SetPosition(55, 155+50);
 	Append(sizeTxt);
 
-    TimeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    TimeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	TimeTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	TimeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	TimeTxt->SetPosition(255, 155+50);
 	Append(TimeTxt);
 
 	//! Total progress
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressEmptyUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressEmptyUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressEmptyBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressEmptyBL);
 
 	progressbarTotalEmptyImg = new GuiImage(360, 36, (GXColor *) &ImgColor);
 	progressbarTotalEmptyImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarTotalEmptyImg->SetPosition(58, 235);
 	Append(progressbarTotalEmptyImg);
 
-    ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
-    ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
-    ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
-    ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
+	ImgColor[0] = RGBATOGXCOLOR(Settings.ProgressUL);
+	ImgColor[1] = RGBATOGXCOLOR(Settings.ProgressUR);
+	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
+	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
-    progressbarTotalImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
-    progressbarTotalImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	progressbarTotalImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
+	progressbarTotalImg->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	progressbarTotalImg->SetPosition(58, 235);
 	Append(progressbarTotalImg);
 
@@ -435,7 +419,7 @@ void ProgressWindow::SetupMultiProgressbar()
 	progressbarTotalOutlineImg->SetPosition(58, 235);
 	Append(progressbarTotalOutlineImg);
 
-    prTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	prTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
 	prTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	prTotalTxt->SetPosition(219, 235+OutLineMiddle-9);
 	Append(prTotalTxt);
@@ -445,21 +429,21 @@ void ProgressWindow::SetupMultiProgressbar()
 	prsTotalTxt->SetPosition(273, 235+OutLineMiddle-9);
 	Append(prsTotalTxt);
 
-    sizeTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    sizeTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	sizeTotalTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	sizeTotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	sizeTotalTxt->SetPosition(55, 235+50);
 	Append(sizeTotalTxt);
 
-    speedTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-    speedTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	speedTxt = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
+	speedTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	speedTxt->SetPosition(345, 235+50);
 	Append(speedTxt);
 }
 
 void ProgressWindow::SetupThrobber()
 {
-    throbber = Resources::GetImageData("throbber.png");
-    throbberImg = new GuiImage(throbber);
+	throbber = Resources::GetImageData("throbber.png");
+	throbberImg = new GuiImage(throbber);
 	throbberImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	throbberImg->SetPosition(0, 25);
 	Append(throbberImg);
@@ -467,76 +451,76 @@ void ProgressWindow::SetupThrobber()
 
 void ProgressWindow::UpdateValues()
 {
-    if(showProgress != PROGRESSBAR && showProgress != MULTI_PROGRESSBAR)
-        return;
+	if(showProgress != PROGRESSBAR && showProgress != MULTI_PROGRESSBAR)
+		return;
 
-    //! File progress
-    float Percent = progressTotal > 0 ? 100.0f*progressDone/progressTotal : 0.0f;
+	//! File progress
+	float Percent = progressTotal > 0 ? 100.0f*progressDone/progressTotal : 0.0f;
 
-    progressbarImg->SetSize((int) (Percent*3.6f), 36);
+	progressbarImg->SetSize((int) (Percent*3.6f), 36);
 
-    if(Percent >= 100.0f)
-        prTxt->SetTextf("%0.1f", Percent);
-    else
-        prTxt->SetTextf("%0.2f", Percent);
+	if(Percent >= 100.0f)
+		prTxt->SetTextf("%0.1f", Percent);
+	else
+		prTxt->SetTextf("%0.2f", Percent);
 
-    int speed = 0;
+	int speed = 0;
 
-    if(TimerSize > 0)
-        speed = (int) (TimerSize/ProgressTimer.elapsed());
+	if(TimerSize > 0)
+		speed = (int) (TimerSize/ProgressTimer.elapsed());
 
-    speedTxt->SetTextf("%iKB/s", (int) (speed/KBSIZE));
+	speedTxt->SetTextf("%iKB/s", (int) (speed/KBSIZE));
 
-    if(progressTotal > KBSIZE && progressTotal < MBSIZE)
-        sizeTxt->SetTextf("%0.2fKB/%0.2fKB", progressDone/KBSIZE, progressTotal/KBSIZE);
-    else if(progressTotal > MBSIZE && progressTotal < GBSIZE)
-        sizeTxt->SetTextf("%0.2fMB/%0.2fMB", progressDone/MBSIZE, progressTotal/MBSIZE);
-    else if(progressTotal > GBSIZE)
-        sizeTxt->SetTextf("%0.2fGB/%0.2fGB", progressDone/GBSIZE, progressTotal/GBSIZE);
-    else
-        sizeTxt->SetTextf("%lldB/%lldB", progressDone, progressTotal);
+	if(progressTotal > KBSIZE && progressTotal < MBSIZE)
+		sizeTxt->SetTextf("%0.2fKB/%0.2fKB", progressDone/KBSIZE, progressTotal/KBSIZE);
+	else if(progressTotal > MBSIZE && progressTotal < GBSIZE)
+		sizeTxt->SetTextf("%0.2fMB/%0.2fMB", progressDone/MBSIZE, progressTotal/MBSIZE);
+	else if(progressTotal > GBSIZE)
+		sizeTxt->SetTextf("%0.2fGB/%0.2fGB", progressDone/GBSIZE, progressTotal/GBSIZE);
+	else
+		sizeTxt->SetTextf("%lldB/%lldB", progressDone, progressTotal);
 
-    //! Total progress
-    if(showProgress != MULTI_PROGRESSBAR)
-        return;
+	//! Total progress
+	if(showProgress != MULTI_PROGRESSBAR)
+		return;
 
-    int TimeLeft = 0;
-    if(speed > 0)
-        TimeLeft = (TotalSize-(TotalDone+progressDone))/speed;
+	int TimeLeft = 0;
+	if(speed > 0)
+		TimeLeft = (TotalSize-(TotalDone+progressDone))/speed;
 
-    u32 h =  TimeLeft / 3600;
-    u32 m = (TimeLeft / 60) % 60;
-    u32 s =  TimeLeft % 60;
+	u32 h =  TimeLeft / 3600;
+	u32 m = (TimeLeft / 60) % 60;
+	u32 s =  TimeLeft % 60;
 
-    TimeTxt->SetTextf("%s %02i:%02i:%02i", tr("Time left:"), h, m, s);
+	TimeTxt->SetTextf("%s %02i:%02i:%02i", tr("Time left:"), h, m, s);
 
-    float TotalPercent = 0.0f;
-    if(TotalSize > 0)
-        TotalPercent = 100.0f*(TotalDone+progressDone)/TotalSize;
+	float TotalPercent = 0.0f;
+	if(TotalSize > 0)
+		TotalPercent = 100.0f*(TotalDone+progressDone)/TotalSize;
 
-    if(TotalPercent > 100.0f)
-        TotalPercent = 100.0f;
+	if(TotalPercent > 100.0f)
+		TotalPercent = 100.0f;
 
-    progressbarTotalImg->SetSize((int) (TotalPercent*3.6f), 36);
+	progressbarTotalImg->SetSize((int) (TotalPercent*3.6f), 36);
 
-    if(TotalPercent >= 100.0f)
-        prTotalTxt->SetTextf("%0.1f", TotalPercent);
-    else
-        prTotalTxt->SetTextf("%0.2f", TotalPercent);
+	if(TotalPercent >= 100.0f)
+		prTotalTxt->SetTextf("%0.1f", TotalPercent);
+	else
+		prTotalTxt->SetTextf("%0.2f", TotalPercent);
 
-    if(TotalSize > KBSIZE && TotalSize < MBSIZE)
-        sizeTotalTxt->SetTextf("%0.2fKB/%0.2fKB", (TotalDone+progressDone)/KBSIZE, TotalSize/KBSIZE);
-    else if(TotalSize > MBSIZE && TotalSize < GBSIZE)
-        sizeTotalTxt->SetTextf("%0.2fMB/%0.2fMB", (TotalDone+progressDone)/MBSIZE, TotalSize/MBSIZE);
-    else if(TotalSize > GBSIZE)
-        sizeTotalTxt->SetTextf("%0.2fGB/%0.2fGB", (TotalDone+progressDone)/GBSIZE, TotalSize/GBSIZE);
-    else
-        sizeTotalTxt->SetTextf("%lldB/%lldB", (TotalDone+progressDone), TotalSize);
+	if(TotalSize > KBSIZE && TotalSize < MBSIZE)
+		sizeTotalTxt->SetTextf("%0.2fKB/%0.2fKB", (TotalDone+progressDone)/KBSIZE, TotalSize/KBSIZE);
+	else if(TotalSize > MBSIZE && TotalSize < GBSIZE)
+		sizeTotalTxt->SetTextf("%0.2fMB/%0.2fMB", (TotalDone+progressDone)/MBSIZE, TotalSize/MBSIZE);
+	else if(TotalSize > GBSIZE)
+		sizeTotalTxt->SetTextf("%0.2fGB/%0.2fGB", (TotalDone+progressDone)/GBSIZE, TotalSize/GBSIZE);
+	else
+		sizeTotalTxt->SetTextf("%lldB/%lldB", (TotalDone+progressDone), TotalSize);
 }
 
 void * ProgressWindow::ThreadCallback(void *arg)
 {
-    ((ProgressWindow *) arg)->InternalUpdate();
+	((ProgressWindow *) arg)->InternalUpdate();
 	return NULL;
 }
 
@@ -547,27 +531,27 @@ void ProgressWindow::InternalUpdate()
 		if(!showProgress)
 			LWP_SuspendThread(ProgressThread);
 
-        if(!ExitRequested)
-            LoadWindow();
+		if(!ExitRequested)
+			LoadWindow();
 	}
 }
 
 void ProgressWindow::StartProgress(const char *title, int progressmode, bool reset)
 {
-    if(title)
-        ProgressTitle.assign(title);
-    if(titleTxt)
-        titleTxt->SetText(title);
+	if(title)
+		ProgressTitle.assign(title);
+	if(titleTxt)
+		titleTxt->SetText(title);
 
 	showProgress = progressmode;
 
-    TimerSize = 0;
-    ProgressTimer.reset();
+	TimerSize = 0;
+	ProgressTimer.reset();
 
-    if(reset)
-        ResetValues();
+	if(reset)
+		ResetValues();
 
-    LWP_ResumeThread(ProgressThread);
+	LWP_ResumeThread(ProgressThread);
 }
 
 void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
@@ -575,26 +559,26 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 	if(done > total)
 		done = total;
 
-    if(msg)
-        strcpy(ProgressMsg, msg);
-    else
-        strcpy(ProgressMsg, "");
+	if(msg)
+		strcpy(ProgressMsg, msg);
+	else
+		strcpy(ProgressMsg, "");
 
-    //progress start for this file
-    if(!done)
-    {
-	    TotalDone += progressTotal;
-        if(TotalSize == 0)
-            TotalSize = total;
-    }
+	//progress start for this file
+	if(!done)
+	{
+		TotalDone += progressTotal;
+		if(TotalSize == 0)
+			TotalSize = total;
+	}
 
-    if(done > progressDone)
-        TimerSize += done-progressDone;
+	if(done > progressDone)
+		TimerSize += done-progressDone;
 
-    progressDone = done;
-    progressTotal = total;
+	progressDone = done;
+	progressTotal = total;
 
-    Changed = true;
+	Changed = true;
 }
 
 void ProgressWindow::StopProgress()
@@ -602,125 +586,125 @@ void ProgressWindow::StopProgress()
 	showProgress = 0;
 
 	while(!LWP_ThreadIsSuspended(ProgressThread) && !ExitRequested)
-        usleep(100);
+		usleep(100);
 }
 
 void ProgressWindow::ClearMemory()
 {
-    RemoveAll();
+	RemoveAll();
 
-    if(soundClick)
-        Resources::Remove(soundClick);
-    if(soundOver)
-        Resources::Remove(soundOver);
+	if(soundClick)
+		Resources::Remove(soundClick);
+	if(soundOver)
+		Resources::Remove(soundOver);
 
-    if(dialogBox)
-        Resources::Remove(dialogBox);
-    if(progressbarOutline)
-        Resources::Remove(progressbarOutline);
-    if(throbber)
-        Resources::Remove(throbber);
-    if(btnOutline)
-        Resources::Remove(btnOutline);
+	if(dialogBox)
+		Resources::Remove(dialogBox);
+	if(progressbarOutline)
+		Resources::Remove(progressbarOutline);
+	if(throbber)
+		Resources::Remove(throbber);
+	if(btnOutline)
+		Resources::Remove(btnOutline);
 
-    if(dialogBoxImg)
+	if(dialogBoxImg)
 		delete dialogBoxImg;
-    if(progressbarOutlineImg)
+	if(progressbarOutlineImg)
 		delete progressbarOutlineImg;
-    if(progressbarEmptyImg)
+	if(progressbarEmptyImg)
 		delete progressbarEmptyImg;
-    if(progressbarImg)
+	if(progressbarImg)
 		delete progressbarImg;
-    if(progressbarTotalOutlineImg)
+	if(progressbarTotalOutlineImg)
 		delete progressbarTotalOutlineImg;
-    if(progressbarTotalEmptyImg)
+	if(progressbarTotalEmptyImg)
 		delete progressbarTotalEmptyImg;
-    if(progressbarTotalImg)
+	if(progressbarTotalImg)
 		delete progressbarTotalImg;
-    if(throbberImg)
+	if(throbberImg)
 		delete throbberImg;
-    if(buttonImg)
+	if(buttonImg)
 		delete buttonImg;
-    if(MinimizeImg)
+	if(MinimizeImg)
 		delete MinimizeImg;
 
-    if(titleTxt)
-        delete titleTxt;
-    if(msgTxt)
-        delete msgTxt;
-    if(prTxt)
-        delete prTxt;
-    if(prsTxt)
-        delete prsTxt;
-    if(prTotalTxt)
-        delete prTotalTxt;
-    if(prsTotalTxt)
-        delete prsTotalTxt;
-    if(speedTxt)
-        delete speedTxt;
-    if(sizeTxt)
-        delete sizeTxt;
-    if(sizeTotalTxt)
-        delete sizeTotalTxt;
-    if(TimeTxt)
-        delete TimeTxt;
-    if(AbortTxt)
-        delete AbortTxt;
-    if(MinimizeTxt)
-        delete MinimizeTxt;
+	if(titleTxt)
+		delete titleTxt;
+	if(msgTxt)
+		delete msgTxt;
+	if(prTxt)
+		delete prTxt;
+	if(prsTxt)
+		delete prsTxt;
+	if(prTotalTxt)
+		delete prTotalTxt;
+	if(prsTotalTxt)
+		delete prsTotalTxt;
+	if(speedTxt)
+		delete speedTxt;
+	if(sizeTxt)
+		delete sizeTxt;
+	if(sizeTotalTxt)
+		delete sizeTotalTxt;
+	if(TimeTxt)
+		delete TimeTxt;
+	if(AbortTxt)
+		delete AbortTxt;
+	if(MinimizeTxt)
+		delete MinimizeTxt;
 
-    if(AbortBtn)
-        delete AbortBtn;
-    if(MinimizeBtn)
-        delete MinimizeBtn;
+	if(AbortBtn)
+		delete AbortBtn;
+	if(MinimizeBtn)
+		delete MinimizeBtn;
 
-    if(trigA)
-        delete trigA;
+	if(trigA)
+		delete trigA;
 
-    dialogBox = NULL;
-    progressbarOutline = NULL;
-    throbber = NULL;
-    btnOutline = NULL;
-    dialogBoxImg = NULL;
-    progressbarOutlineImg = NULL;
-    progressbarEmptyImg = NULL;
-    progressbarImg = NULL;
-    progressbarTotalOutlineImg = NULL;
-    progressbarTotalEmptyImg = NULL;
-    progressbarTotalImg = NULL;
-    throbberImg = NULL;
-    buttonImg = NULL;
-    MinimizeImg = NULL;
-    titleTxt = NULL;
-    msgTxt = NULL;
-    prTxt = NULL;
-    prTotalTxt = NULL;
-    prsTxt = NULL;
-    prsTotalTxt = NULL;
-    speedTxt = NULL;
-    sizeTxt = NULL;
-    sizeTotalTxt = NULL;
-    TimeTxt = NULL;
-    AbortTxt = NULL;
-    MinimizeTxt = NULL;
-    AbortBtn = NULL;
-    MinimizeBtn = NULL;
-    trigA = NULL;
-    soundClick = NULL;
-    soundOver = NULL;
+	dialogBox = NULL;
+	progressbarOutline = NULL;
+	throbber = NULL;
+	btnOutline = NULL;
+	dialogBoxImg = NULL;
+	progressbarOutlineImg = NULL;
+	progressbarEmptyImg = NULL;
+	progressbarImg = NULL;
+	progressbarTotalOutlineImg = NULL;
+	progressbarTotalEmptyImg = NULL;
+	progressbarTotalImg = NULL;
+	throbberImg = NULL;
+	buttonImg = NULL;
+	MinimizeImg = NULL;
+	titleTxt = NULL;
+	msgTxt = NULL;
+	prTxt = NULL;
+	prTotalTxt = NULL;
+	prsTxt = NULL;
+	prsTotalTxt = NULL;
+	speedTxt = NULL;
+	sizeTxt = NULL;
+	sizeTotalTxt = NULL;
+	TimeTxt = NULL;
+	AbortTxt = NULL;
+	MinimizeTxt = NULL;
+	AbortBtn = NULL;
+	MinimizeBtn = NULL;
+	trigA = NULL;
+	soundClick = NULL;
+	soundOver = NULL;
 }
 
 void StartProgress(const char *title, int mode, bool reset)
 {
-    ProgressWindow::Instance()->StartProgress(title, mode, reset);
+	ProgressWindow::Instance()->StartProgress(title, mode, reset);
 }
 
 void ShowProgress(u64 done, u64 total, const char *filename)
 {
-    ProgressWindow::Instance()->ShowProgress(done, total, filename);
+	ProgressWindow::Instance()->ShowProgress(done, total, filename);
 }
 
 void StopProgress()
 {
-    ProgressWindow::Instance()->StopProgress();
+	ProgressWindow::Instance()->StopProgress();
 }

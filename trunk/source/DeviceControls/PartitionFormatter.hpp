@@ -30,11 +30,11 @@
 
 class PartitionFormatter
 {
-    public:
-        static int FormatToFAT32(const DISC_INTERFACE *interface, sec_t lba, sec_t sec_count);
-        static int WriteMBR_FAT32(const DISC_INTERFACE *interface, sec_t part_lba);
-        static int WriteEBR_FAT32(const DISC_INTERFACE *interface, sec_t erb_lba, sec_t part_lba);
-        static int SetActive(const DISC_INTERFACE *interface, int partition_number);
+	public:
+		static int FormatToFAT32(const DISC_INTERFACE *interface, sec_t lba, sec_t sec_count);
+		static int WriteMBR_FAT32(const DISC_INTERFACE *interface, sec_t part_lba);
+		static int WriteEBR_FAT32(const DISC_INTERFACE *interface, sec_t erb_lba, sec_t part_lba);
+		static int SetActive(const DISC_INTERFACE *interface, int partition_number);
 };
 
 

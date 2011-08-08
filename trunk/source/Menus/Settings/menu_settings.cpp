@@ -25,7 +25,7 @@
  ***************************************************************************/
  #include <unistd.h>
 #include "SettingsMenu.h"
-#include "Controls/MainWindow.h"
+#include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 
@@ -55,12 +55,12 @@ int MenuSettings()
 
 	SettingsMenu * Menu = new SettingsMenu(tr("Settings"), &options, MENU_BROWSE_DEVICE);
 
-	MainWindow::Instance()->Append(Menu);
+	Application::Instance()->Append(Menu);
 
-    GuiImageData * btnOutline = Resources::GetImageData("button.png");
+	GuiImageData * btnOutline = Resources::GetImageData("button.png");
 	GuiSound * btnSoundOver = Resources::GetSound("button_over.wav");
 
-    SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	SimpleGuiTrigger trigA(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	GuiText resetBtnTxt(tr("Reset"), 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(btnOutline);
@@ -73,30 +73,30 @@ int MenuSettings()
 	resetBtn.SetTrigger(&trigA);
 	resetBtn.SetEffectGrow();
 
-	MainWindow::Instance()->Append(&resetBtn);
+	Application::Instance()->Append(&resetBtn);
 
 	while(menu == MENU_NONE)
 	{
-	    usleep(THREAD_SLEEP);
+		usleep(THREAD_SLEEP);
 
 		if(Menu->GetMenu() != MENU_NONE)
 		{
 			menu = Menu->GetMenu();
 		}
-        else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-        {
-			menu = Taskbar::Instance()->GetMenu();
-        }
-        else if(resetBtn.GetState() == STATE_CLICKED)
-        {
+//		else if(Taskbar::Instance()->GetMenu() != MENU_NONE)
+//		{
+//			menu = Taskbar::Instance()->GetMenu();
+//		}
+		else if(resetBtn.GetState() == STATE_CLICKED)
+		{
 			resetBtn.ResetState();
 			int choice = WindowPrompt(tr("Do you want to reset the settings?"), 0, tr("Yes"), tr("Cancel"));
 			if(choice)
 			{
-                Settings.Reset();
-                firstRun = true;
+				Settings.Reset();
+				firstRun = true;
 			}
-        }
+		}
 
 		ret = Menu->GetClickedOption();
 
@@ -105,99 +105,97 @@ int MenuSettings()
 			case 0:
 				menu = MENU_LANGUAGE_BROWSE;
 				break;
-            case 1:
+			case 1:
 				Settings.ClockMode = (Settings.ClockMode+1) % 2;
 				break;
 			case 2:
-                menu = MENU_GENERAL_SETTINGS;
+				menu = MENU_GENERAL_SETTINGS;
 				break;
 			case 3:
-                menu = MENU_EXPLORER_SETTINGS;
+				menu = MENU_EXPLORER_SETTINGS;
 				break;
 			case 4:
-                menu = MENU_BOOT_SETTINGS;
+				menu = MENU_BOOT_SETTINGS;
 				break;
-            case 5:
-                menu = MENU_IMAGE_SETTINGS;
+			case 5:
+				menu = MENU_IMAGE_SETTINGS;
 				break;
-            case 6:
-                menu = MENU_SOUND_SETTINGS;
+			case 6:
+				menu = MENU_SOUND_SETTINGS;
 				break;
-            case 7:
-                menu = MENU_NETWORK_SETTINGS;
+			case 7:
+				menu = MENU_NETWORK_SETTINGS;
 				break;
-            case 8:
-                menu = MENU_FILE_EXTENSIONS;
+			case 8:
+				menu = MENU_FILE_EXTENSIONS;
 				break;
-            case 9:
-                menu = MENU_CONTROLS_SETTINGS;
+			case 9:
+				menu = MENU_CONTROLS_SETTINGS;
 				break;
-            case 10:
-                menu = MENU_PATH_SETUP;
+			case 10:
+				menu = MENU_PATH_SETUP;
 				break;
-            case 11:
-                menu = MENU_COLOR_SETTINGS;
+			case 11:
+				menu = MENU_COLOR_SETTINGS;
 				break;
 		}
 
-        if(firstRun || ret >= 0)
-        {
-            i = 0;
-            firstRun = false;
+		if(firstRun || ret >= 0)
+		{
+			i = 0;
+			firstRun = false;
 
-            if(strcmp(Settings.LanguagePath, "") != 0)
-            {
-                if(strcmp(Settings.LanguagePath, "") == 0)
-                {
-                    options.SetValue(i++, tr("Standard"));
-                }
-                else if(Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
-                {
-                    options.SetValue(i++, tr("Standard"));
-                }
-                else
-                {
-                    char * language = strrchr(Settings.LanguagePath, '/')+1;
-                    options.SetValue(i++, "%s", language);
-                }
-            }
-            else
-                options.SetValue(i++, tr("App Default"));
+			if(strcmp(Settings.LanguagePath, "") != 0)
+			{
+				if(strcmp(Settings.LanguagePath, "") == 0)
+				{
+					options.SetValue(i++, tr("Standard"));
+				}
+				else if(Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
+				{
+					options.SetValue(i++, tr("Standard"));
+				}
+				else
+				{
+					char * language = strrchr(Settings.LanguagePath, '/')+1;
+					options.SetValue(i++, "%s", language);
+				}
+			}
+			else
+				options.SetValue(i++, tr("App Default"));
 
-            if (Settings.ClockMode == 1)
-                options.SetValue(i++, tr("12H"));
-            else
-                options.SetValue(i++, tr("24H"));
+			if (Settings.ClockMode == 1)
+				options.SetValue(i++, tr("12H"));
+			else
+				options.SetValue(i++, tr("24H"));
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
+			options.SetValue(i++, " ");
 
-            options.SetValue(i++, " ");
-        }
+			options.SetValue(i++, " ");
+		}
 	}
-	MainWindow::Instance()->HaltGui();
-	MainWindow::Instance()->Remove(&resetBtn);
+	Application::Instance()->Remove(&resetBtn);
 	Resources::Remove(btnSoundOver);
 	Resources::Remove(btnOutline);
-    delete Menu;
-	MainWindow::Instance()->ResumeGui();
+	delete Menu;
 
-    Settings.Save();
+	Settings.Save();
 
 	return menu;
 }

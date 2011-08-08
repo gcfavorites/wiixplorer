@@ -31,24 +31,24 @@
 
 class MD5Logger
 {
-    public:
-        MD5Logger();
-        ~MD5Logger();
-        bool LogMD5(const char * logpath, ItemMarker * Marker, bool showprogress = true);
-    private:
-        bool OpenLog(const char * path);
-        void CloseLog();
-        bool CalculateFile(const char * filepath, bool showprogress);
-        bool CalculateDirectory(const char * path, bool showprogress);
-        void SortList(std::vector<char *> & List);
-        static bool SortCallback(const char * path1, const char * path2);
-        void ClearList(std::vector<char *> & List);
-        void CalcTotalSize(ItemMarker * Process);
+	public:
+		MD5Logger();
+		~MD5Logger();
+		bool LogMD5(const char * logpath, ItemMarker * Marker, bool showprogress = true);
+	private:
+		bool OpenLog(const char * path);
+		void CloseLog();
+		bool CalculateFile(const char * filepath, bool showprogress);
+		bool CalculateDirectory(const char * path, bool showprogress);
+		void SortList(std::vector<char *> & List);
+		static bool SortCallback(const char * path1, const char * path2);
+		void ClearList(std::vector<char *> & List);
+		void CalcTotalSize(ItemMarker * Process);
 
-        FILE * LogFile;
-        int FolderCounter;
-        int FileCounter;
-        int ErrorCounter;
+		FILE * LogFile;
+		int FolderCounter;
+		int FileCounter;
+		int ErrorCounter;
 };
 
 #endif
