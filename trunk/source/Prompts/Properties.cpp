@@ -40,7 +40,7 @@
 bool sizegainrunning = false;
 
 Properties::Properties(ItemMarker * IMarker)
-	: GuiWindow(0,0)
+	: GuiFrame(0,0)
 {
 	int Position_X = 40;
 	int Position_Y = 40;
@@ -92,12 +92,12 @@ Properties::Properties(ItemMarker * IMarker)
 	const char * filename = Marker->GetItemName(Marker->GetItemcount()-1);
 
 	TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
-	TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	TitleTxt->SetPosition(0, Position_Y);
 	TitleTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X, DOTTED);
 
 	TitleImg = new GuiImage(titleData);
-	TitleImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	int IconPosition = -(TitleTxt->GetTextWidth()/2+titleData->GetWidth())+10;
 	if(IconPosition < (30-width/2))
 		IconPosition = 30-width/2;
@@ -105,21 +105,21 @@ Properties::Properties(ItemMarker * IMarker)
 	Position_Y += 50;
 
 	filepathTxt =  new GuiText(tr("Filepath:"), 20, (GXColor){0, 0, 0, 255});
-	filepathTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filepathTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filepathTxt->SetPosition(Position_X, Position_Y);
 
 	filepathvalTxt =  new GuiText(Marker->GetItemPath(Marker->GetItemcount()-1), 20, (GXColor){0, 0, 0, 255});
-	filepathvalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filepathvalTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filepathvalTxt->SetPosition(Position_X+80, Position_Y);
 	filepathvalTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-130, SCROLL_HORIZONTAL);
 	Position_Y += 30;
 
 	filecountTxt = new GuiText(tr("Files:"), 20, (GXColor){0, 0, 0, 255});
-	filecountTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filecountTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxt->SetPosition(Position_X, Position_Y);
 
 	filecountTxtVal = new GuiText(fmt("%i", FileCount), 20, (GXColor){0, 0, 0, 255});
-	filecountTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filecountTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -135,11 +135,11 @@ Properties::Properties(ItemMarker * IMarker)
 		sprintf(temp, "%LiB", OldSize);
 
 	filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
-	filesizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeTxt->SetPosition(Position_X, Position_Y);
 
 	filesizeTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filesizeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -165,11 +165,11 @@ Properties::Properties(ItemMarker * IMarker)
 	}
 
 	filetypeTxt = new GuiText(tr("Filetype:"), 20, (GXColor){0, 0, 0, 255});
-	filetypeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filetypeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filetypeTxt->SetPosition(Position_X, Position_Y);
 
 	filetypeTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filetypeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filetypeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filetypeTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -181,20 +181,20 @@ Properties::Properties(ItemMarker * IMarker)
 	if(folder)
 	{
 		devicefreeTxt = new GuiText(tr("Free Space:"), 20, (GXColor){0, 0, 0, 255});
-		devicefreeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		devicefreeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 		devicefreeTxt->SetPosition(Position_X, Position_Y);
 
 		devicefreeTxtVal = new GuiText("0B", 20, (GXColor){0, 0, 0, 255});
-		devicefreeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		devicefreeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 		devicefreeTxtVal->SetPosition(Position_X+180, Position_Y);
 		Position_Y += 30;
 
 		devicetotalTxt = new GuiText(tr("Total Space:"), 20, (GXColor){0, 0, 0, 255});
-		devicetotalTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		devicetotalTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 		devicetotalTxt->SetPosition(Position_X, Position_Y);
 
 		devicetotalTxtVal = new GuiText("0B", 20, (GXColor){0, 0, 0, 255});
-		devicetotalTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+		devicetotalTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 		devicetotalTxtVal->SetPosition(Position_X+180, Position_Y);
 		Position_Y += 30;
 	}
@@ -205,38 +205,38 @@ Properties::Properties(ItemMarker * IMarker)
 		stat(Marker->GetItemPath(Marker->GetItemcount()-1), &filestat);
 
 	last_accessTxt = new GuiText(tr("Last access:"), 20, (GXColor){0, 0, 0, 255});
-	last_accessTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_accessTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_accessTxt->SetPosition(Position_X, Position_Y);
 
 	strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_atime));
 	last_accessTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	last_accessTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_accessTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_accessTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
 	last_modifTxt = new GuiText(tr("Last modified:"), 20, (GXColor){0, 0, 0, 255});
-	last_modifTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_modifTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_modifTxt->SetPosition(Position_X, Position_Y);
 
 	strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_mtime));
 	last_modifTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	last_modifTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_modifTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_modifTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
 	last_changeTxt = new GuiText(tr("Last change:"), 20, (GXColor){0, 0, 0, 255});
-	last_changeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_changeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_changeTxt->SetPosition(Position_X, Position_Y);
 
 	strftime(temp, sizeof(temp), "%H:%M  %d %b %Y", localtime(&filestat.st_ctime));
 	last_changeTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	last_changeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_changeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_changeTxtVal->SetPosition(Position_X+180, Position_Y);
 
 	arrowUpImg = new GuiImage(arrowUp);
 	arrowUpImgOver = new GuiImage(arrowUpOver);
 	CloseBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-	CloseBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	CloseBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	CloseBtn->SetSoundClick(btnClick);
 	CloseBtn->SetImage(arrowUpImg);
 	CloseBtn->SetImageOver(arrowUpImgOver);
@@ -283,7 +283,7 @@ Properties::~Properties()
 		usleep(THREAD_SLEEP);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

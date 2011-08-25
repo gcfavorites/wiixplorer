@@ -31,8 +31,8 @@
 #include "svnrev.h"
 
 
-CreditWindow::CreditWindow(GuiWindow *p)
-	: GuiWindow(0, 0, p)
+CreditWindow::CreditWindow(GuiFrame *p)
+	: GuiFrame(0, 0, p)
 {
 	choice = -1;
 
@@ -42,7 +42,7 @@ CreditWindow::CreditWindow(GuiWindow *p)
 	width = dialogBox->GetWidth();
 	height = dialogBox->GetHeight();
 
-	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 
 	trigA = new GuiTrigger();
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -56,47 +56,47 @@ CreditWindow::CreditWindow(GuiWindow *p)
 	int y = 30;
 
 	Entrie[i] = new GuiText(tr("Credits"), 28, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	Entrie[i]->SetPosition(0, y);
 	i++;
 	y += 50;
 
 	Entrie[i] = new GuiText(tr("Coders:"), 24, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x, y);
 	i++;
 
 	Entrie[i] = new GuiText("Dimok", 22, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x+150, y);
 	i++;
 	y += 32;
 
 	Entrie[i] = new GuiText("r-win", 22, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x+150, y);
 	i++;
 	y += 32;
 
 	Entrie[i] = new GuiText("dude", 22, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x+150, y);
 	i++;
 	y += 40;
 
 	Entrie[i] = new GuiText(tr("Designer:"), 24, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x, y);
 	i++;
 
 	Entrie[i] = new GuiText("NeoRame", 22, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x+150, y);
 	i++;
 	y += 50;
 
 	Entrie[i] = new GuiText(tr("Special thanks to:"), 22, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x,y);
 	i++;
 	y += 28;
@@ -104,27 +104,27 @@ CreditWindow::CreditWindow(GuiWindow *p)
 	char text[80];
 	snprintf(text, sizeof(text), "Dj_Skual %s", tr("and all the translators."));
 	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x,y);
 	i++;
 	y += 28;
 
 	snprintf(text, sizeof(text), "Tantric %s ", tr("for his great tool libwiigui."));
 	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x,y);
 	i++;
 	y += 28;
 
 	snprintf(text, sizeof(text), "Joseph Jordan %s ", tr("for his FTP Server source."));
 	Entrie[i] = new GuiText(text, 20, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x,y);
 	i++;
 	y += 28;
 
 	Entrie[i] = new GuiText(tr("The whole devkitPro & libogc staff."), 20, (GXColor) {0, 0, 0, 255});
-	Entrie[i]->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Entrie[i]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Entrie[i]->SetPosition(x,y);
 	i++;
 
@@ -137,7 +137,7 @@ CreditWindow::CreditWindow(GuiWindow *p)
 	arrowUpImgOver = new GuiImage(arrowUpOver);
 	arrowUpImgOver->SetAngle(45);
 	Backbtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-	Backbtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	Backbtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	Backbtn->SetSoundClick(btnClick);
 	Backbtn->SetImage(arrowUpImg);
 	Backbtn->SetImageOver(arrowUpImgOver);
@@ -151,11 +151,11 @@ CreditWindow::CreditWindow(GuiWindow *p)
 	sprintf(Rev, "Rev. %i", atoi(SvnRev()));
 
 	RevNum = new GuiText(Rev, 22, (GXColor) {0, 0, 0, 255});
-	RevNum->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	RevNum->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	RevNum->SetPosition(20, 20);
 
 	IOSRevTxt = new GuiText((char *) NULL, 16, (GXColor) {0, 0, 0, 255});
-	IOSRevTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	IOSRevTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	IOSRevTxt->SetPosition(20, 50);
 	IOSRevTxt->SetTextf("IOS %i Rev. %i", IOS_GetVersion(), IOS_GetRevision());
 
@@ -176,7 +176,7 @@ CreditWindow::~CreditWindow()
 		Application::Instance()->updateEvents();
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

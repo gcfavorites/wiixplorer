@@ -67,7 +67,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 
 	keyTextbox = Resources::GetImageData("keyboard_textbox.png");
 	keyTextboxImg = new GuiImage(keyTextbox);
-	keyTextboxImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	keyTextboxImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	keyTextboxImg->SetPosition(0, 0);
 	this->Append(keyTextboxImg);
 
@@ -77,8 +77,8 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	kbText = new GuiText(GetDisplayText(), 20, (GXColor){0, 0, 0, 0xff});
 
 	TextPointerBtn = new TextPointer(kbText, 0);
-	TextPointerBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	kbText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	TextPointerBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
+	kbText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	TextPointerBtn->SetPosition(0, 11);
 	TextPointerBtn->SetHoldable(true);
 	TextPointerBtn->SetTrigger(trigHeldA);
@@ -217,7 +217,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keySpace->SetSoundClick(keySoundClick);
 	keySpace->SetTrigger(trigA);
 	keySpace->SetPosition(0, 4*42+80);
-	keySpace->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	keySpace->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	keySpace->SetEffectGrow();
 	keySpace->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
 	this->Append(keySpace);
@@ -235,7 +235,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 				keyImg[i][j] = new GuiImage(key);
 				keyImgOver[i][j] = new GuiImage(keyOver);
 				keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
-				keyTxt[i][j]->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+				keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 				keyTxt[i][j]->SetPosition(0, -10);
 				keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
 				keyBtn[i][j]->SetImage(keyImg[i][j]);
@@ -518,7 +518,7 @@ void GuiKeyboard::OnNormalKeyPress(GuiButton *sender, int pointer UNUSED, const 
 
 void GuiKeyboard::Update(GuiTrigger * t)
 {
-	GuiWindow::Update(t);
+	GuiFrame::Update(t);
 
 	++DeleteDelay;
 

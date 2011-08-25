@@ -32,7 +32,7 @@
 #define PAGE_SIZE	8
 
 PlayList::PlayList()
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	listOffset = 0;
 	selectedItem = 0;
@@ -202,7 +202,7 @@ void PlayList::Show()
 	Append(playlistImg);
 
 	scrollbar = new Scrollbar(240);
-	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-17, 50);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->SetMaxHeight(maxheight);
@@ -222,12 +222,12 @@ void PlayList::Show()
 	for(int i = 0; i < PAGE_SIZE; i++)
 	{
 		GuiImage * TmpImg = new GuiImage(menu_selectionData);
-		TmpImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		TmpImg->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		TmpImg->SetScaleX(0.5);
 		ListBtnImgOver.push_back(TmpImg);
 
 		GuiText * TmpTxt = new GuiText((char*) NULL, 18, (GXColor){0, 0, 0, 255});
-		TmpTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+		TmpTxt->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 		TmpTxt->SetMaxWidth(width - 95, DOTTED);
 		ListBtnTxt.push_back(TmpTxt);
 

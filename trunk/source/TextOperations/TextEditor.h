@@ -34,7 +34,7 @@
 #include "TextPointer.h"
 
 //!Display a list of files
-class TextEditor : public GuiWindow, public sigslot::has_slots<>
+class TextEditor : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		TextEditor(const wchar_t *intext, int LinesToDraw, const char *path);

@@ -145,7 +145,7 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 	else if(choice == ArcProperties)
 	{
 		ArchiveProperties * Prompt = new ArchiveProperties(browser->GetCurrentItemStructure());
-		Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		Prompt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		//Application::Instance()->SetDim(true);
 		Application::Instance()->Append(Prompt);
 
@@ -237,7 +237,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
 				//append selected Item
 				browser->MarkCurrentItem();
 
-				StartProgress(tr("Deleting files:"), THROBBER);
+//				StartProgress(tr("Deleting files:"), THROBBER);
 				for(int i = 0; i < IMarker->GetItemcount(); i++)
 				{
 					if(IMarker->IsItemDir(i))
@@ -382,7 +382,7 @@ void ProcessChoice(FileBrowser * browser, int choice)
 		}
 
 		Properties * Prompt = new Properties(Marker);
-		Prompt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		Prompt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		//Application::Instance()->SetDim(true);
 		Application::Instance()->Append(Prompt);
 

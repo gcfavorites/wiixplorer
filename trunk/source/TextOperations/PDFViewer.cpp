@@ -129,7 +129,7 @@ bool PDFViewer::LoadPage(int pagenum)
 
 	RemoveAll();
 	image = new GuiImage(OutputImage, imagewidth, imageheight);
-	image->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	image->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	if(SlideShowStart > 0)
 		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 

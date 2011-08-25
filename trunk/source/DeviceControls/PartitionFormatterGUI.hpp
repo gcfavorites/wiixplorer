@@ -30,7 +30,7 @@
 #include "GUI/gui_arrowoption.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
-class PartitionFormatterGui : public GuiWindow, public sigslot::has_slots<>
+class PartitionFormatterGui : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		PartitionFormatterGui();

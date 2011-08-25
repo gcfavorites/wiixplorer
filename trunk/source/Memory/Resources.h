@@ -38,6 +38,9 @@ class Resources
 	public:
 		static Resources *Instance();
 		static void DestroyInstance();
+		//! Get raw file buffer and size
+		static const u8 *GetFile(const char *filename);
+		static u32 GetFileSize(const char *filename);
 		//! Only images/sounds that are compiled into the app go here
 		static GuiImageData *GetImageData(const char *filename);
 		static GuiSound *GetSound(const char *filename);

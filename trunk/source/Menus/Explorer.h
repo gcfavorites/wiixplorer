@@ -24,16 +24,10 @@
 #include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"
 
-enum
-{
-	ICONBROWSER = 0,
-	LISTBROWSER,
-};
-
-class Explorer : public GuiWindow, public sigslot::has_slots<>
+class Explorer : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		Explorer(GuiWindow *parent = 0, const char * path = 0);
+		Explorer(GuiFrame *parent = 0, const char * path = 0);
 		virtual ~Explorer();
 		int LoadPath(const char * path);
 		void SetFilter(u8 filtermode) { fileBrowser->SetFilter(filtermode); };
@@ -47,6 +41,9 @@ class Explorer : public GuiWindow, public sigslot::has_slots<>
 		void OnRightClick(PopUpMenu *menu, int item);
 		void OnCreditsClosing();
 		void SetDeviceImage();
+		void OnCreditsButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnDeviceButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnContextButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void BackInDirectory(GuiButton *sender, int pointer, const POINT &p);
 

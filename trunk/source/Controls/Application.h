@@ -18,23 +18,26 @@
 #define _APPLICATION_H
 
 #include <queue>
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
 
 //! Explorer class, forward declaration
 class Explorer;
 
-class Application : public GuiWindow
+class Application : public GuiFrame
 {
 	public:
 		static Application * Instance() { if(!instance) instance = new Application(); return instance; }
 		static void DestroyInstance() { delete instance; instance = NULL; }
 
 		void quit();
-		void show();
-		void hide();
 		void exec();
 		void updateEvents();
+
+		/*
+		 * Temporary function till multi window feature
+		 */
+		Explorer *GetExplorer() { return mainExplorer; }
 
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);

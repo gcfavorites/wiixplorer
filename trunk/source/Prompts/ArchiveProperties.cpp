@@ -37,7 +37,7 @@
 #include "Prompts/PromptWindows.h"
 
 ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
-	:GuiWindow(0,0)
+	:GuiFrame(0,0)
 {
 	int Position_X = 40;
 	int Position_Y = 40;
@@ -86,13 +86,13 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 
 	int maxTxtWidth = dialogBox->GetWidth()-Position_X;
 	TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
-	TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	TitleTxt->SetPosition(0, Position_Y);
 	TitleTxt->SetMaxWidth(maxTxtWidth, DOTTED);
 
 	int ImgPos = (TitleTxt->GetTextWidth() > maxTxtWidth ? maxTxtWidth : TitleTxt->GetTextWidth());
 	TitleImg = new GuiImage(titleData);
-	TitleImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	int IconPosition = -(ImgPos/2+titleData->GetWidth())+10;
 	if(IconPosition < (30-width/2))
 		IconPosition = 30-width/2;
@@ -105,17 +105,17 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 		ptr[0] = '\0';
 
 	filepathTxt =  new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filepathTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filepathTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filepathTxt->SetPosition(Position_X, Position_Y);
 	filepathTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-10, DOTTED);
 	Position_Y += 30;
 
 	filecountTxt = new GuiText(tr("Files:"), 20, (GXColor){0, 0, 0, 255});
-	filecountTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filecountTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxt->SetPosition(Position_X, Position_Y);
 
 	filecountTxtVal = new GuiText(tr("1"), 20, (GXColor){0, 0, 0, 255});
-	filecountTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filecountTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -131,11 +131,11 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 		sprintf(temp, "%dB", filesize);
 
 	filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
-	filesizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeTxt->SetPosition(Position_X, Position_Y);
 
 	filesizeTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filesizeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -151,11 +151,11 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 		sprintf(temp, "%dB", comp_filesize);
 
 	filesizeCompTxt = new GuiText(tr("Compressed Size:"), 20, (GXColor){0, 0, 0, 255});
-	filesizeCompTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeCompTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeCompTxt->SetPosition(Position_X, Position_Y);
 
 	filesizeCompTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filesizeCompTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filesizeCompTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filesizeCompTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
@@ -176,16 +176,16 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	}
 
 	filetypeTxt = new GuiText(tr("Filetype:"), 20, (GXColor){0, 0, 0, 255});
-	filetypeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filetypeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filetypeTxt->SetPosition(Position_X, Position_Y);
 
 	filetypeTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	filetypeTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	filetypeTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filetypeTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
 	last_modifTxt = new GuiText(tr("Last modified:"), 20, (GXColor){0, 0, 0, 255});
-	last_modifTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_modifTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_modifTxt->SetPosition(Position_X, Position_Y);
 
 	TimeStruct ptm;
@@ -199,14 +199,14 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	}
 	snprintf(temp, sizeof(temp), "%02d:%02d  %02d.%02d.%04d", ptm.tm_hour, ptm.tm_min, ptm.tm_mday, ptm.tm_mon, ptm.tm_year);
 	last_modifTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
-	last_modifTxtVal->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	last_modifTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	last_modifTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
 	arrowUpImg = new GuiImage(arrowUp);
 	arrowUpImgOver = new GuiImage(arrowUpOver);
 	CloseBtn = new GuiButton(arrowUpImg->GetWidth(), arrowUpImg->GetHeight());
-	CloseBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	CloseBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	CloseBtn->SetSoundClick(btnClick);
 	CloseBtn->SetImage(arrowUpImg);
 	CloseBtn->SetImageOver(arrowUpImgOver);
@@ -243,7 +243,7 @@ ArchiveProperties::~ArchiveProperties()
 		usleep(THREAD_SLEEP);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

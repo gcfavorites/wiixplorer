@@ -1,13 +1,19 @@
 /****************************************************************************
- * libwiigui
+ * Copyright (C) 2009-2011 Dimok
  *
- * Tantric 2009
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * gui_element.cpp
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * GUI class definitions
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "gui_element.h"
 
 /**
@@ -18,10 +24,6 @@ GuiElement::GuiElement()
 	xoffset = 0;
 	yoffset = 0;
 	zoffset = 0;
-	xmin = 0;
-	xmax = 0;
-	ymin = 0;
-	ymax = 0;
 	width = 0;
 	height = 0;
 	alpha = 255;
@@ -43,28 +45,25 @@ GuiElement::GuiElement()
 	xoffsetDyn = 0;
 	alphaDyn = -1;
 	scaleDyn = 1;
-	effects = 0;
+	effects = EFFECT_NONE;
 	effectAmount = 0;
 	effectTarget = 0;
-	effectsOver = 0;
+	effectsOver = EFFECT_NONE;
 	effectAmountOver = 0;
 	effectTargetOver = 0;
 
 	// default alignment - align to top left
-	alignmentVert = ALIGN_TOP;
-	alignmentHor = ALIGN_LEFT;
+	alignment = (ALIGN_LEFT | ALIGN_TOP);
 }
 
-/**
- * Destructor for the GuiElement class.
- */
-GuiElement::~GuiElement()
+//!Sets the element's state
+//!\param s State (STATE_DEFAULT, STATE_SELECTED, STATE_CLICKED, STATE_DISABLED)
+//!\param c Controller channel (0-3, -1 = none)
+void GuiElement::SetState(int s, int c )
 {
-}
-
-void GuiElement::SetParent(GuiElement * e)
-{
-	parentElement = e;
+	state = s;
+	stateChan = c;
+	StateChanged(this, s, c);
 }
 
 /**
@@ -74,7 +73,6 @@ void GuiElement::SetParent(GuiElement * e)
  */
 int GuiElement::GetLeft()
 {
-	int x = 0;
 	int pWidth = 0;
 	int pLeft = 0;
 
@@ -87,18 +85,17 @@ int GuiElement::GetLeft()
 	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT))
 		pLeft += xoffsetDyn;
 
-	switch(alignmentHor)
+	int x = pLeft;
+
+	if(alignment & ALIGN_CENTER)
 	{
-		case ALIGN_LEFT:
-			x = pLeft;
-			break;
-		case ALIGN_CENTRE:
-			x = pLeft + (pWidth/2) - (width/2);
-			break;
-		case ALIGN_RIGHT:
-			x = pLeft + pWidth - width;
-			break;
+		x = pLeft + (pWidth/2) - (width/2);
 	}
+	else if(alignment & ALIGN_RIGHT)
+	{
+		x = pLeft + pWidth - width;
+	}
+
 	return x + xoffset;
 }
 
@@ -109,7 +106,6 @@ int GuiElement::GetLeft()
  */
 int GuiElement::GetTop()
 {
-	int y = 0;
 	int pHeight = 0;
 	int pTop = 0;
 
@@ -122,192 +118,18 @@ int GuiElement::GetTop()
 	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT))
 		pTop += yoffsetDyn;
 
-	switch(alignmentVert)
+	int y = pTop;
+
+	if(alignment & ALIGN_MIDDLE)
 	{
-		case ALIGN_TOP:
-			y = pTop;
-			break;
-		case ALIGN_MIDDLE:
-			y = pTop + (pHeight/2) - (height/2);
-			break;
-		case ALIGN_BOTTOM:
-			y = pTop + pHeight - height;
-			break;
+		y = pTop + (pHeight/2) - (height/2);
 	}
+	else if(alignment & ALIGN_BOTTOM)
+	{
+		y = pTop + pHeight - height;
+	}
+
 	return y + yoffset;
-}
-
-void GuiElement::SetMinX(int x)
-{
-	xmin = x;
-}
-
-void GuiElement::SetMaxX(int x)
-{
-	xmax = x;
-}
-
-void GuiElement::SetMinY(int y)
-{
-	ymin = y;
-}
-
-void GuiElement::SetMaxY(int y)
-{
-	ymax = y;
-}
-
-
-/**
- * Set the width and height of the GuiElement.
- * @param[in] Width Width in pixel.
- * @param[in] Height Height in pixel.
- * @see SetWidth()
- * @see SetHeight()
- */
-void GuiElement::SetSize(int w, int h)
-{
-	width = w;
-	height = h;
-}
-
-/**
- * Set visible.
- * @param[in] Visible Set to true to show GuiElement.
- * @see IsVisible()
- */
-void GuiElement::SetVisible(bool v)
-{
-	visible = v;
-	VisibleChanged(this, v);
-}
-
-void GuiElement::SetAlpha(int a)
-{
-	alpha = a;
-}
-
-int GuiElement::GetAlpha()
-{
-	int a;
-
-	if(alphaDyn >= 0)
-		a = alphaDyn;
-	else
-		a = alpha;
-
-	if(parentElement)
-		a *= parentElement->GetAlpha()/255.0;
-
-	return a;
-}
-
-void GuiElement::SetScale(float s)
-{
-	scaleX = s;
-	scaleY = s;
-}
-
-void GuiElement::SetScaleX(float s)
-{
-	scaleX = s;
-}
-
-void GuiElement::SetScaleY(float s)
-{
-	scaleY = s;
-}
-
-float GuiElement::GetScale()
-{
-	float s = (scaleX+scaleY)/2 * scaleDyn;
-
-	if(parentElement)
-		s *= parentElement->GetScale();
-
-	return s;
-}
-
-float GuiElement::GetScaleX()
-{
-	float s = scaleX * scaleDyn;
-
-	if(parentElement)
-		s *= parentElement->GetScaleX();
-
-	return s;
-}
-
-float GuiElement::GetScaleY()
-{
-	float s = scaleY * scaleDyn;
-
-	if(parentElement)
-		s *= parentElement->GetScaleY();
-
-	return s;
-}
-
-void GuiElement::SetState(int s, int c)
-{
-	state = s;
-	stateChan = c;
-	StateChanged(this, s, c);
-}
-
-void GuiElement::ResetState()
-{
-	if(state != STATE_DISABLED)
-	{
-		state = STATE_DEFAULT;
-		stateChan = -1;
-	}
-}
-
-void GuiElement::SetClickable(bool c)
-{
-	clickable = c;
-}
-
-void GuiElement::SetSelectable(bool s)
-{
-	selectable = s;
-}
-
-void GuiElement::SetHoldable(bool d)
-{
-	holdable = d;
-}
-
-bool GuiElement::IsSelectable()
-{
-	if(state == STATE_DISABLED || state == STATE_CLICKED)
-		return false;
-	else
-		return selectable;
-}
-
-bool GuiElement::IsClickable()
-{
-	if(state == STATE_DISABLED ||
-		state == STATE_CLICKED ||
-		state == STATE_HELD)
-		return false;
-	else
-		return clickable;
-}
-
-bool GuiElement::IsHoldable()
-{
-	if(state == STATE_DISABLED)
-		return false;
-	else
-		return holdable;
-}
-
-void GuiElement::SetRumble(bool r)
-{
-	rumble = r;
 }
 
 void GuiElement::SetEffect(int eff, int amount, int target)
@@ -358,16 +180,15 @@ void GuiElement::SetEffect(int eff, int amount, int target)
 	effectTarget = target;
 }
 
-void GuiElement::SetEffectOnOver(int eff, int amount, int target)
+//!Sets an effect to be enabled on wiimote cursor over
+//!\param e Effect to enable
+//!\param a Amount of the effect (usage varies on effect)
+//!\param t Target amount of the effect (usage varies on effect)
+void GuiElement::SetEffectOnOver(int e, int a, int t)
 {
-	effectsOver |= eff;
-	effectAmountOver = amount;
-	effectTargetOver = target;
-}
-
-void GuiElement::SetEffectGrow()
-{
-	SetEffectOnOver(EFFECT_SCALE, 4, 110);
+	effectsOver |= e;
+	effectAmountOver = a;
+	effectTargetOver = t;
 }
 
 void GuiElement::ResetEffects()
@@ -376,10 +197,10 @@ void GuiElement::ResetEffects()
 	xoffsetDyn = 0;
 	alphaDyn = -1;
 	scaleDyn = 1;
-	effects = 0;
+	effects = EFFECT_NONE;
 	effectAmount = 0;
 	effectTarget = 0;
-	effectsOver = 0;
+	effectsOver = EFFECT_NONE;
 	effectAmountOver = 0;
 	effectTargetOver = 0;
 }
@@ -498,58 +319,3 @@ void GuiElement::UpdateEffects()
 		}
 	}
 }
-
-void GuiElement::SetPosition(int xoff, int yoff)
-{
-	xoffset = xoff;
-	yoffset = yoff;
-}
-
-void GuiElement::SetPosition(int xoff, int yoff, int zoff)
-{
-	xoffset = xoff;
-	yoffset = yoff;
-	zoffset = zoff;
-}
-
-void GuiElement::SetAlignment(int hor, int vert)
-{
-	alignmentHor = hor;
-	alignmentVert = vert;
-}
-
-int GuiElement::GetZPosition()
-{
-	int zParent = 0;
-
-	if(parentElement)
-		zParent = parentElement->GetZPosition();
-
-	return zParent+zoffset;
-}
-
-/**
- * Check if a position is inside the GuiElement.
- * @param[in] x X position in pixel.
- * @param[in] y Y position in pixel.
- */
-bool GuiElement::IsInside(int x, int y)
-{
-	if(x > this->GetLeft() && x < (this->GetLeft()+width)
-	&& y > this->GetTop() && y < (this->GetTop()+height))
-		return true;
-	return false;
-}
-
-POINT GuiElement::PtrToScreen(POINT p)
-{
-	POINT r = { p.x + GetLeft(), p.y + GetTop() };
-	return r;
-}
-
-POINT GuiElement::PtrToControl(POINT p)
-{
-	POINT r = { p.x - GetLeft(), p.y - GetTop() };
-	return r;
-}
-

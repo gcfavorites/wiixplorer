@@ -1,29 +1,19 @@
 /****************************************************************************
- * Copyright (C) 2009
- * by Tantric
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * Modifications by Dimok
- * for WiiXplorer 2009
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #ifndef GUI_TEXT_H_
 #define GUI_TEXT_H_
 
@@ -66,10 +56,8 @@ class GuiText : public GuiElement
 		//!\param c Font color
 		//!\param w Maximum width of texture image (for text wrapping)
 		//!\param wrap Wrapmode when w>0
-		//!\param s Font style
-		//!\param h Text alignment (horizontal)
-		//!\param v Text alignment (vertical)
-		void SetPresets(int sz, GXColor c, int w, u16 s, int h, int v);
+		//!\param a Text alignment
+		void SetPresets(int sz, GXColor c, int w, int a);
 		//!Sets the font size
 		//!\param s Font size
 		void SetFontSize(int s);
@@ -81,17 +69,6 @@ class GuiText : public GuiElement
 		//!Sets the font color
 		//!\param c Font color
 		void SetColor(GXColor c);
-		//!Sets the FreeTypeGX style attributes
-		//!\param s Style attributes
-		//!\param m Style-Mask attributes
-		void SetStyle(u16 s);
-		//!Sets the text alignment
-		//!\param hor Horizontal alignment (ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTRE)
-		//!\param vert Vertical alignment (ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
-		void SetAlignment(int hor, int vert);
-		//!Sets the font
-		//!\param f Font
-		void SetFont(FreeTypeGX *f);
 		//!Get the original text as char
 		virtual const wchar_t * GetText();
 		//!Get the Horizontal Size of Text
@@ -132,7 +109,6 @@ class GuiText : public GuiElement
 		int textScrollDelay; //!< Scrolling speed
 		int size; //!< Font size
 		int maxWidth; //!< Maximum width of the generated text object (for text wrapping)
-		u16 style; //!< FreeTypeGX style attributes
 		GXColor color; //!< Font color
 		FreeTypeGX *font;
 		int textWidth;

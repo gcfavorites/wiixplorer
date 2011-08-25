@@ -31,10 +31,10 @@
 #include "GUI/gui.h"
 #include "Memory/Resources.h"
 
-class CreditWindow : public GuiWindow, public sigslot::has_slots<>
+class CreditWindow : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		CreditWindow(GuiWindow *parent);
+		CreditWindow(GuiFrame *parent);
 		virtual ~CreditWindow();
 		sigslot::signal0<> Closing;
 	private:

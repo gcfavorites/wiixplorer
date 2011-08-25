@@ -1,18 +1,24 @@
 /****************************************************************************
- * libwiigui
+ * Copyright (C) 2009-2011 Dimok
  *
- * Tantric 2009
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * gui_window.cpp
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * GUI class definitions
- ***************************************************************************/
-
-#include "gui_window.h"
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
+#include "gui_frame.h"
 #include "Controls/Application.h"
 #include "VideoOperations/video.h"
 
-GuiWindow::GuiWindow(GuiWindow *p)
+GuiFrame::GuiFrame(GuiFrame *p)
 {
 	parent = p;
 	width = 0;
@@ -22,7 +28,7 @@ GuiWindow::GuiWindow(GuiWindow *p)
 	if(parent) parent->Append(this);
 }
 
-GuiWindow::GuiWindow(int w, int h, GuiWindow *p)
+GuiFrame::GuiFrame(int w, int h, GuiFrame *p)
 {
 	parent = p;
 	width = w;
@@ -33,7 +39,7 @@ GuiWindow::GuiWindow(int w, int h, GuiWindow *p)
 		parent->Append(this);
 }
 
-GuiWindow::~GuiWindow()
+GuiFrame::~GuiFrame()
 {
 	Closing(this);
 
@@ -41,7 +47,7 @@ GuiWindow::~GuiWindow()
 		parent->Remove(this);
 }
 
-void GuiWindow::Append(GuiElement* e)
+void GuiFrame::Append(GuiElement* e)
 {
 	if (e == NULL)
 		return;
@@ -51,9 +57,9 @@ void GuiWindow::Append(GuiElement* e)
 	e->SetParent(this);
 }
 
-void GuiWindow::Insert(GuiElement* e, u32 index)
+void GuiFrame::Insert(GuiElement* e, u32 index)
 {
-	if (e == NULL || index > (_elements.size() - 1))
+	if (e == NULL || (index >= _elements.size()))
 		return;
 
 	Remove(e);
@@ -61,7 +67,7 @@ void GuiWindow::Insert(GuiElement* e, u32 index)
 	e->SetParent(this);
 }
 
-void GuiWindow::Remove(GuiElement* e)
+void GuiFrame::Remove(GuiElement* e)
 {
 	if (e == NULL)
 		return;
@@ -76,34 +82,34 @@ void GuiWindow::Remove(GuiElement* e)
 	}
 }
 
-void GuiWindow::RemoveAll()
+void GuiFrame::RemoveAll()
 {
 	_elements.clear();
 }
 
-void GuiWindow::Close()
+void GuiFrame::Close()
 {
 	Application::Instance()->PushForDelete(this);
 }
 
-void GuiWindow::DimBackground(bool d)
+void GuiFrame::DimBackground(bool d)
 {
 	dim = d;
 }
 
-GuiElement* GuiWindow::GetGuiElementAt(u32 index) const
+GuiElement* GuiFrame::GetGuiElementAt(u32 index) const
 {
 	if (index >= _elements.size())
 		return NULL;
 	return _elements.at(index);
 }
 
-u32 GuiWindow::GetSize()
+u32 GuiFrame::GetSize()
 {
 	return _elements.size();
 }
 
-void GuiWindow::ResetState()
+void GuiFrame::ResetState()
 {
 	if(state != STATE_DISABLED)
 		state = STATE_DEFAULT;
@@ -115,7 +121,7 @@ void GuiWindow::ResetState()
 	}
 }
 
-void GuiWindow::SetState(int s)
+void GuiFrame::SetState(int s)
 {
 	state = s;
 
@@ -126,7 +132,7 @@ void GuiWindow::SetState(int s)
 	}
 }
 
-void GuiWindow::SetVisible(bool v)
+void GuiFrame::SetVisible(bool v)
 {
 	visible = v;
 
@@ -137,7 +143,7 @@ void GuiWindow::SetVisible(bool v)
 	}
 }
 
-void GuiWindow::SetMinWidth(int w)
+void GuiFrame::SetMinWidth(int w)
 {
 	minwidth = w;
 
@@ -148,7 +154,7 @@ void GuiWindow::SetMinWidth(int w)
 	}
 }
 
-void GuiWindow::SetMaxWidth(int w)
+void GuiFrame::SetMaxWidth(int w)
 {
 	maxwidth = w;
 
@@ -159,7 +165,7 @@ void GuiWindow::SetMaxWidth(int w)
 	}
 }
 
-void GuiWindow::SetMinHeight(int h)
+void GuiFrame::SetMinHeight(int h)
 {
 	minheight = h;
 
@@ -170,7 +176,7 @@ void GuiWindow::SetMinHeight(int h)
 	}
 }
 
-void GuiWindow::SetMaxHeight(int h)
+void GuiFrame::SetMaxHeight(int h)
 {
 	maxheight = h;
 
@@ -181,7 +187,7 @@ void GuiWindow::SetMaxHeight(int h)
 	}
 }
 
-int GuiWindow::GetSelected()
+int GuiFrame::GetSelected()
 {
 	// find selected element
 	int found = -1;
@@ -200,7 +206,7 @@ int GuiWindow::GetSelected()
 	return found;
 }
 
-void GuiWindow::Draw()
+void GuiFrame::Draw()
 {
 	if(firstFrame)
 	{
@@ -226,7 +232,7 @@ void GuiWindow::Draw()
 	this->UpdateEffects();
 }
 
-void GuiWindow::Update(GuiTrigger * t)
+void GuiFrame::Update(GuiTrigger * t)
 {
 	if(firstFrame || (state == STATE_DISABLED && parentElement))
 		return;

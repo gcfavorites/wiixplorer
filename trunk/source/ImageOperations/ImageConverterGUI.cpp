@@ -33,14 +33,14 @@
 
 
 ImageConverterGui::ImageConverterGui(const char * filepath)
-	: GuiWindow(0,0), ImageConverter(filepath)
+	: GuiFrame(0,0), ImageConverter(filepath)
 {
 	Setup();
 }
 
 
 ImageConverterGui::ImageConverterGui(const u8 * imgBuf, int imgSize)
-	: GuiWindow(0,0), ImageConverter(imgBuf, imgSize)
+	: GuiFrame(0,0), ImageConverter(imgBuf, imgSize)
 {
 	Setup();
 }
@@ -53,7 +53,7 @@ ImageConverterGui::~ImageConverterGui()
 		usleep(100);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 
@@ -119,7 +119,7 @@ void ImageConverterGui::Setup()
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	TitleTxt = new GuiText(tr("Image Converter"), 20, (GXColor){0, 0, 0, 255});
-	TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	TitleTxt->SetPosition(0, -25);
 	Append(TitleTxt);
 
@@ -132,7 +132,7 @@ void ImageConverterGui::Setup()
 	ConvertBtn->SetSoundClick(btnClick);
 	ConvertBtn->SetTrigger(trigA);
 	ConvertBtn->SetPosition(-100, 365);
-	ConvertBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	ConvertBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	ConvertBtn->SetEffectGrow();
 	ConvertBtn->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
 	Append(ConvertBtn);
@@ -146,7 +146,7 @@ void ImageConverterGui::Setup()
 	ResetBtn->SetSoundClick(btnClick);
 	ResetBtn->SetTrigger(trigA);
 	ResetBtn->SetPosition(100, 365);
-	ResetBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	ResetBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	ResetBtn->SetEffectGrow();
 	ResetBtn->Clicked.connect(this, &ImageConverterGui::OnButtonClick);
 	Append(ResetBtn);
@@ -168,7 +168,7 @@ void ImageConverterGui::Setup()
 	/** AdressBarInput **/
 	AdressBarInputName = new GuiText(tr("Input File"), 18, (GXColor){0, 0, 0, 255});
 	AdressBarInputName->SetPosition(30, 5-9+AdressBarData->GetHeight()/2);
-	AdressBarInputName->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	AdressBarInputName->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Append(AdressBarInputName);
 
 	AdressBarInputImg = new GuiImage(AdressBarData);
@@ -187,7 +187,7 @@ void ImageConverterGui::Setup()
 	/** AdressBarOuput **/
 	AdressBarOutputName = new GuiText(tr("Output File"), 18, (GXColor){0, 0, 0, 255});
 	AdressBarOutputName->SetPosition(30, 60-9+AdressBarData->GetHeight()/2);
-	AdressBarOutputName->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	AdressBarOutputName->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Append(AdressBarOutputName);
 
 	AdressBarOutputImg = new GuiImage(AdressBarData);
@@ -359,7 +359,7 @@ int ImageConverterGui::MainUpdate()
 
 	if(Converting)
 	{
-		StartProgress(tr("Converting image..."), THROBBER);
+//		StartProgress(tr("Converting image..."), THROBBER);
 
 		bool result = Convert();
 		StopProgress();
@@ -621,5 +621,5 @@ void ImageConverterGui::Draw()
 		ShowProgress(0, 1, OutPath);
 	}
 
-	GuiWindow::Draw();
+	GuiFrame::Draw();
 }

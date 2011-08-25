@@ -1,31 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * PromptWindows.cpp
- *
- * All promptwindows
- * for WiiXplorer 2009
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <gccore.h>
 #include <unistd.h>
 
@@ -48,7 +36,7 @@
 PromptWindow::PromptWindow(const char *title, const char *msg,
 						const char *btn1Label, const char *btn2Label,
 						const char *btn3Label, const char *btn4Label)
-	: GuiWindow(440, 270)
+	: GuiFrame(440, 270)
 {
 	choice = -1;
 
@@ -67,12 +55,12 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 	btnOutline = Resources::GetImageData("button.png");
 
 	titleTxt = new GuiText(title, 22, (GXColor){0, 0, 0, 255});
-	titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	titleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	titleTxt->SetPosition(0,55);
 	titleTxt->SetMaxWidth(this->GetWidth()-68, DOTTED);
 
 	msgTxt = new GuiText(msg, 20, (GXColor){0, 0, 0, 255});
-	msgTxt->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	msgTxt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	msgTxt->SetPosition(0,-40);
 	msgTxt->SetLinesToDraw(2);
 	msgTxt->SetMaxWidth(this->GetWidth()-68, WRAP);
@@ -150,35 +138,35 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 	}
 
 	if(btn2Label && !btn3Label && !btn4Label) {
-		btn1->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		btn1->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		btn1->SetPosition(40, -50);
-		btn2->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		btn2->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 		btn2->SetPosition(-40, -50);
 	} else if(btn2Label && btn3Label && !btn4Label) {
-		btn1->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		btn1->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		btn1->SetPosition(50, -120);
-		btn2->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		btn2->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 		btn2->SetPosition(-50, -120);
-		btn3->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		btn3->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 		btn3->SetPosition(0, -65);
 	} else if(btn2Label && btn3Label && btn4Label) {
-		btn1->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		btn1->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		btn1->SetPosition(50, -120);
-		btn2->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		btn2->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 		btn2->SetPosition(-50, -120);
-		btn3->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		btn3->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		btn3->SetPosition(50, -65);
-		btn4->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		btn4->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 		btn4->SetPosition(-50, -65);
 	} else if(!btn2Label && btn3Label && btn4Label) {
-		btn1->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		btn1->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 		btn1->SetPosition(0, -120);
-		btn3->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		btn3->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		btn3->SetPosition(50, -65);
-		btn4->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+		btn4->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 		btn4->SetPosition(-50, -65);
 	} else {
-		btn1->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+		btn1->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 		btn1->SetPosition(0, -50);
 	}
 
@@ -197,7 +185,7 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 	SetPosition(0,0);
-	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 }
 
 PromptWindow::~PromptWindow()
@@ -207,7 +195,7 @@ PromptWindow::~PromptWindow()
 		Application::Instance()->updateEvents();
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

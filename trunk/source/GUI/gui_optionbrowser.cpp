@@ -1,13 +1,19 @@
 /****************************************************************************
- * libwiigui
+ * Copyright (C) 2009-2011 Dimok
  *
- * Tantric 2009
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * gui_optionbrowser.cpp
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * GUI class definitions
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "gui_optionbrowser.h"
 #include "Memory/Resources.h"
 #include "menu.h"
@@ -24,7 +30,7 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	options = l;
 	coL2 = 50;
 	selectable = true;
-	listOffset = this->FindMenuItem(-1, 1);
+	listOffset = 0;
 	listChanged = true; // trigger an initial list update
 	selectedItem = 0;
 
@@ -36,26 +42,26 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 	bgOptions = Resources::GetImageData("bg_browser.png");
 	bgOptionsImg = new GuiImage(bgOptions);
 	bgOptionsImg->SetParent(this);
-	bgOptionsImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	bgOptionsImg->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 
 	bgOptionsEntry = Resources::GetImageData("bg_browser_selection.png");
 
 	scrollbar = new Scrollbar(245);
 	scrollbar->SetParent(this);
-	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->listChanged.connect(this, &GuiOptionBrowser::OnListChange);
 	scrollbar->SetButtonScroll(WiiControls.OneButtonScroll | ClassicControls.OneButtonScroll << 16);
 
-	for(int i=0; i<PAGESIZE; i++)
+	for(int i = 0; i < PAGESIZE; i++)
 	{
 		optionTxt[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 0xff});
-		optionTxt[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+		optionTxt[i]->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 		optionTxt[i]->SetPosition(15,0);
 
 		optionVal[i] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 0xff});
-		optionVal[i]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+		optionVal[i]->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 		optionVal[i]->SetPosition(250,0);
 		optionVal[i]->SetMaxWidth(width-optionTxt[i]->GetLeft()-50,DOTTED);
 
@@ -63,13 +69,14 @@ GuiOptionBrowser::GuiOptionBrowser(int w, int h, OptionList * l)
 
 		optionBtn[i] = new GuiButton(512,30);
 		optionBtn[i]->SetParent(this);
+		optionBtn[i]->SetState(STATE_DISABLED);
 		optionBtn[i]->SetLabel(optionTxt[i], 0);
 		optionBtn[i]->SetLabel(optionVal[i], 1);
 		optionBtn[i]->SetImageOver(optionBg[i]);
 		optionBtn[i]->SetPosition(2,30*i+3);
 		optionBtn[i]->SetTrigger(trigA);
 		optionBtn[i]->SetSoundClick(btnSoundClick);
-		optionBtn[i]->StateChanged.connect(this, &GuiOptionBrowser::OnStateChange);
+		optionBtn[i]->Clicked.connect(this, &GuiOptionBrowser::OnButtonClick);
 	}
 }
 
@@ -103,65 +110,14 @@ void GuiOptionBrowser::SetCol2Position(int x)
 		optionVal[i]->SetPosition(x,0);
 }
 
-void GuiOptionBrowser::ResetState()
-{
-	if(state != STATE_DISABLED)
-	{
-		state = STATE_DEFAULT;
-		stateChan = -1;
-	}
-
-	for(int i=0; i<PAGESIZE; i++)
-	{
-		optionBtn[i]->ResetState();
-	}
-}
-
-int GuiOptionBrowser::GetClickedOption()
-{
-	int found = -1;
-	for(int i=0; i<PAGESIZE; i++)
-	{
-		if(optionBtn[i]->GetState() == STATE_CLICKED)
-		{
-			optionBtn[i]->SetState(STATE_SELECTED);
-			found = optionIndex[i];
-			break;
-		}
-	}
-	return found;
-}
-
-/****************************************************************************
- * FindMenuItem
- *
- * Help function to find the next visible menu item on the list
- ***************************************************************************/
-
-int GuiOptionBrowser::FindMenuItem(int currentItem, int direction)
-{
-	int nextItem = currentItem + direction;
-
-	if(nextItem < 0 || nextItem >= options->GetLength())
-		return -1;
-
-	if(options->GetName(nextItem))
-		return nextItem;
-	else
-		return FindMenuItem(nextItem, direction);
-}
-
-void GuiOptionBrowser::OnStateChange(GuiElement *sender, int s, int chan UNUSED)
+void GuiOptionBrowser::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
 	for(int i = 0; i < PAGESIZE; i++)
 	{
 		if(sender == optionBtn[i])
 		{
-			if(s == STATE_SELECTED)
-			{
-				optionVal[i]->SetMaxWidth(width-coL2-80, SCROLL_HORIZONTAL);
-			}
-			break;
+			Clicked(this, listOffset+i);
+			return;
 		}
 	}
 }
@@ -176,17 +132,9 @@ void GuiOptionBrowser::Draw()
 
 	bgOptionsImg->Draw();
 
-	int next = listOffset;
-
-	for(int i=0; i<PAGESIZE; i++)
+	for(int i = 0; i < PAGESIZE && listOffset+i < options->GetLength(); i++)
 	{
-		if(next >= 0)
-		{
-			optionBtn[i]->Draw();
-			next = this->FindMenuItem(next, 1);
-		}
-		else
-			break;
+		optionBtn[i]->Draw();
 	}
 
 	scrollbar->Draw();
@@ -194,21 +142,15 @@ void GuiOptionBrowser::Draw()
 	this->UpdateEffects();
 }
 
-void GuiOptionBrowser::TriggerUpdate()
-{
-	listChanged = true;
-}
-
 void GuiOptionBrowser::OnListChange(int selItem, int selIndex)
 {
 	selectedItem = selItem;
 	listOffset = selIndex;
 	int maxNameWidth = 0;
-	int next = listOffset;
 
-	for(int i=0; i<PAGESIZE; i++)
+	for(int i = 0; i < PAGESIZE; i++)
 	{
-		if(next >= 0)
+		if(listOffset+i < options->GetLength())
 		{
 			if(optionBtn[i]->GetState() == STATE_DISABLED)
 			{
@@ -216,17 +158,14 @@ void GuiOptionBrowser::OnListChange(int selItem, int selIndex)
 				optionBtn[i]->SetState(STATE_DEFAULT);
 			}
 
-			optionTxt[i]->SetText(options->GetName(next));
-			optionVal[i]->SetText(options->GetValue(next));
+			optionTxt[i]->SetText(options->GetName(listOffset+i));
+			optionVal[i]->SetText(options->GetValue(listOffset+i));
 
 			if(maxNameWidth < optionTxt[i]->GetTextWidth())
 				maxNameWidth = optionTxt[i]->GetTextWidth();
 
 			if(coL2 < (24+maxNameWidth+16))
 				coL2 = 24+maxNameWidth+16;
-
-			optionIndex[i] = next;
-			next = this->FindMenuItem(next, 1);
 		}
 		else
 		{
@@ -240,7 +179,6 @@ void GuiOptionBrowser::OnListChange(int selItem, int selIndex)
 		optionVal[i]->SetPosition(coL2,0);
 		optionVal[i]->SetMaxWidth(width-coL2-50, DOTTED);
 	}
-
 }
 
 void GuiOptionBrowser::Update(GuiTrigger * t)
@@ -263,7 +201,7 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 		else if(i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
 		{
 			optionBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
-			optionVal[selectedItem]->SetMaxWidth(width-coL2-80, SCROLL_HORIZONTAL);
+			optionVal[selectedItem]->SetMaxWidth(width-coL2-60, SCROLL_HORIZONTAL);
 		}
 
 		int currChan = t->chan;
@@ -274,8 +212,11 @@ void GuiOptionBrowser::Update(GuiTrigger * t)
 		optionBtn[i]->Update(t);
 		t->chan = currChan;
 
-		if(optionBtn[i]->GetState() == STATE_SELECTED)
+		if(i != selectedItem && optionBtn[i]->GetState() == STATE_SELECTED)
+		{
 			selectedItem = i;
+			optionVal[selectedItem]->SetMaxWidth(width-coL2-60, SCROLL_HORIZONTAL);
+		}
 	}
 
 	scrollbar->SetEntrieCount(options->GetLength());

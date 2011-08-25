@@ -7,7 +7,7 @@
 void ImageConverterLoader(const char *filepath)
 {
 	ImageConverterGui * ImageConv = new ImageConverterGui(filepath);
-	ImageConv->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	ImageConv->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 
 	Application::Instance()->Append(ImageConv);
 

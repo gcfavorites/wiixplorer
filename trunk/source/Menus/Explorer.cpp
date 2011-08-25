@@ -30,8 +30,8 @@
 #include "Settings.h"
 #include "sys.h"
 
-Explorer::Explorer(GuiWindow *p, const char *path)
-	: GuiWindow(0, 0, p)
+Explorer::Explorer(GuiFrame *p, const char *path)
+	: GuiFrame(0, 0, p)
 {
 	this->Init();
 	if(path)
@@ -43,7 +43,7 @@ Explorer::~Explorer()
 	hide();
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 
@@ -97,7 +97,7 @@ void Explorer::Init()
 	fileBrowser = new FileBrowser();
 	curBrowser = fileBrowser;
 
-	SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	SetPosition(0, 50);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -139,34 +139,34 @@ void Explorer::Init()
 
 	creditsImg = new GuiImage(creditsImgData);
 	CreditsBtn = new GuiButton(creditsImgData->GetWidth(), creditsImgData->GetHeight());
-	CreditsBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	CreditsBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	CreditsBtn->SetPosition(guiBrowser->GetLeft()+235, guiBrowser->GetTop()+262);
 	CreditsBtn->SetImage(creditsImg);
 	CreditsBtn->SetSoundClick(btnSoundClick);
 	CreditsBtn->SetSoundOver(btnSoundOver);
 	CreditsBtn->SetTrigger(trigA);
 	CreditsBtn->SetEffectGrow();
-	CreditsBtn->Clicked.connect(this, &Explorer::OnButtonClick);
+	CreditsBtn->Clicked.connect(this, &Explorer::OnCreditsButtonClick);
 
 	deviceImg = new GuiImage(sdstorage);
 
 	deviceSwitchBtn = new GuiButton(deviceImg->GetWidth(), deviceImg->GetHeight());
-	deviceSwitchBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	deviceSwitchBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	deviceSwitchBtn->SetPosition(guiBrowser->GetLeft()+20, guiBrowser->GetTop()-38);
 	deviceSwitchBtn->SetImage(deviceImg);
 	deviceSwitchBtn->SetSoundClick(btnSoundClick);
 	deviceSwitchBtn->SetSoundOver(btnSoundOver);
 	deviceSwitchBtn->SetTrigger(trigA);
 	deviceSwitchBtn->SetEffectGrow();
-	deviceSwitchBtn->Clicked.connect(this, &Explorer::OnButtonClick);
+	deviceSwitchBtn->Clicked.connect(this, &Explorer::OnDeviceButtonClick);
 
 	AdressText = new GuiText((char *) NULL, 20, (GXColor) {0, 0, 0, 255});
-	AdressText->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	AdressText->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	AdressText->SetPosition(18, 0);
 	AdressText->SetMaxWidth(Address->GetWidth()-45-Refresh->GetWidth(), SCROLL_HORIZONTAL);
 	AdressbarImg = new GuiImage(Address);
 	Adressbar = new GuiButton(Address->GetWidth()-Refresh->GetWidth()-5, Address->GetHeight());
-	Adressbar->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Adressbar->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Adressbar->SetPosition(guiBrowser->GetLeft()+62, guiBrowser->GetTop()-38);
 	Adressbar->SetImage(AdressbarImg);
 	Adressbar->SetLabel(AdressText);
@@ -179,7 +179,7 @@ void Explorer::Init()
 	RefreshImg = new GuiImage(Refresh);
 	RefreshImg->SetScale(0.8);
 	RefreshBtn = new GuiButton(Refresh->GetWidth(), Refresh->GetHeight());
-	RefreshBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	RefreshBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	RefreshBtn->SetPosition(Adressbar->GetLeft()+Adressbar->GetWidth()-5, Adressbar->GetTop()+4);
 	RefreshBtn->SetImage(RefreshImg);
 	RefreshBtn->SetSoundClick(btnSoundClick);
@@ -191,7 +191,7 @@ void Explorer::Init()
 	clickmenuBtn = new GuiButton(guiBrowser->GetWidth(), guiBrowser->GetHeight());
 	clickmenuBtn->SetPosition(guiBrowser->GetLeft(), guiBrowser->GetTop());
 	clickmenuBtn->SetTrigger(trigPlus);
-	clickmenuBtn->Clicked.connect(this, &Explorer::OnButtonClick);
+	clickmenuBtn->Clicked.connect(this, &Explorer::OnContextButtonClick);
 
 	BackInDirBtn = new GuiButton(0, 0);
 	BackInDirBtn->SetTrigger(trigBackInDir);
@@ -212,7 +212,9 @@ void Explorer::Init()
 void Explorer::show()
 {
 	SetEffect(EFFECT_FADE, 50);
-	this->SetVisible(true);
+
+	if(parentElement)
+		((GuiFrame *) parentElement)->Append(this);
 }
 
 void Explorer::hide()
@@ -221,7 +223,8 @@ void Explorer::hide()
 	while(this->GetEffect() > 0)
 		Application::Instance()->updateEvents();
 
-	this->SetVisible(false);
+	if(parentElement)
+		((GuiFrame *) parentElement)->Remove(this);
 }
 
 int Explorer::LoadPath(const char * path)
@@ -284,7 +287,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 			guiBrowser->SetSelected(0);
 			curBrowser->SetPageIndex(0);
 			curBrowser->ResetMarker();
-			guiBrowser->TriggerUpdate();
+			guiBrowser->Refresh();
 			AdressText->SetText(curBrowser->GetCurrentPath());
 			if(fileBrowser == curBrowser)
 				Settings.LastUsedPath.assign(curBrowser->GetCurrentPath());
@@ -294,7 +297,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 			delete curBrowser;
 			curBrowser = fileBrowser;
 			guiBrowser->SetBrowser(curBrowser);
-			guiBrowser->TriggerUpdate();
+			guiBrowser->Refresh();
 			AdressText->SetTextf("%s", curBrowser->GetCurrentPath());
 		}
 		else
@@ -324,8 +327,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 		}
 		else if(result == REFRESH_BROWSER || result == RELOAD_BROWSER)
 		{
-			curBrowser->Refresh();
-			guiBrowser->TriggerUpdate();
+			guiBrowser->Refresh();
 		}
 	}
 }
@@ -340,16 +342,14 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 	if(curBrowser != fileBrowser && item >= 0) //! Archive
 	{
 		ProcessArcChoice((ArchiveBrowser *) curBrowser, item, fileBrowser->GetCurrentPath());
-		curBrowser->Refresh();
-		guiBrowser->TriggerUpdate();
+		guiBrowser->Refresh();
 	}
 	else if(item >= 0)  //! Real file browser
 	{
 		ProcessChoice(fileBrowser, item);
 		if(item >= PASTE)
 		{
-			curBrowser->Refresh();
-			guiBrowser->TriggerUpdate();
+			guiBrowser->Refresh();
 		}
 	}
 }
@@ -370,7 +370,7 @@ void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
 		}
 		LoadPath(fmt("%s:/", DeviceName[device]));
 		guiBrowser->SetSelected(0);
-		guiBrowser->TriggerUpdate();
+		guiBrowser->Refresh();
 		AdressText->SetText(curBrowser->GetCurrentPath());
 		Settings.LastUsedPath.assign(fileBrowser->GetCurrentPath());
 	}
@@ -383,58 +383,57 @@ void Explorer::OnCreditsClosing()
 	Credits = NULL;
 }
 
-void Explorer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p)
+void Explorer::OnCreditsButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	if(sender == CreditsBtn)
-	{
-		Credits = new CreditWindow(this);
-		Credits->DimBackground(true);
-		Credits->Closing.connect(this, &Explorer::OnCreditsClosing);
-		Application::Instance()->UpdateOnly(Credits);
-	}
+	Credits = new CreditWindow(this);
+	Credits->DimBackground(true);
+	Credits->Closing.connect(this, &Explorer::OnCreditsClosing);
+	Application::Instance()->UpdateOnly(Credits);
+}
 
-	else if(sender == deviceSwitchBtn)
-	{
-		DeviceMenu *Device_Menu = new DeviceMenu(deviceSwitchBtn->GetLeft()-5-this->GetLeft(), deviceSwitchBtn->GetTop()+deviceSwitchBtn->GetHeight()-this->GetTop(), this);
-		Device_Menu->DeviceSelected.connect(this, &Explorer::OnDeviceSelect);
-		Application::Instance()->UpdateOnly(Device_Menu);
-	}
+void Explorer::OnDeviceButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+{
+	DeviceMenu *Device_Menu = new DeviceMenu(deviceSwitchBtn->GetLeft()-5-this->GetLeft(), deviceSwitchBtn->GetTop()+deviceSwitchBtn->GetHeight()-this->GetTop(), this);
+	Device_Menu->DeviceSelected.connect(this, &Explorer::OnDeviceSelect);
+	Application::Instance()->UpdateOnly(Device_Menu);
+}
 
-	else if(sender == clickmenuBtn && this->IsInside(p.x, p.y))
+void Explorer::OnContextButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p)
+{
+	PopUpMenu *RightClick = NULL;
+	if(curBrowser != fileBrowser) //! Archive
 	{
-		PopUpMenu *RightClick = NULL;
-		if(curBrowser != fileBrowser) //! Archive
-		{
-			RightClick = new PopUpMenu(p.x, p.y);
-			RightClick->AddItem(tr("Paste"));
-			RightClick->AddItem(tr("Extract"));
-			RightClick->AddItem(tr("Extract All"));
-			RightClick->AddItem(tr("Properties"));
-			RightClick->Finish();
-		}
-		else //! Real file browser
-		{
-			RightClick = new PopUpMenu(p.x, p.y);
-			RightClick->AddItem(tr("Cut"));
-			RightClick->AddItem(tr("Copy"));
-			RightClick->AddItem(tr("Paste"));
-			RightClick->AddItem(tr("Rename"));
-			RightClick->AddItem(tr("Delete"));
-			RightClick->AddItem(tr("New Folder"));
-			RightClick->AddItem(tr("Add to zip"));
-			RightClick->AddItem(tr("MD5 Check"));
-			RightClick->AddItem(tr("Properties"));
-			RightClick->Finish();
-		}
-		RightClick->ItemClicked.connect(this, &Explorer::OnRightClick);
-		Application::Instance()->UpdateOnly(RightClick);
-		Application::Instance()->Append(RightClick);
+		RightClick = new PopUpMenu(p.x, p.y);
+		RightClick->AddItem(tr("Paste"));
+		RightClick->AddItem(tr("Extract"));
+		RightClick->AddItem(tr("Extract All"));
+		RightClick->AddItem(tr("Properties"));
+		RightClick->Finish();
 	}
-
-	else if(sender == RefreshBtn)
+	else //! Real file browser
 	{
-		curBrowser->Refresh();
-		guiBrowser->TriggerUpdate();
+		RightClick = new PopUpMenu(p.x, p.y);
+		RightClick->AddItem(tr("Cut"));
+		RightClick->AddItem(tr("Copy"));
+		RightClick->AddItem(tr("Paste"));
+		RightClick->AddItem(tr("Rename"));
+		RightClick->AddItem(tr("Delete"));
+		RightClick->AddItem(tr("New Folder"));
+		RightClick->AddItem(tr("Add to zip"));
+		RightClick->AddItem(tr("MD5 Check"));
+		RightClick->AddItem(tr("Properties"));
+		RightClick->Finish();
+	}
+	RightClick->ItemClicked.connect(this, &Explorer::OnRightClick);
+	Application::Instance()->UpdateOnly(RightClick);
+	Application::Instance()->Append(RightClick);
+}
+
+void Explorer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+{
+	if(sender == RefreshBtn)
+	{
+		guiBrowser->Refresh();
 	}
 
 	else if(sender == Adressbar)
@@ -454,8 +453,7 @@ void Explorer::BackInDirectory(GuiButton *sender, int pointer UNUSED, const POIN
 	guiBrowser->SetSelected(0);
 	curBrowser->SetPageIndex(0);
 	curBrowser->ResetMarker();
-	curBrowser->Refresh();
-	guiBrowser->TriggerUpdate();
+	guiBrowser->Refresh();
 	AdressText->SetText(curBrowser->GetCurrentPath());
 
 	sender->ResetState();

@@ -77,11 +77,11 @@ bool MD5Logger::LogMD5(const char * logpath, ItemMarker * Marker, bool showprogr
 	FolderCounter = 0;
 	FileCounter = 0;
 	ErrorCounter = 0;
-	int ProgressMode = ((Marker->GetItemcount() > 1) || Marker->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
+//	int ProgressMode = ((Marker->GetItemcount() > 1) || Marker->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
 
-	StartProgress(tr("Calculating MD5..."), ProgressMode);
+//	StartProgress(tr("Calculating MD5..."), ProgressMode);
 
-	if(ProgressMode == MULTI_PROGRESSBAR)
+//	if(ProgressMode == MULTI_PROGRESSBAR)
 		CalcTotalSize(Marker);
 
 	fprintf(LogFile, tr("--------------------------------------------------\n"));
@@ -171,7 +171,7 @@ bool MD5Logger::CalculateFile(const char * filepath, bool showprogress)
 
 	do
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			fclose(file);
 			free(buffer);
@@ -240,7 +240,7 @@ bool MD5Logger::CalculateDirectory(const char * path, bool showprogress)
 
 	while (dirnext(dir,filename,&st) == 0)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			free(filename);
 			ClearList(DirList);

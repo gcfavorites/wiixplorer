@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
- #ifndef __POPUPMENU_H_
- #define __POPUPMENU_H_
+#ifndef __POPUPMENU_H_
+#define __POPUPMENU_H_
 
 #include <vector>
 
@@ -31,7 +31,7 @@ enum
 	DOWN
 };
 
-class PopUpMenu : public GuiWindow, public sigslot::has_slots<>
+class PopUpMenu : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		PopUpMenu(int x, int y);
@@ -42,7 +42,7 @@ class PopUpMenu : public GuiWindow, public sigslot::has_slots<>
 		void CloseSubMenu() { Remove(subMenu); }
 		void SetUserData(void *data) { userData = data; }
 		void *GetUserData() const { return userData; }
-		void Update(GuiTrigger * t) { GuiWindow::Update(t); ++ScrollState; }
+		void Update(GuiTrigger * t) { GuiFrame::Update(t); ++ScrollState; }
 		sigslot::signal2<PopUpMenu *, int> ItemClicked;
 	private:
 		void OnClick(GuiButton *sender, int pointer, const POINT &p);

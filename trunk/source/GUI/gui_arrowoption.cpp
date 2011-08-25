@@ -1,34 +1,25 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * for WiiXplorer 2010
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "Memory/Resources.h"
 #include "gui_arrowoption.h"
 #include "main.h"
 
 GuiArrowOption::GuiArrowOption()
-	: GuiWindow(440, 338)
+	: GuiFrame(440, 338)
 {
 	btnClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
@@ -53,19 +44,19 @@ void GuiArrowOption::AddOption(const char * name, int PositionX, int PositionY)
 	int Center = PositionX;
 
 	GuiText * OptName = new GuiText(name, 16, (GXColor){0, 0, 0, 255});
-	OptName->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	OptName->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	OptName->SetPosition(Center-OptName->GetTextWidth()/2, PositionY);
 
 	GuiText * OptText = new GuiText(" ", 16, (GXColor){0, 0, 0, 255});
 	OptText->SetPosition(Center-OptText->GetTextWidth()/2, PositionY+30);
-	OptText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	OptText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 
 	GuiButton * OptBtn = new GuiButton(OptName->GetTextWidth(), 18);
 	OptBtn->SetSoundOver(btnSoundOver);
 	OptBtn->SetSoundClick(btnClick);
 	OptBtn->SetTrigger(trigA);
 	OptBtn->SetPosition(Center-OptText->GetTextWidth()/2, PositionY+30);
-	OptBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	OptBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	OptBtn->Clicked.connect(this, &GuiArrowOption::OnButtonClick);
 
 	GuiImage * OptImgLeft = new GuiImage(ArrowImgData);
@@ -77,7 +68,7 @@ void GuiArrowOption::AddOption(const char * name, int PositionX, int PositionY)
 	OptBtnLeft->SetTrigger(trigA);
 	OptBtnLeft->SetEffectGrow();
 	OptBtnLeft->SetPosition(Center-(OptText->GetTextWidth()/2+10), PositionY+30);
-	OptBtnLeft->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	OptBtnLeft->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	OptBtnLeft->Clicked.connect(this, &GuiArrowOption::OnLeftButtonClick);
 
 	GuiImage * OptImgRight = new GuiImage(ArrowImgData);
@@ -88,7 +79,7 @@ void GuiArrowOption::AddOption(const char * name, int PositionX, int PositionY)
 	OptBtnRight->SetTrigger(trigA);
 	OptBtnRight->SetEffectGrow();
 	OptBtnRight->SetPosition(Center+(OptText->GetTextWidth()/2+10), PositionY+30);
-	OptBtnRight->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	OptBtnRight->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	OptBtnRight->Clicked.connect(this, &GuiArrowOption::OnRightButtonClick);
 
 	Append(OptName);

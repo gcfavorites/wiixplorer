@@ -17,13 +17,13 @@
 #ifndef _TASKBAR_H
 #define _TASKBAR_H
 
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "GUI/PictureButton.h"
 #include "Prompts/PopUpMenu.h"
 #include "Controls/Callback.hpp"
 #include "Controls/Task.hpp"
 
-class Taskbar : public GuiWindow, public sigslot::has_slots<>
+class Taskbar : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		static Taskbar *Instance() { if(!instance) instance = new Taskbar(); return instance; }

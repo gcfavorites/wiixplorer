@@ -17,10 +17,10 @@
 #ifndef _KEYBOARDWINDOW_H_
 #define _KEYBOARDWINDOW_H_
 
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "GUI/gui_keyboard.h"
 
-class KeyboardWindow : public GuiWindow, public sigslot::has_slots<>
+class KeyboardWindow : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		KeyboardWindow(wchar_t *text, int maxlen = 0);

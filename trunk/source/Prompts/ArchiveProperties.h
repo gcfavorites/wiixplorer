@@ -32,7 +32,7 @@
 #include "ArchiveOperations/ArchiveBrowser.h"
 #include "Memory/Resources.h"
 
-class ArchiveProperties : public GuiWindow, public sigslot::has_slots<>
+class ArchiveProperties : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		ArchiveProperties(ArchiveFileStruct * File);

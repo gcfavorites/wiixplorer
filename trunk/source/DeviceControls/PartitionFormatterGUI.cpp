@@ -34,7 +34,7 @@
 #include "sys.h"
 
 PartitionFormatterGui::PartitionFormatterGui()
-	: GuiWindow(0,0)
+	: GuiFrame(0,0)
 {
 	CurPart = 0;
 	CurDevice = SD;
@@ -61,7 +61,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	TitleTxt = new GuiText(tr("Partition Formatter"), 22, (GXColor){0, 0, 0, 255});
-	TitleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	TitleTxt->SetPosition(0, 25);
 	Append(TitleTxt);
 
@@ -78,60 +78,60 @@ PartitionFormatterGui::PartitionFormatterGui()
 	int PositionXVal = 260;
 
 	MountNameTxt = new GuiText(tr("Mounted as:"), 20, (GXColor){0, 0, 0, 255});
-	MountNameTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	MountNameTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	MountNameTxt->SetPosition(PositionX, PositionY);
 	Append(MountNameTxt);
 
 	MountNameValTxt = new GuiText((char *) NULL, 20, (GXColor){0, 0, 0, 255});
-	MountNameValTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	MountNameValTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	MountNameValTxt->SetPosition(PositionXVal, PositionY);
 	Append(MountNameValTxt);
 
 	PositionY += 30;
 
 	PartitionTxt = new GuiText(tr("Partition Type:"), 20, (GXColor){0, 0, 0, 255});
-	PartitionTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartitionTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartitionTxt->SetPosition(PositionX, PositionY);
 	Append(PartitionTxt);
 
 	PartitionValTxt = new GuiText((char *) NULL, 20, (GXColor){0, 0, 0, 255});
-	PartitionValTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartitionValTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartitionValTxt->SetPosition(PositionXVal, PositionY);
 	Append(PartitionValTxt);
 
 	PositionY += 30;
 
 	PartActiveTxt = new GuiText(tr("Active (Bootable):"), 20, (GXColor){0, 0, 0, 255});
-	PartActiveTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartActiveTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartActiveTxt->SetPosition(PositionX, PositionY);
 	Append(PartActiveTxt);
 
 	PartActiveValTxt = new GuiText((char *) NULL, 20, (GXColor){0, 0, 0, 255});
-	PartActiveValTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartActiveValTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartActiveValTxt->SetPosition(PositionXVal, PositionY);
 	Append(PartActiveValTxt);
 
 	PositionY += 30;
 
 	PartTypeTxt = new GuiText(tr("File System:"), 20, (GXColor){0, 0, 0, 255});
-	PartTypeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartTypeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartTypeTxt->SetPosition(PositionX, PositionY);
 	Append(PartTypeTxt);
 
 	PartTypeValTxt = new GuiText((char *) NULL, 20, (GXColor){0, 0, 0, 255});
-	PartTypeValTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartTypeValTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartTypeValTxt->SetPosition(PositionXVal, PositionY);
 	Append(PartTypeValTxt);
 
 	PositionY += 30;
 
 	PartSizeTxt = new GuiText(tr("Partition Size:"), 20, (GXColor){0, 0, 0, 255});
-	PartSizeTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartSizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartSizeTxt->SetPosition(PositionX, PositionY);
 	Append(PartSizeTxt);
 
 	PartSizeValTxt = new GuiText((char *) NULL, 20, (GXColor){0, 0, 0, 255});
-	PartSizeValTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PartSizeValTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PartSizeValTxt->SetPosition(PositionXVal, PositionY);
 	Append(PartSizeValTxt);
 
@@ -144,7 +144,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	ActiveBtn->SetSoundClick(btnClick);
 	ActiveBtn->SetTrigger(trigA);
 	ActiveBtn->SetPosition(80, 320);
-	ActiveBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	ActiveBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	ActiveBtn->SetEffectGrow();
 	ActiveBtn->Clicked.connect(this, &PartitionFormatterGui::OnButtonClick);
 	Append(ActiveBtn);
@@ -158,7 +158,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	FormatBtn->SetSoundClick(btnClick);
 	FormatBtn->SetTrigger(trigA);
 	FormatBtn->SetPosition(-80, 320);
-	FormatBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	FormatBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	FormatBtn->SetEffectGrow();
 	FormatBtn->Clicked.connect(this, &PartitionFormatterGui::OnButtonClick);
 	Append(FormatBtn);
@@ -191,7 +191,7 @@ PartitionFormatterGui::~PartitionFormatterGui()
 		usleep(100);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 
@@ -252,7 +252,7 @@ void PartitionFormatterGui::MainUpdate()
 				ret = WindowPrompt(tr("WARNING"), tr("This will delete all the data on this partition. Do you want to continue?"), tr("Yes"), tr("Cancel"));
 				if(ret)
 				{
-					StartProgress(tr("Formating partition..."), AUTO_THROBBER);
+//					StartProgress(tr("Formating partition..."), AUTO_THROBBER);
 					ShowProgress(0, 2, tr("Please wait..."));
 					ret = PartitionFormatter::FormatToFAT32(Device->GetDiscInterface(), Device->GetLBAStart(CurPart), Device->GetSecCount(CurPart));
 					if(ret >= 0)
@@ -292,7 +292,7 @@ void PartitionFormatterGui::MainUpdate()
 			int ret = WindowPrompt(tr("Set this Partition as Active?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
 			if(ret)
 			{
-				StartProgress(tr("Setting partition as active."), AUTO_THROBBER);
+//				StartProgress(tr("Setting partition as active."), AUTO_THROBBER);
 				ShowProgress(0, 1, tr("Please wait..."));
 				ret = PartitionFormatter::SetActive(Device->GetDiscInterface(), CurPart);
 				Device->GetPartitionRecord(CurPart)->Bootable = true;

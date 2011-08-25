@@ -193,7 +193,7 @@ int FileStartUp(const char *filepath)
 				return 0;
 		}
 		WiiMovie * Video = new WiiMovie(filepath);
-		Video->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		Video->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		Video->SetVolume(Settings.MusicVolume);
 		Application::Instance()->Append(Video);
 		Video->Play();

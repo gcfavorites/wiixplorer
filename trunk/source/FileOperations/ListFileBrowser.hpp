@@ -40,7 +40,7 @@ class ListFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		virtual ~ListFileBrowser();
 		void ResetState();
 		void SetSelected(int i);
-		void TriggerUpdate() { listChanged = true; };
+		void Refresh() { if(browser) browser->Refresh(); OnListChange(0, 0); };
 		void Draw();
 		void Update(GuiTrigger * t);
 	protected:
@@ -52,7 +52,6 @@ class ListFileBrowser : public GuiFileBrowser, public sigslot::has_slots<>
 		void OnClicked(GuiButton *sender, int pointer, const POINT &p);
 		int selectedItem;
 		int numEntries;
-		bool listChanged;
 
 		std::vector<GuiText *> fileBtnText;
 		std::vector<GuiText *> fileBtnTextOver;

@@ -34,7 +34,7 @@
 bool Window::busyMoving = false;
 
 Window::Window(int w, int h)
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	width = w;
 	height = h;
@@ -62,7 +62,7 @@ Window::Window(int w, int h)
 	isMovable = true;
 	isMoving = false;
 
-	titleBar = new GuiWindow(width-18, 45);
+	titleBar = new GuiFrame(width-18, 45);
 	titleBar -> SetPosition(9, 10);
 
 	trigA = new GuiTrigger();
@@ -79,12 +79,12 @@ Window::Window(int w, int h)
 	titleBarButton -> Released.connect(this, &Window::OnTitleReleased);
 
 	titleText = new GuiText("", 20, (GXColor) {0, 0, 0, 255});
-	titleText -> SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	titleText -> SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	titleText -> SetPosition(18, 0);
 	titleText -> SetMaxWidth(width-40, SCROLL_HORIZONTAL);
 
 	icon = new GuiImage();
-	icon -> SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	icon -> SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	icon -> SetPosition(48, 62);
 
 	titleBar -> Append(titleText);
@@ -160,7 +160,7 @@ void Window::Draw()
 
 	Menu_DrawRectangle(this->GetLeft()+window_tile_vertical_left->GetWidth(), this->GetTop()+window_tile_horizontal_top->GetHeight(), GetZPosition(), width-window_tile_vertical_left->GetWidth()*2, height-window_tile_horizontal_top->GetHeight()*2, &backgroundColor, false, true);
 
-	GuiWindow::Draw();
+	GuiFrame::Draw();
 }
 
 void Window::OnTitleHeld(GuiElement *, int channel, POINT point)

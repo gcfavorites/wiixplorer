@@ -41,7 +41,6 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 	selectedItem = 0;
 	numEntries = 0;
 	browser = filebrowser;
-	listChanged = true; // trigger an initial list update
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -63,7 +62,7 @@ ListFileBrowser::ListFileBrowser(Browser * filebrowser, int w, int h)
 
 	scrollbar = new Scrollbar(245);
 	scrollbar->SetParent(this);
-	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->listChanged.connect(this, &ListFileBrowser::OnListChange);
@@ -104,19 +103,19 @@ void ListFileBrowser::AddButton()
 
 	fileBtnText.resize(size+1);
 	fileBtnText[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-	fileBtnText[size]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	fileBtnText[size]->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	fileBtnText[size]->SetPosition(32,0);
 	fileBtnText[size]->SetMaxWidth(this->GetWidth() - 200, DOTTED);
 
 	fileBtnTextOver.resize(size+1);
 	fileBtnTextOver[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-	fileBtnTextOver[size]->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	fileBtnTextOver[size]->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	fileBtnTextOver[size]->SetPosition(32,0);
 	fileBtnTextOver[size]->SetMaxWidth(this->GetWidth() - 220, SCROLL_HORIZONTAL);
 
 	fileSizeText.resize(size+1);
 	fileSizeText[size] = new GuiText((char*) NULL, 20, (GXColor){0, 0, 0, 255});
-	fileSizeText[size]->SetAlignment(ALIGN_RIGHT, ALIGN_MIDDLE);
+	fileSizeText[size]->SetAlignment(ALIGN_RIGHT | ALIGN_MIDDLE);
 	fileSizeText[size]->SetPosition(0,0);
 
 	fileSelectionImg.resize(size+1);
@@ -294,6 +293,8 @@ void ListFileBrowser::ResetState()
 
 void ListFileBrowser::OnListChange(int selItem, int selIndex)
 {
+	scrollbar->SetSelectedItem(selItem);
+	scrollbar->SetSelectedIndex(selIndex);
 	selectedItem = selItem;
 	browser->SetPageIndex(selIndex);
 
@@ -347,18 +348,6 @@ void ListFileBrowser::Update(GuiTrigger * t)
 
 	for(int i = 0; i < PAGESIZE; i++)
 	{
-		if(listChanged)
-		{
-			if(browser->GetPageIndex()+i < browser->GetEntrieCount())
-			{
-				SetButton(i, browser->GetItemName(browser->GetPageIndex()+i), browser->GetFilesize(browser->GetPageIndex()+i), browser->IsDir(browser->GetPageIndex()+i), true);
-			}
-			else
-			{
-				SetButton(i, NULL, 0, false, false);
-			}
-		}
-
 		if(i != selectedItem && fileBtn[i]->GetState() == STATE_SELECTED)
 			fileBtn[i]->ResetState();
 		else if(i == selectedItem && fileBtn[i]->GetState() == STATE_DEFAULT)

@@ -22,7 +22,7 @@ static const u32 ButtonHeight = 32;
 static const u32 MaxVisible = 10;
 
 PopUpMenu::PopUpMenu(int x, int y)
-	:GuiWindow(0, 0)
+	:GuiFrame(0, 0)
 {
 	width = 0;
 	height = 0;
@@ -47,9 +47,9 @@ PopUpMenu::PopUpMenu(int x, int y)
 	PopUpMenuMiddleImg = new GuiImage(PopUpMenuMiddle);
 	PopUpMenuLowerImg = new GuiImage(PopUpMenuLower);
 	PopUpMenuScrollUpImg = new GuiImage(PopUpMenuScrollUp);
-	PopUpMenuScrollUpImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	PopUpMenuScrollUpImg->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	PopUpMenuScrollDownImg = new GuiImage(PopUpMenuScrollDown);
-	PopUpMenuScrollDownImg->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	PopUpMenuScrollDownImg->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigAHeld = new GuiTrigger();
@@ -76,7 +76,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 	ScrollUpBtn = new GuiButton(PopUpMenuUpperImg->GetWidth(), PopUpMenuScrollUpImg->GetHeight()+5);
 	ScrollUpBtn->SetImage(PopUpMenuScrollUpImg);
-	ScrollUpBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	ScrollUpBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	ScrollUpBtn->SetTrigger(trigAHeld);
 	ScrollUpBtn->SetVisible(false);
 	ScrollUpBtn->SetState(STATE_DISABLED);
@@ -86,7 +86,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 	ScrollDownBtn = new GuiButton(PopUpMenuLowerImg->GetWidth(), PopUpMenuScrollDownImg->GetHeight()+5);
 	ScrollDownBtn->SetImage(PopUpMenuScrollDownImg);
-	ScrollDownBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	ScrollDownBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	ScrollDownBtn->SetTrigger(trigAHeld);
 	ScrollDownBtn->SetVisible(false);
 	ScrollDownBtn->SetState(STATE_DISABLED);
@@ -111,7 +111,7 @@ PopUpMenu::~PopUpMenu()
 	CloseSubMenu();
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 
@@ -171,14 +171,14 @@ void PopUpMenu::AddItem(const char *text, const char *icon, bool submenu)
 	item.ButtonTxtOver = new GuiText(text, 24, (GXColor){28, 32, 190, 255});
 	item.Button = new GuiButton(0, 0);
 	item.ButtonMenuSelect = new GuiImage(PopUpMenuSelect);
-	item.ButtonTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	item.ButtonTxtOver->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	item.ButtonTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
+	item.ButtonTxtOver->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	item.Button->SetLabel(item.ButtonTxt);
 	item.Button->SetLabelOver(item.ButtonTxtOver);
 	item.Button->SetSoundClick(PopUpMenuClick);
 	item.Button->SetImageOver(item.ButtonMenuSelect);
 	item.Button->SetTrigger(trigA);
-	item.Button->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	item.Button->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	item.Button->Clicked.connect(this, &PopUpMenu::OnClick);
 
 	Append(item.Button);
@@ -239,13 +239,18 @@ void PopUpMenu::Finish()
 
 	if(Item.size() > MaxVisible)
 	{
+		ScrollUpBtn->SetVisible(true);
+		ScrollUpBtn->SetState(STATE_DEFAULT);
 		ScrollDownBtn->SetVisible(true);
 		ScrollDownBtn->SetState(STATE_DEFAULT);
 
-		middleheight = ButtonHeight*MaxVisible;
 
-		middleheight += PopUpMenuScrollUpImg->GetHeight()+PopUpMenuScrollDownImg->GetHeight()-10;
+		middleheight += PopUpMenuScrollUpImg->GetHeight()+PopUpMenuScrollDownImg->GetHeight();
+		/*
 		ButtonsOffset += PopUpMenuScrollUpImg->GetHeight();
+		*/
+
+		middleheight = ButtonHeight*MaxVisible;
 
 		for (u32 i = MaxVisible; i < Item.size(); i++)
 		{
@@ -280,7 +285,7 @@ void PopUpMenu::Finish()
 	PopUpMenuMiddleImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight());
 	PopUpMenuLowerImg->SetPosition(scaledX, PopUpMenuUpperImg->GetHeight()+middleheight);
 
-	ScrollUpBtn->SetPosition(width/2-ScrollUpBtn->GetWidth()/2, 10);
+	ScrollUpBtn->SetPosition(width/2-ScrollUpBtn->GetWidth()/2, 2);
 	ScrollDownBtn->SetPosition(width/2-ScrollDownBtn->GetWidth()/2, PopUpMenuLowerImg->GetTop()-ScrollDownBtn->GetHeight()/2);
 
 	if (x + width + 15 > (u32)screenwidth)

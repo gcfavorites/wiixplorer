@@ -107,7 +107,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	while(done < filesize)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			free(buffer);
 			StopProgress();
@@ -257,7 +257,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	while(done < filesize)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			free(buffer);
 			StopProgress();

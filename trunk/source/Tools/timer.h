@@ -56,8 +56,8 @@ class Timer
 	public:
 		Timer() { starttick = gettime(); };
 		~Timer() { };
-		float elapsed() { return (float) (gettime()-starttick)/(1000.0f*TB_TIMER_CLOCK); };
-		float elapsed_millisecs() { return 1000.0f*elapsed(); };
+		float elapsed() const { return (float) (gettime()-starttick)/(1000.0f*TB_TIMER_CLOCK); };
+		u32 elapsedMiliSecs() const { return (u32) ((gettime()-starttick)/TB_TIMER_CLOCK); };
 		void reset() { starttick = gettime(); };
 	protected:
 		u64 starttick;

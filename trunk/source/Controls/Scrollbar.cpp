@@ -73,20 +73,20 @@ Scrollbar::Scrollbar(int h, u8 m)
 
 	scrollbarTopImg = new GuiImage(scrollbarTop);
 	scrollbarTopImg->SetParent(this);
-	scrollbarTopImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarTopImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	scrollbarTopImg->SetPosition(0, PositionY);
 	PositionY += scrollbarTop->GetHeight();
 
 	scrollbarTileImg = new GuiImage(scrollbarTile);
 	scrollbarTileImg->SetParent(this);
-	scrollbarTileImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarTileImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	scrollbarTileImg->SetPosition(0, PositionY);
 	scrollbarTileImg->SetTileVertical(Tiles);
 	PositionY += Tiles*scrollbarTile->GetHeight();
 
 	scrollbarBottomImg = new GuiImage(scrollbarBottom);
 	scrollbarBottomImg->SetParent(this);
-	scrollbarBottomImg->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarBottomImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	scrollbarBottomImg->SetPosition(0, PositionY);
 
 	arrowDownImg = new GuiImage(arrowDown);
@@ -100,7 +100,7 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowUpBtn->SetParent(this);
 	arrowUpBtn->SetImage(arrowUpImg);
 	arrowUpBtn->SetImageOver(arrowUpOverImg);
-	arrowUpBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	arrowUpBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	arrowUpBtn->SetPosition(ButtonPositionX, 0);
 	arrowUpBtn->SetHoldable(true);
 	arrowUpBtn->SetTrigger(trigHeldA);
@@ -112,7 +112,7 @@ Scrollbar::Scrollbar(int h, u8 m)
 	arrowDownBtn->SetParent(this);
 	arrowDownBtn->SetImage(arrowDownImg);
 	arrowDownBtn->SetImageOver(arrowDownOverImg);
-	arrowDownBtn->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	arrowDownBtn->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	arrowDownBtn->SetPosition(ButtonPositionX, 0);
 	arrowDownBtn->SetHoldable(true);
 	arrowDownBtn->SetTrigger(trigHeldA);
@@ -124,10 +124,8 @@ Scrollbar::Scrollbar(int h, u8 m)
 	scrollbarBoxBtn->SetParent(this);
 	scrollbarBoxBtn->SetImage(scrollbarBoxImg);
 	scrollbarBoxBtn->SetImageOver(scrollbarBoxOverImg);
-	scrollbarBoxBtn->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	scrollbarBoxBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	scrollbarBoxBtn->SetPosition(ButtonPositionX, MinHeight);
-	scrollbarBoxBtn->SetMinY(MinHeight);
-	scrollbarBoxBtn->SetMaxY(MaxHeight);
 	scrollbarBoxBtn->SetHoldable(true);
 	scrollbarBoxBtn->SetTrigger(trigHeldA);
 	scrollbarBoxBtn->Held.connect(this, &Scrollbar::OnBoxButtonHold);
@@ -337,11 +335,7 @@ void Scrollbar::SetRowSize(int size)
 
 void Scrollbar::SetSelectedItem(int pos)
 {
-	if(SelItem == pos)
-		return;
-
 	SelItem = pos;
-	listChanged(SelItem, SelInd);
 }
 
 void Scrollbar::SetSelectedIndex(int pos)

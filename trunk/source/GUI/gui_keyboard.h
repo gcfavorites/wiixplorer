@@ -17,7 +17,7 @@
 #ifndef GUI_KEYBOARD_H_
 #define GUI_KEYBOARD_H_
 
-#include "gui_window.h"
+#include "gui_frame.h"
 #include "gui_button.h"
 #include "gui_text.h"
 #include "gui_image.h"
@@ -35,7 +35,7 @@ typedef struct _keyrowtype
 } KeyboardRow;
 
 //!On-screen keyboard
-class GuiKeyboard : public GuiWindow, public sigslot::has_slots<>
+class GuiKeyboard : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		GuiKeyboard(const char * t, u32 max);

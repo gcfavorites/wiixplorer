@@ -32,6 +32,9 @@
 #include "input.h"
 #include "sys.h"
 
+#include "Menus/Explorer.h"
+#include "Menus/Settings/MainSettingsMenu.h"
+
 enum
 {
 	APPS = 0,
@@ -46,13 +49,10 @@ enum
 	EXIT,
 };
 
-extern const u8 clock_ttf[];
-extern const u32 clock_ttf_size;
-
 Taskbar *Taskbar::instance = NULL;
 
 Taskbar::Taskbar()
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	WifiData = NULL;
 	WifiImg = NULL;
@@ -64,16 +64,16 @@ Taskbar::Taskbar()
 	height = taskbarImg->GetHeight();
 
 	timeTxt = new GuiText((char *) NULL, 20, (GXColor) {40, 40, 40, 255});
-	timeTxt->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	timeTxt->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	timeTxt->SetPosition(width-82, -1);
-	timeTxt->SetFont(clock_ttf, clock_ttf_size);
+	timeTxt->SetFont(Resources::GetFile("clock.ttf"), Resources::GetFileSize("clock.ttf"));
 
 	soundClick = Resources::GetSound("button_click.wav");
 	soundOver = Resources::GetSound("button_over.wav");
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	startBtn = new PictureButton("start.png", "start_over.png", soundClick, soundOver);
-	startBtn->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	startBtn->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	startBtn->SetPosition(23, -2);
 	startBtn->SetSelectable(false);
 	startBtn->SetTrigger(trigA);
@@ -83,7 +83,7 @@ Taskbar::Taskbar()
 	HeadPhonesImg = new GuiImage(HeadPhonesData);
 	Musicplayer = new GuiButton(HeadPhonesData->GetWidth(), HeadPhonesData->GetHeight());
 	Musicplayer->SetImage(HeadPhonesImg);
-	Musicplayer->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	Musicplayer->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 	Musicplayer->SetTrigger(trigA);
 	Musicplayer->SetPosition(458, 0);
 	Musicplayer->SetEffectGrow();
@@ -94,7 +94,7 @@ Taskbar::Taskbar()
 	Append(Musicplayer);
 	Append(timeTxt);
 
-	SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	SetPosition(0, -15);
 }
 
@@ -102,15 +102,13 @@ Taskbar::~Taskbar()
 {
 	RemoveAll();
 
-	delete taskbarImg;
-	delete HeadPhonesImg;
 	Resources::Remove(taskbarImgData);
 	Resources::Remove(HeadPhonesData);
+	Resources::Remove(WifiData);
 
-	if(WifiData)
-		Resources::Remove(WifiData);
-	if(WifiImg)
-		delete WifiImg;
+	delete taskbarImg;
+	delete HeadPhonesImg;
+	delete WifiImg;
 
 	delete startBtn;
 	delete Musicplayer;
@@ -128,7 +126,7 @@ Taskbar::~Taskbar()
 void Taskbar::AddTask(Task * t)
 {
 	t->SetPosition(105+Tasks.size()*100, 0);
-	t->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	t->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Tasks.push_back(t);
 	Append(t);
 }
@@ -167,12 +165,12 @@ void Taskbar::Draw()
 	{
 		WifiData = Resources::GetImageData("network_wireless.png");
 		WifiImg = new GuiImage(WifiData);
-		WifiImg->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+		WifiImg->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 		WifiImg->SetPosition(418, 0);
 		Append(WifiImg);
 	}
 
-	GuiWindow::Draw();
+	GuiFrame::Draw();
 }
 
 void Taskbar::OnStartButtonClick(GuiButton *sender, int pointer, const POINT &p UNUSED)
@@ -192,7 +190,7 @@ void Taskbar::OnStartButtonClick(GuiButton *sender, int pointer, const POINT &p 
 	StartMenu->Finish();
 	StartMenu->ItemClicked.connect(this, &Taskbar::OnStartmenuItemClick);
 
-	//! Finish update width disabled sender to close opened menus
+	//! Finish update with disabled sender to close opened menus
 	sender->SetState(STATE_DISABLED);
 	Application::Instance()->Update(&userInput[pointer]);
 	sender->SetState(STATE_DEFAULT);
@@ -219,10 +217,6 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 
 		Applications *Apps = new Applications(Settings.AppPath);
 
-		AppsMenu->AddItem("Test");
-		AppsMenu->AddItem("Test2");
-		AppsMenu->AddItem("Test3");
-
 		for (int i = 0; i < Apps->Count(); i++)
 			AppsMenu->AddItem(Apps->GetName(i));
 
@@ -237,11 +231,6 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 
 		for (int i = 0; i < Channels::Instance()->Count(); i++)
 			ChannelsMenu->AddItem(Channels::Instance()->GetName(i));
-
-		ChannelsMenu->AddItem("Channel1");
-		ChannelsMenu->AddItem("Channel2");
-		ChannelsMenu->AddItem("Channel3");
-		ChannelsMenu->AddItem("Channel4");
 
 		ChannelsMenu->Finish();
 		ChannelsMenu->ItemClicked.connect(this, &Taskbar::OnChannelsMenuClick);
@@ -280,13 +269,16 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	{
 		PartitionFormatterGui * PartFormatter = new PartitionFormatterGui();
 		PartFormatter->DimBackground(true);
-		PartFormatter->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+		PartFormatter->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		Application::Instance()->UpdateOnly(PartFormatter);
 		Application::Instance()->Append(PartFormatter);
 	}
 	else if (item == SETTINGS)
 	{
-		//menu = MENU_SETTINGS;
+		Application::Instance()->GetExplorer()->hide();
+
+		MainSettingsMenu *menu = new MainSettingsMenu(Application::Instance()->GetExplorer());
+		Application::Instance()->Append(menu);
 	}
 	else if (item == FTPSERVER)
 	{
@@ -329,11 +321,9 @@ void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UpdateOnly(NULL);
 		parent->Close();
-	}
 
-	if (item >= 0 && WindowPrompt(tr("Do you want to start the app?"), Apps->GetName(item), tr("Yes"), tr("Cancel")))
-	{
-		Apps->Launch(item);
+		if(WindowPrompt(tr("Do you want to start the app?"), Apps->GetName(item), tr("Yes"), tr("Cancel")))
+			Apps->Launch(item);
 	}
 
 	menu->Close();
@@ -342,17 +332,13 @@ void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 
 void Taskbar::OnChannelsMenuClick(PopUpMenu *menu, int item)
 {
-
 	if(item >= 0)
 	{
 		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UpdateOnly(NULL);
 		parent->Close();
-	}
 
-	if (item >= 0)
-	{
 		if(WindowPrompt(tr("Do you want to start the channel?"), Channels::Instance()->GetName(item), tr("Yes"), tr("Cancel")))
 			Channels::Instance()->Launch(item);
 	}
@@ -392,5 +378,4 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 void Taskbar::OnMusicPlayerClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
 	MusicPlayer::Instance()->Show();
-	Musicplayer->ResetState();
 }

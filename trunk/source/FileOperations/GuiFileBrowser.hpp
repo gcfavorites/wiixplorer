@@ -35,8 +35,8 @@ class GuiFileBrowser : public GuiElement
 	public:
 		GuiFileBrowser(Browser * filebrowser, int w UNUSED, int h UNUSED) { browser = filebrowser; };
 		virtual ~GuiFileBrowser() { };
-		virtual void SetBrowser(Browser * b) { browser = b; TriggerUpdate(); };
-		virtual void TriggerUpdate() { };
+		virtual void SetBrowser(Browser * b) { browser = b; Refresh(); };
+		virtual void Refresh() { };
 		virtual void SetSelected(int i UNUSED) { };
 		sigslot::signal1<int> Clicked;
 	protected:

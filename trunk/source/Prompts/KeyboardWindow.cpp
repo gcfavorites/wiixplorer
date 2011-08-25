@@ -19,7 +19,7 @@
 #include "Settings.h"
 
 KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	choice = -1;
 	inText = text;
@@ -40,7 +40,7 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 	okBtnImg = new GuiImage(btnOutline);
 	okBtnImgOver = new GuiImage(btnOutlineOver);
 	okBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	okBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	okBtn->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 	okBtn->SetPosition(25, -25);
 	okBtn->SetLabel(okBtnTxt);
 	okBtn->SetImage(okBtnImg);
@@ -54,7 +54,7 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 	cancelBtnImg = new GuiImage(btnOutline);
 	cancelBtnImgOver = new GuiImage(btnOutlineOver);
 	cancelBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	cancelBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	cancelBtn->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 	cancelBtn->SetPosition(-25, -25);
 	cancelBtn->SetLabel(cancelBtnTxt);
 	cancelBtn->SetImage(cancelBtnImg);
@@ -68,13 +68,13 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 	Append(okBtn);
 	Append(cancelBtn);
 
-	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 }
 
 KeyboardWindow::~KeyboardWindow()
 {
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

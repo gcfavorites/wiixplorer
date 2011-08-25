@@ -1,18 +1,21 @@
 /****************************************************************************
- * libwiigui
+ * Copyright (C) 2009-2011 Dimok
  *
- * Tantric 2009
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * gui_button.cpp
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * GUI class definitions
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "gui_button.h"
 #include "input.h"
-
-//! Standard inputs from the 4 WiiMotes/GCPads
-extern GuiTrigger userInput[4];
 
 /**
  * Constructor for the GuiButton class.
@@ -61,12 +64,6 @@ void GuiButton::Init()
 
 	for(int i = 0; i < 4; ++i)
 		trigger[i] = NULL;
-}
-
-void GuiButton::SetSize(int w, int h)
-{
-	width = w;
-	height = h;
 }
 
 void GuiButton::SetImage(GuiImage* img)
@@ -361,7 +358,7 @@ void GuiButton::Update(GuiTrigger * t)
 	#endif
 
 	// button triggers
-	if(this->IsClickable())
+	if(clickable)
 	{
 		u32 wm_btns = t->wpad->btns_d;
 
@@ -379,13 +376,10 @@ void GuiButton::Update(GuiTrigger * t)
 								soundClick->Play();
 
 							POINT p = {0, 0};
-							if (userInput[t->chan].wpad)
+							if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
 							{
-								if (userInput[t->chan].wpad->ir.valid)
-								{
-									p.x = userInput[t->chan].wpad->ir.x;
-									p.y = userInput[t->chan].wpad->ir.y;
-								}
+								p.x = userInput[t->chan].wpad->ir.x;
+								p.y = userInput[t->chan].wpad->ir.y;
 							}
 							Clicked(this, t->chan, p);
 							return;
@@ -410,48 +404,59 @@ void GuiButton::Update(GuiTrigger * t)
 		}
 	}
 
-	if(this->IsHoldable())
+	if(holdable)
 	{
-		bool held = false;
-
 		for(int i = 0; i < 4; i++)
 		{
-			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
+			if(!trigger[i])
+				continue;
+
+			bool held = false;
+
+			if((t->wpad->btns_h & trigger[i]->wpad->btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
 			{
-				if((t->wpad->btns_h & trigger[i]->wpad->btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
+				//! TRIGGER_HELD is executed only if holding the button
+				if(		(trigger[i]->type == TRIGGER_HELD)
+					&&	((trigger[i]->chan == -1)
+						|| (trigger[i]->chan == t->chan)))
 				{
-					if(trigger[i]->type == TRIGGER_HELD && (state == STATE_CLICKED || state == STATE_HELD) && stateChan == t->chan)
-					{
-						held = true;
-					}
-					else if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
-					{
-						held = true;
-					}
+					held = true;
+
+					if((state != STATE_HELD) && (state == STATE_SELECTED))
+						this->SetState(STATE_HELD, t->chan);
 				}
 
-				if(held && state != STATE_HELD)
+				//! TRIGGER_BUTTON_ONLY_HELD is executed on every chan
+				else if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
 				{
-					this->SetState(STATE_HELD, t->chan);
+					held = true;
+					if(state != STATE_HELD)
+						this->SetState(STATE_HELD, t->chan);
 				}
-				else if(held && state == STATE_HELD && stateChan == t->chan)
-				{
-					POINT p = {0, 0};
+			}
 
-					if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
-					{
-						p.x = userInput[t->chan].wpad->ir.x;
-						p.y = userInput[t->chan].wpad->ir.y;
-					}
-					Held(this, t->chan, PtrToControl(p));
-					return;
-				}
-				else if(!held && state == STATE_HELD && stateChan == t->chan)
+			if(held && (state == STATE_HELD) && (stateChan == t->chan))
+			{
+				POINT p = {0, 0};
+				if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
 				{
-					this->ResetState();
-					Released(this, t->chan);
-					return;
+					p.x = userInput[t->chan].wpad->ir.x;
+					p.y = userInput[t->chan].wpad->ir.y;
 				}
+				Held(this, t->chan, p);
+				return;
+			}
+			else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
+			{
+				POINT p = {0, 0};
+				if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+				{
+					p.x = userInput[t->chan].wpad->ir.x;
+					p.y = userInput[t->chan].wpad->ir.y;
+				}
+				this->ResetState();
+				Released(this, t->chan, p);
+				return;
 			}
 		}
 	}
