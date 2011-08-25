@@ -29,7 +29,7 @@
 #include "GUI/gui.h"
 #include "Controls/GXConsole.hpp"
 
-class FTPServerMenu : public GuiWindow, public sigslot::has_slots<>
+class FTPServerMenu : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		FTPServerMenu();

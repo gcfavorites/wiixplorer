@@ -45,7 +45,7 @@ extern const u8 bg_music_ogg[];
 extern const u32 bg_music_ogg_size;
 
 MusicPlayer::MusicPlayer()
-	: GuiWindow(480, 216)
+	: GuiFrame(480, 216)
 {
 	btnSoundOver = NULL;
 	playerImgData = NULL;
@@ -84,7 +84,7 @@ MusicPlayer::~MusicPlayer()
 {
 	ExitRequested = true;
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 	Hide();
 
 	if(MainSound)
@@ -471,7 +471,7 @@ void MusicPlayer::InternalSetup()
 
 	PlayTitle = new GuiText(Title.c_str(), 20, (GXColor) {0, 0, 0, 255});
 	PlayTitle->SetPosition(220, 126);
-	PlayTitle->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	PlayTitle->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	PlayTitle->SetMaxWidth(135, SCROLL_HORIZONTAL);
 
 	if(TitleList.IsMinimized())
@@ -504,7 +504,7 @@ void MusicPlayer::Update(GuiTrigger * t)
 			CircleImg->SetImage(navi_defaultImgData);
 	}
 
-	GuiWindow::Update(t);
+	GuiFrame::Update(t);
 
 	if(!PlaybackFinished)
 		return;

@@ -71,6 +71,38 @@ Resources::~Resources()
 	soundCount.clear();
 }
 
+const u8 *Resources::GetFile(const char *filename)
+{
+	if(!filename)
+		return NULL;
+
+	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	{
+		if(strcasecmp(filename, RecourceList[i].filename) == 0)
+		{
+			return (RecourceList[i].CustomFile ? RecourceList[i].CustomFile : RecourceList[i].DefaultFile);
+		}
+	}
+
+	return NULL;
+}
+
+u32 Resources::GetFileSize(const char *filename)
+{
+	if(!filename)
+		return 0;
+
+	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	{
+		if(strcasecmp(filename, RecourceList[i].filename) == 0)
+		{
+			return (RecourceList[i].CustomFile ? RecourceList[i].CustomFileSize : RecourceList[i].DefaultFileSize);
+		}
+	}
+
+	return 0;
+}
+
 GuiImageData *Resources::GetImageData(const char *filename)
 {
 	if(!filename)

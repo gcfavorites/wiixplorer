@@ -41,7 +41,7 @@
 #include "sys.h"
 
 FTPServerMenu::FTPServerMenu()
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	menu = MENU_NONE;
 
@@ -66,14 +66,14 @@ FTPServerMenu::FTPServerMenu()
 	Append(networkImg);
 
 	IPText = new GuiText(fmt("Server IP: %s	Port: %d", GetNetworkIP(), Settings.FTPServer.Port), 20, (GXColor){0, 0, 0, 255});
-	IPText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	IPText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	IPText->SetPosition(65, 25);
 	Append(IPText);
 
 	backBtnTxt = new GuiText(tr("Go Back"), 20, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);
 	backBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	backBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	backBtn->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 	backBtn->SetPosition(20, -85);
 	backBtn->SetLabel(backBtnTxt);
 	backBtn->SetImage(backBtnImg);
@@ -87,7 +87,7 @@ FTPServerMenu::FTPServerMenu()
 	MainFTPBtnTxt = new GuiText(tr("Startup FTP"), 20, (GXColor){0, 0, 0, 255});
 	MainFTPBtnImg = new GuiImage(btnOutline);
 	MainFTPBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	MainFTPBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	MainFTPBtn->SetAlignment(ALIGN_RIGHT | ALIGN_BOTTOM);
 	MainFTPBtn->SetPosition(-20, -85);
 	MainFTPBtn->SetLabel(MainFTPBtnTxt);
 	MainFTPBtn->SetImage(MainFTPBtnImg);
@@ -99,7 +99,7 @@ FTPServerMenu::FTPServerMenu()
 	Append(MainFTPBtn);
 
 	Console = new GXConsole(bgImgData->GetWidth()-50, 250);
-	Console->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	Console->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	Console->SetPosition(20, 65);
 	Append(Console);
 
@@ -124,7 +124,7 @@ FTPServerMenu::~FTPServerMenu()
 		usleep(100);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 	SetGXConsole(NULL);

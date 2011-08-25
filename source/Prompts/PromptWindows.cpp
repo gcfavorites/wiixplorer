@@ -41,26 +41,9 @@
 #include "sys.h"
 #include "svnrev.h"
 
-int OnScreenKeyboard(char * var, u16 maxlen)
-{
-	wchar_t *wtext = new wchar_t[maxlen+2];
-	wtext[0] = 0;
-
-	char2wchar_t(var, wtext);
-
-	int save = OnScreenKeyboard(wtext, maxlen);
-
-	if(save)
-	{
-		wString Converter(wtext);
-		snprintf(var, maxlen, Converter.toUTF8().c_str());
-	}
-
-	delete [] wtext;
-
-	return save;
-}
-
+/**************************************************************************
+* OnScreenKeyboard for unicode string
+***************************************************************************/
 int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 {
 	int save = 0;
@@ -84,6 +67,29 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	return save;
 }
 
+/**************************************************************************
+* OnScreenKeyboard overload for UTF-8 strings
+***************************************************************************/
+int OnScreenKeyboard(char * var, u16 maxlen)
+{
+	wchar_t *wtext = new wchar_t[maxlen+2];
+	wtext[0] = 0;
+
+	char2wchar_t(var, wtext);
+
+	int save = OnScreenKeyboard(wtext, maxlen);
+
+	if(save)
+	{
+		wString Converter(wtext);
+		snprintf(var, maxlen, Converter.toUTF8().c_str());
+	}
+
+	delete [] wtext;
+
+	return save;
+}
+
 /****************************************************************************
 * NetworkInitPrompt
 ***************************************************************************/
@@ -91,9 +97,14 @@ bool NetworkInitPrompt()
 {
 	if(IsNetworkInit())
 		return true;
+	
+	int choice = -1;
 
 	PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
+	Prompt->DimBackground(true);
+	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
 	Application::Instance()->Append(Prompt);
+	Application::Instance()->UpdateOnly(Prompt);
 
 	if(!Settings.AutoConnect)
 	{
@@ -101,11 +112,12 @@ bool NetworkInitPrompt()
 		ResumeNetworkThread();
 	}
 
-	while(Prompt->GetChoice() == -1 && !IsNetworkInit())
+	while((choice = Prompt->GetChoice()) < 0 && !IsNetworkInit())
 	{
-		usleep(100);
+		Application::Instance()->updateEvents();
 	}
 
+	Application::Instance()->UpdateOnly(onlyUpdateElement);
 	delete Prompt;
 	Prompt = NULL;
 
@@ -152,18 +164,14 @@ int WindowPrompt(const char *title, const char *msg,
 ***************************************************************************/
 int WaitSMBConnect(void)
 {
-	static bool firsttimestart = true;
-
-	if(!firsttimestart)
-		return 1;
-
-	firsttimestart = false;
 	int choice = -1;
+	Timer connectionTimeout;
 
-	if(Settings.LastUsedPath.compare(0, 3, "smb") != 0 && Settings.LastUsedPath.compare(0, 3, "ftp") != 0)
-		return 1;
-
-	PromptWindow * Prompt = new PromptWindow(tr("Please wait:"), tr("Network initialising..."), tr("Cancel"));
+	PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
+	Prompt->DimBackground(true);
+	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
+	Application::Instance()->Append(Prompt);
+	Application::Instance()->UpdateOnly(Prompt);
 
 	if(!Settings.AutoConnect)
 	{
@@ -171,27 +179,18 @@ int WaitSMBConnect(void)
 		ResumeNetworkThread();
 	}
 
-	time_t timer1 = 0;
-
-	Application::Instance()->Append(Prompt);
-
-	while(choice == -1)
+	while(choice < 0)
 	{
-		usleep(100);
-
 		choice = Prompt->GetChoice();
 
 		if(IsNetworkInit())
 		{
 			Prompt->SetMessage(tr("SMB is connecting..."));
 
-			if(timer1 == 0)
-				timer1 = time(0);
-
-			if(time(0) - timer1 > 5)
+			if(connectionTimeout.elapsed() > 5.f)
 				choice = -2;
 
-			for(int i = 0; i < 4; i++)
+			for(int i = 0; i < 10; i++)
 			{
 				if(IsSMB_Mounted(i))
 				{
@@ -200,10 +199,19 @@ int WaitSMBConnect(void)
 				}
 			}
 		}
+
+		Application::Instance()->updateEvents();
 	}
 
+	Application::Instance()->UpdateOnly(onlyUpdateElement);
 	delete Prompt;
 	Prompt = NULL;
+
+	if(!IsNetworkInit())
+	{
+		ShowError(tr("No network connection."));
+		return -1;
+	}
 
 	return choice;
 }

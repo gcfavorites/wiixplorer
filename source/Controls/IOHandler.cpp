@@ -60,7 +60,7 @@ IOHandler::~IOHandler()
 {
 	DestroyRequested = true;
 	Running = false;
-	actioncanceled = true;
+//	actioncanceled = true;
 
 	if(IOThread != LWP_THREAD_NULL)
 	{
@@ -117,8 +117,8 @@ void IOHandler::AddProcess(ItemMarker * List, const char * dest, bool Cutted)
 {
 	if(!Running)
 	{
-		ProgressWindow::Instance()->ResetValues();
-		ProgressMode = ((List->GetItemcount() > 1) || List->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
+//		ProgressWindow::Instance()->ResetValues();
+//		ProgressMode = ((List->GetItemcount() > 1) || List->IsItemDir(0)) ? MULTI_PROGRESSBAR : PROGRESSBAR;
 	}
 
 	ClipboardItem * TmpItem = new ClipboardItem;
@@ -155,7 +155,7 @@ void IOHandler::ProcessNext()
 	char srcpath[MAXPATHLEN];
 	char destdir[MAXPATHLEN];
 	int res = 0;
-	ProgressWindow::Instance()->SetMinimizable(true);
+//	ProgressWindow::Instance()->SetMinimizable(true);
 	ProgressWindow::Instance()->SetMinimized(!ProcessLocked);
 
 	bool Cutted = ProcessQueue.front()->Cutted;
@@ -167,26 +167,26 @@ void IOHandler::ProcessNext()
 			snprintf(destdir, sizeof(destdir), "%s/%s/", destpath, CurrentProcess->GetItemName(0));
 			if(CompareDevices(srcpath, destdir))
 			{
-				if(ProgressWindow::Instance()->GetProgressMode() != THROBBER)
+//				if(ProgressWindow::Instance()->GetProgressMode() != THROBBER)
 					StopProgress();
 
-				StartProgress(tr("Moving item(s):"), THROBBER, !Running);
+//				StartProgress(tr("Moving item(s):"), THROBBER, !Running);
 			}
 			else
 			{
-				if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
+//				if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
 					StopProgress();
 
-				StartProgress(tr("Moving item(s):"), ProgressMode, !Running);
+				StartProgress(tr("Moving item(s):"), ProgressMode);
 			}
 		}
 	}
 	else
 	{
-		if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
+//		if(ProgressWindow::Instance()->GetProgressMode() != ProgressMode)
 			StopProgress();
 
-		StartProgress(tr("Copying item(s):"), ProgressMode, !Running);
+		StartProgress(tr("Copying item(s):"), ProgressMode);
 	}
 	for(int i = 0; i < CurrentProcess->GetItemcount(); i++)
 	{
@@ -277,7 +277,7 @@ void IOHandler::SetMaximized(int Param)
 	TaskbarSlot = NULL;
 
 	ProgressWindow::Instance()->SetMinimized(false);
-	StartProgress(ProgressText.c_str(), Param, !Running);
+	StartProgress(ProgressText.c_str(), Param);
 
 	ProcessLocked = true;
 	LWP_SetThreadPriority(IOThread, Settings.CopyThreadPrio);
@@ -334,7 +334,7 @@ void IOHandler::InternalThreadHandle()
 
 		StopProgress();
 		ProgressWindow::Instance()->SetMinimized(false);
-		ProgressWindow::Instance()->SetMinimizable(false);
+//		ProgressWindow::Instance()->SetMinimizable(false);
 		ResetReplaceChoice();
 
 		LWP_ResumeThread(RequestThread);

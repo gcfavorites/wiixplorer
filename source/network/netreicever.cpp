@@ -191,7 +191,7 @@ const u8 * NetReceiver::ReceiveData()
 
 	do
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			FreeData();
 			StopProgress();

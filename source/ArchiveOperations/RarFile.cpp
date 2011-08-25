@@ -1,31 +1,19 @@
 /****************************************************************************
- * Copyright (C) 2009
- * by Dimok
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * RarFile.cpp
- *
- * RarFile Class
- * for WiiXplorer 2009
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <ogcsys.h>
 #include <string.h>
 
@@ -214,7 +202,7 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 	if (!RarArc.IsOpened())
 		return -1;
 
-	if(actioncanceled)
+//	if(actioncanceled)
 		return -10;
 
 	ComprDataIO DataIO;
@@ -307,7 +295,7 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 
 	CurFile.Close();
 
-	if(actioncanceled)
+//	if(actioncanceled)
 	{
 		StopProgress();
 		RemoveFile(filepath);

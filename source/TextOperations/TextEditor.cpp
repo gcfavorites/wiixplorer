@@ -79,7 +79,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 
 	scrollbar = new Scrollbar(230, Scrollbar::LISTMODE);
 	scrollbar->SetParent(this);
-	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-25, 60);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->listChanged.connect(this, &TextEditor::OnListChange);
@@ -87,7 +87,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	closeBtn = new GuiButton(closeImg->GetWidth(), closeImg->GetHeight());
 	closeBtn->SetImage(closeImg);
 	closeBtn->SetImageOver(closeImgOver);
-	closeBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	closeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	closeBtn->SetPosition(-30, 30);
 	closeBtn->SetSoundOver(btnSoundOver);
 	closeBtn->SetSoundClick(btnSoundClick);
@@ -98,23 +98,23 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 
 	maximizeBtn = new GuiButton(maximizeImg->GetWidth(), maximizeImg->GetHeight());
 	maximizeBtn->SetImage(maximizeImg);
-	maximizeBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	maximizeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	maximizeBtn->SetPosition(-60, 30);
 	maximizeBtn->SetSoundClick(btnSoundClick);
 
 	minimizeBtn = new GuiButton(minimizeImg->GetWidth(), minimizeImg->GetHeight());
 	minimizeBtn->SetImage(minimizeImg);
-	minimizeBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	minimizeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	minimizeBtn->SetPosition(-90, 30);
 	minimizeBtn->SetSoundClick(btnSoundClick);
 
 	filenameTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
-	filenameTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	filenameTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	filenameTxt->SetPosition(-30,30);
 	filenameTxt->SetMaxWidth(340, DOTTED);
 
 	MainFileTxt = new GuiLongText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
-	MainFileTxt->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	MainFileTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	MainFileTxt->SetPosition(0, 0);
 	MainFileTxt->SetLinesToDraw(linestodraw);
 	MainFileTxt->SetMaxWidth(330);
@@ -145,7 +145,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 	SetPosition(0,0);
-	SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 }
 
 /**
@@ -157,7 +157,7 @@ TextEditor::~TextEditor()
 	while(this->GetEffect() > 0) usleep(50);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	this->RemoveAll();
 
@@ -287,7 +287,7 @@ int TextEditor::GetState()
 		}
 	}
 
-	return GuiWindow::GetState();
+	return GuiFrame::GetState();
 }
 
 int TextEditor::EditLine()

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009
+ * Copyright (C) 2009-2011
  * by Dimok
  *
  * Original Filebrowser by Tantric for libwiigui
@@ -22,11 +22,6 @@
  *
  * 3. This notice may not be removed or altered from any source
  * distribution.
- *
- * FileBrowser
- *
- * Directory parsing Class
- * for WiiXplorer 2009
  ***************************************************************************/
 #include <gccore.h>
 #include <stdio.h>
@@ -478,9 +473,7 @@ int FileBrowser::ChangeDirectory()
 	if(!UpdateDirName())
 		return -1;
 
-	ParseDirectory();
-
-	return browser.numEntries;
+	return ParseDirectory();
 }
 
 /****************************************************************************
@@ -511,11 +504,11 @@ void FileBrowser::InternalThreadUpdate()
  ***************************************************************************/
 void FileBrowser::InitParseThread()
 {
-	ThreadStack = (u8 *) memalign(32, 16384);
+	ThreadStack = (u8 *) memalign(32, 65536);
 	if(!ThreadStack)
 		return;
 
-	LWP_CreateThread(&parsethread, UpdateThread, this, ThreadStack, 16384, 60);
+	LWP_CreateThread(&parsethread, UpdateThread, this, ThreadStack, 65536, 70);
 }
 
 /****************************************************************************

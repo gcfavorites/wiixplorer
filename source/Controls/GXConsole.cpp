@@ -24,7 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include <stdarg.h>
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "GXConsole.hpp"
 #include "FreeTypeGX.h"
 
@@ -46,7 +46,7 @@ GXConsole::GXConsole(int w, int h)
 GXConsole::~GXConsole()
 {
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	clear();
 	LWP_MutexDestroy(mutex);

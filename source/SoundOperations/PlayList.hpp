@@ -27,10 +27,10 @@
 #define PLAYLIST_HPP_
 
 #include <vector>
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "Controls/Scrollbar.hpp"
 
-class PlayList : public GuiWindow, public sigslot::has_slots<>
+class PlayList : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		PlayList();

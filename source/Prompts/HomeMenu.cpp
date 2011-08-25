@@ -10,7 +10,7 @@
 
 
 HomeMenu::HomeMenu()
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	choice = -1;
 
@@ -45,12 +45,12 @@ HomeMenu::HomeMenu()
 	WiimoteBtnImg = new GuiImage(WiimoteBtnImgData);
 
 	TitleText = new GuiText(tr("Home Menu"), 40, (GXColor) {255, 255, 255, 255});
-	TitleText->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	TitleText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	TitleText->SetPosition(30, 40);
 	TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
 	TopBtn = new GuiButton(TopBtnImg->GetWidth(), TopBtnImg->GetHeight());
-	TopBtn->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	TopBtn->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	TopBtn->SetImage(TopBtnImg);
 	TopBtn->SetImageOver(TopBtnOverImg);
 	TopBtn->SetLabel(TitleText);
@@ -61,7 +61,7 @@ HomeMenu::HomeMenu()
 	TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 
 	BottomBtn = new GuiButton(BottomBtnImg->GetWidth(), BottomBtnImg->GetHeight());
-	BottomBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	BottomBtn->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 	BottomBtn->SetImage(BottomBtnImg);
 	BottomBtn->SetImageOver(BottomBtnOverImg);
 	BottomBtn->SetSoundClick(ButtonClickSnd);
@@ -74,7 +74,7 @@ HomeMenu::HomeMenu()
 
 	CloseBtn = new GuiButton(CloseBtnImg->GetWidth(), CloseBtnImg->GetHeight());
 	CloseBtn->SetImage(CloseBtnImg);
-	CloseBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	CloseBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	CloseBtn->SetPosition(-20, 30);
 	CloseBtn->SetLabel(CloseBtnText);
 	CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
@@ -83,7 +83,7 @@ HomeMenu::HomeMenu()
 
 	ExitBtn = new GuiButton(ExitBtnImg->GetWidth(), ExitBtnImg->GetHeight());
 	ExitBtn->SetImage(ExitBtnImg);
-	ExitBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	ExitBtn->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	ExitBtn->SetPosition(-140, 0);
 	ExitBtn->SetLabel(ExitBtnText);
 	ExitBtn->SetSoundClick(ButtonClickSnd);
@@ -96,7 +96,7 @@ HomeMenu::HomeMenu()
 
 	ShutdownBtn = new GuiButton(ShutdownBtnImg->GetWidth(), ShutdownBtnImg->GetHeight());
 	ShutdownBtn->SetImage(ShutdownBtnImg);
-	ShutdownBtn->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	ShutdownBtn->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	ShutdownBtn->SetPosition(140, 0);
 	ShutdownBtn->SetLabel(ShutdownBtnText);
 	ShutdownBtn->SetSoundClick(ButtonClickSnd);
@@ -107,7 +107,7 @@ HomeMenu::HomeMenu()
 
 	WiimoteBtn = new GuiButton(WiimoteBtnImg->GetWidth(), WiimoteBtnImg->GetHeight());
 	WiimoteBtn->SetImage(WiimoteBtnImg);
-	WiimoteBtn->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+	WiimoteBtn->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 	WiimoteBtn->SetPosition(45, 232);
 	WiimoteBtn->SetTrigger(trigA);
 	WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
@@ -125,20 +125,20 @@ HomeMenu::HomeMenu()
 		player[1] = i+'1';
 
 		PlayerText[i] = new GuiText(player, 28, (GXColor) {255, 255, 255, 255});
-		PlayerText[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		PlayerText[i]->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		PlayerText[i]->SetPosition(178 + i*108, -76);
 		PlayerText[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
 		Append(PlayerText[i]);
 
 		BatteryBarImg[i] = new GuiImage(BatteryBarImgData);
-		BatteryBarImg[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		BatteryBarImg[i]->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 
 		BatteryImg[i] = new GuiImage(BatteryImgData);
-		BatteryImg[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		BatteryImg[i]->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		BatteryImg[i]->SetPosition(2, -4);
 
 		BatteryBtn[i] = new GuiButton(0,0);
-		BatteryBtn[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
+		BatteryBtn[i]->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
 		BatteryBtn[i]->SetPosition(214 + i*108, -80);
 		BatteryBtn[i]->SetImage(BatteryBarImg[i]);
 		BatteryBtn[i]->SetIcon(BatteryImg[i]);
@@ -159,7 +159,7 @@ HomeMenu::~HomeMenu()
 	while(this->GetEffect() > 0) usleep(100);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
 

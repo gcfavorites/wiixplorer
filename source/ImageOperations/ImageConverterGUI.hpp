@@ -29,7 +29,7 @@
 #include "GUI/gui_arrowoption.h"
 #include "ImageConverter.hpp"
 
-class ImageConverterGui : public GuiWindow, public ImageConverter, public sigslot::has_slots<>
+class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot::has_slots<>
 {
 	public:
 		ImageConverterGui(const char * filepath);

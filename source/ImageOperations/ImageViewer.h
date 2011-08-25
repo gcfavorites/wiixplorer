@@ -31,7 +31,7 @@
 #include "GUI/gui.h"
 #include "DirList.h"
 
-class ImageViewer : public GuiWindow, public sigslot::has_slots<>
+class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		//!Constructor

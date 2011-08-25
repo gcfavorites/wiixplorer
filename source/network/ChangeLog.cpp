@@ -66,7 +66,7 @@ char * ChangeLog::GetChangeLogRange(int fromRev, int tillRev, bool backwards)
 		StopRev = tillRev+1;
 	}
 
-	StartProgress(tr("Getting Changelog..."), THROBBER);
+//	StartProgress(tr("Getting Changelog..."), THROBBER);
 
 	while(RevCounter != StopRev)
 	{

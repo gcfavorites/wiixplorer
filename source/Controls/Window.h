@@ -34,7 +34,7 @@
 #include "libwiigui/PictureButton.h"
 #include <string>
 
-class Window : public GuiWindow
+class Window : public GuiFrame
 {
 	public:
 		Window();
@@ -64,7 +64,7 @@ class Window : public GuiWindow
 		GuiImage *window_corner_right_top;
 		GuiImage *window_corner_right_bottom;
 
-		GuiWindow *titleBar;
+		GuiFrame *titleBar;
 		GuiButton *titleBarButton;
 		GuiText *titleText;
 		GuiImage *icon;

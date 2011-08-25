@@ -30,8 +30,9 @@
 Application *Application::instance = NULL;
 
 Application::Application()
-	: GuiWindow(screenwidth, screenheight) // screenwidth and height are defined in Video.h
+	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
 {
+	mainExplorer = NULL;
 	updateOnlyElement = NULL;
 	DeleteQueue = NULL;
 	exitApplication = false;
@@ -62,7 +63,7 @@ Application::Application()
 	//! Setup the music player
 	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
 	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
-	MusicPlayer::Instance()->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	MusicPlayer::Instance()->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	MusicPlayer::Instance()->SetPosition(30, 230);
 	Append(MusicPlayer::Instance());
 
@@ -81,7 +82,7 @@ Application::Application()
 	//! Append taskbar instance
 	Append(Taskbar::Instance());
 
-	//! Open up the first menu
+	//! Open first explorer
 	mainExplorer = new Explorer(this, Settings.LastUsedPath.c_str());
 }
 
@@ -97,12 +98,12 @@ Application::~Application()
 	}
 	RemoveAll();
 
+	delete mainExplorer;
 	Taskbar::DestroyInstance();
 	MusicPlayer::DestroyInstance();
 	IOHandler::DestroyInstance();
 
 	delete bgImg;
-	delete mainExplorer;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -115,20 +116,6 @@ Application::~Application()
 void Application::quit()
 {
 	exitApplication = true;
-}
-
-void Application::show()
-{
-	mainExplorer->SetEffect(EFFECT_FADE, 50);
-	Append(mainExplorer);
-}
-
-void Application::hide()
-{
-	mainExplorer->SetEffect(EFFECT_FADE, -50);
-	while(mainExplorer->GetEffect() > 0)
-		updateEvents();
-	Remove(mainExplorer);
 }
 
 void Application::exec()

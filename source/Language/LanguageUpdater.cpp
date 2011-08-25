@@ -61,8 +61,8 @@ int UpdateLanguageFiles()
 
 	for (int i = 0; i < LinkList.GetURLCount(); i++)
 	{
-		if(actioncanceled)
-			continue;
+//		if(actioncanceled)
+//			continue;
 
 		ShowProgress(done, (LinkList.GetURLCount()-1)*16*1024, LinkList.GetURL(i));
 

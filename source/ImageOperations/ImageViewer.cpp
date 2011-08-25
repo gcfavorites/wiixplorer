@@ -36,7 +36,7 @@
 #include "menu.h"
 
 ImageViewer::ImageViewer(const char *filepath)
-	: GuiWindow(0, 0)
+	: GuiFrame(0, 0)
 {
 	currentImage = 0;
 	currentState = -1;
@@ -70,7 +70,7 @@ ImageViewer::~ImageViewer()
 	while(this->GetEffect() > 0) usleep(100);
 
 	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
+		((GuiFrame *) parentElement)->Remove(this);
 
 	for(int i = 0; i < 4; i++)
 		Application::Instance()->ResetPointer(i);
@@ -609,7 +609,7 @@ void ImageViewer::Setup()
 	backButton = new GuiButton(backButtonImage->GetWidth(), backButtonImage->GetHeight());
 	backButton->SetImage(backButtonImage);
 	backButton->SetImageOver(backButtonOverImage);
-	backButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	backButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	backButton->SetPosition(-2*DefaultButtonWidth-DefaultButtonWidth/2-2, -16);
 	backButton->SetTrigger(trigger);
 	backButton->SetTrigger(trigB);
@@ -624,7 +624,7 @@ void ImageViewer::Setup()
 	zoominButton = new GuiButton(zoominButtonImage->GetWidth(), zoominButtonImage->GetHeight());
 	zoominButton->SetImage(zoominButtonImage);
 	zoominButton->SetImageOver(zoominButtonOverImage);
-	zoominButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	zoominButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	zoominButton->SetPosition(-DefaultButtonWidth/2, -16);
 	zoominButton->SetHoldable(true);
 	zoominButton->SetTrigger(trigA_Held);
@@ -639,7 +639,7 @@ void ImageViewer::Setup()
 	zoomoutButton = new GuiButton(zoomoutButtonImage->GetWidth(), zoomoutButtonImage->GetHeight());
 	zoomoutButton->SetImage(zoomoutButtonImage);
 	zoomoutButton->SetImageOver(zoomoutButtonOverImage);
-	zoomoutButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	zoomoutButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	zoomoutButton->SetPosition(DefaultButtonWidth/2, -16);
 	zoomoutButton->SetHoldable(true);
 	zoomoutButton->SetTrigger(trigA_Held);
@@ -654,7 +654,7 @@ void ImageViewer::Setup()
 	rotateRButton = new GuiButton(rotateRButtonImage->GetWidth(), rotateRButtonImage->GetHeight());
 	rotateRButton->SetImage(rotateRButtonImage);
 	rotateRButton->SetImageOver(rotateRButtonOverImage);
-	rotateRButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	rotateRButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	rotateRButton->SetPosition(DefaultButtonWidth+DefaultButtonWidth/2, -16);
 	rotateRButton->SetTrigger(trigger);
 	rotateRButton->SetTrigger(trigRotateR);
@@ -670,7 +670,7 @@ void ImageViewer::Setup()
 	rotateLButton = new GuiButton(rotateLButtonImage->GetWidth(), rotateLButtonImage->GetHeight());
 	rotateLButton->SetImage(rotateLButtonImage);
 	rotateLButton->SetImageOver(rotateLButtonOverImage);
-	rotateLButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	rotateLButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	rotateLButton->SetPosition(2*DefaultButtonWidth+DefaultButtonWidth/2+2, -16);
 	rotateLButton->SetTrigger(trigger);
 	rotateLButton->SetTrigger(trigRotateL);
@@ -685,7 +685,7 @@ void ImageViewer::Setup()
 	nextButton = new GuiButton(nextButtonImage->GetWidth(), nextButtonImage->GetHeight());
 	nextButton->SetImage(nextButtonImage);
 	nextButton->SetImageOver(nextButtonOverImage);
-	nextButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	nextButton->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	nextButton->SetPosition(-16, 198);
 	nextButton->SetTrigger(trigger);
 	nextButton->SetTrigger(trigNext);
@@ -699,7 +699,7 @@ void ImageViewer::Setup()
 	prevButton = new GuiButton(prevButtonImage->GetWidth(), prevButtonImage->GetHeight());
 	prevButton->SetImage(prevButtonImage);
 	prevButton->SetImageOver(prevButtonOverImage);
-	prevButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	prevButton->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	prevButton->SetPosition(16, 198);
 	prevButton->SetTrigger(trigger);
 	prevButton->SetTrigger(trigPrev);
@@ -713,7 +713,7 @@ void ImageViewer::Setup()
 	slideshowButton = new GuiButton(slideshowButtonImage->GetWidth(), slideshowButtonImage->GetHeight());
 	slideshowButton->SetImage(slideshowButtonImage);
 	slideshowButton->SetImageOver(slideshowButtonOverImage);
-	slideshowButton->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	slideshowButton->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	slideshowButton->SetPosition(-DefaultButtonWidth-DefaultButtonWidth/2, -16);
 	slideshowButton->SetTrigger(trigger);
 	slideshowButton->SetTrigger(trigSlideshow);
@@ -728,7 +728,7 @@ void ImageViewer::Setup()
 
 	moveButton = new GuiButton(screenwidth-(prevButton->GetLeft()+prevButton->GetWidth())*2, screenheight-backButton->GetHeight()-16);
 	moveButton->SetPosition(prevButton->GetLeft()+prevButton->GetWidth(), 0);
-	moveButton->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	moveButton->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	moveButton->SetHoldable(true);
 	moveButton->SetTrigger(trigA_Held);
 	moveButton->Clicked.connect(this, &ImageViewer::OnButtonClick);
@@ -741,7 +741,7 @@ void ImageViewer::Setup()
 	trashImg->SetScale(1.1);
 	trashButton = new GuiButton(trashImgData->GetWidth(), trashImgData->GetHeight());
 	trashButton->SetImage(trashImg);
-	trashButton->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	trashButton->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	trashButton->SetPosition(-30, 30);
 	trashButton->SetTrigger(trigger);
 	trashButton->SetEffectGrow();

@@ -1,28 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2010-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * for WiiXplorer 2010
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "IconFileBrowser.hpp"
 #include "Memory/Resources.h"
 #include "FileStartUp/FileExtensions.h"
@@ -37,9 +28,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 	width = w;
 	height = h;
 	selectedItem = 0;
-	numEntries = 0;
 	browser = filebrowser;
-	listChanged = true; // trigger an initial list update
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -61,7 +50,7 @@ IconFileBrowser::IconFileBrowser(Browser * filebrowser, int w, int h)
 
 	scrollbar = new Scrollbar(245, Scrollbar::ICONMODE);
 	scrollbar->SetParent(this);
-	scrollbar->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-10, 5);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->listChanged.connect(this, &IconFileBrowser::OnListChange);
@@ -166,14 +155,14 @@ void IconFileBrowser::AddButton()
 	ButtonImg.push_back(BtnImg);
 
 	GuiText * BtnTxt = new GuiText((char *) NULL, 14, (GXColor){0, 0, 0, 255});
-	BtnTxt->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	BtnTxt->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	BtnTxt->SetPosition(0, -10);
 	BtnTxt->SetLinesToDraw(2);
 	BtnTxt->SetMaxWidth(fileDefault->GetWidth()+38, WRAP);
 	ButtonText.push_back(BtnTxt);
 
 	GuiImage * Marker = new GuiImage(bgFileSelection);
-	Marker->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	Marker->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	Marker->SetPosition(0, -17);
 	FileSelectionImg.push_back(Marker);
 
@@ -214,7 +203,7 @@ void IconFileBrowser::SetButton(int i, const char * name, bool dir, bool enable,
 		delete ButtonImg[i];
 
 	ButtonImg[i] = GetIconFromExt((name ? strrchr(name, '.') : NULL), dir);
-	ButtonImg[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	ButtonImg[i]->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	ButtonText[i]->SetText(name);
 	Tooltip[i]->SetText(name);
 	if(40+x+Tooltip[i]->GetWidth() > width)
@@ -296,6 +285,8 @@ void IconFileBrowser::ResetState()
 
 void IconFileBrowser::OnListChange(int selItem, int selIndex)
 {
+	scrollbar->SetSelectedItem(selItem);
+	scrollbar->SetSelectedIndex(selIndex);
 	selectedItem = selItem;
 	browser->SetPageIndex(selIndex);
 
@@ -368,13 +359,6 @@ void IconFileBrowser::Update(GuiTrigger * t)
 	if(browser)
 		browser->UpdateMarker(t);
 
-	//endNavigation:
-	if(numEntries != browser->GetEntrieCount())
-	{
-		numEntries = browser->GetEntrieCount();
-		scrollbar->SetEntrieCount(numEntries);
-	}
-
 	for(int i = 0; i < PageSize && i < (int) Buttons.size(); i++)
 	{
 		if(i != selectedItem && Buttons[i]->GetState() == STATE_SELECTED)
@@ -414,6 +398,7 @@ void IconFileBrowser::Update(GuiTrigger * t)
 		}
 	}
 
+	scrollbar->SetEntrieCount(browser->GetEntrieCount());
 	scrollbar->SetPageSize(PageSize);
 	scrollbar->SetRowSize(RowSize);
 	scrollbar->SetSelectedItem(selectedItem);

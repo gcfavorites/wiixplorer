@@ -32,7 +32,7 @@
 
 #include "GUI/gui.h"
 
-class HomeMenu : public GuiWindow
+class HomeMenu : public GuiFrame
 {
 	public:
 		int GetChoice();

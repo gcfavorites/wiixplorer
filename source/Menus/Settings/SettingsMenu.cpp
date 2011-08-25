@@ -1,40 +1,28 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * for WiiXplorer 2009
- ***************************************************************************/
-#include <unistd.h>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include "SettingsMenu.h"
+#include "Settings.h"
 #include "Controls/Application.h"
 #include "Memory/Resources.h"
-#include "sys.h"
 
-SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
-	: GuiWindow(screenwidth, screenheight)
+SettingsMenu::SettingsMenu(const char * title, GuiFrame *r)
+	: GuiFrame(screenwidth, screenheight)
 {
-	menu = MENU_NONE;
-	Options = opts;
-	returnToMenu = returnTo;
+	returnFrame = r;
 
 	btnSoundClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
@@ -49,7 +37,7 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
 	backBtnTxt = new GuiText(tr("Go Back"), 22, (GXColor){0, 0, 0, 255});
 	backBtnImg = new GuiImage(btnOutline);
 	backBtn = new GuiButton(btnOutline->GetWidth(), btnOutline->GetHeight());
-	backBtn->SetAlignment(ALIGN_CENTRE, ALIGN_BOTTOM);
+	backBtn->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	backBtn->SetPosition(-105-btnOutline->GetWidth()/2, -65);
 	backBtn->SetLabel(backBtnTxt);
 	backBtn->SetImage(backBtnImg);
@@ -58,33 +46,26 @@ SettingsMenu::SettingsMenu(const char * title, OptionList * opts, int returnTo)
 	backBtn->SetTrigger(trigA);
 	backBtn->SetTrigger(trigB);
 	backBtn->SetEffectGrow();
-	backBtn->Clicked.connect(this, &SettingsMenu::OnButtonClick);
+	backBtn->Clicked.connect(this, &SettingsMenu::OnBackButtonClick);
 
-	optionBrowser = new GuiOptionBrowser(584, 248, Options);
+	optionBrowser = new GuiOptionBrowser(584, 248, &options);
 	optionBrowser->SetPosition(0, 100);
-	optionBrowser->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	optionBrowser->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
+	optionBrowser->Clicked.connect(this, &SettingsMenu::OnOptionClick);
 
 	titleTxt = new GuiText(title, 24, (GXColor){0, 0, 0, 255});
-	titleTxt->SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	titleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	titleTxt->SetPosition(-optionBrowser->GetWidth()/2+titleTxt->GetTextWidth()/2+20, optionBrowser->GetTop()-35);
 
 	Append(backBtn);
 	Append(optionBrowser);
 	Append(titleTxt);
 
-	SetEffect(EFFECT_FADE, 50);
+	show();
 }
 
 SettingsMenu::~SettingsMenu()
 {
-	SetEffect(EFFECT_FADE, -50);
-
-	while(this->GetEffect() > 0)
-		usleep(100);
-
-	if(parentElement)
-		((GuiWindow *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	Resources::Remove(btnSoundClick);
@@ -106,23 +87,37 @@ SettingsMenu::~SettingsMenu()
 	delete trigB;
 }
 
-int SettingsMenu::GetClickedOption()
+void SettingsMenu::show()
 {
-	return optionBrowser->GetClickedOption();
+	SetEffect(EFFECT_FADE, 50);
+
+	if(parentElement)
+		((GuiFrame *) parentElement)->Append(this);
 }
 
-int SettingsMenu::GetMenu()
+void SettingsMenu::hide()
 {
-	return menu;
+	SetEffect(EFFECT_FADE, -50);
+
+	while(this->GetEffect() > 0)
+		Application::Instance()->updateEvents();
+
+	if(parentElement)
+		((GuiFrame *) parentElement)->Remove(this);
 }
 
-void SettingsMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void SettingsMenu::CloseMenu()
 {
-	sender->ResetState();
+	hide();
 
-	if(sender == backBtn)
-	{
-		menu = returnToMenu;
-	}
+	Application::Instance()->PushForDelete(this);
+
+	if(returnFrame)
+		returnFrame->show();
+}
+
+void SettingsMenu::OnBackButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+{
+	CloseMenu();
 }
 

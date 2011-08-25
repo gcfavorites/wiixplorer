@@ -62,7 +62,7 @@ static int GetReplaceChoice(const char * filename)
 
 	int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
 
-	StartProgress(progressText, PROGRESSBAR, false);
+//	StartProgress(progressText, PROGRESSBAR, false);
 
 	if(choice == 3)
 	{
@@ -271,7 +271,7 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u64 *size)
 
 	do
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			free(buffer);
 			fclose(file);
@@ -435,7 +435,7 @@ int CopyFile(const char * src, const char * dest)
 
 	do
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			fclose(source);
 			fclose(destination);
@@ -527,7 +527,7 @@ static int ListDirectory(string &path, vector<char *> &DirList, vector<char *> &
 
 	while (dirnext(dir,filename,&st) == 0)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			free(filename);
 			ClearList(DirList);
@@ -579,7 +579,7 @@ static int InternalCopyDirectory(string &src, string &dest)
 
 	for(u32 i = 0; i < FileList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -604,7 +604,7 @@ static int InternalCopyDirectory(string &src, string &dest)
 
 	for(u32 i = 0; i < DirList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -664,7 +664,7 @@ static int InternalMoveDirectory(string &src, string &dest)
 
 	for(u32 i = 0; i < FileList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -693,7 +693,7 @@ static int InternalMoveDirectory(string &src, string &dest)
 
 	for(u32 i = 0; i < DirList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -724,7 +724,7 @@ static int InternalMoveDirectory(string &src, string &dest)
 	while(srcCopy[srcCopy.size()-1] == '/')
 		srcCopy.erase(srcCopy.size()-1);
 
-	if(actioncanceled)
+//	if(actioncanceled)
 		return -10;
 
 	ret = remove(srcCopy.c_str());
@@ -800,7 +800,7 @@ static int InternalRemoveDirectory(string &dirpath)
 
 	for(u32 i = 0; i < FileList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -825,7 +825,7 @@ static int InternalRemoveDirectory(string &dirpath)
 
 	for(u32 i = 0; i < DirList.size(); ++i)
 	{
-		if(actioncanceled)
+//		if(actioncanceled)
 		{
 			ClearList(DirList);
 			ClearList(FileList);
@@ -851,7 +851,7 @@ static int InternalRemoveDirectory(string &dirpath)
 	while(srcCopy[srcCopy.size()-1] == '/')
 		srcCopy.erase(srcCopy.size()-1);
 
-	if(actioncanceled)
+//	if(actioncanceled)
 		return -10;
 
 	ret = remove(srcCopy.c_str());

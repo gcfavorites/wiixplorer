@@ -27,10 +27,10 @@
 #include "GUI/gui.h"
 #include "DeviceControls/DeviceHandler.hpp"
 
-class DeviceMenu : public GuiWindow, public sigslot::has_slots<>
+class DeviceMenu : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		DeviceMenu(int x, int y, GuiWindow *parent = 0);
+		DeviceMenu(int x, int y, GuiFrame *parent = 0);
 		virtual ~DeviceMenu();
 		sigslot::signal2<DeviceMenu *, int> DeviceSelected;
 	private:

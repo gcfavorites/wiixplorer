@@ -38,7 +38,7 @@ int MenuFTPServer()
 		return MENU_BROWSE_DEVICE;
 
 	FTPServerMenu * FTPMenu = new FTPServerMenu();
-	FTPMenu->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	FTPMenu->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	FTPMenu->SetPosition(0, 30);
 
 	Application::Instance()->Append(FTPMenu);

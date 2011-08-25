@@ -28,7 +28,7 @@
 
 #include <vector>
 #include <string>
-#include "GUI/gui_window.h"
+#include "GUI/gui_frame.h"
 #include "PlayList.hpp"
 
 enum
@@ -40,7 +40,7 @@ enum
 	MAX_LOOP_MODES
 };
 
-class MusicPlayer : public GuiWindow, public sigslot::has_slots<>
+class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		static MusicPlayer * Instance();

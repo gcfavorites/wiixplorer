@@ -113,7 +113,7 @@ void TextViewer(const char *filepath)
 	}
 
 	TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
-	Editor->SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
+	Editor->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	Editor->SetPosition(0, 0);
 
 	delete filetext;

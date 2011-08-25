@@ -35,7 +35,7 @@
 #include "Memory/Resources.h"
 #include "FileOperations/ItemMarker.h"
 
-class Properties : public GuiWindow, public sigslot::has_slots<>
+class Properties : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		Properties(ItemMarker * IMarker);

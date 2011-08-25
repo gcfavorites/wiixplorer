@@ -35,7 +35,7 @@ Task::Task(const char * title)
 	ButtonIcon = NULL;
 	Title = new GuiText(title, 20, (GXColor) {0, 0, 0, 255});
 	Title->SetMaxWidth(80, DOTTED);
-	Title->SetAlignment(ALIGN_LEFT, ALIGN_MIDDLE);
+	Title->SetAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
 
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
