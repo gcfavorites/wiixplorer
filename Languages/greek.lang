@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -75,9 +75,6 @@ msgstr "Alpha ανάμειξη"
 msgid "App Default"
 msgstr "Προεπιλογή για τα Προγράμματα"
 
-msgid "AppPath changed"
-msgstr "Η διαδρομή προγραμμάτων άλλαξε"
-
 msgid "Apps"
 msgstr "Προγράμματα"
 
@@ -141,20 +138,23 @@ msgstr "Περιήγηση"
 msgid "Browser Mode"
 msgstr "Τρόπος περιήγησης"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr "Η περιήγηση για αρχεία γραμματοσειρών πρέπει να γίνετε στον κεντρικό περιηγητή."
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "Το CRC από το εξαγώμενο αρχείο δεν τεριάζει. Λάθος κωδικός;"
 
-msgid "Calculating MD5..."
-msgstr "Υπολογίζω το MD5..."
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
+msgstr ""
 
 msgid "Calculating total size..."
 msgstr "Υπολογίζω το τελικό μέγεθος..."
+
+msgid "Calculating transfer size..."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
@@ -200,12 +200,6 @@ msgstr "Δεν μπορώ να γράψω σε αυτή την διαδρομή:
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change"
-msgstr "Αλλαγή"
-
-msgid "Change Language Path?"
-msgstr "Να αλλάξω την διαδρομή για την γλώσσα;"
 
 msgid "Channels"
 msgstr "Κανάλια"
@@ -260,17 +254,11 @@ msgstr "Προεπιλογή από την Κονσόλα"
 msgid "Context Menu Button"
 msgstr "Πλήκτρο μενού πλαισίου"
 
-msgid "Continue"
-msgstr "Συνέχισε"
-
 msgid "Controls Settings"
 msgstr "Ρυθμίσεις χειρισμού"
 
 msgid "Convert"
 msgstr "Μετάτρεψε"
-
-msgid "Converting image..."
-msgstr "Μετατροπή εικόνας..."
 
 msgid "Copy"
 msgstr "Αντιγραφή"
@@ -289,9 +277,6 @@ msgstr "Αντιγραφή από"
 
 msgid "Copying item(s):"
 msgstr "Αντιγραφή αρχείου(ων):"
-
-msgid "Could not connect to the network"
-msgstr "Δεν μπορώ να συνδεθώ στο δύκτιο"
 
 msgid "Could not connect to the server."
 msgstr "Δεν μπορώ να συνδεθώ στον server."
@@ -347,8 +332,8 @@ msgstr "Διέγραψε τον προσορινό φάκελο(Temp) κατά �
 msgid "Delete the selected item(s) and its content?"
 msgstr "Διαγραφή επιλεγμένου(ων) αρχείου(ων) και των περιεχωμένων;"
 
-msgid "Deleting files:"
-msgstr "Διαγραφή αρχείων:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr "Ξεμαρκάρισμα όλως των στοιχείων των πλήκτρων"
@@ -365,9 +350,6 @@ msgstr "Συσκευή"
 msgid "Directory .."
 msgstr "Διαδρομή..."
 
-msgid "Directory couldn't be deleted."
-msgstr "Η διαδρομή δεν μπορεί να διαγραφεί."
-
 msgid "Disconnect Client"
 msgstr "Αποσύνδεση πελάτη"
 
@@ -377,8 +359,14 @@ msgstr "Αποσύνδεση SMB"
 msgid "Do you want to add an URL?"
 msgstr "Θέλες να προσθέσω μιά διεύθυνση;"
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "Θέλετε να προσαρτίσετε αυτήν την επικόλληση στην ουρά;"
+
+msgid "Do you want to append this process to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Θέλεις να ξεκινήσω το αρχείο τώρα;"
@@ -408,8 +396,8 @@ msgstr "Θέλεις να βγείς από το πρόγραμμα;"
 msgid "Do you want to load file from: %s ?"
 msgstr "Θέλεις να φορτώσω αρχείο από: %s ;"
 
-msgid "Do you want to load the default language."
-msgstr "Θέλεις να φορτώσω την προεπιλεγμένη γλώσσα;"
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Θέλεις να φορτώσω αυτήν την γλώσσα;"
@@ -437,9 +425,6 @@ msgstr "Θέλεις να ξανανεβάσω τις συσκευές;"
 
 msgid "Do you want to replace this file?"
 msgstr "Θέλεις να αντικαταστήσω αυτό το αρχείο;"
-
-msgid "Do you want to reset the color settings?"
-msgstr "Θέλετε να επαναφέρετε τις ρυθμίσεις χρώματος;"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Θέλεις να επαναφέρω τις αρχικές ρυθμίσεις ελέγχου;"
@@ -500,12 +485,12 @@ msgid "Error - %s is not a file\n"
 msgstr "Λάθος - Το %s δεν είναι αρχείο"
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
-msgstr "Λάθος - Δεν μπορώ να ανοίξω την διαδρομή: %s\n"
-
-#, c-format
 msgid "Error - Could not open file: %s\n"
 msgstr "Λάθος - Δέν μπορώ να ανοίξω το αρχείο: %s\n"
+
+#, c-format
+msgid "Error - Could not parse directory: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -586,8 +571,11 @@ msgstr "Αποτυχία να προσθέσω αρχείο(α)"
 msgid "Failed adding the item(s)."
 msgstr "Αποτυχία να προσθέσω αρχείο(α)"
 
-msgid "Failed copying item(s)."
-msgstr "Απέτυχα να αντιγράψω το(α) αρχείο(α)."
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
@@ -595,8 +583,11 @@ msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
 msgid "Failed extracting the item(s)."
 msgstr "Απέτυχα να εξάγω το(α) συγκεκριμένο(α) αρχείο(α)."
 
-msgid "Failed moving item(s)."
-msgstr "Απέτυχα να μετακινήσω το(α) αρχείο(α)."
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
+msgstr ""
 
 msgid "Failed renaming item"
 msgstr "Απέτυχα να μεταονομάσω το αρχείο"
@@ -619,8 +610,8 @@ msgstr "Απέτυχα να γράψω στο MBR"
 msgid "File Extensions"
 msgstr "Επεκτάσεις αρχείου"
 
-msgid "File Extensions Assignment"
-msgstr "Εκχώρηση Επεκτάση αρχείου"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr "Σύστημα αρχείων:"
@@ -630,9 +621,6 @@ msgstr "Το αρχείο ήδη υπάρχει:"
 
 msgid "File could not be deleted."
 msgstr "Το αρχείο δεν μπορεί να διαγραφεί."
-
-msgid "File couldn't be deleted."
-msgstr "Αυτό το αρχείο δεν μπορεί να διεγραφεί."
 
 msgid "File is corrupt (CRC mismatch)."
 msgstr "Το αρχείο είναι διεφθαρμένο (CRC αναντιστοιχία)."
@@ -691,9 +679,6 @@ msgstr "Διαμόρφωση"
 
 msgid "Format Partition?"
 msgstr "Διαμόρφωση κατάτμησης;"
-
-msgid "Formating partition..."
-msgstr "Διαμορφώνω την κατάτμηση..."
 
 msgid "Formatter"
 msgstr "Διαμόρφωση"
@@ -757,9 +742,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "Γενικές Ρυθμίσεις"
-
-msgid "Getting Changelog..."
-msgstr "Παίρνω το ιστορικό..."
 
 msgid "Go Back"
 msgstr "Πίσω"
@@ -881,9 +863,6 @@ msgstr "Γλώσσα"
 msgid "Language Files"
 msgstr "Αρχεία γλωσσών"
 
-msgid "Language Path changed."
-msgstr "Η διαδρομή της γλώσσας άλλαξε."
-
 msgid "Language Settings"
 msgstr "Ρυθμίσεις Γλώσσας"
 
@@ -950,9 +929,6 @@ msgstr "MPlayerCE"
 msgid "MPlayerCE Path"
 msgstr "Διαδρομή για το MPlayerCE"
 
-msgid "MPlayerCE path changed"
-msgstr "Η διαδρομή για το MPlayerCE άλλαξε"
-
 msgid "Mark Item Button"
 msgstr "Μάρκαρε πλήκτρο αντικειμένου"
 
@@ -962,14 +938,8 @@ msgstr "Ρυθμιστής μνήμης"
 msgid "Menu"
 msgstr "Μενού"
 
-msgid "Minimize"
-msgstr "Ελαχ...ηση"
-
 msgid "Mounted as:"
 msgstr "Ανέβηκε ως:"
-
-msgid "Mounting disc"
-msgstr "Ανέβασμα δίσκου"
 
 msgid "Moving item(s):"
 msgstr "Μετακίνηση αρχείου(α):"
@@ -1017,9 +987,6 @@ msgstr "Δεν υπάρχει homebrew στο αρχείο zip."
 msgid "No image found at index %d."
 msgstr "Δεν βρέθηκε εικόνα στον δείκτη %d."
 
-msgid "No language files found."
-msgstr "Δεν βρεθήκανε αρχεία γλώσσας."
-
 msgid "No network connection."
 msgstr "Δεν υπάρχει σύνδεση στο δύκτιο."
 
@@ -1052,9 +1019,6 @@ msgstr "Δεν υπάρχει αρκετή μνήμη."
 
 msgid "Not mounted"
 msgstr "Δεν ανέβηκε"
-
-msgid "Notice:"
-msgstr "Ειδοποίηση:"
 
 msgid "OFF"
 msgstr "Κλειστό"
@@ -1128,8 +1092,14 @@ msgstr "Να επικόλλησω αρχείο(α) σε αυτή την διαδ
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr "Η επικόλληση αυτών τον αρχείων υποστηρίζεται μόνο σε αρχεία ZIP."
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Διαδρομή εγκατάστασης"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "Παίξε αρχείο"
@@ -1151,9 +1121,6 @@ msgstr "Παρακαλώ δώστε κωδικό."
 
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
-
-msgid "Please wait:"
-msgstr "Παρακαλώ περιμένετε:"
 
 msgid "Possible unsupported format."
 msgstr "Πιθανών μη υποστηριζόμενη μορφή."
@@ -1306,9 +1273,6 @@ msgstr "Θέστω ενεργό"
 msgid "Set this Partition as Active?"
 msgstr "Να θέσω αυτήν την κατάτμηση ενεργή;"
 
-msgid "Setting partition as active."
-msgstr "Θέτοντας την κατάτμηση ως ενεργή."
-
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
@@ -1436,9 +1400,6 @@ msgstr "Η μεταφορά απέτυχε"
 msgid "Transfer failed."
 msgstr "Η μεταφορά απέτυχε."
 
-msgid "Transfering files:"
-msgstr "Μεταφέρω αρχεία:"
-
 msgid "URL List"
 msgstr "Λίστα συνδέσμων"
 
@@ -1487,9 +1448,6 @@ msgstr "Αναβάθμιση Icon.png"
 msgid "Update Meta.xml"
 msgstr "Αναβάθμιση Meta.xml"
 
-msgid "Update Path changed."
-msgstr "Η διαδρομή της αναβάθμισης άλλαξε."
-
 msgid "Update failed"
 msgstr "Η αναβάθμηση απέτυχε"
 
@@ -1499,9 +1457,6 @@ msgstr "Η αναβάθμηση τελείωσε επιτυχώς"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Διαθέσημη αναβάθμηση έκδοση %i"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr "Αναβάθμηση/Κατέβασμα αρχείων γλωσσών."
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1620,9 +1575,6 @@ msgstr "WiiMC"
 msgid "WiiMC Path"
 msgstr "Διαδρομή για το WiiMC"
 
-msgid "WiiMC path changed"
-msgstr "Η διαδρομή για το WiiMC άλλαξε"
-
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer προεπιλεγμένη μουσική"
 
@@ -1640,9 +1592,6 @@ msgstr "Ναι"
 
 msgid "Yes to all"
 msgstr "Ναι σε όλα"
-
-msgid "You can not cut into the directory itself."
-msgstr "Δεν μπόρεις να κάνεις απόκοπή στην ίδια διαδρομή."
 
 msgid "You can't set a logical partition as active."
 msgstr "Δεν μπορείς να θέσεις μία λογική κατάτμηση ως ενεργή."
@@ -1677,6 +1626,9 @@ msgstr "και όλους τους μεταφραστές."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr "για τον FTP Server κώδικα."
 
@@ -1691,6 +1643,102 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Error - Could not open directory: %s\n"
+#~ msgstr "Λάθος - Δεν μπορώ να ανοίξω την διαδρομή: %s\n"
+
+#~ msgid "Deleting files:"
+#~ msgstr "Διαγραφή αρχείων:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "Η διαδρομή δεν μπορεί να διαγραφεί."
+
+#~ msgid "Failed copying item(s)."
+#~ msgstr "Απέτυχα να αντιγράψω το(α) αρχείο(α)."
+
+#~ msgid "Failed moving item(s)."
+#~ msgstr "Απέτυχα να μετακινήσω το(α) αρχείο(α)."
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "Αυτό το αρχείο δεν μπορεί να διεγραφεί."
+
+#~ msgid "Transfering files:"
+#~ msgstr "Μεταφέρω αρχεία:"
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "Δεν μπόρεις να κάνεις απόκοπή στην ίδια διαδρομή."
+
+#~ msgid "AppPath changed"
+#~ msgstr "Η διαδρομή προγραμμάτων άλλαξε"
+
+#~ msgid "Browsing for font files must be done in the main browser."
+#~ msgstr "Η περιήγηση για αρχεία γραμματοσειρών πρέπει να γίνετε στον κεντρικό περιηγητή."
+
+#~ msgid "Calculating MD5..."
+#~ msgstr "Υπολογίζω το MD5..."
+
+#~ msgid "Change"
+#~ msgstr "Αλλαγή"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "Να αλλάξω την διαδρομή για την γλώσσα;"
+
+#~ msgid "Continue"
+#~ msgstr "Συνέχισε"
+
+#~ msgid "Converting image..."
+#~ msgstr "Μετατροπή εικόνας..."
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "Δεν μπορώ να συνδεθώ στο δύκτιο"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "Θέλεις να φορτώσω την προεπιλεγμένη γλώσσα;"
+
+#~ msgid "Do you want to reset the color settings?"
+#~ msgstr "Θέλετε να επαναφέρετε τις ρυθμίσεις χρώματος;"
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "Εκχώρηση Επεκτάση αρχείου"
+
+#~ msgid "Formating partition..."
+#~ msgstr "Διαμορφώνω την κατάτμηση..."
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "Παίρνω το ιστορικό..."
+
+#~ msgid "Language Path changed."
+#~ msgstr "Η διαδρομή της γλώσσας άλλαξε."
+
+#~ msgid "MPlayerCE path changed"
+#~ msgstr "Η διαδρομή για το MPlayerCE άλλαξε"
+
+#~ msgid "Minimize"
+#~ msgstr "Ελαχ...ηση"
+
+#~ msgid "Mounting disc"
+#~ msgstr "Ανέβασμα δίσκου"
+
+#~ msgid "No language files found."
+#~ msgstr "Δεν βρεθήκανε αρχεία γλώσσας."
+
+#~ msgid "Notice:"
+#~ msgstr "Ειδοποίηση:"
+
+#~ msgid "Please wait:"
+#~ msgstr "Παρακαλώ περιμένετε:"
+
+#~ msgid "Setting partition as active."
+#~ msgstr "Θέτοντας την κατάτμηση ως ενεργή."
+
+#~ msgid "Update Path changed."
+#~ msgstr "Η διαδρομή της αναβάθμισης άλλαξε."
+
+#~ msgid "Updating/Downloading Languagefiles."
+#~ msgstr "Αναβάθμηση/Κατέβασμα αρχείων γλωσσών."
+
+#~ msgid "WiiMC path changed"
+#~ msgstr "Η διαδρομή για το WiiMC άλλαξε"
 
 #~ msgid "Reload"
 #~ msgstr "Ανανέωση"

@@ -51,6 +51,7 @@ DeviceMenu::DeviceMenu(int x, int y, GuiFrame *p)
 	usb_blue_ImgData = Resources::GetImageData("usbstorage_blue.png");
 	smb_ImgData = Resources::GetImageData("networkstorage.png");
 	ftp_ImgData = Resources::GetImageData("ftpstorage.png");
+	nand_ImgData = Resources::GetImageData("nandstorage.png");
 	dvd_ImgData = Resources::GetImageData("dvdstorage.png");
 
 	//! Menu images
@@ -181,6 +182,31 @@ DeviceMenu::DeviceMenu(int x, int y, GuiFrame *p)
 
 			deviceCount++;
 		}
+	}
+
+	if(DeviceHandler::Instance()->IsInserted(NAND))
+	{
+		deviceText[deviceCount] = new GuiText(DeviceName[NAND], FontSize, (GXColor){0, 0, 0, 255});
+		deviceText[deviceCount]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
+		deviceText[deviceCount]->SetPosition(0, 2);
+		deviceImgs[deviceCount] = new GuiImage(nand_ImgData);
+		deviceImgs[deviceCount]->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
+		deviceImgOver[deviceCount] = new GuiImage(menu_select);
+		deviceImgOver[deviceCount]->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+		deviceBtn[deviceCount] = new GuiButton(deviceImgs[deviceCount]->GetWidth(), deviceImgs[deviceCount]->GetHeight()+FontSize);
+		deviceBtn[deviceCount]->SetLabel(deviceText[deviceCount]);
+		deviceBtn[deviceCount]->SetSoundClick(btnClick);
+		deviceBtn[deviceCount]->SetIcon(deviceImgs[deviceCount]);
+		deviceBtn[deviceCount]->SetImageOver(deviceImgOver[deviceCount]);
+		deviceBtn[deviceCount]->SetTrigger(trigA);
+		deviceBtn[deviceCount]->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
+		deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
+		deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+		PositionX += deviceImgs[deviceCount]->GetWidth()+10;
+
+		deviceSelection[deviceCount] = NAND;
+
+		deviceCount++;
 	}
 
 	if(DeviceHandler::Instance()->IsInserted(DVD))

@@ -42,6 +42,8 @@ void FileExtSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Wii Binary Files"));
 	options.SetName(i++, tr("PDF Files"));
 	options.SetName(i++, tr("WiiXplorer Movies"));
+
+	SetOptionValues();
 }
 
 void FileExtSettingsMenu::SetOptionValues()

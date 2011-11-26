@@ -1,7 +1,7 @@
 /****************************************************************************
  * WiiXplorer resource files.
  * This file is generated automatically.
- * Includes 134 files.
+ * Includes 135 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
@@ -56,9 +56,6 @@ extern const u32 battery_bar_red_png_size;
 extern const u8 battery_bar_white_png[];
 extern const u32 battery_bar_white_png_size;
 
-extern const u8 battery_red_png[];
-extern const u32 battery_red_png_size;
-
 extern const u8 bg_browser_png[];
 extern const u32 bg_browser_png_size;
 
@@ -85,9 +82,6 @@ extern const u32 ClickMenuLower_png_size;
 
 extern const u8 ClickMenuMiddle_png[];
 extern const u32 ClickMenuMiddle_png_size;
-
-extern const u8 ClickMenuUpper_png[];
-extern const u32 ClickMenuUpper_png_size;
 
 extern const u8 close_png[];
 extern const u32 close_png_size;
@@ -176,9 +170,6 @@ extern const u32 keyboard_largekey_png_size;
 extern const u8 keyboard_largekey_over_png[];
 extern const u32 keyboard_largekey_over_png_size;
 
-extern const u8 keyboard_mediumkey_png[];
-extern const u32 keyboard_mediumkey_png_size;
-
 extern const u8 keyboard_mediumkey_over_png[];
 extern const u32 keyboard_mediumkey_over_png_size;
 
@@ -194,6 +185,9 @@ extern const u32 menu_selection_png_size;
 extern const u8 minimize_dis_png[];
 extern const u32 minimize_dis_png_size;
 
+extern const u8 nandstorage_png[];
+extern const u32 nandstorage_png_size;
+
 extern const u8 navi_default_png[];
 extern const u32 navi_default_png_size;
 
@@ -202,6 +196,24 @@ extern const u32 navi_down_png_size;
 
 extern const u8 navi_left_png[];
 extern const u32 navi_left_png_size;
+
+extern const u8 battery_red_png[];
+extern const u32 battery_red_png_size;
+
+extern const u8 ClickMenuUpper_png[];
+extern const u32 ClickMenuUpper_png_size;
+
+extern const u8 keyboard_mediumkey_png[];
+extern const u32 keyboard_mediumkey_png_size;
+
+extern const u8 player_png[];
+extern const u32 player_png_size;
+
+extern const u8 prev_png[];
+extern const u32 prev_png_size;
+
+extern const u8 settings_png[];
+extern const u32 settings_png_size;
 
 extern const u8 navi_right_png[];
 extern const u32 navi_right_png_size;
@@ -229,9 +241,6 @@ extern const u32 oneButtonScroll_png_size;
 
 extern const u8 opera_icon_png[];
 extern const u32 opera_icon_png_size;
-
-extern const u8 player_png[];
-extern const u32 player_png_size;
 
 extern const u8 player1_grab_png[];
 extern const u32 player1_grab_png_size;
@@ -262,9 +271,6 @@ extern const u32 player_icon_png_size;
 
 extern const u8 playlist_png[];
 extern const u32 playlist_png_size;
-
-extern const u8 prev_png[];
-extern const u32 prev_png_size;
 
 extern const u8 prev_over_png[];
 extern const u32 prev_over_png_size;
@@ -322,9 +328,6 @@ extern const u32 scrollbar_box_over_png_size;
 
 extern const u8 sdstorage_png[];
 extern const u32 sdstorage_png_size;
-
-extern const u8 settings_png[];
-extern const u32 settings_png_size;
 
 extern const u8 slideshow_png[];
 extern const u32 slideshow_png_size;
@@ -436,7 +439,6 @@ static RecourceFile RecourceList[] =
 	{"battery_bar.png", battery_bar_png, battery_bar_png_size, NULL, 0},
 	{"battery_bar_red.png", battery_bar_red_png, battery_bar_red_png_size, NULL, 0},
 	{"battery_bar_white.png", battery_bar_white_png, battery_bar_white_png_size, NULL, 0},
-	{"battery_red.png", battery_red_png, battery_red_png_size, NULL, 0},
 	{"bg_browser.png", bg_browser_png, bg_browser_png_size, NULL, 0},
 	{"bg_browser_selection.png", bg_browser_selection_png, bg_browser_selection_png_size, NULL, 0},
 	{"bg_properties.png", bg_properties_png, bg_properties_png_size, NULL, 0},
@@ -446,7 +448,6 @@ static RecourceFile RecourceList[] =
 	{"channels.png", channels_png, channels_png_size, NULL, 0},
 	{"ClickMenuLower.png", ClickMenuLower_png, ClickMenuLower_png_size, NULL, 0},
 	{"ClickMenuMiddle.png", ClickMenuMiddle_png, ClickMenuMiddle_png_size, NULL, 0},
-	{"ClickMenuUpper.png", ClickMenuUpper_png, ClickMenuUpper_png_size, NULL, 0},
 	{"close.png", close_png, close_png_size, NULL, 0},
 	{"close_over.png", close_over_png, close_over_png_size, NULL, 0},
 	{"deviceselection.png", deviceselection_png, deviceselection_png_size, NULL, 0},
@@ -476,15 +477,21 @@ static RecourceFile RecourceList[] =
 	{"keyboard_key_over.png", keyboard_key_over_png, keyboard_key_over_png_size, NULL, 0},
 	{"keyboard_largekey.png", keyboard_largekey_png, keyboard_largekey_png_size, NULL, 0},
 	{"keyboard_largekey_over.png", keyboard_largekey_over_png, keyboard_largekey_over_png_size, NULL, 0},
-	{"keyboard_mediumkey.png", keyboard_mediumkey_png, keyboard_mediumkey_png_size, NULL, 0},
 	{"keyboard_mediumkey_over.png", keyboard_mediumkey_over_png, keyboard_mediumkey_over_png_size, NULL, 0},
 	{"keyboard_textbox.png", keyboard_textbox_png, keyboard_textbox_png_size, NULL, 0},
 	{"maximize_dis.png", maximize_dis_png, maximize_dis_png_size, NULL, 0},
 	{"menu_selection.png", menu_selection_png, menu_selection_png_size, NULL, 0},
 	{"minimize_dis.png", minimize_dis_png, minimize_dis_png_size, NULL, 0},
+	{"nandstorage.png", nandstorage_png, nandstorage_png_size, NULL, 0},
 	{"navi_default.png", navi_default_png, navi_default_png_size, NULL, 0},
 	{"navi_down.png", navi_down_png, navi_down_png_size, NULL, 0},
 	{"navi_left.png", navi_left_png, navi_left_png_size, NULL, 0},
+	{"battery_red.png", battery_red_png, battery_red_png_size, NULL, 0},
+	{"ClickMenuUpper.png", ClickMenuUpper_png, ClickMenuUpper_png_size, NULL, 0},
+	{"keyboard_mediumkey.png", keyboard_mediumkey_png, keyboard_mediumkey_png_size, NULL, 0},
+	{"player.png", player_png, player_png_size, NULL, 0},
+	{"prev.png", prev_png, prev_png_size, NULL, 0},
+	{"settings.png", settings_png, settings_png_size, NULL, 0},
 	{"navi_right.png", navi_right_png, navi_right_png_size, NULL, 0},
 	{"navi_up.png", navi_up_png, navi_up_png_size, NULL, 0},
 	{"network.png", network_png, network_png_size, NULL, 0},
@@ -494,7 +501,6 @@ static RecourceFile RecourceList[] =
 	{"next_over.png", next_over_png, next_over_png_size, NULL, 0},
 	{"oneButtonScroll.png", oneButtonScroll_png, oneButtonScroll_png_size, NULL, 0},
 	{"opera_icon.png", opera_icon_png, opera_icon_png_size, NULL, 0},
-	{"player.png", player_png, player_png_size, NULL, 0},
 	{"player1_grab.png", player1_grab_png, player1_grab_png_size, NULL, 0},
 	{"player1_point.png", player1_point_png, player1_point_png_size, NULL, 0},
 	{"player2_grab.png", player2_grab_png, player2_grab_png_size, NULL, 0},
@@ -505,7 +511,6 @@ static RecourceFile RecourceList[] =
 	{"player4_point.png", player4_point_png, player4_point_png_size, NULL, 0},
 	{"player_icon.png", player_icon_png, player_icon_png_size, NULL, 0},
 	{"playlist.png", playlist_png, playlist_png_size, NULL, 0},
-	{"prev.png", prev_png, prev_png_size, NULL, 0},
 	{"prev_over.png", prev_over_png, prev_over_png_size, NULL, 0},
 	{"progressbar_outline.png", progressbar_outline_png, progressbar_outline_png_size, NULL, 0},
 	{"progress_window.png", progress_window_png, progress_window_png_size, NULL, 0},
@@ -525,7 +530,6 @@ static RecourceFile RecourceList[] =
 	{"scrollbar_box.png", scrollbar_box_png, scrollbar_box_png_size, NULL, 0},
 	{"scrollbar_box_over.png", scrollbar_box_over_png, scrollbar_box_over_png_size, NULL, 0},
 	{"sdstorage.png", sdstorage_png, sdstorage_png_size, NULL, 0},
-	{"settings.png", settings_png, settings_png_size, NULL, 0},
 	{"slideshow.png", slideshow_png, slideshow_png_size, NULL, 0},
 	{"slideshow_over.png", slideshow_over_png, slideshow_over_png_size, NULL, 0},
 	{"small_button.png", small_button_png, small_button_png_size, NULL, 0},

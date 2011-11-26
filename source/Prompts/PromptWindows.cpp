@@ -50,16 +50,15 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 	KeyboardWindow *keyboard = new KeyboardWindow(var, maxlen);
 	keyboard->DimBackground(true);
 
-	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
 	Application::Instance()->Append(keyboard);
-	Application::Instance()->UpdateOnly(keyboard);
+	Application::Instance()->SetUpdateOnly(keyboard);
 
 	while((save = keyboard->GetChoice()) < 0)
 	{
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UpdateOnly(onlyUpdateElement);
+	Application::Instance()->UnsetUpdateOnly(keyboard);
 
 	delete keyboard;
 	keyboard = NULL;
@@ -102,9 +101,8 @@ bool NetworkInitPrompt()
 
 	PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
 	Prompt->DimBackground(true);
-	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
 	Application::Instance()->Append(Prompt);
-	Application::Instance()->UpdateOnly(Prompt);
+	Application::Instance()->SetUpdateOnly(Prompt);
 
 	if(!Settings.AutoConnect)
 	{
@@ -117,7 +115,7 @@ bool NetworkInitPrompt()
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UpdateOnly(onlyUpdateElement);
+	Application::Instance()->UnsetUpdateOnly(Prompt);
 	delete Prompt;
 	Prompt = NULL;
 
@@ -143,16 +141,15 @@ int WindowPrompt(const char *title, const char *msg,
 
 	PromptWindow * Prompt = new PromptWindow(title, msg, btn1Label, btn2Label, btn3Label, btn4Label);
 	Prompt->DimBackground(true);
-	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
 	Application::Instance()->Append(Prompt);
-	Application::Instance()->UpdateOnly(Prompt);
+	Application::Instance()->SetUpdateOnly(Prompt);
 
 	while((choice = Prompt->GetChoice()) < 0)
 	{
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UpdateOnly(onlyUpdateElement);
+	Application::Instance()->UnsetUpdateOnly(Prompt);
 	delete Prompt;
 	Prompt = NULL;
 
@@ -169,9 +166,8 @@ int WaitSMBConnect(void)
 
 	PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
 	Prompt->DimBackground(true);
-	GuiElement *onlyUpdateElement = Application::Instance()->GetUpdateOnly();
 	Application::Instance()->Append(Prompt);
-	Application::Instance()->UpdateOnly(Prompt);
+	Application::Instance()->SetUpdateOnly(Prompt);
 
 	if(!Settings.AutoConnect)
 	{
@@ -203,7 +199,7 @@ int WaitSMBConnect(void)
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UpdateOnly(onlyUpdateElement);
+	Application::Instance()->UnsetUpdateOnly(Prompt);
 	delete Prompt;
 	Prompt = NULL;
 

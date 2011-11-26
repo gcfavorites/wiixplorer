@@ -21,9 +21,6 @@
 #include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
 
-//! Explorer class, forward declaration
-class Explorer;
-
 class Application : public GuiFrame
 {
 	public:
@@ -32,19 +29,22 @@ class Application : public GuiFrame
 
 		void quit();
 		void exec();
+		void show();
+		void hide();
 		void updateEvents();
-
-		/*
-		 * Temporary function till multi window feature
-		 */
-		Explorer *GetExplorer() { return mainExplorer; }
+		static bool isClosing() { return exitApplication; }
 
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);
 
 		void PushForDelete(GuiElement *e);
-		void UpdateOnly(GuiElement *e) { updateOnlyElement = e; }
-		GuiElement *GetUpdateOnly() const { return updateOnlyElement; }
+		void SetUpdateOnly(GuiElement *e) { UnsetUpdateOnly(e); updateOnlyElement.push_back(e); }
+		void UnsetUpdateOnly(GuiElement *e)
+		{
+			for(u32 i = 0; i < updateOnlyElement.size(); ++i)
+				if(updateOnlyElement[i] == e)
+					updateOnlyElement.erase(updateOnlyElement.begin()+i);
+		}
 
 		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); };
 	private:
@@ -52,15 +52,13 @@ class Application : public GuiFrame
 		virtual ~Application();
 
 		static Application *instance;
-
-		bool exitApplication;
+		static bool exitApplication;
 
 		GuiImage *bgImg;
 		GuiImageData *pointer[4];
 		GuiImageData *standardPointer[4];
 		GuiImageData *grabPointer[4];
-		GuiElement *updateOnlyElement;
-		Explorer *mainExplorer;
+		std::vector<GuiElement *> updateOnlyElement;
 		std::vector<GuiElement *> elements;
 
 		struct ElementList

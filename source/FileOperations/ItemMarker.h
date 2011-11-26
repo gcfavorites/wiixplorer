@@ -50,14 +50,15 @@ class ItemMarker
 		void AddItem(const ItemStruct * Item);
 		int FindItem(const ItemStruct * Item);
 		void RemoveItem(const ItemStruct * Item);
-		ItemStruct * GetItem(int ind);
-		const char * GetItemName(int ind);
-		const char * GetItemPath(int ind);
+		ItemStruct * GetItem(int ind) const;
+		const char * GetItemName(int ind) const;
+		const char * GetItemPath(int ind) const;
 		u64 GetItemSize(int ind);
 		bool IsItemDir(int ind);
 		int GetItemIndex(int ind);
-		int GetItemcount() { return Items.size(); };
+		int GetItemcount() const { return Items.size(); };
 		void Reset();
+		const ItemMarker & operator=(const ItemMarker &marker);
 	protected:
 		std::vector<ItemStruct *> Items;
 };

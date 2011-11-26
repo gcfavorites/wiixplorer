@@ -106,6 +106,7 @@ class GuiButton : public GuiElement
 	protected:
 		//! Init variables
 		void Init();
+		bool ClickAndHold;
 
 		GuiImage * image; //!< Button image (default)
 		GuiImage * imageOver; //!< Button image for STATE_SELECTED

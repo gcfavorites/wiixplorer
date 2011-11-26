@@ -27,22 +27,31 @@
 #define _TASK_HPP_
 
 #include "GUI/gui_button.h"
-#include "Controls/Callback.hpp"
 
 class Task : public GuiButton, public sigslot::has_slots<>
 {
 	public:
 		Task(const char * title);
 		virtual ~Task();
-		void SetCallback(cCallback * CallbackClass) { Callback = CallbackClass; };
-		void SetTitle(const char * title) { Title->SetText(title); };
-		void Execute(int param = 0);
+		void SetTitle(const char * title) { Title->SetText(title); }
+		const wchar_t *getTitle() { return Title->GetText(); }
 		void SetIcon(GuiImageData * img);
-		void SetParameter(int p) { Parameter = p; };
+		void SetParameter(int p) { Parameter = p; }
+		int getType() const { return TaskType; }
+		sigslot::signal2<Task *, int> ShowNormal;
+		sigslot::signal1<Task *> TaskBegin;
+		sigslot::signal1<Task *> TaskEnd;
+		sigslot::signal1<Task *> TaskDestroyed;
+		enum
+		{
+			DEFAULT,
+			PROCESS
+		};
+	protected:
+		int TaskType;
 	private:
 		void OnButtonClick(GuiButton * sender, int channel, const POINT &point);
 
-		cCallback * Callback;
 		GuiText * Title;
 		GuiImage * ButtonImg;
 		GuiImage * ButtonIcon;

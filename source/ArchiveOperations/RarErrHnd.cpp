@@ -230,7 +230,7 @@ void ErrorHandler::Throw(int Code)
 		return;
 
 	StopProgress();
-	ShowError("Fatal error: %i. Must shutdown app.", Code);
+	ShowError("Fatal error: %i.", Code);
 	ExitCode = FATAL_ERROR;
 }
 

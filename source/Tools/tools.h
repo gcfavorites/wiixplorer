@@ -50,6 +50,7 @@ extern "C" {
 
 void ShowError(const char * format, ...);
 void ShowMsg(const char * title, const char * format, ...);
+void ThrowMsg(const char * title, const char * format, ...);
 
 #ifdef __cplusplus
 }

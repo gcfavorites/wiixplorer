@@ -26,6 +26,7 @@
 #include <sys/dir.h>
 #include <unistd.h>
 #include "Memory/Resources.h"
+#include "DirList.h"
 #include "PlayList.hpp"
 #include "main.h"
 
@@ -379,31 +380,10 @@ bool PlayList::ParsePath(const char * filepath)
 	else
 		return false;
 
-	char filename[1024];
-	struct stat st;
+	DirList dir(currentPath, Settings.FileExtensions.GetAudio(), DirList::Files | DirList::CheckSubfolders);
 
-	DIR_ITER * dir = diropen(currentPath);
-	if (dir == NULL)
-	{
-		return false;
-	}
-
-	while (dirnext(dir,filename,&st) == 0)
-	{
-		char * fileext = strrchr(filename, '.');
-		if(fileext)
-		{
-			if(Settings.FileExtensions.CompareAudio(fileext) == 0)
-			{
-				char tmppath[1024];
-				snprintf(tmppath, sizeof(tmppath), "%s%s", currentPath, filename);
-				AddEntrie(tmppath);
-			}
-		}
-	}
-
-	dirclose(dir);
-	std::vector<char *>(FileList).swap(FileList);
+	for(int i = 0; i < dir.GetFilecount(); ++i)
+		AddEntrie(dir.GetFilepath(i));
 
 	return true;
 }

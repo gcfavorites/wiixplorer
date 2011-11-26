@@ -1,49 +1,40 @@
- /***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * fileops.h
- * File operations for the WiiXplorer
- * Handling all the needed file operations
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #ifndef _FILEOPS_H_
 #define _FILEOPS_H_
 
+#include <vector>
+#include <string>
 #include <gctypes.h>
 
 bool CreateSubfolder(const char * fullpath);
-bool FindFile(const char * filename, const char * path);
 bool CheckFile(const char * filepath);
 u64 FileSize(const char * filepath);
-int LoadFileToMem(const char * filepath, u8 **buffer, u64 *size);
-int LoadFileToMemWithProgress(const char *progressText, const char *filePath, u8 **buffer, u64 *size);
+int LoadFileToMem(const char * filepath, u8 **buffer, u32 *size);
+int LoadFileToMemWithProgress(const char *progressText, const char *filePath, u8 **buffer, u32 *size);
 int CopyFile(const char * src, const char * dest);
+int ListDirectory(std::string &path, std::vector<char *> &DirList, std::vector<char *> &FileList);
 int CopyDirectory(const char * src, const char * dest);
 int MoveDirectory(const char * src, const char * dest);
 int MoveFile(const char *srcpath, const char *destdir);
 int RemoveDirectory(const char * dirpath);
 bool RenameFile(const char * srcpath, const char * destpath);
 bool RemoveFile(const char * filepath);
-void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filenumber);
+void GetFolderSize(const char * folderpath, u64 &foldersize, u32 &filenumber, const bool &bCancel);
 bool CompareDevices(const char *src, const char *dest);
 void ResetReplaceChoice();
 

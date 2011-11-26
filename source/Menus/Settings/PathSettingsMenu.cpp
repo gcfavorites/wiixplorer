@@ -41,6 +41,8 @@ void PathSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Temporary Path"));
 	options.SetName(i++, tr("URL List Path"));
 	options.SetName(i++, tr("Delete Temp Path on Exit"));
+
+	SetOptionValues();
 }
 
 void PathSettingsMenu::SetOptionValues()

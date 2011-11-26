@@ -31,10 +31,12 @@
 #include "Controls/Application.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "FTPOperations/FTPServer.h"
 #include "Memory/mem2.h"
 #include "VideoOperations/video.h"
 #include "SoundOperations/SoundHandler.hpp"
+#include "SoundOperations/MusicPlayer.h"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "DiskOperations/di2.h"
@@ -78,6 +80,8 @@ extern "C" void ExitApp()
 	ShutdownPads();
 	Clipboard::DestroyInstance();
 	Application::DestroyInstance();
+	Taskbar::DestroyInstance();
+	MusicPlayer::DestroyInstance();
 	ProgressWindow::DestroyInstance();
 	FTPServer::DestroyInstance();
 	Channels::DestroyInstance();
@@ -90,6 +94,7 @@ extern "C" void ExitApp()
 	DI2_Close();
 	USB_Deinitialize();
 	DeInit_Network();
+	ISFS_Deinitialize();
 	MEM2_cleanup();
 	mload_DeInit();
 	MagicPatches(0);

@@ -38,6 +38,7 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 						const char *btn3Label, const char *btn4Label)
 	: GuiFrame(440, 270)
 {
+	AutoClose = false;
 	choice = -1;
 
 	btnClick = Resources::GetSound("button_click.wav");
@@ -287,5 +288,11 @@ void PromptWindow::OnButtonClick(GuiButton *sender, int pointer UNUSED, const PO
 	{
 		choice = 0;
 		ButtonClicked(this, 0);
+	}
+
+	if(AutoClose)
+	{
+		Application::Instance()->UnsetUpdateOnly(this);
+		Application::Instance()->PushForDelete(this);
 	}
 }

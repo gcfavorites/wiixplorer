@@ -61,6 +61,7 @@ enum
 	FTP8,
 	FTP9,
 	FTP10,
+	NAND,
 	DVD,
 	MAXDEVICES
 };
@@ -100,6 +101,7 @@ const char DeviceName[MAXDEVICES][6] =
 	"ftp8",
 	"ftp9",
 	"ftp10",
+	"nand",
 	"dvd",
 };
 
@@ -121,6 +123,7 @@ class DeviceHandler
 		bool MountGCB();
 		bool MountAllUSB();
 		bool MountUSB(int part);
+		bool MountNAND();
 		bool MountDVD();
 		bool SD_Inserted() { if(sd) return sd->IsInserted(); return false; };
 		bool GCA_Inserted() { if(gca) return gca->IsInserted(); return false; };
@@ -133,6 +136,7 @@ class DeviceHandler
 		void UnMountGCB() { if(gcb) delete gcb; gcb = NULL; };
 		void UnMountUSB(int pos);
 		void UnMountAllUSB();
+		void UnMountNAND();
 		void UnMountDVD();
 		PartitionHandle * GetSDHandle() { return sd; };
 		PartitionHandle * GetGCAHandle() { return gca; };

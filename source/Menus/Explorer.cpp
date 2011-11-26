@@ -41,10 +41,6 @@ Explorer::Explorer(GuiFrame *p, const char *path)
 Explorer::~Explorer()
 {
 	hide();
-
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	Resources::Remove(btnSoundClick);
@@ -58,6 +54,7 @@ Explorer::~Explorer()
 	Resources::Remove(usbstorage_blue);
 	Resources::Remove(networkstorage);
 	Resources::Remove(ftpstorage);
+	Resources::Remove(nand_ImgData);
 	Resources::Remove(dvd_ImgData);
 
 	delete BackgroundImg;
@@ -119,13 +116,16 @@ void Explorer::Init()
 	usbstorage_blue = Resources::GetImageData("usbstorage_blue.png");
 	networkstorage = Resources::GetImageData("networkstorage.png");
 	ftpstorage = Resources::GetImageData("ftpstorage.png");
+	nand_ImgData = Resources::GetImageData("nandstorage.png");
 	dvd_ImgData = Resources::GetImageData("dvdstorage.png");
 
 	width = Background->GetWidth();
 	height = Background->GetHeight();
 	BackgroundImg = new GuiImage(Background);
 
-	if(Settings.BrowserMode == ICONBROWSER)
+	guiBrowserType = Settings.BrowserMode;
+
+	if(guiBrowserType == ICONBROWSER)
 	{
 		guiBrowser = new IconFileBrowser(curBrowser, width, 252);
 	}
@@ -203,8 +203,8 @@ void Explorer::Init()
 	Append(Adressbar);
 	Append(RefreshBtn);
 	Append(deviceSwitchBtn);
-	Append(guiBrowser);
 	Append(BackInDirBtn);
+	Append(guiBrowser);
 
 	show();
 }
@@ -215,13 +215,31 @@ void Explorer::show()
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Append(this);
+
+	if(guiBrowserType != Settings.BrowserMode)
+	{
+		Remove(guiBrowser);
+		delete guiBrowser;
+		guiBrowserType = Settings.BrowserMode;
+
+		if(guiBrowserType == ICONBROWSER)
+			guiBrowser = new IconFileBrowser(curBrowser, width, 252);
+		else
+			guiBrowser = new ListFileBrowser(curBrowser, width, 252);
+		guiBrowser->SetPosition(0, 53);
+		guiBrowser->Clicked.connect(this, &Explorer::OnBrowserChanges);
+		Append(guiBrowser);
+	}
 }
 
 void Explorer::hide()
 {
-	SetEffect(EFFECT_FADE, -50);
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
+	if(!Application::isClosing())
+	{
+		SetEffect(EFFECT_FADE, -50);
+		while(this->GetEffect() > 0)
+			Application::Instance()->updateEvents();
+	}
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
@@ -269,6 +287,10 @@ void Explorer::SetDeviceImage()
 	else if(strncmp(currentroot, DeviceName[FTP1], 3) == 0)
 	{
 		deviceImg->SetImage(ftpstorage);
+	}
+	else if(strncmp(currentroot, DeviceName[NAND], 4) == 0)
+	{
+		deviceImg->SetImage(nand_ImgData);
 	}
 	else if(strncmp(currentroot, DeviceName[DVD], 3) == 0)
 	{
@@ -335,7 +357,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 void Explorer::OnRightClick(PopUpMenu *menu, int item)
 {
 	Application::Instance()->Remove(menu);
-	Application::Instance()->UpdateOnly(NULL);
+	Application::Instance()->UnsetUpdateOnly(menu);
 	menu->Close();
 
 
@@ -356,7 +378,7 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 
 void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
 {
-	Application::Instance()->UpdateOnly(NULL);
+	Application::Instance()->UnsetUpdateOnly(Device_Menu);
 	Device_Menu->Close();
 	Device_Menu = NULL;
 
@@ -378,7 +400,7 @@ void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
 
 void Explorer::OnCreditsClosing()
 {
-	Application::Instance()->UpdateOnly(NULL);
+	Application::Instance()->UnsetUpdateOnly(Credits);
 	Application::Instance()->PushForDelete(Credits);
 	Credits = NULL;
 }
@@ -388,14 +410,14 @@ void Explorer::OnCreditsButtonClick(GuiButton *sender UNUSED, int pointer UNUSED
 	Credits = new CreditWindow(this);
 	Credits->DimBackground(true);
 	Credits->Closing.connect(this, &Explorer::OnCreditsClosing);
-	Application::Instance()->UpdateOnly(Credits);
+	Application::Instance()->SetUpdateOnly(Credits);
 }
 
 void Explorer::OnDeviceButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
 	DeviceMenu *Device_Menu = new DeviceMenu(deviceSwitchBtn->GetLeft()-5-this->GetLeft(), deviceSwitchBtn->GetTop()+deviceSwitchBtn->GetHeight()-this->GetTop(), this);
 	Device_Menu->DeviceSelected.connect(this, &Explorer::OnDeviceSelect);
-	Application::Instance()->UpdateOnly(Device_Menu);
+	Application::Instance()->SetUpdateOnly(Device_Menu);
 }
 
 void Explorer::OnContextButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p)
@@ -425,7 +447,7 @@ void Explorer::OnContextButtonClick(GuiButton *sender UNUSED, int pointer UNUSED
 		RightClick->Finish();
 	}
 	RightClick->ItemClicked.connect(this, &Explorer::OnRightClick);
-	Application::Instance()->UpdateOnly(RightClick);
+	Application::Instance()->SetUpdateOnly(RightClick);
 	Application::Instance()->Append(RightClick);
 }
 

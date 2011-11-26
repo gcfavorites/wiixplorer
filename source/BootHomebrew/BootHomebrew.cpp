@@ -75,7 +75,7 @@ void FreeHomebrewBuffer()
 int LoadHomebrew(const char * filepath)
 {
 	u8 *buffer = NULL;
-	u64 filesize = 0;
+	u32 filesize = 0;
 	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
 	if(ret < 0)
 	 return ret;

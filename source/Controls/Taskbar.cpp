@@ -96,6 +96,9 @@ Taskbar::Taskbar()
 
 	SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	SetPosition(0, -15);
+
+	//! Open first explorer
+	mainExplorer = new Explorer(Application::Instance(), Settings.LastUsedPath.c_str());
 }
 
 Taskbar::~Taskbar()
@@ -116,6 +119,8 @@ Taskbar::~Taskbar()
 
 	delete trigA;
 
+	delete mainExplorer;
+
 	Resources::Remove(soundClick);
 	Resources::Remove(soundOver);
 
@@ -125,8 +130,9 @@ Taskbar::~Taskbar()
 
 void Taskbar::AddTask(Task * t)
 {
-	t->SetPosition(105+Tasks.size()*100, 0);
+	t->SetPosition(95+Tasks.size()*100, 0);
 	t->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
+	t->TaskEnd.connect(this, &Taskbar::RemoveTask);
 	Tasks.push_back(t);
 	Append(t);
 }
@@ -137,7 +143,6 @@ void Taskbar::RemoveTask(Task * t)
 	{
 		if(Tasks[i] == t)
 		{
-			Remove(Tasks[i]);
 			Application::Instance()->PushForDelete(Tasks[i]);
 			Tasks.erase(Tasks.begin()+i);
 			break;
@@ -195,7 +200,7 @@ void Taskbar::OnStartButtonClick(GuiButton *sender, int pointer, const POINT &p 
 	Application::Instance()->Update(&userInput[pointer]);
 	sender->SetState(STATE_DEFAULT);
 
-	Application::Instance()->UpdateOnly(StartMenu);
+	Application::Instance()->SetUpdateOnly(StartMenu);
 	Application::Instance()->Append(StartMenu);
 }
 
@@ -207,7 +212,7 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	if(item < 0 || item >= BOOTMII)
 	{
 		Application::Instance()->Remove(menu);
-		Application::Instance()->UpdateOnly(NULL);
+		Application::Instance()->UnsetUpdateOnly(menu);
 		menu->Close();
 	}
 
@@ -262,7 +267,7 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 		{
 			ExitApp();
 			if(IOS_ReloadIOS(254) < 0)
-				RebootApp();
+				SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 		}
 	}
 	else if (item == FORMATTER)
@@ -270,14 +275,15 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 		PartitionFormatterGui * PartFormatter = new PartitionFormatterGui();
 		PartFormatter->DimBackground(true);
 		PartFormatter->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
-		Application::Instance()->UpdateOnly(PartFormatter);
+		Application::Instance()->SetUpdateOnly(PartFormatter);
 		Application::Instance()->Append(PartFormatter);
 	}
 	else if (item == SETTINGS)
 	{
-		Application::Instance()->GetExplorer()->hide();
+		//! Close main explorer
+		mainExplorer->hide();
 
-		MainSettingsMenu *menu = new MainSettingsMenu(Application::Instance()->GetExplorer());
+		MainSettingsMenu *menu = new MainSettingsMenu(mainExplorer);
 		Application::Instance()->Append(menu);
 	}
 	else if (item == FTPSERVER)
@@ -319,7 +325,7 @@ void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 	{
 		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
-		Application::Instance()->UpdateOnly(NULL);
+		Application::Instance()->UnsetUpdateOnly(parent);
 		parent->Close();
 
 		if(WindowPrompt(tr("Do you want to start the app?"), Apps->GetName(item), tr("Yes"), tr("Cancel")))
@@ -336,7 +342,7 @@ void Taskbar::OnChannelsMenuClick(PopUpMenu *menu, int item)
 	{
 		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
-		Application::Instance()->UpdateOnly(NULL);
+		Application::Instance()->UnsetUpdateOnly(parent);
 		parent->Close();
 
 		if(WindowPrompt(tr("Do you want to start the channel?"), Channels::Instance()->GetName(item), tr("Yes"), tr("Cancel")))
@@ -354,7 +360,7 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 	{
 		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
-		Application::Instance()->UpdateOnly(NULL);
+		Application::Instance()->UnsetUpdateOnly(parent);
 		parent->Close();
 	}
 
@@ -375,7 +381,6 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 	delete Booter;
 }
 
-void Taskbar::OnMusicPlayerClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+void Taskbar::OnMusicPlayerClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p3 UNUSED)
 {
-	MusicPlayer::Instance()->Show();
 }

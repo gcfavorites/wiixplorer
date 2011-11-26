@@ -36,6 +36,8 @@ void ImageSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Slideshow Delay"));
 	options.SetName(i++, tr("Screenshot Format"));
 	options.SetName(i++, tr("Fade Speed"));
+
+	SetOptionValues();
 }
 
 void ImageSettingsMenu::SetOptionValues()

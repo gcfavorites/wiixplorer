@@ -407,7 +407,7 @@ void GuiKeyboard::MoveText(int n)
 
 void GuiKeyboard::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POINT &p)
 {
-	TextPointerBtn->PositionChanged(pointer, p.x, p.y);
+	TextPointerBtn->PositionChanged(pointer, p.x - TextPointerBtn->GetLeft(), p.y - TextPointerBtn->GetTop());
 }
 
 void GuiKeyboard::OnPositionMoved(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)

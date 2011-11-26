@@ -293,8 +293,6 @@ void Channels::Search()
 
 	ES_Identify((u32*)Certificates, sizeof(Certificates), (u32*)Tmd, sizeof(Tmd), (u32*)Ticket, sizeof(Ticket), 0);
 
-	ISFS_Initialize();
-
 	int language = CONF_GetLanguage();
 
 	for (u32 i = 0; i < count; i++)
@@ -312,8 +310,6 @@ void Channels::Search()
 			channels.push_back(channel);
 		}
 	}
-
-	ISFS_Deinitialize();
 
 	free(list);
 

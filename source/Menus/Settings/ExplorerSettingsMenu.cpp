@@ -33,6 +33,8 @@ void ExplorerSettingsMenu::SetupOptions()
 
 	options.SetName(i++, tr("Browser Mode"));
 	options.SetName(i++, tr("Hide System Files/Folders"));
+
+	SetOptionValues();
 }
 
 void ExplorerSettingsMenu::SetOptionValues()

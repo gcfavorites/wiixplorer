@@ -26,6 +26,7 @@ class ProgressBar : public GuiFrame
 		virtual ~ProgressBar();
 		void SetPercent(float p);
 	private:
+		float fPixPerPercent;
 		GuiImageData * progressbarOutline;
 
 		GuiImage * progressbarOutlineImg;

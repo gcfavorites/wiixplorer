@@ -27,46 +27,46 @@ class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 		static ProgressWindow * Instance() { if(!instance) instance = new ProgressWindow; return instance; }
 		static void DestroyInstance() { delete instance; instance = NULL; }
 
-		void StartProgress(const char *title, int mode = SINGLE);
-		void ShowProgress(float done, float total, const char *filename);
+		void OpenWindow(void);
+		void CloseWindow(void);
+
+		void StartProgress(const char *title, const char *msg = NULL);
+		void ShowProgress(u64 done, u64 total, const char *filename);
+		void ShowProgress(u64 done, u64 total);
 		void StopProgress();
-		const char * GetTitle() { return ProgressTitle.c_str(); };
-		void SetMinimized(bool m) { Minimized = m; };
-		void SetTotalValues(float Size, u32 FileCount UNUSED) { TotalSize = Size; };
+		void SetTitle(const char *title);
+		void SetMessage(const char *msg);
+
+		const char * GetTitle() const { return ProgressTitle; };
+		void SetProgressType(int mode);
 		bool IsCanceled() const { return Canceled; }
 		bool IsMinimized() const { return Minimized; }
+		bool IsRunning() const { return !WindowClosed || Minimized; }
 		void Draw();
-		enum
-		{
-			SINGLE = 1,	//! One progress bar
-			MULTI = 2, //! Two progress bar
-		};
+		void SetCompleteValues(s64 done, s64 total) { completeDone = done; completeTotal = total; }
+		void SetUnit(const char *u) { ProgressUnit = u; }
 	private:
 		ProgressWindow();
 		virtual ~ProgressWindow();
-		void OnMinimizeClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Minimized = true; }
 		void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Canceled = true; }
 		void SetupProgressbar();
-		void SetupMultiProgressbar();
-		void LoadWindow();
-		void ClearMemory();
 		static ProgressWindow * instance;
 
-		int ProgressType;
-		float progressDone;
-		float progressTotal;
-		float TotalDone;
-		float TotalSize;
+		u64 progressDone;
+		u64 progressTotal;
+		s64 completeDone;
+		s64 completeTotal;
 		bool Changed;
 		bool Canceled;
-		bool Minimized;
 		bool WindowClosed;
+		bool Minimized;
 
 		Timer delayTimer;
 		Timer ProgressTimer;
 
-		std::string ProgressTitle;
-		const char *ProgressMsg;
+		char ProgressTitle[50];
+		char ProgressMsg[80];
+		const char *ProgressUnit;
 
 		ProgressBar *progressBar;
 		ProgressBar *totalProgressBar;

@@ -4,10 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,9 +73,6 @@ msgstr "Transparência"
 msgid "App Default"
 msgstr "Padrão do Aplicativo"
 
-msgid "AppPath changed"
-msgstr "Caminho apps alterado"
-
 msgid "Apps"
 msgstr "Aplicativos"
 
@@ -138,20 +136,23 @@ msgstr "Procurar"
 msgid "Browser Mode"
 msgstr "Modo de Navegação"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr "Procura por fontes precisa ser feita no navegador principal."
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC do arquivo extraído não bate. Senha inválida?"
 
-msgid "Calculating MD5..."
-msgstr "Calculando MD5..."
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
+msgstr ""
 
 msgid "Calculating total size..."
 msgstr "Calculando tamanho total..."
+
+msgid "Calculating transfer size..."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Erro ao abrir arquivo."
@@ -197,12 +198,6 @@ msgstr "Erro ao escrever neste caminho:"
 
 msgid "Caps"
 msgstr "Caps"
-
-msgid "Change"
-msgstr "Mudar"
-
-msgid "Change Language Path?"
-msgstr "Mudar caminho de linguagem?"
 
 msgid "Channels"
 msgstr "Canais"
@@ -257,17 +252,11 @@ msgstr "Padrão do Console"
 msgid "Context Menu Button"
 msgstr "Botão de menu contextual"
 
-msgid "Continue"
-msgstr "Continuar"
-
 msgid "Controls Settings"
 msgstr "Controle >"
 
 msgid "Convert"
 msgstr "Converter"
-
-msgid "Converting image..."
-msgstr "Convertendo imagem..."
 
 msgid "Copy"
 msgstr "Copiar"
@@ -286,9 +275,6 @@ msgstr "Copia de"
 
 msgid "Copying item(s):"
 msgstr "Copiando item(s):"
-
-msgid "Could not connect to the network"
-msgstr "Erro ao conectar na rede"
 
 msgid "Could not connect to the server."
 msgstr "Erro ao conectar ao servidor"
@@ -344,8 +330,8 @@ msgstr "Apagar pasta temporária ao sair"
 msgid "Delete the selected item(s) and its content?"
 msgstr "Apagar a seleção e todo seu conteúdo?"
 
-msgid "Deleting files:"
-msgstr "Apagando arquivo:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr "Botão Desmarcar Tudo"
@@ -362,9 +348,6 @@ msgstr "Dispositivo"
 msgid "Directory .."
 msgstr "Diretório .."
 
-msgid "Directory couldn't be deleted."
-msgstr "Impossível apagar diretório."
-
 msgid "Disconnect Client"
 msgstr "Desconectar Cliente"
 
@@ -374,8 +357,14 @@ msgstr "Desconectar SMB"
 msgid "Do you want to add an URL?"
 msgstr "Quer adicionar uma URL?"
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "Quer adicionar esta operação à fila?"
+
+msgid "Do you want to append this process to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Deseja carregar o programa agora?"
@@ -405,8 +394,8 @@ msgstr "Quer sair do WiiXplorer?"
 msgid "Do you want to load file from: %s ?"
 msgstr "Quer carregar o arquivo de: %s ?"
 
-msgid "Do you want to load the default language."
-msgstr "Quer carregar a linguagem padrão"
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Quer carregar esta linguagem?"
@@ -434,9 +423,6 @@ msgstr "Quer montar os dispositivos novamente?"
 
 msgid "Do you want to replace this file?"
 msgstr "Quer substituir este arquivo?"
-
-msgid "Do you want to reset the color settings?"
-msgstr "Quer limpar as configurações de cor?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Quer limpar as configurações de controle?"
@@ -497,12 +483,12 @@ msgid "Error - %s is not a file\n"
 msgstr "Erro - %s não é um arquivo\n"
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
-msgstr "Erro ao abrir o diretório: %s\n"
-
-#, c-format
 msgid "Error - Could not open file: %s\n"
 msgstr "Erro ao abrir o arquivo: %s\n"
+
+#, c-format
+msgid "Error - Could not parse directory: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -583,8 +569,11 @@ msgstr ""
 msgid "Failed adding the item(s)."
 msgstr ""
 
-msgid "Failed copying item(s)."
-msgstr "Falha ao copiar ítens."
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "Falha ao extrair o arquivo."
@@ -592,8 +581,11 @@ msgstr "Falha ao extrair o arquivo."
 msgid "Failed extracting the item(s)."
 msgstr "Falha extraindo os ítens."
 
-msgid "Failed moving item(s)."
-msgstr "Falha movendo ítens."
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
+msgstr ""
 
 msgid "Failed renaming item"
 msgstr "Falha renomeando ítem"
@@ -616,8 +608,8 @@ msgstr "Erro ao escrever a MBR."
 msgid "File Extensions"
 msgstr "Extensões >"
 
-msgid "File Extensions Assignment"
-msgstr "Atribuição de Extensões"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr "Sistema de Arquivos:"
@@ -626,9 +618,6 @@ msgid "File already exists:"
 msgstr "Arquivo já existe:"
 
 msgid "File could not be deleted."
-msgstr "Erro ao deletar arquivo."
-
-msgid "File couldn't be deleted."
 msgstr "Erro ao deletar arquivo."
 
 msgid "File is corrupt (CRC mismatch)."
@@ -688,9 +677,6 @@ msgstr "Formatar"
 
 msgid "Format Partition?"
 msgstr "Formatar partição?"
-
-msgid "Formating partition..."
-msgstr "Formatando partição..."
 
 msgid "Formatter"
 msgstr "Formatador"
@@ -754,9 +740,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "Diversos >"
-
-msgid "Getting Changelog..."
-msgstr "Recebendo lista de alterações..."
 
 msgid "Go Back"
 msgstr "Voltar"
@@ -878,9 +861,6 @@ msgstr "Línguagem"
 msgid "Language Files"
 msgstr "Traduções"
 
-msgid "Language Path changed."
-msgstr "Caminho de Linguagem modificado"
-
 msgid "Language Settings"
 msgstr "Linguagem >"
 
@@ -947,9 +927,6 @@ msgstr ""
 msgid "MPlayerCE Path"
 msgstr "Caminho do MPlayerCE"
 
-msgid "MPlayerCE path changed"
-msgstr ""
-
 msgid "Mark Item Button"
 msgstr "Marcar Ítem"
 
@@ -959,14 +936,8 @@ msgstr "Buffer de Memória"
 msgid "Menu"
 msgstr ""
 
-msgid "Minimize"
-msgstr "Minimizar"
-
 msgid "Mounted as:"
 msgstr "Montado como:"
-
-msgid "Mounting disc"
-msgstr "Montando disco"
 
 msgid "Moving item(s):"
 msgstr "Movendo itens:"
@@ -1014,9 +985,6 @@ msgstr "Nenhum homebrew no zip."
 msgid "No image found at index %d."
 msgstr "Nenhuma imagem no índice %d."
 
-msgid "No language files found."
-msgstr "Nenhum arquivo de linguagem."
-
 msgid "No network connection."
 msgstr "Nenhuma conexão de rede."
 
@@ -1049,9 +1017,6 @@ msgstr "Sem memória suficiente"
 
 msgid "Not mounted"
 msgstr "Desmontado"
-
-msgid "Notice:"
-msgstr "Nota:"
 
 msgid "OFF"
 msgstr "Desligado"
@@ -1125,8 +1090,14 @@ msgstr ""
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr ""
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Caminhos >"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "Tocar Arquivo"
@@ -1148,9 +1119,6 @@ msgstr "Entre a senha."
 
 msgid "Please wait..."
 msgstr "Aguarde..."
-
-msgid "Please wait:"
-msgstr "Por favor aguarde:"
 
 msgid "Possible unsupported format."
 msgstr "Formato não suportado."
@@ -1303,9 +1271,6 @@ msgstr "Ativar"
 msgid "Set this Partition as Active?"
 msgstr "Ativar esta partição?"
 
-msgid "Setting partition as active."
-msgstr "Ativando partição."
-
 msgid "Settings"
 msgstr "Configurações"
 
@@ -1433,9 +1398,6 @@ msgstr "Transferência falhou"
 msgid "Transfer failed."
 msgstr "Transferência falhou."
 
-msgid "Transfering files:"
-msgstr "Transferindo arquivos:"
-
 msgid "URL List"
 msgstr "Internet"
 
@@ -1484,9 +1446,6 @@ msgstr "Atualizar Icon.png"
 msgid "Update Meta.xml"
 msgstr "Atualizar Meta.xml"
 
-msgid "Update Path changed."
-msgstr "Caminho de Atualização modificado."
-
 msgid "Update failed"
 msgstr "Atualização falhou"
 
@@ -1496,9 +1455,6 @@ msgstr "Atualização finalizada com sucesso"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Atualização para r%i disponível"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr "Atualizando/Baixando arquivos de ling."
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1617,9 +1573,6 @@ msgstr ""
 msgid "WiiMC Path"
 msgstr ""
 
-msgid "WiiMC path changed"
-msgstr ""
-
 msgid "WiiXplorer Default Music"
 msgstr "Música padrão"
 
@@ -1637,9 +1590,6 @@ msgstr "Sim"
 
 msgid "Yes to all"
 msgstr "Sim para todos"
-
-msgid "You can not cut into the directory itself."
-msgstr "Você não pode cortar o diretório dentro dele mesmo."
 
 msgid "You can't set a logical partition as active."
 msgstr "Partição lógica não pode ser ativada"
@@ -1674,6 +1624,9 @@ msgstr "e todos os tradutores."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr "for seu fonte de servidor FTP"
 
@@ -1688,6 +1641,96 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Error - Could not open directory: %s\n"
+#~ msgstr "Erro ao abrir o diretório: %s\n"
+
+#~ msgid "Deleting files:"
+#~ msgstr "Apagando arquivo:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "Impossível apagar diretório."
+
+#~ msgid "Failed copying item(s)."
+#~ msgstr "Falha ao copiar ítens."
+
+#~ msgid "Failed moving item(s)."
+#~ msgstr "Falha movendo ítens."
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "Erro ao deletar arquivo."
+
+#~ msgid "Transfering files:"
+#~ msgstr "Transferindo arquivos:"
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "Você não pode cortar o diretório dentro dele mesmo."
+
+#~ msgid "AppPath changed"
+#~ msgstr "Caminho apps alterado"
+
+#~ msgid "Browsing for font files must be done in the main browser."
+#~ msgstr "Procura por fontes precisa ser feita no navegador principal."
+
+#~ msgid "Calculating MD5..."
+#~ msgstr "Calculando MD5..."
+
+#~ msgid "Change"
+#~ msgstr "Mudar"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "Mudar caminho de linguagem?"
+
+#~ msgid "Continue"
+#~ msgstr "Continuar"
+
+#~ msgid "Converting image..."
+#~ msgstr "Convertendo imagem..."
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "Erro ao conectar na rede"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "Quer carregar a linguagem padrão"
+
+#~ msgid "Do you want to reset the color settings?"
+#~ msgstr "Quer limpar as configurações de cor?"
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "Atribuição de Extensões"
+
+#~ msgid "Formating partition..."
+#~ msgstr "Formatando partição..."
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "Recebendo lista de alterações..."
+
+#~ msgid "Language Path changed."
+#~ msgstr "Caminho de Linguagem modificado"
+
+#~ msgid "Minimize"
+#~ msgstr "Minimizar"
+
+#~ msgid "Mounting disc"
+#~ msgstr "Montando disco"
+
+#~ msgid "No language files found."
+#~ msgstr "Nenhum arquivo de linguagem."
+
+#~ msgid "Notice:"
+#~ msgstr "Nota:"
+
+#~ msgid "Please wait:"
+#~ msgstr "Por favor aguarde:"
+
+#~ msgid "Setting partition as active."
+#~ msgstr "Ativando partição."
+
+#~ msgid "Update Path changed."
+#~ msgstr "Caminho de Atualização modificado."
+
+#~ msgid "Updating/Downloading Languagefiles."
+#~ msgstr "Atualizando/Baixando arquivos de ling."
 
 #~ msgid "Reload"
 #~ msgstr "Recarregar"

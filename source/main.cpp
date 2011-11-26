@@ -48,7 +48,7 @@ int main(int argc UNUSED, char *argv[] UNUSED)
 	Settings.Load();
 
 	Settings.EntraceIOS = (u8) IOS_GetVersion();
-
+/*
 	if(Settings.EntraceIOS != Settings.BootIOS)
 	{
 		DeviceHandler::Instance()->UnMountSD();
@@ -62,14 +62,16 @@ int main(int argc UNUSED, char *argv[] UNUSED)
 		DeviceHandler::Instance()->MountAllUSB();
 		Settings.Load();  //If it was not loaded, reloading here again.
 	}
-
+*/
 	MagicPatches(1); // We all love magic
 	Sys_Init(); // Initialize shutdown/reset buttons
 	SetupPads(); // Initialize input
 	InitAudio(); // Initialize audio
+	DI2_Init(); //Init DVD Driver
+	ISFS_Initialize(); // ISFS init
 	DeviceHandler::Instance()->MountGCA();
 	DeviceHandler::Instance()->MountGCB();
-	DI2_Init(); //Init DVD Driver
+	DeviceHandler::Instance()->MountNAND();
 	Settings.LoadLanguage(Settings.LanguagePath);
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);

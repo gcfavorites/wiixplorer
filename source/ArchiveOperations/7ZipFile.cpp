@@ -80,9 +80,6 @@ SzFile::~SzFile()
 
 bool SzFile::Is7ZipFile (const char *buffer)
 {
-	unsigned int *check;
-	check = (unsigned int *) buffer;
-
 	// 7z signature
 	int i;
 	for(i = 0; i < 6; i++)

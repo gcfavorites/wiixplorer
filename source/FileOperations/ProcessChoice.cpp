@@ -27,17 +27,21 @@
  ***************************************************************************/
 
 #include "ProcessChoice.h"
+#include "Controls/Clipboard.h"
+#include "Controls/Application.h"
+#include "Controls/Taskbar.h"
+#include "Controls/ThreadedTaskHandler.hpp"
+#include "Prompts/Properties.h"
+#include "Prompts/ArchiveProperties.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/PopUpMenu.h"
 #include "FileStartUp/FileStartUp.h"
-#include "Controls/Clipboard.h"
 #include "FileOperations/fileops.h"
-#include "FileOperations/MD5Logger.hpp"
-#include "Controls/IOHandler.hpp"
-#include "Controls/Application.h"
-#include "Prompts/Properties.h"
-#include "Prompts/ArchiveProperties.h"
+#include "FileOperations/CopyTask.h"
+#include "FileOperations/MoveTask.h"
+#include "FileOperations/DeleteTask.h"
+#include "FileOperations/MD5Task.h"
 #include "menu.h"
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
@@ -175,15 +179,12 @@ void ProcessChoice(FileBrowser * browser, int choice)
 				browser->MarkCurrentItem();
 				//Get ItemMarker
 				ItemMarker * IMarker = browser->GetItemMarker();
-				if(IMarker)
-				{
-					for(int i = 0; i < IMarker->GetItemcount(); i++)
-					{
-						Clipboard::Instance()->AddItem(IMarker->GetItem(i));
-					}
-				}
+
+				for(int i = 0; i < IMarker->GetItemcount(); i++)
+					Clipboard::Instance()->AddItem(IMarker->GetItem(i));
+
 				IMarker->Reset();
-				Clipboard::Instance()->Cutted = true;
+				Clipboard::Instance()->Operation = OP_MOVE;
 			}
 		}
 
@@ -198,15 +199,11 @@ void ProcessChoice(FileBrowser * browser, int choice)
 				//Get ItemMarker
 				ItemMarker * IMarker = browser->GetItemMarker();
 
-				if(IMarker)
-				{
-					for(int i = 0; i < IMarker->GetItemcount(); i++)
-					{
-						Clipboard::Instance()->AddItem(IMarker->GetItem(i));
-					}
-				}
+				for(int i = 0; i < IMarker->GetItemcount(); i++)
+					Clipboard::Instance()->AddItem(IMarker->GetItem(i));
+
 				IMarker->Reset();
-				Clipboard::Instance()->Cutted = false;
+				Clipboard::Instance()->Operation = OP_COPY;
 			}
 		}
 
@@ -233,43 +230,20 @@ void ProcessChoice(FileBrowser * browser, int choice)
 			choice = WindowPrompt(browser->GetCurrentFilename(), tr("Delete the selected item(s) and its content?"), tr("Yes"), tr("Cancel"));
 			if(choice == 1)
 			{
-				ItemMarker * IMarker = browser->GetItemMarker();
-				//append selected Item
-				browser->MarkCurrentItem();
+				if(ProgressWindow::Instance()->IsRunning())
+					choice = WindowPrompt(tr("Currently a process is running."), tr("Do you want to append this delete to the queue?"), tr("Yes"), tr("Cancel"));
 
-//				StartProgress(tr("Deleting files:"), THROBBER);
-				for(int i = 0; i < IMarker->GetItemcount(); i++)
+				if(choice == 1)
 				{
-					if(IMarker->IsItemDir(i))
-					{
-						snprintf(currentpath, sizeof(currentpath), "%s/", IMarker->GetItemPath(i));
-						int res = RemoveDirectory(currentpath);
-						if(res == -10)
-						{
-							StopProgress();
-							WindowPrompt(tr("Deleting files:"), tr("Action cancelled."), tr("OK"));
-							break;
-						}
-						else if(res < 0)
-						{
-							StopProgress();
-							ShowError(tr("Directory couldn't be deleted."));
-							break;
-						}
-					}
-					else
-					{
-						snprintf(currentpath, sizeof(currentpath), "%s", IMarker->GetItemPath(i));
-						if(RemoveFile(currentpath) == false)
-						{
-							StopProgress();
-							ShowError(tr("File couldn't be deleted."));
-							break;
-						}
-					}
+					//append selected Item
+					browser->MarkCurrentItem();
+					//Get ItemMarker
+					ItemMarker * IMarker = browser->GetItemMarker();
+					DeleteTask *task = new DeleteTask(IMarker);
+					Taskbar::Instance()->AddTask(task);
+					ThreadedTaskHandler::Instance()->AddTask(task);
+					IMarker->Reset();
 				}
-				StopProgress();
-				IMarker->Reset();
 			}
 		}
 	}
@@ -281,13 +255,23 @@ void ProcessChoice(FileBrowser * browser, int choice)
 		choice = WindowPrompt(Clipboard::Instance()->GetItemName(Clipboard::Instance()->GetItemcount()-1), tr("Paste item(s) into current directory?"), tr("Yes"), tr("Cancel"));
 		if(choice == 1)
 		{
-			if(IOHandler::Instance()->IsRunning())
-			{
+			if(ProgressWindow::Instance()->IsRunning())
 				choice = WindowPrompt(tr("Currently a process is running."), tr("Do you want to append this paste to the queue?"), tr("Yes"), tr("Cancel"));
-			}
+
 			if(choice == 1)
 			{
-				IOHandler::Instance()->AddProcess(Clipboard::Instance(), browser->GetCurrentPath(), Clipboard::Instance()->Cutted);
+				if(Clipboard::Instance()->Operation == OP_COPY)
+				{
+					CopyTask *task = new CopyTask(Clipboard::Instance(), browser->GetCurrentPath());
+					Taskbar::Instance()->AddTask(task);
+					ThreadedTaskHandler::Instance()->AddTask(task);
+				}
+				else if(Clipboard::Instance()->Operation == OP_MOVE)
+				{
+					MoveTask *task = new MoveTask(Clipboard::Instance(), browser->GetCurrentPath());
+					Taskbar::Instance()->AddTask(task);
+					ThreadedTaskHandler::Instance()->AddTask(task);
+				}
 			}
 		}
 	}
@@ -343,13 +327,22 @@ void ProcessChoice(FileBrowser * browser, int choice)
 
 	else if(choice == CHECK_MD5)
 	{
-		MD5Logger Logger;
-		char LogPath[1024];
-		snprintf(LogPath, sizeof(LogPath), "%s/MD5.log", browser->GetCurrentPath());
+		int md5Choice = 1;
 
-		browser->MarkCurrentItem();
-		Logger.LogMD5(LogPath, browser->GetItemMarker());
-		browser->GetItemMarker()->Reset();
+		if(ProgressWindow::Instance()->IsRunning())
+			md5Choice = WindowPrompt(tr("Currently a process is running."), tr("Do you want to append this process to the queue?"), tr("Yes"), tr("Cancel"));
+
+		if(md5Choice == 1)
+		{
+			char LogPath[1024];
+			snprintf(LogPath, sizeof(LogPath), "%s/MD5.log", browser->GetCurrentPath());
+
+			browser->MarkCurrentItem();
+			MD5Task *task = new MD5Task(browser->GetItemMarker(), LogPath);
+			Taskbar::Instance()->AddTask(task);
+			ThreadedTaskHandler::Instance()->AddTask(task);
+			browser->GetItemMarker()->Reset();
+		}
 	}
 
 	else if(choice == NEWFOLDER)
@@ -368,30 +361,13 @@ void ProcessChoice(FileBrowser * browser, int choice)
 	}
 	else if(choice == PROPERTIES)
 	{
-		browser->UnMarkCurrentItem();
 		browser->MarkCurrentItem();
 		ItemMarker * Marker = browser->GetItemMarker();
-
-		if(Marker->GetItemcount() == 0)
-		{
-			ItemStruct * Item = new ItemStruct;
-			memset(Item, 0, sizeof(ItemStruct));
-			Item->itempath = strdup(browser->GetCurrentPath());
-			Item->isdir = true;
-			Marker->AddItem(Item);
-		}
-
 		Properties * Prompt = new Properties(Marker);
 		Prompt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
-		//Application::Instance()->SetDim(true);
+		Prompt->DimBackground(true);
+		Application::Instance()->SetUpdateOnly(Prompt);
 		Application::Instance()->Append(Prompt);
-
-		while(Prompt->GetChoice() == -1)
-			usleep(100);
-
-		delete Prompt;
-		Prompt = NULL;
-		//Application::Instance()->SetDim(false);
 		Marker->Reset();
 	}
 }

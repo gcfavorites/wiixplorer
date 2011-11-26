@@ -27,6 +27,7 @@
 #include "NetworkSettingsMenu.h"
 #include "SoundSettingsMenu.h"
 #include "ImageSettingsMenu.h"
+#include "ColorSettingsMenu.h"
 #include "Settings.h"
 
 MainSettingsMenu::MainSettingsMenu(GuiFrame *r)
@@ -225,8 +226,13 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			break;
 		}
 		case 11:
-			//menu = MENU_COLOR_SETTINGS;
+		{
+			this->hide();
+
+			ColorSettingsMenu *menu = new ColorSettingsMenu(this);
+			Application::Instance()->Append(menu);
 			break;
+		}
 		default:
 			break;
 	}

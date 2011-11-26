@@ -23,6 +23,9 @@
 #include "Controls/Callback.hpp"
 #include "Controls/Task.hpp"
 
+//! Explorer class, forward declaration
+class Explorer;
+
 class Taskbar : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
@@ -31,6 +34,13 @@ class Taskbar : public GuiFrame, public sigslot::has_slots<>
 
 		void AddTask(Task * t);
 		void RemoveTask(Task * t);
+
+		u32 TaskCount() const { return Tasks.size(); }
+
+		/*
+		 * Temporary function till multi window feature
+		 */
+		Explorer *GetExplorer() { return mainExplorer; }
 	protected:
 		void Draw();
 
@@ -46,6 +56,8 @@ class Taskbar : public GuiFrame, public sigslot::has_slots<>
 		void OnUrlsMenuClick(PopUpMenu *menu, int item);
 
 		static Taskbar *instance;
+
+		Explorer *mainExplorer;
 
 		GuiImageData *taskbarImgData;
 		GuiImageData *HeadPhonesData;

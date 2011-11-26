@@ -33,13 +33,12 @@
 #include "Prompts/ProgressWindow.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
-#include "TextOperations/TextViewer.h"
+#include "TextOperations/TextEditor.h"
 #include "TextOperations/PDFLoader.h"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "ImageOperations/ImageLoader.h"
 #include "Controls/Application.h"
-#include "Controls/IOHandler.hpp"
 #include "VideoOperations/WiiMovie.hpp"
 #include "FileExtensions.h"
 #include "MPlayerArguements.h"
@@ -152,7 +151,7 @@ int FileStartUp(const char *filepath)
 
 		int choice = WindowPrompt(filename, tr("Uknown format. Open this file in the TextEditor?"), tr("Yes"), tr("No"));
 		if(choice)
-			TextViewer(filepath);
+			TextEditor::LoadFile(filepath);
 	}
 	else if(Settings.FileExtensions.CompareArchive(fileext) == 0)
 	{
@@ -167,7 +166,7 @@ int FileStartUp(const char *filepath)
 			return RELOAD_BROWSER;
 		}
 		else if(choice == 2)
-			TextViewer(filepath);
+			TextEditor::LoadFile(filepath);
 	}
 	else if(Settings.FileExtensions.CompareFont(fileext) == 0)
 	{
@@ -186,7 +185,7 @@ int FileStartUp(const char *filepath)
 	//! to launch them inside WiiXplorer.
 	else if(Settings.FileExtensions.CompareWiiXplorerMovies(fileext) == 0)
 	{
-		if(IOHandler::Instance()->IsRunning())
+		if(ProgressWindow::Instance()->IsRunning())
 		{
 			int choice = WindowPrompt(tr("Currently a process is running."), tr("Running a Video could slowdown the process or freeze the app. Do you want to continue?"), tr("Yes"), tr("Cancel"));
 			if(choice == 0)
@@ -228,7 +227,7 @@ int FileStartUp(const char *filepath)
 	{
 		int choice = WindowPrompt(filename, tr("Do you want to open this file in TextEditor?"), tr("Yes"), tr("No"));
 		if(choice)
-			TextViewer(filepath);
+			TextEditor::LoadFile(filepath);
 	}
 
 	return 0;

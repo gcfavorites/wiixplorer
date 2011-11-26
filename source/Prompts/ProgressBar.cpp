@@ -26,6 +26,8 @@ ProgressBar::ProgressBar()
 	width = progressbarOutline->GetWidth();
 	height = progressbarOutline->GetHeight();
 
+	fPixPerPercent = (float) width / 100.0f;
+
 	progressbarOutlineImg = new GuiImage(progressbarOutline);
 
 	GXColor ImgColor[4];
@@ -41,7 +43,7 @@ ProgressBar::ProgressBar()
 	ImgColor[2] = RGBATOGXCOLOR(Settings.ProgressBR);
 	ImgColor[3] = RGBATOGXCOLOR(Settings.ProgressBL);
 
-	progressbarImg = new GuiImage(4, 36, (GXColor *) &ImgColor);
+	progressbarImg = new GuiImage(fPixPerPercent, 36, (GXColor *) &ImgColor);
 
 	int OutLineMiddle = progressbarOutline->GetHeight()/2;
 
@@ -70,14 +72,22 @@ ProgressBar::~ProgressBar()
 	delete prsTxt;
 }
 
-void ProgressBar::SetPercent(float p)
+void ProgressBar::SetPercent(float Percent)
 {
-	if(p < 0.f)
+	if(Percent < 0.0f)
+	{
 		prTxt->SetText("0.00");
+		progressbarImg->SetSize(fPixPerPercent, 36);
 
-	else if(p < 100.f)
-		prTxt->SetTextf("%0.2f", p);
-
+	}
+	else if(Percent < 100.0f)
+	{
+		prTxt->SetTextf("%0.2f", Percent);
+		progressbarImg->SetSize((int) (Percent*fPixPerPercent), 36);
+	}
 	else
+	{
 		prTxt->SetText("100");
+		progressbarImg->SetSize(100.0f * fPixPerPercent, 36);
+	}
 }

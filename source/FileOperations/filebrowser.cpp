@@ -61,7 +61,7 @@ FileBrowser::FileBrowser()
 FileBrowser::~FileBrowser()
 {
 	ShutdownParseThread();
-	dirclose(dirIter); // close directory
+	closedir(dirIter); // close directory
 	for(int i = 0; i < browser.numEntries; ++i)
 		delete [] browserList[i].filename;
 	if(browserList != NULL)
@@ -306,17 +306,20 @@ bool FileBrowser::ParseDirEntries()
 	char filename[MAXPATHLEN];
 	struct stat filestat;
 
-	int i, res, nameLength;
+	struct dirent *dirent = 0;
+	int i, nameLength;
 
 	for(i=0; i < 20; i++)
 	{
-		memset(filename, 0, MAXPATHLEN);
-		res = dirnext(dirIter,filename,&filestat);
-
-		if(res != 0)
+		dirent = readdir(dirIter);
+		if(dirent == 0)
 			break;
 
-		if(strcmp(filename,".") == 0)
+		snprintf(filename, MAXPATHLEN, "%s%s/%s", browser.rootdir, browser.dir, dirent->d_name);
+		if(stat(filename, &filestat) != 0)
+			continue;
+
+		if(strcmp(dirent->d_name,".") == 0)
 		{
 			i--;
 			continue;
@@ -324,17 +327,17 @@ bool FileBrowser::ParseDirEntries()
 
 		if(Settings.HideSystemFiles)
 		{
-			if(filename[0] == '.' && strcmp(filename,"..") != 0)
+			if(dirent->d_name[0] == '.' && strcmp(dirent->d_name,"..") != 0)
 			{
 				i--;
 				continue;
 			}
-			else if(filename[0] == '$')
+			else if(dirent->d_name[0] == '$')
 			{
 				i--;
 				continue;
 			}
-			else if(strcasecmp(filename,"thumb.db") == 0)
+			else if(strcasecmp(dirent->d_name,"thumb.db") == 0)
 			{
 				i--;
 				continue;
@@ -365,13 +368,13 @@ bool FileBrowser::ParseDirEntries()
 			browserList = newBrowserList;
 		}
 
-		nameLength = strlen(filename)+1;
+		nameLength = strlen(dirent->d_name)+1;
 		if(nameLength > 255)
 			nameLength = 255;
 
 		browserList[browser.numEntries+i].filename = new (std::nothrow) char[nameLength];
 		if(browserList[browser.numEntries+i].filename)
-			snprintf(browserList[browser.numEntries+i].filename, nameLength, filename);
+			snprintf(browserList[browser.numEntries+i].filename, nameLength, dirent->d_name);
 		browserList[browser.numEntries+i].length = filestat.st_size;
 		browserList[browser.numEntries+i].isdir = (filestat.st_mode & S_IFDIR) ? true : false; // flag this as a dir
 	}
@@ -383,9 +386,9 @@ bool FileBrowser::ParseDirEntries()
 		browser.numEntries += i;	//make sure reload is after the sort
 	}
 
-	if(res != 0 || parseHalt)
+	if(!dirent || parseHalt)
 	{
-		dirclose(dirIter); // close directory
+		closedir(dirIter); // close directory
 		dirIter = NULL;
 		return false; // no more entries
 	}
@@ -416,7 +419,7 @@ int FileBrowser::ParseDirectory(bool ResetPosition)
 	// reset browser
 	if(dirIter)
 	{
-		dirclose(dirIter);
+		closedir(dirIter);
 		dirIter = NULL;
 	}
 
@@ -433,13 +436,13 @@ int FileBrowser::ParseDirectory(bool ResetPosition)
 
 	// open the directory
 	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add device to path
-	dirIter = diropen(fulldir);
+	dirIter = opendir(fulldir);
 	if(dirIter == NULL)
 	{
 		// if we can't open the dir, try opening the root dir
 		strcpy(browser.dir, "");
 		sprintf(fulldir, "%s%s", browser.rootdir, browser.dir);
-		dirIter = diropen(fulldir);
+		dirIter = opendir(fulldir);
 
 		if(dirIter == NULL)
 			return -1;

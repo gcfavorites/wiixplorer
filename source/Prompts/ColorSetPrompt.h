@@ -33,7 +33,7 @@ class ColorSetPrompt : public PromptWindow
 {
 	public:
 		ColorSetPrompt(const char * title, GXColor * c, int pos);
-		void ShowPrompt();
+		static void Show(const char * title, GXColor * c, int pos);
 	protected:
 		void UpdateOptionValues();
 		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);

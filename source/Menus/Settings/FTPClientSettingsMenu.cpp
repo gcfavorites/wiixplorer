@@ -43,6 +43,7 @@ void FTPClientSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Reconnect FTP"));
 	options.SetName(i++, tr("Disconnect Client"));
 
+	SetOptionValues();
 }
 
 void FTPClientSettingsMenu::SetOptionValues()

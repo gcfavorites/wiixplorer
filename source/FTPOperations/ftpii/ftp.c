@@ -392,12 +392,12 @@ static s32 prepare_data_connection(client_t *client, void *callback, void *arg, 
 	return result;
 }
 
-static s32 send_nlst(s32 data_socket, DIR_ITER *dir) {
+static s32 send_nlst(s32 data_socket, DIR_P *iter) {
 	s32 result = 0;
-	char filename[MAXPATHLEN + 2];
-	struct stat st;
-	while (vrt_dirnext(dir, filename, &st) == 0) {
-		size_t end_index = strlen(filename);
+	struct dirent *dirent = NULL;
+	while ((dirent = vrt_readdir(iter)) != 0) {
+		size_t end_index = strlen(dirent->d_name);
+		char filename[end_index + 2];
 		filename[end_index] = CRLF[0];
 		filename[end_index + 1] = CRLF[1];
 		filename[end_index + 2] = '\0';
@@ -408,15 +408,31 @@ static s32 send_nlst(s32 data_socket, DIR_ITER *dir) {
 	return result < 0 ? result : 0;
 }
 
-static s32 send_list(s32 data_socket, DIR_ITER *dir) {
-	s32 result = 0;
-	char filename[MAXPATHLEN];
+static s32 send_list(s32 data_socket, DIR_P *iter) {
 	struct stat st;
+	char filename[MAXPATHLEN];
+	s32 result = 0;
+	time_t mtime = 0;
+	u64 size = 0;
 	char line[MAXPATHLEN + 56 + CRLF_LENGTH + 1];
-	while (vrt_dirnext(dir, filename, &st) == 0) {
+	struct dirent *dirent = NULL;
+	while ((dirent = vrt_readdir(iter)) != 0) {
+
+		snprintf(filename, sizeof(filename), "%s/%s", iter->path, dirent->d_name);
+		if(stat(filename, &st) == 0)
+		{
+			mtime = st.st_mtime;
+			size = st.st_size;
+		}
+		else
+		{
+			mtime = time(0);
+			size = 0;
+		}
+
 		char timestamp[13];
-		strftime(timestamp, sizeof(timestamp), "%b %d  %Y", localtime(&st.st_mtime));
-		sprintf(line, "%crwxr-xr-x	1 0		0	 %10llu %s %s\r\n", (st.st_mode & S_IFDIR) ? 'd' : '-', st.st_size, timestamp, filename);
+		strftime(timestamp, sizeof(timestamp), "%b %d  %Y", localtime(&mtime));
+		sprintf(line, "%crwxr-xr-x	1 0		0	 %10llu %s %s\r\n", (dirent->d_type & DT_DIR) ? 'd' : '-', size, timestamp, dirent->d_name);
 		if ((result = send_exact(data_socket, line, strlen(line))) < 0) {
 			break;
 		}
@@ -429,13 +445,13 @@ static s32 ftp_NLST(client_t *client, char *path) {
 		path = ".";
 	}
 
-	DIR_ITER *dir = vrt_diropen(client->cwd, path);
+	DIR_P *dir = vrt_opendir(client->cwd, path);
 	if (dir == NULL) {
 		return write_reply(client, 550, strerror(errno));
 	}
 
-	s32 result = prepare_data_connection(client, send_nlst, dir, vrt_dirclose);
-	if (result < 0) vrt_dirclose(dir);
+	s32 result = prepare_data_connection(client, send_nlst, dir, vrt_closedir);
+	if (result < 0) vrt_closedir(dir);
 	return result;
 }
 
@@ -461,13 +477,13 @@ static s32 ftp_LIST(client_t *client, char *path) {
 		}
 	}
 
-	DIR_ITER *dir = vrt_diropen(client->cwd, path);
+	DIR_P *dir = vrt_opendir(client->cwd, path);
 	if (dir == NULL) {
 		return write_reply(client, 550, strerror(errno));
 	}
 
-	s32 result = prepare_data_connection(client, send_list, dir, vrt_dirclose);
-	if (result < 0) vrt_dirclose(dir);
+	s32 result = prepare_data_connection(client, send_list, dir, vrt_closedir);
+	if (result < 0) vrt_closedir(dir);
 	return result;
 }
 

@@ -23,6 +23,7 @@
 
 GuiButton::GuiButton(int w, int h)
 {
+	ClickAndHold = false;
 	width = w;
 	height = h;
 	Init();
@@ -382,6 +383,7 @@ void GuiButton::Update(GuiTrigger * t)
 								p.y = userInput[t->chan].wpad->ir.y;
 							}
 							Clicked(this, t->chan, p);
+							ClickAndHold = true;
 							return;
 						}
 					}
@@ -420,9 +422,8 @@ void GuiButton::Update(GuiTrigger * t)
 					&&	((trigger[i]->chan == -1)
 						|| (trigger[i]->chan == t->chan)))
 				{
-					held = true;
-
-					if((state != STATE_HELD) && (state == STATE_SELECTED))
+					held = ClickAndHold;
+					if(held && (state != STATE_HELD) && (state == STATE_SELECTED))
 						this->SetState(STATE_HELD, t->chan);
 				}
 
@@ -456,6 +457,7 @@ void GuiButton::Update(GuiTrigger * t)
 				}
 				this->ResetState();
 				Released(this, t->chan, p);
+				ClickAndHold = false;
 				return;
 			}
 		}

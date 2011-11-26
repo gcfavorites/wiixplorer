@@ -1,13 +1,14 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,9 +77,6 @@ msgstr "透明光影效果"
 msgid "App Default"
 msgstr "程序缺省"
 
-msgid "AppPath changed"
-msgstr "程序路径已更改"
-
 msgid "Apps"
 msgstr "程序"
 
@@ -142,20 +140,23 @@ msgstr "浏览"
 msgid "Browser Mode"
 msgstr "浏览模式"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr "在主浏览器中必须查找字体文件。"
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC校验文件错误。密码错误？"
 
-msgid "Calculating MD5..."
-msgstr "正在计算MD5.。。"
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
+msgstr ""
 
 msgid "Calculating total size..."
 msgstr "正在计算全部大小。。。"
+
+msgid "Calculating transfer size..."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -201,12 +202,6 @@ msgstr "无法写入到此为止："
 
 msgid "Caps"
 msgstr "大写"
-
-msgid "Change"
-msgstr "更改"
-
-msgid "Change Language Path?"
-msgstr "更改语言文件路径？"
 
 msgid "Channels"
 msgstr "频道"
@@ -265,17 +260,11 @@ msgstr "主机缺省"
 msgid "Context Menu Button"
 msgstr "右键菜单按钮"
 
-msgid "Continue"
-msgstr "继续"
-
 msgid "Controls Settings"
 msgstr "主机设置"
 
 msgid "Convert"
 msgstr "转换"
-
-msgid "Converting image..."
-msgstr "图片转换中...."
 
 msgid "Copy"
 msgstr "复制"
@@ -294,9 +283,6 @@ msgstr "复制其中"
 
 msgid "Copying item(s):"
 msgstr "复制项目中:"
-
-msgid "Could not connect to the network"
-msgstr "网络无法连接"
 
 msgid "Could not connect to the server."
 msgstr "无法连接到服务器"
@@ -352,8 +338,8 @@ msgstr "退出时删除临时路径"
 msgid "Delete the selected item(s) and its content?"
 msgstr "删除已选择的项目和内容？"
 
-msgid "Deleting files:"
-msgstr "文件删除中..."
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr "取消全部标记选项按钮"
@@ -370,9 +356,6 @@ msgstr "设备"
 msgid "Directory .."
 msgstr "目录.."
 
-msgid "Directory couldn't be deleted."
-msgstr "不能删除目录。"
-
 msgid "Disconnect Client"
 msgstr "断开客户端"
 
@@ -382,8 +365,14 @@ msgstr "断开网络共享"
 msgid "Do you want to add an URL?"
 msgstr "是否要添加URL？"
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "是否要增加粘贴项目到队列中？"
+
+msgid "Do you want to append this process to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
@@ -413,8 +402,8 @@ msgstr "是否退出WiiXplorer?"
 msgid "Do you want to load file from: %s ?"
 msgstr "是否想要运行文件来自:%s ?"
 
-msgid "Do you want to load the default language."
-msgstr "是否读取缺省语言。"
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
@@ -442,9 +431,6 @@ msgstr "是否再次加载设备？"
 
 msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
-
-msgid "Do you want to reset the color settings?"
-msgstr "是否要还原默认颜色设置？"
 
 msgid "Do you want to reset the control settings?"
 msgstr "是否复位控制设置？"
@@ -508,12 +494,12 @@ msgid "Error - %s is not a file\n"
 msgstr "错误 - %s 不是一个文件\n"
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
-msgstr "错误 - 无法打开目录：%s\n"
-
-#, c-format
 msgid "Error - Could not open file: %s\n"
 msgstr "错误 - 无法打开文件：%s\n"
+
+#, c-format
+msgid "Error - Could not parse directory: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -594,8 +580,11 @@ msgstr "添加项目失败"
 msgid "Failed adding the item(s)."
 msgstr "添加项目失败"
 
-msgid "Failed copying item(s)."
-msgstr "复制项目失败。"
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "正在提取文件失败。"
@@ -603,8 +592,11 @@ msgstr "正在提取文件失败。"
 msgid "Failed extracting the item(s)."
 msgstr "提取这些项目失败。"
 
-msgid "Failed moving item(s)."
-msgstr "移动项目失败。"
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
+msgstr ""
 
 msgid "Failed renaming item"
 msgstr "重命名项目失败。"
@@ -627,8 +619,8 @@ msgstr "写MBR失败。"
 msgid "File Extensions"
 msgstr "文件扩展"
 
-msgid "File Extensions Assignment"
-msgstr "文件扩展排列"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr "文件系统："
@@ -638,9 +630,6 @@ msgstr "文件已存在："
 
 msgid "File could not be deleted."
 msgstr "文件无法删除。"
-
-msgid "File couldn't be deleted."
-msgstr "文件不能删除"
 
 msgid "File is corrupt (CRC mismatch)."
 msgstr "文件损坏（CRC不匹配）"
@@ -699,9 +688,6 @@ msgstr "格式化"
 
 msgid "Format Partition?"
 msgstr "格式化分区？"
-
-msgid "Formating partition..."
-msgstr "正在格式化分区。。。"
 
 msgid "Formatter"
 msgstr "格式化程序"
@@ -765,9 +751,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "全局设置"
-
-msgid "Getting Changelog..."
-msgstr "正在提取更新日志信息......"
 
 msgid "Go Back"
 msgstr "返回"
@@ -889,9 +872,6 @@ msgstr "语言"
 msgid "Language Files"
 msgstr "语言文件"
 
-msgid "Language Path changed."
-msgstr "语言文件路径已更改"
-
 msgid "Language Settings"
 msgstr "语言设置"
 
@@ -958,9 +938,6 @@ msgstr "MPlayerCE"
 msgid "MPlayerCE Path"
 msgstr "MPlayerCE路径"
 
-msgid "MPlayerCE path changed"
-msgstr "MPlayerCE路径已更改"
-
 msgid "Mark Item Button"
 msgstr "标记项目按钮"
 
@@ -970,14 +947,8 @@ msgstr "内存缓冲"
 msgid "Menu"
 msgstr "菜单"
 
-msgid "Minimize"
-msgstr "最小化"
-
 msgid "Mounted as:"
 msgstr "以挂载成："
-
-msgid "Mounting disc"
-msgstr "正在挂载光盘"
 
 msgid "Moving item(s):"
 msgstr "正在移动项目："
@@ -1025,9 +996,6 @@ msgstr "Zip压缩包中无自制程序。"
 msgid "No image found at index %d."
 msgstr "索引%d 中没有发现图片。"
 
-msgid "No language files found."
-msgstr "没有发现语言文件。"
-
 msgid "No network connection."
 msgstr "无网络连接"
 
@@ -1060,9 +1028,6 @@ msgstr "内存不足"
 
 msgid "Not mounted"
 msgstr "没挂载"
-
-msgid "Notice:"
-msgstr "注意："
 
 msgid "OFF"
 msgstr "关闭"
@@ -1136,8 +1101,14 @@ msgstr "是否粘贴文件到此目录？"
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr "粘贴文件仅仅支持ZIP格式。"
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "路径设置"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "播放文件"
@@ -1159,9 +1130,6 @@ msgstr "请输入密码。"
 
 msgid "Please wait..."
 msgstr "请等待..."
-
-msgid "Please wait:"
-msgstr "请等待："
 
 msgid "Possible unsupported format."
 msgstr "可能不支持此文件格式。"
@@ -1314,9 +1282,6 @@ msgstr "设置活动"
 msgid "Set this Partition as Active?"
 msgstr "是否设置此分区为活动分区？"
 
-msgid "Setting partition as active."
-msgstr "正在设置活动分区."
-
 msgid "Settings"
 msgstr "设置"
 
@@ -1444,9 +1409,6 @@ msgstr "传输失败"
 msgid "Transfer failed."
 msgstr "传输失败。"
 
-msgid "Transfering files:"
-msgstr "文件传输中："
-
 msgid "URL List"
 msgstr "URL列表"
 
@@ -1495,9 +1457,6 @@ msgstr "更新Icon.png"
 msgid "Update Meta.xml"
 msgstr "更新Meta.xml"
 
-msgid "Update Path changed."
-msgstr "更新路径已更改"
-
 msgid "Update failed"
 msgstr "更新失败。"
 
@@ -1507,9 +1466,6 @@ msgstr "更新成功！"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr "更新或下载语言文件中。"
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1628,9 +1584,6 @@ msgstr "WiiMC"
 msgid "WiiMC Path"
 msgstr "WiiMC路径"
 
-msgid "WiiMC path changed"
-msgstr "WiiMC路径已更改"
-
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer缺省音乐"
 
@@ -1648,9 +1601,6 @@ msgstr "确定"
 
 msgid "Yes to all"
 msgstr "全部是"
-
-msgid "You can not cut into the directory itself."
-msgstr "无法在此目录中删除自己"
 
 msgid "You can't set a logical partition as active."
 msgstr "你不能设置逻辑分区为活动分区"
@@ -1685,6 +1635,9 @@ msgstr "和所有的翻译者。"
 msgid "asdfghjkl;'="
 msgstr "asdfghjkl;'="
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr "用于FTP服务资源"
 
@@ -1699,6 +1652,102 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Error - Could not open directory: %s\n"
+#~ msgstr "错误 - 无法打开目录：%s\n"
+
+#~ msgid "Deleting files:"
+#~ msgstr "文件删除中..."
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "不能删除目录。"
+
+#~ msgid "Failed copying item(s)."
+#~ msgstr "复制项目失败。"
+
+#~ msgid "Failed moving item(s)."
+#~ msgstr "移动项目失败。"
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "文件不能删除"
+
+#~ msgid "Transfering files:"
+#~ msgstr "文件传输中："
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "无法在此目录中删除自己"
+
+#~ msgid "AppPath changed"
+#~ msgstr "程序路径已更改"
+
+#~ msgid "Browsing for font files must be done in the main browser."
+#~ msgstr "在主浏览器中必须查找字体文件。"
+
+#~ msgid "Calculating MD5..."
+#~ msgstr "正在计算MD5.。。"
+
+#~ msgid "Change"
+#~ msgstr "更改"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "更改语言文件路径？"
+
+#~ msgid "Continue"
+#~ msgstr "继续"
+
+#~ msgid "Converting image..."
+#~ msgstr "图片转换中...."
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "网络无法连接"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "是否读取缺省语言。"
+
+#~ msgid "Do you want to reset the color settings?"
+#~ msgstr "是否要还原默认颜色设置？"
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "文件扩展排列"
+
+#~ msgid "Formating partition..."
+#~ msgstr "正在格式化分区。。。"
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "正在提取更新日志信息......"
+
+#~ msgid "Language Path changed."
+#~ msgstr "语言文件路径已更改"
+
+#~ msgid "MPlayerCE path changed"
+#~ msgstr "MPlayerCE路径已更改"
+
+#~ msgid "Minimize"
+#~ msgstr "最小化"
+
+#~ msgid "Mounting disc"
+#~ msgstr "正在挂载光盘"
+
+#~ msgid "No language files found."
+#~ msgstr "没有发现语言文件。"
+
+#~ msgid "Notice:"
+#~ msgstr "注意："
+
+#~ msgid "Please wait:"
+#~ msgstr "请等待："
+
+#~ msgid "Setting partition as active."
+#~ msgstr "正在设置活动分区."
+
+#~ msgid "Update Path changed."
+#~ msgstr "更新路径已更改"
+
+#~ msgid "Updating/Downloading Languagefiles."
+#~ msgstr "更新或下载语言文件中。"
+
+#~ msgid "WiiMC path changed"
+#~ msgstr "WiiMC路径已更改"
 
 #~ msgid "Reload"
 #~ msgstr "重新运行"

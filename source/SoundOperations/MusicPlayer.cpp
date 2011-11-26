@@ -144,7 +144,7 @@ bool MusicPlayer::Load(const char * path, bool silent)
 
 	if(Settings.LoadMusicToMem)
 	{
-		u64 filesize;
+		u32 filesize;
 		u8 * file = NULL;
 
 		int ret = -1;
