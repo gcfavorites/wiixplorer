@@ -130,14 +130,12 @@ void TextPointer::PositionChanged(int chan, int x, int y)
 		return;
 
 	lineLength = wcslen(line)+1;
-	wchar_t temp[lineLength];
-	memset(temp, 0, sizeof(temp));
+	int i = 0;
+	int w = 0;
 
-	for(int i = 0; i < lineLength; i++)
+	while(line[i] != 0)
 	{
-		temp[i] = line[i];
-
-		int w = fontSystem->getWidth(temp, fontsize);
+		w += fontSystem->getCharWidth(line[i], fontsize, i > 0 ? line[i-1] : 0);
 
 		if(differenz > abs(x-w))
 		{
@@ -145,6 +143,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
 			Position_X = w;
 			LetterNumInLine = i+1;
 		}
+		i++;
 	}
 
 	if(differenz > abs(x))
@@ -211,9 +210,4 @@ void TextPointer::Draw()
 		TextPointerImg->SetPosition(Position_X, Position_Y);
 
 	GuiButton::Draw();
-}
-
-void TextPointer::Update(GuiTrigger * t)
-{
-	GuiButton::Update(t);
 }

@@ -29,8 +29,8 @@
 Task::Task(const char * title)
 	: GuiButton(100, 44)
 {
+	TaskType = Task::DEFAULT;
 	Parameter = 0;
-	Callback = NULL;
 	ButtonImg = NULL;
 	ButtonIcon = NULL;
 	Title = new GuiText(title, 20, (GXColor) {0, 0, 0, 255});
@@ -48,18 +48,17 @@ Task::Task(const char * title)
 
 Task::~Task()
 {
+	if(parentElement)
+		((GuiFrame *)parentElement)->Remove(this);
+
 	delete Title;
 	delete trigA;
 	if(ButtonImg)
 		delete ButtonImg;
 	if(ButtonIcon)
 		delete ButtonIcon;
-}
 
-void Task::Execute(int param)
-{
-	if(Callback)
-		Callback->Execute(param);
+	TaskDestroyed(this);
 }
 
 void Task::SetIcon(GuiImageData * img)
@@ -73,6 +72,6 @@ void Task::SetIcon(GuiImageData * img)
 
 void Task::OnButtonClick(GuiButton * sender, int channel UNUSED, const POINT &point UNUSED)
 {
-	Execute(Parameter);
+	ShowNormal(this, Parameter);
 	sender->ResetState();
 }

@@ -34,11 +34,13 @@ class PromptWindow : public GuiFrame, public sigslot::has_slots<>
 		int GetChoice();
 		void SetTitle(const char *title);
 		void SetMessage(const char *msg);
+		void SetAutoClose(bool a) { AutoClose = a; }
 		sigslot::signal2<PromptWindow *, int> ButtonClicked;
 	protected:
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
 		int choice;
+		bool AutoClose;
 
 		GuiImage * btn1Img;
 		GuiImage * btn2Img;

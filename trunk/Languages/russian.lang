@@ -1,14 +1,15 @@
 # WiiXplorer language source file.
-#
+# 
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,9 +72,6 @@ msgid "Alpha Blending"
 msgstr ""
 
 msgid "App Default"
-msgstr ""
-
-msgid "AppPath changed"
 msgstr ""
 
 msgid "Apps"
@@ -139,19 +137,22 @@ msgstr ""
 msgid "Browser Mode"
 msgstr "Режим просмотра"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr ""
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr ""
 
-msgid "Calculating MD5..."
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
 msgstr ""
 
 msgid "Calculating total size..."
+msgstr ""
+
+msgid "Calculating transfer size..."
 msgstr ""
 
 msgid "Can not open the file."
@@ -198,12 +199,6 @@ msgstr ""
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change"
-msgstr "Изменить"
-
-msgid "Change Language Path?"
-msgstr "Изменить языковой путь?"
 
 msgid "Channels"
 msgstr "Каналы"
@@ -258,17 +253,11 @@ msgstr ""
 msgid "Context Menu Button"
 msgstr ""
 
-msgid "Continue"
-msgstr "Продолжить"
-
 msgid "Controls Settings"
 msgstr "Управление"
 
 msgid "Convert"
 msgstr "Преобразовать"
-
-msgid "Converting image..."
-msgstr "Преобразование изображения..."
 
 msgid "Copy"
 msgstr "Копировать"
@@ -287,9 +276,6 @@ msgstr ""
 
 msgid "Copying item(s):"
 msgstr ""
-
-msgid "Could not connect to the network"
-msgstr "Не удалось подключиться к сети"
 
 msgid "Could not connect to the server."
 msgstr "Не удалось подключиться к серверу."
@@ -345,8 +331,8 @@ msgstr ""
 msgid "Delete the selected item(s) and its content?"
 msgstr ""
 
-msgid "Deleting files:"
-msgstr "Удаление файлов:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr ""
@@ -363,9 +349,6 @@ msgstr ""
 msgid "Directory .."
 msgstr "Директория .."
 
-msgid "Directory couldn't be deleted."
-msgstr "Директория не может быть удалена."
-
 msgid "Disconnect Client"
 msgstr "Отключить FTP"
 
@@ -375,7 +358,13 @@ msgstr "Отключить SMB"
 msgid "Do you want to add an URL?"
 msgstr ""
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
+msgstr ""
+
+msgid "Do you want to append this process to the queue?"
 msgstr ""
 
 msgid "Do you want to boot file now?"
@@ -406,8 +395,8 @@ msgstr "Выйти из WiiXplorer?"
 msgid "Do you want to load file from: %s ?"
 msgstr "Загрузить файл из: %s ?"
 
-msgid "Do you want to load the default language."
-msgstr "Загрузить язык по-умолчанию."
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Загрузить этот язык ?"
@@ -435,9 +424,6 @@ msgstr "Перезагрузить SD и USB ?"
 
 msgid "Do you want to replace this file?"
 msgstr "Заменить этот файл?"
-
-msgid "Do you want to reset the color settings?"
-msgstr ""
 
 msgid "Do you want to reset the control settings?"
 msgstr "Сбросить настройки управления?"
@@ -498,11 +484,11 @@ msgid "Error - %s is not a file\n"
 msgstr ""
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
+msgid "Error - Could not open file: %s\n"
 msgstr ""
 
 #, c-format
-msgid "Error - Could not open file: %s\n"
+msgid "Error - Could not parse directory: %s\n"
 msgstr ""
 
 #, c-format
@@ -584,7 +570,10 @@ msgstr ""
 msgid "Failed adding the item(s)."
 msgstr ""
 
-msgid "Failed copying item(s)."
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
 msgstr ""
 
 msgid "Failed extracting the archive."
@@ -593,7 +582,10 @@ msgstr ""
 msgid "Failed extracting the item(s)."
 msgstr ""
 
-msgid "Failed moving item(s)."
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
 msgstr ""
 
 msgid "Failed renaming item"
@@ -617,8 +609,8 @@ msgstr ""
 msgid "File Extensions"
 msgstr "Файловые расширения"
 
-msgid "File Extensions Assignment"
-msgstr "Распределение файловых расширений"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr ""
@@ -627,9 +619,6 @@ msgid "File already exists:"
 msgstr "Файл уже существует:"
 
 msgid "File could not be deleted."
-msgstr "Файл не может быть удалён."
-
-msgid "File couldn't be deleted."
 msgstr "Файл не может быть удалён."
 
 msgid "File is corrupt (CRC mismatch)."
@@ -688,9 +677,6 @@ msgid "Format"
 msgstr ""
 
 msgid "Format Partition?"
-msgstr ""
-
-msgid "Formating partition..."
 msgstr ""
 
 msgid "Formatter"
@@ -755,9 +741,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr ""
-
-msgid "Getting Changelog..."
-msgstr "Получение изменений..."
 
 msgid "Go Back"
 msgstr "Вернуться"
@@ -879,9 +862,6 @@ msgstr "Язык"
 msgid "Language Files"
 msgstr "Переводы"
 
-msgid "Language Path changed."
-msgstr ""
-
 msgid "Language Settings"
 msgstr ""
 
@@ -948,9 +928,6 @@ msgstr ""
 msgid "MPlayerCE Path"
 msgstr "Путь к MPlayerCE"
 
-msgid "MPlayerCE path changed"
-msgstr ""
-
 msgid "Mark Item Button"
 msgstr ""
 
@@ -960,13 +937,7 @@ msgstr "Буфер памяти"
 msgid "Menu"
 msgstr "Меню Wii"
 
-msgid "Minimize"
-msgstr ""
-
 msgid "Mounted as:"
-msgstr ""
-
-msgid "Mounting disc"
 msgstr ""
 
 msgid "Moving item(s):"
@@ -1015,9 +986,6 @@ msgstr ""
 msgid "No image found at index %d."
 msgstr ""
 
-msgid "No language files found."
-msgstr "Языковые файлы не найдены."
-
 msgid "No network connection."
 msgstr ""
 
@@ -1050,9 +1018,6 @@ msgstr "Не хватает памяти."
 
 msgid "Not mounted"
 msgstr ""
-
-msgid "Notice:"
-msgstr "Уведомление:"
 
 msgid "OFF"
 msgstr "Выключено"
@@ -1126,8 +1091,14 @@ msgstr ""
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr ""
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Установка путей"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "Воспроизвести"
@@ -1149,9 +1120,6 @@ msgstr "Введите пароль."
 
 msgid "Please wait..."
 msgstr "Пожалуйста, подождите..."
-
-msgid "Please wait:"
-msgstr "Пожалуйста, подождите:"
 
 msgid "Possible unsupported format."
 msgstr "Возможно, неподдерживаемый формат."
@@ -1304,9 +1272,6 @@ msgstr ""
 msgid "Set this Partition as Active?"
 msgstr ""
 
-msgid "Setting partition as active."
-msgstr ""
-
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1434,9 +1399,6 @@ msgstr "Сбой передачи"
 msgid "Transfer failed."
 msgstr "Сбой передачи."
 
-msgid "Transfering files:"
-msgstr "Передача файлов:"
-
 msgid "URL List"
 msgstr ""
 
@@ -1485,9 +1447,6 @@ msgstr "Обновлять Icon.png"
 msgid "Update Meta.xml"
 msgstr "Обновлять Meta.xml"
 
-msgid "Update Path changed."
-msgstr ""
-
 msgid "Update failed"
 msgstr "Ошибка обновления"
 
@@ -1497,9 +1456,6 @@ msgstr "Обновление завершено успешно"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Доступно обновление до Rev. %i"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr ""
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1618,9 +1574,6 @@ msgstr ""
 msgid "WiiMC Path"
 msgstr ""
 
-msgid "WiiMC path changed"
-msgstr ""
-
 msgid "WiiXplorer Default Music"
 msgstr ""
 
@@ -1638,9 +1591,6 @@ msgstr "Да"
 
 msgid "Yes to all"
 msgstr "Да для всех"
-
-msgid "You can not cut into the directory itself."
-msgstr ""
 
 msgid "You can't set a logical partition as active."
 msgstr ""
@@ -1675,6 +1625,9 @@ msgstr ""
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr ""
 
@@ -1689,6 +1642,51 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Deleting files:"
+#~ msgstr "Удаление файлов:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "Директория не может быть удалена."
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "Файл не может быть удалён."
+
+#~ msgid "Transfering files:"
+#~ msgstr "Передача файлов:"
+
+#~ msgid "Change"
+#~ msgstr "Изменить"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "Изменить языковой путь?"
+
+#~ msgid "Continue"
+#~ msgstr "Продолжить"
+
+#~ msgid "Converting image..."
+#~ msgstr "Преобразование изображения..."
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "Не удалось подключиться к сети"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "Загрузить язык по-умолчанию."
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "Распределение файловых расширений"
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "Получение изменений..."
+
+#~ msgid "No language files found."
+#~ msgstr "Языковые файлы не найдены."
+
+#~ msgid "Notice:"
+#~ msgstr "Уведомление:"
+
+#~ msgid "Please wait:"
+#~ msgstr "Пожалуйста, подождите:"
 
 #~ msgid "Reload"
 #~ msgstr "Перезагрузка SD и USB"

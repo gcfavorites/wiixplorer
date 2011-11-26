@@ -18,42 +18,43 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	boot
 BUILD		:=	build
 SOURCES		:=	source \
-				source/GUI \
-				source/Tools \
-				source/Menus \
-				source/Menus/Settings \
-				source/network \
-				source/Prompts \
+				source/ArchiveOperations \
 				source/BootHomebrew \
 				source/Controls \
 				source/DeviceControls \
-				source/Memory \
+				source/DiskOperations \
 				source/FileStartUp \
 				source/FileOperations \
-				source/VideoOperations \
-				source/SoundOperations \
-				source/ImageOperations \
-				source/TextOperations \
-				source/Language \
-				source/mload \
-				source/DiskOperations \
 				source/FTPOperations \
 				source/FTPOperations/ftpii \
-				source/ArchiveOperations \
-				source/Launcher
+				source/GUI \
+				source/ImageOperations \
+				source/Language \
+				source/Launcher \
+				source/Memory \
+				source/Menus \
+				source/Menus/Settings \
+				source/mload \
+				source/network \
+				source/Prompts \
+				source/SoundOperations \
+				source/System \
+				source/TextOperations \
+				source/Tools \
+				source/VideoOperations
 INCLUDES	:=	source
-DATA		:=	data/images \
-				data/sounds \
+DATA		:=	data/binary \
 				data/fonts \
-				data/binary
+				data/images \
+				data/sounds
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -O3 -Wall -Wextra -Wno-multichar $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -DHAVE_LIBPNG \
-				-DHAVE_LIBJPEG -DHAVE_LIBTIFF
+CFLAGS		=	-g -ggdb -O3 -Wall -Wextra -Wno-multichar $(MACHDEP) $(INCLUDE) \
+				-DHAVE_LIBZ -DHAVE_LIBPNG -DHAVE_LIBJPEG -DHAVE_LIBTIFF
 CXXFLAGS	=	$(CFLAGS)
-LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
+LDFLAGS		=	-g -ggdb $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------

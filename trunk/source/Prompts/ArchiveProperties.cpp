@@ -121,14 +121,14 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 
 	u32 filesize  = ArchiveFile.length;
 
-	if(filesize > KBSIZE && filesize < MBSIZE)
-		sprintf(temp, "%0.2fKB", filesize/KBSIZE);
-	else if(filesize > MBSIZE && filesize < GBSIZE)
-		sprintf(temp, "%0.2fMB", filesize/MBSIZE);
-	else if(filesize > GBSIZE)
+	if(filesize > GBSIZE)
 		sprintf(temp, "%0.2fGB", filesize/GBSIZE);
+	else if(filesize > MBSIZE)
+		sprintf(temp, "%0.2fMB", filesize/MBSIZE);
+	else if(filesize > KBSIZE)
+		sprintf(temp, "%0.2fKB", filesize/KBSIZE);
 	else
-		sprintf(temp, "%dB", filesize);
+		sprintf(temp, "%iB", (u32) filesize);
 
 	filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
 	filesizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -141,14 +141,14 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 
 	u32 comp_filesize  = ArchiveFile.comp_length;
 
-	if(comp_filesize > KBSIZE && comp_filesize < MBSIZE)
-		sprintf(temp, "%0.2fKB", comp_filesize/KBSIZE);
-	else if(comp_filesize > MBSIZE && comp_filesize < GBSIZE)
-		sprintf(temp, "%0.2fMB", comp_filesize/MBSIZE);
-	else if(comp_filesize > GBSIZE)
+	if(comp_filesize > GBSIZE)
 		sprintf(temp, "%0.2fGB", comp_filesize/GBSIZE);
+	else if(comp_filesize > MBSIZE)
+		sprintf(temp, "%0.2fMB", comp_filesize/MBSIZE);
+	else if(comp_filesize > KBSIZE)
+		sprintf(temp, "%0.2fKB", comp_filesize/KBSIZE);
 	else
-		sprintf(temp, "%dB", comp_filesize);
+		sprintf(temp, "%iB", (u32) comp_filesize);
 
 	filesizeCompTxt = new GuiText(tr("Compressed Size:"), 20, (GXColor){0, 0, 0, 255});
 	filesizeCompTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);

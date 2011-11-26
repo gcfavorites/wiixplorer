@@ -38,6 +38,8 @@ void SoundSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Load Music to Memory"));
 	options.SetName(i++, tr("Soundblocks"));
 	options.SetName(i++, tr("Soundblock Size"));
+
+	SetOptionValues();
 }
 
 void SoundSettingsMenu::SetOptionValues()

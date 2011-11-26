@@ -1,13 +1,14 @@
 # WiiXplorer language source file.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,9 +73,6 @@ msgstr "アルファ合成"
 msgid "App Default"
 msgstr "英語"
 
-msgid "AppPath changed"
-msgstr "アプリのパスを変更しました"
-
 msgid "Apps"
 msgstr "アプリ"
 
@@ -138,20 +136,23 @@ msgstr "ブラウズ"
 msgid "Browser Mode"
 msgstr "ブラウザのモード"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr "メインブラウザでフォントを選択してください"
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "ファイルのCRCが一致しません(パスワードが間違っています)"
 
-msgid "Calculating MD5..."
-msgstr "MD5を計算中です…"
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
+msgstr ""
 
 msgid "Calculating total size..."
 msgstr "合計サイズを計算中です…"
+
+msgid "Calculating transfer size..."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "ファイルを開けません"
@@ -197,12 +198,6 @@ msgstr "このパスに書き込めませんでした:"
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change"
-msgstr "変更"
-
-msgid "Change Language Path?"
-msgstr "言語のパスを変更しますか?"
 
 msgid "Channels"
 msgstr "チャンネル"
@@ -257,17 +252,11 @@ msgstr "日本語"
 msgid "Context Menu Button"
 msgstr "コンテキストメニュー"
 
-msgid "Continue"
-msgstr "続行"
-
 msgid "Controls Settings"
 msgstr "操作設定"
 
 msgid "Convert"
 msgstr "変換"
-
-msgid "Converting image..."
-msgstr "画像を変換しています･･･"
 
 msgid "Copy"
 msgstr "コピー"
@@ -286,9 +275,6 @@ msgstr "コピーされた"
 
 msgid "Copying item(s):"
 msgstr "コピーしています:"
-
-msgid "Could not connect to the network"
-msgstr "接続できませんでした"
 
 msgid "Could not connect to the server."
 msgstr "サーバーに接続できませんでした"
@@ -344,8 +330,8 @@ msgstr "終了時に一時フォルダを削除する"
 msgid "Delete the selected item(s) and its content?"
 msgstr "選択されたアイテムと中身を削除しますか?"
 
-msgid "Deleting files:"
-msgstr "削除しています:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr "すべて選択を解除するボタン"
@@ -362,9 +348,6 @@ msgstr "デバイス"
 msgid "Directory .."
 msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 
-msgid "Directory couldn't be deleted."
-msgstr "フォルダを削除できませんでした"
-
 msgid "Disconnect Client"
 msgstr "クライアントを切断"
 
@@ -374,8 +357,14 @@ msgstr "SMBを切断"
 msgid "Do you want to add an URL?"
 msgstr "URLを追加しますか?"
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "キューにこの貼り付けを追加しますか?"
+
+msgid "Do you want to append this process to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "今すぐ起動しますか?"
@@ -405,8 +394,8 @@ msgstr "WiiXplorerを終了しますか?"
 msgid "Do you want to load file from: %s ?"
 msgstr "%sからファイルを読み込みますか?"
 
-msgid "Do you want to load the default language."
-msgstr "デフォルトの言語を読み込みますか?"
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "この言語に設定しますか?"
@@ -434,9 +423,6 @@ msgstr "デバイスをリマウントしますか?"
 
 msgid "Do you want to replace this file?"
 msgstr "このファイルを置き換えますか?"
-
-msgid "Do you want to reset the color settings?"
-msgstr "色設定を初期化しますか?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "操作設定を初期化しますか?"
@@ -497,12 +483,12 @@ msgid "Error - %s is not a file\n"
 msgstr "エラー: %sはファイルではありません\n"
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
-msgstr "エラー: ディレクトリを開けません: %s\n"
-
-#, c-format
 msgid "Error - Could not open file: %s\n"
 msgstr "エラー: ファイルを開けません: %s\n"
+
+#, c-format
+msgid "Error - Could not parse directory: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -583,8 +569,11 @@ msgstr "追加に失敗しました"
 msgid "Failed adding the item(s)."
 msgstr "追加に失敗しました"
 
-msgid "Failed copying item(s)."
-msgstr "コピーに失敗しました"
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "解凍に失敗しました"
@@ -592,8 +581,11 @@ msgstr "解凍に失敗しました"
 msgid "Failed extracting the item(s)."
 msgstr "解凍に失敗しました"
 
-msgid "Failed moving item(s)."
-msgstr "移動に失敗しました"
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
+msgstr ""
 
 msgid "Failed renaming item"
 msgstr "リネームに失敗しました"
@@ -616,8 +608,8 @@ msgstr "MBRの書き込みに失敗しました"
 msgid "File Extensions"
 msgstr "拡張子"
 
-msgid "File Extensions Assignment"
-msgstr "拡張子の割り当て"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr "ファイルシステム:"
@@ -626,9 +618,6 @@ msgid "File already exists:"
 msgstr "ファイルが既に存在します"
 
 msgid "File could not be deleted."
-msgstr "ファイルを削除できませんでした"
-
-msgid "File couldn't be deleted."
 msgstr "ファイルを削除できませんでした"
 
 msgid "File is corrupt (CRC mismatch)."
@@ -688,9 +677,6 @@ msgstr "初期化"
 
 msgid "Format Partition?"
 msgstr "領域を初期化しますか?"
-
-msgid "Formating partition..."
-msgstr "領域を初期化中です…"
 
 msgid "Formatter"
 msgstr "初期化ツール"
@@ -754,9 +740,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "基本設定"
-
-msgid "Getting Changelog..."
-msgstr "更新履歴を受信しています･･･"
 
 msgid "Go Back"
 msgstr "戻る"
@@ -878,9 +861,6 @@ msgstr "言語"
 msgid "Language Files"
 msgstr "言語ファイル"
 
-msgid "Language Path changed."
-msgstr "言語のパスを変更しました"
-
 msgid "Language Settings"
 msgstr "言語の設定"
 
@@ -947,9 +927,6 @@ msgstr ""
 msgid "MPlayerCE Path"
 msgstr "MPlayerCEのパス"
 
-msgid "MPlayerCE path changed"
-msgstr "MPlayerCEのパスを変更しました"
-
 msgid "Mark Item Button"
 msgstr "選択する"
 
@@ -959,14 +936,8 @@ msgstr "メモリバッファ"
 msgid "Menu"
 msgstr "Wiiメニューへ"
 
-msgid "Minimize"
-msgstr "最小化"
-
 msgid "Mounted as:"
 msgstr "マウント中:"
-
-msgid "Mounting disc"
-msgstr "マウント中です"
 
 msgid "Moving item(s):"
 msgstr "移動しています"
@@ -1014,9 +985,6 @@ msgstr "zip内にhomebrewが何もありません"
 msgid "No image found at index %d."
 msgstr "%dの階層に画像が見つかりませんでした"
 
-msgid "No language files found."
-msgstr "言語が見つかりませんでした"
-
 msgid "No network connection."
 msgstr "ネットワーク接続がありません"
 
@@ -1049,9 +1017,6 @@ msgstr "メモリ不足です"
 
 msgid "Not mounted"
 msgstr "マウントしていません"
-
-msgid "Notice:"
-msgstr "お知らせ:"
 
 msgid "OFF"
 msgstr "オフ"
@@ -1125,8 +1090,14 @@ msgstr "このディレクトリに貼り付けますか?"
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr "ZIP書庫でのみファイルの貼り付けに対応しています"
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "パスの設定"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "ファイルを再生"
@@ -1148,9 +1119,6 @@ msgstr "パスワードを入力してください"
 
 msgid "Please wait..."
 msgstr "お待ちください…"
-
-msgid "Please wait:"
-msgstr "お待ちください"
 
 msgid "Possible unsupported format."
 msgstr "対応していない形式です"
@@ -1303,9 +1271,6 @@ msgstr "アクティブにする"
 msgid "Set this Partition as Active?"
 msgstr "領域をアクティブにしますか?"
 
-msgid "Setting partition as active."
-msgstr "アクティブにしています"
-
 msgid "Settings"
 msgstr "設定"
 
@@ -1433,9 +1398,6 @@ msgstr "転送に失敗しました"
 msgid "Transfer failed."
 msgstr "転送に失敗しました"
 
-msgid "Transfering files:"
-msgstr "転送中です:"
-
 msgid "URL List"
 msgstr "URLリスト"
 
@@ -1484,9 +1446,6 @@ msgstr "アイコンの更新"
 msgid "Update Meta.xml"
 msgstr "XMLの更新"
 
-msgid "Update Path changed."
-msgstr "WiiXplorerのパスを変更しました"
-
 msgid "Update failed"
 msgstr "更新に失敗しました"
 
@@ -1496,9 +1455,6 @@ msgstr "更新が完了しました"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "更新があります:Rev%i"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr "言語ファイルを更新中です"
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1617,9 +1573,6 @@ msgstr ""
 msgid "WiiMC Path"
 msgstr "WiiMCのパス"
 
-msgid "WiiMC path changed"
-msgstr "WiiMCのパスを変更しました"
-
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorerのBGM"
 
@@ -1637,9 +1590,6 @@ msgstr "はい"
 
 msgid "Yes to all"
 msgstr "全てはい"
-
-msgid "You can not cut into the directory itself."
-msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
 
 msgid "You can't set a logical partition as active."
 msgstr "倫理的な領域はアクティブにできません"
@@ -1674,6 +1624,9 @@ msgstr ", K-M…日本語への翻訳"
 msgid "asdfghjkl;'="
 msgstr "ちとしはきくまのりれけむ"
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr "…FTPのソースを制作"
 
@@ -1688,6 +1641,102 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Error - Could not open directory: %s\n"
+#~ msgstr "エラー: ディレクトリを開けません: %s\n"
+
+#~ msgid "Deleting files:"
+#~ msgstr "削除しています:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "フォルダを削除できませんでした"
+
+#~ msgid "Failed copying item(s)."
+#~ msgstr "コピーに失敗しました"
+
+#~ msgid "Failed moving item(s)."
+#~ msgstr "移動に失敗しました"
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "ファイルを削除できませんでした"
+
+#~ msgid "Transfering files:"
+#~ msgstr "転送中です:"
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "ﾃﾞｨﾚｸﾄﾘ自体は削除できません"
+
+#~ msgid "AppPath changed"
+#~ msgstr "アプリのパスを変更しました"
+
+#~ msgid "Browsing for font files must be done in the main browser."
+#~ msgstr "メインブラウザでフォントを選択してください"
+
+#~ msgid "Calculating MD5..."
+#~ msgstr "MD5を計算中です…"
+
+#~ msgid "Change"
+#~ msgstr "変更"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "言語のパスを変更しますか?"
+
+#~ msgid "Continue"
+#~ msgstr "続行"
+
+#~ msgid "Converting image..."
+#~ msgstr "画像を変換しています･･･"
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "接続できませんでした"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "デフォルトの言語を読み込みますか?"
+
+#~ msgid "Do you want to reset the color settings?"
+#~ msgstr "色設定を初期化しますか?"
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "拡張子の割り当て"
+
+#~ msgid "Formating partition..."
+#~ msgstr "領域を初期化中です…"
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "更新履歴を受信しています･･･"
+
+#~ msgid "Language Path changed."
+#~ msgstr "言語のパスを変更しました"
+
+#~ msgid "MPlayerCE path changed"
+#~ msgstr "MPlayerCEのパスを変更しました"
+
+#~ msgid "Minimize"
+#~ msgstr "最小化"
+
+#~ msgid "Mounting disc"
+#~ msgstr "マウント中です"
+
+#~ msgid "No language files found."
+#~ msgstr "言語が見つかりませんでした"
+
+#~ msgid "Notice:"
+#~ msgstr "お知らせ:"
+
+#~ msgid "Please wait:"
+#~ msgstr "お待ちください"
+
+#~ msgid "Setting partition as active."
+#~ msgstr "アクティブにしています"
+
+#~ msgid "Update Path changed."
+#~ msgstr "WiiXplorerのパスを変更しました"
+
+#~ msgid "Updating/Downloading Languagefiles."
+#~ msgstr "言語ファイルを更新中です"
+
+#~ msgid "WiiMC path changed"
+#~ msgstr "WiiMCのパスを変更しました"
 
 #~ msgid "Reload"
 #~ msgstr "再読み込み"

@@ -1,31 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * Properties.cpp
- *
- * for WiiXplorer 2009
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <sys/statvfs.h>
 #include <string.h>
 #include <dirent.h>
@@ -45,33 +33,36 @@ Properties::Properties(ItemMarker * IMarker)
 	int Position_X = 40;
 	int Position_Y = 40;
 
-	choice = -1;
 	folder = false;
+	bClosing = false;
+	sizegaindone = false;
 	FileCount = 0;
 	OldSize = 0;
 	TotalSize = 0;
 	devicefree = 0;
 	devicesize = 0;
-	Marker = IMarker;
+	Marker = *IMarker;
 	foldersizethread = LWP_THREAD_NULL;
 
-	for(int i = 0; i < Marker->GetItemcount(); i++)
+	for(int i = 0; i < Marker.GetItemcount(); i++)
 	{
-		if(Marker->IsItemDir(i))
+		if(Marker.IsItemDir(i))
 		{
 			folder = true;
 		}
 		else
 		{
-			TotalSize += Marker->GetItemSize(i);
+			TotalSize += Marker.GetItemSize(i);
 			++FileCount;
 		}
 	}
 
 	OldSize = TotalSize;
 
-	if(folder)
-		StartGetFolderSizeThread();
+	if(folder) {
+		//!Initialize GetSizeThread for Properties
+		LWP_CreateThread(&foldersizethread, FolderSizeThread, this, NULL, 32768, 60);
+	}
 
 	dialogBox = Resources::GetImageData("bg_properties.png");
 	titleData = Resources::GetImageData("icon_folder.png");
@@ -89,7 +80,7 @@ Properties::Properties(ItemMarker * IMarker)
 	trigB = new GuiTrigger();
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-	const char * filename = Marker->GetItemName(Marker->GetItemcount()-1);
+	const char * filename = Marker.GetItemName(Marker.GetItemcount()-1);
 
 	TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
 	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
@@ -108,7 +99,7 @@ Properties::Properties(ItemMarker * IMarker)
 	filepathTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filepathTxt->SetPosition(Position_X, Position_Y);
 
-	filepathvalTxt =  new GuiText(Marker->GetItemPath(Marker->GetItemcount()-1), 20, (GXColor){0, 0, 0, 255});
+	filepathvalTxt =  new GuiText(Marker.GetItemPath(Marker.GetItemcount()-1), 20, (GXColor){0, 0, 0, 255});
 	filepathvalTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filepathvalTxt->SetPosition(Position_X+80, Position_Y);
 	filepathvalTxt->SetMaxWidth(dialogBox->GetWidth()-Position_X-130, SCROLL_HORIZONTAL);
@@ -125,14 +116,14 @@ Properties::Properties(ItemMarker * IMarker)
 
 	char temp[MAXPATHLEN];
 
-	if(OldSize > KBSIZE && OldSize < MBSIZE)
-		sprintf(temp, "%0.2fKB", OldSize/KBSIZE);
-	else if(OldSize > MBSIZE && OldSize < GBSIZE)
-		sprintf(temp, "%0.2fMB", OldSize/MBSIZE);
-	else if(OldSize > GBSIZE)
+	if(OldSize > GBSIZE)
 		sprintf(temp, "%0.2fGB", OldSize/GBSIZE);
+	else if(OldSize > MBSIZE)
+		sprintf(temp, "%0.2fMB", OldSize/MBSIZE);
+	else if(OldSize > KBSIZE)
+		sprintf(temp, "%0.2fKB", OldSize/KBSIZE);
 	else
-		sprintf(temp, "%LiB", OldSize);
+		sprintf(temp, "%iB", (u32) OldSize);
 
 	filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
 	filesizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -144,7 +135,7 @@ Properties::Properties(ItemMarker * IMarker)
 	Position_Y += 30;
 
 	char * pch = NULL;
-	if(Marker->GetItemcount() > 1)
+	if(Marker.GetItemcount() > 1)
 	{
 		snprintf(temp, sizeof(temp), tr("Multiple Items"));
 	}
@@ -161,7 +152,8 @@ Properties::Properties(ItemMarker * IMarker)
 			pch += 1;
 		else
 			pch = (char *) filename;
-		snprintf(temp, sizeof(temp), "%s", pch);
+
+		snprintf(temp, sizeof(temp), "%s", pch != NULL ? pch : "");
 	}
 
 	filetypeTxt = new GuiText(tr("Filetype:"), 20, (GXColor){0, 0, 0, 255});
@@ -201,8 +193,8 @@ Properties::Properties(ItemMarker * IMarker)
 
 	struct stat filestat;
 	memset(&filestat, 0, sizeof(struct stat));
-	if(Marker->GetItemcount() > 0)
-		stat(Marker->GetItemPath(Marker->GetItemcount()-1), &filestat);
+	if(Marker.GetItemcount() > 0)
+		stat(Marker.GetItemPath(Marker.GetItemcount()-1), &filestat);
 
 	last_accessTxt = new GuiText(tr("Last access:"), 20, (GXColor){0, 0, 0, 255});
 	last_accessTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -248,7 +240,7 @@ Properties::Properties(ItemMarker * IMarker)
 
 	Append(dialogBoxImg);
 	Append(TitleTxt);
-	if(Marker->IsItemDir(Marker->GetItemcount()-1))
+	if(Marker.IsItemDir(Marker.GetItemcount()-1))
 		Append(TitleImg);
 	Append(filepathTxt);
 	Append(filepathvalTxt);
@@ -278,9 +270,11 @@ Properties::Properties(ItemMarker * IMarker)
 
 Properties::~Properties()
 {
+	bClosing = true;
+
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
 	while(this->GetEffect() > 0)
-		usleep(THREAD_SLEEP);
+		Application::Instance()->updateEvents();
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
@@ -288,7 +282,7 @@ Properties::~Properties()
 	RemoveAll();
 
 	if(foldersizethread != LWP_THREAD_NULL)
-		StopSizeThread();
+		LWP_JoinThread(foldersizethread, NULL);
 
 	Resources::Remove(dialogBox);
 	Resources::Remove(titleData);
@@ -327,32 +321,12 @@ Properties::~Properties()
 	delete CloseBtn;
 	delete trigA;
 	delete trigB;
-
-	//Application::Instance()->SetDim(false);
-	Application::Instance()->SetState(STATE_DEFAULT);
 }
 
-int Properties::GetChoice()
+void Properties::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	if(folder)
-	{
-		if(OldSize != TotalSize)
-		{
-			UpdateSizeValue();
-		}
-	}
-
-	return choice;
-}
-
-void Properties::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
-{
-	sender->ResetState();
-
-	if(sender == CloseBtn)
-	{
-		choice = -2;
-	}
+	Application::Instance()->UnsetUpdateOnly(this);
+	Application::Instance()->PushForDelete(this);
 }
 
 void Properties::UpdateSizeValue()
@@ -361,14 +335,14 @@ void Properties::UpdateSizeValue()
 	char sizetext[20];
 	char filecounttext[20];
 
-	if(OldSize > KBSIZE && OldSize < MBSIZE)
-		snprintf(sizetext, sizeof(sizetext), "%0.2fKB", OldSize/KBSIZE);
-	else if(OldSize > MBSIZE && OldSize < GBSIZE)
-		snprintf(sizetext, sizeof(sizetext), "%0.2fMB", OldSize/MBSIZE);
-	else if(OldSize > GBSIZE)
+	if(OldSize > GBSIZE)
 		snprintf(sizetext, sizeof(sizetext), "%0.2fGB", OldSize/GBSIZE);
+	else if(OldSize > MBSIZE)
+		snprintf(sizetext, sizeof(sizetext), "%0.2fMB", OldSize/MBSIZE);
+	else if(OldSize > KBSIZE)
+		snprintf(sizetext, sizeof(sizetext), "%0.2fKB", OldSize/KBSIZE);
 	else
-		snprintf(sizetext, sizeof(sizetext), "%LiB", OldSize);
+		snprintf(sizetext, sizeof(sizetext), "%iB", (u32) OldSize);
 
 	filesizeTxtVal->SetText(sizetext);
 	snprintf(filecounttext, sizeof(filecounttext), "%i", FileCount);
@@ -376,28 +350,38 @@ void Properties::UpdateSizeValue()
 
 	if(devicefree > 0 && devicesize > 0)
 	{
-		if(devicefree > KBSIZE && devicefree < MBSIZE)
-			snprintf(sizetext, sizeof(sizetext), "%0.2fKB", devicefree/KBSIZE);
-		else if(devicefree > MBSIZE && devicefree < GBSIZE)
-			snprintf(sizetext, sizeof(sizetext), "%0.2fMB", devicefree/MBSIZE);
-		else if(devicefree > GBSIZE)
+		if(devicefree > GBSIZE)
 			snprintf(sizetext, sizeof(sizetext), "%0.2fGB", devicefree/GBSIZE);
+		else if(devicefree > MBSIZE)
+			snprintf(sizetext, sizeof(sizetext), "%0.2fMB", devicefree/MBSIZE);
+		else if(devicefree > KBSIZE)
+			snprintf(sizetext, sizeof(sizetext), "%0.2fKB", devicefree/KBSIZE);
 		else
-			snprintf(sizetext, sizeof(sizetext), "%LiB", devicefree);
+			snprintf(sizetext, sizeof(sizetext), "%iB", (u32) devicefree);
 
 		devicefreeTxtVal->SetText(sizetext);
 
-		if(devicesize > KBSIZE && devicesize < MBSIZE)
-			snprintf(sizetext, sizeof(sizetext), "%0.2fKB", devicesize/KBSIZE);
-		else if(devicesize > MBSIZE && devicesize < GBSIZE)
-			snprintf(sizetext, sizeof(sizetext), "%0.2fMB", devicesize/MBSIZE);
-		else if(devicesize > GBSIZE)
+		if(devicesize > GBSIZE)
 			snprintf(sizetext, sizeof(sizetext), "%0.2fGB", devicesize/GBSIZE);
+		else if(devicesize > MBSIZE)
+			snprintf(sizetext, sizeof(sizetext), "%0.2fMB", devicesize/MBSIZE);
+		else if(devicesize > KBSIZE)
+			snprintf(sizetext, sizeof(sizetext), "%0.2fKB", devicesize/KBSIZE);
 		else
-			snprintf(sizetext, sizeof(sizetext), "%LiB", devicesize);
+			snprintf(sizetext, sizeof(sizetext), "%iB", (u32) devicesize);
 
 		devicetotalTxtVal->SetText(sizetext);
 	}
+}
+
+void Properties::Draw()
+{
+	if(OldSize != TotalSize || sizegaindone)
+	{
+		sizegaindone = false;
+		UpdateSizeValue();
+	}
+	GuiFrame::Draw();
 }
 
 /****************************************************************************
@@ -406,14 +390,16 @@ void Properties::UpdateSizeValue()
 void Properties::InternalFolderSizeGain()
 {
 	bool gotDeviceSize = false;
+	char *folderpath = (char *) malloc(MAXPATHLEN);
+	if(!folderpath)
+		return;
 
-	for(int i = 0; i < Marker->GetItemcount(); i++)
+	for(int i = 0; i < Marker.GetItemcount(); i++)
 	{
-		if(!Marker->IsItemDir(i))
+		if(!Marker.IsItemDir(i))
 			continue;
 
-		char folderpath[1024];
-		snprintf(folderpath, sizeof(folderpath), "%s/", Marker->GetItemPath(i));
+		snprintf(folderpath, MAXPATHLEN, "%s/", Marker.GetItemPath(i));
 
 		if(!gotDeviceSize)
 		{
@@ -429,29 +415,16 @@ void Properties::InternalFolderSizeGain()
 			gotDeviceSize = true;
 		}
 
-		GetFolderSize(folderpath, TotalSize, FileCount);
+		GetFolderSize(folderpath, TotalSize, FileCount, bClosing);
 	}
 
-	UpdateSizeValue();
+	free(folderpath);
+
+	sizegaindone = true;
 }
 
 void * Properties::FolderSizeThread(void *arg)
 {
 	((Properties *) arg)->InternalFolderSizeGain();
 	return NULL;
-}
-
-void Properties::StartGetFolderSizeThread()
-{
-	sizegainrunning = true;
-
-	//!Initialize GetSizeThread for Properties
-	LWP_CreateThread(&foldersizethread, FolderSizeThread, this, NULL, 32768, 60);
-}
-
-void Properties::StopSizeThread()
-{
-	sizegainrunning = false;
-	LWP_JoinThread(foldersizethread, NULL);
-	foldersizethread = LWP_THREAD_NULL;
 }

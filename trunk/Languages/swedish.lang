@@ -4,10 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,9 +73,6 @@ msgstr ""
 msgid "App Default"
 msgstr "App Standard"
 
-msgid "AppPath changed"
-msgstr ""
-
 msgid "Apps"
 msgstr ""
 
@@ -138,19 +136,22 @@ msgstr ""
 msgid "Browser Mode"
 msgstr ""
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr ""
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr ""
 
-msgid "Calculating MD5..."
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
 msgstr ""
 
 msgid "Calculating total size..."
+msgstr ""
+
+msgid "Calculating transfer size..."
 msgstr ""
 
 msgid "Can not open the file."
@@ -196,12 +197,6 @@ msgid "Cannot write to this path:"
 msgstr ""
 
 msgid "Caps"
-msgstr ""
-
-msgid "Change"
-msgstr ""
-
-msgid "Change Language Path?"
 msgstr ""
 
 msgid "Channels"
@@ -257,16 +252,10 @@ msgstr "Konsol Standard"
 msgid "Context Menu Button"
 msgstr ""
 
-msgid "Continue"
-msgstr ""
-
 msgid "Controls Settings"
 msgstr ""
 
 msgid "Convert"
-msgstr ""
-
-msgid "Converting image..."
 msgstr ""
 
 msgid "Copy"
@@ -285,9 +274,6 @@ msgid "Copy of"
 msgstr ""
 
 msgid "Copying item(s):"
-msgstr ""
-
-msgid "Could not connect to the network"
 msgstr ""
 
 msgid "Could not connect to the server."
@@ -344,8 +330,8 @@ msgstr ""
 msgid "Delete the selected item(s) and its content?"
 msgstr ""
 
-msgid "Deleting files:"
-msgstr "Raderar filer:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr ""
@@ -362,9 +348,6 @@ msgstr ""
 msgid "Directory .."
 msgstr "Katalog .."
 
-msgid "Directory couldn't be deleted."
-msgstr "Katalog kunde inte raderas."
-
 msgid "Disconnect Client"
 msgstr ""
 
@@ -374,7 +357,13 @@ msgstr ""
 msgid "Do you want to add an URL?"
 msgstr ""
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
+msgstr ""
+
+msgid "Do you want to append this process to the queue?"
 msgstr ""
 
 msgid "Do you want to boot file now?"
@@ -405,7 +394,7 @@ msgstr ""
 msgid "Do you want to load file from: %s ?"
 msgstr ""
 
-msgid "Do you want to load the default language."
+msgid "Do you want to load the default language?"
 msgstr ""
 
 msgid "Do you want to load this language ?"
@@ -433,9 +422,6 @@ msgid "Do you want to remount the devices?"
 msgstr ""
 
 msgid "Do you want to replace this file?"
-msgstr ""
-
-msgid "Do you want to reset the color settings?"
 msgstr ""
 
 msgid "Do you want to reset the control settings?"
@@ -497,11 +483,11 @@ msgid "Error - %s is not a file\n"
 msgstr ""
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
+msgid "Error - Could not open file: %s\n"
 msgstr ""
 
 #, c-format
-msgid "Error - Could not open file: %s\n"
+msgid "Error - Could not parse directory: %s\n"
 msgstr ""
 
 #, c-format
@@ -583,7 +569,10 @@ msgstr ""
 msgid "Failed adding the item(s)."
 msgstr ""
 
-msgid "Failed copying item(s)."
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
 msgstr ""
 
 msgid "Failed extracting the archive."
@@ -592,7 +581,10 @@ msgstr ""
 msgid "Failed extracting the item(s)."
 msgstr ""
 
-msgid "Failed moving item(s)."
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
 msgstr ""
 
 msgid "Failed renaming item"
@@ -616,7 +608,7 @@ msgstr ""
 msgid "File Extensions"
 msgstr ""
 
-msgid "File Extensions Assignment"
+msgid "File Extensions Settings"
 msgstr ""
 
 msgid "File System:"
@@ -627,9 +619,6 @@ msgstr ""
 
 msgid "File could not be deleted."
 msgstr ""
-
-msgid "File couldn't be deleted."
-msgstr "Fil kunde inte raderas."
 
 msgid "File is corrupt (CRC mismatch)."
 msgstr ""
@@ -687,9 +676,6 @@ msgid "Format"
 msgstr ""
 
 msgid "Format Partition?"
-msgstr ""
-
-msgid "Formating partition..."
 msgstr ""
 
 msgid "Formatter"
@@ -753,9 +739,6 @@ msgid "GUID"
 msgstr ""
 
 msgid "General Settings"
-msgstr ""
-
-msgid "Getting Changelog..."
 msgstr ""
 
 msgid "Go Back"
@@ -878,9 +861,6 @@ msgstr "Språk"
 msgid "Language Files"
 msgstr ""
 
-msgid "Language Path changed."
-msgstr ""
-
 msgid "Language Settings"
 msgstr ""
 
@@ -947,9 +927,6 @@ msgstr ""
 msgid "MPlayerCE Path"
 msgstr ""
 
-msgid "MPlayerCE path changed"
-msgstr ""
-
 msgid "Mark Item Button"
 msgstr ""
 
@@ -959,13 +936,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-msgid "Minimize"
-msgstr ""
-
 msgid "Mounted as:"
-msgstr ""
-
-msgid "Mounting disc"
 msgstr ""
 
 msgid "Moving item(s):"
@@ -1014,9 +985,6 @@ msgstr ""
 msgid "No image found at index %d."
 msgstr ""
 
-msgid "No language files found."
-msgstr ""
-
 msgid "No network connection."
 msgstr ""
 
@@ -1048,9 +1016,6 @@ msgid "Not enough memory."
 msgstr "Inte tillräkligt minne."
 
 msgid "Not mounted"
-msgstr ""
-
-msgid "Notice:"
 msgstr ""
 
 msgid "OFF"
@@ -1125,7 +1090,13 @@ msgstr ""
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr ""
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
+msgstr ""
+
+msgid "Path changed."
 msgstr ""
 
 msgid "Play File"
@@ -1148,9 +1119,6 @@ msgstr ""
 
 msgid "Please wait..."
 msgstr ""
-
-msgid "Please wait:"
-msgstr "Vänligen vänta:"
 
 msgid "Possible unsupported format."
 msgstr ""
@@ -1303,9 +1271,6 @@ msgstr ""
 msgid "Set this Partition as Active?"
 msgstr ""
 
-msgid "Setting partition as active."
-msgstr ""
-
 msgid "Settings"
 msgstr ""
 
@@ -1433,9 +1398,6 @@ msgstr ""
 msgid "Transfer failed."
 msgstr ""
 
-msgid "Transfering files:"
-msgstr "Överför filer:"
-
 msgid "URL List"
 msgstr ""
 
@@ -1484,9 +1446,6 @@ msgstr ""
 msgid "Update Meta.xml"
 msgstr ""
 
-msgid "Update Path changed."
-msgstr ""
-
 msgid "Update failed"
 msgstr ""
 
@@ -1495,9 +1454,6 @@ msgstr ""
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
-
-msgid "Updating/Downloading Languagefiles."
 msgstr ""
 
 msgid "Use Both USB Ports"
@@ -1617,9 +1573,6 @@ msgstr ""
 msgid "WiiMC Path"
 msgstr ""
 
-msgid "WiiMC path changed"
-msgstr ""
-
 msgid "WiiXplorer Default Music"
 msgstr ""
 
@@ -1637,9 +1590,6 @@ msgstr "Ja"
 
 msgid "Yes to all"
 msgstr ""
-
-msgid "You can not cut into the directory itself."
-msgstr "Du kan inte klippa in till sjävla katalagon"
 
 msgid "You can't set a logical partition as active."
 msgstr ""
@@ -1674,6 +1624,9 @@ msgstr ""
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr ""
 
@@ -1688,6 +1641,24 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Deleting files:"
+#~ msgstr "Raderar filer:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "Katalog kunde inte raderas."
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "Fil kunde inte raderas."
+
+#~ msgid "Transfering files:"
+#~ msgstr "Överför filer:"
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "Du kan inte klippa in till sjävla katalagon"
+
+#~ msgid "Please wait:"
+#~ msgstr "Vänligen vänta:"
 
 #~ msgid "User %i"
 #~ msgstr "Användare %i"

@@ -97,6 +97,7 @@ void GeneralSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Show Partition Formatter"));
 	options.SetName(i++, tr("Use Both USB Ports"));
 
+	SetOptionValues();
 }
 
 void GeneralSettingsMenu::SetOptionValues()

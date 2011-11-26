@@ -17,7 +17,6 @@
 #include "Application.h"
 #include "Menus/Explorer.h"
 #include "SoundOperations/MusicPlayer.h"
-#include "Controls/IOHandler.hpp"
 #include "Memory/Resources.h"
 #include "Controls/Taskbar.h"
 #include "network/networkops.h"
@@ -28,17 +27,12 @@
 #include "sys.h"
 
 Application *Application::instance = NULL;
+bool Application::exitApplication = false;
 
 Application::Application()
 	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
 {
-	mainExplorer = NULL;
-	updateOnlyElement = NULL;
 	DeleteQueue = NULL;
-	exitApplication = false;
-
-	//!Initialize the i/o hanlde thread
-	IOHandler::Instance();
 
 	//!FTP Server thread
 	if(Settings.FTPServer.AutoStart)
@@ -51,6 +45,12 @@ Application::Application()
 		ResumeNetworkThread();
 	}
 
+	//! Setup the music player
+	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
+	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
+	MusicPlayer::Instance()->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
+	MusicPlayer::Instance()->SetPosition(30, 230);
+
 	GXColor ImgColor[4];
 	ImgColor[0] = RGBATOGXCOLOR(Settings.BackgroundUL);
 	ImgColor[1] = RGBATOGXCOLOR(Settings.BackgroundUR);
@@ -58,14 +58,6 @@ Application::Application()
 	ImgColor[3] = RGBATOGXCOLOR(Settings.BackgroundBL);
 
 	bgImg = new GuiImage(screenwidth, screenheight, &ImgColor[0]);
-	Append(bgImg);
-
-	//! Setup the music player
-	MusicPlayer::Instance()->SetVolume(Settings.MusicVolume);
-	MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
-	MusicPlayer::Instance()->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
-	MusicPlayer::Instance()->SetPosition(30, 230);
-	Append(MusicPlayer::Instance());
 
 	//! Setup WiiMote Pointers
 	standardPointer[0] = Resources::GetImageData("player1_point.png");
@@ -78,12 +70,6 @@ Application::Application()
 		grabPointer[i] = NULL;
 		pointer[i] = standardPointer[i];
 	}
-
-	//! Append taskbar instance
-	Append(Taskbar::Instance());
-
-	//! Open first explorer
-	mainExplorer = new Explorer(this, Settings.LastUsedPath.c_str());
 }
 
 Application::~Application()
@@ -96,13 +82,8 @@ Application::~Application()
 		Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, &fadeoutColor, false, true);
 		Menu_Render();
 	}
+
 	RemoveAll();
-
-	delete mainExplorer;
-	Taskbar::DestroyInstance();
-	MusicPlayer::DestroyInstance();
-	IOHandler::DestroyInstance();
-
 	delete bgImg;
 
 	for (int i = 0; i < 4; i++)
@@ -116,6 +97,19 @@ Application::~Application()
 void Application::quit()
 {
 	exitApplication = true;
+}
+
+void Application::hide()
+{
+	RemoveAll();
+}
+
+void Application::show()
+{
+	Append(bgImg);
+	Append(MusicPlayer::Instance());
+	//! Append taskbar instance
+	Append(Taskbar::Instance());
 }
 
 void Application::exec()
@@ -138,10 +132,14 @@ void Application::exec()
 
 void Application::updateEvents()
 {
-	if(shutdown)
+	if(shutdown) {
+		exitApplication = true;
 		Sys_Shutdown();
-	else if(reset)
+	}
+	else if(reset) {
+		exitApplication = true;
 		Sys_Reboot();
+	}
 
 	UpdatePads();
 	Draw();
@@ -162,8 +160,8 @@ void Application::updateEvents()
 
 	for (int i = 0; i < 4; i++)
 	{
-		if(updateOnlyElement)
-			updateOnlyElement->Update(&userInput[i]);
+		if(!updateOnlyElement.empty())
+			updateOnlyElement.back()->Update(&userInput[i]);
 		else
 			Update(&userInput[i]);
 	}

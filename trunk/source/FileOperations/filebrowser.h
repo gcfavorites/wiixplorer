@@ -106,7 +106,7 @@ class FileBrowser : public Browser
 		u8 Filter;
 		bool parseHalt;
 		bool exit_Requested;
-		DIR_ITER *dirIter;
+		DIR *dirIter;
 		char currentpath[MAXPATHLEN];
 };
 

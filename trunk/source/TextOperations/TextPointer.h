@@ -45,7 +45,6 @@ class TextPointer : public GuiButton
 		int GetCurrentLine() { return currentline; };
 		int GetCurrentLetter() { return LetterNumInLine; };
 		void Draw();
-		void Update(GuiTrigger * t);
 	protected:
 		int fontsize;
 		int lineLength;

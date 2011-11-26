@@ -18,12 +18,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
-#include <sys/dir.h>
+#include <sys/dirent.h>
 
+#include "ZipFile.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
-#include "ZipFile.h"
 #include "FileOperations/fileops.h"
+#include "DirList.h"
 
 ZipFile::ZipFile(const char *filepath, short mode)
 {
@@ -305,7 +306,7 @@ int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compres
 
 	while(done < filesize)
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			free(buffer);
 			fclose(sourceFile);
@@ -333,6 +334,8 @@ int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compres
 	fclose(sourceFile);
 	zipCloseFileInZip(zFile);
 
+	ShowProgress(filesize, filesize, RealFilename);
+
 	if(RefreshList)
 		LoadList();
 
@@ -349,73 +352,34 @@ int ZipFile::AddDirectory(const char *dirpath, const char *destfilepath, int com
 		return -1;
 
 	int ret = 1;
-	struct stat st;
-	DIR_ITER *dir = NULL;
 
-	dir = diropen(dirpath);
-	if(dir == NULL)
-		return -1;
+	DirList dir(dirpath, 0, DirList::Files | DirList::Dirs | DirList::CheckSubfolders);
 
-	char *filename = (char *) malloc(MAXPATHLEN);
-	if(!filename)
+	for(int i = 0; i < dir.GetFilecount(); ++i)
 	{
-		dirclose(dir);
-		return -2;
-	}
-
-	std::vector<std::string> DirList;
-
-	while (dirnext(dir,filename,&st) == 0)
-	{
-//		if(actioncanceled)
-		{
-			free(filename);
-			dirclose(dir);
+		if(ProgressWindow::Instance()->IsCanceled())
 			return -10;
-		}
 
-		if(st.st_mode & S_IFDIR)
+		if(dir.IsDir(i))
 		{
-			if(strcmp(filename,".") != 0 && strcmp(filename,"..") != 0)
-			{
-				if(DirList.capacity()-DirList.size() == 0)
-					DirList.reserve(DirList.size()+100);
-				DirList.push_back(std::string(filename));
-			}
-		}
-		else
-		{
-			std::string newpath(dirpath);
-			if(dirpath[strlen(dirpath)-1] != '/')
-				newpath += '/';
-			newpath += filename;
-
 			std::string newdestpath(destfilepath);
 			if(destfilepath[strlen(destfilepath)-1] != '/')
 				newdestpath += '/';
-			newdestpath += filename;
+			newdestpath += dir.GetFilename(i);
 
-			ret = AddFile(newpath.c_str(), newdestpath.c_str(), compresslevel, false);
+			ret = AddDirectory(dir.GetFilepath(i), newdestpath.c_str(), compresslevel);
+		}
+		else
+		{
+			std::string newdestpath(destfilepath);
+			if(destfilepath[strlen(destfilepath)-1] != '/')
+				newdestpath += '/';
+			newdestpath += dir.GetFilename(i);
+
+			ret = AddFile(dir.GetFilepath(i), newdestpath.c_str(), compresslevel, false);
 			if(ret < 0)
 				break;
 		}
-	}
-
-	while(!DirList.empty() && !(ret < 0))
-	{
-		std::string newpath(dirpath);
-		if(dirpath[strlen(dirpath)-1] != '/')
-			newpath += '/';
-		newpath += DirList[0];
-
-		std::string newdestpath(destfilepath);
-		if(destfilepath[strlen(destfilepath)-1] != '/')
-			newdestpath += '/';
-		newdestpath += DirList[0];
-
-		ret = AddDirectory(newpath.c_str(), newdestpath.c_str(), compresslevel);
-
-		DirList.erase(DirList.begin());
 	}
 
 	return ret;
@@ -488,7 +452,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 
 	do
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			usleep(20000);
 			free(buffer);
@@ -518,6 +482,8 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 		done += ret;
 
 	} while(done < filesize);
+
+	ShowProgress(filesize, filesize, RealFilename);
 
 	fclose(pfile);
 	unzCloseCurrentFile(uzFile);
@@ -596,7 +562,7 @@ int ZipFile::ExtractAll(const char *dest)
 
 				do
 				{
-//					if(actioncanceled)
+					if(ProgressWindow::Instance()->IsCanceled())
 					{
 						usleep(20000);
 						free(buffer);
@@ -606,7 +572,7 @@ int ZipFile::ExtractAll(const char *dest)
 						return -10;
 					}
 
-//					ShowProgress(done, uncompressed_size, pointer+1);
+					ShowProgress(done, uncompressed_size, pointer+1);
 
 					if(uncompressed_size - done < blocksize)
 						blocksize = uncompressed_size - done;

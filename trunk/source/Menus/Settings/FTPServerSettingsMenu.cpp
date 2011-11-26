@@ -37,6 +37,7 @@ void FTPServerSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Password:"));
 	options.SetName(i++, tr("FTP Port:"));
 
+	SetOptionValues();
 }
 
 void FTPServerSettingsMenu::SetOptionValues()

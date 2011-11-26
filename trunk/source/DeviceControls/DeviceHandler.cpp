@@ -31,6 +31,7 @@
 #include "network/SMB.h"
 #include "network/FTPClient.h"
 #include "mload/usb2storage.h"
+#include "System/isfs.h"
 #include "DeviceHandler.hpp"
 #include "main.h"
 
@@ -121,6 +122,9 @@ bool DeviceHandler::Mount(int dev)
 	else if(dev >= FTP1 && dev <= FTP10)
 		return ConnectFTP(dev-FTP1);
 
+	else if(dev == NAND)
+		return MountNAND();
+
 	else if(dev == DVD)
 		return MountDVD();
 
@@ -147,6 +151,9 @@ bool DeviceHandler::IsInserted(int dev)
 	else if(dev >= FTP1 && dev <= FTP10)
 		return IsFTPConnected(dev-FTP1); //later
 
+	else if(dev == NAND)
+		return true;
+
 	else if(dev == DVD)
 		return DVD_Inserted();
 
@@ -172,6 +179,9 @@ void DeviceHandler::UnMount(int dev)
 
 	else if(dev >= FTP1 && dev <= FTP10)
 		CloseFTP(dev-FTP1);
+
+	else if(dev == NAND)
+		UnMountNAND();
 
 	else if(dev == DVD)
 		UnMountDVD();
@@ -289,6 +299,16 @@ void DeviceHandler::UnMountAllUSB()
 	usb0 = NULL;
 	usb1 = NULL;
 	USBStorage2_Deinit();
+}
+
+bool DeviceHandler::MountNAND()
+{
+	return ISFS_Mount();
+}
+
+void DeviceHandler::UnMountNAND()
+{
+	ISFS_Unmount();
 }
 
 bool DeviceHandler::MountDVD()

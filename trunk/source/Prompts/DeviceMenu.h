@@ -56,6 +56,7 @@ class DeviceMenu : public GuiFrame, public sigslot::has_slots<>
 		GuiImageData * usb_blue_ImgData;
 		GuiImageData * smb_ImgData;
 		GuiImageData * ftp_ImgData;
+		GuiImageData * nand_ImgData;
 		GuiImageData * dvd_ImgData;
 
 		GuiSound * btnClick;

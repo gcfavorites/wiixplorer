@@ -50,6 +50,7 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		FileBrowser *fileBrowser;
 		Browser * curBrowser;
 		GuiFileBrowser * guiBrowser;
+		int guiBrowserType;
 
 		CreditWindow * Credits;
 
@@ -68,6 +69,7 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		GuiImageData * usbstorage_blue;
 		GuiImageData * networkstorage;
 		GuiImageData * ftpstorage;
+		GuiImageData * nand_ImgData;
 		GuiImageData * dvd_ImgData;
 
 		GuiSound * btnSoundClick;

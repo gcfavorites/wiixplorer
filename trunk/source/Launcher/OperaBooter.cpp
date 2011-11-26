@@ -34,7 +34,7 @@ OperaBooter::OperaBooter(const char * xml)
 	xmlfile = NULL;
 	xmlbuffer = NULL;
 	OperaID = 0;
-	u64 size = 0;
+	u32 size = 0;
 
 	if(!xml)
 		return;

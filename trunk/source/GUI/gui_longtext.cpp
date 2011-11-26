@@ -252,18 +252,18 @@ void GuiLongText::FillRows()
 
 	ClearDynamicText();
 
-	for(int i = 0; i < linestodraw && i < (int) TextLines.size(); i++)
+	for(int i = 0; i < linestodraw && (curLineStart+i) < (int) TextLines.size(); i++)
 	{
 		if(i >= (int) textDyn.size())
 		{
 			textDyn.resize(i+1);
 			textDyn[i] = new wchar_t[maxWidth];
 		}
-		int offset = TextLines[curLineStart+i].LineOffset;
-		int count = TextLines[curLineStart+i].CharCount+1;
+		int offset = TextLines[curLineStart + i].LineOffset;
+		int count = TextLines[curLineStart + i].CharCount + 1;
 		int n;
-		for(n = 0; n < count && offset+n < (int) wText->size(); n++)
-			textDyn[i][n] = wText->at(offset+n);
+		for (n = 0; n < count && (offset + n) < (int) wText->size(); n++)
+			textDyn[i][n] = wText->at(offset + n);
 
 		textDyn[i][n] = 0;
 	}

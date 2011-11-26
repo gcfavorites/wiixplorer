@@ -72,7 +72,7 @@ void ItemMarker::AddItem(const ItemStruct * file)
 	Items.push_back(newItem);
 }
 
-ItemStruct * ItemMarker::GetItem(int ind)
+ItemStruct * ItemMarker::GetItem(int ind) const
 {
 	if(ind < 0 || ind >= (int) Items.size())
 		return NULL;
@@ -80,7 +80,7 @@ ItemStruct * ItemMarker::GetItem(int ind)
 	return Items.at(ind);
 }
 
-const char * ItemMarker::GetItemName(int ind)
+const char * ItemMarker::GetItemName(int ind) const
 {
 	if(ind < 0 || ind >= (int) Items.size())
 		return NULL;
@@ -107,7 +107,7 @@ const char * ItemMarker::GetItemName(int ind)
 	return filename+1;
 }
 
-const char * ItemMarker::GetItemPath(int ind)
+const char * ItemMarker::GetItemPath(int ind) const
 {
 	if(ind < 0 || ind >= (int) Items.size())
 		return NULL;
@@ -180,4 +180,14 @@ void ItemMarker::Reset()
 	}
 
 	Items.clear();
+}
+
+const ItemMarker & ItemMarker::operator=(const ItemMarker &marker)
+{
+	this->Reset();
+
+	for(int i = 0; i < marker.GetItemcount(); i++)
+		this->AddItem(marker.GetItem(i));
+
+	return *this;
 }

@@ -40,6 +40,8 @@ void SMBSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("SMB Name:"));
 	options.SetName(i++, tr("Reconnect SMB"));
 	options.SetName(i++, tr("Disconnect SMB"));
+
+	SetOptionValues();
 }
 
 void SMBSettingsMenu::SetOptionValues()

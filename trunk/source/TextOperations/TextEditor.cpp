@@ -1,36 +1,26 @@
 /****************************************************************************
- * Copyright (C) 2009
- * by Dimok
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * TextEditor.cpp
- * for WiiXplorer 2009
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <unistd.h>
 #include "TextOperations/TextEditor.h"
 #include "FileOperations/fileops.h"
 #include "Prompts/PromptWindows.h"
 #include "Controls/Application.h"
 #include "Memory/Resources.h"
+#include "FreeTypeGX.h"
 #include "input.h"
 #include "menu.h"
 
@@ -41,15 +31,13 @@
  */
 TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 {
-	triggerupdate = true;
 	ExitEditor = false;
-	LineEditing = false;
 	FileEdited = false;
 	linestodraw = LinesToDraw;
 	filesize = (u32) FileSize(path);
 
 	filepath = new char[strlen(path)+1];
-	snprintf(filepath, strlen(path)+1, "%s", path);
+	sprintf(filepath, "%s", path);
 
 	char * filename = strrchr(filepath, '/')+1;
 
@@ -154,7 +142,8 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 TextEditor::~TextEditor()
 {
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	while(this->GetEffect() > 0) usleep(50);
+	while(this->GetEffect() > 0)
+		Application::Instance()->updateEvents();
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
@@ -216,11 +205,6 @@ void TextEditor::SetText(const wchar_t *intext)
 	TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
 }
 
-void TextEditor::SetTriggerUpdate(bool set)
-{
-	triggerupdate = set;
-}
-
 void TextEditor::WriteTextFile(const char * path)
 {
 	FILE * f = fopen(path, "wb");
@@ -235,59 +219,6 @@ void TextEditor::WriteTextFile(const char * path)
 	fwrite(FullText.c_str(), 1, strlen(FullText.c_str())+1, f);
 
 	fclose(f);
-}
-
-void TextEditor::ResetState()
-{
-	state = STATE_DEFAULT;
-	stateChan = -1;
-
-	maximizeBtn->ResetState();
-	minimizeBtn->ResetState();
-	closeBtn->ResetState();
-}
-
-int TextEditor::GetState()
-{
-	if(LineEditing)
-	{
-		SetTriggerUpdate(false);
-		if(EditLine() > 0)
-		{
-			FileEdited = true;
-		}
-		SetTriggerUpdate(true);
-
-		Application::Instance()->SetState(STATE_DISABLED);
-		//Application::Instance()->SetDim(true);
-		//this->SetDim(false);
-		this->SetState(STATE_DEFAULT);
-		LineEditing = false;
-	}
-
-	if(state == STATE_CLOSED && FileEdited)
-	{
-		int choice = WindowPrompt(tr("File was edited."), tr("Do you want to save changes?"), tr("Yes"), tr("No"), tr("Cancel"));
-		if(choice == 1)
-		{
-			WriteTextFile(filepath);
-			state = STATE_CLOSED;
-		}
-		else if(choice == 2)
-		{
-			//to revert the state reset
-			state = STATE_CLOSED;
-		}
-		else
-		{
-			Application::Instance()->SetState(STATE_DISABLED);
-			//Application::Instance()->SetDim(true);
-			//this->SetDim(false);
-			this->SetState(STATE_DEFAULT);
-		}
-	}
-
-	return GuiFrame::GetState();
 }
 
 int TextEditor::EditLine()
@@ -320,6 +251,7 @@ int TextEditor::EditLine()
 	{
 		wText->replace(LineOffset, LetterNumInLine, temptxt);
 		MainFileTxt->Refresh();
+		FileEdited = true;
 		return 1;
 	}
 
@@ -328,14 +260,24 @@ int TextEditor::EditLine()
 
 void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == closeBtn)
-		SetState(STATE_CLOSED);
-
+	{
+		int choice = 1;
+		if(FileEdited)
+		{
+			choice = WindowPrompt(tr("File was edited."), tr("Do you want to save changes?"), tr("Yes"), tr("No"), tr("Cancel"));
+			if(choice == 1)
+				WriteTextFile(filepath);
+		}
+		if(choice)
+		{
+			Application::Instance()->UnsetUpdateOnly(this);
+			Application::Instance()->PushForDelete(this);
+		}
+	}
 	else if(sender == PlusBtn)
 	{
-		LineEditing = true;
+		EditLine();
 	}
 }
 
@@ -344,7 +286,7 @@ void TextEditor::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POIN
 	if(!userInput[pointer].wpad->ir.valid)
 		return;
 
-	TextPointerBtn->PositionChanged(pointer, p.x, p.y);
+	TextPointerBtn->PositionChanged(pointer, p.x - TextPointerBtn->GetLeft(), p.y - TextPointerBtn->GetTop());
 }
 
 void TextEditor::OnListChange(int selItem, int selIndex)
@@ -354,7 +296,7 @@ void TextEditor::OnListChange(int selItem, int selIndex)
 
 void TextEditor::Update(GuiTrigger * t)
 {
-	if(state == STATE_DISABLED || !t || !triggerupdate)
+	if(state == STATE_DISABLED || !t)
 		return;
 
 	scrollbar->Update(t);
@@ -369,4 +311,87 @@ void TextEditor::Update(GuiTrigger * t)
 	scrollbar->SetRowSize(0);
 	scrollbar->SetSelectedItem(0);
 	scrollbar->SetSelectedIndex(MainFileTxt->GetCurrPos());
+}
+
+void TextEditor::LoadFile(const char *filepath)
+{
+	u8 *file = NULL;
+	u32 filesize = 0;
+
+	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
+	if(ret < 0)
+	{
+		ShowError(tr("Could not load text file."));
+		return;
+	}
+	else if(filesize > (u32) (4.5*MBSIZE))
+	{
+		free(file);
+		ShowError(tr("File is too big."));
+		return;
+	}
+
+	u8 * tmp = (u8 *) realloc(file, filesize+1);
+	if(!tmp)
+	{
+		free(file);
+		ShowError(tr("Not enough memory."));
+		return;
+	}
+	file = tmp;
+	file[filesize] = 0;
+	filesize++;
+
+	wString * filetext = NULL;
+
+	//To check if text is UTF8 or not
+	if(utf8Len((char*) file) > 0)
+	{
+		filetext = new (std::nothrow) wString();
+		if(!filetext)
+		{
+			free(file);
+			file = NULL;
+			ShowError(tr("Not enough memory."));
+			return;
+		}
+
+		filetext->fromUTF8((char*) file);
+		free(file);
+		file = NULL;
+	}
+	else
+	{
+		wchar_t * tmptext = charToWideChar((char*) file);
+
+		free(file);
+		file = NULL;
+
+		if(!tmptext)
+		{
+			ShowError(tr("Not enough memory."));
+			return;
+		}
+
+		filetext = new (std::nothrow) wString(tmptext);
+
+		delete [] tmptext;
+
+		if(!filetext)
+		{
+			ShowError(tr("Not enough memory."));
+			return;
+		}
+	}
+
+	TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
+	Editor->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+	Editor->SetPosition(0, 0);
+	Editor->DimBackground(true);
+
+	delete filetext;
+	filetext = NULL;
+
+	Application::Instance()->SetUpdateOnly(Editor);
+	Application::Instance()->Append(Editor);
 }

@@ -45,7 +45,7 @@ CSettings::~CSettings()
 
 void CSettings::SetDefault()
 {
-	BootIOS = 202;
+	BootIOS = 58;
 	MusicVolume = 80;
 	CurrentSMBUser = 0;
 	CurrentFTPUser = 0;

@@ -191,14 +191,14 @@ void ListFileBrowser::SetButton(int i, const char * name, u64 filesize, bool dir
 	if(!dir)
 	{
 		char temp[100];
-		if(filesize > KBSIZE && filesize < MBSIZE)
-			sprintf(temp, "%0.1fKB", filesize/KBSIZE);
-		else if(filesize > MBSIZE && filesize < GBSIZE)
-			sprintf(temp, "%0.1fMB", filesize/MBSIZE);
-		else if(filesize > GBSIZE)
-			sprintf(temp, "%0.1fGB", filesize/GBSIZE);
+		if(filesize > GBSIZE)
+			sprintf(temp, "%0.2fGB", filesize/GBSIZE);
+		else if(filesize > MBSIZE)
+			sprintf(temp, "%0.2fMB", filesize/MBSIZE);
+		else if(filesize > KBSIZE)
+			sprintf(temp, "%0.2fKB", filesize/KBSIZE);
 		else
-			sprintf(temp, "%LiB", filesize);
+			sprintf(temp, "%iB", (u32) filesize);
 
 		fileSizeText[i]->SetText(temp);
 	}

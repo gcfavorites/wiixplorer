@@ -27,6 +27,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+#include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 
 extern "C" void ShowError(const char * format, ...)
@@ -52,6 +53,39 @@ extern "C" void ShowMsg(const char * title, const char * format, ...)
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
 		WindowPrompt(title, tmp, tr("OK"));
+	}
+	va_end(va);
+
+	if(tmp)
+		free(tmp);
+}
+
+extern "C" void ThrowMsg(const char * title, const char * format, ...)
+{
+	if(!title && !format)
+	{
+		return;
+	}
+	else if(title && !format)
+	{
+		PromptWindow *prompt = new PromptWindow(title, 0, tr("OK"));
+		prompt->DimBackground(true);
+		prompt->SetAutoClose(true);
+		Application::Instance()->Append(prompt);
+		Application::Instance()->SetUpdateOnly(prompt);
+		return;
+	}
+
+	char *tmp=0;
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va)>=0) && tmp)
+	{
+		PromptWindow *prompt = new PromptWindow(title, tmp, tr("OK"));
+		prompt->DimBackground(true);
+		prompt->SetAutoClose(true);
+		Application::Instance()->Append(prompt);
+		Application::Instance()->SetUpdateOnly(prompt);
 	}
 	va_end(va);
 

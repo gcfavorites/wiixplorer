@@ -24,13 +24,13 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "ColorSetPrompt.h"
+#include "Controls/Application.h"
 
 ColorSetPrompt::ColorSetPrompt(const char * title, GXColor * c, int pos)
 	: PromptWindow(title, 0, tr("Done"), tr("Cancel"))
 {
 	ColorPos = pos;
 	color = c;
-	ColorChange = -1;
 
 	for(int i = 0; i < 4; i++)
 		OrigColor[i] = color[i];
@@ -49,53 +49,31 @@ ColorSetPrompt::ColorSetPrompt(const char * title, GXColor * c, int pos)
 	UpdateOptionValues();
 
 	Append(&arrowOption);
+
+	this->DimBackground(true);
 }
 
-void ColorSetPrompt::ShowPrompt()
+void ColorSetPrompt::Show(const char * title, GXColor * c, int pos)
 {
 	int userChoice = -1;
+	ColorSetPrompt *ColorPrompt = new ColorSetPrompt(title, c, pos);
+	Application::Instance()->SetUpdateOnly(ColorPrompt);
+	Application::Instance()->Append(ColorPrompt);
 
 	while(userChoice < 0)
 	{
-		userChoice = GetChoice();
-
-		if(userChoice == 0)
-		{
-			for(int i = 0; i < 4; i++)
-				color[i] = OrigColor[i];
-		}
-
-		if(ColorChange != -1)
-		{
-			char Text[150];
-			if(ColorChange == 0)
-			{
-				sprintf(Text, "%i", color[ColorPos].r);
-			}
-			else if(ColorChange == 1)
-			{
-				sprintf(Text, "%i", color[ColorPos].g);
-			}
-			else if(ColorChange == 2)
-			{
-				sprintf(Text, "%i", color[ColorPos].b);
-			}
-
-			if(OnScreenKeyboard(Text, 150))
-			{
-				if(ColorChange == 0)
-					color[ColorPos].r = (u8) atoi(Text);
-				else if(ColorChange == 1)
-					color[ColorPos].g = (u8) atoi(Text);
-				else if(ColorChange == 2)
-					color[ColorPos].b = (u8) atoi(Text);
-			}
-			SetState(STATE_DEFAULT);
-			UpdateOptionValues();
-
-			ColorChange = -1;
-		}
+		userChoice = ColorPrompt->GetChoice();
+		Application::Instance()->updateEvents();
 	}
+
+	if(userChoice == 0)
+	{
+		for(int i = 0; i < 4; i++)
+			ColorPrompt->color[i] = ColorPrompt->OrigColor[i];
+	}
+
+	Application::Instance()->UnsetUpdateOnly(ColorPrompt);
+	delete ColorPrompt;
 }
 
 void ColorSetPrompt::UpdateOptionValues()
@@ -165,7 +143,31 @@ void ColorSetPrompt::OnOptionButtonClick(GuiElement *sender, int pointer UNUSED,
 	{
 		if(sender == arrowOption.GetButton(i))
 		{
-			ColorChange = i;
+			char Text[150];
+			if(i == 0)
+			{
+				sprintf(Text, "%i", color[ColorPos].r);
+			}
+			else if(i == 1)
+			{
+				sprintf(Text, "%i", color[ColorPos].g);
+			}
+			else if(i == 2)
+			{
+				sprintf(Text, "%i", color[ColorPos].b);
+			}
+
+			if(OnScreenKeyboard(Text, 150))
+			{
+				if(i == 0)
+					color[ColorPos].r = (u8) atoi(Text);
+				else if(i == 1)
+					color[ColorPos].g = (u8) atoi(Text);
+				else if(i == 2)
+					color[ColorPos].b = (u8) atoi(Text);
+			}
+
+			UpdateOptionValues();
 			break;
 		}
 	}

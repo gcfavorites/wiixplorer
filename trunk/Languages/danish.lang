@@ -4,10 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-02 22:10+0200\n"
+"POT-Creation-Date: 2011-11-26 17:57+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -74,9 +75,6 @@ msgstr "Alfa Blanding"
 msgid "App Default"
 msgstr "Programstandard"
 
-msgid "AppPath changed"
-msgstr "Prg.Sti ændret"
-
 msgid "Apps"
 msgstr "Programmer"
 
@@ -140,20 +138,23 @@ msgstr "Gennemse"
 msgid "Browser Mode"
 msgstr "Browser måde"
 
-msgid "Browsing for font files must be done in the main browser."
-msgstr "browsing for font filer skal gøres i hovedbrowser."
-
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC af den udpakkede fil matcher ikke. forkert kodeord?"
 
-msgid "Calculating MD5..."
-msgstr "Udregner MD5..."
+msgid "Calculating MD5"
+msgstr ""
+
+msgid "Calculating delete size..."
+msgstr ""
 
 msgid "Calculating total size..."
 msgstr "Udregner total størrelse..."
+
+msgid "Calculating transfer size..."
+msgstr ""
 
 msgid "Can not open the file."
 msgstr "Kan ikke åbne filen."
@@ -199,12 +200,6 @@ msgstr "Kan ikke skrive til denne sti:"
 
 msgid "Caps"
 msgstr ""
-
-msgid "Change"
-msgstr "Ændre"
-
-msgid "Change Language Path?"
-msgstr "Ændre sprog sti?"
 
 msgid "Channels"
 msgstr "Kanaler"
@@ -259,17 +254,11 @@ msgstr "Konsolstandard"
 msgid "Context Menu Button"
 msgstr "Context menu knap"
 
-msgid "Continue"
-msgstr "Fortsæt"
-
 msgid "Controls Settings"
 msgstr "Kontrol indstillinger"
 
 msgid "Convert"
 msgstr "Konventer"
-
-msgid "Converting image..."
-msgstr "Konventere billede..."
 
 msgid "Copy"
 msgstr "Kopiér"
@@ -288,9 +277,6 @@ msgstr "Kopi af"
 
 msgid "Copying item(s):"
 msgstr "Kopier emne(r):"
-
-msgid "Could not connect to the network"
-msgstr "Kunne ikke forbinde til netværk"
 
 msgid "Could not connect to the server."
 msgstr "Kunne ikke forbinde til serveren."
@@ -346,8 +332,8 @@ msgstr "Slet midlertidig sti på nedlukning"
 msgid "Delete the selected item(s) and its content?"
 msgstr "Slet valgte emne(r) og dens indhold?"
 
-msgid "Deleting files:"
-msgstr "Sletter filer:"
+msgid "Deleting item(s):"
+msgstr ""
 
 msgid "Demark All Items Button"
 msgstr "Demaker alle emner knap"
@@ -364,9 +350,6 @@ msgstr "Enhed"
 msgid "Directory .."
 msgstr "Mappe .."
 
-msgid "Directory couldn't be deleted."
-msgstr "Mappen kunne ikke slettes."
-
 msgid "Disconnect Client"
 msgstr "Afbryd klient"
 
@@ -376,8 +359,14 @@ msgstr "Afbryd SMB"
 msgid "Do you want to add an URL?"
 msgstr "Vil du tilføje en URL?"
 
+msgid "Do you want to append this delete to the queue?"
+msgstr ""
+
 msgid "Do you want to append this paste to the queue?"
 msgstr "Vil du vedhæfte denne paste til køen?"
+
+msgid "Do you want to append this process to the queue?"
+msgstr ""
 
 msgid "Do you want to boot file now?"
 msgstr "Vil du boote filen nu?"
@@ -407,8 +396,8 @@ msgstr "Vil du lukke WiiXplorer?"
 msgid "Do you want to load file from: %s ?"
 msgstr "Vil du indlæse fil fra: %s ?"
 
-msgid "Do you want to load the default language."
-msgstr "Vil du indlæse standard sprog."
+msgid "Do you want to load the default language?"
+msgstr ""
 
 msgid "Do you want to load this language ?"
 msgstr "Vil du indlæse dette sprog?"
@@ -436,9 +425,6 @@ msgstr "Vil du genindlæse enheder?"
 
 msgid "Do you want to replace this file?"
 msgstr "Vil du erstatte denne fil?"
-
-msgid "Do you want to reset the color settings?"
-msgstr "Vil du nulstille farve indstilinger?"
 
 msgid "Do you want to reset the control settings?"
 msgstr "Vil du nulstille kontrol indstillinger?"
@@ -499,12 +485,12 @@ msgid "Error - %s is not a file\n"
 msgstr "Fejl - %s er ikke en fil\n"
 
 #, c-format
-msgid "Error - Could not open directory: %s\n"
-msgstr "Fejl - Kunne ikke skabe mappe: %s\n"
-
-#, c-format
 msgid "Error - Could not open file: %s\n"
 msgstr "Fejl - Kunne ikke åbne fil: %s\n"
+
+#, c-format
+msgid "Error - Could not parse directory: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -585,8 +571,11 @@ msgstr "Fejlede at tilføje emne(r)"
 msgid "Failed adding the item(s)."
 msgstr "Fejlede at tilføje emne(r)"
 
-msgid "Failed copying item(s)."
-msgstr "Fejlede at kopier emne(r)."
+msgid "Failed copying some item(s)."
+msgstr ""
+
+msgid "Failed deleting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the archive."
 msgstr "Fejlede at udpakke arkivet."
@@ -594,8 +583,11 @@ msgstr "Fejlede at udpakke arkivet."
 msgid "Failed extracting the item(s)."
 msgstr "Fejlede at udpakke emne(r)."
 
-msgid "Failed moving item(s)."
-msgstr "Fejlede at flytte emne(r)."
+msgid "Failed loading the file."
+msgstr ""
+
+msgid "Failed moving some item(s)."
+msgstr ""
 
 msgid "Failed renaming item"
 msgstr "Fejlede at omdøbe emne"
@@ -618,8 +610,8 @@ msgstr "Fejlede at skrive MBR."
 msgid "File Extensions"
 msgstr "Fil udvidelser"
 
-msgid "File Extensions Assignment"
-msgstr "Fil udvidelser tildeling"
+msgid "File Extensions Settings"
+msgstr ""
 
 msgid "File System:"
 msgstr "Fil system:"
@@ -629,9 +621,6 @@ msgstr "Filen eksister allerede."
 
 msgid "File could not be deleted."
 msgstr "Fil kunne ikke slettes."
-
-msgid "File couldn't be deleted."
-msgstr "Filen kunne ikke slettes."
 
 msgid "File is corrupt (CRC mismatch)."
 msgstr "Fil er istykker (CRC Mismatch)."
@@ -690,9 +679,6 @@ msgstr "Formater"
 
 msgid "Format Partition?"
 msgstr "Formater partition?"
-
-msgid "Formating partition..."
-msgstr "Formatere partition..."
 
 msgid "Formatter"
 msgstr "Formatering"
@@ -756,9 +742,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "Generale indstillinger"
-
-msgid "Getting Changelog..."
-msgstr "Henter Changelog..."
 
 msgid "Go Back"
 msgstr "Tilbage"
@@ -880,9 +863,6 @@ msgstr "Sprog"
 msgid "Language Files"
 msgstr "Sprogfiler"
 
-msgid "Language Path changed."
-msgstr "Sprogsti ændret."
-
 msgid "Language Settings"
 msgstr "Sprog indstillinger"
 
@@ -949,9 +929,6 @@ msgstr ""
 msgid "MPlayerCE Path"
 msgstr "Sti til MplayerCE"
 
-msgid "MPlayerCE path changed"
-msgstr "sti til MplayerCE er ændret"
-
 msgid "Mark Item Button"
 msgstr "Marker emne knap"
 
@@ -961,14 +938,8 @@ msgstr "Hukommelses knap"
 msgid "Menu"
 msgstr ""
 
-msgid "Minimize"
-msgstr "Minimer"
-
 msgid "Mounted as:"
 msgstr "Indlæst som:"
-
-msgid "Mounting disc"
-msgstr "Indlæser disc"
 
 msgid "Moving item(s):"
 msgstr "Flyt emne(r):"
@@ -1016,9 +987,6 @@ msgstr "Ingen homebrew i zip."
 msgid "No image found at index %d."
 msgstr "Intet billede fundet på indeks %d."
 
-msgid "No language files found."
-msgstr "Fandt ingen sprogfiler."
-
 msgid "No network connection."
 msgstr "Ingen netværksforbindelse."
 
@@ -1051,9 +1019,6 @@ msgstr "Ikke nok hukommelse."
 
 msgid "Not mounted"
 msgstr "Ikke indlæst"
-
-msgid "Notice:"
-msgstr "Bemærk:"
 
 msgid "OFF"
 msgstr "Fra"
@@ -1127,8 +1092,14 @@ msgstr "Insæt emne(r) i denne mappe?"
 msgid "Pasting files is currently only supported on ZIP archives."
 msgstr "indsætning af emner er kun understøttet af ZIP arkiver."
 
+msgid "Path Settings"
+msgstr ""
+
 msgid "Path Setup"
 msgstr "Sti indstillinger"
+
+msgid "Path changed."
+msgstr ""
 
 msgid "Play File"
 msgstr "Afspil fil"
@@ -1150,9 +1121,6 @@ msgstr "Skriv venligst kodeordet."
 
 msgid "Please wait..."
 msgstr "Vent venligst..."
-
-msgid "Please wait:"
-msgstr "Vent venligst:"
 
 msgid "Possible unsupported format."
 msgstr "Format muligvis ikke understøttet"
@@ -1305,9 +1273,6 @@ msgstr "Sæt aktiv"
 msgid "Set this Partition as Active?"
 msgstr "Sæt denne partition som aktiv?"
 
-msgid "Setting partition as active."
-msgstr "Sætter partition som aktiv."
-
 msgid "Settings"
 msgstr "Indstillinger"
 
@@ -1435,9 +1400,6 @@ msgstr "Overførslen mislykkedes"
 msgid "Transfer failed."
 msgstr "Overførslen mislykkedes."
 
-msgid "Transfering files:"
-msgstr "Overfører filer:"
-
 msgid "URL List"
 msgstr ""
 
@@ -1486,9 +1448,6 @@ msgstr "Opdater Icon.png"
 msgid "Update Meta.xml"
 msgstr "Opdater Meta.xml"
 
-msgid "Update Path changed."
-msgstr "Opdateringsstien ændret."
-
 msgid "Update failed"
 msgstr "Opdatering mislykkedes"
 
@@ -1498,9 +1457,6 @@ msgstr "Opdatering lykkedes"
 #, c-format
 msgid "Update to Rev%i available"
 msgstr "Der findes en opdatering til ver.%i"
-
-msgid "Updating/Downloading Languagefiles."
-msgstr "Opdatere/Downloader sprogfiler."
 
 msgid "Use Both USB Ports"
 msgstr ""
@@ -1619,9 +1575,6 @@ msgstr ""
 msgid "WiiMC Path"
 msgstr "Sti til WiiMC"
 
-msgid "WiiMC path changed"
-msgstr "Sti til WiiMC er ændret"
-
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer standard musikafspiller"
 
@@ -1639,9 +1592,6 @@ msgstr "Ja"
 
 msgid "Yes to all"
 msgstr "Ja til alle"
-
-msgid "You can not cut into the directory itself."
-msgstr "Du kan ikke sætte ind i samme mappe."
 
 msgid "You can't set a logical partition as active."
 msgstr "Du kan ikke sætte en logisk partition som aktiv."
@@ -1676,6 +1626,9 @@ msgstr "Og alle hans oversættere."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "files"
+msgstr ""
+
 msgid "for his FTP Server source."
 msgstr "For hans FTP server source."
 
@@ -1690,6 +1643,102 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Error - Could not open directory: %s\n"
+#~ msgstr "Fejl - Kunne ikke skabe mappe: %s\n"
+
+#~ msgid "Deleting files:"
+#~ msgstr "Sletter filer:"
+
+#~ msgid "Directory couldn't be deleted."
+#~ msgstr "Mappen kunne ikke slettes."
+
+#~ msgid "Failed copying item(s)."
+#~ msgstr "Fejlede at kopier emne(r)."
+
+#~ msgid "Failed moving item(s)."
+#~ msgstr "Fejlede at flytte emne(r)."
+
+#~ msgid "File couldn't be deleted."
+#~ msgstr "Filen kunne ikke slettes."
+
+#~ msgid "Transfering files:"
+#~ msgstr "Overfører filer:"
+
+#~ msgid "You can not cut into the directory itself."
+#~ msgstr "Du kan ikke sætte ind i samme mappe."
+
+#~ msgid "AppPath changed"
+#~ msgstr "Prg.Sti ændret"
+
+#~ msgid "Browsing for font files must be done in the main browser."
+#~ msgstr "browsing for font filer skal gøres i hovedbrowser."
+
+#~ msgid "Calculating MD5..."
+#~ msgstr "Udregner MD5..."
+
+#~ msgid "Change"
+#~ msgstr "Ændre"
+
+#~ msgid "Change Language Path?"
+#~ msgstr "Ændre sprog sti?"
+
+#~ msgid "Continue"
+#~ msgstr "Fortsæt"
+
+#~ msgid "Converting image..."
+#~ msgstr "Konventere billede..."
+
+#~ msgid "Could not connect to the network"
+#~ msgstr "Kunne ikke forbinde til netværk"
+
+#~ msgid "Do you want to load the default language."
+#~ msgstr "Vil du indlæse standard sprog."
+
+#~ msgid "Do you want to reset the color settings?"
+#~ msgstr "Vil du nulstille farve indstilinger?"
+
+#~ msgid "File Extensions Assignment"
+#~ msgstr "Fil udvidelser tildeling"
+
+#~ msgid "Formating partition..."
+#~ msgstr "Formatere partition..."
+
+#~ msgid "Getting Changelog..."
+#~ msgstr "Henter Changelog..."
+
+#~ msgid "Language Path changed."
+#~ msgstr "Sprogsti ændret."
+
+#~ msgid "MPlayerCE path changed"
+#~ msgstr "sti til MplayerCE er ændret"
+
+#~ msgid "Minimize"
+#~ msgstr "Minimer"
+
+#~ msgid "Mounting disc"
+#~ msgstr "Indlæser disc"
+
+#~ msgid "No language files found."
+#~ msgstr "Fandt ingen sprogfiler."
+
+#~ msgid "Notice:"
+#~ msgstr "Bemærk:"
+
+#~ msgid "Please wait:"
+#~ msgstr "Vent venligst:"
+
+#~ msgid "Setting partition as active."
+#~ msgstr "Sætter partition som aktiv."
+
+#~ msgid "Update Path changed."
+#~ msgstr "Opdateringsstien ændret."
+
+#~ msgid "Updating/Downloading Languagefiles."
+#~ msgstr "Opdatere/Downloader sprogfiler."
+
+#~ msgid "WiiMC path changed"
+#~ msgstr "Sti til WiiMC er ændret"
 
 #~ msgid "Reload"
 #~ msgstr "Genindlæs"

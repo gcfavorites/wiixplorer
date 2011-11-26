@@ -305,7 +305,7 @@ const u8 * NetReceiver::UncompressData()
 		snprintf(FileName, sizeof(FileName), "%s", Dir.GetFilename(0));
 
 		u8 * buffer = NULL;
-		u64 newfilesize = 0;
+		u32 newfilesize = 0;
 
 		if(LoadFileToMem(newfilepath, &buffer, &newfilesize) < 0)
 		{

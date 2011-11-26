@@ -62,35 +62,29 @@ void NetworkSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("SMB Settings"));
 	options.SetName(i++, tr("FTP Client Settings"));
 	options.SetName(i++, tr("FTP Server Settings"));
+
+	SetOptionValues();
 }
 
 void NetworkSettingsMenu::SetOptionValues()
 {
 	int i = 0;
 
-	options.SetValue(i++,tr("Client %i"), Settings.CurrentFTPUser+1);
+	if(Settings.AutoConnect == 1)options.SetValue(i++, tr("ON"));
+	else if(Settings.AutoConnect == 0) options.SetValue(i++, tr("OFF"));
 
-	options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].Host);
+	if(Settings.UpdateMetaxml == 1) options.SetValue(i++, tr("ON"));
+	else if(Settings.UpdateMetaxml == 0) options.SetValue(i++, tr("OFF"));
 
-	options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].User);
+	if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
+	else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
 
-	if (strcmp(Settings.FTPUser[Settings.CurrentFTPUser].Password, "") != 0)
-		options.SetValue(i++,"********");
-	else
-		options.SetValue(i++," ");
+	options.SetValue(i++, " ");
 
-	options.SetValue(i++,"%i", Settings.FTPUser[Settings.CurrentFTPUser].Port);
+	options.SetValue(i++, " ");
 
-	options.SetValue(i++,"%s", Settings.FTPUser[Settings.CurrentFTPUser].FTPPath);
+	options.SetValue(i++, " ");
 
-	if (Settings.FTPUser[Settings.CurrentFTPUser].Passive == 1)
-		options.SetValue(i++,tr("ON"));
-	else
-		options.SetValue(i++,tr("OFF"));
-
-	options.SetValue(i++," ");
-
-	options.SetValue(i++," ");
 }
 
 void NetworkSettingsMenu::OnUpdateButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
