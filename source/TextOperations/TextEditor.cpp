@@ -214,7 +214,7 @@ void TextEditor::WriteTextFile(const char * path)
 		return;
 	}
 
-	std::string FullText = MainFileTxt->GetUTF8String();
+	const std::string &FullText = MainFileTxt->toUTF8();
 
 	fwrite(FullText.c_str(), 1, strlen(FullText.c_str())+1, f);
 

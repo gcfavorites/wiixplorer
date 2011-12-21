@@ -67,13 +67,6 @@ static inline bool is_dir(DIR_ENTRY *entry) {
     return entry->flags & FLAG_DIR;
 }
 
-static inline bool invalid_drive_specifier(const char *path) {
-    if (strchr(path, ':') == NULL) return false;
-    int namelen = strlen(DEVICE_NAME);
-    if (!strncmp(DEVICE_NAME, path, namelen) && path[namelen] == ':') return false;
-    return true;
-}
-
 static inline void RemoveDoubleSlash(char *str)
 {
 	if(!str) return;

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgstr ""
 msgid ""
 "--------------------------------------------------\n"
 "\n"
-msgstr ""
-
-msgid "1"
 msgstr ""
 
 msgid "12H"
@@ -581,6 +578,9 @@ msgstr "解凍に失敗しました"
 msgid "Failed extracting the item(s)."
 msgstr "解凍に失敗しました"
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -680,6 +680,9 @@ msgstr "領域を初期化しますか?"
 
 msgid "Formatter"
 msgstr "初期化ツール"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "空き領域:"
@@ -884,9 +887,6 @@ msgstr "リスト表示"
 
 msgid "Listening on TCP port"
 msgstr "待ち受け中 TCPポート:"
-
-msgid "Listing files in"
-msgstr "ファイルをリスト化中:"
 
 msgid "Load"
 msgstr "読み込む"
@@ -1169,6 +1169,9 @@ msgstr "赤: %i 緑: %i 青: %i"
 msgid "Random"
 msgstr "ランダム再生"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "再起動に失敗しました"
 
@@ -1195,9 +1198,6 @@ msgstr "ファイルリストを再読み込み中です…"
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "再マウント中です…"
 
 msgid "Remove Link"
 msgstr "リンクを削除"
@@ -1641,6 +1641,12 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Listing files in"
+#~ msgstr "ファイルをリスト化中:"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "再マウント中です…"
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "エラー: ディレクトリを開けません: %s\n"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -38,9 +38,6 @@ msgid ""
 msgstr ""
 "--------------------------------------------------\n"
 "\n"
-
-msgid "1"
-msgstr ""
 
 msgid "12H"
 msgstr "12T"
@@ -583,6 +580,9 @@ msgstr "Fejlede at udpakke arkivet."
 msgid "Failed extracting the item(s)."
 msgstr "Fejlede at udpakke emne(r)."
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -682,6 +682,9 @@ msgstr "Formater partition?"
 
 msgid "Formatter"
 msgstr "Formatering"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Fri plads:"
@@ -886,9 +889,6 @@ msgstr "List måde"
 
 msgid "Listening on TCP port"
 msgstr "Lytter på TCP port"
-
-msgid "Listing files in"
-msgstr "List filer i"
 
 msgid "Load"
 msgstr "Indlæs"
@@ -1171,6 +1171,9 @@ msgstr ""
 msgid "Random"
 msgstr "Tilfældig"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "Reboot fejlede"
 
@@ -1197,9 +1200,6 @@ msgstr "Genindlæser fil liste..."
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "Genindlæser enheder..."
 
 msgid "Remove Link"
 msgstr "Fjern link"
@@ -1643,6 +1643,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Listing files in"
+#~ msgstr "List filer i"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "Genindlæser enheder..."
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "Fejl - Kunne ikke skabe mappe: %s\n"

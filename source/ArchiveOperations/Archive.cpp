@@ -21,6 +21,7 @@
 
 ArchiveHandle::ArchiveHandle(const char  * filepath)
 {
+	References = 0;
 	szFile = NULL;
 	zipFile = NULL;
 	rarFile = NULL;

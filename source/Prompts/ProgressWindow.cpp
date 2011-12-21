@@ -38,6 +38,7 @@ ProgressWindow::ProgressWindow()
 	Changed = false;
 	Minimized = false;
 	WindowClosed = true;
+	CloseRequest = true;
 	Canceled = false;
 	ProgressUnit = NULL;
 
@@ -78,7 +79,7 @@ ProgressWindow::~ProgressWindow()
 void ProgressWindow::OpenWindow()
 {
 	//! To skip progressbar for fast processes
-	if(WindowClosed && delayTimer.elapsedMiliSecs() < 600)
+	if(WindowClosed && delayTimer.elapsedMilliSecs() < 500)
 		return;
 
 	WindowClosed = false;
@@ -177,13 +178,20 @@ void ProgressWindow::CloseWindow()
 	if(WindowClosed)
 		return;
 
-	if(Minimized)
-		SetEffect(EFFECT_FADE, 30);
-	else
-		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	static bool effectRunning = false;
 
-	while(GetEffect() > 0)
-		Application::Instance()->updateEvents();
+	if(!effectRunning)
+	{
+		if(Minimized)
+			SetEffect(EFFECT_FADE, 30);
+		else
+			SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+
+		effectRunning = true;
+	}
+
+	if(GetEffect() > 0 && !Application::Instance()->isClosing())
+		return;
 
 	Application::Instance()->Remove(this);
 	Application::Instance()->UnsetUpdateOnly(this);
@@ -247,13 +255,17 @@ void ProgressWindow::CloseWindow()
 
 	trigA = NULL;
 
+	effectRunning = false;
 	WindowClosed = true;
 }
 
 
 void ProgressWindow::Draw()
 {
-	static int drawCounter = 0;
+	static u32 drawCounter = 0;
+
+	if(CloseRequest && !WindowClosed)
+		CloseWindow();
 
 	if(Changed && drawCounter > 2)
 	{
@@ -338,11 +350,12 @@ void ProgressWindow::StartProgress(const char *title, const char *msg)
 
 	Changed = true;
 	Canceled = false;
+	CloseRequest = false;
 }
 
 void ProgressWindow::StopProgress()
 {
-	CloseWindow();
+	CloseRequest = true;
 	ProgressTitle[0] = 0;
 	ProgressMsg[0] = 0;
 	completeDone = 0;
@@ -362,7 +375,6 @@ void ProgressWindow::ShowProgress(u64 done, u64 total)
 		completeDone += progressDone;
 
 	Changed = true;
-
 	if(WindowClosed)
 		OpenWindow();
 }
@@ -384,7 +396,6 @@ void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
 		completeDone += progressDone;
 
 	Changed = true;
-
 	if(WindowClosed)
 		OpenWindow();
 }

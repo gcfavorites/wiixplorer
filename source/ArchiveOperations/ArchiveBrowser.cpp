@@ -36,7 +36,6 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
 	PageIndex = 0;
 	SelIndex = 0;
 	ItemNumber = 0;
-	ExternalArchive = false;
 	archive = NULL;
 	displayPath = NULL;
 	OrigArchiveFilename = NULL;
@@ -45,19 +44,34 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
 	if(!filepath)
 		return;
 
+	PromptWindow * Prompt = new PromptWindow(tr("Reading archive."), tr("Please wait..."));
+	Prompt->DimBackground(true);
+	Application::Instance()->Append(Prompt);
+	Application::Instance()->SetUpdateOnly(Prompt);
+
 	char * tmp = strrchr(filepath, '/')+1;
 	OrigArchiveFilename = new char[strlen(tmp)+1];
 	sprintf(OrigArchiveFilename, "%s", tmp);
 
-//	StartProgress(tr("Please wait..."), AUTO_THROBBER);
-	ShowProgress(0, 1, fmt("%s %s", tr("Listing files in"), OrigArchiveFilename));
+	snprintf(currentPath, sizeof(currentPath), "%s", filepath);
 
-	archive = new ArchiveHandle(filepath);
+	lwp_t parsethread = LWP_THREAD_NULL;
+	if(LWP_CreateThread(&parsethread, ParseThreadCallback, this, 0, 32708, 100) < 0)
+		return;
 
-	StopProgress();
+	while(!LWP_ThreadIsSuspended(parsethread))
+		Application::Instance()->updateEvents();
 
+	LWP_ResumeThread(parsethread);
+	LWP_JoinThread(parsethread, NULL);
+
+	currentPath[0] = 0;
+	archive->AddReference();
 	ItemNumber = archive->GetItemCount();
 	ParseArchiveDirectory(NULL);
+
+	Application::Instance()->UnsetUpdateOnly(Prompt);
+	delete Prompt;
 }
 
 ArchiveBrowser::ArchiveBrowser(ArchiveHandle * a)
@@ -68,13 +82,13 @@ ArchiveBrowser::ArchiveBrowser(ArchiveHandle * a)
 	ItemNumber = 0;
 	displayPath = NULL;
 	OrigArchiveFilename = NULL;
-	ExternalArchive = true;
 	strcpy(currentPath, "");
 
 	archive = a;
 	if(!a)
 		return;
 
+	archive->AddReference();
 	ItemNumber = archive->GetItemCount();
 	ParseArchiveDirectory(NULL);
 }
@@ -92,7 +106,7 @@ ArchiveBrowser::~ArchiveBrowser()
 	if(displayPath)
 		delete [] displayPath;
 
-	if(!ExternalArchive)
+	if(archive && archive->RemoveReference() <= 0)
 		delete archive;
 }
 
@@ -103,7 +117,8 @@ int ArchiveBrowser::ExecuteFile(const char *filepath)
 
 	const char *filename = strrchr(filepath, '/');
 	if(!filename)
-		filename = filepath;
+		return -2;
+	filename++;
 
 	u32 index;
 	for(index = 0; index < PathStructure.size(); ++index)
@@ -160,6 +175,8 @@ int ArchiveBrowser::ExtractItem(int ind, const char * dest)
 		return -1;
 
 	ArchiveFileStruct * currentItem = archive->GetFileStruct(PathStructure.at(ind)->fileindex);
+	if(!currentItem)
+		return -1;
 
 	if(currentItem->isdir)
 	{
@@ -275,7 +292,7 @@ int ArchiveBrowser::LeaveCurDir()
 		else
 		{
 			//leaving Archive because root and ".." was clicked
-			return 0;
+			return CLOSE_ARCHIVE;
 		}
 	}
 
@@ -303,9 +320,31 @@ const char * ArchiveBrowser::GetCurrentPath()
 	if(displayPath)
 		delete [] displayPath;
 
-	displayPath = new char[strlen(OrigArchiveFilename)+strlen(currentPath)+1];
+	displayPath = new char[strlen(OrigArchiveFilename)+strlen(currentPath)+2];
 
 	sprintf(displayPath, "%s/%s", OrigArchiveFilename, currentPath);
+
+	return displayPath;
+}
+
+const char * ArchiveBrowser::GetCurrentSelectedFilepath()
+{
+	if(!OrigArchiveFilename)
+		return currentPath;
+
+	const char *Filename = GetCurrentName();
+	if(!displayPath)
+		return "";
+
+	if(displayPath)
+		delete [] displayPath;
+
+	displayPath = new char[strlen(OrigArchiveFilename)+strlen(currentPath)+strlen(Filename)+3];
+
+	if(strlen(currentPath) == 0 || currentPath[strlen(currentPath)-1] == '/')
+		sprintf(displayPath, "%s/%s%s", OrigArchiveFilename, currentPath, Filename);
+	else
+		sprintf(displayPath, "%s/%s/%s", OrigArchiveFilename, currentPath, Filename);
 
 	return displayPath;
 }
@@ -359,7 +398,7 @@ int ArchiveBrowser::ParseArchiveDirectory(const char * ArcPath)
 	}
 
 	// add '..' folder in case the user wants exit the archive or go up in directory
-	AddListEntrie("..", 0, 0, true, 0, 0, UNKNOWN);
+	AddListEntrie("..", 0, 0, true, -1, 0, UNKNOWN);
 
 	// get contents and parse them into file list structure
 	for (u32 i = 0; i < ItemNumber; i++)
@@ -440,6 +479,8 @@ ItemStruct * ArchiveBrowser::GetItemStruct(int pos)
 	memset(Item, 0, sizeof(ItemStruct));
 
 	ArchiveFileStruct * CurArchive = archive->GetFileStruct(PathStructure.at(pos)->fileindex);
+	if(!CurArchive)
+		return NULL;
 
 	Item->itempath = strdup(CurArchive->filename);
 	Item->itemsize = CurArchive->length;
@@ -491,5 +532,19 @@ bool ArchiveBrowser::FileSortCallback(const ArchiveFileStruct * f1, const Archiv
 		return false;
 	else
 		return true;
+}
+
+/****************************************************************************
+ * ParseThread
+ ***************************************************************************/
+void *ArchiveBrowser::ParseThreadCallback(void *arg)
+{
+	ArchiveBrowser *browser = (ArchiveBrowser *) arg;
+
+	browser->archive = new ArchiveHandle(browser->currentPath);
+
+	LWP_SuspendThread(LWP_GetSelf());
+
+	return NULL;
 }
 

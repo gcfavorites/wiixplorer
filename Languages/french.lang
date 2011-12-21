@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: wixx\n"
 "Language-Team: \n"
@@ -35,9 +35,6 @@ msgstr ""
 msgid ""
 "--------------------------------------------------\n"
 "\n"
-msgstr ""
-
-msgid "1"
 msgstr ""
 
 msgid "12H"
@@ -581,6 +578,9 @@ msgstr "L'extraction a échoué."
 msgid "Failed extracting the item(s)."
 msgstr "L'extraction a échoué."
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -680,6 +680,9 @@ msgstr "Formater la partition?"
 
 msgid "Formatter"
 msgstr "Formateur"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Espace libre:"
@@ -884,9 +887,6 @@ msgstr "Mode Liste"
 
 msgid "Listening on TCP port"
 msgstr "Ecoute sur le port TCP"
-
-msgid "Listing files in"
-msgstr "Lister les fichiers dans"
 
 msgid "Load"
 msgstr ""
@@ -1169,6 +1169,9 @@ msgstr "R: %i V: %i B: %i"
 msgid "Random"
 msgstr "Aléatoire"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "Echec du redémarrage."
 
@@ -1195,9 +1198,6 @@ msgstr "Mise à jour de la liste des fichier"
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "Remontage des périphériques..."
 
 msgid "Remove Link"
 msgstr "Suppression du lien"
@@ -1641,6 +1641,12 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Listing files in"
+#~ msgstr "Lister les fichiers dans"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "Remontage des périphériques..."
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "Error - Imposible d'ouvrir le dossier: %s\n"

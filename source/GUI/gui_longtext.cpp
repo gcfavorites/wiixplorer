@@ -179,16 +179,6 @@ void GuiLongText::SetTextPos(int pos)
 	}
 }
 
-const wchar_t * GuiLongText::GetText()
-{
-	return wText->c_str();
-}
-
-std::string GuiLongText::GetUTF8String(void) const
-{
-	return wText->toUTF8();
-}
-
 int GuiLongText::GetLineOffset(int ind)
 {
 	if(TextLines.size() == 0)

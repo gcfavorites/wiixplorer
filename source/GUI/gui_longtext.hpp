@@ -60,11 +60,11 @@ class GuiLongText : public GuiText
 		//!Get the total count of lines
 		int GetTotalLinesCount() { return TextLines.size(); };
 		//!Get the original full Text
-		const wchar_t * GetText();
+		const wchar_t * GetText() const { return wText->c_str(); }
 		//!Get the original full Text as wString
 		wString * GetwString() { return wText; };
 		//!Get the original Text as a UTF-8 text
-		std::string GetUTF8String() const;
+		std::string toUTF8() const { return wText->toUTF8(); }
 		//!Get a Textline
 		const wchar_t * GetTextLine(int ind);
 		//!Get the offset in the text of a drawn Line

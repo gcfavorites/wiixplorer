@@ -521,7 +521,8 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 		return NULL;
 
 	u8 a;
-	u32 x, y, pixel, offset;
+	int pixel;
+	u32 x, y, offset;
 
 	for(y = 0; y < (u32) height; ++y)
 	{

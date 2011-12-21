@@ -33,6 +33,7 @@ Application::Application()
 	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
 {
 	DeleteQueue = NULL;
+	LWP_MutexInit(&m_mutex, true);
 
 	//!FTP Server thread
 	if(Settings.FTPServer.AutoStart)
@@ -92,6 +93,8 @@ Application::~Application()
 			Resources::Remove(grabPointer[i]);
 		Resources::Remove(standardPointer[i]);
 	}
+
+	LWP_MutexDestroy(m_mutex);
 }
 
 void Application::quit()
@@ -118,12 +121,17 @@ void Application::exec()
 	{
 		updateEvents();
 
-		while(DeleteQueue)
+		if(DeleteQueue)
 		{
-			ElementList *tmp = DeleteQueue->next;
-			delete DeleteQueue->element;
-			delete DeleteQueue;
-			DeleteQueue = tmp;
+			LWP_MutexLock(m_mutex);
+			while(DeleteQueue)
+			{
+				ElementList *tmp = DeleteQueue->next;
+				delete DeleteQueue->element;
+				delete DeleteQueue;
+				DeleteQueue = tmp;
+			}
+			LWP_MutexUnlock(m_mutex);
 		}
 	}
 
@@ -204,11 +212,14 @@ void Application::PushForDelete(GuiElement *e)
 	if(!e)
 		return;
 
+	LWP_MutexLock(m_mutex);
+
 	if(!DeleteQueue)
 	{
 		DeleteQueue = new ElementList;
 		DeleteQueue->element = e;
 		DeleteQueue->next = 0;
+		LWP_MutexUnlock(m_mutex);
 		return;
 	}
 
@@ -220,4 +231,6 @@ void Application::PushForDelete(GuiElement *e)
 	list->next = new ElementList;
 	list->next->element = e;
 	list->next->next = 0;
+
+	LWP_MutexUnlock(m_mutex);
 }

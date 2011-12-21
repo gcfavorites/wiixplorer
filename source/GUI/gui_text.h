@@ -70,18 +70,19 @@ class GuiText : public GuiElement
 		//!\param c Font color
 		void SetColor(GXColor c);
 		//!Get the original text as char
-		virtual const wchar_t * GetText();
+		virtual const wchar_t * GetText() const { return text; }
+		virtual std::string toUTF8(void) const;
 		//!Get the Horizontal Size of Text
 		int GetTextWidth();
 		int GetTextWidth(int ind);
 		//!Get the max textwidth
-		int GetTextMaxWidth();
+		int GetTextMaxWidth() { return maxWidth; }
 		//!Gets the total line number
 		virtual int GetLinesCount() { return 1; };
 		//!Get fontsize
 		int GetFontSize() { return size; };
 		//!Set max lines to draw
-		void SetLinesToDraw(int l);
+		void SetLinesToDraw(int l) { linestodraw = l; }
 		//!Get current Textline (for position calculation)
 		const wchar_t * GetDynText(int ind = 0);
 		virtual const wchar_t * GetTextLine(int ind) { return GetDynText(ind); };

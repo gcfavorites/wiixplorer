@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Jane.H\n"
 "Language-Team: mcc, kyogc, Miller, Jane.H\n"
@@ -35,9 +35,6 @@ msgstr ""
 msgid ""
 "--------------------------------------------------\n"
 "\n"
-msgstr ""
-
-msgid "1"
 msgstr ""
 
 msgid "12H"
@@ -581,6 +578,9 @@ msgstr "匯出檔案失敗。"
 msgid "Failed extracting the item(s)."
 msgstr "無法匯出項目。"
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -680,6 +680,9 @@ msgstr "格式化此磁區"
 
 msgid "Formatter"
 msgstr "格式化程式"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "可用空間："
@@ -884,9 +887,6 @@ msgstr "清單模式"
 
 msgid "Listening on TCP port"
 msgstr "傾聽TCP通訊埠中"
-
-msgid "Listing files in"
-msgstr "列出檔案於"
 
 msgid "Load"
 msgstr "載入"
@@ -1169,6 +1169,9 @@ msgstr "紅: %i 綠: %i 藍: %i"
 msgid "Random"
 msgstr "隨機播放"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "重新啟動失敗"
 
@@ -1195,9 +1198,6 @@ msgstr "重新載入檔案清單..."
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "重新掛載裝置..."
 
 msgid "Remove Link"
 msgstr "移除連結"
@@ -1641,6 +1641,12 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Listing files in"
+#~ msgstr "列出檔案於"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "重新掛載裝置..."
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "錯誤 - 無法開啟資料夾：%s\n"

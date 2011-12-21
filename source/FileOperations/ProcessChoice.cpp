@@ -42,6 +42,7 @@
 #include "FileOperations/MoveTask.h"
 #include "FileOperations/DeleteTask.h"
 #include "FileOperations/MD5Task.h"
+#include "FileOperations/PackTask.h"
 #include "menu.h"
 
 void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
@@ -55,33 +56,11 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 		if(ret <= 0)
 			return;
 
-		const char * dstpath = strchr(browser->GetCurrentPath(), '/');
-		if(!dstpath)
-			ShowError(tr("Unknown error occured."));
+		PackTask *task = new PackTask(Clipboard::Instance(), browser->GetCurrentPath(), browser->GetArchive(), Settings.CompressionLevel);
+		Taskbar::Instance()->AddTask(task);
+		ThreadedTaskHandler::Instance()->AddTask(task);
 
-		dstpath++;
-
-		const char * slash = (dstpath[strlen(dstpath)-1] != '/') ? "/" : "";
-		int result = 0;
-		char DestPath[1024];
-		StartProgress(tr("Compressing item(s):"));
-
-		for(int i = 0; i < Clipboard::Instance()->GetItemcount(); ++i)
-		{
-			snprintf(DestPath, sizeof(DestPath), "%s%s%s", dstpath, slash, Clipboard::Instance()->GetItemName(i));
-			result = browser->AddItem(Clipboard::Instance()->GetItem(i), DestPath, Settings.CompressionLevel);
-			if(result < 0)
-				break;
-		}
-
-		ShowProgress(100, 100, tr("Reloading file list..."));
-		browser->ReloadList();
-		StopProgress();
-
-		if(result == -30)
-			ShowError(tr("Pasting files is currently only supported on ZIP archives."));
-		else if(result < 0 && result != -10)
-			WindowPrompt(fmt(tr("ERROR: %i"), result), tr("Failed adding the item(s)"), tr("OK"));
+		Clipboard::Instance()->Reset();
 	}
 
 	else if(choice == ArcExtractFile)
@@ -148,17 +127,16 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 	}
 	else if(choice == ArcProperties)
 	{
-		ArchiveProperties * Prompt = new ArchiveProperties(browser->GetCurrentItemStructure());
+		browser->MarkCurrentItem();
+		ItemMarker * Marker = browser->GetItemMarker();
+
+		ArchiveProperties * Prompt = new ArchiveProperties(browser->GetArchive(), Marker);
 		Prompt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
-		//Application::Instance()->SetDim(true);
+		Prompt->DimBackground(true);
+		Application::Instance()->SetUpdateOnly(Prompt);
 		Application::Instance()->Append(Prompt);
 
-		while(Prompt->GetChoice() == -1)
-			usleep(100);
-
-		delete Prompt;
-		Prompt = NULL;
-		//Application::Instance()->SetDim(false);
+		Marker->Reset();
 	}
 }
 

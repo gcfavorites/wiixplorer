@@ -357,7 +357,11 @@ void IconFileBrowser::Update(GuiTrigger * t)
 	scrollbar->Update(t);
 
 	if(browser)
+	{
 		browser->UpdateMarker(t);
+		if(browser->listChanged())
+			OnListChange(selectedItem, browser->GetPageIndex());
+	}
 
 	for(int i = 0; i < PageSize && i < (int) Buttons.size(); i++)
 	{

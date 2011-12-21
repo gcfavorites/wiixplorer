@@ -64,6 +64,7 @@ class DeviceMenu : public GuiFrame, public sigslot::has_slots<>
 		GuiText * deviceText[MAXDEVICES];
 
 		GuiButton * NoBtn;
+		GuiButton * BackBtn;
 		GuiButton * deviceBtn[MAXDEVICES];
 
 		SimpleGuiTrigger * trigA;

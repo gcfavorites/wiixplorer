@@ -30,23 +30,23 @@
 #include <vector>
 #include <string>
 
-#define MAX_PARTITIONS		  32 /* Maximum number of partitions that can be found */
-#define MAX_MOUNTS			  10 /* Maximum number of mounts available at one time */
-#define MAX_SYMLINK_DEPTH	   10 /* Maximum search depth when resolving symbolic links */
+#define MAX_PARTITIONS				32 /* Maximum number of partitions that can be found */
+#define MAX_MOUNTS					10 /* Maximum number of mounts available at one time */
+#define MAX_SYMLINK_DEPTH			10 /* Maximum search depth when resolving symbolic links */
 
-#define MBR_SIGNATURE		   0x55AA
-#define EBR_SIGNATURE		   MBR_SIGNATURE
+#define MBR_SIGNATURE				0x55AA
+#define EBR_SIGNATURE				MBR_SIGNATURE
 
-#define PARTITION_BOOTABLE	  0x80 /* Bootable (active) */
-#define PARTITION_NONBOOTABLE   0x00 /* Non-bootable */
-#define PARTITION_TYPE_GPT	  0xEE /* Indicates that a GPT header is available */
+#define PARTITION_BOOTABLE			0x80 /* Bootable (active) */
+#define PARTITION_NONBOOTABLE		0x00 /* Non-bootable */
+#define PARTITION_TYPE_GPT			0xEE /* Indicates that a GPT header is available */
 
-#define GUID_SYSTEM_PARTITION	   0x0000000000000001LL	/* System partition (disk partitioning utilities must reserve the partition as is) */
+#define GUID_SYSTEM_PARTITION		0x0000000000000001LL	/* System partition (disk partitioning utilities must reserve the partition as is) */
 #define GUID_READ_ONLY_PARTITION	0x0800000000000000LL	/* Read-only partition */
-#define GUID_HIDDEN_PARTITION	   0x2000000000000000LL	/* Hidden partition */
-#define GUID_NO_AUTOMOUNT_PARTITION 0x4000000000000000LL	/* Do not automount (e.g., do not assign drive letter) */
+#define GUID_HIDDEN_PARTITION		0x2000000000000000LL	/* Hidden partition */
+#define GUID_NO_AUTOMOUNT_PARTITION	0x4000000000000000LL	/* Do not automount (e.g., do not assign drive letter) */
 
-#define BYTES_PER_SECTOR		512 /* Default in libogc */
+#define MAX_SECTOR_SIZE				4096
 
 typedef struct _PARTITION_RECORD {
 	u8 status;							  /* Partition status; see above */
@@ -149,22 +149,24 @@ class PartitionHandle
 		//! Get the count of found partitions
 		int GetPartitionCount() { return PartitionList.size(); };
 		//! Get the partition size in bytes
-		u64 GetSize(int pos) { if(valid(pos)) return (u64) PartitionList[pos].SecCount*BYTES_PER_SECTOR; else return 0; };
+		u64 GetSize(int pos) { if(valid(pos)) return (u64) PartitionList[pos].SecCount*sectorSize; else return 0; };
 		//! Get the whole partition record struct
 		PartitionFS * GetPartitionRecord(int pos) { if(valid(pos)) return &PartitionList[pos]; else return NULL; };
 		//! Get the disc interface of this handle
 		const DISC_INTERFACE * GetDiscInterface() { return interface; };
+		static int CheckSectorSize(const DISC_INTERFACE* interace);
 	protected:
 		bool valid(int pos) { return (pos >= 0 && pos < (int) PartitionList.size()); }
 		int FindPartitions();
 		bool IsExisting(u64 lba);
-		void CheckEBR(u8 PartNum, sec_t ebr_lba);
-		int CheckGPT(u8 PartNum);
+		void CheckEBR(int PartNum, sec_t ebr_lba);
+		int CheckGPT(int PartNum);
 		void AddPartition(const char * name, u64 lba_start, u64 sec_count, bool bootable, u8 part_type, u8 part_num, u32 EBR_Sector = 0);
 
 		const DISC_INTERFACE *interface;
 		std::vector<PartitionFS> PartitionList;
 		std::vector<std::string> MountNameList;
+		u32 sectorSize;
 };
 
 #endif

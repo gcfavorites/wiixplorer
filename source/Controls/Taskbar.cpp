@@ -24,6 +24,8 @@
 #include "Prompts/PopUpMenu.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "DeviceControls/PartitionFormatterGUI.hpp"
+#include "DeviceControls/RemountTask.h"
+#include "FTPOperations/FTPServerMenu.h"
 #include "Launcher/Applications.h"
 #include "Launcher/Channels.h"
 #include "Launcher/OperaBooter.hpp"
@@ -211,7 +213,6 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 
 	if(item < 0 || item >= BOOTMII)
 	{
-		Application::Instance()->Remove(menu);
 		Application::Instance()->UnsetUpdateOnly(menu);
 		menu->Close();
 	}
@@ -288,17 +289,22 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	}
 	else if (item == FTPSERVER)
 	{
-		//menu = MENU_FTP;
+		if(!NetworkInitPrompt())
+			ShowError(tr("Failed to initialize network."));
+
+		FTPServerMenu * FTPMenu = new FTPServerMenu();
+		FTPMenu->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+		FTPMenu->SetPosition(0, 30);
+
+		Application::Instance()->Append(FTPMenu);
 	}
 	else if (item == REMOUNT)
 	{
-		if (WindowPrompt(tr("Do you want to remount the devices?"), 0, tr("Yes"), tr("Cancel")))
+		if (WindowPrompt(tr("Do you want to remount all devices?"), 0, tr("Yes"), tr("Cancel")))
 		{
-			//StartProgress(tr("Remounting all devices."), AUTO_THROBBER);
-			//ShowProgress(0, 1, tr("Please wait..."));
-			DeviceHandler::Instance()->UnMountAll();
-			DeviceHandler::Instance()->MountAll();
-			//StopProgress();
+			RemountTask *mountTask = new RemountTask(tr("Remounting all devices."), MAXDEVICES);
+			this->AddTask(mountTask);
+			ThreadedTaskHandler::Instance()->AddTask(mountTask);
 		}
 	}
 	else if (item == RESTART)
@@ -319,11 +325,11 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 
 void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 {
+	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 	Applications *Apps = (Applications *) menu->GetUserData();
 
 	if(item >= 0)
 	{
-		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UnsetUpdateOnly(parent);
 		parent->Close();
@@ -332,15 +338,15 @@ void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 			Apps->Launch(item);
 	}
 
-	menu->Close();
+	parent->CloseSubMenu();
 	delete Apps;
 }
 
 void Taskbar::OnChannelsMenuClick(PopUpMenu *menu, int item)
 {
+	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 	if(item >= 0)
 	{
-		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UnsetUpdateOnly(parent);
 		parent->Close();
@@ -349,11 +355,12 @@ void Taskbar::OnChannelsMenuClick(PopUpMenu *menu, int item)
 			Channels::Instance()->Launch(item);
 	}
 
-	menu->Close();
+	parent->CloseSubMenu();
 }
 
 void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 {
+	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 	OperaBooter *Booter = (OperaBooter *) menu->GetUserData();
 
 	if(item >= 0)
@@ -377,7 +384,8 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 		else if(res == 3)
 			Booter->RemoveLink(item-1);
 	}
-	menu->Close();
+
+	parent->CloseSubMenu();
 	delete Booter;
 }
 

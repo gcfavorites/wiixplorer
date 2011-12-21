@@ -32,12 +32,13 @@
  ***************************************************************************/
 #include "Browser.hpp"
 #include "main.h"
+#include "Tools/tools.h"
 
 void Browser::MarkCurrentItem()
 {
 	ItemStruct * Item = GetCurrentItemStruct();
 
-	if(Item)
+	if(Item && Item->itempath && strcmp(Item->itempath, "..") != 0)
 	{
 		IMarker.AddItem(Item);
 
@@ -67,7 +68,7 @@ void Browser::MarkAllItems()
 	{
 		ItemStruct * Item = GetItemStruct(i);
 
-		if(Item)
+		if(Item && Item->itempath && strcmp(Item->itempath, "..") != 0)
 		{
 			IMarker.AddItem(Item);
 

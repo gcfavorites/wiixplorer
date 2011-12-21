@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -37,9 +37,6 @@ msgstr ""
 msgid ""
 "--------------------------------------------------\n"
 "\n"
-msgstr ""
-
-msgid "1"
 msgstr ""
 
 msgid "12H"
@@ -583,6 +580,9 @@ msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
 msgid "Failed extracting the item(s)."
 msgstr "Απέτυχα να εξάγω το(α) συγκεκριμένο(α) αρχείο(α)."
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -682,6 +682,9 @@ msgstr "Διαμόρφωση κατάτμησης;"
 
 msgid "Formatter"
 msgstr "Διαμόρφωση"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Ελεύθερος χώρος:"
@@ -886,9 +889,6 @@ msgstr "Τρόπος με λίστα"
 
 msgid "Listening on TCP port"
 msgstr "Ακούει στην πόρτα TCP"
-
-msgid "Listing files in"
-msgstr "Λίστα αρχείων σε"
 
 msgid "Load"
 msgstr "Φορτώνω"
@@ -1171,6 +1171,9 @@ msgstr "Κ: %i Π: %i Μ: %i"
 msgid "Random"
 msgstr "Τυχαία"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "Η επανεκκίνηση απέτυχε"
 
@@ -1197,9 +1200,6 @@ msgstr ""
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "Ανέβασμα ξανά οι συσκευές..."
 
 msgid "Remove Link"
 msgstr "Αφαιρώ τον σύνδεσμο."
@@ -1643,6 +1643,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Listing files in"
+#~ msgstr "Λίστα αρχείων σε"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "Ανέβασμα ξανά οι συσκευές..."
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "Λάθος - Δεν μπορώ να ανοίξω την διαδρομή: %s\n"

@@ -28,10 +28,26 @@
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "TextOperations/wstring.hpp"
+#include "Controls/ThreadedTaskHandler.hpp"
 #include "PartitionFormatterGUI.hpp"
 #include "PartitionFormatter.hpp"
 #include "menu.h"
 #include "sys.h"
+
+class FormatTask : public ThreadedTask
+{
+public:
+	FormatTask(PartitionHandle *dev, int dev_in, int partition)
+		: Device(dev), dev(dev_in), part(partition)
+	{}
+	virtual ~FormatTask() {}
+	virtual void Execute(void);
+	sigslot::signal1<int> FormatFinish;
+private:
+	PartitionHandle * Device;
+	int dev;
+	int part;
+};
 
 PartitionFormatterGui::PartitionFormatterGui()
 	: GuiFrame(0,0)
@@ -39,8 +55,6 @@ PartitionFormatterGui::PartitionFormatterGui()
 	CurPart = 0;
 	CurDevice = SD;
 	currentState = -1;
-	FormatRequested = false;
-	ActiveRequested = false;
 	Device = NULL;
 
 	btnClick = Resources::GetSound("button_click.wav");
@@ -146,7 +160,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	ActiveBtn->SetPosition(80, 320);
 	ActiveBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	ActiveBtn->SetEffectGrow();
-	ActiveBtn->Clicked.connect(this, &PartitionFormatterGui::OnButtonClick);
+	ActiveBtn->Clicked.connect(this, &PartitionFormatterGui::OnActiveButtonClick);
 	Append(ActiveBtn);
 
 	FormatBtnTxt = new GuiText(tr("Format"), 16, (GXColor){0, 0, 0, 255});
@@ -160,7 +174,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	FormatBtn->SetPosition(-80, 320);
 	FormatBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	FormatBtn->SetEffectGrow();
-	FormatBtn->Clicked.connect(this, &PartitionFormatterGui::OnButtonClick);
+	FormatBtn->Clicked.connect(this, &PartitionFormatterGui::OnFormatButtonClick);
 	Append(FormatBtn);
 
 	BackBtnImg = new GuiImage(CloseImgData);
@@ -174,7 +188,7 @@ PartitionFormatterGui::PartitionFormatterGui()
 	BackBtn->SetTrigger(trigB);
 	BackBtn->SetPosition(370, 20);
 	BackBtn->SetEffectGrow();
-	BackBtn->Clicked.connect(this, &PartitionFormatterGui::OnButtonClick);
+	BackBtn->Clicked.connect(this, &PartitionFormatterGui::OnBackButtonClick);
 	Append(BackBtn);
 
 	SetDevice();
@@ -188,7 +202,7 @@ PartitionFormatterGui::~PartitionFormatterGui()
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 
 	while(GetEffect() > 0)
-		usleep(100);
+		Application::Instance()->updateEvents();
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
@@ -229,80 +243,6 @@ PartitionFormatterGui::~PartitionFormatterGui()
 
 	delete trigA;
 	delete trigB;
-}
-
-void PartitionFormatterGui::MainUpdate()
-{
-	while(currentState == -1)
-	{
-		usleep(100);
-
-		if(FormatRequested && Device)
-		{
-			if(Device->GetPartitionType(CurPart) == PARTITION_TYPE_GPT)
-			{
-				ShowError(tr("You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."));
-				FormatRequested = false;
-				continue;
-			}
-
-			int ret = WindowPrompt(tr("Format Partition?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
-			if(ret)
-			{
-				ret = WindowPrompt(tr("WARNING"), tr("This will delete all the data on this partition. Do you want to continue?"), tr("Yes"), tr("Cancel"));
-				if(ret)
-				{
-//					StartProgress(tr("Formating partition..."), AUTO_THROBBER);
-					ShowProgress(0, 2, tr("Please wait..."));
-					ret = PartitionFormatter::FormatToFAT32(Device->GetDiscInterface(), Device->GetLBAStart(CurPart), Device->GetSecCount(CurPart));
-					if(ret >= 0)
-					{
-						if(Device->GetEBRSector(CurPart) > 0)
-							ret = PartitionFormatter::WriteEBR_FAT32(Device->GetDiscInterface(), Device->GetEBRSector(CurPart), Device->GetLBAStart(CurPart));
-						else
-							ret = PartitionFormatter::WriteMBR_FAT32(Device->GetDiscInterface(), Device->GetLBAStart(CurPart));
-					}
-					ShowProgress(1, 2, tr("Remounting devices..."));
-					DeviceHandler::Instance()->UnMountAll();
-					DeviceHandler::Instance()->MountAll();
-					StopProgress();
-					if(ret >= 0)
-						WindowPrompt(tr("Successfully formated the partition."), 0, tr("OK"));
-				}
-			}
-			SetDevice();
-			ListPartitions();
-			FormatRequested = false;
-		}
-		else if(ActiveRequested && Device)
-		{
-			ActiveRequested = false;
-			if(Device->GetEBRSector(CurPart) > 0)
-			{
-				ShowError(tr("You can't set a logical partition as active."));
-				continue;
-			}
-			else if(Device->GetPartitionType(CurPart) == 0x05 || Device->GetPartitionType(CurPart) == 0x0F ||
-					Device->GetPartitionType(CurPart) == 0x00)
-			{
-				ShowError(tr("You can't set this partition as active."));
-				continue;
-			}
-
-			int ret = WindowPrompt(tr("Set this Partition as Active?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
-			if(ret)
-			{
-//				StartProgress(tr("Setting partition as active."), AUTO_THROBBER);
-				ShowProgress(0, 1, tr("Please wait..."));
-				ret = PartitionFormatter::SetActive(Device->GetDiscInterface(), CurPart);
-				Device->GetPartitionRecord(CurPart)->Bootable = true;
-				StopProgress();
-			}
-
-			SetDevice();
-			ListPartitions();
-		}
-	}
 }
 
 void PartitionFormatterGui::ListPartitions()
@@ -355,28 +295,45 @@ void PartitionFormatterGui::SetDevice()
 	DeviceOption.SetOptionValue(1, fmt("%i", CurPart+1));
 }
 
-void PartitionFormatterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void PartitionFormatterGui::OnActiveButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
+	if(!Device)
+		return;
 
-	if(sender == BackBtn)
+	if(CurPart < 0 || CurPart >= Device->GetPartitionCount())
+		return;
+
+	if(Device->GetEBRSector(CurPart) > 0)
 	{
-		currentState = -2;
+		ShowError(tr("You can't set a logical partition as active."));
+		return;
 	}
-	else if(sender == FormatBtn)
+	else if(Device->GetPartitionType(CurPart) == 0x05 || Device->GetPartitionType(CurPart) == 0x0F ||
+			Device->GetPartitionType(CurPart) == 0x00)
 	{
-		FormatRequested = true;
+		ShowError(tr("You can't set this partition as active."));
+		return;
 	}
-	else if(sender == ActiveBtn)
-	{
-		ActiveRequested = true;
-	}
+
+	int ret = WindowPrompt(tr("Set this Partition as Active?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
+	if(ret == 0)
+		return;
+
+	PartitionFormatter::SetActive(Device->GetDiscInterface(), CurPart);
+	Device->GetPartitionRecord(CurPart)->Bootable = true;
+
+	SetDevice();
+	ListPartitions();
+}
+
+void PartitionFormatterGui::OnBackButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+{
+	Application::Instance()->UnsetUpdateOnly(this);
+	Application::Instance()->PushForDelete(this);
 }
 
 void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == DeviceOption.GetButtonLeft(0))
 	{
 		if(CurDevice == SD)
@@ -447,8 +404,6 @@ void PartitionFormatterGui::OnOptionLeftClick(GuiElement *sender, int pointer UN
 
 void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == DeviceOption.GetButtonRight(0))
 	{
 		if(CurDevice == SD)
@@ -517,3 +472,71 @@ void PartitionFormatterGui::OnOptionRightClick(GuiElement *sender, int pointer U
 	ListPartitions();
 }
 
+void PartitionFormatterGui::OnFormatButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+{
+	if(!Device)
+		return;
+
+	if(CurPart < 0 || CurPart >= Device->GetPartitionCount())
+		return;
+
+	if(Device->GetPartitionType(CurPart) == PARTITION_TYPE_GPT)
+	{
+		ShowError(tr("You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."));
+		return;
+	}
+
+	int ret = WindowPrompt(tr("Format Partition?"), fmt("%s %i: %s (%0.2fGB)", tr("Partition"), CurPart, Device->GetFSName(CurPart), Device->GetSize(CurPart)/GBSIZE), tr("Yes"), tr("Cancel"));
+	if(ret == 0)
+		return;
+
+	ret = WindowPrompt(tr("WARNING"), tr("This will delete all the data on this partition. Do you want to continue?"), tr("Yes"), tr("Cancel"));
+	if(ret == 0)
+		return;
+
+	PromptWindow *window = new PromptWindow(tr("Formatting partition!"), tr("Please wait..."), tr("OK"));
+	window->DimBackground(true);
+	Application::Instance()->Append(window);
+	Application::Instance()->SetUpdateOnly(window);
+
+	formatResult = 0xDEADBEAF;
+
+	FormatTask task(Device, CurDevice, CurPart);
+	task.FormatFinish.connect(this, &PartitionFormatterGui::OnFormatFinish);
+
+	ThreadedTaskHandler::Instance()->AddTask(&task);
+
+	while(formatResult == (int) 0xDEADBEAF)
+		Application::Instance()->updateEvents();
+
+	delete window;
+
+	if(formatResult >= 0)
+		WindowPrompt(tr("Successfully formated the partition."), 0, tr("OK"));
+	else
+		WindowPrompt(tr("Failed formatting the partition."), 0, tr("OK"));
+
+	SetDevice();
+	ListPartitions();
+}
+
+void PartitionFormatterGui::OnFormatFinish(int result)
+{
+	formatResult = result;
+}
+
+void FormatTask::Execute(void)
+{
+	DeviceHandler::Instance()->UnMount(dev);
+	int ret = PartitionFormatter::FormatToFAT32(Device->GetDiscInterface(), Device->GetLBAStart(part), Device->GetLBAStart(part));
+	if(ret >= 0)
+	{
+		if(Device->GetEBRSector(part) > 0)
+			ret = PartitionFormatter::WriteEBR_FAT32(Device->GetDiscInterface(), Device->GetEBRSector(part), Device->GetLBAStart(part));
+		else
+			ret = PartitionFormatter::WriteMBR_FAT32(Device->GetDiscInterface(), Device->GetLBAStart(part));
+	}
+
+	DeviceHandler::Instance()->Mount(dev);
+	FormatFinish(ret);
+}

@@ -47,7 +47,10 @@ class ArchiveHandle
 		bool ReloadList();
 		//!Get the total amount of items inside the archive
 		u32 GetItemCount();
-
+		//!Add reference
+		int AddReference() { return (++References); }
+		//!Remove reference
+		int RemoveReference() { return (--References); }
 	private:
 		//!Check what kind of archive it is
 		bool IsZipFile (const char *buffer);
@@ -61,6 +64,8 @@ class ArchiveHandle
 		RarFile * rarFile;
 		U8Archive * u8File;
 		RarcFile * rarcFile;
+
+		int References;
 };
 
 #endif //ARCHIVE_BROWSER_H_

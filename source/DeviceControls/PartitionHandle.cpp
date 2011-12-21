@@ -81,6 +81,8 @@ PartitionHandle::PartitionHandle(const DISC_INTERFACE *discio)
 	if (!interface->isInserted())
 		return;
 
+	sectorSize = CheckSectorSize(interface);
+
 	FindPartitions();
 }
 
@@ -190,10 +192,12 @@ void PartitionHandle::AddPartition(const char * name, u64 lba_start, u64 sec_cou
 	if(IsExisting(lba_start))
 		return;
 
-	u8 buffer[BYTES_PER_SECTOR];
+	u8 *buffer = new u8[MAX_SECTOR_SIZE];
 
-	if (!interface->readSectors(lba_start, 1, buffer))
+	if (!interface->readSectors(lba_start, 1, buffer)) {
+		delete [] buffer;
 		return;
+	}
 
 	//! Partition typ can be missleading the correct partition format. Stupid lazy ass Partition Editors.
 	if((memcmp(buffer + 0x36, "FAT", 3) == 0 || memcmp(buffer + 0x52, "FAT", 3) == 0) &&
@@ -218,29 +222,36 @@ void PartitionHandle::AddPartition(const char * name, u64 lba_start, u64 sec_cou
 	PartitionList[part].PartitionType = part_type;
 	PartitionList[part].PartitionNum = part_num;
 	PartitionList[part].EBR_Sector = EBR_Sector;
+	delete [] buffer;
 }
 
 int PartitionHandle::FindPartitions()
 {
-	MASTER_BOOT_RECORD mbr;
+	MASTER_BOOT_RECORD *mbr = (MASTER_BOOT_RECORD *) malloc(MAX_SECTOR_SIZE);
+	if(!mbr)
+		return -1;
 
 	// Read the first sector on the device
-	if (!interface->readSectors(0, 1, &mbr))
+	if (!interface->readSectors(0, 1, mbr)) {
+		free(mbr);
 		return -1;
+	}
 
 	// If this is the devices master boot record
-	if (mbr.signature != MBR_SIGNATURE)
+	if (mbr->signature != MBR_SIGNATURE) {
+		free(mbr);
 		return -1;
+	}
 
 	for (int i = 0; i < 4; i++)
 	{
-		PARTITION_RECORD * partition = (PARTITION_RECORD *) &mbr.partitions[i];
+		PARTITION_RECORD * partition = (PARTITION_RECORD *) &mbr->partitions[i];
 
 		if(partition->type == PARTITION_TYPE_GPT)
 		{
 			int ret = CheckGPT(i);
 			if(ret == 0)
-				return ret;
+				break;
 		}
 
 		if(partition->type == PARTITION_TYPE_DOS33_EXTENDED || partition->type == PARTITION_TYPE_WIN95_EXTENDED)
@@ -257,68 +268,87 @@ int PartitionHandle::FindPartitions()
 		}
 	}
 
+	free(mbr);
+
 	return 0;
 }
 
-void PartitionHandle::CheckEBR(u8 PartNum, sec_t ebr_lba)
+void PartitionHandle::CheckEBR(int PartNum, sec_t ebr_lba)
 {
-	EXTENDED_BOOT_RECORD ebr;
+	EXTENDED_BOOT_RECORD *ebr = (EXTENDED_BOOT_RECORD *) malloc(MAX_SECTOR_SIZE);
+	if(!ebr)
+		return;
+
 	sec_t next_erb_lba = 0;
 
 	do
 	{
 		// Read and validate the extended boot record
-		if (!interface->readSectors(ebr_lba + next_erb_lba, 1, &ebr))
-			return;
+		if (!interface->readSectors(ebr_lba + next_erb_lba, 1, ebr))
+			break;
 
-		if (ebr.signature != EBR_SIGNATURE)
-			return;
+		if (ebr->signature != EBR_SIGNATURE)
+			break;
 
-		if(le32(ebr.partition.block_count) > 0)
+		PARTITION_RECORD * partition = (PARTITION_RECORD *) &ebr->partition;
+
+		if(le32(partition->block_count) > 0)
 		{
-			AddPartition(PartFromType(ebr.partition.type), ebr_lba + next_erb_lba + le32(ebr.partition.lba_start),
-						 le32(ebr.partition.block_count), (ebr.partition.status == PARTITION_BOOTABLE),
-						 ebr.partition.type, PartNum, ebr_lba + next_erb_lba);
+			AddPartition(PartFromType(partition->type), ebr_lba + next_erb_lba + le32(partition->lba_start),
+						 le32(partition->block_count), (partition->status == PARTITION_BOOTABLE),
+						 partition->type, PartNum, ebr_lba + next_erb_lba);
 		}
 		// Get the start sector of the current partition
 		// and the next extended boot record in the chain
-		next_erb_lba = le32(ebr.next_ebr.lba_start);
+		next_erb_lba = le32(ebr->next_ebr.lba_start);
 	}
 	while(next_erb_lba > 0);
+
+	free(ebr);
 }
 
 static const u8 TYPE_UNUSED[16] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 };
 static const u8 TYPE_BIOS[16] = { 0x48,0x61,0x68,0x21,0x49,0x64,0x6F,0x6E,0x74,0x4E,0x65,0x65,0x64,0x45,0x46,0x49 };
 //static const u8 TYPE_LINUX_MS_BASIC_DATA[16] = { 0xA2,0xA0,0xD0,0xEB,0xE5,0xB9,0x33,0x44,0x87,0xC0,0x68,0xB6,0xB7,0x26,0x99,0xC7 };
 
-int PartitionHandle::CheckGPT(u8 PartNum)
+int PartitionHandle::CheckGPT(int PartNum)
 {
-	GPT_HEADER gpt_header;
+	GPT_HEADER *gpt_header = (GPT_HEADER *) malloc(MAX_SECTOR_SIZE);
+	if(!gpt_header)
+		return -1;
 
 	// Read and validate the extended boot record
-	if (!interface->readSectors(1, 1, &gpt_header))
+	if (!interface->readSectors(1, 1, gpt_header)) {
+		free(gpt_header);
 		return -1;
+	}
 
-	if(strncmp(gpt_header.magic, "EFI PART", 8) != 0)
+	if(strncmp(gpt_header->magic, "EFI PART", 8) != 0) {
+		free(gpt_header);
 		return -1;
+	}
 
-	gpt_header.part_table_lba = le64(gpt_header.part_table_lba);
-	gpt_header.part_entries = le32(gpt_header.part_entries);
-	gpt_header.part_entry_size = le32(gpt_header.part_entry_size);
-	gpt_header.part_entry_checksum = le32(gpt_header.part_entry_checksum);
+	gpt_header->part_table_lba = le64(gpt_header->part_table_lba);
+	gpt_header->part_entries = le32(gpt_header->part_entries);
+	gpt_header->part_entry_size = le32(gpt_header->part_entry_size);
+	gpt_header->part_entry_checksum = le32(gpt_header->part_entry_checksum);
 
-	u8 * sector_buf = new u8[BYTES_PER_SECTOR];
+	u8 * sector_buf = (u8 *) malloc(MAX_SECTOR_SIZE);
+	if(!sector_buf) {
+		free(gpt_header);
+		return -1;
+	}
 
-	u64 next_lba = gpt_header.part_table_lba;
+	u64 next_lba = gpt_header->part_table_lba;
 
-	for(u32 i = 0; i < gpt_header.part_entries; ++i)
+	for(u32 i = 0; i < gpt_header->part_entries; ++i)
 	{
 		if (!interface->readSectors(next_lba, 1, sector_buf))
 			break;
 
-		for(u32 n = 0; n < BYTES_PER_SECTOR/gpt_header.part_entry_size; ++n, ++i)
+		for(u32 n = 0; n < sectorSize/gpt_header->part_entry_size; ++n, ++i)
 		{
-			GUID_PART_ENTRY * part_entry = (GUID_PART_ENTRY *) (sector_buf+gpt_header.part_entry_size*n);
+			GUID_PART_ENTRY * part_entry = (GUID_PART_ENTRY *) (sector_buf+gpt_header->part_entry_size*n);
 
 			if(memcmp(part_entry->part_type_guid, TYPE_UNUSED, 16) == 0)
 				continue;
@@ -332,7 +362,58 @@ int PartitionHandle::CheckGPT(u8 PartNum)
 		next_lba++;
 	}
 
-	delete [] sector_buf;
+	free(sector_buf);
+	free(gpt_header);
 
 	return 0;
+}
+
+int PartitionHandle::CheckSectorSize(const DISC_INTERFACE* interface)
+{
+    int counter1 = 0;
+    int counter2 = 0;
+    int i;
+
+    u8 *memblock = (u8 *) memalign(32, MAX_SECTOR_SIZE);
+    if(!memblock)
+        return 512;
+
+    memset(memblock, 0x00, MAX_SECTOR_SIZE);
+
+    if(!interface->readSectors(0, 1, memblock)) {
+        free(memblock);
+        return 512;
+    }
+
+    for(i = 0; i < MAX_SECTOR_SIZE; ++i)
+    {
+        if(memblock[i] != 0x00)
+            counter1++;
+    }
+
+    memset(memblock, 0xFF, MAX_SECTOR_SIZE);
+
+    if(!interface->readSectors(0, 1, memblock)) {
+    	free(memblock);
+        return 512;
+    }
+
+    for(i = 0; i < MAX_SECTOR_SIZE; ++i)
+    {
+        if(memblock[i] != 0xFF)
+            counter2++;
+    }
+
+    free(memblock);
+
+    if(counter1 <= 512 && counter2 <= 512)
+    	return 512;
+
+    if(counter1 <= 1024 && counter2 <= 1024)
+    	return 1024;
+
+    if(counter1 <= 2048 && counter2 <= 2048)
+    	return 2048;
+
+    return 4096;
 }

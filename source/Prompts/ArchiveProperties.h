@@ -35,17 +35,10 @@
 class ArchiveProperties : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		ArchiveProperties(ArchiveFileStruct * File);
+		ArchiveProperties(ArchiveHandle *archive, ItemMarker *Marker);
 		virtual ~ArchiveProperties();
-		int GetChoice();
 	private:
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
-
-		int choice;
-		ArchiveFileStruct ArchiveFile;
-		u64 foldersize;
-		u64 oldfoldersize;
-		u32 filecount;
 
 		GuiImage * dialogBoxImg;
 		GuiImage * TitleImg;

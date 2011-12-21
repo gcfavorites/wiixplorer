@@ -14,23 +14,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "CopyTask.h"
+#include "PackTask.h"
 #include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindow.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 
-CopyTask::CopyTask(const ItemMarker *p, const std::string &dest)
-	: ProcessTask(tr("Copying item(s):"), p, dest)
+PackTask::PackTask(const ItemMarker *p, const std::string &dest, ArchiveHandle *a, int comp)
+	: ProcessTask(tr("Compressing item(s):"), p, dest), archive(a), compression(comp)
 {
+	if(archive)
+		archive->AddReference();
 }
 
-CopyTask::~CopyTask()
+PackTask::~PackTask()
 {
+	if(archive && archive->RemoveReference() <= 0)
+		delete archive;
 }
 
-void CopyTask::Execute(void)
+static inline void RemoveDoubleSlash(char *str)
+{
+	if(!str) return;
+	int count = 0;
+	const char *ptr = str;
+	while(*ptr != 0)
+	{
+		if(*ptr == '/' && ptr[1] == '/') {
+			ptr++;
+			continue;
+		}
+		str[count] = *ptr;
+		ptr++;
+		count++;
+	}
+
+	str[count] = 0;
+}
+
+void PackTask::Execute(void)
 {
 	TaskBegin(this);
 
@@ -51,7 +74,6 @@ void CopyTask::Execute(void)
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
-	char srcpath[MAXPATHLEN];
 	char destpath[MAXPATHLEN];
 	int result = 0;
 
@@ -63,29 +85,26 @@ void CopyTask::Execute(void)
 			break;
 		}
 
-		snprintf(srcpath, sizeof(srcpath), "%s", Process.GetItemPath(i));
+		int ret;
 		snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
 
-		if(strcmp(srcpath, destpath) == 0)
-			snprintf(destpath, sizeof(destpath), "%s/%s %s", destPath.c_str(), tr("Copy of"), Process.GetItemName(i));
+		RemoveDoubleSlash(destpath);
 
-		if(Process.IsItemDir(i) == true)
-		{
-			int ret = CopyDirectory(srcpath, destpath);
-			if(ret < 0)
-				result = ret;
-		}
+		if(Process.IsItemDir(i))
+			ret = archive->AddDirectory(Process.GetItemPath(i), destpath, compression);
 		else
-		{
-			int ret = CopyFile(srcpath, destpath);
-			if(ret < 0)
-				result = ret;
-		}
+			ret = archive->AddFile(Process.GetItemPath(i), destpath, compression);
+		if(ret < 0)
+			result = ret;
 	}
 
-	if(result < 0 && result != -10 && !Application::isClosing())
+	if(!Application::isClosing() && result != -10)
 	{
-		ThrowMsg(tr("Error:"), tr("Failed copying some item(s)."));
+		if(result == -30)
+			ThrowMsg(tr("Error:"), tr("Pasting files is currently only supported on ZIP archives."));
+		else if(result < 0)
+			ThrowMsg(tr("Error:"), tr("Failed adding some item(s)."));
 	}
+
 	TaskEnd(this);
 }

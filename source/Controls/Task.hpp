@@ -34,7 +34,7 @@ class Task : public GuiButton, public sigslot::has_slots<>
 		Task(const char * title);
 		virtual ~Task();
 		void SetTitle(const char * title) { Title->SetText(title); }
-		const wchar_t *getTitle() { return Title->GetText(); }
+		std::string getTitle() const { return Title->toUTF8(); }
 		void SetIcon(GuiImageData * img);
 		void SetParameter(int p) { Parameter = p; }
 		int getType() const { return TaskType; }

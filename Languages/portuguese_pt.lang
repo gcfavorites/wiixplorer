@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -36,9 +36,6 @@ msgid ""
 "--------------------------------------------------\n"
 "\n"
 msgstr ""
-
-msgid "1"
-msgstr "1"
 
 msgid "12H"
 msgstr "12H"
@@ -581,6 +578,9 @@ msgstr "Falha na extracção do ficheiro."
 msgid "Failed extracting the item(s)."
 msgstr "Falha ao extrair o(s) item(s)."
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -679,6 +679,9 @@ msgid "Format Partition?"
 msgstr ""
 
 msgid "Formatter"
+msgstr ""
+
+msgid "Formatting partition!"
 msgstr ""
 
 msgid "Free Space:"
@@ -884,9 +887,6 @@ msgstr "Modo Lista"
 
 msgid "Listening on TCP port"
 msgstr "À espera na porta TCP"
-
-msgid "Listing files in"
-msgstr ""
 
 msgid "Load"
 msgstr ""
@@ -1169,6 +1169,9 @@ msgstr ""
 msgid "Random"
 msgstr "Aleatório"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "Falha ao reiniciar"
 
@@ -1194,9 +1197,6 @@ msgid "Reloading file list..."
 msgstr ""
 
 msgid "Remount"
-msgstr ""
-
-msgid "Remounting devices..."
 msgstr ""
 
 msgid "Remove Link"
@@ -1641,6 +1641,9 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "1"
+#~ msgstr "1"
 
 #~ msgid "Deleting files:"
 #~ msgstr "Eliminando ficheiros:"

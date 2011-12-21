@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-26 17:57+0100\n"
+"POT-Creation-Date: 2011-12-03 21:37+0100\n"
 "PO-Revision-Date: 2010-12-11 15:38-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
@@ -36,9 +36,6 @@ msgstr ""
 msgid ""
 "--------------------------------------------------\n"
 "\n"
-msgstr ""
-
-msgid "1"
 msgstr ""
 
 msgid "12H"
@@ -582,6 +579,9 @@ msgstr "Entpacken des Archivs fehlgeschlagen."
 msgid "Failed extracting the item(s)."
 msgstr "Entpacken der/des Elemente(s) fehlgeschlagen."
 
+msgid "Failed formatting the partition."
+msgstr ""
+
 msgid "Failed loading the file."
 msgstr ""
 
@@ -681,6 +681,9 @@ msgstr "Partition formatieren?"
 
 msgid "Formatter"
 msgstr "Formatieren"
+
+msgid "Formatting partition!"
+msgstr ""
 
 msgid "Free Space:"
 msgstr "Freier Speicher:"
@@ -885,9 +888,6 @@ msgstr "Liste"
 
 msgid "Listening on TCP port"
 msgstr "Warte an TCP-Port"
-
-msgid "Listing files in"
-msgstr "Liste Dateien in"
 
 msgid "Load"
 msgstr "Verwenden"
@@ -1170,6 +1170,9 @@ msgstr ""
 msgid "Random"
 msgstr "Zufällig"
 
+msgid "Reading archive."
+msgstr ""
+
 msgid "Reboot failed"
 msgstr "Neustart fehlgeschlagen"
 
@@ -1196,9 +1199,6 @@ msgstr "Dateiliste wird aktualisiert..."
 
 msgid "Remount"
 msgstr ""
-
-msgid "Remounting devices..."
-msgstr "Speichermedien werden erneut eingebunden."
 
 msgid "Remove Link"
 msgstr "Link entfernen"
@@ -1642,6 +1642,12 @@ msgstr "yxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Listing files in"
+#~ msgstr "Liste Dateien in"
+
+#~ msgid "Remounting devices..."
+#~ msgstr "Speichermedien werden erneut eingebunden."
 
 #~ msgid "Error - Could not open directory: %s\n"
 #~ msgstr "Fehler - Konnte Verzeichnis nicht öffnen: %s\n"
