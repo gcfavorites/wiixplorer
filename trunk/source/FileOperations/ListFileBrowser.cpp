@@ -336,9 +336,12 @@ void ListFileBrowser::Update(GuiTrigger * t)
 
 	scrollbar->Update(t);
 
-
 	if(browser)
+	{
 		browser->UpdateMarker(t);
+		if(browser->listChanged())
+			OnListChange(selectedItem, browser->GetPageIndex());
+	}
 
 	if(numEntries != browser->GetEntrieCount())
 	{
@@ -346,7 +349,7 @@ void ListFileBrowser::Update(GuiTrigger * t)
 		scrollbar->SetEntrieCount(numEntries);
 	}
 
-	for(int i = 0; i < PAGESIZE; i++)
+	for(int i = 0; i < (int) fileBtn.size(); i++)
 	{
 		if(i != selectedItem && fileBtn[i]->GetState() == STATE_SELECTED)
 			fileBtn[i]->ResetState();
@@ -379,7 +382,7 @@ void ListFileBrowser::Update(GuiTrigger * t)
 		}
 	}
 
-	scrollbar->SetPageSize(PAGESIZE);
+	scrollbar->SetPageSize(fileBtn.size());
 	scrollbar->SetRowSize(0);
 	scrollbar->SetSelectedItem(selectedItem);
 	scrollbar->SetSelectedIndex(browser->GetPageIndex());

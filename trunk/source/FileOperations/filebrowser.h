@@ -71,11 +71,11 @@ class FileBrowser : public Browser
 		int GetEntrieCount() { return browser.numEntries; };
 		int GetPageIndex() { return browser.pageIndex; };
 		int GetSelIndex() { return browser.selIndex; };
-		bool IsDir(int ind) { return browserList[ind].isdir; };
-		u64 GetFilesize(int ind) { return browserList[ind].length; };
-		u64 GetCurrentFilesize() { return browserList[browser.selIndex].length; };
-		const char * GetItemName(int ind) { return (browserList[ind].filename ? browserList[ind].filename : ""); };
-		const char * GetCurrentFilename() { return (browserList[browser.selIndex].filename ? browserList[browser.selIndex].filename : ""); };
+		bool IsDir(int ind) { if(valid(ind)) return browserList[ind].isdir; else return false; };
+		u64 GetFilesize(int ind) { if(valid(ind)) return browserList[ind].length; else return 0; };
+		u64 GetCurrentFilesize() { if(valid(browser.selIndex)) return browserList[browser.selIndex].length; else return 0; };
+		const char * GetItemName(int ind) { if(valid(ind)) return (browserList[ind].filename ? browserList[ind].filename : ""); else return ""; };
+		const char * GetCurrentFilename() { if(valid(browser.selIndex)) return (browserList[browser.selIndex].filename ? browserList[browser.selIndex].filename : ""); else return ""; };
 		const char * GetRootDir() { return browser.rootdir; };
 		const char * GetDir() { return browser.dir; };
 		const char * GetCurrentPath();
@@ -84,9 +84,11 @@ class FileBrowser : public Browser
 		int ChangeDirectory();
 		int BackInDirectory() { return LeaveCurDir(); };
 		void Refresh();
+		bool listChanged() { bool c = bChanged; bChanged = false; return c; }
 		void SetFilter(u8 filtermode) { Filter = filtermode; };
 		int ExecuteFile(const char *filepath);
 	private:
+		bool valid(int ind) { if(!Locked && ind >= 0 && ind < browser.numEntries) return true; else return false; }
 		int ParseDirectory(bool ResetPosition = true);
 		int UpdateDirName();
 		void ResetBrowser();
@@ -104,8 +106,10 @@ class FileBrowser : public Browser
 		lwp_t parsethread;
 		u8 * ThreadStack;
 		u8 Filter;
-		bool parseHalt;
 		bool exit_Requested;
+		bool Locked;
+		bool directoryChange;
+		bool bChanged;
 		DIR *dirIter;
 		char currentpath[MAXPATHLEN];
 };

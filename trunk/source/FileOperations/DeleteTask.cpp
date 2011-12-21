@@ -48,7 +48,7 @@ void DeleteTask::Execute(void)
 
 	CalcTotalSize();
 
-	ProgressWindow::Instance()->SetTitle(tr("Deleting item(s):"));
+	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
     ProgressWindow::Instance()->SetCompleteValues(0, CopyFiles);
     ProgressWindow::Instance()->SetUnit(tr("files"));
 

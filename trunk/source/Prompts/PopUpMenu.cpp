@@ -67,8 +67,11 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 	NoBtn = new GuiButton(0, 0);
 	NoBtn->SetTrigger(trigAOnly);
-	NoBtn->SetTrigger(trigB);
 	NoBtn->Clicked.connect(this, &PopUpMenu::OnClick);
+
+	BackBtn = new GuiButton(0, 0);
+	BackBtn->SetTrigger(trigB);
+	BackBtn->Clicked.connect(this, &PopUpMenu::OnClick);
 
 	HomeBtn = new GuiButton(0, 0);
 	HomeBtn->SetTrigger(trigHome);
@@ -98,6 +101,7 @@ PopUpMenu::PopUpMenu(int x, int y)
 	Append(PopUpMenuMiddleImg);
 	Append(PopUpMenuLowerImg);
 	Append(NoBtn);
+	Append(BackBtn);
 	Append(HomeBtn);
 	Append(ScrollUpBtn);
 	Append(ScrollDownBtn);
@@ -152,6 +156,7 @@ PopUpMenu::~PopUpMenu()
 	delete ScrollUpBtn;
 	delete ScrollDownBtn;
 	delete NoBtn;
+	delete BackBtn;
 	delete HomeBtn;
 
 	delete trigA;
@@ -227,6 +232,15 @@ void PopUpMenu::OpenSubMenu(int position, PopUpMenu *menu)
 	this->Append(subMenu);
 }
 
+void PopUpMenu::CloseSubMenu(void)
+{
+	if(subMenu) {
+		Remove(subMenu);
+		subMenu->Close();
+		subMenu = NULL;
+	}
+}
+
 void PopUpMenu::Finish()
 {
 	u32 x = xpos;
@@ -265,6 +279,7 @@ void PopUpMenu::Finish()
 		}
 	}
 
+	middleheight = MAX(middleheight, ButtonHeight);
 	width  = maxTxtWidth+leftmargin+rightmargin;
 	height = PopUpMenuLowerImg->GetHeight()+middleheight+PopUpMenuUpperImg->GetHeight();
 
@@ -309,7 +324,7 @@ void PopUpMenu::Finish()
 	SetPosition(x, y);
 }
 
-void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, const POINT &p)
 {
 	if (sender == NoBtn)
 	{
@@ -317,7 +332,7 @@ void PopUpMenu::OnClick(GuiButton *sender, int pointer UNUSED, const POINT &p UN
 			ItemClicked(this, -10);
 		return;
 	}
-	else if (sender == HomeBtn)
+	else if (sender == BackBtn || sender == HomeBtn)
 	{
 		ItemClicked(this, -10);
 		return;

@@ -55,6 +55,7 @@ class Browser
 		virtual const char * GetCurrentSelectedFilepath() { return NULL; };
 		virtual u64 GetFilesize(int ind UNUSED) { return 0; };
 		virtual void Refresh() { };
+		virtual bool listChanged() { return false; };
 		virtual int BackInDirectory() { return -1; };
 		virtual ItemStruct * GetItemStruct(int pos UNUSED) { return NULL; };
 		virtual ItemStruct * GetCurrentItemStruct() { return GetItemStruct(GetSelIndex()); };

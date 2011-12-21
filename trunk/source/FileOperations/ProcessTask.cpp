@@ -32,8 +32,10 @@ ProcessTask::ProcessTask(const char *title, const ItemMarker *p, const std::stri
 
 ProcessTask::~ProcessTask()
 {
-	if(Taskbar::Instance()->TaskCount() == 0)
+	if(Taskbar::Instance()->TaskCount() == 0) {
 		StopProgress();
+		ResetReplaceChoice();
+	}
 }
 
 void ProcessTask::ShowProgressWindow(Task *task UNUSED, int param UNUSED)

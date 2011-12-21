@@ -37,17 +37,19 @@ class PartitionFormatterGui : public GuiFrame, public sigslot::has_slots<>
 		virtual ~PartitionFormatterGui();
 		void MainUpdate();
 	protected:
-		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnActiveButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnBackButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnFormatButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
 		void OnOptionRightClick(GuiElement *sender, int pointer, const POINT &p);
+		void OnFormatFinish(int result);
 		void SetDevice();
 		void ListPartitions();
 
 		int currentState;
 		int CurDevice;
 		int CurPart;
-		bool FormatRequested;
-		bool ActiveRequested;
+		int formatResult;
 
 		PartitionHandle * Device;
 

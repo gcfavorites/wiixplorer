@@ -49,7 +49,7 @@ void MoveTask::Execute(void)
 
 	CalcTotalSize();
 
-	ProgressWindow::Instance()->SetTitle(tr("Moving item(s):"));
+	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 
     //! On same device we move files instead of copy them
 	if(CompareDevices(Process.GetItemPath(0), destPath.c_str()))

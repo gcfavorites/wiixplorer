@@ -43,8 +43,6 @@
 FTPServerMenu::FTPServerMenu()
 	: GuiFrame(0, 0)
 {
-	menu = MENU_NONE;
-
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	btnSoundClick = Resources::GetSound("button_click.wav");
@@ -121,7 +119,7 @@ FTPServerMenu::~FTPServerMenu()
 	SetEffect(EFFECT_FADE, -50);
 
 	while(this->GetEffect() > 0)
-		usleep(100);
+		Application::Instance()->updateEvents();
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
@@ -154,23 +152,12 @@ FTPServerMenu::~FTPServerMenu()
 	delete Console;
 }
 
-int FTPServerMenu::GetMenu()
-{
-//	if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-//	{
-//		menu = Taskbar::Instance()->GetMenu();
-//	}
-
-	return menu;
-}
-
 void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == backBtn)
 	{
-		menu = MENU_BROWSE_DEVICE;
+		Application::Instance()->UnsetUpdateOnly(this);
+		Application::Instance()->PushForDelete(this);
 	}
 	else if(sender == MainFTPBtn)
 	{

@@ -59,6 +59,7 @@ class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 		bool Changed;
 		bool Canceled;
 		bool WindowClosed;
+		bool CloseRequest;
 		bool Minimized;
 
 		Timer delayTimer;

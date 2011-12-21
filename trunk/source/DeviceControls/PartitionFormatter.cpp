@@ -128,7 +128,7 @@ int PartitionFormatter::FormatToFAT32(const DISC_INTERFACE *interface, sec_t lba
 		return -1;
 	}
 
-	int BytesPerSect = BYTES_PER_SECTOR;
+	int BytesPerSect = PartitionHandle::CheckSectorSize(interface);
 	u16 ReservedSectCount = 32;
 	u8 NumFATs = 2;
 
@@ -292,35 +292,42 @@ int PartitionFormatter::WriteMBR_FAT32(const DISC_INTERFACE *interface, sec_t pa
 		return -1;
 
 	//Let's write the new MBR
-	MASTER_BOOT_RECORD mbr;
+	MASTER_BOOT_RECORD *mbr = (MASTER_BOOT_RECORD *) malloc(MAX_SECTOR_SIZE);
+	if(!mbr)
+		return -1;
+
 	int i;
 
-	if (!interface->readSectors(0, 1, &mbr))
+	if (!interface->readSectors(0, 1, mbr))
 	{
+		free(mbr);
 		ShowError(tr("Cannot read from the drive."));
 		return -1;
 	}
 
 	for(i = 0; i < 4; i++)
-		if(le32(mbr.partitions[i].lba_start) == part_lba)
+		if(le32(mbr->partitions[i].lba_start) == part_lba)
 			break;
 
 	if(i == 3)
 	{
+		free(mbr);
 		ShowError(tr("Can't find the right partition."));
 		return -1;
 	}
 
-	mbr.partitions[i].chs_start[0] = mbr.partitions[i].chs_end[0] = 0xFE;
-	mbr.partitions[i].chs_start[1] = mbr.partitions[i].chs_end[1] = 0xFF;
-	mbr.partitions[i].chs_start[2] = mbr.partitions[i].chs_end[2] = 0xFF;
-	mbr.partitions[i].type = 0x0c;
+	mbr->partitions[i].chs_start[0] = mbr->partitions[i].chs_end[0] = 0xFE;
+	mbr->partitions[i].chs_start[1] = mbr->partitions[i].chs_end[1] = 0xFF;
+	mbr->partitions[i].chs_start[2] = mbr->partitions[i].chs_end[2] = 0xFF;
+	mbr->partitions[i].type = 0x0c;
 
 	if (!interface->writeSectors(0, 1, &mbr))
 	{
+		free(mbr);
 		ShowError(tr("Failed to write MBR."));
 		return -1;
 	}
+	free(mbr);
 
 	return 1;
 }
@@ -331,24 +338,30 @@ int PartitionFormatter::WriteEBR_FAT32(const DISC_INTERFACE *interface, sec_t er
 		return -1;
 
 	//Let's write the new MBR
-	EXTENDED_BOOT_RECORD ebr;
+	EXTENDED_BOOT_RECORD *ebr = (EXTENDED_BOOT_RECORD *) malloc(MAX_SECTOR_SIZE);
+	if(!ebr)
+		return -1;
 
-	if (!interface->readSectors(erb_lba, 1, &ebr))
+	if (!interface->readSectors(erb_lba, 1, ebr))
 	{
+		free(ebr);
 		ShowError(tr("Cannot read from the drive."));
 		return -1;
 	}
 
-	ebr.partition.chs_start[0] = ebr.partition.chs_end[0] = 0xFE;
-	ebr.partition.chs_start[1] = ebr.partition.chs_end[1] = 0xFF;
-	ebr.partition.chs_start[2] = ebr.partition.chs_end[2] = 0xFF;
-	ebr.partition.type = 0x0c;
+	ebr->partition.chs_start[0] = ebr->partition.chs_end[0] = 0xFE;
+	ebr->partition.chs_start[1] = ebr->partition.chs_end[1] = 0xFF;
+	ebr->partition.chs_start[2] = ebr->partition.chs_end[2] = 0xFF;
+	ebr->partition.type = 0x0c;
 
-	if (!interface->writeSectors(erb_lba, 1, &ebr))
+	if (!interface->writeSectors(erb_lba, 1, ebr))
 	{
+		free(ebr);
 		ShowError(tr("Failed to write EBR."));
 		return -1;
 	}
+
+	free(ebr);
 
 	return 1;
 }
@@ -359,29 +372,35 @@ int PartitionFormatter::SetActive(const DISC_INTERFACE *interface, int partition
 		return -1;
 
 	//Let's write the new MBR
-	MASTER_BOOT_RECORD mbr;
+	MASTER_BOOT_RECORD *mbr = (MASTER_BOOT_RECORD *) malloc(MAX_SECTOR_SIZE);
+	if(!mbr)
+		return -1;
+
 	int i;
 
 	if (!interface->readSectors(0, 1, &mbr))
 	{
+		free(mbr);
 		ShowError(tr("Cannot read from the drive."));
 		return -1;
 	}
 
 	for(i = 0; i < 4; i++)
 	{
-		if(mbr.partitions[i].status == PARTITION_BOOTABLE && i != partition_number)
-			mbr.partitions[i].status = PARTITION_NONBOOTABLE;
+		if(mbr->partitions[i].status == PARTITION_BOOTABLE && i != partition_number)
+			mbr->partitions[i].status = PARTITION_NONBOOTABLE;
 
 		if(i == partition_number)
-			mbr.partitions[i].status = PARTITION_BOOTABLE;
+			mbr->partitions[i].status = PARTITION_BOOTABLE;
 	}
 
 	if (!interface->writeSectors(0, 1, &mbr))
 	{
+		free(mbr);
 		ShowError(tr("Failed to write MBR."));
 		return -1;
 	}
+	free(mbr);
 
 	return 1;
 }

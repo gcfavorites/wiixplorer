@@ -125,6 +125,7 @@ class DeviceHandler
 		bool MountUSB(int part);
 		bool MountNAND();
 		bool MountDVD();
+		bool MountDVDFS();
 		bool SD_Inserted() { if(sd) return sd->IsInserted(); return false; };
 		bool GCA_Inserted() { if(gca) return gca->IsInserted(); return false; };
 		bool GCB_Inserted() { if(gcb) return gcb->IsInserted(); return false; };

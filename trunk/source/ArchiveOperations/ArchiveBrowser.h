@@ -75,7 +75,7 @@ class ArchiveBrowser : public Browser
 		//!Get the current archive path
 		const char * GetCurrentPath();
 		//!Get the full file path to the selected item
-		const char * GetCurrentSelectedFilepath() { return currentPath; };
+		const char * GetCurrentSelectedFilepath();
 		//!Get the archive filename
 		const char * GetArchiveName() { return OrigArchiveFilename; };
 		//!Return one time in directory tree
@@ -84,6 +84,8 @@ class ArchiveBrowser : public Browser
 		void Refresh();
 		//!Reload complete archive file list
 		void ReloadList();
+		//!Get the archive handle
+		ArchiveHandle *GetArchive(void) const { return archive; }
 
 		//!Clear the current PathStructure and free the memory
 		void ClearList();
@@ -94,9 +96,9 @@ class ArchiveBrowser : public Browser
 		int LeaveCurDir();
 		void AddListEntrie(const char * filename, size_t length, size_t comp_length, bool isdir, u32 index, u64 modtime, u8 archiveType);
 		bool InDirectoryTree(const char * Path, const char * itemFullFilename, bool firstpage);
+		static void *ParseThreadCallback(void *arg);
 
 		ArchiveHandle * archive;
-		bool ExternalArchive;
 		int PageIndex;
 		int SelIndex;
 		u32 ItemNumber;

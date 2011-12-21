@@ -39,9 +39,9 @@ class PopUpMenu : public GuiFrame, public sigslot::has_slots<>
 		void AddItem(const char *text, const char *icon = NULL, bool submenu = false);
 		void Finish();
 		void OpenSubMenu(int position, PopUpMenu *menu);
-		void CloseSubMenu() { Remove(subMenu); }
+		void CloseSubMenu(void);
 		void SetUserData(void *data) { userData = data; }
-		void *GetUserData() const { return userData; }
+		void *GetUserData(void) const { return userData; }
 		void Update(GuiTrigger * t) { GuiFrame::Update(t); ++ScrollState; }
 		sigslot::signal2<PopUpMenu *, int> ItemClicked;
 	private:
@@ -93,6 +93,7 @@ class PopUpMenu : public GuiFrame, public sigslot::has_slots<>
 		GuiSound * PopUpMenuClick;
 
 		GuiButton * NoBtn;
+		GuiButton * BackBtn;
 		GuiButton * HomeBtn;
 		GuiButton * ScrollUpBtn;
 		GuiButton * ScrollDownBtn;

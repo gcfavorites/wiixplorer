@@ -311,6 +311,18 @@ void DeviceHandler::UnMountNAND()
 	ISFS_Unmount();
 }
 
+bool DeviceHandler::MountDVDFS()
+{
+	bool devicemounted = ISO9660_Mount();
+
+	if(!devicemounted)
+		devicemounted = FST_Mount();
+	if(!devicemounted)
+		devicemounted = GCFST_Mount();
+
+	return devicemounted;
+}
+
 bool DeviceHandler::MountDVD()
 {
 	if(!DVD_Inserted())
@@ -319,8 +331,6 @@ bool DeviceHandler::MountDVD()
 	char read_buffer[2048];
 	if(DI2_ReadDVD(read_buffer, 1, 0) == 0)
 		return true;
-
-	bool devicemounted = false;
 
 	UnMountDVD();
 	DI2_Mount();
@@ -337,14 +347,7 @@ bool DeviceHandler::MountDVD()
 		usleep(5000);
 	}
 
-	devicemounted = ISO9660_Mount();
-
-	if(!devicemounted)
-		devicemounted = FST_Mount();
-	if(!devicemounted)
-		devicemounted = GCFST_Mount();
-
-	return devicemounted;
+	return MountDVDFS();
 }
 
 bool DeviceHandler::DVD_Inserted()

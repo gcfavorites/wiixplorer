@@ -19,6 +19,7 @@
 #include "TextOperations/wstring.hpp"
 #include "VideoOperations/video.h"
 #include "Tools/StringTools.h"
+#include "TextOperations/wstring.hpp"
 
 extern FreeTypeGX * fontSystem;
 
@@ -243,11 +244,6 @@ void GuiText::SetColor(GXColor c)
 	alpha = c.a;
 }
 
-void GuiText::SetLinesToDraw(int l)
-{
-	linestodraw = l;
-}
-
 int GuiText::GetTextWidth()
 {
 	if(!text)
@@ -264,22 +260,12 @@ int GuiText::GetTextWidth(int ind)
 	return fontSystem->getWidth(textDyn[ind], currentSize);
 }
 
-int GuiText::GetTextMaxWidth()
-{
-	return maxWidth;
-}
-
 const wchar_t * GuiText::GetDynText(int ind)
 {
 	if(ind < 0 || ind >= (int) textDyn.size())
 		return text;
 
 	return textDyn[ind];
-}
-
-const wchar_t * GuiText::GetText()
-{
-	return text;
 }
 
 /**
@@ -300,6 +286,15 @@ bool GuiText::SetFont(const u8 *fontbuffer, const u32 filesize)
 
 	return true;
 }
+
+std::string GuiText::toUTF8(void) const
+{
+	if(!text)
+		return std::string();
+
+	return wString(text).toUTF8();
+}
+
 void GuiText::MakeDottedText()
 {
 	int pos = textDyn.size();

@@ -72,7 +72,7 @@ void MD5Task::Execute(void)
 
 	CalcTotalSize();
 
-	ProgressWindow::Instance()->SetTitle(tr("Calculating MD5"));
+	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
 	FolderCounter = 0;

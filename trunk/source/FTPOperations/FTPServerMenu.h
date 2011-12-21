@@ -34,11 +34,8 @@ class FTPServerMenu : public GuiFrame, public sigslot::has_slots<>
 	public:
 		FTPServerMenu();
 		virtual ~FTPServerMenu();
-		int GetMenu();
 	protected:
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
-
-		int menu;
 
 		GuiSound * btnSoundClick;
 		GuiSound * btnSoundOver;

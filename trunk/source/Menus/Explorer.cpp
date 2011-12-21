@@ -20,6 +20,7 @@
 #include "FileOperations/IconFileBrowser.hpp"
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileStartUp.h"
+#include "DeviceControls/RemountTask.h"
 #include "Controls/Application.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
@@ -27,6 +28,7 @@
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
+#include "DiskOperations/di2.h"
 #include "Settings.h"
 #include "sys.h"
 
@@ -250,11 +252,9 @@ int Explorer::LoadPath(const char * path)
 	int filecount = curBrowser->BrowsePath(path);
 	if(filecount < 0)
 	{
-		int choice = WindowPrompt(tr("Error:"), tr("Unable to load path."), tr("Retry"), tr("Close"));
+		int choice = WindowPrompt(tr("Error:"), fmt("%s %s", tr("Unable to load path:"), path), tr("Retry"), tr("Close"));
 		if(choice)
 			return LoadPath(path);
-		else
-			return -2;
 	}
 
 	curBrowser->ResetMarker();
@@ -304,7 +304,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 	if(curBrowser->IsCurrentDir())
 	{
 		int result = curBrowser->ChangeDirectory();
-		if(result > 0)
+		if(result >= 0)
 		{
 			guiBrowser->SetSelected(0);
 			curBrowser->SetPageIndex(0);
@@ -329,7 +329,6 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 	}
 	else
 	{
-		char filepath[MAXPATHLEN];
 		int result = 0;
 
 		SetState(STATE_DISABLED);
@@ -343,7 +342,7 @@ void Explorer::OnBrowserChanges(int index UNUSED)
 			if(fileBrowser != curBrowser)
 				delete curBrowser;
 
-			curBrowser = new ArchiveBrowser(filepath);
+			curBrowser = new ArchiveBrowser(curBrowser->GetCurrentSelectedFilepath());
 			guiBrowser->SetBrowser(curBrowser);
 			AdressText->SetText(curBrowser->GetCurrentPath());
 		}
@@ -381,6 +380,21 @@ void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
 	Application::Instance()->UnsetUpdateOnly(Device_Menu);
 	Device_Menu->Close();
 	Device_Menu = NULL;
+
+	if(device == DVD)
+	{
+		char read_buffer[2048];
+		if(DI2_ReadDVD(read_buffer, 1, 0) != 0)
+		{
+			DeviceHandler::Instance()->UnMountDVD();
+			DI2_Mount();
+			time_t timer1 = time(0);
+			while((time(0)-timer1) < 15 && (DI2_GetStatus() & DVD_INIT))
+				Application::Instance()->updateEvents();
+
+			DeviceHandler::Instance()->MountDVDFS();
+		}
+	}
 
 	if(device >= SD && device < MAXDEVICES)
 	{

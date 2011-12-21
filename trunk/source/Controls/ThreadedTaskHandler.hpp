@@ -48,7 +48,7 @@ public:
 
 	void setPriority(int prio) { LWP_SetThreadPriority(Thread, prio); }
 
-	bool isRunning(void) const { return LWP_ThreadIsSuspended(Thread); }
+	bool isRunning(void) const { return !LWP_ThreadIsSuspended(Thread); }
 private:
 	ThreadedTaskHandler();
 	~ThreadedTaskHandler();

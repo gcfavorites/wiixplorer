@@ -306,12 +306,16 @@ DeviceMenu::DeviceMenu(int x, int y, GuiFrame *p)
 	width = leftImg->GetWidth() + tile * centerImg->GetWidth() + rightImg->GetWidth();
 	height = leftImg->GetHeight();
 
+	BackBtn = new GuiButton(screenwidth, screenheight);
+	BackBtn->SetTrigger(trigB);
+	BackBtn->Clicked.connect(this, &DeviceMenu::OnButtonClick);
+
 	NoBtn = new GuiButton(screenwidth, screenheight);
 	NoBtn->SetTrigger(trigA);
-	NoBtn->SetTrigger(trigB);
 	NoBtn->Clicked.connect(this, &DeviceMenu::OnButtonClick);
 
 	Append(NoBtn);
+	Append(BackBtn);
 	Append(leftImg);
 	Append(centerImg);
 	Append(rightImg);
@@ -374,6 +378,7 @@ DeviceMenu::~DeviceMenu()
 	delete rightImg;
 
 	delete NoBtn;
+	delete BackBtn;
 
 	delete trigA;
 	delete trigB;
@@ -381,7 +386,11 @@ DeviceMenu::~DeviceMenu()
 
 void DeviceMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p)
 {
-	if(sender == NoBtn)
+	if(sender == BackBtn)
+	{
+		DeviceSelected(this, -2);
+	}
+	else if(sender == NoBtn)
 	{
 		if(!this->IsInside(p.x, p.y))
 			DeviceSelected(this, -2);
@@ -392,13 +401,6 @@ void DeviceMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POIN
 	{
 		if(sender == deviceBtn[i])
 		{
-			if(choice == DVD)
-			{
-//				StartProgress(tr("Mounting disc"), AUTO_THROBBER);
-				ShowProgress(0, 1, tr("Please wait..."));
-				DeviceHandler::Instance()->Mount(DVD);
-				StopProgress();
-			}
 			DeviceSelected(this, deviceSelection[i]);
 			return;
 		}

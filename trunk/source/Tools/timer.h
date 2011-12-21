@@ -57,7 +57,7 @@ class Timer
 		Timer() { starttick = gettime(); };
 		~Timer() { };
 		float elapsed() const { return (float) (gettime()-starttick)/(1000.0f*TB_TIMER_CLOCK); };
-		u32 elapsedMiliSecs() const { return (u32) ((gettime()-starttick)/TB_TIMER_CLOCK); };
+		u32 elapsedMilliSecs() const { return (u32) ((gettime()-starttick)/TB_TIMER_CLOCK); };
 		void reset() { starttick = gettime(); };
 	protected:
 		u64 starttick;

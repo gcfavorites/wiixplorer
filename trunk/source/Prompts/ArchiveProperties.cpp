@@ -36,30 +36,66 @@
 #include "menu.h"
 #include "Prompts/PromptWindows.h"
 
-ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
+ArchiveProperties::ArchiveProperties(ArchiveHandle *archive, ItemMarker *Marker)
 	:GuiFrame(0,0)
 {
 	int Position_X = 40;
 	int Position_Y = 40;
 	char temp[MAXPATHLEN];
 
-	choice = -1;
-	foldersize = 0;
-	oldfoldersize = 0;
-	filecount = 0;
-	memset(&ArchiveFile, 0, sizeof(ArchiveFileStruct));
+	int lastItem = Marker->GetItemcount()-1;
+	const char *filenamePtr = 0;
+	bool isDir = false;
+	if(lastItem >= 0)
+	{
+		isDir = Marker->IsItemDir(lastItem);
 
-	if(!ArcFile)
-		return;
+		filenamePtr = strrchr(Marker->GetItemPath(lastItem), '/');
+		if(!filenamePtr)
+			filenamePtr = Marker->GetItemPath(lastItem);
+		else
+			filenamePtr++;
+	}
 
-	ArchiveFile.filename = new char[strlen(ArcFile->filename)+1];
-	sprintf(ArchiveFile.filename, "%s",ArcFile->filename);
-	ArchiveFile.length = ArcFile->length;
-	ArchiveFile.comp_length = ArcFile->comp_length;
-	ArchiveFile.isdir = ArcFile->isdir;
-	ArchiveFile.fileindex = ArcFile->fileindex;
-	ArchiveFile.ModTime = ArcFile->ModTime;
-	ArchiveFile.archiveType = ArcFile->archiveType;
+	u64 ModTime = 0;
+	u8 archiveType = 0;
+	u64 totalSize = 0;
+	u64 compSize = 0;
+	u32 fileCount = 0;
+
+	for(u32 i = 0; i < archive->GetItemCount(); ++i)
+	{
+		ArchiveFileStruct *fileStruct = archive->GetFileStruct(i);
+
+		if(fileStruct->isdir)
+			continue;
+
+		for(int n = 0; n < Marker->GetItemcount(); ++n)
+		{
+			bool isMarked = false;
+			const char *path = Marker->GetItemPath(n);
+			if(Marker->IsItemDir(n))
+			{
+				if(   strlen(path) < strlen(fileStruct->filename)
+				   && strncasecmp(path, fileStruct->filename, strlen(path)) == 0)
+				{
+					isMarked = true;
+				}
+			}
+			else if(strcasecmp(path, fileStruct->filename) == 0)
+					isMarked = true;
+
+			if(isMarked)
+			{
+				// save the last
+				archiveType = fileStruct->archiveType;
+				ModTime = fileStruct->ModTime;
+				totalSize += fileStruct->length;
+				compSize += fileStruct->comp_length;
+				fileCount++;
+			}
+		}
+	}
 
 
 	dialogBox = Resources::GetImageData("bg_properties.png");
@@ -78,14 +114,8 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	trigB = new GuiTrigger();
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
-	char * filename  = strrchr(ArcFile->filename, '/');
-	if(filename)
-		filename += 1;
-	else
-		filename = ArcFile->filename;
-
 	int maxTxtWidth = dialogBox->GetWidth()-Position_X;
-	TitleTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
+	TitleTxt = new GuiText(filenamePtr, 22, (GXColor){0, 0, 0, 255});
 	TitleTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	TitleTxt->SetPosition(0, Position_Y);
 	TitleTxt->SetMaxWidth(maxTxtWidth, DOTTED);
@@ -99,10 +129,7 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	TitleImg->SetPosition(IconPosition, Position_Y);
 	Position_Y += 80;
 
-	sprintf(temp, tr("Filepath:  %s"), ArcFile->filename);
-	char * ptr = strrchr(temp, '/');
-	if(ptr)
-		ptr[0] = '\0';
+	sprintf(temp, tr("Filepath:  %s"), Marker->GetItemPath(lastItem) ? Marker->GetItemPath(lastItem) : "");
 
 	filepathTxt =  new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
 	filepathTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -114,21 +141,19 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	filecountTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxt->SetPosition(Position_X, Position_Y);
 
-	filecountTxtVal = new GuiText(tr("1"), 20, (GXColor){0, 0, 0, 255});
+	filecountTxtVal = new GuiText(fmt("%i", fileCount), 20, (GXColor){0, 0, 0, 255});
 	filecountTxtVal->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	filecountTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
-	u32 filesize  = ArchiveFile.length;
-
-	if(filesize > GBSIZE)
-		sprintf(temp, "%0.2fGB", filesize/GBSIZE);
-	else if(filesize > MBSIZE)
-		sprintf(temp, "%0.2fMB", filesize/MBSIZE);
-	else if(filesize > KBSIZE)
-		sprintf(temp, "%0.2fKB", filesize/KBSIZE);
+	if(totalSize > (u64) GBSIZE)
+		sprintf(temp, "%0.2fGB", totalSize/GBSIZE);
+	else if(totalSize > (u64) MBSIZE)
+		sprintf(temp, "%0.2fMB", totalSize/MBSIZE);
+	else if(totalSize > (u64) KBSIZE)
+		sprintf(temp, "%0.2fKB", totalSize/KBSIZE);
 	else
-		sprintf(temp, "%iB", (u32) filesize);
+		sprintf(temp, "%iB", (u32) totalSize);
 
 	filesizeTxt = new GuiText(tr("Size:"), 20, (GXColor){0, 0, 0, 255});
 	filesizeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -139,16 +164,14 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	filesizeTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
-	u32 comp_filesize  = ArchiveFile.comp_length;
-
-	if(comp_filesize > GBSIZE)
-		sprintf(temp, "%0.2fGB", comp_filesize/GBSIZE);
-	else if(comp_filesize > MBSIZE)
-		sprintf(temp, "%0.2fMB", comp_filesize/MBSIZE);
-	else if(comp_filesize > KBSIZE)
-		sprintf(temp, "%0.2fKB", comp_filesize/KBSIZE);
+	if(compSize > (u64) GBSIZE)
+		sprintf(temp, "%0.2fGB", compSize/GBSIZE);
+	else if(compSize > (u64) MBSIZE)
+		sprintf(temp, "%0.2fMB", compSize/MBSIZE);
+	else if(compSize > (u64) KBSIZE)
+		sprintf(temp, "%0.2fKB", compSize/KBSIZE);
 	else
-		sprintf(temp, "%iB", (u32) comp_filesize);
+		sprintf(temp, "%iB", (u32) compSize);
 
 	filesizeCompTxt = new GuiText(tr("Compressed Size:"), 20, (GXColor){0, 0, 0, 255});
 	filesizeCompTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -159,21 +182,23 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	filesizeCompTxtVal->SetPosition(Position_X+180, Position_Y);
 	Position_Y += 30;
 
-	char * pch = NULL;
-	if(ArchiveFile.isdir)
+	const char * pch = NULL;
+	if(isDir)
 	{
 		snprintf(temp, sizeof(temp), tr("Folder"));
 		TitleTxt->SetMaxWidth(dialogBox->GetWidth()-75, DOTTED);
 	}
-	else
+	else if(filenamePtr)
 	{
-		pch = strrchr(filename, '.');
+		pch = strrchr(filenamePtr, '.');
 		if(pch)
 			pch += 1;
 		else
-			pch = filename;
+			pch = filenamePtr;
 		snprintf(temp, sizeof(temp), "%s", pch);
 	}
+	else
+		temp[0] = 0;
 
 	filetypeTxt = new GuiText(tr("Filetype:"), 20, (GXColor){0, 0, 0, 255});
 	filetypeTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -189,13 +214,13 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 	last_modifTxt->SetPosition(Position_X, Position_Y);
 
 	TimeStruct ptm;
-	if(ArchiveFile.archiveType == SZIP)
+	if(archiveType == SZIP)
 	{
-		ConvertNTFSDate(ArchiveFile.ModTime, &ptm);
+		ConvertNTFSDate(ModTime, &ptm);
 	}
 	else
 	{
-		ConvertDosDate(ArchiveFile.ModTime, &ptm);
+		ConvertDosDate(ModTime, &ptm);
 	}
 	snprintf(temp, sizeof(temp), "%02d:%02d  %02d.%02d.%04d", ptm.tm_hour, ptm.tm_min, ptm.tm_mday, ptm.tm_mon, ptm.tm_year);
 	last_modifTxtVal = new GuiText(temp, 20, (GXColor){0, 0, 0, 255});
@@ -218,7 +243,7 @@ ArchiveProperties::ArchiveProperties(ArchiveFileStruct * ArcFile)
 
 	Append(dialogBoxImg);
 	Append(TitleTxt);
-	if(ArchiveFile.isdir)
+	if(isDir)
 		Append(TitleImg);
 	Append(filepathTxt);
 	Append(filecountTxt);
@@ -240,15 +265,12 @@ ArchiveProperties::~ArchiveProperties()
 {
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
 	while(this->GetEffect() > 0)
-		usleep(THREAD_SLEEP);
+		Application::Instance()->updateEvents();
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
 
 	RemoveAll();
-
-	if(ArchiveFile.filename)
-		delete [] ArchiveFile.filename;
 
 	Resources::Remove(dialogBox);
 	Resources::Remove(titleData);
@@ -278,17 +300,8 @@ ArchiveProperties::~ArchiveProperties()
 	delete trigB;
 }
 
-int ArchiveProperties::GetChoice()
+void ArchiveProperties::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	return choice;
-}
-
-void ArchiveProperties::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
-{
-	sender->ResetState();
-
-	if(sender == CloseBtn)
-	{
-		choice = -2;
-	}
+	Application::Instance()->UnsetUpdateOnly(this);
+	Application::Instance()->PushForDelete(this);
 }

@@ -37,13 +37,30 @@ class Application : public GuiFrame
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);
 
+		void Append(GuiElement *e)
+		{
+			LWP_MutexLock(m_mutex);
+			GuiFrame::Append(e);
+			LWP_MutexUnlock(m_mutex);
+		}
+
 		void PushForDelete(GuiElement *e);
-		void SetUpdateOnly(GuiElement *e) { UnsetUpdateOnly(e); updateOnlyElement.push_back(e); }
+		void SetUpdateOnly(GuiElement *e)
+		{
+			UnsetUpdateOnly(e);
+			LWP_MutexLock(m_mutex);
+			updateOnlyElement.push_back(e);
+			LWP_MutexUnlock(m_mutex);
+		}
+
 		void UnsetUpdateOnly(GuiElement *e)
 		{
 			for(u32 i = 0; i < updateOnlyElement.size(); ++i)
-				if(updateOnlyElement[i] == e)
+				if(updateOnlyElement[i] == e) {
+					LWP_MutexLock(m_mutex);
 					updateOnlyElement.erase(updateOnlyElement.begin()+i);
+					LWP_MutexUnlock(m_mutex);
+				}
 		}
 
 		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); };
@@ -68,6 +85,7 @@ class Application : public GuiFrame
 		};
 
 		ElementList *DeleteQueue;
+		mutex_t m_mutex;
 };
 
 #endif //_APPLICATION_H

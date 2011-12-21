@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <string>
 #include <vector>
+#include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "fileops.h"
@@ -43,12 +44,18 @@ static bool replacenone = false;
  ***************************************************************************/
 static int GetReplaceChoice(const char * filename)
 {
-	std::string progressText = ProgressWindow::Instance()->GetTitle();
-	StopProgress();
+	PromptWindow *window = new PromptWindow(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
+	window->DimBackground(true);
+	Application::Instance()->Append(window);
+	Application::Instance()->SetUpdateOnly(window);
 
-	int choice = WindowPrompt(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
+	int choice;
 
-	StartProgress(progressText.c_str());
+	while((choice = window->GetChoice()) == -1)
+		usleep(1000);
+
+	Application::Instance()->UnsetUpdateOnly(window);
+	Application::Instance()->PushForDelete(window);
 
 	if(choice == 3)
 	{
@@ -281,6 +288,8 @@ int CopyFile(const char * src, const char * dest)
 	u32 read;
 	u32 wrote;
 
+	u64 sizesrc = FileSize(src);
+
 	char * filename = strrchr(src, '/');
 	if(filename)
 		filename++;
@@ -295,11 +304,11 @@ int CopyFile(const char * src, const char * dest)
 		if(!replaceall && !replacenone)
 			choice = GetReplaceChoice(filename);
 
-		if(replacenone || choice == 2)
+		if(replacenone || choice == 2) {
+			ShowProgress(sizesrc, sizesrc, filename);
 			return 1;
+		}
 	}
-
-	u64 sizesrc = FileSize(src);
 
 	FILE * source = fopen(src, "rb");
 
