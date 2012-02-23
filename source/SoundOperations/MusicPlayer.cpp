@@ -504,14 +504,9 @@ void MusicPlayer::Update(GuiTrigger * t)
 			CircleImg->SetImage(navi_defaultImgData);
 	}
 
-	GuiFrame::Update(t);
-
-	if(!PlaybackFinished)
-		return;
-
-	if(!MainSound->IsPlaying() && !Stopped && !Paused)
+	if(PlaybackFinished && !Stopped && !Paused)
 	{
-		if(LoopMode > 0 && strcmp(Settings.MusicPath, "") == 0)
+		if(LoopMode > 0 && Settings.MusicPath[0] == 0)
 		{
 			//!Standard Music is always looped except on loop = 0
 			Play();
@@ -527,4 +522,6 @@ void MusicPlayer::Update(GuiTrigger * t)
 
 		PlaybackFinished = false;
 	}
+
+	GuiFrame::Update(t);
 }

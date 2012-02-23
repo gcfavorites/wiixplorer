@@ -184,13 +184,12 @@ void IconFileBrowser::AddButton()
 
 void IconFileBrowser::SetButton(int i, const char * name, bool dir, bool enable, int x, int y)
 {
-	if(i < 0)
+	if(i < 0) {
 		return;
-
-	else if(i >= (int) Buttons.size())
-	{
-		AddButton();
 	}
+
+	while(i >= (int) Buttons.size())
+		AddButton();
 
 	if(!enable)
 	{
@@ -288,6 +287,7 @@ void IconFileBrowser::OnListChange(int selItem, int selIndex)
 	scrollbar->SetSelectedItem(selItem);
 	scrollbar->SetSelectedIndex(selIndex);
 	selectedItem = selItem;
+	browser->Lock();
 	browser->SetPageIndex(selIndex);
 
 	u16 x = 25, y = 7;
@@ -312,6 +312,7 @@ void IconFileBrowser::OnListChange(int selItem, int selIndex)
 			y += fileDefault->GetHeight()+50;
 		}
 	}
+	browser->Unlock();
 }
 
 /**
@@ -325,26 +326,11 @@ void IconFileBrowser::Draw()
 	scrollbar->Draw();
 
 	for(u32 i = 0; i < Buttons.size(); i++)
-	{
 		Buttons[i]->Draw();
-	}
 
-	//needs a redraw for overrendering
-	if(parentElement && parentElement->GetState() != STATE_DISABLED)
-	{
-		if(state == STATE_DISABLED)
-			state = STATE_DEFAULT;
-
-		for(u32 i = 0; i < Buttons.size(); i++)
-		{
-			Tooltip[i]->Draw();
-		}
-	}
-	else
-	{
-		if(state == STATE_DEFAULT)
-			state = STATE_DISABLED;
-	}
+	// Draw tooltips on top of buttons
+	for(u32 i = 0; i < Buttons.size(); i++)
+		Tooltip[i]->Draw();
 
 	UpdateEffects();
 }
@@ -356,12 +342,14 @@ void IconFileBrowser::Update(GuiTrigger * t)
 
 	scrollbar->Update(t);
 
-	if(browser)
-	{
-		browser->UpdateMarker(t);
-		if(browser->listChanged())
-			OnListChange(selectedItem, browser->GetPageIndex());
-	}
+	//! Updating the rest only makes sense with a browser
+	if(!browser)
+		return;
+
+	if(browser->listChanged())
+		OnListChange(selectedItem, browser->GetPageIndex());
+
+	browser->UpdateMarker(t);
 
 	for(int i = 0; i < PageSize && i < (int) Buttons.size(); i++)
 	{

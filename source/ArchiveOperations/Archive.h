@@ -31,6 +31,7 @@ class ArchiveHandle
 	public:
 		//!Constructor
 		ArchiveHandle(const char  * filepath);
+		ArchiveHandle(ZipFile * zipFile);
 		//!Destructor
 		~ArchiveHandle();
 		//!Get the archive file structure

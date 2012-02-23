@@ -46,16 +46,22 @@ void CopyTask::Execute(void)
 	else
 		StartProgress(tr("Calculating transfer size..."));
 
-	CalcTotalSize();
+	list<ItemList> itemList;
+
+	int result = 0;
+
+	if(GetItemList(itemList, false) < 0) {
+		result = -1;
+	}
+
+	//! free memory of process which is no longer required
+	Process.Reset();
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
-	char srcpath[MAXPATHLEN];
-	char destpath[MAXPATHLEN];
-	int result = 0;
 
-	for(int i = 0; i < Process.GetItemcount(); i++)
+	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
@@ -63,21 +69,22 @@ void CopyTask::Execute(void)
 			break;
 		}
 
-		snprintf(srcpath, sizeof(srcpath), "%s", Process.GetItemPath(i));
-		snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
-
-		if(strcmp(srcpath, destpath) == 0)
-			snprintf(destpath, sizeof(destpath), "%s/%s %s", destPath.c_str(), tr("Copy of"), Process.GetItemName(i));
-
-		if(Process.IsItemDir(i) == true)
+		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
-			int ret = CopyDirectory(srcpath, destpath);
-			if(ret < 0)
-				result = ret;
-		}
-		else
-		{
-			int ret = CopyFile(srcpath, destpath);
+			string srcpath = listItr->basepath + *itr;
+			string dstpath = destPath + *itr;
+
+			string folderpath = dstpath;
+			size_t pos = folderpath.rfind('/');
+			if(pos != string::npos)
+				folderpath.erase(pos);
+
+			CreateSubfolder(folderpath.c_str());
+
+			if(strcasecmp(srcpath.c_str(), dstpath.c_str()) == 0)
+				dstpath = destPath + tr("Copy of ") + *itr;
+
+			int ret = CopyFile(srcpath.c_str(), dstpath.c_str());
 			if(ret < 0)
 				result = ret;
 		}

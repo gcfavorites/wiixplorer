@@ -251,7 +251,7 @@ ItemStruct * FileBrowser::GetItemStruct(int pos)
  ***************************************************************************/
 void FileBrowser::ResetBrowser()
 {
-	Locked = true;
+	Lock();
 	for(int i = 0; i < browser.numEntries; ++i)
 		delete [] browserList[i].filename;
 
@@ -267,7 +267,7 @@ void FileBrowser::ResetBrowser()
 	// set aside space for 1 entry
 	browserList = (BROWSERENTRY *)malloc(sizeof(BROWSERENTRY));
 	memset(browserList, 0, sizeof(BROWSERENTRY));
-	Locked = false;
+	Unlock();
 }
 
 /****************************************************************************
@@ -336,6 +336,12 @@ bool FileBrowser::ParseDirEntries()
 		if(dirent == 0)
 			break;
 
+		if(!dirent->d_name)
+			continue;
+
+		if(strcmp(dirent->d_name,".") == 0)
+			continue;
+
 		if(Settings.HideSystemFiles)
 		{
 			if(dirent->d_name[0] == '.' && strcmp(dirent->d_name,"..") != 0)
@@ -350,16 +356,13 @@ bool FileBrowser::ParseDirEntries()
 
 		snprintf(filename, MAXPATHLEN, "%s%s/%s", browser.rootdir, browser.dir, dirent->d_name);
 
-		if(strcmp(dirent->d_name,".") == 0)
-			continue;
-
-		else if(strcmp(dirent->d_name,"..") == 0) {
+		if(strcmp(dirent->d_name,"..") == 0) {
 			filestat.st_mode = S_IFDIR;
 			filestat.st_size = 0;
 		}
-
-		else if(stat(filename, &filestat) != 0)
+		else if(stat(filename, &filestat) != 0) {
 			continue;
+		}
 
 		if((Filter & FILTER_DIRECTORIES) && (filestat.st_mode & S_IFDIR))
 			continue;
@@ -376,8 +379,9 @@ bool FileBrowser::ParseDirEntries()
 			strncpy(tmpBrowser[fileCount].filename, dirent->d_name, nameLength);
 			tmpBrowser[fileCount].filename[nameLength-1] = 0;
 		}
+
 		tmpBrowser[fileCount].length = filestat.st_size;
-		tmpBrowser[fileCount].isdir = (filestat.st_mode & S_IFDIR) ? true : false; // flag this as a dir
+		tmpBrowser[fileCount].isdir = (filestat.st_mode & S_IFDIR) != 0; // flag this as a dir
 
 		fileCount++;
 	}
@@ -385,7 +389,7 @@ bool FileBrowser::ParseDirEntries()
 	// Sort the file list
 	if(!directoryChange && fileCount > 0)
 	{
-		Locked = true;
+		Lock();
 		BROWSERENTRY * newBrowserList = (BROWSERENTRY *)realloc(browserList, (browser.numEntries+fileCount+1) * sizeof(BROWSERENTRY));
 		if(!newBrowserList) // failed to allocate required memory
 		{
@@ -400,7 +404,7 @@ bool FileBrowser::ParseDirEntries()
 			qsort(browserList, browser.numEntries+fileCount, sizeof(BROWSERENTRY), FileSortCallback);
 			browser.numEntries += fileCount;	//make sure reload is after the sort
 		}
-		Locked = false;
+		Unlock();
 		bChanged = true;
 	}
 	else {
@@ -410,7 +414,7 @@ bool FileBrowser::ParseDirEntries()
 
 	free(tmpBrowser);
 
-	if(!dirent)
+	if(!dirent || directoryChange)
 	{
 		closedir(dirIter); // close directory
 		dirIter = NULL;
@@ -442,11 +446,11 @@ int FileBrowser::ParseDirectory(bool ResetPosition)
 	struct stat st;
 
 	// Check if directory exists
-	sprintf(fulldir, "%s%s", browser.rootdir, browser.dir); // add device to path
+	snprintf(fulldir, sizeof(fulldir), "%s%s", browser.rootdir, browser.dir); // add device to path
 	if((stat(fulldir, &st) != 0) || !(st.st_mode & S_IFDIR)) {
 		// if we can't open the dir, try opening the root dir
 		strcpy(browser.dir, "");
-		sprintf(fulldir, "%s%s", browser.rootdir, browser.dir);
+		snprintf(fulldir, sizeof(fulldir), "%s%s", browser.rootdir, browser.dir);
 		if((stat(fulldir, &st) != 0) || !(st.st_mode & S_IFDIR))
 			return -1;
 	}
@@ -539,7 +543,7 @@ void FileBrowser::InitParseThread()
 }
 
 /****************************************************************************
- * InitParseThread
+ * ShutdownParseThread
  ***************************************************************************/
 void FileBrowser::ShutdownParseThread()
 {

@@ -19,7 +19,7 @@
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 
-ProcessTask::ProcessTask(const char *title, const ItemMarker *p, const std::string &dest)
+ProcessTask::ProcessTask(const std::string &title, const ItemMarker *p, const std::string &dest)
 	: Task(title), destPath(dest)
 {
 	TaskType = Task::PROCESS;
@@ -30,22 +30,14 @@ ProcessTask::ProcessTask(const char *title, const ItemMarker *p, const std::stri
 	ShowNormal.connect(this, &ProcessTask::ShowProgressWindow);
 }
 
-ProcessTask::~ProcessTask()
-{
-	if(Taskbar::Instance()->TaskCount() == 0) {
-		StopProgress();
-		ResetReplaceChoice();
-	}
-}
-
 void ProcessTask::ShowProgressWindow(Task *task UNUSED, int param UNUSED)
 {
 	ProgressWindow::Instance()->OpenWindow();
 }
 
-void ProcessTask::CalcTotalSize(void)
+int ProcessTask::GetItemList(list<ItemList> &fileLists, bool listDirs)
 {
-	char filepath[1024];
+	int ret = 0;
 
 	for(int i = 0; i < Process.GetItemcount(); i++)
 	{
@@ -54,13 +46,72 @@ void ProcessTask::CalcTotalSize(void)
 
 		if(Process.IsItemDir(i) == true)
 		{
-			snprintf(filepath, sizeof(filepath), "%s/", Process.GetItemPath(i));
-			GetFolderSize(filepath, CopySize, CopyFiles, ProgressWindow::Instance()->IsCanceled());
+			fileLists.resize(fileLists.size()+1);
+			fileLists.back().basepath = Process.GetItemPath(i);
+			
+			string path;
+			
+			int res = ReadDirectory(path, fileLists.back(), listDirs);
+			if(res < 0)
+				ret = res;
 		}
 		else
 		{
+			fileLists.resize(fileLists.size()+1);
+			fileLists.back().files.push_back(Process.GetItemPath(i));
 			CopySize += FileSize(Process.GetItemPath(i));
 			++CopyFiles;
 		}
 	}
+
+	return ret;
+}
+
+int ProcessTask::ReadDirectory(string &path, ItemList &fileList, bool listDirs)
+{
+	int ret = 0;
+	struct dirent *dirent = NULL;
+
+	DIR *dir = opendir((fileList.basepath + path).c_str());
+	if(dir == NULL)
+		return -1;
+
+	while((dirent = readdir(dir)) != 0)
+	{
+		if(ProgressWindow::Instance()->IsCanceled())
+			break;
+
+		if(dirent->d_type & DT_DIR)
+		{
+			if(strcmp(dirent->d_name,".") != 0 && strcmp(dirent->d_name,"..") != 0)
+			{
+				int pos = path.size();
+				path += '/';
+				path += dirent->d_name;
+
+				if(ReadDirectory(path, fileList, listDirs) < 0)
+					ret = -2;
+
+				path.erase(pos);
+			}
+		}
+		else
+		{
+			string filepath(path + "/" + dirent->d_name);
+			struct stat st;
+
+			if(stat((fileList.basepath + filepath).c_str(), &st) != 0)
+				continue;
+
+			fileList.files.push_back(filepath);
+			CopySize += st.st_size;
+			++CopyFiles;
+		}
+	}
+	closedir(dir);
+
+	if(listDirs)
+		fileList.dirs.push_back(path);
+
+	return ret;
 }

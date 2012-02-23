@@ -23,6 +23,7 @@
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/PopUpMenu.h"
 #include "Prompts/CreditWindow.h"
+#include "Controls/Task.hpp"
 
 class Explorer : public GuiFrame, public sigslot::has_slots<>
 {
@@ -46,11 +47,16 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		void OnContextButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void BackInDirectory(GuiButton *sender, int pointer, const POINT &p);
+		void OnFinishedTask(Task *t);
+		//! TODO: Move these
+		void ProcessChoice(int choice);
+		void ProcessArcChoice(int choice, const char * destCandidat);
 
 		FileBrowser *fileBrowser;
 		Browser * curBrowser;
 		GuiFileBrowser * guiBrowser;
 		int guiBrowserType;
+		int explorerTasks;
 
 		CreditWindow * Credits;
 

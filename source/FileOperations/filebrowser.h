@@ -87,8 +87,10 @@ class FileBrowser : public Browser
 		bool listChanged() { bool c = bChanged; bChanged = false; return c; }
 		void SetFilter(u8 filtermode) { Filter = filtermode; };
 		int ExecuteFile(const char *filepath);
+		void Lock(void) { while(Locked) usleep(100); Locked = true; }
+		void Unlock(void) { Locked = false; }
 	private:
-		bool valid(int ind) { if(!Locked && ind >= 0 && ind < browser.numEntries) return true; else return false; }
+		bool valid(int ind) { if(ind >= 0 && ind < browser.numEntries) return true; else return false; }
 		int ParseDirectory(bool ResetPosition = true);
 		int UpdateDirName();
 		void ResetBrowser();

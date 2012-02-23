@@ -59,6 +59,16 @@ ArchiveHandle::ArchiveHandle(const char  * filepath)
 		rarcFile = new RarcFile(filepath);
 }
 
+ArchiveHandle::ArchiveHandle(ZipFile * zip)
+{
+	References = 0;
+	szFile = NULL;
+	zipFile = zip;
+	rarFile = NULL;
+	u8File = NULL;
+	rarcFile = NULL;
+}
+
 ArchiveHandle::~ArchiveHandle()
 {
 	if(zipFile)

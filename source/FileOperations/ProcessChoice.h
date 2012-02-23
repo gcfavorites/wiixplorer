@@ -29,9 +29,6 @@
 #ifndef _PROCESS_CHOICE_H_
 #define _PROCESS_CHOICE_H_
 
-#include "FileOperations/filebrowser.h"
-#include "ArchiveOperations/ArchiveBrowser.h"
-
 enum
 {
 	COPYFILE,
@@ -43,7 +40,7 @@ enum
 
 enum
 {
-	CUT = 0,
+	CUT,
 	COPY,
 	PASTE,
 	RENAME,
@@ -61,8 +58,5 @@ enum
 	ArcExtractAll,
 	ArcProperties
 };
-
-void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat);
-void ProcessChoice(FileBrowser * browser, int choice);
 
 #endif

@@ -21,6 +21,7 @@
 #include "Controls/Taskbar.h"
 #include "network/networkops.h"
 #include "FTPOperations/FTPServer.h"
+#include "Prompts/ProgressWindow.h"
 #include "Settings.h"
 #include "VideoOperations/video.h"
 #include "input.h"
@@ -111,6 +112,7 @@ void Application::show()
 {
 	Append(bgImg);
 	Append(MusicPlayer::Instance());
+	Append(ProgressWindow::Instance());
 	//! Append taskbar instance
 	Append(Taskbar::Instance());
 }

@@ -89,6 +89,7 @@ Explorer::~Explorer()
 
 void Explorer::Init()
 {
+	explorerTasks = 0;
 	guiBrowser = NULL;
 	curBrowser = NULL;
 	Credits = NULL;
@@ -362,16 +363,12 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 
 	if(curBrowser != fileBrowser && item >= 0) //! Archive
 	{
-		ProcessArcChoice((ArchiveBrowser *) curBrowser, item, fileBrowser->GetCurrentPath());
+		ProcessArcChoice(item, fileBrowser->GetCurrentPath());
 		guiBrowser->Refresh();
 	}
 	else if(item >= 0)  //! Real file browser
 	{
-		ProcessChoice(fileBrowser, item);
-		if(item >= PASTE)
-		{
-			guiBrowser->Refresh();
-		}
+		ProcessChoice(item);
 	}
 }
 
@@ -493,4 +490,16 @@ void Explorer::BackInDirectory(GuiButton *sender, int pointer UNUSED, const POIN
 	AdressText->SetText(curBrowser->GetCurrentPath());
 
 	sender->ResetState();
+}
+
+void Explorer::OnFinishedTask(Task *t)
+{
+	//! Stop progress window on last task
+	if(--explorerTasks == 0) {
+		StopProgress();
+		ResetReplaceChoice();
+	}
+	guiBrowser->Refresh();
+	Taskbar::Instance()->RemoveTask(t);
+	Application::Instance()->PushForDelete(t);
 }

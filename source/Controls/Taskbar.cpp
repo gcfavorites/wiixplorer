@@ -134,7 +134,6 @@ void Taskbar::AddTask(Task * t)
 {
 	t->SetPosition(95+Tasks.size()*100, 0);
 	t->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
-	t->TaskEnd.connect(this, &Taskbar::RemoveTask);
 	Tasks.push_back(t);
 	Append(t);
 }
@@ -145,9 +144,8 @@ void Taskbar::RemoveTask(Task * t)
 	{
 		if(Tasks[i] == t)
 		{
-			Application::Instance()->PushForDelete(Tasks[i]);
 			Tasks.erase(Tasks.begin()+i);
-			break;
+			return;
 		}
 	}
 }

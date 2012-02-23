@@ -37,8 +37,9 @@ ProgressWindow::ProgressWindow()
 	progressTotal = 0;
 	Changed = false;
 	Minimized = false;
-	WindowClosed = true;
+	OpenRequest = false;
 	CloseRequest = true;
+	WindowClosed = true;
 	Canceled = false;
 	ProgressUnit = NULL;
 
@@ -193,9 +194,9 @@ void ProgressWindow::CloseWindow()
 	if(GetEffect() > 0 && !Application::Instance()->isClosing())
 		return;
 
-	Application::Instance()->Remove(this);
-	Application::Instance()->UnsetUpdateOnly(this);
 	RemoveAll();
+	Application::Instance()->UnsetUpdateOnly(this);
+	DimBackground(false);
 
 	if(soundClick)
 		Resources::Remove(soundClick);
@@ -264,10 +265,13 @@ void ProgressWindow::Draw()
 {
 	static u32 drawCounter = 0;
 
+	if(OpenRequest && WindowClosed)
+		OpenWindow();
+
 	if(CloseRequest && !WindowClosed)
 		CloseWindow();
 
-	if(Changed && drawCounter > 2)
+	if(!WindowClosed && Changed && drawCounter > 2)
 	{
 		msgTxt->SetText(ProgressMsg);
 
@@ -283,7 +287,11 @@ void ProgressWindow::Draw()
 			fTotal = (float) completeTotal;
 		}
 
-		float Percent = 100.0f*fDone/fTotal;
+		float Percent;
+		if(fTotal > 0.0f)
+			Percent = 100.0f*fDone/fTotal;
+		else
+			Percent = 0.0f;
 
 		Percent = LIMIT(Percent, 0.0f, 100.0f);
 
@@ -295,7 +303,7 @@ void ProgressWindow::Draw()
 			speed = (fDone/ProgressTimer.elapsed());
 
 		int TimeLeft = 0;
-		if(speed > 0)
+		if(speed > 0.0f)
 		{
 			TimeLeft = (int) ((fTotal-fDone)/speed);
 			if(TimeLeft < 0)
@@ -350,54 +358,40 @@ void ProgressWindow::StartProgress(const char *title, const char *msg)
 
 	Changed = true;
 	Canceled = false;
+	OpenRequest = true;
 	CloseRequest = false;
+	Minimized = false;
 }
 
 void ProgressWindow::StopProgress()
 {
+	OpenRequest = false;
 	CloseRequest = true;
 	ProgressTitle[0] = 0;
 	ProgressMsg[0] = 0;
 	completeDone = 0;
 	completeTotal = -1;
-	Minimized = false;
 }
 
-void ProgressWindow::ShowProgress(u64 done, u64 total)
+void ProgressWindow::ShowProgress(const u64 &done, const u64 &total)
 {
-	if(done > total)
-		done = total;
-
-	progressDone = done;
+	progressDone = (done > total) ? total : done;
 	progressTotal = total;
 
 	if(completeTotal >= 0 && progressDone == progressTotal)
 		completeDone += progressDone;
 
 	Changed = true;
-	if(WindowClosed)
-		OpenWindow();
 }
 
-void ProgressWindow::ShowProgress(u64 done, u64 total, const char *msg)
+void ProgressWindow::ShowProgress(const u64 &done, const u64 &total, const char *msg)
 {
 	if(msg)
 		strncpy(ProgressMsg, msg, sizeof(ProgressMsg)-1);
 	else
 		ProgressMsg[0] = 0;
 
-	if(done > total)
-		done = total;
-
-	progressDone = done;
-	progressTotal = total;
-
-	if(completeTotal >= 0 && progressDone == progressTotal)
-		completeDone += progressDone;
-
-	Changed = true;
-	if(WindowClosed)
-		OpenWindow();
+	ShowProgress(done, total);
 }
 
 void ProgressWindow::SetTitle(const char *title)

@@ -17,20 +17,30 @@
 #ifndef PROCESSTASK_H_
 #define PROCESSTASK_H_
 
+#include <list>
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "Controls/Task.hpp"
 #include "FileOperations/ItemMarker.h"
 
+using namespace std;
+
 class ProcessTask : public ThreadedTask, public Task
 {
 public:
-	ProcessTask(const char *title, const ItemMarker *process, const std::string &dest);
-	virtual ~ProcessTask();
+	ProcessTask(const string &title, const ItemMarker *process, const string &dest);
+	virtual ~ProcessTask() {}
 	virtual void Execute(void) = 0;
 protected:
+	struct ItemList
+	{
+		string basepath;
+		list<string> files;
+		list<string> dirs;
+	};
+
+	int GetItemList(list<ItemList> &fileLists, bool listDirs);
+	int ReadDirectory(string &path, ItemList &fileLists, bool listDirs);
 	void ShowProgressWindow(Task *task, int param);
-	void DisplayPrompt(const char *title, const char *msg);
-	void CalcTotalSize(void);
 
 	ItemMarker Process;
 	const std::string destPath;

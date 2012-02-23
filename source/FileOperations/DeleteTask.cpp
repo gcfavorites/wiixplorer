@@ -33,7 +33,7 @@ DeleteTask::~DeleteTask()
 void DeleteTask::Execute(void)
 {
 	TaskBegin(this);
-	gprintf("EXEC\n");
+
 	// No items to process
 	if(Process.GetItemcount() == 0)
 	{
@@ -46,17 +46,19 @@ void DeleteTask::Execute(void)
 	else
 		StartProgress(tr("Calculating delete size..."));
 
-	CalcTotalSize();
+	list<ItemList> itemList;
+
+	int result = 0;
+
+	if(GetItemList(itemList, true) < 0) {
+		result = -1;
+	}
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
     ProgressWindow::Instance()->SetCompleteValues(0, CopyFiles);
     ProgressWindow::Instance()->SetUnit(tr("files"));
 
-	int result = 0;
-	char srcpath[MAXPATHLEN];
-	memset(srcpath, 0, sizeof(srcpath));
-
-	for(int i = 0; i < Process.GetItemcount(); i++)
+	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
@@ -64,17 +66,29 @@ void DeleteTask::Execute(void)
 			break;
 		}
 
-		strncpy(srcpath, Process.GetItemPath(i), sizeof(srcpath)-1);
-
-		if(Process.IsItemDir(i) == true)
+		//! Remove all files first
+		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
-			int ret = RemoveDirectory(srcpath);
+			if(ProgressWindow::Instance()->IsCanceled())
+				break;
+
+			string filepath = listItr->basepath + *itr;
+			const char *filename = strrchr(filepath.c_str(), '/');
+
+			int ret = RemoveFile(filepath.c_str());
 			if(ret < 0)
 				result = ret;
+
+			ShowProgress(1, 1, filename ? filename+1 : "");
 		}
-		else
+
+		//! Remove all dirs reverse
+		for(list<string>::iterator itr = listItr->dirs.begin(); itr != listItr->dirs.end(); itr++)
 		{
-			int ret = RemoveFile(srcpath);
+			if(ProgressWindow::Instance()->IsCanceled())
+				break;
+
+			int ret = RemoveFile((listItr->basepath + *itr).c_str());
 			if(ret < 0)
 				result = ret;
 		}

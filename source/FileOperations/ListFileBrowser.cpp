@@ -296,6 +296,7 @@ void ListFileBrowser::OnListChange(int selItem, int selIndex)
 	scrollbar->SetSelectedItem(selItem);
 	scrollbar->SetSelectedIndex(selIndex);
 	selectedItem = selItem;
+	browser->Lock();
 	browser->SetPageIndex(selIndex);
 
 	for(int i = 0; i < PAGESIZE; i++)
@@ -309,6 +310,7 @@ void ListFileBrowser::OnListChange(int selItem, int selIndex)
 			SetButton(i, NULL, 0, false, false);
 		}
 	}
+	browser->Unlock();
 }
 
 /**
@@ -336,12 +338,13 @@ void ListFileBrowser::Update(GuiTrigger * t)
 
 	scrollbar->Update(t);
 
-	if(browser)
-	{
-		browser->UpdateMarker(t);
-		if(browser->listChanged())
-			OnListChange(selectedItem, browser->GetPageIndex());
-	}
+	//! Updating the rest only makes sense with a browser
+	if(!browser)
+		return;
+
+	browser->UpdateMarker(t);
+	if(browser->listChanged())
+		OnListChange(selectedItem, browser->GetPageIndex());
 
 	if(numEntries != browser->GetEntrieCount())
 	{
