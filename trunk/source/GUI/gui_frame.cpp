@@ -214,7 +214,7 @@ void GuiFrame::Draw()
 		return;
 	}
 
-	if(_elements.size() == 0 || !this->IsVisible())
+	if(!this->IsVisible() && parentElement)
 		return;
 
 	if(parentElement && dim == true)

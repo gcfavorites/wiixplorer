@@ -70,7 +70,9 @@ void MD5Task::Execute(void)
 	else
 		StartProgress(tr("Calculating total size..."));
 
-	CalcTotalSize();
+	list<ItemList> itemList;
+	GetItemList(itemList, false);
+	list<ItemList>().swap(itemList);
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);

@@ -47,26 +47,50 @@ void MoveTask::Execute(void)
 	else
 		StartProgress(tr("Calculating transfer size..."));
 
-	CalcTotalSize();
-
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 
-    //! On same device we move files instead of copy them
-	if(CompareDevices(Process.GetItemPath(0), destPath.c_str()))
-	{
-        ProgressWindow::Instance()->SetCompleteValues(0, CopyFiles);
-        ProgressWindow::Instance()->SetUnit(tr("files"));
-	}
-	else
-	{
-        ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
-	}
-
 	int result = 0;
-	char srcpath[MAXPATHLEN];
-	char destpath[MAXPATHLEN];
 
-	for(int i = 0; i < Process.GetItemcount(); i++)
+    //! On same device we move files instead of copy them
+	for(int i = 0; i < Process.GetItemcount(); ++i)
+	{
+		if(CompareDevices(Process.GetItemPath(i), destPath.c_str()))
+		{
+			string srcpath = Process.GetItemPath(i);
+			while(srcpath[srcpath.size()-1] == '/')
+				srcpath.erase(srcpath.size()-1);
+
+			const char *pathname = strrchr(srcpath.c_str(), '/');
+			if(!pathname)
+				continue;
+
+			string dstpath = destPath + pathname;
+
+			if(strcasecmp(srcpath.c_str(), dstpath.c_str()) == 0)
+				continue;
+
+			int ret = RenameFile(srcpath.c_str(), dstpath.c_str());
+			if(ret < 0)
+				result = ret;
+
+			Process.RemoveItem(Process.GetItem(i));
+		}
+	}
+
+	list<ItemList> itemList;
+
+	if(GetItemList(itemList, true) < 0) {
+		result = -1;
+	}
+	list<ItemList>().swap(itemList);
+
+	//! free memory of process which is no longer required
+	Process.Reset();
+
+    //! On same device we move files instead of copy them
+	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
+
+	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
@@ -74,27 +98,35 @@ void MoveTask::Execute(void)
 			break;
 		}
 
-		snprintf(srcpath, sizeof(srcpath), "%s", Process.GetItemPath(i));
-		snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
-
-		if(strcmp(srcpath, destpath) == 0)
-			continue;
-
-		if(Process.IsItemDir(i) == true)
+		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
-			int ret = MoveDirectory(srcpath, destpath);
+			if(ProgressWindow::Instance()->IsCanceled())
+				break;
+
+			string srcpath = listItr->basepath + *itr;
+			string dstpath = destPath + *itr;
+
+			string folderpath = dstpath;
+			size_t pos = folderpath.rfind('/');
+			if(pos != string::npos)
+				folderpath.erase(pos);
+
+			CreateSubfolder(folderpath.c_str());
+
+			int ret = MoveFile(srcpath.c_str(), dstpath.c_str());
 			if(ret < 0)
 				result = ret;
 		}
-		else
+
+		//! Remove all dirs reverse
+		for(list<string>::iterator itr = listItr->dirs.begin(); itr != listItr->dirs.end(); itr++)
 		{
-			int ret = MoveFile(srcpath, destpath);
-			if(ret < 0)
-				result = ret;
+			if(ProgressWindow::Instance()->IsCanceled())
+				break;
+
+			RemoveFile((listItr->basepath + *itr).c_str());
 		}
 	}
-
-	ProgressWindow::Instance()->SetUnit(NULL);
 
 	if(result < 0 && result != -10 && !Application::isClosing())
 	{

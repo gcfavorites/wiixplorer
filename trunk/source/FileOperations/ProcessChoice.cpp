@@ -1,31 +1,20 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * ProcessChoice.cpp
- *
- * for WiiXplorer 2009
- ***************************************************************************/
-
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
+#include "Menus/Explorer.h"
 #include "ProcessChoice.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Application.h"
@@ -45,8 +34,9 @@
 #include "FileOperations/PackTask.h"
 #include "menu.h"
 
-void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCandidat)
+void Explorer::ProcessArcChoice(int choice, const char * destCandidat)
 {
+	ArchiveBrowser * browser = (ArchiveBrowser *) curBrowser;
 	if(!browser)
 		return;
 
@@ -57,6 +47,8 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 			return;
 
 		PackTask *task = new PackTask(Clipboard::Instance(), browser->GetCurrentPath(), browser->GetArchive(), Settings.CompressionLevel);
+		task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+		this->explorerTasks++;
 		Taskbar::Instance()->AddTask(task);
 		ThreadedTaskHandler::Instance()->AddTask(task);
 
@@ -140,8 +132,9 @@ void ProcessArcChoice(ArchiveBrowser * browser, int choice, const char * destCan
 	}
 }
 
-void ProcessChoice(FileBrowser * browser, int choice)
+void Explorer::ProcessChoice(int choice)
 {
+	FileBrowser * browser = (FileBrowser *) curBrowser;
 	if(!browser)
 		return;
 
@@ -198,6 +191,8 @@ void ProcessChoice(FileBrowser * browser, int choice)
 				snprintf(destdir, sizeof(destdir), "%s/%s", browser->GetCurrentPath(), entered);
 				if(!RenameFile(srcpath, destdir))
 					WindowPrompt(tr("Failed renaming item"), tr("Name might already exists."), tr("OK"));
+				//! Update browser
+				guiBrowser->Refresh();
 			}
 		}
 
@@ -218,6 +213,8 @@ void ProcessChoice(FileBrowser * browser, int choice)
 					//Get ItemMarker
 					ItemMarker * IMarker = browser->GetItemMarker();
 					DeleteTask *task = new DeleteTask(IMarker);
+					task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+					this->explorerTasks++;
 					Taskbar::Instance()->AddTask(task);
 					ThreadedTaskHandler::Instance()->AddTask(task);
 					IMarker->Reset();
@@ -241,12 +238,16 @@ void ProcessChoice(FileBrowser * browser, int choice)
 				if(Clipboard::Instance()->Operation == OP_COPY)
 				{
 					CopyTask *task = new CopyTask(Clipboard::Instance(), browser->GetCurrentPath());
+					task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+					this->explorerTasks++;
 					Taskbar::Instance()->AddTask(task);
 					ThreadedTaskHandler::Instance()->AddTask(task);
 				}
 				else if(Clipboard::Instance()->Operation == OP_MOVE)
 				{
 					MoveTask *task = new MoveTask(Clipboard::Instance(), browser->GetCurrentPath());
+					task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+					this->explorerTasks++;
 					Taskbar::Instance()->AddTask(task);
 					ThreadedTaskHandler::Instance()->AddTask(task);
 				}
@@ -261,45 +262,36 @@ void ProcessChoice(FileBrowser * browser, int choice)
 			return;
 
 		char DestZipPath[MAXPATHLEN];
-		snprintf(DestZipPath, sizeof(DestZipPath), "%s/%s", browser->GetCurrentPath(), tr("NewZip.zip"));
+		snprintf(DestZipPath, sizeof(DestZipPath), "%s", browser->GetCurrentPath());
+		if(DestZipPath[strlen(DestZipPath)-1] != '/')
+			strncat(DestZipPath, "/", sizeof(DestZipPath));
+		strncat(DestZipPath, tr("NewZip.zip"), sizeof(DestZipPath));
 
 		if(!OnScreenKeyboard(DestZipPath, sizeof(DestZipPath)))
 			return;
 
-		char * DestCopy = strdup(DestZipPath);
-		char * ptr = strrchr(DestCopy ? DestCopy : "", '/');
-		if(ptr)
-			ptr[1] = '\0';
+		std::string DestPath = DestZipPath;
+		size_t pos = DestPath.rfind('/');
+		if(pos != std::string::npos)
+			DestPath.erase(pos);
 
-		CreateSubfolder(DestCopy);
-		free(DestCopy);
-		DestCopy = ptr = NULL;
-
-		ZipFile Zip(DestZipPath, CheckFile(DestZipPath) ? ZipFile::APPEND : ZipFile::CREATE);
+		CreateSubfolder(DestPath.c_str());
 
 		//append selected Item
 		browser->MarkCurrentItem();
 		//Get ItemMarker
 		ItemMarker * IMarker = browser->GetItemMarker();
 
-		int result = 0;
-		StartProgress(tr("Compressing item(s):"));
+		ZipFile *Zip = new ZipFile(DestPath, CheckFile(DestZipPath) ? ZipFile::APPEND : ZipFile::CREATE);
+		ArchiveHandle * archive = new ArchiveHandle(Zip);
 
-		for(int i = 0; i < IMarker->GetItemcount(); ++i)
-		{
-			if(IMarker->IsItemDir(i))
-			{
-				result = Zip.AddDirectory(IMarker->GetItemPath(i), IMarker->GetItemName(i), Settings.CompressionLevel);
-			}
-			else
-			{
-				result = Zip.AddFile(IMarker->GetItemPath(i), IMarker->GetItemName(i), Settings.CompressionLevel, false);
-			}
-		}
-		StopProgress();
-		if(result < 0)
-			WindowPrompt(fmt(tr("ERROR: %i"), result), tr("Failed adding the item(s)."), tr("OK"));
+		PackTask *task = new PackTask(IMarker, DestZipPath, archive, Settings.CompressionLevel);
+		task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+		this->explorerTasks++;
+		Taskbar::Instance()->AddTask(task);
+		ThreadedTaskHandler::Instance()->AddTask(task);
 
+		//! Update browser
 		IMarker->Reset();
 	}
 
@@ -317,6 +309,8 @@ void ProcessChoice(FileBrowser * browser, int choice)
 
 			browser->MarkCurrentItem();
 			MD5Task *task = new MD5Task(browser->GetItemMarker(), LogPath);
+			task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+			this->explorerTasks++;
 			Taskbar::Instance()->AddTask(task);
 			ThreadedTaskHandler::Instance()->AddTask(task);
 			browser->GetItemMarker()->Reset();
@@ -335,6 +329,9 @@ void ProcessChoice(FileBrowser * browser, int choice)
 			bool ret = CreateSubfolder(currentpath);
 			if(ret == false)
 				ShowError(tr("Unable to create folder."));
+
+			//! Update browser
+			guiBrowser->Refresh();
 		}
 	}
 	else if(choice == PROPERTIES)

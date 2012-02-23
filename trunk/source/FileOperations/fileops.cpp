@@ -317,7 +317,7 @@ int CopyFile(const char * src, const char * dest)
 
 	u32 blksize = BLOCKSIZE;
 
-	u8 * buffer = (u8 *) malloc(blksize);
+	u8 * buffer = (u8 *) memalign(32, blksize);
 
 	if(buffer == NULL){
 		//no memory
@@ -388,10 +388,7 @@ static inline void ClearList(vector<char *> &List)
 	for(u32 i = 0; i < List.size(); ++i)
 	{
 		if(List[i])
-		{
 			free(List[i]);
-			List[i] = NULL;
-		}
 	}
 	List.clear();
 	vector<char *>().swap(List);
@@ -420,6 +417,9 @@ int ListDirectory(string &path, vector<char *> &DirList, vector<char *> &FileLis
 			closedir(dir);
 			return -10;
 		}
+
+		if(!dirent->d_name)
+			continue;
 
 		if(dirent->d_type & DT_DIR)
 		{
@@ -539,7 +539,6 @@ int CopyDirectory(const char * src, const char * dest)
  ***************************************************************************/
 static int InternalMoveDirectory(string &src, string &dest)
 {
-	bool samedevices = CompareDevices(src.c_str(), dest.c_str());
 	vector<char *> DirList;
 	vector<char *> FileList;
 
@@ -567,14 +566,7 @@ static int InternalMoveDirectory(string &src, string &dest)
 		src += FileList[i];
 		dest += FileList[i];
 
-		int res = MoveFile(src.c_str(), dest.c_str());
-		if(res < 0) ret = res;
-
-		if(samedevices)
-		{
-			//Display progress
-			ShowProgress(1, 1, FileList[i]);
-		}
+		MoveFile(src.c_str(), dest.c_str());
 
 		free(FileList[i]);
 		FileList[i] = NULL;
@@ -605,16 +597,11 @@ static int InternalMoveDirectory(string &src, string &dest)
 		free(DirList[i]);
 		DirList[i] = NULL;
 
-		int res = InternalMoveDirectory(src, dest);
-		if(res < 0) ret = res;
+		InternalMoveDirectory(src, dest);
+
 		src.erase(srcSize);
 		dest.erase(destSize);
 	}
-
-	ClearList(DirList);
-
-	if(ret < 0)
-		return ret;
 
 	string srcCopy(src);
 
@@ -651,14 +638,16 @@ int MoveFile(const char *srcpath, const char *destdir)
 {
 	if(CompareDevices(srcpath, destdir))
 	{
+		const char * filename = strrchr(destdir, '/');
+
 		if(CheckFile(destdir))
 		{
 			int choice = -1;
 			if(!replaceall && !replacenone)
-			{
-				const char * filename = strrchr(destdir, '/');
 				choice = GetReplaceChoice(filename ? filename+1 : destdir);
-			}
+
+			//Display progress
+			ShowProgress(1, 1,filename);
 
 			if(replacenone || choice == 2)
 				return 1;
@@ -666,6 +655,8 @@ int MoveFile(const char *srcpath, const char *destdir)
 			else if(replaceall || choice == 1)
 				RemoveFile(destdir);
 		}
+		//Display progress
+		ShowProgress(1, 1, filename);
 
 		if(RenameFile(srcpath, destdir))
 			return 1;
@@ -711,8 +702,7 @@ static int InternalRemoveDirectory(string &dirpath)
 
 		int stringSize = dirpath.size();
 		dirpath += FileList[i];
-		if(!RemoveFile(dirpath.c_str()))
-			ret = -1;
+		RemoveFile(dirpath.c_str());
 		dirpath.erase(stringSize);
 
 		//Display progress
@@ -741,15 +731,9 @@ static int InternalRemoveDirectory(string &dirpath)
 		dirpath += '/';
 		free(DirList[i]);
 		DirList[i] = NULL;
-		int res = InternalRemoveDirectory(dirpath);
-		if(res < 0) ret = res;
+		InternalRemoveDirectory(dirpath);
 		dirpath.erase(stringSize);
 	}
-
-	ClearList(DirList);
-
-	if(ret < 0)
-		return ret;
 
 	string srcCopy(dirpath);
 
@@ -884,21 +868,12 @@ bool CompareDevices(const char *src, const char *dest)
 		return false;
 
 	char *device1 = strchr(src, ':');
-	char *device2 = strchr(dest, ':');
-
-	if(!device1 || !device2)
+	if(!device1)
 		return false;
 
-	int position1 = device1-src+1;
-	int position2 = device2-dest+1;
+	int length = device1-src+1;
 
-	char temp1[50];
-	char temp2[50];
-
-	snprintf(temp1, position1, "%s", src);
-	snprintf(temp2, position2, "%s", dest);
-
-	if(strcasecmp(temp1, temp2) == 0)
+	if(strncasecmp(src, dest, length) == 0)
 		return true;
 
 	return false;

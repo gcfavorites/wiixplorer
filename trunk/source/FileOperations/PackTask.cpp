@@ -69,13 +69,15 @@ void PackTask::Execute(void)
 	else
 		StartProgress(tr("Calculating transfer size..."));
 
-	CalcTotalSize();
+	list<ItemList> itemList;
+	GetItemList(itemList, false);
+	list<ItemList>().swap(itemList);
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
-	char destpath[MAXPATHLEN];
 	int result = 0;
+	char destpath[MAXPATHLEN];
 
 	for(int i = 0; i < Process.GetItemcount(); i++)
 	{

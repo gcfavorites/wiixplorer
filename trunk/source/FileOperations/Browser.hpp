@@ -61,6 +61,8 @@ class Browser
 		virtual ItemStruct * GetCurrentItemStruct() { return GetItemStruct(GetSelIndex()); };
 		virtual void SetFilter(u8 filtermode UNUSED) {};
 		virtual int ExecuteFile(const char *filepath UNUSED) { return -1; };
+		virtual void Lock(void) {}
+		virtual void Unlock(void) {}
 		void MarkAllItems();
 		void MarkCurrentItem();
 		void UnMarkCurrentItem();

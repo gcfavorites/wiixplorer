@@ -31,8 +31,8 @@ class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 		void CloseWindow(void);
 
 		void StartProgress(const char *title, const char *msg = NULL);
-		void ShowProgress(u64 done, u64 total, const char *filename);
-		void ShowProgress(u64 done, u64 total);
+		void ShowProgress(const u64 &done, const u64 &total, const char *filename);
+		void ShowProgress(const u64 &done, const u64 &total);
 		void StopProgress();
 		void SetTitle(const char *title);
 		void SetMessage(const char *msg);
@@ -43,7 +43,7 @@ class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 		bool IsMinimized() const { return Minimized; }
 		bool IsRunning() const { return !WindowClosed || Minimized; }
 		void Draw();
-		void SetCompleteValues(s64 done, s64 total) { completeDone = done; completeTotal = total; }
+		void SetCompleteValues(const s64 &done, const s64 &total) { completeDone = done; completeTotal = total; }
 		void SetUnit(const char *u) { ProgressUnit = u; }
 	private:
 		ProgressWindow();
@@ -59,6 +59,7 @@ class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 		bool Changed;
 		bool Canceled;
 		bool WindowClosed;
+		bool OpenRequest;
 		bool CloseRequest;
 		bool Minimized;
 

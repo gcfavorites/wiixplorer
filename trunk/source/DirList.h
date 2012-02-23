@@ -55,7 +55,7 @@ public:
 	const char * GetFilename(int index);
 	//! Get the a filepath of the list
 	//!\param list index
-	const char *GetFilepath(int index);
+	const char *GetFilepath(int index) { if (!valid(index)) return NULL; else return FileInfo[index].FilePath; }
 	//! Get the a filesize of the list
 	//!\param list index
 	u64 GetFilesize(int index);
@@ -81,7 +81,7 @@ protected:
 	// Internal parser
 	bool InternalLoadPath(std::string &path);
 	//!Add a list entrie
-	void AddEntrie(const char * folderpath, const char * filename, bool isDir);
+	void AddEntrie(const std::string &filepath, const char * filename, bool isDir);
 	//! Clear the list
 	void ClearList();
 	//! Check if valid pos is requested
@@ -89,8 +89,6 @@ protected:
 
 	u32 Flags;
 	const char *Filter;
-	std::string BasePath;
-	std::string CachePath;
 	std::vector<DirEntry> FileInfo;
 };
 
