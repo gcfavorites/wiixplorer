@@ -1,40 +1,113 @@
-# Quick'n'dirty makefile [BC] v2
-
+#---------------------------------------------------------------------------------
+# Clear the implicit built in rules
+#---------------------------------------------------------------------------------
+.SUFFIXES:
+#---------------------------------------------------------------------------------
 ifeq ($(strip $(DEVKITPPC)),)
-  $(error "Use   export DEVKITPPC=<path to>devkitPPC   and try again")
+$(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>devkitPPC")
 endif
 
-ifeq ($(strip $(DEVKITPRO)),)
-  $(error "Use   export DEVKITPRO=<path to>devkitPRO   and try again")
+include $(DEVKITPPC)/wii_rules
+
+#---------------------------------------------------------------------------------
+# BUILD is the directory where object files & intermediate files will be placed
+# SOURCES is a list of directories containing source code
+# INCLUDES is a list of directories containing extra header files
+#---------------------------------------------------------------------------------
+BUILD		:=	build
+SOURCES		:=	source
+INCLUDES	:=	png.h pngconf.h pnglibconf.h
+LIBTARGET	:=	libpng.a
+
+#---------------------------------------------------------------------------------
+# installation parameters
+#---------------------------------------------------------------------------------
+LIBINSTALL	:=	$(PORTLIBS)/lib
+HDRINSTALL	:=	$(PORTLIBS)/include
+
+#---------------------------------------------------------------------------------
+# options for code generation
+#---------------------------------------------------------------------------------
+CFLAGS		=	-O2 -Wall -Wno-unused $(MACHDEP) $(INCLUDE) -DPNG_CONFIGURE_LIBPNG -DHAVE_CONFIG_H
+CXXFLAGS	=	$(CFLAGS)
+ASFLAGS		:=	-g
+
+#---------------------------------------------------------------------------------
+# any extra libraries we wish to link with the project
+#---------------------------------------------------------------------------------
+LIBS		:=
+
+#---------------------------------------------------------------------------------
+# list of directories containing libraries, this must be the top level containing
+# include and lib
+#---------------------------------------------------------------------------------
+LIBDIRS		:=
+
+#---------------------------------------------------------------------------------
+# no real need to edit anything past this point unless you need to add additional
+# rules for different file extensions
+#---------------------------------------------------------------------------------
+ifneq ($(BUILD),$(notdir $(CURDIR)))
+#---------------------------------------------------------------------------------
+
+export DEPSDIR	:=	$(CURDIR)/$(BUILD)
+
+export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
+					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+
+CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
+
+
+export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(SFILES:.s=.o)
+
+export INCLUDE	:=	$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
+					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
+					-I$(CURDIR)/$(BUILD) -I$(LIBOGC_INC) \
+					-I$(PORTLIBS)/include
+
+export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
+					-L$(LIBOGC_LIB) -L$(PORTLIBS)/lib
+
+.PHONY: $(BUILD) clean
+
+#---------------------------------------------------------------------------------
+$(BUILD):
+	@[ -d $@ ] || mkdir -p $@
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
+#---------------------------------------------------------------------------------
+all: $(LIBTARGET)
+
+clean:
+	@echo clean ...
+	@rm -fr $(BUILD) $(LIBTARGET)
+
+install: $(LIBTARGET)
+	@[ -d $(LIBINSTALL) ] || mkdir -p $(LIBINSTALL)
+	@[ -d $(HDRINSTALL) ] || mkdir -p $(HDRINSTALL)
+	cp $(foreach incl,$(INCLUDES),$(SOURCES)/$(incl)) $(HDRINSTALL)
+	cp $(LIBTARGET) $(LIBINSTALL)
+
+#---------------------------------------------------------------------------------
+else
+
+DEPENDS	:=	$(OFILES:.o=.d)
+
+#---------------------------------------------------------------------------------
+# main targets
+#---------------------------------------------------------------------------------
+$(LIBTARGET): $(OFILES) 
+	@rm -f "../$(LIBTARGET)"
+	@$(AR) rcs "../$(LIBTARGET)" $(OFILES)
+	@echo built $(notdir $@)
+
+$(LIBDIR)/$(PLATFORM):
+	mkdir -p ../$(LIBDIR)/$(PLATFORM)
+
+-include $(DEPENDS)
+
+#---------------------------------------------------------------------------------------
 endif
-
-PREFIX	:= $(DEVKITPPC)/bin/powerpc-eabi-
-CC		:=	$(PREFIX)gcc
-AR		:=	$(PREFIX)ar
-
-LIBOGC_INC	:=	$(DEVKITPRO)/libogc/include
-LIBOGC_LIB	:=	$(DEVKITPRO)/libogc/lib/wii
-
-MACHDEP := -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -DPNG_CONFIGURE_LIBPNG -DHAVE_CONFIG_H
-CFLAGS  := -O4 -Wall $(MACHDEP) -I $(LIBOGC_INC)
-
-LIB 	:= png
-CFILES	:= $(wildcard *.c)
-OFILES	:= $(CFILES:.c=.o)
-ARC 	:= lib$(LIB).a
-HDR 	:= $(LIB).h $(LIB)conf.h
-
-all : $(OFILES)
-	$(AR) -r $(ARC) $(OFILES)
-
-clean :
-	rm -f $(OFILES) $(ARC)
-
-install :
-	mkdir -p  $(LIBOGC_LIB)  $(LIBOGC_INC)
-	cp -f $(ARC) $(LIBOGC_LIB)/
-	cp -f $(HDR) $(LIBOGC_INC)/
-
-%.o : %.c
-	@echo $(notdir $<)
-	@$(CC) $(CFLAGS) -c $< -o $@
+#---------------------------------------------------------------------------------------
