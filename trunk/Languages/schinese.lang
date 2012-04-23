@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -275,8 +275,8 @@ msgstr "复制线程优先级"
 msgid "Copy current marked item(s)?"
 msgstr "是否复制已标记的项目？"
 
-msgid "Copy of"
-msgstr "复制其中"
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "复制项目中:"
@@ -356,6 +356,9 @@ msgstr "目录.."
 msgid "Disconnect Client"
 msgstr "断开客户端"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "断开网络共享"
 
@@ -385,6 +388,9 @@ msgstr "是否要删除此文件："
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "是否断开FTP客户端"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "是否断开网络共享"
@@ -423,8 +429,8 @@ msgstr "是否重新连接网络共享"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "是否重新连接FTP客户端"
 
-msgid "Do you want to remount the devices?"
-msgstr "是否再次加载设备？"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
@@ -468,10 +474,6 @@ msgstr "正在下载文件..."
 
 msgid "Downloading files..."
 msgstr "正在下载文件..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr "错误：%i"
 
 msgid "Edit Textline Button"
 msgstr "编辑文本行按钮"
@@ -571,11 +573,8 @@ msgstr "FTP已开启。\n"
 msgid "Fade Speed"
 msgstr "减速"
 
-msgid "Failed adding the item(s)"
-msgstr "添加项目失败"
-
-msgid "Failed adding the item(s)."
-msgstr "添加项目失败"
+msgid "Failed adding some item(s)."
+msgstr ""
 
 msgid "Failed copying some item(s)."
 msgstr ""
@@ -603,6 +602,9 @@ msgstr "重命名项目失败。"
 
 msgid "Failed to get the Changelog."
 msgstr "更新日志失败"
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr "运行频道失败！"
@@ -950,6 +952,9 @@ msgstr "菜单"
 msgid "Mounted as:"
 msgstr "以挂载成："
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "正在移动项目："
 
@@ -961,6 +966,9 @@ msgstr "音乐循环模式"
 
 msgid "Music Volume"
 msgstr "音乐音量"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "无"
@@ -1204,11 +1212,11 @@ msgstr "连接失败。没有共享连接"
 msgid "Red"
 msgstr "红"
 
-msgid "Reloading file list..."
-msgstr "重新读取文件列表。。。"
-
 msgid "Remount"
 msgstr ""
+
+msgid "Remounting all devices."
+msgstr "正在重新挂载所有设备。"
 
 msgid "Remove Link"
 msgstr "移除链接"
@@ -1430,14 +1438,11 @@ msgstr "无法识别格式。是否用文本编辑器打开此文件？"
 msgid "Unable to create folder."
 msgstr "不能建立文件夹"
 
-msgid "Unable to load path."
-msgstr "不能找到路径。"
+msgid "Unable to load path:"
+msgstr ""
 
 msgid "Unknown"
 msgstr "未知"
-
-msgid "Unknown error occured."
-msgstr "出现未知错误。"
 
 msgid "Unsupported format!"
 msgstr "不支持的格式！"
@@ -1635,6 +1640,9 @@ msgstr "和所有的翻译者。"
 msgid "asdfghjkl;'="
 msgstr "asdfghjkl;'="
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1652,6 +1660,30 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr "~!@#$%^&*()_"
+
+#~ msgid "Copy of"
+#~ msgstr "复制其中"
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "是否再次加载设备？"
+
+#~ msgid "ERROR: %i"
+#~ msgstr "错误：%i"
+
+#~ msgid "Failed adding the item(s)"
+#~ msgstr "添加项目失败"
+
+#~ msgid "Failed adding the item(s)."
+#~ msgstr "添加项目失败"
+
+#~ msgid "Reloading file list..."
+#~ msgstr "重新读取文件列表。。。"
+
+#~ msgid "Unable to load path."
+#~ msgstr "不能找到路径。"
+
+#~ msgid "Unknown error occured."
+#~ msgstr "出现未知错误。"
 
 #~ msgid "Listing files in"
 #~ msgstr "监听文件在"
@@ -1757,9 +1789,6 @@ msgstr "~!@#$%^&*()_"
 
 #~ msgid "Reload"
 #~ msgstr "重新运行"
-
-#~ msgid "Remounting all devices."
-#~ msgstr "正在重新挂载所有设备。"
 
 #~ msgid "You do not have BootMii installed!"
 #~ msgstr "你没有安装BootMii！"

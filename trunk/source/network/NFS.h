@@ -1,6 +1,6 @@
- /****************************************************************************
+ /***************************************************************************
  * Copyright (C) 2010
- * by Dimok
+ * by r-win 
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any
@@ -21,22 +21,18 @@
  * 3. This notice may not be removed or altered from any source
  * distribution.
  *
+ * NFS.h
+ *
  * for WiiXplorer 2010
  ***************************************************************************/
-#ifndef _NETWORKOPS_H_
-#define _NETWORKOPS_H_
+#ifndef _NFS_H_
+#define _NFS_H_
 
-#include "SMB.h"
-#include "FTPClient.h"
-#include "NFS.h"
-
-void Initialize_Network(void);
-void DeInit_Network(void);
-bool IsNetworkInit(void);
-char * GetNetworkIP(void);
-void HaltNetworkThread();
-void ResumeNetworkThread();
-void InitNetworkThread();
-void ShutdownNetworkThread();
+bool ConnectNFS();
+bool ConnectNFS(int client);
+void CloseNFS();
+void CloseNFS(int connection);
+bool IsNFS_Mounted(int nfs);
+bool NFS_Reconnect();
 
 #endif

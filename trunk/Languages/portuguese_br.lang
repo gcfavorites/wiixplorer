@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -267,8 +267,8 @@ msgstr "Prioridade de cópia"
 msgid "Copy current marked item(s)?"
 msgstr "Copiar seleção?"
 
-msgid "Copy of"
-msgstr "Copia de"
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "Copiando item(s):"
@@ -348,6 +348,9 @@ msgstr "Diretório .."
 msgid "Disconnect Client"
 msgstr "Desconectar Cliente"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "Desconectar SMB"
 
@@ -377,6 +380,9 @@ msgstr "Quer apagar este arquivo:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "Quer desconectar o cliente FTP?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "Quer desconectar esse SMB?"
@@ -415,8 +421,8 @@ msgstr "Quer reconectar este SMB?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Quer reconectar o cliente FTP?"
 
-msgid "Do you want to remount the devices?"
-msgstr "Quer montar os dispositivos novamente?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "Quer substituir este arquivo?"
@@ -460,10 +466,6 @@ msgstr "Baixando arquivo..."
 
 msgid "Downloading files..."
 msgstr "Baixando arquivos..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr ""
 
 msgid "Edit Textline Button"
 msgstr "Botão Editar Linha"
@@ -560,10 +562,7 @@ msgstr "FTP iniciado.\n"
 msgid "Fade Speed"
 msgstr "Velocidade de Esvanecimento"
 
-msgid "Failed adding the item(s)"
-msgstr ""
-
-msgid "Failed adding the item(s)."
+msgid "Failed adding some item(s)."
 msgstr ""
 
 msgid "Failed copying some item(s)."
@@ -592,6 +591,9 @@ msgstr "Falha renomeando ítem"
 
 msgid "Failed to get the Changelog."
 msgstr "Erro ao listar alterações"
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr "Erro ao carregar o canal."
@@ -939,6 +941,9 @@ msgstr ""
 msgid "Mounted as:"
 msgstr "Montado como:"
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "Movendo itens:"
 
@@ -950,6 +955,9 @@ msgstr "Modo Repetir Música"
 
 msgid "Music Volume"
 msgstr "Volume da Música"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "NENHUM"
@@ -1193,11 +1201,11 @@ msgstr "Reconexão falhou. Compartilhamento desconectado."
 msgid "Red"
 msgstr "Vermelho"
 
-msgid "Reloading file list..."
-msgstr ""
-
 msgid "Remount"
 msgstr ""
+
+msgid "Remounting all devices."
+msgstr "Remontando todos os dispositivos"
 
 msgid "Remove Link"
 msgstr "Remover atalho"
@@ -1419,14 +1427,11 @@ msgstr "Formato desconhecido. Abrir no editor de texto?"
 msgid "Unable to create folder."
 msgstr "Impossível criar pasta."
 
-msgid "Unable to load path."
-msgstr "Impossível carregar caminho."
+msgid "Unable to load path:"
+msgstr ""
 
 msgid "Unknown"
 msgstr "Desconhecido"
-
-msgid "Unknown error occured."
-msgstr ""
 
 msgid "Unsupported format!"
 msgstr "Formato não suportado!"
@@ -1624,6 +1629,9 @@ msgstr "e todos os tradutores."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1641,6 +1649,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Copy of"
+#~ msgstr "Copia de"
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "Quer montar os dispositivos novamente?"
+
+#~ msgid "Unable to load path."
+#~ msgstr "Impossível carregar caminho."
 
 #~ msgid "Listing files in"
 #~ msgstr "Listando arquivos em"
@@ -1740,9 +1757,6 @@ msgstr ""
 
 #~ msgid "Reload"
 #~ msgstr "Recarregar"
-
-#~ msgid "Remounting all devices."
-#~ msgstr "Remontando todos os dispositivos"
 
 #~ msgid "USB Device"
 #~ msgstr "Dispositivo USB"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -267,8 +267,8 @@ msgstr "コピーのスレッドの優先度"
 msgid "Copy current marked item(s)?"
 msgstr "選択されたアイテムをコピーしますか?"
 
-msgid "Copy of"
-msgstr "コピーされた"
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "コピーしています:"
@@ -348,6 +348,9 @@ msgstr "ﾃﾞｨﾚｸﾄﾘ .."
 msgid "Disconnect Client"
 msgstr "クライアントを切断"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "SMBを切断"
 
@@ -377,6 +380,9 @@ msgstr "このファイルを削除しますか?"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "FTPクライアントを切断しますか?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "SMBを切断しますか?"
@@ -415,8 +421,8 @@ msgstr "再接続しますか?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "FTPクライアントに再接続しますか?"
 
-msgid "Do you want to remount the devices?"
-msgstr "デバイスをリマウントしますか?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "このファイルを置き換えますか?"
@@ -460,10 +466,6 @@ msgstr "ダウンロード中…"
 
 msgid "Downloading files..."
 msgstr "ダウンロード中…"
-
-#, c-format
-msgid "ERROR: %i"
-msgstr "エラー: %i"
 
 msgid "Edit Textline Button"
 msgstr "テキストの行編集"
@@ -560,11 +562,8 @@ msgstr "FTPを開始しました\n"
 msgid "Fade Speed"
 msgstr "フェード速度"
 
-msgid "Failed adding the item(s)"
-msgstr "追加に失敗しました"
-
-msgid "Failed adding the item(s)."
-msgstr "追加に失敗しました"
+msgid "Failed adding some item(s)."
+msgstr ""
 
 msgid "Failed copying some item(s)."
 msgstr ""
@@ -592,6 +591,9 @@ msgstr "リネームに失敗しました"
 
 msgid "Failed to get the Changelog."
 msgstr "更新履歴を受信できませんでした"
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr "チャンネルを読み込めませんでした"
@@ -939,6 +941,9 @@ msgstr "Wiiメニューへ"
 msgid "Mounted as:"
 msgstr "マウント中:"
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "移動しています"
 
@@ -950,6 +955,9 @@ msgstr "音楽の再生"
 
 msgid "Music Volume"
 msgstr "音量"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "なし"
@@ -1193,11 +1201,11 @@ msgstr "再接続できませんでした"
 msgid "Red"
 msgstr "赤"
 
-msgid "Reloading file list..."
-msgstr "ファイルリストを再読み込み中です…"
-
 msgid "Remount"
 msgstr ""
+
+msgid "Remounting all devices."
+msgstr "全てのデバイスを再マウントしています"
 
 msgid "Remove Link"
 msgstr "リンクを削除"
@@ -1419,14 +1427,11 @@ msgstr "テキストエディタで開きますか?"
 msgid "Unable to create folder."
 msgstr "フォルダを作成できませんでした"
 
-msgid "Unable to load path."
-msgstr "パスを読み込めませんでした"
+msgid "Unable to load path:"
+msgstr ""
 
 msgid "Unknown"
 msgstr "不明"
-
-msgid "Unknown error occured."
-msgstr "原因不明のエラーが起きました"
 
 msgid "Unsupported format!"
 msgstr "対応していない形式です!"
@@ -1624,6 +1629,9 @@ msgstr ", K-M…日本語への翻訳"
 msgid "asdfghjkl;'="
 msgstr "ちとしはきくまのりれけむ"
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1641,6 +1649,30 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_"
 msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Copy of"
+#~ msgstr "コピーされた"
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "デバイスをリマウントしますか?"
+
+#~ msgid "ERROR: %i"
+#~ msgstr "エラー: %i"
+
+#~ msgid "Failed adding the item(s)"
+#~ msgstr "追加に失敗しました"
+
+#~ msgid "Failed adding the item(s)."
+#~ msgstr "追加に失敗しました"
+
+#~ msgid "Reloading file list..."
+#~ msgstr "ファイルリストを再読み込み中です…"
+
+#~ msgid "Unable to load path."
+#~ msgstr "パスを読み込めませんでした"
+
+#~ msgid "Unknown error occured."
+#~ msgstr "原因不明のエラーが起きました"
 
 #~ msgid "Listing files in"
 #~ msgstr "ファイルをリスト化中:"
@@ -1746,9 +1778,6 @@ msgstr "ばびぶべぼ\\=!?#～ー"
 
 #~ msgid "Reload"
 #~ msgstr "再読み込み"
-
-#~ msgid "Remounting all devices."
-#~ msgstr "全てのデバイスを再マウントしています"
 
 #~ msgid "You do not have BootMii installed!"
 #~ msgstr "BootMiiがインストールされていません!"

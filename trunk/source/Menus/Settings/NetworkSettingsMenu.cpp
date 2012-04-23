@@ -18,6 +18,7 @@
 #include "FTPServerSettingsMenu.h"
 #include "FTPClientSettingsMenu.h"
 #include "SMBSettingsMenu.h"
+#include "NFSSettingsMenu.h"
 #include "Controls/Application.h"
 #include "Prompts/PromptWindows.h"
 #include "network/networkops.h"
@@ -62,6 +63,7 @@ void NetworkSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("SMB Settings"));
 	options.SetName(i++, tr("FTP Client Settings"));
 	options.SetName(i++, tr("FTP Server Settings"));
+	options.SetName(i++, tr("NFS Settings"));
 
 	SetOptionValues();
 }
@@ -78,6 +80,8 @@ void NetworkSettingsMenu::SetOptionValues()
 
 	if(Settings.UpdateIconpng == 1) options.SetValue(i++, tr("ON"));
 	else if(Settings.UpdateIconpng == 0) options.SetValue(i++, tr("OFF"));
+
+	options.SetValue(i++, " ");
 
 	options.SetValue(i++, " ");
 
@@ -142,6 +146,14 @@ void NetworkSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 			this->hide();
 
 			FTPServerSettingsMenu *menu = new FTPServerSettingsMenu(this);
+			Application::Instance()->Append(menu);
+			break;
+		}
+		case 6:
+		{
+			this->hide();
+
+			NFSSettingsMenu *menu = new NFSSettingsMenu(this);
 			Application::Instance()->Append(menu);
 			break;
 		}
