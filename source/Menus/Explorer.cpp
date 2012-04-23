@@ -289,6 +289,10 @@ void Explorer::SetDeviceImage()
 	{
 		deviceImg->SetImage(ftpstorage);
 	}
+	else if(strncmp(currentroot, DeviceName[NFS1], 3) == 0)
+	{
+		deviceImg->SetImage(networkstorage);
+	}
 	else if(strncmp(currentroot, DeviceName[NAND], 4) == 0)
 	{
 		deviceImg->SetImage(nand_ImgData);

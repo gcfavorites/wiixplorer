@@ -30,6 +30,7 @@
 #include <sdcard/gcsd.h>
 #include "network/SMB.h"
 #include "network/FTPClient.h"
+#include "network/NFS.h"
 #include "mload/usb2storage.h"
 #include "System/isfs.h"
 #include "DeviceHandler.hpp"
@@ -122,6 +123,9 @@ bool DeviceHandler::Mount(int dev)
 	else if(dev >= FTP1 && dev <= FTP10)
 		return ConnectFTP(dev-FTP1);
 
+	else if(dev >= NFS1 && dev <= NFS10)
+		return ConnectNFS(dev-NFS1);
+
 	else if(dev == NAND)
 		return MountNAND();
 
@@ -151,6 +155,9 @@ bool DeviceHandler::IsInserted(int dev)
 	else if(dev >= FTP1 && dev <= FTP10)
 		return IsFTPConnected(dev-FTP1); //later
 
+	else if(dev >= NFS1 && dev <= NFS10)
+		return IsNFS_Mounted(dev-NFS1);
+
 	else if(dev == NAND)
 		return true;
 
@@ -179,6 +186,9 @@ void DeviceHandler::UnMount(int dev)
 
 	else if(dev >= FTP1 && dev <= FTP10)
 		CloseFTP(dev-FTP1);
+
+	else if(dev >= NFS1 && dev <= NFS10)
+		CloseNFS(dev-FTP1);
 
 	else if(dev == NAND)
 		UnMountNAND();

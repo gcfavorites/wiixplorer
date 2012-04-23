@@ -80,6 +80,8 @@ class CSettings
 		short  	CurrentSMBUser;
 		//!Current selected FTP user
 		short  	CurrentFTPUser;
+		//!Current selected NFS user
+		short  	CurrentNFSUser;
 		//!Music Volume.
 		short  	MusicVolume;
 		//!BGM Loop Mode
@@ -157,6 +159,8 @@ class CSettings
 		FTPData FTPUser[MAXFTPUSERS];
 		//!FTP server informations
 		FTPServerData FTPServer;
+		//!NFS server informations
+		NFSData NFSUser[MAXNFSUSERS];
 		//!Internal WiiXplorer FileExtensions
 		FilesExtensions FileExtensions;
 		//!The controls of the App

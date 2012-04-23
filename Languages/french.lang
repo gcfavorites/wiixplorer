@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: wixx\n"
 "Language-Team: \n"
@@ -267,8 +267,8 @@ msgstr "Priorité du processus de copie"
 msgid "Copy current marked item(s)?"
 msgstr "Copier le(s) élement(s) marqué(s)?"
 
-msgid "Copy of"
-msgstr "Copie de "
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "Copie en cours:"
@@ -348,6 +348,9 @@ msgstr "Dossier .."
 msgid "Disconnect Client"
 msgstr "Déconnecter le Client"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "Déconnecter SMB"
 
@@ -377,6 +380,9 @@ msgstr "Voulez-vous supprimer ce fichier:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "Voulez-vous déconnecter le Client FTP?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "Voulez-vous déconnecter ce partage SMB?"
@@ -415,8 +421,8 @@ msgstr "Voulez-vous reconnecter à ce partage SMB?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Voulez-vous reconnecter au client FTP?"
 
-msgid "Do you want to remount the devices?"
-msgstr "Voulez-vous remonter les périphériques?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "Voulez-vous remplacer ce fichier?"
@@ -460,10 +466,6 @@ msgstr "Téléchargement du fichier..."
 
 msgid "Downloading files..."
 msgstr "Téléchargement des fichiers..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr "ERREUR: %i"
 
 msgid "Edit Textline Button"
 msgstr "Editer le libellé du bouton"
@@ -560,11 +562,8 @@ msgstr "FTP démarré.\n"
 msgid "Fade Speed"
 msgstr "Vitesse de transition"
 
-msgid "Failed adding the item(s)"
-msgstr "L'addition a échoué"
-
-msgid "Failed adding the item(s)."
-msgstr "L'addition a échoué."
+msgid "Failed adding some item(s)."
+msgstr ""
 
 msgid "Failed copying some item(s)."
 msgstr ""
@@ -592,6 +591,9 @@ msgstr "Le renommage a échoué."
 
 msgid "Failed to get the Changelog."
 msgstr "L'obtention du Changelog a échoué."
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr "Le chargement de la chaîne a échoué."
@@ -939,6 +941,9 @@ msgstr ""
 msgid "Mounted as:"
 msgstr "Monté dans:"
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "Déplacement:"
 
@@ -950,6 +955,9 @@ msgstr "Lecture en boucle"
 
 msgid "Music Volume"
 msgstr "Volume"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "Sans"
@@ -1193,11 +1201,11 @@ msgstr "La reconnexion a échoué. Aucun partage connecté."
 msgid "Red"
 msgstr "Rouge"
 
-msgid "Reloading file list..."
-msgstr "Mise à jour de la liste des fichier"
-
 msgid "Remount"
 msgstr ""
+
+msgid "Remounting all devices."
+msgstr "Remontage de tous les périphériques."
 
 msgid "Remove Link"
 msgstr "Suppression du lien"
@@ -1419,14 +1427,11 @@ msgstr "Format inconnu. Voulez-vous ouvrir le fichier avec l'Editeur de Texte"
 msgid "Unable to create folder."
 msgstr "Impossible de créer le dossier."
 
-msgid "Unable to load path."
-msgstr "Chemin introuvable."
+msgid "Unable to load path:"
+msgstr ""
 
 msgid "Unknown"
 msgstr "Inconnu"
-
-msgid "Unknown error occured."
-msgstr "Une erreur inconnue est survenue."
 
 msgid "Unsupported format!"
 msgstr "Format non supporté !"
@@ -1624,6 +1629,9 @@ msgstr "et tous les traducteurs."
 msgid "asdfghjkl;'="
 msgstr "qsdfghjklm'="
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1641,6 +1649,30 @@ msgstr "wxcvbn:,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Copy of"
+#~ msgstr "Copie de "
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "Voulez-vous remonter les périphériques?"
+
+#~ msgid "ERROR: %i"
+#~ msgstr "ERREUR: %i"
+
+#~ msgid "Failed adding the item(s)"
+#~ msgstr "L'addition a échoué"
+
+#~ msgid "Failed adding the item(s)."
+#~ msgstr "L'addition a échoué."
+
+#~ msgid "Reloading file list..."
+#~ msgstr "Mise à jour de la liste des fichier"
+
+#~ msgid "Unable to load path."
+#~ msgstr "Chemin introuvable."
+
+#~ msgid "Unknown error occured."
+#~ msgstr "Une erreur inconnue est survenue."
 
 #~ msgid "Listing files in"
 #~ msgstr "Lister les fichiers dans"
@@ -1743,9 +1775,6 @@ msgstr ""
 
 #~ msgid "Reload"
 #~ msgstr "Recharger"
-
-#~ msgid "Remounting all devices."
-#~ msgstr "Remontage de tous les périphériques."
 
 #~ msgid "You do not have BootMii installed!"
 #~ msgstr "BootMii n'est pas installé"

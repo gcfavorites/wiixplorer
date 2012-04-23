@@ -139,6 +139,7 @@ static void * networkinitcallback(void *arg UNUSED)
 				FTPServer::Instance()->StartupFTP();
 
 			ConnectFTP();
+			ConnectNFS();
 			CheckForUpdate();
 
 			LWP_SetThreadPriority(networkthread, 0);

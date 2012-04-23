@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2010-12-11 15:38-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
@@ -268,8 +268,8 @@ msgstr "Kopier-Priorität: Normal"
 msgid "Copy current marked item(s)?"
 msgstr "Auswahl kopieren?"
 
-msgid "Copy of"
-msgstr "Kopie von"
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "Kopiere Element(e):"
@@ -349,6 +349,9 @@ msgstr "Verzeichnis .."
 msgid "Disconnect Client"
 msgstr "> FTP-Verbindung trennen <"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "> SMB-Verbindung trennen <"
 
@@ -378,6 +381,9 @@ msgstr "Diese Datei löschen:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "FTP-Verbindung trennen?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "Netzwerkfreigabe (SMB) trennen?"
@@ -416,8 +422,8 @@ msgstr "Mit dieser Netzwerkfreigabe verbinden?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Mit diesem FTP-Client verbinden?"
 
-msgid "Do you want to remount the devices?"
-msgstr "Laufwerke erneut einlesen?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "Diese Datei ersetzen?"
@@ -461,10 +467,6 @@ msgstr "Lade Datei herunter..."
 
 msgid "Downloading files..."
 msgstr "Dateien werden heruntergeladen..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr "FEHLER: %i"
 
 msgid "Edit Textline Button"
 msgstr "Textzeile bearbeiten mit"
@@ -561,11 +563,8 @@ msgstr "FTP-Server gestartet.\n"
 msgid "Fade Speed"
 msgstr "Ausblendzeit in Sekunden"
 
-msgid "Failed adding the item(s)"
-msgstr "Element(e) hinzufügen ist fehlgeschlagen"
-
-msgid "Failed adding the item(s)."
-msgstr "Element(e) hinzufügen ist fehlgeschlagen."
+msgid "Failed adding some item(s)."
+msgstr ""
 
 msgid "Failed copying some item(s)."
 msgstr ""
@@ -593,6 +592,9 @@ msgstr "Umbenennen des Elementes fehlgeschlagen"
 
 msgid "Failed to get the Changelog."
 msgstr "Laden des ChangeLog fehlgeschlagen."
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr "Laden des Kanals fehlgeschlagen."
@@ -940,6 +942,9 @@ msgstr "Menü"
 msgid "Mounted as:"
 msgstr "Eingebunden als:"
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "Verschiebe Element(e):"
 
@@ -951,6 +956,9 @@ msgstr "Wiederholung"
 
 msgid "Music Volume"
 msgstr "Lautstärke"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "Nichts"
@@ -1194,11 +1202,11 @@ msgstr "  Verbindungsversuch fehlgeschlagen.          Keine Netzwerkfreigabe gef
 msgid "Red"
 msgstr "Rot"
 
-msgid "Reloading file list..."
-msgstr "Dateiliste wird aktualisiert..."
-
 msgid "Remount"
 msgstr ""
+
+msgid "Remounting all devices."
+msgstr "Alle Speichermedien werden erneut eingebunden."
 
 msgid "Remove Link"
 msgstr "Link entfernen"
@@ -1420,14 +1428,11 @@ msgstr "Unbekanntes Format. Diese Datei mit dem TextEditor öffnen?"
 msgid "Unable to create folder."
 msgstr "Ordner konnte nicht erstellt werden."
 
-msgid "Unable to load path."
-msgstr "Pfad konnte nicht geöffnet werden."
+msgid "Unable to load path:"
+msgstr ""
 
 msgid "Unknown"
 msgstr "Unbekannt"
-
-msgid "Unknown error occured."
-msgstr "Ein unbekannter Fehler ist aufgetreten."
 
 msgid "Unsupported format!"
 msgstr "Nicht unterstütztes Format!"
@@ -1625,6 +1630,9 @@ msgstr "und alle Übersetzer."
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1642,6 +1650,30 @@ msgstr "yxcvbnm,./"
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Copy of"
+#~ msgstr "Kopie von"
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "Laufwerke erneut einlesen?"
+
+#~ msgid "ERROR: %i"
+#~ msgstr "FEHLER: %i"
+
+#~ msgid "Failed adding the item(s)"
+#~ msgstr "Element(e) hinzufügen ist fehlgeschlagen"
+
+#~ msgid "Failed adding the item(s)."
+#~ msgstr "Element(e) hinzufügen ist fehlgeschlagen."
+
+#~ msgid "Reloading file list..."
+#~ msgstr "Dateiliste wird aktualisiert..."
+
+#~ msgid "Unable to load path."
+#~ msgstr "Pfad konnte nicht geöffnet werden."
+
+#~ msgid "Unknown error occured."
+#~ msgstr "Ein unbekannter Fehler ist aufgetreten."
 
 #~ msgid "Listing files in"
 #~ msgstr "Liste Dateien in"
@@ -1747,9 +1779,6 @@ msgstr ""
 
 #~ msgid "Reload"
 #~ msgstr "Erneut mounten"
-
-#~ msgid "Remounting all devices."
-#~ msgstr "Alle Speichermedien werden erneut eingebunden."
 
 #~ msgid "You do not have BootMii installed!"
 #~ msgstr "Du hast BootMii nicht installiert!"

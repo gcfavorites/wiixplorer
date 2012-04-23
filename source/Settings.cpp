@@ -49,6 +49,7 @@ void CSettings::SetDefault()
 	MusicVolume = 80;
 	CurrentSMBUser = 0;
 	CurrentFTPUser = 0;
+	CurrentNFSUser = 0;
 	BGMLoopMode = 1;
 	SlideshowDelay = 4;
 	ImageFadeSpeed = 20;
@@ -104,6 +105,11 @@ void CSettings::SetDefault()
 	strcpy(FTPServer.Password, "");
 	FTPServer.Port = 21;
 
+	for(int i = 0; i < MAXNFSUSERS; i++) {
+		strcpy(NFSUser[i].Host, "");
+		strcpy(NFSUser[i].Mountpoint, "");
+	}
+
 	FileExtensions.SetDefault();
 	Controls.SetDefault();
 
@@ -158,6 +164,7 @@ bool CSettings::Save()
 	fprintf(file, "BootIOS = %d\n", BootIOS);
 	fprintf(file, "CurrentSMBUser = %d\n", CurrentSMBUser);
 	fprintf(file, "CurrentFTPUser = %d\n", CurrentFTPUser);
+	fprintf(file, "CurrentNFSUser = %d\n", CurrentNFSUser);
 	fprintf(file, "LanguagePath = %s\n", LanguagePath);
 	fprintf(file, "MusicVolume = %d\n", MusicVolume);
 	fprintf(file, "BGMLoopMode = %d\n", BGMLoopMode);
@@ -251,6 +258,14 @@ bool CSettings::Save()
 		EncryptString(FTPServer.Password, password);
 	fprintf(file, "FTPServer.CPassword = %s\n", password);
 	fprintf(file, "FTPServer.Port = %d\n", FTPServer.Port);
+
+	fprintf(file, "\n# NFS Setup Information\n\n");
+	for (int i = 0; i < MAXNFSUSERS; i++) {
+		fprintf(file, "NFSUser[%d].Host = %s\n", i+1, NFSUser[i].Host);
+		fprintf(file, "NFSUser[%d].Mountpoint = %s\n", i+1, NFSUser[i].Mountpoint);
+	}
+
+
 	fclose(file);
 
 	Controls.Save();
@@ -832,6 +847,19 @@ bool CSettings::SetSetting(char *name, char *value)
 				if (sscanf(value, "%d", &i) == 1) {
 					FTPUser[n].Passive = i;
 				}
+				return true;
+			}
+		}
+
+		for(n = 0; n < MAXNFSUSERS; n++) {
+			sprintf(temp, "NFSUser[%d].Host", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(NFSUser[n].Host, value, sizeof(NFSUser[n].Host));
+				return true;
+			}
+			sprintf(temp, "NFSUser[%d].Mountpoint", n+1);
+			if (stricmp(name, temp) == 0) {
+				strncpy(NFSUser[n].Mountpoint, value, sizeof(NFSUser[n].Mountpoint));
 				return true;
 			}
 		}

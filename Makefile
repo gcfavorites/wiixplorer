@@ -59,7 +59,8 @@ LDFLAGS		=	-g -ggdb $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
 LIBS := -lmupdf -lzip -lunrar -lsevenzip -ldi -lgd -ltiff -ljpeg -lpng -lz -lfat -lext2fs \
-		-lntfs -ltinysmb -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml
+		-lntfs -ltinysmb -lmad -lwiiuse -lbte -lasnd -logc -lvorbisidec -lfreetype -lmxml \
+		-lnfs
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib

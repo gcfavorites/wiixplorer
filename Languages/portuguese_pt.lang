@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -267,8 +267,8 @@ msgstr ""
 msgid "Copy current marked item(s)?"
 msgstr "Copiar o(s) item(s) marcado(s)?"
 
-msgid "Copy of"
-msgstr "Cópia de"
+msgid "Copy of "
+msgstr ""
 
 msgid "Copying item(s):"
 msgstr "Copiando item(s):"
@@ -348,6 +348,9 @@ msgstr "Pasta .."
 msgid "Disconnect Client"
 msgstr "Desligar Cliente"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "Desligar SMB"
 
@@ -377,6 +380,9 @@ msgstr "Deseja eliminar este ficheiro:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "Desligar o cliente FTP?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "Desligar este SMB?"
@@ -415,8 +421,8 @@ msgstr "Ligar novamente a este SMB?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Ligar novamente ao cliente FTP?"
 
-msgid "Do you want to remount the devices?"
-msgstr "Montar novamente os dispositivos?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "Substituir este ficheiro?"
@@ -460,10 +466,6 @@ msgstr "Descarregando ficheiro..."
 
 msgid "Downloading files..."
 msgstr "Descarregando ficheiros..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr ""
 
 msgid "Edit Textline Button"
 msgstr "Editar Linha de Texto"
@@ -560,10 +562,7 @@ msgstr "FTP Iniciado.\n"
 msgid "Fade Speed"
 msgstr "Velocidade de Desvanecimento"
 
-msgid "Failed adding the item(s)"
-msgstr ""
-
-msgid "Failed adding the item(s)."
+msgid "Failed adding some item(s)."
 msgstr ""
 
 msgid "Failed copying some item(s)."
@@ -592,6 +591,9 @@ msgstr "Falha ao renomear o item"
 
 msgid "Failed to get the Changelog."
 msgstr "Falha ao obter o Changelog."
+
+msgid "Failed to initialize network."
+msgstr ""
 
 msgid "Failed to load the channel."
 msgstr ""
@@ -939,6 +941,9 @@ msgstr "Menu"
 msgid "Mounted as:"
 msgstr ""
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr "Movendo item(s):"
 
@@ -950,6 +955,9 @@ msgstr "Modo de Repetição de Música"
 
 msgid "Music Volume"
 msgstr "Volume da Música"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr "Nenhum"
@@ -1193,10 +1201,10 @@ msgstr ""
 msgid "Red"
 msgstr ""
 
-msgid "Reloading file list..."
+msgid "Remount"
 msgstr ""
 
-msgid "Remount"
+msgid "Remounting all devices."
 msgstr ""
 
 msgid "Remove Link"
@@ -1419,13 +1427,10 @@ msgstr "Formato desconhecido. Abrir este ficheiro com o TexEditor?"
 msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
 
-msgid "Unable to load path."
-msgstr "Não foi possível aceder à pasta."
-
-msgid "Unknown"
+msgid "Unable to load path:"
 msgstr ""
 
-msgid "Unknown error occured."
+msgid "Unknown"
 msgstr ""
 
 msgid "Unsupported format!"
@@ -1624,6 +1629,9 @@ msgstr "e todos os tradutores."
 msgid "asdfghjkl;'="
 msgstr "asdfghjklçº~"
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1641,6 +1649,15 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_"
 msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Copy of"
+#~ msgstr "Cópia de"
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "Montar novamente os dispositivos?"
+
+#~ msgid "Unable to load path."
+#~ msgstr "Não foi possível aceder à pasta."
 
 #~ msgid "1"
 #~ msgstr "1"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:37+0100\n"
+"POT-Creation-Date: 2012-04-23 16:58+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Copy current marked item(s)?"
 msgstr "Копировать выделенные объекты?"
 
-msgid "Copy of"
+msgid "Copy of "
 msgstr ""
 
 msgid "Copying item(s):"
@@ -349,6 +349,9 @@ msgstr "Директория .."
 msgid "Disconnect Client"
 msgstr "Отключить FTP"
 
+msgid "Disconnect NFS"
+msgstr ""
+
 msgid "Disconnect SMB"
 msgstr "Отключить SMB"
 
@@ -378,6 +381,9 @@ msgstr "Вы хотите удалить этот файл:"
 
 msgid "Do you want to disconnect the FTP client?"
 msgstr "Отключить этот FTP клиент?"
+
+msgid "Do you want to disconnect this NFS?"
+msgstr ""
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "Отключить этот SMB клиент?"
@@ -416,8 +422,8 @@ msgstr "Восстановить это SMB соединение?"
 msgid "Do you want to reconnect to the FTP client?"
 msgstr "Восстановить это FTP соединение?"
 
-msgid "Do you want to remount the devices?"
-msgstr "Перезагрузить SD и USB ?"
+msgid "Do you want to remount all devices?"
+msgstr ""
 
 msgid "Do you want to replace this file?"
 msgstr "Заменить этот файл?"
@@ -461,10 +467,6 @@ msgstr "Загрузка файла..."
 
 msgid "Downloading files..."
 msgstr "Загрузка файлов..."
-
-#, c-format
-msgid "ERROR: %i"
-msgstr ""
 
 msgid "Edit Textline Button"
 msgstr ""
@@ -561,10 +563,7 @@ msgstr ""
 msgid "Fade Speed"
 msgstr "Скорость Fade"
 
-msgid "Failed adding the item(s)"
-msgstr ""
-
-msgid "Failed adding the item(s)."
+msgid "Failed adding some item(s)."
 msgstr ""
 
 msgid "Failed copying some item(s)."
@@ -592,6 +591,9 @@ msgid "Failed renaming item"
 msgstr ""
 
 msgid "Failed to get the Changelog."
+msgstr ""
+
+msgid "Failed to initialize network."
 msgstr ""
 
 msgid "Failed to load the channel."
@@ -940,6 +942,9 @@ msgstr "Меню Wii"
 msgid "Mounted as:"
 msgstr ""
 
+msgid "Mountpoint:"
+msgstr ""
+
 msgid "Moving item(s):"
 msgstr ""
 
@@ -951,6 +956,9 @@ msgstr "Режим воспроизведения"
 
 msgid "Music Volume"
 msgstr "Громкость"
+
+msgid "NFS Settings"
+msgstr ""
 
 msgid "NONE"
 msgstr ""
@@ -1194,10 +1202,10 @@ msgstr ""
 msgid "Red"
 msgstr ""
 
-msgid "Reloading file list..."
+msgid "Remount"
 msgstr ""
 
-msgid "Remount"
+msgid "Remounting all devices."
 msgstr ""
 
 msgid "Remove Link"
@@ -1420,13 +1428,10 @@ msgstr "Неизвестный формат. Открыть файл в TextEdit
 msgid "Unable to create folder."
 msgstr "Не удалось создать папку."
 
-msgid "Unable to load path."
+msgid "Unable to load path:"
 msgstr ""
 
 msgid "Unknown"
-msgstr ""
-
-msgid "Unknown error occured."
 msgstr ""
 
 msgid "Unsupported format!"
@@ -1625,6 +1630,9 @@ msgstr ""
 msgid "asdfghjkl;'="
 msgstr ""
 
+msgid "devices"
+msgstr ""
+
 msgid "files"
 msgstr ""
 
@@ -1642,6 +1650,9 @@ msgstr ""
 
 msgid "~!@#$%^&*()_"
 msgstr ""
+
+#~ msgid "Do you want to remount the devices?"
+#~ msgstr "Перезагрузить SD и USB ?"
 
 #~ msgid "Deleting files:"
 #~ msgstr "Удаление файлов:"

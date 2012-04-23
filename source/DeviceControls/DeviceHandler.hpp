@@ -63,6 +63,16 @@ enum
 	FTP10,
 	NAND,
 	DVD,
+	NFS1,
+	NFS2,
+	NFS3,
+	NFS4,
+	NFS5,
+	NFS6,
+	NFS7,
+	NFS8,
+	NFS9,
+	NFS10,
 	MAXDEVICES
 };
 
@@ -103,6 +113,16 @@ const char DeviceName[MAXDEVICES][6] =
 	"ftp10",
 	"nand",
 	"dvd",
+	"nfs1",
+	"nfs2",
+	"nfs3",
+	"nfs4",
+	"nfs5",
+	"nfs6",
+	"nfs7",
+	"nfs8",
+	"nfs9",
+	"nfs10",
 };
 
 class DeviceHandler
