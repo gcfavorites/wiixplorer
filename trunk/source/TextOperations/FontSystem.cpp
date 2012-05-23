@@ -24,6 +24,7 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "FreeTypeGX.h"
+#include "Memory/mem2.h"
 
 extern const u8 font_ttf[];
 extern const u32 font_ttf_size;
@@ -47,7 +48,7 @@ void ClearFontData()
 	if(MainFont != (FT_Byte *) font_ttf)
 	{
 		if(MainFont != NULL)
-			delete [] MainFont;
+			MEM2_free(MainFont);
 		MainFont = (FT_Byte *) font_ttf;
 		MainFontSize = font_ttf_size;
 	}
@@ -69,7 +70,7 @@ bool SetupDefaultFont(const char *path)
 		MainFontSize = ftell(pfile);
 		rewind(pfile);
 
-		MainFont = new (std::nothrow) FT_Byte[MainFontSize];
+		MainFont = (FT_Byte *) MEM2_alloc(MainFontSize);
 		if(!MainFont)
 		{
 			MainFont = (FT_Byte *) font_ttf;

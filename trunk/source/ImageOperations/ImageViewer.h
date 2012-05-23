@@ -1,35 +1,26 @@
-/***************************************************************************
- * Copyright (C) 2009
- * by r-win & Dimok
+/****************************************************************************
+ * Copyright (C) 2009 r-win
+ * Copyright (C) 2009 - 2012 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * ImageViewer.h
- *
- * for WiiXplorer 2009
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #ifndef __IMAGEVIEWER_H
 #define __IMAGEVIEWER_H
 
 #include "GUI/gui.h"
-#include "DirList.h"
+#include "FileOperations/DirListAsync.h"
+#include "FileOperations/FileLoadTask.h"
 
 class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 {
@@ -57,8 +48,8 @@ class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 		virtual void StartSlideShow();
 		//!Stop a Slideshow
 		virtual void StopSlideShow();
-		//!MainUpdate function. Callback for the main thread.
-		virtual int MainUpdate();
+		//!Replacement for draw function
+		virtual void Draw();
 	protected:
 		//!Setup the needed images/buttons/texts for the ImageViewer
 		virtual void Setup();
@@ -70,24 +61,32 @@ class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 		virtual bool LoadImageList(const char * filepath);
 		//!OnButtonClick intern callback for buttonclicks.
 		virtual void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		//!OnButtonHeld intern callback for button hold.
+		virtual void OnButtonHeld(GuiButton *sender, int pointer, const POINT &p);
+		//!OnButtonReleased intern callback for button release.
+		virtual void OnButtonReleased(GuiButton *sender, int pointer, const POINT &p);
+		//!This function is called when the listing of directory is finished
+		void OnDirListLoaded(DirListAsync *dirList);
+		//!This function is called when loading the image in the background is finished
+		void OnFinishedImageLoad(FileLoadTask *task, u8 *buffer, u32 buffer_size);
 		//!Variables of the ImageViewer
-		DirList * imageDir;
+		DirListAsync * imageDir;
 		int currentImage;
-		int currentState;
-		int slideshowDelay;
 		int clickPosX;
 		int clickPosY;
 		int buttonAlpha;
 		int rotateRight;
 		int rotateLeft;
-		bool wasPointerVisible;
 		bool isPointerVisible;
+		bool bImageLoading;
 
 		bool isAButtonPressed[4];
 		bool updateAlpha;
 		float currentAngle;
 
 		time_t SlideShowStart;
+
+		string currentImagePath;
 
 		GuiButton * prevButton;
 		GuiButton * nextButton;

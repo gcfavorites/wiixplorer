@@ -113,7 +113,7 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 void SzFile::DisplayError(SRes res)
 {
 	StopProgress();
-	ThrowMsg(tr("7z decompression failed:"), szerrormsg[(res - 1)], tr("OK"));
+	ThrowMsg(tr("7z decompression failed:"), szerrormsg[(res - 1)]);
 }
 
 u32 SzFile::GetItemCount()

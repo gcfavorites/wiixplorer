@@ -48,9 +48,9 @@ int ProcessTask::GetItemList(list<ItemList> &fileLists, bool listDirs)
 		{
 			fileLists.resize(fileLists.size()+1);
 			fileLists.back().basepath = Process.GetItemPath(i);
-			
+
 			string path;
-			
+
 			int res = ReadDirectory(path, fileLists.back(), listDirs);
 			if(res < 0)
 				ret = res;

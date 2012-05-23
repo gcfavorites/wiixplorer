@@ -147,7 +147,7 @@ InitVideo ()
 	else
 	{
 		if (pal)
-			vmode = &TVPal574IntDfScale;
+			vmode = &TVPal576IntDfScale;
 
 		vmode->viWidth = 672;
 	}
@@ -500,47 +500,93 @@ void CalculateCutoff(f32 realwidth, f32 realheight, f32 minwidth, f32 maxwidth,
  * Draws the specified image on screen using GX
  ***************************************************************************/
 void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos,
-				  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth,
-				  f32 minheight, f32 maxheight)
+				  f32 degrees, f32 scaleX, f32 scaleY, u8 alpha)
 {
 	if(data == NULL)
 		return;
 
 	GXTexObj texObj;
 
-	GX_InitTexObj(&texObj, data, width,height, format, GX_CLAMP, GX_CLAMP, GX_FALSE);
+	GX_InitTexObj(&texObj, data, width, height, format, GX_CLAMP, GX_CLAMP, GX_FALSE);
 	GX_LoadTexObj(&texObj, GX_TEXMAP0);
 	GX_InvalidateTexAll();
 
 	GX_SetVtxDesc (GX_VA_TEX0, GX_DIRECT);
 
 	Mtx m,m1,m2, mv;
-	width >>= 1;
-	height >>= 1;
+	f32 halfwidth = width * 0.5f;
+	f32 halfheight = height * 0.5f;
 	guMtxIdentity (m1);
-	guMtxScaleApply(m1,m1,scaleX,scaleY,1.0);
-	guVector axis = (guVector) {0 , 0, 1 };
-	guMtxRotAxisDeg (m2, &axis, degrees);
+	guMtxScaleApply(m1,m1,scaleX,scaleY, 1.0f);
+	guMtxRotDeg (m2, 'z', degrees);
 	guMtxConcat(m2,m1,m);
 
-	guMtxTransApply(m,m, xpos+width,ypos+height,zpos);
+	guMtxTransApply(m,m, xpos+halfwidth, ypos+halfheight, zpos);
 	guMtxConcat (GXmodelView2D, m, mv);
 	GX_LoadPosMtxImm (mv, GX_PNMTX0);
 
-	f32 realwidth = (f32) (width << 1);
-	f32 realheight = (f32) (height << 1);
+	GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
+	GX_Position3f32(-halfwidth, -halfheight, 0.0f);
+	GX_Color4u8(0xFF,0xFF,0xFF, alpha);
+	GX_TexCoord2f32(0.0f, 0.0f);
 
-	f32 w1 = (f32) -width, h1 = (f32) -height;
-	f32 w2 = (f32) width, h2 = (f32) -height;
-	f32 w3 = (f32) width, h3 = (f32) height;
-	f32 w4 = (f32) -width, h4 = (f32) height;
+	GX_Position3f32(halfwidth, -halfheight, 0.0f);
+	GX_Color4u8(0xFF,0xFF,0xFF, alpha);
+	GX_TexCoord2f32(1.0f, 0.0f);
+
+	GX_Position3f32(halfwidth, halfheight, 0.0f);
+	GX_Color4u8(0xFF,0xFF,0xFF, alpha);
+	GX_TexCoord2f32(1.0f, 1.0f);
+
+	GX_Position3f32(-halfwidth, halfheight, 0.0f);
+	GX_Color4u8(0xFF,0xFF,0xFF, alpha);
+	GX_TexCoord2f32(0.0f, 1.0f);
+	GX_End();
+
+	GX_LoadPosMtxImm (GXmodelView2D, GX_PNMTX0);
+}
+
+/****************************************************************************
+ * Menu_DrawImg with cut off
+ ***************************************************************************/
+void Menu_DrawImgCut(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypos, f32 zpos,
+					 f32 degrees, f32 scaleX, f32 scaleY, u8 alpha, f32 minwidth, f32 maxwidth,
+					 f32 minheight, f32 maxheight)
+{
+	if(data == NULL)
+		return;
+
+	GXTexObj texObj;
+
+	GX_InitTexObj(&texObj, data, width, height, format, GX_CLAMP, GX_CLAMP, GX_FALSE);
+	GX_LoadTexObj(&texObj, GX_TEXMAP0);
+	GX_InvalidateTexAll();
+
+	GX_SetVtxDesc (GX_VA_TEX0, GX_DIRECT);
+
+	Mtx m,m1,m2, mv;
+	f32 halfwidth = width * 0.5f;
+	f32 halfheight = height * 0.5f;
+	guMtxIdentity (m1);
+	guMtxScaleApply(m1,m1,scaleX,scaleY, 1.0f);
+	guMtxRotDeg (m2, 'z', degrees);
+	guMtxConcat(m2,m1,m);
+
+	guMtxTransApply(m,m, xpos+halfwidth, ypos+halfheight, zpos);
+	guMtxConcat (GXmodelView2D, m, mv);
+	GX_LoadPosMtxImm (mv, GX_PNMTX0);
+
+	f32 w1 = (f32) -halfwidth, h1 = (f32) -halfheight;
+	f32 w2 = (f32) halfwidth, h2 = (f32) -halfheight;
+	f32 w3 = (f32) halfwidth, h3 = (f32) halfheight;
+	f32 w4 = (f32) -halfwidth, h4 = (f32) halfheight;
 	f32 o1 = 0.0f, o2 = 0.0f;
 	f32 o3 = 1.0f, o4 = 0.0f;
 	f32 u1 = 1.0f, u2 = 1.0f;
 	f32 u3 = 0.0f, u4 = 1.0f;
 
-	CalculateCutoff(realwidth, realheight, minwidth, maxwidth, minheight, maxheight,
-					scaleX, scaleY, xpos, ypos, ((int) degrees) % 360,
+	CalculateCutoff(width, height, minwidth, maxwidth, minheight, maxheight,
+					scaleX, scaleY, xpos, ypos, fmod(degrees, 360),
 					w1, h1, w2, h2, w3, h3, w4, h4, o1, o2, o3, o4, u1, u2, u3, u4);
 
 	GX_Begin(GX_QUADS, GX_VTXFMT0,4);
@@ -560,6 +606,7 @@ void Menu_DrawImg(u8 data[], u16 width, u16 height, u8 format, f32 xpos, f32 ypo
 	GX_Color4u8(0xFF,0xFF,0xFF,alpha);
 	GX_TexCoord2f32(u3, u4);
 	GX_End();
+
 	GX_LoadPosMtxImm (GXmodelView2D, GX_PNMTX0);
 }
 

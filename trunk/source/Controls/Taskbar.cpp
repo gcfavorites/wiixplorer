@@ -125,15 +125,13 @@ Taskbar::~Taskbar()
 
 	Resources::Remove(soundClick);
 	Resources::Remove(soundOver);
-
-	for(u32 i = 0; i < Tasks.size(); i++)
-		delete Tasks[i];
 }
 
 void Taskbar::AddTask(Task * t)
 {
 	t->SetPosition(95+Tasks.size()*100, 0);
 	t->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
+	t->TaskEnd.connect(this, &Taskbar::RemoveTask);
 	Tasks.push_back(t);
 	Append(t);
 }

@@ -23,6 +23,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
+#include "Tools/uncompress.h"
 #include "U8Archive.h"
 
 U8Archive::U8Archive(const char *filepath)

@@ -55,14 +55,20 @@ void DeleteTask::Execute(void)
 	}
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
-    ProgressWindow::Instance()->SetCompleteValues(0, CopyFiles);
+    ProgressWindow::Instance()->SetCompleteValues(0, -1);
     ProgressWindow::Instance()->SetUnit(tr("files"));
+
+    int doneItems = 0;
+    int TotalItems = 0;
+
+	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
+		TotalItems += listItr->files.size() + listItr->dirs.size();
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
-			result = -10;
+			result = PROGRESS_CANCELED;
 			break;
 		}
 
@@ -79,7 +85,7 @@ void DeleteTask::Execute(void)
 			if(ret < 0)
 				result = ret;
 
-			ShowProgress(1, 1, filename ? filename+1 : "");
+			ShowProgress(doneItems++, TotalItems, filename ? filename+1 : "");
 		}
 
 		//! Remove all dirs reverse
@@ -88,15 +94,20 @@ void DeleteTask::Execute(void)
 			if(ProgressWindow::Instance()->IsCanceled())
 				break;
 
-			int ret = RemoveFile((listItr->basepath + *itr).c_str());
+			string filepath = listItr->basepath + *itr;
+			const char *filename = strrchr(filepath.c_str(), '/');
+
+			int ret = RemoveFile(filepath.c_str());
 			if(ret < 0)
 				result = ret;
+
+			ShowProgress(doneItems++, TotalItems, filename ? filename+1 : "");
 		}
 	}
 
 	ProgressWindow::Instance()->SetUnit(NULL);
 
-	if(result < 0 && result != -10 && !Application::isClosing())
+	if(result < 0 && result != PROGRESS_CANCELED && !Application::isClosing())
 	{
 		ThrowMsg(tr("Error:"), tr("Failed deleting some item(s)."));
 	}

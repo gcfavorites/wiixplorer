@@ -73,13 +73,11 @@ bool ImageConverter::LoadImage(const char * filepath)
 	u8 * buffer = NULL;
 	u32 filesize = 0;
 
-	LoadFileToMemWithProgress(tr("Loading image..."), filepath, &buffer, &filesize);
+	LoadFileToMem(filepath, &buffer, &filesize);
 
+	ShowError("Oh nooooooo");
 	if(!buffer)
-	{
-		ShowError(tr("Could not load image."));
 		return false;
-	}
 
 	bool result = LoadImage(buffer, filesize);
 	free(buffer);

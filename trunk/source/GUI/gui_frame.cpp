@@ -23,7 +23,6 @@ GuiFrame::GuiFrame(GuiFrame *p)
 	parent = p;
 	width = 0;
 	height = 0;
-	firstFrame = true;
 	dim = false;
 	if(parent) parent->Append(this);
 }
@@ -33,7 +32,6 @@ GuiFrame::GuiFrame(int w, int h, GuiFrame *p)
 	parent = p;
 	width = w;
 	height = h;
-	firstFrame = true;
 	dim = false;
 	if(parent)
 		parent->Append(this);
@@ -74,7 +72,7 @@ void GuiFrame::Remove(GuiElement* e)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		if(e == _elements.at(i))
+		if(e == _elements[i])
 		{
 			_elements.erase(_elements.begin()+i);
 			break;
@@ -101,7 +99,7 @@ GuiElement* GuiFrame::GetGuiElementAt(u32 index) const
 {
 	if (index >= _elements.size())
 		return NULL;
-	return _elements.at(index);
+	return _elements[index];
 }
 
 u32 GuiFrame::GetSize()
@@ -116,8 +114,7 @@ void GuiFrame::ResetState()
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->ResetState(); }
-		catch (const std::exception& e) { }
+		_elements[i]->ResetState();
 	}
 }
 
@@ -127,8 +124,7 @@ void GuiFrame::SetState(int s)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetState(s); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetState(s);
 	}
 }
 
@@ -138,8 +134,7 @@ void GuiFrame::SetVisible(bool v)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetVisible(v); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetVisible(v);
 	}
 }
 
@@ -149,8 +144,7 @@ void GuiFrame::SetMinWidth(int w)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetMinWidth(w); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetMinWidth(w);
 	}
 }
 
@@ -160,8 +154,7 @@ void GuiFrame::SetMaxWidth(int w)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetMaxWidth(w); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetMaxWidth(w);
 	}
 }
 
@@ -171,8 +164,7 @@ void GuiFrame::SetMinHeight(int h)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetMinHeight(h); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetMinHeight(h);
 	}
 }
 
@@ -182,8 +174,7 @@ void GuiFrame::SetMaxHeight(int h)
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try { _elements.at(i)->SetMaxHeight(h); }
-		catch (const std::exception& e) { }
+		_elements[i]->SetMaxHeight(h);
 	}
 }
 
@@ -193,27 +184,17 @@ int GuiFrame::GetSelected()
 	int found = -1;
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		try
+		if(_elements[i]->GetState() == STATE_SELECTED)
 		{
-			if(_elements.at(i)->GetState() == STATE_SELECTED)
-			{
-				found = i;
-				break;
-			}
+			found = i;
+			break;
 		}
-		catch (const std::exception& e) { }
 	}
 	return found;
 }
 
 void GuiFrame::Draw()
 {
-	if(firstFrame)
-	{
-		firstFrame = false;
-		return;
-	}
-
 	if(!this->IsVisible() && parentElement)
 		return;
 
@@ -223,10 +204,12 @@ void GuiFrame::Draw()
 		Menu_DrawRectangle(0, 0, GetZPosition(), screenwidth,screenheight, &dimColor, false, true);
 	}
 
-	for (u32 i = 0; i < _elements.size(); ++i)
+	//! render appended items next frame but allow stop of render if size is reached
+	u32 size = _elements.size();
+
+	for (u32 i = 0; i < size && i < _elements.size(); ++i)
 	{
-		try	{ _elements.at(i)->Draw(); }
-		catch (const std::exception& e) { }
+		_elements[i]->Draw();
 	}
 
 	this->UpdateEffects();
@@ -234,12 +217,14 @@ void GuiFrame::Draw()
 
 void GuiFrame::Update(GuiTrigger * t)
 {
-	if(firstFrame || (state == STATE_DISABLED && parentElement))
+	if(state == STATE_DISABLED && parentElement)
 		return;
 
-	for (u32 i = 0; i < _elements.size(); ++i)
+	//! update appended items next frame
+	u32 size = _elements.size();
+
+	for (u32 i = 0; i < size && i < _elements.size(); ++i)
 	{
-		try	{ _elements.at(i)->Update(t); }
-		catch (const std::exception& e) { }
+		_elements[i]->Update(t);
 	}
 }

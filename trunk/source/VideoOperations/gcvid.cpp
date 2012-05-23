@@ -343,9 +343,6 @@ long getFilesize(FILE* f)
   return ret;
 }
 
-void decodeJpeg(const u8* data, int size, VideoFrame& dest);
-
-
 VideoFile::VideoFile(FILE* f)
 : _f(f)
 {}
@@ -357,9 +354,73 @@ VideoFile::~VideoFile()
   _f = NULL;
 }
 
+
+//as mentioned above, we have to convert 0xff to 0xff 0x00
+//after the image date has begun (ie, after the 0xff 0xda marker)
+//but we must not convert the end-of-image-marker (0xff 0xd9)
+//this way. There may be 0xff 0xd9 bytes embedded in the image
+//data though, so I add 4 bytes to the input buffer
+//and fill them with zeroes and check for 0xff 0xd9 0 0
+//as end-of-image marker. this is not correct, but works
+//and is easier to code... ;-)
+//a better solution would be to patch jpeglib so that this conversion
+//is not neccessary
+
+u8 endBytesThp[] = { 0xff, 0xd9, 0, 0 }; //used in thp files
+u8 endBytesMth[] = { 0xff, 0xd9, 0xff, 0 }; //used in mth files
+
+static inline int convertToRealJpeg(u8* dest, const u8* src, int srcSize)
+{
+  int start, end = 0;
+
+  int j;
+  for(j = srcSize - 1; (src[j] == 0) && (j > 2); --j)
+	; //search end of data
+
+  if(src[j] == 0xd9) //thp file
+	end = j - 1;
+  else if(src[j] == 0xff) //mth file
+	end = j - 2;
+
+  // set maxed out value
+  start = end;
+
+  int di = 0;
+  for(int i = 0; i < srcSize; ++i, ++di)
+  {
+	dest[di] = src[i];
+	//if i == srcSize - 1, then this would normally overrun src - that's why 4 padding
+	//bytes are included at the end of src
+	if(src[i] == 0xff)
+	{
+		if((start == end) && (i < srcSize-2) && (src[i + 1] == 0xda))
+		  start = i;
+
+		if(i > start && i < end)
+		{
+		  ++di;
+		  dest[di] = 0;
+		}
+	}
+  }
+  return di;
+}
+
+void decodeRealJpeg(const u8* data, int size, VideoFrame& dest);
+
 void VideoFile::loadFrame(VideoFrame& frame, const u8* data, int size) const
 {
-  decodeJpeg(data, size, frame);
+  const u8 *buff = data;
+
+  if(!_decodeBuffer.empty())
+  {
+	  //convert format so jpeglib understands it...
+	  size = convertToRealJpeg((u8 *)&_decodeBuffer[0], buff, size);
+	  buff = &_decodeBuffer[0];
+  }
+
+  //...and feed it to jpeglib
+  decodeRealJpeg(buff, size, frame);
 }
 
 
@@ -391,7 +452,9 @@ ThpVideoFile::ThpVideoFile(FILE* f)
   _currFrameNr = -1;
   _nextFrameOffset = _head.firstFrameOffset;
   _nextFrameSize = _head.firstFrameSize;
+  // pre-allocated buffer for speed up
   _currFrameData.resize(_head.maxBufferSize); //include some padding
+  _decodeBuffer.resize(_head.maxBufferSize << 1); // max size included jpeg padding
   loadNextFrame();
 }
 
@@ -455,7 +518,9 @@ MthVideoFile::MthVideoFile(FILE* f)
   _nextFrameSize = _head.firstFrameSize;
   _thisFrameSize = 0;
 
+  // pre-allocated buffer for speed up
   _currFrameData.resize(_head.maxFrameSize);
+  _decodeBuffer.resize(_head.maxFrameSize << 1); // max size included jpeg padding
   loadNextFrame();
 }
 
@@ -532,81 +597,6 @@ void closeVideo(VideoFile*& vf)
   vf = NULL;
 }
 
-//as mentioned above, we have to convert 0xff to 0xff 0x00
-//after the image date has begun (ie, after the 0xff 0xda marker)
-//but we must not convert the end-of-image-marker (0xff 0xd9)
-//this way. There may be 0xff 0xd9 bytes embedded in the image
-//data though, so I add 4 bytes to the input buffer
-//and fill them with zeroes and check for 0xff 0xd9 0 0
-//as end-of-image marker. this is not correct, but works
-//and is easier to code... ;-)
-//a better solution would be to patch jpeglib so that this conversion
-//is not neccessary
-
-u8 endBytesThp[] = { 0xff, 0xd9, 0, 0 }; //used in thp files
-u8 endBytesMth[] = { 0xff, 0xd9, 0xff, 0 }; //used in mth files
-
-int countRequiredSize(const u8* data, int size, int& start, int& end)
-{
-  start = 2*size;
-  int count = 0;
-
-  int j;
-  for(j = size - 1; data[j] == 0; --j)
-	; //search end of data
-
-  if(data[j] == 0xd9) //thp file
-	end = j - 1;
-  else if(data[j] == 0xff) //mth file
-	end = j - 2;
-
-  for(int i = 0; i < end; ++i)
-  {
-	if(data[i] == 0xff)
-	{
-	  //if i == srcSize - 1, then this would normally overrun src - that's why 4 padding
-	  //bytes are included at the end of src
-	  if(data[i + 1] == 0xda && start == 2*size)
-		start = i;
-	  if(i > start)
-		++count;
-	}
-  }
-  return size + count;
-}
-
-void convertToRealJpeg(u8* dest, const u8* src, int srcSize, int start, int end)
-{
-  int di = 0;
-  for(int i = 0; i < srcSize; ++i, ++di)
-  {
-	dest[di] = src[i];
-	//if i == srcSize - 1, then this would normally overrun src - that's why 4 padding
-	//bytes are included at the end of src
-	if(src[i] == 0xff && i > start && i < end)
-	{
-	  ++di;
-	  dest[di] = 0;
-	}
-  }
-}
-
-void decodeRealJpeg(const u8* data, int size, VideoFrame& dest);
-
-void decodeJpeg(const u8* data, int size, VideoFrame& dest)
-{
-  //convert format so jpeglib understands it...
-  int start = 0, end = 0;
-  int newSize = countRequiredSize(data, size, start, end);
-  u8* buff = new u8[newSize];
-  convertToRealJpeg(buff, data, size, start, end);
-
-  //...and feed it to jpeglib
-  decodeRealJpeg(buff, newSize, dest);
-
-  delete [] buff;
-}
-
 extern "C"
 {
 #include "jpeglib.h"
@@ -634,12 +624,6 @@ void jpegSkipInputData(j_decompress_ptr cinfo, long num_bytes)
 {
   cinfo->src->next_input_byte += num_bytes;
   cinfo->src->bytes_in_buffer -= num_bytes;
-}
-
-boolean jpegResyncToRestart(j_decompress_ptr cinfo, int desired)
-{
-  jpeg_resync_to_restart(cinfo, desired);
-  return TRUE;
 }
 
 void jpegTermSource(j_decompress_ptr cinfo UNUSED)
@@ -685,7 +669,7 @@ void decodeRealJpeg(const u8* data, int size, VideoFrame& dest)
   sourceMgr.init_source = jpegInitSource;
   sourceMgr.fill_input_buffer = jpegFillInputBuffer;
   sourceMgr.skip_input_data = jpegSkipInputData;
-  sourceMgr.resync_to_restart = jpegResyncToRestart;
+  sourceMgr.resync_to_restart = jpeg_resync_to_restart;
   sourceMgr.term_source = jpegTermSource;
   cinfo.src = &sourceMgr;
 

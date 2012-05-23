@@ -20,8 +20,6 @@
 #include <gccore.h>
 #include <queue>
 
-class ThreadedTaskHandler;
-
 class ThreadedTask
 {
 public:

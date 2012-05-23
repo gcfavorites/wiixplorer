@@ -24,7 +24,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
-#include "DirList.h"
+#include "FileOperations/DirList.h"
 
 ZipFile::ZipFile(const char *filepath, short mode)
 {

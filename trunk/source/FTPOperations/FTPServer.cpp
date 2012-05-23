@@ -105,7 +105,7 @@ void FTPServer::ShutdownFTP()
 	LWP_ResumeThread(ftpthread);
 
 	while(!LWP_ThreadIsSuspended (ftpthread))
-		usleep(THREAD_SLEEP);
+		usleep(10000);
 
 	cleanup_ftp();
 	net_close(server);
@@ -139,6 +139,6 @@ void FTPServer::InternalFTPUpdate()
 				StartupFTP();
 		}
 
-		usleep(100);
+		usleep(1000);
 	}
 }

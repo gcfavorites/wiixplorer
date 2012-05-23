@@ -21,13 +21,11 @@
  */
 
 #include "FreeTypeGX.h"
+#include "Memory/mem2.h"
 
 using namespace std;
 
-#define EXPLODE_UINT8_TO_UINT32(x) ((x << 24) | (x << 16) | (x << 8) | x)
 #define ALIGN8(x) (((x) + 7) & ~7)
-#define ALIGN32(x) (((x) + 31) & ~31)
-#define RGBA_TO_IA4(x) (((x & 0x0000f000) >> 8) | ((x & 0x000000f0) >> 4))
 
 /**
  * Convert a short char string to a wide char string.
@@ -63,15 +61,23 @@ wchar_t* charToWideChar(const char* strChar)
 /**
  * Default constructor for the FreeTypeGX class for WiiXplorer.
  */
-FreeTypeGX::FreeTypeGX(const uint8_t* fontBuffer, FT_Long bufferSize)
+FreeTypeGX::FreeTypeGX(const uint8_t* fontBuffer, FT_Long bufferSize, bool lastFace)
 {
+	int faceIndex = 0;
 	ftPointSize = 0;
 
 	FT_Init_FreeType(&ftLibrary);
-	FT_New_Memory_Face(ftLibrary, (FT_Byte *) fontBuffer, bufferSize, 0, &ftFace);
+	if(lastFace)
+	{
+		FT_New_Memory_Face(ftLibrary, (FT_Byte *)fontBuffer, bufferSize, -1, &ftFace);
+		faceIndex = ftFace->num_faces - 1; // Use the last face
+		FT_Done_Face(ftFace);
+		ftFace = NULL;
+	}
+	FT_New_Memory_Face(ftLibrary, (FT_Byte *) fontBuffer, bufferSize, faceIndex, &ftFace);
 
 	setVertexFormat(GX_VTXFMT1);
-	ftKerningEnabled = false;
+	ftKerningEnabled = false;//FT_HAS_KERNING(ftFace);
 }
 
 /**
@@ -116,7 +122,7 @@ void FreeTypeGX::unloadFont()
 	for (itr = fontData.begin(); itr != fontData.end(); itr++)
 	{
 		for (itr2 = itr->second.begin(); itr2 != itr->second.end(); itr2++)
-			free(itr2->second.glyphDataTexture);
+			MEM2_free(itr2->second.glyphDataTexture);
 
 		itr->second.clear();
 	}
@@ -229,48 +235,38 @@ uint16_t FreeTypeGX::cacheGlyphDataComplete(int16_t pixelSize)
 
 void FreeTypeGX::loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData)
 {
-	uint32_t *glyphData = (uint32_t *) memalign(32, charData->textureWidth * charData->textureHeight * 4);
-	memset(glyphData, 0x00, charData->textureWidth * charData->textureHeight * 4);
+	int glyphSize = (charData->textureWidth * charData->textureHeight) >> 1;
 
-	uint8_t *bmsrc = (uint8_t *)bmp->buffer;
-	uint32_t *dest = glyphData, *ptr = dest;
+	uint8_t *glyphData = (uint8_t *) MEM2_alloc(glyphSize);
+	memset(glyphData, 0x00, glyphSize);
 
-	for (uint16_t imagePosY = 0; imagePosY < bmp->rows; ++imagePosY)
+	uint8_t *src = (uint8_t *)bmp->buffer;
+	uint8_t *dst = glyphData;
+	int32_t pos, x1, y1, x, y;
+
+	for(y1 = 0; y1 < bmp->rows; y1 += 8)
 	{
-		for (uint16_t imagePosX = 0; imagePosX < bmp->width; ++imagePosX)
+		for(x1 = 0; x1 < bmp->width; x1 += 8)
 		{
-			*ptr++ = EXPLODE_UINT8_TO_UINT32(*bmsrc);
-			++bmsrc;
-		}
-		ptr = dest += charData->textureWidth;
-	}
+			for(y = y1; y < (y1 + 8); y++)
+			{
+				for(x = x1; x < (x1 + 8); x += 2, dst++)
+				{
+					if(x >= bmp->width || y >= bmp->rows)
+						continue;
 
-	uint32_t bufferSize = charData->textureWidth * charData->textureHeight;
-	uint32_t* dataBufferIA4 = (uint32_t *)memalign(32, ALIGN32(bufferSize));
-	memset(dataBufferIA4, 0x00, bufferSize);
+					pos = y * bmp->width + x;
+					*dst = (src[pos] & 0xF0);
 
-	uint32_t *src = glyphData;
-	uint8_t* dst = (uint8_t *) dataBufferIA4;
-
-	for(uint16_t y = 0; y < charData->textureHeight; y += 4) {
-		for(uint16_t x = 0; x < charData->textureWidth; x += 8) {
-			for(uint16_t rows = 0; rows < 4; rows++) {
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 0)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 1)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 2)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 3)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 4)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 5)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 6)]);
-				*dst++ = RGBA_TO_IA4(src[((y + rows) * charData->textureWidth) + (x + 7)]);
+					if(x+1 < bmp->width)
+						*dst |= (src[pos + 1] >> 4);
+				}
 			}
 		}
 	}
 
-	DCFlushRange(dataBufferIA4, bufferSize);
-	free(glyphData);
-
-	charData->glyphDataTexture = (uint8_t *) dataBufferIA4;
+	DCFlushRange(glyphData, glyphSize);
+	charData->glyphDataTexture = glyphData;
 }
 
 /**
@@ -381,7 +377,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, int16_t z, const wchar_t *te
 				x_pos += pairDelta.x >> 6;
 			}
 
-			GX_InitTexObj(&glyphTexture, glyphData->glyphDataTexture, glyphData->textureWidth, glyphData->textureHeight, GX_TF_IA4, GX_CLAMP, GX_CLAMP, GX_FALSE);
+			GX_InitTexObj(&glyphTexture, glyphData->glyphDataTexture, glyphData->textureWidth, glyphData->textureHeight, GX_TF_I4, GX_CLAMP, GX_CLAMP, GX_FALSE);
 			copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos + glyphData->renderOffsetX + x_offset, y - glyphData->renderOffsetY + y_offset, z, color);
 
 			x_pos += glyphData->glyphAdvanceX;

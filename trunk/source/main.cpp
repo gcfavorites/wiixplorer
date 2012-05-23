@@ -25,60 +25,15 @@
  ***************************************************************************/
 #include "Controls/Application.h"
 #include "VideoOperations/video.h"
-#include "TextOperations/FontSystem.h"
-#include "DeviceControls/DeviceHandler.hpp"
-#include "audio.h"
-#include "DiskOperations/di2.h"
-#include "input.h"
-#include "Settings.h"
 #include "sys.h"
-#include "Memory/mem2.h"
-#include "mload/mload_init.h"
-
 
 int main(int argc UNUSED, char *argv[] UNUSED)
 {
 	__exception_setreload(30);
-	InitVideo(); // Initialize video
-	InitGecko();  // Initialize stdout/stderr and gecko output
-	MEM2_init(52); // Initialize 52 MB (max is 53469152 bytes though)
+	// Initialize video before anything else as otherwise green stripes are produced, need to figure out why...
+	InitVideo();
 
-	DeviceHandler::Instance()->MountSD();
-	DeviceHandler::Instance()->MountAllUSB();
-	Settings.Load();
-
-	Settings.EntraceIOS = (u8) IOS_GetVersion();
-/*
-	if(Settings.EntraceIOS != Settings.BootIOS)
-	{
-		DeviceHandler::Instance()->UnMountSD();
-		DeviceHandler::Instance()->UnMountAllUSB();
-		USB_Deinitialize();
-
-		if(IOS_ReloadIOS(Settings.BootIOS) >= 0 && IOS_GetVersion() >= 202)
-			mload_Init();
-
-		DeviceHandler::Instance()->MountSD();
-		DeviceHandler::Instance()->MountAllUSB();
-		Settings.Load();  //If it was not loaded, reloading here again.
-	}
-*/
-	MagicPatches(1); // We all love magic
-	Sys_Init(); // Initialize shutdown/reset buttons
-	SetupPads(); // Initialize input
-	InitAudio(); // Initialize audio
-	DI2_Init(); //Init DVD Driver
-	ISFS_Initialize(); // ISFS init
-	DeviceHandler::Instance()->MountGCA();
-	DeviceHandler::Instance()->MountGCB();
-	DeviceHandler::Instance()->MountNAND();
-	Settings.LoadLanguage(Settings.LanguagePath);
-	SetupPDFFontPath(Settings.UpdatePath);
-	SetupDefaultFont(Settings.CustomFontPath);
-
-	setlocale(LC_CTYPE, "C-UTF-8");
-	setlocale(LC_MESSAGES, "C-UTF-8");
-
+	Application::Instance()->init();
 	Application::Instance()->show();
 	Application::Instance()->exec();
 

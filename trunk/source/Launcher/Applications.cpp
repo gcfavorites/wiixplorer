@@ -30,7 +30,7 @@
 #include <algorithm>
 
 #include "Applications.h"
-#include "DirList.h"
+#include "FileOperations/DirList.h"
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"

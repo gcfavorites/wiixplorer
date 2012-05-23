@@ -23,7 +23,7 @@
 #include "FileOperations/fileops.h"
 #include "FileOperations/MD5.h"
 #include "Prompts/ProgressWindow.h"
-#include "Tools/tools.h"
+#include "DirList.h"
 
 #define BLOCKSIZE   102400
 
@@ -212,81 +212,36 @@ bool MD5Task::CalculateDirectory(const char * path)
 		return false;
 	}
 
-	std::string currentPath = path;
-	std::vector<char *> DirList;
-	std::vector<char *> FileList;
+	if(ProgressWindow::Instance()->IsRunning())
+		ProgressWindow::Instance()->SetTitle(tr("Getting file list..."));
+	else
+		StartProgress(tr("Getting file list..."));
 
-	int ret = ListDirectory(currentPath, DirList, FileList);
-	if(ret < 0)
+	DirList dir;
+	dir.LoadPath(path, 0, DirList::Files | DirList::Dirs | DirList::CheckSubfolders);
+	dir.SortList();
+
+	if(dir.GetFilecount() <= 0)
 	{
 		fprintf(LogFile, tr("Error - Could not parse directory: %s\n"), path);
 		++ErrorCounter;
 		return false;
 	}
 
-	if(FileList.size() > 1)
-		SortList(FileList);
-	if(DirList.size() > 1)
-		SortList(DirList);
-
-	for(u32 i = 0; i < FileList.size(); i++)
+	for(int i = 0; i < dir.GetFilecount(); i++)
 	{
-		if(FileList[i])
-		{
-			int pos = currentPath.size();
-			currentPath += FileList[i];
-			free(FileList[i]);
-			FileList[i] = NULL;
+		if(ProgressWindow::Instance()->IsCanceled())
+			break;
 
-			CalculateFile(currentPath.c_str());
-			currentPath.erase(pos);
+		if(!dir.IsDir(i))
+		{
+			CalculateFile(dir.GetFilepath(i));
+		}
+		else
+		{
+			++FolderCounter;
 		}
 	}
-	FileList.clear();
-	ClearList(FileList);
-
-	for(u32 i = 0; i < DirList.size(); i++)
-	{
-		if(DirList[i])
-		{
-			int pos = currentPath.size();
-			currentPath += DirList[i];
-			free(DirList[i]);
-			DirList[i] = NULL;
-
-			CalculateDirectory(currentPath.c_str());
-			currentPath.erase(pos);
-		}
-	}
-	DirList.clear();
-	ClearList(DirList);
-
-	++FolderCounter;
 
 	return true;
-}
-
-void MD5Task::ClearList(std::vector<char *> &List)
-{
-	for(u32 i = 0; i < List.size(); i++)
-	{
-		if(List[i])
-			free(List[i]);
-		List[i] = NULL;
-	}
-	List.clear();
-	std::vector<char *>().swap(List);
-}
-
-void MD5Task::SortList(std::vector<char *> & List)
-{
-	std::sort(List.begin(), List.end(), SortCallback);
-}
-
-bool MD5Task::SortCallback(const char * path1, const char * path2)
-{
-	if(stricmp(path1, path2) > 0)
-		return false;
-	else
-		return true;
 }

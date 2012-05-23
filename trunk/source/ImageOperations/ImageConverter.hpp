@@ -42,9 +42,9 @@ class ImageConverter
 	public:
 		ImageConverter(const char * filepath);
 		ImageConverter(const u8 * imgBuf, int imgSize);
-		~ImageConverter();
-		bool LoadImage(const char * filepath);
-		bool LoadImage(const u8 * img, int imgSize);
+		virtual ~ImageConverter();
+		virtual bool LoadImage(const char * filepath);
+		virtual bool LoadImage(const u8 * img, int imgSize);
 		bool Convert();
 		bool RotateImage(int angle);
 		bool ResizeImage(int newwidth, int newheight);

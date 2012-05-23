@@ -34,15 +34,17 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextEditor.h"
-#include "TextOperations/PDFLoader.h"
+#include "TextOperations/PDFViewer.hpp"
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
-#include "ImageOperations/ImageLoader.h"
+#include "ImageOperations/ImageConverterGUI.hpp"
+#include "ImageOperations/ImageViewer.h"
 #include "Controls/Application.h"
 #include "VideoOperations/WiiMovie.hpp"
 #include "FileExtensions.h"
 #include "MPlayerArguements.h"
 #include "WiiMCArguemnts.h"
+#include "Tools/uncompress.h"
 #include "menu.h"
 
 int FileStartUp(const char *filepath)
@@ -79,7 +81,10 @@ int FileStartUp(const char *filepath)
 		int choice = WindowPrompt(filename, tr("Open the file in the PDF Viewer?"), tr("Yes"), tr("Cancel"));
 		if (choice == 1)
 		{
-			PDFLoader(filepath);
+			PDFViewer * Viewer = new PDFViewer(filepath);
+			Viewer->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+			Application::Instance()->SetUpdateOnly(Viewer);
+			Application::Instance()->Append(Viewer);
 		}
 	}
 	else if(Settings.FileExtensions.CompareImage(fileext) == 0)
@@ -87,12 +92,18 @@ int FileStartUp(const char *filepath)
 		int choice = WindowPrompt(filename, tr("How do you want to open the file?"), tr("ImageViewer"), tr("ImageConverter"), tr("Cancel"));
 		if (choice == 1)
 		{
-			ImageLoader(filepath);
+			ImageViewer * ImageVwr = new ImageViewer(filepath);
+			ImageVwr->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+			Application::Instance()->SetUpdateOnly(ImageVwr);
+			Application::Instance()->Append(ImageVwr);
 		}
 		else if(choice == 2)
 		{
-			ImageConverterLoader(filepath);
-			return REFRESH_BROWSER;
+			ImageConverterGui * ImageConv = new ImageConverterGui(filepath);
+			ImageConv->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+			ImageConv->DimBackground(true);
+			Application::Instance()->SetUpdateOnly(ImageConv);
+			Application::Instance()->Append(ImageConv);
 		}
 	}
 	else if(Settings.FileExtensions.CompareAudio(fileext) == 0)
@@ -195,9 +206,9 @@ int FileStartUp(const char *filepath)
 		Video->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		Video->SetVolume(Settings.MusicVolume);
 		Application::Instance()->Append(Video);
+		Application::Instance()->SetUpdateOnly(Video);
+		Application::Instance()->SetDrawOnly(Video);
 		Video->Play();
-		delete Video;
-		Video = NULL;
 	}
 	else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
 	{

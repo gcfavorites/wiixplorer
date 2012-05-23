@@ -408,58 +408,59 @@ void GuiButton::Update(GuiTrigger * t)
 
 	if(holdable)
 	{
+		bool held = false;
+
 		for(int i = 0; i < 4; i++)
 		{
-			if(!trigger[i])
+			//! if already found a trigger that takes effect stop searching
+			if(held || !trigger[i])
 				continue;
-
-			bool held = false;
 
 			if((t->wpad->btns_h & trigger[i]->wpad->btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
 			{
-				//! TRIGGER_HELD is executed only if holding the button
-				if(		(trigger[i]->type == TRIGGER_HELD)
-					&&	((trigger[i]->chan == -1)
-						|| (trigger[i]->chan == t->chan)))
-				{
-					held = ClickAndHold;
-					if(held && (state != STATE_HELD) && (state == STATE_SELECTED))
-						this->SetState(STATE_HELD, t->chan);
-				}
-
 				//! TRIGGER_BUTTON_ONLY_HELD is executed on every chan
-				else if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
+				if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
 				{
 					held = true;
 					if(state != STATE_HELD)
 						this->SetState(STATE_HELD, t->chan);
 				}
-			}
 
-			if(held && (state == STATE_HELD) && (stateChan == t->chan))
-			{
-				POINT p = {0, 0};
-				if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+				//! TRIGGER_HELD is executed only if holding the button
+				else if(   (trigger[i]->type == TRIGGER_HELD)
+						&& (   (trigger[i]->chan == -1)
+							|| (trigger[i]->chan == t->chan)))
 				{
-					p.x = userInput[t->chan].wpad->ir.x;
-					p.y = userInput[t->chan].wpad->ir.y;
+					held = ClickAndHold;
+					if(held && (state != STATE_HELD) && (state == STATE_SELECTED))
+						this->SetState(STATE_HELD, t->chan);
 				}
-				Held(this, t->chan, p);
-				return;
 			}
-			else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
+		}
+
+		if(held && (state == STATE_HELD) && (stateChan == t->chan))
+		{
+			POINT p = {0, 0};
+			if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
 			{
-				POINT p = {0, 0};
-				if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
-				{
-					p.x = userInput[t->chan].wpad->ir.x;
-					p.y = userInput[t->chan].wpad->ir.y;
-				}
-				this->ResetState();
-				Released(this, t->chan, p);
-				ClickAndHold = false;
-				return;
+				p.x = userInput[t->chan].wpad->ir.x;
+				p.y = userInput[t->chan].wpad->ir.y;
 			}
+			Held(this, t->chan, p);
+			return;
+		}
+		else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
+		{
+			POINT p = {0, 0};
+			if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+			{
+				p.x = userInput[t->chan].wpad->ir.x;
+				p.y = userInput[t->chan].wpad->ir.y;
+			}
+			this->ResetState();
+			Released(this, t->chan, p);
+			ClickAndHold = false;
+			return;
 		}
 	}
 }

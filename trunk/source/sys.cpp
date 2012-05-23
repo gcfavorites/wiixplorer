@@ -40,7 +40,6 @@
 #include "TextOperations/FontSystem.h"
 #include "FileOperations/fileops.h"
 #include "DiskOperations/di2.h"
-#include "mload/mload_init.h"
 #include "Tools/tools.h"
 #include "audio.h"
 #include "input.h"
@@ -96,7 +95,6 @@ extern "C" void ExitApp()
 	DeInit_Network();
 	ISFS_Deinitialize();
 	MEM2_cleanup();
-	mload_DeInit();
 	MagicPatches(0);
 }
 
@@ -190,18 +188,6 @@ extern "C" bool IsFromHBC()
 	}
 
 	return false;
-}
-
-extern "C" void LoadCIOS()
-{
-	int IOS_Rev = GetIOS_Rev(202);
-
-	if(IOS_Rev > 1 && IOS_Rev < 7)
-	{
-		int ret = IOS_ReloadIOS(202);
-		if(ret >= 0)
-			mload_Init();
-	}
 }
 
 extern "C" int GetIOS_Rev(u32 ios)

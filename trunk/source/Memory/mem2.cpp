@@ -7,7 +7,7 @@
 #include <ogc/system.h>
 
 #define MAX_MEM1_ARENA_LO	((void *) (0x81700000-size))
-#define MEM2_PRIORITY_SIZE	10240	// 100KB
+#define MEM2_PRIORITY_SIZE	30720	// 30KB
 
 // Forbid the use of MEM2 through malloc
 u32 MALLOC_MEM2 = 0;

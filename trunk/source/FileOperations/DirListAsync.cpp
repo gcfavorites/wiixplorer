@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2012 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,35 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef LANGUAGE_SETTINGS_MENU_H_
-#define LANGUAGE_SETTINGS_MENU_H_
+#include "DirListAsync.h"
 
-#include "SettingsMenu.h"
-#include "FileOperations/DirList.h"
-
-class LanguageSettingsMenu : public SettingsMenu
+DirListAsync::DirListAsync(const char * path, const char *filter, u32 flags, bool sort)
+	: m_path(path)
+	, m_filter(filter ? filter : "")
+	, m_flags(flags)
+	, m_sort(sort)
 {
-	public:
-		LanguageSettingsMenu(GuiFrame *returnElement);
-		virtual ~LanguageSettingsMenu();
-	protected:
-		void SetupOptions();
-		void SetOptionValues() {}
-		virtual void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnDownloadButtonClick(GuiButton *sender, int pointer, const POINT &p);
-		void OnResetButtonClick(GuiButton *sender, int pointer, const POINT &p);
+}
 
-		DirList *FileList;
+void DirListAsync::Execute(void)
+{
+	StartList(this);
 
-		GuiText *resetBtnTxt;
-		GuiImage *resetBtnImg;
-		GuiButton *resetBtn;
+	//! load up the list and sort it
+	DirList::LoadPath(m_path.c_str(), m_filter.size() ? m_filter.c_str() : NULL, m_flags);
 
-		GuiImageData *downloadImgData;
-		GuiImage *downloadBtnImg;
-		GuiButton *downloadBtn;
-};
+	if(m_sort)
+		DirList::SortList();
 
-
-
-#endif
+	FinishList(this);
+}

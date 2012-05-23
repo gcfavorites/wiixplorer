@@ -83,12 +83,15 @@ void PackTask::Execute(void)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
-			result = -10;
+			result = PROGRESS_CANCELED;
 			break;
 		}
 
 		int ret;
-		snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
+		if(destPath.size() > 0)
+			snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
+		else
+			snprintf(destpath, sizeof(destpath), "%s", Process.GetItemName(i));
 
 		RemoveDoubleSlash(destpath);
 
@@ -100,7 +103,7 @@ void PackTask::Execute(void)
 			result = ret;
 	}
 
-	if(!Application::isClosing() && result != -10)
+	if(!Application::isClosing() && result != PROGRESS_CANCELED)
 	{
 		if(result == -30)
 			ThrowMsg(tr("Error:"), tr("Pasting files is currently only supported on ZIP archives."));

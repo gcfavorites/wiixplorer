@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2012 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,35 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef LANGUAGE_SETTINGS_MENU_H_
-#define LANGUAGE_SETTINGS_MENU_H_
+#ifndef ___DIRLISTASYNC_H_
+#define ___DIRLISTASYNC_H_
 
-#include "SettingsMenu.h"
-#include "FileOperations/DirList.h"
+#include "Controls/ThreadedTaskHandler.hpp"
+#include "DirList.h"
+#include "stdafx.h"
 
-class LanguageSettingsMenu : public SettingsMenu
+using namespace std;
+
+class DirListAsync : public DirList, public ThreadedTask
 {
-	public:
-		LanguageSettingsMenu(GuiFrame *returnElement);
-		virtual ~LanguageSettingsMenu();
-	protected:
-		void SetupOptions();
-		void SetOptionValues() {}
-		virtual void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnDownloadButtonClick(GuiButton *sender, int pointer, const POINT &p);
-		void OnResetButtonClick(GuiButton *sender, int pointer, const POINT &p);
-
-		DirList *FileList;
-
-		GuiText *resetBtnTxt;
-		GuiImage *resetBtnImg;
-		GuiButton *resetBtn;
-
-		GuiImageData *downloadImgData;
-		GuiImage *downloadBtnImg;
-		GuiButton *downloadBtn;
+public:
+	//!\param path Path from where to load the filelist of all files
+	//!\param filter A fileext that needs to be filtered
+	//!\param flags search/filter flags from the enum
+	DirListAsync(const char * path, const char *filter = NULL, u32 flags = Files | Dirs, bool sort = true);
+	//! asyncronous called function
+	void Execute(void);
+	//! SLOTS
+	sigslot::signal1<DirListAsync *> StartList;
+	sigslot::signal1<DirListAsync *> FinishList;
+private:
+	string m_path;
+	string m_filter;
+	u32 m_flags;
+	bool m_sort;
 };
-
-
 
 #endif

@@ -131,22 +131,27 @@ void AifDecoder::OpenFile()
 		return;
 	}
 
-	SWaveChunk WaveChunk;
-	do
+	u32 magic = 0;
+
+	while(1)
 	{
-		int ret = file_fd->read((u8 *) &WaveChunk, sizeof(SWaveChunk));
+		int ret = file_fd->read((u8 *) &magic, sizeof(magic));
 		if(ret <= 0)
 		{
 			CloseFile();
 			return;
 		}
-	}
-	while(WaveChunk.magicDATA != 'COMM');
 
-	DataOffset = file_fd->tell()+WaveChunk.size;
+		if(magic == 'COMM')
+			break;
+		else
+			file_fd->seek(-3, SEEK_CUR);
+	}
+
+	// seek back to COMM chunk start
+	file_fd->seek(-sizeof(magic), SEEK_CUR);
 
 	SAIFFCommChunk CommHdr;
-	file_fd->seek(file_fd->tell()-sizeof(SWaveChunk), SEEK_SET);
 	file_fd->read((u8 *) &CommHdr, sizeof(SAIFFCommChunk));
 
 	if(CommHdr.fccCOMM != 'COMM')
@@ -155,7 +160,23 @@ void AifDecoder::OpenFile()
 		return;
 	}
 
-	file_fd->seek(DataOffset, SEEK_SET);
+	// Seek to next chunk start
+	file_fd->seek(-sizeof(SAIFFCommChunk) + sizeof(SWaveChunk) + CommHdr.size, SEEK_CUR);
+
+	int ret = -1;
+	SWaveChunk chunkHdr;
+	memset(&chunkHdr, 0, sizeof(SWaveChunk));
+
+	do
+	{
+		// Seek to next chunk start
+		file_fd->seek(chunkHdr.size, SEEK_CUR);
+		ret = file_fd->read((u8 *) &chunkHdr, sizeof(SWaveChunk));
+	}
+	while(ret > 0 && chunkHdr.magicDATA != 'SSND');
+
+	// Seek back to start of SSND chunk
+	file_fd->seek(-sizeof(SWaveChunk), SEEK_CUR);
 
 	SAIFFSSndChunk SSndChunk;
 	file_fd->read((u8 *) &SSndChunk, sizeof(SAIFFSSndChunk));
@@ -166,7 +187,7 @@ void AifDecoder::OpenFile()
 		return;
 	}
 
-	DataOffset += sizeof(SAIFFSSndChunk);
+	DataOffset = file_fd->tell();
 	DataSize = SSndChunk.size-8;
 	SampleRate = (u32) ConvertFromIeeeExtended(CommHdr.freq);
 	Format = VOICE_STEREO_16BIT;

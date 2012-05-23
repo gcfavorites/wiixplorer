@@ -32,10 +32,13 @@
 #include "sys.h"
 
 PDFViewer::PDFViewer(const char * filepath, const char * password)
-	: ImageViewer(filepath)
+	: ImageViewer(NULL)
 {
 	OutputImage = NULL;
+	ExitRequest = false;
+	loadPage = -1;
 	currentPage = 1;
+	LoadThread = LWP_THREAD_NULL;
 	drawzoom = Settings.PDFLoadZoom;
 	drawrotate = 0;
 	drawcache = (fz_glyphcache*) nil;
@@ -47,6 +50,17 @@ PDFViewer::PDFViewer(const char * filepath, const char * password)
 	fz_accelerate();
 	closexref();
 
+	LoadStackBuf = (u8 *) memalign(32, 32768);
+	if(!LoadStackBuf)
+	{
+		ShowError(tr("Not enough memory"));
+		ExitRequest = true;
+		Application::Instance()->PushForDelete(this);
+		return;
+	}
+
+	LWP_CreateThread (&LoadThread, LoadThreadFunc, this, LoadStackBuf, 32768, 75);
+
 	OpenFile(filepath, password);
 	LoadPage(currentPage);
 }
@@ -54,6 +68,17 @@ PDFViewer::PDFViewer(const char * filepath, const char * password)
 PDFViewer::~PDFViewer()
 {
 	CloseFile();
+
+	ExitRequest = true;
+
+	if(LoadThread != LWP_THREAD_NULL)
+	{
+		LWP_ResumeThread(LoadThread);
+		LWP_JoinThread(LoadThread, NULL);
+	}
+
+	if(LoadStackBuf != NULL)
+		free(LoadStackBuf);
 }
 
 void PDFViewer::OpenFile(const char * filepath, const char * password)
@@ -83,15 +108,6 @@ void PDFViewer::CloseFile()
 	closexref();
 }
 
-int PDFViewer::MainUpdate()
-{
-
-//	if(Taskbar::Instance()->GetMenu() != MENU_NONE)
-		//return -1;
-
-	return ImageViewer::MainUpdate();
-}
-
 int PDFViewer::PreparePage(int pagenum)
 {
 	fz_error error;
@@ -99,11 +115,46 @@ int PDFViewer::PreparePage(int pagenum)
 	error = pdf_loadpage(&drawpage, xref, pageobj);
 	if (error)
 	{
-		ShowError(tr("Can't load page."));
+		ThrowMsg(tr("Error:"), tr("Can't load page."));
 		return -1;
 	}
 
 	return 0;
+}
+
+void * PDFViewer::LoadThreadFunc(void *arg)
+{
+	PDFViewer *instance = (PDFViewer *) arg;
+	instance->InternalLoadLoop();
+	return NULL;
+}
+
+void PDFViewer::InternalLoadLoop(void)
+{
+	while(!ExitRequest)
+	{
+		if(loadPage == -1)
+			LWP_SuspendThread(LoadThread);
+
+		if(!ExitRequest)
+		{
+			int ret = PreparePage(loadPage);
+			if(ret < 0) {
+				continue;
+			}
+			ret = PageToTexture();
+			if(ret <= 0)
+				continue;
+
+			image->SetImage(OutputImage, imagewidth, imageheight, GX_TF_RGB565);
+			SetStartUpImageSize();
+
+			if(SlideShowStart > 0)
+				image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
+
+			loadPage = -1;
+		}
+	}
 }
 
 bool PDFViewer::LoadPage(int pagenum)
@@ -113,37 +164,8 @@ bool PDFViewer::LoadPage(int pagenum)
 
 	FreePage();
 
-	int ret = PreparePage(pagenum);
-	if(ret < 0)
-	{
-		CloseFile();
-		return false;
-	}
-
-	ret = PageToRGBA8();
-	if(ret <= 0)
-	{
-		CloseFile();
-		return false;
-	}
-
-	RemoveAll();
-	image = new GuiImage(OutputImage, imagewidth, imageheight);
-	image->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
-	if(SlideShowStart > 0)
-		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
-
-	Append(backGround);
-	Append(image);
-	Append(backButton);
-	Append(zoominButton);
-	Append(zoomoutButton);
-	Append(rotateRButton);
-	Append(rotateLButton);
-	Append(nextButton);
-	Append(prevButton);
-	Append(slideshowButton);
-	Append(moveButton);
+	loadPage = pagenum;
+	LWP_ResumeThread(LoadThread);
 
 	return true;
 }
@@ -169,16 +191,14 @@ bool PDFViewer::PreviousPage()
 
 void PDFViewer::FreePage()
 {
-	if(image && SlideShowStart > 0)
+	if(image && OutputImage && SlideShowStart > 0)
 	{
 		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
-		while(image->GetEffect() > 0) usleep(100);
+		while(image->GetEffect() > 0)
+			Application::Instance()->updateEvents();
 	}
 
-	Remove(image);
-	if(image)
-		delete image;
-	image = NULL;
+	image->SetImage(NULL, 0, 0);
 
 	if(OutputImage)
 		free(OutputImage);
@@ -195,13 +215,12 @@ void PDFViewer::FreePage()
 	}
 }
 
-int PDFViewer::PageToRGBA8()
+int PDFViewer::PageToTexture()
 {
 	fz_error error;
 	fz_matrix ctm;
 	fz_bbox bbox;
 	fz_pixmap *pix;
-	int x, y, w, h;
 
 	ctm = fz_identity();
 	ctm = fz_concat(ctm, fz_translate(0, -drawpage->mediabox.y1));
@@ -209,18 +228,18 @@ int PDFViewer::PageToRGBA8()
 	ctm = fz_concat(ctm, fz_rotate(drawrotate + drawpage->rotate));
 
 	bbox = fz_roundrect(fz_transformrect(ctm, drawpage->mediabox));
-	w = ALIGN(bbox.x1 - bbox.x0);
-	h = ALIGN(bbox.y1 - bbox.y0);
+	int w = ALIGN(bbox.x1 - bbox.x0);
+	int h = ALIGN(bbox.y1 - bbox.y0);
 
 	pix = fz_newpixmap(pdf_devicergb, bbox.x0, bbox.y0, w, h);
 	if(!pix)
 	{
 		FreePage();
-		ShowError(tr("Not enough memory."));
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
 		return -1;
 	}
 
-	fz_clearpixmap(pix, 0xFF);
+	// initialize white page
 	memset(pix->samples, 0xff, pix->h * pix->w * pix->n);
 
 	fz_device *dev = fz_newdrawdevice(drawcache, pix);
@@ -233,35 +252,51 @@ int PDFViewer::PageToRGBA8()
 		return -1;
 	}
 
-	int len = datasizeRGBA8(width, height);
+	// convert it to texture
+	int len = (w * h) << 1;
 
 	OutputImage = (u8 *) memalign(32, len);
 	if(!OutputImage)
 	{
 		fz_droppixmap(pix);
 		FreePage();
-		ShowError(tr("Not enough memory."));
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
 		return -1;
 	}
 
-	u32 offset;
-	imagewidth = pix->w;
-	imageheight = pix->h;
+	int x, y;
+	int x1, y1;
+	int iv;
 
-	for (y = 0; y < pix->h; y++)
+	for(iv = 0, y1 = 0; y1 < h; y1 += 4)
 	{
-		unsigned char *src = pix->samples + y * pix->w * 4;
-
-		for (x = 0; x < pix->w; x++)
+		for(x1 = 0; x1 < w; x1 += 4)
 		{
-			offset = coordsRGBA8(x, y, pix->w);
+			for(y = y1; y < (y1 + 4); y++)
+			{
+				for(x = x1; x < (x1 + 4); x++)
+				{
+					if(x < pix->w && y < pix->h)
+					{
+						unsigned char *src = pix->samples + y * pix->w * 4;
 
-			OutputImage[offset] = src[x * 4 + 0];
-			OutputImage[offset+1] = src[x * 4 + 1];
-			OutputImage[offset+32] = src[x * 4 + 2];
-			OutputImage[offset+33] = src[x * 4 + 3];
+						u8 r = src[x * 4 + 1] >> 3;
+						u8 g = src[x * 4 + 2] >> 2;
+						u8 b = src[x * 4 + 3] >> 3;
+
+						*(u16*)(OutputImage + ((iv++) << 1)) = (r << 11) | (g << 5) | (b);
+					}
+					else {
+						*(u16*)(OutputImage + ((iv++) << 1)) = 0xFFFF; // white
+					}
+				}
+			}
 		}
 	}
+
+	imagewidth = w;
+	imageheight = h;
+
 	DCFlushRange(OutputImage, len);
 
 	fz_droppixmap(pix);

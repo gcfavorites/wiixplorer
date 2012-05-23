@@ -61,9 +61,15 @@ bool DirList::LoadPath(const char * folder, const char *filter, u32 flags)
 	Flags = flags;
 	Filter = filter;
 
-	std::string folderpath = folder;
-	while(folderpath.size() > 0 && folderpath[folderpath.size()-1] == '/')
-		folderpath.erase(folderpath.size()-1);
+	std::string folderpath(folder);
+	u32 length = folderpath.size();
+
+	//! clear path of double slashes
+	RemoveDoubleSlashs(folderpath);
+
+	//! remove last slash if exists
+	if(length > 0 && folderpath[length-1] == '/')
+		folderpath.erase(length-1);
 
 	return InternalLoadPath(folderpath);
 }
@@ -103,10 +109,9 @@ bool DirList::InternalLoadPath(std::string &folderpath)
 			if(!(Flags & Dirs))
 				continue;
 		}
-		else
+		else if(!(Flags & Files))
 		{
-			if(!(Flags & Files))
-				continue;
+			continue;
 		}
 
 		if(Filter)
@@ -160,10 +165,10 @@ void DirList::ClearList()
 	std::vector<DirEntry>().swap(FileInfo);
 }
 
-const char * DirList::GetFilename(int ind)
+const char * DirList::GetFilename(int ind) const
 {
 	if (!valid(ind))
-		return NULL;
+		return "";
 
 	return FullpathToFilename(FileInfo[ind].FilePath);
 }
@@ -194,7 +199,7 @@ void DirList::SortList(bool (*SortFunc)(const DirEntry &a, const DirEntry &b))
 		std::sort(FileInfo.begin(), FileInfo.end(), SortFunc);
 }
 
-u64 DirList::GetFilesize(int index)
+u64 DirList::GetFilesize(int index) const
 {
 	struct stat st;
 	const char *path = GetFilepath(index);
@@ -205,7 +210,7 @@ u64 DirList::GetFilesize(int index)
 	return st.st_size;
 }
 
-int DirList::GetFileIndex(const char *filename)
+int DirList::GetFileIndex(const char *filename) const
 {
 	if(!filename)
 		return -1;

@@ -5,6 +5,9 @@
 #include "Tools/BufferCircle.hpp"
 #include "gcvid.h"
 
+#define SND_BUFFERS	 8
+#define FRAME_BUFFERS	 8
+
 using namespace std;
 
 class WiiMovie : public GuiElement, public sigslot::has_slots<>
@@ -23,21 +26,23 @@ class WiiMovie : public GuiElement, public sigslot::has_slots<>
 	protected:
 		void OnExitClick(GuiButton *sender, int pointer, const POINT &p);
 		static void * UpdateThread(void *arg);
+		static void * DecodeThread(void *arg);
 		void ReadNextFrame();
-		void LoadNextFrame();
-		void FrameLoadLoop();
+		void DecodeNextFrame();
 
-		u8 * ThreadStack;
-		lwp_t ReadThread;
-		mutex_t mutex;
+		lwp_t ReadThread, DecThread;
+		u8 *ReadStackBuf, *DecStackBuf;
+		mutex_t ReadDecodeMutex;
+		bool bDecoding;
 
 		VideoFile * Video;
 		VideoFrame VideoF;
 		BufferCircle SoundBuffer;
 		float fps;
 		Timer PlayTime;
-		u32 VideoFrameCount;
-		vector<u8 *> Frames;
+		float currentFrame;
+		u8 *FrameBuf[FRAME_BUFFERS];
+		int FrameBufCount;
 		bool Playing;
 		bool ExitRequested;
 		int maxSoundSize;

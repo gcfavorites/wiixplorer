@@ -67,7 +67,6 @@ static char fs[] ATTRIBUTE_ALIGN(32) = "/dev/usb2";
 static char fs2[] ATTRIBUTE_ALIGN(32) = "/dev/usb123";
 static char fs3[] ATTRIBUTE_ALIGN(32) = "/dev/usb/ehc";
 
-static DISC_INTERFACE __io_usb1storage;
 static u8 * mem2_ptr = NULL;
 static s32 hid = -1, fd = -1;
 static u32 usb2_port = -1;  //current USB port
@@ -327,24 +326,4 @@ const DISC_INTERFACE __io_usbstorage2_port1 = {
 	(FN_MEDIUM_CLEARSTATUS) &__usbstorage_ClearStatus,
 	(FN_MEDIUM_SHUTDOWN) &__usbstorage_Shutdown2
 };
-
-void USB2Enable(s32 enable)
-{
-	static s32 usb1disc_inited = 0;
-
-	if(!usb1disc_inited)
-	{
-		usb1disc_inited = 1;
-		memcpy(&__io_usb1storage, &__io_usbstorage, sizeof(DISC_INTERFACE));
-	}
-
-	if(!enable)
-	{
-		memcpy(&__io_usbstorage, &__io_usb1storage, sizeof(DISC_INTERFACE));
-	}
-	else
-	{
-		memcpy(&__io_usbstorage, &__io_usbstorage2_port0, sizeof(DISC_INTERFACE));
-	}
-}
 

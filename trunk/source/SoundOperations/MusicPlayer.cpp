@@ -316,28 +316,28 @@ void MusicPlayer::Show()
 		else if(PlayBtn->GetState() == STATE_CLICKED)
 		{
 			CircleImg->SetImage(navi_upImgData);
-			CircleImageDelay = 50;
+			CircleImageDelay = 12;
 			Play(TitleList.GetSelectedItem());
 			PlayBtn->ResetState();
 		}
 		else if(StopBtn->GetState() == STATE_CLICKED)
 		{
 			CircleImg->SetImage(navi_downImgData);
-			CircleImageDelay = 50;
+			CircleImageDelay = 12;
 			Stop();
 			StopBtn->ResetState();
 		}
 		else if(PreviousBtn->GetState() == STATE_CLICKED)
 		{
 			CircleImg->SetImage(navi_leftImgData);
-			CircleImageDelay = 50;
+			CircleImageDelay = 12;
 			PlayPrevious();
 			PreviousBtn->ResetState();
 		}
 		else if(NextBtn->GetState() == STATE_CLICKED)
 		{
 			CircleImg->SetImage(navi_rightImgData);
-			CircleImageDelay = 50;
+			CircleImageDelay = 12;
 			PlayNext();
 			NextBtn->ResetState();
 		}
@@ -495,7 +495,7 @@ void MusicPlayer::InternalSetup()
 	//SetDim(false);
 }
 
-void MusicPlayer::Update(GuiTrigger * t)
+void MusicPlayer::Draw()
 {
 	if(CircleImageDelay > 0)
 	{
@@ -504,6 +504,7 @@ void MusicPlayer::Update(GuiTrigger * t)
 			CircleImg->SetImage(navi_defaultImgData);
 	}
 
+	//! we do this in the draw cycle, as the update cycle might not be called always
 	if(PlaybackFinished && !Stopped && !Paused)
 	{
 		if(LoopMode > 0 && Settings.MusicPath[0] == 0)
@@ -523,5 +524,6 @@ void MusicPlayer::Update(GuiTrigger * t)
 		PlaybackFinished = false;
 	}
 
-	GuiFrame::Update(t);
+	GuiFrame::Draw();
 }
+

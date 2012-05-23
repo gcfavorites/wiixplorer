@@ -23,6 +23,7 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
+#include <string>
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -90,6 +91,45 @@ const wchar_t * wfmt(const char * format, ...)
 	return NULL;
 }
 
+int strprintf(std::string &str, const char * format, ...)
+{
+	int result = 0;
+	char * tmp = NULL;
+
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va) >= 0) && tmp)
+	{
+		str = tmp;
+		result = str.size();
+	}
+	va_end(va);
+
+	if(tmp)
+		free(tmp);
+
+	return result;
+}
+
+std::string strfmt(const char * format, ...)
+{
+	std::string str;
+	char * tmp = NULL;
+
+	va_list va;
+	va_start(va, format);
+	if((vasprintf(&tmp, format, va) >= 0) && tmp)
+	{
+		str = tmp;
+	}
+	va_end(va);
+
+	if(tmp)
+		free(tmp);
+
+	return str;
+}
+
 bool char2wchar_t(const char * strChar, wchar_t * dest)
 {
 	if(!strChar || !dest)
@@ -111,7 +151,8 @@ int strtokcmp(const char * string, const char * compare, const char * separator)
 		return -1;
 
 	char TokCopy[512];
-	strcpy(TokCopy, compare);
+	strncpy(TokCopy, compare, sizeof(TokCopy));
+	TokCopy[511] = '\0';
 
 	char * strTok = strtok(TokCopy, separator);
 
@@ -127,20 +168,3 @@ int strtokcmp(const char * string, const char * compare, const char * separator)
 	return -1;
 }
 
-inline const char * FullpathToFilename(const char *path)
-{
-	if(!path) return path;
-
-	const char * ptr = path;
-	const char * Filename = ptr;
-
-	while(*ptr != '\0')
-	{
-		if(*ptr == '/' && ptr[1] != '\0')
-			Filename = ptr+1;
-
-		++ptr;
-	}
-
-	return Filename;
-}

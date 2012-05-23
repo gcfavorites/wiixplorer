@@ -253,9 +253,9 @@ int Explorer::LoadPath(const char * path)
 	int filecount = curBrowser->BrowsePath(path);
 	if(filecount < 0)
 	{
-		int choice = WindowPrompt(tr("Error:"), fmt("%s %s", tr("Unable to load path:"), path), tr("Retry"), tr("Close"));
-		if(choice)
-			return LoadPath(path);
+		//int choice = WindowPrompt(tr("Error:"), fmt("%s %s", tr("Unable to load path:"), path), tr("Retry"), tr("Close"));
+		//if(choice)
+			//return LoadPath(path);
 	}
 
 	curBrowser->ResetMarker();
@@ -504,6 +504,5 @@ void Explorer::OnFinishedTask(Task *t)
 		ResetReplaceChoice();
 	}
 	guiBrowser->Refresh();
-	Taskbar::Instance()->RemoveTask(t);
 	Application::Instance()->PushForDelete(t);
 }

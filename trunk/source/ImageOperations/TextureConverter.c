@@ -30,8 +30,8 @@
 #include "TextureConverter.h"
 #include "Tools/tools.h"
 
-#define MAXWIDTH 1024.0f
-#define MAXHEIGHT 768.0f
+#define MAX_TEX_PIXEL	 1024
+#define SCALEPRECISION	 100000
 
 static u16 avg(u16 w0, u16 w1, u16 c0, u16 c1)
 {
@@ -474,31 +474,29 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 {
 	int width = gdImageSX(*gdImg);
 	int height = gdImageSY(*gdImg);
-	float scale = 1.0f;
-	int retries = 100;  //shouldn't need that long but to be sure
 
 	gdImageAlphaBlending(*gdImg, 0);
 	gdImageSaveAlpha(*gdImg, 1);
 
-	while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
+	int scale = SCALEPRECISION;
+
+	if(width > MAX_TEX_PIXEL || height > MAX_TEX_PIXEL)
 	{
-		if(width*scale > MAXWIDTH)
-			scale = MAXWIDTH/width;
-		if(height*scale > MAXHEIGHT)
-			scale = MAXHEIGHT/height;
-
-		retries--;
-
-		if(!retries)
+		if((height - MAX_TEX_PIXEL) > (width - MAX_TEX_PIXEL))
 		{
-			while(width*scale > MAXWIDTH || height*scale > MAXHEIGHT)
-				scale -= 0.02;
-			break;
+			scale = (MAX_TEX_PIXEL * SCALEPRECISION) / height;
 		}
+		else
+		{
+			scale = (MAX_TEX_PIXEL * SCALEPRECISION) / width;
+		}
+
+		width = (width * scale) / SCALEPRECISION;
+		height = (height * scale) / SCALEPRECISION;
 	}
 
-	width = ALIGN((int) (width * scale));
-	height = ALIGN((int) (height * scale));
+	width = ALIGN(width);
+	height = ALIGN(height);
 
 	if(width != gdImageSX(*gdImg) || height != gdImageSY(*gdImg))
 	{
@@ -522,15 +520,15 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 
 	u8 a;
 	int pixel;
-	u32 x, y, offset;
+	int x, y, offset;
 
-	for(y = 0; y < (u32) height; ++y)
+	for(y = 0; y < height; ++y)
 	{
-		for(x = 0; x < (u32) width; ++x)
+		for(x = 0; x < width; ++x)
 		{
 			pixel = gdImageGetPixel(*gdImg, x, y);
 
-			a = 254 - 2*(gdImageAlpha(*gdImg, pixel) & 0xFF);
+			a = 254 - 2 * (gdImageAlpha(*gdImg, pixel) & 0xFF);
 			if(a == 254) a++;
 
 			offset = coordsRGBA8(x, y, width);
@@ -584,29 +582,34 @@ u8 * FlipRGBAImage(const u8 *src, u32 width, u32 height)
 	return data;
 }
 
-u8 * RGB8ToRGBA8(const u8 *src, u32 width, u32 height)
+u8 * RGB8ToRGB565(const u8 *src, u8 *dst, u32 width, u32 height)
 {
-	u32 x, y, offset;
+	u32 x, y;
+	u32 x1, y1;
+	u32 iv;
 
-	int len = datasizeRGBA8(width, height);
-
-	u8 * dst = (u8 *) memalign(32, len);
-	if(!dst)
-		return NULL;
-
-	for (y = 0; y < height; ++y)
+	for(iv = 0, y1 = 0; y1 < height; y1 += 4)
 	{
-		for (x = 0; x < width; ++x)
+		for(x1 = 0; x1 < width; x1 += 4)
 		{
-			offset = coordsRGBA8(x, y, width);
-			dst[offset] = 0xFF;
-			dst[offset+1] = src[(y*width+x)*3];
-			dst[offset+32] = src[(y*width+x)*3+1];
-			dst[offset+33] = src[(y*width+x)*3+2];
+			for(y = y1; y < (y1 + 4); y++)
+			{
+				for(x = x1; x < (x1 + 4); x++)
+				{
+					if((x >= width) || (y >= height))
+						continue;
+
+					u8 r = src[(y*width+x)*3] >> 3;
+					u8 g = src[(y*width+x)*3+1] >> 2;
+					u8 b = src[(y*width+x)*3+2] >> 3;
+
+					*(u16*)(dst + ((iv++) << 1)) = (r << 11) | (g << 5) | (b);
+				}
+			}
 		}
 	}
 
-	DCFlushRange(dst, len);
+	DCFlushRange(dst, (width * height) << 1);
 
 	return dst;
 }

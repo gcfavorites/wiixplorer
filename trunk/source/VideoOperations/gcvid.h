@@ -239,6 +239,7 @@ class VideoFile
  protected:
 
   FILE* _f;
+  std::vector<u8> _decodeBuffer;
 
   //void loadFrame(long offset, int size);
   void loadFrame(VideoFrame& frame, const u8* data, int size) const;

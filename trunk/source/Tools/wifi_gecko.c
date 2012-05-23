@@ -30,8 +30,8 @@
 #include <unistd.h>
 #include <network.h>
 
-#define DESTINATION_IP	   "192.168.178.3"
-#define DESTINATION_PORT	 4405
+#define DESTINATION_IP		"192.168.178.3"
+#define DESTINATION_PORT	4405
 
 static int connection = -1;
 
@@ -45,10 +45,10 @@ void WifiGecko_Close()
 
 int WifiGecko_Connect()
 {
-	if(!(connection < 0))
+	if(connection >= 0)
 		return connection;
 
-	connection = net_socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+	connection = net_socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if (connection < 0)
 		return connection;
 
@@ -69,7 +69,7 @@ int WifiGecko_Connect()
 
 int WifiGecko_Send(const char * data, int datasize)
 {
-	if(!WifiGecko_Connect())
+	if(WifiGecko_Connect() < 0)
 		return connection;
 
 	int ret = 0, done = 0, blocksize = 1024;

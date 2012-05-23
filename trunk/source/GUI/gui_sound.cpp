@@ -19,6 +19,7 @@
 #include "SoundOperations/SoundHandler.hpp"
 #include "SoundOperations/WavDecoder.hpp"
 #include "FileOperations/fileops.h"
+#include "Tools/uncompress.h"
 
 #define MAX_SND_VOICES	  16
 

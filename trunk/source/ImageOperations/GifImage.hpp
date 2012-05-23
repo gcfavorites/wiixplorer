@@ -28,7 +28,7 @@
 
 #include <vector>
 #include <gctypes.h>
-#include "Tools/tools.h"
+#include "Tools/timer.h"
 
 typedef struct
 {

@@ -65,7 +65,7 @@ class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
 		void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); };
 		bool IsStopped() { return Stopped; };
 		void SetPlaybackFinished(bool b) { PlaybackFinished = b; };
-		void Update(GuiTrigger * t);
+		void Draw();
 	protected:
 		MusicPlayer();
 		virtual ~MusicPlayer();
