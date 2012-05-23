@@ -30,21 +30,28 @@
 extern "C" {
 #endif
 
-#include "uncompress.h"
-#include "timer.h"
-#include "encrypt.h"
-#include "StringTools.h"
-#include "ConvertUTF.h"
-
 #define KBSIZE		  1024.0f
 #define MBSIZE		  1048576.0f
 #define GBSIZE		  1073741824.0f
 
+#define le16(i) ((((u16) ((i) & 0xFF)) << 8) | ((u16) (((i) & 0xFF00) >> 8)))
+#define le32(i) ((((u32)le16((i) & 0xFFFF)) << 16) | ((u32)le16(((i) & 0xFFFF0000) >> 16)))
+#define le64(i) ((((u64)le32((i) & 0xFFFFFFFFLL)) << 32) | ((u64)le32(((i) & 0xFFFFFFFF00000000LL) >> 32)))
+
 #define GXCOLORTORGBA(x) ((u32) (x.r << 24 | x.g << 16 | x.b << 8 | x.a))
 #define RGBATOGXCOLOR(x) ((GXColor) {(x & 0xFF000000) >> 24, (x & 0x00FF0000) >> 16, (x & 0x0000FF00) >> 8, (x & 0x000000FF)})
-#define LIMIT(x, min, max) ( (x < min) ? min : (x > max) ? max : x )
+
+#define LIMIT(x, min, max)																	\
+	({																						\
+		typeof( x ) _x = x;																	\
+		typeof( min ) _min = min;															\
+		typeof( max ) _max = max;															\
+		( ( ( _x ) < ( _min ) ) ? ( _min ) : ( ( _x ) > ( _max ) ) ? ( _max) : ( _x ) );	\
+	})
+
 #define ALIGN(x) (((x) + 3) & ~3)
 #define ALIGN32(x) (((x) + 31) & ~31)
+
 #define coordsRGBA8(x, y, w) (((((y >> 2) * (w >> 2) + (x >> 2)) << 5) + ((y & 3) << 2) + (x & 3)) << 1)
 #define datasizeRGBA8(w, h) ALIGN32(((w+3)>>2)*((h+3)>>2)*32*2)
 

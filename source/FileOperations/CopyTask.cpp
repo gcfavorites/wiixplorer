@@ -65,7 +65,7 @@ void CopyTask::Execute(void)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
-			result = -10;
+			result = PROGRESS_CANCELED;
 			break;
 		}
 
@@ -90,7 +90,7 @@ void CopyTask::Execute(void)
 		}
 	}
 
-	if(result < 0 && result != -10 && !Application::isClosing())
+	if(result < 0 && result != PROGRESS_CANCELED && !Application::isClosing())
 	{
 		ThrowMsg(tr("Error:"), tr("Failed copying some item(s)."));
 	}

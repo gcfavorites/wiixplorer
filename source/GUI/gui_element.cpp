@@ -29,10 +29,10 @@ GuiElement::GuiElement()
 	alpha = 255;
 	scaleX = 1.0f;
 	scaleY = 1.0f;
-	minwidth = -100;
-	maxwidth = (screenwidth+100);
-	minheight = -100;
-	maxheight = (screenheight+100);
+	minwidth = 0xBADBABE;
+	maxwidth = 0xBADBABE;
+	minheight = 0xBADBABE;
+	maxheight = 0xBADBABE;
 	state = STATE_DEFAULT;
 	stateChan = -1;
 	parentElement = NULL;

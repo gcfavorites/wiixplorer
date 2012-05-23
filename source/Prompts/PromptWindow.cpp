@@ -191,12 +191,14 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 
 PromptWindow::~PromptWindow()
 {
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
 	if(parentElement)
+	{
+		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+		while(this->GetEffect() > 0)
+			Application::Instance()->updateEvents();
+
 		((GuiFrame *) parentElement)->Remove(this);
+	}
 
 	RemoveAll();
 

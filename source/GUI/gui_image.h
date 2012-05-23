@@ -80,7 +80,8 @@ class GuiImage : public GuiElement
 		//!\param img Pointer to image data
 		//!\param w Width
 		//!\param h Height
-		void SetImage(u8 * img, int w, int h);
+		//!\param f Texture format
+		void SetImage(u8 * img, int w, int h, int f = GX_TF_RGBA8);
 		//!Gets the pixel color at the specified coordinates of the image
 		//!\param x X coordinate
 		//!\param y Y coordinate
@@ -103,7 +104,9 @@ class GuiImage : public GuiElement
 		//!Change ImageColor
 		void SetSize(int w, int h);
 		//!Get the color pointer
-		GXColor * GetColorPtr() { return (GXColor *) &color; };;
+		GXColor * GetColorPtr() { return (GXColor *) &color; }
+		//!Set texture format
+		void SetFormat(u8 f) { format = f; }
 	protected:
 		int imgType; //!< Type of image data (IMAGE_TEXTURE, IMAGE_COLOR, IMAGE_DATA)
 		u8 * image; //!< Poiner to image data. May be shared with GuiImageData data

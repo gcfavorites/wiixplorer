@@ -27,6 +27,7 @@
 #define _IMAGE_CONVERTER_GUI_H_
 
 #include "GUI/gui_arrowoption.h"
+#include "FileOperations/FileLoadTask.h"
 #include "ImageConverter.hpp"
 
 class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot::has_slots<>
@@ -35,9 +36,12 @@ class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot
 		ImageConverterGui(const char * filepath);
 		ImageConverterGui(const u8 * imgBuf, int imgSize);
 		virtual ~ImageConverterGui();
-		int MainUpdate();
+		bool LoadImage(const char * filepath);
 		void Draw();
 	protected:
+		void OnFinishedImageLoad(FileLoadTask *task, u8 *buffer, u32 buffer_size);
+		void OnFinishedLoadTask(Task *task);
+
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
 		void OnOptionRightClick(GuiElement *sender, int pointer, const POINT &p);
@@ -45,11 +49,7 @@ class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot
 		void SetOptionValues();
 		void Setup();
 
-		int currentState;
-		int OptionClicked;
 		bool Converting;
-
-		GuiElement * ElemPointer;
 
 		GuiSound * btnClick;
 		GuiSound * btnSoundOver;

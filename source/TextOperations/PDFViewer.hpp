@@ -39,13 +39,14 @@ class PDFViewer : public ImageViewer
 		bool LoadPage(int pagenum);
 		bool NextPage();
 		bool PreviousPage();
-		int MainUpdate();
 		//! Virtual overloads to adjust to imageviewer
 		bool NextImage(bool silent UNUSED = false) { return NextPage(); };
 		bool PreviousImage(bool silent UNUSED = false) { return PreviousPage(); };
 	protected:
+		static void *LoadThreadFunc(void *arg);
+		void InternalLoadLoop(void);
 		int PreparePage(int pagenum);
-		int PageToRGBA8();
+		int PageToTexture();
 		void FreePage();
 		//! Virtual overloads which are not needed
 		bool LoadImage(int index, bool silent UNUSED = false) { return LoadPage(index); };
@@ -61,6 +62,10 @@ class PDFViewer : public ImageViewer
 		int drawrotate;
 		int imagewidth;
 		int imageheight;
+		int loadPage;
+		u8 *LoadStackBuf;
+		bool ExitRequest;
+		lwp_t LoadThread;
 };
 
 #endif

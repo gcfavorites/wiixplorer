@@ -27,6 +27,7 @@ class Application : public GuiFrame
 		static Application * Instance() { if(!instance) instance = new Application(); return instance; }
 		static void DestroyInstance() { delete instance; instance = NULL; }
 
+		void init();
 		void quit();
 		void exec();
 		void show();
@@ -36,6 +37,8 @@ class Application : public GuiFrame
 
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);
+
+		void SetDrawOnly(GuiElement *e) { drawOnlyElement = e; }
 
 		void Append(GuiElement *e)
 		{
@@ -75,6 +78,7 @@ class Application : public GuiFrame
 		GuiImageData *pointer[4];
 		GuiImageData *standardPointer[4];
 		GuiImageData *grabPointer[4];
+		GuiElement *drawOnlyElement;
 		std::vector<GuiElement *> updateOnlyElement;
 		std::vector<GuiElement *> elements;
 

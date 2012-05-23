@@ -26,19 +26,49 @@
 #ifndef __STRING_TOOLS_H
 #define __STRING_TOOLS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <gctypes.h>
+#include <string>
 
 const char * fmt(const char * format, ...);
 const wchar_t * wfmt(const char * format, ...);
+int strprintf(std::string &str, const char * format, ...);
+std::string strfmt(const char * format, ...);
 bool char2wchar_t(const char * src, wchar_t * dest);
 int strtokcmp(const char * string, const char * compare, const char * separator);
-const char * FullpathToFilename(const char *path);
 
-#ifdef __cplusplus
+inline const char * FullpathToFilename(const char *path)
+{
+	if(!path) return path;
+
+	const char * ptr = path;
+	const char * Filename = ptr;
+
+	while(*ptr != '\0')
+	{
+		if(ptr[0] == '/' && ptr[1] != '\0')
+			Filename = ptr+1;
+
+		++ptr;
+	}
+
+	return Filename;
 }
-#endif //__cplusplus
+
+inline void RemoveDoubleSlashs(std::string &str)
+{
+	u32 length = str.size();
+
+	//! clear path of double slashes
+	for(u32 i = 1; i < length; ++i)
+	{
+		if(str[i-1] == '/' && str[i] == '/')
+		{
+			str.erase(i, 1);
+			i--;
+			length--;
+		}
+	}
+}
 
 #endif /* __STRING_TOOLS_H */
 

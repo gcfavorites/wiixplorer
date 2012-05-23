@@ -33,21 +33,24 @@
 #include "VideoOperations/video.h"
 #include "menu.h"
 
-#define SND_BUFFERS	 8
-#define FRAME_BUFFERS	 8
-
 static BufferCircle * soundbuffer = NULL;
 
 WiiMovie::WiiMovie(const char * filepath)
 {
-	VideoFrameCount = 0;
+	currentFrame = 0.0f;
 	fps = 0.0f;
+	bDecoding = false;
 	ExitRequested = false;
 	Playing = false;
 	volume = 255*Settings.MusicVolume/100;
 	ReadThread = LWP_THREAD_NULL;
-	mutex = LWP_MUTEX_NULL;
-	ThreadStack = NULL;
+	DecThread = LWP_THREAD_NULL;
+	ReadDecodeMutex = LWP_MUTEX_NULL;
+	ReadStackBuf = DecStackBuf = NULL;
+	FrameBufCount = 0;
+
+	for(int i = 0; i < FRAME_BUFFERS; ++i)
+		FrameBuf[i] = NULL;
 
 	background = new GuiImage(screenwidth, screenheight, (GXColor){0, 0, 0, 255});
 
@@ -66,6 +69,7 @@ WiiMovie::WiiMovie(const char * filepath)
 	{
 		ShowError(tr("Unsupported format!"));
 		ExitRequested = true;
+		Application::Instance()->PushForDelete(this);
 		return;
 	}
 
@@ -81,18 +85,32 @@ WiiMovie::WiiMovie(const char * filepath)
 		SoundBuffer.SetBufferBlockSize(maxSoundSize*FRAME_BUFFERS);
 	}
 
-	ThreadStack = (u8 *) memalign(32, 32768);
-	if(!ThreadStack)
-		return;
+	const int ReadStackBufSize = 32768;
+	const int DecStackBufSize = 16384;
 
-	LWP_MutexInit(&mutex, true);
-	LWP_CreateThread (&ReadThread, UpdateThread, this, ThreadStack, 32768, LWP_PRIO_HIGHEST);
+	ReadStackBuf = (u8 *) memalign(32, ReadStackBufSize + DecStackBufSize);
+	if(!ReadStackBuf)
+	{
+		ShowError(tr("Not enough memory"));
+		ExitRequested = true;
+		Application::Instance()->PushForDelete(this);
+		return;
+	}
+
+	DecStackBuf = ReadStackBuf + ReadStackBufSize;
+
+	LWP_MutexInit(&ReadDecodeMutex, true);
+	LWP_CreateThread (&ReadThread, UpdateThread, this, ReadStackBuf, ReadStackBufSize, 75);
+	LWP_CreateThread (&DecThread, DecodeThread, this, DecStackBuf, DecStackBufSize, 70);
 }
 
 WiiMovie::~WiiMovie()
 {
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
+
+	Application::Instance()->UnsetUpdateOnly(this);
+	Application::Instance()->SetDrawOnly(NULL);
 
 	Playing = false;
 	ExitRequested = true;
@@ -105,25 +123,25 @@ WiiMovie::~WiiMovie()
 		LWP_ResumeThread(ReadThread);
 		LWP_JoinThread(ReadThread, NULL);
 	}
-	if(mutex != LWP_MUTEX_NULL)
+	if(DecThread != LWP_THREAD_NULL)
 	{
-		LWP_MutexUnlock(mutex);
-		LWP_MutexDestroy(mutex);
+		LWP_ResumeThread(DecThread);
+		LWP_JoinThread(DecThread, NULL);
 	}
-	if(ThreadStack)
-		free(ThreadStack);
-
-	for(u32 i = 0; i < Frames.size(); i++)
+	if(ReadDecodeMutex != LWP_MUTEX_NULL)
 	{
-		if(Frames.at(i))
-			free(Frames.at(i));
-
-		Frames.at(i) = NULL;
+		LWP_MutexUnlock(ReadDecodeMutex);
+		LWP_MutexDestroy(ReadDecodeMutex);
 	}
 
-	soundbuffer = NULL;
+	for(int i = 0; i < FRAME_BUFFERS; ++i)
+	{
+		if(FrameBuf[i])
+			free(FrameBuf[i]);
+	}
 
-	Frames.clear();
+	if(ReadStackBuf != NULL)
+		free(ReadStackBuf);
 
 	delete background;
 	delete exitBtn;
@@ -142,7 +160,7 @@ bool WiiMovie::Play()
 	PlayTime.reset();
 
 	LWP_ResumeThread(ReadThread);
-	FrameLoadLoop();
+	LWP_ResumeThread(DecThread);
 
 	return true;
 }
@@ -158,10 +176,9 @@ void WiiMovie::SetVolume(int vol)
 	ASND_ChangeVolumeVoice(0, volume, volume);
 }
 
-void WiiMovie::OnExitClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void WiiMovie::OnExitClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-	Stop();
+	Application::Instance()->PushForDelete(this);
 }
 
 void WiiMovie::SetFullscreen()
@@ -169,24 +186,28 @@ void WiiMovie::SetFullscreen()
 	if(!Video)
 		return;
 
-	float newscale = 1000.0f;
+	float newscale = 1.0f;
 
-	float vidwidth = (float) GetWidth() * 1.0f;
-	float vidheight = (float) GetHeight() * 1.0f;
-	int retries = 100;
-
-	while(vidheight * newscale > screenheight || vidwidth * newscale > screenwidth)
+	if(width < screenwidth && height < screenheight)
 	{
-		if(vidheight * newscale > screenheight)
-			newscale = screenheight/vidheight;
-		if(vidwidth * newscale > screenwidth)
-			newscale = screenwidth/vidwidth;
-
-		retries--;
-		if(retries == 0)
+		if((screenheight - height) > (screenwidth - width))
 		{
-			newscale = 1.0f;
-			break;
+			newscale = (float) screenheight / (float) height;
+		}
+		else
+		{
+			newscale = (float) screenwidth / (float) width;
+		}
+	}
+	else
+	{
+		if((height - screenheight) > (width - screenwidth))
+		{
+			newscale = (float) screenheight / (float) height;
+		}
+		else
+		{
+			newscale = (float) screenwidth / (float) width;
 		}
 	}
 
@@ -225,17 +246,6 @@ extern "C" void THPSoundCallback(int voice UNUSED)
 	soundbuffer->LoadNext();
 }
 
-void WiiMovie::FrameLoadLoop()
-{
-	while(!ExitRequested)
-	{
-		LoadNextFrame();
-
-		while(Frames.size() > FRAME_BUFFERS && !ExitRequested)
-			usleep(100);
-	}
-}
-
 void * WiiMovie::UpdateThread(void *arg)
 {
 	WiiMovie * Movie = static_cast<WiiMovie *>(arg);
@@ -244,7 +254,31 @@ void * WiiMovie::UpdateThread(void *arg)
 	{
 		Movie->ReadNextFrame();
 
-		usleep(100);
+		usleep(5000);
+	}
+	return NULL;
+}
+
+void * WiiMovie::DecodeThread(void *arg)
+{
+	WiiMovie * Movie = static_cast<WiiMovie *>(arg);
+
+	int oldFrame = 0;
+
+	while(!Movie->ExitRequested)
+	{
+		if(!Movie->Playing)
+			LWP_SuspendThread(Movie->DecThread);
+
+		oldFrame = Movie->Video->getCurrentFrameNr();
+		Movie->DecodeNextFrame();
+
+		while(   !Movie->ExitRequested
+			  && (   (Movie->FrameBufCount >= FRAME_BUFFERS)
+				  || (oldFrame == Movie->Video->getCurrentFrameNr())))
+		{
+			usleep(100);
+		}
 	}
 
 	return NULL;
@@ -255,15 +289,23 @@ void WiiMovie::ReadNextFrame()
 	if(!Playing)
 		LWP_SuspendThread(ReadThread);
 
-	u32 FramesNeeded = (u32) (PlayTime.elapsed()*fps);
+	float FrameExpected = PlayTime.elapsed() * fps;
 
-	while(VideoFrameCount < FramesNeeded)
+	while(currentFrame < FrameExpected)
 	{
-		LWP_MutexLock(mutex);
+		LWP_MutexLock(ReadDecodeMutex);
 		Video->loadNextFrame();
-		LWP_MutexUnlock(mutex);
+		LWP_MutexUnlock(ReadDecodeMutex);
 
-		++VideoFrameCount;
+		//! replay
+		if(Video->getCurrentFrameNr() == 0)
+		{
+			currentFrame = 0.0f;
+			PlayTime.reset();
+		}
+		else {
+			currentFrame += 1.0f;
+		}
 
 		if(Video->hasSound())
 		{
@@ -299,26 +341,39 @@ void WiiMovie::ReadNextFrame()
 	}
 }
 
-void WiiMovie::LoadNextFrame()
+void WiiMovie::DecodeNextFrame()
 {
 	if(!Video || !Playing)
 		return;
 
-	LWP_MutexLock(mutex);
+	LWP_MutexLock(ReadDecodeMutex);
 	Video->getCurrentFrame(VideoF);
-	LWP_MutexUnlock(mutex);
+	LWP_MutexUnlock(ReadDecodeMutex);
 
 	if(!VideoF.getData())
 		return;
 
+	bDecoding = true;
+
+	//! remember width to avoid unnecessary deallocate
 	if(width != VideoF.getWidth())
 	{
 		width = VideoF.getWidth();
 		height = VideoF.getHeight();
 		SetFullscreen();
+		//! release buffer as we might need more now
+		if(FrameBuf[FrameBufCount])
+			free(FrameBuf[FrameBufCount]);
+		FrameBuf[FrameBufCount] = NULL;
 	}
 
-	Frames.push_back(RGB8ToRGBA8(VideoF.getData(), width, height));
+	if(!FrameBuf[FrameBufCount])
+		FrameBuf[FrameBufCount] = (u8 *) memalign(32, (width * height) << 1);
+
+	RGB8ToRGB565(VideoF.getData(), FrameBuf[FrameBufCount], width, height);
+	FrameBufCount++;
+
+	bDecoding = false;
 }
 
 void WiiMovie::Draw()
@@ -328,16 +383,25 @@ void WiiMovie::Draw()
 
 	background->Draw();
 
-	if(Frames.size() > FRAME_BUFFERS-2)
+	if(FrameBufCount > 0)
 	{
-		Menu_DrawImg(Frames.at(FRAME_BUFFERS-2), width, height, GX_TF_RGBA8, GetLeft(), GetTop(), 1.0f, 0, GetScaleX(), GetScaleY(), GetAlpha(), minwidth, maxwidth, minheight, maxheight);
-	}
+		if(FrameBuf[0])
+			Menu_DrawImg(FrameBuf[0], width, height, GX_TF_RGB565, GetLeft(), GetTop(), 1.0f, 0, scaleX, scaleY, alpha);
 
-	if(Frames.size() > FRAME_BUFFERS-1)
-	{
-		if(Frames.at(0))
-			free(Frames.at(0));
-		Frames.erase(Frames.begin());
+		//! rotate FIFO
+		//! we don't need to lock as render thread is highest prio and interrupts the decode thread
+		//! check if decode thread wasn't interrupted in the middle of decoding though
+		if(FrameBufCount > 1 && !bDecoding)
+		{
+			u8 *tmp = FrameBuf[0];
+
+			for(int i = 0; i < FrameBufCount; ++i)
+				FrameBuf[i] = FrameBuf[i+1];
+
+			//! set first on the last position to avoid unnecessary deallocate
+			FrameBuf[FrameBufCount-1] = tmp;
+			FrameBufCount--;
+		}
 	}
 }
 

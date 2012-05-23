@@ -19,8 +19,6 @@ extern "C"
 	s32 USBStorage2_SetPort(u32 port);
 	s32 USBStorage2_GetPort();
 
-	void USB2Enable(s32 enable);
-
 #define DEVICE_TYPE_WII_UMS (('W'<<24)|('U'<<16)|('M'<<8)|'S')
 
 	extern const DISC_INTERFACE __io_usbstorage2_port0;

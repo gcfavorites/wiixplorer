@@ -19,6 +19,7 @@
 #include "gui_imagedata.h"
 #include "ImageOperations/TextureConverter.h"
 #include "ImageOperations/TplImage.h"
+#include "Tools/tools.h"
 
 /**
  * Constructor for the GuiImageData class.

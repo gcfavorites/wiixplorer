@@ -14,12 +14,14 @@
 #include <gd.h>
 #include "Tools/gecko.h"
 #include "Tools/wifi_gecko.h"
+#include "Tools/tools.h"
 #include "Language/gettext.h"
 
 #ifdef __cplusplus
 #include <string>
 #include <vector>
 #include "sigslot.h"
+#include "Tools/StringTools.h"
 #endif
 
 #define UNUSED  __attribute__((unused))

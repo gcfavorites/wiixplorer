@@ -21,81 +21,83 @@
 #include "PromptWindow.h"
 #include "ProgressBar.h"
 
+#define PROGRESS_CANCELED	-10
+
 class ProgressWindow : public GuiFrame, public sigslot::has_slots<>
 {
-	public:
-		static ProgressWindow * Instance() { if(!instance) instance = new ProgressWindow; return instance; }
-		static void DestroyInstance() { delete instance; instance = NULL; }
+public:
+	static ProgressWindow * Instance() { if(!instance) instance = new ProgressWindow; return instance; }
+	static void DestroyInstance() { delete instance; instance = NULL; }
 
-		void OpenWindow(void);
-		void CloseWindow(void);
+	void OpenWindow(void);
+	void CloseWindow(void);
 
-		void StartProgress(const char *title, const char *msg = NULL);
-		void ShowProgress(const u64 &done, const u64 &total, const char *filename);
-		void ShowProgress(const u64 &done, const u64 &total);
-		void StopProgress();
-		void SetTitle(const char *title);
-		void SetMessage(const char *msg);
+	void StartProgress(const char *title, const char *msg = NULL);
+	void ShowProgress(const u64 &done, const u64 &total, const char *filename);
+	void ShowProgress(const u64 &done, const u64 &total);
+	void StopProgress();
+	void SetTitle(const char *title);
+	void SetMessage(const char *msg);
 
-		const char * GetTitle() const { return ProgressTitle; };
-		void SetProgressType(int mode);
-		bool IsCanceled() const { return Canceled; }
-		bool IsMinimized() const { return Minimized; }
-		bool IsRunning() const { return !WindowClosed || Minimized; }
-		void Draw();
-		void SetCompleteValues(const s64 &done, const s64 &total) { completeDone = done; completeTotal = total; }
-		void SetUnit(const char *u) { ProgressUnit = u; }
-	private:
-		ProgressWindow();
-		virtual ~ProgressWindow();
-		void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Canceled = true; }
-		void SetupProgressbar();
-		static ProgressWindow * instance;
+	const char * GetTitle() const { return ProgressTitle; };
+	void SetProgressType(int mode);
+	bool IsCanceled() const { return Canceled; }
+	bool IsMinimized() const { return Minimized; }
+	bool IsRunning() const { return !WindowClosed || Minimized; }
+	void Draw();
+	void SetCompleteValues(const s64 &done, const s64 &total) { completeDone = done; completeTotal = total; }
+	void SetUnit(const char *u) { ProgressUnit = u; }
+private:
+	ProgressWindow();
+	virtual ~ProgressWindow();
+	void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Canceled = true; }
+	void SetupProgressbar();
+	static ProgressWindow * instance;
 
-		u64 progressDone;
-		u64 progressTotal;
-		s64 completeDone;
-		s64 completeTotal;
-		bool Changed;
-		bool Canceled;
-		bool WindowClosed;
-		bool OpenRequest;
-		bool CloseRequest;
-		bool Minimized;
+	u64 progressDone;
+	u64 progressTotal;
+	s64 completeDone;
+	s64 completeTotal;
+	bool Changed;
+	bool Canceled;
+	bool WindowClosed;
+	bool OpenRequest;
+	bool CloseRequest;
+	bool Minimized;
 
-		Timer delayTimer;
-		Timer ProgressTimer;
+	Timer delayTimer;
+	Timer ProgressTimer;
 
-		char ProgressTitle[50];
-		char ProgressMsg[80];
-		const char *ProgressUnit;
+	char ProgressTitle[50];
+	char ProgressMsg[80];
+	const char *ProgressUnit;
 
-		ProgressBar *progressBar;
-		ProgressBar *totalProgressBar;
+	ProgressBar *progressBar;
+	ProgressBar *totalProgressBar;
 
-		GuiImageData *dialogBox;
-		GuiImageData *btnOutline;
+	GuiImageData *dialogBox;
+	GuiImageData *btnOutline;
 
-		GuiImage * dialogBoxImg;
-		GuiImage * buttonImg;
-		GuiImage * MinimizeImg;
+	GuiImage * dialogBoxImg;
+	GuiImage * buttonImg;
+	GuiImage * MinimizeImg;
 
-		GuiText * titleTxt;
-		GuiText * msgTxt;
-		GuiText * speedTxt;
-		GuiText * sizeTxt;
-		GuiText * sizeTotalTxt;
-		GuiText * TimeTxt;;
-		GuiText * AbortBtnTxt;
-		GuiText * MinimizeTxt;
+	GuiText * titleTxt;
+	GuiText * msgTxt;
+	GuiText * speedTxt;
+	GuiText * sizeTxt;
+	GuiText * sizeTotalTxt;
+	GuiText * TimeTxt;;
+	GuiText * AbortBtnTxt;
+	GuiText * MinimizeTxt;
 
-		GuiButton * AbortBtn;
-		GuiButton * MinimizeBtn;
+	GuiButton * AbortBtn;
+	GuiButton * MinimizeBtn;
 
-		GuiSound * soundClick;
-		GuiSound * soundOver;
+	GuiSound * soundClick;
+	GuiSound * soundOver;
 
-		GuiTrigger * trigA;
+	GuiTrigger * trigA;
 };
 
 #define StartProgress	ProgressWindow::Instance()->StartProgress

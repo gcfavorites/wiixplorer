@@ -248,7 +248,7 @@ bool DeviceHandler::MountGCB()
 bool DeviceHandler::MountUSB(int pos)
 {
 	if(!usb0)
-		usb0 = new PartitionHandle(&__io_usbstorage);
+		usb0 = new PartitionHandle((IOS_GetVersion() > 200) ? &__io_usbstorage2_port0 : &__io_usbstorage);
 	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
 		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 
@@ -267,7 +267,7 @@ bool DeviceHandler::MountUSB(int pos)
 bool DeviceHandler::MountAllUSB()
 {
 	if(!usb0)
-		usb0 = new PartitionHandle(&__io_usbstorage);
+		usb0 = new PartitionHandle((IOS_GetVersion() > 200) ? &__io_usbstorage2_port0 : &__io_usbstorage);
 	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
 		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
 

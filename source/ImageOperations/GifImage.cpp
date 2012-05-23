@@ -28,6 +28,7 @@
 #include <string.h>
 #include "VideoOperations/video.h"
 #include "Language/gettext.h"
+#include "Tools/tools.h"
 #include "GifImage.hpp"
 
 #define LZW_BUFF_SIZE   (17*1024)
@@ -523,18 +524,18 @@ void GifImage::Draw(int x, int y, int z, int degrees, float scaleX, float scaleY
 		OffX = x+RedrawQueue[i].offsetx*scaleX+(RedrawQueue[i].width*scaleX-RedrawQueue[i].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
 		OffY = y+RedrawQueue[i].offsety*scaleY+(RedrawQueue[i].height*scaleY-RedrawQueue[i].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
 
-		Menu_DrawImg(RedrawQueue[i].image, RedrawQueue[i].width, RedrawQueue[i].height,
-					 GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth,
-					 maxwidth, minheight, maxheight);
+		Menu_DrawImgCut(RedrawQueue[i].image, RedrawQueue[i].width, RedrawQueue[i].height,
+						GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth,
+						maxwidth, minheight, maxheight);
 	}
 
 	//!Correcting scale position
 	OffX = x+Frames[currentFrame].offsetx*scaleX+(Frames[currentFrame].width*scaleX-Frames[currentFrame].width)/2.0f-(MainWidth*scaleX-MainWidth)/2.0f;
 	OffY = y+Frames[currentFrame].offsety*scaleY+(Frames[currentFrame].height*scaleY-Frames[currentFrame].height)/2.0f-(MainHeight*scaleY-MainHeight)/2.0f;
 
-	Menu_DrawImg(Frames[currentFrame].image, Frames[currentFrame].width, Frames[currentFrame].height,
-				 GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth, maxwidth, minheight,
-				 maxheight);
+	Menu_DrawImgCut(Frames[currentFrame].image, Frames[currentFrame].width, Frames[currentFrame].height,
+					GX_TF_RGBA8, OffX, OffY, z, degrees, scaleX, scaleY, alpha, minwidth, maxwidth, minheight,
+					maxheight);
 
 	if(DelayTimer.elapsed()-lastTimer >= Frames[currentFrame].Delay/100.0f)
 	{

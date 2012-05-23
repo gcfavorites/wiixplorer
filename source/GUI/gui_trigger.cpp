@@ -29,6 +29,7 @@ static int scrollDelay = 0;
  */
 GuiTrigger::GuiTrigger()
 {
+	type = TRIGGER_SIMPLE;
 	chan = -1;
 	memset(&wpaddata, 0, sizeof(WPADData));
 	memset(&pad, 0, sizeof(PADData));

@@ -26,7 +26,7 @@
 #include <sys/dir.h>
 #include <unistd.h>
 #include "Memory/Resources.h"
-#include "DirList.h"
+#include "FileOperations/DirList.h"
 #include "PlayList.hpp"
 #include "main.h"
 

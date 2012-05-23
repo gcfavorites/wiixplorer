@@ -24,6 +24,7 @@
 #include "DeviceControls/DeviceHandler.hpp"
 #include "Language/gettext.h"
 #include "Tools/tools.h"
+#include "Tools/encrypt.h"
 
 #define DEFAULT_APP_PATH	"apps/WiiExplorer/"
 #define CONFIGPATH		  "config/WiiXplorer/"

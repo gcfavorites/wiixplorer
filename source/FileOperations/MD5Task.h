@@ -32,9 +32,6 @@ private:
 	void CloseLog();
 	bool CalculateFile(const char * filepath);
 	bool CalculateDirectory(const char * path);
-	void SortList(std::vector<char *> & List);
-	static bool SortCallback(const char * path1, const char * path2);
-	void ClearList(std::vector<char *> & List);
 
 	FILE * LogFile;
 	int FolderCounter;

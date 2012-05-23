@@ -282,10 +282,10 @@ void Explorer::ProcessChoice(int choice)
 		//Get ItemMarker
 		ItemMarker * IMarker = browser->GetItemMarker();
 
-		ZipFile *Zip = new ZipFile(DestPath.c_str(), CheckFile(DestZipPath) ? ZipFile::APPEND : ZipFile::CREATE);
+		ZipFile *Zip = new ZipFile(DestZipPath, CheckFile(DestZipPath) ? ZipFile::APPEND : ZipFile::CREATE);
 		ArchiveHandle * archive = new ArchiveHandle(Zip);
 
-		PackTask *task = new PackTask(IMarker, DestZipPath, archive, Settings.CompressionLevel);
+		PackTask *task = new PackTask(IMarker, "", archive, Settings.CompressionLevel);
 		task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
 		this->explorerTasks++;
 		Taskbar::Instance()->AddTask(task);

@@ -25,6 +25,8 @@
  ***************************************************************************/
 #include "Controls/Application.h"
 #include "Memory/Resources.h"
+#include "Controls/ThreadedTaskHandler.hpp"
+#include "Controls/Taskbar.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "TextOperations/wstring.hpp"
@@ -33,27 +35,33 @@
 
 
 ImageConverterGui::ImageConverterGui(const char * filepath)
-	: GuiFrame(0,0), ImageConverter(filepath)
+	: GuiFrame(0,0), ImageConverter(NULL)
 {
 	Setup();
+	LoadImage(filepath);
 }
 
 
 ImageConverterGui::ImageConverterGui(const u8 * imgBuf, int imgSize)
-	: GuiFrame(0,0), ImageConverter(imgBuf, imgSize)
+	: GuiFrame(0,0), ImageConverter(NULL, 0)
 {
 	Setup();
+	ImageConverter::LoadImage(imgBuf, imgSize);
 }
 
 ImageConverterGui::~ImageConverterGui()
 {
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-
-	while(GetEffect() > 0)
-		usleep(100);
-
 	if(parentElement)
+	{
+		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+
+		while(GetEffect() > 0)
+			Application::Instance()->updateEvents();
+
 		((GuiFrame *) parentElement)->Remove(this);
+	}
+
+	Application::Instance()->UnsetUpdateOnly(this);
 
 	RemoveAll();
 
@@ -92,11 +100,45 @@ ImageConverterGui::~ImageConverterGui()
 	delete trigB;
 }
 
+bool ImageConverterGui::LoadImage(const char *filepath)
+{
+	ClearMemory();
+
+	if(!filepath)
+		return false;
+
+	ImagePath = new char[strlen(filepath)+1];
+	sprintf(ImagePath, "%s", filepath);
+
+	SetOutPath(filepath);
+
+	FileLoadTask *task = new FileLoadTask(filepath, false);
+	task->LoadingComplete.connect(this, &ImageConverterGui::OnFinishedImageLoad);
+	task->TaskEnd.connect(this, &ImageConverterGui::OnFinishedLoadTask);
+	Taskbar::Instance()->AddTask(task);
+	ThreadedTaskHandler::Instance()->AddTask(task);
+
+	return true;
+}
+
+void ImageConverterGui::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32 buffer_size)
+{
+	bool result = ImageConverter::LoadImage(buffer, buffer_size);
+
+	if(buffer)
+		free(buffer);
+
+	if(result)
+		SetOptionValues();
+}
+
+void ImageConverterGui::OnFinishedLoadTask(Task *task)
+{
+	Application::Instance()->PushForDelete(task);
+}
+
 void ImageConverterGui::Setup()
 {
-	OptionClicked = -1;
-	currentState = -1;
-	ElemPointer = NULL;
 	Converting = false;
 
 	btnClick = Resources::GetSound("button_click.wav");
@@ -231,162 +273,6 @@ void ImageConverterGui::Setup()
 	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
 }
 
-int ImageConverterGui::MainUpdate()
-{
-	if(ElemPointer == AdressBarInput)
-	{
-		ElemPointer = NULL;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-
-		const wchar_t * wText = AdressBarInputText->GetText();
-		if(wText)
-		{
-			wString currentPath(wText);
-			snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
-		}
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			LoadImage(newpath);
-			SetOptionValues();
-		}
-	}
-	else if(ElemPointer == AdressBarOutput)
-	{
-		ElemPointer = NULL;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-
-		const wchar_t * wText = AdressBarOutputText->GetText();
-		if(wText)
-		{
-			wString currentPath(wText);
-			snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
-		}
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			if(OutPath)
-				delete [] OutPath;
-
-			OutPath = new char[strlen(newpath)+1];
-			sprintf(OutPath, "%s", newpath);
-
-			SetOptionValues();
-		}
-	}
-
-	if(OptionClicked == 1)
-	{
-		OptionClicked = -1;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-		snprintf(newpath, sizeof(newpath), "%i", OutputWidth);
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			OutputWidth = LIMIT(atoi(newpath), 0, 9999);
-			SetOptionValues();
-		}
-	}
-	else if(OptionClicked == 2)
-	{
-		OptionClicked = -1;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-		snprintf(newpath, sizeof(newpath), "%i", OutputHeight);
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			OutputHeight = LIMIT(atoi(newpath), 0, 9999);
-			SetOptionValues();
-		}
-	}
-	else if(OptionClicked == 3)
-	{
-		OptionClicked = -1;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-		snprintf(newpath, sizeof(newpath), "%i", JPEG_Quality);
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			JPEG_Quality = LIMIT(atoi(newpath), 0, 100);
-			SetOptionValues();
-		}
-	}
-	else if(OptionClicked == 4)
-	{
-		OptionClicked = -1;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-		snprintf(newpath, sizeof(newpath), "%i", BMP_Compression);
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			BMP_Compression = LIMIT(atoi(newpath), 0, 9);
-			SetOptionValues();
-		}
-	}
-	else if(OptionClicked == 9)
-	{
-		OptionClicked = -1;
-
-		char newpath[200];
-		memset(newpath, 0, sizeof(newpath));
-		snprintf(newpath, sizeof(newpath), "%i", Angle);
-
-		int result = OnScreenKeyboard(newpath, 150);
-		if(result)
-		{
-			Angle = LIMIT(atoi(newpath), 0, 360);
-			SetOptionValues();
-		}
-	}
-
-	if(Converting)
-	{
-//		StartProgress(tr("Converting image..."), THROBBER);
-
-		bool result = Convert();
-		StopProgress();
-
-		if(!result)
-		{
-			ShowError(tr("Could not convert image."));
-		}
-		else
-		{
-			WindowPrompt(tr("Image successfully converted."), 0, tr("OK"));
-			//reset Image
-			char temppath[512];
-			char tempoutpath[512];
-			snprintf(temppath, sizeof(temppath), "%s", ImagePath);
-			snprintf(tempoutpath, sizeof(tempoutpath), "%s", OutPath);
-			LoadImage(temppath);
-			SetOutPath(tempoutpath);
-			SetOptionValues();
-		}
-
-		Converting = false;
-	}
-
-	return currentState;
-}
-
 void ImageConverterGui::SetOptionValues()
 {
 	AdressBarInputText->SetText(ImagePath);
@@ -450,11 +336,9 @@ void ImageConverterGui::SetOptionValues()
 
 void ImageConverterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == BackBtn)
 	{
-		currentState = 1;
+		Application::Instance()->PushForDelete(this);
 	}
 	else if(sender == ResetBtn)
 	{
@@ -468,18 +352,51 @@ void ImageConverterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, con
 	}
 	else if(sender == AdressBarInput)
 	{
-		ElemPointer = AdressBarInput;
+		char newpath[200];
+		memset(newpath, 0, sizeof(newpath));
+
+		const wchar_t * wText = AdressBarInputText->GetText();
+		if(wText)
+		{
+			wString currentPath(wText);
+			snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
+		}
+
+		int result = OnScreenKeyboard(newpath, 150);
+		if(result)
+		{
+			LoadImage(newpath);
+			SetOptionValues();
+		}
 	}
 	else if(sender == AdressBarOutput)
 	{
-		ElemPointer = AdressBarOutput;
+		char newpath[200];
+		memset(newpath, 0, sizeof(newpath));
+
+		const wchar_t * wText = AdressBarOutputText->GetText();
+		if(wText)
+		{
+			wString currentPath(wText);
+			snprintf(newpath, sizeof(newpath), "%s", currentPath.toUTF8().c_str());
+		}
+
+		int result = OnScreenKeyboard(newpath, 150);
+		if(result)
+		{
+			if(OutPath)
+				delete [] OutPath;
+
+			OutPath = new char[strlen(newpath)+1];
+			sprintf(OutPath, "%s", newpath);
+
+			SetOptionValues();
+		}
 	}
 }
 
 void ImageConverterGui::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	for(int i = 0; i < Options.GetOptionCount(); i++)
 	{
 		if(sender == Options.GetButtonLeft(i))
@@ -537,8 +454,6 @@ void ImageConverterGui::OnOptionLeftClick(GuiElement *sender, int pointer UNUSED
 
 void ImageConverterGui::OnOptionRightClick(GuiElement *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	for(int i = 0; i < Options.GetOptionCount(); i++)
 	{
 		if(sender == Options.GetButtonRight(i))
@@ -596,15 +511,70 @@ void ImageConverterGui::OnOptionRightClick(GuiElement *sender, int pointer UNUSE
 
 void ImageConverterGui::OnOptionButtonClick(GuiElement *sender, int pointer, const POINT &p)
 {
-	sender->ResetState();
-
 	for(int i = 0; i < Options.GetOptionCount(); i++)
 	{
 		if(sender == Options.GetButton(i))
 		{
 			if((i >= 1 && i <= 4) || i == 9)
 			{
-				OptionClicked = i;
+				char newpath[200];
+				memset(newpath, 0, sizeof(newpath));
+
+				switch(i)
+				{
+					case 1: {
+						snprintf(newpath, sizeof(newpath), "%i", OutputWidth);
+						int result = OnScreenKeyboard(newpath, 150);
+						if(result)
+						{
+							OutputWidth = LIMIT(atoi(newpath), 0, 9999);
+							SetOptionValues();
+						}
+						break;
+					}
+					case 2: {
+						snprintf(newpath, sizeof(newpath), "%i", OutputHeight);
+						int result = OnScreenKeyboard(newpath, 150);
+						if(result)
+						{
+							OutputHeight = LIMIT(atoi(newpath), 0, 9999);
+							SetOptionValues();
+						}
+						break;
+					}
+					case 3: {
+						snprintf(newpath, sizeof(newpath), "%i", JPEG_Quality);
+						int result = OnScreenKeyboard(newpath, 150);
+						if(result)
+						{
+							JPEG_Quality = LIMIT(atoi(newpath), 0, 100);
+							SetOptionValues();
+						}
+						break;
+					}
+					case 4: {
+						snprintf(newpath, sizeof(newpath), "%i", BMP_Compression);
+						int result = OnScreenKeyboard(newpath, 150);
+						if(result)
+						{
+							BMP_Compression = LIMIT(atoi(newpath), 0, 9);
+							SetOptionValues();
+						}
+						break;
+					}
+					case 9: {
+						snprintf(newpath, sizeof(newpath), "%i", Angle);
+						int result = OnScreenKeyboard(newpath, 150);
+						if(result)
+						{
+							Angle = LIMIT(atoi(newpath), 0, 360);
+							SetOptionValues();
+						}
+						break;
+					}
+					default:
+						break;
+				}
 			}
 			else
 			{
@@ -620,6 +590,34 @@ void ImageConverterGui::Draw()
 	{
 		ShowProgress(0, 1, OutPath);
 	}
+
+	if(Converting)
+	{
+//		StartProgress(tr("Converting image..."), THROBBER);
+
+		bool result = Convert();
+		StopProgress();
+
+		if(!result)
+		{
+			ShowError(tr("Could not convert image."));
+		}
+		else
+		{
+			WindowPrompt(tr("Image successfully converted."), 0, tr("OK"));
+			//reset Image
+			char temppath[512];
+			char tempoutpath[512];
+			snprintf(temppath, sizeof(temppath), "%s", ImagePath);
+			snprintf(tempoutpath, sizeof(tempoutpath), "%s", OutPath);
+			LoadImage(temppath);
+			SetOutPath(tempoutpath);
+			SetOptionValues();
+		}
+
+		Converting = false;
+	}
+
 
 	GuiFrame::Draw();
 }

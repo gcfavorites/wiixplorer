@@ -52,24 +52,24 @@ public:
 	bool LoadPath(const char * path, const char *filter = NULL, u32 flags = Files | Dirs);
 	//! Get a filename of the list
 	//!\param list index
-	const char * GetFilename(int index);
+	const char * GetFilename(int index) const;
 	//! Get the a filepath of the list
 	//!\param list index
-	const char *GetFilepath(int index) { if (!valid(index)) return NULL; else return FileInfo[index].FilePath; }
+	const char *GetFilepath(int index) const { if (!valid(index)) return ""; else return FileInfo[index].FilePath; }
 	//! Get the a filesize of the list
 	//!\param list index
-	u64 GetFilesize(int index);
+	u64 GetFilesize(int index) const;
 	//! Is index a dir or a file
 	//!\param list index
-	bool IsDir(int index) { if(!valid(index)) return 0; return FileInfo[index].isDir; };
+	bool IsDir(int index) const { if(!valid(index)) return false; return FileInfo[index].isDir; };
 	//! Get the filecount of the whole list
-	int GetFilecount() { return FileInfo.size(); };
+	int GetFilecount() const { return FileInfo.size(); };
 	//! Sort list by filepath
 	void SortList();
 	//! Custom sort command for custom sort functions definitions
 	void SortList(bool (*SortFunc)(const DirEntry &a, const DirEntry &b));
 	//! Get the index of the specified filename
-	int GetFileIndex(const char *filename);
+	int GetFileIndex(const char *filename) const;
 	//! Enum for search/filter flags
 	enum
 	{
@@ -85,7 +85,7 @@ protected:
 	//! Clear the list
 	void ClearList();
 	//! Check if valid pos is requested
-	inline bool valid(int pos) { return (pos >= 0 && pos < (int) FileInfo.size()); };
+	inline bool valid(u32 pos) const { return (pos < FileInfo.size()); };
 
 	u32 Flags;
 	const char *Filter;

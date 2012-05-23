@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2011 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,35 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef LANGUAGE_SETTINGS_MENU_H_
-#define LANGUAGE_SETTINGS_MENU_H_
+#ifndef FILELOADTASK_H_
+#define FILELOADTASK_H_
 
-#include "SettingsMenu.h"
-#include "FileOperations/DirList.h"
+#include "FileOperations/ProcessTask.h"
 
-class LanguageSettingsMenu : public SettingsMenu
+class FileLoadTask : public ProcessTask
 {
-	public:
-		LanguageSettingsMenu(GuiFrame *returnElement);
-		virtual ~LanguageSettingsMenu();
-	protected:
-		void SetupOptions();
-		void SetOptionValues() {}
-		virtual void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnDownloadButtonClick(GuiButton *sender, int pointer, const POINT &p);
-		void OnResetButtonClick(GuiButton *sender, int pointer, const POINT &p);
-
-		DirList *FileList;
-
-		GuiText *resetBtnTxt;
-		GuiImage *resetBtnImg;
-		GuiButton *resetBtn;
-
-		GuiImageData *downloadImgData;
-		GuiImage *downloadBtnImg;
-		GuiButton *downloadBtn;
+public:
+	FileLoadTask(const std::string &filepath, bool silent);
+	virtual ~FileLoadTask();
+	virtual void Execute(void);
+	void SetAutoDelete(bool b) { bAutoDelete = b; }
+	sigslot::signal3<FileLoadTask *, u8 *, u32> LoadingComplete;
+private:
+	bool m_silent;
+	bool bAutoDelete;
 };
 
-
-
-#endif
+#endif /* COPYTASK_H_ */

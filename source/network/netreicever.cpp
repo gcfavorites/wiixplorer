@@ -38,7 +38,7 @@
 #include "http.h"
 #include "networkops.h"
 #include "FileOperations/fileops.h"
-#include "DirList.h"
+#include "FileOperations/DirList.h"
 #include "main.h"
 #include "netreceiver.h"
 

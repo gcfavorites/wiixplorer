@@ -70,24 +70,24 @@ typedef struct ftgxDataOffset_ ftgxDataOffset;
 
 #define _TEXT(t) L ## t /**< Unicode helper macro. */
 
-#define FTGX_NULL				0x0000
-#define FTGX_JUSTIFY_LEFT		0x0001
-#define FTGX_JUSTIFY_CENTER		0x0002
-#define FTGX_JUSTIFY_RIGHT		0x0004
-#define FTGX_JUSTIFY_MASK		0x000f
+#define FTGX_NULL		0x0000
+#define FTGX_JUSTIFY_LEFT	0x0001
+#define FTGX_JUSTIFY_CENTER	0x0002
+#define FTGX_JUSTIFY_RIGHT	0x0004
+#define FTGX_JUSTIFY_MASK	0x000f
 
-#define FTGX_ALIGN_TOP			0x0010
-#define FTGX_ALIGN_MIDDLE		0x0020
-#define FTGX_ALIGN_BOTTOM		0x0040
-#define FTGX_ALIGN_BASELINE		0x0080
+#define FTGX_ALIGN_TOP		0x0010
+#define FTGX_ALIGN_MIDDLE	0x0020
+#define FTGX_ALIGN_BOTTOM	0x0040
+#define FTGX_ALIGN_BASELINE	0x0080
 #define FTGX_ALIGN_GLYPH_TOP	0x0100
 #define FTGX_ALIGN_GLYPH_MIDDLE	0x0200
 #define FTGX_ALIGN_GLYPH_BOTTOM	0x0400
-#define FTGX_ALIGN_MASK			0x0ff0
+#define FTGX_ALIGN_MASK		0x0ff0
 
 #define FTGX_STYLE_UNDERLINE	0x1000
-#define FTGX_STYLE_STRIKE		0x2000
-#define FTGX_STYLE_MASK			0xf000
+#define FTGX_STYLE_STRIKE	0x2000
+#define FTGX_STYLE_MASK		0xf000
 
 const GXColor ftgxWhite = ( GXColor )
 {   0xff, 0xff, 0xff, 0xff}; /**< Constant color value used only to sanitize Doxygen documentation. */
@@ -132,7 +132,7 @@ class FreeTypeGX
 				int16_t screenZ, GXColor color);
 
 	public:
-		FreeTypeGX(const uint8_t* fontBuffer, FT_Long bufferSize);
+		FreeTypeGX(const uint8_t* fontBuffer, FT_Long bufferSize, bool lastFace = false);
 		~FreeTypeGX();
 
 		void setVertexFormat(uint8_t vertexIndex);
