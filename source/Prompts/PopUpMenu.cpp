@@ -236,7 +236,6 @@ void PopUpMenu::CloseSubMenu(void)
 {
 	if(subMenu) {
 		Remove(subMenu);
-		subMenu->Close();
 		subMenu = NULL;
 	}
 }

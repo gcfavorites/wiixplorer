@@ -64,10 +64,7 @@ class GuiFrame : public GuiElement
 		//!\return index of selected GuiElement
 		int GetSelected();
 		//!Window cutoff bounds
-		void SetMinWidth(int w);
-		void SetMaxWidth(int w);
-		void SetMinHeight(int h);
-		void SetMaxHeight(int h);
+		void SetBounds(iRect w);
 		//!Dim the Window's background
 		void DimBackground(bool d);
 		//!Draws all the elements in this GuiFrame

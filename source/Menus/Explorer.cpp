@@ -26,6 +26,7 @@
 #include "Controls/Taskbar.h"
 #include "Memory/Resources.h"
 #include "FileOperations/ProcessChoice.h"
+#include "Prompts/CreditWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "DiskOperations/di2.h"
@@ -78,8 +79,6 @@ Explorer::~Explorer()
 	delete trigPlus;
 	delete trigBackInDir;
 
-	if(Credits)
-		delete Credits;
 	if(fileBrowser != curBrowser)
 		delete fileBrowser;
 
@@ -92,7 +91,6 @@ void Explorer::Init()
 	explorerTasks = 0;
 	guiBrowser = NULL;
 	curBrowser = NULL;
-	Credits = NULL;
 
 	fileBrowser = new FileBrowser();
 	curBrowser = fileBrowser;
@@ -362,10 +360,8 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 {
 	Application::Instance()->Remove(menu);
 	Application::Instance()->UnsetUpdateOnly(menu);
-	menu->Close();
 
-
-	if(curBrowser != fileBrowser && item >= 0) //! Archive
+	if(item >= 0 && curBrowser != fileBrowser) //! Archive
 	{
 		ProcessArcChoice(item, fileBrowser->GetCurrentPath());
 		guiBrowser->Refresh();
@@ -374,13 +370,15 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 	{
 		ProcessChoice(item);
 	}
+
+	Application::Instance()->PushForDelete(menu);
+
 }
 
-void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
+void Explorer::OnDeviceSelect(DeviceMenu *deviceMenu, int device)
 {
-	Application::Instance()->UnsetUpdateOnly(Device_Menu);
-	Device_Menu->Close();
-	Device_Menu = NULL;
+	Application::Instance()->UnsetUpdateOnly(deviceMenu);
+	Application::Instance()->PushForDelete(deviceMenu);
 
 	if(device == DVD)
 	{
@@ -413,26 +411,19 @@ void Explorer::OnDeviceSelect(DeviceMenu *Device_Menu, int device)
 	}
 }
 
-void Explorer::OnCreditsClosing()
-{
-	Application::Instance()->UnsetUpdateOnly(Credits);
-	Application::Instance()->PushForDelete(Credits);
-	Credits = NULL;
-}
-
 void Explorer::OnCreditsButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	Credits = new CreditWindow(this);
+	CreditWindow * Credits = new CreditWindow(this);
 	Credits->DimBackground(true);
-	Credits->Closing.connect(this, &Explorer::OnCreditsClosing);
 	Application::Instance()->SetUpdateOnly(Credits);
 }
 
 void Explorer::OnDeviceButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	DeviceMenu *Device_Menu = new DeviceMenu(deviceSwitchBtn->GetLeft()-5-this->GetLeft(), deviceSwitchBtn->GetTop()+deviceSwitchBtn->GetHeight()-this->GetTop(), this);
-	Device_Menu->DeviceSelected.connect(this, &Explorer::OnDeviceSelect);
-	Application::Instance()->SetUpdateOnly(Device_Menu);
+	DeviceMenu *deviceMenu = new DeviceMenu(deviceSwitchBtn->GetLeft()-5-this->GetLeft(), deviceSwitchBtn->GetTop()+deviceSwitchBtn->GetHeight()-this->GetTop());
+	deviceMenu->DeviceSelected.connect(this, &Explorer::OnDeviceSelect);
+	Application::Instance()->SetUpdateOnly(deviceMenu);
+	this->Append(deviceMenu);
 }
 
 void Explorer::OnContextButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p)

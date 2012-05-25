@@ -22,7 +22,6 @@
 #include "FileOperations/Browser.hpp"
 #include "Prompts/DeviceMenu.h"
 #include "Prompts/PopUpMenu.h"
-#include "Prompts/CreditWindow.h"
 #include "Controls/Task.hpp"
 
 class Explorer : public GuiFrame, public sigslot::has_slots<>
@@ -31,16 +30,15 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		Explorer(GuiFrame *parent = 0, const char * path = 0);
 		virtual ~Explorer();
 		int LoadPath(const char * path);
-		void SetFilter(u8 filtermode) { fileBrowser->SetFilter(filtermode); };
-		const char * GetCurrectPath() { return fileBrowser->GetCurrentPath(); };
+		void SetFilter(u8 filtermode) { fileBrowser->SetFilter(filtermode); }
+		const char * GetCurrectPath() { return fileBrowser->GetCurrentPath(); }
 		void show();
 		void hide();
 	protected:
 		void Init();
 		void OnBrowserChanges(int index);
-		void OnDeviceSelect(DeviceMenu *Device_Menu, int device);
+		void OnDeviceSelect(DeviceMenu *deviceMenu, int device);
 		void OnRightClick(PopUpMenu *menu, int item);
-		void OnCreditsClosing();
 		void SetDeviceImage();
 		void OnCreditsButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnDeviceButtonClick(GuiButton *sender, int pointer, const POINT &p);
@@ -57,8 +55,6 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		GuiFileBrowser * guiBrowser;
 		int guiBrowserType;
 		int explorerTasks;
-
-		CreditWindow * Credits;
 
 		GuiImage * BackgroundImg;
 		GuiImage * creditsImg;

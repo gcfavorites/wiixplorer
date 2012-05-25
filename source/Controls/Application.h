@@ -20,8 +20,9 @@
 #include <queue>
 #include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
+#include "GUI/gui_button.h"
 
-class Application : public GuiFrame
+class Application : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		static Application * Instance() { if(!instance) instance = new Application(); return instance; }
@@ -37,8 +38,6 @@ class Application : public GuiFrame
 
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);
-
-		void SetDrawOnly(GuiElement *e) { drawOnlyElement = e; }
 
 		void Append(GuiElement *e)
 		{
@@ -66,10 +65,12 @@ class Application : public GuiFrame
 				}
 		}
 
-		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); };
+		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); }
 	private:
 		Application();
 		virtual ~Application();
+		void OnHomeButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnHomeMenuClosing(GuiFrame *menu);
 
 		static Application *instance;
 		static bool exitApplication;
@@ -78,7 +79,8 @@ class Application : public GuiFrame
 		GuiImageData *pointer[4];
 		GuiImageData *standardPointer[4];
 		GuiImageData *grabPointer[4];
-		GuiElement *drawOnlyElement;
+		GuiButton *btnHome;
+		GuiTrigger trigHome;
 		std::vector<GuiElement *> updateOnlyElement;
 		std::vector<GuiElement *> elements;
 

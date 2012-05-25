@@ -110,7 +110,6 @@ WiiMovie::~WiiMovie()
 		((GuiFrame *) parentElement)->Remove(this);
 
 	Application::Instance()->UnsetUpdateOnly(this);
-	Application::Instance()->SetDrawOnly(NULL);
 
 	Playing = false;
 	ExitRequested = true;
@@ -386,7 +385,7 @@ void WiiMovie::Draw()
 	if(FrameBufCount > 0)
 	{
 		if(FrameBuf[0])
-			Menu_DrawImg(FrameBuf[0], width, height, GX_TF_RGB565, GetLeft(), GetTop(), 1.0f, 0, scaleX, scaleY, alpha);
+			Menu_DrawImg(FrameBuf[0], width, height, GX_TF_RGB565, GetLeft(), GetTop(), 0.0f, 0.0f, scaleX, scaleY, alpha);
 
 		//! rotate FIFO
 		//! we don't need to lock as render thread is highest prio and interrupts the decode thread

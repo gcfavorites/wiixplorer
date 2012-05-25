@@ -36,16 +36,17 @@ class Scrollbar : public GuiElement, public sigslot::has_slots<>
 		void SetButtonScroll(u32 button) { ButtonScroll = button; }
 		void ScrollOneUp();
 		void ScrollOneDown();
-		int GetSelectedItem() { return SelItem; };
-		int GetSelectedIndex() { return SelInd; };
-		void SetScrollSpeed(u16 speed) { ScrollSpeed = speed; };
-		void SetButtonScrollSpeed(u16 speed) { ButtonScrollSpeed = speed; };
+		int GetSelectedItem() { return SelItem; }
+		int GetSelectedIndex() { return SelInd; }
+		void SetScrollSpeed(u16 speed) { ScrollSpeed = speed; }
+		void SetButtonScrollSpeed(u16 speed) { ButtonScrollSpeed = speed; }
+		void SetBounds(iRect w);
 		void Draw();
 		void Update(GuiTrigger * t);
 		enum
 		{
 			ICONMODE = 0,
-			LISTMODE,
+			LISTMODE
 		};
 		//! Signals
 		sigslot::signal2<int, int> listChanged;

@@ -30,7 +30,7 @@
 class DeviceMenu : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		DeviceMenu(int x, int y, GuiFrame *parent = 0);
+		DeviceMenu(int x, int y);
 		virtual ~DeviceMenu();
 		sigslot::signal2<DeviceMenu *, int> DeviceSelected;
 	private:

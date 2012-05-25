@@ -73,7 +73,7 @@ ProgressWindow::ProgressWindow()
 
 ProgressWindow::~ProgressWindow()
 {
-    Canceled = true;
+	Canceled = true;
 	CloseWindow();
 }
 
@@ -312,25 +312,25 @@ void ProgressWindow::Draw()
 
 		TimeTxt->SetTextf("%s %02i:%02i:%02i", tr("Time left:"), TimeLeft / 3600, (TimeLeft / 60) % 60, TimeLeft % 60);
 
-        if(ProgressUnit)
-        {
-            speedTxt->SetTextf("%i %s/s", (int) speed, ProgressUnit);
-            sizeTxt->SetTextf("%i/%i %s", (int) fDone, (int) fTotal, ProgressUnit);
-        }
-        else
-        {
-            speedTxt->SetTextf("%0.1fKB/s", speed/KBSIZE);
+		if(ProgressUnit)
+		{
+			speedTxt->SetTextf("%i %s/s", (int) speed, ProgressUnit);
+			sizeTxt->SetTextf("%i/%i %s", (int) fDone, (int) fTotal, ProgressUnit);
+		}
+		else
+		{
+			speedTxt->SetTextf("%0.1fKB/s", speed/KBSIZE);
 
-            //! Single progress bar values
-            if(fTotal > GBSIZE)
-                sizeTxt->SetTextf("%0.2fGB/%0.2fGB", fDone/GBSIZE, fTotal/GBSIZE);
-            else if(fTotal > MBSIZE)
-                sizeTxt->SetTextf("%0.2fMB/%0.2fMB", fDone/MBSIZE, fTotal/MBSIZE);
-            else if(fTotal > KBSIZE)
-                sizeTxt->SetTextf("%0.2fKB/%0.2fKB", fDone/KBSIZE, fTotal/KBSIZE);
-            else
-                sizeTxt->SetTextf("%0.0fB/%0.0fB", fDone, fTotal);
-        }
+			//! Single progress bar values
+			if(fTotal > GBSIZE)
+				sizeTxt->SetTextf("%0.2fGB/%0.2fGB", fDone/GBSIZE, fTotal/GBSIZE);
+			else if(fTotal > MBSIZE)
+				sizeTxt->SetTextf("%0.2fMB/%0.2fMB", fDone/MBSIZE, fTotal/MBSIZE);
+			else if(fTotal > KBSIZE)
+				sizeTxt->SetTextf("%0.2fKB/%0.2fKB", fDone/KBSIZE, fTotal/KBSIZE);
+			else
+				sizeTxt->SetTextf("%0.0fB/%0.0fB", fDone, fTotal);
+		}
 
 		drawCounter = 0;
 		Changed = false;

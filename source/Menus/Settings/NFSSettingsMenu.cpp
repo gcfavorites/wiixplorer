@@ -77,16 +77,16 @@ void NFSSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
 			if(result)
 				snprintf(Settings.NFSUser[Settings.CurrentNFSUser].Mountpoint, sizeof(Settings.NFSUser[Settings.CurrentNFSUser].Mountpoint), "%s", entered);
 			break;
-                case 3:
-                        result = WindowPrompt(tr("Do you want to reconnect this NFS?"),0,tr("OK"),tr("Cancel"));
-                        if(result)
-                        {
-                                if(NFS_Reconnect())
-                                        WindowPrompt(tr("NFS reconnected successfull."), 0, tr("OK"));
-                                else
-                                        ShowError(tr("Reconnect failed. No share connected."));
-                        }
-                        break;
+		case 3:
+			result = WindowPrompt(tr("Do you want to reconnect this NFS?"),0,tr("OK"),tr("Cancel"));
+			if(result)
+			{
+				if(NFS_Reconnect())
+					WindowPrompt(tr("NFS reconnected successfull."), 0, tr("OK"));
+				else
+					ShowError(tr("Reconnect failed. No share connected."));
+			}
+		break;
 
 		case 4:
 			result = WindowPrompt(tr("Do you want to disconnect this NFS?"),0,tr("OK"),tr("Cancel"));

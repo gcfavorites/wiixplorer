@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include "BootSettingsMenu.h"
+#include "Prompts/PromptWindows.h"
 #include "Settings.h"
+#include "sys.h"
 
 BootSettingsMenu::BootSettingsMenu(GuiFrame *r)
 	: SettingsMenu(tr("Boot Settings"), r)
@@ -43,41 +45,25 @@ void BootSettingsMenu::SetOptionValues()
 	options.SetValue(i++, "%i", Settings.BootIOS);
 }
 
-void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
+void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option UNUSED)
 {
-	switch(option)
+	if(option == 0)
 	{
-		case 0:
+		char entered[50];
+		snprintf(entered, sizeof(entered), "%i", Settings.BootIOS);
+		int result = OnScreenKeyboard(entered, sizeof(entered));
+		if(result)
 		{
-			switch(Settings.BootIOS)
+			int ios = LIMIT(atoi(entered), 1, 255);
+			
+			if(!FindTitle(((u64) 0x00000001 << 32ULL) | ios))
 			{
-				case 58:
-					Settings.BootIOS = 202;
-					break;
-				case 202:
-					Settings.BootIOS = 222;
-					break;
-				case 222:
-					Settings.BootIOS = 223;
-					break;
-				case 223:
-					Settings.BootIOS = 36;
-					break;
-				case 36:
-					Settings.BootIOS = 60;
-					break;
-				case 60:
-					Settings.BootIOS = 61;
-					break;
-				case 61:
-					Settings.BootIOS = 58;
-					break;
-				default:
-					break;
+				if(WindowPrompt(fmt(tr("Could not find IOS %i"), ios), tr("Are you sure you have that IOS installed?"), tr("Yes"), tr("Cancel")))
+					Settings.BootIOS = ios;
 			}
+			else
+				Settings.BootIOS = ios;
 		}
-		default:
-			break;
 	}
 
 	SetOptionValues();

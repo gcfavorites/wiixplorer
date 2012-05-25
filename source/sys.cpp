@@ -69,6 +69,12 @@ extern "C" bool RebootApp()
 
 extern "C" void ExitApp()
 {
+	//! this should never happen, but its just in case here
+	static bool bRunOnce = false;
+	if(bRunOnce)
+		return;
+	bRunOnce = true;
+
 	if(Settings.DeleteTempPath)
 	{
 		char path[sizeof(Settings.TempPath)];
@@ -76,25 +82,27 @@ extern "C" void ExitApp()
 		RemoveDirectory(path);
 	}
 	Settings.Save();
+	//! fade out
+	Application::Instance()->quit();
+	//! now destroy objects
 	ShutdownPads();
 	Clipboard::DestroyInstance();
-	Application::DestroyInstance();
 	Taskbar::DestroyInstance();
 	MusicPlayer::DestroyInstance();
 	ProgressWindow::DestroyInstance();
 	FTPServer::DestroyInstance();
 	Channels::DestroyInstance();
 	SoundHandler::DestroyInstance();
+	Application::DestroyInstance();
+	Resources::DestroyInstance();
+	DeviceHandler::DestroyInstance();
 	StopGX();
 	ShutdownAudio();
 	ClearFontData();
-	Resources::DestroyInstance();
-	DeviceHandler::DestroyInstance();
 	DI2_Close();
 	USB_Deinitialize();
 	DeInit_Network();
 	ISFS_Deinitialize();
-	MEM2_cleanup();
 	MagicPatches(0);
 }
 
@@ -160,6 +168,11 @@ extern "C" void Sys_ShutdownToStandby(void)
 extern "C" void Sys_LoadMenu(void)
 {
 	ExitApp();
+
+	// Priiloader shutup
+	*(u32 *)0x8132fffb = 0x50756e65;
+	DCFlushRange((u32 *)0x8132fffb, 4);
+
 	/* Return to the Wii system menu */
 	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
@@ -169,9 +182,8 @@ extern "C" void Sys_BackToLoader(void)
 	ExitApp();
 
 	if (IsFromHBC())
-	{
-		exit(0);
-	}
+		Sys_LoadHBC();
+
 	// Channel Version
 	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
@@ -188,6 +200,26 @@ extern "C" bool IsFromHBC()
 	}
 
 	return false;
+}
+
+#define HBC_HAXX	0x0001000148415858LL
+#define HBC_JODI	0x000100014A4F4449LL
+#define HBC_1_0_7   0x00010001AF1BF516LL
+
+extern "C" void Sys_LoadHBC(void)
+{
+	ExitApp();
+
+	WII_Initialize();
+
+	int ret = WII_LaunchTitle(HBC_1_0_7);
+	if(ret < 0)
+		WII_LaunchTitle(HBC_JODI);
+	if(ret < 0)
+		WII_LaunchTitle(HBC_HAXX);
+
+	//Back to system menu if all fails
+	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 }
 
 extern "C" int GetIOS_Rev(u32 ios)

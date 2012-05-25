@@ -47,6 +47,7 @@ void Sys_ShutdownToIdle(void);
 void Sys_ShutdownToStandby(void);
 void Sys_LoadMenu(void);
 void Sys_BackToLoader(void);
+void Sys_LoadHBC(void);
 bool IsFromHBC();
 int GetIOS_Rev(u32 ios);
 bool FindTitle(u64 titleid);

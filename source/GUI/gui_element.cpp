@@ -20,6 +20,7 @@
  * Constructor for the Object class.
  */
 GuiElement::GuiElement()
+	: cutBoundsRect(0xBADBABE, 0xBADBABE, 0xBADBABE, 0xBADBABE)
 {
 	xoffset = 0;
 	yoffset = 0;
@@ -29,10 +30,6 @@ GuiElement::GuiElement()
 	alpha = 255;
 	scaleX = 1.0f;
 	scaleY = 1.0f;
-	minwidth = 0xBADBABE;
-	maxwidth = 0xBADBABE;
-	minheight = 0xBADBABE;
-	maxheight = 0xBADBABE;
 	state = STATE_DEFAULT;
 	stateChan = -1;
 	parentElement = NULL;

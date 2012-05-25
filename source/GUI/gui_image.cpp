@@ -287,8 +287,8 @@ void GuiImage::Draw()
 	if(!this->IsVisible() || tileVertical == 0 || tileHorizontal == 0)
 		return;
 
-	bool bUnCut = minwidth == 0xBADBABE || maxwidth == 0xBADBABE ||
-				  minheight == 0xBADBABE || maxheight == 0xBADBABE;
+	bool bUnCut = (cutBoundsRect.x1() == 0xBADBABE) || (cutBoundsRect.y1() == 0xBADBABE) ||
+				  (cutBoundsRect.x2() == 0xBADBABE) || (cutBoundsRect.y2() == 0xBADBABE);
 
 	int currLeft = this->GetLeft();
 	int currTop = this->GetTop();
@@ -305,7 +305,7 @@ void GuiImage::Draw()
 				if(bUnCut)
 					Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop+width*n, currZ, imageangle, currScaleX, currScaleY, currAlpha);
 				else
-					Menu_DrawImgCut(image, width, height, format, currLeft+width*i, currTop+width*n, currZ, imageangle, currScaleX, currScaleY, currAlpha, minwidth, maxwidth, minheight, maxheight);
+					Menu_DrawImgCut(image, width, height, format, currLeft+width*i, currTop+width*n, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 			}
 	}
 	else if(image && tileHorizontal > 0)
@@ -315,7 +315,7 @@ void GuiImage::Draw()
 			if(bUnCut)
 				Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha);
 			else
-				Menu_DrawImgCut(image, width, height, format, currLeft+width*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, minwidth, maxwidth, minheight, maxheight);
+				Menu_DrawImgCut(image, width, height, format, currLeft+width*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 		}
 	}
 	else if(image && tileVertical > 0)
@@ -325,7 +325,7 @@ void GuiImage::Draw()
 			if(bUnCut)
 				Menu_DrawImg(image, width, height, format, currLeft, currTop+height*i, currZ, imageangle, currScaleX, currScaleY, currAlpha);
 			else
-				Menu_DrawImgCut(image, width, height, format, currLeft, currTop+height*i, currZ, imageangle, currScaleX, currScaleY, currAlpha, minwidth, maxwidth, minheight, maxheight);
+				Menu_DrawImgCut(image, width, height, format, currLeft, currTop+height*i, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 		}
 	}
 	else if(imgType == IMAGE_COLOR)
@@ -339,14 +339,14 @@ void GuiImage::Draw()
 	else if(AnimGif)
 	{
 		AnimGif->Draw(currLeft, currTop, currZ, imageangle, currScaleX, currScaleY,
-					  GetAlpha(), minwidth, maxwidth, minheight, maxheight);
+					  GetAlpha(), cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 	}
 	else if(image)
 	{
 		if(bUnCut)
 			Menu_DrawImg(image, width, height, format, currLeft, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha);
 		else
-			Menu_DrawImgCut(image, width, height, format, currLeft, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, minwidth, maxwidth, minheight, maxheight);
+			Menu_DrawImgCut(image, width, height, format, currLeft, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 	}
 
 	if(stripe > 0)

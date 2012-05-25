@@ -84,10 +84,7 @@ class GuiButton : public GuiElement
 		//!Sets a tooltip that should popup after a few seconds
 		void SetTooltip(GuiTooltip * t);
 		//!Image cutoffs
-		void SetMinWidth(int w);
-		void SetMaxWidth(int w);
-		void SetMinHeight(int h);
-		void SetMaxHeight(int h);
+		void SetBounds(iRect w);
 		//!Set a new GuiTrigger for the element
 		//!\param t Pointer to GuiTrigger
 		void SetTrigger(GuiTrigger * t);

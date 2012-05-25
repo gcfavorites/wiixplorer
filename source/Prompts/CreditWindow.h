@@ -36,11 +36,9 @@ class CreditWindow : public GuiFrame, public sigslot::has_slots<>
 	public:
 		CreditWindow(GuiFrame *parent);
 		virtual ~CreditWindow();
-		sigslot::signal0<> Closing;
 	private:
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 
-		int choice;
 		int CreditEntries;
 
 		GuiImage * dialogBoxImg;
