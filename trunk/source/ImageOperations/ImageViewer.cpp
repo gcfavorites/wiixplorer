@@ -449,7 +449,8 @@ void ImageViewer::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32
 		while(image->GetEffect() > 0)
 			usleep(10000);
 	}
-
+	
+	image->SetVisible(false);
 	image->SetImage(newImage);
 
 	u32 frameCountOld = frameCount;
@@ -472,6 +473,8 @@ void ImageViewer::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32
 	//!Substract loading time from timer for slideshow
 	if(SlideShowStart > 0)
 		SlideShowStart = time(0);
+	
+	image->SetVisible(true);
 
 	bImageLoading = false;
 }
@@ -507,12 +510,9 @@ void ImageViewer::Setup()
 
 	//! place the image after the background and under everything else
 	image = new GuiImage();
-	//! cut everything outside of screen with a 300 offset (for rotation)
+	//! cut everything outside of screen with a 200 offset (for rotation)
 	//! this resolves the glitches when zooming too far into the texture
-	image->SetMinWidth(-300);
-	image->SetMaxWidth(screenwidth + 300);
-	image->SetMinHeight(-300);
-	image->SetMaxHeight(screenheight + 300);
+	image->SetBounds(iRect(-200, -200, screenwidth + 200, screenheight + 200));
 	Append(image);
 
 	backButtonData = Resources::GetImageData("back.png");

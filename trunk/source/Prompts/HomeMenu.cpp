@@ -1,3 +1,19 @@
+/****************************************************************************
+ * Copyright (C) 2009-2011 Dimok
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <unistd.h>
 
 #include "HomeMenu.h"
@@ -12,8 +28,6 @@
 HomeMenu::HomeMenu()
 	: GuiFrame(0, 0)
 {
-	choice = -1;
-
 	this->SetPosition(0, 0);
 	this->SetSize(screenwidth, screenheight);
 
@@ -23,6 +37,8 @@ HomeMenu::HomeMenu()
 
 	ButtonClickSnd = Resources::GetSound("button_click.wav");
 	ButtonOverSnd = Resources::GetSound("button_over.wav");
+	HomeInSnd = Resources::GetSound("menuin.ogg");
+	HomeOutSnd = Resources::GetSound("menuout.ogg");
 
 	TopBtnImgData = Resources::GetImageData("homemenu_top.png");
 	TopBtnOverImgData = Resources::GetImageData("homemenu_top_over.png");
@@ -59,6 +75,7 @@ HomeMenu::HomeMenu()
 	TopBtn->SetTrigger(trigA);
 	TopBtn->SetTrigger(trigHome);
 	TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+	TopBtn->Clicked.connect(this, &HomeMenu::OnButtonClick);
 
 	BottomBtn = new GuiButton(BottomBtnImg->GetWidth(), BottomBtnImg->GetHeight());
 	BottomBtn->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
@@ -69,6 +86,7 @@ HomeMenu::HomeMenu()
 	BottomBtn->SetTrigger(trigA);
 	BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
 	BottomBtn->SetSelectable(true);
+	BottomBtn->Clicked.connect(this, &HomeMenu::OnButtonClick);
 
 	CloseBtnText = new GuiText(tr("Close"), 28, (GXColor) {0, 0, 0, 255});
 
@@ -91,6 +109,7 @@ HomeMenu::HomeMenu()
 	ExitBtn->SetTrigger(trigA);
 	ExitBtn->SetEffectGrow();
 	ExitBtn->SetEffect(EFFECT_FADE, 50);
+	ExitBtn->Clicked.connect(this, &HomeMenu::OnButtonClick);
 
 	ShutdownBtnText = new GuiText(tr("Shutdown"), 28, (GXColor) {0, 0, 0, 255});
 
@@ -104,6 +123,7 @@ HomeMenu::HomeMenu()
 	ShutdownBtn->SetTrigger(trigA);
 	ShutdownBtn->SetEffectGrow();
 	ShutdownBtn->SetEffect(EFFECT_FADE, 50);
+	ShutdownBtn->Clicked.connect(this, &HomeMenu::OnButtonClick);
 
 	WiimoteBtn = new GuiButton(WiimoteBtnImg->GetWidth(), WiimoteBtnImg->GetHeight());
 	WiimoteBtn->SetImage(WiimoteBtnImg);
@@ -149,15 +169,13 @@ HomeMenu::HomeMenu()
 
 	if(!MusicPlayer::Instance()->IsStopped())
 		MusicPlayer::Instance()->Pause();
-	Application::Instance()->SetState(STATE_DISABLED);
-	//Application::Instance()->SetDim(true);
+
+	// play home sound
+	HomeInSnd->Play();
 }
 
 HomeMenu::~HomeMenu()
 {
-	SetEffect(EFFECT_FADE, -50);
-	while(this->GetEffect() > 0) usleep(100);
-
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
 
@@ -207,104 +225,122 @@ HomeMenu::~HomeMenu()
 
 	Resources::Remove(ButtonClickSnd);
 	Resources::Remove(ButtonOverSnd);
-
-	Application::Instance()->SetState(STATE_DEFAULT);
-	//Application::Instance()->SetDim(false);
+	Resources::Remove(HomeInSnd);
+	Resources::Remove(HomeOutSnd);
 }
 
-void HomeMenu::FadeOut()
+void HomeMenu::hide()
 {
-	TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	ExitBtn->SetEffect(EFFECT_FADE, -50);
-	ShutdownBtn->SetEffect(EFFECT_FADE, -50);
-	BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-	WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+	if(!this->IsVisible())
+		return;
 
-	for (int i = 0; i < 4; i++)
+	if(parentElement)
 	{
-		PlayerText[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-		BatteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+		TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+		TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+		CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+		ExitBtn->SetEffect(EFFECT_FADE, -50);
+		ShutdownBtn->SetEffect(EFFECT_FADE, -50);
+		BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+		WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+
+		for (int i = 0; i < 4; i++)
+		{
+			PlayerText[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+			BatteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+		}
+
+		while(ExitBtn->GetEffect() > 0)
+			Application::Instance()->updateEvents();
+
+		((GuiFrame *) parentElement)->Remove(this);
+	}
+
+	Application::Instance()->UnsetUpdateOnly(this);
+
+	while(HomeOutSnd->IsPlaying())
+		Application::Instance()->updateEvents();
+
+	HomeOutSnd->Stop();
+
+	if(!MusicPlayer::Instance()->IsStopped())
+		MusicPlayer::Instance()->Resume();
+
+	this->SetVisible(false);
+}
+
+void HomeMenu::OnStateChange(GuiElement *sender UNUSED, int state, int stateChan UNUSED)
+{
+	if(state == STATE_SELECTED)
+	{
+		WiimoteBtn->SetPosition(WiimoteBtn->GetLeft(), 210);
+	}
+	else if (state != STATE_SELECTED)
+	{
+		WiimoteBtn->SetPosition(WiimoteBtn->GetLeft(), 232);
 	}
 }
 
-int HomeMenu::GetChoice()
+void HomeMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	for (int i = 0; i < 4; i++)
+	if(sender == TopBtn || sender == BottomBtn)
 	{
-		if (WPAD_Probe(i, NULL) == WPAD_ERR_NONE)
-		{
-			int level = (WPAD_BatteryLevel(i) / 100.0) * 4;
-			if (level > 4) level = 4;
+		HomeInSnd->Stop();
+		HomeOutSnd->Play();
+		this->hide();
 
-			BatteryImg[i]->SetTileHorizontal(level);
-			BatteryBtn[i]->SetAlpha(255);
-			PlayerText[i]->SetAlpha(255);
-		}
-		else
-		{
-			BatteryImg[i]->SetTileHorizontal(0);
-			BatteryBtn[i]->SetAlpha(130);
-			PlayerText[i]->SetAlpha(100);
-		}
+		Application::Instance()->PushForDelete(this);
 	}
-
-	if (TopBtn->GetState() == STATE_CLICKED)
+	else if (sender == ExitBtn)
 	{
-		TopBtn->ResetState();
-		FadeOut();
-		choice = 0; // return to WiiXplorer
-	}
-	else if (BottomBtn->GetState() == STATE_CLICKED)
-	{
-		BottomBtn->ResetState();
-		FadeOut();
-		choice = 0; // return to WiiXplorer
-	}
-	else if (ExitBtn->GetState() == STATE_CLICKED)
-	{
-		ExitBtn->ResetState();
-
-		this->SetState(STATE_DISABLED);
-		int ret = WindowPrompt(tr("Exit WiiXplorer?"), 0, tr("To Loader"), tr("To Menu"), tr("Cancel"));
+		int ret = WindowPrompt(tr("Exit WiiXplorer?"), 0, tr( "Homebrew Channel" ), tr( "Wii Menu" ), tr("Cancel"));
 		if (ret == 1)
 		{
-			Sys_BackToLoader();
+			Sys_LoadHBC();
 		}
 		else if(ret == 2)
 		{
 			Sys_LoadMenu();
 		}
-		this->SetState(STATE_DEFAULT);
 	}
-	else if (ShutdownBtn->GetState() == STATE_CLICKED)
+	else if (sender == ShutdownBtn)
 	{
-		ShutdownBtn->ResetState();
-		this->SetState(STATE_DISABLED);
-		int ret = WindowPrompt(tr("Shutdown the Wii?"), 0, tr("Default"), tr("To Standby"), tr("To Idle"), tr("Cancel"));
+		int ret = WindowPrompt(tr("Shutdown the Wii?"), 0, tr("To Standby"), tr("To Idle"), tr("Cancel"));
 		if (ret == 1)
-		{
-			Sys_Shutdown();
-		}
-		else if (ret == 2)
 		{
 			Sys_ShutdownToStandby();
 		}
-		else if(ret == 3)
+		else if(ret == 2)
 		{
 			Sys_ShutdownToIdle();
 		}
-		this->SetState(STATE_DEFAULT);
 	}
-	else if (BottomBtn->GetState() == STATE_SELECTED)
+}
+
+void HomeMenu::Draw()
+{
+	//! check if a WiiMote was connected every 60 frames = ~1s
+	if((frameCount % 60) == 0)
 	{
-		WiimoteBtn->SetPosition(WiimoteBtn->GetLeft(), 210);
-	}
-	else if (BottomBtn->GetState() != STATE_SELECTED)
-	{
-		WiimoteBtn->SetPosition(WiimoteBtn->GetLeft(), 232);
+		for (int i = 0; i < 4; i++)
+		{
+			if (WPAD_Probe(i, NULL) == WPAD_ERR_NONE)
+			{
+				int level = ((WPAD_BatteryLevel(i) * 4) / 100) ;
+				if (level > 4) level = 4;
+
+				BatteryImg[i]->SetTileHorizontal(level);
+				BatteryBtn[i]->SetAlpha(255);
+				PlayerText[i]->SetAlpha(255);
+			}
+			else
+			{
+				BatteryImg[i]->SetTileHorizontal(0);
+				BatteryBtn[i]->SetAlpha(130);
+				PlayerText[i]->SetAlpha(100);
+			}
+		}
 	}
 
-	return choice;
+	GuiFrame::Draw();
 }

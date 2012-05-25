@@ -68,28 +68,41 @@ MusicPlayer::MusicPlayer()
 	LoopMode = 0;
 	currentPlaying = 0;
 	CircleImageDelay = 0;
-	DisplayGUI = false;
 	Stopped = false;
 	PlaybackFinished = false;
 	ExitRequested = false;
+
 	MainSound = new GuiSound(bg_music_ogg, bg_music_ogg_size, false, 0);
 
 	TitleList.LoadList();
+	TitleList.ItemClicked.connect(this, &MusicPlayer::OnTitleListClick);
 
 	currentPlaying = TitleList.FindFile(Settings.MusicPath);
 	Play(currentPlaying);
+
+	ThreadStack = (u8 *) memalign(32, 16384);
+	if(!ThreadStack)
+		return;
+
+	LWP_CreateThread(&Thread, ThreadFunc, this, ThreadStack, 16384, 40);
 }
 
 MusicPlayer::~MusicPlayer()
 {
-	ExitRequested = true;
 	if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
+
+	ExitRequested = true;
+
 	Hide();
+
+	LWP_ResumeThread(Thread);
+	LWP_JoinThread(Thread, NULL);
+	free(ThreadStack);
 
 	if(MainSound)
 		delete MainSound;
-};
+}
 
 MusicPlayer * MusicPlayer::Instance()
 {
@@ -136,11 +149,25 @@ bool MusicPlayer::Load(const char * path, bool silent)
 		return false;
 	}
 
-	if(strcmp(path, "") == 0)
+	if(!CheckFile(path))
 	{
 		LoadStandard();
 		return false;
 	}
+
+	loadPathThreaded = path;
+	loadSilentThreaded = silent;
+
+	return true;
+}
+
+void MusicPlayer::ThreadedLoadMusic(void)
+{
+	std::string path = loadPathThreaded;
+	bool silent = loadSilentThreaded;
+
+	loadPathThreaded.clear();
+	loadSilentThreaded = true;
 
 	if(Settings.LoadMusicToMem)
 	{
@@ -149,14 +176,14 @@ bool MusicPlayer::Load(const char * path, bool silent)
 
 		int ret = -1;
 		if(silent)
-			ret = LoadFileToMem(path, &file, &filesize);
+			ret = LoadFileToMem(path.c_str(), &file, &filesize);
 		else
-			ret = LoadFileToMemWithProgress(tr("Loading file:"), path, &file, &filesize);
+			ret = LoadFileToMemWithProgress(tr("Loading file:"), path.c_str(), &file, &filesize);
 
 		if (ret < 0)
 		{
 			LoadStandard();
-			return false;
+			return;
 		}
 
 		if(!MainSound->Load(file, (u32) filesize, true))
@@ -164,19 +191,19 @@ bool MusicPlayer::Load(const char * path, bool silent)
 			if(file)
 				free(file);
 			LoadStandard();
-			return false;
+			return;
 		}
 	}
 	else
 	{
-		if(!MainSound->Load(path))
+		if(!MainSound->Load(path.c_str()))
 		{
 			LoadStandard();
-			return false;
+			return;
 		}
 	}
 
-	char * filename = strrchr(path, '/');
+	char * filename = strrchr(path.c_str(), '/');
 	if(filename)
 		Title.assign(filename+1);
 
@@ -186,8 +213,6 @@ bool MusicPlayer::Load(const char * path, bool silent)
 	MainSound->Play();
 	Stopped = false;
 	Paused = false;
-
-	return true;
 }
 
 void MusicPlayer::Resume()
@@ -275,89 +300,28 @@ void MusicPlayer::Show()
 {
 	//!To append on top let's put it out of the list first
 	Application::Instance()->Remove(this);
-	Application::Instance()->SetState(STATE_DISABLED);
-	//Application::Instance()->SetDim(true);
+	Application::Instance()->SetUpdateOnly(this);
 	InternalSetup();
 	SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_IN, 40);
 	Application::Instance()->Append(this);
-
-	DisplayGUI = true;
-	int choice = -1;
-
-	while(DisplayGUI)
-	{
-		usleep(100);
-
-		choice = TitleList.GetChoice();
-
-		if(choice >= 0)
-		{
-			char * filename = strrchr(TitleList.at(choice), '/');
-			if(filename)
-				filename++;
-
-			SetState(STATE_DISABLED);
-			int ret = WindowPrompt(tr("How do you want to proceed?"), filename, tr("Play File"), tr("Remove from list"), tr("Clear List"), tr("Cancel"));
-			if(ret == 1)
-			{
-				Play(choice);
-			}
-			else if(ret == 2)
-			{
-				TitleList.RemoveEntrie(choice);
-				currentPlaying = TitleList.FindFile(Settings.MusicPath);
-			}
-			else if(ret == 3)
-			{
-				ClearList();
-			}
-			SetState(STATE_DEFAULT);
-		}
-		else if(PlayBtn->GetState() == STATE_CLICKED)
-		{
-			CircleImg->SetImage(navi_upImgData);
-			CircleImageDelay = 12;
-			Play(TitleList.GetSelectedItem());
-			PlayBtn->ResetState();
-		}
-		else if(StopBtn->GetState() == STATE_CLICKED)
-		{
-			CircleImg->SetImage(navi_downImgData);
-			CircleImageDelay = 12;
-			Stop();
-			StopBtn->ResetState();
-		}
-		else if(PreviousBtn->GetState() == STATE_CLICKED)
-		{
-			CircleImg->SetImage(navi_leftImgData);
-			CircleImageDelay = 12;
-			PlayPrevious();
-			PreviousBtn->ResetState();
-		}
-		else if(NextBtn->GetState() == STATE_CLICKED)
-		{
-			CircleImg->SetImage(navi_rightImgData);
-			CircleImageDelay = 12;
-			PlayNext();
-			NextBtn->ResetState();
-		}
-	}
-
-	Hide();
-	TitleList.Hide();
-	//Application::Instance()->SetDim(false);
-	Application::Instance()->SetState(STATE_DEFAULT);
 }
 
 void MusicPlayer::Hide()
 {
-	if(!ExitRequested)
+	if(!ExitRequested && parentElement)
 	{
 		SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT, 40);
-		while(this->GetEffect() > 0) usleep(100);
-
-		RemoveAll();
+		while(this->GetEffect() > 0)
+			Application::Instance()->updateEvents();
 	}
+
+	if(!Application::isClosing())
+		Application::Instance()->UnsetUpdateOnly(this);
+
+	this->DimBackground(false);
+	this->SetVisible(false);
+
+	RemoveAll();
 
 	if(trigA)
 		delete trigA;
@@ -417,16 +381,64 @@ void MusicPlayer::Hide()
 
 void MusicPlayer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	sender->ResetState();
-
 	if(sender == BackButton)
 	{
-		DisplayGUI = false;
+		Hide();
+		TitleList.Hide();
+	}
+	else if(sender == PlayBtn)
+	{
+		CircleImg->SetImage(navi_upImgData);
+		CircleImageDelay = 12;
+		Play(TitleList.GetSelectedItem());
+	}
+	else if(sender == StopBtn)
+	{
+		CircleImg->SetImage(navi_downImgData);
+		CircleImageDelay = 12;
+		Stop();
+	}
+	else if(sender == PreviousBtn)
+	{
+		CircleImg->SetImage(navi_leftImgData);
+		CircleImageDelay = 12;
+		PlayPrevious();
+	}
+	else if(sender == NextBtn)
+	{
+		CircleImg->SetImage(navi_rightImgData);
+		CircleImageDelay = 12;
+		PlayNext();
+	}
+}
+
+void MusicPlayer::OnTitleListClick(PlayList *list, int item)
+{
+	char * filename = strrchr(list->at(item), '/');
+	if(filename)
+		filename++;
+
+	int ret = WindowPrompt(tr("How do you want to proceed?"), filename, tr("Play File"), tr("Remove from list"), tr("Clear List"), tr("Cancel"));
+	if(ret == 1)
+	{
+		Play(item);
+	}
+	else if(ret == 2)
+	{
+		list->RemoveEntrie(item);
+		currentPlaying = list->FindFile(Settings.MusicPath);
+	}
+	else if(ret == 3)
+	{
+		ClearList();
 	}
 }
 
 void MusicPlayer::InternalSetup()
 {
+	this->SetVisible(true);
+	this->DimBackground(true);
+
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 	trigB = new GuiTrigger();
 	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
@@ -452,18 +464,22 @@ void MusicPlayer::InternalSetup()
 	PlayBtn = new GuiButton(68, 40);
 	PlayBtn->SetPosition(77, 39);
 	PlayBtn->SetTrigger(trigA);
+	PlayBtn->Clicked.connect(this, &MusicPlayer::OnButtonClick);
 
 	StopBtn = new GuiButton(68, 40);
 	StopBtn->SetPosition(77, 124);
 	StopBtn->SetTrigger(trigA);
+	StopBtn->Clicked.connect(this, &MusicPlayer::OnButtonClick);
 
 	PreviousBtn = new GuiButton(38, 60);
 	PreviousBtn->SetPosition(44, 74);
 	PreviousBtn->SetTrigger(trigA);
+	PreviousBtn->Clicked.connect(this, &MusicPlayer::OnButtonClick);
 
 	NextBtn = new GuiButton(38, 60);
 	NextBtn->SetPosition(137, 74);
 	NextBtn->SetTrigger(trigA);
+	NextBtn->Clicked.connect(this, &MusicPlayer::OnButtonClick);
 
 	BackgroundImg = new GuiImage(playerImgData);
 	CircleImg = new GuiImage(navi_defaultImgData);
@@ -478,7 +494,7 @@ void MusicPlayer::InternalSetup()
 		TitleList.SetPosition(90, 56);
 	else
 		TitleList.SetPosition(90, 56-18*15);
-	TitleList.SetMaxHeight(GetTop()-175+TitleList.GetHeight());
+	TitleList.SetBounds(iRect(-200, -200, screenwidth+200, GetTop()-175+TitleList.GetHeight()));
 	TitleList.Show();
 
 	Append(&TitleList);
@@ -490,9 +506,37 @@ void MusicPlayer::InternalSetup()
 	Append(NextBtn);
 	Append(PreviousBtn);
 	Append(PlayTitle);
+}
 
-	SetState(STATE_DEFAULT);
-	//SetDim(false);
+void MusicPlayer::PlayerThread()
+{
+	while(!ExitRequested)
+	{
+		usleep(100000);
+
+		//! we do this in the draw cycle, as the update cycle might not be called always
+		if(PlaybackFinished && !Stopped && !Paused)
+		{
+			if(LoopMode > 0 && Settings.MusicPath[0] == 0)
+			{
+				//!Standard Music is always looped except on loop = 0
+				Play();
+			}
+			else if(LoopMode == PLAYLIST_LOOP)
+			{
+				PlayNext();
+			}
+			else if(LoopMode == RANDOM_MUSIC)
+			{
+				PlayRandom();
+			}
+
+			PlaybackFinished = false;
+		}
+
+		if(!loadPathThreaded.empty())
+			ThreadedLoadMusic();
+	}
 }
 
 void MusicPlayer::Draw()
@@ -502,26 +546,6 @@ void MusicPlayer::Draw()
 		--CircleImageDelay;
 		if(CircleImageDelay == 0 && CircleImg != NULL)
 			CircleImg->SetImage(navi_defaultImgData);
-	}
-
-	//! we do this in the draw cycle, as the update cycle might not be called always
-	if(PlaybackFinished && !Stopped && !Paused)
-	{
-		if(LoopMode > 0 && Settings.MusicPath[0] == 0)
-		{
-			//!Standard Music is always looped except on loop = 0
-			Play();
-		}
-		else if(LoopMode == PLAYLIST_LOOP)
-		{
-			PlayNext();
-		}
-		else if(LoopMode == RANDOM_MUSIC)
-		{
-			PlayRandom();
-		}
-
-		PlaybackFinished = false;
 	}
 
 	GuiFrame::Draw();

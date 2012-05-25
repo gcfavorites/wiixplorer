@@ -34,8 +34,6 @@
 CreditWindow::CreditWindow(GuiFrame *p)
 	: GuiFrame(0, 0, p)
 {
-	choice = -1;
-
 	dialogBox = Resources::GetImageData("bg_properties.png");
 	dialogBoxImg = new GuiImage(dialogBox);
 
@@ -171,12 +169,14 @@ CreditWindow::CreditWindow(GuiFrame *p)
 
 CreditWindow::~CreditWindow()
 {
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
 	if(parentElement)
+	{
+		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
+		while(this->GetEffect() > 0)
+			Application::Instance()->updateEvents();
+
 		((GuiFrame *) parentElement)->Remove(this);
+	}
 
 	RemoveAll();
 
@@ -205,5 +205,6 @@ CreditWindow::~CreditWindow()
 
 void CreditWindow::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	Closing();
+	Application::Instance()->UnsetUpdateOnly(this);
+	Application::Instance()->PushForDelete(this);
 }

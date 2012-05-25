@@ -51,7 +51,7 @@ void MoveTask::Execute(void)
 
 	int result = 0;
 
-    //! On same device we move files instead of copy them
+	//! On same device we move files instead of copy them
 	for(int i = 0; i < Process.GetItemcount(); ++i)
 	{
 		if(CompareDevices(Process.GetItemPath(i), destPath.c_str()))
@@ -87,7 +87,7 @@ void MoveTask::Execute(void)
 	//! free memory of process which is no longer required
 	Process.Reset();
 
-    //! On same device we move files instead of copy them
+	//! On same device we move files instead of copy them
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)

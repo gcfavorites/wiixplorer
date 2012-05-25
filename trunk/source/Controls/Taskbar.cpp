@@ -207,12 +207,6 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	if(item >= FORMATTER && !Settings.ShowFormatter)
 		item++;
 
-	if(item < 0 || item >= BOOTMII)
-	{
-		Application::Instance()->UnsetUpdateOnly(menu);
-		menu->Close();
-	}
-
 	if (item == APPS)
 	{
 		PopUpMenu *AppsMenu = new PopUpMenu(0, 0);
@@ -317,54 +311,64 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 			Application::Instance()->quit();
 		}
 	}
+
+	if(item < 0 || item >= BOOTMII)
+	{
+		Application::Instance()->UnsetUpdateOnly(menu);
+		Application::Instance()->PushForDelete(menu);
+	}
 }
 
 void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 {
 	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 	Applications *Apps = (Applications *) menu->GetUserData();
+	parent->CloseSubMenu();
+	Application::Instance()->PushForDelete(menu);
 
 	if(item >= 0)
 	{
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UnsetUpdateOnly(parent);
-		parent->Close();
+		Application::Instance()->PushForDelete(parent);
 
 		if(WindowPrompt(tr("Do you want to start the app?"), Apps->GetName(item), tr("Yes"), tr("Cancel")))
 			Apps->Launch(item);
 	}
 
-	parent->CloseSubMenu();
 	delete Apps;
 }
 
 void Taskbar::OnChannelsMenuClick(PopUpMenu *menu, int item)
 {
 	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
+	parent->CloseSubMenu();
+	Application::Instance()->PushForDelete(menu);
+
 	if(item >= 0)
 	{
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UnsetUpdateOnly(parent);
-		parent->Close();
+		Application::Instance()->PushForDelete(parent);
 
 		if(WindowPrompt(tr("Do you want to start the channel?"), Channels::Instance()->GetName(item), tr("Yes"), tr("Cancel")))
 			Channels::Instance()->Launch(item);
 	}
 
-	parent->CloseSubMenu();
 }
 
 void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 {
 	PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 	OperaBooter *Booter = (OperaBooter *) menu->GetUserData();
+	parent->CloseSubMenu();
+	Application::Instance()->PushForDelete(menu);
 
 	if(item >= 0)
 	{
-		PopUpMenu *parent = (PopUpMenu *) menu->GetParent();
 		Application::Instance()->Remove(parent);
 		Application::Instance()->UnsetUpdateOnly(parent);
-		parent->Close();
+		Application::Instance()->PushForDelete(parent);
 	}
 
 	if(item == 0)
@@ -381,10 +385,10 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 			Booter->RemoveLink(item-1);
 	}
 
-	parent->CloseSubMenu();
 	delete Booter;
 }
 
 void Taskbar::OnMusicPlayerClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p3 UNUSED)
 {
+	MusicPlayer::Instance()->Show();
 }

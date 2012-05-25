@@ -18,6 +18,7 @@
 #define GUI_ELEMENT_H_
 
 #include "stdafx.h"
+#include "Tools/Rect.h"
 
 enum
 {
@@ -251,7 +252,7 @@ class GuiElement
 		}
 		//!Checks whether rumble was requested by the element
 		//!\return true is rumble was requested, false otherwise
-		virtual bool Rumble() { return rumble; };
+		virtual bool Rumble() { return rumble; }
 		//!Sets whether or not the element is requesting a rumble event
 		//!\param r true if requesting rumble, false if not
 		virtual void SetRumble(bool r) { rumble = r; }
@@ -273,10 +274,7 @@ class GuiElement
 		//!\return element effects
 		virtual int GetEffect() { return effects; }
 		//!The Element's cutoff bounds
-		virtual void SetMinWidth(int w) { minwidth = w; }
-		virtual void SetMaxWidth(int w) { maxwidth = w; }
-		virtual void SetMinHeight(int h) { minheight = h; }
-		virtual void SetMaxHeight(int h) { maxheight = h; }
+		virtual void SetBounds(iRect r) { cutBoundsRect = r; }
 		//!Checks whether the specified coordinates are within the element's boundaries
 		//!\param x X coordinate
 		//!\param y Y coordinate
@@ -308,7 +306,7 @@ class GuiElement
 		}
 		//!Gets whether or not the element is in STATE_SELECTED
 		//!\return true if selected, false otherwise
-		virtual int GetSelected() { return -1; };
+		virtual int GetSelected() { return -1; }
 		//!Sets the element's alignment respective to its parent element
 		//!Bitwise ALIGN_LEFT | ALIGN_RIGHT | ALIGN_CENTRE, ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
 		//!\param align Alignment
@@ -355,10 +353,7 @@ class GuiElement
 		int alignment; //!< Horizontal element alignment, respective to parent element
 		int state; //!< Element state (DEFAULT, SELECTED, CLICKED, DISABLED)
 		int stateChan; //!< Which controller channel is responsible for the last change in state
-		int minwidth; //!< Element's minwidth cutoff limit
-		int minheight; //!< Element's minheight cutoff limit
-		int maxwidth; //!< Element's maxwidth cutoff limit
-		int maxheight; //!< Element's maxheight cutoff limit
+		iRect cutBoundsRect;
 		GuiElement * parentElement; //!< Parent element
 
 		//! TODO: Move me to some Animator class

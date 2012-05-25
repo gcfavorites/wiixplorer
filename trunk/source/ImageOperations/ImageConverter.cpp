@@ -75,7 +75,6 @@ bool ImageConverter::LoadImage(const char * filepath)
 
 	LoadFileToMem(filepath, &buffer, &filesize);
 
-	ShowError("Oh nooooooo");
 	if(!buffer)
 		return false;
 

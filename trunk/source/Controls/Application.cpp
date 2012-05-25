@@ -24,6 +24,7 @@
 #include "DeviceControls/DeviceHandler.hpp"
 #include "TextOperations/FontSystem.h"
 #include "FTPOperations/FTPServer.h"
+#include "Prompts/HomeMenu.h"
 #include "Prompts/ProgressWindow.h"
 #include "Settings.h"
 #include "VideoOperations/video.h"
@@ -40,7 +41,6 @@ bool Application::exitApplication = false;
 
 Application::Application()
 	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
-	, drawOnlyElement(NULL)
 	, DeleteQueue(NULL)
 {
 	GXColor ImgColor[4];
@@ -66,17 +66,9 @@ Application::Application()
 
 Application::~Application()
 {
-	// Fade out...
-	for(int i = 0; i <= 255; i += 15)
-	{
-		Draw();
-		GXColor fadeoutColor = (GXColor){0, 0, 0, i};
-		Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, &fadeoutColor, false, true);
-		Menu_Render();
-	}
-
 	RemoveAll();
 	delete bgImg;
+	delete btnHome;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -90,6 +82,15 @@ Application::~Application()
 
 void Application::quit()
 {
+	// Fade out...
+	for(int i = 0; i <= 255; i += 15)
+	{
+		Draw();
+		GXColor fadeoutColor = (GXColor){0, 0, 0, i};
+		Menu_DrawRectangle(0, 0, 100.0f, screenwidth, screenheight, &fadeoutColor, false, true);
+		Menu_Render();
+	}
+
 	exitApplication = true;
 }
 
@@ -112,19 +113,6 @@ void Application::exec()
 	while(!exitApplication)
 	{
 		updateEvents();
-
-		if(DeleteQueue)
-		{
-			LWP_MutexLock(m_mutex);
-			while(DeleteQueue)
-			{
-				ElementList *tmp = DeleteQueue->next;
-				delete DeleteQueue->element;
-				delete DeleteQueue;
-				DeleteQueue = tmp;
-			}
-			LWP_MutexUnlock(m_mutex);
-		}
 	}
 
 	ExitApp();
@@ -133,11 +121,9 @@ void Application::exec()
 void Application::updateEvents()
 {
 	if(shutdown) {
-		exitApplication = true;
 		Sys_Shutdown();
 	}
 	else if(reset) {
-		exitApplication = true;
 		Sys_Reboot();
 	}
 
@@ -151,14 +137,13 @@ void Application::updateEvents()
 			updateOnlyElement.back()->Update(&userInput[i]);
 		else
 			Update(&userInput[i]);
+
+		//! always update the home menu, everywhere
+		btnHome->Update(&userInput[i]);
 	}
 
-	//! render only one certain element
-	if(drawOnlyElement)
-		drawOnlyElement->Draw();
 	//! render everything
-	else
-		Draw();
+	Draw();
 
 	//! render wii mote pointer always last and on top
 	for (int i = 3; i >= 0; i--)
@@ -174,6 +159,20 @@ void Application::updateEvents()
 	}
 
 	Menu_Render();
+
+	//! delete elements that were queued for delete after the rendering is done
+	if(DeleteQueue)
+	{
+		LWP_MutexLock(m_mutex);
+		while(DeleteQueue)
+		{
+			ElementList *tmp = DeleteQueue;
+			DeleteQueue = DeleteQueue->next;
+			delete tmp->element;
+			delete tmp;
+		}
+		LWP_MutexUnlock(m_mutex);
+	}
 }
 
 void Application::SetGrabPointer(int i)
@@ -374,4 +373,28 @@ void Application::init(void)
 
 	//! Set main thread prio very high as it is the render thread
 	LWP_SetThreadPriority(LWP_GetSelf(), 120);
+
+	//! setup the home menu button
+	trigHome.SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);
+
+	btnHome = new GuiButton(0, 0);
+	btnHome->SetTrigger(&trigHome);
+	btnHome->Clicked.connect(this, &Application::OnHomeButtonClick);
+}
+
+void Application::OnHomeButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p3 UNUSED)
+{
+	// disable home menu button clicks while we are inside the home menu
+	btnHome->SetClickable(false);
+
+	HomeMenu *homeMenu = new HomeMenu();
+	homeMenu->DimBackground(true);
+	homeMenu->Closing.connect(this, &Application::OnHomeMenuClosing);
+	this->SetUpdateOnly(homeMenu);
+	this->Append(homeMenu);
+}
+
+void Application::OnHomeMenuClosing(GuiFrame *menu UNUSED)
+{
+	btnHome->SetClickable(true);
 }

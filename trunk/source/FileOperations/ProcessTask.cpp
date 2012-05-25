@@ -58,7 +58,15 @@ int ProcessTask::GetItemList(list<ItemList> &fileLists, bool listDirs)
 		else
 		{
 			fileLists.resize(fileLists.size()+1);
-			fileLists.back().files.push_back(Process.GetItemPath(i));
+			fileLists.back().basepath = Process.GetItemPath(i);
+			size_t pos = fileLists.back().basepath.rfind('/');
+			if(pos == string::npos) {
+				fileLists.resize(fileLists.size()-1);
+				continue;
+			}
+			//! split into base path and the filename
+			fileLists.back().files.push_back(fileLists.back().basepath.substr(pos+1));
+			fileLists.back().basepath = fileLists.back().basepath.substr(0, pos+1);
 			CopySize += FileSize(Process.GetItemPath(i));
 			++CopyFiles;
 		}

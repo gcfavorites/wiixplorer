@@ -370,50 +370,50 @@ int PartitionHandle::CheckGPT(int PartNum)
 
 int PartitionHandle::CheckSectorSize(const DISC_INTERFACE* interface)
 {
-    int counter1 = 0;
-    int counter2 = 0;
-    int i;
+	int counter1 = 0;
+	int counter2 = 0;
+	int i;
 
-    u8 *memblock = (u8 *) memalign(32, MAX_SECTOR_SIZE);
-    if(!memblock)
-        return 512;
+	u8 *memblock = (u8 *) memalign(32, MAX_SECTOR_SIZE);
+	if(!memblock)
+		return 512;
 
-    memset(memblock, 0x00, MAX_SECTOR_SIZE);
+	memset(memblock, 0x00, MAX_SECTOR_SIZE);
 
-    if(!interface->readSectors(0, 1, memblock)) {
-        free(memblock);
-        return 512;
-    }
+	if(!interface->readSectors(0, 1, memblock)) {
+		free(memblock);
+		return 512;
+	}
 
-    for(i = 0; i < MAX_SECTOR_SIZE; ++i)
-    {
-        if(memblock[i] != 0x00)
-            counter1++;
-    }
+	for(i = 0; i < MAX_SECTOR_SIZE; ++i)
+	{
+		if(memblock[i] != 0x00)
+			counter1++;
+	}
 
-    memset(memblock, 0xFF, MAX_SECTOR_SIZE);
+	memset(memblock, 0xFF, MAX_SECTOR_SIZE);
 
-    if(!interface->readSectors(0, 1, memblock)) {
-    	free(memblock);
-        return 512;
-    }
+	if(!interface->readSectors(0, 1, memblock)) {
+		free(memblock);
+		return 512;
+	}
 
-    for(i = 0; i < MAX_SECTOR_SIZE; ++i)
-    {
-        if(memblock[i] != 0xFF)
-            counter2++;
-    }
+	for(i = 0; i < MAX_SECTOR_SIZE; ++i)
+	{
+		if(memblock[i] != 0xFF)
+			counter2++;
+	}
 
-    free(memblock);
+	free(memblock);
 
-    if(counter1 <= 512 && counter2 <= 512)
-    	return 512;
+	if(counter1 <= 512 && counter2 <= 512)
+		return 512;
 
-    if(counter1 <= 1024 && counter2 <= 1024)
-    	return 1024;
+	if(counter1 <= 1024 && counter2 <= 1024)
+		return 1024;
 
-    if(counter1 <= 2048 && counter2 <= 2048)
-    	return 2048;
+	if(counter1 <= 2048 && counter2 <= 2048)
+		return 2048;
 
-    return 4096;
+	return 4096;
 }

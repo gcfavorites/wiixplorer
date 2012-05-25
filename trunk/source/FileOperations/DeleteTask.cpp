@@ -55,11 +55,11 @@ void DeleteTask::Execute(void)
 	}
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
-    ProgressWindow::Instance()->SetCompleteValues(0, -1);
-    ProgressWindow::Instance()->SetUnit(tr("files"));
+	ProgressWindow::Instance()->SetCompleteValues(0, -1);
+	ProgressWindow::Instance()->SetUnit(tr("files"));
 
-    int doneItems = 0;
-    int TotalItems = 0;
+	int doneItems = 0;
+	int TotalItems = 0;
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 		TotalItems += listItr->files.size() + listItr->dirs.size();

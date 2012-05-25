@@ -48,8 +48,8 @@ bool ConnectNFS(int client)
 		if(!IsNetworkInit())
 			Initialize_Network();
 
-               for(int i = 0; i < MAXNFSUSERS; i++)
-                        NFS_Mounted[i] = false;
+		for(int i = 0; i < MAXNFSUSERS; i++)
+			NFS_Mounted[i] = false;
 
 		firstNFSRun = false;
 	}
@@ -132,8 +132,8 @@ void CloseNFS()
  ****************************************************************************/
 bool NFS_Reconnect()
 {
-        CloseNFS();
-        usleep(200000);
-        return ConnectNFS();
+	CloseNFS();
+	usleep(200000);
+	return ConnectNFS();
 }
 

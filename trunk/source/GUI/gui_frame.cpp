@@ -138,43 +138,13 @@ void GuiFrame::SetVisible(bool v)
 	}
 }
 
-void GuiFrame::SetMinWidth(int w)
+void GuiFrame::SetBounds(iRect w)
 {
-	minwidth = w;
+	GuiElement::SetBounds(w);
 
 	for (u32 i = 0; i < _elements.size(); ++i)
 	{
-		_elements[i]->SetMinWidth(w);
-	}
-}
-
-void GuiFrame::SetMaxWidth(int w)
-{
-	maxwidth = w;
-
-	for (u32 i = 0; i < _elements.size(); ++i)
-	{
-		_elements[i]->SetMaxWidth(w);
-	}
-}
-
-void GuiFrame::SetMinHeight(int h)
-{
-	minheight = h;
-
-	for (u32 i = 0; i < _elements.size(); ++i)
-	{
-		_elements[i]->SetMinHeight(h);
-	}
-}
-
-void GuiFrame::SetMaxHeight(int h)
-{
-	maxheight = h;
-
-	for (u32 i = 0; i < _elements.size(); ++i)
-	{
-		_elements[i]->SetMaxHeight(h);
+		_elements[i]->SetBounds(w);
 	}
 }
 

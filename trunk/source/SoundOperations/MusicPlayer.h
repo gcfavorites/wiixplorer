@@ -48,29 +48,40 @@ class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
 
 		bool Load(const char *path, bool silent = true);
 		bool LoadStandard();
-		bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); };
+		bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); }
 		void Resume();
 		bool Play();
 		bool Play(int pos);
 		bool PlayNext();
 		bool PlayPrevious();
 		bool PlayRandom();
-		void Pause() { if(IsStopped()) return; MainSound->Pause(); Paused = true; };
+		void Pause() { if(IsStopped()) return; MainSound->Pause(); Paused = true; }
 		void Stop();
-		void SetLoop(u8 mode) { LoopMode = mode; MainSound->SetLoop(LoopMode); };
-		void SetVolume(int volume) { MainSound->SetVolume(volume); };
+		void SetLoop(u8 mode) { LoopMode = mode; MainSound->SetLoop(LoopMode); }
+		void SetVolume(int volume) { MainSound->SetVolume(volume); }
 		void Show();
 		void Hide();
-		void AddEntrie(const char * filename) { TitleList.AddEntrie(filename); };
-		void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); };
-		bool IsStopped() { return Stopped; };
-		void SetPlaybackFinished(bool b) { PlaybackFinished = b; };
+		void AddEntrie(const char * filename) { TitleList.AddEntrie(filename); }
+		void ClearList() { LoadStandard(); Stop(); TitleList.ClearList(); }
+		bool IsStopped() { return Stopped; }
+		void SetPlaybackFinished(bool b) { PlaybackFinished = b; }
 		void Draw();
 	protected:
 		MusicPlayer();
 		virtual ~MusicPlayer();
 		void InternalSetup();
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnTitleListClick(PlayList *list, int item);
+		void ThreadedLoadMusic(void);
+		void PlayerThread();
+
+		static void *ThreadFunc(void *arg)
+		{
+			MusicPlayer *player = (MusicPlayer *) arg;
+			player->PlayerThread();
+			return NULL;
+		}
+
 
 		bool Paused;
 		bool Stopped;
@@ -78,6 +89,14 @@ class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
 		bool PlaybackFinished;
 		bool ExitRequested;
 
+		u8 *ThreadStack;
+		lwp_t Thread;
+
+		std::string loadPathThreaded;
+		bool loadSilentThreaded;
+
+		u8 * fileLoadBuf;
+		u32 fileLoadBufSize;
 		GuiSound * MainSound;
 		u8 LoopMode;
 

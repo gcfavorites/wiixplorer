@@ -25,6 +25,7 @@
  ***************************************************************************/
 #include <sys/dir.h>
 #include <unistd.h>
+#include "Controls/Application.h"
 #include "Memory/Resources.h"
 #include "FileOperations/DirList.h"
 #include "PlayList.hpp"
@@ -35,10 +36,10 @@
 PlayList::PlayList()
 	: GuiFrame(0, 0)
 {
+	SetVisible(false);
 	listOffset = 0;
 	selectedItem = 0;
 	listChanged = true;
-	Hidden = true;
 	Minimized = true;
 	width = 332;
 	height = 352;
@@ -137,52 +138,47 @@ bool PlayList::LoadList()
 	return true;
 }
 
-int PlayList::GetChoice()
+void PlayList::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+{
+	if(sender == PlayListBtn)
+	{
+		if(Minimized && parentElement)
+		{
+			int PositionX = this->GetLeft()-parentElement->GetLeft();
+			int PositionY = this->GetTop()-parentElement->GetTop();
+			int PosDyn = 0;
+			while(PosDyn < GetHeight()/2+93)
+			{
+				PosDyn += 15;
+				SetPosition(PositionX, PositionY-PosDyn);
+				Application::Instance()->updateEvents();
+			}
+			Minimized = false;
+		}
+		else if(parentElement)
+		{
+			Minimized = true;
+			int PositionX = this->GetLeft()-parentElement->GetLeft();
+			int PositionY = this->GetTop()-parentElement->GetTop();
+			int PosDyn = 0;
+			while(PosDyn < GetHeight()/2+93)
+			{
+				PosDyn += 15;
+				SetPosition(PositionX, PositionY+PosDyn);
+				Application::Instance()->updateEvents();
+			}
+		}
+	}
+}
+
+void PlayList::OnButtonListClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
 	for(u32 i = 0; i < ListBtn.size(); i++)
 	{
-		if(ListBtn[i]->GetState() == STATE_CLICKED)
+		if(sender == ListBtn[i])
 		{
-			ListBtn[i]->ResetState();
-			return listOffset+i;
-		}
-	}
-
-	if(PlayListBtn && PlayListBtn->GetState() == STATE_CLICKED)
-	{
-		SwitchMinimized();
-		PlayListBtn->ResetState();
-	}
-
-	return -1;
-}
-
-void PlayList::SwitchMinimized()
-{
-	if(Minimized && parentElement)
-	{
-		int PositionX = this->GetLeft()-parentElement->GetLeft();
-		int PositionY = this->GetTop()-parentElement->GetTop();
-		int PosDyn = 0;
-		while(PosDyn < GetHeight()/2+93)
-		{
-			PosDyn += 15;
-			SetPosition(PositionX, PositionY-PosDyn);
-			VIDEO_WaitVSync();
-		}
-		Minimized = false;
-	}
-	else if(parentElement)
-	{
-		Minimized = true;
-		int PositionX = this->GetLeft()-parentElement->GetLeft();
-		int PositionY = this->GetTop()-parentElement->GetTop();
-		int PosDyn = 0;
-		while(PosDyn < GetHeight()/2+93)
-		{
-			PosDyn += 15;
-			SetPosition(PositionX, PositionY+PosDyn);
-			VIDEO_WaitVSync();
+			ItemClicked(this, i);
+			break;
 		}
 	}
 }
@@ -199,14 +195,14 @@ void PlayList::Show()
 
 	playlistImgData = Resources::GetImageData("playlist.png");
 	playlistImg = new GuiImage(playlistImgData);
-	playlistImg->SetMaxHeight(maxheight);
+	playlistImg->SetBounds(cutBoundsRect);
 	Append(playlistImg);
 
 	scrollbar = new Scrollbar(240);
 	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-17, 50);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
-	scrollbar->SetMaxHeight(maxheight);
+	scrollbar->SetBounds(cutBoundsRect);
 	scrollbar->listChanged.connect(this, &PlayList::OnListChange);
 	Append(scrollbar);
 
@@ -215,6 +211,7 @@ void PlayList::Show()
 	PlayListBtn->SetSoundClick(btnSoundClick);
 	PlayListBtn->SetSoundOver(btnSoundOver);
 	PlayListBtn->SetTrigger(trigA);
+	PlayListBtn->Clicked.connect(this, &PlayList::OnButtonClick);
 	Append(PlayListBtn);
 
 	width = playlistImgData->GetWidth();
@@ -241,19 +238,19 @@ void PlayList::Show()
 		TmpButton->SetState(STATE_DISABLED);
 		TmpButton->SetVisible(false);
 		TmpButton->StateChanged.connect(this, &PlayList::OnListStateChange);
+		TmpButton->Clicked.connect(this, &PlayList::OnButtonListClick);
 		ListBtn.push_back(TmpButton);
 
 		Append(TmpButton);
 	}
 
-	Hidden = false;
+	SetVisible(true);
 	listChanged = true;
 }
 
 void PlayList::Hide()
 {
-	Hidden = true;
-	usleep(100);
+	SetVisible(false);
 
 	RemoveAll();
 
@@ -446,7 +443,7 @@ void PlayList::OnListChange(int selItem, int selIndex)
 
 void PlayList::Draw()
 {
-	if(Hidden)
+	if(!this->IsVisible())
 		return;
 
 	playlistImg->Draw();
@@ -463,7 +460,7 @@ void PlayList::Draw()
 
 void PlayList::Update(GuiTrigger * t)
 {
-	if(Hidden)
+	if(!this->IsVisible())
 		return;
 
 	PlayListBtn->Update(t);

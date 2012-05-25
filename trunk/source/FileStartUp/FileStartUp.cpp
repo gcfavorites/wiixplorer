@@ -207,7 +207,6 @@ int FileStartUp(const char *filepath)
 		Video->SetVolume(Settings.MusicVolume);
 		Application::Instance()->Append(Video);
 		Application::Instance()->SetUpdateOnly(Video);
-		Application::Instance()->SetDrawOnly(Video);
 		Video->Play();
 	}
 	else if(Settings.FileExtensions.CompareVideo(fileext) == 0)

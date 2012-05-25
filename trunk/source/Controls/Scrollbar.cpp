@@ -478,3 +478,18 @@ void Scrollbar::Update(GuiTrigger * t)
 
 	++ScrollState;
 }
+
+void Scrollbar::SetBounds(iRect w)
+{
+	GuiElement::SetBounds(w);
+	scrollbarTopImg->SetBounds(w);
+	scrollbarBottomImg->SetBounds(w);
+	scrollbarTileImg->SetBounds(w);
+	arrowDownImg->SetBounds(w);
+	arrowDownOverImg->SetBounds(w);
+	arrowUpImg->SetBounds(w);
+	arrowUpOverImg->SetBounds(w);
+	scrollbarBoxImg->SetBounds(w);
+	scrollbarBoxOverImg->SetBounds(w);
+	oneButtonScrollImg->SetBounds(w);
+}

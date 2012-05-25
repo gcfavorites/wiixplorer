@@ -35,10 +35,9 @@ class PlayList : public GuiFrame, public sigslot::has_slots<>
 	public:
 		PlayList();
 		virtual ~PlayList();
-		int GetChoice();
 		const char * at(int pos);
-		const char * operator[](int pos) { return at(pos); };
-		int size() { return FileList.size(); };
+		const char * operator[](int pos) { return at(pos); }
+		int size() { return FileList.size(); }
 		bool ParsePath(const char * filepath);
 		void AddEntrie(const char * filepath);
 		void RemoveEntrie(int pos);
@@ -48,19 +47,21 @@ class PlayList : public GuiFrame, public sigslot::has_slots<>
 		bool Save();
 		bool LoadList();
 		int FindFile(const char * filepath);
-		int GetSelectedItem() { return listOffset+selectedItem; };
-		bool IsMinimized() { return Minimized; };
+		int GetSelectedItem() { return listOffset+selectedItem; }
+		bool IsMinimized() { return Minimized; }
 		void Draw();
 		void Update(GuiTrigger * t);
+		sigslot::signal2<PlayList *, int> ItemClicked;
 	protected:
 		void SwitchMinimized();
 		void OnListChange(int selItem, int selIndex);
 		void OnListStateChange(GuiElement *sender, int s, int c);
+		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnButtonListClick(GuiButton *sender, int pointer, const POINT &p);
 
 		int listOffset;
 		int selectedItem;
 		bool Minimized;
-		bool Hidden;
 		bool listChanged;
 
 		std::vector<char *> FileList;

@@ -45,7 +45,7 @@ SoundHandler::SoundHandler()
 	if(!ThreadStack)
 		return;
 
-	LWP_CreateThread(&SoundThread, UpdateThread, this, ThreadStack, 32768, 80);
+	LWP_CreateThread(&SoundThread, UpdateThread, this, ThreadStack, 32768, 100);
 }
 
 SoundHandler::~SoundHandler()
