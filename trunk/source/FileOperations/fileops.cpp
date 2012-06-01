@@ -235,7 +235,7 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8
 	else if(ret == -3) {
 		ThrowMsg(tr("Error:"), tr("Error while reading file."));
 	}
-	else if(ret == -10) {
+	else if(ret == PROGRESS_CANCELED) {
 		ThrowMsg(tr("Error:"), tr("Action cancelled."));
 	}
 	return ret;
@@ -294,7 +294,16 @@ bool CreateSubfolder(const char * fullpath)
 	//! cut to previous slash and do a recursion
 	*notRoot = '\0';
 
-	bool result = CreateSubfolder(dirpath) && (mkdir(dirpath, 0777) == 0);
+	bool result = false;
+
+	if(CreateSubfolder(dirpath))
+	{
+		//! the directory inside which we create the new directory exists, so its ok to create
+		//! add back the slash for directory creation
+		*notRoot = '/';
+		//! try creating the directory now
+		result = (mkdir(dirpath, 0777) == 0);
+	}
 
 	free(dirpath);
 

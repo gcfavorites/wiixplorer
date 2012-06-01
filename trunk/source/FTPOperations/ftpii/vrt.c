@@ -35,8 +35,6 @@ misrepresented as being the original software.
 #include "virtualpath.h"
 #include "vrt.h"
 
-#define VRT_DEVICE_ID ((DIR_ITER*) 38744)
-
 static char *virtual_abspath(char *virtual_cwd, char *virtual_path) {
 	char *path;
 	if (virtual_path[0] == '/') {
@@ -256,21 +254,23 @@ DIR_P *vrt_opendir(char *cwd, char *path)
 	DIR_P *iter = malloc(sizeof(DIR_P));
 	if (!iter)
 	{
-		free(real_path);
+		if (*real_path != 0)
+			free(real_path);
 		return NULL;
 	}
 
+	iter->virt_root = 0;
 	iter->path = real_path;
 
-	if (*real_path == 0) {
+	if (*iter->path == 0) {
 		iter->dir = malloc(sizeof(DIR));
 		if(!iter->dir) {
-			free(iter->path);
+			// root path is not allocated
 			free(iter);
 			return NULL;
 		}
 		memset(iter->dir, 0, sizeof(DIR));
-		iter->dir->dirData = VRT_DEVICE_ID;
+		iter->virt_root = 1; // we are at the virtual root
 		return iter;
 	}
 
@@ -286,18 +286,19 @@ DIR_P *vrt_opendir(char *cwd, char *path)
 }
 
 /*
-	Yields virtual aliases when iter->device == VRT_DEVICE_ID.
+	Yields virtual aliases when pDir->virt_root
  */
 struct dirent *vrt_readdir(DIR_P *pDir) {
-	if(!pDir) return NULL;
+	if(!pDir || !pDir->dir) return NULL;
 
 	DIR *iter = pDir->dir;
-	if (iter->dirData == VRT_DEVICE_ID) {
+	if (pDir->virt_root) {
 		for (; (u32)iter->position < MAX_VIRTUAL_PARTITIONS; iter->position++) {
 			VIRTUAL_PARTITION *partition = VIRTUAL_PARTITIONS + (int)iter->position;
 			if (partition->inserted) {
 				iter->fileData.d_type = DT_DIR;
 				strcpy(iter->fileData.d_name, partition->alias + 1);
+				iter->position++;
 				return &iter->fileData;
 			}
 		}
@@ -309,18 +310,19 @@ struct dirent *vrt_readdir(DIR_P *pDir) {
 int vrt_closedir(DIR_P *iter) {
 	if(!iter) return -1;
 
-	if (iter->dir && iter->dir->dirData == VRT_DEVICE_ID) {
-		free(iter->dir);
-		free(iter->path);
-		free(iter);
-		return 0;
+	if(iter->dir)
+	{
+		if (iter->virt_root)
+			free(iter->dir);
+		else
+			closedir(iter->dir);
 	}
-	if(iter->path)
-		free(iter->path);
 
-	int ret = closedir(iter->dir);
+	// root path is not allocated
+	if(iter->path && *iter->path != 0)
+		free(iter->path);
 
 	free(iter);
 
-	return ret;
+	return 0;
 }

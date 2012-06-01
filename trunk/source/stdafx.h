@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <wchar.h>
 #include <math.h>
-#include <asndlib.h>
 #include <wiiuse/wpad.h>
 #include <gd.h>
 #include "Tools/gecko.h"

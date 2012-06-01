@@ -107,7 +107,9 @@ void SMBSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
 			result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				if(SMB_Reconnect())
+				CloseSMBShare(Settings.CurrentSMBUser);
+
+				if(ConnectSMBShare(Settings.CurrentSMBUser))
 					WindowPrompt(tr("SMB reconnected successfull."), 0, tr("OK"));
 				else
 					ShowError(tr("Reconnect failed. No share connected."));

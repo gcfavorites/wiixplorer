@@ -274,17 +274,22 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 		//! Close main explorer
 		mainExplorer->hide();
 
-		MainSettingsMenu *menu = new MainSettingsMenu(mainExplorer);
+		MainSettingsMenu *menu = new MainSettingsMenu(NULL);
+		menu->Closing.connect(this, &Taskbar::OnMenuClosing);
 		Application::Instance()->Append(menu);
 	}
 	else if (item == FTPSERVER)
 	{
+		//! Close main explorer
+		mainExplorer->hide();
+
 		if(!NetworkInitPrompt())
 			ShowError(tr("Failed to initialize network."));
 
 		FTPServerMenu * FTPMenu = new FTPServerMenu();
 		FTPMenu->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 		FTPMenu->SetPosition(0, 30);
+		FTPMenu->Closing.connect(this, &Taskbar::OnMenuClosing);
 
 		Application::Instance()->Append(FTPMenu);
 	}
@@ -308,7 +313,7 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	{
 		if (WindowPrompt(tr("Do you want to exit WiiXplorer?"), 0, tr("Yes"), tr("Cancel")))
 		{
-			Application::Instance()->quit();
+			Application::Instance()->closeRequest();
 		}
 	}
 
@@ -391,4 +396,10 @@ void Taskbar::OnUrlsMenuClick(PopUpMenu *menu, int item)
 void Taskbar::OnMusicPlayerClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p3 UNUSED)
 {
 	MusicPlayer::Instance()->Show();
+}
+
+void Taskbar::OnMenuClosing(GuiFrame *menu UNUSED)
+{
+	//! show main explorer
+	mainExplorer->show();
 }

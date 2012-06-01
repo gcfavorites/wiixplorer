@@ -27,28 +27,26 @@
 #define FTP_SERVER_H_
 
 #include "stdafx.h"
+#include "Controls/Thread.h"
 #include "Controls/GXConsole.hpp"
 
-class FTPServer
+class FTPServer : public Thread
 {
 	public:
-		static FTPServer * Instance();
-		static void DestroyInstance();
+		static FTPServer * Instance() { if(!instance) instance = new FTPServer(); return instance; }
+		static void DestroyInstance() { delete instance; instance = NULL; }
 		void StartupFTP();
 		void ShutdownFTP();
-		bool IsRunning() { return ftp_running; };
+		bool isRunning() const { return ftp_running; }
 	protected:
 		FTPServer();
-		~FTPServer();
-		void InternalFTPUpdate();
-		static void * UpdateFTP(void *arg);
+		virtual ~FTPServer();
+
+		void executeThread();
 
 		static FTPServer *instance;
-
-		u8 * ThreadStack;
-		lwp_t ftpthread;
-		bool ftp_running;
 		s32 server;
+		bool ftp_running;
 		bool ExitRequested;
 };
 

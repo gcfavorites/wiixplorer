@@ -41,11 +41,10 @@
  * FileBrowser Class to parse directories on the fly
  ***************************************************************************/
 FileBrowser::FileBrowser()
-	:Browser()
+	: Thread(70, 65536)
 {
 	Filter = 0;
 	browserList = NULL;
-	parsethread = LWP_THREAD_NULL;
 	dirIter = NULL;
 	exit_Requested = false;
 	directoryChange = false;
@@ -58,7 +57,7 @@ FileBrowser::FileBrowser()
 	//!Reset and prepare browser
 	ResetBrowser();
 	//!Initialize Parsethread for browser
-	InitParseThread();
+	startThread();
 }
 
 /****************************************************************************
@@ -66,7 +65,8 @@ FileBrowser::FileBrowser()
  ***************************************************************************/
 FileBrowser::~FileBrowser()
 {
-	ShutdownParseThread();
+	exit_Requested = true;
+	shutdownThread();
 	closedir(dirIter); // close directory
 	for(int i = 0; i < browser.numEntries; ++i)
 		delete [] browserList[i].filename;
@@ -456,7 +456,7 @@ int FileBrowser::ParseDirectory(bool ResetPosition)
 	}
 
 	directoryChange = true;
-	LWP_ResumeThread(parsethread);
+	resumeThread();
 
 	return 1;
 }
@@ -486,18 +486,9 @@ int FileBrowser::ChangeDirectory()
 }
 
 /****************************************************************************
- * ParseThread callback function
+ * Threaded function
  ***************************************************************************/
-void * FileBrowser::UpdateThread(void *arg)
-{
-	((FileBrowser *) arg)->InternalThreadUpdate();
-	return NULL;
-}
-
-/****************************************************************************
- * InternalThreadUpdate
- ***************************************************************************/
-void FileBrowser::InternalThreadUpdate()
+void FileBrowser::executeThread(void)
 {
 	while(!exit_Requested)
 	{
@@ -523,38 +514,9 @@ void FileBrowser::InternalThreadUpdate()
 			}
 		}
 
-		if(!ParseDirEntries() && !directoryChange)
-			LWP_SuspendThread(parsethread);
+		if(!exit_Requested && !ParseDirEntries() && !directoryChange)
+			suspendThread();
 
 		usleep(THREAD_SLEEP);
 	}
-}
-
-/****************************************************************************
- * InitParseThread
- ***************************************************************************/
-void FileBrowser::InitParseThread()
-{
-	ThreadStack = (u8 *) memalign(32, 65536);
-	if(!ThreadStack)
-		return;
-
-	LWP_CreateThread(&parsethread, UpdateThread, this, ThreadStack, 65536, 70);
-}
-
-/****************************************************************************
- * ShutdownParseThread
- ***************************************************************************/
-void FileBrowser::ShutdownParseThread()
-{
-	if(parsethread != LWP_THREAD_NULL)
-	{
-		exit_Requested = true;
-		LWP_ResumeThread(parsethread);
-		LWP_JoinThread(parsethread, NULL);
-		parsethread = LWP_THREAD_NULL;
-	}
-	if(ThreadStack)
-		free(ThreadStack);
-	ThreadStack = NULL;
 }

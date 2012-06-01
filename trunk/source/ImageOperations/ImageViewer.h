@@ -19,10 +19,11 @@
 #define __IMAGEVIEWER_H
 
 #include "GUI/gui.h"
+#include "Controls/Thread.h"
 #include "FileOperations/DirListAsync.h"
 #include "FileOperations/FileLoadTask.h"
 
-class ImageViewer : public GuiFrame, public sigslot::has_slots<>
+class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 {
 	public:
 		//!Constructor
@@ -69,8 +70,13 @@ class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 		void OnDirListLoaded(DirListAsync *dirList);
 		//!This function is called when loading the image in the background is finished
 		void OnFinishedImageLoad(FileLoadTask *task, u8 *buffer, u32 buffer_size);
+		//!Thread for loading images
+		virtual void executeThread();
 		//!Variables of the ImageViewer
 		DirListAsync * imageDir;
+		//!variable for internal thread to detect a task needs to be done
+		queue<ThreadedTask *> threadTasks;
+
 		int currentImage;
 		int clickPosX;
 		int clickPosY;
@@ -78,8 +84,7 @@ class ImageViewer : public GuiFrame, public sigslot::has_slots<>
 		int rotateRight;
 		int rotateLeft;
 		bool isPointerVisible;
-		bool bImageLoading;
-
+		bool bExitRequested;
 		bool isAButtonPressed[4];
 		bool updateAlpha;
 		float currentAngle;

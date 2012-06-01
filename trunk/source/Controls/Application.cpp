@@ -26,6 +26,7 @@
 #include "FTPOperations/FTPServer.h"
 #include "Prompts/HomeMenu.h"
 #include "Prompts/ProgressWindow.h"
+#include "SoundOperations/SoundHandler.hpp"
 #include "Settings.h"
 #include "VideoOperations/video.h"
 #include "ThreadedTaskHandler.hpp"
@@ -120,6 +121,9 @@ void Application::exec()
 
 void Application::updateEvents()
 {
+	if(exitApplication)
+		return;
+
 	if(shutdown) {
 		Sys_Shutdown();
 	}
@@ -320,13 +324,15 @@ void Application::init(void)
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);
 
+	//! Set main thread prio very high as it is the render thread
+	LWP_SetThreadPriority(LWP_GetSelf(), 120);
+
 	//! Set UTF 8 locale
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");
 
-	//! FTP Server thread
-	if(Settings.FTPServer.AutoStart)
-		FTPServer::Instance();
+	//! Initialize sound handler thread
+	SoundHandler::Instance();
 
 	//! Initialize network thread if selected
 	if(Settings.AutoConnect)
@@ -334,6 +340,10 @@ void Application::init(void)
 		InitNetworkThread();
 		ResumeNetworkThread();
 	}
+
+	//! FTP Server thread
+	if(Settings.FTPServer.AutoStart)
+		FTPServer::Instance()->StartupFTP();
 
 	//! Initialize the task thread
 	ThreadedTaskHandler::Instance();
@@ -370,9 +380,6 @@ void Application::init(void)
 	}
 	//! remove parant as otherwise prompt window would slide out
 	window.SetParent(NULL);
-
-	//! Set main thread prio very high as it is the render thread
-	LWP_SetThreadPriority(LWP_GetSelf(), 120);
 
 	//! setup the home menu button
 	trigHome.SetButtonOnlyTrigger(-1, WiiControls.HomeButton | ClassicControls.HomeButton << 16, GCControls.HomeButton);

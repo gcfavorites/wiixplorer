@@ -19,6 +19,7 @@
 
 #include <gccore.h>
 #include <queue>
+#include "Thread.H"
 
 class ThreadedTask
 {
@@ -28,7 +29,7 @@ public:
 	virtual void Execute(void) = 0;
 };
 
-class ThreadedTaskHandler
+class ThreadedTaskHandler : public Thread
 {
 public:
 	static ThreadedTaskHandler * Instance() { if(!instance) instance = new ThreadedTaskHandler(); return instance; };
@@ -37,26 +38,15 @@ public:
 	void AddTask(ThreadedTask *Task)
 	{
 		TaskList.push(Task);
-		Resume();
+		resumeThread();
 	}
-
-	void Halt(void) { LWP_SuspendThread(Thread); }
-
-	void Resume(void) { LWP_ResumeThread(Thread); }
-
-	void setPriority(int prio) { LWP_SetThreadPriority(Thread, prio); }
-
-	bool isRunning(void) const { return !LWP_ThreadIsSuspended(Thread); }
 private:
 	ThreadedTaskHandler();
-	~ThreadedTaskHandler();
+	virtual ~ThreadedTaskHandler();
 
-	void ThreadLoop(void *arg);
-	static void * ThreadCallback(void *arg);
+	void executeThread(void);
 
 	static ThreadedTaskHandler *instance;
-	u8 *ThreadStack;
-	lwp_t Thread;
 	bool ExitRequested;
 	std::queue<ThreadedTask *> TaskList;
 };

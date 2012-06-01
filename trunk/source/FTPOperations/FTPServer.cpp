@@ -38,42 +38,18 @@
 FTPServer * FTPServer::instance = NULL;
 
 FTPServer::FTPServer()
+	: Thread(30, 32768)
 {
-	ftp_running = false;
 	server = -1;
+	ftp_running = false;
 	ExitRequested = false;
-
-	ThreadStack = (u8 *) memalign(32, 32768);
-	LWP_CreateThread (&ftpthread, UpdateFTP, this, ThreadStack, 32768, 30);
+	startThread();
 }
 
 FTPServer::~FTPServer()
 {
 	ShutdownFTP();
-
 	ExitRequested = true;
-	LWP_ResumeThread(ftpthread);
-	LWP_JoinThread(ftpthread, NULL);
-	ftpthread = LWP_THREAD_NULL;
-	free(ThreadStack);
-}
-
-FTPServer * FTPServer::Instance()
-{
-	if (instance == NULL)
-	{
-		instance = new FTPServer();
-	}
-	return instance;
-}
-
-void FTPServer::DestroyInstance()
-{
-	if(instance)
-	{
-		delete instance;
-	}
-	instance = NULL;
 }
 
 void FTPServer::StartupFTP()
@@ -94,17 +70,15 @@ void FTPServer::StartupFTP()
 	gxprintf("%s %u...\n", tr("Listening on TCP port"), Settings.FTPServer.Port);
 
 	ftp_running = true;
-
-	LWP_ResumeThread(ftpthread);
+	resumeThread();
 }
 
 void FTPServer::ShutdownFTP()
 {
 	ftp_running = false;
+	resumeThread();
 
-	LWP_ResumeThread(ftpthread);
-
-	while(!LWP_ThreadIsSuspended (ftpthread))
+	while(!isThreadRunning())
 		usleep(10000);
 
 	cleanup_ftp();
@@ -116,13 +90,7 @@ void FTPServer::ShutdownFTP()
 	gxprintf("%s %d.\n", tr("Press Startup FTP to start the server on port"), Settings.FTPServer.Port);
 }
 
-void * FTPServer::UpdateFTP(void *arg)
-{
-	((FTPServer *) arg)->InternalFTPUpdate();
-	return NULL;
-}
-
-void FTPServer::InternalFTPUpdate()
+void FTPServer::executeThread()
 {
 	bool network_down = false;
 
@@ -130,7 +98,7 @@ void FTPServer::InternalFTPUpdate()
 	{
 		if(!ftp_running)
 		{
-			LWP_SuspendThread(ftpthread);
+			suspendThread();
 		}
 		else
 		{

@@ -27,6 +27,7 @@
 #define PDFVIEWER_HPP_
 
 #include <mupdf/pdftool.h>
+#include "Controls/Thread.h"
 #include "ImageOperations/ImageViewer.h"
 
 class PDFViewer : public ImageViewer
@@ -43,8 +44,7 @@ class PDFViewer : public ImageViewer
 		bool NextImage(bool silent UNUSED = false) { return NextPage(); };
 		bool PreviousImage(bool silent UNUSED = false) { return PreviousPage(); };
 	protected:
-		static void *LoadThreadFunc(void *arg);
-		void InternalLoadLoop(void);
+		void executeThread(void);
 		int PreparePage(int pagenum);
 		int PageToTexture();
 		void FreePage();
@@ -63,9 +63,6 @@ class PDFViewer : public ImageViewer
 		int imagewidth;
 		int imageheight;
 		int loadPage;
-		u8 *LoadStackBuf;
-		bool ExitRequest;
-		lwp_t LoadThread;
 };
 
 #endif

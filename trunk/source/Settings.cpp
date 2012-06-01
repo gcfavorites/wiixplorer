@@ -62,7 +62,7 @@ void CSettings::SetDefault()
 	ScrollSpeed = 5;
 	BrowserMode = ICONBROWSER;
 	ScreenshotFormat = 0;
-	SoundblockCount = 8;
+	SoundblockCount = 32;
 	SoundblockSize = 8192;
 	LoadMusicToMem = 0;
 	DeleteTempPath = 1;

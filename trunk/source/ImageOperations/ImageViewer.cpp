@@ -27,6 +27,7 @@
 
 ImageViewer::ImageViewer(const char *filepath)
 	: GuiFrame(0, 0)
+	, Thread(75, 32768)
 {
 	currentImage = 0;
 	SlideShowStart = 0;
@@ -38,7 +39,7 @@ ImageViewer::ImageViewer(const char *filepath)
 	buttonAlpha = 255;
 	updateAlpha = false;
 	isPointerVisible = true;
-	bImageLoading = false;
+	bExitRequested = false;
 
 	for (int i = 0; i < 4; i++)
 		isAButtonPressed[i] = false;
@@ -49,6 +50,8 @@ ImageViewer::ImageViewer(const char *filepath)
 	this->Setup();
 
 	SetEffect(EFFECT_FADE, 50);
+
+	startThread();
 
 	if(filepath)
 	{
@@ -76,8 +79,13 @@ ImageViewer::~ImageViewer()
 
 	RemoveAll();
 
-	while(bImageLoading)
-		Application::Instance()->updateEvents();
+	//! the loading thread is stopped on button click
+	while(!threadTasks.empty())
+	{
+		Taskbar::Instance()->RemoveTask(dynamic_cast<FileLoadTask *>(threadTasks.front()));
+		delete threadTasks.front();
+		threadTasks.pop();
+	}
 
 	if(imageDir)
 		delete imageDir;
@@ -185,6 +193,7 @@ void ImageViewer::SetStartUpImageSize()
 	int imgwidth = image->GetWidth();
 	int imgheight = image->GetHeight();
 
+	//! we only scale down if the image is too big, no upscale on start
 	if(imgwidth > width || imgheight > height)
 	{
 		if((imgheight - height) > (imgwidth - width))
@@ -296,6 +305,11 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 
 	else if(sender == backButton)
 	{
+		//! has to be called here because of the LOCK in the delete queue
+		//! to avoid lock on autodeleting the running file load tasks
+		bExitRequested = true;
+		shutdownThread();
+
 		Application::Instance()->PushForDelete(this);
 	}
 
@@ -353,16 +367,30 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 	}
 }
 
+void ImageViewer::executeThread()
+{
+	while(!bExitRequested)
+	{
+		if(!threadTasks.empty())
+		{
+			ThreadedTask *tmpTask = threadTasks.front();
+			threadTasks.pop();
+			tmpTask->Execute();
+		}
+		else
+		{
+			suspendThread();
+		}
+	}
+}
+
 bool ImageViewer::LoadImageList(const char * filepath)
 {
-	bImageLoading = true;
-
 	char path[strlen(filepath)+1];
 	snprintf(path, sizeof(path), "%s", filepath);
 
 	char *ptr = strrchr(path, '/');
 	if (!ptr) {
-		bImageLoading = false;
 		return false;
 	}
 
@@ -374,7 +402,8 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
 	imageDir = new DirListAsync(path, Settings.FileExtensions.GetImage(), DirList::Files);
 	imageDir->FinishList.connect(this, &ImageViewer::OnDirListLoaded);
-	ThreadedTaskHandler::Instance()->AddTask(imageDir);
+	threadTasks.push(imageDir);
+	resumeThread();
 
 	return true;
 }
@@ -388,7 +417,6 @@ void ImageViewer::OnDirListLoaded(DirListAsync *dirList)
 	{
 		delete imageDir;
 		imageDir = NULL;
-		bImageLoading = false;
 		return;
 	}
 
@@ -400,10 +428,7 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	if(!imageDir)
 		return false;
 
-	bImageLoading = true;
-
 	if(index < 0 || index >= imageDir->GetFilecount()) {
-		bImageLoading = false;
 		return false;
 	}
 
@@ -411,7 +436,6 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	const char * filepath = imageDir->GetFilepath(index);
 
 	if (filename == NULL || filepath == NULL) {
-		bImageLoading = false;
 		return false;
 	}
 
@@ -421,7 +445,8 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	task->LoadingComplete.connect(this, &ImageViewer::OnFinishedImageLoad);
 	task->SetAutoDelete(true);
 	Taskbar::Instance()->AddTask(task);
-	ThreadedTaskHandler::Instance()->AddTask(task);
+	threadTasks.push(task);
+	resumeThread();
 
 	return true;
 }
@@ -439,25 +464,21 @@ void ImageViewer::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32
 	if (newImage->GetImage() == NULL)
 	{
 		delete newImage;
-		bImageLoading = false;
 		return;
 	}
 
-	if(SlideShowStart > 0)
+	if(!bExitRequested && SlideShowStart > 0)
 	{
 		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
 		while(image->GetEffect() > 0)
 			usleep(10000);
 	}
-	
+
 	image->SetVisible(false);
 	image->SetImage(newImage);
 
-	u32 frameCountOld = frameCount;
-
 	//! wait one frame for the new image to be re-rendered before deleting it
-	while(frameCountOld == frameCount)
-		usleep(10000);
+	usleep(30000);
 
 	if (imageData != NULL)
 		delete imageData;
@@ -467,16 +488,14 @@ void ImageViewer::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32
 	//!Set original size first if not over the limits
 	SetStartUpImageSize();
 
-	if(SlideShowStart > 0)
+	if(!bExitRequested && SlideShowStart > 0)
 		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
 
 	//!Substract loading time from timer for slideshow
 	if(SlideShowStart > 0)
 		SlideShowStart = time(0);
-	
-	image->SetVisible(true);
 
-	bImageLoading = false;
+	image->SetVisible(true);
 }
 
 void ImageViewer::Setup()

@@ -394,10 +394,13 @@ static s32 prepare_data_connection(client_t *client, void *callback, void *arg, 
 
 static s32 send_nlst(s32 data_socket, DIR_P *iter) {
 	s32 result = 0;
+	char filename[MAXPATHLEN];
 	struct dirent *dirent = NULL;
 	while ((dirent = vrt_readdir(iter)) != 0) {
 		size_t end_index = strlen(dirent->d_name);
-		char filename[end_index + 2];
+		if(end_index + 2 >= MAXPATHLEN)
+			continue;
+		strcpy(filename, dirent->d_name);
 		filename[end_index] = CRLF[0];
 		filename[end_index + 1] = CRLF[1];
 		filename[end_index + 2] = '\0';
@@ -410,10 +413,10 @@ static s32 send_nlst(s32 data_socket, DIR_P *iter) {
 
 static s32 send_list(s32 data_socket, DIR_P *iter) {
 	struct stat st;
-	char filename[MAXPATHLEN];
 	s32 result = 0;
 	time_t mtime = 0;
 	u64 size = 0;
+	char filename[MAXPATHLEN];
 	char line[MAXPATHLEN + 56 + CRLF_LENGTH + 1];
 	struct dirent *dirent = NULL;
 	while ((dirent = vrt_readdir(iter)) != 0) {
@@ -432,7 +435,7 @@ static s32 send_list(s32 data_socket, DIR_P *iter) {
 
 		char timestamp[13];
 		strftime(timestamp, sizeof(timestamp), "%b %d  %Y", localtime(&mtime));
-		sprintf(line, "%crwxr-xr-x	1 0		0	 %10llu %s %s\r\n", (dirent->d_type & DT_DIR) ? 'd' : '-', size, timestamp, dirent->d_name);
+		snprintf(line, sizeof(line), "%crwxr-xr-x	1 0		0	 %10llu %s %s\r\n", (dirent->d_type & DT_DIR) ? 'd' : '-', size, timestamp, dirent->d_name);
 		if ((result = send_exact(data_socket, line, strlen(line))) < 0) {
 			break;
 		}

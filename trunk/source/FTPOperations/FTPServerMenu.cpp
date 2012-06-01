@@ -44,6 +44,8 @@ FTPServerMenu::FTPServerMenu()
 	: GuiFrame(0, 0)
 {
 	trigA = new SimpleGuiTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	trigB = new GuiTrigger();
+	trigB->SetButtonOnlyTrigger(-1, WiiControls.BackButton | ClassicControls.BackButton << 16, GCControls.BackButton);
 
 	btnSoundClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
@@ -77,6 +79,7 @@ FTPServerMenu::FTPServerMenu()
 	backBtn->SetImage(backBtnImg);
 	backBtn->SetSoundClick(btnSoundClick);
 	backBtn->SetSoundOver(btnSoundOver);
+	backBtn->SetTrigger(trigB);
 	backBtn->SetTrigger(trigA);
 	backBtn->SetEffectGrow();
 	backBtn->Clicked.connect(this, &FTPServerMenu::OnButtonClick);
@@ -105,7 +108,7 @@ FTPServerMenu::FTPServerMenu()
 
 	SetEffect(EFFECT_FADE, 50);
 
-	if(FTPServer::Instance()->IsRunning())
+	if(FTPServer::Instance()->isRunning())
 	{
 		gxprintf("%s %d.\n", tr("FTP Server is running and listening on port"), Settings.FTPServer.Port);
 		MainFTPBtnTxt->SetText(tr("Shutdown FTP"));
@@ -116,13 +119,15 @@ FTPServerMenu::FTPServerMenu()
 
 FTPServerMenu::~FTPServerMenu()
 {
-	SetEffect(EFFECT_FADE, -50);
-
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
 	if(parentElement)
+	{
+		SetEffect(EFFECT_FADE, -50);
+
+		while(this->GetEffect() > 0)
+			Application::Instance()->updateEvents();
+
 		((GuiFrame *) parentElement)->Remove(this);
+	}
 
 	RemoveAll();
 	SetGXConsole(NULL);
@@ -148,6 +153,7 @@ FTPServerMenu::~FTPServerMenu()
 	delete MainFTPBtn;
 
 	delete trigA;
+	delete trigB;
 
 	delete Console;
 }
@@ -161,7 +167,7 @@ void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const P
 	}
 	else if(sender == MainFTPBtn)
 	{
-		if(FTPServer::Instance()->IsRunning())
+		if(FTPServer::Instance()->isRunning())
 		{
 			MainFTPBtnTxt->SetText(tr("Startup FTP"));
 			FTPServer::Instance()->ShutdownFTP();

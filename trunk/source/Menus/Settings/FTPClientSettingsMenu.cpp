@@ -127,8 +127,8 @@ void FTPClientSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int o
 			result = WindowPrompt(tr("Do you want to reconnect to the FTP client?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				CloseFTP();
-				if(ConnectFTP())
+				CloseFTP(Settings.CurrentFTPUser);
+				if(ConnectFTP(Settings.CurrentFTPUser))
 					WindowPrompt(tr("FTP Client reconnected successfull."), 0, tr("OK"));
 				else
 					ShowError(tr("Reconnect failed. No client connected."));
