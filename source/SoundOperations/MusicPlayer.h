@@ -29,6 +29,7 @@
 #include <vector>
 #include <string>
 #include "GUI/gui_frame.h"
+#include "Controls/Thread.h"
 #include "PlayList.hpp"
 
 enum
@@ -40,11 +41,11 @@ enum
 	MAX_LOOP_MODES
 };
 
-class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
+class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 {
 	public:
-		static MusicPlayer * Instance();
-		static void DestroyInstance();
+		static MusicPlayer * Instance() { if(!instance) instance = new MusicPlayer(); return instance; }
+		static void DestroyInstance() { delete instance; instance = NULL; }
 
 		bool Load(const char *path, bool silent = true);
 		bool LoadStandard();
@@ -73,24 +74,13 @@ class MusicPlayer : public GuiFrame, public sigslot::has_slots<>
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnTitleListClick(PlayList *list, int item);
 		void ThreadedLoadMusic(void);
-		void PlayerThread();
-
-		static void *ThreadFunc(void *arg)
-		{
-			MusicPlayer *player = (MusicPlayer *) arg;
-			player->PlayerThread();
-			return NULL;
-		}
-
+		void executeThread(void);
 
 		bool Paused;
 		bool Stopped;
 		bool DisplayGUI;
 		bool PlaybackFinished;
 		bool ExitRequested;
-
-		u8 *ThreadStack;
-		lwp_t Thread;
 
 		std::string loadPathThreaded;
 		bool loadSilentThreaded;

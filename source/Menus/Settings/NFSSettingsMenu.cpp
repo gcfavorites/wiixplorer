@@ -81,7 +81,8 @@ void NFSSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
 			result = WindowPrompt(tr("Do you want to reconnect this NFS?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				if(NFS_Reconnect())
+				CloseNFS(Settings.CurrentNFSUser);
+				if(ConnectNFS(Settings.CurrentNFSUser))
 					WindowPrompt(tr("NFS reconnected successfull."), 0, tr("OK"));
 				else
 					ShowError(tr("Reconnect failed. No share connected."));

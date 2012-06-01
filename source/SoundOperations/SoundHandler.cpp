@@ -60,24 +60,6 @@ SoundHandler::~SoundHandler()
 	ClearDecoderList();
 }
 
-SoundHandler * SoundHandler::Instance()
-{
-	if (instance == NULL)
-	{
-		instance = new SoundHandler();
-	}
-	return instance;
-}
-
-void SoundHandler::DestroyInstance()
-{
-	if(instance)
-	{
-		delete instance;
-	}
-	instance = NULL;
-}
-
 void SoundHandler::AddDecoder(int voice, const char * filepath)
 {
 	if(voice < 0 || voice >= MAX_DECODERS)

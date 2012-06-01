@@ -34,6 +34,7 @@
 #include <unistd.h>
 #include <gccore.h>
 #include <sys/dir.h>
+#include "Controls/Thread.h"
 
 #define FILTER_DIRECTORIES  0x01
 #define FILTER_FILES		0x02
@@ -59,7 +60,7 @@ typedef struct
 	bool isdir; // 0 - file, 1 - directory
 } BROWSERENTRY;
 
-class FileBrowser : public Browser
+class FileBrowser : public Browser, public Thread
 {
 	public:
 		FileBrowser();
@@ -99,14 +100,10 @@ class FileBrowser : public Browser
 		void InitParseThread();
 		void ShutdownParseThread();
 		bool ParseDirEntries();
-		static void * UpdateThread(void *arg);
-		void InternalThreadUpdate();
+		void executeThread(void);
 
 		BROWSERINFO browser;
 		BROWSERENTRY * browserList;
-		// folder parsing thread
-		lwp_t parsethread;
-		u8 * ThreadStack;
 		u8 Filter;
 		bool exit_Requested;
 		bool Locked;

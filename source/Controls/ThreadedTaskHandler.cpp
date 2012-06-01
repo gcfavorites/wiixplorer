@@ -20,34 +20,27 @@
 ThreadedTaskHandler * ThreadedTaskHandler::instance = NULL;
 
 ThreadedTaskHandler::ThreadedTaskHandler()
-	: ExitRequested(false)
+	: Thread(80, 65*1024)
+	, ExitRequested(false)
 {
-	ThreadStack = (u8 *) memalign(32, 65*1024);
-	LWP_CreateThread (&Thread, ThreadCallback, this, ThreadStack, 65*1024, 80);
+	startThread();
 }
 
 ThreadedTaskHandler::~ThreadedTaskHandler()
 {
 	ExitRequested = true;
-	Resume();
-	LWP_JoinThread(Thread, NULL);
-	free(ThreadStack);
 }
 
-void * ThreadedTaskHandler::ThreadCallback(void *arg)
+void ThreadedTaskHandler::executeThread(void)
 {
-	ThreadedTaskHandler * myInstance = (ThreadedTaskHandler *) arg;
-
-	while(!myInstance->ExitRequested)
+	while(!ExitRequested)
 	{
-		LWP_SuspendThread(myInstance->Thread);
+		suspendThread();
 
-		while(!myInstance->ExitRequested && !myInstance->TaskList.empty())
+		while(!ExitRequested && !TaskList.empty())
 		{
-			myInstance->TaskList.front()->Execute();
-			myInstance->TaskList.pop();
+			TaskList.front()->Execute();
+			TaskList.pop();
 		}
 	}
-
-	return NULL;
 }

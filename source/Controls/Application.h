@@ -35,6 +35,7 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		void hide();
 		void updateEvents();
 		static bool isClosing() { return exitApplication; }
+		static void closeRequest() { exitApplication = true; }
 
 		void SetGrabPointer(int i);
 		void ResetPointer(int i);

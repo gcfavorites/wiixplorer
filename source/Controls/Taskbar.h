@@ -54,6 +54,7 @@ class Taskbar : public GuiFrame, public sigslot::has_slots<>
 		void OnAppsMenuClick(PopUpMenu *menu, int item);
 		void OnChannelsMenuClick(PopUpMenu *menu, int item);
 		void OnUrlsMenuClick(PopUpMenu *menu, int item);
+		void OnMenuClosing(GuiFrame *menu);
 
 		static Taskbar *instance;
 

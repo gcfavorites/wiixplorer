@@ -324,7 +324,7 @@ void GuiSound::SetVolume(int vol)
 	if(vol < 0)
 		return;
 
-	volume = 255*(vol/100.0);
+	volume = LIMIT((255*vol)/100, 0, 255);
 	ASND_ChangeVolumeVoice(voice, volume, volume);
 }
 

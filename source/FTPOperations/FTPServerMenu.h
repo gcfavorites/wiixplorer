@@ -58,6 +58,7 @@ class FTPServerMenu : public GuiFrame, public sigslot::has_slots<>
 		GuiButton * MainFTPBtn;
 
 		SimpleGuiTrigger * trigA;
+		GuiTrigger * trigB;
 
 		GXConsole * Console;
 };

@@ -25,6 +25,7 @@
  *
  * for WiiXplorer 2010
  ***************************************************************************/
+#include <asndlib.h>
 #include <unistd.h>
 #include "Controls/Application.h"
 #include "WiiMovie.hpp"
@@ -288,7 +289,7 @@ void WiiMovie::ReadNextFrame()
 	if(!Playing)
 		LWP_SuspendThread(ReadThread);
 
-	float FrameExpected = PlayTime.elapsed() * fps;
+	float FrameExpected = PlayTime.elapsed() * fps; // float is enough for up to 74 hours straight playing in 60 fps
 
 	while(currentFrame < FrameExpected)
 	{
@@ -296,15 +297,7 @@ void WiiMovie::ReadNextFrame()
 		Video->loadNextFrame();
 		LWP_MutexUnlock(ReadDecodeMutex);
 
-		//! replay
-		if(Video->getCurrentFrameNr() == 0)
-		{
-			currentFrame = 0.0f;
-			PlayTime.reset();
-		}
-		else {
-			currentFrame += 1.0f;
-		}
+		currentFrame += 1.0f;
 
 		if(Video->hasSound())
 		{

@@ -54,7 +54,7 @@ SoundDecoder::~SoundDecoder()
 {
 	ExitRequested = true;
 	while(Decoding)
-		usleep(100);
+		usleep(1000);
 
 	if(file_fd)
 		delete file_fd;

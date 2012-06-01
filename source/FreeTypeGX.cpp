@@ -21,7 +21,6 @@
  */
 
 #include "FreeTypeGX.h"
-#include "Memory/mem2.h"
 
 using namespace std;
 
@@ -122,7 +121,7 @@ void FreeTypeGX::unloadFont()
 	for (itr = fontData.begin(); itr != fontData.end(); itr++)
 	{
 		for (itr2 = itr->second.begin(); itr2 != itr->second.end(); itr2++)
-			MEM2_free(itr2->second.glyphDataTexture);
+			free(itr2->second.glyphDataTexture);
 
 		itr->second.clear();
 	}
@@ -237,7 +236,7 @@ void FreeTypeGX::loadGlyphData(FT_Bitmap *bmp, ftgxCharData *charData)
 {
 	int glyphSize = (charData->textureWidth * charData->textureHeight) >> 1;
 
-	uint8_t *glyphData = (uint8_t *) MEM2_alloc(glyphSize);
+	uint8_t *glyphData = (uint8_t *) memalign(32, glyphSize);
 	memset(glyphData, 0x00, glyphSize);
 
 	uint8_t *src = (uint8_t *)bmp->buffer;

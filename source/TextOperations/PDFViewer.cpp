@@ -35,10 +35,8 @@ PDFViewer::PDFViewer(const char * filepath, const char * password)
 	: ImageViewer(NULL)
 {
 	OutputImage = NULL;
-	ExitRequest = false;
 	loadPage = -1;
 	currentPage = 1;
-	LoadThread = LWP_THREAD_NULL;
 	drawzoom = Settings.PDFLoadZoom;
 	drawrotate = 0;
 	drawcache = (fz_glyphcache*) nil;
@@ -50,35 +48,15 @@ PDFViewer::PDFViewer(const char * filepath, const char * password)
 	fz_accelerate();
 	closexref();
 
-	LoadStackBuf = (u8 *) memalign(32, 32768);
-	if(!LoadStackBuf)
-	{
-		ShowError(tr("Not enough memory"));
-		ExitRequest = true;
-		Application::Instance()->PushForDelete(this);
-		return;
-	}
-
-	LWP_CreateThread (&LoadThread, LoadThreadFunc, this, LoadStackBuf, 32768, 75);
-
 	OpenFile(filepath, password);
 	LoadPage(currentPage);
 }
 
 PDFViewer::~PDFViewer()
 {
+	bExitRequested = true;
+	shutdownThread();
 	CloseFile();
-
-	ExitRequest = true;
-
-	if(LoadThread != LWP_THREAD_NULL)
-	{
-		LWP_ResumeThread(LoadThread);
-		LWP_JoinThread(LoadThread, NULL);
-	}
-
-	if(LoadStackBuf != NULL)
-		free(LoadStackBuf);
 }
 
 void PDFViewer::OpenFile(const char * filepath, const char * password)
@@ -122,21 +100,18 @@ int PDFViewer::PreparePage(int pagenum)
 	return 0;
 }
 
-void * PDFViewer::LoadThreadFunc(void *arg)
+void PDFViewer::executeThread(void)
 {
-	PDFViewer *instance = (PDFViewer *) arg;
-	instance->InternalLoadLoop();
-	return NULL;
-}
+	//! the thread is started inside image viewer class
+	//! wait here till consturctor is finished of pdf viewer
+	suspendThread();
 
-void PDFViewer::InternalLoadLoop(void)
-{
-	while(!ExitRequest)
+	while(!bExitRequested)
 	{
 		if(loadPage == -1)
-			LWP_SuspendThread(LoadThread);
+			suspendThread();
 
-		if(!ExitRequest)
+		if(!bExitRequested)
 		{
 			int ret = PreparePage(loadPage);
 			if(ret < 0) {
@@ -165,7 +140,7 @@ bool PDFViewer::LoadPage(int pagenum)
 	FreePage();
 
 	loadPage = pagenum;
-	LWP_ResumeThread(LoadThread);
+	resumeThread();
 
 	return true;
 }

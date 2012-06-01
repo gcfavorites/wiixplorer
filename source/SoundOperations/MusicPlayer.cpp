@@ -46,6 +46,7 @@ extern const u32 bg_music_ogg_size;
 
 MusicPlayer::MusicPlayer()
 	: GuiFrame(480, 216)
+	, Thread(40, 16384)
 {
 	btnSoundOver = NULL;
 	playerImgData = NULL;
@@ -78,13 +79,10 @@ MusicPlayer::MusicPlayer()
 	TitleList.ItemClicked.connect(this, &MusicPlayer::OnTitleListClick);
 
 	currentPlaying = TitleList.FindFile(Settings.MusicPath);
-	Play(currentPlaying);
 
-	ThreadStack = (u8 *) memalign(32, 16384);
-	if(!ThreadStack)
-		return;
+	Play();
 
-	LWP_CreateThread(&Thread, ThreadFunc, this, ThreadStack, 16384, 40);
+	startThread();
 }
 
 MusicPlayer::~MusicPlayer()
@@ -96,30 +94,10 @@ MusicPlayer::~MusicPlayer()
 
 	Hide();
 
-	LWP_ResumeThread(Thread);
-	LWP_JoinThread(Thread, NULL);
-	free(ThreadStack);
+	shutdownThread();
 
 	if(MainSound)
 		delete MainSound;
-}
-
-MusicPlayer * MusicPlayer::Instance()
-{
-	if (instance == NULL)
-	{
-		instance = new MusicPlayer();
-	}
-	return instance;
-}
-
-void MusicPlayer::DestroyInstance()
-{
-	if(instance)
-	{
-		delete instance;
-	}
-	instance = NULL;
 }
 
 bool MusicPlayer::LoadStandard()
@@ -508,7 +486,7 @@ void MusicPlayer::InternalSetup()
 	Append(PlayTitle);
 }
 
-void MusicPlayer::PlayerThread()
+void MusicPlayer::executeThread(void)
 {
 	while(!ExitRequested)
 	{
@@ -534,8 +512,9 @@ void MusicPlayer::PlayerThread()
 			PlaybackFinished = false;
 		}
 
-		if(!loadPathThreaded.empty())
+		if(!loadPathThreaded.empty()) {
 			ThreadedLoadMusic();
+		}
 	}
 }
 

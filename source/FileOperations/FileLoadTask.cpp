@@ -51,7 +51,7 @@ void FileLoadTask::Execute(void)
 	else
 		result = LoadFileToMemWithProgress(this->getTitle().c_str(), destPath.c_str(), &buffer, &buffer_size);
 
-	if((!buffer || result < 0) && result != PROGRESS_CANCELED && !Application::isClosing())
+	if(!buffer || result < 0)
 	{
 		if(buffer)
 			free(buffer);
