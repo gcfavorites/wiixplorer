@@ -638,8 +638,8 @@ bool Unpack::AddVMCode(unsigned int FirstByte,byte *Code,int CodeSize)
   return(true);
 }
 
-/** WiiXplorer abort call **/
-extern bool actioncanceled;
+/** WiiXplorer abort call, only way to handle cancel **/
+extern bool bRarProgressCancel;
 
 bool Unpack::UnpReadBuf()
 {
@@ -647,8 +647,8 @@ bool Unpack::UnpReadBuf()
   if (DataSize<0)
     return(false);
 
-/** WiiXplorer abort call **/
-  if(actioncanceled)
+/** WiiXplorer abort call, only way to handle cancel **/
+  if(bRarProgressCancel)
     return(false);
 
   if (InAddr>BitInput::MAX_SIZE/2)

@@ -189,8 +189,8 @@ void ComprDataIO::UnpWrite(byte *Addr,size_t Count)
 #pragma runtime_checks( "s", restore )
 #endif
 
-//! WiiXplorer addtitions by Dimok
-extern void ShowProgress(unsigned long long done, unsigned long long total, const char *filename);
+//! WiiXplorer addtitions by Dimok, only way to handle progress show
+extern void RarShowProgress(unsigned long long done, unsigned long long total, const char *filename);
 
 void ComprDataIO::ShowUnpRead(int64 ArcPos,int64 ArcSize)
 {
@@ -212,16 +212,19 @@ void ComprDataIO::ShowUnpRead(int64 ArcPos,int64 ArcSize)
       LastPercent=CurPercent;
     }
 
-    //! WiiXplorer addtitions by Dimok
+    //! WiiXplorer addtitions by Dimok, only way to handle progress show
+    if(!DestFile)
+		return;
+
     char * Realfilename = strrchr(DestFile->GetName(), '/');
     if(Realfilename)
         Realfilename++;
     else
         Realfilename = DestFile->GetName();
 
-    double ExtractDone = (double) SrcArc->NewLhd.FullUnpSize * (double) ArcPos / (double) ArcSize;
-    if(DestFile)
-        ShowProgress((unsigned long long) ExtractDone, (unsigned long long) SrcArc->NewLhd.FullUnpSize, Realfilename);
+	int64 ExtractDone = (SrcArc->NewLhd.FullUnpSize * ArcPos) / ArcSize;
+
+	RarShowProgress(ExtractDone, SrcArc->NewLhd.FullUnpSize, Realfilename);
   }
 }
 
