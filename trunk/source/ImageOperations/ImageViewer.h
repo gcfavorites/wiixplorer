@@ -87,6 +87,7 @@ class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		bool bExitRequested;
 		bool isAButtonPressed[4];
 		bool updateAlpha;
+		bool bThreadActive;
 		float currentAngle;
 
 		time_t SlideShowStart;

@@ -15,7 +15,7 @@ static ssize_t __out_write(struct _reent *r UNUSED, int fd UNUSED, const char *p
 	{
 		u32 level;
 		level = IRQ_Disable();
-		usb_sendbuffer(1, ptr, len);
+		usb_sendbuffer_safe(1, ptr, len);
 		IRQ_Restore(level);
 	}
 

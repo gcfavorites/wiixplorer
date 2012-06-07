@@ -17,7 +17,6 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
-#include <queue>
 #include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
 #include "GUI/gui_button.h"
@@ -48,6 +47,8 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		}
 
 		void PushForDelete(GuiElement *e);
+		void ProcessDeleteQueue(void);
+
 		void SetUpdateOnly(GuiElement *e)
 		{
 			UnsetUpdateOnly(e);
@@ -83,15 +84,7 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		GuiButton *btnHome;
 		GuiTrigger trigHome;
 		std::vector<GuiElement *> updateOnlyElement;
-		std::vector<GuiElement *> elements;
-
-		struct ElementList
-		{
-			GuiElement *element;
-			ElementList *next;
-		};
-
-		ElementList *DeleteQueue;
+		std::vector<GuiElement *> deleteList;
 		mutex_t m_mutex;
 };
 

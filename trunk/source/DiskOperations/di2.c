@@ -49,6 +49,8 @@ distribution.
 #define UNUSED	__attribute__((unused))
 #include "di2.h"
 
+#define USE_LIBOGC_DI()	(LoadedIOS < 200)
+
 extern int di_fd;
 
 void _DI2_SetCallback(int di_command, ipccallback);
@@ -350,7 +352,7 @@ int DI2_Init()
 {
 	LoadedIOS = (u8) IOS_GetVersion();
 
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_Init();
 
 	state = DVD_INIT | DVD_NO_DISC;
@@ -368,7 +370,7 @@ int DI2_Init()
 
 void DI2_Mount()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 	{
 		DI_Mount();
 		return;
@@ -401,7 +403,7 @@ void DI2_Mount()
 
 void DI2_Close()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 	{
 		DI_Close();
 		return;
@@ -542,7 +544,7 @@ static int _cover_callback(int ret, void* usrdata)
 /* Get current status, will return the API status */
 int DI2_GetStatus()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_GetStatus();
 
 	return state;
@@ -550,7 +552,7 @@ int DI2_GetStatus()
 
 void DI2_SetInitCallback(di_callback cb)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_SetInitCallback(cb);
 
 	di_cb = cb;
@@ -578,7 +580,7 @@ void _DI2_SetCallback(int ioctl_nr, ipccallback ipc_cb)
  */
 int DI2_Identify(DI_DriveID* id)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_Identify(id);
 
 	if (!id)
@@ -608,7 +610,7 @@ int DI2_Identify(DI_DriveID* id)
  */
 int DI2_GetError(uint32_t* error)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_GetError(error);
 
 	if (!error)
@@ -639,7 +641,7 @@ int DI2_GetError(uint32_t* error)
  */
 int DI2_Reset()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_Reset();
 
 	LWP_MutexLock(bufferMutex);
@@ -663,7 +665,7 @@ int DI2_Reset()
  */
 int DI2_ReadDVD(void* buf, uint32_t len, uint32_t lba)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVD(buf, len, lba);
 
 	int ret;
@@ -682,7 +684,7 @@ int DI2_ReadDVD(void* buf, uint32_t len, uint32_t lba)
 
 int DI2_ReadDVDAsync(void* buf, uint32_t len, uint32_t lba, ipccallback ipc_cb)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVDAsync(buf, len, lba, ipc_cb);
 
 	int ret;
@@ -702,7 +704,7 @@ int DI2_ReadDVDAsync(void* buf, uint32_t len, uint32_t lba, ipccallback ipc_cb)
  */
 int DI2_ReadDVDConfig(uint32_t* val, uint32_t flag)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVDConfig(val, flag);
 
 	if (!val)
@@ -734,7 +736,7 @@ int DI2_ReadDVDConfig(uint32_t* val, uint32_t flag)
  */
 int DI2_ReadDVDCopyright(uint32_t* copyright)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVDCopyright(copyright);
 
 	if (!copyright)
@@ -763,7 +765,7 @@ int DI2_ReadDVDCopyright(uint32_t* copyright)
  */
 int DI2_ReadDVDDiscKey(void* buf)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVDDiscKey(buf);
 
 	int ret;
@@ -804,7 +806,7 @@ int DI2_ReadDVDDiscKey(void* buf)
  */
 int DI2_ReadDVDPhysical(void* buf)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDVDPhysical(buf);
 
 	int ret;
@@ -843,7 +845,7 @@ int DI2_ReadDVDPhysical(void* buf)
 
 int DI2_ReportKey(int keytype, uint32_t lba, void* buf)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReportKey(keytype, lba, buf);
 
 	if (!buf)
@@ -876,7 +878,7 @@ int DI2_ReportKey(int keytype, uint32_t lba, void* buf)
 
 int DI2_GetCoverRegister(uint32_t* status)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_GetCoverRegister(status);
 
 	LWP_MutexLock(bufferMutex);
@@ -918,7 +920,7 @@ int _DI2_SetMotor(int flag)
 /* Stop the drives motor, needs a reset afterwards for normal operation */
 int DI2_StopMotor()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_StopMotor();
 
 	return _DI2_SetMotor(0);
@@ -927,7 +929,7 @@ int DI2_StopMotor()
 /* Stop the motor, and eject the disc. Also needs a reset afterwards for normal operation */
 int DI2_Eject()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_Eject();
 
 	return _DI2_SetMotor(1);
@@ -946,7 +948,7 @@ int DI2_KillDrive()
 
 int DI2_ClosePartition()
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ClosePartition();
 
 	CheckAccess();
@@ -965,7 +967,7 @@ int DI2_ClosePartition()
 
 int DI2_OpenPartition(uint32_t offset)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_OpenPartition(offset);
 
 	static ioctlv vectors[5] __attribute__((aligned(32)));
@@ -999,7 +1001,7 @@ int DI2_OpenPartition(uint32_t offset)
 
 int DI2_Read(void *buf, uint32_t size, uint32_t offset)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_Read(buf, size, offset);
 
 	if (!buf)
@@ -1032,7 +1034,7 @@ int DI2_Read(void *buf, uint32_t size, uint32_t offset)
 
 int DI2_UnencryptedRead(void *buf, uint32_t size, uint32_t offset)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_UnencryptedRead(buf, size, offset);
 
 	int ret, retry_count = LIBDI_MAX_RETRIES;
@@ -1072,7 +1074,7 @@ int DI2_UnencryptedRead(void *buf, uint32_t size, uint32_t offset)
 
 int DI2_ReadDiscID(uint64_t *id)
 {
-	if(LoadedIOS < 202)
+	if(USE_LIBOGC_DI())
 		return DI_ReadDiscID(id);
 
 	CheckAccess();

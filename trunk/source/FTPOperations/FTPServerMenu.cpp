@@ -119,16 +119,6 @@ FTPServerMenu::FTPServerMenu()
 
 FTPServerMenu::~FTPServerMenu()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_FADE, -50);
-
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
 	RemoveAll();
 	SetGXConsole(NULL);
 
@@ -162,7 +152,7 @@ void FTPServerMenu::OnButtonClick(GuiButton *sender, int pointer UNUSED, const P
 {
 	if(sender == backBtn)
 	{
-		Application::Instance()->UnsetUpdateOnly(this);
+		SetEffect(EFFECT_FADE, -50);
 		Application::Instance()->PushForDelete(this);
 	}
 	else if(sender == MainFTPBtn)

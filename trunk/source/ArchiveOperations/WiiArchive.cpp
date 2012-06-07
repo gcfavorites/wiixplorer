@@ -232,11 +232,11 @@ int WiiArchive::ExtractFile(int ind, const char *dest, bool withpath)
 
 	do
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			free(buffer);
 			fclose(pfile);
-			return -10;
+			return PROGRESS_CANCELED;
 		}
 
 		ShowProgress(done, filesize, RealFilename);
@@ -272,16 +272,12 @@ int WiiArchive::ExtractFile(int ind, const char *dest, bool withpath)
 
 int WiiArchive::ExtractAll(const char * destpath)
 {
-	StartProgress(tr("Extracting files..."));
-
 	for(u32 i = 0; i < PathStructure.size(); i++)
 	{
 		int ret = ExtractFile(PathStructure.at(i)->fileindex, destpath, true);
 		if(ret < 0)
 			return ret;
 	}
-
-	StopProgress();
 
 	return 1;
 }

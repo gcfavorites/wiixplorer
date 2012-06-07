@@ -112,7 +112,6 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 
 void SzFile::DisplayError(SRes res)
 {
-	StopProgress();
 	ThrowMsg(tr("7z decompression failed:"), szerrormsg[(res - 1)]);
 }
 
@@ -175,7 +174,7 @@ int SzFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 							&SzOffset, &SzSizeProcessed,
 							&SzAllocImp, &SzAllocTempImp);
 
-//	if(actioncanceled)
+	if(ProgressWindow::Instance()->IsCanceled())
 		SzResult = 10;
 
 	if(SzResult == SZ_OK)
@@ -222,12 +221,10 @@ int SzFile::ExtractAll(const char * destpath)
 	if(!destpath)
 		return -5;
 
-	StartProgress(tr("Extracting files..."));
-
 	for(u32 i = 0; i < SzArchiveDb.db.NumFiles; i++)
 	{
-//		if(actioncanceled)
-			return -10;
+		if(ProgressWindow::Instance()->IsCanceled())
+			return PROGRESS_CANCELED;
 
 		CSzFileItem * SzFileItem = SzArchiveDb.db.Files + i;
 
@@ -252,7 +249,6 @@ int SzFile::ExtractAll(const char * destpath)
 
 		ExtractFile(i, path);
 	}
-	StopProgress();
 
 	return 1;
 }

@@ -163,8 +163,6 @@ bool RarFile::CheckPassword()
 {
 	if((RarArc.NewLhd.Flags & LHD_PASSWORD) && Password.length() == 0)
 	{
-		const char * Title = ProgressWindow::Instance()->GetTitle();
-		StopProgress();
 		int choice = WindowPrompt(tr("Password is needed."), tr("Please enter the password."), tr("OK"), tr("Cancel"));
 		if(!choice)
 			return false;
@@ -176,7 +174,6 @@ bool RarFile::CheckPassword()
 			return false;
 
 		Password.assign(entered);
-		StartProgress(Title);
 	}
 
 	return true;
@@ -197,14 +194,29 @@ void RarFile::UnstoreFile(ComprDataIO &DataIO, int64 DestUnpSize)
   }
 }
 
+/******************************************************************************
+ * Global variables needed for the shitty custom unrar lib as there is no other
+ * way to handle progress show and cancel.
+ ******************************************************************************/
+bool bRarProgressCancel = false;
+
+void RarShowProgress(unsigned long long done, unsigned long long total, const char *filename)
+{
+	if(ProgressWindow::Instance()->IsCanceled())
+		bRarProgressCancel = true;
+
+	ShowProgress(done, total, filename);
+}
+
 int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 {
 	if (!RarArc.IsOpened())
 		return -1;
 
-//	if(actioncanceled)
-		return -10;
+	if(ProgressWindow::Instance()->IsCanceled())
+		return PROGRESS_CANCELED;
 
+	bRarProgressCancel = false;
 	ComprDataIO DataIO;
 	Unpack Unp(&DataIO);
 	Unp.Init(NULL);
@@ -254,11 +266,7 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 
 	File CurFile;
 	if(!CurFile.Create(filepath))
-	{
-		StopProgress();
-		ShowError("File not created.");
 		return false;
-	}
 
 	DataIO.UnpVolume = false;
 	DataIO.UnpArcSize = RarArc.NewLhd.FullPackSize;
@@ -295,26 +303,23 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 
 	CurFile.Close();
 
-//	if(actioncanceled)
+	if(ProgressWindow::Instance()->IsCanceled())
 	{
-		StopProgress();
 		RemoveFile(filepath);
-		return -10;
+		return PROGRESS_CANCELED;
 	}
 
 	if(ErrHandler.GetErrorCode() != 0 || ErrHandler.GetErrorCount() > 0)
 	{
-		StopProgress();
 		RemoveFile(filepath);
-		ShowError("%s %i", tr("Extract error code:"), ErrHandler.GetErrorCode());
+		ThrowMsg(tr("Error:"), "%s %i", tr("Extract error code:"), ErrHandler.GetErrorCode());
 		return -3;
 	}
 
 	if((!RarArc.OldFormat && UINT32(DataIO.UnpFileCRC) != UINT32(RarArc.NewLhd.FileCRC^0xffffffff)) ||
 		(RarArc.OldFormat && UINT32(DataIO.UnpFileCRC) != UINT32(RarArc.NewLhd.FileCRC)))
 	{
-		StopProgress();
-		ShowError(tr("CRC of extracted file does not match. Wrong password?"));
+		ThrowMsg(tr("Error:"), tr("CRC of extracted file does not match. Wrong password?"));
 		RemoveFile(filepath);
 		return -4;
 	}
@@ -325,18 +330,13 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 int RarFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 {
 	if(!SeekFile(fileindex))
-	{
-		StopProgress();
 		return -6;
-	}
 
 	return InternalExtractFile(outpath, withpath);
 }
 
 int RarFile::ExtractAll(const char * destpath)
 {
-	//! This is faster than looping and using ExtractFile for each item
-	StartProgress(tr("Extracting files..."));
 	RarArc.Seek(0, SEEK_SET);
 
 	while(RarArc.ReadHeader() > 0)
@@ -349,15 +349,10 @@ int RarFile::ExtractAll(const char * destpath)
 		{
 			int ret = InternalExtractFile(destpath, true);
 			if(ret < 0)
-			{
-				StopProgress();
 				return ret;
-			}
 		}
 		RarArc.SeekToNext();
 	}
-
-	StopProgress();
 
 	return 1;
 }

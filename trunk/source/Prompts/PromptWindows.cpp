@@ -58,10 +58,8 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UnsetUpdateOnly(keyboard);
-
-	delete keyboard;
-	keyboard = NULL;
+	Application::Instance()->PushForDelete(keyboard);
+	Application::Instance()->updateEvents();
 
 	return save;
 }
@@ -96,7 +94,7 @@ bool NetworkInitPrompt()
 {
 	if(IsNetworkInit())
 		return true;
-	
+
 	int choice = -1;
 
 	PromptWindow * Prompt = new PromptWindow(tr("Network initialising..."), tr("Please wait..."), tr("Cancel"));
@@ -115,9 +113,9 @@ bool NetworkInitPrompt()
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UnsetUpdateOnly(Prompt);
-	delete Prompt;
-	Prompt = NULL;
+	Prompt->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(Prompt);
+	Application::Instance()->updateEvents();
 
 	if(!IsNetworkInit())
 	{
@@ -149,9 +147,13 @@ int WindowPrompt(const char *title, const char *msg,
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UnsetUpdateOnly(Prompt);
-	delete Prompt;
-	Prompt = NULL;
+	Prompt->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(Prompt);
+	//! TODO: fixme
+	//! since blocking function continue on Update() loop where they stop
+	//! the last pressed button on the prompt window will be used in the
+	//! follow up updates, prevent that by reupdating the pads with one event
+	Application::Instance()->updateEvents();
 
 	return choice;
 }
@@ -199,9 +201,9 @@ int WaitSMBConnect(void)
 		Application::Instance()->updateEvents();
 	}
 
-	Application::Instance()->UnsetUpdateOnly(Prompt);
-	delete Prompt;
-	Prompt = NULL;
+	Prompt->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(Prompt);
+	Application::Instance()->updateEvents();
 
 	if(!IsNetworkInit())
 	{

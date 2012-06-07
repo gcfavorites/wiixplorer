@@ -270,15 +270,6 @@ Properties::Properties(ItemMarker * IMarker)
 
 Properties::~Properties()
 {
-	bClosing = true;
-
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	if(foldersizethread != LWP_THREAD_NULL)
@@ -325,7 +316,8 @@ Properties::~Properties()
 
 void Properties::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	Application::Instance()->UnsetUpdateOnly(this);
+	bClosing = true;
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
 	Application::Instance()->PushForDelete(this);
 }
 

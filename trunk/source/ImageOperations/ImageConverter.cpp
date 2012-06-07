@@ -24,7 +24,6 @@
  * for WiiXplorer 2010
  ***************************************************************************/
 #include "FileOperations/fileops.h"
-#include "Prompts/ProgressWindow.h"
 #include "ImageConverter.hpp"
 #include "TplImage.h"
 
@@ -34,8 +33,6 @@
 ImageConverter::ImageConverter(const char * filepath)
 {
 	InputType = IMAGE_PNG;
-	ImagePath = NULL;
-	OutPath = NULL;
 	gdImage = 0;
 
 	ResetOptions();
@@ -45,8 +42,6 @@ ImageConverter::ImageConverter(const char * filepath)
 ImageConverter::ImageConverter(const u8 * imgBuf, int imgSize)
 {
 	InputType = IMAGE_PNG;
-	ImagePath = NULL;
-	OutPath = NULL;
 	gdImage = 0;
 
 	ResetOptions();
@@ -65,8 +60,7 @@ bool ImageConverter::LoadImage(const char * filepath)
 	if(!filepath)
 		return false;
 
-	ImagePath = new char[strlen(filepath)+1];
-	sprintf(ImagePath, "%s", filepath);
+	ImagePath = filepath;
 
 	SetOutPath(filepath);
 
@@ -137,7 +131,7 @@ bool ImageConverter::LoadImage(const u8 * img, int imgSize)
 
 	if(gdImage == 0)
 	{
-		ShowError(tr("Could not load image."));
+		ThrowMsg(tr("Could not load image."), 0);
 		return false;
 	}
 
@@ -173,10 +167,7 @@ bool ImageConverter::Convert()
 	if(FlipMode == FLIP_BOTH)
 		FlipBoth();
 
-	if(OutPath)
-		return WriteImage(OutPath);
-
-	return false;
+	return WriteImage(OutPath.c_str());
 }
 
 bool ImageConverter::ResizeImage(int newwidth, int newheight)
@@ -192,8 +183,7 @@ bool ImageConverter::ResizeImage(int newwidth, int newheight)
 		gdImagePtr dst = gdImageCreateTrueColor(newwidth, newheight);
 		if(dst == 0)
 		{
-			StopProgress();
-			ShowError(tr("Not enough memory to resize."));
+			ThrowMsg(tr("Not enough memory to resize."), 0);
 			return false;
 		}
 
@@ -222,8 +212,7 @@ bool ImageConverter::RotateImage(int angle)
 		gdImagePtr dst = gdImageCreateTrueColor(OutputWidth, OutputHeight);
 		if(dst == 0)
 		{
-			StopProgress();
-			ShowError(tr("Not enough memory to rotate."));
+			ThrowMsg(tr("Not enough memory to rotate."), 0);
 			return false;
 		}
 
@@ -292,15 +281,6 @@ void ImageConverter::ClearMemory()
 		gdImageDestroy(gdImage);
 
 	gdImage = 0;
-
-	if(ImagePath)
-		delete [] ImagePath;
-
-	if(OutPath)
-		delete [] OutPath;
-
-	ImagePath = NULL;
-	OutPath = NULL;
 }
 
 void ImageConverter::ResetOptions()
@@ -328,18 +308,13 @@ void ImageConverter::ResetOptions()
 
 void ImageConverter::SetOutPath(const char * filepath)
 {
-	char * PathPointer = NULL;
-
 	if(filepath)
-		PathPointer = strdup(filepath);
+		OutPath = filepath;
 
-	else if(OutPath)
-		PathPointer = strdup(OutPath);
+	else if(!ImagePath.empty() && OutPath.empty())
+		OutPath = ImagePath;
 
-	else if(ImagePath)
-		PathPointer = strdup(ImagePath);
-
-	if(!PathPointer)
+	if(OutPath.empty())
 		return;
 
 	char Extension[6];
@@ -348,41 +323,33 @@ void ImageConverter::SetOutPath(const char * filepath)
 	switch(OutputType)
 	{
 		case IMAGE_PNG:
-			sprintf(Extension, ".png");
+			snprintf(Extension, sizeof(Extension), ".png");
 			break;
 		case IMAGE_JPEG:
-			sprintf(Extension, ".jpg");
+			snprintf(Extension, sizeof(Extension), ".jpg");
 			break;
 		case IMAGE_GIF:
-			sprintf(Extension, ".gif");
+			snprintf(Extension, sizeof(Extension), ".gif");
 			break;
 		case IMAGE_TIFF:
-			sprintf(Extension, ".tif");
+			snprintf(Extension, sizeof(Extension), ".tif");
 			break;
 		case IMAGE_BMP:
-			sprintf(Extension, ".bmp");
+			snprintf(Extension, sizeof(Extension), ".bmp");
 			break;
 		case IMAGE_GD:
 		case IMAGE_GD2:
-			sprintf(Extension, ".gd");
+			snprintf(Extension, sizeof(Extension), ".gd");
 			break;
 		default:
-			free(PathPointer);
 			return;
 	}
 
-	if(OutPath)
-		delete [] OutPath;
+	size_t extPos = OutPath.rfind('.');
 
-	OutPath = new char[strlen(PathPointer)+strlen(Extension)+1];
-	sprintf(OutPath, "%s", PathPointer);
-
-	free(PathPointer);
-
-	char * ExtPtr = strrchr(OutPath, '.');
-
-	if(!ExtPtr)
+	if(extPos == std::string::npos)
 		return;
 
-	sprintf(ExtPtr, "%s", Extension);
+	OutPath.erase(extPos);
+	OutPath += Extension;
 }

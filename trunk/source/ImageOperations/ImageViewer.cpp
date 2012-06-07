@@ -39,6 +39,7 @@ ImageViewer::ImageViewer(const char *filepath)
 	buttonAlpha = 255;
 	updateAlpha = false;
 	isPointerVisible = true;
+	bThreadActive = false;
 	bExitRequested = false;
 
 	for (int i = 0; i < 4; i++)
@@ -62,21 +63,6 @@ ImageViewer::ImageViewer(const char *filepath)
 
 ImageViewer::~ImageViewer()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_FADE, -50);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
-	for(int i = 0; i < 4; i++)
-		Application::Instance()->ResetPointer(i);
-
-	Application::Instance()->UnsetUpdateOnly(this);
-
 	RemoveAll();
 
 	//! the loading thread is stopped on button click
@@ -305,10 +291,19 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 
 	else if(sender == backButton)
 	{
+		//! avoid 2nd clicking on back button
+		backButton->SetClickable(false);
 		//! has to be called here because of the LOCK in the delete queue
 		//! to avoid lock on autodeleting the running file load tasks
 		bExitRequested = true;
-		shutdownThread();
+		resumeThread();
+		while(bThreadActive)
+			Application::Instance()->updateEvents();
+
+		SetEffect(EFFECT_FADE, -50);
+
+		for(int i = 0; i < 4; i++)
+			Application::Instance()->ResetPointer(i);
 
 		Application::Instance()->PushForDelete(this);
 	}
@@ -369,6 +364,8 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 
 void ImageViewer::executeThread()
 {
+	bThreadActive = true;
+
 	while(!bExitRequested)
 	{
 		if(!threadTasks.empty())
@@ -382,6 +379,8 @@ void ImageViewer::executeThread()
 			suspendThread();
 		}
 	}
+
+	bThreadActive = false;
 }
 
 bool ImageViewer::LoadImageList(const char * filepath)

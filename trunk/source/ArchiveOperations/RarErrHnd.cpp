@@ -17,7 +17,7 @@
 #define BIG_ENDIAN
 #include <libunrar/rar.hpp>
 #include "Prompts/PromptWindows.h"
-#include "Prompts/ProgressWindow.h"
+#include "Language/gettext.h"
 #include "Tools/tools.h"
 #include "sys.h"
 
@@ -38,62 +38,52 @@ void ErrorHandler::Clean()
 
 void ErrorHandler::MemoryError()
 {
-	StopProgress();
-	ShowError("Not enought memory.");
+	ThrowMsg(tr("Error:"), tr("Not enought memory."));
 	ExitCode = MEMORY_ERROR;
 }
 
 
 void ErrorHandler::OpenError(const char *FileName)
 {
-	StopProgress();
-	ShowError("Cannot open file %s", FileName);
+	ThrowMsg(tr("Error:"), tr("Cannot open file %s"), FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::CloseError(const char *FileName)
 {
-	StopProgress();
-	ShowError("Cannot close file %s", FileName);
+	ThrowMsg(tr("Error:"), tr("Cannot close file %s"), FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 void ErrorHandler::ReadError(const char *FileName)
 {
-	StopProgress();
-	ShowError("Read Error in %s", FileName);
+	ThrowMsg(tr("Error:"), tr("Read Error in %s"), FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 bool ErrorHandler::AskRepeatRead(const char *FileName)
 {
-	StopProgress();
 	char output[200];
-	snprintf(output, sizeof(output), "Read Error in file: %s", FileName);
+	snprintf(output, sizeof(output), tr("Read Error in file: %s"), FileName);
 
-	int choice = WindowPrompt(output, "Retry?", "Yes", "Cancel");
+	int choice = WindowPrompt(output, tr("Retry?"), tr("Yes"), tr("Cancel"));
 
 	return (choice != 0);
 }
 
 void ErrorHandler::WriteError(const char *ArcName,const char *FileName)
 {
-	StopProgress();
-	ShowError("Write Error from %s to %s", ArcName, FileName);
+	ThrowMsg(tr("Error:"), tr("Write Error from %s to %s"), ArcName, FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 bool ErrorHandler::AskRepeatWrite(const char *FileName,bool DiskFull)
 {
-	StopProgress();
 	char output[200];
-	if(DiskFull)
-		snprintf(output, sizeof(output), "Write Error in file: %s. Disk is Full", FileName);
-	else
-		snprintf(output, sizeof(output), "Write Error in file: %s", FileName);
+	snprintf(output, sizeof(output), tr("Write Error in file: %s. %s"), FileName, DiskFull ? tr("Disk is Full") : "");
 
-	int choice = WindowPrompt(output, "Retry?", "Yes", "Cancel");
+	int choice = WindowPrompt(output, tr("Retry?"), tr("Yes"), tr("Cancel"));
 
 	return (choice != 0);
 }
@@ -101,16 +91,14 @@ bool ErrorHandler::AskRepeatWrite(const char *FileName,bool DiskFull)
 
 void ErrorHandler::SeekError(const char *FileName)
 {
-	StopProgress();
-	ShowError("Seek Error in %s", FileName);
+	ThrowMsg(tr("Error:"), tr("Seek Error in %s"), FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::GeneralErrMsg(const char *Msg)
 {
-	StopProgress();
-	ShowError(Msg);
+	ThrowMsg(tr("Error:"), Msg);
 	ExitCode = FATAL_ERROR;
 }
 
@@ -123,16 +111,14 @@ void ErrorHandler::MemoryErrorMsg()
 
 void ErrorHandler::OpenErrorMsg(const char *FileName)
 {
-	StopProgress();
-	ShowError("Error opening %s", FileName);
+	ThrowMsg(tr("Error:"), tr("Error opening %s"), FileName);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::OpenErrorMsg(const char *ArcName,const char *FileName)
 {
-	StopProgress();
-	ShowError("Error opening %s in %s", FileName, ArcName);
+	ThrowMsg(tr("Error:"), tr("Error opening %s in %s"), FileName, ArcName);
 	ExitCode = FATAL_ERROR;
 }
 
@@ -146,24 +132,21 @@ void ErrorHandler::CreateErrorMsg(const char *FileName)
 
 void ErrorHandler::CreateErrorMsg(const char *ArcName,const char *FileName)
 {
-	StopProgress();
-	ShowError("Error received from %s in %s", FileName, ArcName);
+	ThrowMsg(tr("Error:"), tr("Error received from %s in %s"), FileName, ArcName);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::ReadErrorMsg(const char *ArcName,const char *FileName)
 {
-	StopProgress();
-	ShowError("Read error from %s in %s", FileName, ArcName);
+	ThrowMsg(tr("Error:"), tr("Read error from %s in %s"), FileName, ArcName);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::WriteErrorMsg(const char *ArcName,const char *FileName)
 {
-	StopProgress();
-	ShowError("Write error to %s in %s", FileName, ArcName);
+	ThrowMsg(tr("Error:"), tr("Write error to %s in %s"), FileName, ArcName);
 	ExitCode = FATAL_ERROR;
 }
 
@@ -182,8 +165,7 @@ void ErrorHandler::ErrMsg(const char *ArcName,const char *fmt,...)
 	va_end(argptr);
 	if (*Msg)
 	{
-		StopProgress();
-		ShowError("%s: %s", ArcName, Msg);
+		ThrowMsg(tr("Error:"), "%s: %s", ArcName, Msg);
 	}
 	ExitCode = FATAL_ERROR;
 }
@@ -229,16 +211,14 @@ void ErrorHandler::Throw(int Code)
 	if (Code==USER_BREAK && !EnableBreak)
 		return;
 
-	StopProgress();
-	ShowError("Fatal error: %i.", Code);
+	ThrowMsg(tr("Error:"), tr("Fatal error: %i."), Code);
 	ExitCode = FATAL_ERROR;
 }
 
 
 void ErrorHandler::SysErrMsg()
 {
-	StopProgress();
-	ShowError("System error received");
+	ThrowMsg(tr("Error:"), tr("System error received"));
 	ExitCode = FATAL_ERROR;
 }
 

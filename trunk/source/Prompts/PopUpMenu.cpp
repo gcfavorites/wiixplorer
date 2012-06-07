@@ -112,11 +112,6 @@ PopUpMenu::PopUpMenu(int x, int y)
 
 PopUpMenu::~PopUpMenu()
 {
-	CloseSubMenu();
-
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	Resources::Remove(PopUpMenuMiddle);

@@ -110,10 +110,10 @@ void SettingsMenu::CloseMenu()
 {
 	hide();
 
-	Application::Instance()->PushForDelete(this);
-
 	if(returnFrame)
 		returnFrame->show();
+
+	Application::Instance()->PushForDelete(this);
 }
 
 void SettingsMenu::OnBackButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)

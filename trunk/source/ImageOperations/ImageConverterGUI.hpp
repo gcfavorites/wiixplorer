@@ -37,10 +37,9 @@ class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot
 		ImageConverterGui(const u8 * imgBuf, int imgSize);
 		virtual ~ImageConverterGui();
 		bool LoadImage(const char * filepath);
-		void Draw();
 	protected:
 		void OnFinishedImageLoad(FileLoadTask *task, u8 *buffer, u32 buffer_size);
-		void OnFinishedLoadTask(Task *task);
+		void OnFinishedConvertTask(Task *task);
 
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnOptionLeftClick(GuiElement *sender, int pointer, const POINT &p);
@@ -48,8 +47,6 @@ class ImageConverterGui : public GuiFrame, public ImageConverter, public sigslot
 		void OnOptionButtonClick(GuiElement *sender, int pointer, const POINT &p);
 		void SetOptionValues();
 		void Setup();
-
-		bool Converting;
 
 		GuiSound * btnClick;
 		GuiSound * btnSoundOver;

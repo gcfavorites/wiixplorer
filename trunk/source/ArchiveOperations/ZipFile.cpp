@@ -21,7 +21,6 @@
 #include <sys/dirent.h>
 
 #include "ZipFile.h"
-#include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 #include "FileOperations/DirList.h"
@@ -289,7 +288,6 @@ int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compres
 	int ret = zipOpenNewFileInZip(zFile, destfilepath, &file_info, NULL, 0, NULL, 0, NULL, Z_DEFLATED, compresslevel);
 	if(ret != ZIP_OK)
 	{
-		ShowError("%i", ret);
 		free(buffer);
 		fclose(sourceFile);
 		return -8;
@@ -311,7 +309,7 @@ int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compres
 			free(buffer);
 			fclose(sourceFile);
 			zipCloseFileInZip(zFile);
-			return -10;
+			return PROGRESS_CANCELED;
 		}
 
 		ShowProgress(done, filesize, RealFilename);
@@ -358,7 +356,7 @@ int ZipFile::AddDirectory(const char *dirpath, const char *destfilepath, int com
 	for(int i = 0; i < dir.GetFilecount(); ++i)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
-			return -10;
+			return PROGRESS_CANCELED;
 
 		if(dir.IsDir(i))
 		{
@@ -443,10 +441,7 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 	if(!pfile)
 	{
 		unzCloseCurrentFile(uzFile);
-		StopProgress();
 		free(buffer);
-		fclose(pfile);
-		WindowPrompt(tr("Could not extract file:"), CurArcFile->filename, "OK");
 		return -3;
 	}
 
@@ -454,12 +449,10 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 	{
 		if(ProgressWindow::Instance()->IsCanceled())
 		{
-			usleep(20000);
 			free(buffer);
 			fclose(pfile);
 			unzCloseCurrentFile(uzFile);
-			StopProgress();
-			return -10;
+			return PROGRESS_CANCELED;
 		}
 
 		ShowProgress(done, filesize, RealFilename);
@@ -473,7 +466,6 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 			free(buffer);
 			fclose(pfile);
 			unzCloseCurrentFile(uzFile);
-			StopProgress();
 			return -4;
 		}
 
@@ -520,8 +512,6 @@ int ZipFile::ExtractAll(const char *dest)
 		return -6;
 	}
 
-	StartProgress(tr("Extracting files..."));
-
 	while(!Stop)
 	{
 		if(unzGetCurrentFileInfo(uzFile, &cur_file_info, filename, sizeof(filename), NULL, 0, NULL, 0) != UNZ_OK)
@@ -554,9 +544,7 @@ int ZipFile::ExtractAll(const char *dest)
 				if(!pfile)
 				{
 					free(buffer);
-					fclose(pfile);
 					unzCloseCurrentFile(uzFile);
-					StopProgress();
 					return -8;
 				}
 
@@ -564,12 +552,10 @@ int ZipFile::ExtractAll(const char *dest)
 				{
 					if(ProgressWindow::Instance()->IsCanceled())
 					{
-						usleep(20000);
 						free(buffer);
 						fclose(pfile);
 						unzCloseCurrentFile(uzFile);
-						StopProgress();
-						return -10;
+						return PROGRESS_CANCELED;
 					}
 
 					ShowProgress(done, uncompressed_size, pointer+1);
@@ -600,8 +586,6 @@ int ZipFile::ExtractAll(const char *dest)
 
 	free(buffer);
 	buffer = NULL;
-
-	StopProgress();
 
 	return 1;
 }

@@ -28,6 +28,7 @@
 #include "FileOperations/ProcessChoice.h"
 #include "Prompts/CreditWindow.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ThrobberWindow.h"
 #include "Prompts/ProgressWindow.h"
 #include "DiskOperations/di2.h"
 #include "Settings.h"
@@ -43,7 +44,6 @@ Explorer::Explorer(GuiFrame *p, const char *path)
 
 Explorer::~Explorer()
 {
-	hide();
 	RemoveAll();
 
 	Resources::Remove(btnSoundClick);
@@ -361,6 +361,8 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 	Application::Instance()->Remove(menu);
 	Application::Instance()->UnsetUpdateOnly(menu);
 
+	guiBrowser->SetState(STATE_DISABLED);
+
 	if(item >= 0 && curBrowser != fileBrowser) //! Archive
 	{
 		ProcessArcChoice(item, fileBrowser->GetCurrentPath());
@@ -371,28 +373,41 @@ void Explorer::OnRightClick(PopUpMenu *menu, int item)
 		ProcessChoice(item);
 	}
 
+	guiBrowser->SetState(STATE_DEFAULT);
+
 	Application::Instance()->PushForDelete(menu);
 
 }
 
 void Explorer::OnDeviceSelect(DeviceMenu *deviceMenu, int device)
 {
-	Application::Instance()->UnsetUpdateOnly(deviceMenu);
-	Application::Instance()->PushForDelete(deviceMenu);
+	deviceMenu->SetEffect(EFFECT_FADE, -30);
 
 	if(device == DVD)
 	{
-		char read_buffer[2048];
+		char *read_buffer = (char*) memalign(32, 2048);
+		if(!read_buffer) return;
+
 		if(DI2_ReadDVD(read_buffer, 1, 0) != 0)
 		{
+			ThrobberWindow *window = new ThrobberWindow(tr("Mounting DVD"), tr("Please wait..."));
+			window->DimBackground(true);
+			Application::Instance()->Append(window);
+			Application::Instance()->SetUpdateOnly(window);
+
 			DeviceHandler::Instance()->UnMountDVD();
 			DI2_Mount();
-			time_t timer1 = time(0);
-			while((time(0)-timer1) < 15 && (DI2_GetStatus() & DVD_INIT))
+			Timer mountTimer;
+			while(mountTimer.elapsedMilliSecs() < 10000 && (DI2_GetStatus() & DVD_INIT))
 				Application::Instance()->updateEvents();
 
-			DeviceHandler::Instance()->MountDVDFS();
+			if(!(DI2_GetStatus() & DVD_INIT))
+				DeviceHandler::Instance()->MountDVDFS();
+
+			window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+			Application::Instance()->PushForDelete(window);
 		}
+		free(read_buffer);
 	}
 
 	if(device >= SD && device < MAXDEVICES)
@@ -409,6 +424,8 @@ void Explorer::OnDeviceSelect(DeviceMenu *deviceMenu, int device)
 		AdressText->SetText(curBrowser->GetCurrentPath());
 		Settings.LastUsedPath.assign(fileBrowser->GetCurrentPath());
 	}
+
+	Application::Instance()->PushForDelete(deviceMenu);
 }
 
 void Explorer::OnCreditsButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)

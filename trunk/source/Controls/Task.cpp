@@ -48,9 +48,6 @@ Task::Task(const std::string &title)
 
 Task::~Task()
 {
-	if(parentElement)
-		((GuiFrame *)parentElement)->Remove(this);
-
 	delete Title;
 	delete trigA;
 	if(ButtonImg)

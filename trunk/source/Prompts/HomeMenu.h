@@ -25,6 +25,9 @@ class HomeMenu : public GuiFrame, public sigslot::has_slots<>
 		HomeMenu();
 		virtual ~HomeMenu();
 		void hide();
+		bool IsAnimated() const {
+			return (GuiFrame::IsAnimated() || ExitBtn->IsAnimated() || HomeOutSnd->IsPlaying());
+		}
 		void Draw();
 	private:
 		void OnStateChange(GuiElement *sender, int state, int stateChan);

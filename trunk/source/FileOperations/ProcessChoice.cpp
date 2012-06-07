@@ -32,6 +32,7 @@
 #include "FileOperations/DeleteTask.h"
 #include "FileOperations/MD5Task.h"
 #include "FileOperations/PackTask.h"
+#include "FileOperations/UnpackTask.h"
 #include "menu.h"
 
 void Explorer::ProcessArcChoice(int choice, const char * destCandidat)
@@ -71,18 +72,16 @@ void Explorer::ProcessArcChoice(int choice, const char * destCandidat)
 			browser->MarkCurrentItem();
 			//Get ItemMarker
 			ItemMarker * IMarker = browser->GetItemMarker();
-
-			StartProgress(tr("Extracting item(s):"));
+			//switch between browser index and archive file index
 			for(int i = 0; i < IMarker->GetItemcount(); i++)
-			{
-				result = browser->ExtractItem(IMarker->GetItemIndex(i), dest);
-			}
-			StopProgress();
-			ResetReplaceChoice();
-			if(result <= 0)
-			{
-				ShowError(tr("Failed extracting the item(s)."));
-			}
+				IMarker->GetItem(i)->itemindex = browser->GetItemStructure(IMarker->GetItem(i)->itemindex)->fileindex;
+
+			UnpackTask *task = new UnpackTask(IMarker, dest, browser->GetArchive(), false);
+			task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+			this->explorerTasks++;
+			Taskbar::Instance()->AddTask(task);
+			ThreadedTaskHandler::Instance()->AddTask(task);
+
 			IMarker->Reset();
 		}
 	}
@@ -107,13 +106,12 @@ void Explorer::ProcessArcChoice(int choice, const char * destCandidat)
 		int result = OnScreenKeyboard(dest, sizeof(dest));
 		if(result)
 		{
-			result = browser->ExtractAll(dest);
-			StopProgress();
-			ResetReplaceChoice();
-			if(result <= 0)
-			{
-				ShowError(tr("Failed extracting the archive."));
-			}
+			UnpackTask *task = new UnpackTask(browser->GetItemMarker(), dest, browser->GetArchive(), true);
+			task->TaskEnd.connect(this, &Explorer::OnFinishedTask);
+			this->explorerTasks++;
+			Taskbar::Instance()->AddTask(task);
+			ThreadedTaskHandler::Instance()->AddTask(task);
+
 			browser->GetItemMarker()->Reset();
 		}
 	}

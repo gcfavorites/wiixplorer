@@ -141,14 +141,7 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
  */
 TextEditor::~TextEditor()
 {
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	while(this->GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
-	this->RemoveAll();
+	RemoveAll();
 
 	delete scrollbar;
 
@@ -271,7 +264,7 @@ void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POIN
 		}
 		if(choice)
 		{
-			Application::Instance()->UnsetUpdateOnly(this);
+			SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 			Application::Instance()->PushForDelete(this);
 		}
 	}

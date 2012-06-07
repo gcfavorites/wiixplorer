@@ -107,13 +107,13 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	while(done < filesize)
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			free(buffer);
 			StopProgress();
 			net_close(connection);
 			ShowError(tr("Transfer cancelled."));
-			return -10;
+			return PROGRESS_CANCELED;
 		}
 
 		ShowProgress(done, filesize, filename);
@@ -257,14 +257,14 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	while(done < filesize)
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			free(buffer);
 			StopProgress();
 			net_close(connection);
 			fclose(file);
 			ShowError(tr("Transfer cancelled."));
-			return -10;
+			return PROGRESS_CANCELED;
 		}
 
 		ShowProgress(done, filesize, filename);

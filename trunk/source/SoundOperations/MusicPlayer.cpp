@@ -87,9 +87,6 @@ MusicPlayer::MusicPlayer()
 
 MusicPlayer::~MusicPlayer()
 {
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	ExitRequested = true;
 
 	Hide();
@@ -286,15 +283,17 @@ void MusicPlayer::Show()
 
 void MusicPlayer::Hide()
 {
-	if(!ExitRequested && parentElement)
-	{
-		SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT, 40);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-	}
-
 	if(!Application::isClosing())
+	{
+		if(!ExitRequested && parentElement)
+		{
+			SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT, 40);
+			while(this->GetEffect() > 0)
+				Application::Instance()->updateEvents();
+		}
+
 		Application::Instance()->UnsetUpdateOnly(this);
+	}
 
 	this->DimBackground(false);
 	this->SetVisible(false);

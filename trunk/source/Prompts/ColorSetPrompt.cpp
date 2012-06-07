@@ -72,8 +72,7 @@ void ColorSetPrompt::Show(const char * title, GXColor * c, int pos)
 			ColorPrompt->color[i] = ColorPrompt->OrigColor[i];
 	}
 
-	Application::Instance()->UnsetUpdateOnly(ColorPrompt);
-	delete ColorPrompt;
+	Application::Instance()->PushForDelete(ColorPrompt);
 }
 
 void ColorSetPrompt::UpdateOptionValues()
