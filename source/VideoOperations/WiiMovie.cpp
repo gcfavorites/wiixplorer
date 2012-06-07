@@ -107,11 +107,6 @@ WiiMovie::WiiMovie(const char * filepath)
 
 WiiMovie::~WiiMovie()
 {
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
-	Application::Instance()->UnsetUpdateOnly(this);
-
 	Playing = false;
 	ExitRequested = true;
 

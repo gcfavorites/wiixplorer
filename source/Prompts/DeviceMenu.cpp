@@ -312,9 +312,9 @@ DeviceMenu::DeviceMenu(int x, int y)
 			deviceBtn[deviceCount]->SetPosition(PositionX, PositionY);
 			deviceBtn[deviceCount]->Clicked.connect(this, &DeviceMenu::OnButtonClick);
 			PositionX += deviceImgs[deviceCount]->GetWidth()+10;
-			
+
 			deviceSelection[deviceCount] = i;
-			
+
 			deviceCount++;
 		}
 	}
@@ -360,15 +360,6 @@ DeviceMenu::DeviceMenu(int x, int y)
 
 DeviceMenu::~DeviceMenu()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_FADE, -30);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
 	RemoveAll();
 
 	Resources::Remove(device_choose_right_Data);

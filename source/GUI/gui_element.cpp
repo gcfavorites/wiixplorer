@@ -79,8 +79,7 @@ int GuiElement::GetLeft()
 		pLeft = parentElement->GetLeft();
 	}
 
-	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT))
-		pLeft += xoffsetDyn;
+	pLeft += xoffsetDyn;
 
 	int x = pLeft;
 
@@ -112,8 +111,7 @@ int GuiElement::GetTop()
 		pTop = parentElement->GetTop();
 	}
 
-	if(effects & (EFFECT_SLIDE_IN | EFFECT_SLIDE_OUT))
-		pTop += yoffsetDyn;
+	pTop += yoffsetDyn;
 
 	int y = pTop;
 

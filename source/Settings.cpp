@@ -27,9 +27,9 @@
 #include "Tools/encrypt.h"
 
 #define DEFAULT_APP_PATH	"apps/WiiExplorer/"
-#define CONFIGPATH		  "config/WiiXplorer/"
-#define CONFIGNAME		  "WiiXplorer.cfg"
-#define LANGPATH	  		"config/WiiXplorer/Languages/"
+#define CONFIGPATH			"config/WiiXplorer/"
+#define CONFIGNAME			"WiiXplorer.cfg"
+#define LANGPATH			"config/WiiXplorer/Languages/"
 
 CSettings Settings;
 

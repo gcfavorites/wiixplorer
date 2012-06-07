@@ -23,6 +23,7 @@
 #include "ArchiveBrowser.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/ThrobberWindow.h"
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileStartUp.h"
 #include "menu.h"
@@ -44,7 +45,7 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
 	if(!filepath)
 		return;
 
-	PromptWindow * Prompt = new PromptWindow(tr("Reading archive."), tr("Please wait..."));
+	ThrobberWindow * Prompt = new ThrobberWindow(tr("Reading archive."), tr("Please wait..."));
 	Prompt->DimBackground(true);
 	Application::Instance()->Append(Prompt);
 	Application::Instance()->SetUpdateOnly(Prompt);
@@ -70,8 +71,8 @@ ArchiveBrowser::ArchiveBrowser(const char * filepath)
 	ItemNumber = archive->GetItemCount();
 	ParseArchiveDirectory(NULL);
 
-	Application::Instance()->UnsetUpdateOnly(Prompt);
-	delete Prompt;
+	Prompt->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(Prompt);
 }
 
 ArchiveBrowser::ArchiveBrowser(ArchiveHandle * a)
@@ -171,7 +172,7 @@ int ArchiveBrowser::AddItem(const ItemStruct * Item, const char * arc_filepath, 
 
 int ArchiveBrowser::ExtractItem(int ind, const char * dest)
 {
-	if(ind < 0 || ind > (int) PathStructure.size())
+	if(ind < 0 || ind >= (int) PathStructure.size())
 		return -1;
 
 	ArchiveFileStruct * currentItem = archive->GetFileStruct(PathStructure.at(ind)->fileindex);
@@ -220,7 +221,6 @@ int ArchiveBrowser::ExtractFolder(const char *name, const char * dest)
 				stripPtr += 1;
 				stripPtr[0] = '\0';
 			}
-
 			result = archive->ExtractFile(TmpArchive->fileindex, realdest, false);
 			if(result <= 0)
 				break;
@@ -351,7 +351,7 @@ const char * ArchiveBrowser::GetCurrentSelectedFilepath()
 
 u64 ArchiveBrowser::GetFilesize(int ind)
 {
-	if(ind < 0 || ind > (int) PathStructure.size())
+	if(ind < 0 || ind >= (int) PathStructure.size())
 		return 0;
 
 	return PathStructure.at(ind)->length;
@@ -359,7 +359,7 @@ u64 ArchiveBrowser::GetFilesize(int ind)
 
 ArchiveFileStruct * ArchiveBrowser::GetItemStructure(int ind)
 {
-	if(ind < 0 || ind > (int) PathStructure.size())
+	if(ind < 0 || ind >= (int) PathStructure.size())
 		return NULL;
 
 	return archive->GetFileStruct(PathStructure.at(ind)->fileindex);

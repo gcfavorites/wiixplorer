@@ -191,15 +191,6 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 
 PromptWindow::~PromptWindow()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
 	RemoveAll();
 
 	if(btn1Img)
@@ -294,7 +285,7 @@ void PromptWindow::OnButtonClick(GuiButton *sender, int pointer UNUSED, const PO
 
 	if(AutoClose)
 	{
-		Application::Instance()->UnsetUpdateOnly(this);
+		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 		Application::Instance()->PushForDelete(this);
 	}
 }

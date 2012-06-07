@@ -21,7 +21,6 @@
 #include <malloc.h>
 
 #include "Prompts/PromptWindows.h"
-#include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
 #include "Tools/uncompress.h"
 #include "RarcFile.h"

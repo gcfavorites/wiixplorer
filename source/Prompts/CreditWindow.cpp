@@ -169,15 +169,6 @@ CreditWindow::CreditWindow(GuiFrame *p)
 
 CreditWindow::~CreditWindow()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
 	RemoveAll();
 
 	Resources::Remove(btnClick);
@@ -205,6 +196,6 @@ CreditWindow::~CreditWindow()
 
 void CreditWindow::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	Application::Instance()->UnsetUpdateOnly(this);
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 40);
 	Application::Instance()->PushForDelete(this);
 }

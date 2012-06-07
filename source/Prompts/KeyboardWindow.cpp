@@ -73,9 +73,6 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 
 KeyboardWindow::~KeyboardWindow()
 {
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	Resources::Remove(btnOutline);

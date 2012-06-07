@@ -45,9 +45,6 @@ GXConsole::GXConsole(int w, int h)
 
 GXConsole::~GXConsole()
 {
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	clear();
 	LWP_MutexDestroy(mutex);
 }

@@ -63,8 +63,8 @@ class ImageConverter
 
 		gdImagePtr gdImage;
 		u8 InputType;
-		char * ImagePath;
-		char * OutPath;
+		std::string ImagePath;
+		std::string OutPath;
 
 		/** Options **/
 		int OutputWidth;

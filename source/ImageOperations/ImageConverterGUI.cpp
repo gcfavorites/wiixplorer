@@ -31,6 +31,7 @@
 #include "Prompts/PromptWindows.h"
 #include "TextOperations/wstring.hpp"
 #include "ImageConverterGUI.hpp"
+#include "ImageConvertTask.h"
 #include "main.h"
 
 
@@ -51,18 +52,6 @@ ImageConverterGui::ImageConverterGui(const u8 * imgBuf, int imgSize)
 
 ImageConverterGui::~ImageConverterGui()
 {
-	if(parentElement)
-	{
-		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-
-		while(GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
-	}
-
-	Application::Instance()->UnsetUpdateOnly(this);
-
 	RemoveAll();
 
 	delete AdressBarInput;
@@ -107,14 +96,12 @@ bool ImageConverterGui::LoadImage(const char *filepath)
 	if(!filepath)
 		return false;
 
-	ImagePath = new char[strlen(filepath)+1];
-	sprintf(ImagePath, "%s", filepath);
+	ImagePath = filepath;
+	SetOutPath(ImagePath.c_str());
 
-	SetOutPath(filepath);
-
-	FileLoadTask *task = new FileLoadTask(filepath, false);
+	FileLoadTask *task = new FileLoadTask(ImagePath, false);
 	task->LoadingComplete.connect(this, &ImageConverterGui::OnFinishedImageLoad);
-	task->TaskEnd.connect(this, &ImageConverterGui::OnFinishedLoadTask);
+	task->SetAutoDelete(true);
 	Taskbar::Instance()->AddTask(task);
 	ThreadedTaskHandler::Instance()->AddTask(task);
 
@@ -132,15 +119,23 @@ void ImageConverterGui::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffe
 		SetOptionValues();
 }
 
-void ImageConverterGui::OnFinishedLoadTask(Task *task)
+void ImageConverterGui::OnFinishedConvertTask(Task *task)
 {
+	std::string imgPathCpy = ImagePath;
+	std::string outPathCpy = OutPath;
+	//reset Image
+	LoadImage(imgPathCpy.c_str());
+	SetOutPath(outPathCpy.c_str());
+	SetOptionValues();
+
+	ConvertBtn->SetClickable(true);
+	BackBtn->SetClickable(true);
+
 	Application::Instance()->PushForDelete(task);
 }
 
 void ImageConverterGui::Setup()
 {
-	Converting = false;
-
 	btnClick = Resources::GetSound("button_click.wav");
 	btnSoundOver = Resources::GetSound("button_over.wav");
 
@@ -214,7 +209,7 @@ void ImageConverterGui::Setup()
 	Append(AdressBarInputName);
 
 	AdressBarInputImg = new GuiImage(AdressBarData);
-	AdressBarInputText = new GuiText(ImagePath, 16, (GXColor){0, 0, 0, 255});
+	AdressBarInputText = new GuiText(ImagePath.c_str(), 16, (GXColor){0, 0, 0, 255});
 	AdressBarInput = new GuiButton(AdressBarInputImg->GetWidth(), AdressBarInputImg->GetHeight());
 	AdressBarInput->SetLabel(AdressBarInputText);
 	AdressBarInput->SetImage(AdressBarInputImg);
@@ -233,7 +228,7 @@ void ImageConverterGui::Setup()
 	Append(AdressBarOutputName);
 
 	AdressBarOutputImg = new GuiImage(AdressBarData);
-	AdressBarOutputText = new GuiText(OutPath, 16, (GXColor){0, 0, 0, 255});
+	AdressBarOutputText = new GuiText(OutPath.c_str(), 16, (GXColor){0, 0, 0, 255});
 	AdressBarOutput = new GuiButton(AdressBarOutputImg->GetWidth(), AdressBarOutputImg->GetHeight());
 	AdressBarOutput->SetLabel(AdressBarOutputText);
 	AdressBarOutput->SetImage(AdressBarOutputImg);
@@ -275,8 +270,8 @@ void ImageConverterGui::Setup()
 
 void ImageConverterGui::SetOptionValues()
 {
-	AdressBarInputText->SetText(ImagePath);
-	AdressBarOutputText->SetText(OutPath);
+	AdressBarInputText->SetText(ImagePath.c_str());
+	AdressBarOutputText->SetText(OutPath.c_str());
 
 	int i = 0;
 
@@ -338,17 +333,24 @@ void ImageConverterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, con
 {
 	if(sender == BackBtn)
 	{
+		SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 		Application::Instance()->PushForDelete(this);
 	}
 	else if(sender == ResetBtn)
 	{
 		ResetOptions();
-		SetOutPath(ImagePath);
+		SetOutPath(ImagePath.c_str());
 		SetOptionValues();
 	}
 	else if(sender == ConvertBtn)
 	{
-		Converting = true;
+		ConvertBtn->SetClickable(false);
+		BackBtn->SetClickable(false);
+
+		ImageConvertTask *task = new ImageConvertTask(this, false);
+		task->TaskEnd.connect(this, &ImageConverterGui::OnFinishedConvertTask);
+		Taskbar::Instance()->AddTask(task);
+		ThreadedTaskHandler::Instance()->AddTask(task);
 	}
 	else if(sender == AdressBarInput)
 	{
@@ -384,12 +386,7 @@ void ImageConverterGui::OnButtonClick(GuiButton *sender, int pointer UNUSED, con
 		int result = OnScreenKeyboard(newpath, 150);
 		if(result)
 		{
-			if(OutPath)
-				delete [] OutPath;
-
-			OutPath = new char[strlen(newpath)+1];
-			sprintf(OutPath, "%s", newpath);
-
+			OutPath = newpath;
 			SetOptionValues();
 		}
 	}
@@ -582,42 +579,4 @@ void ImageConverterGui::OnOptionButtonClick(GuiElement *sender, int pointer, con
 			}
 		}
 	}
-}
-
-void ImageConverterGui::Draw()
-{
-	if(Converting && frameCount % 5 == 0)
-	{
-		ShowProgress(0, 1, OutPath);
-	}
-
-	if(Converting)
-	{
-//		StartProgress(tr("Converting image..."), THROBBER);
-
-		bool result = Convert();
-		StopProgress();
-
-		if(!result)
-		{
-			ShowError(tr("Could not convert image."));
-		}
-		else
-		{
-			WindowPrompt(tr("Image successfully converted."), 0, tr("OK"));
-			//reset Image
-			char temppath[512];
-			char tempoutpath[512];
-			snprintf(temppath, sizeof(temppath), "%s", ImagePath);
-			snprintf(tempoutpath, sizeof(tempoutpath), "%s", OutPath);
-			LoadImage(temppath);
-			SetOutPath(tempoutpath);
-			SetOptionValues();
-		}
-
-		Converting = false;
-	}
-
-
-	GuiFrame::Draw();
 }

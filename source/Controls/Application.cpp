@@ -26,6 +26,7 @@
 #include "FTPOperations/FTPServer.h"
 #include "Prompts/HomeMenu.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/ThrobberWindow.h"
 #include "SoundOperations/SoundHandler.hpp"
 #include "Settings.h"
 #include "VideoOperations/video.h"
@@ -42,7 +43,6 @@ bool Application::exitApplication = false;
 
 Application::Application()
 	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
-	, DeleteQueue(NULL)
 {
 	GXColor ImgColor[4];
 	ImgColor[0] = RGBATOGXCOLOR(Settings.BackgroundUL);
@@ -77,6 +77,10 @@ Application::~Application()
 			Resources::Remove(grabPointer[i]);
 		Resources::Remove(standardPointer[i]);
 	}
+
+	//! remove still outstanding deletes without any dependencies
+	for(u32 i = 0; i < deleteList.size(); i++)
+		delete deleteList[i];
 
 	LWP_MutexDestroy(m_mutex);
 }
@@ -165,18 +169,8 @@ void Application::updateEvents()
 	Menu_Render();
 
 	//! delete elements that were queued for delete after the rendering is done
-	if(DeleteQueue)
-	{
-		LWP_MutexLock(m_mutex);
-		while(DeleteQueue)
-		{
-			ElementList *tmp = DeleteQueue;
-			DeleteQueue = DeleteQueue->next;
-			delete tmp->element;
-			delete tmp;
-		}
-		LWP_MutexUnlock(m_mutex);
-	}
+	if(!deleteList.empty())
+		ProcessDeleteQueue();
 }
 
 void Application::SetGrabPointer(int i)
@@ -211,31 +205,43 @@ void Application::ResetPointer(int i)
 	grabPointer[i] = NULL;
 }
 
+void Application::ProcessDeleteQueue(void)
+{
+	LWP_MutexLock(m_mutex);
+	for(u32 i = 0; i < deleteList.size(); ++i)
+	{
+		GuiElement *parent = deleteList[i]->GetParent();
+		//! Only remove elements when they are currently not animated
+		//! otherwise wait till animation is finished
+		if(!parent || !deleteList[i]->IsAnimated())
+		{
+			//! since i am lazy and don't remove them usually, this is where i remove it
+			if(parent)
+			{
+				GuiFrame *parentFrame = dynamic_cast<GuiFrame *>(parent);
+				if(parentFrame)
+					parentFrame->Remove(deleteList[i]);
+			}
+
+			UnsetUpdateOnly(deleteList[i]);
+			delete deleteList[i];
+			deleteList.erase(deleteList.begin() + i);
+			i--;
+		}
+	}
+	LWP_MutexUnlock(m_mutex);
+}
+
 void Application::PushForDelete(GuiElement *e)
 {
 	if(!e)
 		return;
 
+	//! elements that are queued for delete are only rendered and not updated with buttons
+	e->SetState(STATE_DISABLED);
+
 	LWP_MutexLock(m_mutex);
-
-	if(!DeleteQueue)
-	{
-		DeleteQueue = new ElementList;
-		DeleteQueue->element = e;
-		DeleteQueue->next = 0;
-		LWP_MutexUnlock(m_mutex);
-		return;
-	}
-
-	ElementList *list = DeleteQueue;
-
-	while(list->next)
-		list = list->next;
-
-	list->next = new ElementList;
-	list->next->element = e;
-	list->next->next = 0;
-
+	deleteList.push_back(e);
 	LWP_MutexUnlock(m_mutex);
 }
 
@@ -262,7 +268,7 @@ void Application::init(void)
 	this->SetSize(screenwidth, screenheight);
 	bgImg->SetSize(screenwidth, screenheight);
 	//! Temporary prompt window to notify the user about the loading process
-	PromptWindow window("Initializing...", "Mounting devices");
+	ThrobberWindow window("Initializing...", "Mounting devices");
 	window.SetParent(this);
 	bool effectStop = false;
 	while(!effectStop)

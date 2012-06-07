@@ -176,10 +176,12 @@ HomeMenu::HomeMenu()
 
 HomeMenu::~HomeMenu()
 {
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
+
+	HomeOutSnd->Stop();
+
+	if(!MusicPlayer::Instance()->IsStopped())
+		MusicPlayer::Instance()->Resume();
 
 	delete WiimoteBtn;
 	delete ShutdownBtn;
@@ -231,42 +233,19 @@ HomeMenu::~HomeMenu()
 
 void HomeMenu::hide()
 {
-	if(!this->IsVisible())
-		return;
+	TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	ExitBtn->SetEffect(EFFECT_FADE, -50);
+	ShutdownBtn->SetEffect(EFFECT_FADE, -50);
+	BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+	WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 
-	if(parentElement)
+	for (int i = 0; i < 4; i++)
 	{
-		TitleText->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-		TopBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-		CloseBtn->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-		ExitBtn->SetEffect(EFFECT_FADE, -50);
-		ShutdownBtn->SetEffect(EFFECT_FADE, -50);
-		BottomBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-		WiimoteBtn->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-
-		for (int i = 0; i < 4; i++)
-		{
-			PlayerText[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-			BatteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
-		}
-
-		while(ExitBtn->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-
-		((GuiFrame *) parentElement)->Remove(this);
+		PlayerText[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+		BatteryBtn[i]->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
 	}
-
-	Application::Instance()->UnsetUpdateOnly(this);
-
-	while(HomeOutSnd->IsPlaying())
-		Application::Instance()->updateEvents();
-
-	HomeOutSnd->Stop();
-
-	if(!MusicPlayer::Instance()->IsStopped())
-		MusicPlayer::Instance()->Resume();
-
-	this->SetVisible(false);
 }
 
 void HomeMenu::OnStateChange(GuiElement *sender UNUSED, int state, int stateChan UNUSED)

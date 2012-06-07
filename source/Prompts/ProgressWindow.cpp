@@ -280,6 +280,9 @@ void ProgressWindow::Draw()
 
 		if(completeTotal >= 0)
 		{
+			if(completeDone > completeTotal)
+				completeDone = completeTotal;
+
 			if(progressDone == progressTotal)
 				fDone = (float) completeDone;
 			else

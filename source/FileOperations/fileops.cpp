@@ -55,7 +55,7 @@ static int GetReplaceChoice(const char * filename)
 	while((choice = window->GetChoice()) == -1)
 		usleep(10000);
 
-	Application::Instance()->UnsetUpdateOnly(window);
+	window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 	Application::Instance()->PushForDelete(window);
 
 	if(choice == 3)

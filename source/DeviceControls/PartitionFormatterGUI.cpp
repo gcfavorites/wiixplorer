@@ -26,6 +26,7 @@
 #include "Controls/Application.h"
 #include "Memory/Resources.h"
 #include "Prompts/ProgressWindow.h"
+#include "Prompts/ThrobberWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "TextOperations/wstring.hpp"
 #include "Controls/ThreadedTaskHandler.hpp"
@@ -199,14 +200,6 @@ PartitionFormatterGui::PartitionFormatterGui()
 
 PartitionFormatterGui::~PartitionFormatterGui()
 {
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-
-	while(GetEffect() > 0)
-		Application::Instance()->updateEvents();
-
-	if(parentElement)
-		((GuiFrame *) parentElement)->Remove(this);
-
 	RemoveAll();
 
 	delete ActiveBtn;
@@ -328,7 +321,8 @@ void PartitionFormatterGui::OnActiveButtonClick(GuiButton *sender UNUSED, int po
 
 void PartitionFormatterGui::OnBackButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	Application::Instance()->UnsetUpdateOnly(this);
+	//! set slide out effect
+	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 	Application::Instance()->PushForDelete(this);
 }
 
@@ -494,7 +488,7 @@ void PartitionFormatterGui::OnFormatButtonClick(GuiButton *sender UNUSED, int po
 	if(ret == 0)
 		return;
 
-	PromptWindow *window = new PromptWindow(tr("Formatting partition!"), tr("Please wait..."), tr("OK"));
+	ThrobberWindow *window = new ThrobberWindow(tr("Formatting partition!"), tr("Please wait..."));
 	window->DimBackground(true);
 	Application::Instance()->Append(window);
 	Application::Instance()->SetUpdateOnly(window);
@@ -509,7 +503,8 @@ void PartitionFormatterGui::OnFormatButtonClick(GuiButton *sender UNUSED, int po
 	while(formatResult == (int) 0xDEADBEAF)
 		Application::Instance()->updateEvents();
 
-	delete window;
+	window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(window);
 
 	if(formatResult >= 0)
 		WindowPrompt(tr("Successfully formated the partition."), 0, tr("OK"));

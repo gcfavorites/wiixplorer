@@ -60,6 +60,41 @@ extern "C" void ShowMsg(const char * title, const char * format, ...)
 		free(tmp);
 }
 
+//! Just some limitation to now show up more than 3 messages on the screen at once
+class ThrowMessageHandler : public sigslot::has_slots<>
+{
+public:
+	ThrowMessageHandler() : iMsgWindowCount(0) {}
+	~ThrowMessageHandler() {}
+
+	void ThrowMessage(const char *title, const char *msg)
+	{
+		if(iMsgWindowCount >= iMaxOnScreenMessages)
+			return;
+
+		PromptWindow *prompt = new PromptWindow(title, msg, tr("OK"));
+		prompt->DimBackground(true);
+		prompt->SetAutoClose(true);
+		prompt->Closing.connect(this, &ThrowMessageHandler::OnWindowClosing);
+		Application::Instance()->Append(prompt);
+		Application::Instance()->SetUpdateOnly(prompt);
+		iMsgWindowCount++;
+	}
+
+	void OnWindowClosing(GuiFrame *)
+	{
+		if(--iMsgWindowCount < 0)
+			iMsgWindowCount = 0;
+	}
+
+private:
+	static const int iMaxOnScreenMessages = 3;
+
+	int iMsgWindowCount;
+};
+
+static ThrowMessageHandler throwMessageHandler;
+
 extern "C" void ThrowMsg(const char * title, const char * format, ...)
 {
 	if(!title && !format)
@@ -68,11 +103,7 @@ extern "C" void ThrowMsg(const char * title, const char * format, ...)
 	}
 	else if(title && !format)
 	{
-		PromptWindow *prompt = new PromptWindow(title, 0, tr("OK"));
-		prompt->DimBackground(true);
-		prompt->SetAutoClose(true);
-		Application::Instance()->Append(prompt);
-		Application::Instance()->SetUpdateOnly(prompt);
+		throwMessageHandler.ThrowMessage(title, NULL);
 		return;
 	}
 
@@ -81,11 +112,7 @@ extern "C" void ThrowMsg(const char * title, const char * format, ...)
 	va_start(va, format);
 	if((vasprintf(&tmp, format, va)>=0) && tmp)
 	{
-		PromptWindow *prompt = new PromptWindow(title, tmp, tr("OK"));
-		prompt->DimBackground(true);
-		prompt->SetAutoClose(true);
-		Application::Instance()->Append(prompt);
-		Application::Instance()->SetUpdateOnly(prompt);
+		throwMessageHandler.ThrowMessage(title, tmp);
 	}
 	va_end(va);
 
