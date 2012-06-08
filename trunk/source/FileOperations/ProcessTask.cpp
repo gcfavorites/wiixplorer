@@ -49,7 +49,15 @@ int ProcessTask::GetItemList(list<ItemList> &fileLists, bool listDirs)
 			fileLists.resize(fileLists.size()+1);
 			fileLists.back().basepath = Process.GetItemPath(i);
 
-			string path;
+			while(   fileLists.back().basepath.size() > 0
+				  && fileLists.back().basepath[fileLists.back().basepath.size()-1] == '/')
+				  fileLists.back().basepath.erase(fileLists.back().basepath.size()-1);
+
+			size_t pos = fileLists.back().basepath.rfind('/');
+			if(pos != std::string::npos)
+				fileLists.back().basepath.erase(pos+1);
+
+			string path = Process.GetItemName(i);
 
 			int res = ReadDirectory(path, fileLists.back(), listDirs);
 			if(res < 0)

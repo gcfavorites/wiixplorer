@@ -488,11 +488,6 @@ void PartitionFormatterGui::OnFormatButtonClick(GuiButton *sender UNUSED, int po
 	if(ret == 0)
 		return;
 
-	ThrobberWindow *window = new ThrobberWindow(tr("Formatting partition!"), tr("Please wait..."));
-	window->DimBackground(true);
-	Application::Instance()->Append(window);
-	Application::Instance()->SetUpdateOnly(window);
-
 	formatResult = 0xDEADBEAF;
 
 	FormatTask task(Device, CurDevice, CurPart);
@@ -502,9 +497,6 @@ void PartitionFormatterGui::OnFormatButtonClick(GuiButton *sender UNUSED, int po
 
 	while(formatResult == (int) 0xDEADBEAF)
 		Application::Instance()->updateEvents();
-
-	window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-	Application::Instance()->PushForDelete(window);
 
 	if(formatResult >= 0)
 		WindowPrompt(tr("Successfully formated the partition."), 0, tr("OK"));
@@ -522,16 +514,31 @@ void PartitionFormatterGui::OnFormatFinish(int result)
 
 void FormatTask::Execute(void)
 {
+	ThrobberWindow *window = new ThrobberWindow(tr("Formatting partition!"), tr("Please wait..."));
+	window->DimBackground(true);
+	Application::Instance()->SetUpdateOnly(window);
+	Application::Instance()->Append(window);
+
+	const DISC_INTERFACE *interface = Device->GetDiscInterface();
+	int ebrLBA = Device->GetEBRSector(part);
+	u32 lbaStart = Device->GetLBAStart(part);
+	u32 secCount = Device->GetSecCount(part);
+
 	DeviceHandler::Instance()->UnMount(dev);
-	int ret = PartitionFormatter::FormatToFAT32(Device->GetDiscInterface(), Device->GetLBAStart(part), Device->GetLBAStart(part));
+
+	int ret = PartitionFormatter::FormatToFAT32(interface, lbaStart, secCount);
 	if(ret >= 0)
 	{
-		if(Device->GetEBRSector(part) > 0)
-			ret = PartitionFormatter::WriteEBR_FAT32(Device->GetDiscInterface(), Device->GetEBRSector(part), Device->GetLBAStart(part));
+		if(ebrLBA > 0)
+			ret = PartitionFormatter::WriteEBR_FAT32(interface, ebrLBA, lbaStart);
 		else
-			ret = PartitionFormatter::WriteMBR_FAT32(Device->GetDiscInterface(), Device->GetLBAStart(part));
+			ret = PartitionFormatter::WriteMBR_FAT32(interface, lbaStart);
 	}
 
 	DeviceHandler::Instance()->Mount(dev);
+
+	window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
+	Application::Instance()->PushForDelete(window);
+
 	FormatFinish(ret);
 }

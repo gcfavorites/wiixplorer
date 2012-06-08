@@ -321,7 +321,16 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	}
 
 	if(item < 0 || item >= BOOTMII)
+	{
+		if(menu->GetSubMenu())
+		{
+			Application::Instance()->Remove(menu->GetSubMenu());
+			Application::Instance()->PushForDelete(menu->GetSubMenu());
+			menu->GetSubMenu()->SetParent(NULL);
+			menu->CloseSubMenu();
+		}
 		Application::Instance()->PushForDelete(menu);
+	}
 }
 
 void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
@@ -343,7 +352,6 @@ void Taskbar::OnAppsMenuClick(PopUpMenu *menu, int item)
 	}
 
 	delete Apps;
-
 	Application::Instance()->PushForDelete(menu);
 }
 

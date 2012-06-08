@@ -40,6 +40,7 @@ class PopUpMenu : public GuiFrame, public sigslot::has_slots<>
 		void Finish();
 		void OpenSubMenu(int position, PopUpMenu *menu);
 		void CloseSubMenu(void);
+		PopUpMenu *GetSubMenu() { return subMenu; }
 		void SetUserData(void *data) { userData = data; }
 		void *GetUserData(void) const { return userData; }
 		void Update(GuiTrigger * t) { GuiFrame::Update(t); ++ScrollState; }

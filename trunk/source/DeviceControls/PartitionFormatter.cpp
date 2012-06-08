@@ -321,7 +321,7 @@ int PartitionFormatter::WriteMBR_FAT32(const DISC_INTERFACE *interface, sec_t pa
 	mbr->partitions[i].chs_start[2] = mbr->partitions[i].chs_end[2] = 0xFF;
 	mbr->partitions[i].type = 0x0c;
 
-	if (!interface->writeSectors(0, 1, &mbr))
+	if (!interface->writeSectors(0, 1, mbr))
 	{
 		free(mbr);
 		ShowError(tr("Failed to write MBR."));
@@ -378,7 +378,7 @@ int PartitionFormatter::SetActive(const DISC_INTERFACE *interface, int partition
 
 	int i;
 
-	if (!interface->readSectors(0, 1, &mbr))
+	if (!interface->readSectors(0, 1, mbr))
 	{
 		free(mbr);
 		ShowError(tr("Cannot read from the drive."));
@@ -394,7 +394,7 @@ int PartitionFormatter::SetActive(const DISC_INTERFACE *interface, int partition
 			mbr->partitions[i].status = PARTITION_BOOTABLE;
 	}
 
-	if (!interface->writeSectors(0, 1, &mbr))
+	if (!interface->writeSectors(0, 1, mbr))
 	{
 		free(mbr);
 		ShowError(tr("Failed to write MBR."));
