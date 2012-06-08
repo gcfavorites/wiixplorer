@@ -185,20 +185,20 @@ public:
 	RarFileDataIO(Archive *srcFile) : archive(srcFile) {}
 	virtual ~RarFileDataIO() {}
 	//! Overload to handle progress and cancel
-    int UnpRead(byte *Addr,size_t Count)
-    {
-    	//! cancel progress
+	int UnpRead(byte *Addr,size_t Count)
+	{
+		//! cancel progress
 		if(ProgressWindow::Instance()->IsCanceled())
 			return -1;
 
 		//! internal functionality
-    	int result = ComprDataIO::UnpRead(Addr, Count);
+		int result = ComprDataIO::UnpRead(Addr, Count);
 
-    	//! show progress
+		//! show progress
 		ShowProgress(archive->CurBlockPos+CurUnpRead, UnpArcSize);
 
 		return result;
-    }
+	}
 private:
 	Archive *archive;
 };
