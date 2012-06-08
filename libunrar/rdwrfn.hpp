@@ -49,9 +49,10 @@ class ComprDataIO
 
   public:
     ComprDataIO();
+    virtual ~ComprDataIO() {}
     void Init();
-    int UnpRead(byte *Addr,size_t Count);
-    void UnpWrite(byte *Addr,size_t Count);
+    virtual int UnpRead(byte *Addr,size_t Count);
+    virtual void UnpWrite(byte *Addr,size_t Count);
     void EnableShowProgress(bool Show) {Progress=Show;}
     void GetUnpackedData(byte **Data,size_t *Size);
     void SetPackedSizeToRead(int64 Size) {UnpPackedSize=Size;}
