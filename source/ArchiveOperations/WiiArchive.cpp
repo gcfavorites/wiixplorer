@@ -267,6 +267,9 @@ int WiiArchive::ExtractFile(int ind, const char *dest, bool withpath)
 	fclose(pfile);
 	free(buffer);
 
+	// finish up the progress for this file
+	FinishProgress(filesize);
+
 	return done;
 }
 

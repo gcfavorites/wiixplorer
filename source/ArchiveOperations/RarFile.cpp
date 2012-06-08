@@ -179,33 +179,43 @@ bool RarFile::CheckPassword()
 	return true;
 }
 
+class RarFileDataIO : public ComprDataIO
+{
+public:
+	RarFileDataIO(Archive *srcFile) : archive(srcFile) {}
+	virtual ~RarFileDataIO() {}
+	//! Overload to handle progress and cancel
+    int UnpRead(byte *Addr,size_t Count)
+    {
+    	//! cancel progress
+		if(ProgressWindow::Instance()->IsCanceled())
+			return -1;
+
+		//! internal functionality
+    	int result = ComprDataIO::UnpRead(Addr, Count);
+
+    	//! show progress
+		ShowProgress(archive->CurBlockPos+CurUnpRead, UnpArcSize);
+
+		return result;
+    }
+private:
+	Archive *archive;
+};
+
 void RarFile::UnstoreFile(ComprDataIO &DataIO, int64 DestUnpSize)
 {
-  Array<byte> Buffer(0x10000);
-  while (1)
-  {
-	uint Code=DataIO.UnpRead(&Buffer[0],Buffer.Size());
-	if (Code==0 || (int)Code==-1)
-	  break;
-	Code=Code<DestUnpSize ? Code:(uint)DestUnpSize;
-	DataIO.UnpWrite(&Buffer[0],Code);
-	if (DestUnpSize>=0)
-	  DestUnpSize-=Code;
-  }
-}
-
-/******************************************************************************
- * Global variables needed for the shitty custom unrar lib as there is no other
- * way to handle progress show and cancel.
- ******************************************************************************/
-bool bRarProgressCancel = false;
-
-void RarShowProgress(unsigned long long done, unsigned long long total, const char *filename)
-{
-	if(ProgressWindow::Instance()->IsCanceled())
-		bRarProgressCancel = true;
-
-	ShowProgress(done, total, filename);
+	Array<byte> Buffer(0x10000);
+	while (1)
+	{
+		uint Code=DataIO.UnpRead(&Buffer[0],Buffer.Size());
+		if (Code==0 || (int)Code==-1)
+			break;
+		Code=Code<DestUnpSize ? Code:(uint)DestUnpSize;
+		DataIO.UnpWrite(&Buffer[0],Code);
+		if (DestUnpSize>=0)
+			DestUnpSize-=Code;
+	}
 }
 
 int RarFile::InternalExtractFile(const char * outpath, bool withpath)
@@ -216,8 +226,7 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 	if(ProgressWindow::Instance()->IsCanceled())
 		return PROGRESS_CANCELED;
 
-	bRarProgressCancel = false;
-	ComprDataIO DataIO;
+	RarFileDataIO DataIO(&RarArc);
 	Unpack Unp(&DataIO);
 	Unp.Init(NULL);
 
@@ -269,7 +278,7 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 		return false;
 
 	DataIO.UnpVolume = false;
-	DataIO.UnpArcSize = RarArc.NewLhd.FullPackSize;
+	DataIO.UnpArcSize = RarArc.NewLhd.FullUnpSize;
 	DataIO.CurUnpRead=0;
 	DataIO.CurUnpWrite=0;
 	DataIO.UnpFileCRC=RarArc.OldFormat ? 0 : 0xffffffff;
@@ -282,10 +291,11 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 	DataIO.SetFiles(&RarArc,&CurFile);
 	DataIO.SetTestMode(false);
 	DataIO.SetSkipUnpCRC(false);
+	DataIO.EnableShowProgress(false);
 	ErrHandler.Clean();
 
 	//! Start always Progresstimer
-	ShowProgress(0, RarArc.NewLhd.FullPackSize, Realfilename);
+	ShowProgress(0, RarArc.NewLhd.FullUnpSize, Realfilename);
 
 	if (RarArc.NewLhd.Method == 0x30)
 	{
@@ -302,6 +312,9 @@ int RarFile::InternalExtractFile(const char * outpath, bool withpath)
 	}
 
 	CurFile.Close();
+
+	// finish up the progress for this file
+	FinishProgress(RarArc.NewLhd.FullUnpSize);
 
 	if(ProgressWindow::Instance()->IsCanceled())
 	{

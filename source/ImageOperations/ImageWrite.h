@@ -33,13 +33,13 @@ extern "C" {
 #include <gd.h>
 
 /** Supported image write formats **/
-#define IMAGE_PNG	   0
-#define IMAGE_JPEG	  1
-#define IMAGE_GIF	   2
-#define IMAGE_TIFF	  3
-#define IMAGE_BMP	   4
+#define IMAGE_PNG		0
+#define IMAGE_JPEG		1
+#define IMAGE_GIF		2
+#define IMAGE_TIFF		3
+#define IMAGE_BMP		4
 #define IMAGE_GD		5
-#define IMAGE_GD2	   6
+#define IMAGE_GD2		6
 
 /** compression **/
 //!< JPEG-Format (0-100):   where 0 is best quality and 100 best compression

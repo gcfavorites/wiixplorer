@@ -191,7 +191,7 @@ const u8 * NetReceiver::ReceiveData()
 
 	do
 	{
-//		if(actioncanceled)
+		if(ProgressWindow::Instance()->IsCanceled())
 		{
 			FreeData();
 			StopProgress();
@@ -226,6 +226,9 @@ const u8 * NetReceiver::ReceiveData()
 		done += result;
 
 	} while(done < filesize);
+
+	// finish up the progress
+	FinishProgress(filesize);
 
 	StopProgress();
 

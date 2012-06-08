@@ -45,6 +45,8 @@ static bool replacenone = false;
  ***************************************************************************/
 static int GetReplaceChoice(const char * filename)
 {
+	ProgressWindow::Instance()->CloseWindow();
+
 	PromptWindow *window = new PromptWindow(fmt("%s %s", tr("File already exists:"), filename), tr("Do you want to replace this file?"), tr("Yes"), tr("No"), tr("Yes to all"), tr("No to all"));
 	window->DimBackground(true);
 	Application::Instance()->Append(window);
@@ -57,6 +59,8 @@ static int GetReplaceChoice(const char * filename)
 
 	window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
 	Application::Instance()->PushForDelete(window);
+
+	ProgressWindow::Instance()->OpenWindow();
 
 	if(choice == 3)
 	{
@@ -203,6 +207,9 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u32 *size)
 
 	fclose(file);
 
+	// finish up the progress for this file
+	FinishProgress(filesize);
+
 	if (done != filesize)
 	{
 		free(buffer);
@@ -337,7 +344,9 @@ int CopyFile(const char * src, const char * dest)
 			choice = GetReplaceChoice(filename);
 
 		if(replacenone || choice == 2) {
-			ShowProgress(sizesrc, sizesrc, filename);
+			ShowProgress(0, sizesrc, filename);
+			// finish up the progress for this file
+			FinishProgress(sizesrc);
 			return 1;
 		}
 	}
@@ -395,6 +404,9 @@ int CopyFile(const char * src, const char * dest)
 	fclose(source);
 	fclose(destination);
 
+	// finish up the progress for this file
+	FinishProgress(sizesrc);
+
 	if(ProgressWindow::Instance()->IsCanceled())
 	{
 		RemoveFile(dest);
@@ -427,7 +439,8 @@ int MoveFile(const char *srcpath, const char *destdir)
 				choice = GetReplaceChoice(filename ? filename+1 : destdir);
 
 			//Display progress
-			ShowProgress(1, 1,filename);
+			ShowProgress(0, 1,filename);
+			FinishProgress(1);
 
 			if(replacenone || choice == 2)
 				return 1;
@@ -436,7 +449,8 @@ int MoveFile(const char *srcpath, const char *destdir)
 				RemoveFile(destdir);
 		}
 		//Display progress
-		ShowProgress(1, 1, filename);
+		ShowProgress(0, 1,filename);
+		FinishProgress(1);
 
 		if(RenameFile(srcpath, destdir))
 			return 1;

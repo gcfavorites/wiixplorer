@@ -190,6 +190,9 @@ bool MD5Task::CalculateFile(const char * filepath)
 	fclose(file);
 	free(buffer);
 
+	// finish up the progress for this file
+	FinishProgress(filesize);
+
 	auth_md5CloseCtx(ctx, Hash);
 
 	char HashString[100];

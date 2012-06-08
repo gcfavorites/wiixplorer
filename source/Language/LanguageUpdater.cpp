@@ -61,10 +61,10 @@ int UpdateLanguageFiles()
 
 	for (int i = 0; i < LinkList.GetURLCount(); i++)
 	{
-//		if(actioncanceled)
-//			continue;
+		if(ProgressWindow::Instance()->IsCanceled())
+			continue;
 
-		ShowProgress(done, (LinkList.GetURLCount()-1)*16*1024, LinkList.GetURL(i));
+		ShowProgress(done, (LinkList.GetURLCount()-1)*20*1024, LinkList.GetURL(i));
 
 		char * fileext = strrchr(LinkList.GetURL(i), '.');
 		if(!fileext)
@@ -97,6 +97,10 @@ int UpdateLanguageFiles()
 		if(file.data)
 			free(file.data);
 	}
+
+	// finish up the progress for this file
+	FinishProgress((LinkList.GetURLCount()-1)*20*1024);
+
 	StopProgress();
 
 	return FilesDownloaded;

@@ -332,7 +332,8 @@ int ZipFile::AddFile(const char *filepath, const char *destfilepath, int compres
 	fclose(sourceFile);
 	zipCloseFileInZip(zFile);
 
-	ShowProgress(filesize, filesize, RealFilename);
+	// finish up the progress for this file
+	FinishProgress(filesize);
 
 	if(RefreshList)
 		LoadList();
@@ -475,12 +476,13 @@ int ZipFile::ExtractFile(int ind, const char *dest, bool withpath)
 
 	} while(done < filesize);
 
-	ShowProgress(filesize, filesize, RealFilename);
-
 	fclose(pfile);
 	unzCloseCurrentFile(uzFile);
 
 	free(buffer);
+
+	// finish up the progress for this file
+	FinishProgress(filesize);
 
 	return 1;
 }
@@ -576,6 +578,9 @@ int ZipFile::ExtractAll(const char *dest)
 
 				fclose(pfile);
 				unzCloseCurrentFile(uzFile);
+
+				// finish up the progress for this file
+				FinishProgress(uncompressed_size);
 			}
 		}
 		if(unzGoToNextFile(uzFile) != UNZ_OK)
