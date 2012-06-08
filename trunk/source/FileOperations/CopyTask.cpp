@@ -60,6 +60,7 @@ void CopyTask::Execute(void)
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
+	string destPathSlash = (destPath.size() > 0 && destPath[destPath.size()-1] != '/') ? destPath + '/' : destPath;
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
@@ -72,7 +73,7 @@ void CopyTask::Execute(void)
 		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
 			string srcpath = listItr->basepath + *itr;
-			string dstpath = destPath + *itr;
+			string dstpath = destPathSlash + *itr;
 
 			string folderpath = dstpath;
 			size_t pos = folderpath.rfind('/');
@@ -82,7 +83,7 @@ void CopyTask::Execute(void)
 			CreateSubfolder(folderpath.c_str());
 
 			if(strcasecmp(srcpath.c_str(), dstpath.c_str()) == 0)
-				dstpath = destPath + tr("Copy of ") + *itr;
+				dstpath = destPathSlash + tr("Copy of ") + *itr;
 
 			int ret = CopyFile(srcpath.c_str(), dstpath.c_str());
 			if(ret < 0)

@@ -29,12 +29,13 @@ public:
 	static ProgressWindow * Instance() { if(!instance) instance = new ProgressWindow; return instance; }
 	static void DestroyInstance() { delete instance; instance = NULL; }
 
-	void OpenWindow(void);
-	void CloseWindow(void);
+	void OpenWindow(void) { OpenRequest = !Minimized; CloseRequest = false; }
+	void CloseWindow(void) { OpenRequest = false; CloseRequest = true; }
 
 	void StartProgress(const char *title, const char *msg = NULL);
 	void ShowProgress(const u64 &done, const u64 &total, const char *filename);
 	void ShowProgress(const u64 &done, const u64 &total);
+	void FinishProgress(const u64 &filesize) { completeDone += filesize; ShowProgress(filesize, filesize); }
 	void StopProgress();
 	void SetTitle(const char *title);
 	void SetMessage(const char *msg);
@@ -52,6 +53,8 @@ private:
 	virtual ~ProgressWindow();
 	void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Canceled = true; }
 	void SetupProgressbar();
+	void TryOpenWindow(void);
+	void TryCloseWindow(void);
 	static ProgressWindow * instance;
 
 	u64 progressDone;
@@ -102,6 +105,7 @@ private:
 
 #define StartProgress	ProgressWindow::Instance()->StartProgress
 #define ShowProgress	ProgressWindow::Instance()->ShowProgress
+#define FinishProgress	ProgressWindow::Instance()->FinishProgress
 #define StopProgress	ProgressWindow::Instance()->StopProgress
 
 #endif

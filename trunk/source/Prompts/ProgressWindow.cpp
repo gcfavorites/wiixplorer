@@ -21,6 +21,7 @@
 
 #undef StartProgress
 #undef ShowProgress
+#undef FinishProgress
 #undef StopProgress
 
 ProgressWindow * ProgressWindow::instance = NULL;
@@ -74,10 +75,10 @@ ProgressWindow::ProgressWindow()
 ProgressWindow::~ProgressWindow()
 {
 	Canceled = true;
-	CloseWindow();
+	TryCloseWindow();
 }
 
-void ProgressWindow::OpenWindow()
+void ProgressWindow::TryOpenWindow()
 {
 	//! To skip progressbar for fast processes
 	if(WindowClosed && delayTimer.elapsedMilliSecs() < 500)
@@ -174,7 +175,7 @@ void ProgressWindow::OpenWindow()
 	Application::Instance()->SetUpdateOnly(this);
 }
 
-void ProgressWindow::CloseWindow()
+void ProgressWindow::TryCloseWindow()
 {
 	if(WindowClosed)
 		return;
@@ -266,29 +267,42 @@ void ProgressWindow::Draw()
 	static u32 drawCounter = 0;
 
 	if(OpenRequest && WindowClosed)
-		OpenWindow();
+		TryOpenWindow();
 
 	if(CloseRequest && !WindowClosed)
-		CloseWindow();
+		TryCloseWindow();
 
 	if(!WindowClosed && Changed && drawCounter > 2)
 	{
 		msgTxt->SetText(ProgressMsg);
 
-		float fDone = (float) progressDone;
-		float fTotal = (float) progressTotal;
+		float fDone;
+		float fTotal;
 
 		if(completeTotal >= 0)
 		{
-			if(completeDone > completeTotal)
-				completeDone = completeTotal;
+			static s64 oldCompleteDone = 0;
 
-			if(progressDone == progressTotal)
+			if(progressDone == progressTotal && (oldCompleteDone <= completeDone))
+			{
 				fDone = (float) completeDone;
+			}
 			else
-				fDone += (float) completeDone;
+			{
+				oldCompleteDone = completeDone + progressDone;
+				fDone = (float) oldCompleteDone;
+			}
+
 			fTotal = (float) completeTotal;
 		}
+		else
+		{
+			fDone = (float) progressDone;
+			fTotal = (float) progressTotal;
+		}
+
+		if(fDone > fTotal)
+			fDone = fTotal;
 
 		float Percent;
 		if(fTotal > 0.0f)
@@ -355,8 +369,8 @@ void ProgressWindow::StartProgress(const char *title, const char *msg)
 
 	delayTimer.reset();
 
-	progressDone = 0.0f;
-	progressTotal = 0.0f;
+	progressDone = 0;
+	progressTotal = 0;
 	ProgressTimer.reset();
 
 	Changed = true;
@@ -380,9 +394,6 @@ void ProgressWindow::ShowProgress(const u64 &done, const u64 &total)
 {
 	progressDone = (done > total) ? total : done;
 	progressTotal = total;
-
-	if(completeTotal >= 0 && progressDone == progressTotal)
-		completeDone += progressDone;
 
 	Changed = true;
 }

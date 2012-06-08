@@ -49,12 +49,14 @@ void MoveTask::Execute(void)
 
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 
+	string destPathSlash = (destPath.size() > 0 && destPath[destPath.size()-1] != '/') ? destPath + '/' : destPath;
+
 	int result = 0;
 
 	//! On same device we move files instead of copy them
 	for(int i = 0; i < Process.GetItemcount(); ++i)
 	{
-		if(CompareDevices(Process.GetItemPath(i), destPath.c_str()))
+		if(CompareDevices(Process.GetItemPath(i), destPathSlash.c_str()))
 		{
 			string srcpath = Process.GetItemPath(i);
 			while(srcpath[srcpath.size()-1] == '/')
@@ -64,7 +66,7 @@ void MoveTask::Execute(void)
 			if(!pathname)
 				continue;
 
-			string dstpath = destPath + pathname;
+			string dstpath = destPathSlash + pathname;
 
 			if(strcasecmp(srcpath.c_str(), dstpath.c_str()) == 0)
 				continue;
@@ -104,7 +106,7 @@ void MoveTask::Execute(void)
 				break;
 
 			string srcpath = listItr->basepath + *itr;
-			string dstpath = destPath + *itr;
+			string dstpath = destPathSlash + *itr;
 
 			string folderpath = dstpath;
 			size_t pos = folderpath.rfind('/');

@@ -137,6 +137,8 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 		done += read;
 	}
+	// finish up the progress
+	FinishProgress(filesize);
 
 	StopProgress();
 	net_close(connection);
@@ -290,6 +292,9 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 		done += read;
 	}
+
+	// finish up the progress
+	FinishProgress(filesize);
 
 	free(buffer);
 	StopProgress();

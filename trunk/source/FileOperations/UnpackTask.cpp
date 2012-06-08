@@ -114,11 +114,13 @@ void UnpackTask::Execute(void)
 	ProgressWindow::Instance()->SetTitle(this->getTitle().c_str());
 	ProgressWindow::Instance()->SetCompleteValues(0, CopySize);
 
+	string destPathSlash = (destPath.size() > 0 && destPath[destPath.size()-1] != '/') ? destPath + '/' : destPath;
+
 	int result = 0;
 
 	if(fullUnpack)
 	{
-		result = browser->ExtractAll(destPath.c_str());
+		result = browser->ExtractAll(destPathSlash.c_str());
 	}
 	else
 	{
@@ -133,13 +135,13 @@ void UnpackTask::Execute(void)
 			ArchiveFileStruct * currentItem = archive->GetFileStruct(Process.GetItemIndex(i));
 			if(currentItem->isdir)
 			{
-				int ret = browser->ExtractFolder(currentItem->filename, destPath.c_str());
+				int ret = browser->ExtractFolder(currentItem->filename, destPathSlash.c_str());
 				if(ret < 0)
 					result = ret;
 			}
 			else
 			{
-				int ret = archive->ExtractFile(currentItem->fileindex, destPath.c_str(), false);
+				int ret = archive->ExtractFile(currentItem->fileindex, destPathSlash.c_str(), false);
 				if(ret < 0)
 					result = ret;
 			}

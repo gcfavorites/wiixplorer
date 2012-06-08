@@ -205,6 +205,9 @@ int SzFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 		outBuffer = NULL;
 	}
 
+	// finish up the progress for this file
+	FinishProgress(CurArcFile.length);
+
 	// check for errors
 	if(SzResult != SZ_OK)
 	{

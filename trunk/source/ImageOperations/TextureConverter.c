@@ -501,6 +501,9 @@ u8 * GDImageToRGBA8(gdImagePtr * gdImg, int * w, int * h)
 	if(width != gdImageSX(*gdImg) || height != gdImageSY(*gdImg))
 	{
 		gdImagePtr dst = gdImageCreateTrueColor(width, height);
+		if(dst == 0)
+			return NULL;
+
 		gdImageAlphaBlending(dst, 0);
 		gdImageSaveAlpha(dst, 1);
 		gdImageCopyResized(dst, *gdImg, 0, 0, 0, 0, width, height, gdImageSX(*gdImg), gdImageSY(*gdImg));
