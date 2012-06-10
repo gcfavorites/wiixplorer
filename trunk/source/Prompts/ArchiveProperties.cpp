@@ -32,9 +32,9 @@
 #include <time.h>
 
 #include "ArchiveProperties.h"
-#include "sys.h"
-#include "menu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Application.h"
+#include "sys.h"
 
 ArchiveProperties::ArchiveProperties(ArchiveHandle *archive, ItemMarker *Marker)
 	:GuiFrame(0,0)

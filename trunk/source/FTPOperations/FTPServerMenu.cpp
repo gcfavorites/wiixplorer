@@ -37,7 +37,6 @@
 #include "ftpii/ftp.h"
 #include "ftpii/net.h"
 #include "ftpii/virtualpath.h"
-#include "menu.h"
 #include "sys.h"
 
 FTPServerMenu::FTPServerMenu()

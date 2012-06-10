@@ -64,12 +64,6 @@ void CopyTask::Execute(void)
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
-		if(ProgressWindow::Instance()->IsCanceled())
-		{
-			result = PROGRESS_CANCELED;
-			break;
-		}
-
 		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
 			string srcpath = listItr->basepath + *itr;
@@ -88,6 +82,12 @@ void CopyTask::Execute(void)
 			int ret = CopyFile(srcpath.c_str(), dstpath.c_str());
 			if(ret < 0)
 				result = ret;
+		}
+
+		if(ProgressWindow::Instance()->IsCanceled())
+		{
+			result = PROGRESS_CANCELED;
+			break;
 		}
 	}
 

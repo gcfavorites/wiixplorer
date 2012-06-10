@@ -43,8 +43,6 @@
 #include "Tools/tools.h"
 #include "audio.h"
 #include "input.h"
-#include "main.h"
-#include "menu.h"
 #include "sys.h"
 
 bool shutdown = false;

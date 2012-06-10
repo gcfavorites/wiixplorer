@@ -16,10 +16,14 @@
  ****************************************************************************/
 #include "PathSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Application.h"
+#include "Menus/PathBrowser.h"
 #include "Settings.h"
 
 PathSettingsMenu::PathSettingsMenu(GuiFrame *r)
 	: SettingsMenu(tr("Path Settings"), r)
+	, setPath(0)
+	, setPathSize(0)
 {
 	SetupOptions();
 }
@@ -109,32 +113,49 @@ void PathSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 	SetOptionValues();
 }
 
-void PathSettingsMenu::ChangePath(char *setPath, int size)
+void PathSettingsMenu::ChangePath(char *path, int size)
 {
 	char entered[300];
 
 	int choice = WindowPrompt(tr("How do you want to change the path?"), 0, tr("Browse"), tr("Enter"), tr("Cancel"));
 	if(choice == 1)
 	{
-		std::string Path;
-		//TODO: menu = MenuGetPath(Path);
+		this->hide();
 
-		if(Path.length() > 0)
-		{
-			if (Path[Path.length()-1] != '/')
-				Path.append("/");
-			snprintf(setPath, size, "%s", Path.c_str());
-		}
+		setPath = path;
+		setPathSize = size;
+
+		PathBrowser *pathBrowser = new PathBrowser(path);
+		pathBrowser->ButtonClick.connect(this, &PathSettingsMenu::OnPathBrowserButtonClick);
+		Application::Instance()->Append(pathBrowser);
 	}
 	else if(choice == 2)
 	{
-		snprintf(entered, sizeof(entered), "%s", setPath);
+		snprintf(entered, sizeof(entered), "%s", path);
 		if(OnScreenKeyboard(entered, sizeof(entered)))
 		{
 			if (entered[strlen(entered)-1] != '/')
 				strcat(entered, "/");
-			snprintf(setPath, size, "%s", entered);
+			snprintf(path, size, "%s", entered);
 			WindowPrompt(tr("Path changed."), 0, tr("OK"));
 		}
 	}
+}
+
+void PathSettingsMenu::OnPathBrowserButtonClick(PathBrowser *menu, bool doneClicked, const std::string &Path)
+{
+	menu->SetEffect(EFFECT_FADE, -50);
+
+	if(doneClicked)
+	{
+		if (Path.length() > 0 && Path[Path.length()-1] != '/')
+			snprintf(setPath, setPathSize, "%s/", Path.c_str());
+		else
+			snprintf(setPath, setPathSize, "%s", Path.c_str());
+	}
+
+	SetOptionValues();
+	this->show();
+
+	Application::Instance()->PushForDelete(menu);
 }

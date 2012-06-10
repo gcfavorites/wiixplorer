@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include "PopUpMenu.h"
-#include "main.h"
 
 static const int ButtonX = 20;
 static const u32 ButtonHeight = 32;

@@ -24,7 +24,6 @@
  * WiiXplorer 2010
  ***************************************************************************/
 #include "Task.hpp"
-#include "menu.h"
 
 Task::Task(const std::string &title)
 	: GuiButton(100, 44)

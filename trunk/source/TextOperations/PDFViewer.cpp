@@ -28,7 +28,6 @@
 #include "Controls/Application.h"
 #include "Controls/Taskbar.h"
 #include "PDFViewer.hpp"
-#include "menu.h"
 #include "sys.h"
 
 PDFViewer::PDFViewer(const char * filepath, const char * password)

@@ -39,7 +39,6 @@
 #include "networkops.h"
 #include "FileOperations/fileops.h"
 #include "FileOperations/DirList.h"
-#include "main.h"
 #include "netreceiver.h"
 
 #define PORT	4299

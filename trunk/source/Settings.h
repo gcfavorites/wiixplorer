@@ -23,7 +23,6 @@
 #include "SettingsEnums.h"
 #include "Controls/AppControls.hpp"
 #include "FileStartUp/FileExtensions.h"
-#include "FTPOperations/ftp_devoptab.h"
 
 class CSettings
 {
@@ -177,8 +176,8 @@ class CSettings
 
 extern CSettings Settings;
 
-#define WiiControls		 Settings.Controls.WiiControls
-#define ClassicControls	 Settings.Controls.ClassicControls
-#define GCControls		  Settings.Controls.GCControls
+#define WiiControls			Settings.Controls.WiiControls
+#define ClassicControls		Settings.Controls.ClassicControls
+#define GCControls			Settings.Controls.GCControls
 
 #endif

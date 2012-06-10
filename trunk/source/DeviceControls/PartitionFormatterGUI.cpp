@@ -32,7 +32,6 @@
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "PartitionFormatterGUI.hpp"
 #include "PartitionFormatter.hpp"
-#include "menu.h"
 #include "sys.h"
 
 class FormatTask : public ThreadedTask

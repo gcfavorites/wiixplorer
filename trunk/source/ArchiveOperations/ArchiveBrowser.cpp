@@ -20,13 +20,13 @@
 #include <string.h>
 #include <malloc.h>
 
+#include "Controls/Application.h"
 #include "ArchiveBrowser.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/ThrobberWindow.h"
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileStartUp.h"
-#include "menu.h"
 
 /****************************************************************************
  * ArchiveBrowser Class to parse archive directories

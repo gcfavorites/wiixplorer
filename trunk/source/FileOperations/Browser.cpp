@@ -31,7 +31,7 @@
  * for WiiXplorer 2009
  ***************************************************************************/
 #include "Browser.hpp"
-#include "main.h"
+#include "Settings.h"
 #include "Tools/tools.h"
 
 void Browser::MarkCurrentItem()

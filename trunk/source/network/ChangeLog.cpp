@@ -19,7 +19,6 @@
 #include "network/HTML_Stream.h"
 #include "FileOperations/fileops.h"
 #include "TextOperations/TextEditor.h"
-#include "main.h"
 #include "ChangeLog.h"
 #include "svnrev.h"
 

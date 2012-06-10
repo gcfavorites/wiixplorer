@@ -29,7 +29,6 @@
 #include "Memory/Resources.h"
 #include "FileOperations/DirList.h"
 #include "PlayList.hpp"
-#include "main.h"
 
 #define PAGE_SIZE	8
 

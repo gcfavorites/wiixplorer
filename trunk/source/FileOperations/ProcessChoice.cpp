@@ -33,7 +33,6 @@
 #include "FileOperations/MD5Task.h"
 #include "FileOperations/PackTask.h"
 #include "FileOperations/UnpackTask.h"
-#include "menu.h"
 
 void Explorer::ProcessArcChoice(int choice, const char * destCandidat)
 {

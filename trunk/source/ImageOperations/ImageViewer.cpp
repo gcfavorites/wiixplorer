@@ -23,7 +23,6 @@
 #include "ImageOperations/ImageViewer.h"
 #include "sys.h"
 #include "input.h"
-#include "menu.h"
 
 ImageViewer::ImageViewer(const char *filepath)
 	: GuiFrame(0, 0)

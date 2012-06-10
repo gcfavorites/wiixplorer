@@ -66,16 +66,27 @@ void MoveTask::Execute(void)
 			if(!pathname)
 				continue;
 
-			string dstpath = destPathSlash + pathname;
+			string dstpath = destPathSlash + (pathname+1);
 
 			if(strcasecmp(srcpath.c_str(), dstpath.c_str()) == 0)
+			{
+				//! nothing to be done here
+				Process.RemoveItem(Process.GetItem(i));
+				i--;
+				continue;
+			}
+
+			//! moving directory to a path where the same directory name exists
+			//! we will move all files and remove src directory in the later process
+			if(Process.IsItemDir(i) && CheckFile(dstpath.c_str()))
 				continue;
 
-			int ret = RenameFile(srcpath.c_str(), dstpath.c_str());
+			int ret = MoveFile(srcpath.c_str(), dstpath.c_str());
 			if(ret < 0)
 				result = ret;
 
 			Process.RemoveItem(Process.GetItem(i));
+			i--;
 		}
 	}
 
@@ -84,7 +95,6 @@ void MoveTask::Execute(void)
 	if(GetItemList(itemList, true) < 0) {
 		result = -1;
 	}
-	list<ItemList>().swap(itemList);
 
 	//! free memory of process which is no longer required
 	Process.Reset();
@@ -94,12 +104,7 @@ void MoveTask::Execute(void)
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
-		if(ProgressWindow::Instance()->IsCanceled())
-		{
-			result = PROGRESS_CANCELED;
-			break;
-		}
-
+		//! first move/remove all files in all sub directories
 		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
 			if(ProgressWindow::Instance()->IsCanceled())
@@ -120,13 +125,19 @@ void MoveTask::Execute(void)
 				result = ret;
 		}
 
-		//! Remove all dirs reverse
+		//! Remove all dirs reversed as they were appended to the list
 		for(list<string>::iterator itr = listItr->dirs.begin(); itr != listItr->dirs.end(); itr++)
 		{
 			if(ProgressWindow::Instance()->IsCanceled())
 				break;
 
 			RemoveFile((listItr->basepath + *itr).c_str());
+		}
+
+		if(ProgressWindow::Instance()->IsCanceled())
+		{
+			result = PROGRESS_CANCELED;
+			break;
 		}
 	}
 

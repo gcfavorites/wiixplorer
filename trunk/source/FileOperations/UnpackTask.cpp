@@ -126,12 +126,6 @@ void UnpackTask::Execute(void)
 	{
 		for(int i = 0; i < Process.GetItemcount(); i++)
 		{
-			if(ProgressWindow::Instance()->IsCanceled())
-			{
-				result = PROGRESS_CANCELED;
-				break;
-			}
-
 			ArchiveFileStruct * currentItem = archive->GetFileStruct(Process.GetItemIndex(i));
 			if(currentItem->isdir)
 			{
@@ -144,6 +138,12 @@ void UnpackTask::Execute(void)
 				int ret = archive->ExtractFile(currentItem->fileindex, destPathSlash.c_str(), false);
 				if(ret < 0)
 					result = ret;
+			}
+
+			if(ProgressWindow::Instance()->IsCanceled())
+			{
+				result = PROGRESS_CANCELED;
+				break;
 			}
 		}
 	}

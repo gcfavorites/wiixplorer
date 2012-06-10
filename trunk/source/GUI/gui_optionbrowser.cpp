@@ -16,7 +16,6 @@
  ****************************************************************************/
 #include "gui_optionbrowser.h"
 #include "Memory/Resources.h"
-#include "menu.h"
 
 #define BROWSERSIZE		8
 

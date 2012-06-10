@@ -27,7 +27,6 @@
 #include "network/networkops.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "ftpii/virtualpath.h"
-#include "menu.h"
 
 extern "C" void MountVirtualDevices()
 {

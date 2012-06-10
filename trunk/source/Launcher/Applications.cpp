@@ -34,7 +34,6 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
-#include "menu.h"
 
 Applications::Applications(const char * path)
 {

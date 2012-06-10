@@ -438,12 +438,14 @@ int MoveFile(const char *srcpath, const char *destdir)
 			if(!replaceall && !replacenone)
 				choice = GetReplaceChoice(filename ? filename+1 : destdir);
 
-			//Display progress
-			ShowProgress(0, 1,filename);
-			FinishProgress(1);
 
 			if(replacenone || choice == 2)
+			{
+				//Display progress
+				ShowProgress(0, 1,filename);
+				FinishProgress(1);
 				return 1;
+			}
 
 			else if(replaceall || choice == 1)
 				RemoveFile(destdir);

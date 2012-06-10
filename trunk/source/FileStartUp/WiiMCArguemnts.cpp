@@ -28,7 +28,7 @@
 #include <string.h>
 #include "DeviceControls/DeviceHandler.hpp"
 #include "BootHomebrew/BootHomebrew.h"
-#include "menu.h"
+#include "Settings.h"
 
 void CreateWiiMCArguments(const char * src)
 {

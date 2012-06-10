@@ -66,12 +66,6 @@ void DeleteTask::Execute(void)
 
 	for(list<ItemList>::iterator listItr = itemList.begin(); listItr != itemList.end(); listItr++)
 	{
-		if(ProgressWindow::Instance()->IsCanceled())
-		{
-			result = PROGRESS_CANCELED;
-			break;
-		}
-
 		//! Remove all files first
 		for(list<string>::iterator itr = listItr->files.begin(); itr != listItr->files.end(); itr++)
 		{
@@ -102,6 +96,12 @@ void DeleteTask::Execute(void)
 				result = ret;
 
 			ShowProgress(doneItems++, TotalItems, filename ? filename+1 : "");
+		}
+
+		if(ProgressWindow::Instance()->IsCanceled())
+		{
+			result = PROGRESS_CANCELED;
+			break;
 		}
 	}
 

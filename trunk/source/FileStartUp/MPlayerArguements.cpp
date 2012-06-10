@@ -28,7 +28,8 @@
 #include <string.h>
 #include "DeviceControls/DeviceHandler.hpp"
 #include "BootHomebrew/BootHomebrew.h"
-#include "menu.h"
+#include "Tools/StringTools.h"
+#include "Settings.h"
 
 void CreateMPlayerArguments(const char * filepath)
 {

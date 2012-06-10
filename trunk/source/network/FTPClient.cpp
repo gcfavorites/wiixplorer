@@ -29,7 +29,7 @@
 #include <string.h>
 #include "network/networkops.h"
 #include "FTPOperations/ftp_devoptab.h"
-#include "main.h"
+#include "Settings.h"
 
 static bool ftpReady = false;
 

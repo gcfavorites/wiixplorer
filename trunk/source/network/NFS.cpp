@@ -30,7 +30,7 @@
 #include <nfs.h>
 #include "Tools/StringTools.h"
 #include "network/networkops.h"
-#include "main.h"
+#include "Settings.h"
 
 static bool NFS_Mounted[MAXNFSUSERS];
 static bool firstNFSRun = true;

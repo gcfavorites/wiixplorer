@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2009-2012 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,29 +14,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef PATH_SETTINGS_MENU_H_
-#define PATH_SETTINGS_MENU_H_
+#ifndef PATH_BROWSER_H_
+#define PATH_BROWSER_H_
 
-#include "SettingsMenu.h"
+#include "GUI/gui.h"
+#include "Menus/Explorer.h"
 
-class PathBrowser;
-
-class PathSettingsMenu : public SettingsMenu
+class PathBrowser : public GuiFrame, public sigslot::has_slots<>
 {
-	public:
-		PathSettingsMenu(GuiFrame *returnElement);
-		virtual ~PathSettingsMenu();
-	protected:
-		void SetupOptions();
-		void SetOptionValues();
-		void ChangePath(char *path, int size);
-		void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnPathBrowserButtonClick(PathBrowser *menu, bool doneClicked, const std::string &Path);
+public:
+	PathBrowser(const std::string &in_outPath);
+	virtual ~PathBrowser();
 
-		char *setPath;
-		int setPathSize;
+	sigslot::signal3<PathBrowser*, bool, const std::string &> ButtonClick;
+protected:
+	void OnButtonClick(GuiButton *, int, const POINT &);
+
+	GuiSound * btnSoundClick;
+	GuiSound * btnSoundOver;
+
+	GuiImageData * btnOutline;
+	GuiImageData * btnOutlineOver;
+
+	GuiText *doneBtnTxt;
+	GuiImage *doneBtnImg;
+	GuiButton *doneBtn;
+
+	GuiText *cancelBtnTxt;
+	GuiImage *cancelBtnImg;
+	GuiButton *cancelBtn;
+
+	Explorer * explorer;
+
+	GuiTrigger trigA;
+	GuiTrigger trigB;
 };
-
-
 
 #endif

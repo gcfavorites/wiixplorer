@@ -1,28 +1,31 @@
-/****************************************************************************
- * Copyright (C) 2010
- * by Dimok
+ /************************************************************************************************************************************************
+ * \mainpage WiiXplorer
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * \section sec_intro Introduction
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * WiiXplorer is a multi-device file explorer for the Wii made with a customized libwiigui as base for the GUI.
+ * It has several additional features to execute various of filetypes like on an actual browser/explorer.
+ * <p>
+ * It was created and is developed by Dimok. Some features of the project were contributed/developed by R-win and Dude.
+ * <p>
+ * The graphical design and the required artwork for that were/are made by NeoRame.
+ * <p>
+ * WiiXplorer is written mainly in C++ and makes use of sevaral open-source C/C++ libraries.
+ * <p>
+ * \section sec_special_thanks Special thanks:
+ * Dj Skual, kavid and all translators<br>
+ * Tantric for his tool libwiigui<br>
+ * Armin Tamzarian for FreeTypeGX<br>
+ * The libogc/devkitPro Team<br>
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
+ * \section sec_license License
  *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
+ * The WiiXplorer source code is distributed under the GNU General Public License v3.
  *
- * 3. This notice may not be removed or altered from any source
- * distribution.
+ * \section sec_contact Contact
  *
- * for WiiXplorer 2010
- ***************************************************************************/
+ * If you have any suggestions, questions, or comments regarding the source code or the application feel free to e-mail me at dimok789@gmail.com.
+ *************************************************************************************************************************************************/
 #include "Controls/Application.h"
 #include "VideoOperations/video.h"
 #include "sys.h"
