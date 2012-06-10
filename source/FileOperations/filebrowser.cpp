@@ -33,7 +33,6 @@
 #include "filebrowser.h"
 #include "FileStartUp/FileStartUp.h"
 #include "Prompts/PromptWindows.h"
-#include "menu.h"
 
 #define MAX_PARSE_ITEMS	(20)
 
@@ -517,6 +516,6 @@ void FileBrowser::executeThread(void)
 		if(!exit_Requested && !ParseDirEntries() && !directoryChange)
 			suspendThread();
 
-		usleep(THREAD_SLEEP);
+		usleep(100);
 	}
 }

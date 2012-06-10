@@ -34,8 +34,8 @@
 #include "mload/usb2storage.h"
 #include "System/isfs.h"
 #include "DeviceHandler.hpp"
-#include "main.h"
 
+#include "Settings.h"
 #include "DiskOperations/fst.h"
 #include "DiskOperations/gcfst.h"
 #include "DiskOperations/iso.h"

@@ -30,7 +30,7 @@
 #include <smb.h>
 #include "Tools/StringTools.h"
 #include "network/networkops.h"
-#include "main.h"
+#include "Settings.h"
 
 static bool SMB_Mounted[MAXSMBUSERS];
 static bool firstRun = true;

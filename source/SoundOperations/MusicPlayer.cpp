@@ -36,7 +36,6 @@
 #include "FileOperations/fileops.h"
 #include "FileStartUp/FileExtensions.h"
 #include "Tools/StringTools.h"
-#include "main.h"
 #include "sys.h"
 
 MusicPlayer * MusicPlayer::instance = NULL;

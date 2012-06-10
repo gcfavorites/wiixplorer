@@ -16,7 +16,6 @@
  ****************************************************************************/
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
-#include "main.h"
 
 /**
  * Constructor for the GuiKeyboard class.

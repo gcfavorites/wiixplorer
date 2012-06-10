@@ -38,7 +38,6 @@
 #include "networkops.h"
 #include "update.h"
 #include "svnrev.h"
-#include "main.h"
 #include "sys.h"
 #include "HTML_Stream.h"
 

@@ -28,7 +28,6 @@
 #include "FileOperations/fileops.h"
 #include "network/networkops.h"
 #include "network/URL_List.h"
-#include "menu.h"
 
 static const char * UpdateURL = "http://wiixplorer.googlecode.com/svn/trunk/Languages/";
 

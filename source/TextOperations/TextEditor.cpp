@@ -22,7 +22,6 @@
 #include "Memory/Resources.h"
 #include "FreeTypeGX.h"
 #include "input.h"
-#include "menu.h"
 
 #define FONTSIZE	18
 

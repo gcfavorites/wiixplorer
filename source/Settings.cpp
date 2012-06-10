@@ -66,7 +66,7 @@ void CSettings::SetDefault()
 	SoundblockSize = 8192;
 	LoadMusicToMem = 0;
 	DeleteTempPath = 1;
-	CopyThreadPrio = 100;
+	CopyThreadPrio = 90;
 	CopyThreadBackPrio = 30;
 	Rumble = 1;
 	HideSystemFiles = 1;
@@ -277,60 +277,70 @@ bool CSettings::Save()
 bool CSettings::FindConfig()
 {
 	bool found = false;
+	char CheckDevice[12];
 
-	for(int i = SD; i <= USB8; i++)
+	// Enumerate the devices supported by libogc.
+	for (int i = SD; (i < USB10) && !found; ++i)
 	{
+		snprintf(CheckDevice, sizeof(CheckDevice), "%s:", DeviceName[i]);
+
 		if(!found)
 		{
-			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
+			// Check for the config file in the apps directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiXplorer/%s", BootDevice, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
 		if(!found)
 		{
-			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
+			// Check for the config file in the apps directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiExplorer/%s", BootDevice, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
 		if(!found)
 		{
-			snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-			snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s%s", DeviceName[i], CONFIGPATH, CONFIGNAME);
+			// Check for the config file in the config directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
 	}
 
-	if(!found)
+	FILE * testFp = NULL;
+	// No existing config so try to find a place where we can write it too
+	for (int i = SD; (i < USB10) && !found; ++i)
 	{
-		//! No existing config so try to find a place where we can write it too
-		for(int i = SD; i <= USB8; i++)
+		sprintf(CheckDevice, "%s:", DeviceName[i]);
+
+		if (!found)
 		{
-			if(!found)
-			{
-				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiExplorer/%s", DeviceName[i], CONFIGNAME);
-				FILE * testFp = fopen(ConfigPath, "wb");
-				found = (testFp != NULL);
-				fclose(testFp);
-			}
-			if(!found)
-			{
-				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/apps/WiiXplorer/%s", DeviceName[i], CONFIGNAME);
-				FILE * testFp = fopen(ConfigPath, "wb");
-				found = (testFp != NULL);
-				fclose(testFp);
-			}
-			if(!found)
-			{
-				snprintf(BootDevice, sizeof(BootDevice), "%s:/", DeviceName[i]);
-				snprintf(ConfigPath, sizeof(ConfigPath), "%s:/%s", DeviceName[i], CONFIGPATH);
-				CreateSubfolder(ConfigPath);
-				strcat(ConfigPath, CONFIGNAME);
-				FILE * testFp = fopen(ConfigPath, "wb");
-				found = (testFp != NULL);
-				fclose(testFp);
-			}
+			// Check if we can write to the apps directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiXplorer/%s", BootDevice, CONFIGNAME);
+			testFp = fopen(ConfigPath, "wb");
+			found = (testFp != NULL);
+			if(testFp) fclose(testFp);
+		}
+		if (!found)
+		{
+			// Check if we can write to the apps directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiExplorer/%s", BootDevice, CONFIGNAME);
+			testFp = fopen(ConfigPath, "wb");
+			found = (testFp != NULL);
+			if(testFp) fclose(testFp);
+		}
+		if (!found)
+		{
+			// Check if we can write to the config directory.
+			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s", BootDevice, CONFIGPATH);
+			CreateSubfolder(ConfigPath);
+			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
+			testFp = fopen(ConfigPath, "wb");
+			found = (testFp != NULL);
+			if(testFp) fclose(testFp);
 		}
 	}
 

@@ -29,7 +29,7 @@
 #include "DiskOperations/di2.h"
 #include "Language/gettext.h"
 #include "network/networkops.h"
-#include "main.h"
+#include "Settings.h"
 #include "sys.h"
 
 #define EXECUTE_ADDR	((u8 *) 0x92000000)

@@ -17,7 +17,6 @@
 #include "IconFileBrowser.hpp"
 #include "Memory/Resources.h"
 #include "FileStartUp/FileExtensions.h"
-#include "menu.h"
 
 /**
  * Constructor for the IconFileBrowser class.

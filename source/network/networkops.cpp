@@ -36,7 +36,6 @@
 #include "networkops.h"
 #include "netreceiver.h"
 #include "update.h"
-#include "main.h"
 
 static NetReceiver Receiver;
 static bool networkinit = false;

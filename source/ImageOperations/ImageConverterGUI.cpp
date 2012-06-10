@@ -32,7 +32,6 @@
 #include "TextOperations/wstring.hpp"
 #include "ImageConverterGUI.hpp"
 #include "ImageConvertTask.h"
-#include "main.h"
 
 
 ImageConverterGui::ImageConverterGui(const char * filepath)

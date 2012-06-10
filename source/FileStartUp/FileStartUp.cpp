@@ -45,7 +45,6 @@
 #include "MPlayerArguements.h"
 #include "WiiMCArguemnts.h"
 #include "Tools/uncompress.h"
-#include "menu.h"
 
 int FileStartUp(const char *filepath)
 {

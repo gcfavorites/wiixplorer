@@ -33,8 +33,6 @@
 #include "Controls/Taskbar.h"
 #include "FileOperations/fileops.h"
 #include "FileOperations/filebrowser.h"
-#include "menu.h"
-#include "main.h"
 #include "Controls/Application.h"
 #include "Tools/StringTools.h"
 #include "TextOperations/wstring.hpp"

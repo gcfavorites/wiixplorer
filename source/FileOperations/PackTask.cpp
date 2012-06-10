@@ -81,12 +81,6 @@ void PackTask::Execute(void)
 
 	for(int i = 0; i < Process.GetItemcount(); i++)
 	{
-		if(ProgressWindow::Instance()->IsCanceled())
-		{
-			result = PROGRESS_CANCELED;
-			break;
-		}
-
 		int ret;
 		if(destPath.size() > 0)
 			snprintf(destpath, sizeof(destpath), "%s/%s", destPath.c_str(), Process.GetItemName(i));
@@ -101,6 +95,13 @@ void PackTask::Execute(void)
 			ret = archive->AddFile(Process.GetItemPath(i), destpath, compression);
 		if(ret < 0)
 			result = ret;
+
+		if(ProgressWindow::Instance()->IsCanceled())
+		{
+			result = PROGRESS_CANCELED;
+			break;
+		}
+
 	}
 
 	if(!Application::isClosing() && result != PROGRESS_CANCELED)

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include <time.h>
-#include "menu.h"
 #include "Taskbar.h"
 #include "Controls/Application.h"
 #include "Memory/Resources.h"

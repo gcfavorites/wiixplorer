@@ -16,7 +16,6 @@
  ****************************************************************************/
 #include "Memory/Resources.h"
 #include "gui_arrowoption.h"
-#include "main.h"
 
 GuiArrowOption::GuiArrowOption()
 	: GuiFrame(440, 338)

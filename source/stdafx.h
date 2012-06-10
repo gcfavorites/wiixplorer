@@ -21,6 +21,7 @@
 #include <vector>
 #include "sigslot.h"
 #include "Tools/StringTools.h"
+#include "Settings.h"
 #endif
 
 #define UNUSED  __attribute__((unused))

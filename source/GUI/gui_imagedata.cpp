@@ -24,6 +24,18 @@
 /**
  * Constructor for the GuiImageData class.
  */
+GuiImageData::GuiImageData()
+{
+	data = NULL;
+	AnimGif = NULL;
+	width = 0;
+	height = 0;
+	format = GX_TF_RGBA8;
+}
+
+/**
+ * Constructor for the GuiImageData class.
+ */
 GuiImageData::GuiImageData(const u8 * img, int imgSize)
 {
 	data = NULL;
@@ -31,65 +43,7 @@ GuiImageData::GuiImageData(const u8 * img, int imgSize)
 	width = 0;
 	height = 0;
 	format = GX_TF_RGBA8;
-
-	if(img)
-	{
-		if (imgSize < 8)
-		{
-			return;
-		}
-		if (img[0] == 0xFF && img[1] == 0xD8)
-		{
-			// IMAGE_JPEG
-			LoadJpeg(img, imgSize);
-		}
-		else if (img[0] == 0x49 && img[1] == 0x49)
-		{
-			// IMAGE_TIFF_PC
-			LoadTIFF(img, imgSize);
-		}
-		else if (img[0] == 0x4D && img[1] == 0x4D)
-		{
-			// IMAGE_TIFF_MAC
-			LoadTIFF(img, imgSize);
-		}
-		else if (img[0] == 'B' && img[1] == 'M')
-		{
-			// IMAGE_BMP
-			LoadBMP(img, imgSize);
-		}
-		else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F')
-		{
-			// IMAGE_GIF
-			LoadGIF(img, imgSize);
-		}
-		else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G')
-		{
-			// IMAGE_PNG
-			LoadPNG(img, imgSize);
-		}
-		else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE))
-		{
-			// IMAGE_GD
-			LoadGD(img, imgSize);
-		}
-		else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00)
-		{
-			// IMAGE_GD2
-			LoadGD2(img, imgSize);
-		}
-		else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30)
-		{
-			// IMAGE_TPL
-			LoadTPL(img, imgSize);
-		}
-		//!This must be last since it can also intefere with outher formats
-		else if(img[0] == 0x00)
-		{
-			// Try loading TGA image
-			LoadTGA(img, imgSize);
-		}
-	}
+	LoadImage(img, imgSize);
 }
 
 /**
@@ -107,86 +61,79 @@ GuiImageData::~GuiImageData()
 		delete AnimGif;
 }
 
-void GuiImageData::LoadPNG(const u8 *img, int imgSize)
+void GuiImageData::LoadImage(const u8 *img, int imgSize)
 {
-	gdImagePtr gdImg = gdImageCreateFromPngPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
+	if(!img || (imgSize < 8))
 		return;
 
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
+	if(data)
+	{
+		free(data);
+		data = NULL;
+	}
 
-void GuiImageData::LoadJpeg(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromJpegPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
+	gdImagePtr gdImg = 0;
+
+	if (img[0] == 0xFF && img[1] == 0xD8)
+	{
+		// IMAGE_JPEG
+		gdImg = gdImageCreateFromJpegPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 0x49 && img[1] == 0x49)
+	{
+		// IMAGE_TIFF_PC
+		gdImg = gdImageCreateFromTiffPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 0x4D && img[1] == 0x4D)
+	{
+		// IMAGE_TIFF_MAC
+		gdImg = gdImageCreateFromTiffPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 'B' && img[1] == 'M')
+	{
+		// IMAGE_BMP
+		gdImg = gdImageCreateFromBmpPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 'G' && img[1] == 'I' && img[2] == 'F')
+	{
+		// IMAGE_GIF
+		AnimGif = new GifImage(img, imgSize);
+		if(AnimGif->GetFrameCount() > 1)
+			return;
+
+		delete AnimGif;
+		AnimGif = NULL;
+
+		gdImg = gdImageCreateFromGifPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 0x89 && img[1] == 'P' && img[2] == 'N' && img[3] == 'G')
+	{
+		// IMAGE_PNG
+		gdImg = gdImageCreateFromPngPtr(imgSize, (u8*) img);
+	}
+	else if ((img[0] == 0xFF && img[1] == 0xFF) || (img[0] == 0xFF && img[1] == 0xFE))
+	{
+		// IMAGE_GD
+		gdImg = gdImageCreateFromGdPtr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 0x67 && img[1] == 0x64 && img[2] == 0x32 && img[3] == 0x00)
+	{
+		// IMAGE_GD2
+		gdImg = gdImageCreateFromGd2Ptr(imgSize, (u8*) img);
+	}
+	else if (img[0] == 0x00 && img[1] == 0x20 && img[2] == 0xAF && img[3] == 0x30)
+	{
+		// IMAGE_TPL
+		LoadTPL(img, imgSize);
 		return;
+	}
+	//!This must be last since it can also intefere with outher formats
+	else if(img[0] == 0x00)
+	{
+		// Try loading TGA image
+		gdImg = gdImageCreateFromTgaPtr(imgSize, (u8*) img);
+	}
 
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadGIF(const u8 *img, int imgSize)
-{
-	AnimGif = new GifImage(img, imgSize);
-	if(AnimGif->GetFrameCount() > 1)
-		return;
-
-	delete AnimGif;
-	AnimGif = NULL;
-
-	gdImagePtr gdImg = gdImageCreateFromGifPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
-		return;
-
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadGD(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromGdPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
-		return;
-
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadGD2(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromGd2Ptr(imgSize, (u8*) img);
-	if(gdImg == 0)
-		return;
-
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadTIFF(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromTiffPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
-		return;
-
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadBMP(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromBmpPtr(imgSize, (u8*) img);
-	if(gdImg == 0)
-		return;
-
-	data = GDImageToRGBA8(&gdImg, &width, &height);
-	gdImageDestroy(gdImg);
-}
-
-void GuiImageData::LoadTGA(const u8 *img, int imgSize)
-{
-	gdImagePtr gdImg = gdImageCreateFromTgaPtr(imgSize, (u8*) img);
 	if(gdImg == 0)
 		return;
 

@@ -20,7 +20,6 @@
 #include "Prompts/PromptWindow.h"
 #include "Memory/Resources.h"
 #include "Controls/Application.h"
-#include "main.h"
 #include "sys.h"
 
 /****************************************************************************

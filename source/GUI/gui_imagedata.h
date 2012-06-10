@@ -25,11 +25,16 @@ class GuiImageData
 {
 	public:
 		//!Constructor
+		GuiImageData();
 		//!\param img Image data
 		//!\param imgSize The image size
 		GuiImageData(const u8 * img, int imgSize);
 		//!Destructor
 		virtual ~GuiImageData();
+		//!Load image from buffer
+		//!\param img Image data
+		//!\param imgSize The image size
+		void LoadImage(const u8 * img, int imgSize);
 		//!Gets a pointer to the image data
 		//!\return pointer to image data
 		u8 * GetImage() { return data ? data : AnimGif ? AnimGif->GetFrameImage(0) : NULL; };
@@ -44,14 +49,6 @@ class GuiImageData
 		//!Gets animated gif if present
 		GifImage * GetAnimGif() { return AnimGif; };
 	protected:
-		void LoadPNG(const u8 *img, int imgSize);
-		void LoadBMP(const u8 *img, int imgSize);
-		void LoadJpeg(const u8 *img, int imgSize);
-		void LoadGIF(const u8 *img, int imgSize);
-		void LoadGD(const u8 *img, int imgSize);
-		void LoadGD2(const u8 *img, int imgSize);
-		void LoadTIFF(const u8 *img, int imgSize);
-		void LoadTGA(const u8 *img, int imgSize);
 		void LoadTPL(const u8 *img, int imgSize);
 
 		u8 * data; //!< Image data

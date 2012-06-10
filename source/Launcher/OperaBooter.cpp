@@ -21,7 +21,6 @@
 #include "Prompts/PromptWindows.h"
 #include "network/FileDownloader.h"
 #include "Tools/tools.h"
-#include "main.h"
 #include "sys.h"
 #include "OperaBooter.hpp"
 

@@ -32,7 +32,6 @@
 #include "ftpii/ftp.h"
 #include "ftpii/net.h"
 #include "ftpii/virtualpath.h"
-#include "menu.h"
 
 
 FTPServer * FTPServer::instance = NULL;

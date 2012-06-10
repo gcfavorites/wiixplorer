@@ -31,7 +31,7 @@
 #include "ImageOperations/ImageWrite.h"
 #include "FileOperations/fileops.h"
 #include "TextureConverter.h"
-#include "menu.h"
+#include "stdafx.h"
 
 extern "C" bool Screenshot(const char * outpath, int format)
 {

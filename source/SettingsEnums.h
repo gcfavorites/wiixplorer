@@ -18,7 +18,7 @@
 #define SETTINGS_ENUMS_H_
 
 #define MAXSMBUSERS		 10
-#define MAXFTPUSERS		 MAX_FTP_MOUNTED
+#define MAXFTPUSERS		 10
 #define MAXNFSUSERS		 10
 
 enum
@@ -76,7 +76,7 @@ typedef struct _FTPServerData
 
 typedef struct _NFSData
 {
-	char 	Host[15]; // IP address for now
+	char 	Host[16]; // IP address for now
 	char	Mountpoint[50];
 } NFSData;
 

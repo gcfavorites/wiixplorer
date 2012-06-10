@@ -29,7 +29,6 @@
 #include "Settings.h"
 #include "FileOperations/filebrowser.h"
 #include "Prompts/ProgressWindow.h"
-#include "main.h"
 
 DeviceMenu::DeviceMenu(int x, int y)
 	:	GuiFrame(0, 0)

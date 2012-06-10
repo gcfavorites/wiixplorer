@@ -27,7 +27,6 @@
  ***************************************************************************/
 #include "Controls/Application.h"
 #include "CreditWindow.h"
-#include "main.h"
 #include "svnrev.h"
 
 

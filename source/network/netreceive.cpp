@@ -34,7 +34,6 @@
 #include "Controls/Taskbar.h"
 #include "networkops.h"
 #include "netreceiver.h"
-#include "menu.h"
 
 void IncommingConnection(NetReceiver & Receiver)
 {
