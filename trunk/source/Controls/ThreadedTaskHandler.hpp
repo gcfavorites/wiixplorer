@@ -19,7 +19,7 @@
 
 #include <gccore.h>
 #include <queue>
-#include "Thread.H"
+#include "Thread.h"
 
 class ThreadedTask
 {
