@@ -60,7 +60,7 @@ void AddBootArgument(const char * argv)
 int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
 {
 	homebrewsize += len;
-	memcpy((homebrewbuffer)+pos, temp, len);
+	memcpy((homebrewbuffer) + pos, temp, len);
 
 	return 1;
 }
@@ -69,6 +69,7 @@ void FreeHomebrewBuffer()
 {
 	homebrewbuffer = EXECUTE_ADDR;
 	homebrewsize = 0;
+
 	Arguments.clear();
 }
 
@@ -91,6 +92,11 @@ int LoadHomebrew(const char * filepath)
 	return ret;
 }
 
+static inline bool IsDollZ (const u8 *buf)
+{
+	return (buf[0x100] == 0x3C);
+}
+
 static int SetupARGV(struct __argv * args)
 {
 	if(!args)
@@ -104,9 +110,9 @@ static int SetupARGV(struct __argv * args)
 	u32 stringlength = 1;
 
 	/** Append Arguments **/
-	for(u32 i = 0; i < Arguments.size(); i++)
+	for (u32 i = 0; i < Arguments.size(); i++)
 	{
-		stringlength += Arguments[i].size()+1;
+		stringlength += Arguments[i].size() + 1;
 	}
 
 	args->length = stringlength;
@@ -114,10 +120,10 @@ static int SetupARGV(struct __argv * args)
 	args->commandLine = (char *) ARGS_ADDR + sizeof(struct __argv);
 
 	/** Append Arguments **/
-	for(u32 i = 0; i < Arguments.size(); i++)
+	for (u32 i = 0; i < Arguments.size(); i++)
 	{
 		strcpy(&args->commandLine[position], Arguments[i].c_str());
-		position += Arguments[i].size()+1;
+		position += Arguments[i].size() + 1;
 		argc++;
 	}
 
@@ -175,16 +181,20 @@ int BootHomebrew()
 
 	u32 cpu_isr;
 
+	DCFlushRange(homebrewbuffer, homebrewsize);
+
 	memcpy(BOOTER_ADDR, app_booter_bin, app_booter_bin_size);
 	DCFlushRange(BOOTER_ADDR, app_booter_bin_size);
+	ICInvalidateRange(BOOTER_ADDR, app_booter_bin_size);
 
 	entrypoint entry = (entrypoint) BOOTER_ADDR;
 
-	if (args.argvMagic == ARGV_MAGIC)
-	{
-		memmove(ARGS_ADDR, &args, sizeof(args));
-		DCFlushRange(ARGS_ADDR, sizeof(args) + args.length);
-	}
+	if (!IsDollZ(homebrewbuffer))
+		memcpy(ARGS_ADDR, &args, sizeof(struct __argv));
+	else
+		memset(ARGS_ADDR, 0, sizeof(struct __argv));
+
+	DCFlushRange(ARGS_ADDR, sizeof(struct __argv) + args.length);
 
 	SYS_ResetSystem(SYS_SHUTDOWN, 0, 0);
 	_CPU_ISR_Disable (cpu_isr);

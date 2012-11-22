@@ -277,8 +277,18 @@ bool Channels::GetChannelNameFromApp(u64 title, wchar_t* name, int language)
 
 void Channels::Launch(int index)
 {
+	if((u32)index >= channels.size())
+		return;
+
+	//! save the title id of the channel we are about to launch
+	u64 title = channels[index].title;
+
+	//! clean up application
 	ExitApp();
-	WII_LaunchTitle(channels.at(index).title);
+
+	//! Launch title
+	WII_Initialize();
+	WII_LaunchTitle(title);
 }
 
 void Channels::Search()
