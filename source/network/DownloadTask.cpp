@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2011 Dimok
+ * Copyright (C) 2012 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,50 +14,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "RemountTask.h"
-#include "DeviceControls/DeviceHandler.hpp"
+#include "DownloadTask.h"
+#include "network/FileDownloader.h"
 #include "Controls/Application.h"
 #include "Prompts/ProgressWindow.h"
 
-RemountTask::RemountTask(const char *title, int Device)
-	: Task(title), RemountDevice(Device), bAutoDelete(false)
+DownloadTask::DownloadTask(const char *title, const std::string &URL, const char *path)
+	: Task(title), DownloadURL(URL), Filepath(path), bAutoDelete(false)
 {
 }
 
-RemountTask::~RemountTask()
+DownloadTask::~DownloadTask()
 {
 }
 
-void RemountTask::Execute(void)
+void DownloadTask::Execute(void)
 {
 	TaskBegin(this);
 
-	ProgressWindow::Instance()->StartProgress(this->getTitle().c_str(), tr("Please wait..."));
-	ProgressWindow::Instance()->SetUnit(tr("devices"));
+	ProgressWindow::Instance()->StartProgress(this->getTitle().c_str(), DownloadURL.c_str());
 
-	if(RemountDevice == MAXDEVICES)
-	{
-		DeviceHandler::Instance()->UnMountAll();
+	int iResult;
+	u8 *ucBuffer = NULL;
+	u32 uiSize = 0;
 
-		for(int dev = SD; dev < MAXDEVICES; ++dev)
-		{
-			if(ProgressWindow::Instance()->IsCanceled())
-				break;
-
-			ProgressWindow::Instance()->ShowProgress(dev, MAXDEVICES);
-			DeviceHandler::Instance()->Mount(dev);
-		}
-	}
+	if(Filepath)
+		iResult = DownloadFileToPath(DownloadURL.c_str(), Filepath, true);
 	else
-	{
-		DeviceHandler::Instance()->UnMount(RemountDevice);
-		DeviceHandler::Instance()->Mount(RemountDevice);
-		ProgressWindow::Instance()->ShowProgress(1, 1);
-	}
+		iResult = DownloadFileToMem(DownloadURL.c_str(), &ucBuffer, &uiSize);
 
 	ProgressWindow::Instance()->StopProgress();
-	ProgressWindow::Instance()->SetUnit(NULL);
 
+	DownloadFinished(iResult, ucBuffer, uiSize);
 	TaskEnd(this);
 
 	if(bAutoDelete)

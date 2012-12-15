@@ -608,6 +608,22 @@ static int _ISFS_statvfs_r(struct _reent *r UNUSED, const char *path UNUSED, str
 	return 0;
 }
 
+/*
+static int _ISFS_unlink_r(struct _reent *r, const char *name)
+{
+	const char *pAbsPath = strchr(name, ':');
+	if(!pAbsPath) {
+		return -1;
+	}
+	s32 ret = ISFS_Delete(pAbsPath+1);
+	if(ret < 0) {
+		r->_errno = ENOENT;
+	}
+
+    return ret;
+}
+*/
+
 static const devoptab_t dotab_isfs = {
 	DEVICE_NAME,
 	sizeof(FILE_STRUCT),

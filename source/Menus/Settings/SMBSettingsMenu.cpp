@@ -16,6 +16,9 @@
  ****************************************************************************/
 #include "SMBSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Taskbar.h"
+#include "DeviceControls/DeviceHandler.hpp"
+#include "DeviceControls/RemountTask.h"
 #include "network/networkops.h"
 #include "Settings.h"
 
@@ -107,12 +110,10 @@ void SMBSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
 			result = WindowPrompt(tr("Do you want to reconnect this SMB?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				CloseSMBShare(Settings.CurrentSMBUser);
-
-				if(ConnectSMBShare(Settings.CurrentSMBUser))
-					WindowPrompt(tr("SMB reconnected successfull."), 0, tr("OK"));
-				else
-					ShowError(tr("Reconnect failed. No share connected."));
+				RemountTask *mountTask = new RemountTask(tr("Remounting SMB client."), SMB1 + Settings.CurrentSMBUser);
+				mountTask->SetAutoDelete(true);
+				Taskbar::Instance()->AddTask(mountTask);
+				ThreadedTaskHandler::Instance()->AddTask(mountTask);
 			}
 			break;
 		case 6:

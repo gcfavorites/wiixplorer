@@ -16,10 +16,12 @@
  ****************************************************************************/
 #include <algorithm>
 #include <ogc/wiilaunch.h>
+#include "Controls/Taskbar.h"
+#include "DeviceControls/DeviceHandler.hpp"
+#include "network/DownloadTask.h"
 #include "FileOperations/fileops.h"
 #include "Language/gettext.h"
 #include "Prompts/PromptWindows.h"
-#include "network/FileDownloader.h"
 #include "Tools/tools.h"
 #include "sys.h"
 #include "OperaBooter.hpp"
@@ -287,7 +289,12 @@ bool OperaBooter::DownloadFile(int pos)
 	if(!choice)
 		return true;
 
-	return (DownloadFileToPath(LinkList[pos].addr, filepath, true) >= 0);
+	DownloadTask *task = new DownloadTask(tr("Downloading file..."), LinkList[pos].addr, filepath);
+	task->SetAutoDelete(true);
+	Taskbar::Instance()->AddTask(task);
+	ThreadedTaskHandler::Instance()->AddTask(task);
+
+	return 0;
 }
 
 void OperaBooter::Sort()

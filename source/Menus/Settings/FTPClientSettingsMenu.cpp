@@ -16,6 +16,9 @@
  ****************************************************************************/
 #include "FTPClientSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Taskbar.h"
+#include "DeviceControls/DeviceHandler.hpp"
+#include "DeviceControls/RemountTask.h"
 #include "network/networkops.h"
 #include "Settings.h"
 
@@ -127,11 +130,10 @@ void FTPClientSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int o
 			result = WindowPrompt(tr("Do you want to reconnect to the FTP client?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				CloseFTP(Settings.CurrentFTPUser);
-				if(ConnectFTP(Settings.CurrentFTPUser))
-					WindowPrompt(tr("FTP Client reconnected successfull."), 0, tr("OK"));
-				else
-					ShowError(tr("Reconnect failed. No client connected."));
+				RemountTask *mountTask = new RemountTask(tr("Remounting FTP client."), FTP1 + Settings.CurrentFTPUser);
+				mountTask->SetAutoDelete(true);
+				Taskbar::Instance()->AddTask(mountTask);
+				ThreadedTaskHandler::Instance()->AddTask(mountTask);
 			}
 			break;
 		case 8:

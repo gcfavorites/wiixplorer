@@ -38,14 +38,14 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 {
 	if(strncasecmp(url, "http://", strlen("http://")) != 0)
 	{
-		ShowError(tr("Not a valid URL"));
+		ThrowMsg(tr("Error:"), tr("Not a valid URL"));
 		return -1;
 	}
 	char *path = strchr(url + strlen("http://"), '/');
 
 	if(!path)
 	{
-		ShowError(tr("Not a valid URL path"));
+		ThrowMsg(tr("Error:"), tr("Not a valid URL path"));
 		return -2;
 	}
 
@@ -53,7 +53,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	if(domainlength == 0)
 	{
-		ShowError(tr("Not a valid domain"));
+		ThrowMsg(tr("Error:"), tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -65,7 +65,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 
 	if(connection < 0)
 	{
-		ShowError(tr("Could not connect to the server."));
+		ThrowMsg(tr("Error:"), tr("Could not connect to the server."));
 		return -4;
 	}
 
@@ -87,7 +87,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 	if(!filesize)
 	{
 		net_close(connection);
-		ShowError(tr("Filesize is 0 Byte."));
+		ThrowMsg(tr("Error:"), tr("Filesize is 0 Byte."));
 		return -5;
 	}
 
@@ -97,13 +97,11 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 	if(!buffer)
 	{
 		net_close(connection);
-		ShowError(tr("Not enough memory."));
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
 		return -6;
 	}
 
 	u32 done = 0;
-
-	StartProgress(tr("Downloading file..."));
 
 	while(done < filesize)
 	{
@@ -112,7 +110,6 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 			free(buffer);
 			StopProgress();
 			net_close(connection);
-			ShowError(tr("Transfer cancelled."));
 			return PROGRESS_CANCELED;
 		}
 
@@ -129,7 +126,7 @@ int DownloadFileToMem(const char *url, u8 **inbuffer, u32 *size)
 			free(buffer);
 			StopProgress();
 			net_close(connection);
-			ShowError(tr("Transfer failed"));
+			ThrowMsg(tr("Error:"), tr("Transfer failed"));
 			return -8;
 		}
 		else if(!read)
@@ -156,7 +153,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 {
 	if(!orig_url || !dest)
 	{
-		ShowError(tr("No URL or Path specified."));
+		ThrowMsg(tr("Error:"), tr("No URL or Path specified."));
 		return -2;
 	}
 
@@ -178,7 +175,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	if(!path)
 	{
-		ShowError(tr("Not a valid URL path"));
+		ThrowMsg(tr("Error:"), tr("Not a valid URL path"));
 		return -2;
 	}
 
@@ -186,7 +183,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	if(domainlength == 0)
 	{
-		ShowError(tr("Not a valid domain"));
+		ThrowMsg(tr("Error:"), tr("Not a valid domain"));
 		return -3;
 	}
 
@@ -198,7 +195,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 
 	if(connection < 0)
 	{
-		ShowError(tr("Could not connect to the server."));
+		ThrowMsg(tr("Error:"), tr("Could not connect to the server."));
 		return -4;
 	}
 
@@ -230,26 +227,28 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 	if(!buffer)
 	{
 		net_close(connection);
-		ShowError(tr("Not enough memory."));
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
 		return -6;
 	}
 
+	std::string destPath = dest;
+
 	if(UseFilename)
 	{
-		if(dest[strlen(dest)-1] != '/')
-			strcat((char *) dest, "/");
+		if(destPath[destPath.size()-1] != '/')
+			destPath += '/';
 
-		CreateSubfolder(dest);
+		CreateSubfolder(destPath.c_str());
 
-		strcat((char *) dest, filename);
+		destPath += filename;
 	}
 
-	FILE *file = fopen(dest, "wb");
+	FILE *file = fopen(destPath.c_str(), "wb");
 	if(!file)
 	{
 		net_close(connection);
 		free(buffer);
-		ShowError(tr("Cannot write to destination."));
+		ThrowMsg(tr("Error:"), tr("Cannot write to destination."));
 		return -7;
 	}
 
@@ -265,7 +264,6 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 			StopProgress();
 			net_close(connection);
 			fclose(file);
-			ShowError(tr("Transfer cancelled."));
 			return PROGRESS_CANCELED;
 		}
 
@@ -282,7 +280,7 @@ int DownloadFileToPath(const char *orig_url, const char *dest, bool UseFilename)
 			StopProgress();
 			net_close(connection);
 			fclose(file);
-			ShowError(tr("Transfer failed"));
+			ThrowMsg(tr("Error:"), tr("Failed reading from network"));
 			return -8;
 		}
 		else if(!read)

@@ -24,7 +24,7 @@ class KeyboardWindow : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
 		KeyboardWindow(wchar_t *text, int maxlen = 0);
-		~KeyboardWindow();
+		virtual ~KeyboardWindow();
 		int GetChoice() { return choice; }
 		sigslot::signal2<KeyboardWindow *, wchar_t *> OkButtonClicked;
 	private:
