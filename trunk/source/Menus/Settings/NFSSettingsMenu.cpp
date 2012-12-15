@@ -16,6 +16,9 @@
  ****************************************************************************/
 #include "NFSSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/Taskbar.h"
+#include "DeviceControls/DeviceHandler.hpp"
+#include "DeviceControls/RemountTask.h"
 #include "network/networkops.h"
 #include "Settings.h"
 
@@ -81,11 +84,10 @@ void NFSSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
 			result = WindowPrompt(tr("Do you want to reconnect this NFS?"),0,tr("OK"),tr("Cancel"));
 			if(result)
 			{
-				CloseNFS(Settings.CurrentNFSUser);
-				if(ConnectNFS(Settings.CurrentNFSUser))
-					WindowPrompt(tr("NFS reconnected successfull."), 0, tr("OK"));
-				else
-					ShowError(tr("Reconnect failed. No share connected."));
+				RemountTask *mountTask = new RemountTask(tr("Remounting NFS client."), NFS1 + Settings.CurrentNFSUser);
+				mountTask->SetAutoDelete(true);
+				Taskbar::Instance()->AddTask(mountTask);
+				ThreadedTaskHandler::Instance()->AddTask(mountTask);
 			}
 		break;
 

@@ -65,7 +65,7 @@ class ThrowMessageHandler : public sigslot::has_slots<>
 {
 public:
 	ThrowMessageHandler() : iMsgWindowCount(0) {}
-	~ThrowMessageHandler() {}
+	virtual ~ThrowMessageHandler() {}
 
 	void ThrowMessage(const char *title, const char *msg)
 	{

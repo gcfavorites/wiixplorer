@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2011 Dimok
+ * Copyright (C) 2012 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef REMOUNTTASK_H_
-#define REMOUNTTASK_H_
+#ifndef DOWNLOADTASK_H_
+#define DOWNLOADTASK_H_
 
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "Controls/Task.hpp"
 
-class RemountTask : public ThreadedTask, public Task
+class DownloadTask : public ThreadedTask, public Task
 {
 public:
-	RemountTask(const char *title, int Device);
-	virtual ~RemountTask();
+	DownloadTask(const char *title, const std::string &DownloadURL, const char *Filepath);
+	virtual ~DownloadTask();
 	virtual void Execute(void);
 	void SetAutoDelete(bool b) { bAutoDelete = b; }
+	sigslot::signal3<int, u8 *, u32> DownloadFinished;
 private:
-	int RemountDevice;
+	std::string DownloadURL;
+	const char *Filepath;
 	bool bAutoDelete;
 };
 
