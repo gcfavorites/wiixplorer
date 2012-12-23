@@ -74,6 +74,7 @@ void CSettings::SetDefault()
 	CompressionLevel = -1;
 	USBPort = 0;
 	PDFLoadZoom = 1.0f;
+	PointerSpeed = 0.18f;
 	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
 	sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
 	sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
@@ -178,7 +179,8 @@ bool CSettings::Save()
 	fprintf(file, "SoundblockCount = %d\n", SoundblockCount);
 	fprintf(file, "SoundblockSize = %d\n", SoundblockSize);
 	fprintf(file, "LoadMusicToMem = %d\n", LoadMusicToMem);
-	fprintf(file, "PDFLoadZoom = %0.2f\n", PDFLoadZoom);
+	fprintf(file, "PDFLoadZoom = %g\n", PDFLoadZoom);
+	fprintf(file, "PointerSpeed = %g\n", PointerSpeed);
 	fprintf(file, "ScreenshotFormat = %d\n", ScreenshotFormat);
 	fprintf(file, "LastUsedPath = %s\n", LastUsedPath.c_str());
 	fprintf(file, "MusicPath = %s\n", MusicPath);
@@ -580,6 +582,10 @@ bool CSettings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "PDFLoadZoom") == 0) {
 		PDFLoadZoom = atof(value);
+		return true;
+	}
+	else if (strcmp(name, "PointerSpeed") == 0) {
+		PointerSpeed = atof(value);
 		return true;
 	}
 	else if (strcmp(name, "CustomFontPath") == 0) {

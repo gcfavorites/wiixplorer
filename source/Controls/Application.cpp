@@ -53,16 +53,10 @@ Application::Application()
 	bgImg = new GuiImage(screenwidth, screenheight, &ImgColor[0]);
 
 	//! Setup WiiMote Pointers
-	standardPointer[0] = Resources::GetImageData("player1_point.png");
-	standardPointer[1] = Resources::GetImageData("player2_point.png");
-	standardPointer[2] = Resources::GetImageData("player3_point.png");
-	standardPointer[3] = Resources::GetImageData("player4_point.png");
-
-	for (int i = 0; i < 4; i++)
-	{
-		grabPointer[i] = NULL;
-		pointer[i] = standardPointer[i];
-	}
+	pointer[0] = new WiiPointer("player1_point.png");
+	pointer[1] = new WiiPointer("player2_point.png");
+	pointer[2] = new WiiPointer("player3_point.png");
+	pointer[3] = new WiiPointer("player4_point.png");
 }
 
 Application::~Application()
@@ -72,11 +66,7 @@ Application::~Application()
 	delete btnHome;
 
 	for (int i = 0; i < 4; i++)
-	{
-		if(grabPointer[i])
-			Resources::Remove(grabPointer[i]);
-		Resources::Remove(standardPointer[i]);
-	}
+		delete pointer[i];
 
 	//! remove still outstanding deletes without any dependencies
 	for(u32 i = 0; i < deleteList.size(); i++)
@@ -138,6 +128,10 @@ void Application::updateEvents()
 	//! first update the inputs
 	UpdatePads();
 
+	//! update WiiMote pointer position and activity first
+	for (int i = 0; i < 4; i++)
+		pointer[i]->Update(&userInput[i]);
+
 	//! update the gui elements with new inputs
 	for (int i = 0; i < 4; i++)
 	{
@@ -155,17 +149,9 @@ void Application::updateEvents()
 
 	//! render wii mote pointer always last and on top
 	for (int i = 3; i >= 0; i--)
-	{
-		if (userInput[i].wpad->ir.valid)
-		{
-			Menu_DrawImg(pointer[i]->GetImage(), pointer[i]->GetWidth(),
-						 pointer[i]->GetHeight(), GX_TF_RGBA8,
-						 userInput[i].wpad->ir.x-pointer[i]->GetWidth()/2,
-						 userInput[i].wpad->ir.y-pointer[i]->GetHeight()/2, 100.0f,
-						 userInput[i].wpad->ir.angle, 1, 1, 255);
-		}
-	}
+		pointer[i]->Draw();
 
+	//! render to screen
 	Menu_Render();
 
 	//! delete elements that were queued for delete after the rendering is done
@@ -178,19 +164,10 @@ void Application::SetGrabPointer(int i)
 	if (i < 0 || i > 3)
 		return;
 
-	if(!grabPointer[i])
-	{
-		if(i == 0)
-			grabPointer[i] = Resources::GetImageData("player1_grab.png");
-		else if(i == 1)
-			grabPointer[i] = Resources::GetImageData("player2_grab.png");
-		else if(i == 2)
-			grabPointer[i] = Resources::GetImageData("player3_grab.png");
-		else
-			grabPointer[i] = Resources::GetImageData("player4_grab.png");
-	}
+	char imageTxt[20];
+	snprintf(imageTxt, sizeof(imageTxt), "player%i_grab.png", i + 1);
 
-	pointer[i] = grabPointer[i];
+	pointer[i]->SetImage(imageTxt);
 }
 
 void Application::ResetPointer(int i)
@@ -198,11 +175,10 @@ void Application::ResetPointer(int i)
 	if (i < 0 || i > 3)
 		return;
 
-	pointer[i] = standardPointer[i];
+	char imageTxt[20];
+	snprintf(imageTxt, sizeof(imageTxt), "player%i_point.png", i + 1);
 
-	if(grabPointer[i])
-		Resources::Remove(grabPointer[i]);
-	grabPointer[i] = NULL;
+	pointer[i]->SetImage(imageTxt);
 }
 
 void Application::ProcessDeleteQueue(void)

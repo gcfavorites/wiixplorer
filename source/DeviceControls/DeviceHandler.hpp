@@ -165,6 +165,9 @@ class DeviceHandler
 		PartitionHandle * GetUSB0Handle() { return usb0; };
 		PartitionHandle * GetUSB1Handle() { return usb1; };
 		PartitionHandle * GetUSBFromDev(int dev);
+		static const DISC_INTERFACE *GetUSB0Interface(void);
+		static const DISC_INTERFACE *GetUSB1Interface(void);
+
 		int PartToPortPart(int part);
 		int PartToPort(int part);
 		static int PathToDriveType(const char * path);

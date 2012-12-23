@@ -81,9 +81,8 @@ extern "C" void ExitApp()
 	}
 	Settings.Save();
 	//! fade out
-	Application::Instance()->quit();
 	//! now destroy objects
-	ShutdownPads();
+	Application::Instance()->quit();
 	Clipboard::DestroyInstance();
 	Taskbar::DestroyInstance();
 	MusicPlayer::DestroyInstance();
@@ -99,6 +98,7 @@ extern "C" void ExitApp()
 	ClearFontData();
 	DI2_Close();
 	USB_Deinitialize();
+	ShutdownPads();
 	DeInit_Network();
 	ISFS_Deinitialize();
 	MagicPatches(0);
@@ -202,7 +202,8 @@ extern "C" bool IsFromHBC()
 
 #define HBC_HAXX	0x0001000148415858LL
 #define HBC_JODI	0x000100014A4F4449LL
-#define HBC_1_0_7   0x00010001AF1BF516LL
+#define HBC_1_0_7	0x00010001AF1BF516LL
+#define HBC_LULZ	0x000100014c554c5aLL
 
 extern "C" void Sys_LoadHBC(void)
 {
@@ -210,7 +211,9 @@ extern "C" void Sys_LoadHBC(void)
 
 	WII_Initialize();
 
-	int ret = WII_LaunchTitle(HBC_1_0_7);
+	int ret = WII_LaunchTitle(HBC_LULZ);
+	if(ret < 0)
+		WII_LaunchTitle(HBC_1_0_7);
 	if(ret < 0)
 		WII_LaunchTitle(HBC_JODI);
 	if(ret < 0)

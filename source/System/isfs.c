@@ -25,6 +25,7 @@
 #include <sys/dir.h>
 #include <sys/iosupport.h>
 #include <malloc.h>
+#include <fcntl.h>
 #include <time.h>
 
 #include "isfs.h"
@@ -59,6 +60,8 @@ typedef struct _DIR_STATE_STRUCT {
 	u32 index;
 } DIR_STATE_STRUCT;
 
+
+static s32 READ_ONLY = 1;
 static DIR_STATE_STRUCT *current = NULL;
 static fstats filest __attribute__((aligned(32)));
 static s32 dotab_device = -1;
@@ -256,25 +259,59 @@ static void stat_entry(DIR_ENTRY *entry, struct stat *st)
 static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, int flags, int mode) {
 	FILE_STRUCT *file = (FILE_STRUCT *)fileStruct;
 
-	const char *ptr = strchr(path, ':');
-	if (ptr == NULL) {
-		r->_errno = ENOENT;
+	char *abspath = malloc(ISFS_MAXPATHLEN);
+	if(!abspath) {
+		r->_errno = ENOMEM;
 		return -1;
 	}
 
-	char *abspath = malloc(ISFS_MAXPATHLEN);
-	if(!abspath) return -1;
+	char *ptr = strchr(path, ':');
+	if (ptr != NULL)
+		snprintf(abspath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(abspath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, path);
 
-	strncpy(abspath, ptr+1, ISFS_MAXPATHLEN-1);
 	RemoveDoubleSlash(abspath);
 
-	file->fd = ISFS_Open(abspath, ISFS_OPEN_READ);
+    if (!READ_ONLY && (mode & O_CREAT)) {
+    	int iOwnerPerm  = 0;
+        int iGroupPerm = 0;
+        int iOtherPerm = 0;
+
+        if (flags & S_IRUSR)
+        	iOwnerPerm |= ISFS_OPEN_READ;
+        if (flags & S_IWUSR)
+        	iOwnerPerm |= ISFS_OPEN_WRITE;
+        if (flags & S_IRGRP)
+        	iGroupPerm |= ISFS_OPEN_READ;
+        if (flags & S_IWGRP)
+        	iGroupPerm |= ISFS_OPEN_WRITE;
+        if (iGroupPerm & S_IROTH)
+        	iOtherPerm |= ISFS_OPEN_READ;
+        if (flags & S_IWOTH)
+        	iOtherPerm |= ISFS_OPEN_WRITE;
+
+        ISFS_CreateFile(abspath, 0, iOwnerPerm, iGroupPerm, iOtherPerm);
+    }
+
+    int iOpenMode = 0;
+
+    if (mode & O_RDONLY)
+    	iOpenMode |= ISFS_OPEN_READ;
+    if (!READ_ONLY && (mode & O_WRONLY))
+    	iOpenMode |= ISFS_OPEN_WRITE;
+    if (!READ_ONLY && (mode & O_RDWR))
+    	iOpenMode |= ISFS_OPEN_RW;
+
+	file->fd = ISFS_Open(abspath, iOpenMode);
 
 	free(abspath);
 
 	if (file->fd < 0) {
-		if (file->fd == ISFS_EINVAL) r->_errno = EACCES;
-		else r->_errno = -file->fd;
+		if (file->fd == ISFS_EINVAL)
+			r->_errno = EACCES;
+		else
+			r->_errno = -file->fd;
 		return -1;
 	}
 
@@ -283,6 +320,9 @@ static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, in
 
 	if (ISFS_GetFileStats(file->fd, &filest) == ISFS_OK)
 		file->size = filest.file_length;
+
+	if (!READ_ONLY && (flags & O_APPEND))
+		ISFS_Seek(file->fd, 0, SEEK_END);
 
 	return (int)file;
 }
@@ -312,7 +352,7 @@ static int _ISFS_read_r(struct _reent *r, int fd, char *buf, size_t len) {
 
 	char *buf32 = (char *) memalign(32, SECTOR_SIZE);
 	if(!buf32) {
-		r->_errno = EBADF;
+		r->_errno = ENOMEM;
 		return -1;
 	}
 
@@ -324,7 +364,7 @@ static int _ISFS_read_r(struct _reent *r, int fd, char *buf, size_t len) {
 		ret = ISFS_Read(file->fd, buf32, len > SECTOR_SIZE ? SECTOR_SIZE : len);
 		if (ret < 0) {
 			r->_errno = -ret;
-			read = -ret;
+			read = ret;
 			break;
 		}
 		if(ret == 0)
@@ -338,6 +378,49 @@ static int _ISFS_read_r(struct _reent *r, int fd, char *buf, size_t len) {
 	free(buf32);
 
 	return read;
+}
+
+static int _ISFS_write_r(struct _reent *r UNUSED, int fd, const char *buf, size_t len) {
+
+	if(READ_ONLY) {
+		r->_errno = EACCES;
+		return -1;
+	}
+
+	FILE_STRUCT *file = (FILE_STRUCT *)fd;
+	if (file->fd < 0) {
+		r->_errno = EBADF;
+		return -1;
+	}
+
+	char *buf32 = (char *) memalign(32, SECTOR_SIZE);
+	if(!buf32) {
+		r->_errno = ENOMEM;
+		return -1;
+	}
+
+	s32 ret = 0;
+	s32 wrote = 0;
+
+	while(len > 0)
+	{
+		s32 block = len > SECTOR_SIZE ? SECTOR_SIZE : len;
+		memcpy(buf32, buf + wrote, block);
+
+		ret = ISFS_Write(file->fd, buf32, block);
+		if (ret <= 0) {
+			r->_errno = -ret;
+			wrote = ret;
+			break;
+		}
+
+		wrote += ret;
+		len -= ret;
+	}
+
+	free(buf32);
+
+	return wrote;
 }
 
 static off_t _ISFS_seek_r(struct _reent *r, int fd, off_t pos, int dir) {
@@ -608,48 +691,189 @@ static int _ISFS_statvfs_r(struct _reent *r UNUSED, const char *path UNUSED, str
 	return 0;
 }
 
-/*
-static int _ISFS_unlink_r(struct _reent *r, const char *name)
+static int _ISFS_rename_r (struct _reent *r UNUSED, const char *oldName, const char *newName)
 {
-	const char *pAbsPath = strchr(name, ':');
-	if(!pAbsPath) {
+	if(READ_ONLY) {
+		r->_errno = EACCES;
 		return -1;
 	}
-	s32 ret = ISFS_Delete(pAbsPath+1);
+
+	char *pAbsOldPath = malloc(ISFS_MAXPATHLEN);
+	if(!pAbsOldPath) {
+		r->_errno = ENOMEM;
+		return -1;
+	}
+
+	char *pAbsNewPath = malloc(ISFS_MAXPATHLEN);
+	if(!pAbsNewPath) {
+		r->_errno = ENOMEM;
+		free(pAbsOldPath);
+		return -1;
+	}
+
+	char *ptr = strchr(oldName, ':');
+	if (ptr != NULL)
+		snprintf(pAbsOldPath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(pAbsOldPath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, oldName);
+
+	ptr = strchr(newName, ':');
+	if (ptr != NULL)
+		snprintf(pAbsNewPath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(pAbsNewPath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, newName);
+
+	RemoveDoubleSlash(pAbsOldPath);
+	RemoveDoubleSlash(pAbsNewPath);
+
+	s32 ret = ISFS_Rename(pAbsOldPath, pAbsNewPath);
 	if(ret < 0) {
 		r->_errno = ENOENT;
 	}
 
+	free(pAbsOldPath);
+	free(pAbsNewPath);
+
+	return ret;
+}
+
+static int _ISFS_unlink_r(struct _reent *r, const char *name)
+{
+	if(READ_ONLY) {
+		r->_errno = EACCES;
+		return -1;
+	}
+
+	char *pAbsPath = malloc(ISFS_MAXPATHLEN);
+	if(!pAbsPath) {
+		r->_errno = ENOMEM;
+		return -1;
+	}
+
+	char *ptr = strchr(name, ':');
+	if (ptr != NULL)
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, name);
+
+	RemoveDoubleSlash(pAbsPath);
+
+	s32 ret = ISFS_Delete(pAbsPath);
+	if(ret < 0) {
+		r->_errno = ENOENT;
+	}
+
+	free(pAbsPath);
+
     return ret;
 }
-*/
+
+static int _ISFS_mkdir_r (struct _reent *r, const char *path, int mode)
+{
+	if(READ_ONLY) {
+		r->_errno = EACCES;
+		return -1;
+	}
+
+	char *pAbsPath = malloc(ISFS_MAXPATHLEN);
+	if(!pAbsPath) {
+		r->_errno = ENOMEM;
+		return -1;
+	}
+
+	char *ptr = strchr(path, ':');
+	if (ptr != NULL)
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, path);
+
+	RemoveDoubleSlash(pAbsPath);
+
+    int iOwnerPerm = (mode / 100) % 10;
+    int iGroupPerm = (mode / 10) % 10;
+    int iOtherPerm = (mode % 10);
+
+	s32 ret = ISFS_CreateDir(pAbsPath, 0, iOwnerPerm, iGroupPerm, iOtherPerm);
+	if(ret < 0) {
+		r->_errno = EBADF;
+	}
+
+	free(pAbsPath);
+
+	return ret;
+}
+
+static int _ISFS_chmod_r(struct _reent *r, const char *path, mode_t mode)
+{
+	if(READ_ONLY) {
+		r->_errno = EACCES;
+		return -1;
+	}
+
+	char *pAbsPath = malloc(ISFS_MAXPATHLEN);
+	if(!pAbsPath) {
+		r->_errno = ENOMEM;
+		return -1;
+	}
+
+	char *ptr = strchr(path, ':');
+	if (ptr != NULL)
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s", ptr + 1);
+	else
+		snprintf(pAbsPath, ISFS_MAXPATHLEN, "%s/%s", current->entry->abspath, path);
+
+	RemoveDoubleSlash(pAbsPath);
+
+    u32 uiOwnerID = 0;
+    u16 uiGroupID = 0;
+    u8 ucAttributes = 0, ucOwnerPerm, ucGroupPerm, ucOtherPerm;
+
+    s32 ret = ISFS_GetAttr(pAbsPath, &uiOwnerID, &uiGroupID, &ucAttributes, &ucOwnerPerm, &ucGroupPerm, &ucOtherPerm);
+    if(ret < 0) {
+		r->_errno = ENOENT;
+    }
+    else {
+        int iOwnerPerm = (mode / 100) % 10;
+        int iGroupPerm = (mode / 10) % 10;
+        int iOtherPerm = (mode % 10);
+
+		ret = ISFS_SetAttr(pAbsPath, uiOwnerID, uiGroupID, ucAttributes, iOwnerPerm, iGroupPerm, iOtherPerm);
+		if(ret < 0) {
+			r->_errno = ENOENT;
+		}
+    }
+
+	free(pAbsPath);
+
+	return ret;
+}
 
 static const devoptab_t dotab_isfs = {
 	DEVICE_NAME,
 	sizeof(FILE_STRUCT),
 	_ISFS_open_r,
 	_ISFS_close_r,
-	NULL,
+	_ISFS_write_r,
 	_ISFS_read_r,
 	_ISFS_seek_r,
 	_ISFS_fstat_r,
 	_ISFS_stat_r,
-	NULL,
-	NULL,
+	NULL, // _ISFS_link_r
+	_ISFS_unlink_r,
 	_ISFS_chdir_r,
-	NULL,
-	NULL,
+	_ISFS_rename_r,
+	_ISFS_mkdir_r,
 	sizeof(DIR_STATE_STRUCT),
 	_ISFS_diropen_r,
 	_ISFS_dirreset_r,
 	_ISFS_dirnext_r,
 	_ISFS_dirclose_r,
 	_ISFS_statvfs_r,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	NULL, // _ISFS_ftruncate_r,
+	NULL, // _ISFS_fsync_r,
+	NULL, /* Device data */
+	_ISFS_chmod_r,
+	NULL  // _ISFS_fchmod_r,
 };
 
 static bool read_isfs()

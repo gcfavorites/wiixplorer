@@ -275,7 +275,7 @@ void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POIN
 
 void TextEditor::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POINT &p)
 {
-	if(!userInput[pointer].wpad->ir.valid)
+	if(!userInput[pointer].wpad.ir.valid)
 		return;
 
 	TextPointerBtn->PositionChanged(pointer, p.x - TextPointerBtn->GetLeft(), p.y - TextPointerBtn->GetTop());

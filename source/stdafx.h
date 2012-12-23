@@ -29,5 +29,6 @@
 extern u32 frameCount;
 extern int screenwidth;
 extern int screenheight;
+extern Mtx GXmodelView2D;
 
 #endif

@@ -20,6 +20,7 @@
 #include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
 #include "GUI/gui_button.h"
+#include "Controls/WiiPointer.h"
 
 class Application : public GuiFrame, public sigslot::has_slots<>
 {
@@ -78,9 +79,7 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		static bool exitApplication;
 
 		GuiImage *bgImg;
-		GuiImageData *pointer[4];
-		GuiImageData *standardPointer[4];
-		GuiImageData *grabPointer[4];
+		WiiPointer *pointer[4];
 		GuiButton *btnHome;
 		GuiTrigger trigHome;
 		std::vector<GuiElement *> updateOnlyElement;

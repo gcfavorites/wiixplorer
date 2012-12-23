@@ -521,8 +521,8 @@ void GuiKeyboard::Update(GuiTrigger * t)
 
 	++DeleteDelay;
 
-	if(((t->wpad->btns_h & WiiControls.KeyBackspaceButton) ||
-		(t->wpad->btns_h & (ClassicControls.KeyBackspaceButton << 16)) ||
+	if(((t->wpad.btns_h & WiiControls.KeyBackspaceButton) ||
+		(t->wpad.btns_h & (ClassicControls.KeyBackspaceButton << 16)) ||
 		(t->pad.btns_h & GCControls.KeyBackspaceButton)) &&
 		DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
 	{
@@ -530,8 +530,8 @@ void GuiKeyboard::Update(GuiTrigger * t)
 		DeleteDelay = 0;
 	}
 
-	if((t->wpad->btns_h & WiiControls.KeyShiftButton) ||
-	   (t->wpad->btns_h & (ClassicControls.KeyShiftButton << 16)) ||
+	if((t->wpad.btns_h & WiiControls.KeyShiftButton) ||
+	   (t->wpad.btns_h & (ClassicControls.KeyShiftButton << 16)) ||
 	   (t->pad.btns_h & GCControls.KeyShiftButton))
 	{
 		caps = true;

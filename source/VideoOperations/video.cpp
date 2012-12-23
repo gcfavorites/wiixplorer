@@ -31,7 +31,7 @@ static unsigned int *xfb[2] = { NULL, NULL }; // Double buffered
 static int whichfb = 0; // Switch
 static GXRModeObj *vmode = NULL; // Menu video mode
 static unsigned char gp_fifo[DEFAULT_FIFO_SIZE] ATTRIBUTE_ALIGN (32);
-static Mtx GXmodelView2D;
+Mtx GXmodelView2D;
 int screenwidth = 640;
 int screenheight = 480;
 u32 frameCount = 0;

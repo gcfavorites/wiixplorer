@@ -702,7 +702,7 @@ void ImageViewer::Draw()
 
 	for(int i = 0; i < 4; ++i)
 	{
-		if(userInput[i].wpad->ir.valid)
+		if(userInput[i].wpad.ir.valid)
 			isPointerVisible = true;
 	}
 
