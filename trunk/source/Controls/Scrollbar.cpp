@@ -258,7 +258,7 @@ void Scrollbar::OnBoxButtonHold(GuiButton *sender UNUSED, int pointer, const POI
 	if(ScrollState < ScrollSpeed)
 		return;
 
-	if(!userInput[pointer].wpad->ir.valid)
+	if(!userInput[pointer].wpad.ir.valid)
 		return;
 
 	int y = p.y-this->GetTop()-scrollbarBox->GetHeight()/2;
@@ -423,29 +423,29 @@ void Scrollbar::ScrollByButton(GuiTrigger *t)
 {
 	static int pressedPosition = -1;
 
-	if(!t->wpad->ir.valid || ScrollState < ButtonScrollSpeed-ButtonScrollSpeed*fabs(pressedPosition-t->wpad->ir.y)/250.f)
+	if(!t->wpad.ir.valid || ScrollState < ButtonScrollSpeed-ButtonScrollSpeed*fabs(pressedPosition-t->wpad.ir.y)/250.f)
 		return;
 
-	if(pressedChan == -1 && (t->wpad->btns_d & ButtonScroll) &&
-	   parentElement && parentElement->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+	if(pressedChan == -1 && (t->wpad.btns_d & ButtonScroll) &&
+	   parentElement && parentElement->IsInside(t->wpad.ir.x, t->wpad.ir.y))
 	{
-		pressedPosition = t->wpad->ir.y;
+		pressedPosition = t->wpad.ir.y;
 		pressedChan = t->chan;
-		oneButtonScrollImg->SetPosition(t->wpad->ir.x-oneButtonScrollImg->GetWidth()/2, t->wpad->ir.y-oneButtonScrollImg->GetHeight()/2);
+		oneButtonScrollImg->SetPosition(t->wpad.ir.x-oneButtonScrollImg->GetWidth()/2, t->wpad.ir.y-oneButtonScrollImg->GetHeight()/2);
 	}
 
-	if(pressedChan == t->chan && (t->wpad->btns_h & ButtonScroll))
+	if(pressedChan == t->chan && (t->wpad.btns_h & ButtonScroll))
 	{
-		if(pressedPosition-oneButtonScrollImg->GetHeight()/2 > t->wpad->ir.y)
+		if(pressedPosition-oneButtonScrollImg->GetHeight()/2 > t->wpad.ir.y)
 			ScrollOneUp();
-		else if(pressedPosition+oneButtonScrollImg->GetHeight()/2 < t->wpad->ir.y)
+		else if(pressedPosition+oneButtonScrollImg->GetHeight()/2 < t->wpad.ir.y)
 			ScrollOneDown();
 
 		ScrollState = 0;
 		listChanged(SelItem, SelInd);
 	}
 
-	if(pressedChan == t->chan && !t->wpad->btns_d && !t->wpad->btns_h)
+	if(pressedChan == t->chan && !t->wpad.btns_d && !t->wpad.btns_h)
 	{
 		pressedChan = -1;
 		pressedPosition = -1;
@@ -460,7 +460,7 @@ void Scrollbar::Draw()
 	arrowUpBtn->Draw();
 	arrowDownBtn->Draw();
 	scrollbarBoxBtn->Draw();
-	if(pressedChan >= 0 && userInput[pressedChan].wpad->ir.valid)
+	if(pressedChan >= 0 && userInput[pressedChan].wpad.ir.valid)
 		oneButtonScrollImg->Draw();
 
 	UpdateEffects();

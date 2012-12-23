@@ -250,9 +250,9 @@ void GuiButton::Update(GuiTrigger * t)
 
 	#ifdef HW_RVL
 	// cursor
-	if(t->wpad->ir.valid && t->chan >= 0)
+	if(t->wpad.ir.valid && t->chan >= 0)
 	{
-		if(this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+		if(this->IsInside(t->wpad.ir.x, t->wpad.ir.y))
 		{
 			if(state == STATE_DEFAULT || (state == STATE_SELECTED && t->chan != stateChan)) // we weren't on the button before!
 			{
@@ -295,26 +295,26 @@ void GuiButton::Update(GuiTrigger * t)
 	// button triggers
 	if(clickable)
 	{
-		u32 wm_btns = t->wpad->btns_d;
+		u32 wm_btns = t->wpad.btns_d;
 
 		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
-				if((wm_btns & trigger[i]->wpad->btns_d) || (t->pad.btns_d & trigger[i]->pad.btns_d))
+				if((wm_btns & trigger[i]->wpad.btns_d) || (t->pad.btns_d & trigger[i]->pad.btns_d))
 				{
 					if(state == STATE_SELECTED)
 					{
-						if(!t->wpad->ir.valid || this->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+						if(!t->wpad.ir.valid || this->IsInside(t->wpad.ir.x, t->wpad.ir.y))
 						{
 							if(soundClick)
 								soundClick->Play();
 
 							POINT p = {0, 0};
-							if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+							if (userInput[t->chan].wpad.ir.valid)
 							{
-								p.x = userInput[t->chan].wpad->ir.x;
-								p.y = userInput[t->chan].wpad->ir.y;
+								p.x = userInput[t->chan].wpad.ir.x;
+								p.y = userInput[t->chan].wpad.ir.y;
 							}
 							Clicked(this, t->chan, p);
 							ClickAndHold = true;
@@ -324,14 +324,12 @@ void GuiButton::Update(GuiTrigger * t)
 					else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
 					{
 						POINT p = {0, 0};
-						if (userInput[t->chan].wpad)
+						if (userInput[t->chan].wpad.ir.valid)
 						{
-							if (userInput[t->chan].wpad->ir.valid)
-							{
-								p.x = userInput[t->chan].wpad->ir.x;
-								p.y = userInput[t->chan].wpad->ir.y;
-							}
+							p.x = userInput[t->chan].wpad.ir.x;
+							p.y = userInput[t->chan].wpad.ir.y;
 						}
+
 						Clicked(this, t->chan, p);
 						return;
 					}
@@ -350,7 +348,7 @@ void GuiButton::Update(GuiTrigger * t)
 			if(held || !trigger[i])
 				continue;
 
-			if((t->wpad->btns_h & trigger[i]->wpad->btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
+			if((t->wpad.btns_h & trigger[i]->wpad.btns_h) || (t->pad.btns_h & trigger[i]->pad.btns_h))
 			{
 				//! TRIGGER_BUTTON_ONLY_HELD is executed on every chan
 				if(trigger[i]->type == TRIGGER_BUTTON_ONLY_HELD)
@@ -375,10 +373,10 @@ void GuiButton::Update(GuiTrigger * t)
 		if(held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-			if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+			if(userInput[t->chan].wpad.ir.valid)
 			{
-				p.x = userInput[t->chan].wpad->ir.x;
-				p.y = userInput[t->chan].wpad->ir.y;
+				p.x = userInput[t->chan].wpad.ir.x;
+				p.y = userInput[t->chan].wpad.ir.y;
 			}
 			Held(this, t->chan, p);
 			return;
@@ -386,10 +384,10 @@ void GuiButton::Update(GuiTrigger * t)
 		else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-			if (userInput[t->chan].wpad && userInput[t->chan].wpad->ir.valid)
+			if(userInput[t->chan].wpad.ir.valid)
 			{
-				p.x = userInput[t->chan].wpad->ir.x;
-				p.y = userInput[t->chan].wpad->ir.y;
+				p.x = userInput[t->chan].wpad.ir.x;
+				p.y = userInput[t->chan].wpad.ir.y;
 			}
 			this->ResetState();
 			Released(this, t->chan, p);

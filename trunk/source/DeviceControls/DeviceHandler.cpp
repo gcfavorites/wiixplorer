@@ -245,12 +245,54 @@ bool DeviceHandler::MountGCB()
 	return gcb->Mount(0, DeviceName[GCSDB]);
 }
 
+const DISC_INTERFACE *DeviceHandler::GetUSB0Interface(void)
+{
+	return (IOS_GetVersion() > 200) ? &__io_usbstorage2_port0 : &__io_usbstorage;
+}
+
+const DISC_INTERFACE *DeviceHandler::GetUSB1Interface(void)
+{
+	if(IOS_GetVersion() < 200)
+		return NULL;
+
+	return &__io_usbstorage2_port1;
+}
+
+static inline bool USBSpinUp()
+{
+	bool started0 = true;
+	bool started1 = true;
+	int retries = 400;
+
+	const DISC_INTERFACE * handle0 = DeviceHandler::GetUSB0Interface();
+	const DISC_INTERFACE * handle1 = NULL;
+
+	if(Settings.USBPort == 1)
+		handle1 = DeviceHandler::GetUSB1Interface();
+
+	// wait 20 sec for the USB to spin up...stupid slow ass HDD
+	do
+	{
+		if(handle0)
+			started0 = (handle0->startup() && handle0->isInserted());
+
+		if(handle1)
+			started1 = (handle1->startup() && handle1->isInserted());
+
+		if(started0 && started1) break;
+		usleep(50000);
+	}
+	while(--retries > 0);
+
+	return (started0 && started1);
+}
+
 bool DeviceHandler::MountUSB(int pos)
 {
 	if(!usb0)
-		usb0 = new PartitionHandle((IOS_GetVersion() > 200) ? &__io_usbstorage2_port0 : &__io_usbstorage);
+		usb0 = new PartitionHandle(GetUSB0Interface());
 	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
-		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
+		usb1 = new PartitionHandle(GetUSB1Interface());
 
 	int partCount = 0;
 	if(usb0)
@@ -266,10 +308,13 @@ bool DeviceHandler::MountUSB(int pos)
 
 bool DeviceHandler::MountAllUSB()
 {
+	if(!USBSpinUp())
+		return false;
+
 	if(!usb0)
-		usb0 = new PartitionHandle((IOS_GetVersion() > 200) ? &__io_usbstorage2_port0 : &__io_usbstorage);
+		usb0 = new PartitionHandle(GetUSB0Interface());
 	if(!usb1 && Settings.USBPort == 1 && IOS_GetVersion() > 200)
-		usb1 = new PartitionHandle(&__io_usbstorage2_port1);
+		usb1 = new PartitionHandle(GetUSB1Interface());
 
 	bool result = false;
 	int partCount = 0;

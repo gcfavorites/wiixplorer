@@ -240,6 +240,7 @@ void ControlsSettingsMenu::SetupOptions()
 {
 	int i = 0;
 
+	options.SetName(i++, tr("Screen Pointer Speed"));
 	options.SetName(i++, tr("Screenshot Hold Button"));
 	options.SetName(i++, tr("Screenshot Press Button"));
 	options.SetName(i++, tr("Click Button"));
@@ -306,6 +307,8 @@ void ControlsSettingsMenu::SetupOptions()
 void ControlsSettingsMenu::SetOptionValues()
 {
 	int i = 0;
+
+	options.SetValue(i++, "%g", Settings.PointerSpeed);
 
 	options.SetValue(i++, GetWPAD_ButtonName(Settings.Controls.ScreenshotHoldButton));
 	options.SetValue(i++, GetWPAD_ButtonName(Settings.Controls.ScreenshotClickButton));
@@ -387,189 +390,253 @@ void ControlsSettingsMenu::SetOptionValues()
 	options.SetValue(i++, GetPAD_ButtonName(GCControls.OneButtonScroll));
 }
 
-void ControlsSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
+void ControlsSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int iClick)
 {
-	switch (option)
+	int iOption = -1;
+
+	if(++iOption == iClick)
 	{
-		case 0:
-			Settings.Controls.ScreenshotHoldButton = NextWPAD_Button(Settings.Controls.ScreenshotHoldButton);
-			break;
-		case 1:
-			Settings.Controls.ScreenshotClickButton = NextWPAD_Button(Settings.Controls.ScreenshotClickButton);
-			break;
-		case 2:
-			WiiControls.ClickButton = NextWPAD_Button(WiiControls.ClickButton);
-			break;
-		case 3:
-			ClassicControls.ClickButton = NextClassic_Button(ClassicControls.ClickButton);
-			break;
-		case 4:
-			GCControls.ClickButton = NextPAD_Button(GCControls.ClickButton);
-			break;
-		case 5:
-			WiiControls.BackButton = NextWPAD_Button(WiiControls.BackButton);
-			break;
-		case 6:
-			ClassicControls.BackButton = NextClassic_Button(ClassicControls.BackButton);
-			break;
-		case 7:
-			GCControls.BackButton = NextPAD_Button(GCControls.BackButton);
-			break;
-		case 8:
-			WiiControls.UpButton = NextWPAD_Button(WiiControls.UpButton);
-			break;
-		case 9:
-			ClassicControls.UpButton = NextClassic_Button(ClassicControls.UpButton);
-			break;
-		case 10:
-			GCControls.UpButton = NextPAD_Button(GCControls.UpButton);
-			break;
-		case 11:
-			WiiControls.DownButton = NextWPAD_Button(WiiControls.DownButton);
-			break;
-		case 12:
-			ClassicControls.DownButton = NextClassic_Button(ClassicControls.DownButton);
-			break;
-		case 13:
-			GCControls.DownButton = NextPAD_Button(GCControls.DownButton);
-			break;
-		case 14:
-			WiiControls.LeftButton = NextWPAD_Button(WiiControls.LeftButton);
-			break;
-		case 15:
-			ClassicControls.LeftButton = NextClassic_Button(ClassicControls.LeftButton);
-			break;
-		case 16:
-			GCControls.LeftButton = NextPAD_Button(GCControls.LeftButton);
-			break;
-		case 17:
-			WiiControls.RightButton = NextWPAD_Button(WiiControls.RightButton);
-			break;
-		case 18:
-			ClassicControls.RightButton = NextClassic_Button(ClassicControls.RightButton);
-			break;
-		case 19:
-			GCControls.RightButton = NextPAD_Button(GCControls.RightButton);
-			break;
-		case 20:
-			WiiControls.ContextMenuButton = NextWPAD_Button(WiiControls.ContextMenuButton);
-			break;
-		case 21:
-			ClassicControls.ContextMenuButton = NextClassic_Button(ClassicControls.ContextMenuButton);
-			break;
-		case 22:
-			GCControls.ContextMenuButton = NextPAD_Button(GCControls.ContextMenuButton);
-			break;
-		case 23:
-			WiiControls.MarkItemButton = NextWPAD_Button(WiiControls.MarkItemButton);
-			break;
-		case 24:
-			ClassicControls.MarkItemButton = NextClassic_Button(ClassicControls.MarkItemButton);
-			break;
-		case 25:
-			GCControls.MarkItemButton = NextPAD_Button(GCControls.MarkItemButton);
-			break;
-		case 26:
-			WiiControls.DeMarkItemButton = NextWPAD_Button(WiiControls.DeMarkItemButton);
-			break;
-		case 27:
-			ClassicControls.DeMarkItemButton = NextClassic_Button(ClassicControls.DeMarkItemButton);
-			break;
-		case 28:
-			GCControls.DeMarkItemButton = NextPAD_Button(GCControls.DeMarkItemButton);
-			break;
-		case 29:
-			WiiControls.DeMarkAllButton = NextWPAD_Button(WiiControls.DeMarkAllButton);
-			break;
-		case 30:
-			ClassicControls.DeMarkAllButton = NextClassic_Button(ClassicControls.DeMarkAllButton);
-			break;
-		case 31:
-			GCControls.DeMarkAllButton = NextPAD_Button(GCControls.DeMarkAllButton);
-			break;
-		case 32:
-			WiiControls.HomeButton = NextWPAD_Button(WiiControls.HomeButton);
-			break;
-		case 33:
-			ClassicControls.HomeButton = NextClassic_Button(ClassicControls.HomeButton);
-			break;
-		case 34:
-			GCControls.HomeButton = NextPAD_Button(GCControls.HomeButton);
-			break;
-		case 35:
-			WiiControls.EditTextLine = NextWPAD_Button(WiiControls.EditTextLine);
-			break;
-		case 36:
-			ClassicControls.EditTextLine = NextClassic_Button(ClassicControls.EditTextLine);
-			break;
-		case 37:
-			GCControls.EditTextLine = NextPAD_Button(GCControls.EditTextLine);
-			break;
-		case 38:
-			WiiControls.SlideShowButton = NextWPAD_Button(WiiControls.SlideShowButton);
-			break;
-		case 39:
-			ClassicControls.SlideShowButton = NextClassic_Button(ClassicControls.SlideShowButton);
-			break;
-		case 40:
-			GCControls.SlideShowButton = NextPAD_Button(GCControls.SlideShowButton);
-			break;
-		case 41:
-			WiiControls.KeyBackspaceButton = NextWPAD_Button(WiiControls.KeyBackspaceButton);
-			break;
-		case 42:
-			ClassicControls.KeyBackspaceButton = NextClassic_Button(ClassicControls.KeyBackspaceButton);
-			break;
-		case 43:
-			GCControls.KeyBackspaceButton = NextPAD_Button(GCControls.KeyBackspaceButton);
-			break;
-		case 44:
-			WiiControls.KeyShiftButton = NextWPAD_Button(WiiControls.KeyShiftButton);
-			break;
-		case 45:
-			ClassicControls.KeyShiftButton = NextClassic_Button(ClassicControls.KeyShiftButton);
-			break;
-		case 46:
-			GCControls.KeyShiftButton = NextPAD_Button(GCControls.KeyShiftButton);
-			break;
-		case 47:
-			WiiControls.ZoomIn = NextWPAD_Button(WiiControls.ZoomIn);
-			break;
-		case 48:
-			ClassicControls.ZoomIn = NextClassic_Button(ClassicControls.ZoomIn);
-			break;
-		case 49:
-			GCControls.ZoomIn = NextPAD_Button(GCControls.ZoomIn);
-			break;
-		case 50:
-			WiiControls.ZoomOut = NextWPAD_Button(WiiControls.ZoomOut);
-			break;
-		case 51:
-			ClassicControls.ZoomOut = NextClassic_Button(ClassicControls.ZoomOut);
-			break;
-		case 52:
-			GCControls.ZoomOut = NextPAD_Button(GCControls.ZoomOut);
-			break;
-		case 53:
-			WiiControls.UpInDirectory = NextWPAD_Button(WiiControls.UpInDirectory);
-			break;
-		case 54:
-			ClassicControls.UpInDirectory = NextClassic_Button(ClassicControls.UpInDirectory);
-			break;
-		case 55:
-			GCControls.UpInDirectory = NextPAD_Button(GCControls.UpInDirectory);
-			break;
-		case 56:
-			WiiControls.OneButtonScroll = NextWPAD_Button(WiiControls.OneButtonScroll);
-			break;
-		case 57:
-			ClassicControls.OneButtonScroll = NextClassic_Button(ClassicControls.OneButtonScroll);
-			break;
-		case 58:
-			GCControls.OneButtonScroll = NextPAD_Button(GCControls.OneButtonScroll);
-			break;
-		default:
-			break;
+		char entered[50];
+		snprintf(entered, sizeof(entered), "%g", Settings.PointerSpeed);
+		int result = OnScreenKeyboard(entered, sizeof(entered));
+		if(result)
+			Settings.PointerSpeed = atof(entered);
+	}
+	else if(++iOption == iClick)
+	{
+		Settings.Controls.ScreenshotHoldButton = NextWPAD_Button(Settings.Controls.ScreenshotHoldButton);
+	}
+	else if(++iOption == iClick)
+	{
+		Settings.Controls.ScreenshotClickButton = NextWPAD_Button(Settings.Controls.ScreenshotClickButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.ClickButton = NextWPAD_Button(WiiControls.ClickButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.ClickButton = NextClassic_Button(ClassicControls.ClickButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.ClickButton = NextPAD_Button(GCControls.ClickButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.BackButton = NextWPAD_Button(WiiControls.BackButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.BackButton = NextClassic_Button(ClassicControls.BackButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.BackButton = NextPAD_Button(GCControls.BackButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.UpButton = NextWPAD_Button(WiiControls.UpButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.UpButton = NextClassic_Button(ClassicControls.UpButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.UpButton = NextPAD_Button(GCControls.UpButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.DownButton = NextWPAD_Button(WiiControls.DownButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.DownButton = NextClassic_Button(ClassicControls.DownButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.DownButton = NextPAD_Button(GCControls.DownButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.LeftButton = NextWPAD_Button(WiiControls.LeftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.LeftButton = NextClassic_Button(ClassicControls.LeftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.LeftButton = NextPAD_Button(GCControls.LeftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.RightButton = NextWPAD_Button(WiiControls.RightButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.RightButton = NextClassic_Button(ClassicControls.RightButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.RightButton = NextPAD_Button(GCControls.RightButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.ContextMenuButton = NextWPAD_Button(WiiControls.ContextMenuButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.ContextMenuButton = NextClassic_Button(ClassicControls.ContextMenuButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.ContextMenuButton = NextPAD_Button(GCControls.ContextMenuButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.MarkItemButton = NextWPAD_Button(WiiControls.MarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.MarkItemButton = NextClassic_Button(ClassicControls.MarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.MarkItemButton = NextPAD_Button(GCControls.MarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.DeMarkItemButton = NextWPAD_Button(WiiControls.DeMarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.DeMarkItemButton = NextClassic_Button(ClassicControls.DeMarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.DeMarkItemButton = NextPAD_Button(GCControls.DeMarkItemButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.DeMarkAllButton = NextWPAD_Button(WiiControls.DeMarkAllButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.DeMarkAllButton = NextClassic_Button(ClassicControls.DeMarkAllButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.DeMarkAllButton = NextPAD_Button(GCControls.DeMarkAllButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.HomeButton = NextWPAD_Button(WiiControls.HomeButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.HomeButton = NextClassic_Button(ClassicControls.HomeButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.HomeButton = NextPAD_Button(GCControls.HomeButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.EditTextLine = NextWPAD_Button(WiiControls.EditTextLine);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.EditTextLine = NextClassic_Button(ClassicControls.EditTextLine);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.EditTextLine = NextPAD_Button(GCControls.EditTextLine);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.SlideShowButton = NextWPAD_Button(WiiControls.SlideShowButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.SlideShowButton = NextClassic_Button(ClassicControls.SlideShowButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.SlideShowButton = NextPAD_Button(GCControls.SlideShowButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.KeyBackspaceButton = NextWPAD_Button(WiiControls.KeyBackspaceButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.KeyBackspaceButton = NextClassic_Button(ClassicControls.KeyBackspaceButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.KeyBackspaceButton = NextPAD_Button(GCControls.KeyBackspaceButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.KeyShiftButton = NextWPAD_Button(WiiControls.KeyShiftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.KeyShiftButton = NextClassic_Button(ClassicControls.KeyShiftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.KeyShiftButton = NextPAD_Button(GCControls.KeyShiftButton);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.ZoomIn = NextWPAD_Button(WiiControls.ZoomIn);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.ZoomIn = NextClassic_Button(ClassicControls.ZoomIn);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.ZoomIn = NextPAD_Button(GCControls.ZoomIn);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.ZoomOut = NextWPAD_Button(WiiControls.ZoomOut);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.ZoomOut = NextClassic_Button(ClassicControls.ZoomOut);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.ZoomOut = NextPAD_Button(GCControls.ZoomOut);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.UpInDirectory = NextWPAD_Button(WiiControls.UpInDirectory);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.UpInDirectory = NextClassic_Button(ClassicControls.UpInDirectory);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.UpInDirectory = NextPAD_Button(GCControls.UpInDirectory);
+	}
+	else if(++iOption == iClick)
+	{
+		WiiControls.OneButtonScroll = NextWPAD_Button(WiiControls.OneButtonScroll);
+	}
+	else if(++iOption == iClick)
+	{
+		ClassicControls.OneButtonScroll = NextClassic_Button(ClassicControls.OneButtonScroll);
+	}
+	else if(++iOption == iClick)
+	{
+		GCControls.OneButtonScroll = NextPAD_Button(GCControls.OneButtonScroll);
 	}
 
 	SetOptionValues();

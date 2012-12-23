@@ -129,6 +129,8 @@ class CSettings
 		short   USBPort;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
+		//!WiiMote pointer speed factor
+		float   PointerSpeed;
 		//!Path to MPlayerPath
 		char	MPlayerPath[150];
 		//!Path to WiiMC

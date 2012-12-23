@@ -359,7 +359,7 @@ void IconFileBrowser::Update(GuiTrigger * t)
 
 		int currChan = t->chan;
 
-		if(t->wpad->ir.valid && !Buttons[i]->IsInside(t->wpad->ir.x, t->wpad->ir.y))
+		if(t->wpad.ir.valid && !Buttons[i]->IsInside(t->wpad.ir.x, t->wpad.ir.y))
 			t->chan = -1;
 
 		Buttons[i]->Update(t);
