@@ -46,6 +46,7 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void BackInDirectory(GuiButton *sender, int pointer, const POINT &p);
 		void OnFinishedTask(Task *t);
+        void OnEffectFinish(GuiElement *e);
 		//! TODO: Move these
 		void ProcessChoice(int choice);
 		void ProcessArcChoice(int choice, const char * destCandidat);
@@ -55,6 +56,7 @@ class Explorer : public GuiFrame, public sigslot::has_slots<>
 		GuiFileBrowser * guiBrowser;
 		int guiBrowserType;
 		int explorerTasks;
+		bool bHidden;
 
 		GuiImage * BackgroundImg;
 		GuiImage * creditsImg;

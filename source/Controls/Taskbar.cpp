@@ -144,6 +144,7 @@ void Taskbar::RemoveTask(Task * t)
 
 		if(Tasks[i] == t)
 		{
+			Remove(t);
 			Tasks.erase(Tasks.begin()+i);
 			i--;
 		}

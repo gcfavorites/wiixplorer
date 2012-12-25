@@ -290,8 +290,8 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 
 	else if(sender == backButton)
 	{
-		//! avoid 2nd clicking on back button
-		backButton->SetClickable(false);
+		//! disable all gui user inputs
+		Application::Instance()->SetGuiInputUpdate(false);
 		//! has to be called here because of the LOCK in the delete queue
 		//! to avoid lock on autodeleting the running file load tasks
 		bExitRequested = true;
@@ -305,6 +305,7 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 			Application::Instance()->ResetPointer(i);
 
 		Application::Instance()->PushForDelete(this);
+		Application::Instance()->SetGuiInputUpdate(true);
 	}
 
 	else if(sender == slideshowButton)

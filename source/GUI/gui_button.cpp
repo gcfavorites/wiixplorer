@@ -295,13 +295,11 @@ void GuiButton::Update(GuiTrigger * t)
 	// button triggers
 	if(clickable)
 	{
-		u32 wm_btns = t->wpad.btns_d;
-
 		for(int i = 0; i < 4; i++)
 		{
 			if(trigger[i] && (trigger[i]->chan == -1 || trigger[i]->chan == t->chan))
 			{
-				if((wm_btns & trigger[i]->wpad.btns_d) || (t->pad.btns_d & trigger[i]->pad.btns_d))
+				if((t->wpad.btns_d & trigger[i]->wpad.btns_d) || (t->pad.btns_d & trigger[i]->pad.btns_d))
 				{
 					if(state == STATE_SELECTED)
 					{
@@ -311,10 +309,10 @@ void GuiButton::Update(GuiTrigger * t)
 								soundClick->Play();
 
 							POINT p = {0, 0};
-							if (userInput[t->chan].wpad.ir.valid)
+							if (t->wpad.ir.valid)
 							{
-								p.x = userInput[t->chan].wpad.ir.x;
-								p.y = userInput[t->chan].wpad.ir.y;
+								p.x = t->wpad.ir.x;
+								p.y = t->wpad.ir.y;
 							}
 							Clicked(this, t->chan, p);
 							ClickAndHold = true;
@@ -324,11 +322,11 @@ void GuiButton::Update(GuiTrigger * t)
 					else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
 					{
 						POINT p = {0, 0};
-						if (userInput[t->chan].wpad.ir.valid)
-						{
-							p.x = userInput[t->chan].wpad.ir.x;
-							p.y = userInput[t->chan].wpad.ir.y;
-						}
+                        if (t->wpad.ir.valid)
+                        {
+                            p.x = t->wpad.ir.x;
+                            p.y = t->wpad.ir.y;
+                        }
 
 						Clicked(this, t->chan, p);
 						return;
@@ -373,22 +371,22 @@ void GuiButton::Update(GuiTrigger * t)
 		if(held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-			if(userInput[t->chan].wpad.ir.valid)
-			{
-				p.x = userInput[t->chan].wpad.ir.x;
-				p.y = userInput[t->chan].wpad.ir.y;
-			}
+            if (t->wpad.ir.valid)
+            {
+                p.x = t->wpad.ir.x;
+                p.y = t->wpad.ir.y;
+            }
 			Held(this, t->chan, p);
 			return;
 		}
 		else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-			if(userInput[t->chan].wpad.ir.valid)
-			{
-				p.x = userInput[t->chan].wpad.ir.x;
-				p.y = userInput[t->chan].wpad.ir.y;
-			}
+            if (t->wpad.ir.valid)
+            {
+                p.x = t->wpad.ir.x;
+                p.y = t->wpad.ir.y;
+            }
 			this->ResetState();
 			Released(this, t->chan, p);
 			ClickAndHold = false;

@@ -33,6 +33,7 @@ class SettingsMenu : public GuiFrame, public sigslot::has_slots<>
 		virtual void CloseMenu();
 		virtual void SetupOptions() = 0;
 		virtual void SetOptionValues() = 0;
+		void OnEffectFinish(GuiElement *e UNUSED);
 
 		GuiFrame *returnFrame;
 

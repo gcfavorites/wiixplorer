@@ -36,7 +36,6 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen);
 int WindowPrompt(const char *title, const char *msg = NULL,
 				 const char *btn1Label = NULL, const char *btn2Label = NULL,
 				 const char *btn3Label = NULL, const char *btn4Label = NULL);
-int WaitSMBConnect(void);
 bool NetworkInitPrompt();
 
 #endif

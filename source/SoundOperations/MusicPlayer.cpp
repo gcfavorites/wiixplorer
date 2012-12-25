@@ -77,6 +77,9 @@ MusicPlayer::MusicPlayer()
 	TitleList.LoadList();
 	TitleList.ItemClicked.connect(this, &MusicPlayer::OnTitleListClick);
 
+    //! catch each finished effect event
+    EffectFinished.connect(this, &MusicPlayer::OnEffectFinish);
+
 	currentPlaying = TitleList.FindFile(Settings.MusicPath);
 
 	Play();
@@ -285,75 +288,79 @@ void MusicPlayer::Hide()
 	if(!Application::isClosing())
 	{
 		if(!ExitRequested && parentElement)
-		{
 			SetEffect(EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT, 40);
-			while(this->GetEffect() > 0)
-				Application::Instance()->updateEvents();
-		}
 
 		Application::Instance()->UnsetUpdateOnly(this);
 	}
-
-	this->DimBackground(false);
-	this->SetVisible(false);
-
-	RemoveAll();
-
-	if(trigA)
-		delete trigA;
-	if(trigB)
-		delete trigB;
-
-	Resources::Remove(btnSoundOver);
-	Resources::Remove(playerImgData);
-	Resources::Remove(navi_defaultImgData);
-	Resources::Remove(navi_upImgData);
-	Resources::Remove(navi_downImgData);
-	Resources::Remove(navi_leftImgData);
-	Resources::Remove(navi_rightImgData);
-
-	if(BackButton)
-		delete BackButton;
-	if(PlayBtn)
-		delete PlayBtn;
-	if(StopBtn)
-		delete StopBtn;
-	if(NextBtn)
-		delete NextBtn;
-	if(PreviousBtn)
-		delete PreviousBtn;
-
-	if(BackgroundImg)
-		delete BackgroundImg;
-	if(CircleImg)
-		delete CircleImg;
-
-	if(PlayTitle)
-		delete PlayTitle;
-
-	btnSoundOver = NULL;
-
-	playerImgData = NULL;
-	navi_defaultImgData = NULL;
-	navi_upImgData = NULL;
-	navi_downImgData = NULL;
-	navi_leftImgData = NULL;
-	navi_rightImgData = NULL;
-
-	trigA = NULL;
-	trigB = NULL;
-
-	BackButton = NULL;
-	PlayBtn = NULL;
-	StopBtn = NULL;
-	NextBtn = NULL;
-	PreviousBtn = NULL;
-
-	BackgroundImg = NULL;
-	CircleImg = NULL;
-
-	PlayTitle = NULL;
 }
+
+void MusicPlayer::OnEffectFinish(GuiElement *e UNUSED)
+{
+    //! on hide effect remove the explorer from the application
+    if(GetEffect() == (EFFECT_SLIDE_RIGHT | EFFECT_SLIDE_OUT))
+    {
+    	this->DimBackground(false);
+    	this->SetVisible(false);
+
+    	RemoveAll();
+
+    	if(trigA)
+    		delete trigA;
+    	if(trigB)
+    		delete trigB;
+
+    	Resources::Remove(btnSoundOver);
+    	Resources::Remove(playerImgData);
+    	Resources::Remove(navi_defaultImgData);
+    	Resources::Remove(navi_upImgData);
+    	Resources::Remove(navi_downImgData);
+    	Resources::Remove(navi_leftImgData);
+    	Resources::Remove(navi_rightImgData);
+
+    	if(BackButton)
+    		delete BackButton;
+    	if(PlayBtn)
+    		delete PlayBtn;
+    	if(StopBtn)
+    		delete StopBtn;
+    	if(NextBtn)
+    		delete NextBtn;
+    	if(PreviousBtn)
+    		delete PreviousBtn;
+
+    	if(BackgroundImg)
+    		delete BackgroundImg;
+    	if(CircleImg)
+    		delete CircleImg;
+
+    	if(PlayTitle)
+    		delete PlayTitle;
+
+    	btnSoundOver = NULL;
+
+    	playerImgData = NULL;
+    	navi_defaultImgData = NULL;
+    	navi_upImgData = NULL;
+    	navi_downImgData = NULL;
+    	navi_leftImgData = NULL;
+    	navi_rightImgData = NULL;
+
+    	trigA = NULL;
+    	trigB = NULL;
+
+    	BackButton = NULL;
+    	PlayBtn = NULL;
+    	StopBtn = NULL;
+    	NextBtn = NULL;
+    	PreviousBtn = NULL;
+
+    	BackgroundImg = NULL;
+    	CircleImg = NULL;
+
+    	PlayTitle = NULL;
+    }
+}
+
 
 void MusicPlayer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
