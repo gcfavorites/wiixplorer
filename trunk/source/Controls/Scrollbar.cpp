@@ -63,7 +63,7 @@ Scrollbar::Scrollbar(int h, u8 m)
 	MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight();
 
 	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WPAD_BUTTON_A | WPAD_CLASSIC_BUTTON_A, PAD_BUTTON_A);
+	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	int Tiles = (height-scrollbarTop->GetHeight()-scrollbarBottom->GetHeight())/4;
 	int PositionY = 0;
@@ -468,6 +468,9 @@ void Scrollbar::Draw()
 
 void Scrollbar::Update(GuiTrigger * t)
 {
+    if(!t)
+        return;
+
 	arrowUpBtn->Update(t);
 	arrowDownBtn->Update(t);
 	scrollbarBoxBtn->Update(t);

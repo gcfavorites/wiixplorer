@@ -50,6 +50,8 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		void PushForDelete(GuiElement *e);
 		void ProcessDeleteQueue(void);
 
+		void SetGuiInputUpdate(bool b) { bGuiInputUpdate = b; }
+
 		void SetUpdateOnly(GuiElement *e)
 		{
 			UnsetUpdateOnly(e);
@@ -85,6 +87,7 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		std::vector<GuiElement *> updateOnlyElement;
 		std::vector<GuiElement *> deleteList;
 		mutex_t m_mutex;
+		bool bGuiInputUpdate;
 };
 
 #endif //_APPLICATION_H

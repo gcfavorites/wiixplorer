@@ -73,6 +73,7 @@ class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		void InternalSetup();
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnTitleListClick(PlayList *list, int item);
+		void OnEffectFinish(GuiElement *e UNUSED);
 		void ThreadedLoadMusic(void);
 		void executeThread(void);
 

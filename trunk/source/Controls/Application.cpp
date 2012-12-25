@@ -57,6 +57,9 @@ Application::Application()
 	pointer[1] = new WiiPointer("player2_point.png");
 	pointer[2] = new WiiPointer("player3_point.png");
 	pointer[3] = new WiiPointer("player4_point.png");
+
+	//! initially all input updates are allowed
+	bGuiInputUpdate = true;
 }
 
 Application::~Application()
@@ -133,15 +136,18 @@ void Application::updateEvents()
 		pointer[i]->Update(&userInput[i]);
 
 	//! update the gui elements with new inputs
-	for (int i = 0; i < 4; i++)
+	if(bGuiInputUpdate)
 	{
-		if(!updateOnlyElement.empty())
-			updateOnlyElement.back()->Update(&userInput[i]);
-		else
-			Update(&userInput[i]);
+		for (int i = 0; i < 4; i++)
+		{
+			if(!updateOnlyElement.empty())
+				updateOnlyElement.back()->Update(&userInput[i]);
+			else
+				Update(&userInput[i]);
 
-		//! always update the home menu, everywhere
-		btnHome->Update(&userInput[i]);
+			//! always update the home menu, everywhere
+			btnHome->Update(&userInput[i]);
+		}
 	}
 
 	//! render everything

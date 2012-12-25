@@ -198,6 +198,9 @@ void Explorer::Init()
 	BackInDirBtn->SetTrigger(trigBackInDir);
 	BackInDirBtn->Clicked.connect(this, &Explorer::BackInDirectory);
 
+    //! catch each finished effect event
+    EffectFinished.connect(this, &Explorer::OnEffectFinish);
+
 	Append(BackgroundImg);
 	Append(clickmenuBtn);
 	Append(CreditsBtn);
@@ -236,14 +239,21 @@ void Explorer::show()
 void Explorer::hide()
 {
 	if(!Application::isClosing())
-	{
 		SetEffect(EFFECT_FADE, -50);
-		while(this->GetEffect() > 0)
-			Application::Instance()->updateEvents();
-	}
-
-	if(parentElement)
+	else if(parentElement)
 		((GuiFrame *) parentElement)->Remove(this);
+
+}
+
+void Explorer::OnEffectFinish(GuiElement *e UNUSED)
+{
+    //! on hide effect remove the explorer from the application
+    if(GetEffect() == EFFECT_FADE && effectAmount < 0)
+    {
+        if(parentElement)
+            ((GuiFrame *) parentElement)->Remove(this);
+
+    }
 }
 
 int Explorer::LoadPath(const char * path)
@@ -390,22 +400,9 @@ void Explorer::OnDeviceSelect(DeviceMenu *deviceMenu, int device)
 
 		if(DI2_ReadDVD(read_buffer, 1, 0) != 0)
 		{
-			ThrobberWindow *window = new ThrobberWindow(tr("Mounting DVD"), tr("Please wait..."));
-			window->DimBackground(true);
-			Application::Instance()->Append(window);
-			Application::Instance()->SetUpdateOnly(window);
-
-			DeviceHandler::Instance()->UnMountDVD();
-			DI2_Mount();
-			Timer mountTimer;
-			while(mountTimer.elapsedMilliSecs() < 10000 && (DI2_GetStatus() & DVD_INIT))
-				Application::Instance()->updateEvents();
-
-			if(!(DI2_GetStatus() & DVD_INIT))
-				DeviceHandler::Instance()->MountDVDFS();
-
-			window->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 50);
-			Application::Instance()->PushForDelete(window);
+			RemountTask *mountTask = new RemountTask(tr("Mounting DVD"), DVD);
+			Taskbar::Instance()->AddTask(mountTask);
+			ThreadedTaskHandler::Instance()->AddTask(mountTask);
 		}
 		free(read_buffer);
 	}

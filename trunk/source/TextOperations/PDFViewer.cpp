@@ -168,8 +168,12 @@ void PDFViewer::FreePage()
 	if(image && OutputImage && SlideShowStart > 0)
 	{
 		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+		Application::Instance()->SetGuiInputUpdate(false);
+
 		while(image->GetEffect() > 0)
 			Application::Instance()->updateEvents();
+
+		Application::Instance()->SetGuiInputUpdate(true);
 	}
 
 	image->SetImage(NULL, 0, 0);

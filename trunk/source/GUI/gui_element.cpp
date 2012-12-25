@@ -213,6 +213,7 @@ void GuiElement::UpdateEffects()
 				if(xoffsetDyn >= 0)
 				{
 					xoffsetDyn = 0;
+					EffectFinished(this);
 					effects = 0;
 				}
 			}
@@ -223,6 +224,7 @@ void GuiElement::UpdateEffects()
 				if(xoffsetDyn <= 0)
 				{
 					xoffsetDyn = 0;
+					EffectFinished(this);
 					effects = 0;
 				}
 			}
@@ -232,6 +234,7 @@ void GuiElement::UpdateEffects()
 
 				if(yoffsetDyn >= 0)
 				{
+					EffectFinished(this);
 					yoffsetDyn = 0;
 					effects = 0;
 				}
@@ -242,6 +245,7 @@ void GuiElement::UpdateEffects()
 
 				if(yoffsetDyn <= 0)
 				{
+					EffectFinished(this);
 					yoffsetDyn = 0;
 					effects = 0;
 				}
@@ -253,37 +257,53 @@ void GuiElement::UpdateEffects()
 			{
 				xoffsetDyn -= effectAmount;
 
-				if(xoffsetDyn <= -screenwidth)
+				if(xoffsetDyn <= -screenwidth) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
-				else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn <= -GetWidth())
+				}
+				else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn <= -GetWidth()) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
+				}
 			}
 			else if(effects & EFFECT_SLIDE_RIGHT)
 			{
 				xoffsetDyn += effectAmount;
 
-				if(xoffsetDyn >= screenwidth)
+				if(xoffsetDyn >= screenwidth) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
-				else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn >= GetWidth()*scaleX)
+				}
+				else if((effects & EFFECT_SLIDE_FROM) && xoffsetDyn >= GetWidth()*scaleX) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
+				}
 			}
 			else if(effects & EFFECT_SLIDE_TOP)
 			{
 				yoffsetDyn -= effectAmount;
 
-				if(yoffsetDyn <= -screenheight)
+				if(yoffsetDyn <= -screenheight) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
-				else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn <= -GetHeight())
+				}
+				else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn <= -GetHeight()) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
+				}
 			}
 			else if(effects & EFFECT_SLIDE_BOTTOM)
 			{
 				yoffsetDyn += effectAmount;
 
-				if(yoffsetDyn >= screenheight)
+				if(yoffsetDyn >= screenheight) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
-				else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn >= GetHeight())
+				}
+				else if((effects & EFFECT_SLIDE_FROM) && yoffsetDyn >= GetHeight()) {
+					EffectFinished(this);
 					effects = 0; // shut off effect
+				}
 			}
 		}
 	}
@@ -293,11 +313,13 @@ void GuiElement::UpdateEffects()
 
 		if(effectAmount < 0 && alphaDyn <= 0)
 		{
+            EffectFinished(this);
 			alphaDyn = 0;
 			effects = 0; // shut off effect
 		}
 		else if(effectAmount > 0 && alphaDyn >= alpha)
 		{
+            EffectFinished(this);
 			alphaDyn = alpha;
 			effects = 0; // shut off effect
 		}
@@ -309,6 +331,7 @@ void GuiElement::UpdateEffects()
 		if((effectAmount < 0 && scaleDyn <= effectTarget/100.0)
 			|| (effectAmount > 0 && scaleDyn >= effectTarget/100.0))
 		{
+            EffectFinished(this);
 			scaleDyn = effectTarget/100.0;
 			effects = 0; // shut off effect
 		}

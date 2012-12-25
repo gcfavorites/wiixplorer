@@ -338,6 +338,7 @@ class GuiElement
 		//! Signals
 		sigslot::signal2<GuiElement *, bool> VisibleChanged;
 		sigslot::signal3<GuiElement *, int, int> StateChanged;
+		sigslot::signal1<GuiElement *> EffectFinished;
 	protected:
 		bool rumble; //!< Wiimote rumble (on/off) - set to on when this element requests a rumble event
 		bool visible; //!< Visibility of the element. If false, Draw() is skipped
