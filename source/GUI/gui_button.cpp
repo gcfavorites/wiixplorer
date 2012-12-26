@@ -322,11 +322,11 @@ void GuiButton::Update(GuiTrigger * t)
 					else if(trigger[i]->type == TRIGGER_BUTTON_ONLY)
 					{
 						POINT p = {0, 0};
-                        if (t->wpad.ir.valid)
-                        {
-                            p.x = t->wpad.ir.x;
-                            p.y = t->wpad.ir.y;
-                        }
+						if (t->wpad.ir.valid)
+						{
+							p.x = t->wpad.ir.x;
+							p.y = t->wpad.ir.y;
+						}
 
 						Clicked(this, t->chan, p);
 						return;
@@ -371,22 +371,22 @@ void GuiButton::Update(GuiTrigger * t)
 		if(held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-            if (t->wpad.ir.valid)
-            {
-                p.x = t->wpad.ir.x;
-                p.y = t->wpad.ir.y;
-            }
+			if (t->wpad.ir.valid)
+			{
+				p.x = t->wpad.ir.x;
+				p.y = t->wpad.ir.y;
+			}
 			Held(this, t->chan, p);
 			return;
 		}
 		else if(!held && (state == STATE_HELD) && (stateChan == t->chan))
 		{
 			POINT p = {0, 0};
-            if (t->wpad.ir.valid)
-            {
-                p.x = t->wpad.ir.x;
-                p.y = t->wpad.ir.y;
-            }
+			if (t->wpad.ir.valid)
+			{
+				p.x = t->wpad.ir.x;
+				p.y = t->wpad.ir.y;
+			}
 			this->ResetState();
 			Released(this, t->chan, p);
 			ClickAndHold = false;

@@ -26,12 +26,14 @@
 #include <string.h>
 #include <ogc/mutex.h>
 #include <ogc/system.h>
+#include <ogc/machine/processor.h>
 #include <sdcard/wiisd_io.h>
 #include <sdcard/gcsd.h>
 #include "network/SMB.h"
 #include "network/FTPClient.h"
 #include "network/NFS.h"
 #include "mload/usb2storage.h"
+#include "System/IosLoader.h"
 #include "System/isfs.h"
 #include "DeviceHandler.hpp"
 
@@ -41,29 +43,22 @@
 #include "DiskOperations/iso.h"
 #include "DiskOperations/di2.h"
 
+#define USB_REG_BASE				0x0D040000
+#define USB_REG_OP_BASE				(USB_REG_BASE + (read32(USB_REG_BASE) & 0xff))
+#define USB_REG_PORTSC_OFF(port)	(0x44 + 4 * port)
+#define USB_PORT_CONNECTED(port)	(read32(USB_REG_OP_BASE + USB_REG_PORTSC_OFF(port)) & 0x01)
+
 DeviceHandler * DeviceHandler::instance = NULL;
+
+DeviceHandler::DeviceHandler()
+	: sd(0), gca(0), gcb(0),
+	  usb0(0), usb1(0)
+{
+}
 
 DeviceHandler::~DeviceHandler()
 {
 	UnMountAll();
-}
-
-DeviceHandler * DeviceHandler::Instance()
-{
-	if (instance == NULL)
-	{
-		instance = new DeviceHandler();
-	}
-	return instance;
-}
-
-void DeviceHandler::DestroyInstance()
-{
-	if(instance)
-	{
-		delete instance;
-	}
-	instance = NULL;
 }
 
 bool DeviceHandler::MountAll()
@@ -258,19 +253,23 @@ const DISC_INTERFACE *DeviceHandler::GetUSB1Interface(void)
 	return &__io_usbstorage2_port1;
 }
 
-static inline bool USBSpinUp()
+bool DeviceHandler::USBSpinUp(int iTimeout)
 {
-	bool started0 = true;
-	bool started1 = true;
-	int retries = 400;
+	bool started0 = false;
+	bool started1 = false;
+	time_t tStart = time(0);
+
+	//! if we have AHBPROT check if some device is connected to the ports before trying to mount them
+	//! otherwise just try and wait till it times out
+	if(CheckAHBPROT() && !USB_PORT_CONNECTED(0) && ((Settings.USBPort == 0) || !USB_PORT_CONNECTED(1)))
+		return false;
 
 	const DISC_INTERFACE * handle0 = DeviceHandler::GetUSB0Interface();
 	const DISC_INTERFACE * handle1 = NULL;
 
-	if(Settings.USBPort == 1)
+	if(Settings.USBPort == 1 && USB_PORT_CONNECTED(1))
 		handle1 = DeviceHandler::GetUSB1Interface();
 
-	// wait 20 sec for the USB to spin up...stupid slow ass HDD
 	do
 	{
 		if(handle0)
@@ -279,12 +278,16 @@ static inline bool USBSpinUp()
 		if(handle1)
 			started1 = (handle1->startup() && handle1->isInserted());
 
-		if(started0 && started1) break;
+		if(   (!handle0 || started0)
+		   && (!handle1 || started1)) {
+			break;
+		}
+
 		usleep(50000);
 	}
-	while(--retries > 0);
+	while(time(0) - tStart < iTimeout);
 
-	return (started0 && started1);
+	return (started0 || started1);
 }
 
 bool DeviceHandler::MountUSB(int pos)
@@ -308,7 +311,7 @@ bool DeviceHandler::MountUSB(int pos)
 
 bool DeviceHandler::MountAllUSB()
 {
-	if(!USBSpinUp())
+	if(!USBSpinUp(10))
 		return false;
 
 	if(!usb0)

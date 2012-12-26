@@ -313,13 +313,13 @@ void GuiElement::UpdateEffects()
 
 		if(effectAmount < 0 && alphaDyn <= 0)
 		{
-            EffectFinished(this);
+			EffectFinished(this);
 			alphaDyn = 0;
 			effects = 0; // shut off effect
 		}
 		else if(effectAmount > 0 && alphaDyn >= alpha)
 		{
-            EffectFinished(this);
+			EffectFinished(this);
 			alphaDyn = alpha;
 			effects = 0; // shut off effect
 		}
@@ -331,7 +331,7 @@ void GuiElement::UpdateEffects()
 		if((effectAmount < 0 && scaleDyn <= effectTarget/100.0)
 			|| (effectAmount > 0 && scaleDyn >= effectTarget/100.0))
 		{
-            EffectFinished(this);
+			EffectFinished(this);
 			scaleDyn = effectTarget/100.0;
 			effects = 0; // shut off effect
 		}
