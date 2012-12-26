@@ -468,8 +468,8 @@ void Scrollbar::Draw()
 
 void Scrollbar::Update(GuiTrigger * t)
 {
-    if(!t)
-        return;
+	if(!t)
+		return;
 
 	arrowUpBtn->Update(t);
 	arrowDownBtn->Update(t);

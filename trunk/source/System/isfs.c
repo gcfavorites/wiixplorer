@@ -273,35 +273,35 @@ static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, in
 
 	RemoveDoubleSlash(abspath);
 
-    if (!READ_ONLY && (mode & O_CREAT)) {
-    	int iOwnerPerm  = 0;
-        int iGroupPerm = 0;
-        int iOtherPerm = 0;
+	if (!READ_ONLY && (mode & O_CREAT)) {
+		int iOwnerPerm  = 0;
+		int iGroupPerm = 0;
+		int iOtherPerm = 0;
 
-        if (flags & S_IRUSR)
-        	iOwnerPerm |= ISFS_OPEN_READ;
-        if (flags & S_IWUSR)
-        	iOwnerPerm |= ISFS_OPEN_WRITE;
-        if (flags & S_IRGRP)
-        	iGroupPerm |= ISFS_OPEN_READ;
-        if (flags & S_IWGRP)
-        	iGroupPerm |= ISFS_OPEN_WRITE;
-        if (iGroupPerm & S_IROTH)
-        	iOtherPerm |= ISFS_OPEN_READ;
-        if (flags & S_IWOTH)
-        	iOtherPerm |= ISFS_OPEN_WRITE;
+		if (flags & S_IRUSR)
+			iOwnerPerm |= ISFS_OPEN_READ;
+		if (flags & S_IWUSR)
+			iOwnerPerm |= ISFS_OPEN_WRITE;
+		if (flags & S_IRGRP)
+			iGroupPerm |= ISFS_OPEN_READ;
+		if (flags & S_IWGRP)
+			iGroupPerm |= ISFS_OPEN_WRITE;
+		if (iGroupPerm & S_IROTH)
+			iOtherPerm |= ISFS_OPEN_READ;
+		if (flags & S_IWOTH)
+			iOtherPerm |= ISFS_OPEN_WRITE;
 
-        ISFS_CreateFile(abspath, 0, iOwnerPerm, iGroupPerm, iOtherPerm);
-    }
+		ISFS_CreateFile(abspath, 0, iOwnerPerm, iGroupPerm, iOtherPerm);
+	}
 
-    int iOpenMode = 0;
+	int iOpenMode = 0;
 
-    if (mode & O_RDONLY)
-    	iOpenMode |= ISFS_OPEN_READ;
-    if (!READ_ONLY && (mode & O_WRONLY))
-    	iOpenMode |= ISFS_OPEN_WRITE;
-    if (!READ_ONLY && (mode & O_RDWR))
-    	iOpenMode |= ISFS_OPEN_RW;
+	if (mode & O_RDONLY)
+		iOpenMode |= ISFS_OPEN_READ;
+	if (!READ_ONLY && (mode & O_WRONLY))
+		iOpenMode |= ISFS_OPEN_WRITE;
+	if (!READ_ONLY && (mode & O_RDWR))
+		iOpenMode |= ISFS_OPEN_RW;
 
 	file->fd = ISFS_Open(abspath, iOpenMode);
 
@@ -765,7 +765,7 @@ static int _ISFS_unlink_r(struct _reent *r, const char *name)
 
 	free(pAbsPath);
 
-    return ret;
+	return ret;
 }
 
 static int _ISFS_mkdir_r (struct _reent *r, const char *path, int mode)
@@ -789,9 +789,9 @@ static int _ISFS_mkdir_r (struct _reent *r, const char *path, int mode)
 
 	RemoveDoubleSlash(pAbsPath);
 
-    int iOwnerPerm = (mode / 100) % 10;
-    int iGroupPerm = (mode / 10) % 10;
-    int iOtherPerm = (mode % 10);
+	int iOwnerPerm = (mode / 100) % 10;
+	int iGroupPerm = (mode / 10) % 10;
+	int iOtherPerm = (mode % 10);
 
 	s32 ret = ISFS_CreateDir(pAbsPath, 0, iOwnerPerm, iGroupPerm, iOtherPerm);
 	if(ret < 0) {
@@ -824,24 +824,24 @@ static int _ISFS_chmod_r(struct _reent *r, const char *path, mode_t mode)
 
 	RemoveDoubleSlash(pAbsPath);
 
-    u32 uiOwnerID = 0;
-    u16 uiGroupID = 0;
-    u8 ucAttributes = 0, ucOwnerPerm, ucGroupPerm, ucOtherPerm;
+	u32 uiOwnerID = 0;
+	u16 uiGroupID = 0;
+	u8 ucAttributes = 0, ucOwnerPerm, ucGroupPerm, ucOtherPerm;
 
-    s32 ret = ISFS_GetAttr(pAbsPath, &uiOwnerID, &uiGroupID, &ucAttributes, &ucOwnerPerm, &ucGroupPerm, &ucOtherPerm);
-    if(ret < 0) {
+	s32 ret = ISFS_GetAttr(pAbsPath, &uiOwnerID, &uiGroupID, &ucAttributes, &ucOwnerPerm, &ucGroupPerm, &ucOtherPerm);
+	if(ret < 0) {
 		r->_errno = ENOENT;
-    }
-    else {
-        int iOwnerPerm = (mode / 100) % 10;
-        int iGroupPerm = (mode / 10) % 10;
-        int iOtherPerm = (mode % 10);
+	}
+	else {
+		int iOwnerPerm = (mode / 100) % 10;
+		int iGroupPerm = (mode / 10) % 10;
+		int iOtherPerm = (mode % 10);
 
 		ret = ISFS_SetAttr(pAbsPath, uiOwnerID, uiGroupID, ucAttributes, iOwnerPerm, iGroupPerm, iOtherPerm);
 		if(ret < 0) {
 			r->_errno = ENOENT;
 		}
-    }
+	}
 
 	free(pAbsPath);
 

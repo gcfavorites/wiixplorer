@@ -128,8 +128,8 @@ const char DeviceName[MAXDEVICES][6] =
 class DeviceHandler
 {
 	public:
-		static DeviceHandler * Instance();
-		static void DestroyInstance();
+		static DeviceHandler * Instance() { if(!instance) instance = new DeviceHandler; return instance; }
+		static void DestroyInstance() { delete instance; instance = NULL; }
 
 		bool MountAll();
 		void UnMountAll();
@@ -168,13 +168,15 @@ class DeviceHandler
 		static const DISC_INTERFACE *GetUSB0Interface(void);
 		static const DISC_INTERFACE *GetUSB1Interface(void);
 
+		static bool USBSpinUp(int iTimeout);
+
 		int PartToPortPart(int part);
 		int PartToPort(int part);
 		static int PathToDriveType(const char * path);
 		static const char * GetFSName(int dev);
 		static const char * PathToFSName(const char * path) { return GetFSName(PathToDriveType(path)); };
 	private:
-		DeviceHandler() : sd(0), gca(0), gcb(0), usb0(0), usb1(0) { };
+		DeviceHandler();
 		~DeviceHandler();
 
 		static DeviceHandler *instance;

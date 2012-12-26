@@ -27,7 +27,7 @@ class GuiWindow : public GuiFrame
 		//!Constructor
 		//!\param w Width of window
 		//!\param h Height of window
-		GuiWindow(int w, int h, GuiWindow *p = 0)
+		GuiWindow(int w, int h, GuiFrame *p = 0)
 			: GuiFrame(w, h, p), frameImage(w, h)
 		{
 			Append(&frameImage);

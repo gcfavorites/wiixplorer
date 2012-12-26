@@ -198,8 +198,8 @@ void Explorer::Init()
 	BackInDirBtn->SetTrigger(trigBackInDir);
 	BackInDirBtn->Clicked.connect(this, &Explorer::BackInDirectory);
 
-    //! catch each finished effect event
-    EffectFinished.connect(this, &Explorer::OnEffectFinish);
+	//! catch each finished effect event
+	EffectFinished.connect(this, &Explorer::OnEffectFinish);
 
 	Append(BackgroundImg);
 	Append(clickmenuBtn);
@@ -247,13 +247,13 @@ void Explorer::hide()
 
 void Explorer::OnEffectFinish(GuiElement *e UNUSED)
 {
-    //! on hide effect remove the explorer from the application
-    if(GetEffect() == EFFECT_FADE && effectAmount < 0)
-    {
-        if(parentElement)
-            ((GuiFrame *) parentElement)->Remove(this);
+	//! on hide effect remove the explorer from the application
+	if(GetEffect() == EFFECT_FADE && effectAmount < 0)
+	{
+		if(parentElement)
+			((GuiFrame *) parentElement)->Remove(this);
 
-    }
+	}
 }
 
 int Explorer::LoadPath(const char * path)
