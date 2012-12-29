@@ -300,8 +300,8 @@ static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, in
 		iOpenMode |= ISFS_OPEN_READ;
 	if (!READ_ONLY && (mode & O_WRONLY))
 		iOpenMode |= ISFS_OPEN_WRITE;
-	if (!READ_ONLY && (mode & O_RDWR))
-		iOpenMode |= ISFS_OPEN_RW;
+	if (mode & O_RDWR)
+		iOpenMode |= READ_ONLY ? ISFS_OPEN_READ : ISFS_OPEN_RW;
 
 	file->fd = ISFS_Open(abspath, iOpenMode);
 
