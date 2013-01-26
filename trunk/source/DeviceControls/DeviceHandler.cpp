@@ -154,7 +154,7 @@ bool DeviceHandler::IsInserted(int dev)
 		return IsNFS_Mounted(dev-NFS1);
 
 	else if(dev == NAND)
-		return true;
+		return ISFS_IsMounted();
 
 	else if(dev == DVD)
 		return DVD_Inserted();
@@ -361,6 +361,9 @@ void DeviceHandler::UnMountAllUSB()
 
 bool DeviceHandler::MountNAND()
 {
+	if(!Settings.MountISFS)
+		return false;
+
 	return ISFS_Mount();
 }
 

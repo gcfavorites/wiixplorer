@@ -16,6 +16,8 @@
  ****************************************************************************/
 #include "GeneralSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Controls/ThreadedTaskHandler.hpp"
+#include "System/IosLoader.h"
 #include "Settings.h"
 
 static inline int NextPriority(int prio)
@@ -27,10 +29,10 @@ static inline int NextPriority(int prio)
 		case 30:
 			return 70;
 		case 70:
-			return 100;
-		case 100:
-			return 127;
-		case 127:
+			return 90;
+		case 90:
+			return 120;
+		case 120:
 			return 0;
 		default:
 			return 30;
@@ -47,9 +49,9 @@ static inline const char * PrioritySynonym(int prio)
 			return tr("Low");
 		case 70:
 			return tr("Normal");
-		case 100:
+		case 90:
 			return tr("High");
-		case 127:
+		case 120:
 			return tr("Highest");
 		default:
 			return NULL;
@@ -81,6 +83,7 @@ GeneralSettingsMenu::GeneralSettingsMenu(GuiFrame *r)
 
 GeneralSettingsMenu::~GeneralSettingsMenu()
 {
+	ThreadedTaskHandler::Instance()->setThreadPriority(Settings.CopyThreadPrio);
 }
 
 void GeneralSettingsMenu::SetupOptions()
@@ -126,11 +129,16 @@ void GeneralSettingsMenu::SetOptionValues()
 	else
 		options.SetValue(i++, tr("OFF"));
 
-	if(Settings.USBPort)
-		options.SetValue(i++, tr("ON"));
-	else
-		options.SetValue(i++, tr("OFF"));
-
+	iosinfo_t *info = IosLoader::GetIOSInfo(IOS_GetVersion());
+	if(info && (info->version >= 9)) {
+		if(Settings.USBPort)
+			options.SetValue(i++, tr("ON"));
+		else
+			options.SetValue(i++, tr("OFF"));
+	}
+	else {
+		options.SetValue(i++, tr("requires d2x cIOS v9+"));
+	}
 }
 
 void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
@@ -174,9 +182,16 @@ void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 		case 7:
 			Settings.ShowFormatter = (Settings.ShowFormatter+1) % 2;
 			break;
-		case 8:
-			Settings.USBPort = 0;//(Settings.USBPort+1) % 2; //TODO: fix in ehci module
+		case 8: {
+			iosinfo_t *info = IosLoader::GetIOSInfo(IOS_GetVersion());
+			if(info && (info->version >= 9)) {
+				Settings.USBPort = ((Settings.USBPort+1) % 2);
+			}
+			else {
+				Settings.USBPort = OFF;
+			}
 			break;
+		}
 		default:
 			break;
 	}

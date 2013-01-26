@@ -127,6 +127,8 @@ class CSettings
 		short   CompressionLevel;
 		//!USB Port to mount
 		short   USBPort;
+		//!Allow ISFS mount
+		short   MountISFS;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
 		//!WiiMote pointer speed factor

@@ -59,8 +59,8 @@ Scrollbar::Scrollbar(int h, u8 m)
 	height = h;
 	width = MAX(scrollbarBox->GetWidth(), scrollbarTile->GetWidth());
 
-	MinHeight = arrowUp->GetHeight();
-	MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight();
+	MinHeight = arrowUp->GetHeight() - 5;
+	MaxHeight = height-scrollbarBox->GetHeight()-arrowDown->GetHeight() + 10;
 
 	trigHeldA = new GuiTrigger;
 	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -468,7 +468,7 @@ void Scrollbar::Draw()
 
 void Scrollbar::Update(GuiTrigger * t)
 {
-	if(!t)
+	if(!t || state == STATE_DISABLED)
 		return;
 
 	arrowUpBtn->Update(t);

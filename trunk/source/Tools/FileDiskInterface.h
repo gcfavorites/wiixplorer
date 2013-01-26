@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2010 Joseph Jordan <joe.ftpii@psychlaw.com.au>
- * Copyright (C) 2011 Dimok
+ * Copyright (C) 2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,23 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef _LIBISFS_H
-#define _LIBISFS_H
+#ifndef _FILEDISKINTERFACE_H
+#define _FILEDISKINTERFACE_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <ogc/isfs.h>
+#include <ogc/disc_io.h>
 
-#define ISFS_MAXPATHLEN (ISFS_MAXPATH + 1)
+void filestorage_SetPath(const char *cpPath);
 
-bool ISFS_Mount();
-bool ISFS_IsMounted();
-bool ISFS_Unmount();
+extern const DISC_INTERFACE __io_filestorage;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _LIBISFS_H */
+#endif /* _FILEDISKINTERFACE_H */

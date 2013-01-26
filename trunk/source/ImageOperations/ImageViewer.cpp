@@ -19,6 +19,7 @@
 #include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
 #include "FileOperations/fileops.h"
+#include "FileOperations/FileLoadTask.h"
 #include "FileStartUp/FileExtensions.h"
 #include "ImageOperations/ImageViewer.h"
 #include "sys.h"
@@ -450,7 +451,7 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	return true;
 }
 
-void ImageViewer::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32 buffer_size)
+void ImageViewer::OnFinishedImageLoad(u8 *buffer, u32 buffer_size)
 {
 	GuiImageData *newImage = new GuiImageData(buffer, buffer_size);
 

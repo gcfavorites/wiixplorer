@@ -312,10 +312,11 @@ void GuiImage::Draw()
 	{
 		for(int i=0; i<tileHorizontal; i++)
 		{
+			int widthTile = (imageangle == 90 || imageangle == 270) ? height : width;
 			if(bUnCut)
-				Menu_DrawImg(image, width, height, format, currLeft+width*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha);
+				Menu_DrawImg(image, width, height, format, currLeft+widthTile*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha);
 			else
-				Menu_DrawImgCut(image, width, height, format, currLeft+width*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
+				Menu_DrawImgCut(image, width, height, format, currLeft+widthTile*i, currTop, currZ, imageangle, currScaleX, currScaleY, currAlpha, cutBoundsRect.x1(), cutBoundsRect.x2(), cutBoundsRect.y1(), cutBoundsRect.y2());
 		}
 	}
 	else if(image && tileVertical > 0)

@@ -21,7 +21,6 @@
 #include "GUI/gui.h"
 #include "Controls/Thread.h"
 #include "FileOperations/DirListAsync.h"
-#include "FileOperations/FileLoadTask.h"
 
 class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 {
@@ -69,7 +68,7 @@ class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		//!This function is called when the listing of directory is finished
 		void OnDirListLoaded(DirListAsync *dirList);
 		//!This function is called when loading the image in the background is finished
-		void OnFinishedImageLoad(FileLoadTask *task, u8 *buffer, u32 buffer_size);
+		void OnFinishedImageLoad(u8 *buffer, u32 buffer_size);
 		//!Thread for loading images
 		virtual void executeThread();
 		//!Variables of the ImageViewer

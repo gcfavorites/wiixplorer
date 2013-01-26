@@ -26,6 +26,8 @@ using namespace std;
 
 #define ALIGN8(x) (((x) + 7) & ~7)
 
+static const int ciTabSpaces = 4;
+
 /**
  * Convert a short char string to a wide char string.
  *
@@ -395,6 +397,76 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, int16_t z, const wchar_t *te
 	return printed;
 }
 
+uint16_t FreeTypeGX::drawLongText(int16_t x, int16_t y, int16_t z, const wchar_t *text, int16_t pixelSize, GXColor color,
+		uint16_t textStyle, uint16_t lineDistance, uint16_t maxLines, uint16_t startWidth, uint16_t maxWidth)
+{
+	if (!text) return 0;
+
+	bool bIsTab;
+	uint16_t cur_line = 0;
+	uint16_t x_pos = 0;
+	uint16_t x_offset = -startWidth, y_offset = 0;
+	GXTexObj glyphTexture;
+	FT_Vector pairDelta;
+
+	if (textStyle & FTGX_ALIGN_MASK)
+	{
+		y_offset = getStyleOffsetHeight(textStyle, pixelSize);
+	}
+
+	startWidth++;
+
+	int i = 0;
+
+	while (text[i])
+	{
+		if (maxWidth > 0 && x_pos > startWidth+maxWidth) {
+
+			while(text[i] != 0 && text[i] != '\n')
+				i++;
+
+			if(!text[i])
+				break;
+		}
+
+		if(text[i] == '\n') {
+			cur_line++;
+			i++;
+			x_pos = 0;
+			y_offset += lineDistance;
+			continue;
+		}
+
+		if (maxLines > 0 && cur_line >= maxLines)
+			break;
+
+		bIsTab = (text[i] == L'\t');
+
+		ftgxCharData* glyphData = cacheGlyphData(bIsTab ? L' ' : text[i], pixelSize);
+		if (glyphData != NULL)
+		{
+			if (ftKerningEnabled && i > 0)
+			{
+				FT_Get_Kerning(ftFace, fontData[pixelSize][text[i - 1]].glyphIndex, glyphData->glyphIndex, FT_KERNING_DEFAULT, &pairDelta);
+				x_pos += pairDelta.x >> 6;
+			}
+
+			if((startWidth == 0) || (x_pos + glyphData->glyphAdvanceX > startWidth)) {
+				GX_InitTexObj(&glyphTexture, glyphData->glyphDataTexture, glyphData->textureWidth, glyphData->textureHeight, GX_TF_I4, GX_CLAMP, GX_CLAMP, GX_FALSE);
+				copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x + x_pos + glyphData->renderOffsetX + x_offset, y - glyphData->renderOffsetY + y_offset, z, color);
+			}
+
+			if(bIsTab)
+				x_pos += glyphData->glyphAdvanceX * ciTabSpaces;
+			else
+				x_pos += glyphData->glyphAdvanceX;
+		}
+		++i;
+	}
+
+	return 0;
+}
+
 void FreeTypeGX::drawTextFeature(int16_t x, int16_t y, int16_t z, int16_t pixelSize, uint16_t width,
 		ftgxDataOffset *offsetData, uint16_t format, GXColor color)
 {
@@ -449,18 +521,29 @@ uint16_t FreeTypeGX::getWidth(const wchar_t *text, int16_t pixelSize)
 uint16_t FreeTypeGX::getCharWidth(const wchar_t wChar, int16_t pixelSize, const wchar_t prevChar)
 {
 	uint16_t strWidth = 0;
-	ftgxCharData * glyphData = cacheGlyphData(wChar, pixelSize);
+	ftgxCharData * glyphData;
 
-	if (glyphData != NULL)
+	if(wChar == L'\t')
 	{
-		if (ftKerningEnabled && prevChar != 0x0000)
+		// simulate 4 spaces for one tab
+		glyphData = cacheGlyphData(L' ', pixelSize);
+		if (glyphData != NULL)
+			strWidth += glyphData->glyphAdvanceX * ciTabSpaces;
+	}
+	else
+	{
+		glyphData = cacheGlyphData(wChar, pixelSize);
+		if (glyphData != NULL)
 		{
-			FT_Vector pairDelta;
-			FT_Get_Kerning(ftFace, fontData[pixelSize][prevChar].glyphIndex, glyphData->glyphIndex, FT_KERNING_DEFAULT,
-					&pairDelta);
-			strWidth += pairDelta.x >> 6;
+			if (ftKerningEnabled && prevChar != 0x0000)
+			{
+				FT_Vector pairDelta;
+				FT_Get_Kerning(ftFace, fontData[pixelSize][prevChar].glyphIndex, glyphData->glyphIndex, FT_KERNING_DEFAULT,
+						&pairDelta);
+				strWidth += pairDelta.x >> 6;
+			}
+			strWidth += glyphData->glyphAdvanceX;
 		}
-		strWidth += glyphData->glyphAdvanceX;
 	}
 
 	return strWidth;

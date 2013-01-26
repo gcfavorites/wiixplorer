@@ -18,33 +18,44 @@
 #define TEXTEDITOR_H
 
 #include "GUI/gui.h"
+#include "GUI/gui_window.h"
 #include "GUI/gui_longtext.hpp"
+#include "GUI/gui_keyboard_alone.h"
 #include "Controls/Scrollbar.hpp"
+#include "Controls/HorizontalScrollbar.hpp"
 #include "TextPointer.h"
 
 //!Display a list of files
-class TextEditor : public GuiFrame, public sigslot::has_slots<>
+class TextEditor : public GuiWindow, public sigslot::has_slots<>
 {
 	public:
-		TextEditor(const wchar_t *intext, int LinesToDraw, const char *path);
+		TextEditor(const std::string &filepath);
 		virtual ~TextEditor();
 		static void LoadFile(const char *filepath);
 		void SetText(const wchar_t *intext);
-		void WriteTextFile(const char * path);
+		void WriteTextFile(const std::string &path);
 		void Update(GuiTrigger * t);
 	protected:
-		int EditLine();
 		void OnListChange(int selItem, int selIndex);
+		void OnHorScrollChange(int selItem);
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnPointerHeld(GuiButton *sender, int pointer, const POINT &p);
+		void OnKeyboardEffectFinished(GuiElement *e);
+		void OnKeyboardKeyPressed(wchar_t charCode);
+		void OnFinishedFileLoad(u8 *buffer, u32 bufferSize);
 
 		bool ExitEditor;
 		bool FileEdited;
 		int linestodraw;
+		int displayLineWidth;
+		int textStartWidth;
 		u32 filesize;
-		char * filepath;
+		std::string filepath;
 
 		Scrollbar * scrollbar;
+		HorizontalScrollbar * horScrollbar;
+		GuiFrameImage *textBgImg;
+		GuiKeyboardAlone *keyboard;
 
 		/** Buttons **/
 		GuiButton * maximizeBtn;
@@ -54,14 +65,12 @@ class TextEditor : public GuiFrame, public sigslot::has_slots<>
 		TextPointer * TextPointerBtn;
 
 		/** Images **/
-		GuiImage * bgTexteditorImg;
 		GuiImage * closeImg;
 		GuiImage * closeImgOver;
 		GuiImage * maximizeImg;
 		GuiImage * minimizeImg;
 
 		/** ImageDatas **/
-		GuiImageData * bgTexteditorData;
 		GuiImageData * closeImgData;
 		GuiImageData * closeImgOverData;
 		GuiImageData * maximizeImgData;

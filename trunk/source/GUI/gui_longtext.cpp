@@ -27,29 +27,10 @@ GuiLongText::GuiLongText(const char * t, int s, GXColor c)
 	linestodraw = 9;
 	curLineStart = 0;
 	FirstLineOffset = 0;
-	wText = NULL;
+	startWidth = 0;
+	maxLineWidth = 0;
 
-	if(!text)
-		return;
-
-	wText = new (std::nothrow) wString(text);
-	if(!wText)
-	{
-		ShowError(tr("Not enough memory."));
-		return;
-	}
-
-	if(wText->size() == 0)
-	{
-		wText->push_back(L' ');
-		wText->push_back(0);
-	}
-
-	textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
-	delete [] text;
-	text = NULL;
-
-	SetMaxWidth(maxWidth);
+	SetText(t);
 }
 
 GuiLongText::GuiLongText(const wchar_t * t, int s, GXColor c)
@@ -59,123 +40,164 @@ GuiLongText::GuiLongText(const wchar_t * t, int s, GXColor c)
 	linestodraw = 9;
 	curLineStart = 0;
 	FirstLineOffset = 0;
-	wText = NULL;
+	startWidth = 0;
+	maxLineWidth = 0;
 
-	if(!t)
-		return;
-
-	wText = new (std::nothrow) wString(t);
-	if(!wText)
-	{
-		ShowError(tr("Not enough memory."));
-		return;
-	}
-
-	if(wText->size() == 0)
-	{
-		wText->push_back(L' ');
-		wText->push_back(0);
-	}
-
-	textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
-
-	SetMaxWidth(maxWidth);
+	SetText(t);
 }
 
 GuiLongText::~GuiLongText()
 {
-	if(wText)
-		delete wText;
-	wText = NULL;
-
-	TextLines.clear();
-	ClearDynamicText();
 }
 
 void GuiLongText::SetText(const char * t)
 {
-	wchar_t * tmp = charToWideChar(t);
-	if(!tmp)
-		return;
+	GuiText::SetText(t);
 
-	if(wText)
-		delete wText;
-
-	wText = new (std::nothrow) wString(tmp);
-	if(!wText)
-	{
-		ShowError(tr("Not enough memory."));
-		return;
+	if(text) {
+		CalcLineOffsets();
 	}
-
-	if(wText->size() == 0)
-	{
-		wText->push_back(L' ');
-		wText->push_back(0);
-	}
-
-	textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
-
-	delete [] tmp;
-
-	ClearDynamicText();
-	CalcLineOffsets();
 }
 
 void GuiLongText::SetText(const wchar_t * t)
 {
-	if(!t)
-		return;
+	GuiText::SetText(t);
 
-	if(wText)
-		delete wText;
-
-	wText = new wString(t);
-	textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
-	CalcLineOffsets();
+	if(text) {
+		CalcLineOffsets();
+	}
 }
 
 void GuiLongText::SetMaxWidth(int w)
 {
 	maxWidth = w;
-	curLineStart = 0;
-	Refresh();
+}
+
+void GuiLongText::SetStartWidth(int w)
+{
+	startWidth = w;
 }
 
 void GuiLongText::SetTextLine(int line)
 {
 	curLineStart = LIMIT(line, 0, (int) TextLines.size()-1);
-
-	FillRows();
-
-	while((int) textDyn.size() < linestodraw && curLineStart > 0)
-	{
-		PreviousLine();
-	}
 }
 
 void GuiLongText::SetTextPos(int pos)
 {
-	if(!wText)
+	if(!text)
 		return;
 
 	int diff = 10000;
+	int targetLine = 0;
 
 	for(u32 i = 0; i < TextLines.size(); i++)
 	{
-		int curDiff = abs(TextLines[i].LineOffset - pos);
+		int curDiff = abs(TextLines[i] - pos);
 		if(curDiff < diff)
 		{
 			diff = curDiff;
-			curLineStart = i;
+			targetLine = i;
 		}
 	}
 
-	FillRows();
+	SetTextLine(targetLine);
+}
 
-	while((int) textDyn.size() < linestodraw && curLineStart > 0)
+bool GuiLongText::AddChar(int iPos, wchar_t charCode)
+{
+	if(!text)
+		return false;
+
+	wchar_t *newText = new (std::nothrow) wchar_t[wcslen(text)+2];
+	if(!newText)
+		return false;
+
+	int i = 0, n = 0;
+
+	TextLines.clear();
+	TextLines.push_back(0);
+
+	while(text[i])
 	{
-		PreviousLine();
+		if(iPos == n)
+		{
+			if(charCode == '\n')
+				TextLines.push_back(n+1);
+
+			newText[n] = charCode;
+			n++;
+			continue;
+		}
+
+		if(text[i] == '\n')
+			TextLines.push_back(n+1);
+
+		newText[n] = text[i];
+		++i;
+		++n;
+	}
+
+	newText[n] = 0;
+
+	wchar_t *tmp = text;
+	text = newText;
+	delete [] tmp;
+
+	return true;
+}
+
+void GuiLongText::RemoveText(int iPos, int iNumber)
+{
+	if(!text || iPos < 0)
+		return;
+
+	for(u32 i = 1; i < TextLines.size(); ++i)
+	{
+		if(TextLines[i] == (u32)iPos+1) {
+			TextLines.erase(TextLines.begin()+i);
+			i--;
+		}
+		else if(TextLines[i] > (u32)iPos)
+		{
+			TextLines[i]--;
+		}
+	}
+
+	int i = iPos;
+
+	while(text[iPos])
+	{
+		if(iPos - i < iNumber)
+		{
+			iPos++;
+			continue;
+		}
+
+		text[i] = text[iPos];
+		++i;
+		++iPos;
+	}
+
+	text[i] = 0;
+}
+
+void GuiLongText::CheckMaxLineWidth(int iPos)
+{
+	if(!text || iPos < 0)
+		return;
+
+	int ch = iPos;
+	int lineWidth = 0;
+
+	while(text[ch] && text[ch] != '\n')
+	{
+		lineWidth +=  fontSystem->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0);
+		ch++;
+	}
+
+	if(maxLineWidth < lineWidth) {
+		maxLineWidth = lineWidth;
 	}
 }
 
@@ -185,152 +207,72 @@ int GuiLongText::GetLineOffset(int ind)
 		return 0;
 
 	if(ind < 0)
-		return TextLines[0].LineOffset;
+		return TextLines[0];
 
 	if(ind >= (int) TextLines.size()-1)
-		return TextLines[TextLines.size()-1].LineOffset;
+		return TextLines[TextLines.size()-1];
 
-	return TextLines[ind].LineOffset;
+	return TextLines[ind];
 }
 
 const wchar_t * GuiLongText::GetTextLine(int ind)
 {
-	if(filling || textDyn.size() == 0)
+	if(!text || ((u32)(curLineStart + ind) >= TextLines.size()))
 		return NULL;
 
-	if(ind < 0)
-		return textDyn[0];
-
-	if(ind >= (int) textDyn.size())
-		return textDyn[textDyn.size()-1];
-
-	return textDyn[ind];
-}
-
-void GuiLongText::Refresh()
-{
-	CalcLineOffsets();
-	FillRows();
+	return &text[TextLines[curLineStart + ind]];
 }
 
 void GuiLongText::NextLine()
 {
-	if(!wText || (curLineStart+1 > ((int) TextLines.size()-linestodraw)))
+	if(!text || (curLineStart+1 > ((int) TextLines.size()-linestodraw)))
 		return;
 
 	++curLineStart;
-
-	FillRows();
 }
 
 void GuiLongText::PreviousLine()
 {
-	if(!wText || curLineStart-1 < 0)
+	if(!text || curLineStart-1 < 0)
 		return;
 
 	--curLineStart;
-
-	FillRows();
-}
-
-void GuiLongText::FillRows()
-{
-	if(!wText)
-		return;
-
-	filling = true;
-
-	ClearDynamicText();
-
-	for(int i = 0; i < linestodraw && (curLineStart+i) < (int) TextLines.size(); i++)
-	{
-		if(i >= (int) textDyn.size())
-		{
-			textDyn.resize(i+1);
-			textDyn[i] = new wchar_t[maxWidth];
-		}
-		int offset = TextLines[curLineStart + i].LineOffset;
-		int count = TextLines[curLineStart + i].CharCount + 1;
-		int n;
-		for (n = 0; n < count && (offset + n) < (int) wText->size(); n++)
-			textDyn[i][n] = wText->at(offset + n);
-
-		textDyn[i][n] = 0;
-	}
-
-	filling = false;
-
-	return;
 }
 
 void GuiLongText::CalcLineOffsets()
 {
-	if(!wText)
-		return;
-
 	TextLines.clear();
+	TextLines.push_back(0);
 
-	TextLine TmpLine;
-	TmpLine.CharCount = 0;
-	TmpLine.LineOffset = 0;
-	TmpLine.width = 0;
-
-	const wchar_t * origTxt = wText->c_str();
 	int ch = 0;
-	int lastSpace = -1;
-	int currWidth = 0;
-	int i = 0;
+	int lineWidth = 0;
+	maxLineWidth = 0;
 
-	while(origTxt[ch])
+	while(text[ch])
 	{
-		currWidth += fontSystem->getCharWidth(origTxt[ch], currentSize, ch > 0 ? origTxt[ch-1] : 0x0000);
+		lineWidth +=  fontSystem->getCharWidth(text[ch], currentSize, ch > 0 ? text[ch-1] : 0);
 
-		if(currWidth >= maxWidth)
+		if(text[ch] == '\n')
 		{
-			if(lastSpace > 0)
-			{
-				ch = lastSpace;
+			TextLines.push_back(ch+1);
+
+			if(maxLineWidth < lineWidth) {
+				maxLineWidth = lineWidth;
 			}
-			TmpLine.CharCount = ch-TmpLine.LineOffset;
-			TmpLine.width = currWidth;
-			TextLines.push_back(TmpLine);
-			currWidth = 0;
-			lastSpace = -1;
-			i = -1;
-			TmpLine.LineOffset = ch+1;
-		}
-		else if(origTxt[ch] == '\n')
-		{
-			TmpLine.CharCount = ch-TmpLine.LineOffset;
-			TmpLine.width = currWidth;
-			TextLines.push_back(TmpLine);
-			currWidth = 0;
-			lastSpace = -1;
-			i = -1;
-			TmpLine.LineOffset = ch+1;
-		}
-		else if(origTxt[ch] == ' ')
-		{
-			lastSpace = ch;
+			lineWidth = 0;
 		}
 
 		ch++;
-		i++;
 	}
 
-	TmpLine.CharCount = ch-TmpLine.LineOffset;
-	TmpLine.width = currWidth;
-
-	if(TmpLine.CharCount-1 > 0)
-	{
-		TmpLine.CharCount -= 1;
-		TextLines.push_back(TmpLine);
+	if(maxLineWidth < lineWidth) {
+		maxLineWidth = lineWidth;
 	}
 }
 
 void GuiLongText::Draw()
 {
-	if(textDyn.size() == 0)
+	if((u32)curLineStart >= TextLines.size())
 		return;
 
 	if(!this->IsVisible())
@@ -339,21 +281,9 @@ void GuiLongText::Draw()
 	GXColor c = color;
 	c.a = this->GetAlpha();
 
-	int newSize = size*GetScale();
+	currentSize = size*GetScale();
 
-	if(newSize != currentSize)
-	{
-		currentSize = newSize;
-
-		if(wText)
-			textWidth = (font ? font : fontSystem)->getWidth(wText->data(), currentSize);
-	}
-
-	u16 lineheight = newSize + 6;
-
-	for(u32 i = 0; i < textDyn.size(); i++)
-	{
-		if(!filling)
-			(font ? font : fontSystem)->drawText(this->GetLeft(), this->GetTop()+i*lineheight, GetZPosition(), textDyn[i], currentSize, c, alignment, 0, maxWidth);
-	}
+	(font ? font : fontSystem)->drawLongText(this->GetLeft(), this->GetTop(), GetZPosition(),
+			&text[TextLines[curLineStart]], currentSize, c, alignment, currentSize + 6,
+			linestodraw, startWidth, maxWidth);
 }

@@ -26,6 +26,10 @@
 #include <ogc/es.h>
 
 #include "FileOperations/fileops.h"
+#include "FileOperations/FileLoadTask.h"
+#include "Controls/Application.h"
+#include "Controls/Taskbar.h"
+#include "Controls/ThreadedTaskHandler.hpp"
 #include "DiskOperations/di2.h"
 #include "Language/gettext.h"
 #include "network/networkops.h"
@@ -75,21 +79,31 @@ void FreeHomebrewBuffer()
 
 int LoadHomebrew(const char * filepath)
 {
-	u8 *buffer = NULL;
-	u32 filesize = 0;
-	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &buffer, &filesize);
-	if(ret < 0)
-	 return ret;
+	FileLoadTaskSynchron *loadTask = new FileLoadTaskSynchron(filepath, false);
+	loadTask->SetAutoDelete(false);
+	Taskbar::Instance()->AddTask(loadTask);
+	ThreadedTaskHandler::Instance()->AddTask(loadTask);
+
+	while(!loadTask->IsTaskFinished())
+	{
+		Application::Instance()->updateEvents();
+	}
+
+	u8 *filebuf = loadTask->getFileBuffer();
+	u32 filesize = loadTask->getFileSize();
+
+	Application::Instance()->PushForDelete(loadTask);
+
+	if(!filebuf)
+		return -1;
 
 	FreeHomebrewBuffer();
 
-	ret = CopyHomebrewMemory(buffer, 0, filesize);
-	if(buffer) {
-		free(buffer);
-		buffer = NULL;
-	}
+	CopyHomebrewMemory(filebuf, 0, filesize);
 
-	return ret;
+	free(filebuf);
+
+	return 0;
 }
 
 static inline bool IsDollZ (const u8 *buf)

@@ -16,8 +16,11 @@
  ****************************************************************************/
 #include <unistd.h>
 #include "TextOperations/TextEditor.h"
+#include "Controls/Taskbar.h"
 #include "FileOperations/fileops.h"
+#include "FileOperations/FileLoadTask.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ProgressWindow.h"
 #include "Controls/Application.h"
 #include "Memory/Resources.h"
 #include "FreeTypeGX.h"
@@ -28,17 +31,16 @@
 /**
  * Constructor for the TextEditor class.
  */
-TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
+TextEditor::TextEditor(const std::string &path)
+	: GuiWindow(screenwidth - 100, 400)
 {
 	ExitEditor = false;
 	FileEdited = false;
-	linestodraw = LinesToDraw;
-	filesize = (u32) FileSize(path);
+	filesize = (u32) FileSize(path.c_str());
+	textStartWidth = 0;
 
-	filepath = new char[strlen(path)+1];
-	sprintf(filepath, "%s", path);
-
-	char * filename = strrchr(filepath, '/')+1;
+	filepath = path;
+	char * filename = strrchr(filepath.c_str(), '/')+1;
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
@@ -52,9 +54,6 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	btnSoundOver = Resources::GetSound("button_over.wav");
 	btnSoundClick = Resources::GetSound("button_click.wav");
 
-	bgTexteditorData = Resources::GetImageData("textreader_box.png");
-	bgTexteditorImg = new GuiImage(bgTexteditorData);
-
 	closeImgData = Resources::GetImageData("close.png");
 	closeImgOverData = Resources::GetImageData("close_over.png");
 	closeImg = new GuiImage(closeImgData);
@@ -64,18 +63,26 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	minimizeImgData = Resources::GetImageData("minimize_dis.png");
 	minimizeImg = new GuiImage(minimizeImgData);
 
-	scrollbar = new Scrollbar(230, Scrollbar::LISTMODE);
+	scrollbar = new Scrollbar(height - 70, Scrollbar::LISTMODE);
 	scrollbar->SetParent(this);
 	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
-	scrollbar->SetPosition(-25, 60);
+	scrollbar->SetPosition(-5, 50);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
 	scrollbar->listChanged.connect(this, &TextEditor::OnListChange);
+
+	horScrollbar = new HorizontalScrollbar(width - 70, Scrollbar::LISTMODE);
+	horScrollbar->SetParent(this);
+	horScrollbar->SetAlignment(ALIGN_LEFT | ALIGN_BOTTOM);
+	horScrollbar->SetPosition(25, -10);
+	horScrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	horScrollbar->SetDPadControl(false);
+	horScrollbar->listChanged.connect(this, &TextEditor::OnHorScrollChange);
 
 	closeBtn = new GuiButton(closeImg->GetWidth(), closeImg->GetHeight());
 	closeBtn->SetImage(closeImg);
 	closeBtn->SetImageOver(closeImgOver);
 	closeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
-	closeBtn->SetPosition(-30, 30);
+	closeBtn->SetPosition(-20, 12);
 	closeBtn->SetSoundOver(btnSoundOver);
 	closeBtn->SetSoundClick(btnSoundClick);
 	closeBtn->SetTrigger(trigA);
@@ -86,28 +93,34 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	maximizeBtn = new GuiButton(maximizeImg->GetWidth(), maximizeImg->GetHeight());
 	maximizeBtn->SetImage(maximizeImg);
 	maximizeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
-	maximizeBtn->SetPosition(-60, 30);
+	maximizeBtn->SetPosition(-50, 12);
 	maximizeBtn->SetSoundClick(btnSoundClick);
 
 	minimizeBtn = new GuiButton(minimizeImg->GetWidth(), minimizeImg->GetHeight());
 	minimizeBtn->SetImage(minimizeImg);
 	minimizeBtn->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
-	minimizeBtn->SetPosition(-90, 30);
+	minimizeBtn->SetPosition(-80, 12);
 	minimizeBtn->SetSoundClick(btnSoundClick);
 
 	filenameTxt = new GuiText(filename, 22, (GXColor){0, 0, 0, 255});
 	filenameTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
-	filenameTxt->SetPosition(-30,30);
+	filenameTxt->SetPosition(-30,15);
 	filenameTxt->SetMaxWidth(340, DOTTED);
 
-	MainFileTxt = new GuiLongText(intext, FONTSIZE, (GXColor){0, 0, 0, 255});
+	textBgImg = new GuiFrameImage(width - 80, height - 104);
+	textBgImg->SetPosition(25, 55);
+
+	linestodraw = textBgImg->GetHeight() / 24 - 1;
+	displayLineWidth = textBgImg->GetWidth() - 40;
+
+	MainFileTxt = new GuiLongText((char*)NULL, FONTSIZE, (GXColor){0, 0, 0, 255});
 	MainFileTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	MainFileTxt->SetPosition(0, 0);
 	MainFileTxt->SetLinesToDraw(linestodraw);
-	MainFileTxt->SetMaxWidth(330);
+	MainFileTxt->SetMaxWidth(displayLineWidth);
 
 	TextPointerBtn = new TextPointer(MainFileTxt, linestodraw);
-	TextPointerBtn->SetPosition(43, 75);
+	TextPointerBtn->SetPosition(43, 65);
 	TextPointerBtn->SetHoldable(true);
 	TextPointerBtn->SetTrigger(trigHeldA);
 	TextPointerBtn->PositionChanged(0, 0, 0);
@@ -118,21 +131,30 @@ TextEditor::TextEditor(const wchar_t *intext, int LinesToDraw, const char *path)
 	PlusBtn->SetSoundClick(btnSoundClick);
 	PlusBtn->Clicked.connect(this, &TextEditor::OnButtonClick);
 
-	width = bgTexteditorImg->GetWidth();
-	height = bgTexteditorImg->GetHeight();
+	// GuiWindow protected variable
+	frameImage.SetColorUpperQuadUpper((GXColor) {0xDC, 0xDD, 0xDE, 0xFF});
+	frameImage.SetColorMainQuadUpper((GXColor) {0xC5, 0xC9, 0xCF, 0xFF});
+	frameImage.SetColorMainQuadLower((GXColor) {0xA3, 0xA8, 0xB0, 0xFF});
+	frameImage.SetColorSideQuadUpper((GXColor) {0xA6, 0xA9, 0xAF, 0xFF});
+	frameImage.SetColorSideQuadLower((GXColor) {0x8C, 0x90, 0x96, 0xFF});
+
+	keyboard = new GuiKeyboardAlone();
+	keyboard->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
+	keyboard->SetState(STATE_DISABLED);
+	keyboard->SetVisible(false);
+	keyboard->EffectFinished.connect(this, &TextEditor::OnKeyboardEffectFinished);
+	keyboard->keyPressed.connect(this, &TextEditor::OnKeyboardKeyPressed);
 
 	this->Append(PlusBtn);
-	this->Append(bgTexteditorImg);
+	this->Append(textBgImg);
 	this->Append(filenameTxt);
 	this->Append(TextPointerBtn);
 	this->Append(scrollbar);
+	this->Append(horScrollbar);
 	this->Append(closeBtn);
 	this->Append(maximizeBtn);
 	this->Append(minimizeBtn);
-
-	SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
-	SetPosition(0,0);
-	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+	this->Append(keyboard);
 }
 
 /**
@@ -143,6 +165,9 @@ TextEditor::~TextEditor()
 	RemoveAll();
 
 	delete scrollbar;
+	delete horScrollbar;
+	delete textBgImg;
+	delete keyboard;
 
 	/** Buttons **/
 	delete maximizeBtn;
@@ -151,14 +176,12 @@ TextEditor::~TextEditor()
 	delete TextPointerBtn;
 
 	/** Images **/
-	delete bgTexteditorImg;
 	delete closeImg;
 	delete closeImgOver;
 	delete maximizeImg;
 	delete minimizeImg;
 
 	/** ImageDatas **/
-	Resources::Remove(bgTexteditorData);
 	Resources::Remove(closeImgData);
 	Resources::Remove(closeImgOverData);
 	Resources::Remove(maximizeImgData);
@@ -177,7 +200,6 @@ TextEditor::~TextEditor()
 	/** Texts **/
 	delete filenameTxt;
 	delete MainFileTxt;
-	delete [] filepath;
 }
 
 void TextEditor::SetText(const wchar_t *intext)
@@ -197,9 +219,9 @@ void TextEditor::SetText(const wchar_t *intext)
 	TextPointerBtn->Held.connect(this, &TextEditor::OnPointerHeld);
 }
 
-void TextEditor::WriteTextFile(const char * path)
+void TextEditor::WriteTextFile(const std::string &path)
 {
-	FILE * f = fopen(path, "wb");
+	FILE * f = fopen(path.c_str(), "wb");
 	if(!f)
 	{
 		ShowError(tr("Cannot write to the file."));
@@ -211,43 +233,6 @@ void TextEditor::WriteTextFile(const char * path)
 	fwrite(FullText.c_str(), 1, strlen(FullText.c_str())+1, f);
 
 	fclose(f);
-}
-
-int TextEditor::EditLine()
-{
-	int currentline = TextPointerBtn->GetCurrentLine();
-
-	if(currentline < 0 || currentline >= linestodraw)
-		return -1;
-
-	u32 LetterNumInLine = TextPointerBtn->GetCurrentLetter();
-
-	wString * wText = MainFileTxt->GetwString();
-	if(!wText)
-		return -1;
-
-	const wchar_t * lineText = MainFileTxt->GetTextLine(currentline);
-	if(!lineText)
-		return -1;
-
-	wchar_t temptxt[150];
-	memset(temptxt, 0, sizeof(temptxt));
-
-	int LineOffset = MainFileTxt->GetLineOffset(currentline+MainFileTxt->GetCurrPos());
-
-	wcsncpy(temptxt, lineText, LetterNumInLine);
-	temptxt[LetterNumInLine] = 0;
-
-	int result = OnScreenKeyboard(temptxt, 150);
-	if(result == 1)
-	{
-		wText->replace(LineOffset, LetterNumInLine, temptxt);
-		MainFileTxt->Refresh();
-		FileEdited = true;
-		return 1;
-	}
-
-	return -1;
 }
 
 void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
@@ -269,7 +254,99 @@ void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POIN
 	}
 	else if(sender == PlusBtn)
 	{
-		EditLine();
+		if(!keyboard->IsVisible())
+		{
+			keyboard->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
+			keyboard->SetVisible(true);
+			keyboard->SetState(STATE_DEFAULT);
+			TextPointerBtn->SetState(STATE_DISABLED);
+			scrollbar->SetDPadControl(false);
+		}
+		else
+		{
+			keyboard->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 50);
+			keyboard->SetState(STATE_DISABLED);
+			TextPointerBtn->SetState(STATE_DEFAULT);
+			scrollbar->SetDPadControl(true);
+		}
+	}
+}
+
+void TextEditor::OnKeyboardEffectFinished(GuiElement *e UNUSED)
+{
+	if(keyboard->GetEffect() == (EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT))
+		keyboard->SetVisible(false);
+}
+
+void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
+{
+	FileEdited = true;
+
+	if(charCode == 0x08)
+	{
+		int letter = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine()) + TextPointerBtn->GetCurrentLetter()-1;
+		if(letter >= 0)
+		{
+			// removing linebreak
+			if(TextPointerBtn->GetCurrentLetter() == 0)
+			{
+				if(TextPointerBtn->GetCurrentLine() == 0) {
+					scrollbar->ScrollOneUp();
+					MainFileTxt->SetTextLine(scrollbar->GetSelectedItem() + scrollbar->GetSelectedIndex());
+				}
+				else
+					TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
+
+				// set last letter in previous line as selected
+				TextPointerBtn->SetPointerPosition(0xFFFFFF);
+				horScrollbar->SetSelectedItem((TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+
+				MainFileTxt->RemoveText(letter, 1);
+			}
+			// removing normal character
+			else
+			{
+				MainFileTxt->RemoveText(letter, 1);
+				TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()-1);
+
+				if(!TextPointerBtn->IsPointerVisible())
+					horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+			}
+
+			// check if the maximum width is changed
+			int line = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine());
+			MainFileTxt->CheckMaxLineWidth(line);
+		}
+	}
+	else
+	{
+		int letter = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine()) + TextPointerBtn->GetCurrentLetter();
+
+		MainFileTxt->AddChar(letter, charCode);
+
+		// adding linebreak
+		if(charCode == L'\n')
+		{
+			if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw) {
+				scrollbar->ScrollOneDown();
+				MainFileTxt->SetTextLine(scrollbar->GetSelectedItem() + scrollbar->GetSelectedIndex());
+			}
+			else
+				TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()+1);
+			horScrollbar->SetSelectedItem(0);
+			TextPointerBtn->SetPointerPosition(0);
+		}
+		// adding normal character
+		else
+		{
+			if(!TextPointerBtn->IsPointerVisible())
+				horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+
+			TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()+1);
+		}
+		// check if the maximum width is changed
+		int line = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine());
+		MainFileTxt->CheckMaxLineWidth(line);
 	}
 }
 
@@ -284,7 +361,16 @@ void TextEditor::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POIN
 void TextEditor::OnListChange(int selItem, int selIndex)
 {
 	MainFileTxt->SetTextLine(selItem+selIndex);
+	TextPointerBtn->Refresh();
 }
+
+void TextEditor::OnHorScrollChange(int selItem)
+{
+	textStartWidth = selItem << 4;
+	MainFileTxt->SetStartWidth(textStartWidth);
+	TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter());
+}
+
 
 void TextEditor::Update(GuiTrigger * t)
 {
@@ -292,98 +378,111 @@ void TextEditor::Update(GuiTrigger * t)
 		return;
 
 	scrollbar->Update(t);
+	horScrollbar->Update(t);
 	maximizeBtn->Update(t);
 	closeBtn->Update(t);
 	minimizeBtn->Update(t);
 	TextPointerBtn->Update(t);
 	PlusBtn->Update(t);
+	keyboard->Update(t);
 
 	scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
 	scrollbar->SetPageSize(linestodraw);
 	scrollbar->SetRowSize(0);
 	scrollbar->SetSelectedItem(0);
 	scrollbar->SetSelectedIndex(MainFileTxt->GetCurrPos());
+
+	horScrollbar->SetEntrieCount((MainFileTxt->GetMaxLineWidth() - displayLineWidth + 30) >> 4);
 }
 
-void TextEditor::LoadFile(const char *filepath)
+void TextEditor::OnFinishedFileLoad(u8 *buffer, u32 bufferSize)
 {
-	u8 *file = NULL;
-	u32 filesize = 0;
-
-	int ret = LoadFileToMemWithProgress(tr("Loading file:"), filepath, &file, &filesize);
-	if(ret < 0)
+	if(!buffer)
 	{
-		ShowError(tr("Could not load text file."));
+		ThrowMsg(tr("Error:"), tr("Could not load text file."));
+		this->Close();
 		return;
 	}
-	else if(filesize > (u32) (4.5*MBSIZE))
+	else if(bufferSize > (u32) (4.5*MBSIZE))
 	{
-		free(file);
-		ShowError(tr("File is too big."));
+		free(buffer);
+		ThrowMsg(tr("Error:"), tr("File is too big."));
+		this->Close();
 		return;
 	}
 
-	u8 * tmp = (u8 *) realloc(file, filesize+1);
+
+	u8 * tmp = (u8 *) realloc(buffer, bufferSize+1);
 	if(!tmp)
 	{
-		free(file);
-		ShowError(tr("Not enough memory."));
+		free(buffer);
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
+		this->Close();
 		return;
 	}
-	file = tmp;
-	file[filesize] = 0;
-	filesize++;
-
+	buffer = tmp;
+	buffer[bufferSize] = 0;
+	bufferSize++;
 	wString * filetext = NULL;
 
 	//To check if text is UTF8 or not
-	if(utf8Len((char*) file) > 0)
+	if(utf8Len((char*) buffer) > 0)
 	{
 		filetext = new (std::nothrow) wString();
-		if(!filetext)
-		{
-			free(file);
-			file = NULL;
-			ShowError(tr("Not enough memory."));
-			return;
-		}
+		if(filetext)
+			filetext->fromUTF8((char*) buffer);
 
-		filetext->fromUTF8((char*) file);
-		free(file);
-		file = NULL;
+		free(buffer);
+		buffer = NULL;
 	}
 	else
 	{
-		wchar_t * tmptext = charToWideChar((char*) file);
+		wchar_t * tmptext = charToWideChar((char*) buffer);
 
-		free(file);
-		file = NULL;
+		free(buffer);
+		buffer = NULL;
 
-		if(!tmptext)
+		if(tmptext)
 		{
-			ShowError(tr("Not enough memory."));
-			return;
+			filetext = new (std::nothrow) wString(tmptext);
+			delete [] tmptext;
 		}
 
-		filetext = new (std::nothrow) wString(tmptext);
-
-		delete [] tmptext;
-
-		if(!filetext)
-		{
-			ShowError(tr("Not enough memory."));
-			return;
-		}
 	}
 
-	TextEditor * Editor = new TextEditor(filetext->c_str(), 9, filepath);
-	Editor->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
-	Editor->SetPosition(0, 0);
-	Editor->DimBackground(true);
+	if(!filetext)
+	{
+		ThrowMsg(tr("Error:"), tr("Not enough memory."));
+		this->Close();
+		return;
+	}
+
+	this->MainFileTxt->SetText(filetext->c_str());
+	this->DimBackground(true);
 
 	delete filetext;
 	filetext = NULL;
 
-	Application::Instance()->SetUpdateOnly(Editor);
-	Application::Instance()->Append(Editor);
+	Application::Instance()->SetUpdateOnly(this);
+	Application::Instance()->Append(this);
+
+	// stop progress bar in case the user clicked on taskbar widget and opened window during text loading process
+	ProgressWindow::Instance()->StopProgress();
+}
+
+void TextEditor::LoadFile(const char *filepath)
+{
+	if(!filepath)
+		return;
+
+	TextEditor * Editor = new TextEditor(filepath);
+	Editor->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 50);
+	Editor->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+	Editor->SetPosition(0, 0);
+
+	FileLoadTask *task = new FileLoadTask(filepath, false);
+	task->LoadingComplete.connect(Editor, &TextEditor::OnFinishedFileLoad);
+	task->SetAutoDelete(true);
+	Taskbar::Instance()->AddTask(task);
+	ThreadedTaskHandler::Instance()->AddTask(task);
 }

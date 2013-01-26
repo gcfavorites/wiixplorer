@@ -41,9 +41,14 @@ class TextPointer : public GuiButton
 		virtual ~TextPointer();
 		void PositionChanged(int chan, int x, int y);
 		void SetPointerPosition(int LetterPos);
+		void SetCurrentLine(int line);
 		void TextWidthChanged();
 		int GetCurrentLine() { return currentline; };
 		int GetCurrentLetter() { return LetterNumInLine; };
+		int GetPointerPosX() { return Position_X; };
+		int GetPointerPosY() { return Position_Y; };
+		void Refresh(void) { PositionChanged(currentChan, Position_X, Position_Y); };
+		bool IsPointerVisible() { return (Position_X >= 0 && Position_X < TextPtr->GetTextMaxWidth()); }
 		void Draw();
 	protected:
 		int fontsize;

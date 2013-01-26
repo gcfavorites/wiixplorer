@@ -66,13 +66,14 @@ void CSettings::SetDefault()
 	SoundblockSize = 8192;
 	LoadMusicToMem = 0;
 	DeleteTempPath = 1;
-	CopyThreadPrio = 90;
+	CopyThreadPrio = 70;
 	CopyThreadBackPrio = 30;
 	Rumble = 1;
 	HideSystemFiles = 1;
 	ShowFormatter = 0;
 	CompressionLevel = -1;
 	USBPort = 0;
+	MountISFS = ON;
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
 	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
@@ -203,6 +204,7 @@ bool CSettings::Save()
 	fprintf(file, "ShowFormatter = %d\n", ShowFormatter);
 	fprintf(file, "CompressionLevel = %d\n", CompressionLevel);
 	fprintf(file, "USBPort = %d\n", USBPort);
+	fprintf(file, "MountISFS = %d\n", MountISFS);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -691,6 +693,12 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "USBPort") == 0) {
 		if (sscanf(value, "%d", &i) == 1) {
 			USBPort = i;
+		}
+		return true;
+	}
+	else if (strcmp(name, "MountISFS") == 0) {
+		if (sscanf(value, "%d", &i) == 1) {
+			MountISFS = i;
 		}
 		return true;
 	}
