@@ -30,6 +30,14 @@ class GuiFrameImage : public GuiElement
 		virtual ~GuiFrameImage();
 		//!Draw image process
 		virtual void Draw();
+		//! Set colors
+		void SetColorUpperQuadUpper(const GXColor &c) { UpperQuadUpper = c; oldX = 0; }
+		void SetColorMainQuadUpper(const GXColor &c) { MainQuadUpper = c; oldX = 0; }
+		void SetColorMainQuadLower(const GXColor &c) { MainQuadLower = c; oldX = 0; }
+		void SetColorSideQuadUpper(const GXColor &c) { SideQuadUpper = c; oldX = 0; }
+		void SetColorSideQuadLower(const GXColor &c) { SideQuadLower = c; oldX = 0; }
+		void SetColorShadowUpper(const GXColor &c) { ShadowUpper = c; oldX = 0; }
+		void SetColorShadowLower(const GXColor &c) { ShadowLower = c; oldX = 0; }
 	private:
 		//!Create the gx draw list
 		void CreateDrawList();

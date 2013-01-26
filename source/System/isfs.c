@@ -273,7 +273,7 @@ static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, in
 
 	RemoveDoubleSlash(abspath);
 
-	if (!READ_ONLY && (mode & O_CREAT)) {
+	if (!READ_ONLY && (flags & O_CREAT)) {
 		int iOwnerPerm  = 0;
 		int iGroupPerm = 0;
 		int iOtherPerm = 0;
@@ -296,11 +296,11 @@ static int _ISFS_open_r(struct _reent *r, void *fileStruct, const char *path, in
 
 	int iOpenMode = 0;
 
-	if (mode & O_RDONLY)
+	if ((flags & 0x03) == O_RDONLY)
 		iOpenMode |= ISFS_OPEN_READ;
-	if (!READ_ONLY && (mode & O_WRONLY))
+	if (!READ_ONLY && ((flags & 0x03) == O_WRONLY))
 		iOpenMode |= ISFS_OPEN_WRITE;
-	if (mode & O_RDWR)
+	if ((flags & 0x03) == O_RDWR)
 		iOpenMode |= READ_ONLY ? ISFS_OPEN_READ : ISFS_OPEN_RW;
 
 	file->fd = ISFS_Open(abspath, iOpenMode);
@@ -900,6 +900,10 @@ bool ISFS_Mount() {
 	bool success = read_isfs() && (dotab_device = AddDevice(&dotab_isfs)) >= 0;
 	if (!success) ISFS_Unmount();
 	return success;
+}
+
+bool ISFS_IsMounted() {
+	return (current != NULL);
 }
 
 bool ISFS_Unmount() {

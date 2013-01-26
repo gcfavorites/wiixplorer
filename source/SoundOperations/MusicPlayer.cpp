@@ -118,7 +118,7 @@ bool MusicPlayer::LoadStandard()
 	return true;
 }
 
-bool MusicPlayer::Load(const char * path, bool silent)
+bool MusicPlayer::Load(const char * path)
 {
 	if(!path)
 	{
@@ -133,7 +133,6 @@ bool MusicPlayer::Load(const char * path, bool silent)
 	}
 
 	loadPathThreaded = path;
-	loadSilentThreaded = silent;
 
 	return true;
 }
@@ -141,22 +140,15 @@ bool MusicPlayer::Load(const char * path, bool silent)
 void MusicPlayer::ThreadedLoadMusic(void)
 {
 	std::string path = loadPathThreaded;
-	bool silent = loadSilentThreaded;
 
 	loadPathThreaded.clear();
-	loadSilentThreaded = true;
 
 	if(Settings.LoadMusicToMem)
 	{
 		u32 filesize;
 		u8 * file = NULL;
 
-		int ret = -1;
-		if(silent)
-			ret = LoadFileToMem(path.c_str(), &file, &filesize);
-		else
-			ret = LoadFileToMemWithProgress(tr("Loading file:"), path.c_str(), &file, &filesize);
-
+		int ret = LoadFileToMem(path.c_str(), &file, &filesize);
 		if (ret < 0)
 		{
 			LoadStandard();
@@ -222,7 +214,7 @@ bool MusicPlayer::Play(int pos)
 
 	snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s", TitleList.at(currentPlaying));
 
-	return Load(Settings.MusicPath, true);
+	return Load(Settings.MusicPath);
 }
 
 bool MusicPlayer::PlayNext()
@@ -236,7 +228,7 @@ bool MusicPlayer::PlayNext()
 
 	snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s", TitleList.at(currentPlaying));
 
-	return Load(Settings.MusicPath, true);
+	return Load(Settings.MusicPath);
 }
 
 bool MusicPlayer::PlayPrevious()
@@ -250,7 +242,7 @@ bool MusicPlayer::PlayPrevious()
 
 	snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s", TitleList.at(currentPlaying));
 
-	return Load(Settings.MusicPath, true);
+	return Load(Settings.MusicPath);
 }
 
 bool MusicPlayer::PlayRandom()
@@ -270,7 +262,7 @@ bool MusicPlayer::PlayRandom()
 
 	snprintf(Settings.MusicPath, sizeof(Settings.MusicPath), "%s", TitleList.at(currentPlaying));
 
-	return Load(Settings.MusicPath, true);
+	return Load(Settings.MusicPath);
 }
 
 void MusicPlayer::Show()

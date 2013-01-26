@@ -28,6 +28,8 @@ class BootSettingsMenu : public SettingsMenu
 		void SetupOptions();
 		void SetOptionValues();
 		void OnOptionClick(GuiOptionBrowser *sender, int option);
+	private:
+		int iOldMountISFS;
 };
 
 

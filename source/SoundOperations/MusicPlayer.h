@@ -47,7 +47,7 @@ class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		static MusicPlayer * Instance() { if(!instance) instance = new MusicPlayer(); return instance; }
 		static void DestroyInstance() { delete instance; instance = NULL; }
 
-		bool Load(const char *path, bool silent = true);
+		bool Load(const char *path);
 		bool LoadStandard();
 		bool ParsePath(const char * filepath) { return TitleList.ParsePath(filepath); }
 		void Resume();
@@ -84,7 +84,6 @@ class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		bool ExitRequested;
 
 		std::string loadPathThreaded;
-		bool loadSilentThreaded;
 
 		u8 * fileLoadBuf;
 		u32 fileLoadBufSize;

@@ -190,6 +190,8 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u32 *size)
 		if(blocksize > filesize-done)
 			blocksize = filesize-done;
 
+		ShowProgress(done, filesize, filename);
+
 		ret = fread(buffer+done, 1, blocksize, file);
 		if(ret < 0)
 		{
@@ -198,14 +200,15 @@ int LoadFileToMem(const char *filepath, u8 **inbuffer, u32 *size)
 			return -3;
 		}
 
-		ShowProgress(done, filesize, filename);
-
 		done += ret;
 
 	}
 	while(ret > 0);
 
 	fclose(file);
+
+	// update at 100% once
+	ShowProgress(done, filesize, filename);
 
 	// finish up the progress for this file
 	FinishProgress(filesize);

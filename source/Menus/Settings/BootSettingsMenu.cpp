@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include "BootSettingsMenu.h"
+#include "DeviceControls/DeviceHandler.hpp"
 #include "Prompts/PromptWindows.h"
 #include "Settings.h"
 #include "sys.h"
@@ -22,11 +23,17 @@
 BootSettingsMenu::BootSettingsMenu(GuiFrame *r)
 	: SettingsMenu(tr("Boot Settings"), r)
 {
+	iOldMountISFS = Settings.MountISFS;
+
 	SetupOptions();
 }
 
 BootSettingsMenu::~BootSettingsMenu()
 {
+	if(Settings.MountISFS && !iOldMountISFS)
+		DeviceHandler::Instance()->MountNAND();
+	else if(!Settings.MountISFS && iOldMountISFS)
+		DeviceHandler::Instance()->UnMountNAND();
 }
 
 void BootSettingsMenu::SetupOptions()
@@ -34,6 +41,7 @@ void BootSettingsMenu::SetupOptions()
 	int i = 0;
 
 	options.SetName(i++, tr("Boot IOS"));
+	options.SetName(i++, tr("Mount NAND (ISFS)"));
 
 	SetOptionValues();
 }
@@ -43,11 +51,18 @@ void BootSettingsMenu::SetOptionValues()
 	int i = 0;
 
 	options.SetValue(i++, "%i", Settings.BootIOS);
+
+	if(Settings.MountISFS)
+		options.SetValue(i++, tr("ON"));
+	else
+		options.SetValue(i++, tr("OFF"));
 }
 
 void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option UNUSED)
 {
-	if(option == 0)
+	int iIdx = -1;
+
+	if(++iIdx == option)
 	{
 		char entered[50];
 		snprintf(entered, sizeof(entered), "%i", Settings.BootIOS);
@@ -64,6 +79,10 @@ void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			else
 				Settings.BootIOS = ios;
 		}
+	}
+	else if(++iIdx == option)
+	{
+		Settings.MountISFS = (Settings.MountISFS+1) % 2;
 	}
 
 	SetOptionValues();

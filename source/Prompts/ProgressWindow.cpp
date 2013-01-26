@@ -423,3 +423,10 @@ void ProgressWindow::SetMessage(const char *msg)
 	else
 		ProgressMsg[0] = 0;
 }
+
+void ProgressWindow::OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+{
+	OpenRequest = false;
+	CloseRequest = true;
+	Canceled = true;
+}

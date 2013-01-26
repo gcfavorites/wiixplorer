@@ -58,7 +58,7 @@ void FileLoadTask::Execute(void)
 	}
 	else
 	{
-		LoadingComplete(this, buffer, buffer_size);
+		LoadingComplete(buffer, buffer_size);
 	}
 
 	TaskEnd(this);

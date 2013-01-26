@@ -26,10 +26,36 @@ public:
 	virtual ~FileLoadTask();
 	virtual void Execute(void);
 	void SetAutoDelete(bool b) { bAutoDelete = b; }
-	sigslot::signal3<FileLoadTask *, u8 *, u32> LoadingComplete;
+	sigslot::signal2<u8 *, u32> LoadingComplete;
 private:
 	bool m_silent;
 	bool bAutoDelete;
+};
+
+class FileLoadTaskSynchron : public FileLoadTask
+{
+public:
+	FileLoadTaskSynchron(const std::string &filepath, bool silent)
+		: FileLoadTask(filepath, silent), bFinished(false), fileBuffer(0), fileSize(0)
+	{
+		LoadingComplete.connect(this, &FileLoadTaskSynchron::OnFileLoadFinish);
+	}
+
+	void OnFileLoadFinish(u8 *buf, u32 size)
+	{
+		fileBuffer = buf;
+		fileSize = size;
+		bFinished = true;
+	}
+
+	bool IsTaskFinished(void) const { return bFinished; }
+	u8 *getFileBuffer(void) { return fileBuffer; }
+	u32 getFileSize(void) { return fileSize; }
+
+private:
+	bool bFinished;
+	u8 *fileBuffer;
+	u32 fileSize;
 };
 
 #endif /* COPYTASK_H_ */

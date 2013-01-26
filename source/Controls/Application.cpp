@@ -312,12 +312,12 @@ void Application::init(void)
 	SetupPDFFontPath(Settings.UpdatePath);
 	SetupDefaultFont(Settings.CustomFontPath);
 
-	//! Set main thread prio very high as it is the render thread
-	LWP_SetThreadPriority(LWP_GetSelf(), 120);
-
 	//! Set UTF 8 locale
 	setlocale(LC_CTYPE, "C-UTF-8");
 	setlocale(LC_MESSAGES, "C-UTF-8");
+
+	//! Set main thread prio very high as it is the render thread
+	LWP_SetThreadPriority(LWP_GetSelf(), 121);
 
 	//! Initialize sound handler thread
 	SoundHandler::Instance();
@@ -334,7 +334,7 @@ void Application::init(void)
 		FTPServer::Instance()->StartupFTP();
 
 	//! Initialize the task thread
-	ThreadedTaskHandler::Instance();
+	ThreadedTaskHandler::Instance()->setThreadPriority(Settings.CopyThreadPrio);
 
 	//!********************************************
 	//! class internal things

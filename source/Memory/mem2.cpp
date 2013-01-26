@@ -14,7 +14,7 @@ u32 MALLOC_MEM2 = 0;
 
 static CMEM2Alloc g_mem2gp;
 
-static bool g_bigGoesToMem2 = true;
+static bool g_bigGoesToMem2 = false;
 
 extern "C"
 {

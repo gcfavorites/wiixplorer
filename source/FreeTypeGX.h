@@ -140,6 +140,9 @@ class FreeTypeGX
 		uint16_t drawText(int16_t x, int16_t y, int16_t z, const wchar_t *text, int16_t pixelSize, GXColor color =
 				ftgxWhite, uint16_t textStyling = FTGX_NULL, uint16_t textWidth = 0, uint16_t widthLimit = 0);
 
+		uint16_t drawLongText(int16_t x, int16_t y, int16_t z, const wchar_t *text, int16_t pixelSize, GXColor color,
+				uint16_t textStyle, uint16_t lineDistance, uint16_t maxLines, uint16_t startWidth, uint16_t maxWidth);
+
 		uint16_t getWidth(const wchar_t *text, int16_t pixelSize);
 		uint16_t getCharWidth(const wchar_t wChar, int16_t pixelSize, const wchar_t prevChar = 0x0000);
 		uint16_t getHeight(const wchar_t *text, int16_t pixelSize);

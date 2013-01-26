@@ -90,6 +90,8 @@ class GuiText : public GuiElement
 		//!\param font bufferblock
 		//!\param font filesize
 		bool SetFont(const u8 *font, const u32 filesize);
+		//! virtual function used in child classes
+		virtual int GetStartWidth() { return 0; };
 		//!Constantly called to draw the text
 		void Draw();
 	protected:

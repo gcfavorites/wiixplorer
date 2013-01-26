@@ -27,6 +27,7 @@
 #include "Memory/Resources.h"
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "Controls/Taskbar.h"
+#include "FileOperations/FileLoadTask.h"
 #include "Prompts/ProgressWindow.h"
 #include "Prompts/PromptWindows.h"
 #include "TextOperations/wstring.hpp"
@@ -107,7 +108,7 @@ bool ImageConverterGui::LoadImage(const char *filepath)
 	return true;
 }
 
-void ImageConverterGui::OnFinishedImageLoad(FileLoadTask *task UNUSED, u8 *buffer, u32 buffer_size)
+void ImageConverterGui::OnFinishedImageLoad(u8 *buffer, u32 buffer_size)
 {
 	bool result = ImageConverter::LoadImage(buffer, buffer_size);
 

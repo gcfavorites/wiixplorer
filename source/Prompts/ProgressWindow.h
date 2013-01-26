@@ -51,7 +51,7 @@ public:
 private:
 	ProgressWindow();
 	virtual ~ProgressWindow();
-	void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED) { Canceled = true; }
+	void OnCancelClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED);
 	void SetupProgressbar();
 	void TryOpenWindow(void);
 	void TryCloseWindow(void);
