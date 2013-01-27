@@ -152,19 +152,15 @@ void GuiLongText::RemoveText(int iPos, int iNumber)
 	if(!text || iPos < 0)
 		return;
 
-	for(u32 i = 1; i < TextLines.size(); ++i)
-	{
-		if(TextLines[i] == (u32)iPos+1) {
-			TextLines.erase(TextLines.begin()+i);
-			i--;
-		}
-		else if(TextLines[i] > (u32)iPos)
-		{
-			TextLines[i]--;
-		}
-	}
+	TextLines.clear();
+	TextLines.push_back(0);
 
-	int i = iPos;
+	int i;
+	for(i = 0; i < iPos && text[i]; ++i)
+	{
+		if(text[i] == L'\n')
+			TextLines.push_back(i+1);
+	}
 
 	while(text[iPos])
 	{
@@ -175,6 +171,10 @@ void GuiLongText::RemoveText(int iPos, int iNumber)
 		}
 
 		text[i] = text[iPos];
+
+		if(text[i] == L'\n')
+			TextLines.push_back(i+1);
+
 		++i;
 		++iPos;
 	}

@@ -35,7 +35,7 @@
 #include "http.h"
 #include "networkops.h"
 #include "netreceiver.h"
-#include "update.h"
+#include "UpdateTask.h"
 
 static NetReceiver Receiver;
 static bool networkinit = false;
@@ -134,12 +134,13 @@ static void * networkinitcallback(void *arg UNUSED)
 		if(!firstRun)
 		{
 			ConnectSMBShare();
+			ConnectFTP();
+			ConnectNFS();
 			if(Settings.FTPServer.AutoStart)
 				FTPServer::Instance()->StartupFTP();
 
-			ConnectFTP();
-			ConnectNFS();
-			CheckForUpdate();
+			UpdateTask updateTask(true, false, true);
+			updateTask.CheckForUpdate();
 
 			LWP_SetThreadPriority(networkthread, 0);
 			firstRun = true;

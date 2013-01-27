@@ -177,30 +177,29 @@ GuiKeyboardAlone::GuiKeyboardAlone(void)
 	{
 		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i].ch[j] != '\0')
-			{
-				txt[0] = keys[i].ch[j];
-				keyImg[i][j] = new GuiImage(key);
-				keyImgOver[i][j] = new GuiImage(keyOver);
-				keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
-				keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
-				keyTxt[i][j]->SetPosition(0, -10);
-				keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
-				keyBtn[i][j]->SetImage(keyImg[i][j]);
-				keyBtn[i][j]->SetImageOver(keyImgOver[i][j]);
-				keyBtn[i][j]->SetSoundOver(keySoundOver);
-				keyBtn[i][j]->SetSoundClick(keySoundClick);
-				keyBtn[i][j]->SetTrigger(trigA);
-				keyBtn[i][j]->SetLabel(keyTxt[i][j]);
-				if(i == 1)
-					Pos = 78;
-				else if(i > 0)
-					Pos = (i+2)*20;
-				keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
-				keyBtn[i][j]->SetEffectGrow();
-				keyBtn[i][j]->Clicked.connect(this, &GuiKeyboardAlone::OnNormalKeyPress);
+			txt[0] = keys[i].ch[j];
+			keyImg[i][j] = new GuiImage(key);
+			keyImgOver[i][j] = new GuiImage(keyOver);
+			keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
+			keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
+			keyTxt[i][j]->SetPosition(0, -10);
+			keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
+			keyBtn[i][j]->SetImage(keyImg[i][j]);
+			keyBtn[i][j]->SetImageOver(keyImgOver[i][j]);
+			keyBtn[i][j]->SetSoundOver(keySoundOver);
+			keyBtn[i][j]->SetSoundClick(keySoundClick);
+			keyBtn[i][j]->SetTrigger(trigA);
+			keyBtn[i][j]->SetLabel(keyTxt[i][j]);
+			if(i == 1)
+				Pos = 78;
+			else if(i > 0)
+				Pos = (i+2)*20;
+			keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
+			keyBtn[i][j]->SetEffectGrow();
+			keyBtn[i][j]->Clicked.connect(this, &GuiKeyboardAlone::OnNormalKeyPress);
+
+			if(keys[i].ch[j] != 0)
 				this->Append(keyBtn[i][j]);
-			}
 		}
 	}
 }
@@ -250,13 +249,10 @@ GuiKeyboardAlone::~GuiKeyboardAlone()
 	{
 		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i].ch[j] != '\0')
-			{
-				delete keyImg[i][j];
-				delete keyImgOver[i][j];
-				delete keyTxt[i][j];
-				delete keyBtn[i][j];
-			}
+			delete keyImg[i][j];
+			delete keyImgOver[i][j];
+			delete keyTxt[i][j];
+			delete keyBtn[i][j];
 		}
 	}
 }
@@ -267,26 +263,26 @@ void GuiKeyboardAlone::SwitchKeyLanguage()
 
 	memset(keys, 0, sizeof(keys));
 
+	gprintf("Test %i\n", DefaultKeys);
 	if(DefaultKeys)
 	{
-		wcsncpy(keys[0].ch,		L"`1234567890-", MAXKEYS);
-		wcsncpy(keys[0].chShift,L"~!@#$%^&*()_", MAXKEYS);
+		wcsncpy(keys[0].ch,		L"`1234567890-=", MAXKEYS);
+		wcsncpy(keys[0].chShift,L"~!@#$%^&*()_+", MAXKEYS);
 		wcsncpy(keys[1].ch,		L"qwertyuiop[]\\", MAXKEYS);
 		wcsncpy(keys[1].chShift,L"QWERTYUIOP{}|", MAXKEYS);
-		wcsncpy(keys[2].ch,		L"asdfghjkl;'=", MAXKEYS);
-		wcsncpy(keys[2].chShift,L"ASDFGHJKL:\"+", MAXKEYS);
+		wcsncpy(keys[2].ch,		L"asdfghjkl;'", MAXKEYS);
+		wcsncpy(keys[2].chShift,L"ASDFGHJKL:\"", MAXKEYS);
 		wcsncpy(keys[3].ch,		L"zxcvbnm,./", MAXKEYS);
 		wcsncpy(keys[3].chShift,L"ZXCVBNM<>?", MAXKEYS);
-
 	}
 	else
 	{
-		wcsncpy(keys[0].ch,		wfmt("%s", tr("`1234567890-")), MAXKEYS);
-		wcsncpy(keys[0].chShift,wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
+		wcsncpy(keys[0].ch,		wfmt("%s", tr("`1234567890-=")), MAXKEYS);
+		wcsncpy(keys[0].chShift,wfmt("%s", tr("~!@#$%^&*()_+")), MAXKEYS);
 		wcsncpy(keys[1].ch,		wfmt("%s", tr("qwertyuiop[]\\")), MAXKEYS);
 		wcsncpy(keys[1].chShift,wfmt("%s", tr("QWERTYUIOP{}|")), MAXKEYS);
-		wcsncpy(keys[2].ch,		wfmt("%s", tr("asdfghjkl;'=")), MAXKEYS);
-		wcsncpy(keys[2].chShift,wfmt("%s", tr("ASDFGHJKL:\"+")), MAXKEYS);
+		wcsncpy(keys[2].ch,		wfmt("%s", tr("asdfghjkl;'")), MAXKEYS);
+		wcsncpy(keys[2].chShift,wfmt("%s", tr("ASDFGHJKL:\"")), MAXKEYS);
 		wcsncpy(keys[3].ch,		wfmt("%s", tr("zxcvbnm,./")), MAXKEYS);
 		wcsncpy(keys[3].chShift,wfmt("%s", tr("ZXCVBNM<>?")), MAXKEYS);
 	}
@@ -401,12 +397,18 @@ void GuiKeyboardAlone::Update(GuiTrigger * t)
 			{
 				if(keys[i].ch[j] != 0)
 				{
+					this->Append(keyBtn[i][j]);
+
 					if(shift || caps)
 						txt[0] = keys[i].chShift[j];
 					else
 						txt[0] = keys[i].ch[j];
 
 					keyTxt[i][j]->SetText(txt);
+				}
+				else
+				{
+					this->Remove(keyBtn[i][j]);
 				}
 			}
 		}

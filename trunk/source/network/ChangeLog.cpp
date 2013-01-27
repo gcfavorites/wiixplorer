@@ -57,11 +57,14 @@ char * ChangeLog::GetChangeLogRange(int fromRev, int tillRev, bool backwards)
 	StartProgress(tr("Getting Changelog..."));
 	ProgressWindow::Instance()->SetUnit(tr("revs"));
 
+	int RevsDone = 0;
+	int TotalRevs = labs(StopRev-RevCounter);
+
 	while(RevCounter != StopRev)
 	{
 		char ProgressText[50];
 		snprintf(ProgressText, sizeof(ProgressText), "Revision %i", RevCounter);
-		ShowProgress(StopRev-labs(StopRev-RevCounter), labs(StopRev-RevCounter), ProgressText);
+		ShowProgress(RevsDone, TotalRevs, ProgressText);
 
 		char * RevChangelog = this->GetChanges(RevCounter);
 		if(!RevChangelog)
@@ -91,9 +94,11 @@ char * ChangeLog::GetChangeLogRange(int fromRev, int tillRev, bool backwards)
 			RevCounter--;
 		else
 			RevCounter++;
+
+		RevsDone++;
 	}
 	// finish up the progress
-	FinishProgress(labs(StopRev-RevCounter));
+	FinishProgress(TotalRevs);
 
 	StopProgress();
 	ProgressWindow::Instance()->SetUnit(NULL);
