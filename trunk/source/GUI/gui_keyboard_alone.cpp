@@ -45,9 +45,6 @@ GuiKeyboardAlone::GuiKeyboardAlone(void)
 
 	int KeyboardPosition = 0;
 
-	trigHeldA = new GuiTrigger;
-	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
-
 	key = Resources::GetImageData("keyboard_key.png");
 	keyOver = Resources::GetImageData("keyboard_key_over.png");
 	keyMedium = Resources::GetImageData("keyboard_mediumkey.png");
@@ -60,11 +57,6 @@ GuiKeyboardAlone::GuiKeyboardAlone(void)
 
 	trigA = new GuiTrigger;
 	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
-
-	trigLeft = new GuiTrigger;
-	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
-	trigRight = new GuiTrigger;
-	trigRight->SetButtonOnlyTrigger(-1, WiiControls.RightButton | ClassicControls.RightButton << 16, GCControls.RightButton);
 
 	keyBackImg = new GuiImage(keyMedium);
 	keyBackOverImg = new GuiImage(keyMediumOver);
@@ -232,10 +224,11 @@ GuiKeyboardAlone::~GuiKeyboardAlone()
 	delete keyLangImg;
 	delete keyLangOverImg;
 	delete keyLang;
+	delete keyTabText;
+	delete keyTabImg;
+	delete keyTabOverImg;
+	delete keyTab;
 	delete trigA;
-	delete trigHeldA;
-	delete trigLeft;
-	delete trigRight;
 	Resources::Remove(key);
 	Resources::Remove(keyOver);
 	Resources::Remove(keyMedium);

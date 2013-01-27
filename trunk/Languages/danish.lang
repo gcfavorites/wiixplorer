@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 18:37+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -48,7 +48,10 @@ msgstr "24T"
 msgid "7z decompression failed:"
 msgstr "7z dekomprition fejlede:"
 
-msgid "ASDFGHJKL:\"+"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
 msgstr ""
 
 msgid "Action cancelled."
@@ -80,6 +83,9 @@ msgstr "Sti til homebrew programmer"
 
 msgid "Archive Files"
 msgstr "Arkiv filer"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "Lyd filer"
@@ -147,6 +153,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr "Udregner total størrelse..."
 
@@ -158,6 +167,9 @@ msgstr "Kan ikke åbne filen."
 
 msgid "Can't browse that path."
 msgstr "Kan ikke åbne denne sti"
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Kan ikke finde den rigtige partition."
@@ -174,11 +186,16 @@ msgstr "Kan ikke åbne fil."
 msgid "Cancel"
 msgstr "Annuller"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "Kan ikke skabe bibliotek:"
 
-msgid "Cannot open image"
-msgstr "Kan ikke åbne billede"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr "Kan ikke læse fra drevet."
@@ -210,6 +227,9 @@ msgstr "Kontroller bibliotek:"
 
 msgid "Checking file:"
 msgstr "Kontroller fil:"
+
+msgid "Checking for updates"
+msgstr ""
 
 msgid "Clear"
 msgstr "Ryd"
@@ -257,6 +277,12 @@ msgstr "Kontrol indstillinger"
 msgid "Convert"
 msgstr "Konventer"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "Konventere billede..."
+
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -287,8 +313,9 @@ msgstr "Kunne ikke dekomprimer filen."
 msgid "Could not download file."
 msgstr "Kunne ikke downloade filen."
 
-msgid "Could not extract file:"
-msgstr "Kunne ikke udpakke filen:"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "Kunne ikke indlæse fil."
@@ -356,6 +383,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "Afbryd SMB"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr "Vil du tilføje en URL?"
 
@@ -417,6 +447,9 @@ msgstr "Vil du genstarte WiiXplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "Vil du genstarte nu?"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "Vil du genforbinde denne SMB?"
 
@@ -459,10 +492,6 @@ msgstr "Ned Knap"
 msgid "Download Link"
 msgstr ""
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "Downloadet %d filer."
-
 msgid "Downloading file..."
 msgstr "Downloader fil..."
 
@@ -479,6 +508,9 @@ msgstr "Stødte på %i Fejl.\n"
 msgid "Enter"
 msgstr "Skriv"
 
+msgid "Error"
+msgstr "Fejl"
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr "Fejl - %s er ikke en fil\n"
@@ -494,6 +526,18 @@ msgstr ""
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "Fejl - Ikke nok hukommelse på: %s\n"
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Fejl under indlæsning af fil."
@@ -528,9 +572,6 @@ msgstr "Udpak hele arkivet?"
 msgid "Extract the selected item(s)?"
 msgstr "Udpak valgt emne(r)?"
 
-msgid "Extracting files..."
-msgstr "Udpakker filer..."
-
 msgid "Extracting item(s):"
 msgstr "Udpakker emne(r)."
 
@@ -539,9 +580,6 @@ msgstr "FAT32 skal have mindst 65536 clusters"
 
 msgid "FTP Client Settings"
 msgstr "FTP klient indstillinger"
-
-msgid "FTP Client reconnected successfull."
-msgstr "Lykkedes at genforbinde FTP Klient. "
 
 msgid "FTP Path:"
 msgstr "FTP Sti:"
@@ -573,8 +611,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "Fejlede at udpakke arkivet."
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "Fejlede at udpakke emne(r)."
@@ -586,6 +624,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -608,6 +649,10 @@ msgstr "Fejlede at skrive EBR."
 
 msgid "Failed to write MBR."
 msgstr "Fejlede at skrive MBR."
+
+#, c-format
+msgid "Fatal error: %i."
+msgstr ""
 
 msgid "File Extensions"
 msgstr "Fil udvidelser"
@@ -748,6 +793,12 @@ msgstr ""
 msgid "General Settings"
 msgstr "Generale indstillinger"
 
+msgid "Getting Changelog..."
+msgstr "Henter Changelog..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Tilbage"
 
@@ -773,6 +824,9 @@ msgid "Home Button"
 msgstr "Hjem knap"
 
 msgid "Home Menu"
+msgstr ""
+
+msgid "Homebrew Channel"
 msgstr ""
 
 msgid "Homebrew Files"
@@ -819,9 +873,6 @@ msgstr "Billed højde"
 
 msgid "Image Settings"
 msgstr "Billed indstillinger"
-
-msgid "Image Viewer"
-msgstr ""
 
 msgid "Image Width"
 msgstr "Billed bredde"
@@ -883,9 +934,6 @@ msgstr "Sidst modifiseret:"
 msgid "Left Button"
 msgstr "Venstre knap"
 
-msgid "Linebreak"
-msgstr ""
-
 msgid "List Mode"
 msgstr "List måde"
 
@@ -900,9 +948,6 @@ msgstr "Indlæs musik til hukommelse"
 
 msgid "Loading file:"
 msgstr "Indlæser fil:"
-
-msgid "Loading image..."
-msgstr "Indlæser billed..."
 
 msgid "Log was saved in MD5.log"
 msgstr "Log er gemt i MD5.log"
@@ -940,8 +985,18 @@ msgstr "Hukommelses knap"
 msgid "Menu"
 msgstr ""
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
 msgstr "Indlæst som:"
+
+msgid "Mounting DVD"
+msgstr ""
 
 msgid "Mountpoint:"
 msgstr ""
@@ -991,10 +1046,6 @@ msgstr "Ingen filer fundet."
 msgid "No homebrew in the zip."
 msgstr "Ingen homebrew i zip."
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "Intet billede fundet på indeks %d."
-
 msgid "No network connection."
 msgstr "Ingen netværksforbindelse."
 
@@ -1016,6 +1067,9 @@ msgstr "Ikke en gyldig URL sti"
 msgid "Not a valid domain"
 msgstr "Ikke et gyldigt domæne"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "Ikke nok hukommelse til at ændre størrelse."
 
@@ -1024,6 +1078,9 @@ msgstr "Ikke nok hukommelse til at roter."
 
 msgid "Not enough memory."
 msgstr "Ikke nok hukommelse."
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr "Ikke indlæst"
@@ -1179,6 +1236,18 @@ msgstr ""
 msgid "Random"
 msgstr "Tilfældig"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1191,19 +1260,25 @@ msgstr "Modtager fil..."
 msgid "Reconnect FTP"
 msgstr "Genforbind FTP"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Genforbind SMB"
-
-msgid "Reconnect failed. No client connected."
-msgstr "Fejlede at genforbinde. Ingen klient er forbundet."
-
-msgid "Reconnect failed. No share connected."
-msgstr "Fejlede at genforbinde. Ingen delte forbindelser er forbundet."
 
 msgid "Red"
 msgstr "Rød"
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1224,8 +1299,8 @@ msgstr "Nulstil"
 msgid "Restart"
 msgstr "Genstart"
 
-msgid "Retry"
-msgstr "Forsøg igen"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "Højre knap"
@@ -1248,14 +1323,11 @@ msgstr "SMB-navn:"
 msgid "SMB Settings"
 msgstr "SMB-indstillinger"
 
-msgid "SMB is connecting..."
-msgstr "SMB forbinder..."
-
-msgid "SMB reconnected successfull."
-msgstr "Lykkedes at genforbinde SMB."
-
 msgid "Save Alpha"
 msgstr "Gem Alfa"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr ""
@@ -1271,6 +1343,10 @@ msgstr "Screenshot pres knap"
 
 msgid "Scrolling Speed"
 msgstr "Scrolling hastighed"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "Server var lukket ned...\n"
@@ -1339,6 +1415,12 @@ msgstr "Start FTP"
 msgid "Successfully formated the partition."
 msgstr "Formatering af partition lykkedes."
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Midlertidig sti"
 
@@ -1387,12 +1469,6 @@ msgstr "Tid tilbage:"
 msgid "To Idle"
 msgstr "Til idle"
 
-msgid "To Loader"
-msgstr "Til loader"
-
-msgid "To Menu"
-msgstr "Til menu"
-
 msgid "To Standby"
 msgstr "Til pause"
 
@@ -1428,9 +1504,6 @@ msgstr "Ukendt format. Åben denne fil med TextEditor?"
 
 msgid "Unable to create folder."
 msgstr "Kan ikke oprette mappe."
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr "Ukendt"
@@ -1574,6 +1647,9 @@ msgstr "Wii Binary Filer"
 msgid "Wii Homebrew"
 msgstr ""
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1591,6 +1667,18 @@ msgstr "WiiXplorer film"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "Vil du tilføje/vedhæfte det valgte emne(r) til zip?"
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -1622,13 +1710,13 @@ msgstr "Zoom ind knap"
 msgid "ZoomOut Button"
 msgstr "Zoom ud knap"
 
-msgid "`1234567890-"
+msgid "`1234567890-="
 msgstr ""
 
 msgid "and all the translators."
 msgstr "Og alle hans oversættere."
 
-msgid "asdfghjkl;'="
+msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
@@ -1646,11 +1734,62 @@ msgstr "for hans fantastiske værktøj libwiigui."
 msgid "qwertyuiop[]\\"
 msgstr ""
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr ""
 
-msgid "~!@#$%^&*()_"
+msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Cannot open image"
+#~ msgstr "Kan ikke åbne billede"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Kunne ikke udpakke filen:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "Downloadet %d filer."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Udpakker filer..."
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "Lykkedes at genforbinde FTP Klient. "
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "Fejlede at udpakke arkivet."
+
+#~ msgid "Loading image..."
+#~ msgstr "Indlæser billed..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "Intet billede fundet på indeks %d."
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "Fejlede at genforbinde. Ingen klient er forbundet."
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "Fejlede at genforbinde. Ingen delte forbindelser er forbundet."
+
+#~ msgid "Retry"
+#~ msgstr "Forsøg igen"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "SMB forbinder..."
+
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "Lykkedes at genforbinde SMB."
+
+#~ msgid "To Loader"
+#~ msgstr "Til loader"
+
+#~ msgid "To Menu"
+#~ msgstr "Til menu"
 
 #~ msgid "Copy of"
 #~ msgstr "Kopi af"
@@ -1724,9 +1863,6 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr "Fortsæt"
 
-#~ msgid "Converting image..."
-#~ msgstr "Konventere billede..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "Kunne ikke forbinde til netværk"
 
@@ -1741,9 +1877,6 @@ msgstr ""
 
 #~ msgid "Formating partition..."
 #~ msgstr "Formatere partition..."
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "Henter Changelog..."
 
 #~ msgid "Language Path changed."
 #~ msgstr "Sprogsti ændret."
@@ -2001,9 +2134,6 @@ msgstr ""
 
 #~ msgid "Can not open the file"
 #~ msgstr "Kan ikke åbne filen"
-
-#~ msgid "Error"
-#~ msgstr "Fejl"
 
 #~ msgid "An error occured."
 #~ msgstr "Der skete en fejl."

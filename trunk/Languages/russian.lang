@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -47,7 +47,10 @@ msgstr "24 часа"
 msgid "7z decompression failed:"
 msgstr ""
 
-msgid "ASDFGHJKL:\"+"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
 msgstr ""
 
 msgid "Action cancelled."
@@ -79,6 +82,9 @@ msgstr "Путь к программам"
 
 msgid "Archive Files"
 msgstr "Архивы"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "Аудио"
@@ -146,6 +152,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr ""
 
@@ -156,6 +165,9 @@ msgid "Can not open the file."
 msgstr "Не удалось открыть файл."
 
 msgid "Can't browse that path."
+msgstr ""
+
+msgid "Can't connect to update server"
 msgstr ""
 
 msgid "Can't find the right partition."
@@ -173,11 +185,16 @@ msgstr "Не удалось открыть файл."
 msgid "Cancel"
 msgstr "Отменить"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "Не удалось создать каталог: "
 
-msgid "Cannot open image"
-msgstr "Не удалось открыть изображение"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr ""
@@ -208,6 +225,9 @@ msgid "Checking directory:"
 msgstr ""
 
 msgid "Checking file:"
+msgstr ""
+
+msgid "Checking for updates"
 msgstr ""
 
 msgid "Clear"
@@ -256,6 +276,12 @@ msgstr "Управление"
 msgid "Convert"
 msgstr "Преобразовать"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "Преобразование изображения..."
+
 msgid "Copy"
 msgstr "Копировать"
 
@@ -286,8 +312,9 @@ msgstr "Не удалось распаковать файл."
 msgid "Could not download file."
 msgstr "Не удалось загрузить файл."
 
-msgid "Could not extract file:"
-msgstr "Не удалось извлечь файл:"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "Не удалось загрузить файл."
@@ -355,6 +382,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "Отключить SMB"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr ""
 
@@ -416,6 +446,9 @@ msgstr "Перезапустить WiiXplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "Перезапустить сейчас ?"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "Восстановить это SMB соединение?"
 
@@ -458,10 +491,6 @@ msgstr ""
 msgid "Download Link"
 msgstr ""
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "Загружены %d файлы."
-
 msgid "Downloading file..."
 msgstr "Загрузка файла..."
 
@@ -478,6 +507,9 @@ msgstr ""
 msgid "Enter"
 msgstr ""
 
+msgid "Error"
+msgstr ""
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr ""
@@ -492,6 +524,18 @@ msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
 msgstr ""
 
 msgid "Error while reading file."
@@ -527,9 +571,6 @@ msgstr "Извлечь всё содержимое архива?"
 msgid "Extract the selected item(s)?"
 msgstr ""
 
-msgid "Extracting files..."
-msgstr "Извлечение файлов..."
-
 msgid "Extracting item(s):"
 msgstr ""
 
@@ -538,9 +579,6 @@ msgstr ""
 
 msgid "FTP Client Settings"
 msgstr "FTP клиент"
-
-msgid "FTP Client reconnected successfull."
-msgstr ""
 
 msgid "FTP Path:"
 msgstr "Путь:"
@@ -572,7 +610,7 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
+msgid "Failed extracting some item(s)."
 msgstr ""
 
 msgid "Failed extracting the item(s)."
@@ -585,6 +623,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -606,6 +647,10 @@ msgid "Failed to write EBR."
 msgstr ""
 
 msgid "Failed to write MBR."
+msgstr ""
+
+#, c-format
+msgid "Fatal error: %i."
 msgstr ""
 
 msgid "File Extensions"
@@ -747,6 +792,12 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
+msgid "Getting Changelog..."
+msgstr "Получение изменений..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Вернуться"
 
@@ -773,6 +824,9 @@ msgstr ""
 
 msgid "Home Menu"
 msgstr "Меню Home"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Homebrew"
@@ -818,9 +872,6 @@ msgstr ""
 
 msgid "Image Settings"
 msgstr "Изображения"
-
-msgid "Image Viewer"
-msgstr ""
 
 msgid "Image Width"
 msgstr ""
@@ -882,9 +933,6 @@ msgstr ""
 msgid "Left Button"
 msgstr ""
 
-msgid "Linebreak"
-msgstr ""
-
 msgid "List Mode"
 msgstr "Список"
 
@@ -899,9 +947,6 @@ msgstr "Полная загрузка в память"
 
 msgid "Loading file:"
 msgstr "Загрузка файла:"
-
-msgid "Loading image..."
-msgstr "Загрузка изображения..."
 
 msgid "Log was saved in MD5.log"
 msgstr ""
@@ -939,7 +984,17 @@ msgstr "Буфер памяти"
 msgid "Menu"
 msgstr "Меню Wii"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
+msgstr ""
+
+msgid "Mounting DVD"
 msgstr ""
 
 msgid "Mountpoint:"
@@ -990,10 +1045,6 @@ msgstr "Файлы не найдены."
 msgid "No homebrew in the zip."
 msgstr ""
 
-#, c-format
-msgid "No image found at index %d."
-msgstr ""
-
 msgid "No network connection."
 msgstr ""
 
@@ -1015,6 +1066,9 @@ msgstr ""
 msgid "Not a valid domain"
 msgstr ""
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "Недостаточно памяти для изменения размера."
 
@@ -1023,6 +1077,9 @@ msgstr "Недостаточно памяти, чтобы повернуть."
 
 msgid "Not enough memory."
 msgstr "Не хватает памяти."
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr ""
@@ -1178,6 +1235,18 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1190,19 +1259,25 @@ msgstr "Получение файла..."
 msgid "Reconnect FTP"
 msgstr "Переподключить FTP"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Переподключить SMB"
-
-msgid "Reconnect failed. No client connected."
-msgstr ""
-
-msgid "Reconnect failed. No share connected."
-msgstr ""
 
 msgid "Red"
 msgstr ""
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1223,8 +1298,8 @@ msgstr "Сброс"
 msgid "Restart"
 msgstr "Перезапуск"
 
-msgid "Retry"
-msgstr "Повторить"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr ""
@@ -1247,13 +1322,10 @@ msgstr "Имя SMB:"
 msgid "SMB Settings"
 msgstr "SMB клиент"
 
-msgid "SMB is connecting..."
-msgstr ""
-
-msgid "SMB reconnected successfull."
-msgstr ""
-
 msgid "Save Alpha"
+msgstr ""
+
+msgid "Screen Pointer Speed"
 msgstr ""
 
 msgid "Screenshot Format"
@@ -1270,6 +1342,10 @@ msgstr ""
 
 msgid "Scrolling Speed"
 msgstr "Скорость прокрутки"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "Сервер остановлен...\n"
@@ -1338,6 +1414,12 @@ msgstr "Запустить FTP"
 msgid "Successfully formated the partition."
 msgstr ""
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr ""
 
@@ -1386,12 +1468,6 @@ msgstr ""
 msgid "To Idle"
 msgstr ""
 
-msgid "To Loader"
-msgstr "В загрузчик"
-
-msgid "To Menu"
-msgstr "В меню Wii"
-
 msgid "To Standby"
 msgstr ""
 
@@ -1427,9 +1503,6 @@ msgstr "Неизвестный формат. Открыть файл в TextEdit
 
 msgid "Unable to create folder."
 msgstr "Не удалось создать папку."
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr ""
@@ -1573,6 +1646,9 @@ msgstr ""
 msgid "Wii Homebrew"
 msgstr ""
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1589,6 +1665,18 @@ msgid "WiiXplorer Movies"
 msgstr ""
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
+msgstr ""
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
 msgstr ""
 
 msgid "Yes"
@@ -1621,13 +1709,13 @@ msgstr ""
 msgid "ZoomOut Button"
 msgstr ""
 
-msgid "`1234567890-"
+msgid "`1234567890-="
 msgstr ""
 
 msgid "and all the translators."
 msgstr ""
 
-msgid "asdfghjkl;'="
+msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
@@ -1645,11 +1733,41 @@ msgstr ""
 msgid "qwertyuiop[]\\"
 msgstr ""
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr ""
 
-msgid "~!@#$%^&*()_"
+msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Cannot open image"
+#~ msgstr "Не удалось открыть изображение"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Не удалось извлечь файл:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "Загружены %d файлы."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Извлечение файлов..."
+
+#~ msgid "Loading image..."
+#~ msgstr "Загрузка изображения..."
+
+#~ msgid "Retry"
+#~ msgstr "Повторить"
+
+#~ msgid "To Loader"
+#~ msgstr "В загрузчик"
+
+#~ msgid "To Menu"
+#~ msgstr "В меню Wii"
 
 #~ msgid "Do you want to remount the devices?"
 #~ msgstr "Перезагрузить SD и USB ?"
@@ -1675,9 +1793,6 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr "Продолжить"
 
-#~ msgid "Converting image..."
-#~ msgstr "Преобразование изображения..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "Не удалось подключиться к сети"
 
@@ -1686,9 +1801,6 @@ msgstr ""
 
 #~ msgid "File Extensions Assignment"
 #~ msgstr "Распределение файловых расширений"
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "Получение изменений..."
 
 #~ msgid "No language files found."
 #~ msgstr "Языковые файлы не найдены."

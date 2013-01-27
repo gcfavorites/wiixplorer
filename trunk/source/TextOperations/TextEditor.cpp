@@ -263,6 +263,12 @@ void TextEditor::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POIN
 			keyboard->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 50);
 			keyboard->SetVisible(true);
 			keyboard->SetState(STATE_DEFAULT);
+			while(TextPointerBtn->GetCurrentLine() >= linestodraw/2) {
+				scrollbar->ScrollOneDown();
+				TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
+			}
+			scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+
 			TextPointerBtn->SetState(STATE_DISABLED);
 			scrollbar->SetDPadControl(false);
 		}
@@ -296,7 +302,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 			{
 				if(TextPointerBtn->GetCurrentLine() == 0) {
 					scrollbar->ScrollOneUp();
-					OnListChange(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+					scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
 				}
 				else
 					TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
@@ -331,9 +337,9 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 		// adding linebreak
 		if(charCode == L'\n')
 		{
-			if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw) {
+			if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw/2) {
 				scrollbar->ScrollOneDown();
-				OnListChange(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+				scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
 			}
 			else
 				TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()+1);

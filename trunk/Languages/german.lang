@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "PO-Revision-Date: 2010-12-11 15:38-0800\n"
 "Last-Translator: ZEN.13\n"
 "Language-Team: ilduderino, Screemer, ZEN.13, atlanx\n"
@@ -47,7 +47,10 @@ msgstr "24 Stunden"
 msgid "7z decompression failed:"
 msgstr "7z Dekomprimierung fehlgeschlagen:"
 
-msgid "ASDFGHJKL:\"+"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
 msgstr ""
 
 msgid "Action cancelled."
@@ -79,6 +82,9 @@ msgstr "Apps"
 
 msgid "Archive Files"
 msgstr "Archive"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "Audio"
@@ -146,6 +152,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr "Berechne Gesamtgröße..."
 
@@ -157,6 +166,9 @@ msgstr "Die Datei kann nicht geöffnet werden."
 
 msgid "Can't browse that path."
 msgstr "Dieser Pfad kann nicht durchsucht werden."
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Die richtige Partition kann nicht gefunden werden."
@@ -173,11 +185,16 @@ msgstr "Datei kann nicht geöffnet werden."
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "Verzeichnis kann nicht erstellt werden: "
 
-msgid "Cannot open image"
-msgstr "Bild kann nicht geöffnet werden."
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr "Von dem Laufwerk kann nicht gelesen werden."
@@ -209,6 +226,9 @@ msgstr "Prüfe Verzeichnis:"
 
 msgid "Checking file:"
 msgstr "Prüfe Datei:"
+
+msgid "Checking for updates"
+msgstr ""
 
 msgid "Clear"
 msgstr "Löschen"
@@ -256,6 +276,12 @@ msgstr "Steuerung"
 msgid "Convert"
 msgstr "Konvertieren"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "Bild wird konvertiert..."
+
 msgid "Copy"
 msgstr "Kopieren"
 
@@ -286,8 +312,9 @@ msgstr "Datei konnte nicht dekomprimiert werden."
 msgid "Could not download file."
 msgstr "Datei konnte nicht heruntergeladen werden."
 
-msgid "Could not extract file:"
-msgstr "Datei konnte nicht entpackt werden:"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "Datei konnte nicht geladen werden."
@@ -355,6 +382,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "> SMB-Verbindung trennen <"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr "Eine URL hinzufügen?"
 
@@ -416,6 +446,9 @@ msgstr "WiiXplorer neu starten?"
 msgid "Do you want to reboot now ?"
 msgstr "Jetzt neu starten?"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "Mit dieser Netzwerkfreigabe verbinden?"
 
@@ -458,10 +491,6 @@ msgstr "Runter mit"
 msgid "Download Link"
 msgstr "Download"
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "%d Dateien heruntergeladen."
-
 msgid "Downloading file..."
 msgstr "Lade Datei herunter..."
 
@@ -478,6 +507,9 @@ msgstr "%i Fehler gefunden.\n"
 msgid "Enter"
 msgstr "Eingeben"
 
+msgid "Error"
+msgstr ""
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr "Fehler - %s ist keine Datei\n"
@@ -493,6 +525,18 @@ msgstr ""
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "Fehler - Nicht genug Speicher auf: %s\n"
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Fehler beim Lesen der Datei."
@@ -527,9 +571,6 @@ msgstr "Ganzes Archiv entpacken?"
 msgid "Extract the selected item(s)?"
 msgstr "Auswahl entpacken?"
 
-msgid "Extracting files..."
-msgstr "Entpacke Dateien..."
-
 msgid "Extracting item(s):"
 msgstr "Entpacke Element(e):"
 
@@ -538,9 +579,6 @@ msgstr "FAT32 muss min. 65536 Cluster haben."
 
 msgid "FTP Client Settings"
 msgstr "Einstellungen: FTP-Client"
-
-msgid "FTP Client reconnected successfull."
-msgstr "FTP-Client erfolgreich wiederverbunden."
 
 msgid "FTP Path:"
 msgstr "FTP-Startpfad:"
@@ -572,8 +610,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "Entpacken des Archivs fehlgeschlagen."
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "Entpacken der/des Elemente(s) fehlgeschlagen."
@@ -585,6 +623,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -607,6 +648,10 @@ msgstr "EBR schreiben fehlgeschlagen."
 
 msgid "Failed to write MBR."
 msgstr "MBR schreiben fehlgeschlagen."
+
+#, c-format
+msgid "Fatal error: %i."
+msgstr ""
 
 msgid "File Extensions"
 msgstr "Dateiendungen"
@@ -747,6 +792,12 @@ msgstr ""
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
+msgid "Getting Changelog..."
+msgstr "Lade ChangeLog..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Zurück"
 
@@ -773,6 +824,9 @@ msgstr "HOME-Taste"
 
 msgid "Home Menu"
 msgstr "HOME Menü"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Homebrew"
@@ -818,9 +872,6 @@ msgstr "Höhe"
 
 msgid "Image Settings"
 msgstr "Bilder"
-
-msgid "Image Viewer"
-msgstr "Bildbetrachter"
 
 msgid "Image Width"
 msgstr "Breite"
@@ -882,9 +933,6 @@ msgstr "Zuletzt geändert:"
 msgid "Left Button"
 msgstr "Links mit"
 
-msgid "Linebreak"
-msgstr "Absatz"
-
 msgid "List Mode"
 msgstr "Liste"
 
@@ -899,9 +947,6 @@ msgstr "Musik puffern"
 
 msgid "Loading file:"
 msgstr "Lade Datei:"
-
-msgid "Loading image..."
-msgstr "Bild wird geladen..."
 
 msgid "Log was saved in MD5.log"
 msgstr "Log wurde in MD5.log gespeichert."
@@ -939,8 +984,18 @@ msgstr "Zwischenspeicher"
 msgid "Menu"
 msgstr "Menü"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
 msgstr "Eingebunden als:"
+
+msgid "Mounting DVD"
+msgstr ""
 
 msgid "Mountpoint:"
 msgstr ""
@@ -990,10 +1045,6 @@ msgstr "Keine Dateien gefunden."
 msgid "No homebrew in the zip."
 msgstr "Keine Homebrew im ZIP."
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "Kein Bild bei Index %d gefunden."
-
 msgid "No network connection."
 msgstr "Keine Netzwerkverbindung."
 
@@ -1015,6 +1066,9 @@ msgstr "Kein gültiger URL-Pfad"
 msgid "Not a valid domain"
 msgstr "Keine gültige Domain"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "Nicht genug Speicher um die Größe zu ändern."
 
@@ -1023,6 +1077,9 @@ msgstr "Nicht genug Speicher zum drehen."
 
 msgid "Not enough memory."
 msgstr "Nicht genügend Speicher verfügbar."
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr "Nicht eingebunden"
@@ -1178,6 +1235,18 @@ msgstr ""
 msgid "Random"
 msgstr "Zufällig"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1190,19 +1259,25 @@ msgstr "Empfange Datei..."
 msgid "Reconnect FTP"
 msgstr "> FTP-Verbindung herstellen <"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "> SMB-Verbindung herstellen <"
-
-msgid "Reconnect failed. No client connected."
-msgstr "  Verbindungsversuch fehlgeschlagen.          Kein FTP-Client gefunden."
-
-msgid "Reconnect failed. No share connected."
-msgstr "  Verbindungsversuch fehlgeschlagen.          Keine Netzwerkfreigabe gefunden."
 
 msgid "Red"
 msgstr "Rot"
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1223,8 +1298,8 @@ msgstr "Zurücksetzen"
 msgid "Restart"
 msgstr "Neu starten"
 
-msgid "Retry"
-msgstr "Wiederholen"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "Rechts mit"
@@ -1247,14 +1322,11 @@ msgstr ""
 msgid "SMB Settings"
 msgstr "Einstellungen: SMB (Netzwerkfreigabe)"
 
-msgid "SMB is connecting..."
-msgstr "SMB-Verbindung wird etabliert..."
-
-msgid "SMB reconnected successfull."
-msgstr "(OK) SMB-Verbindung hergestellt."
-
 msgid "Save Alpha"
 msgstr "Alpha speichern"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr "Dateityp für Screenshots"
@@ -1270,6 +1342,10 @@ msgstr "Screenshot (Drücken)"
 
 msgid "Scrolling Speed"
 msgstr "Scroll-Geschwindigkeit"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "Server wurde ausgeschaltet...\n"
@@ -1338,6 +1414,12 @@ msgstr "FTP starten"
 msgid "Successfully formated the partition."
 msgstr "Die Partition wurde erfolgreich formatiert."
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Temporäres Verzeichnis"
 
@@ -1386,12 +1468,6 @@ msgstr "Verbleibende Zeit:"
 msgid "To Idle"
 msgstr "WiiConnect24 an"
 
-msgid "To Loader"
-msgstr "Loader"
-
-msgid "To Menu"
-msgstr "Wii Menü"
-
 msgid "To Standby"
 msgstr "WiiConnet24 aus"
 
@@ -1427,9 +1503,6 @@ msgstr "Unbekanntes Format. Diese Datei mit dem TextEditor öffnen?"
 
 msgid "Unable to create folder."
 msgstr "Ordner konnte nicht erstellt werden."
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -1573,6 +1646,9 @@ msgstr "Wii Binärdateien"
 msgid "Wii Homebrew"
 msgstr ""
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1590,6 +1666,18 @@ msgstr "WiiXplorer Filme"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "Auswahl zu einem ZIP-Archiv hinzufügen?"
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -1621,13 +1709,13 @@ msgstr "Hereinzoomen mit"
 msgid "ZoomOut Button"
 msgstr "Herauszoomen mit"
 
-msgid "`1234567890-"
+msgid "`1234567890-="
 msgstr ""
 
 msgid "and all the translators."
 msgstr "und alle Übersetzer."
 
-msgid "asdfghjkl;'="
+msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
@@ -1645,11 +1733,68 @@ msgstr "für sein großartiges Tool libwiigui."
 msgid "qwertyuiop[]\\"
 msgstr "qwertzuiop[]\\"
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr "yxcvbnm,./"
 
-msgid "~!@#$%^&*()_"
+msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Linebreak"
+#~ msgstr "Absatz"
+
+#~ msgid "Cannot open image"
+#~ msgstr "Bild kann nicht geöffnet werden."
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Datei konnte nicht entpackt werden:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "%d Dateien heruntergeladen."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Entpacke Dateien..."
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "FTP-Client erfolgreich wiederverbunden."
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "Entpacken des Archivs fehlgeschlagen."
+
+#~ msgid "Image Viewer"
+#~ msgstr "Bildbetrachter"
+
+#~ msgid "Loading image..."
+#~ msgstr "Bild wird geladen..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "Kein Bild bei Index %d gefunden."
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "  Verbindungsversuch fehlgeschlagen.          Kein FTP-Client gefunden."
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "  Verbindungsversuch fehlgeschlagen.          Keine Netzwerkfreigabe gefunden."
+
+#~ msgid "Retry"
+#~ msgstr "Wiederholen"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "SMB-Verbindung wird etabliert..."
+
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "(OK) SMB-Verbindung hergestellt."
+
+#~ msgid "To Loader"
+#~ msgstr "Loader"
+
+#~ msgid "To Menu"
+#~ msgstr "Wii Menü"
 
 #~ msgid "Copy of"
 #~ msgstr "Kopie von"
@@ -1723,9 +1868,6 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr "Fortsetzen"
 
-#~ msgid "Converting image..."
-#~ msgstr "Bild wird konvertiert..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "Es konnte keine Verbindung zum Netzwerk hergestellt werden."
 
@@ -1740,9 +1882,6 @@ msgstr ""
 
 #~ msgid "Formating partition..."
 #~ msgstr "Partition wird formatiert..."
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "Lade ChangeLog..."
 
 #~ msgid "Language Path changed."
 #~ msgstr "Pfad geändert"
