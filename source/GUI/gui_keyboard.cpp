@@ -228,30 +228,29 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	{
 		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i].ch[j] != '\0')
-			{
-				txt[0] = keys[i].ch[j];
-				keyImg[i][j] = new GuiImage(key);
-				keyImgOver[i][j] = new GuiImage(keyOver);
-				keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
-				keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
-				keyTxt[i][j]->SetPosition(0, -10);
-				keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
-				keyBtn[i][j]->SetImage(keyImg[i][j]);
-				keyBtn[i][j]->SetImageOver(keyImgOver[i][j]);
-				keyBtn[i][j]->SetSoundOver(keySoundOver);
-				keyBtn[i][j]->SetSoundClick(keySoundClick);
-				keyBtn[i][j]->SetTrigger(trigA);
-				keyBtn[i][j]->SetLabel(keyTxt[i][j]);
-				if(i == 1)
-					Pos = i*20;
-				else if(i > 0)
-					Pos = (i+2)*20;
-				keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
-				keyBtn[i][j]->SetEffectGrow();
-				keyBtn[i][j]->Clicked.connect(this, &GuiKeyboard::OnNormalKeyPress);
+			txt[0] = keys[i].ch[j];
+			keyImg[i][j] = new GuiImage(key);
+			keyImgOver[i][j] = new GuiImage(keyOver);
+			keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
+			keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
+			keyTxt[i][j]->SetPosition(0, -10);
+			keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
+			keyBtn[i][j]->SetImage(keyImg[i][j]);
+			keyBtn[i][j]->SetImageOver(keyImgOver[i][j]);
+			keyBtn[i][j]->SetSoundOver(keySoundOver);
+			keyBtn[i][j]->SetSoundClick(keySoundClick);
+			keyBtn[i][j]->SetTrigger(trigA);
+			keyBtn[i][j]->SetLabel(keyTxt[i][j]);
+			if(i == 1)
+				Pos = i*20;
+			else if(i > 0)
+				Pos = (i+2)*20;
+			keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
+			keyBtn[i][j]->SetEffectGrow();
+			keyBtn[i][j]->Clicked.connect(this, &GuiKeyboard::OnNormalKeyPress);
+
+			if(keys[i].ch[j] != 0)
 				this->Append(keyBtn[i][j]);
-			}
 		}
 	}
 }
@@ -311,13 +310,10 @@ GuiKeyboard::~GuiKeyboard()
 	{
 		for(int j = 0; j < MAXKEYS; j++)
 		{
-			if(keys[i].ch[j] != '\0')
-			{
-				delete keyImg[i][j];
-				delete keyImgOver[i][j];
-				delete keyTxt[i][j];
-				delete keyBtn[i][j];
-			}
+			delete keyImg[i][j];
+			delete keyImgOver[i][j];
+			delete keyTxt[i][j];
+			delete keyBtn[i][j];
 		}
 	}
 }
@@ -562,12 +558,18 @@ void GuiKeyboard::Update(GuiTrigger * t)
 			{
 				if(keys[i].ch[j] != 0)
 				{
+					this->Append(keyBtn[i][j]);
+
 					if(shift || caps)
 						txt[0] = keys[i].chShift[j];
 					else
 						txt[0] = keys[i].ch[j];
 
 					keyTxt[i][j]->SetText(txt);
+				}
+				else
+				{
+					this->Remove(keyBtn[i][j]);
 				}
 			}
 		}

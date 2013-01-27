@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include "LanguageSettingsMenu.h"
-#include "Language/LanguageUpdater.h"
+#include "Controls/Taskbar.h"
 #include "Prompts/PromptWindows.h"
+#include "network/UpdateTask.h"
 #include "Settings.h"
 
 LanguageSettingsMenu::LanguageSettingsMenu(GuiFrame *r)
@@ -99,12 +100,11 @@ void LanguageSettingsMenu::OnDownloadButtonClick(GuiButton *sender UNUSED, int p
 	int choice = WindowPrompt(0, tr("Do you want to download new language files?"), tr("Yes"), tr("Cancel"));
 	if(choice)
 	{
-		int result = UpdateLanguageFiles();
-		if(result > 0)
-		{
-			WindowPrompt(0, fmt(tr("Downloaded %d files."), result), tr("OK"));
-			SetupOptions();
-		}
+		UpdateTask *task = new UpdateTask(false, true, false);
+		task->SetAutoDelete(true);
+		task->TaskEnd.connect(this, &LanguageSettingsMenu::OnUpdateFinish);
+		Taskbar::Instance()->AddTask(task);
+		ThreadedTaskHandler::Instance()->AddTask(task);
 	}
 }
 

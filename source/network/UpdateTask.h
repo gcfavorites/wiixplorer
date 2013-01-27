@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,37 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef LANGUAGE_SETTINGS_MENU_H_
-#define LANGUAGE_SETTINGS_MENU_H_
+#ifndef UPDATETASK_H_
+#define UPDATETASK_H_
 
-#include "SettingsMenu.h"
-#include "FileOperations/DirList.h"
+#include "Controls/ThreadedTaskHandler.hpp"
 #include "Controls/Task.hpp"
 
-class LanguageSettingsMenu : public SettingsMenu
+class UpdateTask : public ThreadedTask, public Task
 {
-	public:
-		LanguageSettingsMenu(GuiFrame *returnElement);
-		virtual ~LanguageSettingsMenu();
-	protected:
-		void SetupOptions();
-		void SetOptionValues() {}
-		virtual void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnDownloadButtonClick(GuiButton *sender, int pointer, const POINT &p);
-		void OnResetButtonClick(GuiButton *sender, int pointer, const POINT &p);
-		void OnUpdateFinish(Task *task UNUSED) { SetupOptions(); }
-
-		DirList *FileList;
-
-		GuiText *resetBtnTxt;
-		GuiImage *resetBtnImg;
-		GuiButton *resetBtn;
-
-		GuiImageData *downloadImgData;
-		GuiImage *downloadBtnImg;
-		GuiButton *downloadBtn;
+public:
+	UpdateTask(bool bUpdateApp, bool bUpdateLang, bool silent);
+	virtual ~UpdateTask();
+	virtual void Execute(void);
+	void SetAutoDelete(bool b) { bAutoDelete = b; }
+	int CheckForUpdate(void);
+	int DownloadApp(const char *url);
+	bool DownloadMetaXml(void);
+	bool DownloadIconPNG(void);
+	bool UpdateLanguageFiles(void);
+private:
+	bool bAutoDelete;
+	bool bUpdateApp;
+	bool bUpdateLang;
+	bool bSilent;
 };
 
-
-
-#endif
+#endif /* UPDATETASK_H_ */

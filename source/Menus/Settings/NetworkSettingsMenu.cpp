@@ -20,10 +20,11 @@
 #include "SMBSettingsMenu.h"
 #include "NFSSettingsMenu.h"
 #include "Controls/Application.h"
+#include "Controls/Taskbar.h"
+#include "Controls/ThreadedTaskHandler.hpp"
 #include "Prompts/PromptWindows.h"
-#include "network/networkops.h"
-#include "network/ChangeLog.h"
-#include "network/update.h"
+#include "Prompts/ProgressWindow.h"
+#include "network/UpdateTask.h"
 #include "Settings.h"
 
 NetworkSettingsMenu::NetworkSettingsMenu(GuiFrame *r)
@@ -93,17 +94,18 @@ void NetworkSettingsMenu::SetOptionValues()
 
 void NetworkSettingsMenu::OnUpdateButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	int res = CheckForUpdate();
-	if(res == 0)
+	if(!NetworkInitPrompt())
+		return;
+
+	if(ProgressWindow::Instance()->IsRunning())
 	{
-		int choice = WindowPrompt(tr("No new updates available"), 0, tr("OK"), tr("Show Changelog"));
-		if(choice == 0)
-		{
-			ChangeLog Changelog;
-			if(!Changelog.Show())
-				WindowPrompt(tr("Failed to get the Changelog."), 0, tr("OK"));
-		}
+		ThrowMsg(tr("Error:"), tr("A task is in progress. Can't run update check right now."));
 	}
+
+	UpdateTask *task = new UpdateTask(true, false, false);
+	task->SetAutoDelete(true);
+	Taskbar::Instance()->AddTask(task);
+	ThreadedTaskHandler::Instance()->AddTask(task);
 }
 
 void NetworkSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)

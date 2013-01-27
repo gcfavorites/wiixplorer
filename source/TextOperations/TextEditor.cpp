@@ -63,11 +63,21 @@ TextEditor::TextEditor(const std::string &path)
 	minimizeImgData = Resources::GetImageData("minimize_dis.png");
 	minimizeImg = new GuiImage(minimizeImgData);
 
+	textBgImg = new GuiFrameImage(width - 80, height - 104);
+	textBgImg->SetPosition(25, 55);
+
+	linestodraw = textBgImg->GetHeight() / 24 - 1;
+	displayLineWidth = textBgImg->GetWidth() - 40;
+
 	scrollbar = new Scrollbar(height - 70, Scrollbar::LISTMODE);
 	scrollbar->SetParent(this);
 	scrollbar->SetAlignment(ALIGN_RIGHT | ALIGN_TOP);
 	scrollbar->SetPosition(-5, 50);
 	scrollbar->SetScrollSpeed(Settings.ScrollSpeed);
+	scrollbar->SetPageSize(linestodraw);
+	scrollbar->SetRowSize(0);
+	scrollbar->SetSelectedItem(0);
+	scrollbar->SetSelectedIndex(0);
 	scrollbar->listChanged.connect(this, &TextEditor::OnListChange);
 
 	horScrollbar = new HorizontalScrollbar(width - 70, Scrollbar::LISTMODE);
@@ -106,12 +116,6 @@ TextEditor::TextEditor(const std::string &path)
 	filenameTxt->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
 	filenameTxt->SetPosition(-30,15);
 	filenameTxt->SetMaxWidth(340, DOTTED);
-
-	textBgImg = new GuiFrameImage(width - 80, height - 104);
-	textBgImg->SetPosition(25, 55);
-
-	linestodraw = textBgImg->GetHeight() / 24 - 1;
-	displayLineWidth = textBgImg->GetWidth() - 40;
 
 	MainFileTxt = new GuiLongText((char*)NULL, FONTSIZE, (GXColor){0, 0, 0, 255});
 	MainFileTxt->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
@@ -292,7 +296,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 			{
 				if(TextPointerBtn->GetCurrentLine() == 0) {
 					scrollbar->ScrollOneUp();
-					MainFileTxt->SetTextLine(scrollbar->GetSelectedItem() + scrollbar->GetSelectedIndex());
+					OnListChange(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
 				}
 				else
 					TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
@@ -329,7 +333,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 		{
 			if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw) {
 				scrollbar->ScrollOneDown();
-				MainFileTxt->SetTextLine(scrollbar->GetSelectedItem() + scrollbar->GetSelectedIndex());
+				OnListChange(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
 			}
 			else
 				TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()+1);
@@ -387,11 +391,6 @@ void TextEditor::Update(GuiTrigger * t)
 	keyboard->Update(t);
 
 	scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
-	scrollbar->SetPageSize(linestodraw);
-	scrollbar->SetRowSize(0);
-	scrollbar->SetSelectedItem(0);
-	scrollbar->SetSelectedIndex(MainFileTxt->GetCurrPos());
-
 	horScrollbar->SetEntrieCount((MainFileTxt->GetMaxLineWidth() - displayLineWidth + 30) >> 4);
 }
 
