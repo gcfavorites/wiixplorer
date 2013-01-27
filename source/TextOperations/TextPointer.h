@@ -48,7 +48,11 @@ class TextPointer : public GuiButton
 		int GetPointerPosX() { return Position_X; };
 		int GetPointerPosY() { return Position_Y; };
 		void Refresh(void) { PositionChanged(currentChan, Position_X, Position_Y); };
-		bool IsPointerVisible() { return (Position_X >= 0 && Position_X < TextPtr->GetTextMaxWidth()); }
+		bool IsPointerVisible() {
+			return (   Position_X >= 0
+				     && (   TextPtr->GetTextMaxWidth() <= 0
+				         || Position_X < TextPtr->GetTextMaxWidth()));
+		}
 		void Draw();
 	protected:
 		int fontsize;

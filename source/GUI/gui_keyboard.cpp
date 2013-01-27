@@ -32,17 +32,9 @@ GuiKeyboard::GuiKeyboard(const wchar_t * t, u32 max)
 
 void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 {
-	width = 540;
-	height = 400;
-	shift = false;
-	caps = false;
-	UpdateKeys = false;
-	DefaultKeys = false;
 	selectable = true;
-	ShiftChan = -1;
 	kbtextstr.assign(t);
 	kbtextmaxlen = max;
-	DeleteDelay = 0;
 	CurrentFirstLetter = 0;
 	if(t)
 	{
@@ -51,18 +43,7 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 			CurrentFirstLetter = 0;
 	}
 
-	memset(keys, 0, sizeof(keys));
-
-	wcsncpy(keys[0].ch,		wfmt("%s", tr("`1234567890-")), MAXKEYS);
-	wcsncpy(keys[0].chShift,wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
-	wcsncpy(keys[1].ch,		wfmt("%s", tr("qwertyuiop[]\\")), MAXKEYS);
-	wcsncpy(keys[1].chShift,wfmt("%s", tr("QWERTYUIOP{}|")), MAXKEYS);
-	wcsncpy(keys[2].ch,		wfmt("%s", tr("asdfghjkl;'=")), MAXKEYS);
-	wcsncpy(keys[2].chShift,wfmt("%s", tr("ASDFGHJKL:\"+")), MAXKEYS);
-	wcsncpy(keys[3].ch,		wfmt("%s", tr("zxcvbnm,./")), MAXKEYS);
-	wcsncpy(keys[3].chShift,wfmt("%s", tr("ZXCVBNM<>?")), MAXKEYS);
-
-	int KeyboardPosition = -25;
+	height += 100;
 
 	keyTextbox = Resources::GetImageData("keyboard_textbox.png");
 	keyTextboxImg = new GuiImage(keyTextbox);
@@ -74,10 +55,10 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	kbText = new GuiText(GetDisplayText(), 20, (GXColor){0, 0, 0, 0xff});
+	kbText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 
 	TextPointerBtn = new TextPointer(kbText, 0);
 	TextPointerBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
-	kbText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
 	TextPointerBtn->SetPosition(0, 11);
 	TextPointerBtn->SetHoldable(true);
 	TextPointerBtn->SetTrigger(trigHeldA);
@@ -86,19 +67,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 
 	TextPointerBtn->PositionChanged(0, 0, 0);
 	TextPointerBtn->SetPointerPosition(MAX_KEYBOARD_DISPLAY-1);
-
-	key = Resources::GetImageData("keyboard_key.png");
-	keyOver = Resources::GetImageData("keyboard_key_over.png");
-	keyMedium = Resources::GetImageData("keyboard_mediumkey.png");
-	keyMediumOver = Resources::GetImageData("keyboard_mediumkey_over.png");
-	keyLarge = Resources::GetImageData("keyboard_largekey.png");
-	keyLargeOver = Resources::GetImageData("keyboard_largekey_over.png");
-
-	keySoundOver = Resources::GetSound("button_over.wav");
-	keySoundClick = Resources::GetSound("button_click.wav");
-
-	trigA = new GuiTrigger;
-	trigA->SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
 
 	trigLeft = new GuiTrigger;
 	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
@@ -117,81 +85,6 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	GoLeft->Clicked.connect(this, &GuiKeyboard::OnPositionMoved);
 	this->Append(GoLeft);
 
-	keyBackImg = new GuiImage(keyMedium);
-	keyBackOverImg = new GuiImage(keyMediumOver);
-	keyBackText = new GuiText(tr("Back"), 20, (GXColor){0, 0, 0, 0xff});
-	keyBack = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
-	keyBack->SetImage(keyBackImg);
-	keyBack->SetImageOver(keyBackOverImg);
-	keyBack->SetLabel(keyBackText);
-	keyBack->SetSoundOver(keySoundOver);
-	keyBack->SetSoundClick(keySoundClick);
-	keyBack->SetTrigger(trigA);
-	keyBack->SetPosition(11*42+40+KeyboardPosition, 0*42+80);
-	keyBack->SetEffectGrow();
-	keyBack->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keyBack);
-
-	keyCapsImg = new GuiImage(keyMedium);
-	keyCapsOverImg = new GuiImage(keyMediumOver);
-	keyCapsText = new GuiText(tr("Caps"), 20, (GXColor){0, 0, 0, 0xff});
-	keyCaps = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
-	keyCaps->SetImage(keyCapsImg);
-	keyCaps->SetImageOver(keyCapsOverImg);
-	keyCaps->SetLabel(keyCapsText);
-	keyCaps->SetSoundOver(keySoundOver);
-	keyCaps->SetSoundClick(keySoundClick);
-	keyCaps->SetTrigger(trigA);
-	keyCaps->SetPosition(0+KeyboardPosition, 2*42+80);
-	keyCaps->SetEffectGrow();
-	keyCaps->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keyCaps);
-
-	keyShiftImg = new GuiImage(keyMedium);
-	keyShiftOverImg = new GuiImage(keyMediumOver);
-	keyShiftText = new GuiText(tr("Shift"), 20, (GXColor){0, 0, 0, 0xff});
-	keyShift = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
-	keyShift->SetImage(keyShiftImg);
-	keyShift->SetImageOver(keyShiftOverImg);
-	keyShift->SetLabel(keyShiftText);
-	keyShift->SetSoundOver(keySoundOver);
-	keyShift->SetSoundClick(keySoundClick);
-	keyShift->SetTrigger(trigA);
-	keyShift->SetPosition(0+KeyboardPosition, 3*42+80);
-	keyShift->SetEffectGrow();
-	keyShift->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keyShift);
-
-	keyLangImg = new GuiImage(keyMedium);
-	keyLangOverImg = new GuiImage(keyMediumOver);
-	keyLangText = new GuiText(tr("Lang."), 20, (GXColor){0, 0, 0, 0xff});
-	keyLang = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
-	keyLang->SetImage(keyLangImg);
-	keyLang->SetImageOver(keyLangOverImg);
-	keyLang->SetLabel(keyLangText);
-	keyLang->SetSoundOver(keySoundOver);
-	keyLang->SetSoundClick(keySoundClick);
-	keyLang->SetTrigger(trigA);
-	keyLang->SetPosition(0+KeyboardPosition, 4*42+80);
-	keyLang->SetEffectGrow();
-	keyLang->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keyLang);
-
-	keyLineBreakText = new GuiText(tr("Linebreak"), 18, (GXColor){0, 0, 0, 0xff});
-	keyLineBreakImg = new GuiImage(keyMedium);
-	keyLineBreakOverImg = new GuiImage(keyMediumOver);
-	keyLineBreak = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
-	keyLineBreak->SetImage(keyLineBreakImg);
-	keyLineBreak->SetImageOver(keyLineBreakOverImg);
-	keyLineBreak->SetSoundOver(keySoundOver);
-	keyLineBreak->SetSoundClick(keySoundClick);
-	keyLineBreak->SetLabel(keyLineBreakText);
-	keyLineBreak->SetTrigger(trigA);
-	keyLineBreak->SetPosition(9*42+40+KeyboardPosition, 4*42+80);
-	keyLineBreak->SetEffectGrow();
-	keyLineBreak->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keyLineBreak);
-
 	keyClearText = new GuiText(tr("Clear"), 20, (GXColor){0, 0, 0, 0xff});
 	keyClearImg = new GuiImage(keyMedium);
 	keyClearOverImg = new GuiImage(keyMediumOver);
@@ -202,57 +95,12 @@ void GuiKeyboard::SetupKeyboard(const wchar_t * t, u32 max)
 	keyClear->SetSoundClick(keySoundClick);
 	keyClear->SetLabel(keyClearText);
 	keyClear->SetTrigger(trigA);
-	keyClear->SetPosition(11*42+40+KeyboardPosition, 4*42+80);
+	keyClear->SetPosition(78, 4*42+80);
 	keyClear->SetEffectGrow();
-	keyClear->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
+	keyClear->Clicked.connect(this, &GuiKeyboard::OnClearKeyPress);
 	this->Append(keyClear);
 
-	keySpaceImg = new GuiImage(keyLarge);
-	keySpaceOverImg = new GuiImage(keyLargeOver);
-	keySpace = new GuiButton(keyLarge->GetWidth(), keyLarge->GetHeight());
-	keySpace->SetImage(keySpaceImg);
-	keySpace->SetImageOver(keySpaceOverImg);
-	keySpace->SetSoundOver(keySoundOver);
-	keySpace->SetSoundClick(keySoundClick);
-	keySpace->SetTrigger(trigA);
-	keySpace->SetPosition(0, 4*42+80);
-	keySpace->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
-	keySpace->SetEffectGrow();
-	keySpace->Clicked.connect(this, &GuiKeyboard::OnSpecialKeyPress);
-	this->Append(keySpace);
-
-	int Pos = 0;
-	wchar_t txt[2] = { 0, 0 };
-
-	for(int i = 0; i < MAXROWS; i++)
-	{
-		for(int j = 0; j < MAXKEYS; j++)
-		{
-			txt[0] = keys[i].ch[j];
-			keyImg[i][j] = new GuiImage(key);
-			keyImgOver[i][j] = new GuiImage(keyOver);
-			keyTxt[i][j] = new GuiText(txt, 20, (GXColor){0, 0, 0, 0xff});
-			keyTxt[i][j]->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
-			keyTxt[i][j]->SetPosition(0, -10);
-			keyBtn[i][j] = new GuiButton(key->GetWidth(), key->GetHeight());
-			keyBtn[i][j]->SetImage(keyImg[i][j]);
-			keyBtn[i][j]->SetImageOver(keyImgOver[i][j]);
-			keyBtn[i][j]->SetSoundOver(keySoundOver);
-			keyBtn[i][j]->SetSoundClick(keySoundClick);
-			keyBtn[i][j]->SetTrigger(trigA);
-			keyBtn[i][j]->SetLabel(keyTxt[i][j]);
-			if(i == 1)
-				Pos = i*20;
-			else if(i > 0)
-				Pos = (i+2)*20;
-			keyBtn[i][j]->SetPosition(j*42+Pos+KeyboardPosition, i*42+80);
-			keyBtn[i][j]->SetEffectGrow();
-			keyBtn[i][j]->Clicked.connect(this, &GuiKeyboard::OnNormalKeyPress);
-
-			if(keys[i].ch[j] != 0)
-				this->Append(keyBtn[i][j]);
-		}
-	}
+	this->keyPressed.connect(this, &GuiKeyboard::OnKeyPress);
 }
 
 /**
@@ -265,57 +113,14 @@ GuiKeyboard::~GuiKeyboard()
 	delete GoLeft;
 	delete kbText;
 	delete keyTextboxImg;
-	delete keyCapsText;
-	delete keyCapsImg;
-	delete keyCapsOverImg;
-	delete keyCaps;
-	delete keyShiftText;
-	delete keyShiftImg;
-	delete keyShiftOverImg;
-	delete keyShift;
-	delete keyBackText;
-	delete keyBackImg;
-	delete keyBackOverImg;
-	delete keyBack;
-	delete keySpaceImg;
-	delete keySpaceOverImg;
-	delete keySpace;
-	delete keyLineBreakText;
-	delete keyLineBreakImg;
-	delete keyLineBreakOverImg;
-	delete keyLineBreak;
 	delete keyClearText;
 	delete keyClearImg;
 	delete keyClearOverImg;
 	delete keyClear;
-	delete keyLangText;
-	delete keyLangImg;
-	delete keyLangOverImg;
-	delete keyLang;
-	delete trigA;
 	delete trigHeldA;
 	delete trigLeft;
 	delete trigRight;
 	Resources::Remove(keyTextbox);
-	Resources::Remove(key);
-	Resources::Remove(keyOver);
-	Resources::Remove(keyMedium);
-	Resources::Remove(keyMediumOver);
-	Resources::Remove(keyLarge);
-	Resources::Remove(keyLargeOver);
-	Resources::Remove(keySoundOver);
-	Resources::Remove(keySoundClick);
-
-	for(int i = 0; i < MAXROWS; i++)
-	{
-		for(int j = 0; j < MAXKEYS; j++)
-		{
-			delete keyImg[i][j];
-			delete keyImgOver[i][j];
-			delete keyTxt[i][j];
-			delete keyBtn[i][j];
-		}
-	}
 }
 
 std::string GuiKeyboard::GetUTF8String() const
@@ -326,37 +131,6 @@ std::string GuiKeyboard::GetUTF8String() const
 const wchar_t * GuiKeyboard::GetString()
 {
 	return kbtextstr.c_str();
-}
-
-void GuiKeyboard::SwitchKeyLanguage()
-{
-	DefaultKeys = !DefaultKeys;
-
-	memset(keys, 0, sizeof(keys));
-
-	if(DefaultKeys)
-	{
-		wcsncpy(keys[0].ch,		L"`1234567890-", MAXKEYS);
-		wcsncpy(keys[0].chShift,L"~!@#$%^&*()_", MAXKEYS);
-		wcsncpy(keys[1].ch,		L"qwertyuiop[]\\", MAXKEYS);
-		wcsncpy(keys[1].chShift,L"QWERTYUIOP{}|", MAXKEYS);
-		wcsncpy(keys[2].ch,		L"asdfghjkl;'=", MAXKEYS);
-		wcsncpy(keys[2].chShift,L"ASDFGHJKL:\"+", MAXKEYS);
-		wcsncpy(keys[3].ch,		L"zxcvbnm,./", MAXKEYS);
-		wcsncpy(keys[3].chShift,L"ZXCVBNM<>?", MAXKEYS);
-
-	}
-	else
-	{
-		wcsncpy(keys[0].ch,		wfmt("%s", tr("`1234567890-")), MAXKEYS);
-		wcsncpy(keys[0].chShift,wfmt("%s", tr("~!@#$%^&*()_")), MAXKEYS);
-		wcsncpy(keys[1].ch,		wfmt("%s", tr("qwertyuiop[]\\")), MAXKEYS);
-		wcsncpy(keys[1].chShift,wfmt("%s", tr("QWERTYUIOP{}|")), MAXKEYS);
-		wcsncpy(keys[2].ch,		wfmt("%s", tr("asdfghjkl;'=")), MAXKEYS);
-		wcsncpy(keys[2].chShift,wfmt("%s", tr("ASDFGHJKL:\"+")), MAXKEYS);
-		wcsncpy(keys[3].ch,		wfmt("%s", tr("zxcvbnm,./")), MAXKEYS);
-		wcsncpy(keys[3].chShift,wfmt("%s", tr("ZXCVBNM<>?")), MAXKEYS);
-	}
 }
 
 void GuiKeyboard::AddChar(int pos, wchar_t Char)
@@ -442,21 +216,9 @@ void GuiKeyboard::OnPositionMoved(GuiButton *sender, int pointer UNUSED, const P
 	}
 }
 
-void GuiKeyboard::OnSpecialKeyPress(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void GuiKeyboard::OnClearKeyPress(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
 {
-	if(sender == keySpace && kbtextstr.length() < kbtextmaxlen)
-	{
-		AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), ' ');
-	}
-	else if(sender == keyBack)
-	{
-		RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
-	}
-	else if(sender == keyLineBreak)
-	{
-		AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), '\n');
-	}
-	else if(sender == keyClear)
+	if(sender == keyClear)
 	{
 		CurrentFirstLetter = 0;
 		kbtextstr.clear();
@@ -464,116 +226,17 @@ void GuiKeyboard::OnSpecialKeyPress(GuiButton *sender, int pointer UNUSED, const
 		TextPointerBtn->TextWidthChanged();
 		TextPointerBtn->SetPointerPosition(0);
 	}
-	else if(sender == keyShift)
-	{
-		shift = !shift;
-		UpdateKeys = true;
-	}
-	else if(sender == keyCaps)
-	{
-		caps = !caps;
-		UpdateKeys = true;
-	}
-	else if(sender == keyLang)
-	{
-		SwitchKeyLanguage();
-		UpdateKeys = true;
-	}
 }
 
-void GuiKeyboard::OnNormalKeyPress(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+void GuiKeyboard::OnKeyPress(wchar_t charCode)
 {
-	for(int i = 0; i < MAXROWS; i++)
-	{
-		for(int j = 0; j < MAXKEYS; j++)
-		{
-			if(sender == keyBtn[i][j])
-			{
-				if(kbtextstr.length() < kbtextmaxlen)
-				{
-					if(shift || caps)
-					{
-						AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i].chShift[j]);
-					}
-					else
-					{
-						AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), keys[i].ch[j]);
-					}
-				}
-
-				if(shift)
-				{
-					shift = false;
-					UpdateKeys = true;
-				}
-			}
-		}
-	}
-}
-
-void GuiKeyboard::Update(GuiTrigger * t)
-{
-	GuiFrame::Update(t);
-
-	++DeleteDelay;
-
-	if(((t->wpad.btns_h & WiiControls.KeyBackspaceButton) ||
-		(t->wpad.btns_h & (ClassicControls.KeyBackspaceButton << 16)) ||
-		(t->pad.btns_h & GCControls.KeyBackspaceButton)) &&
-		DeleteDelay > (u32) Settings.KeyboardDeleteDelay)
+	if(charCode == 0x08)
 	{
 		RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
-		DeleteDelay = 0;
 	}
-
-	if((t->wpad.btns_h & WiiControls.KeyShiftButton) ||
-	   (t->wpad.btns_h & (ClassicControls.KeyShiftButton << 16)) ||
-	   (t->pad.btns_h & GCControls.KeyShiftButton))
+	else if(kbtextstr.length() < kbtextmaxlen)
 	{
-		caps = true;
-
-		if(ShiftChan < 0)
-			UpdateKeys = true;
-
-		ShiftChan = t->chan;
-	}
-	else
-	{
-		if(t->chan == ShiftChan)
-		{
-			caps = false;
-			shift = false;
-			UpdateKeys = true;
-			ShiftChan = -1;
-		}
-	}
-
-	if(UpdateKeys)
-	{
-		wchar_t txt[2] = { 0, 0 };
-
-		for(int i = 0; i < MAXROWS; i++)
-		{
-			for(int j = 0; j < MAXKEYS; j++)
-			{
-				if(keys[i].ch[j] != 0)
-				{
-					this->Append(keyBtn[i][j]);
-
-					if(shift || caps)
-						txt[0] = keys[i].chShift[j];
-					else
-						txt[0] = keys[i].ch[j];
-
-					keyTxt[i][j]->SetText(txt);
-				}
-				else
-				{
-					this->Remove(keyBtn[i][j]);
-				}
-			}
-		}
-		UpdateKeys = false;
+		AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), charCode);
 	}
 }
 

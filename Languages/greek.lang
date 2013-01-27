@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -48,7 +48,10 @@ msgstr "24άωρο"
 msgid "7z decompression failed:"
 msgstr "Η αποσυμπίεση 7z αρχείου απέτυχε:"
 
-msgid "ASDFGHJKL:\"+"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
 msgstr ""
 
 msgid "Action cancelled."
@@ -80,6 +83,9 @@ msgstr "Διαδρομή Προγραμμάτων"
 
 msgid "Archive Files"
 msgstr "Αρχεία"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "Αρχεία Ήχου"
@@ -147,6 +153,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr "Υπολογίζω το τελικό μέγεθος..."
 
@@ -158,6 +167,9 @@ msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
 
 msgid "Can't browse that path."
 msgstr "Δεν μπορώ να περιηγηθώ αυτή τη διαδρομή."
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Δεν μπορώ να βρώ την σωστή κατάτμηση."
@@ -174,11 +186,16 @@ msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
 msgid "Cancel"
 msgstr "Άκυρο"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "Δεν μπορώ να διμιουργήσω διαδρομή:"
 
-msgid "Cannot open image"
-msgstr "Δεν μπορώ να ανοίξω την εικόνα"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr "Δεν μπορώ να διαβάσω από τον οδηγό."
@@ -210,6 +227,9 @@ msgstr "Επέλεξε την διαδρομή:"
 
 msgid "Checking file:"
 msgstr "Επέλεξε το αρχείο:"
+
+msgid "Checking for updates"
+msgstr ""
 
 msgid "Clear"
 msgstr ""
@@ -257,6 +277,12 @@ msgstr "Ρυθμίσεις χειρισμού"
 msgid "Convert"
 msgstr "Μετάτρεψε"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "Μετατροπή εικόνας..."
+
 msgid "Copy"
 msgstr "Αντιγραφή"
 
@@ -287,8 +313,9 @@ msgstr "Δεν μπορώ να αποσυμπιέσω αύτο το αρχείο
 msgid "Could not download file."
 msgstr "Δεν μπορώ να κατεβάσω το αρχείο."
 
-msgid "Could not extract file:"
-msgstr "Δεν μπορώ να εξάγω το αρχείο:"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "Δεν μπορώ να φορτώσω το αρχείο."
@@ -356,6 +383,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "Αποσύνδεση SMB"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr "Θέλες να προσθέσω μιά διεύθυνση;"
 
@@ -417,6 +447,9 @@ msgstr "Θέλεις να κάνω επανεκκίνηση;"
 msgid "Do you want to reboot now ?"
 msgstr "Θέλεις να γίνει επανεκκίνηση τώρα;"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "Θέλεις να επανεκκινήσω την SMB;"
 
@@ -459,10 +492,6 @@ msgstr "Κάτω πλήκτρο"
 msgid "Download Link"
 msgstr "Κατεβάζω τον σύνδεσμο"
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "Κατεβήκανε %d αρχεία."
-
 msgid "Downloading file..."
 msgstr "Κατέβασμα αρχείου..."
 
@@ -477,6 +506,9 @@ msgid "Encountered %i error(s).\n"
 msgstr "Αντιμετώπισα %i λάθη.\n"
 
 msgid "Enter"
+msgstr ""
+
+msgid "Error"
 msgstr ""
 
 #, c-format
@@ -494,6 +526,18 @@ msgstr ""
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "Λάθος - Δεν υπάρχει αρκετή μνήμη στο: %s\n"
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "Λάθος καθώς διαβαζα το αρχείο."
@@ -528,9 +572,6 @@ msgstr "Εξαγωγή όλου του αρχείου;"
 msgid "Extract the selected item(s)?"
 msgstr "Εξαγωγή επιλεγμένου(ων) αρχείου(ων);"
 
-msgid "Extracting files..."
-msgstr "Εξάγω αρχεία..."
-
 msgid "Extracting item(s):"
 msgstr "Εξάγω αρχείο(α)..."
 
@@ -539,9 +580,6 @@ msgstr "Το FAT32 πρέπει να έχει τουλάχιστόν 65536 συ�
 
 msgid "FTP Client Settings"
 msgstr "Ρυθμίσεις πελάτη για το FTP"
-
-msgid "FTP Client reconnected successfull."
-msgstr "Ο πελάτης FTP επανασυνδέθηκε επιτυχώς."
 
 msgid "FTP Path:"
 msgstr "Διαδρομή FTP:"
@@ -573,8 +611,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "Απέτυχα να εξάγω το(α) συγκεκριμένο(α) αρχείο(α)."
@@ -586,6 +624,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -608,6 +649,10 @@ msgstr "Απέτυχα να γράψω στο EBR."
 
 msgid "Failed to write MBR."
 msgstr "Απέτυχα να γράψω στο MBR"
+
+#, c-format
+msgid "Fatal error: %i."
+msgstr ""
 
 msgid "File Extensions"
 msgstr "Επεκτάσεις αρχείου"
@@ -748,6 +793,12 @@ msgstr ""
 msgid "General Settings"
 msgstr "Γενικές Ρυθμίσεις"
 
+msgid "Getting Changelog..."
+msgstr "Παίρνω το ιστορικό..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Πίσω"
 
@@ -774,6 +825,9 @@ msgstr "Πλήκτρο Κεντρικό"
 
 msgid "Home Menu"
 msgstr "Κεντρικό μενού"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Αρχεία Homebrew"
@@ -819,9 +873,6 @@ msgstr "Υψος εικόνας"
 
 msgid "Image Settings"
 msgstr "Ρυθμίσεις εικόνας"
-
-msgid "Image Viewer"
-msgstr "Θεατής εικόνας"
 
 msgid "Image Width"
 msgstr "Πλάτος εικόνας"
@@ -883,9 +934,6 @@ msgstr "Μετατράπηκε:"
 msgid "Left Button"
 msgstr "Αριστερό πλήκτρο"
 
-msgid "Linebreak"
-msgstr ""
-
 msgid "List Mode"
 msgstr "Τρόπος με λίστα"
 
@@ -900,9 +948,6 @@ msgstr "Φόρτωσε την μουσική στην μνήμη"
 
 msgid "Loading file:"
 msgstr "Φορτώνω αρχείο:"
-
-msgid "Loading image..."
-msgstr "Φορτώνω την εικόνα..."
 
 msgid "Log was saved in MD5.log"
 msgstr "Το ιστορικό σώθηκε στο MD5.log"
@@ -940,8 +985,18 @@ msgstr "Ρυθμιστής μνήμης"
 msgid "Menu"
 msgstr "Μενού"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
 msgstr "Ανέβηκε ως:"
+
+msgid "Mounting DVD"
+msgstr ""
 
 msgid "Mountpoint:"
 msgstr ""
@@ -991,10 +1046,6 @@ msgstr "Δεν βρεθήκανε αρχεία."
 msgid "No homebrew in the zip."
 msgstr "Δεν υπάρχει homebrew στο αρχείο zip."
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "Δεν βρέθηκε εικόνα στον δείκτη %d."
-
 msgid "No network connection."
 msgstr "Δεν υπάρχει σύνδεση στο δύκτιο."
 
@@ -1016,6 +1067,9 @@ msgstr "Δεν είναι σωστή η διαδρομή URL"
 msgid "Not a valid domain"
 msgstr "Δεν είναι σωστό το domain"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "Δεν έχω πολύ μνήμη για άλλαγή μεγέθους."
 
@@ -1024,6 +1078,9 @@ msgstr "Δεν έχω πολύ μνήμη για περιστροφή."
 
 msgid "Not enough memory."
 msgstr "Δεν υπάρχει αρκετή μνήμη."
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr "Δεν ανέβηκε"
@@ -1179,6 +1236,18 @@ msgstr "Κ: %i Π: %i Μ: %i"
 msgid "Random"
 msgstr "Τυχαία"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1191,19 +1260,25 @@ msgstr "Λάμβάνω αρχείο..."
 msgid "Reconnect FTP"
 msgstr "Επανασύνδεση FTP"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Επανασύνδεση SMB"
-
-msgid "Reconnect failed. No client connected."
-msgstr "Η επανασύνδεση απέτυχε. Κανένας πελάτης συνδεμένος."
-
-msgid "Reconnect failed. No share connected."
-msgstr "Η επανασύνδεση απέτυχε. Καμιά μοιραζώμενη σύνδεση. "
 
 msgid "Red"
 msgstr "Κόκκινο"
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1224,8 +1299,8 @@ msgstr "Επαναφορά"
 msgid "Restart"
 msgstr "Επανεκκίνηση"
 
-msgid "Retry"
-msgstr "Δοκιμή ξανά"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "Δεξί πλήκτρο"
@@ -1248,14 +1323,11 @@ msgstr "Όνομα SMB:"
 msgid "SMB Settings"
 msgstr "Ρυθμίσεις SMB"
 
-msgid "SMB is connecting..."
-msgstr "Γίνεται σύνδεση SMB..."
-
-msgid "SMB reconnected successfull."
-msgstr "Το SMB επανασυνδέθηκε επιτυχώς."
-
 msgid "Save Alpha"
 msgstr "Σώσε σε Alpha"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr "Screenshot Φορμάτ"
@@ -1271,6 +1343,10 @@ msgstr "Screenshot πλήκτρο πίεσης"
 
 msgid "Scrolling Speed"
 msgstr "Ταχύτητα κύλισης"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "Ο server κλείνει...\n"
@@ -1339,6 +1415,12 @@ msgstr "Εκκίνηση FTP"
 msgid "Successfully formated the partition."
 msgstr "Η κατάτμηση διαμορφώθηκε επιτυχώς."
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "Προσορινή διαδρομή"
 
@@ -1387,12 +1469,6 @@ msgstr "Αναμονή:"
 msgid "To Idle"
 msgstr "Στην αδράνεια"
 
-msgid "To Loader"
-msgstr "Στον φορτωτή"
-
-msgid "To Menu"
-msgstr "Στο μενού"
-
 msgid "To Standby"
 msgstr "Στην αναμονή"
 
@@ -1428,9 +1504,6 @@ msgstr "Άγνωστη μορφή. Θέλεις να ανοίξω αυτό το 
 
 msgid "Unable to create folder."
 msgstr "Δεν μπορώ να δημιουργήσω φάκελο."
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr "Άγνωστο"
@@ -1574,6 +1647,9 @@ msgstr "Διαδικά αρχεία Wii"
 msgid "Wii Homebrew"
 msgstr "Wii Homebrew"
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr "WiiMC"
 
@@ -1591,6 +1667,18 @@ msgstr "WiiXplorer ταινείες"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "Θέλεις να προσθέσω τα επιλεγμένα αρχεία στο zip;"
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "Ναι"
@@ -1622,13 +1710,13 @@ msgstr "Πλήκτρο Μεγέθυνσης προς τα μέσα"
 msgid "ZoomOut Button"
 msgstr "Πλήκτρο Μεγέθυνσης προς τα έξω"
 
-msgid "`1234567890-"
+msgid "`1234567890-="
 msgstr ""
 
 msgid "and all the translators."
 msgstr "και όλους τους μεταφραστές."
 
-msgid "asdfghjkl;'="
+msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
@@ -1646,11 +1734,65 @@ msgstr "για το εργαλείο libwiigui."
 msgid "qwertyuiop[]\\"
 msgstr ""
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr ""
 
-msgid "~!@#$%^&*()_"
+msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Cannot open image"
+#~ msgstr "Δεν μπορώ να ανοίξω την εικόνα"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Δεν μπορώ να εξάγω το αρχείο:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "Κατεβήκανε %d αρχεία."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Εξάγω αρχεία..."
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "Ο πελάτης FTP επανασυνδέθηκε επιτυχώς."
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "Απέτυχα να εξάγω από αυτό το αρχείο."
+
+#~ msgid "Image Viewer"
+#~ msgstr "Θεατής εικόνας"
+
+#~ msgid "Loading image..."
+#~ msgstr "Φορτώνω την εικόνα..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "Δεν βρέθηκε εικόνα στον δείκτη %d."
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "Η επανασύνδεση απέτυχε. Κανένας πελάτης συνδεμένος."
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "Η επανασύνδεση απέτυχε. Καμιά μοιραζώμενη σύνδεση. "
+
+#~ msgid "Retry"
+#~ msgstr "Δοκιμή ξανά"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "Γίνεται σύνδεση SMB..."
+
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "Το SMB επανασυνδέθηκε επιτυχώς."
+
+#~ msgid "To Loader"
+#~ msgstr "Στον φορτωτή"
+
+#~ msgid "To Menu"
+#~ msgstr "Στο μενού"
 
 #~ msgid "Copy of"
 #~ msgstr "Αντιγραφή από"
@@ -1721,9 +1863,6 @@ msgstr ""
 #~ msgid "Continue"
 #~ msgstr "Συνέχισε"
 
-#~ msgid "Converting image..."
-#~ msgstr "Μετατροπή εικόνας..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "Δεν μπορώ να συνδεθώ στο δύκτιο"
 
@@ -1738,9 +1877,6 @@ msgstr ""
 
 #~ msgid "Formating partition..."
 #~ msgstr "Διαμορφώνω την κατάτμηση..."
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "Παίρνω το ιστορικό..."
 
 #~ msgid "Language Path changed."
 #~ msgstr "Η διαδρομή της γλώσσας άλλαξε."

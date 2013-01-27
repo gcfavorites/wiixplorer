@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -46,8 +46,11 @@ msgstr "24時間表示"
 msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
 
-msgid "ASDFGHJKL:\"+"
-msgstr "ぱぴぷぺぽがぎぐげごゑゐ"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "キャンセルしました"
@@ -78,6 +81,9 @@ msgstr "アプリのパス"
 
 msgid "Archive Files"
 msgstr "書庫ファイル"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "音楽ファイル"
@@ -145,6 +151,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr "合計サイズを計算中です…"
 
@@ -156,6 +165,9 @@ msgstr "ファイルを開けません"
 
 msgid "Can't browse that path."
 msgstr "パスを開けませんでした"
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "右の領域が見つかりません"
@@ -172,11 +184,16 @@ msgstr "ファイルを開けません"
 msgid "Cancel"
 msgstr "キャンセル"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "フォルダを作成できませんでした"
 
-msgid "Cannot open image"
-msgstr "画像を開けません"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr "ドライブから読み込めません"
@@ -208,6 +225,9 @@ msgstr "チェックしたディレクトリ:"
 
 msgid "Checking file:"
 msgstr "チェックしたファイル:"
+
+msgid "Checking for updates"
+msgstr ""
 
 msgid "Clear"
 msgstr "クリア"
@@ -255,6 +275,12 @@ msgstr "操作設定"
 msgid "Convert"
 msgstr "変換"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "画像を変換しています･･･"
+
 msgid "Copy"
 msgstr "コピー"
 
@@ -285,8 +311,9 @@ msgstr "解凍できませんでした"
 msgid "Could not download file."
 msgstr "ダウンロードできませんでした"
 
-msgid "Could not extract file:"
-msgstr "解凍できませんでした"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "ファイルを読み込めませんでした"
@@ -354,6 +381,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "SMBを切断"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr "URLを追加しますか?"
 
@@ -415,6 +445,9 @@ msgstr "WiiXplorerを再起動しますか?"
 msgid "Do you want to reboot now ?"
 msgstr "今すぐ再起動しますか?"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "再接続しますか?"
 
@@ -457,10 +490,6 @@ msgstr "下"
 msgid "Download Link"
 msgstr "ダウンロードする"
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "%d個のファイルをダウンロードしました"
-
 msgid "Downloading file..."
 msgstr "ダウンロード中…"
 
@@ -477,6 +506,9 @@ msgstr "%i個のエラーが発生しました\n"
 msgid "Enter"
 msgstr "手入力"
 
+msgid "Error"
+msgstr ""
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr "エラー: %sはファイルではありません\n"
@@ -492,6 +524,18 @@ msgstr ""
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "エラー: メモリが足りません: %s\n"
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "読み込み中にエラーが発生しました"
@@ -526,9 +570,6 @@ msgstr "すべて解凍しますか?"
 msgid "Extract the selected item(s)?"
 msgstr "選択されたアイテムを解凍しますか?"
 
-msgid "Extracting files..."
-msgstr "解凍中･･･"
-
 msgid "Extracting item(s):"
 msgstr "解凍中"
 
@@ -537,9 +578,6 @@ msgstr "FAT32は最低でも65536のクラスターがなければいけませ�
 
 msgid "FTP Client Settings"
 msgstr "FTPクライアント設定"
-
-msgid "FTP Client reconnected successfull."
-msgstr "FTPクライアントに再接続しました"
 
 msgid "FTP Path:"
 msgstr "FTPのパス"
@@ -571,8 +609,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "解凍に失敗しました"
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "解凍に失敗しました"
@@ -584,6 +622,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -606,6 +647,10 @@ msgstr "EBRの書き込みに失敗しました"
 
 msgid "Failed to write MBR."
 msgstr "MBRの書き込みに失敗しました"
+
+#, c-format
+msgid "Fatal error: %i."
+msgstr ""
 
 msgid "File Extensions"
 msgstr "拡張子"
@@ -746,6 +791,12 @@ msgstr ""
 msgid "General Settings"
 msgstr "基本設定"
 
+msgid "Getting Changelog..."
+msgstr "更新履歴を受信しています･･･"
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "戻る"
 
@@ -772,6 +823,9 @@ msgstr "HOME"
 
 msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Homebrewファイル"
@@ -817,9 +871,6 @@ msgstr "画像の高さ"
 
 msgid "Image Settings"
 msgstr "画像の設定"
-
-msgid "Image Viewer"
-msgstr "画像ビューア"
 
 msgid "Image Width"
 msgstr "画像の幅"
@@ -881,9 +932,6 @@ msgstr "更新日時:"
 msgid "Left Button"
 msgstr "左"
 
-msgid "Linebreak"
-msgstr "改行"
-
 msgid "List Mode"
 msgstr "リスト表示"
 
@@ -898,9 +946,6 @@ msgstr "メモリに読み込む"
 
 msgid "Loading file:"
 msgstr "読み込んでいます"
-
-msgid "Loading image..."
-msgstr "画像を読み込んでいます･･･"
 
 msgid "Log was saved in MD5.log"
 msgstr "MD5.logに保存されました"
@@ -938,8 +983,18 @@ msgstr "メモリバッファ"
 msgid "Menu"
 msgstr "Wiiメニューへ"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
 msgstr "マウント中:"
+
+msgid "Mounting DVD"
+msgstr ""
 
 msgid "Mountpoint:"
 msgstr ""
@@ -989,10 +1044,6 @@ msgstr "ファイルが見つかりません"
 msgid "No homebrew in the zip."
 msgstr "zip内にhomebrewが何もありません"
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "%dの階層に画像が見つかりませんでした"
-
 msgid "No network connection."
 msgstr "ネットワーク接続がありません"
 
@@ -1014,6 +1065,9 @@ msgstr "URLのパスが正しくありません"
 msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "リサイズするためのメモリが足りません"
 
@@ -1022,6 +1076,9 @@ msgstr "回転するためのメモリが足りません"
 
 msgid "Not enough memory."
 msgstr "メモリ不足です"
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr "マウントしていません"
@@ -1177,6 +1234,18 @@ msgstr "赤: %i 緑: %i 青: %i"
 msgid "Random"
 msgstr "ランダム再生"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1189,19 +1258,25 @@ msgstr "ファイルを受信中･･･"
 msgid "Reconnect FTP"
 msgstr "FTPに再接続"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "SMBに再接続"
-
-msgid "Reconnect failed. No client connected."
-msgstr "再接続できませんでした"
-
-msgid "Reconnect failed. No share connected."
-msgstr "再接続できませんでした"
 
 msgid "Red"
 msgstr "赤"
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1222,8 +1297,8 @@ msgstr "リセット"
 msgid "Restart"
 msgstr "再起動"
 
-msgid "Retry"
-msgstr "再試行"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "右"
@@ -1246,14 +1321,11 @@ msgstr "SMB名"
 msgid "SMB Settings"
 msgstr "SMBの設定"
 
-msgid "SMB is connecting..."
-msgstr "接続中"
-
-msgid "SMB reconnected successfull."
-msgstr "SMBに再接続しました"
-
 msgid "Save Alpha"
 msgstr "アルファの保存"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr "画面写真の形式"
@@ -1269,6 +1341,10 @@ msgstr "画面写真を撮るときに押すボタン"
 
 msgid "Scrolling Speed"
 msgstr "スクロール速度"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
@@ -1337,6 +1413,12 @@ msgstr "FTPを開始"
 msgid "Successfully formated the partition."
 msgstr "領域を初期化しました"
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "一時フォルダのパス"
 
@@ -1385,12 +1467,6 @@ msgstr "残り:"
 msgid "To Idle"
 msgstr "スタンバイ"
 
-msgid "To Loader"
-msgstr "ローダーへ"
-
-msgid "To Menu"
-msgstr "メニューへ"
-
 msgid "To Standby"
 msgstr "シャットダウン"
 
@@ -1426,9 +1502,6 @@ msgstr "テキストエディタで開きますか?"
 
 msgid "Unable to create folder."
 msgstr "フォルダを作成できませんでした"
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr "不明"
@@ -1572,6 +1645,9 @@ msgstr "Wiiバイナリファイル"
 msgid "Wii Homebrew"
 msgstr "WiiのHomebrew"
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1589,6 +1665,18 @@ msgstr "WiiXplorer動画"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "選択したアイテムをzipに追加しますか?"
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "はい"
@@ -1620,14 +1708,14 @@ msgstr "拡大"
 msgid "ZoomOut Button"
 msgstr "縮小"
 
-msgid "`1234567890-"
-msgstr "ぬふあうえおやゆよわほへ"
+msgid "`1234567890-="
+msgstr ""
 
 msgid "and all the translators."
 msgstr ", K-M…日本語への翻訳"
 
-msgid "asdfghjkl;'="
-msgstr "ちとしはきくまのりれけむ"
+msgid "asdfghjkl;'"
+msgstr ""
 
 msgid "devices"
 msgstr ""
@@ -1644,11 +1732,80 @@ msgstr "…LibWiiGuiの制作者様"
 msgid "qwertyuiop[]\\"
 msgstr "たていすかんなにらせろん_"
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr "つさそひこみもねるめ"
 
-msgid "~!@#$%^&*()_"
-msgstr "ばびぶべぼ\\=!?#～ー"
+msgid "~!@#$%^&*()_+"
+msgstr ""
+
+#~ msgid "ASDFGHJKL:\"+"
+#~ msgstr "ぱぴぷぺぽがぎぐげごゑゐ"
+
+#~ msgid "Linebreak"
+#~ msgstr "改行"
+
+#~ msgid "`1234567890-"
+#~ msgstr "ぬふあうえおやゆよわほへ"
+
+#~ msgid "asdfghjkl;'="
+#~ msgstr "ちとしはきくまのりれけむ"
+
+#~ msgid "~!@#$%^&*()_"
+#~ msgstr "ばびぶべぼ\\=!?#～ー"
+
+#~ msgid "Cannot open image"
+#~ msgstr "画像を開けません"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "解凍できませんでした"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "%d個のファイルをダウンロードしました"
+
+#~ msgid "Extracting files..."
+#~ msgstr "解凍中･･･"
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "FTPクライアントに再接続しました"
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "解凍に失敗しました"
+
+#~ msgid "Image Viewer"
+#~ msgstr "画像ビューア"
+
+#~ msgid "Loading image..."
+#~ msgstr "画像を読み込んでいます･･･"
+
+#~ msgid "No image found at index %d."
+#~ msgstr "%dの階層に画像が見つかりませんでした"
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "再接続できませんでした"
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "再接続できませんでした"
+
+#~ msgid "Retry"
+#~ msgstr "再試行"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "接続中"
+
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "SMBに再接続しました"
+
+#~ msgid "To Loader"
+#~ msgstr "ローダーへ"
+
+#~ msgid "To Menu"
+#~ msgstr "メニューへ"
 
 #~ msgid "Copy of"
 #~ msgstr "コピーされた"
@@ -1722,9 +1879,6 @@ msgstr "ばびぶべぼ\\=!?#～ー"
 #~ msgid "Continue"
 #~ msgstr "続行"
 
-#~ msgid "Converting image..."
-#~ msgstr "画像を変換しています･･･"
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "接続できませんでした"
 
@@ -1739,9 +1893,6 @@ msgstr "ばびぶべぼ\\=!?#～ー"
 
 #~ msgid "Formating partition..."
 #~ msgstr "領域を初期化中です…"
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "更新履歴を受信しています･･･"
 
 #~ msgid "Language Path changed."
 #~ msgstr "言語のパスを変更しました"

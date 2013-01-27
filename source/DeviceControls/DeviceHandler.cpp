@@ -46,7 +46,7 @@
 #define USB_REG_BASE				0x0D040000
 #define USB_REG_OP_BASE				(USB_REG_BASE + (read32(USB_REG_BASE) & 0xff))
 #define USB_REG_PORTSC_OFF(port)	(0x44 + 4 * port)
-#define USB_PORT_CONNECTED(port)	(read32(USB_REG_OP_BASE + USB_REG_PORTSC_OFF(port)) & 0x01)
+#define USB_PORT_CONNECTED(port)	(read32(USB_REG_OP_BASE + USB_REG_PORTSC_OFF(port)) & 0x0F)
 
 DeviceHandler * DeviceHandler::instance = NULL;
 

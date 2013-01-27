@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -46,8 +46,11 @@ msgstr "24H"
 msgid "7z decompression failed:"
 msgstr "A descompressão 7z falhou:"
 
-msgid "ASDFGHJKL:\"+"
-msgstr "ASDFGHJKLÇª^"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "Operação cancelada."
@@ -78,6 +81,9 @@ msgstr "Pasta de Aplicações"
 
 msgid "Archive Files"
 msgstr "Ficheiros Comprimidos"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "Ficheiros de Audio"
@@ -145,6 +151,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr ""
 
@@ -156,6 +165,9 @@ msgstr "Não é possível abrir o ficheiro."
 
 msgid "Can't browse that path."
 msgstr "Não é possível ir para esse caminho."
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr ""
@@ -172,11 +184,16 @@ msgstr "Impossível abrir ficheiro."
 msgid "Cancel"
 msgstr "Cancelar"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "Não é possível criar a pasta:"
 
-msgid "Cannot open image"
-msgstr "Não é possível abrir a imagem"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr ""
@@ -207,6 +224,9 @@ msgid "Checking directory:"
 msgstr ""
 
 msgid "Checking file:"
+msgstr ""
+
+msgid "Checking for updates"
 msgstr ""
 
 msgid "Clear"
@@ -255,6 +275,12 @@ msgstr "Configurações de Controle"
 msgid "Convert"
 msgstr "Converter"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "Convertendo imagem..."
+
 msgid "Copy"
 msgstr "Copiar"
 
@@ -285,8 +311,9 @@ msgstr "Não foi possível descomprimir o ficheiro"
 msgid "Could not download file."
 msgstr "Não foi possível descarregar o ficheiro."
 
-msgid "Could not extract file:"
-msgstr "Não foi possível extrair o ficheiro:"
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "Não foi possível carregar o ficheiro."
@@ -354,6 +381,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "Desligar SMB"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr ""
 
@@ -415,6 +445,9 @@ msgstr "Reiniciar o WiiXplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "Deseja reiniciar agora ?"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "Ligar novamente a este SMB?"
 
@@ -457,10 +490,6 @@ msgstr "Botão Baixo"
 msgid "Download Link"
 msgstr ""
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "%d ficheiros descarregados."
-
 msgid "Downloading file..."
 msgstr "Descarregando ficheiro..."
 
@@ -477,6 +506,9 @@ msgstr ""
 msgid "Enter"
 msgstr "Introduzir"
 
+msgid "Error"
+msgstr ""
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr ""
@@ -491,6 +523,18 @@ msgstr ""
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
 msgstr ""
 
 msgid "Error while reading file."
@@ -526,9 +570,6 @@ msgstr "Extrair todo o conteúdo?"
 msgid "Extract the selected item(s)?"
 msgstr "Extrair o(s) item(s) seleccionado(s)?"
 
-msgid "Extracting files..."
-msgstr "Extraindo ficheiros..."
-
 msgid "Extracting item(s):"
 msgstr "Extraindo item(s):"
 
@@ -537,9 +578,6 @@ msgstr ""
 
 msgid "FTP Client Settings"
 msgstr "Configuração do Cliente FTP"
-
-msgid "FTP Client reconnected successfull."
-msgstr ""
 
 msgid "FTP Path:"
 msgstr "Pasta:"
@@ -571,8 +609,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "Falha na extracção do ficheiro."
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "Falha ao extrair o(s) item(s)."
@@ -584,6 +622,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -605,6 +646,10 @@ msgid "Failed to write EBR."
 msgstr ""
 
 msgid "Failed to write MBR."
+msgstr ""
+
+#, c-format
+msgid "Fatal error: %i."
 msgstr ""
 
 msgid "File Extensions"
@@ -746,6 +791,12 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
+msgid "Getting Changelog..."
+msgstr "Obtendo Changelog..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "Voltar"
 
@@ -772,6 +823,9 @@ msgstr "Botão Início"
 
 msgid "Home Menu"
 msgstr "Menu Inicial"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Ficheiros Homebrew"
@@ -817,9 +871,6 @@ msgstr "Altura da Imagem"
 
 msgid "Image Settings"
 msgstr "Definições de Imagem"
-
-msgid "Image Viewer"
-msgstr "Visualizador de Imagens"
 
 msgid "Image Width"
 msgstr "Largura da Imagem"
@@ -881,9 +932,6 @@ msgstr "Última modificação:"
 msgid "Left Button"
 msgstr "Esquerda"
 
-msgid "Linebreak"
-msgstr "Quebra de linha"
-
 msgid "List Mode"
 msgstr "Modo Lista"
 
@@ -898,9 +946,6 @@ msgstr "Carregar Música para a Memória"
 
 msgid "Loading file:"
 msgstr "Carregando ficheiro:"
-
-msgid "Loading image..."
-msgstr "Carregando imagem..."
 
 msgid "Log was saved in MD5.log"
 msgstr ""
@@ -938,7 +983,17 @@ msgstr "Buffer de Memória"
 msgid "Menu"
 msgstr "Menu"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
+msgstr ""
+
+msgid "Mounting DVD"
 msgstr ""
 
 msgid "Mountpoint:"
@@ -989,10 +1044,6 @@ msgstr "Não foram encontrados ficheiros."
 msgid "No homebrew in the zip."
 msgstr "Não existe homebrew no zip."
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "Imagem com o número %d não encontrada."
-
 msgid "No network connection."
 msgstr "Não existe ligação à rede."
 
@@ -1014,6 +1065,9 @@ msgstr "Caminho URL inválido"
 msgid "Not a valid domain"
 msgstr "Domínio inválido"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "Memória insuficiente para redimensionar."
 
@@ -1022,6 +1076,9 @@ msgstr "Memória insuficiente para rodar."
 
 msgid "Not enough memory."
 msgstr "Memória insuficiente"
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr ""
@@ -1177,6 +1234,18 @@ msgstr ""
 msgid "Random"
 msgstr "Aleatório"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1189,19 +1258,25 @@ msgstr "Recebendo ficheiro..."
 msgid "Reconnect FTP"
 msgstr "Re-ligar FTP"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "Ligar SMB"
-
-msgid "Reconnect failed. No client connected."
-msgstr ""
-
-msgid "Reconnect failed. No share connected."
-msgstr ""
 
 msgid "Red"
 msgstr ""
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1222,8 +1297,8 @@ msgstr "Reiniciar"
 msgid "Restart"
 msgstr "Reiniciar"
 
-msgid "Retry"
-msgstr "Tentar novamente"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "Botão Direita"
@@ -1246,14 +1321,11 @@ msgstr "Nome SMB:"
 msgid "SMB Settings"
 msgstr "Configuração SMB"
 
-msgid "SMB is connecting..."
-msgstr "Ligando ao SMB..."
-
-msgid "SMB reconnected successfull."
-msgstr ""
-
 msgid "Save Alpha"
 msgstr "Gravar Alfa"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr "Formato de Captura"
@@ -1269,6 +1341,10 @@ msgstr "Botão a pressionar para Captura de Ecrã"
 
 msgid "Scrolling Speed"
 msgstr "Velocidade de Deslocamento"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "O Servidor foi encerrado...\n"
@@ -1337,6 +1413,12 @@ msgstr "Iniciar FTP"
 msgid "Successfully formated the partition."
 msgstr ""
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr ""
 
@@ -1385,12 +1467,6 @@ msgstr ""
 msgid "To Idle"
 msgstr "WiiConnect24"
 
-msgid "To Loader"
-msgstr "Loader"
-
-msgid "To Menu"
-msgstr "Menu"
-
 msgid "To Standby"
 msgstr "Standby"
 
@@ -1426,9 +1502,6 @@ msgstr "Formato desconhecido. Abrir este ficheiro com o TexEditor?"
 
 msgid "Unable to create folder."
 msgstr "Não é possível criar a pasta."
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr ""
@@ -1572,6 +1645,9 @@ msgstr "Ficheiros Binários Wii"
 msgid "Wii Homebrew"
 msgstr ""
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr ""
 
@@ -1588,6 +1664,18 @@ msgid "WiiXplorer Movies"
 msgstr "Filmes WiiXplorer"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
+msgstr ""
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
 msgstr ""
 
 msgid "Yes"
@@ -1620,14 +1708,14 @@ msgstr ""
 msgid "ZoomOut Button"
 msgstr ""
 
-msgid "`1234567890-"
-msgstr "S4567890'«"
+msgid "`1234567890-="
+msgstr ""
 
 msgid "and all the translators."
 msgstr "e todos os tradutores."
 
-msgid "asdfghjkl;'="
-msgstr "asdfghjklçº~"
+msgid "asdfghjkl;'"
+msgstr ""
 
 msgid "devices"
 msgstr ""
@@ -1644,11 +1732,68 @@ msgstr ""
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop+'"
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr "<zxcvbnm,.-"
 
-msgid "~!@#$%^&*()_"
-msgstr "|!\"#$%&/()=?»"
+msgid "~!@#$%^&*()_+"
+msgstr ""
+
+#~ msgid "ASDFGHJKL:\"+"
+#~ msgstr "ASDFGHJKLÇª^"
+
+#~ msgid "Linebreak"
+#~ msgstr "Quebra de linha"
+
+#~ msgid "`1234567890-"
+#~ msgstr "S4567890'«"
+
+#~ msgid "asdfghjkl;'="
+#~ msgstr "asdfghjklçº~"
+
+#~ msgid "~!@#$%^&*()_"
+#~ msgstr "|!\"#$%&/()=?»"
+
+#~ msgid "Cannot open image"
+#~ msgstr "Não é possível abrir a imagem"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Não foi possível extrair o ficheiro:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "%d ficheiros descarregados."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Extraindo ficheiros..."
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "Falha na extracção do ficheiro."
+
+#~ msgid "Image Viewer"
+#~ msgstr "Visualizador de Imagens"
+
+#~ msgid "Loading image..."
+#~ msgstr "Carregando imagem..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "Imagem com o número %d não encontrada."
+
+#~ msgid "Retry"
+#~ msgstr "Tentar novamente"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "Ligando ao SMB..."
+
+#~ msgid "To Loader"
+#~ msgstr "Loader"
+
+#~ msgid "To Menu"
+#~ msgstr "Menu"
 
 #~ msgid "Copy of"
 #~ msgstr "Cópia de"
@@ -1698,9 +1843,6 @@ msgstr "|!\"#$%&/()=?»"
 #~ msgid "Continue"
 #~ msgstr "Continuar"
 
-#~ msgid "Converting image..."
-#~ msgstr "Convertendo imagem..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "Não foi possível ligar à rede"
 
@@ -1709,9 +1851,6 @@ msgstr "|!\"#$%&/()=?»"
 
 #~ msgid "File Extensions Assignment"
 #~ msgstr "Associação de Extensões de Ficheiros"
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "Obtendo Changelog..."
 
 #~ msgid "Language Path changed."
 #~ msgstr "Pasta de Idiomas alterada."

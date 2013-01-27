@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-23 16:58+0200\n"
+"POT-Creation-Date: 2013-01-27 19:04+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Jane.H\n"
 "Language-Team: mcc, kyogc, Miller, Jane.H\n"
@@ -46,8 +46,11 @@ msgstr "24小時制"
 msgid "7z decompression failed:"
 msgstr "7z 格式解壓失敗："
 
-msgid "ASDFGHJKL:\"+"
-msgstr "ASDFGHJKL：\"+"
+msgid "A task is in progress. Can't run update check right now."
+msgstr ""
+
+msgid "ASDFGHJKL:\""
+msgstr ""
 
 msgid "Action cancelled."
 msgstr "動作已取消。"
@@ -78,6 +81,9 @@ msgstr "應用程式路徑"
 
 msgid "Archive Files"
 msgstr "儲存檔案"
+
+msgid "Are you sure you have that IOS installed?"
+msgstr ""
 
 msgid "Audio Files"
 msgstr "音樂檔案"
@@ -145,6 +151,9 @@ msgstr ""
 msgid "Calculating delete size..."
 msgstr ""
 
+msgid "Calculating extract size..."
+msgstr ""
+
 msgid "Calculating total size..."
 msgstr "計算整體大小..."
 
@@ -156,6 +165,9 @@ msgstr "無法開啟這個檔案。"
 
 msgid "Can't browse that path."
 msgstr "無法瀏覽那個路徑。"
+
+msgid "Can't connect to update server"
+msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "無法找到正確的磁區"
@@ -172,11 +184,16 @@ msgstr "無法開啟檔案。"
 msgid "Cancel"
 msgstr "取消"
 
+#, c-format
+msgid "Cannot close file %s"
+msgstr ""
+
 msgid "Cannot create directory: "
 msgstr "無法建立目錄："
 
-msgid "Cannot open image"
-msgstr "無法開啟圖片"
+#, c-format
+msgid "Cannot open file %s"
+msgstr ""
 
 msgid "Cannot read from the drive."
 msgstr "無法從磁碟讀取"
@@ -208,6 +225,9 @@ msgstr "檢查目錄中 :"
 
 msgid "Checking file:"
 msgstr "檢查檔案 :"
+
+msgid "Checking for updates"
+msgstr ""
 
 msgid "Clear"
 msgstr "清除"
@@ -255,6 +275,12 @@ msgstr "控制台設定"
 msgid "Convert"
 msgstr "轉換"
 
+msgid "Converting image"
+msgstr ""
+
+msgid "Converting image..."
+msgstr "轉換圖片中..."
+
 msgid "Copy"
 msgstr "複製"
 
@@ -285,8 +311,9 @@ msgstr "無法解壓縮檔案。"
 msgid "Could not download file."
 msgstr "無法下載檔案。"
 
-msgid "Could not extract file:"
-msgstr "無法解壓縮檔案："
+#, c-format
+msgid "Could not find IOS %i"
+msgstr ""
 
 msgid "Could not load file."
 msgstr "無法載入檔案。"
@@ -354,6 +381,9 @@ msgstr ""
 msgid "Disconnect SMB"
 msgstr "中斷連結 SMB網路共享"
 
+msgid "Disk is Full"
+msgstr ""
+
 msgid "Do you want to add an URL?"
 msgstr "是否要增加一個網址？"
 
@@ -415,6 +445,9 @@ msgstr "是否要重新啟動WiiXplorer？"
 msgid "Do you want to reboot now ?"
 msgstr "是否要立刻重新啟動？"
 
+msgid "Do you want to reconnect this NFS?"
+msgstr ""
+
 msgid "Do you want to reconnect this SMB?"
 msgstr "是否要重新連接SMB網路共享？"
 
@@ -457,10 +490,6 @@ msgstr "向下按鈕"
 msgid "Download Link"
 msgstr "下載連結"
 
-#, c-format
-msgid "Downloaded %d files."
-msgstr "下載 %d 檔案。"
-
 msgid "Downloading file..."
 msgstr "下載檔案..."
 
@@ -477,6 +506,9 @@ msgstr "遭遇 %i 個錯誤.\n"
 msgid "Enter"
 msgstr "輸入"
 
+msgid "Error"
+msgstr ""
+
 #, c-format
 msgid "Error - %s is not a file\n"
 msgstr "錯誤 - %s 不是一個檔案"
@@ -492,6 +524,18 @@ msgstr ""
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "錯誤 - 記憶體不足： %s\n"
+
+#, c-format
+msgid "Error opening %s"
+msgstr ""
+
+#, c-format
+msgid "Error opening %s in %s"
+msgstr ""
+
+#, c-format
+msgid "Error received from %s in %s"
+msgstr ""
 
 msgid "Error while reading file."
 msgstr "讀取檔案時發生錯誤。"
@@ -526,9 +570,6 @@ msgstr "匯出所有壓縮檔？"
 msgid "Extract the selected item(s)?"
 msgstr "匯出選擇項目嗎？"
 
-msgid "Extracting files..."
-msgstr "輸出檔案中..."
-
 msgid "Extracting item(s):"
 msgstr "輸出項目中："
 
@@ -537,9 +578,6 @@ msgstr "FAT32 必須至少要有 65536 個擊區"
 
 msgid "FTP Client Settings"
 msgstr "FTP用戶端設定"
-
-msgid "FTP Client reconnected successfull."
-msgstr "FTP用戶端重新連接成功"
 
 msgid "FTP Path:"
 msgstr "FTP路徑："
@@ -571,8 +609,8 @@ msgstr ""
 msgid "Failed deleting some item(s)."
 msgstr ""
 
-msgid "Failed extracting the archive."
-msgstr "匯出檔案失敗。"
+msgid "Failed extracting some item(s)."
+msgstr ""
 
 msgid "Failed extracting the item(s)."
 msgstr "無法匯出項目。"
@@ -584,6 +622,9 @@ msgid "Failed loading the file."
 msgstr ""
 
 msgid "Failed moving some item(s)."
+msgstr ""
+
+msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
@@ -606,6 +647,10 @@ msgstr "寫入 EBR 失敗"
 
 msgid "Failed to write MBR."
 msgstr "寫入 MBR 失敗"
+
+#, c-format
+msgid "Fatal error: %i."
+msgstr ""
 
 msgid "File Extensions"
 msgstr "檔案類型"
@@ -746,6 +791,12 @@ msgstr "GUID"
 msgid "General Settings"
 msgstr "一般設定"
 
+msgid "Getting Changelog..."
+msgstr "使用更新日誌 ..."
+
+msgid "Getting file list..."
+msgstr ""
+
 msgid "Go Back"
 msgstr "返回"
 
@@ -772,6 +823,9 @@ msgstr "Homebrew 按鈕"
 
 msgid "Home Menu"
 msgstr "主選單"
+
+msgid "Homebrew Channel"
+msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Homebrew 檔案"
@@ -817,9 +871,6 @@ msgstr "圖片高度"
 
 msgid "Image Settings"
 msgstr "圖片設定"
-
-msgid "Image Viewer"
-msgstr "檢視圖片"
 
 msgid "Image Width"
 msgstr "圖片寬度"
@@ -881,9 +932,6 @@ msgstr "最近修改："
 msgid "Left Button"
 msgstr "向左按鈕"
 
-msgid "Linebreak"
-msgstr "斷行"
-
 msgid "List Mode"
 msgstr "清單模式"
 
@@ -898,9 +946,6 @@ msgstr "讀取音樂到記憶體"
 
 msgid "Loading file:"
 msgstr "載入檔案中："
-
-msgid "Loading image..."
-msgstr "載入圖片中..."
 
 msgid "Log was saved in MD5.log"
 msgstr "紀錄儲存在 MD5.log"
@@ -938,8 +983,18 @@ msgstr "記憶體緩衝區"
 msgid "Menu"
 msgstr "選單"
 
+#, c-format
+msgid "Mount %i"
+msgstr ""
+
+msgid "Mount NAND (ISFS)"
+msgstr ""
+
 msgid "Mounted as:"
 msgstr "掛載成"
+
+msgid "Mounting DVD"
+msgstr ""
 
 msgid "Mountpoint:"
 msgstr ""
@@ -989,10 +1044,6 @@ msgstr "找不到檔案。"
 msgid "No homebrew in the zip."
 msgstr "zip檔中無自製程式。"
 
-#, c-format
-msgid "No image found at index %d."
-msgstr "index %d 中無圖片。"
-
 msgid "No network connection."
 msgstr "沒有網路連接。"
 
@@ -1014,6 +1065,9 @@ msgstr "不是有效的URL路徑"
 msgid "Not a valid domain"
 msgstr "不是有效的網域名稱"
 
+msgid "Not enough memory"
+msgstr ""
+
 msgid "Not enough memory to resize."
 msgstr "沒有足夠記憶體改變大小。"
 
@@ -1022,6 +1076,9 @@ msgstr "沒有足夠記憶體旋轉。"
 
 msgid "Not enough memory."
 msgstr "記憶體空間不足。"
+
+msgid "Not enought memory."
+msgstr ""
 
 msgid "Not mounted"
 msgstr "未掛載"
@@ -1177,6 +1234,18 @@ msgstr "紅: %i 綠: %i 藍: %i"
 msgid "Random"
 msgstr "隨機播放"
 
+#, c-format
+msgid "Read Error in %s"
+msgstr ""
+
+#, c-format
+msgid "Read Error in file: %s"
+msgstr ""
+
+#, c-format
+msgid "Read error from %s in %s"
+msgstr ""
+
 msgid "Reading archive."
 msgstr ""
 
@@ -1189,19 +1258,25 @@ msgstr "接收檔案中..."
 msgid "Reconnect FTP"
 msgstr "重新連接FTP"
 
+msgid "Reconnect NFS"
+msgstr ""
+
 msgid "Reconnect SMB"
 msgstr "重新連接SMB網路共享"
-
-msgid "Reconnect failed. No client connected."
-msgstr "重新連接失敗.沒有使用者連接"
-
-msgid "Reconnect failed. No share connected."
-msgstr "重新連接失敗.沒有共享連接"
 
 msgid "Red"
 msgstr "紅色"
 
 msgid "Remount"
+msgstr ""
+
+msgid "Remounting FTP client."
+msgstr ""
+
+msgid "Remounting NFS client."
+msgstr ""
+
+msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
@@ -1222,8 +1297,8 @@ msgstr "重置"
 msgid "Restart"
 msgstr "重新啟動"
 
-msgid "Retry"
-msgstr "重試"
+msgid "Retry?"
+msgstr ""
 
 msgid "Right Button"
 msgstr "向右按鈕"
@@ -1246,14 +1321,11 @@ msgstr "SMB網路共享名稱："
 msgid "SMB Settings"
 msgstr "SMB網路共享設定"
 
-msgid "SMB is connecting..."
-msgstr "連接SMB網路共享中..."
-
-msgid "SMB reconnected successfull."
-msgstr "SMB重新連接成功"
-
 msgid "Save Alpha"
 msgstr "儲存Alpha"
+
+msgid "Screen Pointer Speed"
+msgstr ""
 
 msgid "Screenshot Format"
 msgstr "擷取圖片格式"
@@ -1269,6 +1341,10 @@ msgstr "截圖按鈕"
 
 msgid "Scrolling Speed"
 msgstr "滾動速度"
+
+#, c-format
+msgid "Seek Error in %s"
+msgstr ""
 
 msgid "Server was shutdown...\n"
 msgstr "伺服器被關閉...\n"
@@ -1337,6 +1413,12 @@ msgstr "啟動 FTP"
 msgid "Successfully formated the partition."
 msgstr "成功格式化磁區"
 
+msgid "System error received"
+msgstr ""
+
+msgid "Tab"
+msgstr ""
+
 msgid "Temporary Path"
 msgstr "暫存路徑"
 
@@ -1385,12 +1467,6 @@ msgstr "剩餘時間："
 msgid "To Idle"
 msgstr "到閒置"
 
-msgid "To Loader"
-msgstr "到 Loader"
-
-msgid "To Menu"
-msgstr "到選單"
-
 msgid "To Standby"
 msgstr "到待機"
 
@@ -1426,9 +1502,6 @@ msgstr "不知名格式。以TextEditor開啟此檔案？"
 
 msgid "Unable to create folder."
 msgstr "無法建立資料夾。"
-
-msgid "Unable to load path:"
-msgstr ""
 
 msgid "Unknown"
 msgstr "未知"
@@ -1572,6 +1645,9 @@ msgstr "Wii 二進制檔案"
 msgid "Wii Homebrew"
 msgstr "Wii 自製程式"
 
+msgid "Wii Menu"
+msgstr ""
+
 msgid "WiiMC"
 msgstr "WiiMC"
 
@@ -1589,6 +1665,18 @@ msgstr "WiiXplorer 影片"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "你想要 增加/附加 所選的檔案到ZIP"
+
+#, c-format
+msgid "Write Error from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "Write Error in file: %s. %s"
+msgstr ""
+
+#, c-format
+msgid "Write error to %s in %s"
+msgstr ""
 
 msgid "Yes"
 msgstr "是"
@@ -1620,14 +1708,14 @@ msgstr "縮小按鈕"
 msgid "ZoomOut Button"
 msgstr "放大按鈕"
 
-msgid "`1234567890-"
-msgstr "`1234567890-"
+msgid "`1234567890-="
+msgstr ""
 
 msgid "and all the translators."
 msgstr "和所有的翻譯。"
 
-msgid "asdfghjkl;'="
-msgstr "asdfghjkl;'="
+msgid "asdfghjkl;'"
+msgstr ""
 
 msgid "devices"
 msgstr ""
@@ -1644,11 +1732,80 @@ msgstr "他的偉大的工具 libwiigui"
 msgid "qwertyuiop[]\\"
 msgstr "qwertyuiop[]\\"
 
+msgid "requires d2x cIOS v9+"
+msgstr ""
+
+msgid "revs"
+msgstr ""
+
 msgid "zxcvbnm,./"
 msgstr "zxcvbnm,./"
 
-msgid "~!@#$%^&*()_"
-msgstr "~!@#$%^&*()_"
+msgid "~!@#$%^&*()_+"
+msgstr ""
+
+#~ msgid "ASDFGHJKL:\"+"
+#~ msgstr "ASDFGHJKL：\"+"
+
+#~ msgid "Linebreak"
+#~ msgstr "斷行"
+
+#~ msgid "`1234567890-"
+#~ msgstr "`1234567890-"
+
+#~ msgid "asdfghjkl;'="
+#~ msgstr "asdfghjkl;'="
+
+#~ msgid "~!@#$%^&*()_"
+#~ msgstr "~!@#$%^&*()_"
+
+#~ msgid "Cannot open image"
+#~ msgstr "無法開啟圖片"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "無法解壓縮檔案："
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "下載 %d 檔案。"
+
+#~ msgid "Extracting files..."
+#~ msgstr "輸出檔案中..."
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "FTP用戶端重新連接成功"
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "匯出檔案失敗。"
+
+#~ msgid "Image Viewer"
+#~ msgstr "檢視圖片"
+
+#~ msgid "Loading image..."
+#~ msgstr "載入圖片中..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "index %d 中無圖片。"
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "重新連接失敗.沒有使用者連接"
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "重新連接失敗.沒有共享連接"
+
+#~ msgid "Retry"
+#~ msgstr "重試"
+
+#~ msgid "SMB is connecting..."
+#~ msgstr "連接SMB網路共享中..."
+
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "SMB重新連接成功"
+
+#~ msgid "To Loader"
+#~ msgstr "到 Loader"
+
+#~ msgid "To Menu"
+#~ msgstr "到選單"
 
 #~ msgid "Copy of"
 #~ msgstr "複製其中"
@@ -1722,9 +1879,6 @@ msgstr "~!@#$%^&*()_"
 #~ msgid "Continue"
 #~ msgstr "繼續"
 
-#~ msgid "Converting image..."
-#~ msgstr "轉換圖片中..."
-
 #~ msgid "Could not connect to the network"
 #~ msgstr "無法連接到網路"
 
@@ -1739,9 +1893,6 @@ msgstr "~!@#$%^&*()_"
 
 #~ msgid "Formating partition..."
 #~ msgstr "格式化磁區中..."
-
-#~ msgid "Getting Changelog..."
-#~ msgstr "使用更新日誌 ..."
 
 #~ msgid "Language Path changed."
 #~ msgstr "語系路徑變更。"

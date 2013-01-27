@@ -95,9 +95,6 @@ class GuiKeyboardAlone : public GuiFrame, public sigslot::has_slots<>
 		GuiSound * keySoundOver;
 		GuiSound * keySoundClick;
 		GuiTrigger * trigA;
-		GuiTrigger * trigHeldA;
-		GuiTrigger * trigLeft;
-		GuiTrigger * trigRight;
 };
 
 #endif
