@@ -93,7 +93,7 @@ int UpdateTask::CheckForUpdate(void)
 
 	revnumber = atoi(revPtr);
 
-	if (revnumber > currentrev)
+	if (revnumber <= currentrev)
 		return 0;
 
 	char *downloadLink = strstr(revPtr, "link=\"");
