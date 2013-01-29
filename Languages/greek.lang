@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-27 19:04+0100\n"
+"POT-Creation-Date: 2013-01-29 21:55+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -1471,6 +1471,9 @@ msgstr "Στην αδράνεια"
 
 msgid "To Standby"
 msgstr "Στην αναμονή"
+
+msgid "Tooltip Delay"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Συνολικό μέγεθος:"

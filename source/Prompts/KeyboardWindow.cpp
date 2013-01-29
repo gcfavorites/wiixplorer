@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2009-2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,25 +16,84 @@
  ****************************************************************************/
 #include "KeyboardWindow.h"
 #include "Memory/Resources.h"
-#include "Settings.h"
 
-KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
-	: GuiFrame(0, 0)
+/**
+ * Constructor for the GuiKeyboard class.
+ */
+KeyboardWindow::KeyboardWindow(wchar_t * t, u32 max)
 {
 	choice = -1;
-	inText = text;
-	maxlen = max;
+	inText = t;
+	selectable = true;
+	kbtextstr.assign(t);
+	kbtextmaxlen = max > 0 ? max : wcslen(t)+1;
+	CurrentFirstLetter = 0;
+	if(t)
+	{
+		CurrentFirstLetter = wcslen(t)-MAX_KEYBOARD_DISPLAY+1;
+		if(CurrentFirstLetter < 0)
+			CurrentFirstLetter = 0;
+	}
 
-	keyboard = new GuiKeyboard(text, maxlen > 0 ? maxlen : wcslen(text)+1);
+	height += 100;
 
-	width = keyboard->GetWidth();
-	height = keyboard->GetHeight();
-
-	btnSoundOver = Resources::GetSound("button_over.wav");
 	btnOutline = Resources::GetImageData("button.png");
 	btnOutlineOver = Resources::GetImageData("button_over.png");
 
-	trigA.SetSimpleTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+	keyTextbox = Resources::GetImageData("keyboard_textbox.png");
+	keyTextboxImg = new GuiImage(keyTextbox);
+	keyTextboxImg->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
+	keyTextboxImg->SetPosition(0, 0);
+	this->Append(keyTextboxImg);
+
+	trigHeldA = new GuiTrigger;
+	trigHeldA->SetHeldTrigger(-1, WiiControls.ClickButton | ClassicControls.ClickButton << 16, GCControls.ClickButton);
+
+	kbText = new GuiText(GetDisplayText(), 20, (GXColor){0, 0, 0, 0xff});
+	kbText->SetAlignment(ALIGN_LEFT | ALIGN_TOP);
+
+	TextPointerBtn = new TextPointer(kbText, 0);
+	TextPointerBtn->SetAlignment(ALIGN_CENTER | ALIGN_TOP);
+	TextPointerBtn->SetPosition(0, 11);
+	TextPointerBtn->SetHoldable(true);
+	TextPointerBtn->SetTrigger(trigHeldA);
+	TextPointerBtn->Held.connect(this, &KeyboardWindow::OnPointerHeld);
+	this->Append(TextPointerBtn);
+
+	TextPointerBtn->PositionChanged(0, 0, 0);
+	TextPointerBtn->SetLetterPosition(MAX_KEYBOARD_DISPLAY-1);
+
+	trigLeft = new GuiTrigger;
+	trigLeft->SetButtonOnlyTrigger(-1, WiiControls.LeftButton | ClassicControls.LeftButton << 16, GCControls.LeftButton);
+	trigRight = new GuiTrigger;
+	trigRight->SetButtonOnlyTrigger(-1, WiiControls.RightButton | ClassicControls.RightButton << 16, GCControls.RightButton);
+
+	GoRight = new GuiButton(1, 1);
+	GoRight->SetSoundClick(keySoundClick);
+	GoRight->SetTrigger(trigRight);
+	GoRight->Clicked.connect(this, &KeyboardWindow::OnPositionMoved);
+	this->Append(GoRight);
+
+	GoLeft = new GuiButton(1, 1);
+	GoLeft->SetSoundClick(keySoundClick);
+	GoLeft->SetTrigger(trigLeft);
+	GoLeft->Clicked.connect(this, &KeyboardWindow::OnPositionMoved);
+	this->Append(GoLeft);
+
+	keyClearText = new GuiText(tr("Clear"), 20, (GXColor){0, 0, 0, 0xff});
+	keyClearImg = new GuiImage(keyMedium);
+	keyClearOverImg = new GuiImage(keyMediumOver);
+	keyClear = new GuiButton(keyMedium->GetWidth(), keyMedium->GetHeight());
+	keyClear->SetImage(keyClearImg);
+	keyClear->SetImageOver(keyClearOverImg);
+	keyClear->SetSoundOver(keySoundOver);
+	keyClear->SetSoundClick(keySoundClick);
+	keyClear->SetLabel(keyClearText);
+	keyClear->SetTrigger(trigA);
+	keyClear->SetPosition(78, 4*42+80);
+	keyClear->SetEffectGrow();
+	keyClear->Clicked.connect(this, &KeyboardWindow::OnClearKeyPress);
+	this->Append(keyClear);
 
 	okBtnTxt = new GuiText(tr("OK"), 22, (GXColor){0, 0, 0, 255});
 	okBtnImg = new GuiImage(btnOutline);
@@ -45,10 +104,11 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 	okBtn->SetLabel(okBtnTxt);
 	okBtn->SetImage(okBtnImg);
 	okBtn->SetImageOver(okBtnImgOver);
-	okBtn->SetSoundOver(btnSoundOver);
-	okBtn->SetTrigger(&trigA);
+	okBtn->SetSoundOver(keySoundOver);
+	okBtn->SetTrigger(trigA);
 	okBtn->SetEffectGrow();
-	okBtn->Clicked.connect(this, &KeyboardWindow::OnOkButtonClick);
+	okBtn->Clicked.connect(this, &KeyboardWindow::OnButtonClick);
+	this->Append(okBtn);
 
 	cancelBtnTxt = new GuiText(tr("Cancel"), 22, (GXColor){0, 0, 0, 255});
 	cancelBtnImg = new GuiImage(btnOutline);
@@ -59,51 +119,198 @@ KeyboardWindow::KeyboardWindow(wchar_t *text, int max)
 	cancelBtn->SetLabel(cancelBtnTxt);
 	cancelBtn->SetImage(cancelBtnImg);
 	cancelBtn->SetImageOver(cancelBtnImgOver);
-	cancelBtn->SetSoundOver(btnSoundOver);
-	cancelBtn->SetTrigger(&trigA);
+	cancelBtn->SetSoundOver(keySoundOver);
+	cancelBtn->SetTrigger(trigA);
 	cancelBtn->SetEffectGrow();
-	cancelBtn->Clicked.connect(this, &KeyboardWindow::OnCancelButtonClick);
+	cancelBtn->Clicked.connect(this, &KeyboardWindow::OnButtonClick);
+	this->Append(cancelBtn);
 
-	Append(keyboard);
-	Append(okBtn);
-	Append(cancelBtn);
-
-	SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
+	this->keyPressed.connect(this, &KeyboardWindow::OnKeyPress);
 }
 
+/**
+ * Destructor for the GuiKeyboard class.
+ */
 KeyboardWindow::~KeyboardWindow()
 {
 	RemoveAll();
 
-	Resources::Remove(btnOutline);
-	Resources::Remove(btnOutlineOver);
-
-	Resources::Remove(btnSoundOver);
-
+	delete TextPointerBtn;
+	delete GoRight;
+	delete GoLeft;
+	delete kbText;
+	delete keyTextboxImg;
+	delete keyClearText;
+	delete keyClearImg;
+	delete keyClearOverImg;
+	delete keyClear;
+	delete trigHeldA;
+	delete trigLeft;
+	delete trigRight;
 	delete okBtn;
 	delete cancelBtn;
-
 	delete okBtnImg;
 	delete okBtnImgOver;
 	delete cancelBtnImg;
 	delete cancelBtnImgOver;
-
 	delete okBtnTxt;
 	delete cancelBtnTxt;
-
-	delete keyboard;
+	Resources::Remove(keyTextbox);
+	Resources::Remove(btnOutline);
+	Resources::Remove(btnOutlineOver);
 }
 
-void KeyboardWindow::OnOkButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+void KeyboardWindow::OnButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
 {
-	choice = 1;
-	wcsncpy(inText, keyboard->GetString(), maxlen);
-	inText[maxlen-1] = 0;
+	if(sender == okBtn)
+	{
+		choice = 1;
+		wcsncpy(inText, this->GetString(), kbtextmaxlen);
+		inText[kbtextmaxlen-1] = 0;
+	}
+	else if(sender == cancelBtn)
+	{
+		choice = 0;
+	}
 
-	OkButtonClicked(this, inText);
+	ButtonClicked(choice, inText);
 }
 
-void KeyboardWindow::OnCancelButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED)
+std::string KeyboardWindow::GetUTF8String() const
 {
-	choice = 0;
+	return kbtextstr.toUTF8();
+}
+
+const wchar_t * KeyboardWindow::GetString()
+{
+	return kbtextstr.c_str();
+}
+
+void KeyboardWindow::AddChar(int pos, wchar_t Char)
+{
+	if(pos < 0)
+		return;
+
+	kbtextstr.insert(pos, 1, Char);
+
+	MoveText(1);
+}
+
+void KeyboardWindow::RemoveChar(int pos)
+{
+	if (pos < 0 || pos >= (int) kbtextstr.size())
+		return;
+
+	kbtextstr.erase(pos, 1);
+	MoveText(-1);
+}
+
+void KeyboardWindow::MoveText(int n)
+{
+	int strlength = kbtextstr.size();
+
+	if(strlength > MAX_KEYBOARD_DISPLAY)
+	{
+		CurrentFirstLetter += n;
+		if(CurrentFirstLetter < 0)
+			CurrentFirstLetter = 0;
+	}
+	else
+		CurrentFirstLetter = 0;
+
+	kbText->SetText(GetDisplayText());
+	TextPointerBtn->UpdateWidth();
+
+	if(strlength > MAX_KEYBOARD_DISPLAY-2)
+		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter());
+	else
+		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()+n);
+}
+
+void KeyboardWindow::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POINT &p)
+{
+	TextPointerBtn->PositionChanged(pointer, p.x - TextPointerBtn->GetLeft(), p.y - TextPointerBtn->GetTop());
+}
+
+void KeyboardWindow::OnPositionMoved(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+{
+	sender->ResetState();
+
+	if(sender == GoLeft)
+	{
+		int currentPointLetter = TextPointerBtn->GetCurrentLetter();
+		currentPointLetter--;
+		if(currentPointLetter < 0)
+		{
+			currentPointLetter = 0;
+			CurrentFirstLetter--;
+			if(CurrentFirstLetter < 0)
+				CurrentFirstLetter = 0;
+		}
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(currentPointLetter);
+	}
+	else if(sender == GoRight)
+	{
+		int currentPointLetter = TextPointerBtn->GetCurrentLetter();
+		currentPointLetter++;
+		int strlength = kbtextstr.length();
+		if(currentPointLetter > (MAX_KEYBOARD_DISPLAY-1) || currentPointLetter > strlength)
+		{
+			currentPointLetter--;
+			CurrentFirstLetter++;
+			if(CurrentFirstLetter > (strlength-MAX_KEYBOARD_DISPLAY+1))
+				CurrentFirstLetter = strlength-MAX_KEYBOARD_DISPLAY+1;
+		}
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(currentPointLetter);
+	}
+}
+
+void KeyboardWindow::OnClearKeyPress(GuiButton *sender, int pointer UNUSED, const POINT &p UNUSED)
+{
+	if(sender == keyClear)
+	{
+		CurrentFirstLetter = 0;
+		kbtextstr.clear();
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(0);
+	}
+}
+
+void KeyboardWindow::OnKeyPress(wchar_t charCode)
+{
+	if(charCode == 0x08)
+	{
+		RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
+	}
+	else if(kbtextstr.length() < kbtextmaxlen)
+	{
+		AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), charCode);
+	}
+}
+
+const wchar_t * KeyboardWindow::GetDisplayText()
+{
+	int len = kbtextstr.size();
+
+	if(len < MAX_KEYBOARD_DISPLAY)
+		return kbtextstr.c_str();
+
+	int n = 0;
+	int startPos = CurrentFirstLetter;
+	int endPos = startPos+MAX_KEYBOARD_DISPLAY;
+
+	for(int i = startPos; i < endPos && i < len; ++i)
+	{
+		displayTxt[n] = kbtextstr.at(i);
+		++n;
+	}
+
+	displayTxt[n] = 0;
+
+	return displayTxt;
 }

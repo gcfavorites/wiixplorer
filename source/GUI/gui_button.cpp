@@ -216,27 +216,8 @@ void GuiButton::Draw()
 			label[i]->Draw();
 	}
 
-	if(state == STATE_SELECTED && tooltip)
-	{
-		if(!tooltip->IsVisible() && SelectTimer.elapsed() > tooltip->GetElapseTime())
-		{
-			tooltip->SetEffect(EFFECT_FADE, 20);
-			tooltip->SetVisible(true);
-		}
-		if(parentElement && parentElement->GetState() != STATE_DISABLED)
-			tooltip->Draw();
-
-	}
-	else if(tooltip)
-	{
-		if(tooltip->IsVisible())
-		{
-			tooltip->SetEffect(EFFECT_FADE, -20);
-			tooltip->SetVisible(false);
-		}
-		if(state != STATE_DISABLED && parentElement && parentElement->GetState() != STATE_DISABLED)
-			tooltip->Draw();
-	}
+	if(tooltip)
+		tooltip->Draw();
 
 	this->UpdateEffects();
 }
@@ -263,9 +244,6 @@ void GuiButton::Update(GuiTrigger * t)
 
 				if(soundOver)
 					soundOver->Play();
-
-				if(tooltip)
-					SelectTimer.reset();
 
 				if(effectsOver && !effects)
 				{

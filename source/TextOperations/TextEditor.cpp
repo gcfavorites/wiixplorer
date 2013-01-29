@@ -142,7 +142,7 @@ TextEditor::TextEditor(const std::string &path)
 	frameImage.SetColorSideQuadUpper((GXColor) {0xA6, 0xA9, 0xAF, 0xFF});
 	frameImage.SetColorSideQuadLower((GXColor) {0x8C, 0x90, 0x96, 0xFF});
 
-	keyboard = new GuiKeyboardAlone();
+	keyboard = new GuiKeyboard();
 	keyboard->SetAlignment(ALIGN_CENTER | ALIGN_BOTTOM);
 	keyboard->SetState(STATE_DISABLED);
 	keyboard->SetVisible(false);
@@ -308,7 +308,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 					TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
 
 				// set last letter in previous line as selected
-				TextPointerBtn->SetPointerPosition(0xFFFFFF);
+				TextPointerBtn->SetLetterPosition(0xFFFFFF);
 				horScrollbar->SetSelectedItem((TextPointerBtn->GetPointerPosX() - width/2) >> 4);
 
 				MainFileTxt->RemoveText(letter, 1);
@@ -317,7 +317,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 			else
 			{
 				MainFileTxt->RemoveText(letter, 1);
-				TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()-1);
+				TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()-1);
 
 				if(!TextPointerBtn->IsPointerVisible())
 					horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
@@ -344,7 +344,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 			else
 				TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()+1);
 			horScrollbar->SetSelectedItem(0);
-			TextPointerBtn->SetPointerPosition(0);
+			TextPointerBtn->SetLetterPosition(0);
 		}
 		// adding normal character
 		else
@@ -352,7 +352,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 			if(!TextPointerBtn->IsPointerVisible())
 				horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
 
-			TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter()+1);
+			TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()+1);
 		}
 		// check if the maximum width is changed
 		int line = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine());
@@ -378,7 +378,7 @@ void TextEditor::OnHorScrollChange(int selItem)
 {
 	textStartWidth = selItem << 4;
 	MainFileTxt->SetStartWidth(textStartWidth);
-	TextPointerBtn->SetPointerPosition(TextPointerBtn->GetCurrentLetter());
+	TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter());
 }
 
 

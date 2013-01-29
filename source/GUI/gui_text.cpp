@@ -24,7 +24,7 @@
 extern FreeTypeGX * fontSystem;
 
 static int presetSize = 18;
-static int presetMaxWidth = 0;
+static int presetMaxWidth = 0xFFFF;
 static int presetAlignment = ALIGN_CENTER | ALIGN_MIDDLE;
 static GXColor presetColor = (GXColor){255, 255, 255, 255};
 
@@ -43,8 +43,9 @@ GuiText::GuiText(const char * t, int s, GXColor c)
 	color = c;
 	alpha = c.a;
 	alignment = ALIGN_CENTER | ALIGN_MIDDLE;
-	maxWidth = 0;
+	maxWidth = presetMaxWidth;
 	wrapMode = 0;
+	textWidth = 0;
 	font = NULL;
 	linestodraw = MAX_LINES_TO_DRAW;
 	textScrollPos = 0;
@@ -69,8 +70,9 @@ GuiText::GuiText(const wchar_t * t, int s, GXColor c)
 	color = c;
 	alpha = c.a;
 	alignment = ALIGN_CENTER | ALIGN_MIDDLE;
-	maxWidth = 0;
+	maxWidth = presetMaxWidth;
 	wrapMode = 0;
+	textWidth = 0;
 	font = NULL;
 	linestodraw = MAX_LINES_TO_DRAW;
 	textScrollPos = 0;
@@ -102,6 +104,7 @@ GuiText::GuiText(const char * t)
 	alignment = presetAlignment;
 	maxWidth = presetMaxWidth;
 	wrapMode = 0;
+	textWidth = 0;
 	font = NULL;
 	linestodraw = MAX_LINES_TO_DRAW;
 	textScrollPos = 0;
@@ -244,14 +247,6 @@ void GuiText::SetColor(GXColor c)
 	alpha = c.a;
 }
 
-int GuiText::GetTextWidth()
-{
-	if(!text)
-		return 0;
-
-	return fontSystem->getWidth(text, currentSize);
-}
-
 int GuiText::GetTextWidth(int ind)
 {
 	if(ind < 0 || ind >= (int) textDyn.size())
@@ -301,7 +296,11 @@ void GuiText::MakeDottedText()
 	textDyn.resize(pos + 1);
 
 	int i = 0, currentWidth = 0;
-	textDyn[pos] = new wchar_t[maxWidth];
+	textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
+	if(!textDyn[pos]) {
+		textDyn.resize(pos);
+		return;
+	}
 
 	while (text[i])
 	{
@@ -330,7 +329,11 @@ void GuiText::ScrollText()
 		int i = 0, currentWidth = 0;
 		textDyn.resize(pos + 1);
 
-		textDyn[pos] = new wchar_t[maxWidth];
+		textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
+		if(!textDyn[pos]) {
+			textDyn.resize(pos);
+			return;
+		}
 
 		while (text[i] && currentWidth < maxWidth)
 		{
@@ -368,7 +371,13 @@ void GuiText::ScrollText()
 	int ch = textScrollPos;
 	int pos = textDyn.size() - 1;
 
-	if (!textDyn[pos]) new wchar_t[maxWidth];
+	if (!textDyn[pos])
+		textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
+
+	if(!textDyn[pos]) {
+		textDyn.resize(pos);
+		return;
+	}
 
 	int i = 0, currentWidth = 0;
 
@@ -412,7 +421,11 @@ void GuiText::WrapText()
 		if (linenum >= (int) textDyn.size())
 		{
 			textDyn.resize(linenum + 1);
-			textDyn[linenum] = new wchar_t[maxWidth];
+			textDyn[linenum] = new (std::nothrow) wchar_t[maxWidth];
+			if(!textDyn[linenum]) {
+				textDyn.resize(linenum);
+				break;
+			}
 		}
 
 		textDyn[linenum][i] = text[ch];

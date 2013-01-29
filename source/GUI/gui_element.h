@@ -200,7 +200,7 @@ class GuiElement
 				a = alpha;
 
 			if(parentElement)
-				a *= parentElement->GetAlpha()/255.0f;
+				a = (a * parentElement->GetAlpha()) / 255;
 
 			return a;
 		}
@@ -221,7 +221,7 @@ class GuiElement
 		//!Considers scale, scaleDyn, and the parent element's GetScale() value
 		virtual float GetScale()
 		{
-			float s = (scaleX+scaleY)/2 * scaleDyn;
+			float s = 0.5f * (scaleX+scaleY) * scaleDyn;
 
 			if(parentElement)
 				s *= parentElement->GetScale();

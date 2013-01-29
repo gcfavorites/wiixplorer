@@ -35,15 +35,12 @@ class GuiTooltip : public GuiElement
 		void SetFontSize(int size);
 		//!Set the color of the text
 		void SetColor(GXColor c);
-		//!Set the min time before draw call
-		void SetElapseTime(float t);
-		//!Get the min time before draw call
-		float GetElapseTime() { return ElapseTime; };
 		//!Draw callback
 		void Draw();
 	protected:
-		float ElapseTime;
 		int FontSize;
+		int oldParentState;
+		bool bIsHidden;
 		GXColor color;
 		GuiImage * leftImage;
 		GuiImage * tileImage;
@@ -52,6 +49,7 @@ class GuiTooltip : public GuiElement
 		GuiImageData * tooltipTile;
 		GuiImageData * tooltipRight;
 		GuiText * text;
+		Timer timer;
 };
 
 #endif

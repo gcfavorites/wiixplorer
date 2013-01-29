@@ -20,7 +20,7 @@
 #include "GUI/gui.h"
 #include "GUI/gui_window.h"
 #include "GUI/gui_longtext.hpp"
-#include "GUI/gui_keyboard_alone.h"
+#include "GUI/gui_keyboard.h"
 #include "Controls/Scrollbar.hpp"
 #include "Controls/HorizontalScrollbar.hpp"
 #include "TextPointer.h"
@@ -55,7 +55,7 @@ class TextEditor : public GuiWindow, public sigslot::has_slots<>
 		Scrollbar * scrollbar;
 		HorizontalScrollbar * horScrollbar;
 		GuiFrameImage *textBgImg;
-		GuiKeyboardAlone *keyboard;
+		GuiKeyboard *keyboard;
 
 		/** Buttons **/
 		GuiButton * maximizeBtn;

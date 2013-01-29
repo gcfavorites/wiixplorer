@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-27 19:04+0100\n"
+"POT-Creation-Date: 2013-01-29 21:55+0100\n"
 "PO-Revision-Date: 2013-01-09 03:05+0100\n"
 "Last-Translator: Etheboss\n"
 "Language-Team: Etheboss\n"
@@ -1470,6 +1470,9 @@ msgstr "Naar Inactief"
 
 msgid "To Standby"
 msgstr "Naar Standby"
+
+msgid "Tooltip Delay"
+msgstr ""
 
 msgid "Total Space:"
 msgstr "Totale Ruimte:"

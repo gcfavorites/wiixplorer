@@ -129,6 +129,8 @@ class CSettings
 		short   USBPort;
 		//!Allow ISFS mount
 		short   MountISFS;
+		//!Tooltip delay
+		short   TooltipDelay;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
 		//!WiiMote pointer speed factor

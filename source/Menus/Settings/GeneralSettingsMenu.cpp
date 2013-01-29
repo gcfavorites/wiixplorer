@@ -94,6 +94,7 @@ void GeneralSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Keyboard Delete Delay"));
 	options.SetName(i++, tr("Rumble"));
 	options.SetName(i++, tr("Scrolling Speed"));
+	options.SetName(i++, tr("Tooltip Delay"));
 	options.SetName(i++, tr("Zip Compression Mode"));
 	options.SetName(i++, tr("Copy Thread Priority"));
 	options.SetName(i++, tr("Copy Thread Background Priority"));
@@ -117,6 +118,8 @@ void GeneralSettingsMenu::SetOptionValues()
 		options.SetValue(i++, tr("OFF"));
 
 	options.SetValue(i++, "%i", Settings.ScrollSpeed);
+
+	options.SetValue(i++, "%i ms", Settings.TooltipDelay);
 
 	options.SetValue(i++, "%i %s", Settings.CompressionLevel, CompressionSynonym(Settings.CompressionLevel));
 
@@ -169,20 +172,25 @@ void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 			Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
 			break;
 		case 4:
+			snprintf(entered, sizeof(entered), "%i", Settings.TooltipDelay);
+			if(OnScreenKeyboard(entered, sizeof(entered)))
+				Settings.TooltipDelay = atoi(entered);
+			break;
+		case 5:
 			Settings.CompressionLevel++;
 			if(Settings.CompressionLevel > 9)
 				Settings.CompressionLevel = -1;
 			break;
-		case 5:
+		case 6:
 			Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
 			break;
-		case 6:
+		case 7:
 			Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
 			break;
-		case 7:
+		case 8:
 			Settings.ShowFormatter = (Settings.ShowFormatter+1) % 2;
 			break;
-		case 8: {
+		case 9: {
 			iosinfo_t *info = IosLoader::GetIOSInfo(IOS_GetVersion());
 			if(info && (info->version >= 9)) {
 				Settings.USBPort = ((Settings.USBPort+1) % 2);
