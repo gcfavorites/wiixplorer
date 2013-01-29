@@ -74,6 +74,7 @@ void CSettings::SetDefault()
 	CompressionLevel = -1;
 	USBPort = 0;
 	MountISFS = ON;
+	TooltipDelay = 1000;
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
 	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
@@ -205,6 +206,7 @@ bool CSettings::Save()
 	fprintf(file, "CompressionLevel = %d\n", CompressionLevel);
 	fprintf(file, "USBPort = %d\n", USBPort);
 	fprintf(file, "MountISFS = %d\n", MountISFS);
+	fprintf(file, "TooltipDelay = %d\n", TooltipDelay);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -490,21 +492,15 @@ bool CSettings::SetSetting(char *name, char *value)
 	char password[100];
 
 	if (strcmp(name, "BootIOS") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			BootIOS = i;
-		}
+		BootIOS = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "CurrentSMBUser") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			CurrentSMBUser = i;
-		}
+		CurrentSMBUser = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "CurrentFTPUser") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			CurrentFTPUser = i;
-		}
+		CurrentFTPUser = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "LanguagePath") == 0) {
@@ -512,74 +508,51 @@ bool CSettings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "MusicVolume") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			MusicVolume = i;
-		}
+		MusicVolume = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "BGMLoopMode") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			BGMLoopMode = i;
-		}
+		BGMLoopMode = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "AutoConnect") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			AutoConnect = i;
-		}
+		AutoConnect = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "UpdateMetaxml") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			UpdateMetaxml = i;
-		}
+		UpdateMetaxml = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "UpdateIconpng") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			UpdateIconpng = i;
-		}
+		UpdateIconpng = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "ClockMode") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			ClockMode = i;
-		}
+		ClockMode = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "ScrollSpeed") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			ScrollSpeed = i;
-		}
+		ScrollSpeed = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "BrowserMode") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			BrowserMode = i;
-		}
+		BrowserMode = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "ScreenshotFormat") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			ScreenshotFormat = i;
-		}
+		ScreenshotFormat = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "SoundblockCount") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			SoundblockCount = i;
-		}
+		SoundblockCount = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "SoundblockSize") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			SoundblockSize = i;
-		}
+		SoundblockSize = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "LoadMusicToMem") == 0) {
-		if (sscanf(value, "%d", &i) == 1)
-			LoadMusicToMem = i;
+		LoadMusicToMem = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "PDFLoadZoom") == 0) {
@@ -631,75 +604,55 @@ bool CSettings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "SlideshowDelay") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			SlideshowDelay = i;
-		}
+		SlideshowDelay = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "ImageFadeSpeed") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			ImageFadeSpeed = i;
-		}
+		ImageFadeSpeed = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "KeyboardDeleteDelay") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			KeyboardDeleteDelay = i;
-		}
+		KeyboardDeleteDelay = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "DeleteTempPath") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			DeleteTempPath = i;
-		}
+		DeleteTempPath = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "CopyThreadPrio") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			CopyThreadPrio = i;
-		}
+		CopyThreadPrio = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "CopyThreadBackPrio") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			CopyThreadBackPrio = i;
-		}
+		CopyThreadBackPrio = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "Rumble") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			Rumble = i;
-		}
+		Rumble = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "HideSystemFiles") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			HideSystemFiles = i;
-		}
+		HideSystemFiles = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "ShowFormatter") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			ShowFormatter = i;
-		}
+		ShowFormatter = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "CompressionLevel") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			CompressionLevel = i;
-		}
+		CompressionLevel = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "USBPort") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			USBPort = i;
-		}
+		USBPort = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "MountISFS") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			MountISFS = i;
-		}
+		MountISFS = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "MountISFS") == 0) {
+		TooltipDelay = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "BackgroundUL") == 0) {
@@ -791,9 +744,7 @@ bool CSettings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "FTPServer.AutoStart") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			FTPServer.AutoStart = i;
-		}
+		FTPServer.AutoStart = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "FTPServer.CPassword") == 0) {
@@ -803,9 +754,7 @@ bool CSettings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "FTPServer.Port") == 0) {
-		if (sscanf(value, "%d", &i) == 1) {
-			FTPServer.Port = i;
-		}
+		FTPServer.Port = atoi(value);
 		return true;
 	}
 	else {

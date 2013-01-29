@@ -1,10 +1,10 @@
 # WiiXplorer language source file.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-27 19:04+0100\n"
+"POT-Creation-Date: 2013-01-29 21:55+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -144,16 +144,16 @@ msgid "Browser Mode"
 msgstr "浏览模式"
 
 msgid "Button Hold Scroll"
-msgstr ""
+msgstr "按住按钮滚动"
 
 msgid "CRC of extracted file does not match. Wrong password?"
 msgstr "CRC校验文件错误。密码错误？"
 
 msgid "Calculating MD5"
-msgstr ""
+msgstr "正在计算MD5数值"
 
 msgid "Calculating delete size..."
-msgstr ""
+msgstr "正在计算删除大小..."
 
 msgid "Calculating extract size..."
 msgstr ""
@@ -162,7 +162,7 @@ msgid "Calculating total size..."
 msgstr "正在计算全部大小。。。"
 
 msgid "Calculating transfer size..."
-msgstr ""
+msgstr "正在计算机传输大小..."
 
 msgid "Can not open the file."
 msgstr "文件无法打开。"
@@ -302,7 +302,7 @@ msgid "Copy current marked item(s)?"
 msgstr "是否复制已标记的项目？"
 
 msgid "Copy of "
-msgstr ""
+msgstr "复制的"
 
 msgid "Copying item(s):"
 msgstr "复制项目中:"
@@ -363,7 +363,7 @@ msgid "Delete the selected item(s) and its content?"
 msgstr "删除已选择的项目和内容？"
 
 msgid "Deleting item(s):"
-msgstr ""
+msgstr "删除选项:"
 
 msgid "Demark All Items Button"
 msgstr "取消全部标记选项按钮"
@@ -384,7 +384,7 @@ msgid "Disconnect Client"
 msgstr "断开客户端"
 
 msgid "Disconnect NFS"
-msgstr ""
+msgstr "断开NFS"
 
 msgid "Disconnect SMB"
 msgstr "断开网络共享"
@@ -396,13 +396,13 @@ msgid "Do you want to add an URL?"
 msgstr "是否要添加URL？"
 
 msgid "Do you want to append this delete to the queue?"
-msgstr ""
+msgstr "是否要添加此文件到删除队列中？"
 
 msgid "Do you want to append this paste to the queue?"
 msgstr "是否要增加粘贴项目到队列中？"
 
 msgid "Do you want to append this process to the queue?"
-msgstr ""
+msgstr "是否要添加此进程到粘贴队列中？"
 
 msgid "Do you want to boot file now?"
 msgstr "是否立刻运行此文件？"
@@ -420,7 +420,7 @@ msgid "Do you want to disconnect the FTP client?"
 msgstr "是否断开FTP客户端"
 
 msgid "Do you want to disconnect this NFS?"
-msgstr ""
+msgstr "是否要断开NFS？"
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "是否断开网络共享"
@@ -436,7 +436,7 @@ msgid "Do you want to load file from: %s ?"
 msgstr "是否想要运行文件来自:%s ?"
 
 msgid "Do you want to load the default language?"
-msgstr ""
+msgstr "是否要读取缺省语言？"
 
 msgid "Do you want to load this language ?"
 msgstr "是否读取这个语言包"
@@ -463,7 +463,7 @@ msgid "Do you want to reconnect to the FTP client?"
 msgstr "是否重新连接FTP客户端"
 
 msgid "Do you want to remount all devices?"
-msgstr ""
+msgstr "是否重新挂载所有设备？"
 
 msgid "Do you want to replace this file?"
 msgstr "是否替换此文件？"
@@ -530,7 +530,7 @@ msgstr "错误 - 无法打开文件：%s\n"
 
 #, c-format
 msgid "Error - Could not parse directory: %s\n"
-msgstr ""
+msgstr "错误 - 无法解析当前路径：%s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
@@ -570,7 +570,7 @@ msgid "Extract All"
 msgstr "提取全部"
 
 msgid "Extract error code:"
-msgstr ""
+msgstr "提取错误代码："
 
 msgid "Extract file to temp path and execute?"
 msgstr "提取文件到临时路径并执行？"
@@ -612,13 +612,13 @@ msgid "Fade Speed"
 msgstr "减速"
 
 msgid "Failed adding some item(s)."
-msgstr ""
+msgstr "正在添加某些项目失败。"
 
 msgid "Failed copying some item(s)."
-msgstr ""
+msgstr "正在复制某些项目失败。"
 
 msgid "Failed deleting some item(s)."
-msgstr ""
+msgstr "正在删除的某些项目失败。"
 
 msgid "Failed extracting some item(s)."
 msgstr ""
@@ -627,13 +627,13 @@ msgid "Failed extracting the item(s)."
 msgstr "提取这些项目失败。"
 
 msgid "Failed formatting the partition."
-msgstr ""
+msgstr "格式化分区失败。"
 
 msgid "Failed loading the file."
-msgstr ""
+msgstr "读取文件失败。"
 
 msgid "Failed moving some item(s)."
-msgstr ""
+msgstr "移动某些项目失败。"
 
 msgid "Failed reading from network"
 msgstr ""
@@ -645,7 +645,7 @@ msgid "Failed to get the Changelog."
 msgstr "更新日志失败"
 
 msgid "Failed to initialize network."
-msgstr ""
+msgstr "网络初始化失败。"
 
 msgid "Failed to load the channel."
 msgstr "运行频道失败！"
@@ -667,7 +667,7 @@ msgid "File Extensions"
 msgstr "文件扩展"
 
 msgid "File Extensions Settings"
-msgstr ""
+msgstr "文件扩展设置"
 
 msgid "File System:"
 msgstr "文件系统："
@@ -740,13 +740,13 @@ msgid "Formatter"
 msgstr "格式化程序"
 
 msgid "Formatting partition!"
-msgstr ""
+msgstr "正在格式化分区"
 
 msgid "Free Space:"
 msgstr "空余空间："
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "GC自制程序"
 
 msgid "GC PAD BUTTON A"
 msgstr "GC手柄A键"
@@ -797,7 +797,7 @@ msgid "GD2 Compression"
 msgstr "GD2压缩"
 
 msgid "GUID"
-msgstr ""
+msgstr "GUID"
 
 msgid "General Settings"
 msgstr "全局设置"
@@ -854,7 +854,7 @@ msgid "How do you want to launch this file?"
 msgstr "如何运行此文件？"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "是否想要加载此语言文件？"
 
 msgid "How do you want to open the file?"
 msgstr "你想要采取哪种方式打开此文件？"
@@ -950,7 +950,7 @@ msgid "Listening on TCP port"
 msgstr "监听TCP端口"
 
 msgid "Load"
-msgstr ""
+msgstr "读取"
 
 msgid "Load Music to Memory"
 msgstr "音乐载入内存中"
@@ -1008,7 +1008,7 @@ msgid "Mounting DVD"
 msgstr ""
 
 msgid "Mountpoint:"
-msgstr ""
+msgstr "挂载点："
 
 msgid "Moving item(s):"
 msgstr "正在移动项目："
@@ -1023,7 +1023,7 @@ msgid "Music Volume"
 msgstr "音乐音量"
 
 msgid "NFS Settings"
-msgstr ""
+msgstr "NFS设置"
 
 msgid "NONE"
 msgstr "无"
@@ -1167,13 +1167,13 @@ msgid "Pasting files is currently only supported on ZIP archives."
 msgstr "粘贴文件仅仅支持ZIP格式。"
 
 msgid "Path Settings"
-msgstr ""
+msgstr "路径设置："
 
 msgid "Path Setup"
 msgstr "路径设置"
 
 msgid "Path changed."
-msgstr ""
+msgstr "路径已更改。"
 
 msgid "Play File"
 msgstr "播放文件"
@@ -1258,7 +1258,7 @@ msgid "Read error from %s in %s"
 msgstr ""
 
 msgid "Reading archive."
-msgstr ""
+msgstr "正在读取文档。"
 
 msgid "Reboot failed"
 msgstr "重启失败"
@@ -1279,7 +1279,7 @@ msgid "Red"
 msgstr "红"
 
 msgid "Remount"
-msgstr ""
+msgstr "重新挂载"
 
 msgid "Remounting FTP client."
 msgstr ""
@@ -1434,7 +1434,7 @@ msgid "Temporary Path"
 msgstr "临时路径"
 
 msgid "Text Editor"
-msgstr ""
+msgstr "文本编辑器"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
@@ -1481,6 +1481,9 @@ msgstr "到空闲"
 msgid "To Standby"
 msgstr "到待机"
 
+msgid "Tooltip Delay"
+msgstr ""
+
 msgid "Total Space:"
 msgstr "总计空间："
 
@@ -1503,10 +1506,10 @@ msgid "URL is empty."
 msgstr "URL是空"
 
 msgid "USB Device Port 0"
-msgstr ""
+msgstr "USB设备端口0"
 
 msgid "USB Device Port 1"
-msgstr ""
+msgstr "USB设备端口1"
 
 msgid "Uknown format. Open this file in the TextEditor?"
 msgstr "无法识别格式。是否用文本编辑器打开此文件？"
@@ -1546,7 +1549,7 @@ msgid "Update to Rev%i available"
 msgstr "更新到版本Rev%i"
 
 msgid "Use Both USB Ports"
-msgstr ""
+msgstr "使用全部USB端口"
 
 msgid "Username:"
 msgstr "用户名"
@@ -1654,7 +1657,7 @@ msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
 msgid "Wii Homebrew"
-msgstr ""
+msgstr "Wii自制程序"
 
 msgid "Wii Menu"
 msgstr ""
@@ -1705,7 +1708,7 @@ msgid "You cant use this operation on:"
 msgstr "无法使用此功能在："
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "你使用的GUID分区表目前正在格式化的分区格式还不支持。"
 
 msgid "ZXCVBNM<>?"
 msgstr "ZXCVBNM<>?"
@@ -1729,10 +1732,10 @@ msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
-msgstr ""
+msgstr "设备"
 
 msgid "files"
-msgstr ""
+msgstr "文件"
 
 msgid "for his FTP Server source."
 msgstr "用于FTP服务资源"
@@ -1758,18 +1761,6 @@ msgstr ""
 #~ msgid "ASDFGHJKL:\"+"
 #~ msgstr "ASDFGHJKL:\"+"
 
-#~ msgid "Linebreak"
-#~ msgstr "换行符"
-
-#~ msgid "`1234567890-"
-#~ msgstr "`1234567890-"
-
-#~ msgid "asdfghjkl;'="
-#~ msgstr "asdfghjkl;'="
-
-#~ msgid "~!@#$%^&*()_"
-#~ msgstr "~!@#$%^&*()_"
-
 #~ msgid "Cannot open image"
 #~ msgstr "无法打开图片程序"
 
@@ -1790,6 +1781,9 @@ msgstr ""
 
 #~ msgid "Image Viewer"
 #~ msgstr "图片查看器"
+
+#~ msgid "Linebreak"
+#~ msgstr "换行符"
 
 #~ msgid "Loading image..."
 #~ msgstr "读取图片中..."
@@ -1817,6 +1811,18 @@ msgstr ""
 
 #~ msgid "To Menu"
 #~ msgstr "到菜单"
+
+#~ msgid "Unable to load path:"
+#~ msgstr "不能读取路径："
+
+#~ msgid "`1234567890-"
+#~ msgstr "`1234567890-"
+
+#~ msgid "asdfghjkl;'="
+#~ msgstr "asdfghjkl;'="
+
+#~ msgid "~!@#$%^&*()_"
+#~ msgstr "~!@#$%^&*()_"
 
 #~ msgid "Copy of"
 #~ msgstr "复制其中"

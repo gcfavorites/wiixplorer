@@ -58,7 +58,7 @@ SettingsMenu::SettingsMenu(const char * title, GuiFrame *r)
 	titleTxt->SetPosition(-optionBrowser->GetWidth()/2+titleTxt->GetTextWidth()/2+20, optionBrowser->GetTop()-35);
 
 	//! catch each finished effect event
-	EffectFinished.connect(this, &SettingsMenu::OnEffectFinish);
+	//EffectFinished.connect(this, &SettingsMenu::OnEffectFinish);
 
 	Append(backBtn);
 	Append(optionBrowser);
@@ -92,7 +92,7 @@ SettingsMenu::~SettingsMenu()
 
 void SettingsMenu::show()
 {
-	SetEffect(EFFECT_FADE, 50);
+	SetEffect(EFFECT_FADE, 20);
 
 	if(parentElement)
 		((GuiFrame *) parentElement)->Append(this);
@@ -100,17 +100,17 @@ void SettingsMenu::show()
 
 void SettingsMenu::hide()
 {
-	SetEffect(EFFECT_FADE, -50);
+	if(GetParent())
+		((GuiFrame *) GetParent())->Remove(this);
 }
 
-void SettingsMenu::OnEffectFinish(GuiElement *e UNUSED)
+void SettingsMenu::OnEffectFinish(GuiElement *menu)
 {
 	//! on hide effect remove the explorer from the application
-	if(GetEffect() == EFFECT_FADE && effectAmount < 0)
+	if((menu->GetEffect() & EFFECT_FADE) && effectAmount < 0)
 	{
-		if(parentElement)
-			((GuiFrame *) parentElement)->Remove(this);
-
+		if(menu->GetParent())
+			((GuiFrame *) menu->GetParent())->Remove(menu);
 	}
 }
 

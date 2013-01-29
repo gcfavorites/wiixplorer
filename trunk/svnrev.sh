@@ -49,6 +49,7 @@ fi
   <version>r$rev_new</version>
   <release_date>$rev_date</release_date>
   <no_ios_reload/>
+  <ahb_access/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
 The GUI is done with libwiigui as base and graphics by NeoRame.

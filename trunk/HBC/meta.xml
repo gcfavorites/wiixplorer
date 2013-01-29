@@ -3,9 +3,10 @@
   <name>WiiXplorer</name>
   <coder>Dimok</coder>
   <contributors>r-win/dude</contributors>
-  <version>r245</version>
-  <release_date>201301271811</release_date>
+  <version>r246</version>
+  <release_date>201301292105</release_date>
   <no_ios_reload/>
+  <ahb_access/>
   <short_description>Wii File Browser</short_description>
   <long_description>A multi device file explorer for the Wii by dimok, r-win and dude.
 The GUI is done with libwiigui as base and graphics by NeoRame.

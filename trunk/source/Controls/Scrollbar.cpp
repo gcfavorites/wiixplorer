@@ -178,6 +178,10 @@ void Scrollbar::ScrollOneUp()
 				SelItem = SelItem+RowSize;
 			}
 		}
+		else {
+			SelInd = 0;
+			SelItem = 0;
+		}
 	}
 	else if(Mode == LISTMODE)
 	{
@@ -399,21 +403,52 @@ void Scrollbar::CheckDPadControls(GuiTrigger *t)
 
 	else if(t->Left())
 	{
-		SelInd -= PageSize;
-		if(SelInd < 0)
+		if(Mode == ICONMODE)
 		{
-			SelInd = 0;
-			SelItem = 0;
+			SelItem--;
+			if(SelItem < 0)
+			{
+				SelItem = 0;
+				if(SelInd > 0)
+				{
+					SelItem = RowSize-1;
+					ScrollOneUp();
+				}
+			}
+		}
+		else if(Mode == LISTMODE)
+		{
+			SelInd -= PageSize;
+			if(SelInd < 0)
+			{
+				SelInd = 0;
+				SelItem = 0;
+			}
 		}
 		listChanged(SelItem, SelInd);
 	}
 	else if(t->Right())
 	{
-		SelInd += PageSize;
-		if(SelInd+PageSize >= EntrieCount)
+		if(Mode == ICONMODE)
 		{
-			SelInd = MAX(EntrieCount-PageSize, 0);
-			SelItem = LIMIT(PageSize-1, 0, EntrieCount-1);
+			if(SelInd+SelItem < EntrieCount-1)
+			{
+				SelItem++;
+				if(SelItem >= PageSize)
+				{
+					SelItem -= RowSize;
+					ScrollOneDown();
+				}
+			}
+		}
+		else if(Mode == LISTMODE)
+		{
+			SelInd += PageSize;
+			if(SelInd+PageSize >= EntrieCount)
+			{
+				SelInd = MAX(EntrieCount-PageSize, 0);
+				SelItem = LIMIT(PageSize-1, 0, EntrieCount-1);
+			}
 		}
 		listChanged(SelItem, SelInd);
 	}

@@ -369,11 +369,6 @@ void IconFileBrowser::Update(GuiTrigger * t)
 		{
 			selectedItem = i;
 			browser->SetSelectedIndex(browser->GetPageIndex() + i);
-			Tooltip[i]->SetState(STATE_DEFAULT);
-		}
-		else
-		{
-			Tooltip[i]->SetState(STATE_DISABLED);
 		}
 
 		ItemMarker * IMarker = browser->GetItemMarker();

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2009-2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,50 +21,80 @@
 #include "gui_button.h"
 #include "gui_text.h"
 #include "gui_image.h"
-#include "gui_keyboard_alone.h"
 #include "TextOperations/TextPointer.h"
 #include "TextOperations/wstring.hpp"
 
-#define MAX_KEYBOARD_DISPLAY	40
+#define MAXKEYS					14
+#define MAXROWS					4
 
 //!On-screen keyboard
-class GuiKeyboard : public GuiKeyboardAlone
+class GuiKeyboard : public GuiFrame, public sigslot::has_slots<>
 {
 	public:
-		GuiKeyboard(const char * t, u32 max);
-		GuiKeyboard(const wchar_t * t, u32 max);
+		GuiKeyboard();
 		virtual ~GuiKeyboard();
-		const wchar_t * GetString();
-		std::string GetUTF8String() const;
-		void AddChar(int pos, wchar_t Char);
-		void RemoveChar(int pos);
+		void Update(GuiTrigger * t);
+
+		sigslot::signal1<wchar_t> keyPressed;
 	protected:
-		void SetupKeyboard(const wchar_t * t, u32 max);
-		void MoveText(int n);
-		const wchar_t * GetDisplayText();
-		void OnPointerHeld(GuiButton *sender, int pointer, const POINT &p);
-		void OnPositionMoved(GuiButton *sender, int pointer, const POINT &p);
-		void OnClearKeyPress(GuiButton *sender, int pointer, const POINT &p);
-		void OnKeyPress(wchar_t charCode);
+		void SwitchKeyLanguage();
+		void OnSpecialKeyPress(GuiButton *sender, int pointer, const POINT &p);
+		void OnNormalKeyPress(GuiButton *sender, int pointer, const POINT &p);
 
-		int CurrentFirstLetter;
-		wString kbtextstr;
-		wchar_t displayTxt[MAX_KEYBOARD_DISPLAY];
-		u32 kbtextmaxlen;
+		typedef struct _keyrowtype
+		{
+			wchar_t ch[MAXKEYS];
+			wchar_t chShift[MAXKEYS];
+		} KeyboardRow;
 
-		TextPointer * TextPointerBtn;
-		GuiButton * GoLeft;
-		GuiButton * GoRight;
-		GuiText * kbText;
-		GuiImage * keyTextboxImg;
-		GuiText * keyClearText;
-		GuiImage * keyClearImg;
-		GuiImage * keyClearOverImg;
-		GuiButton * keyClear;
-		GuiImageData * keyTextbox;
-		GuiTrigger * trigHeldA;
-		GuiTrigger * trigLeft;
-		GuiTrigger * trigRight;
+		u32 DeleteDelay;
+		KeyboardRow keys[MAXROWS];
+		int ShiftChan;
+		bool shift;
+		bool caps;
+		bool UpdateKeys;
+		bool DefaultKeys;
+
+		GuiText * keyCapsText;
+		GuiImage * keyCapsImg;
+		GuiImage * keyCapsOverImg;
+		GuiButton * keyCaps;
+		GuiText * keyShiftText;
+		GuiImage * keyShiftImg;
+		GuiImage * keyShiftOverImg;
+		GuiButton * keyShift;
+		GuiText * keyBackText;
+		GuiImage * keyBackImg;
+		GuiImage * keyBackOverImg;
+		GuiButton * keyBack;
+		GuiImage * keySpaceImg;
+		GuiImage * keySpaceOverImg;
+		GuiButton * keySpace;
+		GuiText * keyEnterText;
+		GuiImage * keyEnterImg;
+		GuiImage * keyEnterOverImg;
+		GuiButton * keyEnter;
+		GuiText * keyTabText;
+		GuiImage * keyTabImg;
+		GuiImage * keyTabOverImg;
+		GuiButton * keyTab;
+		GuiText * keyLangText;
+		GuiImage * keyLangImg;
+		GuiImage * keyLangOverImg;
+		GuiButton * keyLang;
+		GuiButton * keyBtn[MAXROWS][MAXKEYS];
+		GuiImage * keyImg[MAXROWS][MAXKEYS];
+		GuiImage * keyImgOver[MAXROWS][MAXKEYS];
+		GuiText * keyTxt[MAXROWS][MAXKEYS];
+		GuiImageData * key;
+		GuiImageData * keyOver;
+		GuiImageData * keyMedium;
+		GuiImageData * keyMediumOver;
+		GuiImageData * keyLarge;
+		GuiImageData * keyLargeOver;
+		GuiSound * keySoundOver;
+		GuiSound * keySoundClick;
+		GuiTrigger * trigA;
 };
 
 #endif

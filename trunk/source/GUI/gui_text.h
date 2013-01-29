@@ -73,7 +73,7 @@ class GuiText : public GuiElement
 		virtual const wchar_t * GetText() const { return text; }
 		virtual std::string toUTF8(void) const;
 		//!Get the Horizontal Size of Text
-		int GetTextWidth();
+		int GetTextWidth() { return textWidth; }
 		int GetTextWidth(int ind);
 		//!Get the max textwidth
 		int GetTextMaxWidth() { return maxWidth; }

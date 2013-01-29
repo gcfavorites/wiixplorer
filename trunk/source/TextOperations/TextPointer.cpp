@@ -45,9 +45,6 @@ TextPointer::TextPointer(GuiText *parent, int linestodraw)
 	currentline = 0;
 	Position_X = 0;
 	Position_Y = 0;
-	width = TextPtr->GetTextMaxWidth();
-	if(width == 0)
-		width = TextPtr->GetTextWidth();
 	height = (linestodraw+1)*(fontsize+6);
 	visibility = true;
 
@@ -57,6 +54,7 @@ TextPointer::TextPointer(GuiText *parent, int linestodraw)
 
 	SetLabel(TextPtr);
 	SetImage(TextPointerImg);
+	UpdateWidth();
 }
 
 TextPointer::TextPointer(GuiText *parent, int w, int h)
@@ -165,7 +163,7 @@ void TextPointer::PositionChanged(int chan, int x, int y)
 	Marking = true;
 }
 
-void TextPointer::SetPointerPosition(int LetterPos)
+void TextPointer::SetLetterPosition(int LetterPos)
 {
 	if(LetterPos <= 0)
 	{
@@ -176,7 +174,6 @@ void TextPointer::SetPointerPosition(int LetterPos)
 	}
 
 	const wchar_t * line = TextPtr->GetTextLine(currentline);
-
 	if(!line)
 		return;
 
@@ -193,9 +190,7 @@ void TextPointer::SetPointerPosition(int LetterPos)
 	Position_X = -TextPtr->GetStartWidth();
 
 	for(int i = 0; i < LetterPos; ++i)
-	{
 		Position_X += fontSystem->getCharWidth(line[i], fontsize, i > 0 ? line[i-1] : 0);
-	}
 
 	LetterNumInLine = LetterPos;
 	Marking = false;
@@ -207,10 +202,10 @@ void TextPointer::SetCurrentLine(int line)
 	Position_Y = currentline*(fontsize+6);
 }
 
-void TextPointer::TextWidthChanged()
+void TextPointer::UpdateWidth()
 {
 	width = TextPtr->GetTextMaxWidth();
-	if(width == 0)
+	if(width == 0xFFFF)
 		width = TextPtr->GetTextWidth();
 }
 

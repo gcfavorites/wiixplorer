@@ -121,7 +121,6 @@ class GuiButton : public GuiElement
 		GuiSound * soundHold; //!< Sound to play for STATE_HELD
 		GuiSound * soundClick; //!< Sound to play for STATE_CLICKED
 		GuiTooltip * tooltip; //!< Tooltip that is set
-		Timer SelectTimer;
 		GuiTrigger * trigger[4]; //!< GuiTriggers (input actions) that this element responds to
 };
 

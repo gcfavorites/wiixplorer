@@ -46,6 +46,7 @@ int OnScreenKeyboard(wchar_t * var, u16 maxlen)
 {
 	int save = 0;
 	KeyboardWindow *keyboard = new KeyboardWindow(var, maxlen);
+	keyboard->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	keyboard->DimBackground(true);
 
 	Application::Instance()->Append(keyboard);
@@ -69,6 +70,9 @@ int OnScreenKeyboard(char * var, u16 maxlen)
 {
 	wchar_t *wtext = new wchar_t[maxlen+2];
 	wtext[0] = 0;
+
+	if(strlen(var) > maxlen)
+		var[maxlen] = 0;
 
 	char2wchar_t(var, wtext);
 

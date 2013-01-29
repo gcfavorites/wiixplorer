@@ -22,8 +22,9 @@ GuiTooltip::GuiTooltip(const char *t)
 {
 	text = NULL;
 	FontSize = 22;
-	ElapseTime = 2.0f;
 	color = (GXColor){0, 0, 0, 255};
+	oldParentState = STATE_DEFAULT;
+	bIsHidden = true;
 
 	tooltipLeft = Resources::GetImageData("tooltip_left.png");
 	tooltipTile = Resources::GetImageData("tooltip_tile.png");
@@ -39,7 +40,6 @@ GuiTooltip::GuiTooltip(const char *t)
 	rightImage->SetParent(this);
 
 	SetText(t);
-	SetVisible(false);
 }
 
 GuiTooltip::~GuiTooltip()
@@ -76,6 +76,7 @@ void GuiTooltip::SetText(const char * t)
 	tileImage->SetTileHorizontal(tile_cnt);
 	rightImage->SetPosition(leftImage->GetWidth() + tile_cnt * tileImage->GetWidth(), 0);
 	width = leftImage->GetWidth() + tile_cnt * tileImage->GetWidth() + rightImage->GetWidth();
+	timer.reset();
 }
 
 void GuiTooltip::SetFontSize(int size)
@@ -100,21 +101,41 @@ void GuiTooltip::SetColor(GXColor c)
 	}
 }
 
-void GuiTooltip::SetElapseTime(float t)
-{
-	ElapseTime = t;
-}
-
 void GuiTooltip::Draw()
 {
-	if((!IsVisible() && !GetEffect()) || state == STATE_DISABLED)
+	if(!IsVisible())
 		return;
 
-	leftImage->Draw();
-	tileImage->Draw();
-	rightImage->Draw();
-	if(text)
-		text->Draw();
+	if(parentElement->GetState() != oldParentState)
+	{
+		timer.reset();
+		oldParentState = parentElement->GetState();
+	}
+
+	if(  (parentElement->GetState() == STATE_SELECTED)
+	   && bIsHidden
+	   && timer.elapsedMilliSecs() >= (u32)Settings.TooltipDelay)
+	{
+		SetEffect(EFFECT_FADE, 50);
+		bIsHidden = false;
+		timer.reset();
+	}
+	else if(   !bIsHidden
+		     && (parentElement->GetState() != STATE_SELECTED))
+	{
+		SetEffect(EFFECT_FADE, -50);
+		bIsHidden = true;
+		timer.reset();
+	}
+
+	if(!bIsHidden || (GetEffect() != 0))
+	{
+		leftImage->Draw();
+		tileImage->Draw();
+		rightImage->Draw();
+		if(text)
+			text->Draw();
+	}
 
 	this->UpdateEffects();
 }
