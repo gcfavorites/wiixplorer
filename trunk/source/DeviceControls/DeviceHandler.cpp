@@ -255,7 +255,6 @@ const DISC_INTERFACE *DeviceHandler::GetUSB1Interface(void)
 
 bool DeviceHandler::USBSpinUp(int iTimeout)
 {
-	return false;
 	bool started0 = false;
 	bool started1 = false;
 	time_t tStart = time(0);
