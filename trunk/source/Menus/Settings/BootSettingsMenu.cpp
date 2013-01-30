@@ -41,7 +41,8 @@ void BootSettingsMenu::SetupOptions()
 	int i = 0;
 
 	options.SetName(i++, tr("Boot IOS"));
-	options.SetName(i++, tr("Mount NAND (ISFS)"));
+	options.SetName(i++, tr("Mount NAND (ISFS) on boot"));
+	options.SetName(i++, tr("NAND write access"));
 
 	SetOptionValues();
 }
@@ -53,7 +54,12 @@ void BootSettingsMenu::SetOptionValues()
 	options.SetValue(i++, "%i", Settings.BootIOS);
 
 	if(Settings.MountISFS)
-		options.SetValue(i++, tr("ON"));
+		options.SetValue(i++, "%s %s", tr("ON"), tr("(read only)"));
+	else
+		options.SetValue(i++, tr("OFF"));
+
+	if(Settings.ISFSWriteAccess)
+		options.SetValue(i++, "%s %s", tr("ON"), tr("(only this session)"));
 	else
 		options.SetValue(i++, tr("OFF"));
 }
@@ -83,6 +89,27 @@ void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 	else if(++iIdx == option)
 	{
 		Settings.MountISFS = (Settings.MountISFS+1) % 2;
+	}
+	else if(++iIdx == option)
+	{
+		Settings.ISFSWriteAccess = (Settings.ISFSWriteAccess+1) % 2;
+
+		if(Settings.ISFSWriteAccess == ON)
+		{
+			int choice = WindowPrompt(tr("WARNING/DISCLAIMER"), tr("Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"), tr("Yes"), tr("No"));
+			if(choice)
+				choice = WindowPrompt(tr("WARNING/DISCLAIMER"), tr("The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"), tr("Accept"), tr("No"));
+			if(choice) {
+				DeviceHandler::Instance()->MountNAND();
+			}
+			else {
+				Settings.ISFSWriteAccess = OFF;
+			}
+		}
+		else {
+			// nand access was deactivated -> remount
+			DeviceHandler::Instance()->MountNAND();
+		}
 	}
 
 	SetOptionValues();

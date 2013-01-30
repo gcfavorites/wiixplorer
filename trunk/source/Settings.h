@@ -129,6 +129,8 @@ class CSettings
 		short   USBPort;
 		//!Allow ISFS mount
 		short   MountISFS;
+		//!Allow ISFS write access
+		short   ISFSWriteAccess;
 		//!Tooltip delay
 		short   TooltipDelay;
 		//!PDF processing zoom

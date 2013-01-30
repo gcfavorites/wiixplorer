@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-29 21:55+0100\n"
+"POT-Creation-Date: 2013-01-30 21:00+0100\n"
 "PO-Revision-Date: 2013-01-09 03:05+0100\n"
 "Last-Translator: Etheboss\n"
 "Language-Team: Etheboss\n"
@@ -30,6 +30,12 @@ msgstr "(Standaard)"
 msgid "(Store)"
 msgstr "(Opslaan)"
 
+msgid "(only this session)"
+msgstr ""
+
+msgid "(read only)"
+msgstr ""
+
 msgid "--------------------------------------------------\n"
 msgstr ""
 
@@ -51,6 +57,9 @@ msgid "A task is in progress. Can't run update check right now."
 msgstr ""
 
 msgid "ASDFGHJKL:\""
+msgstr ""
+
+msgid "Accept"
 msgstr ""
 
 msgid "Action cancelled."
@@ -988,7 +997,7 @@ msgstr ""
 msgid "Mount %i"
 msgstr ""
 
-msgid "Mount NAND (ISFS)"
+msgid "Mount NAND (ISFS) on boot"
 msgstr ""
 
 msgid "Mounted as:"
@@ -1011,6 +1020,9 @@ msgstr "Herhaal modus"
 
 msgid "Music Volume"
 msgstr "Muziek Volume"
+
+msgid "NAND write access"
+msgstr ""
 
 msgid "NFS Settings"
 msgstr "NFS Instellingen"
@@ -1429,6 +1441,9 @@ msgstr "Tekst Bewerker"
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "De buffergrootte is heel hoog. Als de app hierna niet start verwijder de configuratiebestanden."
 
+msgid "The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"
+msgstr ""
+
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "Het effect is merkbaar bij het laden van nieuwe muziek. Afspelen kan misschien niet meer werken."
 
@@ -1553,6 +1568,9 @@ msgstr "Video Bestanden"
 msgid "WARNING"
 msgstr "WAARSCHUWING"
 
+msgid "WARNING/DISCLAIMER"
+msgstr ""
+
 msgid "WARNING:"
 msgstr "WAARSCHUWING:"
 
@@ -1676,6 +1694,9 @@ msgstr ""
 
 #, c-format
 msgid "Write Error in file: %s. %s"
+msgstr ""
+
+msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
 msgstr ""
 
 #, c-format

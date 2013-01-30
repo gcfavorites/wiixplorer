@@ -895,8 +895,9 @@ static bool read_isfs()
 	return read_directory(current->entry);
 }
 
-bool ISFS_Mount() {
+bool ISFS_Mount(s32 read_only) {
 	ISFS_Unmount();
+	READ_ONLY = read_only;
 	bool success = read_isfs() && (dotab_device = AddDevice(&dotab_isfs)) >= 0;
 	if (!success) ISFS_Unmount();
 	return success;

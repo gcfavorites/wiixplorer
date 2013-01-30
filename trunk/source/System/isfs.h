@@ -26,7 +26,7 @@ extern "C" {
 
 #define ISFS_MAXPATHLEN (ISFS_MAXPATH + 1)
 
-bool ISFS_Mount();
+bool ISFS_Mount(s32 read_only);
 bool ISFS_IsMounted();
 bool ISFS_Unmount();
 
