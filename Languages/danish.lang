@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-29 21:55+0100\n"
+"POT-Creation-Date: 2013-01-30 21:00+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -29,6 +29,12 @@ msgstr "(Standard)"
 msgid "(Store)"
 msgstr "(Gem)"
 
+msgid "(only this session)"
+msgstr ""
+
+msgid "(read only)"
+msgstr ""
+
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
 
@@ -52,6 +58,9 @@ msgid "A task is in progress. Can't run update check right now."
 msgstr ""
 
 msgid "ASDFGHJKL:\""
+msgstr ""
+
+msgid "Accept"
 msgstr ""
 
 msgid "Action cancelled."
@@ -989,7 +998,7 @@ msgstr ""
 msgid "Mount %i"
 msgstr ""
 
-msgid "Mount NAND (ISFS)"
+msgid "Mount NAND (ISFS) on boot"
 msgstr ""
 
 msgid "Mounted as:"
@@ -1012,6 +1021,9 @@ msgstr "Musik loop måde"
 
 msgid "Music Volume"
 msgstr "Musiklydstyrke"
+
+msgid "NAND write access"
+msgstr ""
 
 msgid "NFS Settings"
 msgstr ""
@@ -1430,6 +1442,9 @@ msgstr ""
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Buffer størrelse er meget høj. Hvis Prg. ikke starter efter dette slet din config fil."
 
+msgid "The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"
+msgstr ""
+
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "Effekten vil virke ved næste musik afspilling. Det ødelægger muligvis musik afspilling."
 
@@ -1554,6 +1569,9 @@ msgstr "Video filer"
 msgid "WARNING"
 msgstr "ADVARSEL"
 
+msgid "WARNING/DISCLAIMER"
+msgstr ""
+
 msgid "WARNING:"
 msgstr "ADVARSEL:"
 
@@ -1677,6 +1695,9 @@ msgstr ""
 
 #, c-format
 msgid "Write Error in file: %s. %s"
+msgstr ""
+
+msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
 msgstr ""
 
 #, c-format

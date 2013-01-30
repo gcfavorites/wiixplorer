@@ -74,6 +74,7 @@ void CSettings::SetDefault()
 	CompressionLevel = -1;
 	USBPort = 0;
 	MountISFS = ON;
+	ISFSWriteAccess = OFF;
 	TooltipDelay = 1000;
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
@@ -651,7 +652,7 @@ bool CSettings::SetSetting(char *name, char *value)
 		MountISFS = atoi(value);
 		return true;
 	}
-	else if (strcmp(name, "MountISFS") == 0) {
+	else if (strcmp(name, "TooltipDelay") == 0) {
 		TooltipDelay = atoi(value);
 		return true;
 	}

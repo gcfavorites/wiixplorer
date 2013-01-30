@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-29 21:55+0100\n"
+"POT-Creation-Date: 2013-01-30 21:00+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -29,6 +29,12 @@ msgstr ""
 msgid "(Store)"
 msgstr ""
 
+msgid "(only this session)"
+msgstr ""
+
+msgid "(read only)"
+msgstr ""
+
 msgid "--------------------------------------------------\n"
 msgstr ""
 
@@ -50,6 +56,9 @@ msgid "A task is in progress. Can't run update check right now."
 msgstr ""
 
 msgid "ASDFGHJKL:\""
+msgstr ""
+
+msgid "Accept"
 msgstr ""
 
 msgid "Action cancelled."
@@ -987,7 +996,7 @@ msgstr ""
 msgid "Mount %i"
 msgstr ""
 
-msgid "Mount NAND (ISFS)"
+msgid "Mount NAND (ISFS) on boot"
 msgstr ""
 
 msgid "Mounted as:"
@@ -1010,6 +1019,9 @@ msgstr ""
 
 msgid "Music Volume"
 msgstr "Musik volym"
+
+msgid "NAND write access"
+msgstr ""
 
 msgid "NFS Settings"
 msgstr ""
@@ -1428,6 +1440,9 @@ msgstr ""
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr ""
 
+msgid "The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"
+msgstr ""
+
 msgid "The effect will take with next music load. It might break music playback."
 msgstr ""
 
@@ -1550,6 +1565,9 @@ msgid "Video Files"
 msgstr ""
 
 msgid "WARNING"
+msgstr ""
+
+msgid "WARNING/DISCLAIMER"
 msgstr ""
 
 msgid "WARNING:"
@@ -1675,6 +1693,9 @@ msgstr ""
 
 #, c-format
 msgid "Write Error in file: %s. %s"
+msgstr ""
+
+msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
 msgstr ""
 
 #, c-format

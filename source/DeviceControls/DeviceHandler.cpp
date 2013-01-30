@@ -364,7 +364,7 @@ bool DeviceHandler::MountNAND()
 	if(!Settings.MountISFS)
 		return false;
 
-	return ISFS_Mount();
+	return ISFS_Mount(!Settings.ISFSWriteAccess);
 }
 
 void DeviceHandler::UnMountNAND()

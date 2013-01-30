@@ -62,7 +62,7 @@ PromptWindow::PromptWindow(const char *title, const char *msg,
 	msgTxt = new GuiText(msg, 20, (GXColor){0, 0, 0, 255});
 	msgTxt->SetAlignment(ALIGN_CENTER | ALIGN_MIDDLE);
 	msgTxt->SetPosition(0,-40);
-	msgTxt->SetLinesToDraw(2);
+	msgTxt->SetLinesToDraw(3);
 	msgTxt->SetMaxWidth(this->GetWidth()-68, WRAP);
 
 	btn1Txt = new GuiText(btn1Label, 18, (GXColor){0, 0, 0, 255});
