@@ -29,8 +29,8 @@ static u32 DEVICE_SIZE = 0;
 
 void filestorage_SetPath(const char *cpPath)
 {
-    if(cpPath)
-        cpFileDiskPath = cpPath;
+	if(cpPath)
+		cpFileDiskPath = cpPath;
 }
 
 static bool __filestorage_Startup(void)
@@ -39,11 +39,11 @@ static bool __filestorage_Startup(void)
 		return true;
 
 	pFile = fopen(cpFileDiskPath, "rb+");
-    if(pFile)
-    {
-    	fseek(pFile, 0, SEEK_END);
-        DEVICE_SIZE = ftell(pFile);
-    }
+	if(pFile)
+	{
+		fseek(pFile, 0, SEEK_END);
+		DEVICE_SIZE = ftell(pFile);
+	}
 
 	return (pFile != NULL);
 }

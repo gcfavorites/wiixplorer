@@ -66,6 +66,7 @@ void SoundDecoder::Init()
 	SoundBlocks = Settings.SoundblockCount;
 	SoundBlockSize = Settings.SoundblockSize;
 	CurPos = 0;
+	whichLoad = 0;
 	Loop = false;
 	EndOfFile = false;
 	Decoding = false;
@@ -96,23 +97,18 @@ void SoundDecoder::Decode()
 	if(!file_fd || ExitRequested || EndOfFile)
 		return;
 
-	u16 newWhich = SoundBuffer.Which();
-	u16 i = 0;
-	for (i = 0; i < SoundBuffer.Size()-2; i++)
+	// check if we are not at the pre-last buffer (last buffer is playing)
+	if(	(whichLoad == (SoundBuffer.Which()-2))
+		|| ((SoundBuffer.Which() == 0) && (whichLoad == SoundBuffer.Size()-2))
+		|| ((SoundBuffer.Which() == 1) && (whichLoad == SoundBuffer.Size()-1)))
 	{
-		if(!SoundBuffer.IsBufferReady(newWhich))
-			break;
-
-		newWhich = (newWhich+1) % SoundBuffer.Size();
-	}
-
-	if(i == SoundBuffer.Size()-2)
 		return;
+	}
 
 	Decoding = true;
 
 	int done  = 0;
-	u8 * write_buf = SoundBuffer.GetBuffer(newWhich);
+	u8 * write_buf = SoundBuffer.GetBuffer(whichLoad);
 	if(!write_buf)
 	{
 		ExitRequested = true;
@@ -143,11 +139,14 @@ void SoundDecoder::Decode()
 
 	if(done > 0)
 	{
-		SoundBuffer.SetBufferSize(newWhich, done);
-		SoundBuffer.SetBufferReady(newWhich, true);
+		SoundBuffer.SetBufferSize(whichLoad, done);
+		SoundBuffer.SetBufferReady(whichLoad, true);
+		if(++whichLoad >= SoundBuffer.Size())
+			whichLoad = 0;
 	}
 
-	if(!SoundBuffer.IsBufferReady((newWhich+1) % SoundBuffer.Size()))
+	// check if next in queue needs to be filled as well and do so
+	if(!SoundBuffer.IsBufferReady(whichLoad))
 		Decode();
 
 	Decoding = false;

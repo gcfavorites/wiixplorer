@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-30 21:00+0100\n"
+"POT-Creation-Date: 2013-02-11 20:40+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -30,10 +30,10 @@ msgid "(Store)"
 msgstr "存储"
 
 msgid "(only this session)"
-msgstr ""
+msgstr "只有在此线程中"
 
 msgid "(read only)"
-msgstr ""
+msgstr "只读"
 
 msgid "--------------------------------------------------\n"
 msgstr "--------------------------------------------------\n"
@@ -63,7 +63,7 @@ msgid "ASDFGHJKL:\""
 msgstr "ASDFGHJKL:\""
 
 msgid "Accept"
-msgstr ""
+msgstr "同意"
 
 msgid "Action cancelled."
 msgstr "动作取消。"
@@ -1005,7 +1005,7 @@ msgid "Mount %i"
 msgstr "挂载 %i"
 
 msgid "Mount NAND (ISFS) on boot"
-msgstr ""
+msgstr "运行时自动挂载NAND（ISFS）"
 
 msgid "Mounted as:"
 msgstr "以挂载成："
@@ -1029,7 +1029,7 @@ msgid "Music Volume"
 msgstr "音乐音量"
 
 msgid "NAND write access"
-msgstr ""
+msgstr "NAND写操作允许"
 
 msgid "NFS Settings"
 msgstr "NFS设置"
@@ -1448,8 +1448,8 @@ msgstr "文本编辑器"
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "删除设置文件后，程序依然没有开始，因为缓存大小设置过高。"
 
-msgid "The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"
-msgstr ""
+msgid "The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"
+msgstr "作者不因为使用开启此选项破坏了你的系统而负责。你是否要继续？"
 
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "此次设置将会在下次生效。可能会终止音乐播放。"
@@ -1576,7 +1576,7 @@ msgid "WARNING"
 msgstr "警告"
 
 msgid "WARNING/DISCLAIMER"
-msgstr ""
+msgstr "警告或者否认声明"
 
 msgid "WARNING:"
 msgstr "警告："
@@ -1704,7 +1704,7 @@ msgid "Write Error in file: %s. %s"
 msgstr "写错误在文件中：%s. %s"
 
 msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
-msgstr ""
+msgstr "写NAND是十分危险的操作，你必须了解你所做的！你是否要开启Nand写允许？"
 
 #, c-format
 msgid "Write error to %s in %s"

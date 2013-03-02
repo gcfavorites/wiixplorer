@@ -1,33 +1,34 @@
 # WiiXplorer language source file.
-# 
+#
+# don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 20:38+0100\n"
-"PO-Revision-Date: 2009-08-22 11:30+0100\n"
-"Last-Translator: Katsurou\n"
+"POT-Creation-Date: 2013-03-02 08:36+0100\n"
+"PO-Revision-Date: 2012-11-26 18:36\n"
+"Last-Translator: Ḷḷumex03\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: Asturian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%i error(s) encountered. Check MD5.log for more details."
-msgstr ""
+msgstr "%i erru(os) alcontraos. Agüeyal MD5.lag pa más detalles."
 
 msgid "(Best compression)"
-msgstr ""
+msgstr "(Mejor compresión)"
 
 msgid "(Best speed)"
-msgstr ""
+msgstr "(Meyor velocidá)"
 
 msgid "(Default)"
-msgstr ""
+msgstr "(Per defeutu)"
 
 msgid "(Store)"
-msgstr ""
+msgstr "(Almacen)"
 
 msgid "(only this session)"
 msgstr ""
@@ -50,7 +51,7 @@ msgid "24H"
 msgstr ""
 
 msgid "7z decompression failed:"
-msgstr ""
+msgstr "Descompresión 7z fallía:"
 
 msgid "A task is in progress. Can't run update check right now."
 msgstr ""
@@ -62,227 +63,227 @@ msgid "Accept"
 msgstr ""
 
 msgid "Action cancelled."
-msgstr "Händelse avbryten."
+msgstr "Aición atayada."
 
 msgid "Active (Bootable):"
-msgstr ""
+msgstr "Activu (Bootable):"
 
 msgid "Add Link"
-msgstr ""
+msgstr "Añader enllaz"
 
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Añader a la llista reproducción"
 
 msgid "Add to zip"
-msgstr ""
+msgstr "Añader al zip"
 
 msgid "Alpha Blending"
 msgstr ""
 
 msgid "App Default"
-msgstr "App Standard"
+msgstr "Per defeutu"
 
 msgid "Apps"
-msgstr ""
+msgstr "Apls"
 
 msgid "Apps Path"
-msgstr ""
+msgstr "Cartafueyu d'apls"
 
 msgid "Archive Files"
-msgstr ""
+msgstr "Archivos"
 
 msgid "Are you sure you have that IOS installed?"
 msgstr ""
 
 msgid "Audio Files"
-msgstr ""
+msgstr "Archivo d'audiu"
 
 msgid "Auto Connect"
-msgstr "Auto anslut"
+msgstr "Auto-coneutar"
 
 msgid "Auto Start:"
-msgstr ""
+msgstr "Auto-aniciar:"
 
 msgid "BMP Compression"
-msgstr ""
+msgstr "Compresión BMP"
 
 msgid "Back"
-msgstr ""
+msgstr "Tornar"
 
 msgid "Back Button"
-msgstr ""
+msgstr "Botón de torna"
 
 msgid "Back in Directory Button"
-msgstr ""
+msgstr "Botón de trona en cartafueyu"
 
 msgid "Background Bottom/Left"
-msgstr ""
+msgstr "Fondu d'abaxu/Izquierda"
 
 msgid "Background Bottom/Right"
-msgstr ""
+msgstr "Fondu d'abaxu/Drecha"
 
 msgid "Background Upper/Left"
-msgstr ""
+msgstr "Fondu d'enrriba/Izquierda"
 
 msgid "Background Upper/Right"
-msgstr ""
+msgstr "Fondu d'enrriba/Drecha"
 
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 msgid "Boot IOS"
-msgstr ""
+msgstr "Aniciar IOS"
 
 msgid "Boot Settings"
-msgstr ""
+msgstr "Axustes d'aniciu"
 
 msgid "BootMii"
 msgstr ""
 
 msgid "Both"
-msgstr ""
+msgstr "Dambos"
 
 msgid "Browse"
-msgstr ""
+msgstr "Restolar"
 
 msgid "Browser Mode"
-msgstr ""
+msgstr "Mou restolar"
 
 msgid "Button Hold Scroll"
 msgstr ""
 
 msgid "CRC of extracted file does not match. Wrong password?"
-msgstr ""
+msgstr "CRC d'archivu estrallíu nun coinciden. ¿Conseña mala?"
 
 msgid "Calculating MD5"
-msgstr ""
+msgstr "Calculando MD5"
 
 msgid "Calculating delete size..."
-msgstr ""
+msgstr "Calculando esniciu d'archivu..."
 
 msgid "Calculating extract size..."
 msgstr ""
 
 msgid "Calculating total size..."
-msgstr ""
+msgstr "Calculando grandor total..."
 
 msgid "Calculating transfer size..."
-msgstr ""
+msgstr "Calculando tasa tresferencia..."
 
 msgid "Can not open the file."
-msgstr ""
+msgstr "Nun pue abrise l'archivu."
 
 msgid "Can't browse that path."
-msgstr ""
+msgstr "Nun pue restolase pel cartafueyu."
 
 msgid "Can't connect to update server"
 msgstr ""
 
 msgid "Can't find the right partition."
-msgstr ""
+msgstr "Nun pue alcontráse la partición afayadiza."
 
 msgid "Can't load file"
-msgstr ""
+msgstr "Nun pue cargase'l ficheru"
 
 msgid "Can't load page."
-msgstr ""
+msgstr "Nun pue cargase la páxina."
 
 msgid "Can't open file."
-msgstr ""
+msgstr "Nun pue abrise l'archivu."
 
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr "Atayar"
 
 #, c-format
 msgid "Cannot close file %s"
 msgstr ""
 
 msgid "Cannot create directory: "
-msgstr ""
+msgstr "Nun pue criase'l cartafueyu:"
 
 #, c-format
 msgid "Cannot open file %s"
 msgstr ""
 
 msgid "Cannot read from the drive."
-msgstr ""
+msgstr "Nun pue lleese'l discu."
 
 msgid "Cannot write to destination."
-msgstr ""
+msgstr "Nun pue escribise'l destín."
 
 msgid "Cannot write to the drive."
-msgstr ""
+msgstr "Nun pue escribise nel discu."
 
 msgid "Cannot write to the file."
-msgstr ""
+msgstr "Nun pue escribise nel archivu."
 
 msgid "Cannot write to this path:"
-msgstr ""
+msgstr "Nun pue escribise naquesti cartafueyu:"
 
 msgid "Caps"
-msgstr ""
+msgstr "Bloq. Mayús"
 
 msgid "Channels"
-msgstr ""
+msgstr "Canales"
 
 #, c-format
 msgid "Checked %i file(s) in %i folder(s).\n"
-msgstr ""
+msgstr "Comprobáu/os %i archivu/os en %i catafueyu/os.\n"
 
 msgid "Checking directory:"
-msgstr ""
+msgstr "Comprobando cartafueyu:"
 
 msgid "Checking file:"
-msgstr ""
+msgstr "Comprobando archivu:"
 
 msgid "Checking for updates"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
+msgstr "Llimpiar"
 
 msgid "Clear List"
-msgstr ""
+msgstr "Llimpiar llista"
 
 msgid "Click Button"
-msgstr ""
+msgstr "Primir nel botón"
 
 #, c-format
 msgid "Client %i"
-msgstr ""
+msgstr "Cliente %i"
 
 msgid "Client:"
-msgstr ""
+msgstr "Cliente:"
 
 msgid "Clock Mode"
-msgstr ""
+msgstr "Mou cliente"
 
 msgid "Close"
-msgstr ""
+msgstr "Zarrar"
 
 msgid "Coders:"
-msgstr ""
+msgstr "Programadores:"
 
 msgid "Color Settings"
-msgstr ""
+msgstr "Axustes color"
 
 msgid "Compressed Size:"
-msgstr ""
+msgstr "Grandor comprimíu"
 
 msgid "Compressing item(s):"
-msgstr ""
+msgstr "Comprimiendo oxetu/os"
 
 msgid "Console Default"
-msgstr "Konsol Standard"
+msgstr "Per defeutu la consola"
 
 msgid "Context Menu Button"
-msgstr ""
+msgstr "Botón menú contestual"
 
 msgid "Controls Settings"
-msgstr ""
+msgstr "Axustes de controles"
 
 msgid "Convert"
-msgstr ""
+msgstr "Convertir"
 
 msgid "Converting image"
 msgstr ""
@@ -291,7 +292,7 @@ msgid "Converting image..."
 msgstr ""
 
 msgid "Copy"
-msgstr "Kopiera"
+msgstr "Copiar"
 
 msgid "Copy Thread Background Priority"
 msgstr ""
@@ -300,239 +301,239 @@ msgid "Copy Thread Priority"
 msgstr ""
 
 msgid "Copy current marked item(s)?"
-msgstr ""
+msgstr "¿Copiar oxetu/os marcaos?"
 
 msgid "Copy of "
-msgstr ""
+msgstr "Copia de"
 
 msgid "Copying item(s):"
-msgstr ""
+msgstr "Copiando oxetu/os"
 
 msgid "Could not connect to the server."
-msgstr ""
+msgstr "Nun pue coneutase al sirividor."
 
 msgid "Could not convert image."
-msgstr ""
+msgstr "Nun pue corvertise la imax."
 
 msgid "Could not decompress the file."
-msgstr ""
+msgstr "Nun pue descomprimise'l ficheru."
 
 msgid "Could not download file."
-msgstr ""
+msgstr "Nun pue baxase'l ficheru."
 
 #, c-format
 msgid "Could not find IOS %i"
 msgstr ""
 
 msgid "Could not load file."
-msgstr ""
+msgstr "Nun pue cargase'l ficheru."
 
 msgid "Could not load image."
-msgstr ""
+msgstr "Nun pue cargase la imax"
 
 msgid "Could not load text file."
-msgstr ""
+msgstr "Nun pue cargase'l ficheru testu."
 
 msgid "Could not parse directory."
-msgstr ""
+msgstr "Nun pue analizase'l cartafueyu."
 
 msgid "Credits"
-msgstr ""
+msgstr "Creitos"
 
 msgid "Currently a process is running."
-msgstr ""
+msgstr "Hai un procesu corriendo."
 
 msgid "Customfont Path"
-msgstr ""
+msgstr "Crtafueyu fontes"
 
 msgid "Cut"
-msgstr "Klipp ut"
+msgstr "Cortar"
 
 msgid "Cut current marked item(s)?"
-msgstr ""
+msgstr "¿Cortar oxetu/os marcaos?"
 
 msgid "Default"
-msgstr ""
+msgstr "Per defeutu"
 
 msgid "Delete"
-msgstr "Radera"
+msgstr "Esniciar"
 
 msgid "Delete Temp Path on Exit"
-msgstr ""
+msgstr "Esniciar el cartafueyu Temp al colar"
 
 msgid "Delete the selected item(s) and its content?"
-msgstr ""
+msgstr "¿Esniciar l'oxetu/os esbillaos ya'l so conteníu?"
 
 msgid "Deleting item(s):"
-msgstr ""
+msgstr "Esniciando oxetu/os"
 
 msgid "Demark All Items Button"
-msgstr ""
+msgstr "Boton de desmarque de tolos oxetos"
 
 msgid "Demark Item Button"
-msgstr ""
+msgstr "Botón de desmarque"
 
 msgid "Designer:"
-msgstr ""
+msgstr "Diseñador:"
 
 msgid "Device"
-msgstr ""
+msgstr "Preséu"
 
 msgid "Directory .."
-msgstr "Katalog .."
+msgstr "Cartafueyu .."
 
 msgid "Disconnect Client"
-msgstr ""
+msgstr "Desconeutar cliente"
 
 msgid "Disconnect NFS"
-msgstr ""
+msgstr "Desconeutar NFS"
 
 msgid "Disconnect SMB"
-msgstr ""
+msgstr "Desconeutar SMB"
 
 msgid "Disk is Full"
 msgstr ""
 
 msgid "Do you want to add an URL?"
-msgstr ""
+msgstr "¿Quies añader un enllaz?"
 
 msgid "Do you want to append this delete to the queue?"
-msgstr ""
+msgstr "¿Quies añader aquesti esniciáu a la petición?"
 
 msgid "Do you want to append this paste to the queue?"
-msgstr ""
+msgstr "¿Quies añader aquesti apegáu a la petición?"
 
 msgid "Do you want to append this process to the queue?"
-msgstr ""
+msgstr "¿Quies añader aquesti procesu a la petición?"
 
 msgid "Do you want to boot file now?"
-msgstr ""
+msgstr "¿Quies aniciar el ficheru agora?"
 
 msgid "Do you want to boot:"
-msgstr "Vill du starta:"
+msgstr "Quies p'aniciar:"
 
 msgid "Do you want to change the font?"
-msgstr ""
+msgstr "¿Quies camudar la fonte?"
 
 msgid "Do you want to delete this file:"
-msgstr ""
+msgstr "Quies esniciar aquesti ficheru:"
 
 msgid "Do you want to disconnect the FTP client?"
-msgstr ""
+msgstr "¿Quies desconeutar el cliente FTP?"
 
 msgid "Do you want to disconnect this NFS?"
-msgstr ""
+msgstr "¿Quies desconeutar aquesti NFS?"
 
 msgid "Do you want to disconnect this SMB?"
-msgstr ""
+msgstr "¿Quies desconeutar aquesti SMB?"
 
 msgid "Do you want to download new language files?"
-msgstr ""
+msgstr "¿Quies baxar nueos ficheros d'idioma?"
 
 msgid "Do you want to exit WiiXplorer?"
-msgstr ""
+msgstr "¿QUies colar de WiiXplorer?"
 
 #, c-format
 msgid "Do you want to load file from: %s ?"
-msgstr ""
+msgstr "¿Dende ú quies cargar l'archivu: %s ?"
 
 msgid "Do you want to load the default language?"
-msgstr ""
+msgstr "¿Quies cargar la llingua per deufutu?"
 
 msgid "Do you want to load this language ?"
-msgstr ""
+msgstr "¿Quies cargar esta llingua?"
 
 msgid "Do you want to open this file in TextEditor?"
-msgstr ""
+msgstr "¿Quies abrir aquesti ficheru nel editor de testos?"
 
 msgid "Do you want to playback this file?"
-msgstr "Vill du spela upp denna filen?"
+msgstr "¿Quies reproducir aquesti ficheru?"
 
 msgid "Do you want to reboot WiiXplorer?"
-msgstr ""
+msgstr "¿Quies reaniciar WiiXplorer?"
 
 msgid "Do you want to reboot now ?"
-msgstr ""
+msgstr "¿Quies reiniciar nel intre?"
 
 msgid "Do you want to reconnect this NFS?"
 msgstr ""
 
 msgid "Do you want to reconnect this SMB?"
-msgstr ""
+msgstr "¿Quies reconeutar a aquesti SMB?"
 
 msgid "Do you want to reconnect to the FTP client?"
-msgstr ""
+msgstr "¿Quies reconeutar al cliente FTP?"
 
 msgid "Do you want to remount all devices?"
-msgstr ""
+msgstr "¿Quies montar tolos preseos?"
 
 msgid "Do you want to replace this file?"
-msgstr ""
+msgstr "¿Quies remplazar aquesti ficheru?"
 
 msgid "Do you want to reset the control settings?"
-msgstr ""
+msgstr "¿Quies reaniciar los axustes de control?"
 
 msgid "Do you want to reset the settings?"
-msgstr ""
+msgstr "¿Quies reaniciar los axustes?"
 
 msgid "Do you want to save changes?"
-msgstr ""
+msgstr "¿Quies atroxar les camudancies?"
 
 msgid "Do you want to start BootMii?"
-msgstr ""
+msgstr "¿Quies aniciar BootMii?"
 
 msgid "Do you want to start the app?"
-msgstr ""
+msgstr "¿Quies aniciar l'aplicación?"
 
 msgid "Do you want to start the channel?"
-msgstr ""
+msgstr "¿Quies aniciar el canal?"
 
 msgid "Do you want to update now ?"
-msgstr ""
+msgstr "¿Quies anovar nel intre?"
 
 msgid "Done"
-msgstr ""
+msgstr "Fecho"
 
 msgid "Down Button"
-msgstr ""
+msgstr "Botón abaxo"
 
 msgid "Download Link"
-msgstr ""
+msgstr "Enllaz de descarga"
 
 msgid "Downloading file..."
-msgstr ""
+msgstr "Baxando ficheru..."
 
 msgid "Downloading files..."
-msgstr ""
+msgstr "Baxando ficheros..."
 
 msgid "Edit Textline Button"
-msgstr ""
+msgstr "Botón d'editar llinia"
 
 #, c-format
 msgid "Encountered %i error(s).\n"
-msgstr ""
+msgstr "Alcontraos %i erru/os.\n"
 
 msgid "Enter"
 msgstr ""
 
 msgid "Error"
-msgstr "Fel"
+msgstr ""
 
 #, c-format
 msgid "Error - %s is not a file\n"
-msgstr ""
+msgstr "Erru - %s nun ye un ficheru.\n"
 
 #, c-format
 msgid "Error - Could not open file: %s\n"
-msgstr ""
+msgstr "Erru - Nun pue abrise'l ficheru: %s\n"
 
 #, c-format
 msgid "Error - Could not parse directory: %s\n"
-msgstr ""
+msgstr "Erru - Nun pue analizase'l cartafueyu: %s\n"
 
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
-msgstr ""
+msgstr "Erru - Ensin abonda memoria en: %s\n"
 
 #, c-format
 msgid "Error opening %s"
@@ -547,243 +548,243 @@ msgid "Error received from %s in %s"
 msgstr ""
 
 msgid "Error while reading file."
-msgstr ""
+msgstr "Erru mentanto se lleía'l ficheru."
 
 msgid "Error:"
-msgstr "Fel:"
+msgstr "Erru:"
 
 msgid "Exit"
-msgstr ""
+msgstr "Colar"
 
 msgid "Exit WiiXplorer?"
-msgstr ""
+msgstr "¿Colar de WiiXplorer?"
 
 msgid "Explorer Settings"
-msgstr ""
+msgstr "Axuestes del restolador"
 
 msgid "Extract"
-msgstr ""
+msgstr "Estrayer"
 
 msgid "Extract All"
-msgstr ""
+msgstr "Estrayer too"
 
 msgid "Extract error code:"
-msgstr ""
+msgstr "Códigu d'erru d'estraición:"
 
 msgid "Extract file to temp path and execute?"
-msgstr ""
+msgstr "¿Estrayer l'archivu nel cartafueyu Temp ya executar?"
 
 msgid "Extract full archive?"
-msgstr ""
+msgstr "¿Estrayer l'archivu dafechu?"
 
 msgid "Extract the selected item(s)?"
-msgstr ""
+msgstr "¿Estaryer oxetu/os esbillaos?"
 
 msgid "Extracting item(s):"
-msgstr ""
+msgstr "Estrayendo oxetu/os:"
 
 msgid "FAT32 must have at least 65536 clusters"
-msgstr ""
+msgstr "FAT32 tien de tener polo menos 65536 clústeres"
 
 msgid "FTP Client Settings"
-msgstr ""
+msgstr "Axustes de cliente FTP"
 
 msgid "FTP Path:"
-msgstr ""
+msgstr "Cartafueyu FTP:"
 
 msgid "FTP Port:"
-msgstr ""
+msgstr "Puertu FTP:"
 
 msgid "FTP Server"
-msgstr ""
+msgstr "Sirvidor FTP"
 
 msgid "FTP Server Settings"
-msgstr ""
+msgstr "Axustes de sirvidor FTP"
 
 msgid "FTP Server is running and listening on port"
-msgstr ""
+msgstr "El sirvidor FTP ta corriendo ya escuchando nel puertu"
 
 msgid "FTP Started.\n"
-msgstr ""
+msgstr "Aniciáu'l FTP\n"
 
 msgid "Fade Speed"
-msgstr ""
+msgstr "Velocidá d'anubriú"
 
 msgid "Failed adding some item(s)."
-msgstr ""
+msgstr "Torga añadiendo del/llos oxetu/os."
 
 msgid "Failed copying some item(s)."
-msgstr ""
+msgstr "Torga copiando del/llos oxetu/os."
 
 msgid "Failed deleting some item(s)."
-msgstr ""
+msgstr "Torga esniciando del/llos oxetu/os."
 
 msgid "Failed extracting some item(s)."
 msgstr ""
 
 msgid "Failed extracting the item(s)."
-msgstr ""
+msgstr "Torga estrayendo l'/los oxetu/os."
 
 msgid "Failed formatting the partition."
-msgstr ""
+msgstr "Torga formateando la partición."
 
 msgid "Failed loading the file."
-msgstr ""
+msgstr "Torga cargando'l ficheru."
 
 msgid "Failed moving some item(s)."
-msgstr ""
+msgstr "Torga moviendo del/llos oxetu/os."
 
 msgid "Failed reading from network"
 msgstr ""
 
 msgid "Failed renaming item"
-msgstr ""
+msgstr "Torga renomando oxetu"
 
 msgid "Failed to get the Changelog."
-msgstr ""
+msgstr "Torgar consiguiendo'l ChangeLog"
 
 msgid "Failed to initialize network."
-msgstr ""
+msgstr "Torga p'aniciar la rede."
 
 msgid "Failed to load the channel."
-msgstr ""
+msgstr "Torga pa cargar el canal."
 
 msgid "Failed to read file data."
-msgstr ""
+msgstr "Torga pa lleer los datos l'archivu."
 
 msgid "Failed to write EBR."
-msgstr ""
+msgstr "Torga pa escribir EBR."
 
 msgid "Failed to write MBR."
-msgstr ""
+msgstr "Torga pa escribir MBR."
 
 #, c-format
 msgid "Fatal error: %i."
 msgstr ""
 
 msgid "File Extensions"
-msgstr ""
+msgstr "Estensiones d'archivu"
 
 msgid "File Extensions Settings"
-msgstr ""
+msgstr "Axustes d'estensiones d'archivu"
 
 msgid "File System:"
-msgstr ""
+msgstr "Sistema d'archivos:"
 
 msgid "File already exists:"
-msgstr ""
+msgstr "L'archivu xá esiste:"
 
 msgid "File could not be deleted."
-msgstr ""
+msgstr "Nun puedo ser esniciáu."
 
 msgid "File is corrupt (CRC mismatch)."
-msgstr ""
+msgstr "Ficheru corrutu (desaxuste CRC)."
 
 msgid "File is corrupt."
-msgstr ""
+msgstr "Archivu corrutu."
 
 msgid "File is too big."
-msgstr ""
+msgstr "L'archivu ye enforma grande."
 
 msgid "File uses too high of compression settings (dictionary size is too large)."
-msgstr ""
+msgstr "L'archivu usa axustes altos de compresión (grandor de diccionariu milenta llargu)."
 
 msgid "File uses unsupported compression settings."
-msgstr ""
+msgstr "L'archivu usa compresión nun soportada."
 
 msgid "File was edited."
-msgstr ""
+msgstr "L'archivu fo editáu."
 
 msgid "Filepath:"
-msgstr ""
+msgstr "Cartafueyu:"
 
 #, c-format
 msgid "Filepath:  %s"
-msgstr "Fil sökväg: %s"
+msgstr "Cartafueyu: %s"
 
 msgid "Files:"
-msgstr "Filer:"
+msgstr "Ficheros:"
 
 msgid "Filesize doesn't match."
-msgstr ""
+msgstr "El grandor d'archivu nun coincide."
 
 msgid "Filesize is 0 Byte."
-msgstr ""
+msgstr "El grandor ye de 0 Byte."
 
 msgid "Filetype:"
-msgstr "Filtyp:"
+msgstr "Mena d'archivu:"
 
 msgid "Flip Mode"
-msgstr ""
+msgstr "Mou vuelta"
 
 msgid "Folder"
-msgstr "Mapp"
+msgstr "Cartafueyu"
 
 msgid "Folder(s)"
-msgstr ""
+msgstr "Cartafueyu/os"
 
 msgid "Font Files"
-msgstr ""
+msgstr "Fontes"
 
 msgid "Fontpath changed."
-msgstr ""
+msgstr "Cartafueyu de fontes camudáu."
 
 msgid "Format"
-msgstr ""
+msgstr "Formatu"
 
 msgid "Format Partition?"
-msgstr ""
+msgstr "¿Formatear partición?"
 
 msgid "Formatter"
-msgstr ""
+msgstr "Formateador"
 
 msgid "Formatting partition!"
-msgstr ""
+msgstr "¡Formateando partción!"
 
 msgid "Free Space:"
-msgstr ""
+msgstr "Espaciu llibre:"
 
 msgid "GC Homebrew"
-msgstr ""
+msgstr "Homebrew GC"
 
 msgid "GC PAD BUTTON A"
-msgstr ""
+msgstr "Mandu GC botón A"
 
 msgid "GC PAD BUTTON B"
-msgstr ""
+msgstr "Mandu GC botón B"
 
 msgid "GC PAD BUTTON DOWN"
-msgstr ""
+msgstr "Mandu GC botón Abaxo"
 
 msgid "GC PAD BUTTON LEFT"
-msgstr ""
+msgstr "Mandu GC botón izquierdu"
 
 msgid "GC PAD BUTTON NONE"
-msgstr ""
+msgstr "Mandu GC un res"
 
 msgid "GC PAD BUTTON RIGHT"
-msgstr ""
+msgstr "Mandu GC botón drechú"
 
 msgid "GC PAD BUTTON START"
-msgstr ""
+msgstr "Mandu GC botón Start"
 
 msgid "GC PAD BUTTON UP"
-msgstr ""
+msgstr "Mandu GC botón Arriba"
 
 msgid "GC PAD BUTTON X"
-msgstr ""
+msgstr "Mandu GC botón X"
 
 msgid "GC PAD BUTTON Y"
-msgstr ""
+msgstr "Mandu GC botón Y"
 
 msgid "GC PAD TRIGGER L"
-msgstr ""
+msgstr "Mandu GC gatiellu L"
 
 msgid "GC PAD TRIGGER R"
-msgstr ""
+msgstr "Mandu GC gatiellu A"
 
 msgid "GC PAD TRIGGER Z"
-msgstr ""
+msgstr "Mandu GC gatiellu Z"
 
 msgid "GC-SD A"
 msgstr ""
@@ -792,13 +793,13 @@ msgid "GC-SD B"
 msgstr ""
 
 msgid "GD2 Compression"
-msgstr ""
+msgstr "Compresión GD2"
 
 msgid "GUID"
 msgstr ""
 
 msgid "General Settings"
-msgstr ""
+msgstr "Axustes xenerales"
 
 msgid "Getting Changelog..."
 msgstr ""
@@ -807,190 +808,190 @@ msgid "Getting file list..."
 msgstr ""
 
 msgid "Go Back"
-msgstr "Gå tillbaks"
+msgstr "Tornar"
 
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 msgid "Hashing complete."
-msgstr ""
+msgstr "Hashéu fechu."
 
 msgid "Hashing successfully finished."
-msgstr ""
+msgstr "Hashéu fináu afayadizamente."
 
 msgid "Hide System Files/Folders"
-msgstr ""
+msgstr "Anubrir cartafueyos ya ficheros del sistema"
 
 msgid "High"
-msgstr ""
+msgstr "Altu"
 
 msgid "Highest"
-msgstr ""
+msgstr "El más altu"
 
 msgid "Home Button"
-msgstr ""
+msgstr "Botón Home"
 
 msgid "Home Menu"
-msgstr ""
+msgstr "Menú d'entamu"
 
 msgid "Homebrew Channel"
 msgstr ""
 
 msgid "Homebrew Files"
-msgstr ""
+msgstr "Ficheros homebrew"
 
 msgid "Horizontal"
 msgstr ""
 
 msgid "Host:"
-msgstr ""
+msgstr "Agospiu:"
 
 msgid "How do you want to change the path?"
-msgstr ""
+msgstr "¿Quies camudar el cartafueyu?"
 
 msgid "How do you want to launch this file?"
-msgstr ""
+msgstr "¿Cómo quies llanzar aquesti ficheru?"
 
 msgid "How do you want to load this language file?"
-msgstr ""
+msgstr "¿Cómo quies cargar aquesta llingua?"
 
 msgid "How do you want to open the file?"
-msgstr ""
+msgstr "¿Cómo quies abrir aquesti ficheru?"
 
 msgid "How do you want to proceed?"
-msgstr ""
+msgstr "¿Cómo quies siguir?"
 
 msgid "How should this URL be opened?"
-msgstr ""
+msgstr "¿Cómo debería abrise aquesta URL?"
 
 msgid "Icon Mode"
-msgstr ""
+msgstr "Mou fustax"
 
 msgid "Idle"
-msgstr ""
+msgstr "Inactivu"
 
 msgid "Image Converter"
-msgstr ""
+msgstr "Convertidor d'imax"
 
 msgid "Image Files"
-msgstr ""
+msgstr "Ficheros d'imax"
 
 msgid "Image Heigth"
-msgstr ""
+msgstr "Altor"
 
 msgid "Image Settings"
-msgstr ""
+msgstr "Axustes d'imax"
 
 msgid "Image Width"
-msgstr ""
+msgstr "Grandor"
 
 msgid "Image successfully converted."
-msgstr ""
+msgstr "Imax convertía dafechu."
 
 msgid "ImageConverter"
-msgstr ""
+msgstr "Convertidor d'imax"
 
 msgid "ImageViewer"
-msgstr ""
+msgstr "Visor d'imax"
 
 msgid "Incomming connection."
-msgstr ""
+msgstr "Conexón entrante."
 
 msgid "Input File"
-msgstr ""
+msgstr "Ficheru d'entrada"
 
 msgid "Interlace"
-msgstr ""
+msgstr "Entellazáu"
 
 msgid "Internet Channel"
-msgstr ""
+msgstr "Canal Internet"
 
 msgid "JPEG Quality"
-msgstr ""
+msgstr "Calidá JPEG"
 
 msgid "Keyboard Backspace Button"
-msgstr ""
+msgstr "Tecla d'espaciu nel tecláu"
 
 msgid "Keyboard Delete Delay"
-msgstr ""
+msgstr "Restrasu d'esniciu nel tecláu"
 
 msgid "Keyboard Shift Button"
-msgstr ""
+msgstr "Tecla mayús nel tecláu"
 
 msgid "Lang."
-msgstr ""
+msgstr "Lling."
 
 msgid "Language"
-msgstr "Språk"
+msgstr "Llingua"
 
 msgid "Language Files"
-msgstr ""
+msgstr "Llingues"
 
 msgid "Language Settings"
-msgstr ""
+msgstr "Axustes de llingua"
 
 msgid "Last access:"
-msgstr "Senaste tillträde:"
+msgstr "Accesu caberu:"
 
 msgid "Last change:"
-msgstr ""
+msgstr "Camudancia cabera:"
 
 msgid "Last modified:"
-msgstr "Senast modifierad:"
+msgstr "Cabera camudancia:"
 
 msgid "Left Button"
-msgstr ""
+msgstr "Botón izquierdu"
 
 msgid "List Mode"
-msgstr ""
+msgstr "Mou llista"
 
 msgid "Listening on TCP port"
-msgstr ""
+msgstr "Escuchando nel puertu TCP"
 
 msgid "Load"
-msgstr ""
+msgstr "Cargar"
 
 msgid "Load Music to Memory"
-msgstr ""
+msgstr "Caragar sones a memoria"
 
 msgid "Loading file:"
-msgstr "Laddar fil:"
+msgstr "Cargando ficheru:"
 
 msgid "Log was saved in MD5.log"
-msgstr ""
+msgstr "Log atroxáu en MD5.log"
 
 msgid "Logical"
-msgstr ""
+msgstr "Llóxicu"
 
 msgid "Loop"
-msgstr ""
+msgstr "Repetitivu"
 
 msgid "Loop Playlist"
-msgstr ""
+msgstr "Llista reproducción repetitiva"
 
 msgid "Low"
-msgstr ""
+msgstr "Llentu"
 
 msgid "MD5 Check"
-msgstr ""
+msgstr "Comprobación MD5"
 
 msgid "MD5 log file can't be created."
-msgstr ""
+msgstr "El log MD5 nun puedo criase."
 
 msgid "MPlayerCE"
 msgstr ""
 
 msgid "MPlayerCE Path"
-msgstr ""
+msgstr "Cartafueyu MPlayerCE"
 
 msgid "Mark Item Button"
-msgstr ""
+msgstr "Botón de marcar oxetu"
 
 msgid "Memory Buffer"
-msgstr ""
+msgstr "Buffer de memoria"
 
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #, c-format
 msgid "Mount %i"
@@ -1000,214 +1001,214 @@ msgid "Mount NAND (ISFS) on boot"
 msgstr ""
 
 msgid "Mounted as:"
-msgstr ""
+msgstr "Montáu como:"
 
 msgid "Mounting DVD"
 msgstr ""
 
 msgid "Mountpoint:"
-msgstr ""
+msgstr "Puntu montax:"
 
 msgid "Moving item(s):"
-msgstr ""
+msgstr "Moviendo oxetu/os:"
 
 msgid "Multiple Items"
-msgstr ""
+msgstr "Dellos oxetos"
 
 msgid "Music Loop Mode"
-msgstr ""
+msgstr "Mou repetitivu"
 
 msgid "Music Volume"
-msgstr "Musik volym"
+msgstr "Volume"
 
 msgid "NAND write access"
 msgstr ""
 
 msgid "NFS Settings"
-msgstr ""
+msgstr "Axustes NFS"
 
 msgid "NONE"
-msgstr ""
+msgstr "RES"
 
 msgid "Name might already exists."
-msgstr ""
+msgstr "El viesu podría xá esistir."
 
 msgid "Network Settings"
-msgstr ""
+msgstr "Axustes de rede"
 
 msgid "Network initialising..."
-msgstr "Nätverk initieras..."
+msgstr "Aniciando rede..."
 
 msgid "New Folder"
-msgstr "Ny mapp"
+msgstr "Cartafueyu nueu"
 
 msgid "NewZip.zip"
-msgstr ""
+msgstr "NueuZip.zip"
 
 msgid "No"
-msgstr "Nej"
+msgstr "Non"
 
 msgid "No URL or Path specified."
-msgstr ""
+msgstr "Cartafuetu d'enllaz non especificáu."
 
 msgid "No files found."
-msgstr ""
+msgstr "Nun s'alcontraron archivos."
 
 msgid "No homebrew in the zip."
-msgstr ""
+msgstr "Nun hai homebrew naquesti zip."
 
 msgid "No network connection."
-msgstr ""
+msgstr "Ensin conexón de rede"
 
 msgid "No new updates available"
-msgstr ""
+msgstr "Nun hai anovamientos"
 
 msgid "No to all"
-msgstr ""
+msgstr "Non too"
 
 msgid "Normal"
 msgstr ""
 
 msgid "Not a valid URL"
-msgstr ""
+msgstr "URL inválida"
 
 msgid "Not a valid URL path"
-msgstr ""
+msgstr "Direición de cartafueyu inválida"
 
 msgid "Not a valid domain"
-msgstr ""
+msgstr "Domíniu inválidu"
 
 msgid "Not enough memory"
 msgstr ""
 
 msgid "Not enough memory to resize."
-msgstr ""
+msgstr "Nun hai abonda memoria pa reaxustar."
 
 msgid "Not enough memory to rotate."
-msgstr ""
+msgstr "Nun hay abonda memoria pa rotar."
 
 msgid "Not enough memory."
-msgstr "Inte tillräkligt minne."
+msgstr "Nun hai abonda memoria."
 
 msgid "Not enought memory."
 msgstr ""
 
 msgid "Not mounted"
-msgstr ""
+msgstr "Ensin montar"
 
 msgid "OFF"
-msgstr "Av"
+msgstr "APAGAO"
 
 msgid "OK"
-msgstr ""
+msgstr "VAL"
 
 msgid "ON"
-msgstr "På"
+msgstr "ENCESO"
 
 msgid "Open the file in the PDF Viewer?"
-msgstr ""
+msgstr "¿Abrir el ficheru nel visor PDF?"
 
 msgid "Opera Channel not found on the system."
-msgstr ""
+msgstr "Nun s'alcontró'l Canal internet nel sistema."
 
 msgid "Out of memory: too many files!"
-msgstr "Slut på minne: för många filer!"
+msgstr "Fuera de memoria: ¡milenta archivos!"
 
 msgid "Output File"
-msgstr ""
+msgstr "Ficheru salida"
 
 msgid "Output Type"
-msgstr ""
+msgstr "Tipu salida"
 
 msgid "PDF Files"
-msgstr ""
+msgstr "Ficheros PDF"
 
 msgid "PDF Processing Zoom"
-msgstr ""
+msgstr "Aumentu"
 
 msgid "Parse Directory"
-msgstr ""
+msgstr "Analizar cartafueyu"
 
 msgid "Partition"
-msgstr ""
+msgstr "Partición"
 
 msgid "Partition Formatter"
-msgstr ""
+msgstr "Formateador de particiones"
 
 msgid "Partition Nr."
-msgstr ""
+msgstr "Númberu:"
 
 msgid "Partition Size:"
-msgstr ""
+msgstr "Grandor:"
 
 msgid "Partition Type:"
-msgstr ""
+msgstr "Mena:"
 
 msgid "Partition is too small."
-msgstr ""
+msgstr "La partición ye perpequeña."
 
 msgid "Passive Mode:"
-msgstr ""
+msgstr "Mou pasivu:"
 
 msgid "Password is needed."
-msgstr ""
+msgstr "Necesitase conseña."
 
 msgid "Password:"
-msgstr "Lösenord:"
+msgstr "Conseña:"
 
 msgid "Paste"
-msgstr "Klistra in"
+msgstr "Apegar"
 
 msgid "Paste item(s) into current directory?"
-msgstr ""
+msgstr "¿Apegar oxetu/os nel cartafueyu d'anguaño?"
 
 msgid "Paste the item(s) into this directory?"
-msgstr ""
+msgstr "¿Apegar oxetu/os naquesti cartafueyu?"
 
 msgid "Pasting files is currently only supported on ZIP archives."
-msgstr ""
+msgstr "Apegar ficheros ta solo soportao n'archivos ZIP."
 
 msgid "Path Settings"
-msgstr ""
+msgstr "Axustes cartafueyu"
 
 msgid "Path Setup"
-msgstr ""
+msgstr "Cartafueyu configuración"
 
 msgid "Path changed."
-msgstr ""
+msgstr "Cartafueyu camudáu."
 
 msgid "Play File"
-msgstr ""
+msgstr "Reproducir"
 
 msgid "Play Once"
-msgstr ""
+msgstr "Reproducir una vegada"
 
 msgid "Please enter a path."
-msgstr ""
+msgstr "Por favor, pon un cartafueyu."
 
 msgid "Please enter first the URL-Name."
-msgstr ""
+msgstr "Pon primero'l viesu l'enllaz."
 
 msgid "Please enter now the URL."
-msgstr ""
+msgstr "Por favor, pon agora l'enllaz."
 
 msgid "Please enter the password."
-msgstr ""
+msgstr "Por favor, pon la conseña."
 
 msgid "Please wait..."
-msgstr ""
+msgstr "Por favor, aspera..."
 
 msgid "Possible unsupported format."
-msgstr ""
+msgstr "Posible formatu nun soportáu."
 
 msgid "Press Startup FTP to start the server on port"
-msgstr ""
+msgstr "Primi Aniciar FTP p'aniciar el sirvidor nel puertu"
 
 msgid "Primary"
-msgstr ""
+msgstr "Primariu"
 
 msgid "Process canceled."
-msgstr ""
+msgstr "Procesu atayáu."
 
 msgid "ProgressBar Bottom/Left"
 msgstr ""
@@ -1234,17 +1235,17 @@ msgid "ProgressBar Upper/Right"
 msgstr ""
 
 msgid "Properties"
-msgstr "Egenskaper"
+msgstr "Propiedaes"
 
 msgid "QWERTYUIOP{}|"
 msgstr ""
 
 #, c-format
 msgid "R: %i G: %i B: %i"
-msgstr ""
+msgstr "B: %i V: %i P: %i"
 
 msgid "Random"
-msgstr ""
+msgstr "Al debalu"
 
 #, c-format
 msgid "Read Error in %s"
@@ -1259,28 +1260,28 @@ msgid "Read error from %s in %s"
 msgstr ""
 
 msgid "Reading archive."
-msgstr ""
+msgstr "Lleendo archivu."
 
 msgid "Reboot failed"
-msgstr ""
+msgstr "Reaniciu fallíu"
 
 msgid "Receiving file..."
-msgstr ""
+msgstr "Reciviendo ficheru..."
 
 msgid "Reconnect FTP"
-msgstr ""
+msgstr "Reconeutar FTP"
 
 msgid "Reconnect NFS"
 msgstr ""
 
 msgid "Reconnect SMB"
-msgstr "Återanslut SMB"
+msgstr "Reconeutar SMB"
 
 msgid "Red"
-msgstr ""
+msgstr "Rede"
 
 msgid "Remount"
-msgstr ""
+msgstr "Montar"
 
 msgid "Remounting FTP client."
 msgstr ""
@@ -1292,55 +1293,55 @@ msgid "Remounting SMB client."
 msgstr ""
 
 msgid "Remounting all devices."
-msgstr ""
+msgstr "Montando tolos preseos."
 
 msgid "Remove Link"
-msgstr ""
+msgstr "Esniciar enllaz"
 
 msgid "Remove from list"
-msgstr ""
+msgstr "Esniciar de la llista"
 
 msgid "Rename"
-msgstr "Byt namn"
+msgstr "Renomar"
 
 msgid "Reset"
-msgstr ""
+msgstr "Reaniciar"
 
 msgid "Restart"
-msgstr ""
+msgstr "Reaniciar"
 
 msgid "Retry?"
 msgstr ""
 
 msgid "Right Button"
-msgstr ""
+msgstr "Botón drechú"
 
 msgid "Rotate"
-msgstr ""
+msgstr "Rotar"
 
 msgid "Rumble"
-msgstr ""
+msgstr "Vibrador"
 
 msgid "Running a Video could slowdown the process or freeze the app. Do you want to continue?"
-msgstr ""
+msgstr "Correr un vidéu pue tornar llentu'l procesu o xelase la aplicación. ¿Quies siguir?"
 
 msgid "SD-Card"
-msgstr ""
+msgstr "Tarxeta SD"
 
 msgid "SMB Name:"
-msgstr "SMB namn:"
+msgstr "Viesu:"
 
 msgid "SMB Settings"
-msgstr "SMB Inställningar"
+msgstr "Axustes"
 
 msgid "Save Alpha"
-msgstr ""
+msgstr "Atroxar alpha"
 
 msgid "Screen Pointer Speed"
 msgstr ""
 
 msgid "Screenshot Format"
-msgstr ""
+msgstr "Formatu de captura pantalla"
 
 msgid "Screenshot Hold Button"
 msgstr ""
@@ -1359,53 +1360,53 @@ msgid "Seek Error in %s"
 msgstr ""
 
 msgid "Server was shutdown...\n"
-msgstr ""
+msgstr "Fo apagáu'l sirvidor...\n"
 
 msgid "Set Active"
-msgstr ""
+msgstr "Poner activa"
 
 msgid "Set this Partition as Active?"
-msgstr ""
+msgstr "¿Poner aquesta partición activa?"
 
 msgid "Settings"
-msgstr ""
+msgstr "Axustes"
 
 #, c-format
 msgid "Share %i"
-msgstr ""
+msgstr "Compartir %1"
 
 msgid "Share:"
-msgstr ""
+msgstr "Compartir:"
 
 msgid "Shift"
-msgstr ""
+msgstr "Mayús"
 
 msgid "Show Changelog"
-msgstr ""
+msgstr "Amosar llista camudancies"
 
 msgid "Show Partition Formatter"
-msgstr ""
+msgstr "Amosar formateador"
 
 msgid "Shutdown"
-msgstr ""
+msgstr "Apagar"
 
 msgid "Shutdown FTP"
-msgstr ""
+msgstr "Apagar FTP"
 
 msgid "Shutdown the Wii?"
-msgstr ""
+msgstr "¿Apagar la Wii?"
 
 msgid "Size:"
-msgstr "Storlek:"
+msgstr "Grandor:"
 
 msgid "Slide Show Button"
-msgstr ""
+msgstr "Amosar botón d'eslizar"
 
 msgid "Slideshow Delay"
 msgstr ""
 
 msgid "Sound Settings"
-msgstr ""
+msgstr "Axustes soníu"
 
 msgid "Soundblock Size"
 msgstr ""
@@ -1414,16 +1415,16 @@ msgid "Soundblocks"
 msgstr ""
 
 msgid "Special thanks to:"
-msgstr ""
+msgstr "Gracies especiales a:"
 
 msgid "Standard"
-msgstr ""
+msgstr "Estandar"
 
 msgid "Startup FTP"
-msgstr ""
+msgstr "Aniciar FTP"
 
 msgid "Successfully formated the partition."
-msgstr ""
+msgstr "Partición formatiada dafechu"
 
 msgid "System error received"
 msgstr ""
@@ -1432,146 +1433,146 @@ msgid "Tab"
 msgstr ""
 
 msgid "Temporary Path"
-msgstr ""
+msgstr "Cartafueyu temporal"
 
 msgid "Text Editor"
-msgstr ""
+msgstr "Editor de testu"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
-msgstr ""
+msgstr "El buffer ye milenta altu. L'apl nun entamará dempues de qu'aquesto esnicie les tos configuraciones."
 
 msgid "The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"
 msgstr ""
 
 msgid "The effect will take with next music load. It might break music playback."
-msgstr ""
+msgstr "Surxirá efeutu cola prósima son. Pue frañir la reproducción."
 
 msgid "The file will be downloaded to this path."
-msgstr ""
+msgstr "L'archivu sedrá baxáu a aquesti cartafueyu."
 
 msgid "The new font could not be loaded."
-msgstr ""
+msgstr "La nuea fonte nun pudo cargase"
 
 msgid "The new font is loaded."
-msgstr ""
+msgstr "La nuea fonte cargose."
 
 msgid "The whole devkitPro & libogc staff."
-msgstr ""
+msgstr "EL conxuntu de DevkitPro ya libogc"
 
 msgid "This drive has more than 2^28 clusters. Partition might be too small."
-msgstr ""
+msgstr "Aquesti discu tien más de 2^28 clústeres. La partición pue ser perpequeña."
 
 msgid "This drive is too big"
-msgstr ""
+msgstr "Aquesti discu ye pergrande"
 
 msgid "This link will be used in Opera or as a Download Link."
-msgstr ""
+msgstr "Aquesti enllaz sedrá usáu n'Opera o como enllaz de descarga."
 
 msgid "This name will be shown in the Start Menu"
-msgstr ""
+msgstr "Aquesti viesu sedrá amosáu nel Menú d'entamu"
 
 msgid "This option could mess up the pdf view."
-msgstr ""
+msgstr "Aquesta opción pue frañir la vista'l PDF."
 
 msgid "This will delete all the data on this partition. Do you want to continue?"
-msgstr ""
+msgstr "Aquesta opción esniciará tolos datos naquesta partición. ¿Quies siguir?"
 
 msgid "Time left:"
-msgstr ""
+msgstr "Faltante:"
 
 msgid "To Idle"
-msgstr ""
+msgstr "Inactivar"
 
 msgid "To Standby"
-msgstr ""
+msgstr "Ivernar"
 
 msgid "Tooltip Delay"
 msgstr ""
 
 msgid "Total Space:"
-msgstr ""
+msgstr "Espaciu total:"
 
 msgid "Transfer cancelled."
-msgstr ""
+msgstr "Tresferencia atayada."
 
 msgid "Transfer failed"
-msgstr ""
+msgstr "Tresferencia fallía"
 
 msgid "Transfer failed."
-msgstr ""
+msgstr "Tresferencia fallía."
 
 msgid "URL List"
-msgstr ""
+msgstr "Llista URL"
 
 msgid "URL List Path"
-msgstr ""
+msgstr "Cartafueyu llista d'enllaces"
 
 msgid "URL is empty."
-msgstr ""
+msgstr "L'enllaz ta lluellu"
 
 msgid "USB Device Port 0"
-msgstr ""
+msgstr "Preséu USB nel puertu 0"
 
 msgid "USB Device Port 1"
-msgstr ""
+msgstr "Preséu USB nel puertu 1"
 
 msgid "Uknown format. Open this file in the TextEditor?"
-msgstr ""
+msgstr "Formatu desconocíu. ¿Abrir nel editor de testu?"
 
 msgid "Unable to create folder."
-msgstr "Kunde inte skapa mapp."
+msgstr "Nun pudo criase'l cartafueyu."
 
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocío"
 
 msgid "Unsupported format!"
-msgstr ""
+msgstr "¡Formatu nun soportáu!"
 
 msgid "Up Button"
-msgstr ""
+msgstr "Botón arriba"
 
 msgid "Update (App) Path"
-msgstr ""
+msgstr "Anovar cartafueyu d'apls"
 
 msgid "Update App"
-msgstr ""
+msgstr "Anovar Apl"
 
 msgid "Update Icon.png"
-msgstr ""
+msgstr "Anovar Icon.png"
 
 msgid "Update Meta.xml"
-msgstr ""
+msgstr "Anovar Meta.xml"
 
 msgid "Update failed"
-msgstr ""
+msgstr "Anovamientu torgáu"
 
 msgid "Update successfully finished"
-msgstr ""
+msgstr "Anovamientu fináu ensin torgues"
 
 #, c-format
 msgid "Update to Rev%i available"
-msgstr ""
+msgstr "Anovamientu a %1Rev disponible"
 
 msgid "Use Both USB Ports"
-msgstr ""
+msgstr "Usar dambos puertos USB"
 
 msgid "Username:"
-msgstr "Användarnamn:"
+msgstr "Viesu d'usuariu:"
 
 msgid "Vertical"
 msgstr ""
 
 msgid "Video Files"
-msgstr ""
+msgstr "Videos"
 
 msgid "WARNING"
-msgstr ""
+msgstr "REPARA"
 
 msgid "WARNING/DISCLAIMER"
 msgstr ""
 
 msgid "WARNING:"
-msgstr ""
+msgstr "REPARA:"
 
 msgid "WPAD BUTTON 1"
 msgstr ""
@@ -1658,10 +1659,10 @@ msgid "WPAD NONE BUTTON"
 msgstr ""
 
 msgid "Warning:"
-msgstr ""
+msgstr "Repara:"
 
 msgid "Wii Binary Files"
-msgstr ""
+msgstr "Binarios de Wii"
 
 msgid "Wii Homebrew"
 msgstr ""
@@ -1673,19 +1674,19 @@ msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
-msgstr ""
+msgstr "Cartafueyu"
 
 msgid "WiiXplorer Default Music"
-msgstr ""
+msgstr "Son per defutu"
 
 msgid "WiiXplorer MD5 Calculator\n"
-msgstr ""
+msgstr "Calculadore MD5\n"
 
 msgid "WiiXplorer Movies"
-msgstr ""
+msgstr "Películes"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
-msgstr ""
+msgstr "¿Prestariate añader l'/los oxetu/os esbillaos al zip?"
 
 #, c-format
 msgid "Write Error from %s to %s"
@@ -1703,28 +1704,28 @@ msgid "Write error to %s in %s"
 msgstr ""
 
 msgid "Yes"
-msgstr "Ja"
+msgstr "Sí"
 
 msgid "Yes to all"
-msgstr ""
+msgstr "Sí a too"
 
 msgid "You can't set a logical partition as active."
-msgstr ""
+msgstr "Nun pues poner una partición llóxica como activa."
 
 msgid "You can't set this partition as active."
-msgstr ""
+msgstr "Nun pues poner aquesta partcion como activa."
 
 msgid "You cant use this operation on:"
-msgstr "Du kan inte använda denna funktion på:"
+msgstr "Pues usar aquesta operación en:"
 
 msgid "You have a GUID Partition Table (GPT). Formatting partitions in a GPT is not supported yet."
-msgstr ""
+msgstr "Ties una tabla particiones GUID (GPT). Formateáu a particiones a GPT nun ta soportao tá."
 
 msgid "ZXCVBNM<>?"
 msgstr ""
 
 msgid "Zip Compression Mode"
-msgstr ""
+msgstr "Mou de compresión ZIP"
 
 msgid "ZoomIn Button"
 msgstr ""
@@ -1736,22 +1737,22 @@ msgid "`1234567890-="
 msgstr ""
 
 msgid "and all the translators."
-msgstr ""
+msgstr "ya tolos tornadores."
 
 msgid "asdfghjkl;'"
 msgstr ""
 
 msgid "devices"
-msgstr ""
+msgstr "preseos"
 
 msgid "files"
-msgstr ""
+msgstr "ficheros"
 
 msgid "for his FTP Server source."
-msgstr ""
+msgstr "pol so códigu'l sirvidor FTP."
 
 msgid "for his great tool libwiigui."
-msgstr ""
+msgstr "Pola ablucante ferramienta libwiigui."
 
 msgid "qwertyuiop[]\\"
 msgstr ""
@@ -1768,128 +1769,56 @@ msgstr ""
 msgid "~!@#$%^&*()_+"
 msgstr ""
 
+#~ msgid "Cannot open image"
+#~ msgstr "Nun pue abrise la imax"
+
+#~ msgid "Could not extract file:"
+#~ msgstr "Nun pue estrayes'l ficheru:"
+
+#~ msgid "Downloaded %d files."
+#~ msgstr "Baxaos %d ficheros."
+
+#~ msgid "Extracting files..."
+#~ msgstr "Estrayendo ficheros..."
+
+#~ msgid "FTP Client reconnected successfull."
+#~ msgstr "Cliente FTP reconeutáu dafechu."
+
+#~ msgid "Failed extracting the archive."
+#~ msgstr "Tornga estrayendo del/llos oxetu/os."
+
+#~ msgid "Image Viewer"
+#~ msgstr "Visor d'imax"
+
+#~ msgid "Linebreak"
+#~ msgstr "Saltu llinia"
+
+#~ msgid "Loading image..."
+#~ msgstr "Cargando imax..."
+
+#~ msgid "No image found at index %d."
+#~ msgstr "Nun s'alcontró imax nel índiz %d."
+
+#~ msgid "Reconnect failed. No client connected."
+#~ msgstr "Reconexón torgada. Cliente ensin coneutar."
+
+#~ msgid "Reconnect failed. No share connected."
+#~ msgstr "Reconexón torgada. SMB ensin coneutar."
+
 #~ msgid "Retry"
-#~ msgstr "Försök igen"
+#~ msgstr "Reintentar"
 
 #~ msgid "SMB is connecting..."
-#~ msgstr "SMB ansluter..."
+#~ msgstr "SMB ta coneutandose..."
 
-#~ msgid "Deleting files:"
-#~ msgstr "Raderar filer:"
+#~ msgid "SMB reconnected successfull."
+#~ msgstr "Reconexón ensin torgues."
 
-#~ msgid "Directory couldn't be deleted."
-#~ msgstr "Katalog kunde inte raderas."
+#~ msgid "To Loader"
+#~ msgstr "Al HBC"
 
-#~ msgid "File couldn't be deleted."
-#~ msgstr "Fil kunde inte raderas."
+#~ msgid "To Menu"
+#~ msgstr "Al Menú"
 
-#~ msgid "Transfering files:"
-#~ msgstr "Överför filer:"
-
-#~ msgid "You can not cut into the directory itself."
-#~ msgstr "Du kan inte klippa in till sjävla katalagon"
-
-#~ msgid "Please wait:"
-#~ msgstr "Vänligen vänta:"
-
-#~ msgid "User %i"
-#~ msgstr "Användare %i"
-
-#~ msgid "User:"
-#~ msgstr "Användare:"
-
-#~ msgid "Do you want to reconnect the SMB?"
-#~ msgstr "Vill du koppla upp till SMB igen?"
-
-#~ msgid "Do you want to open this file in TextViewer?"
-#~ msgstr "Vill du öppna denna filen i textvisaren?"
-
-#~ msgid "Do you want to open this file with ImageViewer?"
-#~ msgstr "Vill du öppna denna filen med bildvisaren?"
-
-#~ msgid "You cannot read/write from/to the same file."
-#~ msgstr "Du kan inte läsa/skriva från/till samma fil."
-
-#~ msgid "Failed copying file."
-#~ msgstr "Misslyckades att kopiera fil."
-
-#~ msgid "Failed copying files."
-#~ msgstr "Misslyckades att kopiera filer."
-
-#~ msgid "Directory successfully deleted."
-#~ msgstr "Katalog raderad."
-
-#~ msgid "Copy directory?"
-#~ msgstr "Kopiera katalog?"
-
-#~ msgid "Copy file?"
-#~ msgstr "Kopiera fil?"
-
-#~ msgid "Copying file:"
-#~ msgstr "Kopierar fil:"
-
-#~ msgid "Copying files:"
-#~ msgstr "Kopierar filer:"
-
-#~ msgid "Cut directory?"
-#~ msgstr "Klipp ut katalog?"
-
-#~ msgid "Cut file?"
-#~ msgstr "Klipp ut fil?"
-
-#~ msgid "Delete directory and its content?"
-#~ msgstr "Radera katalog och dess innehåll?"
-
-#~ msgid "Delete this file?"
-#~ msgstr "Radera denna fil?"
-
-#~ msgid "Directory successfully copied."
-#~ msgstr "Kopiering av katalog lyckades."
-
-#~ msgid "Directory successfully moved."
-#~ msgstr "Katalog flyttad."
-
-#~ msgid "Failed renaming file"
-#~ msgstr "Namnbyte på fil misslyckades."
-
-#~ msgid "File does not exist anymore!"
-#~ msgstr "Filen existerar inte längre!"
-
-#~ msgid "File successfully copied."
-#~ msgstr "Lyckadess kopiera fil."
-
-#~ msgid "File successfully moved."
-#~ msgstr "Lyckadess flytta fil."
-
-#~ msgid "Moving files:"
-#~ msgstr "Flyttar filer:"
-
-#~ msgid "Name already exists."
-#~ msgstr "Namn existerar redan."
-
-#~ msgid "Paste into current directory?"
-#~ msgstr "Klistra in i nuvarande katalog?"
-
-#~ msgid "Last status change:"
-#~ msgstr "Senast status ändring:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "Kan inte öppna filen"
-
-#~ msgid "An error occured."
-#~ msgstr "Ett fel har uppståt."
-
-#~ msgid "ERROR"
-#~ msgstr "FEL"
-
-#~ msgid "This is no OGG/MP3 file"
-#~ msgstr "Detta är inte en OGG/MP3 fil"
-
-#~ msgid "Connect SMB"
-#~ msgstr "Anslut SMB"
-
-#~ msgid "Change Settings"
-#~ msgstr "Ändra inställningar"
-
-#~ msgid "Unable to load device."
-#~ msgstr "Kunde inte ladda enhet"
+#~ msgid "Unable to load path:"
+#~ msgstr "Nun pue cargase'l cartafueyu:"
