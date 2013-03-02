@@ -119,11 +119,10 @@ void BufferCircle::FreeBuffer()
 
 void BufferCircle::LoadNext()
 {
-	int pos = (which+Size()-1) % Size();
-	BufferReady[pos] = false;
-	BufferSize[pos] = 0;
+	BufferReady[which] = false;
+	BufferSize[which] = 0;
 
-	which = (which+1) % Size();
+	which = Next();
 }
 
 void BufferCircle::SetBufferReady(int pos, bool state)

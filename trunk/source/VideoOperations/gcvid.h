@@ -228,6 +228,8 @@ class VideoFile
   virtual void loadNextFrame() { };
 
   virtual void getCurrentFrame(VideoFrame& frame UNUSED) const { };
+  virtual void copyCurrentFrame(std::vector<u8> &frameBuffer UNUSED) const { };
+  virtual void decodeVideoFrame(VideoFrame& frame UNUSED, const std::vector<u8> &frameBuffer UNUSED) const { };
 
   //sound support:
   virtual bool hasSound() const { return false; };
@@ -265,6 +267,8 @@ class ThpVideoFile : public VideoFile
   virtual void loadNextFrame();
 
   virtual void getCurrentFrame(VideoFrame& frame) const;
+  virtual void copyCurrentFrame(std::vector<u8> &frameBuffer) const { frameBuffer = _currFrameData; };
+  virtual void decodeVideoFrame(VideoFrame& frame, const std::vector<u8> &frameBuffer) const;
 
   virtual bool hasSound() const { return _head.maxAudioSamples != 0; };
   virtual int getNumChannels() const;
@@ -297,6 +301,8 @@ class MthVideoFile : public VideoFile
   virtual int getFrameCount() const { return _head.numFrames; };
 
   virtual int getCurrentFrameNr() const { return _currFrameNr; };
+  virtual void copyCurrentFrame(std::vector<u8> &frameBuffer) const { frameBuffer = _currFrameData; };
+  virtual void decodeVideoFrame(VideoFrame& frame, const std::vector<u8> &frameBuffer) const;
 
   virtual void loadNextFrame();
 
@@ -322,6 +328,7 @@ class JpgVideoFile : public VideoFile
   virtual int getFrameCount() const { return 1; };
 
   virtual void getCurrentFrame(VideoFrame& frame) const;
+  virtual void decodeVideoFrame(VideoFrame& frame, const std::vector<u8> &frameBuffer) const;
 
  private:
    VideoFrame _currFrame;

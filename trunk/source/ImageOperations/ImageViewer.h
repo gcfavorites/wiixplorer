@@ -21,6 +21,7 @@
 #include "GUI/gui.h"
 #include "Controls/Thread.h"
 #include "FileOperations/DirListAsync.h"
+#include "Tools/CMutex.h"
 
 class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 {
@@ -75,6 +76,7 @@ class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		DirListAsync * imageDir;
 		//!variable for internal thread to detect a task needs to be done
 		queue<ThreadedTask *> threadTasks;
+		CMutex threadMutex;
 
 		int currentImage;
 		int clickPosX;
@@ -86,7 +88,7 @@ class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		bool bExitRequested;
 		bool isAButtonPressed[4];
 		bool updateAlpha;
-		bool bThreadActive;
+		bool bSlideShowFadeStart;
 		float currentAngle;
 
 		time_t SlideShowStart;
@@ -107,6 +109,7 @@ class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
 
 		GuiImage * image;
 		GuiImageData *imageData;
+		GuiImageData *newImageData;
 
 		GuiImageData * nextButtonData;
 		GuiImageData * nextButtonOverData;

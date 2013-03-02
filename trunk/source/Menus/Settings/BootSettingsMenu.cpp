@@ -98,7 +98,7 @@ void BootSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 		{
 			int choice = WindowPrompt(tr("WARNING/DISCLAIMER"), tr("Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"), tr("Yes"), tr("No"));
 			if(choice)
-				choice = WindowPrompt(tr("WARNING/DISCLAIMER"), tr("The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"), tr("Accept"), tr("No"));
+				choice = WindowPrompt(tr("WARNING/DISCLAIMER"), tr("The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"), tr("Accept"), tr("No"));
 			if(choice) {
 				DeviceHandler::Instance()->MountNAND();
 			}

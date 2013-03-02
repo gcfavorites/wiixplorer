@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-30 21:00+0100\n"
+"POT-Creation-Date: 2013-02-11 20:38+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -1442,7 +1442,7 @@ msgstr "Κειμενογράφος"
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "Το μέγεθος της ρυθμισόμενης μνήμης είναι πολύ μεγάλο.Αν δεν αρχίσει η εφαρμογή σβήσε τα αρχεία ρύθμισης."
 
-msgid "The developers cannot be hold responsible for any damage you do to your Wii by activing this option. Are you sure you want to continue?"
+msgid "The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"
 msgstr ""
 
 msgid "The effect will take with next music load. It might break music playback."

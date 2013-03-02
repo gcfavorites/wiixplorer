@@ -57,14 +57,10 @@ public:
 	virtual int GetFormat() { return VOICE_STEREO_16BIT; }
 	virtual int GetSampleRate() { return 48000; }
 	virtual void Decode();
-	virtual u32 GetBufferSize() { return SoundBuffer.GetBufferSize(); }
-	virtual u8 * GetBuffer() { return SoundBuffer.GetBuffer(); }
-	virtual u8 * GetNextBuffer() { return SoundBuffer.GetNextBuffer(); }
-	virtual u8 * GetLastBuffer() { return SoundBuffer.GetLastBuffer(); }
-	virtual void LoadNext() { SoundBuffer.LoadNext(); }
 	virtual bool IsBufferReady() { return SoundBuffer.IsBufferReady(); }
-	virtual bool IsNextBufferReady() { return SoundBuffer.IsNextBufferReady(); }
-	virtual bool IsLastBufferReady() { return SoundBuffer.IsLastBufferReady(); }
+	virtual u8 * GetBuffer() { return SoundBuffer.GetBuffer(); }
+	virtual u32 GetBufferSize() { return SoundBuffer.GetBufferSize(); }
+	virtual void LoadNext() { SoundBuffer.LoadNext(); }
 	virtual bool IsEOF() { return EndOfFile; }
 	virtual void SetLoop(bool l) { Loop = l; }
 	virtual u8 GetSoundType() { return SoundType; }
@@ -77,6 +73,7 @@ protected:
 	CFile * file_fd;
 	BufferCircle SoundBuffer;
 	u8 SoundType;
+	u16 whichLoad;
 	u16 SoundBlocks;
 	int SoundBlockSize;
 	int CurPos;

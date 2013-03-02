@@ -477,8 +477,13 @@ void ThpVideoFile::loadNextFrame()
 
 void ThpVideoFile::getCurrentFrame(VideoFrame& f) const
 {
-  int size = *(u32*)(&_currFrameData[0] + 8);
-  loadFrame(f, &_currFrameData[0] + 4*_numInts, size);
+	decodeVideoFrame(f, _currFrameData);
+}
+
+void ThpVideoFile::decodeVideoFrame(VideoFrame& f, const std::vector<u8> &frameBuffer) const
+{
+	int size = *(u32*)(&frameBuffer[0] + 8);
+	loadFrame(f, &frameBuffer[0] + 4*_numInts, size);
 }
 
 int ThpVideoFile::getNumChannels() const
@@ -548,10 +553,14 @@ void MthVideoFile::loadNextFrame()
 
 void MthVideoFile::getCurrentFrame(VideoFrame& f) const
 {
-  int size = _thisFrameSize;
-  loadFrame(f, &_currFrameData[0] + 4, size - 4);
+	decodeVideoFrame(f, _currFrameData);
 }
 
+void MthVideoFile::decodeVideoFrame(VideoFrame& f, const std::vector<u8> &frameBuffer) const
+{
+  int size = frameBuffer.size();
+  loadFrame(f, &frameBuffer[0] + 4, size - 4);
+}
 
 JpgVideoFile::JpgVideoFile(FILE* f)
 : VideoFile(f)
@@ -566,6 +575,11 @@ void JpgVideoFile::getCurrentFrame(VideoFrame& f) const
 {
   f.resize(_currFrame.getWidth(), _currFrame.getHeight());
   memcpy(f.getData(), _currFrame.getData(),f.getPitch()*f.getHeight());
+}
+
+void JpgVideoFile::decodeVideoFrame(VideoFrame& f, const std::vector<u8> &frameBuffer UNUSED) const
+{
+	getCurrentFrame(f);
 }
 
 VideoFile* openVideo(const string& fileName)
@@ -679,9 +693,13 @@ void decodeRealJpeg(const u8* data, int size, VideoFrame& dest)
   //set quality/speed parameters to speed:
   cinfo.do_fancy_upsampling = FALSE;
   cinfo.do_block_smoothing = FALSE;
+  cinfo.out_color_space = JCS_RGB;
+  cinfo.quantize_colors = FALSE;
 
-  //this actually slows decoding down:
-  //cinfo.dct_method = JDCT_FASTEST;
+// for faster loading
+  cinfo.scale_num = 1;
+  cinfo.scale_denom = 1;
+  cinfo.dct_method = JDCT_FASTEST;
 #endif
 
   jpeg_start_decompress(&cinfo);

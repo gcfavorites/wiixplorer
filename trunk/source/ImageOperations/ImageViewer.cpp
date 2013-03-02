@@ -34,13 +34,14 @@ ImageViewer::ImageViewer(const char *filepath)
 	imageDir = NULL;
 	image = NULL;
 	imageData = NULL;
+	newImageData = NULL;
 	rotateLeft = 90;
 	rotateRight = 90;
 	buttonAlpha = 255;
 	updateAlpha = false;
 	isPointerVisible = true;
-	bThreadActive = false;
 	bExitRequested = false;
+	bSlideShowFadeStart = false;
 
 	for (int i = 0; i < 4; i++)
 		isAButtonPressed[i] = false;
@@ -72,6 +73,9 @@ ImageViewer::~ImageViewer()
 		delete threadTasks.front();
 		threadTasks.pop();
 	}
+
+	for(int i = 0; i < 4; i++)
+		Application::Instance()->ResetPointer(i);
 
 	if(imageDir)
 		delete imageDir;
@@ -141,6 +145,9 @@ ImageViewer::~ImageViewer()
 	delete slideshowButtonOverImage;
 	Resources::Remove(trashImgData);
 	delete trashImg;
+
+	// allow user input again
+	Application::Instance()->SetGuiInputUpdate(true);
 }
 
 void ImageViewer::ZoomIn()
@@ -296,17 +303,6 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 		//! has to be called here because of the LOCK in the delete queue
 		//! to avoid lock on autodeleting the running file load tasks
 		bExitRequested = true;
-		resumeThread();
-		while(bThreadActive)
-			Application::Instance()->updateEvents();
-
-		SetEffect(EFFECT_FADE, -50);
-
-		for(int i = 0; i < 4; i++)
-			Application::Instance()->ResetPointer(i);
-
-		Application::Instance()->PushForDelete(this);
-		Application::Instance()->SetGuiInputUpdate(true);
 	}
 
 	else if(sender == slideshowButton)
@@ -365,23 +361,24 @@ void ImageViewer::OnButtonClick(GuiButton *sender, int pointer, const POINT &p)
 
 void ImageViewer::executeThread()
 {
-	bThreadActive = true;
-
 	while(!bExitRequested)
 	{
 		if(!threadTasks.empty())
 		{
+			threadMutex.lock();
 			ThreadedTask *tmpTask = threadTasks.front();
 			threadTasks.pop();
+			threadMutex.unlock();
 			tmpTask->Execute();
 		}
 		else
 		{
-			suspendThread();
+			usleep(100000);
 		}
 	}
 
-	bThreadActive = false;
+	SetEffect(EFFECT_FADE, -50);
+	Application::Instance()->PushForDelete(this);
 }
 
 bool ImageViewer::LoadImageList(const char * filepath)
@@ -402,8 +399,9 @@ bool ImageViewer::LoadImageList(const char * filepath)
 
 	imageDir = new DirListAsync(path, Settings.FileExtensions.GetImage(), DirList::Files);
 	imageDir->FinishList.connect(this, &ImageViewer::OnDirListLoaded);
+	threadMutex.lock();
 	threadTasks.push(imageDir);
-	resumeThread();
+	threadMutex.unlock();
 
 	return true;
 }
@@ -445,8 +443,9 @@ bool ImageViewer::LoadImage(int index, bool silent)
 	task->LoadingComplete.connect(this, &ImageViewer::OnFinishedImageLoad);
 	task->SetAutoDelete(true);
 	Taskbar::Instance()->AddTask(task);
+	threadMutex.lock();
 	threadTasks.push(task);
-	resumeThread();
+	threadMutex.unlock();
 
 	return true;
 }
@@ -467,35 +466,11 @@ void ImageViewer::OnFinishedImageLoad(u8 *buffer, u32 buffer_size)
 		return;
 	}
 
-	if(!bExitRequested && SlideShowStart > 0)
-	{
-		image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
-		while(image->GetEffect() > 0)
-			usleep(10000);
-	}
+	// wait for the image to load up if the pointer is in use otherwise it will leak the pointer
+	while(newImageData != NULL)
+		usleep(1000);
 
-	image->SetVisible(false);
-	image->SetImage(newImage);
-
-	//! wait one frame for the new image to be re-rendered before deleting it
-	usleep(30000);
-
-	if (imageData != NULL)
-		delete imageData;
-
-	imageData = newImage;
-
-	//!Set original size first if not over the limits
-	SetStartUpImageSize();
-
-	if(!bExitRequested && SlideShowStart > 0)
-		image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
-
-	//!Substract loading time from timer for slideshow
-	if(SlideShowStart > 0)
-		SlideShowStart = time(0);
-
-	image->SetVisible(true);
+	newImageData = newImage;
 }
 
 void ImageViewer::Setup()
@@ -746,5 +721,37 @@ void ImageViewer::Draw()
 		image->SetAngle(currentAngle - (rotateLeft += 3));
 	}
 
+	if(newImageData)
+	{
+		if(!bExitRequested && SlideShowStart > 0 && !bSlideShowFadeStart && !image->IsAnimated())
+		{
+			image->SetEffect(EFFECT_FADE, -Settings.ImageFadeSpeed);
+			// mark that an effect is started to run
+			bSlideShowFadeStart = true;
+		}
+		else if(!image->IsAnimated())
+		{
+			// mark that the effect has finished and image was changed
+			bSlideShowFadeStart = false;
+
+			image->SetImage(newImageData);
+
+			if (imageData != NULL)
+				delete imageData;
+
+			imageData = newImageData;
+			newImageData = NULL;
+
+			//!Set original size first if not over the limits
+			SetStartUpImageSize();
+
+			if(!bExitRequested && SlideShowStart > 0)
+				image->SetEffect(EFFECT_FADE, Settings.ImageFadeSpeed);
+
+			//!Substract loading time from timer for slideshow
+			if(SlideShowStart > 0)
+				SlideShowStart = time(0);
+		}
+	}
 	GuiFrame::Draw();
 }

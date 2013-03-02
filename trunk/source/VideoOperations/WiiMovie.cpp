@@ -1,30 +1,19 @@
-/***************************************************************************
- * Copyright (C) 2010
- * by Dimok
+/****************************************************************************
+ * Copyright (C) 2009 - 2013 Dimok
  *
- * This software is provided 'as-is', without any express or implied
- * warranty. In no event will the authors be held liable for any
- * damages arising from the use of this software.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Permission is granted to anyone to use this software for any
- * purpose, including commercial applications, and to alter it and
- * redistribute it freely, subject to the following restrictions:
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1. The origin of this software must not be misrepresented; you
- * must not claim that you wrote the original software. If you use
- * this software in a product, an acknowledgment in the product
- * documentation would be appreciated but is not required.
- *
- * 2. Altered source versions must be plainly marked as such, and
- * must not be misrepresented as being the original software.
- *
- * 3. This notice may not be removed or altered from any source
- * distribution.
- *
- * WiiMovie.cpp
- *
- * for WiiXplorer 2010
- ***************************************************************************/
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
 #include <asndlib.h>
 #include <unistd.h>
 #include "Controls/Application.h"
@@ -39,13 +28,14 @@ WiiMovie::WiiMovie(const char * filepath)
 {
 	currentFrame = 0.0f;
 	fps = 0.0f;
+	whichLoad = 0;
 	bDecoding = false;
 	ExitRequested = false;
 	Playing = false;
 	volume = 255*Settings.MusicVolume/100;
 	ReadThread = LWP_THREAD_NULL;
 	DecThread = LWP_THREAD_NULL;
-	ReadDecodeMutex = LWP_MUTEX_NULL;
+	readDecodeMutex = LWP_MUTEX_NULL;
 	ReadStackBuf = DecStackBuf = NULL;
 	FrameBufCount = 0;
 
@@ -99,7 +89,6 @@ WiiMovie::WiiMovie(const char * filepath)
 
 	DecStackBuf = ReadStackBuf + ReadStackBufSize;
 
-	LWP_MutexInit(&ReadDecodeMutex, true);
 	LWP_CreateThread (&ReadThread, UpdateThread, this, ReadStackBuf, ReadStackBufSize, 75);
 	LWP_CreateThread (&DecThread, DecodeThread, this, DecStackBuf, DecStackBufSize, 70);
 }
@@ -121,11 +110,6 @@ WiiMovie::~WiiMovie()
 	{
 		LWP_ResumeThread(DecThread);
 		LWP_JoinThread(DecThread, NULL);
-	}
-	if(ReadDecodeMutex != LWP_MUTEX_NULL)
-	{
-		LWP_MutexUnlock(ReadDecodeMutex);
-		LWP_MutexDestroy(ReadDecodeMutex);
 	}
 
 	for(int i = 0; i < FRAME_BUFFERS; ++i)
@@ -287,36 +271,36 @@ void WiiMovie::ReadNextFrame()
 
 	while(currentFrame < FrameExpected)
 	{
-		LWP_MutexLock(ReadDecodeMutex);
+		readDecodeMutex.lock();
 		Video->loadNextFrame();
-		LWP_MutexUnlock(ReadDecodeMutex);
+		readDecodeMutex.unlock();
 
 		currentFrame += 1.0f;
 
 		if(Video->hasSound())
 		{
-			u32 newWhich = SoundBuffer.Which();
-			int i = 0;
-			for (i = 0; i < SoundBuffer.Size()-2; ++i)
+			// check if we are not at the pre-last buffer (last buffer is playing)
+			if(	(whichLoad == (SoundBuffer.Which()-2))
+				|| ((SoundBuffer.Which() == 0) && (whichLoad == SoundBuffer.Size()-2))
+				|| ((SoundBuffer.Which() == 1) && (whichLoad == SoundBuffer.Size()-1)))
 			{
-				if(!SoundBuffer.IsBufferReady(newWhich))
-					break;
-
-				newWhich = (newWhich+1) % SoundBuffer.Size();
+				return;
 			}
 
-			if(i == SoundBuffer.Size()-2)
-				return;
+			int currentSize = SoundBuffer.GetBufferSize(whichLoad);
 
-			int currentSize = SoundBuffer.GetBufferSize(newWhich);
+			currentSize += Video->getCurrentBuffer((s16 *) (&SoundBuffer.GetBuffer(whichLoad)[currentSize]))*SndChannels*2;
+			SoundBuffer.SetBufferSize(whichLoad, currentSize);
 
-			currentSize += Video->getCurrentBuffer((s16 *) (&SoundBuffer.GetBuffer(newWhich)[currentSize]))*SndChannels*2;
-			SoundBuffer.SetBufferSize(newWhich, currentSize);
+			if(currentSize >= (FRAME_BUFFERS-1) * maxSoundSize)
+			{
+				SoundBuffer.SetBufferReady(whichLoad, true);
 
-			if(currentSize >= (FRAME_BUFFERS-1)*maxSoundSize)
-				SoundBuffer.SetBufferReady(newWhich, true);
+				if(++whichLoad >= SoundBuffer.Size())
+					whichLoad = 0;
+			}
 
-			if(ASND_StatusVoice(0) == SND_UNUSED && SoundBuffer.IsBufferReady())
+			if(SoundBuffer.IsBufferReady() && ASND_StatusVoice(0) == SND_UNUSED)
 			{
 				ASND_StopVoice(0);
 				ASND_SetVoice(0, (SndChannels == 2) ? VOICE_STEREO_16BIT : VOICE_MONO_16BIT, SndFrequence, 0,
@@ -332,9 +316,13 @@ void WiiMovie::DecodeNextFrame()
 	if(!Video || !Playing)
 		return;
 
-	LWP_MutexLock(ReadDecodeMutex);
-	Video->getCurrentFrame(VideoF);
-	LWP_MutexUnlock(ReadDecodeMutex);
+	std::vector<u8> frameBuffer;
+
+	readDecodeMutex.lock();
+	Video->copyCurrentFrame(frameBuffer);
+	readDecodeMutex.unlock();
+
+	Video->decodeVideoFrame(VideoF, frameBuffer);
 
 	if(!VideoF.getData())
 		return;
@@ -348,9 +336,12 @@ void WiiMovie::DecodeNextFrame()
 		height = VideoF.getHeight();
 		SetFullscreen();
 		//! release buffer as we might need more now
-		if(FrameBuf[FrameBufCount])
-			free(FrameBuf[FrameBufCount]);
-		FrameBuf[FrameBufCount] = NULL;
+		for(int i = 0; i < FRAME_BUFFERS; ++i)
+		{
+			if(FrameBuf[i])
+				free(FrameBuf[i]);
+			FrameBuf[i] = NULL;
+		}
 	}
 
 	if(!FrameBuf[FrameBufCount])
@@ -381,8 +372,8 @@ void WiiMovie::Draw()
 		{
 			u8 *tmp = FrameBuf[0];
 
-			for(int i = 0; i < FrameBufCount; ++i)
-				FrameBuf[i] = FrameBuf[i+1];
+			for(int i = 1; i < FrameBufCount; ++i)
+				FrameBuf[i-1] = FrameBuf[i];
 
 			//! set first on the last position to avoid unnecessary deallocate
 			FrameBuf[FrameBufCount-1] = tmp;

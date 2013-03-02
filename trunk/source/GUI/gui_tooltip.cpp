@@ -121,7 +121,7 @@ void GuiTooltip::Draw()
 		timer.reset();
 	}
 	else if(   !bIsHidden
-		     && (parentElement->GetState() != STATE_SELECTED))
+			&& (parentElement->GetState() != STATE_SELECTED))
 	{
 		SetEffect(EFFECT_FADE, -50);
 		bIsHidden = true;
