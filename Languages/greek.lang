@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 20:38+0100\n"
+"POT-Creation-Date: 2013-03-02 22:21+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -927,6 +927,9 @@ msgstr "Γλώσσα"
 
 msgid "Language Files"
 msgstr "Αρχεία γλωσσών"
+
+msgid "Language Path"
+msgstr ""
 
 msgid "Language Settings"
 msgstr "Ρυθμίσεις Γλώσσας"

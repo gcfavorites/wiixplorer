@@ -17,11 +17,18 @@
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
 
+bool GuiKeyboard::bInitUSBKeyboard = true;
+
 /**
  * Constructor for the GuiKeyboardAlone class.
  */
 GuiKeyboard::GuiKeyboard(void)
 {
+	if(bInitUSBKeyboard) {
+		bInitUSBKeyboard = false;
+		KEYBOARD_Init(0);
+	}
+
 	width = 14*42+40;
 	height = 5*42+80;
 	shift = false;
@@ -31,6 +38,7 @@ GuiKeyboard::GuiKeyboard(void)
 	selectable = true;
 	ShiftChan = -1;
 	DeleteDelay = 0;
+	memset(&keyboardEvent, 0, sizeof(keyboardEvent));
 
 	memset(keys, 0, sizeof(keys));
 
@@ -348,6 +356,43 @@ void GuiKeyboard::Update(GuiTrigger * t)
 	GuiFrame::Update(t);
 
 	++DeleteDelay;
+
+	if(t->chan == 0) {
+		// Update only once every frame (50-60 times per second)
+		bool bKeyChangeEvent = (KEYBOARD_GetEvent(&keyboardEvent) == 1);
+		if(bKeyChangeEvent) {
+			if(keyboardEvent.type == KEYBOARD_PRESSED) {
+				keyHeldDelay.reset();
+			}
+			else {
+				// key released -> reset symbol
+				keyboardEvent.symbol = 0;
+			}
+		}
+		
+		// if the key was not released it -> add it again as "new" event
+		if(	   (keyboardEvent.symbol != 0)
+			&& (   bKeyChangeEvent
+				|| (keyHeldDelay.elapsedMilliSecs() > 500 && DeleteDelay > Settings.KeyboardDeleteDelay)))	// delay hold key
+		{
+			wchar_t charCode = 0;
+			if(((keyboardEvent.symbol >> 8) == 0xF2) && (keyboardEvent.symbol & 0xFF) < 0x80) {
+				// this is usually a numpad
+				charCode = keyboardEvent.symbol & 0xFF;
+			}
+			else if(  (keyboardEvent.symbol < 0xD800)										// this is usually a normal character
+					|| (keyboardEvent.symbol >= 62102 && keyboardEvent.symbol <= 62105)		// up/down/left/right numpad
+					|| (keyboardEvent.symbol >= 62340 && keyboardEvent.symbol <= 62343))	// up/down/left/right arrows
+			{
+				charCode = keyboardEvent.symbol;
+			}
+
+			if(charCode != 0) {
+				keyPressed(charCode);
+				DeleteDelay = 0;
+			}
+		}
+	}
 
 	if(((t->wpad.btns_h & WiiControls.KeyBackspaceButton) ||
 		(t->wpad.btns_h & (ClassicControls.KeyBackspaceButton << 16)) ||

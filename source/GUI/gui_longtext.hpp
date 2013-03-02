@@ -49,7 +49,7 @@ class GuiLongText : public GuiText
 		//!Refresh the rows to draw
 		int GetCurrPos() { return curLineStart; };
 		//!Get  the count of loaded lines
-		int GetLinesCount() { return LIMIT(0, linestodraw,(int)(TextLines.size() - curLineStart)); };
+		int GetLinesCount() { return LIMIT(linestodraw,0,(int)(TextLines.size() - curLineStart)); };
 		//!Get the total count of lines
 		int GetTotalLinesCount() { return TextLines.size(); };
 		//!Get the maximum width of a line in the text
