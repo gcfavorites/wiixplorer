@@ -290,10 +290,79 @@ void TextEditor::OnKeyboardEffectFinished(GuiElement *e UNUSED)
 
 void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 {
-	FileEdited = true;
+	//! for usb keyboard switch '\r' to '\n'
+	if(charCode == L'\r')
+		charCode = L'\n';
 
-	if(charCode == 0x08)
+	// control character UP
+	if(charCode == 62340 || charCode == 62103)
 	{
+		if(TextPointerBtn->GetCurrentLine() == 0) {
+			scrollbar->ScrollOneUp();
+			scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+		}
+		else
+			TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()-1);
+		// update GUI positions
+		TextPointerBtn->Refresh();
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character DOWN
+	else if(charCode == 62341 || charCode == 62105)
+	{
+		if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw) {
+			scrollbar->ScrollOneDown();
+			scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+		}
+		else if(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine() + 1 < MainFileTxt->GetTotalLinesCount())
+			TextPointerBtn->SetCurrentLine(TextPointerBtn->GetCurrentLine()+1);
+		// update GUI positions
+		TextPointerBtn->Refresh();
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character LEFT
+	else if(charCode == 62342 || charCode == 62102)
+	{
+		// update GUI positions
+		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()-1);
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character RIGHT
+	else if(charCode == 62343 || charCode == 62104)
+	{
+		// update GUI positions
+		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()+1);
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character DELETE
+	else if(charCode == 0x7F)
+	{
+		FileEdited = true;
+
+		int letter = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine()) + TextPointerBtn->GetCurrentLetter();
+		if(letter >= 0)
+		{
+			MainFileTxt->RemoveText(letter, 1);
+
+			// check if the maximum width is changed
+			int line = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine());
+			MainFileTxt->CheckMaxLineWidth(line);
+		}
+	}
+
+	// control character BACKSPACE
+	else if(charCode == 0x08)
+	{
+		FileEdited = true;
+
 		int letter = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine()) + TextPointerBtn->GetCurrentLetter()-1;
 		if(letter >= 0)
 		{
@@ -330,6 +399,8 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 	}
 	else
 	{
+		FileEdited = true;
+
 		int letter = MainFileTxt->GetLineOffset(MainFileTxt->GetCurrPos() + TextPointerBtn->GetCurrentLine()) + TextPointerBtn->GetCurrentLetter();
 
 		MainFileTxt->AddChar(letter, charCode);

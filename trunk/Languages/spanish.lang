@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 20:38+0100\n"
+"POT-Creation-Date: 2013-03-02 22:21+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: PabloACZ\n"
 "Language-Team: Spanish\n"
@@ -926,6 +926,9 @@ msgstr "Idioma"
 
 msgid "Language Files"
 msgstr "Archivos de idioma"
+
+msgid "Language Path"
+msgstr ""
 
 msgid "Language Settings"
 msgstr "Configuración de idioma"

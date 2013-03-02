@@ -40,6 +40,7 @@ void PathSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Apps Path"));
 	options.SetName(i++, tr("WiiMC Path"));
 	options.SetName(i++, tr("MPlayerCE Path"));
+	options.SetName(i++, tr("Language Path"));
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Screenshot Path"));
 	options.SetName(i++, tr("Temporary Path"));
@@ -60,6 +61,8 @@ void PathSettingsMenu::SetOptionValues()
 	options.SetValue(i++, "%s", Settings.WiiMCPath);
 
 	options.SetValue(i++, "%s", Settings.MPlayerPath);
+
+	options.SetValue(i++, "%s", Settings.LanguagePath);
 
 	options.SetValue(i++, "%s", Settings.CustomFontPath);
 
@@ -92,18 +95,21 @@ void PathSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			ChangePath(Settings.MPlayerPath, sizeof(Settings.MPlayerPath));
 			break;
 		case 4:
-			ChangePath(Settings.CustomFontPath, sizeof(Settings.CustomFontPath));
+			ChangePath(Settings.LanguagePath, sizeof(Settings.LanguagePath));
 			break;
 		case 5:
-			ChangePath(Settings.ScreenshotPath, sizeof(Settings.ScreenshotPath));
+			ChangePath(Settings.CustomFontPath, sizeof(Settings.CustomFontPath));
 			break;
 		case 6:
-			ChangePath(Settings.TempPath, sizeof(Settings.TempPath));
+			ChangePath(Settings.ScreenshotPath, sizeof(Settings.ScreenshotPath));
 			break;
 		case 7:
-			ChangePath(Settings.LinkListPath, sizeof(Settings.LinkListPath));
+			ChangePath(Settings.TempPath, sizeof(Settings.TempPath));
 			break;
 		case 8:
+			ChangePath(Settings.LinkListPath, sizeof(Settings.LinkListPath));
+			break;
+		case 9:
 			Settings.DeleteTempPath = (Settings.DeleteTempPath+1) % 2;
 			break;
 		default:

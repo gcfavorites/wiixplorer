@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2009-2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@
 #include "Tools/tools.h"
 #include "Tools/encrypt.h"
 
-#define DEFAULT_APP_PATH	"apps/WiiExplorer/"
-#define CONFIGPATH			"config/WiiXplorer/"
+#define DEFAULT_APP_PATH	"apps/WiiXplorer/"
+#define CONFIGPATH			DEFAULT_APP_PATH
 #define CONFIGNAME			"WiiXplorer.cfg"
-#define LANGPATH			"config/WiiXplorer/Languages/"
+#define LANGPATH			"Languages/"
 
 CSettings Settings;
 
@@ -79,12 +79,12 @@ void CSettings::SetDefault()
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
 	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
-	sprintf(LanguagePath, "%s%s", BootDevice, LANGPATH);
+	sprintf(LanguagePath, "%s%s%s", BootDevice, DEFAULT_APP_PATH, LANGPATH);
 	sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
 	sprintf(AppPath, "%sapps/", BootDevice);
-	sprintf(TempPath, "%s/Temp/", UpdatePath);
+	sprintf(TempPath, "%sTemp/", UpdatePath);
 	sprintf(ScreenshotPath, "%s", UpdatePath);
-	sprintf(LinkListPath, "%s/URL_List.xml", UpdatePath);
+	sprintf(LinkListPath, "%sURL_List.xml", UpdatePath);
 	strcpy(MusicPath, "");
 	sprintf(MPlayerPath, "%sapps/mplayer_ce/boot.dol", BootDevice);
 	sprintf(WiiMCPath, "%sapps/wiimc/boot.dol", BootDevice);

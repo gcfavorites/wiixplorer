@@ -35,7 +35,6 @@ WiiMovie::WiiMovie(const char * filepath)
 	volume = 255*Settings.MusicVolume/100;
 	ReadThread = LWP_THREAD_NULL;
 	DecThread = LWP_THREAD_NULL;
-	readDecodeMutex = LWP_MUTEX_NULL;
 	ReadStackBuf = DecStackBuf = NULL;
 	FrameBufCount = 0;
 
