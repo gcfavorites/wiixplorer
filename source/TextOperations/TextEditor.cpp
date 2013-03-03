@@ -468,7 +468,12 @@ void TextEditor::Update(GuiTrigger * t)
 	keyboard->Update(t);
 
 	scrollbar->SetEntrieCount(MainFileTxt->GetTotalLinesCount());
-	horScrollbar->SetEntrieCount((MainFileTxt->GetMaxLineWidth() - displayLineWidth + 30) >> 4);
+
+	int maxLineWidth = (MainFileTxt->GetMaxLineWidth() - displayLineWidth + 30);
+	if(maxLineWidth < 0)
+		maxLineWidth = 0;
+
+	horScrollbar->SetEntrieCount(maxLineWidth >> 4);
 }
 
 void TextEditor::OnFinishedFileLoad(u8 *buffer, u32 bufferSize)

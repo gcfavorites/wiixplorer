@@ -20,12 +20,10 @@
 #include "ArchiveStruct.h"
 
 extern "C" {
-#include <sevenzip/7zCrc.h>
+#include <sevenzip/7z.h>
 #include <sevenzip/7zFile.h>
-#include <sevenzip/7zIn.h>
-#include <sevenzip/7zExtract.h>
 #include <sevenzip/7zAlloc.h>
-#include <sevenzip/7zHeader.h>
+#include <sevenzip/7zCrc.h>
 }
 
 class SzFile
@@ -47,6 +45,7 @@ class SzFile
 		u32 GetItemCount();
 
 	private:
+		char *GetUtf8Filename(int ind);
 		void DisplayError(SRes res);
 
 		ArchiveFileStruct CurArcFile;

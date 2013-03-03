@@ -430,6 +430,12 @@ static off_t _ISFS_seek_r(struct _reent *r, int fd, off_t pos, int dir) {
 		return -1;
 	}
 
+	// seems to fail on SEEK_END -> add exception for the common case of getting file size
+	if(dir == SEEK_END && pos == 0) {
+		dir = SEEK_SET;
+		pos = file->size;
+	}
+
 	s32 ret = ISFS_Seek(file->fd, pos, dir);
 	if (ret < 0) {
 		r->_errno = -ret;

@@ -46,7 +46,7 @@ extern "C" {
 		typeof( x ) _x = x;																	\
 		typeof( min ) _min = min;															\
 		typeof( max ) _max = max;															\
-		( ( ( _x ) < ( _min ) ) ? ( _min ) : ( ( _x ) > ( _max ) ) ? ( _max) : ( _x ) );	\
+		( ( ( _x ) < ( _min ) ) ? ( _min ) : ( ( _x ) > ( _max ) ) ? (( _min ) > ( _max ) ? ( _min ) : ( _max )) : ( _x ) );	\
 	})
 
 #define ALIGN(x) (((x) + 3) & ~3)
