@@ -17,17 +17,14 @@
 #include "gui_keyboard.h"
 #include "Memory/Resources.h"
 
-bool GuiKeyboard::bInitUSBKeyboard = true;
-
 /**
  * Constructor for the GuiKeyboardAlone class.
  */
 GuiKeyboard::GuiKeyboard(void)
 {
-	if(bInitUSBKeyboard) {
-		bInitUSBKeyboard = false;
-		KEYBOARD_Init(0);
-	}
+	//! Start the external keyboard scan thread
+	ExternalKeyboard::Instance()->ResumeScanThread();
+	ExternalKeyboard::Instance()->clearQueue();
 
 	width = 14*42+40;
 	height = 5*42+80;
@@ -209,6 +206,9 @@ GuiKeyboard::GuiKeyboard(void)
  */
 GuiKeyboard::~GuiKeyboard()
 {
+	//! Stop the external keyboard scan thread
+	ExternalKeyboard::Instance()->SuspendScanThread();
+
 	delete keyCapsText;
 	delete keyCapsImg;
 	delete keyCapsOverImg;
@@ -264,7 +264,6 @@ void GuiKeyboard::SwitchKeyLanguage()
 
 	memset(keys, 0, sizeof(keys));
 
-	gprintf("Test %i\n", DefaultKeys);
 	if(DefaultKeys)
 	{
 		wcsncpy(keys[0].ch,		L"`1234567890-=", MAXKEYS);
@@ -359,7 +358,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 
 	if(t->chan == 0) {
 		// Update only once every frame (50-60 times per second)
-		bool bKeyChangeEvent = (KEYBOARD_GetEvent(&keyboardEvent) == 1);
+		bool bKeyChangeEvent = ExternalKeyboard::Instance()->getEvent(keyboardEvent);
 		if(bKeyChangeEvent) {
 			if(keyboardEvent.type == KEYBOARD_PRESSED) {
 				keyHeldDelay.reset();
@@ -375,18 +374,7 @@ void GuiKeyboard::Update(GuiTrigger * t)
 			&& (   bKeyChangeEvent
 				|| (keyHeldDelay.elapsedMilliSecs() > 500 && DeleteDelay > Settings.KeyboardDeleteDelay)))	// delay hold key
 		{
-			wchar_t charCode = 0;
-			if(((keyboardEvent.symbol >> 8) == 0xF2) && (keyboardEvent.symbol & 0xFF) < 0x80) {
-				// this is usually a numpad
-				charCode = keyboardEvent.symbol & 0xFF;
-			}
-			else if(  (keyboardEvent.symbol < 0xD800)										// this is usually a normal character
-					|| (keyboardEvent.symbol >= 62102 && keyboardEvent.symbol <= 62105)		// up/down/left/right numpad
-					|| (keyboardEvent.symbol >= 62340 && keyboardEvent.symbol <= 62343))	// up/down/left/right arrows
-			{
-				charCode = keyboardEvent.symbol;
-			}
-
+			wchar_t charCode = keyboardEvent.symbol;
 			if(charCode != 0) {
 				keyPressed(charCode);
 				DeleteDelay = 0;

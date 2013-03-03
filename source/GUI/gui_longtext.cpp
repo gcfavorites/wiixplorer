@@ -138,6 +138,16 @@ bool GuiLongText::AddChar(int iPos, wchar_t charCode)
 		++n;
 	}
 
+	// append a character
+	if(iPos == n)
+	{
+		if(charCode == '\n')
+			TextLines.push_back(n+1);
+
+		newText[n] = charCode;
+		n++;
+	}
+
 	newText[n] = 0;
 
 	wchar_t *tmp = text;

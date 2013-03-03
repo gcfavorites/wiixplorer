@@ -96,17 +96,17 @@ char *SzFile::GetUtf8Filename(int ind)
 		if(!utf16Name)
 			return NULL;
 
-        SzArEx_GetFileNameUtf16(&SzArchiveDb, ind, utf16Name);
+		SzArEx_GetFileNameUtf16(&SzArchiveDb, ind, utf16Name);
 
-        wString wName;
-        wName.reserve(len);
+		wString wName;
+		wName.reserve(len);
 
-        for(int i = 0; i < len; i++)
-        	wName.push_back(utf16Name[i]);
+		for(int i = 0; i < len; i++)
+			wName.push_back(utf16Name[i]);
 
-        SzFree(NULL, utf16Name);
+		SzFree(NULL, utf16Name);
 
-        filename = strdup(wName.toUTF8().c_str());
+		filename = strdup(wName.toUTF8().c_str());
 	}
 
 	return filename;

@@ -17,6 +17,7 @@
 #include <time.h>
 #include "Taskbar.h"
 #include "Controls/Application.h"
+#include "Controls/ExternalKeyboard.h"
 #include "Memory/Resources.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
@@ -29,6 +30,7 @@
 #include "Launcher/Channels.h"
 #include "Launcher/OperaBooter.hpp"
 #include "network/networkops.h"
+#include "SoundOperations/SoundHandler.hpp"
 #include "SoundOperations/MusicPlayer.h"
 #include "input.h"
 #include "sys.h"
@@ -300,7 +302,10 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	{
 		if (WindowPrompt(tr("Do you want to remount all devices?"), 0, tr("Yes"), tr("Cancel")))
 		{
+			//! remount closes the USB handle and so we need to stop the external usb keyboard
+			ExternalKeyboard::DestroyInstance();
 			RemountTask *mountTask = new RemountTask(tr("Remounting all devices."), MAXDEVICES);
+			mountTask->SetAutoDelete(true);
 			this->AddTask(mountTask);
 			ThreadedTaskHandler::Instance()->AddTask(mountTask);
 		}

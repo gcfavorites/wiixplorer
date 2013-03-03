@@ -188,12 +188,10 @@ const wchar_t * KeyboardWindow::GetString()
 
 void KeyboardWindow::AddChar(int pos, wchar_t Char)
 {
-	if(pos < 0)
+	if(pos < 0 || pos > (int) kbtextstr.size())
 		return;
 
 	kbtextstr.insert(pos, 1, Char);
-
-	MoveText(1);
 }
 
 void KeyboardWindow::RemoveChar(int pos)
@@ -202,29 +200,17 @@ void KeyboardWindow::RemoveChar(int pos)
 		return;
 
 	kbtextstr.erase(pos, 1);
-	MoveText(-1);
 }
 
 void KeyboardWindow::MoveText(int n)
 {
-	int strlength = kbtextstr.size();
+	POINT p = { 0, 0 };
+	GuiButton *b = (n < 0) ? GoLeft : GoRight;
 
-	if(strlength > MAX_KEYBOARD_DISPLAY)
-	{
-		CurrentFirstLetter += n;
-		if(CurrentFirstLetter < 0)
-			CurrentFirstLetter = 0;
-	}
-	else
-		CurrentFirstLetter = 0;
+	n = labs(n);
 
-	kbText->SetText(GetDisplayText());
-	TextPointerBtn->UpdateWidth();
-
-	if(strlength > MAX_KEYBOARD_DISPLAY-2)
-		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter());
-	else
-		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()+n);
+	for(int i = 0; i < n; i++)
+		OnPositionMoved(b, 0, p);
 }
 
 void KeyboardWindow::OnPointerHeld(GuiButton *sender UNUSED, int pointer, const POINT &p)
@@ -247,6 +233,12 @@ void KeyboardWindow::OnPositionMoved(GuiButton *sender, int pointer UNUSED, cons
 			if(CurrentFirstLetter < 0)
 				CurrentFirstLetter = 0;
 		}
+
+		if(kbtextstr.length() < MAX_KEYBOARD_DISPLAY) {
+			currentPointLetter += CurrentFirstLetter;
+			CurrentFirstLetter = 0;
+		}
+
 		kbText->SetText(GetDisplayText());
 		TextPointerBtn->UpdateWidth();
 		TextPointerBtn->SetLetterPosition(currentPointLetter);
@@ -256,13 +248,19 @@ void KeyboardWindow::OnPositionMoved(GuiButton *sender, int pointer UNUSED, cons
 		int currentPointLetter = TextPointerBtn->GetCurrentLetter();
 		currentPointLetter++;
 		int strlength = kbtextstr.length();
-		if(currentPointLetter > (MAX_KEYBOARD_DISPLAY-1) || currentPointLetter > strlength)
+
+		if(currentPointLetter > strlength) {
+			currentPointLetter = strlength;
+		}
+		else if(currentPointLetter > (MAX_KEYBOARD_DISPLAY-1))
 		{
 			currentPointLetter--;
 			CurrentFirstLetter++;
+
 			if(CurrentFirstLetter > (strlength-MAX_KEYBOARD_DISPLAY+1))
 				CurrentFirstLetter = strlength-MAX_KEYBOARD_DISPLAY+1;
 		}
+
 		kbText->SetText(GetDisplayText());
 		TextPointerBtn->UpdateWidth();
 		TextPointerBtn->SetLetterPosition(currentPointLetter);
@@ -283,13 +281,74 @@ void KeyboardWindow::OnClearKeyPress(GuiButton *sender, int pointer UNUSED, cons
 
 void KeyboardWindow::OnKeyPress(wchar_t charCode)
 {
-	if(charCode == 0x08)
+	//! for usb keyboard switch '\r' to '\n'
+	if(charCode == L'\r')
+		charCode = L'\n';
+
+	else if(((charCode >> 8) == 0xF2) && (charCode & 0xFF) < 0x80) {
+		// this is usually a numpad
+		charCode = charCode & 0xFF;
+	}
+	else if(charCode == KS_Left || charCode == KS_KP_Left) {
+		//! control character LEFT
+		POINT p = { 0, 0 };
+		OnPositionMoved(GoLeft, 0, p);
+	}
+	else if(charCode == KS_Right || charCode == KS_KP_Right) {
+		//! control character RIGHT
+		POINT p = { 0, 0 };
+		OnPositionMoved(GoRight, 0, p);
+	}
+	else if(charCode == KS_Home || charCode == KS_KP_Home) {
+		//! control character HOME
+		CurrentFirstLetter = 0;
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(0);
+	}
+	else if(charCode == KS_End || charCode == KS_KP_End) {
+		//! control character END
+		CurrentFirstLetter = kbtextstr.length()-MAX_KEYBOARD_DISPLAY+1;
+		if(CurrentFirstLetter < 0)
+			CurrentFirstLetter = 0;
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(0xFFFF);
+	}
+	else if(charCode >= 0xD800) {
+		//! skip unknown characters
+		return;
+	}
+	else if(charCode == 0x08)
 	{
 		RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter()-1);
+		MoveText(-1);
+		// show what we are deleting
+		int currentPointLetter = TextPointerBtn->GetCurrentLetter();
+		while(CurrentFirstLetter > 0 && currentPointLetter < 5) {
+			CurrentFirstLetter--;
+			currentPointLetter++;
+		}
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(currentPointLetter);
+	}
+	else if(charCode == 0x7F)
+	{
+		RemoveChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter());
+		int currentPointLetter = TextPointerBtn->GetCurrentLetter();
+		if(kbtextstr.length() < MAX_KEYBOARD_DISPLAY) {
+			currentPointLetter += CurrentFirstLetter;
+			CurrentFirstLetter = 0;
+		}
+		kbText->SetText(GetDisplayText());
+		TextPointerBtn->UpdateWidth();
+		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter());
 	}
 	else if(kbtextstr.length() < kbtextmaxlen)
 	{
 		AddChar(CurrentFirstLetter+TextPointerBtn->GetCurrentLetter(), charCode);
+		MoveText(1);
 	}
 }
 
@@ -302,9 +361,10 @@ const wchar_t * KeyboardWindow::GetDisplayText()
 
 	int n = 0;
 	int startPos = CurrentFirstLetter;
-	int endPos = startPos+MAX_KEYBOARD_DISPLAY;
+	if(startPos < 0)
+		startPos = 0;
 
-	for(int i = startPos; i < endPos && i < len; ++i)
+	for(int i = startPos; n < (MAX_KEYBOARD_DISPLAY - 1) && i < len; ++i)
 	{
 		displayTxt[n] = kbtextstr.at(i);
 		++n;

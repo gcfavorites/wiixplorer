@@ -27,6 +27,7 @@
 #define PLAYLIST_HPP_
 
 #include <vector>
+#include <string>
 #include "GUI/gui_frame.h"
 #include "Controls/Scrollbar.hpp"
 
@@ -39,7 +40,7 @@ class PlayList : public GuiFrame, public sigslot::has_slots<>
 		const char * operator[](int pos) { return at(pos); }
 		int size() { return FileList.size(); }
 		bool ParsePath(const char * filepath);
-		void AddEntrie(const char * filepath);
+		void AddEntrie(const std::string &filepath);
 		void RemoveEntrie(int pos);
 		void ClearList();
 		void Show();
@@ -64,7 +65,7 @@ class PlayList : public GuiFrame, public sigslot::has_slots<>
 		bool Minimized;
 		bool listChanged;
 
-		std::vector<char *> FileList;
+		std::vector<std::string> FileList;
 
 		//!Gui stuff
 

@@ -294,8 +294,22 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 	if(charCode == L'\r')
 		charCode = L'\n';
 
+	else if(((charCode >> 8) == 0xF2) && (charCode & 0xFF) < 0x80) {
+		// this is usually a numpad
+		charCode = charCode & 0xFF;
+	}
+	else if(  (charCode >= 0xD800)									// this is usually a normal character
+			&& !(charCode >= KS_KP_Left && charCode <= KS_KP_Down)	// up/down/left/right numpad
+			&& !(charCode >= KS_Up && charCode <= KS_Right)			// up/down/left/right arrows
+			&& (charCode != KS_Home && charCode != KS_End)			// HOME / END
+			&& (charCode != KS_Prior && charCode != KS_Next))		// PAGE UP / PAGE DOWN
+	{
+		//! skip unknown characters
+		return;
+	}
+
 	// control character UP
-	if(charCode == 62340 || charCode == 62103)
+	if(charCode == KS_Up || charCode == KS_KP_Up)
 	{
 		if(TextPointerBtn->GetCurrentLine() == 0) {
 			scrollbar->ScrollOneUp();
@@ -310,7 +324,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 	}
 
 	// control character DOWN
-	else if(charCode == 62341 || charCode == 62105)
+	else if(charCode == KS_Down || charCode == KS_KP_Down)
 	{
 		if(TextPointerBtn->GetCurrentLine() + 1 >= linestodraw) {
 			scrollbar->ScrollOneDown();
@@ -325,7 +339,7 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 	}
 
 	// control character LEFT
-	else if(charCode == 62342 || charCode == 62102)
+	else if(charCode == KS_Left || charCode == KS_KP_Left)
 	{
 		// update GUI positions
 		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()-1);
@@ -334,10 +348,50 @@ void TextEditor::OnKeyboardKeyPressed(wchar_t charCode)
 	}
 
 	// control character RIGHT
-	else if(charCode == 62343 || charCode == 62104)
+	else if(charCode == KS_Right || charCode == KS_KP_Right)
 	{
 		// update GUI positions
 		TextPointerBtn->SetLetterPosition(TextPointerBtn->GetCurrentLetter()+1);
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character PAGE UP
+	else if(charCode == KS_Prior) {
+
+		for(int i = 0; i < linestodraw; i++)
+			scrollbar->ScrollOneUp();
+		scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+		// update GUI positions
+		TextPointerBtn->Refresh();
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character PAGE DOWN
+	else if(charCode == KS_Next) {
+
+		for(int i = 0; i < linestodraw; i++)
+			scrollbar->ScrollOneDown();
+		scrollbar->listChanged(scrollbar->GetSelectedItem(), scrollbar->GetSelectedIndex());
+		// update GUI positions
+		TextPointerBtn->Refresh();
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character HOME
+	else if(charCode == KS_Home) {
+		// update GUI positions
+		TextPointerBtn->SetLetterPosition(0);
+		if(!TextPointerBtn->IsPointerVisible())
+			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
+	}
+
+	// control character END
+	else if(charCode == KS_End) {
+		// update GUI positions
+		TextPointerBtn->SetLetterPosition(0xFFFF);
 		if(!TextPointerBtn->IsPointerVisible())
 			horScrollbar->SetSelectedItem((textStartWidth + TextPointerBtn->GetPointerPosX() - width/2) >> 4);
 	}

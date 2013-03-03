@@ -23,7 +23,7 @@
 #include "gui_image.h"
 #include "TextOperations/TextPointer.h"
 #include "TextOperations/wstring.hpp"
-#include <wiikeyboard/keyboard.h>
+#include "Controls/ExternalKeyboard.h"
 
 #define MAXKEYS					14
 #define MAXROWS					4
@@ -47,8 +47,6 @@ class GuiKeyboard : public GuiFrame, public sigslot::has_slots<>
 			wchar_t ch[MAXKEYS];
 			wchar_t chShift[MAXKEYS];
 		} KeyboardRow;
-
-		static bool bInitUSBKeyboard;
 
 		int DeleteDelay;
 		Timer keyHeldDelay;
