@@ -16,10 +16,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 BUILD		:=	build
 SOURCES		:=	source
-INCLUDES	:=	7zCrc.h 7zFile.h 7zIn.h 7zExtract.h \
-				7zAlloc.h 7zHeader.h Types.h 7zItem.h \
-				7zBuf.h 7zDecode.h 7zVersion.h Bcj2.h Bra.h \
-				CpuArch.h LzmaDec.h
+INCLUDES	:=	7z.h 7zBuf.h Types.h 7zFile.h 7zAlloc.h 7zCrc.h
 LIBTARGET	:=	libsevenzip.a
 
 #---------------------------------------------------------------------------------
@@ -31,7 +28,7 @@ HDRINSTALL	:=	$(PORTLIBS)/include/sevenzip
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-O2 -Wall -Wno-unused $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ
+CFLAGS		=	-O2 -Wall -Wno-unused $(MACHDEP) $(INCLUDE) -DHAVE_LIBZ -D_7ZIP_ST -D__BIG_ENDIAN__
 CXXFLAGS	=	$(CFLAGS)
 ASFLAGS		:=	-g
 
