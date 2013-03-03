@@ -98,9 +98,10 @@ void SoundDecoder::Decode()
 		return;
 
 	// check if we are not at the pre-last buffer (last buffer is playing)
-	if(	(whichLoad == (SoundBuffer.Which()-2))
-		|| ((SoundBuffer.Which() == 0) && (whichLoad == SoundBuffer.Size()-2))
-		|| ((SoundBuffer.Which() == 1) && (whichLoad == SoundBuffer.Size()-1)))
+	u16 whichPlaying = SoundBuffer.Which();
+	if(	   (whichLoad == (whichPlaying-2))
+		|| ((whichPlaying == 0) && (whichLoad == SoundBuffer.Size()-2))
+		|| ((whichPlaying == 1) && (whichLoad == SoundBuffer.Size()-1)))
 	{
 		return;
 	}
