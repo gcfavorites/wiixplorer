@@ -21,6 +21,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "FileOperations/fileops.h"
+#include "TextOperations/wstring.hpp"
 #include "7ZipFile.h"
 
 // 7zip error list
@@ -39,6 +40,8 @@ static const char * szerrormsg[10] = {
 
 SzFile::SzFile(const char *filepath)
 {
+	memset(&CurArcFile, 0, sizeof(CurArcFile));
+
 	if(InFile_Open(&archiveStream.file, filepath))
 	{
 		SzResult = 9;
@@ -63,8 +66,6 @@ SzFile::SzFile(const char *filepath)
 
 	// open the archive
 	SzResult = SzArEx_Open(&SzArchiveDb, &lookStream.s, &SzAllocImp, &SzAllocTempImp);
-
-
 	if (SzResult != SZ_OK)
 	{
 		DisplayError(SzResult);
@@ -76,6 +77,39 @@ SzFile::~SzFile()
 	SzArEx_Free(&SzArchiveDb, &SzAllocImp);
 
 	File_Close(&archiveStream.file);
+
+	if(CurArcFile.filename != NULL)
+		free(CurArcFile.filename);
+}
+
+char *SzFile::GetUtf8Filename(int ind)
+{
+	if(ind > (int) SzArchiveDb.db.NumFiles || ind < 0)
+		return NULL;
+
+	char *filename = NULL;
+
+	int len = SzArEx_GetFileNameUtf16(&SzArchiveDb, ind, 0);
+	if (len != 0)
+	{
+		UInt16 *utf16Name = (UInt16 *)SzAlloc(NULL, len * sizeof(UInt16));
+		if(!utf16Name)
+			return NULL;
+
+        SzArEx_GetFileNameUtf16(&SzArchiveDb, ind, utf16Name);
+
+        wString wName;
+        wName.reserve(len);
+
+        for(int i = 0; i < len; i++)
+        	wName.push_back(utf16Name[i]);
+
+        SzFree(NULL, utf16Name);
+
+        filename = strdup(wName.toUTF8().c_str());
+	}
+
+	return filename;
 }
 
 bool SzFile::Is7ZipFile (const char *buffer)
@@ -94,9 +128,13 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 	if(ind > (int) SzArchiveDb.db.NumFiles || ind < 0)
 		return NULL;
 
-	CSzFileItem * SzFileItem = SzArchiveDb.db.Files + ind;
+	char *filename = GetUtf8Filename(ind);
 
-	CurArcFile.filename = SzFileItem->Name;
+	if(CurArcFile.filename != NULL)
+		free(CurArcFile.filename);
+
+	const CSzFileItem * SzFileItem = SzArchiveDb.db.Files + ind;
+	CurArcFile.filename = filename ? filename : strdup("");
 	CurArcFile.length = SzFileItem->Size;
 	CurArcFile.comp_length = 0;
 	CurArcFile.isdir = SzFileItem->IsDir;
@@ -112,7 +150,8 @@ ArchiveFileStruct * SzFile::GetFileStruct(int ind)
 
 void SzFile::DisplayError(SRes res)
 {
-	ThrowMsg(tr("7z decompression failed:"), szerrormsg[(res - 1)]);
+	const char *cpErrString = (res > 0 && res) < 10 ? szerrormsg[(res - 1)] : "";
+	ThrowMsg(tr("7z decompression failed:"), "%s %i: %s", tr("Error"), res, cpErrString);
 }
 
 u32 SzFile::GetItemCount()
@@ -169,10 +208,10 @@ int SzFile::ExtractFile(int fileindex, const char * outpath, bool withpath)
 	ShowProgress(0, CurArcFile.length, (RealFilename ? RealFilename+1 : CurArcFile.filename));
 
 	// Extract
-	SzResult = SzAr_Extract(&SzArchiveDb, &lookStream.s, fileindex,
-							&SzBlockIndex, &outBuffer, &outBufferSize,
-							&SzOffset, &SzSizeProcessed,
-							&SzAllocImp, &SzAllocTempImp);
+	SzResult = SzArEx_Extract(&SzArchiveDb, &lookStream.s, fileindex,
+								&SzBlockIndex, &outBuffer, &outBufferSize,
+								&SzOffset, &SzSizeProcessed,
+								&SzAllocImp, &SzAllocTempImp);
 
 	if(ProgressWindow::Instance()->IsCanceled())
 		SzResult = 10;
@@ -231,8 +270,17 @@ int SzFile::ExtractAll(const char * destpath)
 
 		CSzFileItem * SzFileItem = SzArchiveDb.db.Files + i;
 
+		char *tmpName = GetUtf8Filename(i);
+
 		char path[MAXPATHLEN];
-		snprintf(path, sizeof(path), "%s/%s", destpath, SzFileItem->Name);
+
+		if(tmpName) {
+			snprintf(path, sizeof(path), "%s/%s", destpath, tmpName);
+			free(tmpName);
+		}
+		else
+			snprintf(path, sizeof(path), "%s", destpath);
+
 		u32 filesize = SzFileItem->Size;
 
 		if(!filesize)
