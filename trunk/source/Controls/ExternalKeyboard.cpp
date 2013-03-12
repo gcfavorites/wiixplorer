@@ -39,7 +39,6 @@ distribution.
 #define MAX_QUEUE_SIZE		255
 
 extern "C" {
-	void update_modifier(u_int type, int toggle, int mask);
 	keysym_t ksym_upcase(keysym_t);
 }
 
@@ -94,7 +93,7 @@ void ExternalKeyboard::executeThread(void)
 		if(!bExitRequested)
 		{
 			// scan for new attached keyboards
-			if (++iNewDeviceScanTimer > 3000) {
+			if (++iNewDeviceScanTimer > 300) {
 				if (!USBKeyboard_IsConnected())
 					ScanForNewDevice();
 				iNewDeviceScanTimer = 0;
@@ -103,6 +102,19 @@ void ExternalKeyboard::executeThread(void)
 			USBKeyboard_Scan();
 			usleep(10000);
 		}
+	}
+}
+
+void ExternalKeyboard::update_modifier(u_int type, int toggle, int mask)
+{
+	if (toggle) {
+		if (type == KEYBOARD_PRESSED)
+			_modifiers ^= mask;
+	} else {
+		if (type == KEYBOARD_RELEASED)
+			_modifiers &= ~mask;
+		else
+			_modifiers |= mask;
 	}
 }
 

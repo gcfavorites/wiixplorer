@@ -134,7 +134,7 @@ void *__wrap_memalign(size_t a, size_t size)
 	void *p;
 	if ((SYS_GetArena1Lo() > MAX_MEM1_ARENA_LO) || (g_bigGoesToMem2 && size > MEM2_PRIORITY_SIZE))
 	{
-		if (a <= 32 && 32 % a == 0)
+		if (a == 32)
 		{
 			p = g_mem2gp.allocate(size);
 			if (p != 0) {
@@ -144,7 +144,7 @@ void *__wrap_memalign(size_t a, size_t size)
 		return __real_memalign(a, size);
 	}
 	p = __real_memalign(a, size);
-	if (p != 0 || a > 32 || 32 % a != 0) {
+	if (p != 0 || a != 32) {
 		return p;
 	}
 
