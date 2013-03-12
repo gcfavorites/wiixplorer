@@ -31,7 +31,6 @@
 #include "Controls/Application.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
-#include "Controls/ExternalKeyboard.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "FTPOperations/FTPServer.h"
 #include "Memory/mem2.h"
@@ -86,7 +85,6 @@ extern "C" void ExitApp()
 	Application::Instance()->quit();
 	Clipboard::DestroyInstance();
 	Taskbar::DestroyInstance();
-	ExternalKeyboard::DestroyInstance();
 	MusicPlayer::DestroyInstance();
 	ProgressWindow::DestroyInstance();
 	FTPServer::DestroyInstance();

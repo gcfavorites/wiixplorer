@@ -317,8 +317,7 @@ void Application::init(void)
 	setlocale(LC_MESSAGES, "C-UTF-8");
 
 	//! Set main thread prio very high as it is the render thread
-	//! The thread has no time slices and is therefore not interruptable
-	LWP_SetThreadPriority(LWP_GetSelf(), 130);
+	LWP_SetThreadPriority(LWP_GetSelf(), 121);
 
 	//! Initialize sound handler thread
 	SoundHandler::Instance();

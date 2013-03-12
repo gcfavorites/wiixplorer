@@ -80,6 +80,7 @@ private:
 	void executeThread(void);
 
 	static void keyboardEventCb(USBKeyboard_event event);
+	void update_modifier(u_int type, int toggle, int mask);
 	void keyboardEvent(USBKeyboard_event event);
 	void ScanForNewDevice(void);
 
