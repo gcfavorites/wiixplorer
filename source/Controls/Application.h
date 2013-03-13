@@ -17,10 +17,14 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
+#include <queue>
 #include "GUI/gui_frame.h"
 #include "GUI/gui_image.h"
 #include "GUI/gui_button.h"
 #include "Controls/WiiPointer.h"
+#include "Controls/CMutex.h"
+
+class ThreadedTask;
 
 class Application : public GuiFrame, public sigslot::has_slots<>
 {
@@ -34,6 +38,8 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		void show();
 		void hide();
 		void updateEvents();
+		static void shutdownSystem() { bShutdown = true; }
+		static void resetSystem() { bReset = true; }
 		static bool isClosing() { return exitApplication; }
 		static void closeRequest() { exitApplication = true; }
 
@@ -42,32 +48,38 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 
 		void Append(GuiElement *e)
 		{
-			LWP_MutexLock(m_mutex);
+			m_mutex.lock();
 			GuiFrame::Append(e);
-			LWP_MutexUnlock(m_mutex);
+			m_mutex.unlock();
 		}
 
 		void PushForDelete(GuiElement *e);
-		void ProcessDeleteQueue(void);
 
 		void SetGuiInputUpdate(bool b) { bGuiInputUpdate = b; }
 
 		void SetUpdateOnly(GuiElement *e)
 		{
 			UnsetUpdateOnly(e);
-			LWP_MutexLock(m_mutex);
+			m_mutex.lock();
 			updateOnlyElement.push_back(e);
-			LWP_MutexUnlock(m_mutex);
+			m_mutex.unlock();
 		}
 
 		void UnsetUpdateOnly(GuiElement *e)
 		{
 			for(u32 i = 0; i < updateOnlyElement.size(); ++i)
 				if(updateOnlyElement[i] == e) {
-					LWP_MutexLock(m_mutex);
+					m_mutex.lock();
 					updateOnlyElement.erase(updateOnlyElement.begin()+i);
-					LWP_MutexUnlock(m_mutex);
+					m_mutex.unlock();
 				}
+		}
+
+		void addPostRenderTask(ThreadedTask *t)
+		{
+			m_mutex.lock();
+			postUpdateTasks.push(t);
+			m_mutex.unlock();
 		}
 
 		GXColor * GetBGColorPtr() { return bgImg->GetColorPtr(); }
@@ -77,8 +89,13 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		void OnHomeButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnHomeMenuClosing(GuiFrame *menu);
 
+		void ProcessDeleteQueue(void);
+		void ProcessPostUpdateTasks(void);
+
 		static Application *instance;
 		static bool exitApplication;
+		static bool bReset;
+		static bool bShutdown;
 
 		GuiImage *bgImg;
 		WiiPointer *pointer[4];
@@ -86,7 +103,8 @@ class Application : public GuiFrame, public sigslot::has_slots<>
 		GuiTrigger trigHome;
 		std::vector<GuiElement *> updateOnlyElement;
 		std::vector<GuiElement *> deleteList;
-		mutex_t m_mutex;
+		std::queue<ThreadedTask *> postUpdateTasks;
+		CMutex m_mutex;
 		bool bGuiInputUpdate;
 };
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -180,9 +180,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "右の領域が見つかりません"
-
-msgid "Can't load file"
-msgstr "ファイルを読めません"
 
 msgid "Can't load page."
 msgstr "ページを読み込めません"
@@ -579,6 +576,9 @@ msgstr "すべて解凍しますか?"
 msgid "Extract the selected item(s)?"
 msgstr "選択されたアイテムを解凍しますか?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "解凍中"
 
@@ -784,6 +784,9 @@ msgstr "GCコンのRトリガー"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GCコンのZトリガー"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr "GCのSD A"
@@ -1206,6 +1209,9 @@ msgstr "対応していない形式です"
 msgid "Press Startup FTP to start the server on port"
 msgstr "サーバーを開始するためFTPを開始してください ポート:"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "先頭"
 
@@ -1263,9 +1269,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr ""
-
-msgid "Reboot failed"
-msgstr "再起動に失敗しました"
 
 msgid "Receiving file..."
 msgstr "ファイルを受信中･･･"
@@ -1367,6 +1370,9 @@ msgstr "サーバーは終了しました…\n"
 msgid "Set Active"
 msgstr "アクティブにする"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "領域をアクティブにしますか?"
 
@@ -1418,9 +1424,6 @@ msgstr "サウンドブロック"
 
 msgid "Special thanks to:"
 msgstr "スペシャルサンクス:"
-
-msgid "Standard"
-msgstr "標準"
 
 msgid "Startup FTP"
 msgstr "FTPを開始"
@@ -1660,11 +1663,20 @@ msgstr "クラコンのボタン無し"
 msgid "WPAD NONE BUTTON"
 msgstr "クラコンのボタン無し"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "警告:"
 
 msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr "WiiのHomebrew"
@@ -1677,6 +1689,9 @@ msgstr ""
 
 msgid "WiiMC Path"
 msgstr "WiiMCのパス"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorerのBGM"
@@ -1770,6 +1785,15 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "ファイルを読めません"
+
+#~ msgid "Reboot failed"
+#~ msgstr "再起動に失敗しました"
+
+#~ msgid "Standard"
+#~ msgstr "標準"
 
 #~ msgid "ASDFGHJKL:\"+"
 #~ msgstr "ぱぴぷぺぽがぎぐげごゑゐ"

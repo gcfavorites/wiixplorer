@@ -16,188 +16,10 @@
  ****************************************************************************/
 #include "ControlsSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "Prompts/ControlsSetupWindow.h"
+#include "Controls/AppControls.hpp"
+#include "Controls/Application.h"
 #include "Settings.h"
-
-static inline u16 NextWPAD_Button(u16 button)
-{
-	if(button == 0)
-	{
-		return 0x0001;
-	}
-	else if(button < 0x0010)
-	{
-		return button << 1;
-	}
-	else if(button < 0x0080)
-	{
-		return 0x0080;
-	}
-	else if(button < 0x1000)
-	{
-		return button << 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-static inline u16 NextClassic_Button(u16 button)
-{
-	if(button == 0)
-	{
-		return 0x0001;
-	}
-	else if(button < 0x0080)
-	{
-		return button << 1;
-	}
-	else if(button < 0x0200)
-	{
-		return 0x0200;
-	}
-	else if(button < 0x8000)
-	{
-		return button << 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-static inline u16 NextPAD_Button(u16 button)
-{
-	if(button == 0)
-	{
-		return 0x0001;
-	}
-	else if(button < 0x0040)
-	{
-		return button << 1;
-	}
-	else if(button < 0x0100)
-	{
-		return 0x0100;
-	}
-	else if(button < 0x1000)
-	{
-		return button << 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-static inline const char * GetWPAD_ButtonName(u16 button)
-{
-	switch(button)
-	{
-		case 0x0000:
-			return tr("WPAD NONE BUTTON");
-		case 0x0001:
-			return tr("WPAD BUTTON 2");
-		case 0x0002:
-			return tr("WPAD BUTTON 1");
-		case 0x0004:
-			return tr("WPAD BUTTON B");
-		case 0x0008:
-			return tr("WPAD BUTTON A");
-		case 0x0010:
-			return tr("WPAD BUTTON MINUS");
-		case 0x0080:
-			return tr("WPAD BUTTON HOME");
-		case 0x0100:
-			return tr("WPAD BUTTON LEFT");
-		case 0x0200:
-			return tr("WPAD BUTTON RIGHT");
-		case 0x0400:
-			return tr("WPAD BUTTON DOWN");
-		case 0x0800:
-			return tr("WPAD BUTTON UP");
-		case 0x1000:
-			return tr("WPAD BUTTON PLUS");
-		default:
-			return " ";
-	}
-}
-
-static inline const char * GetClassic_ButtonName(u16 button)
-{
-	switch(button)
-	{
-		case 0x0000:
-			return tr("WPAD CLASSIC NONE BUTTON");
-		case 0x0001:
-			return tr("WPAD CLASSIC BUTTON UP");
-		case 0x0002:
-			return tr("WPAD CLASSIC BUTTON LEFT");
-		case 0x0004:
-			return tr("WPAD CLASSIC BUTTON ZR");
-		case 0x0008:
-			return tr("WPAD CLASSIC BUTTON X");
-		case 0x0010:
-			return tr("WPAD CLASSIC BUTTON A");
-		case 0x0020:
-			return tr("WPAD CLASSIC BUTTON Y");
-		case 0x0040:
-			return tr("WPAD CLASSIC BUTTON B");
-		case 0x0080:
-			return tr("WPAD CLASSIC BUTTON ZL");
-		case 0x0200:
-			return tr("WPAD CLASSIC BUTTON FULL R");
-		case 0x0400:
-			return tr("WPAD CLASSIC BUTTON PLUS");
-		case 0x0800:
-			return tr("WPAD CLASSIC BUTTON HOME");
-		case 0x1000:
-			return tr("WPAD CLASSIC BUTTON MINUS");
-		case 0x2000:
-			return tr("WPAD CLASSIC BUTTON FULL L");
-		case 0x4000:
-			return tr("WPAD CLASSIC BUTTON DOWN");
-		case 0x8000:
-			return tr("WPAD CLASSIC BUTTON RIGHT");
-		default:
-			return " ";
-	}
-}
-
-static inline const char * GetPAD_ButtonName(u16 button)
-{
-	switch(button)
-	{
-		case 0x0000:
-			return tr("GC PAD BUTTON NONE");
-		case 0x0001:
-			return tr("GC PAD BUTTON LEFT");
-		case 0x0002:
-			return tr("GC PAD BUTTON RIGHT");
-		case 0x0004:
-			return tr("GC PAD BUTTON DOWN");
-		case 0x0008:
-			return tr("GC PAD BUTTON UP");
-		case 0x0010:
-			return tr("GC PAD TRIGGER Z");
-		case 0x0020:
-			return tr("GC PAD TRIGGER R");
-		case 0x0040:
-			return tr("GC PAD TRIGGER L");
-		case 0x0100:
-			return tr("GC PAD BUTTON A");
-		case 0x0200:
-			return tr("GC PAD BUTTON B");
-		case 0x0400:
-			return tr("GC PAD BUTTON X");
-		case 0x0800:
-			return tr("GC PAD BUTTON Y");
-		case 0x1000:
-			return tr("GC PAD BUTTON START");
-		default:
-			return " ";
-	}
-}
 
 ControlsSettingsMenu::ControlsSettingsMenu(GuiFrame *r)
 	: SettingsMenu(tr("Controls Settings"), r)
@@ -310,89 +132,96 @@ void ControlsSettingsMenu::SetOptionValues()
 
 	options.SetValue(i++, "%g", Settings.PointerSpeed);
 
-	options.SetValue(i++, GetWPAD_ButtonName(Settings.Controls.ScreenshotHoldButton));
-	options.SetValue(i++, GetWPAD_ButtonName(Settings.Controls.ScreenshotClickButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, Settings.Controls.ScreenshotHoldButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, Settings.Controls.ScreenshotClickButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ClickButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ClickButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.ClickButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.ClickButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.ClickButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.ClickButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.BackButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.BackButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.BackButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.BackButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.BackButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.BackButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.UpButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.UpButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.UpButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.UpButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.UpButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.UpButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.DownButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.DownButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.DownButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.DownButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.DownButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.DownButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.LeftButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.LeftButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.LeftButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.LeftButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.LeftButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.LeftButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.RightButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.RightButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.RightButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.RightButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.RightButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.RightButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ContextMenuButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ContextMenuButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.ContextMenuButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.ContextMenuButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.ContextMenuButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.ContextMenuButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.MarkItemButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.MarkItemButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.MarkItemButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.MarkItemButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.MarkItemButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.MarkItemButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.DeMarkItemButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.DeMarkItemButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.DeMarkItemButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.DeMarkItemButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.DeMarkItemButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.DeMarkItemButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.DeMarkAllButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.DeMarkAllButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.DeMarkAllButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.DeMarkAllButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.DeMarkAllButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.DeMarkAllButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.HomeButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.HomeButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.HomeButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.HomeButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.HomeButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.HomeButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.EditTextLine));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.EditTextLine));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.EditTextLine));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.EditTextLine).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.EditTextLine << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.EditTextLine).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.SlideShowButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.SlideShowButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.SlideShowButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.SlideShowButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.SlideShowButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.SlideShowButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.KeyBackspaceButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.KeyBackspaceButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.KeyBackspaceButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.KeyBackspaceButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.KeyBackspaceButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.KeyBackspaceButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.KeyShiftButton));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.KeyShiftButton));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.KeyShiftButton));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.KeyShiftButton).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.KeyShiftButton << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.KeyShiftButton).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ZoomIn));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ZoomIn));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.ZoomIn));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.ZoomIn).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.ZoomIn << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.ZoomIn).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.ZoomOut));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.ZoomOut));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.ZoomOut));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.ZoomOut).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.ZoomOut << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.ZoomOut).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.UpInDirectory));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.UpInDirectory));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.UpInDirectory));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.UpInDirectory).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.UpInDirectory << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.UpInDirectory).c_str());
 
-	options.SetValue(i++, GetWPAD_ButtonName(WiiControls.OneButtonScroll));
-	options.SetValue(i++, GetClassic_ButtonName(ClassicControls.OneButtonScroll));
-	options.SetValue(i++, GetPAD_ButtonName(GCControls.OneButtonScroll));
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiMote, WiiControls.OneButtonScroll).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeWiiClassic, ClassicControls.OneButtonScroll << 16).c_str());
+	options.SetValue(i++, "%s", AppControls::ControlButtonsToString(AppControls::TypeGCPad, GCControls.OneButtonScroll).c_str());
+}
+
+void ControlsSettingsMenu::OnControlsSetupWindowClose(GuiFrame *frame UNUSED)
+{
+	SetOptionValues();
+	this->SetState(STATE_DEFAULT);
 }
 
 void ControlsSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int iClick)
 {
 	int iOption = -1;
+	ControlsSetupWindow *window = 0;
 
 	if(++iOption == iClick)
 	{
@@ -404,239 +233,249 @@ void ControlsSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int iC
 	}
 	else if(++iOption == iClick)
 	{
-		Settings.Controls.ScreenshotHoldButton = NextWPAD_Button(Settings.Controls.ScreenshotHoldButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &Settings.Controls.ScreenshotHoldButton);
 	}
 	else if(++iOption == iClick)
 	{
-		Settings.Controls.ScreenshotClickButton = NextWPAD_Button(Settings.Controls.ScreenshotClickButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &Settings.Controls.ScreenshotClickButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.ClickButton = NextWPAD_Button(WiiControls.ClickButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.ClickButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.ClickButton = NextClassic_Button(ClassicControls.ClickButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.ClickButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.ClickButton = NextPAD_Button(GCControls.ClickButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.ClickButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.BackButton = NextWPAD_Button(WiiControls.BackButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.BackButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.BackButton = NextClassic_Button(ClassicControls.BackButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.BackButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.BackButton = NextPAD_Button(GCControls.BackButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.BackButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.UpButton = NextWPAD_Button(WiiControls.UpButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.UpButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.UpButton = NextClassic_Button(ClassicControls.UpButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.UpButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.UpButton = NextPAD_Button(GCControls.UpButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.UpButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.DownButton = NextWPAD_Button(WiiControls.DownButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.DownButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.DownButton = NextClassic_Button(ClassicControls.DownButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.DownButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.DownButton = NextPAD_Button(GCControls.DownButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.DownButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.LeftButton = NextWPAD_Button(WiiControls.LeftButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.LeftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.LeftButton = NextClassic_Button(ClassicControls.LeftButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.LeftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.LeftButton = NextPAD_Button(GCControls.LeftButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.LeftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.RightButton = NextWPAD_Button(WiiControls.RightButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.RightButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.RightButton = NextClassic_Button(ClassicControls.RightButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.RightButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.RightButton = NextPAD_Button(GCControls.RightButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.RightButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.ContextMenuButton = NextWPAD_Button(WiiControls.ContextMenuButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.ContextMenuButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.ContextMenuButton = NextClassic_Button(ClassicControls.ContextMenuButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.ContextMenuButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.ContextMenuButton = NextPAD_Button(GCControls.ContextMenuButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.ContextMenuButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.MarkItemButton = NextWPAD_Button(WiiControls.MarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.MarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.MarkItemButton = NextClassic_Button(ClassicControls.MarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.MarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.MarkItemButton = NextPAD_Button(GCControls.MarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.MarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.DeMarkItemButton = NextWPAD_Button(WiiControls.DeMarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.DeMarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.DeMarkItemButton = NextClassic_Button(ClassicControls.DeMarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.DeMarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.DeMarkItemButton = NextPAD_Button(GCControls.DeMarkItemButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.DeMarkItemButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.DeMarkAllButton = NextWPAD_Button(WiiControls.DeMarkAllButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.DeMarkAllButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.DeMarkAllButton = NextClassic_Button(ClassicControls.DeMarkAllButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.DeMarkAllButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.DeMarkAllButton = NextPAD_Button(GCControls.DeMarkAllButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.DeMarkAllButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.HomeButton = NextWPAD_Button(WiiControls.HomeButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.HomeButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.HomeButton = NextClassic_Button(ClassicControls.HomeButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.HomeButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.HomeButton = NextPAD_Button(GCControls.HomeButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.HomeButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.EditTextLine = NextWPAD_Button(WiiControls.EditTextLine);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.EditTextLine);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.EditTextLine = NextClassic_Button(ClassicControls.EditTextLine);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.EditTextLine);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.EditTextLine = NextPAD_Button(GCControls.EditTextLine);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.EditTextLine);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.SlideShowButton = NextWPAD_Button(WiiControls.SlideShowButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.SlideShowButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.SlideShowButton = NextClassic_Button(ClassicControls.SlideShowButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.SlideShowButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.SlideShowButton = NextPAD_Button(GCControls.SlideShowButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.SlideShowButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.KeyBackspaceButton = NextWPAD_Button(WiiControls.KeyBackspaceButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.KeyBackspaceButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.KeyBackspaceButton = NextClassic_Button(ClassicControls.KeyBackspaceButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.KeyBackspaceButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.KeyBackspaceButton = NextPAD_Button(GCControls.KeyBackspaceButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.KeyBackspaceButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.KeyShiftButton = NextWPAD_Button(WiiControls.KeyShiftButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.KeyShiftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.KeyShiftButton = NextClassic_Button(ClassicControls.KeyShiftButton);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.KeyShiftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.KeyShiftButton = NextPAD_Button(GCControls.KeyShiftButton);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.KeyShiftButton);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.ZoomIn = NextWPAD_Button(WiiControls.ZoomIn);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.ZoomIn);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.ZoomIn = NextClassic_Button(ClassicControls.ZoomIn);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.ZoomIn);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.ZoomIn = NextPAD_Button(GCControls.ZoomIn);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.ZoomIn);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.ZoomOut = NextWPAD_Button(WiiControls.ZoomOut);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.ZoomOut);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.ZoomOut = NextClassic_Button(ClassicControls.ZoomOut);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.ZoomOut);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.ZoomOut = NextPAD_Button(GCControls.ZoomOut);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.ZoomOut);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.UpInDirectory = NextWPAD_Button(WiiControls.UpInDirectory);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.UpInDirectory);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.UpInDirectory = NextClassic_Button(ClassicControls.UpInDirectory);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.UpInDirectory);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.UpInDirectory = NextPAD_Button(GCControls.UpInDirectory);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.UpInDirectory);
 	}
 	else if(++iOption == iClick)
 	{
-		WiiControls.OneButtonScroll = NextWPAD_Button(WiiControls.OneButtonScroll);
+		window = new ControlsSetupWindow(AppControls::TypeWiiMote, &WiiControls.OneButtonScroll);
 	}
 	else if(++iOption == iClick)
 	{
-		ClassicControls.OneButtonScroll = NextClassic_Button(ClassicControls.OneButtonScroll);
+		window = new ControlsSetupWindow(AppControls::TypeWiiClassic, &ClassicControls.OneButtonScroll);
 	}
 	else if(++iOption == iClick)
 	{
-		GCControls.OneButtonScroll = NextPAD_Button(GCControls.OneButtonScroll);
+		window = new ControlsSetupWindow(AppControls::TypeGCPad, &GCControls.OneButtonScroll);
+	}
+
+	if(window != 0)
+	{
+		window->Closing.connect(this, &ControlsSettingsMenu::OnControlsSetupWindowClose);
+		window->DimBackground(true);
+		this->SetState(STATE_DISABLED);
+
+		Application::Instance()->Append(window);
+		Application::Instance()->SetUpdateOnly(window);
 	}
 
 	SetOptionValues();

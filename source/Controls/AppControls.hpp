@@ -27,6 +27,7 @@
 #define APP_CONTROLS_HPP_
 
 #include <gccore.h>
+#include <string>
 
 typedef struct _Controls
 {
@@ -66,6 +67,15 @@ class AppControls
 		ControlItems GCControls;
 		u16 ScreenshotHoldButton;
 		u16 ScreenshotClickButton;
+
+		static std::string ControlButtonsToString(int type, u32 button);
+
+		enum
+		{
+			TypeWiiMote,
+			TypeWiiClassic,
+			TypeGCPad,
+		};
 	protected:
 		char FilePath[150];
 		void ParseLine(char *line);

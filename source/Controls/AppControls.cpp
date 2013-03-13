@@ -31,7 +31,120 @@
 #include <ogc/pad.h>
 #include "AppControls.hpp"
 #include "FileOperations/fileops.h"
+#include "Language/gettext.h"
 
+static inline const char * GetWPAD_ButtonName(u32 button)
+{
+	switch(button)
+	{
+		case 0x0000:
+			return tr("WPAD NONE BUTTON");
+		case WPAD_BUTTON_2:
+			return tr("WPAD BUTTON 2");
+		case WPAD_BUTTON_1:
+			return tr("WPAD BUTTON 1");
+		case WPAD_BUTTON_B:
+			return tr("WPAD BUTTON B");
+		case WPAD_BUTTON_A:
+			return tr("WPAD BUTTON A");
+		case WPAD_BUTTON_MINUS:
+			return tr("WPAD BUTTON MINUS");
+		case WPAD_BUTTON_HOME:
+			return tr("WPAD BUTTON HOME");
+		case WPAD_BUTTON_LEFT:
+			return tr("WPAD BUTTON LEFT");
+		case WPAD_BUTTON_RIGHT:
+			return tr("WPAD BUTTON RIGHT");
+		case WPAD_BUTTON_DOWN:
+			return tr("WPAD BUTTON DOWN");
+		case WPAD_BUTTON_UP:
+			return tr("WPAD BUTTON UP");
+		case WPAD_BUTTON_PLUS:
+			return tr("WPAD BUTTON PLUS");
+		case WPAD_NUNCHUK_BUTTON_Z:
+			return tr("WPAD NUNCHUCK BUTTON Z");
+		case WPAD_NUNCHUK_BUTTON_C:
+			return tr("WPAD NUNCHUCK BUTTON C");
+		default:
+			return tr("Unknown");
+	}
+}
+
+static inline const char * GetClassic_ButtonName(u32 button)
+{
+	switch(button)
+	{
+		case 0x0000:
+			return tr("WPAD CLASSIC NONE BUTTON");
+		case WPAD_CLASSIC_BUTTON_UP:
+			return tr("WPAD CLASSIC BUTTON UP");
+		case WPAD_CLASSIC_BUTTON_LEFT:
+			return tr("WPAD CLASSIC BUTTON LEFT");
+		case WPAD_CLASSIC_BUTTON_ZR:
+			return tr("WPAD CLASSIC BUTTON ZR");
+		case WPAD_CLASSIC_BUTTON_X:
+			return tr("WPAD CLASSIC BUTTON X");
+		case WPAD_CLASSIC_BUTTON_A:
+			return tr("WPAD CLASSIC BUTTON A");
+		case WPAD_CLASSIC_BUTTON_Y:
+			return tr("WPAD CLASSIC BUTTON Y");
+		case WPAD_CLASSIC_BUTTON_B:
+			return tr("WPAD CLASSIC BUTTON B");
+		case WPAD_CLASSIC_BUTTON_ZL:
+			return tr("WPAD CLASSIC BUTTON ZL");
+		case WPAD_CLASSIC_BUTTON_FULL_R:
+			return tr("WPAD CLASSIC BUTTON FULL R");
+		case WPAD_CLASSIC_BUTTON_PLUS:
+			return tr("WPAD CLASSIC BUTTON PLUS");
+		case WPAD_CLASSIC_BUTTON_HOME:
+			return tr("WPAD CLASSIC BUTTON HOME");
+		case WPAD_CLASSIC_BUTTON_MINUS:
+			return tr("WPAD CLASSIC BUTTON MINUS");
+		case WPAD_CLASSIC_BUTTON_FULL_L:
+			return tr("WPAD CLASSIC BUTTON FULL L");
+		case WPAD_CLASSIC_BUTTON_DOWN:
+			return tr("WPAD CLASSIC BUTTON DOWN");
+		case WPAD_CLASSIC_BUTTON_RIGHT:
+			return tr("WPAD CLASSIC BUTTON RIGHT");
+		default:
+			return tr("Unknown");
+	}
+}
+
+static inline const char * GetPAD_ButtonName(u32 button)
+{
+	switch(button)
+	{
+		case 0x0000:
+			return tr("GC PAD BUTTON NONE");
+		case PAD_BUTTON_LEFT:
+			return tr("GC PAD BUTTON LEFT");
+		case PAD_BUTTON_RIGHT:
+			return tr("GC PAD BUTTON RIGHT");
+		case PAD_BUTTON_DOWN:
+			return tr("GC PAD BUTTON DOWN");
+		case PAD_BUTTON_UP:
+			return tr("GC PAD BUTTON UP");
+		case PAD_TRIGGER_Z:
+			return tr("GC PAD TRIGGER Z");
+		case PAD_TRIGGER_R:
+			return tr("GC PAD TRIGGER R");
+		case PAD_TRIGGER_L:
+			return tr("GC PAD TRIGGER L");
+		case PAD_BUTTON_A:
+			return tr("GC PAD BUTTON A");
+		case PAD_BUTTON_B:
+			return tr("GC PAD BUTTON B");
+		case PAD_BUTTON_X:
+			return tr("GC PAD BUTTON X");
+		case PAD_BUTTON_Y:
+			return tr("GC PAD BUTTON Y");
+		case PAD_BUTTON_START:
+			return tr("GC PAD BUTTON START");
+		default:
+			return tr("Unknown");
+	}
+}
 
 AppControls::AppControls()
 {
@@ -40,6 +153,47 @@ AppControls::AppControls()
 
 AppControls::~AppControls()
 {
+}
+
+std::string AppControls::ControlButtonsToString(int type, u32 button)
+{
+	std::string controlText;
+
+	if(button == 0)
+	{
+		if(type == TypeWiiMote)
+			controlText = GetWPAD_ButtonName( button );
+
+		else if(type == TypeWiiClassic)
+			controlText = GetClassic_ButtonName( button );
+
+		else if(type == TypeGCPad)
+			controlText = GetPAD_ButtonName( button );
+
+		return controlText;
+	}
+
+	for(int i = 0; i < 32; i++)
+	{
+		u32 Bit = (1 << i);
+
+		if(button & Bit)
+		{
+			if(!controlText.empty())
+				controlText += " + ";
+
+			if(type == TypeWiiMote)
+				controlText += GetWPAD_ButtonName( Bit );
+
+			else if(type == TypeWiiClassic)
+				controlText += GetClassic_ButtonName( Bit );
+
+			else if(type == TypeGCPad)
+				controlText += GetPAD_ButtonName( Bit );
+		}
+	}
+
+	return controlText;
 }
 
 void AppControls::SetDefault()

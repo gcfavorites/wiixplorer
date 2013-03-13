@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2012-11-26 18:36\n"
 "Last-Translator: Ḷḷumex03\n"
 "Language-Team: \n"
@@ -181,9 +181,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Nun pue alcontráse la partición afayadiza."
-
-msgid "Can't load file"
-msgstr "Nun pue cargase'l ficheru"
 
 msgid "Can't load page."
 msgstr "Nun pue cargase la páxina."
@@ -580,6 +577,9 @@ msgstr "¿Estrayer l'archivu dafechu?"
 msgid "Extract the selected item(s)?"
 msgstr "¿Estaryer oxetu/os esbillaos?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Estrayendo oxetu/os:"
 
@@ -785,6 +785,9 @@ msgstr "Mandu GC gatiellu A"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "Mandu GC gatiellu Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr ""
@@ -1207,6 +1210,9 @@ msgstr "Posible formatu nun soportáu."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Primi Aniciar FTP p'aniciar el sirvidor nel puertu"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primariu"
 
@@ -1264,9 +1270,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr "Lleendo archivu."
-
-msgid "Reboot failed"
-msgstr "Reaniciu fallíu"
 
 msgid "Receiving file..."
 msgstr "Reciviendo ficheru..."
@@ -1368,6 +1371,9 @@ msgstr "Fo apagáu'l sirvidor...\n"
 msgid "Set Active"
 msgstr "Poner activa"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "¿Poner aquesta partición activa?"
 
@@ -1419,9 +1425,6 @@ msgstr ""
 
 msgid "Special thanks to:"
 msgstr "Gracies especiales a:"
-
-msgid "Standard"
-msgstr "Estandar"
 
 msgid "Startup FTP"
 msgstr "Aniciar FTP"
@@ -1661,11 +1664,20 @@ msgstr ""
 msgid "WPAD NONE BUTTON"
 msgstr ""
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Repara:"
 
 msgid "Wii Binary Files"
 msgstr "Binarios de Wii"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr ""
@@ -1678,6 +1690,9 @@ msgstr ""
 
 msgid "WiiMC Path"
 msgstr "Cartafueyu"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "Son per defutu"
@@ -1771,6 +1786,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "Nun pue cargase'l ficheru"
+
+#~ msgid "Reboot failed"
+#~ msgstr "Reaniciu fallíu"
+
+#~ msgid "Standard"
+#~ msgstr "Estandar"
 
 #~ msgid "Cannot open image"
 #~ msgstr "Nun pue abrise la imax"

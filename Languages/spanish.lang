@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: PabloACZ\n"
 "Language-Team: Spanish\n"
@@ -181,9 +181,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "No se puede encontrar la partición correcta."
-
-msgid "Can't load file"
-msgstr "No se puede cargar el archivo."
 
 msgid "Can't load page."
 msgstr "No se puede cargar la página."
@@ -580,6 +577,9 @@ msgstr "¿Quieres extraer el archivo completo?"
 msgid "Extract the selected item(s)?"
 msgstr "¿Quieres extraer los elementos seleccionados?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Extrayendo elemento(s):"
 
@@ -785,6 +785,9 @@ msgstr "BOTÓN R MANDO GCN"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "BOTÓN Z MANDO GCN"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr "SD Gecko A"
@@ -1207,6 +1210,9 @@ msgstr "Posible formato no soportado."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Selecciona \"Iniciar FTP\" para iniciar el servidor bajo el puerto"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primaria"
 
@@ -1264,9 +1270,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr ""
-
-msgid "Reboot failed"
-msgstr "No se pudo reiniciar"
 
 msgid "Receiving file..."
 msgstr "Recibiendo archivo..."
@@ -1368,6 +1371,9 @@ msgstr "Se ha desactivado el servidor...\n"
 msgid "Set Active"
 msgstr "Estab. como activa"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "¿Quieres establecer esta partición como activa?"
 
@@ -1419,9 +1425,6 @@ msgstr "Bloques de sonido"
 
 msgid "Special thanks to:"
 msgstr "Agradecimientos especiales a:"
-
-msgid "Standard"
-msgstr "Estándar"
 
 msgid "Startup FTP"
 msgstr "Iniciar FTP"
@@ -1661,11 +1664,20 @@ msgstr "NINGÚN BOTÓN MANDO CLÁSICO"
 msgid "WPAD NONE BUTTON"
 msgstr "NINGÚN BOTÓN WIIMOTE"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Advertencia:"
 
 msgid "Wii Binary Files"
 msgstr "Archivos binarios"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr "Homebrew de Wii"
@@ -1678,6 +1690,9 @@ msgstr ""
 
 msgid "WiiMC Path"
 msgstr "Ruta del WiiMC"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "Música por defecto del WiiXplorer"
@@ -1771,6 +1786,15 @@ msgstr "zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "No se puede cargar el archivo."
+
+#~ msgid "Reboot failed"
+#~ msgstr "No se pudo reiniciar"
+
+#~ msgid "Standard"
+#~ msgstr "Estándar"
 
 #~ msgid "ASDFGHJKL:\"+"
 #~ msgstr "ASDFGHJKLÑ¨Ç"

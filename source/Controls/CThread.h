@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2012 Dimok
+ * Copyright (C) 2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,18 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef THREAD_H_
-#define THREAD_H_
+#ifndef CTHREAD_H_
+#define CTHREAD_H_
 
 #include <gccore.h>
 #include <malloc.h>
 #include <unistd.h>
 
-class Thread
+class CThread
 {
 public:
 	//! constructor
-	Thread(int iPriority = 60, int iStackSize = 8192)
+	CThread(int iPriority = 60, int iStackSize = 8192)
 		: lwpThread(LWP_THREAD_NULL)
 		, ThreadStack(NULL)
 	{
@@ -42,7 +42,7 @@ public:
 	}
 
 	//! destructor
-	virtual ~Thread() { shutdownThread(); }
+	virtual ~CThread() { shutdownThread(); }
 
 	//! start thread execution
 	virtual void startThread() { resumeThread(); }
@@ -78,9 +78,9 @@ private:
 	static void *threadCallback(void *arg)
 	{
 		//! Initially start/hook thread point, stop here
-		((Thread *) arg)->suspendThread();
+		((CThread *) arg)->suspendThread();
 		//! After call to start() continue with the internal function
-		((Thread *) arg)->executeThread();
+		((CThread *) arg)->executeThread();
 		return NULL;
 	}
 

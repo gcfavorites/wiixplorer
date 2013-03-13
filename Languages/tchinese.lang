@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-08-10 15:18+0200\n"
 "Last-Translator: Jane.H\n"
 "Language-Team: mcc, kyogc, Miller, Jane.H\n"
@@ -180,9 +180,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "無法找到正確的磁區"
-
-msgid "Can't load file"
-msgstr "無法讀取這個檔案"
 
 msgid "Can't load page."
 msgstr "無法載入頁面。"
@@ -579,6 +576,9 @@ msgstr "匯出所有壓縮檔？"
 msgid "Extract the selected item(s)?"
 msgstr "匯出選擇項目嗎？"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "輸出項目中："
 
@@ -784,6 +784,9 @@ msgstr "GC 搖桿按鈕 R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC 搖桿按鈕 Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr "GC_SD A鍵"
@@ -1206,6 +1209,9 @@ msgstr "無法支援的格式。"
 msgid "Press Startup FTP to start the server on port"
 msgstr "按啟動FTP去開啟伺服器通訊埠"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "主要的"
 
@@ -1263,9 +1269,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr "正讀取檔案。"
-
-msgid "Reboot failed"
-msgstr "重新啟動失敗"
 
 msgid "Receiving file..."
 msgstr "接收檔案中..."
@@ -1367,6 +1370,9 @@ msgstr "伺服器被關閉...\n"
 msgid "Set Active"
 msgstr "設定啟用"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "將此磁區設為使用中？"
 
@@ -1418,9 +1424,6 @@ msgstr "聲音區塊"
 
 msgid "Special thanks to:"
 msgstr "特別感謝："
-
-msgid "Standard"
-msgstr "標準"
 
 msgid "Startup FTP"
 msgstr "啟動 FTP"
@@ -1660,11 +1663,20 @@ msgstr "WPAD 傳統搖桿 NONE"
 msgid "WPAD NONE BUTTON"
 msgstr "WPAD NONE 按鈕"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "警告："
 
 msgid "Wii Binary Files"
 msgstr "Wii 二進制檔案"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr "Wii 自製程式"
@@ -1677,6 +1689,9 @@ msgstr "WiiMC"
 
 msgid "WiiMC Path"
 msgstr "WiiMC 路徑"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer 預設音樂"
@@ -1770,6 +1785,15 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "無法讀取這個檔案"
+
+#~ msgid "Reboot failed"
+#~ msgstr "重新啟動失敗"
+
+#~ msgid "Standard"
+#~ msgstr "標準"
 
 #~ msgid "ASDFGHJKL:\"+"
 #~ msgstr "ASDFGHJKL：\"+"

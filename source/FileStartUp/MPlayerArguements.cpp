@@ -87,6 +87,7 @@ void CreateMPlayerArguments(const char * filepath)
 		}
 	}
 
+	AddBootArgument(Settings.MPlayerPath);
 	AddBootArgument(dst);
 	AddBootArgument(fmt("−quiet"));
 }

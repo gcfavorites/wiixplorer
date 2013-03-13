@@ -181,10 +181,14 @@ int UpdateTask::DownloadApp(const char *url)
 	}
 	else
 	{
+		StartProgress(tr("Extracting file..."));
+
 		ZipFile zip(dest);
 		zip.ExtractAll(Settings.UpdatePath);
 
 		RemoveFile(dest);
+
+		StopProgress();
 
 		if(Settings.UpdateMetaxml)
 			DownloadMetaXml();

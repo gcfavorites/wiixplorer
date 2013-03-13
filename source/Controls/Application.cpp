@@ -40,6 +40,8 @@
 
 Application *Application::instance = NULL;
 bool Application::exitApplication = false;
+bool Application::bReset = false;
+bool Application::bShutdown = false;
 
 Application::Application()
 	: GuiFrame(screenwidth, screenheight) // screenwidth and height are defined in Video.h
@@ -74,8 +76,6 @@ Application::~Application()
 	//! remove still outstanding deletes without any dependencies
 	for(u32 i = 0; i < deleteList.size(); i++)
 		delete deleteList[i];
-
-	LWP_MutexDestroy(m_mutex);
 }
 
 void Application::quit()
@@ -121,10 +121,10 @@ void Application::updateEvents()
 	if(exitApplication)
 		return;
 
-	if(shutdown) {
+	if(bShutdown) {
 		Sys_Shutdown();
 	}
-	else if(reset) {
+	else if(bReset) {
 		Sys_Reboot();
 	}
 
@@ -163,6 +163,9 @@ void Application::updateEvents()
 	//! delete elements that were queued for delete after the rendering is done
 	if(!deleteList.empty())
 		ProcessDeleteQueue();
+	//! execute tasks that require main thread execution
+	if(!postUpdateTasks.empty())
+		ProcessPostUpdateTasks();
 }
 
 void Application::SetGrabPointer(int i)
@@ -189,7 +192,7 @@ void Application::ResetPointer(int i)
 
 void Application::ProcessDeleteQueue(void)
 {
-	LWP_MutexLock(m_mutex);
+	m_mutex.lock();
 	for(u32 i = 0; i < deleteList.size(); ++i)
 	{
 		GuiElement *parent = deleteList[i]->GetParent();
@@ -211,7 +214,7 @@ void Application::ProcessDeleteQueue(void)
 			i--;
 		}
 	}
-	LWP_MutexUnlock(m_mutex);
+	m_mutex.unlock();
 }
 
 void Application::PushForDelete(GuiElement *e)
@@ -222,9 +225,23 @@ void Application::PushForDelete(GuiElement *e)
 	//! elements that are queued for delete are only rendered and not updated with buttons
 	e->SetState(STATE_DISABLED);
 
-	LWP_MutexLock(m_mutex);
+	m_mutex.lock();
 	deleteList.push_back(e);
-	LWP_MutexUnlock(m_mutex);
+	m_mutex.unlock();
+}
+
+void Application::ProcessPostUpdateTasks(void)
+{
+	while(!postUpdateTasks.empty())
+	{
+		m_mutex.lock();
+		ThreadedTask *task = postUpdateTasks.front();
+		postUpdateTasks.pop();
+		m_mutex.unlock();
+
+		task->Execute();
+		delete task;
+	}
 }
 
 /***********************************************************
@@ -339,8 +356,6 @@ void Application::init(void)
 	//!********************************************
 	//! class internal things
 	//!********************************************
-	LWP_MutexInit(&m_mutex, true);
-
 	//! resetup BG color
 	GXColor *bgColor = GetBGColorPtr();
 	bgColor[0] = RGBATOGXCOLOR(Settings.BackgroundUL);

@@ -20,7 +20,7 @@
 ThreadedTaskHandler * ThreadedTaskHandler::instance = NULL;
 
 ThreadedTaskHandler::ThreadedTaskHandler()
-	: Thread(80, 65*1024)
+	: CThread(80, 65*1024)
 	, ExitRequested(false)
 {
 	startThread();

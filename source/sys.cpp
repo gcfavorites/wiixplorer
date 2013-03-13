@@ -27,7 +27,7 @@
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
 #include "Launcher/Channels.h"
-#include "BootHomebrew/BootHomebrew.h"
+#include "BootHomebrew/BootHomebrewTask.h"
 #include "Controls/Application.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
@@ -45,22 +45,16 @@
 #include "input.h"
 #include "sys.h"
 
-bool shutdown = false;
-bool reset = false;
-
 extern "C" bool RebootApp()
 {
 	char filepath[MAXPATHLEN];
 	snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
-	int ret = LoadHomebrew(filepath);
-	if(ret < 0)
-	{
-		 WindowPrompt(tr("Reboot failed"), tr("Can't load file"), tr("OK"));
-		 return false;
-	}
 
+	ClearArguments();
 	AddBootArgument(filepath);
-	BootHomebrew();
+
+	BootHomebrewTask *task = new BootHomebrewTask(filepath);
+	task->SetAutoRunOnLoadFinish(true);
 
 	return true;
 }
@@ -106,12 +100,12 @@ extern "C" void ExitApp()
 
 extern "C" void __Sys_ResetCallback(void)
 {
-	reset = true;
+	Application::resetSystem();
 }
 
 extern "C" void __Sys_PowerCallback(void)
 {
-	shutdown = true;
+	Application::shutdownSystem();
 }
 
 

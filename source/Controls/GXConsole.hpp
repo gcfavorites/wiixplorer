@@ -28,6 +28,7 @@
 
 #include "GUI/gui_element.h"
 #include "GUI/gui_image.h"
+#include "Controls/CMutex.h"
 #include "TextOperations/wstring.hpp"
 
 class GXConsole : public GuiElement
@@ -57,7 +58,7 @@ class GXConsole : public GuiElement
 		void RemoveRow(int row);
 		bool IsMaxWidth(const wString * text);
 
-		mutex_t mutex;
+		CMutex mutex;
 		u32 fontSize;
 		u32 HeightBetweenLines;
 		u32 RowCount;

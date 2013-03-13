@@ -29,7 +29,7 @@
 #include <vector>
 #include <string>
 #include "GUI/gui_frame.h"
-#include "Controls/Thread.h"
+#include "Controls/CThread.h"
 #include "PlayList.hpp"
 
 enum
@@ -41,7 +41,7 @@ enum
 	MAX_LOOP_MODES
 };
 
-class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
+class MusicPlayer : public GuiFrame, public CThread, public sigslot::has_slots<>
 {
 	public:
 		static MusicPlayer * Instance() { if(!instance) instance = new MusicPlayer(); return instance; }
@@ -71,6 +71,7 @@ class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 		MusicPlayer();
 		virtual ~MusicPlayer();
 		void InternalSetup();
+		void InternalDestroy();
 		void OnButtonClick(GuiButton *sender, int pointer, const POINT &p);
 		void OnTitleListClick(PlayList *list, int item);
 		void OnEffectFinish(GuiElement *e UNUSED);
@@ -79,7 +80,7 @@ class MusicPlayer : public GuiFrame, public Thread, public sigslot::has_slots<>
 
 		bool Paused;
 		bool Stopped;
-		bool DisplayGUI;
+		bool bHidden;
 		bool PlaybackFinished;
 		bool ExitRequested;
 

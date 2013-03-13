@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2009-2011 Dimok
+ * Copyright (C) 2013 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef _BOOTHOMEBREW_H_
-#define _BOOTHOMEBREW_H_
+#ifndef _CONTROLSSETUPWINDOW_H_
+#define _CONTROLSSETUPWINDOW_H_
 
-int BootHomebrew();
-int BootGameCubeHomebrew();
-int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len);
-void AddBootArgument(const char * arg);
-void ClearArguments(void);
-void FreeHomebrewBuffer();
+#include "Prompts/PromptWindow.h"
+
+class ControlsSetupWindow : public PromptWindow
+{
+	public:
+		ControlsSetupWindow(int controlType, u16 * controlButton);
+		virtual ~ControlsSetupWindow() {}
+		void Update(GuiTrigger *t);
+	protected:
+		void OnButtonClick(GuiTrigger *t);
+		void OnCancelButtonClick(PromptWindow *window, int iButton);
+
+		int controlType;
+		u16 * controlButton;
+		bool bCancelClicked;
+};
 
 #endif

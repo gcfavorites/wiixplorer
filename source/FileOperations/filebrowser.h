@@ -34,7 +34,7 @@
 #include <unistd.h>
 #include <gccore.h>
 #include <sys/dir.h>
-#include "Controls/Thread.h"
+#include "Controls/CThread.h"
 
 #define FILTER_DIRECTORIES  0x01
 #define FILTER_FILES		0x02
@@ -60,7 +60,7 @@ typedef struct
 	bool isdir; // 0 - file, 1 - directory
 } BROWSERENTRY;
 
-class FileBrowser : public Browser, public Thread
+class FileBrowser : public Browser, public CThread
 {
 	public:
 		FileBrowser();

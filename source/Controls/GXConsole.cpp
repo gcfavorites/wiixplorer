@@ -40,13 +40,11 @@ GXConsole::GXConsole(int w, int h)
 	RowCount = (u32) floor(height/(fontSize+HeightBetweenLines));
 	color = (GXColor) {0, 0, 0, 255};
 	style = FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP;
-	LWP_MutexInit(&mutex, true);
 }
 
 GXConsole::~GXConsole()
 {
 	clear();
-	LWP_MutexDestroy(mutex);
 }
 
 void GXConsole::printf(const char *format, ...)
@@ -164,9 +162,9 @@ void GXConsole::AddRow(const wString * text)
 		RemoveRow(0);
 	}
 
-	LWP_MutexLock(mutex);
+	mutex.lock();
 	ConsoleRow.push_back((wString *) text);
-	LWP_MutexUnlock(mutex);
+	mutex.unlock();
 }
 
 void GXConsole::RemoveRow(int row)
@@ -174,19 +172,19 @@ void GXConsole::RemoveRow(int row)
 	if(row < 0 || row >= (int) ConsoleRow.size())
 		return;
 
-	LWP_MutexLock(mutex);
+	mutex.lock();
 	if(ConsoleRow.at(row))
 		delete ConsoleRow.at(row);
 
 	ConsoleRow.at(row) = NULL;
 
 	ConsoleRow.erase(ConsoleRow.begin()+row);
-	LWP_MutexUnlock(mutex);
+	mutex.unlock();
 }
 
 void GXConsole::clear()
 {
-	LWP_MutexLock(mutex);
+	mutex.lock();
 	for(u32 i = 0; i < ConsoleRow.size(); i++)
 	{
 		if(ConsoleRow.at(i))
@@ -196,7 +194,7 @@ void GXConsole::clear()
 	}
 
 	ConsoleRow.clear();
-	LWP_MutexUnlock(mutex);
+	mutex.unlock();
 }
 
 void GXConsole::SetImage(GuiImage * img)

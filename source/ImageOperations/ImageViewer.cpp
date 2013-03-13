@@ -27,7 +27,7 @@
 
 ImageViewer::ImageViewer(const char *filepath)
 	: GuiFrame(0, 0)
-	, Thread(75, 32768)
+	, CThread(75, 32768)
 {
 	currentImage = 0;
 	SlideShowStart = 0;

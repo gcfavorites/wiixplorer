@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -182,9 +182,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Kan ikke finde den rigtige partition."
-
-msgid "Can't load file"
-msgstr "Kan ikke indlæse fil"
 
 msgid "Can't load page."
 msgstr "Kan ikke indlæse side."
@@ -581,6 +578,9 @@ msgstr "Udpak hele arkivet?"
 msgid "Extract the selected item(s)?"
 msgstr "Udpak valgt emne(r)?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Udpakker emne(r)."
 
@@ -786,6 +786,9 @@ msgstr "GC PAD AFTRÆKKER R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC PAD AFTRÆKKER Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr ""
@@ -1208,6 +1211,9 @@ msgstr "Format muligvis ikke understøttet"
 msgid "Press Startup FTP to start the server on port"
 msgstr "Tryk Start FTP få at starte server på port"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr ""
 
@@ -1265,9 +1271,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr ""
-
-msgid "Reboot failed"
-msgstr "Reboot fejlede"
 
 msgid "Receiving file..."
 msgstr "Modtager fil..."
@@ -1369,6 +1372,9 @@ msgstr "Server var lukket ned...\n"
 msgid "Set Active"
 msgstr "Sæt aktiv"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "Sæt denne partition som aktiv?"
 
@@ -1420,9 +1426,6 @@ msgstr "Lydblokke"
 
 msgid "Special thanks to:"
 msgstr "Især tak til:"
-
-msgid "Standard"
-msgstr ""
 
 msgid "Startup FTP"
 msgstr "Start FTP"
@@ -1662,11 +1665,20 @@ msgstr "WPAD KLASSISK INGEN KNAP"
 msgid "WPAD NONE BUTTON"
 msgstr "WPAD INGEN KNAP"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Advarsel:"
 
 msgid "Wii Binary Files"
 msgstr "Wii Binary Filer"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr ""
@@ -1679,6 +1691,9 @@ msgstr ""
 
 msgid "WiiMC Path"
 msgstr "Sti til WiiMC"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer standard musikafspiller"
@@ -1772,6 +1787,12 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "Kan ikke indlæse fil"
+
+#~ msgid "Reboot failed"
+#~ msgstr "Reboot fejlede"
 
 #~ msgid "Cannot open image"
 #~ msgstr "Kan ikke åbne billede"

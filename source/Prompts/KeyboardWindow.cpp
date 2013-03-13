@@ -315,6 +315,10 @@ void KeyboardWindow::OnKeyPress(wchar_t charCode)
 		TextPointerBtn->UpdateWidth();
 		TextPointerBtn->SetLetterPosition(0xFFFF);
 	}
+	else if(((charCode >> 8) == 0xF2) && (charCode & 0xFF) < 0x80) {
+		// this is usually a numpad
+		charCode = charCode & 0xFF;
+	}
 	else if(charCode >= 0xD800) {
 		//! skip unknown characters
 		return;

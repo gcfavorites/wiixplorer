@@ -31,7 +31,7 @@
 #include "SoundOperations/MusicPlayer.h"
 #include "Prompts/PromptWindows.h"
 #include "Prompts/ProgressWindow.h"
-#include "BootHomebrew/BootHomebrew.h"
+#include "BootHomebrew/BootHomebrewTask.h"
 #include "FileStartUp/FileStartUp.h"
 #include "TextOperations/TextEditor.h"
 #include "TextOperations/PDFViewer.hpp"
@@ -63,14 +63,10 @@ int FileStartUp(const char *filepath)
 			choice = WindowPrompt(tr("Do you want to boot:"), filename, tr("Yes"), tr("No"));
 		if(choice)
 		{
-			int ret = LoadHomebrew(filepath);
-			if(ret >= 0)
-				AddBootArgument(filepath);
-
-			if(choice == 1)
-				BootHomebrew();
-			else if(choice == 2)
-				BootGameCubeHomebrew();
+			ClearArguments();
+			AddBootArgument(filepath);
+			BootHomebrewTask *task = new BootHomebrewTask(filepath, choice == 2);
+			task->SetAutoRunOnLoadFinish(true);
 		}
 
 		return 0;
@@ -213,23 +209,17 @@ int FileStartUp(const char *filepath)
 		int choice = WindowPrompt(tr("How do you want to launch this file?"), filename, tr("WiiMC"), tr("MPlayerCE"), tr("Cancel"));
 		if(choice == 1)
 		{
-			 int ret = LoadHomebrew(Settings.WiiMCPath);
-			 if(ret >= 0)
-			 {
-				 AddBootArgument(Settings.WiiMCPath);
-				 CreateWiiMCArguments(filepath);
-				 BootHomebrew();
-			 }
+			ClearArguments();
+			CreateWiiMCArguments(filepath);
+			BootHomebrewTask *task = new BootHomebrewTask(Settings.WiiMCPath);
+			task->SetAutoRunOnLoadFinish(true);
 		}
 		else if(choice == 2)
 		{
-			 int ret = LoadHomebrew(Settings.MPlayerPath);
-			 if(ret >= 0)
-			 {
-				 AddBootArgument(Settings.MPlayerPath);
-				 CreateMPlayerArguments(filepath);
-				 BootHomebrew();
-			 }
+			ClearArguments();
+			CreateMPlayerArguments(filepath);
+			BootHomebrewTask *task = new BootHomebrewTask(Settings.MPlayerPath);
+			task->SetAutoRunOnLoadFinish(true);
 		}
 	}
 	else

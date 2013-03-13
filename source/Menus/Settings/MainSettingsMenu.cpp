@@ -19,7 +19,6 @@
 #include "Prompts/PromptWindows.h"
 #include "GeneralSettingsMenu.h"
 #include "PathSettingsMenu.h"
-#include "LanguageSettingsMenu.h"
 #include "BootSettingsMenu.h"
 #include "ControlsSettingsMenu.h"
 #include "ExplorerSettingsMenu.h"
@@ -71,8 +70,6 @@ void MainSettingsMenu::SetupOptions()
 {
 	int i = 0;
 
-	options.SetName(i++, tr("Language"));
-	options.SetName(i++, tr("Clock Mode"));
 	options.SetName(i++, tr("General Settings"));
 	options.SetName(i++, tr("Explorer Settings"));
 	options.SetName(i++, tr("Boot Settings"));
@@ -91,48 +88,15 @@ void MainSettingsMenu::SetOptionValues()
 {
 	int i = 0;
 
-	if(strcmp(Settings.LanguagePath, "") != 0)
-	{
-		if(strcmp(Settings.LanguagePath, "") == 0)
-		{
-			options.SetValue(i++, tr("Standard"));
-		}
-		else if(Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
-		{
-			options.SetValue(i++, tr("Standard"));
-		}
-		else
-		{
-			char * language = strrchr(Settings.LanguagePath, '/')+1;
-			options.SetValue(i++, "%s", language);
-		}
-	}
-	else
-		options.SetValue(i++, tr("App Default"));
-
-	if (Settings.ClockMode == 1)
-		options.SetValue(i++, tr("12H"));
-	else
-		options.SetValue(i++, tr("24H"));
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
-
 	options.SetValue(i++, " ");
 }
 
@@ -144,24 +108,11 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 		{
 			this->hide();
 
-			LanguageSettingsMenu *menu = new LanguageSettingsMenu(this);
-			Application::Instance()->Append(menu);
-			break;
-		}
-		case 1:
-		{
-			Settings.ClockMode = (Settings.ClockMode+1) % 2;
-			break;
-		}
-		case 2:
-		{
-			this->hide();
-
 			GeneralSettingsMenu *menu = new GeneralSettingsMenu(this);
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 3:
+		case 1:
 		{
 			this->hide();
 
@@ -169,7 +120,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 4:
+		case 2:
 		{
 			this->hide();
 
@@ -177,7 +128,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 5:
+		case 3:
 		{
 			this->hide();
 
@@ -185,7 +136,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 6:
+		case 4:
 		{
 			this->hide();
 
@@ -193,7 +144,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 7:
+		case 5:
 		{
 			this->hide();
 
@@ -201,7 +152,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 8:
+		case 6:
 		{
 			this->hide();
 
@@ -209,7 +160,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 9:
+		case 7:
 		{
 			this->hide();
 
@@ -217,7 +168,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 10:
+		case 8:
 		{
 			this->hide();
 
@@ -225,7 +176,7 @@ void MainSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			Application::Instance()->Append(menu);
 			break;
 		}
-		case 11:
+		case 9:
 		{
 			this->hide();
 

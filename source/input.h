@@ -23,9 +23,6 @@ void DoRumble(int i);
 void RequestRumble(int chan);
 int Wpad_Init(void);
 
-//! Callbacks for shutdown/reset
-extern bool shutdown;
-extern bool reset;
 //! User input
 class GuiTrigger;
 extern GuiTrigger userInput[4];
