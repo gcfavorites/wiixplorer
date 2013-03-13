@@ -19,7 +19,7 @@
 
 #include <gccore.h>
 #include <queue>
-#include "Thread.h"
+#include "CThread.h"
 
 class ThreadedTask
 {
@@ -29,7 +29,7 @@ public:
 	virtual void Execute(void) = 0;
 };
 
-class ThreadedTaskHandler : public Thread
+class ThreadedTaskHandler : public CThread
 {
 public:
 	static ThreadedTaskHandler * Instance() { if(!instance) instance = new ThreadedTaskHandler(); return instance; };

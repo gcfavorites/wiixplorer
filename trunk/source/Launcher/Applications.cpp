@@ -31,7 +31,7 @@
 
 #include "Applications.h"
 #include "FileOperations/DirList.h"
-#include "BootHomebrew/BootHomebrew.h"
+#include "BootHomebrew/BootHomebrewTask.h"
 #include "Controls/Clipboard.h"
 #include "Controls/Taskbar.h"
 
@@ -51,11 +51,11 @@ void Applications::Launch(int index)
 	if(index < 0 || index >= (int) applications.size())
 		return;
 
-	if (LoadHomebrew(applications.at(index).path) < 0)
-		return;
-
+	ClearArguments();
 	AddBootArgument(applications.at(index).path);
-	BootHomebrew();
+
+	BootHomebrewTask *task = new BootHomebrewTask(applications.at(index).path);
+	task->SetAutoRunOnLoadFinish(true);
 }
 
 mxml_error_cb_t xmlerror(const char* error UNUSED)
@@ -171,7 +171,7 @@ void Applications::Sort()
 
 bool Applications::SortCallback(const App & f1, const App & f2)
 {
-	if(stricmp(f1.name, f2.name) > 0)
+	if(strcasecmp(f1.name, f2.name) > 0)
 		return false;
 	else
 		return true;

@@ -40,12 +40,9 @@
 
 MusicPlayer * MusicPlayer::instance = NULL;
 
-extern const u8 bg_music_ogg[];
-extern const u32 bg_music_ogg_size;
-
 MusicPlayer::MusicPlayer()
 	: GuiFrame(480, 216)
-	, Thread(40, 16384)
+	, CThread(40, 16384)
 {
 	btnSoundOver = NULL;
 	playerImgData = NULL;
@@ -68,11 +65,12 @@ MusicPlayer::MusicPlayer()
 	LoopMode = 0;
 	currentPlaying = 0;
 	CircleImageDelay = 0;
+	bHidden = true;
 	Stopped = false;
 	PlaybackFinished = false;
 	ExitRequested = false;
 
-	MainSound = new GuiSound(bg_music_ogg, bg_music_ogg_size, false, 0);
+	MainSound = new GuiSound(Resources::GetFile("bg_music.ogg"), Resources::GetFileSize("bg_music.ogg"), false, 0);
 
 	TitleList.LoadList();
 	TitleList.ItemClicked.connect(this, &MusicPlayer::OnTitleListClick);
@@ -85,6 +83,9 @@ MusicPlayer::MusicPlayer()
 	Play();
 
 	startThread();
+
+	//! always set the time as initial seed to have a "more random" play on each start
+	srand(time(NULL));
 }
 
 MusicPlayer::~MusicPlayer()
@@ -94,6 +95,8 @@ MusicPlayer::~MusicPlayer()
 	Hide();
 
 	shutdownThread();
+
+	InternalDestroy();
 
 	if(MainSound)
 		delete MainSound;
@@ -110,7 +113,7 @@ bool MusicPlayer::LoadStandard()
 	if(PlayTitle)
 		PlayTitle->SetText(Title.c_str());
 
-	MainSound->Load(bg_music_ogg, bg_music_ogg_size, false);
+	MainSound->Load(Resources::GetFile("bg_music.ogg"), Resources::GetFileSize("bg_music.ogg"), false);
 	MainSound->Play();
 	Stopped = false;
 	Paused = false;
@@ -250,8 +253,6 @@ bool MusicPlayer::PlayRandom()
 	if(TitleList.size() == 0)
 		return LoadStandard();
 
-	srand(time(NULL));
-
 	currentPlaying = rand() % TitleList.size();
 
 	//just in case
@@ -293,63 +294,7 @@ void MusicPlayer::OnEffectFinish(GuiElement *e UNUSED)
 	{
 		this->DimBackground(false);
 		this->SetVisible(false);
-
-		RemoveAll();
-
-		if(trigA)
-			delete trigA;
-		if(trigB)
-			delete trigB;
-
-		Resources::Remove(btnSoundOver);
-		Resources::Remove(playerImgData);
-		Resources::Remove(navi_defaultImgData);
-		Resources::Remove(navi_upImgData);
-		Resources::Remove(navi_downImgData);
-		Resources::Remove(navi_leftImgData);
-		Resources::Remove(navi_rightImgData);
-
-		if(BackButton)
-			delete BackButton;
-		if(PlayBtn)
-			delete PlayBtn;
-		if(StopBtn)
-			delete StopBtn;
-		if(NextBtn)
-			delete NextBtn;
-		if(PreviousBtn)
-			delete PreviousBtn;
-
-		if(BackgroundImg)
-			delete BackgroundImg;
-		if(CircleImg)
-			delete CircleImg;
-
-		if(PlayTitle)
-			delete PlayTitle;
-
-		btnSoundOver = NULL;
-
-		playerImgData = NULL;
-		navi_defaultImgData = NULL;
-		navi_upImgData = NULL;
-		navi_downImgData = NULL;
-		navi_leftImgData = NULL;
-		navi_rightImgData = NULL;
-
-		trigA = NULL;
-		trigB = NULL;
-
-		BackButton = NULL;
-		PlayBtn = NULL;
-		StopBtn = NULL;
-		NextBtn = NULL;
-		PreviousBtn = NULL;
-
-		BackgroundImg = NULL;
-		CircleImg = NULL;
-
-		PlayTitle = NULL;
+		InternalDestroy();
 	}
 }
 
@@ -409,8 +354,13 @@ void MusicPlayer::OnTitleListClick(PlayList *list, int item)
 	}
 }
 
-void MusicPlayer::InternalSetup()
+void MusicPlayer::InternalSetup(void)
 {
+	if(!bHidden)
+		return;
+
+	bHidden = false;
+
 	this->SetVisible(true);
 	this->DimBackground(true);
 
@@ -481,6 +431,63 @@ void MusicPlayer::InternalSetup()
 	Append(NextBtn);
 	Append(PreviousBtn);
 	Append(PlayTitle);
+}
+
+void MusicPlayer::InternalDestroy(void)
+{
+	if(bHidden)
+		return;
+
+	bHidden = true;
+
+	RemoveAll();
+
+	if(trigA)
+		delete trigA;
+	if(trigB)
+		delete trigB;
+
+	Resources::Remove(btnSoundOver);
+	Resources::Remove(playerImgData);
+	Resources::Remove(navi_defaultImgData);
+	Resources::Remove(navi_upImgData);
+	Resources::Remove(navi_downImgData);
+	Resources::Remove(navi_leftImgData);
+	Resources::Remove(navi_rightImgData);
+
+	delete BackButton;
+	delete PlayBtn;
+	delete StopBtn;
+	delete NextBtn;
+	delete PreviousBtn;
+
+	delete BackgroundImg;
+	delete CircleImg;
+
+	delete PlayTitle;
+
+	btnSoundOver = NULL;
+
+	playerImgData = NULL;
+	navi_defaultImgData = NULL;
+	navi_upImgData = NULL;
+	navi_downImgData = NULL;
+	navi_leftImgData = NULL;
+	navi_rightImgData = NULL;
+
+	trigA = NULL;
+	trigB = NULL;
+
+	BackButton = NULL;
+	PlayBtn = NULL;
+	StopBtn = NULL;
+	NextBtn = NULL;
+	PreviousBtn = NULL;
+
+	BackgroundImg = NULL;
+	CircleImg = NULL;
+
+	PlayTitle = NULL;
 }
 
 void MusicPlayer::executeThread(void)

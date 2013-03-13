@@ -27,7 +27,6 @@
 #define PDFVIEWER_HPP_
 
 #include <mupdf/pdftool.h>
-#include "Controls/Thread.h"
 #include "ImageOperations/ImageViewer.h"
 
 class PDFViewer : public ImageViewer

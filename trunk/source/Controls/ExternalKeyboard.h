@@ -34,15 +34,15 @@ distribution.
 #include <gctypes.h>
 #include <wiikeyboard/keyboard.h>
 #include <wiikeyboard/usbkeyboard.h>
+#include "Controls/CMutex.h"
+#include "Controls/CThread.h"
 #include "Tools/wsksymvar.h"
-#include "Tools/CMutex.h"
-#include "Thread.h"
 
 #define MAXHELD 8
 
 extern const struct wscons_keydesc ukbd_keydesctab[];
 
-class ExternalKeyboard : public Thread
+class ExternalKeyboard : public CThread
 {
 public:
 	static ExternalKeyboard *Instance(void) { if(!instance) instance = new ExternalKeyboard(); return instance; }

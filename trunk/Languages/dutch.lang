@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2013-01-09 03:05+0100\n"
 "Last-Translator: Etheboss\n"
 "Language-Team: Etheboss\n"
@@ -181,9 +181,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Kan de juiste partitie niet vinden"
-
-msgid "Can't load file"
-msgstr "Kan bestand niet laden"
 
 msgid "Can't load page."
 msgstr "Kan pagina niet laden"
@@ -580,6 +577,9 @@ msgstr "Volledig archief uitpakken?"
 msgid "Extract the selected item(s)?"
 msgstr "De geselecteerde item(s) uitpakken?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Bezig uitpakken item(s):"
 
@@ -785,6 +785,9 @@ msgstr "GC PAD SCHOUDERKNOP R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC PAD SCHOUDERKNOP Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr ""
@@ -1207,6 +1210,9 @@ msgstr "Mogelijk onbekende indeling."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Druk op 'FTP Starten' om de server te starten op poort"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primaire"
 
@@ -1264,9 +1270,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr "Lezen archief."
-
-msgid "Reboot failed"
-msgstr "Herstart mislukt"
 
 msgid "Receiving file..."
 msgstr "Ontvangst bestand..."
@@ -1368,6 +1371,9 @@ msgstr "Server was uitgeschakeld...\n"
 msgid "Set Active"
 msgstr "Stel als Actief in"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "Deze Partitie als Actief instellen?"
 
@@ -1419,9 +1425,6 @@ msgstr "Geluidsblokken"
 
 msgid "Special thanks to:"
 msgstr "Speciale dank aan:"
-
-msgid "Standard"
-msgstr "Standaard"
 
 msgid "Startup FTP"
 msgstr "FTP Starten"
@@ -1661,11 +1664,20 @@ msgstr "WPAD CLASSIC GEEN KNOP"
 msgid "WPAD NONE BUTTON"
 msgstr "WPAD GEEN KNOP"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Waarschuwing:"
 
 msgid "Wii Binary Files"
 msgstr "Wii Binaire Bestanden"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr ""
@@ -1678,6 +1690,9 @@ msgstr ""
 
 msgid "WiiMC Path"
 msgstr "WiiMC Pad"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer Standaard Muziek"
@@ -1771,6 +1786,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "Kan bestand niet laden"
+
+#~ msgid "Reboot failed"
+#~ msgstr "Herstart mislukt"
+
+#~ msgid "Standard"
+#~ msgstr "Standaard"
 
 #~ msgid "Cannot open image"
 #~ msgstr "Kan afbeelding niet openen"

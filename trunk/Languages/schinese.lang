@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -184,9 +184,6 @@ msgstr "无法连接更新服务器"
 
 msgid "Can't find the right partition."
 msgstr "无法找到正确的分区。"
-
-msgid "Can't load file"
-msgstr "无法读取文件"
 
 msgid "Can't load page."
 msgstr "无法读取页码。"
@@ -587,6 +584,9 @@ msgstr "提取所有文件？"
 msgid "Extract the selected item(s)?"
 msgstr "提取已选择的项目？"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "提取项目中："
 
@@ -792,6 +792,9 @@ msgstr "GC手柄R键"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC手柄Z键"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr "GC_SD A键"
@@ -1214,6 +1217,9 @@ msgstr "可能不支持此文件格式。"
 msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "主"
 
@@ -1271,9 +1277,6 @@ msgstr "读取错误来自 %s 在 %s 中"
 
 msgid "Reading archive."
 msgstr "正在读取文档。"
-
-msgid "Reboot failed"
-msgstr "重启失败"
 
 msgid "Receiving file..."
 msgstr "文件接收中..."
@@ -1375,6 +1378,9 @@ msgstr "服务已关闭...\n"
 msgid "Set Active"
 msgstr "设置活动"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "是否设置此分区为活动分区？"
 
@@ -1426,9 +1432,6 @@ msgstr "声音锁"
 
 msgid "Special thanks to:"
 msgstr "特别感谢：Kavid"
-
-msgid "Standard"
-msgstr "标准"
 
 msgid "Startup FTP"
 msgstr "开启FTP"
@@ -1668,11 +1671,20 @@ msgstr "Wii经典手柄 无键"
 msgid "WPAD NONE BUTTON"
 msgstr "Wiimote 无键"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "警告："
 
 msgid "Wii Binary Files"
 msgstr "Wii程序文件"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr "Wii自制程序"
@@ -1685,6 +1697,9 @@ msgstr "WiiMC"
 
 msgid "WiiMC Path"
 msgstr "WiiMC路径"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer缺省音乐"
@@ -1778,6 +1793,15 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_+"
 msgstr "~!@#$%^&*()_+"
+
+#~ msgid "Can't load file"
+#~ msgstr "无法读取文件"
+
+#~ msgid "Reboot failed"
+#~ msgstr "重启失败"
+
+#~ msgid "Standard"
+#~ msgstr "标准"
 
 #~ msgid "Mount NAND (ISFS)"
 #~ msgstr "挂载 NAND （ISFS）"

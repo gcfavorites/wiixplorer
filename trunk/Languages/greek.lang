@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -182,9 +182,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Δεν μπορώ να βρώ την σωστή κατάτμηση."
-
-msgid "Can't load file"
-msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"
 
 msgid "Can't load page."
 msgstr "Δεν μπορώ να φορτώσω την σελίδα."
@@ -581,6 +578,9 @@ msgstr "Εξαγωγή όλου του αρχείου;"
 msgid "Extract the selected item(s)?"
 msgstr "Εξαγωγή επιλεγμένου(ων) αρχείου(ων);"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Εξάγω αρχείο(α)..."
 
@@ -786,6 +786,9 @@ msgstr "GC PAD ΣΚΑΝΔΑΛΗ R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC PAD ΣΚΑΝΔΑΛΗ Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr ""
@@ -1208,6 +1211,9 @@ msgstr "Πιθανών μη υποστηριζόμενη μορφή."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Πάτησε εκκίνηση για να αρχίσεις τον server στην πόρτα"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "Πρωτεύων"
 
@@ -1265,9 +1271,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr ""
-
-msgid "Reboot failed"
-msgstr "Η επανεκκίνηση απέτυχε"
 
 msgid "Receiving file..."
 msgstr "Λάμβάνω αρχείο..."
@@ -1369,6 +1372,9 @@ msgstr "Ο server κλείνει...\n"
 msgid "Set Active"
 msgstr "Θέστω ενεργό"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "Να θέσω αυτήν την κατάτμηση ενεργή;"
 
@@ -1420,9 +1426,6 @@ msgstr "Φραγμοί ήχων"
 
 msgid "Special thanks to:"
 msgstr "Ευχαριστώ τους:"
-
-msgid "Standard"
-msgstr "Πρότυπο"
 
 msgid "Startup FTP"
 msgstr "Εκκίνηση FTP"
@@ -1662,11 +1665,20 @@ msgstr "WPAD CLASSIC ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 msgid "WPAD NONE BUTTON"
 msgstr "WPAD ΚΑΝΕΝΑ ΠΛΗΚΤΡΟ"
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Προσοχή:"
 
 msgid "Wii Binary Files"
 msgstr "Διαδικά αρχεία Wii"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr "Wii Homebrew"
@@ -1679,6 +1691,9 @@ msgstr "WiiMC"
 
 msgid "WiiMC Path"
 msgstr "Διαδρομή για το WiiMC"
+
+msgid "WiiMote Buttons Setup"
+msgstr ""
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer προεπιλεγμένη μουσική"
@@ -1772,6 +1787,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"
+
+#~ msgid "Reboot failed"
+#~ msgstr "Η επανεκκίνηση απέτυχε"
+
+#~ msgid "Standard"
+#~ msgstr "Πρότυπο"
 
 #~ msgid "Cannot open image"
 #~ msgstr "Δεν μπορώ να ανοίξω την εικόνα"

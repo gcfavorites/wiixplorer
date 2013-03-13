@@ -27,10 +27,10 @@
 #define FTP_SERVER_H_
 
 #include "stdafx.h"
-#include "Controls/Thread.h"
+#include "Controls/CThread.h"
 #include "Controls/GXConsole.hpp"
 
-class FTPServer : public Thread
+class FTPServer : public CThread
 {
 	public:
 		static FTPServer * Instance() { if(!instance) instance = new FTPServer(); return instance; }

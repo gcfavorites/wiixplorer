@@ -274,7 +274,7 @@ class GuiElement
 		//!\return element effects
 		virtual int GetEffect() const { return effects; }
 		//!\return true if element animation is on going
-		virtual bool IsAnimated() const { return (GetEffect() > 0); }
+		virtual bool IsAnimated() const { return (parentElement != 0) && (GetEffect() > 0); }
 		//!The Element's cutoff bounds
 		virtual void SetBounds(iRect r) { cutBoundsRect = r; }
 		//!Checks whether the specified coordinates are within the element's boundaries

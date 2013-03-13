@@ -6,6 +6,7 @@
  * Wii/GameCube controller management
  ***************************************************************************/
 #include "stdafx.h"
+#include "Controls/Application.h"
 #include "VideoOperations/video.h"
 #include "ImageOperations/Screenshot.h"
 #include "GUI/gui_trigger.h"
@@ -15,7 +16,6 @@
 static int rumbleCount[4] = {0,0,0,0};
 static int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
-extern bool shutdown;
 
 /****************************************************************************
  * UpdatePads
@@ -56,7 +56,7 @@ void UpdatePads()
  ***************************************************************************/
 extern "C" void __Wpad_PowerCallback(s32 chan UNUSED)
 {
-	shutdown = true;
+	Application::shutdownSystem();
 }
 
 /****************************************************************************

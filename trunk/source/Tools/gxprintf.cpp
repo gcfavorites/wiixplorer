@@ -1,12 +1,12 @@
 #include <stdarg.h>
+#include "Controls/Application.h"
 #include "Controls/GXConsole.hpp"
-#include "input.h"
 
 static GXConsole * Console = NULL;
 
 extern "C" void gxprintf(const char * format, ...)
 {
-	if(!Console || shutdown || reset)
+	if(!Console || Application::isClosing())
 		return;
 
 	char *tmp=0;

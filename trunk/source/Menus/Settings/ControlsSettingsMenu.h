@@ -28,7 +28,8 @@ class ControlsSettingsMenu : public SettingsMenu
 		void SetupOptions();
 		void SetOptionValues();
 		void OnOptionClick(GuiOptionBrowser *sender, int option);
-		void OnResetButtonClick(GuiButton *sender UNUSED, int pointer UNUSED, const POINT &p UNUSED);
+		void OnResetButtonClick(GuiButton *sender, int pointer, const POINT &p);
+		void OnControlsSetupWindowClose(GuiFrame *frame);
 
 		GuiText *resetBtnTxt;
 		GuiImage *resetBtnImg;

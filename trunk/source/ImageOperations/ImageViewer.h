@@ -19,11 +19,11 @@
 #define __IMAGEVIEWER_H
 
 #include "GUI/gui.h"
-#include "Controls/Thread.h"
+#include "Controls/CThread.h"
 #include "FileOperations/DirListAsync.h"
-#include "Tools/CMutex.h"
+#include "Controls/CMutex.h"
 
-class ImageViewer : public GuiFrame, public Thread, public sigslot::has_slots<>
+class ImageViewer : public GuiFrame, public CThread, public sigslot::has_slots<>
 {
 	public:
 		//!Constructor

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:  David Jelinek (djelinek@hotmail.com) \n"
 "Language-Team: r56 - last version on http://volny/djelinek/_WiiXplorer/czech.lang  \n"
@@ -180,9 +180,6 @@ msgid "Can't connect to update server"
 msgstr ""
 
 msgid "Can't find the right partition."
-msgstr ""
-
-msgid "Can't load file"
 msgstr ""
 
 msgid "Can't load page."
@@ -580,6 +577,9 @@ msgstr ""
 msgid "Extract the selected item(s)?"
 msgstr ""
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr ""
 
@@ -784,6 +784,9 @@ msgid "GC PAD TRIGGER R"
 msgstr ""
 
 msgid "GC PAD TRIGGER Z"
+msgstr ""
+
+msgid "GC Pad Buttons Setup"
 msgstr ""
 
 msgid "GC-SD A"
@@ -1207,6 +1210,9 @@ msgstr ""
 msgid "Press Startup FTP to start the server on port"
 msgstr ""
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr ""
 
@@ -1263,9 +1269,6 @@ msgid "Read error from %s in %s"
 msgstr ""
 
 msgid "Reading archive."
-msgstr ""
-
-msgid "Reboot failed"
 msgstr ""
 
 msgid "Receiving file..."
@@ -1368,6 +1371,9 @@ msgstr ""
 msgid "Set Active"
 msgstr ""
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr ""
 
@@ -1419,9 +1425,6 @@ msgstr ""
 
 msgid "Special thanks to:"
 msgstr "Speciální poděkování pro:"
-
-msgid "Standard"
-msgstr ""
 
 msgid "Startup FTP"
 msgstr ""
@@ -1661,10 +1664,19 @@ msgstr ""
 msgid "WPAD NONE BUTTON"
 msgstr ""
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr ""
 
 msgid "Wii Binary Files"
+msgstr ""
+
+msgid "Wii Classic Buttons Setup"
 msgstr ""
 
 msgid "Wii Homebrew"
@@ -1677,6 +1689,9 @@ msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMote Buttons Setup"
 msgstr ""
 
 msgid "WiiXplorer Default Music"

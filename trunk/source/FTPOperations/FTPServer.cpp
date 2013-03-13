@@ -37,7 +37,7 @@
 FTPServer * FTPServer::instance = NULL;
 
 FTPServer::FTPServer()
-	: Thread(30, 32768)
+	: CThread(30, 32768)
 {
 	server = -1;
 	ftp_running = false;

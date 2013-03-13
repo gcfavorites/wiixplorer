@@ -16,6 +16,8 @@
  ****************************************************************************/
 #include "GeneralSettingsMenu.h"
 #include "Prompts/PromptWindows.h"
+#include "LanguageSettingsMenu.h"
+#include "Controls/Application.h"
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "System/IosLoader.h"
 #include "Settings.h"
@@ -90,6 +92,8 @@ void GeneralSettingsMenu::SetupOptions()
 {
 	int i = 0;
 
+	options.SetName(i++, tr("Language"));
+	options.SetName(i++, tr("Clock Mode"));
 	options.SetName(i++, tr("PDF Processing Zoom"));
 	options.SetName(i++, tr("Keyboard Delete Delay"));
 	options.SetName(i++, tr("Rumble"));
@@ -107,6 +111,21 @@ void GeneralSettingsMenu::SetupOptions()
 void GeneralSettingsMenu::SetOptionValues()
 {
 	int i = 0;
+
+	if(Settings.LanguagePath[0] == 0 || Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
+	{
+		options.SetValue(i++, tr("Default"));
+	}
+	else
+	{
+		char * language = strrchr(Settings.LanguagePath, '/')+1;
+		options.SetValue(i++, "%s", language);
+	}
+
+	if (Settings.ClockMode == 1)
+		options.SetValue(i++, tr("12H"));
+	else
+		options.SetValue(i++, tr("24H"));
 
 	options.SetValue(i++, "%0.2f", Settings.PDFLoadZoom);
 
@@ -151,6 +170,19 @@ void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 	switch (option)
 	{
 		case 0:
+		{
+			this->hide();
+			LanguageSettingsMenu *menu = new LanguageSettingsMenu(this);
+			Application::Instance()->Append(menu);
+			break;
+		}
+		case 1:
+		{
+			Settings.ClockMode = (Settings.ClockMode+1) % 2;
+			break;
+		}
+		case 2:
+		{
 			snprintf(entered, sizeof(entered), "%0.2f", Settings.PDFLoadZoom);
 			if(OnScreenKeyboard(entered, sizeof(entered)))
 			{
@@ -158,39 +190,57 @@ void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 				WindowPrompt(tr("Warning:"), tr("This option could mess up the pdf view."), tr("OK"));
 			}
 			break;
-		case 1:
+		}
+		case 3:
+		{
 			snprintf(entered, sizeof(entered), "%i", Settings.KeyboardDeleteDelay);
 			if(OnScreenKeyboard(entered, sizeof(entered)))
 			{
 				Settings.KeyboardDeleteDelay = atoi(entered);
 			}
 			break;
-		case 2:
+		}
+		case 4:
+		{
 			Settings.Rumble = (Settings.Rumble+1) % 2;
 			break;
-		case 3:
+		}
+		case 5:
+		{
 			Settings.ScrollSpeed = (Settings.ScrollSpeed+1) % 21;
 			break;
-		case 4:
+		}
+		case 6:
+		{
 			snprintf(entered, sizeof(entered), "%i", Settings.TooltipDelay);
 			if(OnScreenKeyboard(entered, sizeof(entered)))
 				Settings.TooltipDelay = atoi(entered);
 			break;
-		case 5:
+		}
+		case 7:
+		{
 			Settings.CompressionLevel++;
 			if(Settings.CompressionLevel > 9)
 				Settings.CompressionLevel = -1;
 			break;
-		case 6:
+		}
+		case 8:
+		{
 			Settings.CopyThreadPrio = NextPriority(Settings.CopyThreadPrio);
 			break;
-		case 7:
+		}
+		case 9:
+		{
 			Settings.CopyThreadBackPrio = NextPriority(Settings.CopyThreadBackPrio);
 			break;
-		case 8:
+		}
+		case 10:
+		{
 			Settings.ShowFormatter = (Settings.ShowFormatter+1) % 2;
 			break;
-		case 9: {
+		}
+		case 11:
+		{
 			iosinfo_t *info = IosLoader::GetIOSInfo(IOS_GetVersion());
 			if(info && (info->version >= 9)) {
 				Settings.USBPort = ((Settings.USBPort+1) % 2);

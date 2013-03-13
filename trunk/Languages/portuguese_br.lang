@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-02 22:21+0100\n"
+"POT-Creation-Date: 2013-03-13 20:08+0100\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -180,9 +180,6 @@ msgstr ""
 
 msgid "Can't find the right partition."
 msgstr "Partição correta não encontrada"
-
-msgid "Can't load file"
-msgstr "Erro ao carregar arquivo"
 
 msgid "Can't load page."
 msgstr "Erro ao carregar página"
@@ -579,6 +576,9 @@ msgstr "Extrair o pacote inteiro?"
 msgid "Extract the selected item(s)?"
 msgstr "Extrair a seleção?"
 
+msgid "Extracting file..."
+msgstr ""
+
 msgid "Extracting item(s):"
 msgstr "Extraindo ítens:"
 
@@ -784,6 +784,9 @@ msgstr "GC BOTÃO R"
 
 msgid "GC PAD TRIGGER Z"
 msgstr "GC BOTÃO Z"
+
+msgid "GC Pad Buttons Setup"
+msgstr ""
 
 msgid "GC-SD A"
 msgstr ""
@@ -1206,6 +1209,9 @@ msgstr "Formato não suportado."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Pressione Iniciar FTP para iniciar o servidor na porta"
 
+msgid "Press any button(s)"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primária"
 
@@ -1263,9 +1269,6 @@ msgstr ""
 
 msgid "Reading archive."
 msgstr ""
-
-msgid "Reboot failed"
-msgstr "Reinicialização falhou"
 
 msgid "Receiving file..."
 msgstr "Recebendo arquivo..."
@@ -1367,6 +1370,9 @@ msgstr "Servidor foi desligado...\n"
 msgid "Set Active"
 msgstr "Ativar"
 
+msgid "Set the pressed buttons?"
+msgstr ""
+
 msgid "Set this Partition as Active?"
 msgstr "Ativar esta partição?"
 
@@ -1418,9 +1424,6 @@ msgstr "Blocos"
 
 msgid "Special thanks to:"
 msgstr "Agradecimentos a"
-
-msgid "Standard"
-msgstr "Padrão"
 
 msgid "Startup FTP"
 msgstr "Iniciar FTP"
@@ -1660,11 +1663,20 @@ msgstr ""
 msgid "WPAD NONE BUTTON"
 msgstr ""
 
+msgid "WPAD NUNCHUCK BUTTON C"
+msgstr ""
+
+msgid "WPAD NUNCHUCK BUTTON Z"
+msgstr ""
+
 msgid "Warning:"
 msgstr "Aviso:"
 
 msgid "Wii Binary Files"
 msgstr "Arquivo binário Wii"
+
+msgid "Wii Classic Buttons Setup"
+msgstr ""
 
 msgid "Wii Homebrew"
 msgstr ""
@@ -1676,6 +1688,9 @@ msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC Path"
+msgstr ""
+
+msgid "WiiMote Buttons Setup"
 msgstr ""
 
 msgid "WiiXplorer Default Music"
@@ -1770,6 +1785,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Can't load file"
+#~ msgstr "Erro ao carregar arquivo"
+
+#~ msgid "Reboot failed"
+#~ msgstr "Reinicialização falhou"
+
+#~ msgid "Standard"
+#~ msgstr "Padrão"
 
 #~ msgid "Linebreak"
 #~ msgstr "Quebra de Linha"

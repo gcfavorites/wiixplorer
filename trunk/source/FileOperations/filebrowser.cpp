@@ -40,7 +40,7 @@
  * FileBrowser Class to parse directories on the fly
  ***************************************************************************/
 FileBrowser::FileBrowser()
-	: Thread(70, 65536)
+	: CThread(70, 65536)
 {
 	Filter = 0;
 	browserList = NULL;

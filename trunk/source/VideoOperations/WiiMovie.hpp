@@ -19,7 +19,7 @@
 
 #include "GUI/gui.h"
 #include "Tools/BufferCircle.hpp"
-#include "Tools/CMutex.h"
+#include "Controls/CMutex.h"
 #include "gcvid.h"
 
 #define SND_BUFFERS	 8

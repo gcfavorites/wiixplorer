@@ -61,6 +61,11 @@ void AddBootArgument(const char * argv)
 	Arguments.push_back(arg);
 }
 
+void ClearArguments(void)
+{
+	Arguments.clear();
+}
+
 int CopyHomebrewMemory(u8 *temp, u32 pos, u32 len)
 {
 	homebrewsize += len;
@@ -75,35 +80,6 @@ void FreeHomebrewBuffer()
 	homebrewsize = 0;
 
 	Arguments.clear();
-}
-
-int LoadHomebrew(const char * filepath)
-{
-	FileLoadTaskSynchron *loadTask = new FileLoadTaskSynchron(filepath, false);
-	loadTask->SetAutoDelete(false);
-	Taskbar::Instance()->AddTask(loadTask);
-	ThreadedTaskHandler::Instance()->AddTask(loadTask);
-
-	while(!loadTask->IsTaskFinished())
-	{
-		Application::Instance()->updateEvents();
-	}
-
-	u8 *filebuf = loadTask->getFileBuffer();
-	u32 filesize = loadTask->getFileSize();
-
-	Application::Instance()->PushForDelete(loadTask);
-
-	if(!filebuf)
-		return -1;
-
-	FreeHomebrewBuffer();
-
-	CopyHomebrewMemory(filebuf, 0, filesize);
-
-	free(filebuf);
-
-	return 0;
 }
 
 static inline bool IsDollZ (const u8 *buf)
