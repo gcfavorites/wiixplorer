@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2010-09-24 08:33-0300\n"
 "Last-Translator: nosklo\n"
 "Language-Team: WiiXplorer brazilian translators\n"
@@ -84,9 +84,6 @@ msgstr "Padrão do Aplicativo"
 
 msgid "Apps"
 msgstr "Aplicativos"
-
-msgid "Apps Path"
-msgstr "Caminho apps"
 
 msgid "Archive Files"
 msgstr "Pacotes"
@@ -169,8 +166,8 @@ msgstr "Calculando tamanho total..."
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Erro ao abrir arquivo."
+msgid "Can not open the file"
+msgstr "Impossível abrir o arquivo"
 
 msgid "Can't browse that path."
 msgstr "Erro ao pesquisar neste caminho"
@@ -836,6 +833,9 @@ msgstr "Botão Home"
 msgid "Home Menu"
 msgstr "Menu Home"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -986,8 +986,8 @@ msgstr "Erro criando arquivo de registro MD5"
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Caminho do MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Marcar Ítem"
@@ -1687,7 +1687,7 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
+msgid "WiiMC DOL Path"
 msgstr ""
 
 msgid "WiiMote Buttons Setup"
@@ -1785,6 +1785,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Caminho apps"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Erro ao abrir arquivo."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Caminho do MPlayerCE"
 
 #~ msgid "Can't load file"
 #~ msgstr "Erro ao carregar arquivo"
@@ -2040,9 +2049,6 @@ msgstr ""
 
 #~ msgid "Last status change:"
 #~ msgstr "Última mudança de status:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "Impossível abrir o arquivo"
 
 #~ msgid "An error occured."
 #~ msgstr "Ocorreu um erro"

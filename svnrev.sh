@@ -55,7 +55,7 @@ fi
 The GUI is done with libwiigui as base and graphics by NeoRame.
 
 Features:
- * USB2 support with IOS58 or IOS202 installed
+ * USB2 support with IOS58 or any common cIOS installed
  * SMB/USB/SD/DVD recursive copy/move/delete
    of files/directories with all files in it
  * FAT/NTFS/EXT2/EXT3/EXT4 files systems support
@@ -81,6 +81,7 @@ Features:
  * Properties of archive files
  * Add files/directories to a ZIP or create new ZIP files
  * Textediting support
+ * USB Keyboard support
  * PDF Viewing support
  * Format SD/USB primary/logical partitions to FAT32
  * Integrated FTP Server and FTP Client
@@ -89,7 +90,8 @@ Features:
  * Auto-Update feature
 
 Credits:
-  Coding: Dimok, r-win, dude
+  Coding: Dimok
+  Contributors: r-win, dude
   Forwarder: Dimok
   Channel: Dj Skual
   Artworks: Neorame

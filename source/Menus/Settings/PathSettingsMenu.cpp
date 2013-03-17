@@ -37,9 +37,9 @@ void PathSettingsMenu::SetupOptions()
 	int i = 0;
 
 	options.SetName(i++, tr("Update (App) Path"));
-	options.SetName(i++, tr("Apps Path"));
-	options.SetName(i++, tr("WiiMC Path"));
-	options.SetName(i++, tr("MPlayerCE Path"));
+	options.SetName(i++, tr("Homebrew Apps Path"));
+	options.SetName(i++, tr("WiiMC DOL Path"));
+	options.SetName(i++, tr("MPlayerCE DOL Path"));
 	options.SetName(i++, tr("Language Path"));
 	options.SetName(i++, tr("Customfont Path"));
 	options.SetName(i++, tr("Screenshot Path"));
@@ -56,7 +56,7 @@ void PathSettingsMenu::SetOptionValues()
 
 	options.SetValue(i++, "%s", Settings.UpdatePath);
 
-	options.SetValue(i++, "%s", Settings.AppPath);
+	options.SetValue(i++, "%s", Settings.HomebrewAppsPath);
 
 	options.SetValue(i++, "%s", Settings.WiiMCPath);
 
@@ -86,7 +86,7 @@ void PathSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option
 			ChangePath(Settings.UpdatePath, sizeof(Settings.UpdatePath));
 			break;
 		case 1:
-			ChangePath(Settings.AppPath, sizeof(Settings.AppPath));
+			ChangePath(Settings.HomebrewAppsPath, sizeof(Settings.HomebrewAppsPath));
 			break;
 		case 2:
 			ChangePath(Settings.WiiMCPath, sizeof(Settings.WiiMCPath));
@@ -140,8 +140,6 @@ void PathSettingsMenu::ChangePath(char *path, int size)
 		snprintf(entered, sizeof(entered), "%s", path);
 		if(OnScreenKeyboard(entered, sizeof(entered)))
 		{
-			if (entered[strlen(entered)-1] != '/')
-				strcat(entered, "/");
 			snprintf(path, size, "%s", entered);
 			WindowPrompt(tr("Path changed."), 0, tr("OK"));
 		}
@@ -154,10 +152,7 @@ void PathSettingsMenu::OnPathBrowserButtonClick(PathBrowser *menu, bool doneClic
 
 	if(doneClicked)
 	{
-		if (Path.length() > 0 && Path[Path.length()-1] != '/')
-			snprintf(setPath, setPathSize, "%s/", Path.c_str());
-		else
-			snprintf(setPath, setPathSize, "%s", Path.c_str());
+		snprintf(setPath, setPathSize, "%s", Path.c_str());
 	}
 
 	SetOptionValues();

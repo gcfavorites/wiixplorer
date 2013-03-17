@@ -27,6 +27,7 @@ public:
 	virtual void Execute(void);
 	void SetAutoDelete(bool b) { bAutoDelete = b; }
 	sigslot::signal2<u8 *, u32> LoadingComplete;
+	sigslot::signal1<int> LoadingFailed;
 private:
 	bool m_silent;
 	bool bAutoDelete;

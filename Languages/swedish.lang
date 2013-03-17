@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-08-22 11:30+0100\n"
 "Last-Translator: Katsurou\n"
 "Language-Team: \n"
@@ -83,9 +83,6 @@ msgid "App Default"
 msgstr "App Standard"
 
 msgid "Apps"
-msgstr ""
-
-msgid "Apps Path"
 msgstr ""
 
 msgid "Archive Files"
@@ -169,8 +166,8 @@ msgstr ""
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr ""
+msgid "Can not open the file"
+msgstr "Kan inte öppna filen"
 
 msgid "Can't browse that path."
 msgstr ""
@@ -836,6 +833,9 @@ msgstr ""
 msgid "Home Menu"
 msgstr ""
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -986,7 +986,7 @@ msgstr ""
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
+msgid "MPlayerCE DOL Path"
 msgstr ""
 
 msgid "Mark Item Button"
@@ -1687,7 +1687,7 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
+msgid "WiiMC DOL Path"
 msgstr ""
 
 msgid "WiiMote Buttons Setup"
@@ -1890,9 +1890,6 @@ msgstr ""
 
 #~ msgid "Last status change:"
 #~ msgstr "Senast status ändring:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "Kan inte öppna filen"
 
 #~ msgid "An error occured."
 #~ msgstr "Ett fel har uppståt."

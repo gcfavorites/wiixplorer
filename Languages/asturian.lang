@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2012-11-26 18:36\n"
 "Last-Translator: Ḷḷumex03\n"
 "Language-Team: \n"
@@ -85,9 +85,6 @@ msgstr "Per defeutu"
 
 msgid "Apps"
 msgstr "Apls"
-
-msgid "Apps Path"
-msgstr "Cartafueyu d'apls"
 
 msgid "Archive Files"
 msgstr "Archivos"
@@ -170,8 +167,8 @@ msgstr "Calculando grandor total..."
 msgid "Calculating transfer size..."
 msgstr "Calculando tasa tresferencia..."
 
-msgid "Can not open the file."
-msgstr "Nun pue abrise l'archivu."
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "Nun pue restolase pel cartafueyu."
@@ -837,6 +834,9 @@ msgstr "Botón Home"
 msgid "Home Menu"
 msgstr "Menú d'entamu"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -987,8 +987,8 @@ msgstr "El log MD5 nun puedo criase."
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Cartafueyu MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Botón de marcar oxetu"
@@ -1688,8 +1688,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
-msgstr "Cartafueyu"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1786,6 +1786,18 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Cartafueyu d'apls"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Nun pue abrise l'archivu."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Cartafueyu MPlayerCE"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "Cartafueyu"
 
 #~ msgid "Can't load file"
 #~ msgstr "Nun pue cargase'l ficheru"

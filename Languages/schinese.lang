@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -89,9 +89,6 @@ msgstr "程序缺省"
 msgid "Apps"
 msgstr "程序"
 
-msgid "Apps Path"
-msgstr "程序路径"
-
 msgid "Archive Files"
 msgstr "档案文件"
 
@@ -173,8 +170,8 @@ msgstr "正在计算全部大小。。。"
 msgid "Calculating transfer size..."
 msgstr "正在计算机传输大小..."
 
-msgid "Can not open the file."
-msgstr "文件无法打开。"
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "无法找到路径。"
@@ -844,6 +841,9 @@ msgstr "Home键"
 msgid "Home Menu"
 msgstr "Home菜单"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr "Hombrew 频道"
 
@@ -994,8 +994,8 @@ msgstr "无法创建MD5 日志文件。"
 msgid "MPlayerCE"
 msgstr "MPlayerCE"
 
-msgid "MPlayerCE Path"
-msgstr "MPlayerCE路径"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "标记项目按钮"
@@ -1695,8 +1695,8 @@ msgstr "Wii菜单"
 msgid "WiiMC"
 msgstr "WiiMC"
 
-msgid "WiiMC Path"
-msgstr "WiiMC路径"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1793,6 +1793,18 @@ msgstr "zxcvbnm,./"
 
 msgid "~!@#$%^&*()_+"
 msgstr "~!@#$%^&*()_+"
+
+#~ msgid "Apps Path"
+#~ msgstr "程序路径"
+
+#~ msgid "Can not open the file."
+#~ msgstr "文件无法打开。"
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "MPlayerCE路径"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "WiiMC路径"
 
 #~ msgid "Can't load file"
 #~ msgstr "无法读取文件"

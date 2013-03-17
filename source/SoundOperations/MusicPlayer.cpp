@@ -304,7 +304,6 @@ void MusicPlayer::OnButtonClick(GuiButton *sender, int pointer UNUSED, const POI
 	if(sender == BackButton)
 	{
 		Hide();
-		TitleList.Hide();
 	}
 	else if(sender == PlayBtn)
 	{
@@ -488,6 +487,8 @@ void MusicPlayer::InternalDestroy(void)
 	CircleImg = NULL;
 
 	PlayTitle = NULL;
+
+	TitleList.Hide();
 }
 
 void MusicPlayer::executeThread(void)

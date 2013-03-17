@@ -206,19 +206,19 @@ int FileStartUp(const char *filepath)
 	}
 	else if(Settings.FileExtensions.CompareVideo(fileext) == 0)
 	{
-		int choice = WindowPrompt(tr("How do you want to launch this file?"), filename, tr("WiiMC"), tr("MPlayerCE"), tr("Cancel"));
+		int choice = WindowPrompt(tr("How do you want to launch this file?"), filename, tr("MPlayerCE"), tr("WiiMC"), tr("Cancel"));
 		if(choice == 1)
 		{
 			ClearArguments();
-			CreateWiiMCArguments(filepath);
-			BootHomebrewTask *task = new BootHomebrewTask(Settings.WiiMCPath);
+			CreateMPlayerArguments(filepath);
+			BootHomebrewTask *task = new BootHomebrewTask(Settings.MPlayerPath);
 			task->SetAutoRunOnLoadFinish(true);
 		}
 		else if(choice == 2)
 		{
 			ClearArguments();
-			CreateMPlayerArguments(filepath);
-			BootHomebrewTask *task = new BootHomebrewTask(Settings.MPlayerPath);
+			CreateWiiMCArguments(filepath);
+			BootHomebrewTask *task = new BootHomebrewTask(Settings.WiiMCPath);
 			task->SetAutoRunOnLoadFinish(true);
 		}
 	}

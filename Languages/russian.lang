@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: drugold\n"
 "Language-Team: drugold@nm.ru RussianWii-Team\n"
@@ -85,9 +85,6 @@ msgstr ""
 
 msgid "Apps"
 msgstr "Программы"
-
-msgid "Apps Path"
-msgstr "Путь к программам"
 
 msgid "Archive Files"
 msgstr "Архивы"
@@ -170,8 +167,8 @@ msgstr ""
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Не удалось открыть файл."
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr ""
@@ -837,6 +834,9 @@ msgstr ""
 msgid "Home Menu"
 msgstr "Меню Home"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -987,8 +987,8 @@ msgstr ""
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Путь к MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr ""
@@ -1688,7 +1688,7 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
+msgid "WiiMC DOL Path"
 msgstr ""
 
 msgid "WiiMote Buttons Setup"
@@ -1786,6 +1786,15 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Путь к программам"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Не удалось открыть файл."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Путь к MPlayerCE"
 
 #~ msgid "Can't load file"
 #~ msgstr "Не удалось загрузить файл"

@@ -78,6 +78,8 @@ int ProcessTask::GetItemList(list<ItemList> &fileLists, bool listDirs)
 			CopySize += FileSize(Process.GetItemPath(i));
 			++CopyFiles;
 		}
+		// Update progress window
+		ShowProgress(0, CopySize);
 	}
 
 	return ret;
@@ -123,6 +125,8 @@ int ProcessTask::ReadDirectory(string &path, ItemList &fileList, bool listDirs)
 			CopySize += st.st_size;
 			++CopyFiles;
 		}
+		// Update progress window
+		ShowProgress(0, CopySize);
 	}
 	closedir(dir);
 

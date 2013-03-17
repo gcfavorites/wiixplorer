@@ -20,11 +20,12 @@
 #include "BootHomebrew/BootHomebrew.h"
 #include "Controls/Application.h"
 #include "Controls/Taskbar.h"
+#include "Controls/Task.hpp"
 #include "Controls/ThreadedTaskHandler.hpp"
 #include "FileOperations/FileLoadTask.h"
 #include "Tools/tools.h"
 
-class BootHomebrewTask : public ThreadedTask, public sigslot::has_slots<>
+class BootHomebrewTask : public ThreadedTask, public GuiElement, public sigslot::has_slots<>
 {
 public:
 	//! without pre-loading a file
@@ -42,6 +43,7 @@ public:
 		FileLoadTask *loadTask = new FileLoadTask(filepath, silent);
 		loadTask->SetAutoDelete(true);
 		loadTask->LoadingComplete.connect(this, &BootHomebrewTask::OnFileLoadFinish);
+		loadTask->LoadingFailed.connect(this, &BootHomebrewTask::OnFileLoadFail);
 		Taskbar::Instance()->AddTask(loadTask);
 		ThreadedTaskHandler::Instance()->AddTask(loadTask);
 	}
@@ -62,19 +64,20 @@ public:
 private:
 	void OnFileLoadFinish(u8 *buffer, u32 size)
 	{
-		if(buffer)
-		{
-			FreeHomebrewBuffer();
-			CopyHomebrewMemory(buffer, 0, size);
-			free(buffer);
-		}
-		else
-		{
-			ThrowMsg(tr("Error:"), "%s", tr("Could not load file."));
-		}
+		FreeHomebrewBuffer();
+		CopyHomebrewMemory(buffer, 0, size);
+
+		free(buffer);
+
 		if(bAutoRunOnLoadFinish)
 			Application::Instance()->addPostRenderTask(this);
 	}
+
+	void OnFileLoadFail(int result UNUSED)
+	{
+		Application::Instance()->PushForDelete(this);
+	}
+
 	bool bAutoRunOnLoadFinish;
 	bool bGcHomebrew;
 };

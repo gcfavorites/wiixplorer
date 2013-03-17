@@ -48,7 +48,11 @@
 extern "C" bool RebootApp()
 {
 	char filepath[MAXPATHLEN];
-	snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
+
+	if(strlen(Settings.UpdatePath) > 0 && Settings.UpdatePath[strlen(Settings.UpdatePath)-1] != '/')
+		snprintf(filepath, sizeof(filepath), "%s/boot.dol", Settings.UpdatePath);
+	else
+		snprintf(filepath, sizeof(filepath), "%sboot.dol", Settings.UpdatePath);
 
 	ClearArguments();
 	AddBootArgument(filepath);
@@ -68,11 +72,8 @@ extern "C" void ExitApp()
 	bRunOnce = true;
 
 	if(Settings.DeleteTempPath)
-	{
-		char path[sizeof(Settings.TempPath)];
-		strcpy(path, Settings.TempPath);
-		RemoveDirectory(path);
-	}
+		RemoveDirectory(Settings.TempPath);
+
 	Settings.Save();
 	//! fade out
 	//! now destroy objects
