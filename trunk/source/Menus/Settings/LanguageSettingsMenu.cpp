@@ -74,12 +74,19 @@ void LanguageSettingsMenu::SetupOptions()
 	options.ClearList();
 
 	char langpath[150];
+	memset(langpath, 0, sizeof(langpath));
 	snprintf(langpath, sizeof(langpath), "%s", Settings.LanguagePath);
-	if(langpath[strlen(langpath)-1] != '/')
+
+	//! append slash if it is not a .lang file otherwise get the path of the .lang file
+	if(strextcmp(Settings.LanguagePath, "lang", '.') == 0)
 	{
 		char * ptr = strrchr(langpath, '/');
 		if(ptr)
 			ptr[1] = '\0';
+	}
+	else {
+		if(strlen(langpath) > 0 && langpath[strlen(langpath)-1] != '/')
+			strncat(langpath, "/", sizeof(langpath)-1);
 	}
 
 	if(FileList)

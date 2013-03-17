@@ -174,11 +174,16 @@ bool ChangeLog::DownloadChangeLog(int fromRev, int tillRev, bool backwards)
 	if(!Changelog)
 		return false;
 
-	char writepath[MAXPATHLEN];
-	snprintf(writepath, sizeof(writepath), "%sChangeLog.txt", Settings.UpdatePath);
+	//! append slash if it is missing
+	std::string writePath = Settings.UpdatePath;
+	if(writePath.size() > 0 && writePath[writePath.size()-1] != '/')
+		writePath += '/';
+
+	writePath += "ChangeLog.txt";
+
 	CreateSubfolder(Settings.UpdatePath);
 
-	FILE * f = fopen(writepath, "wb");
+	FILE * f = fopen(writePath.c_str(), "wb");
 	if(!f)
 		return false;
 
@@ -191,13 +196,14 @@ bool ChangeLog::DownloadChangeLog(int fromRev, int tillRev, bool backwards)
 
 int ChangeLog::GetSavedChangeLogRev()
 {
-	char changelogpath[MAXPATHLEN];
-	snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
+	//! append slash if it is missing
+	std::string changelogPath = Settings.UpdatePath;
+	if(changelogPath.size() > 0 && changelogPath[changelogPath.size()-1] != '/')
+		changelogPath += '/';
 
-	if(!CheckFile(changelogpath))
-		return -1;
+	changelogPath += "ChangeLog.txt";
 
-	FILE * f = fopen(changelogpath, "rb");
+	FILE * f = fopen(changelogPath.c_str(), "rb");
 	if(!f)
 		return -1;
 
@@ -211,8 +217,12 @@ int ChangeLog::GetSavedChangeLogRev()
 
 bool ChangeLog::Show()
 {
-	char changelogpath[MAXPATHLEN];
-	snprintf(changelogpath, sizeof(changelogpath), "%sChangeLog.txt", Settings.UpdatePath);
+	//! append slash if it is missing
+	std::string changelogPath = Settings.UpdatePath;
+	if(changelogPath.size() > 0 && changelogPath[changelogPath.size()-1] != '/')
+		changelogPath += '/';
+
+	changelogPath += "ChangeLog.txt";
 
 	if(GetSavedChangeLogRev() < atoi(SvnRev()))
 	{
@@ -220,10 +230,10 @@ bool ChangeLog::Show()
 			return false;
 	}
 
-	if(!CheckFile(changelogpath))
+	if(!CheckFile(changelogPath.c_str()))
 		return false;
 
-	TextEditor::LoadFile(changelogpath);
+	TextEditor::LoadFile(changelogPath.c_str());
 
 	return true;
 }

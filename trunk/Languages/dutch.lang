@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2013-01-09 03:05+0100\n"
 "Last-Translator: Etheboss\n"
 "Language-Team: Etheboss\n"
@@ -85,9 +85,6 @@ msgstr "App Standaard"
 
 msgid "Apps"
 msgstr ""
-
-msgid "Apps Path"
-msgstr "Apps Pad"
 
 msgid "Archive Files"
 msgstr "Archief Bestanden"
@@ -170,7 +167,7 @@ msgstr "Berekenen totale grootte"
 msgid "Calculating transfer size..."
 msgstr "Berekenen overdracht grootte"
 
-msgid "Can not open the file."
+msgid "Can not open the file"
 msgstr "Kan bestand niet openen"
 
 msgid "Can't browse that path."
@@ -837,6 +834,9 @@ msgstr "Home Knop"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -987,8 +987,8 @@ msgstr "MD5 log kan niet worden gemaakt."
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "MPlayerCE Pad"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Makkeer Item Knop"
@@ -1688,8 +1688,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
-msgstr "WiiMC Pad"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1786,6 +1786,18 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Apps Pad"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Kan bestand niet openen"
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "MPlayerCE Pad"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "WiiMC Pad"
 
 #~ msgid "Can't load file"
 #~ msgstr "Kan bestand niet laden"
@@ -1972,9 +1984,6 @@ msgstr ""
 
 #~ msgid "Last status change:"
 #~ msgstr "Laatste statuswijziging:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "Kan bestand niet openen"
 
 #~ msgid "An error occured."
 #~ msgstr "Er is een fout opgetreden"

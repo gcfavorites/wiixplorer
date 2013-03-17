@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: Fox888[dk]\n"
 "Language-Team: \n"
@@ -87,9 +87,6 @@ msgstr "Programstandard"
 msgid "Apps"
 msgstr "Programmer"
 
-msgid "Apps Path"
-msgstr "Sti til homebrew programmer"
-
 msgid "Archive Files"
 msgstr "Arkiv filer"
 
@@ -171,8 +168,8 @@ msgstr "Udregner total størrelse..."
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Kan ikke åbne filen."
+msgid "Can not open the file"
+msgstr "Kan ikke åbne filen"
 
 msgid "Can't browse that path."
 msgstr "Kan ikke åbne denne sti"
@@ -838,6 +835,9 @@ msgstr "Hjem knap"
 msgid "Home Menu"
 msgstr ""
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -988,8 +988,8 @@ msgstr "MD5 logfil kan ikke skabes."
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Sti til MplayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Marker emne knap"
@@ -1689,8 +1689,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
-msgstr "Sti til WiiMC"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1787,6 +1787,18 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Sti til homebrew programmer"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Kan ikke åbne filen."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Sti til MplayerCE"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "Sti til WiiMC"
 
 #~ msgid "Can't load file"
 #~ msgstr "Kan ikke indlæse fil"
@@ -2179,9 +2191,6 @@ msgstr ""
 
 #~ msgid "Last status change:"
 #~ msgstr "Sidste statusændring:"
-
-#~ msgid "Can not open the file"
-#~ msgstr "Kan ikke åbne filen"
 
 #~ msgid "An error occured."
 #~ msgstr "Der skete en fejl."

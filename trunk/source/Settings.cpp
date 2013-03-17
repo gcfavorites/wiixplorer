@@ -23,6 +23,7 @@
 #include "FileOperations/fileops.h"
 #include "DeviceControls/DeviceHandler.hpp"
 #include "Language/gettext.h"
+#include "Tools/StringTools.h"
 #include "Tools/tools.h"
 #include "Tools/encrypt.h"
 
@@ -81,7 +82,7 @@ void CSettings::SetDefault()
 	sprintf(CustomFontPath, "%s%sfont.ttf", BootDevice, CONFIGPATH);
 	sprintf(LanguagePath, "%s%s%s", BootDevice, DEFAULT_APP_PATH, LANGPATH);
 	sprintf(UpdatePath, "%s%s", BootDevice, DEFAULT_APP_PATH);
-	sprintf(AppPath, "%sapps/", BootDevice);
+	sprintf(HomebrewAppsPath, "%sapps/", BootDevice);
 	sprintf(TempPath, "%sTemp/", UpdatePath);
 	sprintf(ScreenshotPath, "%s", UpdatePath);
 	sprintf(LinkListPath, "%sURL_List.xml", UpdatePath);
@@ -191,7 +192,7 @@ bool CSettings::Save()
 	fprintf(file, "MPlayerPath = %s\n", MPlayerPath);
 	fprintf(file, "CustomFontPath = %s\n", CustomFontPath);
 	fprintf(file, "UpdatePath = %s\n", UpdatePath);
-	fprintf(file, "AppPath = %s\n", AppPath);
+	fprintf(file, "AppPath = %s\n", HomebrewAppsPath);
 	fprintf(file, "TempPath = %s\n", TempPath);
 	fprintf(file, "ScreenshotPath = %s\n", ScreenshotPath);
 	fprintf(file, "LinkListPath = %s\n", LinkListPath);
@@ -287,7 +288,7 @@ bool CSettings::FindConfig()
 	char CheckDevice[12];
 
 	// Enumerate the devices supported by libogc.
-	for (int i = SD; (i < USB10) && !found; ++i)
+	for (int i = SD; (i < USB8) && !found; ++i)
 	{
 		snprintf(CheckDevice, sizeof(CheckDevice), "%s:", DeviceName[i]);
 
@@ -316,7 +317,7 @@ bool CSettings::FindConfig()
 
 	FILE * testFp = NULL;
 	// No existing config so try to find a place where we can write it too
-	for (int i = SD; (i < USB10) && !found; ++i)
+	for (int i = SD; (i < USB8) && !found; ++i)
 	{
 		sprintf(CheckDevice, "%s:", DeviceName[i]);
 
@@ -401,8 +402,10 @@ bool CSettings::LoadLanguage(const char *path, int language)
 
 		char filepath[150];
 		char langpath[150];
+		memset(langpath, 0, sizeof(langpath));
 		snprintf(langpath, sizeof(langpath), "%s", LanguagePath);
-		if(langpath[strlen(langpath)-1] != '/')
+		//! append slash if it is not a .lang file otherwise get the path of the .lang file
+		if(strextcmp(langpath, "lang", '.') == 0)
 		{
 			char * ptr = strrchr(langpath, '/');
 			if(ptr)
@@ -410,6 +413,10 @@ bool CSettings::LoadLanguage(const char *path, int language)
 				ptr++;
 				ptr[0] = '\0';
 			}
+		}
+		else {
+			if(strlen(langpath) > 0 && langpath[strlen(langpath)-1] != '/')
+				strncat(langpath, "/", sizeof(langpath)-1);
 		}
 
 		if(language == APP_DEFAULT)
@@ -589,7 +596,7 @@ bool CSettings::SetSetting(char *name, char *value)
 		return true;
 	}
 	else if (strcmp(name, "AppPath") == 0) {
-		strncpy(AppPath, value, sizeof(AppPath));
+		strncpy(HomebrewAppsPath, value, sizeof(HomebrewAppsPath));
 		return true;
 	}
 	else if (strcmp(name, "TempPath") == 0) {

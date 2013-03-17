@@ -112,7 +112,7 @@ void GeneralSettingsMenu::SetOptionValues()
 {
 	int i = 0;
 
-	if(Settings.LanguagePath[0] == 0 || Settings.LanguagePath[strlen(Settings.LanguagePath)-1] == '/')
+	if(strextcmp(Settings.LanguagePath, "lang", '.') != 0)
 	{
 		options.SetValue(i++, tr("Default"));
 	}

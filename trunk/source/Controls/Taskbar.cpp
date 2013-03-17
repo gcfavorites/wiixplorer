@@ -216,7 +216,7 @@ void Taskbar::OnStartmenuItemClick(PopUpMenu *menu, int item)
 	{
 		PopUpMenu *AppsMenu = new PopUpMenu(0, 0);
 
-		Applications *Apps = new Applications(Settings.AppPath);
+		Applications *Apps = new Applications(Settings.HomebrewAppsPath);
 
 		for (int i = 0; i < Apps->Count(); i++)
 			AppsMenu->AddItem(Apps->GetName(i));

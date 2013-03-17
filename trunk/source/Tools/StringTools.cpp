@@ -168,3 +168,14 @@ int strtokcmp(const char * string, const char * compare, const char * separator)
 	return -1;
 }
 
+int strextcmp(const char * string, const char * extension, char seperator)
+{
+	if(!string || !extension)
+		return -1;
+
+	char *ptr = strrchr(string, seperator);
+	if(!ptr)
+		return -1;
+
+	return strcasecmp(ptr + 1, extension);
+}

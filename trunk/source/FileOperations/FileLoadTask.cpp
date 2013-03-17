@@ -55,6 +55,7 @@ void FileLoadTask::Execute(void)
 	{
 		if(buffer)
 			free(buffer);
+		LoadingFailed(result);
 	}
 	else
 	{

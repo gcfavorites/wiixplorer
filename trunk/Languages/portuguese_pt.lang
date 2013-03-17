@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -84,9 +84,6 @@ msgstr "Predefinição do programa"
 
 msgid "Apps"
 msgstr "Aplicações"
-
-msgid "Apps Path"
-msgstr "Pasta de Aplicações"
 
 msgid "Archive Files"
 msgstr "Ficheiros Comprimidos"
@@ -169,8 +166,8 @@ msgstr ""
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Não é possível abrir o ficheiro."
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "Não é possível ir para esse caminho."
@@ -836,6 +833,9 @@ msgstr "Botão Início"
 msgid "Home Menu"
 msgstr "Menu Inicial"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -986,8 +986,8 @@ msgstr ""
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Caminho MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Botão Marcar Item"
@@ -1687,7 +1687,7 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
+msgid "WiiMC DOL Path"
 msgstr ""
 
 msgid "WiiMote Buttons Setup"
@@ -1785,6 +1785,15 @@ msgstr "<zxcvbnm,.-"
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Pasta de Aplicações"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Não é possível abrir o ficheiro."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Caminho MPlayerCE"
 
 #~ msgid "Can't load file"
 #~ msgstr "Impossível carregar ficheiro."

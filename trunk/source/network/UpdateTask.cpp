@@ -166,16 +166,19 @@ int UpdateTask::DownloadApp(const char *url)
 		return -1;
 	}
 
-	char dest[strlen(Settings.UpdatePath)+10];
+	//! append slash if it is missing
+	std::string destPath = Settings.UpdatePath;
+	if(destPath.size() > 0 && destPath[destPath.size()-1] != '/')
+		destPath += '/';
 
-	snprintf(dest, sizeof(dest), "%sboot.zip", Settings.UpdatePath);
+	destPath += "boot.zip";
 
 	CreateSubfolder(Settings.UpdatePath);
 
-	int res = DownloadFileToPath(url, dest, false);
+	int res = DownloadFileToPath(url, destPath.c_str(), false);
 	if(res < 102400)
 	{
-		RemoveFile(dest);
+		RemoveFile(destPath.c_str());
 		ThrowMsg(tr("Update failed"), tr("Could not download file."));
 		return -1;
 	}
@@ -183,10 +186,10 @@ int UpdateTask::DownloadApp(const char *url)
 	{
 		StartProgress(tr("Extracting file..."));
 
-		ZipFile zip(dest);
+		ZipFile zip(destPath.c_str());
 		zip.ExtractAll(Settings.UpdatePath);
 
-		RemoveFile(dest);
+		RemoveFile(destPath.c_str());
 
 		StopProgress();
 
@@ -213,9 +216,14 @@ bool UpdateTask::DownloadMetaXml(void)
 
 	CreateSubfolder(Settings.UpdatePath);
 
-	char path[strlen(Settings.UpdatePath)+10];
-	snprintf(path, sizeof(path), "%smeta.xml", Settings.UpdatePath);
-	FILE * pFile = fopen(path, "wb");
+	//! append slash if it is missing
+	std::string destPath = Settings.UpdatePath;
+	if(destPath.size() > 0 && destPath[destPath.size()-1] != '/')
+		destPath += '/';
+
+	destPath += "meta.xml";
+
+	FILE * pFile = fopen(destPath.c_str(), "wb");
 	if(!pFile)
 		return false;
 
@@ -240,9 +248,14 @@ bool UpdateTask::DownloadIconPNG(void)
 
 	CreateSubfolder(Settings.UpdatePath);
 
-	char path[strlen(Settings.UpdatePath)+10];
-	snprintf(path, sizeof(path), "%sicon.png", Settings.UpdatePath);
-	FILE * pFile = fopen(path, "wb");
+	//! append slash if it is missing
+	std::string destPath = Settings.UpdatePath;
+	if(destPath.size() > 0 && destPath[destPath.size()-1] != '/')
+		destPath += '/';
+
+	destPath += "icon.png";
+
+	FILE * pFile = fopen(destPath.c_str(), "wb");
 	if(!pFile)
 		return false;
 

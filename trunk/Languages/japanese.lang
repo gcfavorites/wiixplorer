@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -84,9 +84,6 @@ msgstr "英語"
 
 msgid "Apps"
 msgstr "アプリ"
-
-msgid "Apps Path"
-msgstr "アプリのパス"
 
 msgid "Archive Files"
 msgstr "書庫ファイル"
@@ -169,8 +166,8 @@ msgstr "合計サイズを計算中です..."
 msgid "Calculating transfer size..."
 msgstr "転送サイズを計算中..."
 
-msgid "Can not open the file."
-msgstr "ファイルを開けません"
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "パスを開けませんでした"
@@ -836,6 +833,9 @@ msgstr "HOME"
 msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -986,8 +986,8 @@ msgstr "MD5.logが作成できませんでした"
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "MPlayerCEのパス"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "選択する"
@@ -1687,8 +1687,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
-msgstr "WiiMCのパス"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1785,6 +1785,18 @@ msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "アプリのパス"
+
+#~ msgid "Can not open the file."
+#~ msgstr "ファイルを開けません"
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "MPlayerCEのパス"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "WiiMCのパス"
 
 #~ msgid "Can't load file"
 #~ msgstr "ファイルを読めません"

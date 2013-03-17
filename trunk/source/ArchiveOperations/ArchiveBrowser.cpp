@@ -135,7 +135,7 @@ int ArchiveBrowser::ExecuteFile(const char *filepath)
 	if(choice == 0)
 		return -1;
 
-	if(Settings.TempPath[strlen(Settings.TempPath)-1] != '/')
+	if(strlen(Settings.TempPath) > 0 && Settings.TempPath[strlen(Settings.TempPath)-1] != '/')
 		strcat(Settings.TempPath, "/");
 
 	if(!CreateSubfolder(Settings.TempPath))

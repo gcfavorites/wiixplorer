@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator: wiixale\n"
 "Language-Team: wiixale\n"
@@ -85,9 +85,6 @@ msgstr "Applicazione Default"
 
 msgid "Apps"
 msgstr "Applicazioni"
-
-msgid "Apps Path"
-msgstr "Percorso applicazioni"
 
 msgid "Archive Files"
 msgstr "Files Archivio"
@@ -170,8 +167,8 @@ msgstr "Calcolo dimensione totale in corso..."
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Impossibile aprire il file."
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "Impossibile sfogliare il percorso."
@@ -837,6 +834,9 @@ msgstr "Pulsante Home"
 msgid "Home Menu"
 msgstr "Menu Home"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -987,8 +987,8 @@ msgstr "Impossibile creare file log MD5"
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE Path"
-msgstr "Percorso MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Pulsante Marca Oggetto"
@@ -1688,8 +1688,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC Path"
-msgstr "Percorso WiiMC"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1786,6 +1786,18 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Percorso applicazioni"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Impossibile aprire il file."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Percorso MPlayerCE"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "Percorso WiiMC"
 
 #~ msgid "Can't load file"
 #~ msgstr "Impossibile caricare il file"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 20:08+0100\n"
+"POT-Creation-Date: 2013-03-17 08:47+0100\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Έκδοση-id-προγράμματος: WiiXplorer\n"
 "Αναφέρετε-Msgid-Λάθοι-στο: \n"
@@ -87,9 +87,6 @@ msgstr "Προεπιλογή για τα Προγράμματα"
 msgid "Apps"
 msgstr "Προγράμματα"
 
-msgid "Apps Path"
-msgstr "Διαδρομή Προγραμμάτων"
-
 msgid "Archive Files"
 msgstr "Αρχεία"
 
@@ -171,8 +168,8 @@ msgstr "Υπολογίζω το τελικό μέγεθος..."
 msgid "Calculating transfer size..."
 msgstr ""
 
-msgid "Can not open the file."
-msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
+msgid "Can not open the file"
+msgstr ""
 
 msgid "Can't browse that path."
 msgstr "Δεν μπορώ να περιηγηθώ αυτή τη διαδρομή."
@@ -838,6 +835,9 @@ msgstr "Πλήκτρο Κεντρικό"
 msgid "Home Menu"
 msgstr "Κεντρικό μενού"
 
+msgid "Homebrew Apps Path"
+msgstr ""
+
 msgid "Homebrew Channel"
 msgstr ""
 
@@ -988,8 +988,8 @@ msgstr "Το MD5.log αρχείο δεν μπορεί να διμιουργηθ�
 msgid "MPlayerCE"
 msgstr "MPlayerCE"
 
-msgid "MPlayerCE Path"
-msgstr "Διαδρομή για το MPlayerCE"
+msgid "MPlayerCE DOL Path"
+msgstr ""
 
 msgid "Mark Item Button"
 msgstr "Μάρκαρε πλήκτρο αντικειμένου"
@@ -1689,8 +1689,8 @@ msgstr ""
 msgid "WiiMC"
 msgstr "WiiMC"
 
-msgid "WiiMC Path"
-msgstr "Διαδρομή για το WiiMC"
+msgid "WiiMC DOL Path"
+msgstr ""
 
 msgid "WiiMote Buttons Setup"
 msgstr ""
@@ -1787,6 +1787,18 @@ msgstr ""
 
 msgid "~!@#$%^&*()_+"
 msgstr ""
+
+#~ msgid "Apps Path"
+#~ msgstr "Διαδρομή Προγραμμάτων"
+
+#~ msgid "Can not open the file."
+#~ msgstr "Δεν μπορώ να ανοίξω αυτό το αρχείο."
+
+#~ msgid "MPlayerCE Path"
+#~ msgstr "Διαδρομή για το MPlayerCE"
+
+#~ msgid "WiiMC Path"
+#~ msgstr "Διαδρομή για το WiiMC"
 
 #~ msgid "Can't load file"
 #~ msgstr "Δεν μπορεί να φορτώσω αυτό το αρχείο"

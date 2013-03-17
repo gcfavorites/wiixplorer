@@ -237,7 +237,7 @@ int LoadFileToMemWithProgress(const char *progressText, const char *filepath, u8
 	StopProgress();
 
 	if(ret == -1) {
-		ThrowMsg(tr("Error:"), tr("Can not open the file."));
+		ThrowMsg(tr("Error:"), "%s %s", tr("Can not open the file"), filepath);
 	}
 	else if(ret == -2) {
 		ThrowMsg(tr("Error:"), tr("Not enough memory."));
@@ -484,7 +484,7 @@ int RemoveDirectory(const char * dirpath)
 		return -1;
 
 	std::string folderpath = dirpath;
-	while(folderpath[folderpath.size()-1] == '/')
+	while(folderpath.size() > 0 && folderpath[folderpath.size()-1] == '/')
 		folderpath.erase(folderpath.size()-1);
 
 	//! load list not sorted, to remove in correct order
