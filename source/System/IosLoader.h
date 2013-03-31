@@ -26,6 +26,8 @@ class IosLoader
 		static bool IsWaninkokoIOS(s32 ios = IOS_GetVersion());
 		static bool IsD2X(s32 ios = IOS_GetVersion());
 		static iosinfo_t *GetIOSInfo(s32 ios);
+	private:
+		static int LoadFileFromNand(const char *filepath, u8 **outbuffer, u32 *outfilesize);
 };
 
 #endif

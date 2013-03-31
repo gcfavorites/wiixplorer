@@ -54,8 +54,8 @@ public:
 	virtual int Tell() { return CurPos; }
 	virtual int Seek(int pos) { CurPos = pos; return file_fd->seek(CurPos, SEEK_SET); }
 	virtual int Rewind();
-	virtual int GetFormat() { return VOICE_STEREO_16BIT; }
-	virtual int GetSampleRate() { return 48000; }
+	virtual u8 GetFormat() { return Format; }
+	virtual u16 GetSampleRate() { return SampleRate; }
 	virtual void Decode();
 	virtual bool IsBufferReady() { return SoundBuffer.IsBufferReady(); }
 	virtual u8 * GetBuffer() { return SoundBuffer.GetBuffer(); }
@@ -67,8 +67,11 @@ public:
 	virtual void ClearBuffer() { SoundBuffer.ClearBuffer(); }
 	virtual bool IsStereo() { return (GetFormat() == VOICE_STEREO_16BIT || GetFormat() == VOICE_STEREO_8BIT); }
 	virtual bool Is16Bit() { return (GetFormat() == VOICE_STEREO_16BIT || GetFormat() == VOICE_MONO_16BIT); }
+
+	void EnableUpsample(void);
 protected:
 	void Init();
+	void Upsample(s16 *src, s16 *dst, u32 nr_src_samples, u32 nr_dst_samples);
 
 	CFile * file_fd;
 	BufferCircle SoundBuffer;
@@ -77,10 +80,15 @@ protected:
 	u16 SoundBlocks;
 	int SoundBlockSize;
 	int CurPos;
+	bool ResampleTo48kHz;
 	bool Loop;
 	bool EndOfFile;
 	bool Decoding;
 	bool ExitRequested;
+	u8 Format;
+	u16 SampleRate;
+	u8 *ResampleBuffer;
+	u32 ResampleRatio;
 };
 
 #endif

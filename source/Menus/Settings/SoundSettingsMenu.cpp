@@ -35,6 +35,7 @@ void SoundSettingsMenu::SetupOptions()
 
 	options.SetName(i++, tr("Music Volume"));
 	options.SetName(i++, tr("Music Loop Mode"));
+	options.SetName(i++, tr("Resample to 48 kHz"));
 	options.SetName(i++, tr("Load Music to Memory"));
 	options.SetName(i++, tr("Soundblocks"));
 	options.SetName(i++, tr("Soundblock Size"));
@@ -51,10 +52,12 @@ void SoundSettingsMenu::SetOptionValues()
 	else
 		options.SetValue(i++, tr("OFF"));
 
-	if(Settings.BGMLoopMode == ONCE) options.SetValue(i++,tr("Play Once"));
-	else if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
+	if (Settings.BGMLoopMode == LOOP) options.SetValue(i++,tr("Loop"));
 	else if (Settings.BGMLoopMode == RANDOM_MUSIC) options.SetValue(i++,tr("Random"));
 	else if (Settings.BGMLoopMode == PLAYLIST_LOOP) options.SetValue(i++,tr("Loop Playlist"));
+	else options.SetValue(i++,tr("Play Once"));
+
+	options.SetValue(i++, "%s", Settings.ResampleTo48kHz ? tr("ON") : tr("OFF"));
 
 	if(Settings.LoadMusicToMem == 1) options.SetValue(i++, tr("ON"));
 	else options.SetValue(i++, tr("OFF"));
@@ -88,9 +91,14 @@ void SoundSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int optio
 			MusicPlayer::Instance()->SetLoop(Settings.BGMLoopMode);
 			break;
 		case 2:
-			Settings.LoadMusicToMem = (Settings.LoadMusicToMem+1) % 2;
+			MusicPlayer::Instance()->Stop();
+			Settings.ResampleTo48kHz = (Settings.ResampleTo48kHz + 1) % 2;
+			MusicPlayer::Instance()->Play();
 			break;
 		case 3:
+			Settings.LoadMusicToMem = (Settings.LoadMusicToMem+1) % 2;
+			break;
+		case 4:
 			snprintf(entered, sizeof(entered), "%i", Settings.SoundblockCount);
 			if(Settings.LoadMusicToMem != 1 && OnScreenKeyboard(entered, sizeof(entered)))
 			{
@@ -102,11 +110,11 @@ void SoundSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int optio
 					WindowPrompt(tr("WARNING:"), tr("The buffer size is really high. If the app doesn't start after this delete your config files."), tr("OK"));
 			}
 			break;
-		case 4:
+		case 5:
 			snprintf(entered, sizeof(entered), "%i", Settings.SoundblockSize);
 			if(Settings.LoadMusicToMem != 1 && OnScreenKeyboard(entered, sizeof(entered)))
 			{
-				Settings.SoundblockSize = atoi(entered);
+				Settings.SoundblockSize = LIMIT(atoi(entered), 0x1000, 0xFFFF) & ~0x03;
 				WindowPrompt(tr("Warning:"), tr("The effect will take with next music load. It might break music playback."), tr("OK"));
 				if(Settings.SoundblockSize*Settings.SoundblockCount > 512*1024)
 					WindowPrompt(tr("WARNING:"), tr("The buffer size is really high. If the app doesn't start after this delete your config files."), tr("OK"));

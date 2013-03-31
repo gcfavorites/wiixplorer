@@ -131,10 +131,7 @@ void GeneralSettingsMenu::SetOptionValues()
 
 	options.SetValue(i++, "%i", Settings.KeyboardDeleteDelay);
 
-	if(Settings.Rumble)
-		options.SetValue(i++, tr("ON"));
-	else
-		options.SetValue(i++, tr("OFF"));
+	options.SetValue(i++, "%s", Settings.Rumble ? tr("ON") : tr("OFF"));
 
 	options.SetValue(i++, "%i", Settings.ScrollSpeed);
 
@@ -146,17 +143,11 @@ void GeneralSettingsMenu::SetOptionValues()
 
 	options.SetValue(i++, PrioritySynonym(Settings.CopyThreadBackPrio));
 
-	if(Settings.ShowFormatter)
-		options.SetValue(i++, tr("ON"));
-	else
-		options.SetValue(i++, tr("OFF"));
+	options.SetValue(i++, "%s", Settings.ShowFormatter ? tr("ON") : tr("OFF"));
 
 	iosinfo_t *info = IosLoader::GetIOSInfo(IOS_GetVersion());
 	if(info && (info->version >= 9)) {
-		if(Settings.USBPort)
-			options.SetValue(i++, tr("ON"));
-		else
-			options.SetValue(i++, tr("OFF"));
+		options.SetValue(i++, "%s", Settings.USBPort ? tr("ON") : tr("OFF"));
 	}
 	else {
 		options.SetValue(i++, tr("requires d2x cIOS v9+"));

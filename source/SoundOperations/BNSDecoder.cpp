@@ -100,6 +100,10 @@ void BNSDecoder::OpenFile()
 	delete [] tempbuff;
 	tempbuff = NULL;
 
+	// set sound information
+	Format = SoundData.format;
+	SampleRate = SoundData.frequency;
+
 	Decode();
 }
 

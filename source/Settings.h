@@ -133,6 +133,8 @@ class CSettings
 		short   ISFSWriteAccess;
 		//!Tooltip delay
 		short   TooltipDelay;
+		//!Allow resample sound to 48 kHz
+		short   ResampleTo48kHz;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
 		//!WiiMote pointer speed factor
