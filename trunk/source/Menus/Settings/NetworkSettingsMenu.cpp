@@ -100,6 +100,7 @@ void NetworkSettingsMenu::OnUpdateButtonClick(GuiButton *sender UNUSED, int poin
 	if(ProgressWindow::Instance()->IsRunning())
 	{
 		ThrowMsg(tr("Error:"), tr("A task is in progress. Can't run update check right now."));
+		return;
 	}
 
 	UpdateTask *task = new UpdateTask(true, false, false);

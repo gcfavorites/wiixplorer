@@ -76,6 +76,7 @@ void CSettings::SetDefault()
 	USBPort = 0;
 	MountISFS = ON;
 	ISFSWriteAccess = OFF;
+	ResampleTo48kHz = ON;
 	TooltipDelay = 1000;
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
@@ -209,6 +210,7 @@ bool CSettings::Save()
 	fprintf(file, "USBPort = %d\n", USBPort);
 	fprintf(file, "MountISFS = %d\n", MountISFS);
 	fprintf(file, "TooltipDelay = %d\n", TooltipDelay);
+	fprintf(file, "ResampleTo48kHz = %d\n", ResampleTo48kHz);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -661,6 +663,10 @@ bool CSettings::SetSetting(char *name, char *value)
 	}
 	else if (strcmp(name, "TooltipDelay") == 0) {
 		TooltipDelay = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "ResampleTo48kHz") == 0) {
+		ResampleTo48kHz = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "BackgroundUL") == 0) {

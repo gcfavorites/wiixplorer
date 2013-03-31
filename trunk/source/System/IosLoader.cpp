@@ -140,7 +140,6 @@ iosinfo_t *IosLoader::GetIOSInfo(s32 ios)
 	}
 
 	currentIOS = ios;
-	char filepath[ISFS_MAXPATH];
 	u64 TicketID = ((((u64) 1) << 32) | ios);
 	u32 TMD_Length;
 
@@ -159,14 +158,20 @@ iosinfo_t *IosLoader::GetIOSInfo(s32 ios)
 		return NULL;
 	}
 
-	snprintf(filepath, sizeof(filepath), "nand:/title/%08x/%08x/content/%08x.app", 0x00000001, ios, *(u8 *)((u32)TMD+0x1E7));
-
-	free(TMD);
+	char *filepath = (char *)memalign(32, ISFS_MAXPATH);
+	if(!filepath) {
+		free(TMD);
+		return NULL;
+	}
+	snprintf(filepath, ISFS_MAXPATH, "/title/%08x/%08x/content/%08x.app", 0x00000001, ios, *(u8 *)((u32)TMD+0x1E7));
 
 	u8 *buffer = NULL;
 	u32 filesize = 0;
 
-	LoadFileToMem(filepath, &buffer, &filesize);
+	LoadFileFromNand(filepath, &buffer, &filesize);
+
+	free(TMD);
+	free(filepath);
 
 	if(!buffer)
 		return NULL;
@@ -186,4 +191,55 @@ iosinfo_t *IosLoader::GetIOSInfo(s32 ios)
 	currentIOSInfo = iosinfo;
 
 	return iosinfo;
+}
+
+int IosLoader::LoadFileFromNand(const char *filepath, u8 **outbuffer, u32 *outfilesize)
+{
+	if(!filepath)
+		return -1;
+
+	fstats *stats = (fstats *) memalign(32, ALIGN32(sizeof(fstats)));
+	if(!stats)
+		return IPC_ENOMEM;
+
+	int fd = ISFS_Open(filepath, ISFS_OPEN_READ);
+	if(fd < 0)
+	{
+		free(stats);
+		return fd;
+	}
+
+	int ret = ISFS_GetFileStats(fd, stats);
+	if (ret < 0)
+	{
+		free(stats);
+		ISFS_Close(fd);
+		return ret;
+	}
+
+	u32 filesize = stats->file_length;
+
+	free(stats);
+
+	u8 *buffer = (u8 *) memalign(32, ALIGN32(filesize));
+	if(!buffer)
+	{
+		ISFS_Close(fd);
+		return IPC_ENOMEM;
+	}
+
+	ret = ISFS_Read(fd, buffer, filesize);
+
+	ISFS_Close(fd);
+
+	if (ret < 0)
+	{
+		free(buffer);
+		return ret;
+	}
+
+	*outbuffer = buffer;
+	*outfilesize = filesize;
+
+	return 0;
 }
