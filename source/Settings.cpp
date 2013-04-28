@@ -69,7 +69,7 @@ void CSettings::SetDefault()
 	DeleteTempPath = 1;
 	CopyThreadPrio = 70;
 	CopyThreadBackPrio = 30;
-	Rumble = 1;
+	Rumble = 0;
 	HideSystemFiles = 1;
 	ShowFormatter = 0;
 	CompressionLevel = -1;
@@ -77,6 +77,7 @@ void CSettings::SetDefault()
 	MountISFS = ON;
 	ISFSWriteAccess = OFF;
 	ResampleTo48kHz = ON;
+	OverridePriiloader = ON;
 	TooltipDelay = 1000;
 	PDFLoadZoom = 1.0f;
 	PointerSpeed = 0.18f;
@@ -158,7 +159,7 @@ bool CSettings::Save()
 	if(!CreateSubfolder(filedest))
 		return false;
 
-	file = fopen(ConfigPath, "w");
+	FILE *file = fopen(ConfigPath, "w");
 	if(!file)
 	{
 		fclose(file);
@@ -211,6 +212,7 @@ bool CSettings::Save()
 	fprintf(file, "MountISFS = %d\n", MountISFS);
 	fprintf(file, "TooltipDelay = %d\n", TooltipDelay);
 	fprintf(file, "ResampleTo48kHz = %d\n", ResampleTo48kHz);
+	fprintf(file, "OverridePriiloader = %d\n", OverridePriiloader);
 
 	fprintf(file, "\n# Fileextensions assignment.\n\n");
 	fprintf(file, "FileExtensions.VideoFiles = %s\n", FileExtensions.GetVideo());
@@ -288,6 +290,7 @@ bool CSettings::FindConfig()
 {
 	bool found = false;
 	char CheckDevice[12];
+	memset(BootDevice, 0, sizeof(BootDevice));
 
 	// Enumerate the devices supported by libogc.
 	for (int i = SD; (i < USB8) && !found; ++i)
@@ -297,21 +300,21 @@ bool CSettings::FindConfig()
 		if(!found)
 		{
 			// Check for the config file in the apps directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiXplorer/%s", BootDevice, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
 		if(!found)
 		{
 			// Check for the config file in the apps directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiExplorer/%s", BootDevice, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
 		if(!found)
 		{
 			// Check for the config file in the config directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
 			found = CheckFile(ConfigPath);
 		}
@@ -326,7 +329,7 @@ bool CSettings::FindConfig()
 		if (!found)
 		{
 			// Check if we can write to the apps directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiXplorer/%s", BootDevice, CONFIGNAME);
 			testFp = fopen(ConfigPath, "wb");
 			found = (testFp != NULL);
@@ -335,7 +338,7 @@ bool CSettings::FindConfig()
 		if (!found)
 		{
 			// Check if we can write to the apps directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/apps/WiiExplorer/%s", BootDevice, CONFIGNAME);
 			testFp = fopen(ConfigPath, "wb");
 			found = (testFp != NULL);
@@ -344,7 +347,7 @@ bool CSettings::FindConfig()
 		if (!found)
 		{
 			// Check if we can write to the config directory.
-			strlcpy(BootDevice, CheckDevice, sizeof(BootDevice));
+			strncpy(BootDevice, CheckDevice, sizeof(BootDevice)-1);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s", BootDevice, CONFIGPATH);
 			CreateSubfolder(ConfigPath);
 			snprintf(ConfigPath, sizeof(ConfigPath), "%s/%s%s", BootDevice, CONFIGPATH, CONFIGNAME);
@@ -362,18 +365,12 @@ bool CSettings::Load()
 	FindConfig();
 
 	char line[1024];
-	char filepath[300];
+	char filepath[150];
 	snprintf(filepath, sizeof(filepath), "%s", ConfigPath);
 
-	if(!CheckFile(filepath))
-		return false;
-
-	file = fopen(filepath, "r");
+	FILE *file = fopen(filepath, "r");
 	if (!file)
-	{
-		fclose(file);
 		return false;
-	}
 
 	while (fgets(line, sizeof(line), file))
 	{
@@ -669,6 +666,10 @@ bool CSettings::SetSetting(char *name, char *value)
 		ResampleTo48kHz = atoi(value);
 		return true;
 	}
+	else if (strcmp(name, "OverridePriiloader") == 0) {
+		OverridePriiloader = atoi(value);
+		return true;
+	}
 	else if (strcmp(name, "BackgroundUL") == 0) {
 		sscanf(value, "%u", &BackgroundUL);
 		return true;
@@ -777,24 +778,24 @@ bool CSettings::SetSetting(char *name, char *value)
 
 		for(n = 0; n < MAXSMBUSERS; n++) {
 			sprintf(temp, "SMBUser[%d].Host", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(SMBUser[n].Host, value, sizeof(SMBUser[n].Host));
 				return true;
 			}
 			sprintf(temp, "SMBUser[%d].User", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(SMBUser[n].User, value, sizeof(SMBUser[n].User));
 				return true;
 			}
 			sprintf(temp, "SMBUser[%d].CPassword", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				if (strcmp(value, "") != 0)
 					DecryptString(value, password);
 				strncpy(SMBUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(SMBUser[n].Password));
 				return true;
 			}
 			sprintf(temp, "SMBUser[%d].SMBName", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(SMBUser[n].SMBName, value, sizeof(SMBUser[n].SMBName));
 				return true;
 			}
@@ -802,36 +803,36 @@ bool CSettings::SetSetting(char *name, char *value)
 
 		for(n = 0; n < MAXFTPUSERS; n++) {
 			sprintf(temp, "FTPUser[%d].Host", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(FTPUser[n].Host, value, sizeof(FTPUser[n].Host));
 				return true;
 			}
 			sprintf(temp, "FTPUser[%d].User", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(FTPUser[n].User, value, sizeof(FTPUser[n].User));
 				return true;
 			}
 			sprintf(temp, "FTPUser[%d].CPassword", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				if (strcmp(value, "") != 0)
 					DecryptString(value, password);
 				strncpy(FTPUser[n].Password, ((strcmp(value, "") != 0) ? password : value), sizeof(FTPUser[n].Password));
 				return true;
 			}
 			sprintf(temp, "FTPUser[%d].FTPPath", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(FTPUser[n].FTPPath, value, sizeof(FTPUser[n].FTPPath));
 				return true;
 			}
 			sprintf(temp, "FTPUser[%d].Port", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				if (sscanf(value, "%d", &i) == 1) {
 					FTPUser[n].Port = i;
 				}
 				return true;
 			}
 			sprintf(temp, "FTPUser[%d].Passive", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				if (sscanf(value, "%d", &i) == 1) {
 					FTPUser[n].Passive = i;
 				}
@@ -841,12 +842,12 @@ bool CSettings::SetSetting(char *name, char *value)
 
 		for(n = 0; n < MAXNFSUSERS; n++) {
 			sprintf(temp, "NFSUser[%d].Host", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(NFSUser[n].Host, value, sizeof(NFSUser[n].Host));
 				return true;
 			}
 			sprintf(temp, "NFSUser[%d].Mountpoint", n+1);
-			if (stricmp(name, temp) == 0) {
+			if (strcasecmp(name, temp) == 0) {
 				strncpy(NFSUser[n].Mountpoint, value, sizeof(NFSUser[n].Mountpoint));
 				return true;
 			}

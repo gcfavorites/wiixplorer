@@ -162,9 +162,11 @@ extern "C" void Sys_LoadMenu(void)
 {
 	ExitApp();
 
-	// Priiloader shutup
-	*(u32 *)0x8132fffb = 0x50756e65;
-	DCFlushRange((u32 *)0x8132fffb, 4);
+	if(Settings.OverridePriiloader) {
+		// Priiloader shutup
+		*(u32 *)0x8132fffb = 0x50756e65;
+		DCFlushRange((u32 *)0x8132fffb, 4);
+	}
 
 	/* Return to the Wii system menu */
 	SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);

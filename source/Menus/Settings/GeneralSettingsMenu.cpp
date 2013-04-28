@@ -104,6 +104,7 @@ void GeneralSettingsMenu::SetupOptions()
 	options.SetName(i++, tr("Copy Thread Background Priority"));
 	options.SetName(i++, tr("Show Partition Formatter"));
 	options.SetName(i++, tr("Use Both USB Ports"));
+	options.SetName(i++, tr("Override Priiloader"));
 
 	SetOptionValues();
 }
@@ -152,6 +153,8 @@ void GeneralSettingsMenu::SetOptionValues()
 	else {
 		options.SetValue(i++, tr("requires d2x cIOS v9+"));
 	}
+
+	options.SetValue(i++, "%s", Settings.OverridePriiloader ? tr("ON") : tr("OFF"));
 }
 
 void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int option)
@@ -239,6 +242,11 @@ void GeneralSettingsMenu::OnOptionClick(GuiOptionBrowser *sender UNUSED, int opt
 			else {
 				Settings.USBPort = OFF;
 			}
+			break;
+		}
+		case 12:
+		{
+			Settings.OverridePriiloader = (Settings.OverridePriiloader+1) % 2;
 			break;
 		}
 		default:
