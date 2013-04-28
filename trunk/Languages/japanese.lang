@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 08:47+0100\n"
+"POT-Creation-Date: 2013-04-28 19:02+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator: Trickart \n"
+"Language-Team: Trickart \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -30,10 +30,10 @@ msgid "(Store)"
 msgstr "(無圧縮)"
 
 msgid "(only this session)"
-msgstr ""
+msgstr "このセッションのみ"
 
 msgid "(read only)"
-msgstr ""
+msgstr "読み込み専用"
 
 msgid "--------------------------------------------------\n"
 msgstr ""
@@ -53,10 +53,10 @@ msgid "7z decompression failed:"
 msgstr "7zの解凍に失敗しました"
 
 msgid "A task is in progress. Can't run update check right now."
-msgstr ""
+msgstr "タスクを実行中です。アップデートすることはできません"
 
 msgid "ASDFGHJKL:\""
-msgstr ""
+msgstr "ぱぴぷぺぽがぎぐげごゑゐ"
 
 msgid "Accept"
 msgstr ""
@@ -89,7 +89,7 @@ msgid "Archive Files"
 msgstr "書庫ファイル"
 
 msgid "Are you sure you have that IOS installed?"
-msgstr ""
+msgstr "このIOSをインストールしますか?"
 
 msgid "Audio Files"
 msgstr "音楽ファイル"
@@ -104,7 +104,7 @@ msgid "BMP Compression"
 msgstr "BMP圧縮"
 
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 msgid "Back Button"
 msgstr "戻る"
@@ -158,7 +158,7 @@ msgid "Calculating delete size..."
 msgstr "削除サイズを計算中..."
 
 msgid "Calculating extract size..."
-msgstr ""
+msgstr "解凍後のサイズを計算中..."
 
 msgid "Calculating total size..."
 msgstr "合計サイズを計算中です..."
@@ -167,13 +167,13 @@ msgid "Calculating transfer size..."
 msgstr "転送サイズを計算中..."
 
 msgid "Can not open the file"
-msgstr ""
+msgstr "ファイルが開けません"
 
 msgid "Can't browse that path."
 msgstr "パスを開けませんでした"
 
 msgid "Can't connect to update server"
-msgstr ""
+msgstr "サーバーに接続出来ません"
 
 msgid "Can't find the right partition."
 msgstr "右の領域が見つかりません"
@@ -189,14 +189,14 @@ msgstr "キャンセル"
 
 #, c-format
 msgid "Cannot close file %s"
-msgstr ""
+msgstr "ファイル %sが閉じられません"
 
 msgid "Cannot create directory: "
 msgstr "フォルダを作成できませんでした"
 
 #, c-format
 msgid "Cannot open file %s"
-msgstr ""
+msgstr "ファイル %sが開けません"
 
 msgid "Cannot read from the drive."
 msgstr "ドライブから読み込めません"
@@ -230,7 +230,7 @@ msgid "Checking file:"
 msgstr "チェックしたファイル:"
 
 msgid "Checking for updates"
-msgstr ""
+msgstr "アップデートをチェック"
 
 msgid "Clear"
 msgstr "クリア"
@@ -279,7 +279,7 @@ msgid "Convert"
 msgstr "変換"
 
 msgid "Converting image"
-msgstr ""
+msgstr "画像を変換"
 
 msgid "Converting image..."
 msgstr "画像を変換しています･･･"
@@ -316,7 +316,7 @@ msgstr "ダウンロードできませんでした"
 
 #, c-format
 msgid "Could not find IOS %i"
-msgstr ""
+msgstr "IOS %iがありません"
 
 msgid "Could not load file."
 msgstr "ファイルを読み込めませんでした"
@@ -379,13 +379,13 @@ msgid "Disconnect Client"
 msgstr "クライアントを切断"
 
 msgid "Disconnect NFS"
-msgstr ""
+msgstr "NFSを切断"
 
 msgid "Disconnect SMB"
 msgstr "SMBを切断"
 
 msgid "Disk is Full"
-msgstr ""
+msgstr "ディスクがいっぱいです"
 
 msgid "Do you want to add an URL?"
 msgstr "URLを追加しますか?"
@@ -415,7 +415,7 @@ msgid "Do you want to disconnect the FTP client?"
 msgstr "FTPクライアントを切断しますか?"
 
 msgid "Do you want to disconnect this NFS?"
-msgstr ""
+msgstr "NFSを切断しますか?"
 
 msgid "Do you want to disconnect this SMB?"
 msgstr "SMBを切断しますか?"
@@ -449,7 +449,7 @@ msgid "Do you want to reboot now ?"
 msgstr "今すぐ再起動しますか?"
 
 msgid "Do you want to reconnect this NFS?"
-msgstr ""
+msgstr "再接続しますか?"
 
 msgid "Do you want to reconnect this SMB?"
 msgstr "再接続しますか?"
@@ -458,7 +458,7 @@ msgid "Do you want to reconnect to the FTP client?"
 msgstr "FTPクライアントに再接続しますか?"
 
 msgid "Do you want to remount all devices?"
-msgstr ""
+msgstr "すべてのデバイスを再マウントしますか?"
 
 msgid "Do you want to replace this file?"
 msgstr "このファイルを置き換えますか?"
@@ -510,7 +510,7 @@ msgid "Enter"
 msgstr "手入力"
 
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #, c-format
 msgid "Error - %s is not a file\n"
@@ -530,11 +530,11 @@ msgstr "エラー: メモリが足りません: %s\n"
 
 #, c-format
 msgid "Error opening %s"
-msgstr ""
+msgstr "エラー: ファイルが開けません: %s"
 
 #, c-format
 msgid "Error opening %s in %s"
-msgstr ""
+msgstr "エラー: ファイルが開けません: %s %s中"
 
 #, c-format
 msgid "Error received from %s in %s"
@@ -574,7 +574,7 @@ msgid "Extract the selected item(s)?"
 msgstr "選択されたアイテムを解凍しますか?"
 
 msgid "Extracting file..."
-msgstr ""
+msgstr "解凍中"
 
 msgid "Extracting item(s):"
 msgstr "解凍中"
@@ -607,7 +607,7 @@ msgid "Fade Speed"
 msgstr "フェード速度"
 
 msgid "Failed adding some item(s)."
-msgstr ""
+msgstr "アイテムの追加に失敗しました"
 
 msgid "Failed copying some item(s)."
 msgstr "コピーに失敗しました"
@@ -616,13 +616,13 @@ msgid "Failed deleting some item(s)."
 msgstr "削除に失敗しました"
 
 msgid "Failed extracting some item(s)."
-msgstr ""
+msgstr "解凍に失敗しました"
 
 msgid "Failed extracting the item(s)."
 msgstr "解凍に失敗しました"
 
 msgid "Failed formatting the partition."
-msgstr ""
+msgstr "パーティションのフォーマットに失敗しました"
 
 msgid "Failed loading the file."
 msgstr "ファイルの読み込みに失敗しました"
@@ -631,7 +631,7 @@ msgid "Failed moving some item(s)."
 msgstr "移動に失敗しました"
 
 msgid "Failed reading from network"
-msgstr ""
+msgstr "ネットワークからの読み込みに失敗しました"
 
 msgid "Failed renaming item"
 msgstr "リネームに失敗しました"
@@ -640,7 +640,7 @@ msgid "Failed to get the Changelog."
 msgstr "更新履歴を受信できませんでした"
 
 msgid "Failed to initialize network."
-msgstr ""
+msgstr "ネットワークの初期化に失敗しました"
 
 msgid "Failed to load the channel."
 msgstr "チャンネルを読み込めませんでした"
@@ -656,7 +656,7 @@ msgstr "MBRの書き込みに失敗しました"
 
 #, c-format
 msgid "Fatal error: %i."
-msgstr ""
+msgstr "致命的なエラー: %i"
 
 msgid "File Extensions"
 msgstr "拡張子"
@@ -735,7 +735,7 @@ msgid "Formatter"
 msgstr "初期化ツール"
 
 msgid "Formatting partition!"
-msgstr ""
+msgstr "パーティションのフォーマット中!"
 
 msgid "Free Space:"
 msgstr "空き領域:"
@@ -783,7 +783,7 @@ msgid "GC PAD TRIGGER Z"
 msgstr "GCコンのZトリガー"
 
 msgid "GC Pad Buttons Setup"
-msgstr ""
+msgstr "GCコンの設定"
 
 msgid "GC-SD A"
 msgstr "GCのSD A"
@@ -804,7 +804,7 @@ msgid "Getting Changelog..."
 msgstr "更新履歴を受信しています･･･"
 
 msgid "Getting file list..."
-msgstr ""
+msgstr "ファイルリストを取得中..."
 
 msgid "Go Back"
 msgstr "戻る"
@@ -834,10 +834,10 @@ msgid "Home Menu"
 msgstr "HOMEボタンメニュー"
 
 msgid "Homebrew Apps Path"
-msgstr ""
+msgstr "Homebrewのパス"
 
 msgid "Homebrew Channel"
-msgstr ""
+msgstr "Homebrewチャンネル"
 
 msgid "Homebrew Files"
 msgstr "Homebrewファイル"
@@ -930,7 +930,7 @@ msgid "Language Files"
 msgstr "言語ファイル"
 
 msgid "Language Path"
-msgstr ""
+msgstr "言語ファイルのパス"
 
 msgid "Language Settings"
 msgstr "言語の設定"
@@ -987,7 +987,7 @@ msgid "MPlayerCE"
 msgstr ""
 
 msgid "MPlayerCE DOL Path"
-msgstr ""
+msgstr "MPlayerCEのパス"
 
 msgid "Mark Item Button"
 msgstr "選択する"
@@ -1000,7 +1000,7 @@ msgstr "Wiiメニューへ"
 
 #, c-format
 msgid "Mount %i"
-msgstr ""
+msgstr "%iをマウント"
 
 msgid "Mount NAND (ISFS) on boot"
 msgstr ""
@@ -1009,10 +1009,10 @@ msgid "Mounted as:"
 msgstr "マウント中:"
 
 msgid "Mounting DVD"
-msgstr ""
+msgstr "DVDドライブをマウント中"
 
 msgid "Mountpoint:"
-msgstr ""
+msgstr "マウントポイント"
 
 msgid "Moving item(s):"
 msgstr "移動しています"
@@ -1027,10 +1027,10 @@ msgid "Music Volume"
 msgstr "音量"
 
 msgid "NAND write access"
-msgstr ""
+msgstr "NAND書き込み権限"
 
 msgid "NFS Settings"
-msgstr ""
+msgstr "NFS設定"
 
 msgid "NONE"
 msgstr "なし"
@@ -1084,7 +1084,7 @@ msgid "Not a valid domain"
 msgstr "ドメインが正しくありません"
 
 msgid "Not enough memory"
-msgstr ""
+msgstr "メモリが足りません"
 
 msgid "Not enough memory to resize."
 msgstr "リサイズするためのメモリが足りません"
@@ -1096,7 +1096,7 @@ msgid "Not enough memory."
 msgstr "メモリ不足です"
 
 msgid "Not enought memory."
-msgstr ""
+msgstr "メモリが足りません"
 
 msgid "Not mounted"
 msgstr "マウントしていません"
@@ -1124,6 +1124,9 @@ msgstr "出力ファイル"
 
 msgid "Output Type"
 msgstr "出力形式"
+
+msgid "Override Priiloader"
+msgstr ""
 
 msgid "PDF Files"
 msgstr "PDFファイル"
@@ -1210,7 +1213,7 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "サーバーを開始するためFTPを開始してください ポート:"
 
 msgid "Press any button(s)"
-msgstr ""
+msgstr "何かボタンを押してください"
 
 msgid "Primary"
 msgstr "先頭"
@@ -1257,18 +1260,18 @@ msgstr "ランダム再生"
 
 #, c-format
 msgid "Read Error in %s"
-msgstr ""
+msgstr "読み込みエラー: %s"
 
 #, c-format
 msgid "Read Error in file: %s"
-msgstr ""
+msgstr "読み込みエラー: ファイル %s"
 
 #, c-format
 msgid "Read error from %s in %s"
-msgstr ""
+msgstr "読み込みエラー: %s %s中"
 
 msgid "Reading archive."
-msgstr ""
+msgstr "アーカイブを読込中"
 
 msgid "Receiving file..."
 msgstr "ファイルを受信中･･･"
@@ -1277,7 +1280,7 @@ msgid "Reconnect FTP"
 msgstr "FTPに再接続"
 
 msgid "Reconnect NFS"
-msgstr ""
+msgstr "NFSに再接続"
 
 msgid "Reconnect SMB"
 msgstr "SMBに再接続"
@@ -1289,13 +1292,13 @@ msgid "Remount"
 msgstr "再マウント"
 
 msgid "Remounting FTP client."
-msgstr ""
+msgstr "FTPクライアントを再接続中"
 
 msgid "Remounting NFS client."
-msgstr ""
+msgstr "NFSクライアントを再接続中"
 
 msgid "Remounting SMB client."
-msgstr ""
+msgstr "SMBクライアントを再接続中"
 
 msgid "Remounting all devices."
 msgstr "全てのデバイスを再マウントしています"
@@ -1309,6 +1312,9 @@ msgstr "リストから外す"
 msgid "Rename"
 msgstr "名前の変更"
 
+msgid "Resample to 48 kHz"
+msgstr ""
+
 msgid "Reset"
 msgstr "リセット"
 
@@ -1316,7 +1322,7 @@ msgid "Restart"
 msgstr "再起動"
 
 msgid "Retry?"
-msgstr ""
+msgstr "再試行しますか?"
 
 msgid "Right Button"
 msgstr "右"
@@ -1343,7 +1349,7 @@ msgid "Save Alpha"
 msgstr "アルファの保存"
 
 msgid "Screen Pointer Speed"
-msgstr ""
+msgstr "ポインターの速度"
 
 msgid "Screenshot Format"
 msgstr "画面写真の形式"
@@ -1362,7 +1368,7 @@ msgstr "スクロール速度"
 
 #, c-format
 msgid "Seek Error in %s"
-msgstr ""
+msgstr "シークエラー: %s"
 
 msgid "Server was shutdown...\n"
 msgstr "サーバーは終了しました…\n"
@@ -1371,10 +1377,10 @@ msgid "Set Active"
 msgstr "アクティブにする"
 
 msgid "Set the pressed buttons?"
-msgstr ""
+msgstr "押されたボタンを設定"
 
 msgid "Set this Partition as Active?"
-msgstr "領域をアクティブにしますか?"
+msgstr "パーティションをアクティブにしますか?"
 
 msgid "Settings"
 msgstr "設定"
@@ -1432,10 +1438,10 @@ msgid "Successfully formated the partition."
 msgstr "領域を初期化しました"
 
 msgid "System error received"
-msgstr ""
+msgstr "システムエラーが返されました"
 
 msgid "Tab"
-msgstr ""
+msgstr "タブ"
 
 msgid "Temporary Path"
 msgstr "一時フォルダのパス"
@@ -1447,7 +1453,7 @@ msgid "The buffer size is really high. If the app doesn't start after this delet
 msgstr "バッファサイズが大きすぎです。この後このアプリが起動しなければ設定ファイルを削除してください。"
 
 msgid "The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"
-msgstr ""
+msgstr "開発者はこのオプションを有効にして、あなたのWiiに起こるいかなる損害についても責任を負いません。続行してもよろしいですか？"
 
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "次に音楽を読み込んだときに反映します。"
@@ -1492,7 +1498,7 @@ msgid "To Standby"
 msgstr "シャットダウン"
 
 msgid "Tooltip Delay"
-msgstr ""
+msgstr "ツールチップの遅延"
 
 msgid "Total Space:"
 msgstr "使用領域:"
@@ -1574,7 +1580,7 @@ msgid "WARNING"
 msgstr "警告"
 
 msgid "WARNING/DISCLAIMER"
-msgstr ""
+msgstr "警告と免責事項"
 
 msgid "WARNING:"
 msgstr "警告:"
@@ -1664,10 +1670,10 @@ msgid "WPAD NONE BUTTON"
 msgstr "クラコンのボタン無し"
 
 msgid "WPAD NUNCHUCK BUTTON C"
-msgstr ""
+msgstr "クラコンのCボタン"
 
 msgid "WPAD NUNCHUCK BUTTON Z"
-msgstr ""
+msgstr "クラコンのZボタン"
 
 msgid "Warning:"
 msgstr "警告:"
@@ -1676,22 +1682,22 @@ msgid "Wii Binary Files"
 msgstr "Wiiバイナリファイル"
 
 msgid "Wii Classic Buttons Setup"
-msgstr ""
+msgstr "クラコンのボタン設定"
 
 msgid "Wii Homebrew"
 msgstr "WiiのHomebrew"
 
 msgid "Wii Menu"
-msgstr ""
+msgstr "Wiiメニュー"
 
 msgid "WiiMC"
 msgstr ""
 
 msgid "WiiMC DOL Path"
-msgstr ""
+msgstr "WiiMCのパス"
 
 msgid "WiiMote Buttons Setup"
-msgstr ""
+msgstr "Wiiリモコンのボタン設定"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorerのBGM"
@@ -1707,18 +1713,18 @@ msgstr "選択したアイテムをzipに追加しますか?"
 
 #, c-format
 msgid "Write Error from %s to %s"
-msgstr ""
+msgstr "書き込みエラー: %s to %s"
 
 #, c-format
 msgid "Write Error in file: %s. %s"
-msgstr ""
+msgstr "書き込みエラー: ファイル %s. %s"
 
 msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
 msgstr ""
 
 #, c-format
 msgid "Write error to %s in %s"
-msgstr ""
+msgstr "書き込みエラー: %s in %s"
 
 msgid "Yes"
 msgstr "はい"
@@ -1751,16 +1757,16 @@ msgid "ZoomOut Button"
 msgstr "縮小"
 
 msgid "`1234567890-="
-msgstr ""
+msgstr "ぬふあうえおやゆよわほへ"
 
 msgid "and all the translators."
-msgstr ", K-M…日本語への翻訳"
+msgstr ", K-M,Trickart…日本語への翻訳"
 
 msgid "asdfghjkl;'"
-msgstr ""
+msgstr "ちとしはきくまのりれけむ"
 
 msgid "devices"
-msgstr ""
+msgstr "デバイス"
 
 msgid "files"
 msgstr "ファイル"
@@ -1775,16 +1781,16 @@ msgid "qwertyuiop[]\\"
 msgstr "たていすかんなにらせろん_"
 
 msgid "requires d2x cIOS v9+"
-msgstr ""
+msgstr "d2x cIOS v9以上が必要です"
 
 msgid "revs"
-msgstr ""
+msgstr "リビジョン　"
 
 msgid "zxcvbnm,./"
 msgstr "つさそひこみもねるめ"
 
 msgid "~!@#$%^&*()_+"
-msgstr ""
+msgstr "ばびぶべぼ\\=!?#～ー"
 
 #~ msgid "Apps Path"
 #~ msgstr "アプリのパス"

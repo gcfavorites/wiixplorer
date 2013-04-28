@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 08:47+0100\n"
+"POT-Creation-Date: 2013-04-28 19:02+0200\n"
 "PO-Revision-Date: 2009-07-18 15:18+0200\n"
 "Last-Translator:kavid\n"
 "Language-Team: \n"
@@ -582,7 +582,7 @@ msgid "Extract the selected item(s)?"
 msgstr "提取已选择的项目？"
 
 msgid "Extracting file..."
-msgstr ""
+msgstr "正在提取文件..."
 
 msgid "Extracting item(s):"
 msgstr "提取项目中："
@@ -791,7 +791,7 @@ msgid "GC PAD TRIGGER Z"
 msgstr "GC手柄Z键"
 
 msgid "GC Pad Buttons Setup"
-msgstr ""
+msgstr "GC手柄按键设置"
 
 msgid "GC-SD A"
 msgstr "GC_SD A键"
@@ -938,7 +938,7 @@ msgid "Language Files"
 msgstr "语言文件"
 
 msgid "Language Path"
-msgstr ""
+msgstr "语言路径"
 
 msgid "Language Settings"
 msgstr "语言设置"
@@ -1133,6 +1133,9 @@ msgstr "输出文件"
 msgid "Output Type"
 msgstr "输出类型"
 
+msgid "Override Priiloader"
+msgstr ""
+
 msgid "PDF Files"
 msgstr "PDF文件"
 
@@ -1218,7 +1221,7 @@ msgid "Press Startup FTP to start the server on port"
 msgstr "按开启FTP按钮启动FTP服务"
 
 msgid "Press any button(s)"
-msgstr ""
+msgstr "按任意键"
 
 msgid "Primary"
 msgstr "主"
@@ -1317,6 +1320,9 @@ msgstr "删除列表"
 msgid "Rename"
 msgstr "重命名"
 
+msgid "Resample to 48 kHz"
+msgstr ""
+
 msgid "Reset"
 msgstr "复位"
 
@@ -1379,7 +1385,7 @@ msgid "Set Active"
 msgstr "设置活动"
 
 msgid "Set the pressed buttons?"
-msgstr ""
+msgstr "设置按键？"
 
 msgid "Set this Partition as Active?"
 msgstr "是否设置此分区为活动分区？"
@@ -1672,10 +1678,10 @@ msgid "WPAD NONE BUTTON"
 msgstr "Wiimote 无键"
 
 msgid "WPAD NUNCHUCK BUTTON C"
-msgstr ""
+msgstr "鸡腿按键C"
 
 msgid "WPAD NUNCHUCK BUTTON Z"
-msgstr ""
+msgstr "鸡腿按键Z"
 
 msgid "Warning:"
 msgstr "警告："
@@ -1684,7 +1690,7 @@ msgid "Wii Binary Files"
 msgstr "Wii程序文件"
 
 msgid "Wii Classic Buttons Setup"
-msgstr ""
+msgstr "Wii经典手柄按键设置"
 
 msgid "Wii Homebrew"
 msgstr "Wii自制程序"
@@ -1699,7 +1705,7 @@ msgid "WiiMC DOL Path"
 msgstr ""
 
 msgid "WiiMote Buttons Setup"
-msgstr ""
+msgstr "Wiimote手柄按键设置"
 
 msgid "WiiXplorer Default Music"
 msgstr "WiiXplorer缺省音乐"

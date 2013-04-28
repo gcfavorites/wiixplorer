@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 08:47+0100\n"
+"POT-Creation-Date: 2013-04-28 19:02+0200\n"
 "PO-Revision-Date: 2010-06-08 17:17+0100\n"
 "Last-Translator: Sky8000 <sky8000@hotmail.com>\n"
 "Language-Team: Sky8000\n"
@@ -1125,6 +1125,9 @@ msgstr "Ficheiro Destino"
 msgid "Output Type"
 msgstr "Tipo de Saída"
 
+msgid "Override Priiloader"
+msgstr ""
+
 msgid "PDF Files"
 msgstr "Ficheiros PDF"
 
@@ -1308,6 +1311,9 @@ msgstr "Remover da lista"
 
 msgid "Rename"
 msgstr "Renomear"
+
+msgid "Resample to 48 kHz"
+msgstr ""
 
 msgid "Reset"
 msgstr "Reiniciar"
