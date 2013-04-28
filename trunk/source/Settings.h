@@ -135,6 +135,8 @@ class CSettings
 		short   TooltipDelay;
 		//!Allow resample sound to 48 kHz
 		short   ResampleTo48kHz;
+		//!Overrider priiloader on exit
+		short   OverridePriiloader;
 		//!PDF processing zoom
 		float   PDFLoadZoom;
 		//!WiiMote pointer speed factor
@@ -176,12 +178,11 @@ class CSettings
 		AppControls Controls;
 		//!Path to the configuration file
 		//!only for internal use
-		char	ConfigPath[50];
+		char	ConfigPath[150];
 	protected:
 
 		void ParseLine(char *line);
 		void TrimLine(char *dest, char *src, int size);
-		FILE * file;
 };
 
 extern CSettings Settings;

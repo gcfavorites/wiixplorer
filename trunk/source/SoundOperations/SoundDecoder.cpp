@@ -112,8 +112,8 @@ void SoundDecoder::Upsample(s16 *src, s16 *dst, u32 nr_src_samples, u32 nr_dst_s
 
 	for(u32 i = 0, n = 0; i < nr_dst_samples; i += 2)
 	{
-	    if((n+3) < nr_src_samples) {
-	    	// simple fixed point linear interpolation
+		if((n+3) < nr_src_samples) {
+			// simple fixed point linear interpolation
 			dst[i]   = src[n] +   ( ((src[n+2] - src[n]  ) * timer) >> FixedPointShift );
 			dst[i+1] = src[n+1] + ( ((src[n+3] - src[n+1]) * timer) >> FixedPointShift );
 		}
@@ -124,10 +124,10 @@ void SoundDecoder::Upsample(s16 *src, s16 *dst, u32 nr_src_samples, u32 nr_dst_s
 
 		timer += ResampleRatio;
 
-        if(timer >= (int)FixedPointScale) {
-            n += 2;
-            timer -= FixedPointScale;
-        }
+		if(timer >= (int)FixedPointScale) {
+			n += 2;
+			timer -= FixedPointScale;
+		}
 	}
 }
 
