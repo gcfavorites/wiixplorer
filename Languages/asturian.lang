@@ -1,11 +1,11 @@
 # WiiXplorer language source file.
-#
+# 
 # don't delete this line (é).
 msgid ""
 msgstr ""
 "Project-Id-Version: WiiXplorer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-17 08:47+0100\n"
+"POT-Creation-Date: 2012-11-26 18:36\n"
 "PO-Revision-Date: 2012-11-26 18:36\n"
 "Last-Translator: Ḷḷumex03\n"
 "Language-Team: \n"
@@ -30,12 +30,6 @@ msgstr "(Per defeutu)"
 msgid "(Store)"
 msgstr "(Almacen)"
 
-msgid "(only this session)"
-msgstr ""
-
-msgid "(read only)"
-msgstr ""
-
 msgid "--------------------------------------------------\n"
 msgstr ""
 
@@ -53,13 +47,7 @@ msgstr ""
 msgid "7z decompression failed:"
 msgstr "Descompresión 7z fallía:"
 
-msgid "A task is in progress. Can't run update check right now."
-msgstr ""
-
-msgid "ASDFGHJKL:\""
-msgstr ""
-
-msgid "Accept"
+msgid "ASDFGHJKL:\"+"
 msgstr ""
 
 msgid "Action cancelled."
@@ -86,11 +74,11 @@ msgstr "Per defeutu"
 msgid "Apps"
 msgstr "Apls"
 
+msgid "Apps Path"
+msgstr "Cartafueyu d'apls"
+
 msgid "Archive Files"
 msgstr "Archivos"
-
-msgid "Are you sure you have that IOS installed?"
-msgstr ""
 
 msgid "Audio Files"
 msgstr "Archivo d'audiu"
@@ -158,26 +146,23 @@ msgstr "Calculando MD5"
 msgid "Calculating delete size..."
 msgstr "Calculando esniciu d'archivu..."
 
-msgid "Calculating extract size..."
-msgstr ""
-
 msgid "Calculating total size..."
 msgstr "Calculando grandor total..."
 
 msgid "Calculating transfer size..."
 msgstr "Calculando tasa tresferencia..."
 
-msgid "Can not open the file"
-msgstr ""
+msgid "Can not open the file."
+msgstr "Nun pue abrise l'archivu."
 
 msgid "Can't browse that path."
 msgstr "Nun pue restolase pel cartafueyu."
 
-msgid "Can't connect to update server"
-msgstr ""
-
 msgid "Can't find the right partition."
 msgstr "Nun pue alcontráse la partición afayadiza."
+
+msgid "Can't load file"
+msgstr "Nun pue cargase'l ficheru"
 
 msgid "Can't load page."
 msgstr "Nun pue cargase la páxina."
@@ -188,16 +173,11 @@ msgstr "Nun pue abrise l'archivu."
 msgid "Cancel"
 msgstr "Atayar"
 
-#, c-format
-msgid "Cannot close file %s"
-msgstr ""
-
 msgid "Cannot create directory: "
 msgstr "Nun pue criase'l cartafueyu:"
 
-#, c-format
-msgid "Cannot open file %s"
-msgstr ""
+msgid "Cannot open image"
+msgstr "Nun pue abrise la imax"
 
 msgid "Cannot read from the drive."
 msgstr "Nun pue lleese'l discu."
@@ -229,9 +209,6 @@ msgstr "Comprobando cartafueyu:"
 
 msgid "Checking file:"
 msgstr "Comprobando archivu:"
-
-msgid "Checking for updates"
-msgstr ""
 
 msgid "Clear"
 msgstr "Llimpiar"
@@ -279,12 +256,6 @@ msgstr "Axustes de controles"
 msgid "Convert"
 msgstr "Convertir"
 
-msgid "Converting image"
-msgstr ""
-
-msgid "Converting image..."
-msgstr ""
-
 msgid "Copy"
 msgstr "Copiar"
 
@@ -315,9 +286,8 @@ msgstr "Nun pue descomprimise'l ficheru."
 msgid "Could not download file."
 msgstr "Nun pue baxase'l ficheru."
 
-#, c-format
-msgid "Could not find IOS %i"
-msgstr ""
+msgid "Could not extract file:"
+msgstr "Nun pue estrayes'l ficheru:"
 
 msgid "Could not load file."
 msgstr "Nun pue cargase'l ficheru."
@@ -385,9 +355,6 @@ msgstr "Desconeutar NFS"
 msgid "Disconnect SMB"
 msgstr "Desconeutar SMB"
 
-msgid "Disk is Full"
-msgstr ""
-
 msgid "Do you want to add an URL?"
 msgstr "¿Quies añader un enllaz?"
 
@@ -449,9 +416,6 @@ msgstr "¿Quies reaniciar WiiXplorer?"
 msgid "Do you want to reboot now ?"
 msgstr "¿Quies reiniciar nel intre?"
 
-msgid "Do you want to reconnect this NFS?"
-msgstr ""
-
 msgid "Do you want to reconnect this SMB?"
 msgstr "¿Quies reconeutar a aquesti SMB?"
 
@@ -494,6 +458,10 @@ msgstr "Botón abaxo"
 msgid "Download Link"
 msgstr "Enllaz de descarga"
 
+#, c-format
+msgid "Downloaded %d files."
+msgstr "Baxaos %d ficheros."
+
 msgid "Downloading file..."
 msgstr "Baxando ficheru..."
 
@@ -508,9 +476,6 @@ msgid "Encountered %i error(s).\n"
 msgstr "Alcontraos %i erru/os.\n"
 
 msgid "Enter"
-msgstr ""
-
-msgid "Error"
 msgstr ""
 
 #, c-format
@@ -528,18 +493,6 @@ msgstr "Erru - Nun pue analizase'l cartafueyu: %s\n"
 #, c-format
 msgid "Error - Not enough memory on: %s\n"
 msgstr "Erru - Ensin abonda memoria en: %s\n"
-
-#, c-format
-msgid "Error opening %s"
-msgstr ""
-
-#, c-format
-msgid "Error opening %s in %s"
-msgstr ""
-
-#, c-format
-msgid "Error received from %s in %s"
-msgstr ""
 
 msgid "Error while reading file."
 msgstr "Erru mentanto se lleía'l ficheru."
@@ -574,8 +527,8 @@ msgstr "¿Estrayer l'archivu dafechu?"
 msgid "Extract the selected item(s)?"
 msgstr "¿Estaryer oxetu/os esbillaos?"
 
-msgid "Extracting file..."
-msgstr ""
+msgid "Extracting files..."
+msgstr "Estrayendo ficheros..."
 
 msgid "Extracting item(s):"
 msgstr "Estrayendo oxetu/os:"
@@ -585,6 +538,9 @@ msgstr "FAT32 tien de tener polo menos 65536 clústeres"
 
 msgid "FTP Client Settings"
 msgstr "Axustes de cliente FTP"
+
+msgid "FTP Client reconnected successfull."
+msgstr "Cliente FTP reconeutáu dafechu."
 
 msgid "FTP Path:"
 msgstr "Cartafueyu FTP:"
@@ -616,8 +572,8 @@ msgstr "Torga copiando del/llos oxetu/os."
 msgid "Failed deleting some item(s)."
 msgstr "Torga esniciando del/llos oxetu/os."
 
-msgid "Failed extracting some item(s)."
-msgstr ""
+msgid "Failed extracting the archive."
+msgstr "Tornga estrayendo del/llos oxetu/os."
 
 msgid "Failed extracting the item(s)."
 msgstr "Torga estrayendo l'/los oxetu/os."
@@ -630,9 +586,6 @@ msgstr "Torga cargando'l ficheru."
 
 msgid "Failed moving some item(s)."
 msgstr "Torga moviendo del/llos oxetu/os."
-
-msgid "Failed reading from network"
-msgstr ""
 
 msgid "Failed renaming item"
 msgstr "Torga renomando oxetu"
@@ -654,10 +607,6 @@ msgstr "Torga pa escribir EBR."
 
 msgid "Failed to write MBR."
 msgstr "Torga pa escribir MBR."
-
-#, c-format
-msgid "Fatal error: %i."
-msgstr ""
 
 msgid "File Extensions"
 msgstr "Estensiones d'archivu"
@@ -783,9 +732,6 @@ msgstr "Mandu GC gatiellu A"
 msgid "GC PAD TRIGGER Z"
 msgstr "Mandu GC gatiellu Z"
 
-msgid "GC Pad Buttons Setup"
-msgstr ""
-
 msgid "GC-SD A"
 msgstr ""
 
@@ -800,12 +746,6 @@ msgstr ""
 
 msgid "General Settings"
 msgstr "Axustes xenerales"
-
-msgid "Getting Changelog..."
-msgstr ""
-
-msgid "Getting file list..."
-msgstr ""
 
 msgid "Go Back"
 msgstr "Tornar"
@@ -833,12 +773,6 @@ msgstr "Botón Home"
 
 msgid "Home Menu"
 msgstr "Menú d'entamu"
-
-msgid "Homebrew Apps Path"
-msgstr ""
-
-msgid "Homebrew Channel"
-msgstr ""
 
 msgid "Homebrew Files"
 msgstr "Ficheros homebrew"
@@ -885,6 +819,9 @@ msgstr "Altor"
 msgid "Image Settings"
 msgstr "Axustes d'imax"
 
+msgid "Image Viewer"
+msgstr "Visor d'imax"
+
 msgid "Image Width"
 msgstr "Grandor"
 
@@ -930,9 +867,6 @@ msgstr "Llingua"
 msgid "Language Files"
 msgstr "Llingues"
 
-msgid "Language Path"
-msgstr ""
-
 msgid "Language Settings"
 msgstr "Axustes de llingua"
 
@@ -948,6 +882,9 @@ msgstr "Cabera camudancia:"
 msgid "Left Button"
 msgstr "Botón izquierdu"
 
+msgid "Linebreak"
+msgstr "Saltu llinia"
+
 msgid "List Mode"
 msgstr "Mou llista"
 
@@ -962,6 +899,9 @@ msgstr "Caragar sones a memoria"
 
 msgid "Loading file:"
 msgstr "Cargando ficheru:"
+
+msgid "Loading image..."
+msgstr "Cargando imax..."
 
 msgid "Log was saved in MD5.log"
 msgstr "Log atroxáu en MD5.log"
@@ -987,8 +927,8 @@ msgstr "El log MD5 nun puedo criase."
 msgid "MPlayerCE"
 msgstr ""
 
-msgid "MPlayerCE DOL Path"
-msgstr ""
+msgid "MPlayerCE Path"
+msgstr "Cartafueyu MPlayerCE"
 
 msgid "Mark Item Button"
 msgstr "Botón de marcar oxetu"
@@ -999,18 +939,8 @@ msgstr "Buffer de memoria"
 msgid "Menu"
 msgstr "Menú"
 
-#, c-format
-msgid "Mount %i"
-msgstr ""
-
-msgid "Mount NAND (ISFS) on boot"
-msgstr ""
-
 msgid "Mounted as:"
 msgstr "Montáu como:"
-
-msgid "Mounting DVD"
-msgstr ""
 
 msgid "Mountpoint:"
 msgstr "Puntu montax:"
@@ -1026,9 +956,6 @@ msgstr "Mou repetitivu"
 
 msgid "Music Volume"
 msgstr "Volume"
-
-msgid "NAND write access"
-msgstr ""
 
 msgid "NFS Settings"
 msgstr "Axustes NFS"
@@ -1063,6 +990,10 @@ msgstr "Nun s'alcontraron archivos."
 msgid "No homebrew in the zip."
 msgstr "Nun hai homebrew naquesti zip."
 
+#, c-format
+msgid "No image found at index %d."
+msgstr "Nun s'alcontró imax nel índiz %d."
+
 msgid "No network connection."
 msgstr "Ensin conexón de rede"
 
@@ -1084,9 +1015,6 @@ msgstr "Direición de cartafueyu inválida"
 msgid "Not a valid domain"
 msgstr "Domíniu inválidu"
 
-msgid "Not enough memory"
-msgstr ""
-
 msgid "Not enough memory to resize."
 msgstr "Nun hai abonda memoria pa reaxustar."
 
@@ -1095,9 +1023,6 @@ msgstr "Nun hay abonda memoria pa rotar."
 
 msgid "Not enough memory."
 msgstr "Nun hai abonda memoria."
-
-msgid "Not enought memory."
-msgstr ""
 
 msgid "Not mounted"
 msgstr "Ensin montar"
@@ -1210,9 +1135,6 @@ msgstr "Posible formatu nun soportáu."
 msgid "Press Startup FTP to start the server on port"
 msgstr "Primi Aniciar FTP p'aniciar el sirvidor nel puertu"
 
-msgid "Press any button(s)"
-msgstr ""
-
 msgid "Primary"
 msgstr "Primariu"
 
@@ -1256,20 +1178,11 @@ msgstr "B: %i V: %i P: %i"
 msgid "Random"
 msgstr "Al debalu"
 
-#, c-format
-msgid "Read Error in %s"
-msgstr ""
-
-#, c-format
-msgid "Read Error in file: %s"
-msgstr ""
-
-#, c-format
-msgid "Read error from %s in %s"
-msgstr ""
-
 msgid "Reading archive."
 msgstr "Lleendo archivu."
+
+msgid "Reboot failed"
+msgstr "Reaniciu fallíu"
 
 msgid "Receiving file..."
 msgstr "Reciviendo ficheru..."
@@ -1277,26 +1190,20 @@ msgstr "Reciviendo ficheru..."
 msgid "Reconnect FTP"
 msgstr "Reconeutar FTP"
 
-msgid "Reconnect NFS"
-msgstr ""
-
 msgid "Reconnect SMB"
 msgstr "Reconeutar SMB"
+
+msgid "Reconnect failed. No client connected."
+msgstr "Reconexón torgada. Cliente ensin coneutar."
+
+msgid "Reconnect failed. No share connected."
+msgstr "Reconexón torgada. SMB ensin coneutar."
 
 msgid "Red"
 msgstr "Rede"
 
 msgid "Remount"
 msgstr "Montar"
-
-msgid "Remounting FTP client."
-msgstr ""
-
-msgid "Remounting NFS client."
-msgstr ""
-
-msgid "Remounting SMB client."
-msgstr ""
 
 msgid "Remounting all devices."
 msgstr "Montando tolos preseos."
@@ -1316,8 +1223,8 @@ msgstr "Reaniciar"
 msgid "Restart"
 msgstr "Reaniciar"
 
-msgid "Retry?"
-msgstr ""
+msgid "Retry"
+msgstr "Reintentar"
 
 msgid "Right Button"
 msgstr "Botón drechú"
@@ -1340,11 +1247,14 @@ msgstr "Viesu:"
 msgid "SMB Settings"
 msgstr "Axustes"
 
+msgid "SMB is connecting..."
+msgstr "SMB ta coneutandose..."
+
+msgid "SMB reconnected successfull."
+msgstr "Reconexón ensin torgues."
+
 msgid "Save Alpha"
 msgstr "Atroxar alpha"
-
-msgid "Screen Pointer Speed"
-msgstr ""
 
 msgid "Screenshot Format"
 msgstr "Formatu de captura pantalla"
@@ -1361,18 +1271,11 @@ msgstr ""
 msgid "Scrolling Speed"
 msgstr ""
 
-#, c-format
-msgid "Seek Error in %s"
-msgstr ""
-
 msgid "Server was shutdown...\n"
 msgstr "Fo apagáu'l sirvidor...\n"
 
 msgid "Set Active"
 msgstr "Poner activa"
-
-msgid "Set the pressed buttons?"
-msgstr ""
 
 msgid "Set this Partition as Active?"
 msgstr "¿Poner aquesta partición activa?"
@@ -1426,17 +1329,14 @@ msgstr ""
 msgid "Special thanks to:"
 msgstr "Gracies especiales a:"
 
+msgid "Standard"
+msgstr "Estandar"
+
 msgid "Startup FTP"
 msgstr "Aniciar FTP"
 
 msgid "Successfully formated the partition."
 msgstr "Partición formatiada dafechu"
-
-msgid "System error received"
-msgstr ""
-
-msgid "Tab"
-msgstr ""
 
 msgid "Temporary Path"
 msgstr "Cartafueyu temporal"
@@ -1446,9 +1346,6 @@ msgstr "Editor de testu"
 
 msgid "The buffer size is really high. If the app doesn't start after this delete your config files."
 msgstr "El buffer ye milenta altu. L'apl nun entamará dempues de qu'aquesto esnicie les tos configuraciones."
-
-msgid "The developers cannot be hold responsible for any damage you do to your Wii by activating this option. Are you sure you want to continue?"
-msgstr ""
 
 msgid "The effect will take with next music load. It might break music playback."
 msgstr "Surxirá efeutu cola prósima son. Pue frañir la reproducción."
@@ -1489,11 +1386,14 @@ msgstr "Faltante:"
 msgid "To Idle"
 msgstr "Inactivar"
 
+msgid "To Loader"
+msgstr "Al HBC"
+
+msgid "To Menu"
+msgstr "Al Menú"
+
 msgid "To Standby"
 msgstr "Ivernar"
-
-msgid "Tooltip Delay"
-msgstr ""
 
 msgid "Total Space:"
 msgstr "Espaciu total:"
@@ -1527,6 +1427,9 @@ msgstr "Formatu desconocíu. ¿Abrir nel editor de testu?"
 
 msgid "Unable to create folder."
 msgstr "Nun pudo criase'l cartafueyu."
+
+msgid "Unable to load path:"
+msgstr "Nun pue cargase'l cartafueyu:"
 
 msgid "Unknown"
 msgstr "Desconocío"
@@ -1573,9 +1476,6 @@ msgstr "Videos"
 
 msgid "WARNING"
 msgstr "REPARA"
-
-msgid "WARNING/DISCLAIMER"
-msgstr ""
 
 msgid "WARNING:"
 msgstr "REPARA:"
@@ -1664,35 +1564,20 @@ msgstr ""
 msgid "WPAD NONE BUTTON"
 msgstr ""
 
-msgid "WPAD NUNCHUCK BUTTON C"
-msgstr ""
-
-msgid "WPAD NUNCHUCK BUTTON Z"
-msgstr ""
-
 msgid "Warning:"
 msgstr "Repara:"
 
 msgid "Wii Binary Files"
 msgstr "Binarios de Wii"
 
-msgid "Wii Classic Buttons Setup"
-msgstr ""
-
 msgid "Wii Homebrew"
-msgstr ""
-
-msgid "Wii Menu"
 msgstr ""
 
 msgid "WiiMC"
 msgstr ""
 
-msgid "WiiMC DOL Path"
-msgstr ""
-
-msgid "WiiMote Buttons Setup"
-msgstr ""
+msgid "WiiMC Path"
+msgstr "Cartafueyu"
 
 msgid "WiiXplorer Default Music"
 msgstr "Son per defutu"
@@ -1705,21 +1590,6 @@ msgstr "Películes"
 
 msgid "Would you like to add/append the selected item(s) to a zip?"
 msgstr "¿Prestariate añader l'/los oxetu/os esbillaos al zip?"
-
-#, c-format
-msgid "Write Error from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "Write Error in file: %s. %s"
-msgstr ""
-
-msgid "Write access to NAND is dangerous if you do not know what you do! Are you sure you want to activate NAND write access?"
-msgstr ""
-
-#, c-format
-msgid "Write error to %s in %s"
-msgstr ""
 
 msgid "Yes"
 msgstr "Sí"
@@ -1751,13 +1621,13 @@ msgstr ""
 msgid "ZoomOut Button"
 msgstr ""
 
-msgid "`1234567890-="
+msgid "`1234567890-"
 msgstr ""
 
 msgid "and all the translators."
 msgstr "ya tolos tornadores."
 
-msgid "asdfghjkl;'"
+msgid "asdfghjkl;'="
 msgstr ""
 
 msgid "devices"
@@ -1775,89 +1645,9 @@ msgstr "Pola ablucante ferramienta libwiigui."
 msgid "qwertyuiop[]\\"
 msgstr ""
 
-msgid "requires d2x cIOS v9+"
-msgstr ""
-
-msgid "revs"
-msgstr ""
-
 msgid "zxcvbnm,./"
 msgstr ""
 
-msgid "~!@#$%^&*()_+"
+msgid "~!@#$%^&*()_"
 msgstr ""
 
-#~ msgid "Apps Path"
-#~ msgstr "Cartafueyu d'apls"
-
-#~ msgid "Can not open the file."
-#~ msgstr "Nun pue abrise l'archivu."
-
-#~ msgid "MPlayerCE Path"
-#~ msgstr "Cartafueyu MPlayerCE"
-
-#~ msgid "WiiMC Path"
-#~ msgstr "Cartafueyu"
-
-#~ msgid "Can't load file"
-#~ msgstr "Nun pue cargase'l ficheru"
-
-#~ msgid "Reboot failed"
-#~ msgstr "Reaniciu fallíu"
-
-#~ msgid "Standard"
-#~ msgstr "Estandar"
-
-#~ msgid "Cannot open image"
-#~ msgstr "Nun pue abrise la imax"
-
-#~ msgid "Could not extract file:"
-#~ msgstr "Nun pue estrayes'l ficheru:"
-
-#~ msgid "Downloaded %d files."
-#~ msgstr "Baxaos %d ficheros."
-
-#~ msgid "Extracting files..."
-#~ msgstr "Estrayendo ficheros..."
-
-#~ msgid "FTP Client reconnected successfull."
-#~ msgstr "Cliente FTP reconeutáu dafechu."
-
-#~ msgid "Failed extracting the archive."
-#~ msgstr "Tornga estrayendo del/llos oxetu/os."
-
-#~ msgid "Image Viewer"
-#~ msgstr "Visor d'imax"
-
-#~ msgid "Linebreak"
-#~ msgstr "Saltu llinia"
-
-#~ msgid "Loading image..."
-#~ msgstr "Cargando imax..."
-
-#~ msgid "No image found at index %d."
-#~ msgstr "Nun s'alcontró imax nel índiz %d."
-
-#~ msgid "Reconnect failed. No client connected."
-#~ msgstr "Reconexón torgada. Cliente ensin coneutar."
-
-#~ msgid "Reconnect failed. No share connected."
-#~ msgstr "Reconexón torgada. SMB ensin coneutar."
-
-#~ msgid "Retry"
-#~ msgstr "Reintentar"
-
-#~ msgid "SMB is connecting..."
-#~ msgstr "SMB ta coneutandose..."
-
-#~ msgid "SMB reconnected successfull."
-#~ msgstr "Reconexón ensin torgues."
-
-#~ msgid "To Loader"
-#~ msgstr "Al HBC"
-
-#~ msgid "To Menu"
-#~ msgstr "Al Menú"
-
-#~ msgid "Unable to load path:"
-#~ msgstr "Nun pue cargase'l cartafueyu:"
